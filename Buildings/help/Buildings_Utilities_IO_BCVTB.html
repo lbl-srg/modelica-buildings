@@ -17,18 +17,27 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BCVTB<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.IO.BCVTB"></A><A HREF="Buildings_Utilities_IO.html#Buildings.Utilities.IO"
 >Buildings.Utilities.IO</A>.BCVTB</H2>
 <B>Package with functions to communicate with the Building Controls Virtual Test Bed</B>
-<P></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Utilities.IO.BCVTB.UsersGuideS.png" ALT="Buildings.Utilities.IO.BCVTB.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_IO_BCVTB_UsersGuide.html#Buildings.Utilities.IO.BCVTB.UsersGuide"
@@ -60,9 +69,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.IO.BC7a3aa3d7dbf53696rfaceI.png" ALT="Buildings.Utilities.IO.BCVTB.MoistAirInterface" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.IO.BCVTB.MoistAirInterface"></A><A HREF="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
 >Buildings.Utilities.IO.BCVTB</A>.MoistAirInterface</H2>
-<B>Fluid interface that can be coupled to BCVTB for medium that model the air humidity</B><p></P>
+<B>Fluid interface that can be coupled to BCVTB for medium that model the air humidity</B><p>
 <IMG SRC="Buildings.Utilities.IO.BC7a3aa3d7dbf53696rfaceD.png" ALT="Buildings.Utilities.IO.BCVTB.MoistAirInterface">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This model allows interfacing to the 
 <a href="http://simulationresearch.lbl.gov/bcvtb">Building Controls Virtual Test Bed</a>
@@ -94,41 +103,41 @@ needs to be converted. The conversion can be done with the model
 <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.ToTotalAir"
 >
 Buildings.Utilities.Psychrometrics.ToTotalAir</a>.
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface"
 >Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface</A> (Partial class for fluid interface that can be coupled to BCVTB).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium model within the source</TD></TR>
 <TR><TD>Boolean</TD><TD>use_m_flow_in</TD><TD>false</TD><TD>Get the mass flow rate from the input connector</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow</TD><TD>0</TD><TD>Fixed mass flow rate going out of the fluid port [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*m_flow_nominal</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>m_flow_in</TD><TD>Prescribed mass flow rate</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>T_in</TD><TD>Prescribed boundary temperature</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b"
 >FluidPorts_b</A></TD><TD>ports[nPorts]</TD><TD>&nbsp;</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>HSen_flow</TD><TD>Sensible enthalpy flow rate, positive if flow into the component [W]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>HLat_flow</TD><TD>Latent enthalpy flow rate, positive if flow into the component [W]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>phi</TD><TD>Medium relative humidity</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MoistAirInterface <font color="darkgreen">
   &quot;Fluid interface that can be coupled to BCVTB for medium that model the air humidity&quot;</font>
@@ -136,20 +145,20 @@ Extends from <A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Ut
 >Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface</A>(bou(
         <font color="blue">final </font>use_X_in=true));
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> HLat_flow(unit=&quot;W&quot;) <font color="darkgreen">
     &quot;Latent enthalpy flow rate, positive if flow into the component&quot;</font>;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate"
 >Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate</A> senEntFloRat[nPorts](
     <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium,
     <font color="blue">each </font><font color="blue">final </font>m_flow_nominal=m_flow_nominal) <font color="darkgreen">&quot;Sensible enthalpy flow rates&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
 >Modelica.Blocks.Math.Sum</A> sumHSen_flow(nin=nPorts) <font color="darkgreen">
     &quot;Sum of sensible enthalpy flow rates&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
 >Modelica.Blocks.Math.Feedback</A> diff <font color="darkgreen">
     &quot;Difference between total and sensible enthalpy flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> phi <font color="darkgreen">&quot;Medium relative humidity&quot;</font>;
   <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pTphi"
 >Buildings.Utilities.Psychrometrics.X_pTphi</A> masFra(use_p_in=false) <font color="darkgreen">
@@ -176,9 +185,9 @@ Extends from <A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Ut
 <H2><IMG SRC="Buildings.Utilities.IO.BCVTB.BCVTBI.png" ALT="Buildings.Utilities.IO.BCVTB.BCVTB" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.IO.BCVTB.BCVTB"></A><A HREF="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
 >Buildings.Utilities.IO.BCVTB</A>.BCVTB</H2>
-<B>Block that exchanges data with the Building Controls Virtual Test Bed</B><p></P>
+<B>Block that exchanges data with the Building Controls Virtual Test Bed</B><p>
 <IMG SRC="Buildings.Utilities.IO.BCVTB.BCVTBD.png" ALT="Buildings.Utilities.IO.BCVTB.BCVTB">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 Block that exchanges data with the 
 <a href="http://simulationresearch.lbl.gov/bcvtb">Building Controls Virtual Test Bed</a> (BCVTB).
@@ -247,18 +256,18 @@ This option can be helpful during debugging. Since during model translation, the
 still linked to the C library, the header files and libraries need to be present in the current working 
 directory even if <code>activateInterface=false</code>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
 >Modelica.Blocks.Interfaces.DiscreteBlock</A> (Base class of discrete control blocks).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>samplePeriod</TD><TD>if activateInterface then ti...</TD><TD>Sample period of component [s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>startTime</TD><TD>0</TD><TD>First sample time instant [s]</TD></TR>
 <TR><TD>Boolean</TD><TD>activateInterface</TD><TD>true</TD><TD>Set to false to deactivate interface and use instead yFixed as output</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>timeStep</TD><TD>&nbsp;</TD><TD>Time step used for the synchronization [s]</TD></TR>
 <TR><TD>String</TD><TD>xmlFileName</TD><TD>&quot;socket.cfg&quot;</TD><TD>Name of the file that is generated by the BCVTB and that contains the socket information</TD></TR>
 <TR><TD>Integer</TD><TD>nDblWri</TD><TD>&nbsp;</TD><TD>Number of double values to write to the BCVTB</TD></TR>
@@ -270,21 +279,21 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>uR[nDblWri]</TD><TD>Real inputs to be sent to the BCVTB</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>yR[nDblRea]</TD><TD>Real outputs received from the BCVTB</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> BCVTB <font color="darkgreen">
   &quot;Block that exchanges data with the Building Controls Virtual Test Bed&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
 >Modelica.Blocks.Interfaces.DiscreteBlock</A>(<font color="blue">final </font>startTime=0,
   <font color="blue">final </font>samplePeriod = <font color="blue">if </font>activateInterface<font color="blue"> then </font>timeStep<font color="blue"> else </font>Modelica.Constants.inf);
   <font color="blue">parameter </font>Boolean activateInterface = true <font color="darkgreen">
     &quot;Set to false to deactivate interface and use instead yFixed as output&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> timeStep <font color="darkgreen">
     &quot;Time step used for the synchronization&quot;</font>;
   <font color="blue">parameter </font>String xmlFileName = &quot;socket.cfg&quot; <font color="darkgreen">
@@ -300,15 +309,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="blue">parameter </font>Real yRFixed[nDblRea] =<font color="red"> zeros</font>(nDblRea) <font color="darkgreen">
     &quot;Fixed output, used if activateInterface=false&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> uR[nDblWri] <font color="darkgreen">
     &quot;Real inputs to be sent to the BCVTB&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> yR[nDblRea] <font color="darkgreen">
     &quot;Real outputs received from the BCVTB&quot;</font>;</textblock>
 
  Integer flaRea <font color="darkgreen">&quot;Flag received from BCVTB&quot;</font>;
- <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+ <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> simTimRea <font color="darkgreen">
     &quot;Current simulation time received from the BCVTB&quot;</font>;
  Integer retVal <font color="darkgreen">&quot;Return value from the BSD socket data exchange&quot;</font>;
@@ -431,9 +440,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.IO.BCVTB.To_degCI.png" ALT="Buildings.Utilities.IO.BCVTB.To_degC" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.IO.BCVTB.To_degC"></A><A HREF="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
 >Buildings.Utilities.IO.BCVTB</A>.To_degC</H2>
-<B>Converts Kelvin to Celsius</B><p></P>
+<B>Converts Kelvin to Celsius</B><p>
 <IMG SRC="Buildings.Utilities.IO.BCVTB.To_degCD.png" ALT="Buildings.Utilities.IO.BCVTB.To_degC">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Converts the input from degree Celsius to Kelvin.
@@ -442,28 +451,28 @@ Kelvin. This block is provided for convenience since the BCVTB
 interface may couple Modelica to programs that use Celsius 
 as the unit for temperature.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>Kelvin</TD><TD>Temperature in Kelvin [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Celsius</TD><TD>Temperature in Celsius [degC]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> To_degC <font color="darkgreen">&quot;Converts Kelvin to Celsius&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> Kelvin(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                               <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
     &quot;Temperature in Kelvin&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> Celsius(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                                 <font color="blue">final </font>unit = &quot;degC&quot;, displayUnit = &quot;degC&quot;, min=-273.15) <font color="darkgreen">
     &quot;Temperature in Celsius&quot;</font>;</textblock>
@@ -478,9 +487,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.IO.BCVTB.From_degCI.png" ALT="Buildings.Utilities.IO.BCVTB.From_degC" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.IO.BCVTB.From_degC"></A><A HREF="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
 >Buildings.Utilities.IO.BCVTB</A>.From_degC</H2>
-<B>Converts Celsius to Kelvin</B><p></P>
+<B>Converts Celsius to Kelvin</B><p>
 <IMG SRC="Buildings.Utilities.IO.BCVTB.From_degCD.png" ALT="Buildings.Utilities.IO.BCVTB.From_degC">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Converts the input from Kelvin to degree Celsius.
@@ -489,28 +498,28 @@ Kelvin. This block is provided for convenience since the BCVTB
 interface may couple Modelica to programs that use Celsius 
 as the unit for temperature.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>Celsius</TD><TD>Temperature in Celsius [degC]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Kelvin</TD><TD>Temperature in Kelvin [K]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> From_degC <font color="darkgreen">&quot;Converts Celsius to Kelvin&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> Celsius(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                                <font color="blue">final </font>unit = &quot;degC&quot;, displayUnit = &quot;degC&quot;, min=-273.15) <font color="darkgreen">
     &quot;Temperature in Celsius&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> Kelvin(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                                <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
     &quot;Temperature in Kelvin&quot;</font>;</textblock>
@@ -519,6 +528,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>From_degC;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:31:44 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:46:49 2013.
 </address></BODY>
 </HTML>

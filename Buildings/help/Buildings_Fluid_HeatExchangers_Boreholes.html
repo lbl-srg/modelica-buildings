@@ -17,21 +17,30 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Boreholes<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.Boreholes"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >Buildings.Fluid.HeatExchangers</A>.Boreholes</H2>
 <B>Package with borehole heat exchangers</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 This package contains models for borehole heat exchangers.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExcha5cba6927218ecd62UTubeS.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.UTube" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Boreholes.html#Buildings.Fluid.HeatExchangers.Boreholes.UTube"
@@ -51,9 +60,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha5cba6927218ecd62UTubeI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.UTube" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Boreholes.UTube"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes.html#Buildings.Fluid.HeatExchangers.Boreholes"
 >Buildings.Fluid.HeatExchangers.Boreholes</A>.UTube</H2>
-<B>Single U-tube borehole heat exchanger</B><p></P>
+<B>Single U-tube borehole heat exchanger</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha5cba6927218ecd62UTubeD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.UTube">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Model of a single U-tube borehole heat exchanger. 
@@ -133,7 +142,7 @@ of the model
 Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.TemperatureBoundaryCondition</a> which computes
 the far-field temperature boundary condition.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters</A> (Parameters for flow resistance for models with two ports), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
@@ -141,49 +150,49 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Radius</A></TD><TD>rBor</TD><TD>0.1</TD><TD>Radius of the borehole [m]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>&nbsp;</TD><TD>Pressure [Pa]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Tubes</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Radius</A></TD><TD>rTub</TD><TD>0.02</TD><TD>Radius of the tubes [m]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >ThermalConductivity</A></TD><TD>kTub</TD><TD>0.5</TD><TD>Thermal conductivity of the tube [W/(m.K)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</A></TD><TD>eTub</TD><TD>0.002</TD><TD>Thickness of a tube [m]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Borehole</TD></TR>
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_BoreholeFillings.html#Buildings.HeatTransfer.Data.BoreholeFillings.Generic"
 >Generic</A></TD><TD>matFil</TD><TD>redeclare parameter Building...</TD><TD>Thermal properties of the borehole filling</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Height</A></TD><TD>hBor</TD><TD>&nbsp;</TD><TD>Total height of the borehole [m]</TD></TR>
 <TR><TD>Integer</TD><TD>nVer</TD><TD>10</TD><TD>Number of segments used for discretization in the vertical direction</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</A></TD><TD>xC</TD><TD>0.05</TD><TD>Shank spacing, defined as the distance between the center of a pipe and the center of the borehole [m]</TD></TR>
 <TR><TD>Real</TD><TD>B0</TD><TD>17.44</TD><TD>Shape coefficient for grout resistance</TD></TR>
 <TR><TD>Real</TD><TD>B1</TD><TD>-0.605</TD><TD>Shape coefficient for grout resistance</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Soil</TD></TR>
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Generic"
 >Generic</A></TD><TD>matSoi[nVer]</TD><TD>redeclare parameter Building...</TD><TD>Thermal properties of the soil</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Radius</A></TD><TD>rExt</TD><TD>3</TD><TD>Radius of the soil used for the external boundary condition [m]</TD></TR>
 <TR><TD>Integer</TD><TD>nHor</TD><TD>10</TD><TD>Number of state variables in each horizontal layer of the soil</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>samplePeriod</TD><TD>&nbsp;</TD><TD>Sample period for the external boundary condition [s]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
@@ -196,46 +205,46 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD>Real</TD><TD>deltaM</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
 >AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
 >Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Initial temperature</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Soil</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TExt0_start</TD><TD>283.15</TD><TD>Initial far field temperature [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TExt_start[nVer]</TD><TD>{if z[i] &gt;= z0 then TExt0_st...</TD><TD>Temperature of the undisturbed ground [K]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filling material</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TFil0_start</TD><TD>TExt0_start</TD><TD>Initial temperature of the filling material for h = 0...z0 [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TFil_start[nVer]</TD><TD>TExt_start</TD><TD>Temperature of the undisturbed ground [K]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Temperature profile</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Height</A></TD><TD>z0</TD><TD>10</TD><TD>Depth below which the temperature gradient starts [m]</TD></TR>
 <TR><TD>Real</TD><TD>dT_dz</TD><TD>0.01</TD><TD>Vertical temperature gradient of the undisturbed soil for h below z0 [K/m]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> UTube <font color="darkgreen">&quot;Single U-tube borehole heat exchanger&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
@@ -247,59 +256,59 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Modelica.SIunits.Radius</A> rTub=0.02 <font color="darkgreen">&quot;Radius of the tubes&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >Modelica.SIunits.ThermalConductivity</A> kTub=0.5 <font color="darkgreen">
     &quot;Thermal conductivity of the tube&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</A> eTub=0.002 <font color="darkgreen">&quot;Thickness of a tube&quot;</font>;
 
   <font color="blue">replaceable </font><font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_BoreholeFillings.html#Buildings.HeatTransfer.Data.BoreholeFillings.Generic"
 >Buildings.HeatTransfer.Data.BoreholeFillings.Generic</A>
     matFil <font color="darkgreen">&quot;Thermal properties of the borehole filling&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Modelica.SIunits.Height</A> hBor <font color="darkgreen">&quot;Total height of the borehole&quot;</font>;
   <font color="blue">parameter </font>Integer nVer=10 <font color="darkgreen">
     &quot;Number of segments used for discretization in the vertical direction&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Modelica.SIunits.Radius</A> rBor=0.1 <font color="darkgreen">&quot;Radius of the borehole&quot;</font>;
 
   <font color="blue">replaceable </font><font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Generic"
 >Buildings.HeatTransfer.Data.Soil.Generic</A>
     matSoi[nVer] <font color="darkgreen">&quot;Thermal properties of the soil&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Modelica.SIunits.Radius</A> rExt=3 <font color="darkgreen">
     &quot;Radius of the soil used for the external boundary condition&quot;</font>;
   <font color="blue">parameter </font>Integer nHor(min=1) = 10 <font color="darkgreen">
     &quot;Number of state variables in each horizontal layer of the soil&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TExt0_start=283.15 <font color="darkgreen">
     &quot;Initial far field temperature&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TExt_start[nVer]={<font color="blue">if </font>z[i] &gt;= z0<font color="blue"> then </font>
       TExt0_start + (z[i] - z0)*dT_dz<font color="blue"> else </font>TExt0_start <font color="blue">for </font>i<font color="blue"> in </font>1:nVer} <font color="darkgreen">
     &quot;Temperature of the undisturbed ground&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TFil0_start=TExt0_start <font color="darkgreen">
     &quot;Initial temperature of the filling material for h = 0...z0&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TFil_start[nVer]=TExt_start <font color="darkgreen">
     &quot;Temperature of the undisturbed ground&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Modelica.SIunits.Height</A> z0=10 <font color="darkgreen">
     &quot;Depth below which the temperature gradient starts&quot;</font>;
   <font color="blue">parameter </font>Real dT_dz(unit=&quot;K/m&quot;) = 0.01 <font color="darkgreen">
     &quot;Vertical temperature gradient of the undisturbed soil for h below z0&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> samplePeriod <font color="darkgreen">
     &quot;Sample period for the external boundary condition&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</A> xC=0.05 <font color="darkgreen">
     &quot;Shank spacing, defined as the distance between the center of a pipe and the center of the borehole&quot;</font>;
   <font color="blue">parameter </font>Real B0=17.44 <font color="darkgreen">&quot;Shape coefficient for grout resistance&quot;</font>;
@@ -341,12 +350,12 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     <font color="blue">each </font>C_nominal=C_nominal,
     <font color="blue">each </font>allowFlowReversal=allowFlowReversal) <font color="darkgreen">&quot;Discretized borehole segments&quot;</font>;</textblock>
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> Tdown[nVer] <font color="darkgreen">&quot;Medium temperature in pipe 1&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> Tup[nVer] <font color="darkgreen">&quot;Medium temperature in pipe 2&quot;</font>;
 <font color="blue">protected </font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Modelica.SIunits.Height</A> z[nVer]={hBor/nVer*(i - 0.5) <font color="blue">for </font>i<font color="blue"> in </font>1:
       nVer} <font color="darkgreen">&quot;Distance from the surface to the considered segment&quot;</font>;
 <font color="blue">equation </font>
@@ -362,6 +371,6 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>UTube;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:28:33 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:43:45 2013.
 </address></BODY>
 </HTML>

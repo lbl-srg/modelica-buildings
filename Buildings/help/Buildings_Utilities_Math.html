@@ -17,28 +17,37 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Math<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.Math"></A><A HREF="Buildings_Utilities.html#Buildings.Utilities"
 >Buildings.Utilities</A>.Math</H2>
 <B>Library with functions such as for smoothing</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains blocks and functions for commonly used
 mathematical operations. 
 The classes in this package augment the classes
-<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks.html#Modelica.Blocks"
+<A HREF="../../msl/3.2/help/Modelica_Blocks.html#Modelica.Blocks"
 >
 Modelica.Blocks</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Utilities.Math.FunctionsS.png" ALT="Buildings.Utilities.Math.Functions" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
@@ -91,15 +100,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.AverageI.png" ALT="Buildings.Utilities.Math.Average" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.Average"></A><A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
 >Buildings.Utilities.Math</A>.Average</H2>
-<B>Average of a vector</B><p></P>
+<B>Average of a vector</B><p>
 <IMG SRC="Buildings.Utilities.Math.AverageD.png" ALT="Buildings.Utilities.Math.Average">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This function outputs the average of the vector.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
 >Modelica.Blocks.Interfaces.MISO</A> (Multiple Input Single Output continuous control block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -109,15 +118,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u[nin]</TD><TD>Connector of Real input signals</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> Average <font color="darkgreen">&quot;Average of a vector&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
 >Modelica.Blocks.Interfaces.MISO</A>;
 <font color="blue">equation </font>
  y =<font color="red"> sum</font>(u)/nin;
@@ -130,9 +139,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.BicubicI.png" ALT="Buildings.Utilities.Math.Bicubic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.Bicubic"></A><A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
 >Buildings.Utilities.Math</A>.Bicubic</H2>
-<B>Bicubic function</B><p></P>
+<B>Bicubic function</B><p>
 <IMG SRC="Buildings.Utilities.Math.BicubicD.png" ALT="Buildings.Utilities.Math.Bicubic">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This block computes
@@ -146,23 +155,23 @@ This block computes
     + a<sub>9</sub>  x<sub>1</sub><sup>2</sup>  x<sub>2</sub> 
     + a<sub>1</sub>0  x<sub>1</sub>  x<sub>2</sub><sup>2</sup>
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
 >Modelica.Blocks.Interfaces.SI2SO</A> (2 Single Input / 1 Single Output continuous control block).
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u1</TD><TD>Connector of Real input signal 1</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u2</TD><TD>Connector of Real input signal 2</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> Bicubic <font color="darkgreen">&quot;Bicubic function&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
 >Modelica.Blocks.Interfaces.SI2SO</A>;
  <font color="blue">input </font>Real a[10] <font color="darkgreen">&quot;Coefficients&quot;</font>;
 <font color="blue">equation </font>
@@ -176,9 +185,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.BicubicI.png" ALT="Buildings.Utilities.Math.Biquadratic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.Biquadratic"></A><A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
 >Buildings.Utilities.Math</A>.Biquadratic</H2>
-<B>Biquadratic function</B><p></P>
+<B>Biquadratic function</B><p>
 <IMG SRC="Buildings.Utilities.Math.BicubicD.png" ALT="Buildings.Utilities.Math.Biquadratic">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This block computes
@@ -188,8 +197,8 @@ This block computes
         + a<sub>4</sub>  x<sub>2</sub> + a<sub>5</sub>  x<sub>2</sub><sup>2</sup>
         + a<sub>6</sub>  x<sub>1</sub>  x<sub>2</sub>
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
 >Modelica.Blocks.Interfaces.SI2SO</A> (2 Single Input / 1 Single Output continuous control block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -199,17 +208,17 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u1</TD><TD>Connector of Real input signal 1</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u2</TD><TD>Connector of Real input signal 2</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> Biquadratic <font color="darkgreen">&quot;Biquadratic function&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
 >Modelica.Blocks.Interfaces.SI2SO</A>;
   <font color="blue">parameter </font>Real a[6] <font color="darkgreen">&quot;Coefficients&quot;</font>;
 <font color="blue">equation </font>
@@ -223,15 +232,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.3edf2d802df3557ecatorI.png" ALT="Buildings.Utilities.Math.BooleanReplicator" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.BooleanReplicator"></A><A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
 >Buildings.Utilities.Math</A>.BooleanReplicator</H2>
-<B>Boolean signal replicator</B><p></P>
+<B>Boolean signal replicator</B><p>
 <IMG SRC="Buildings.Utilities.Math.3edf2d802df3557ecatorD.png" ALT="Buildings.Utilities.Math.BooleanReplicator">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This block replicates the boolean input signal to an array of <code>nout</code> identical output signals.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanBlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanBlockIcon"
 >Modelica.Blocks.Interfaces.BooleanBlockIcon</A> (Basic graphical layout of Boolean block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -241,20 +250,20 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
 >BooleanInput</A></TD><TD>u</TD><TD>Connector of boolean input signal</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
 >BooleanOutput</A></TD><TD>y[nout]</TD><TD>Connector of boolean output signals</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> BooleanReplicator <font color="darkgreen">&quot;Boolean signal replicator&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanBlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanBlockIcon"
 >Modelica.Blocks.Interfaces.BooleanBlockIcon</A>;
   <font color="blue">parameter </font>Integer nout=1 <font color="darkgreen">&quot;Number of outputs&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
 >Modelica.Blocks.Interfaces.BooleanInput</A> u <font color="darkgreen">&quot;Connector of boolean input signal&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
 >Modelica.Blocks.Interfaces.BooleanOutput</A> y[nout] <font color="darkgreen">
     &quot;Connector of boolean output signals&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -268,15 +277,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.ede1c4e60f885baccatorI.png" ALT="Buildings.Utilities.Math.IntegerReplicator" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.IntegerReplicator"></A><A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
 >Buildings.Utilities.Math</A>.IntegerReplicator</H2>
-<B>Integer signal replicator</B><p></P>
+<B>Integer signal replicator</B><p>
 <IMG SRC="Buildings.Utilities.Math.ede1c4e60f885baccatorD.png" ALT="Buildings.Utilities.Math.IntegerReplicator">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This block replicates the integer input signal to an array of <code>nout</code> identical output signals.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerBlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerBlockIcon"
 >Modelica.Blocks.Interfaces.IntegerBlockIcon</A> (Basic graphical layout of Integer block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -286,20 +295,20 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>u</TD><TD>Connector of integer input signal</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
 >IntegerOutput</A></TD><TD>y[nout]</TD><TD>Connector of integer output signals</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> IntegerReplicator <font color="darkgreen">&quot;Integer signal replicator&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerBlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerBlockIcon"
 >Modelica.Blocks.Interfaces.IntegerBlockIcon</A>;
   <font color="blue">parameter </font>Integer nout=1 <font color="darkgreen">&quot;Number of outputs&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >Modelica.Blocks.Interfaces.IntegerInput</A> u <font color="darkgreen">&quot;Connector of integer input signal&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
 >Modelica.Blocks.Interfaces.IntegerOutput</A> y[nout] <font color="darkgreen">
     &quot;Connector of integer output signals&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -313,15 +322,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.MaxI.png" ALT="Buildings.Utilities.Math.Max" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.Max"></A><A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
 >Buildings.Utilities.Math</A>.Max</H2>
-<B>Maximum element of a vector</B><p></P>
+<B>Maximum element of a vector</B><p>
 <IMG SRC="Buildings.Utilities.Math.MaxD.png" ALT="Buildings.Utilities.Math.Max">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Outputs the minimum of the vector.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
 >Modelica.Blocks.Interfaces.MISO</A> (Multiple Input Single Output continuous control block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -331,15 +340,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u[nin]</TD><TD>Connector of Real input signals</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> Max <font color="darkgreen">&quot;Maximum element of a vector&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
 >Modelica.Blocks.Interfaces.MISO</A>;
 <font color="blue">equation </font>
  y =<font color="red"> max</font>(u);
@@ -352,15 +361,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.MaxI.png" ALT="Buildings.Utilities.Math.Min" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.Min"></A><A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
 >Buildings.Utilities.Math</A>.Min</H2>
-<B>Minimum element of a vector</B><p></P>
+<B>Minimum element of a vector</B><p>
 <IMG SRC="Buildings.Utilities.Math.MaxD.png" ALT="Buildings.Utilities.Math.Min">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Outputs the minimum of the vector.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
 >Modelica.Blocks.Interfaces.MISO</A> (Multiple Input Single Output continuous control block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -370,15 +379,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u[nin]</TD><TD>Connector of Real input signals</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> Min <font color="darkgreen">&quot;Minimum element of a vector&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
 >Modelica.Blocks.Interfaces.MISO</A>;
 <font color="blue">equation </font>
  y =<font color="red"> min</font>(u);
@@ -391,15 +400,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.SmoothHeavisideI.png" ALT="Buildings.Utilities.Math.SmoothHeaviside" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.SmoothHeaviside"></A><A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
 >Buildings.Utilities.Math</A>.SmoothHeaviside</H2>
-<B>Once continuously differentiable approximation to the Heaviside function</B><p></P>
+<B>Once continuously differentiable approximation to the Heaviside function</B><p>
 <IMG SRC="Buildings.Utilities.Math.MaxD.png" ALT="Buildings.Utilities.Math.SmoothHeaviside">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Once Lipschitz continuously differentiable approximation to the <i>Heaviside(.,.)</i> function.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</A> (Single Input Single Output continuous control block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -409,16 +418,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u</TD><TD>Connector of Real input signal</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> SmoothHeaviside <font color="darkgreen">
   &quot;Once continuously differentiable approximation to the Heaviside function&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</A>;
  <font color="blue">parameter </font>Real delta <font color="darkgreen">&quot;Width of transition interval&quot;</font>;
 <font color="blue">equation </font>
@@ -432,16 +441,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.SmoothLimitI.png" ALT="Buildings.Utilities.Math.SmoothLimit" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.SmoothLimit"></A><A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
 >Buildings.Utilities.Math</A>.SmoothLimit</H2>
-<B>Once continuously differentiable approximation to the limit function</B><p></P>
+<B>Once continuously differentiable approximation to the limit function</B><p>
 <IMG SRC="Buildings.Utilities.Math.MaxD.png" ALT="Buildings.Utilities.Math.SmoothLimit">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Once continuously differentiable approximation to the <i>limit(.,.)</i> function.
 The output is bounded to be in <i>[lower, upper]</i>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</A> (Single Input Single Output continuous control block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -453,16 +462,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u</TD><TD>Connector of Real input signal</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> SmoothLimit <font color="darkgreen">
   &quot;Once continuously differentiable approximation to the limit function&quot;</font>
- <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+ <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</A>;
  <font color="blue">parameter </font>Real deltaX <font color="darkgreen">&quot;Width of transition interval&quot;</font>;
  <font color="blue">parameter </font>Real upper <font color="darkgreen">&quot;Upper limit&quot;</font>;
@@ -478,15 +487,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.SmoothMaxI.png" ALT="Buildings.Utilities.Math.SmoothMax" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.SmoothMax"></A><A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
 >Buildings.Utilities.Math</A>.SmoothMax</H2>
-<B>Once continuously differentiable approximation to the maximum function</B><p></P>
+<B>Once continuously differentiable approximation to the maximum function</B><p>
 <IMG SRC="Buildings.Utilities.Math.SmoothMaxD.png" ALT="Buildings.Utilities.Math.SmoothMax">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Once continuously differentiable approximation to the <i>max(.,.)</i> function.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
 >Modelica.Blocks.Interfaces.SI2SO</A> (2 Single Input / 1 Single Output continuous control block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -496,18 +505,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u1</TD><TD>Connector of Real input signal 1</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u2</TD><TD>Connector of Real input signal 2</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> SmoothMax <font color="darkgreen">
   &quot;Once continuously differentiable approximation to the maximum function&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
 >Modelica.Blocks.Interfaces.SI2SO</A>;
  <font color="blue">parameter </font>Real deltaX <font color="darkgreen">&quot;Width of transition interval&quot;</font>;
 <font color="blue">equation </font>
@@ -521,15 +530,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.SmoothMaxI.png" ALT="Buildings.Utilities.Math.SmoothMin" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.SmoothMin"></A><A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
 >Buildings.Utilities.Math</A>.SmoothMin</H2>
-<B>Once continuously differentiable approximation to the minimum function</B><p></P>
+<B>Once continuously differentiable approximation to the minimum function</B><p>
 <IMG SRC="Buildings.Utilities.Math.SmoothMaxD.png" ALT="Buildings.Utilities.Math.SmoothMin">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Once continuously differentiable approximation to the <i>max(.,.)</i> function.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
 >Modelica.Blocks.Interfaces.SI2SO</A> (2 Single Input / 1 Single Output continuous control block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -539,18 +548,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u1</TD><TD>Connector of Real input signal 1</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u2</TD><TD>Connector of Real input signal 2</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> SmoothMin <font color="darkgreen">
   &quot;Once continuously differentiable approximation to the minimum function&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
 >Modelica.Blocks.Interfaces.SI2SO</A>;
   <font color="blue">parameter </font>Real deltaX <font color="darkgreen">&quot;Width of transition interval&quot;</font>;
 <font color="blue">equation </font>
@@ -564,17 +573,17 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.SpliceI.png" ALT="Buildings.Utilities.Math.Splice" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.Splice"></A><A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
 >Buildings.Utilities.Math</A>.Splice</H2>
-<B>Block for splice function opertation</B><p></P>
+<B>Block for splice function opertation</B><p>
 <IMG SRC="Buildings.Utilities.Math.SpliceD.png" ALT="Buildings.Utilities.Math.Splice">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This block implements <A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.spliceFunction"
 >
 Buildings.Utilities.Math.Functions.spliceFunction</a>, which provides a continuously differentiable transition between two arguments. 
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -584,28 +593,28 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>x</TD><TD>Independent value</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u1</TD><TD>Argument of u &gt; 0 (pos)</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u2</TD><TD>Argument of u &lt; 0 (neg)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Smoothed value</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> Splice <font color="darkgreen">&quot;Block for splice function opertation&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> x <font color="darkgreen">&quot;Independent value&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> u1 <font color="darkgreen">&quot;Argument of u &gt; 0 (pos)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> u2 <font color="darkgreen">&quot;Argument of u &lt; 0 (neg)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> y <font color="darkgreen">&quot;Smoothed value&quot;</font>;</textblock>
 <font color="blue">parameter </font>Real deltax <font color="darkgreen">&quot;Half width of transition interval&quot;</font>;
 <font color="blue">equation </font>
@@ -617,6 +626,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Splice;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:31:46 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:46:51 2013.
 </address></BODY>
 </HTML>

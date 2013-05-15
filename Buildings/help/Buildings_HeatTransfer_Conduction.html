@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Conduction<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Conduction"></A><A HREF="Buildings_HeatTransfer.html#Buildings.HeatTransfer"
 >Buildings.HeatTransfer</A>.Conduction</H2>
 <B>Package with models for heat conduction</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package provides component models to compute heat conduction.
@@ -40,10 +49,10 @@ This approximation is used by
 to replace the piece-wise linear function by a cubic hermite spline, with 
 linear extrapolation, in order to avoid state events during the simulation.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Cob4c036f3e70672a0LayerS.png" ALT="Buildings.HeatTransfer.Conduction.SingleLayer" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.SingleLayer"
@@ -60,9 +69,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >BaseClasses</A>
 </TD><TD>Package with base classes for Buildings.HeatTransfer.Conduction</TD></TR>
 </TABLE>
-<P></p><H3>Types and constants</H3>
+<P><H3>Types and constants</H3>
 <PRE>  <font color="blue">constant </font>Integer nSupPCM = 6 <font color="darkgreen">
-  &quot;Number of support points to approximate u(T) releation, used only for phase change material&quot;</font>;</PRE><P></p>
+  &quot;Number of support points to approximate u(T) releation, used only for phase change material&quot;</font>;</PRE><p>
 <HR>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE SingleLayer<![endif]-->
@@ -70,9 +79,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Cob4c036f3e70672a0LayerI.png" ALT="Buildings.HeatTransfer.Conduction.SingleLayer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Conduction.SingleLayer"></A><A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction"
 >Buildings.HeatTransfer.Conduction</A>.SingleLayer</H2>
-<B>Model for single layer heat conductance</B><p></P>
+<B>Model for single layer heat conductance</B><p>
 <IMG SRC="Buildings.HeatTransfer.Cob4c036f3e70672a0LayerD.png" ALT="Buildings.HeatTransfer.Conduction.SingleLayer">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This is a model of a heat conductor for a single layer of homogeneous material
 that computes transient or steady-state heat conduction.
@@ -168,34 +177,34 @@ use
 Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
 </p>
 
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor"
 >Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor</A> (Partial model for heat conductor).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Heat transfer area [m2]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalResistance"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalResistance"
 >ThermalResistance</A></TD><TD>R</TD><TD>if (material.R == 0) then ma...</TD><TD>Thermal resistance of construction [K/W]</TD></TR>
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
 >Material</A></TD><TD>material</TD><TD>redeclare parameter Data.Bas...</TD><TD>Material from Data.Solids, Data.SolidsPCM or Data.Resistances</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
 <TR><TD>Boolean</TD><TD>steadyStateInitial</TD><TD>false</TD><TD>=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a_start</TD><TD>293.15</TD><TD>Initial temperature at port_a, used if steadyStateInitial = false [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b_start</TD><TD>293.15</TD><TD>Initial temperature at port_b, used if steadyStateInitial = false [K]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>port_a</TD><TD>Heat port at surface a</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</A></TD><TD>port_b</TD><TD>Heat port at surface b</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SingleLayer <font color="darkgreen">&quot;Model for single layer heat conductance&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor"
@@ -206,15 +215,15 @@ Extends from <A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildin
   <font color="darkgreen">// The value T[:].start is used by the solver when finding initial states</font>
   <font color="darkgreen">// that satisfy dT/dt=0, which requires solving a system of nonlinear equations</font>
   <font color="darkgreen">// if the convection coefficient is a function of temperature.</font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T[nSta](start=
      {T_a_start+(T_b_start-T_a_start) * UA *
         <font color="red">sum</font>(1/(<font color="blue">if </font>(k==1<font color="blue"> or </font>k==nSta+1)<font color="blue"> then </font>UAnSta2<font color="blue"> else </font>UAnSta) <font color="blue">for </font>k<font color="blue"> in </font>1:i) <font color="blue">for </font>i<font color="blue"> in </font>1:nSta},
       <font color="blue">each </font>nominal = 300) <font color="darkgreen">&quot;Temperature at the states&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</A> Q_flow[nSta+1] <font color="darkgreen">
     &quot;Heat flow rate from state i to i+1&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
 >Modelica.SIunits.SpecificInternalEnergy</A> u[nSta](start=
      material.c*{T_a_start+(T_b_start-T_a_start) * UA *
         <font color="red">sum</font>(1/(<font color="blue">if </font>(k==1<font color="blue"> or </font>k==nSta+1)<font color="blue"> then </font>UAnSta2<font color="blue"> else </font>UAnSta) <font color="blue">for </font>k<font color="blue"> in </font>1:i) <font color="blue">for </font>i<font color="blue"> in </font>1:nSta},
@@ -226,33 +235,33 @@ Extends from <A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildin
 
   <font color="blue">parameter </font>Boolean steadyStateInitial=false <font color="darkgreen">
     &quot;=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a_start=293.15 <font color="darkgreen">
     &quot;Initial temperature at port_a, used if steadyStateInitial = false&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b_start=293.15 <font color="darkgreen">
     &quot;Initial temperature at port_b, used if steadyStateInitial = false&quot;</font>;
 
 <font color="blue">protected </font>
   <font color="blue">final </font><font color="blue">parameter </font>Integer nSta(min=1) = material.nSta <font color="darkgreen">
     &quot;Number of state variables&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
 >Modelica.SIunits.ThermalConductance</A> UAnSta = UA*nSta <font color="darkgreen">
     &quot;Thermal conductance between nodes&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
 >Modelica.SIunits.ThermalConductance</A> UAnSta2 = 2*UAnSta <font color="darkgreen">
     &quot;Thermal conductance between nodes and surface boundary&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Mass"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Mass"
 >Modelica.SIunits.Mass</A> m = A*material.x*material.d/material.nSta <font color="darkgreen">
     &quot;Mass associated with the temperature state&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatCapacity"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatCapacity"
 >Modelica.SIunits.HeatCapacity</A> C = m*material.c <font color="darkgreen">
     &quot;Heat capacity associated with the temperature state&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
 >Modelica.SIunits.SpecificInternalEnergy</A> ud[Buildings.HeatTransfer.Conduction.nSupPCM](<font color="blue">each </font>fixed=false) <font color="darkgreen">
     &quot;Support points for derivatives (used for PCM)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> Td[Buildings.HeatTransfer.Conduction.nSupPCM](<font color="blue">each </font>fixed=false) <font color="darkgreen">
     &quot;Support points for derivatives (used for PCM)&quot;</font>;
   <font color="blue">parameter </font>Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](<font color="blue">each </font>fixed=false, <font color="blue">each </font>unit=&quot;kg.K2/J&quot;) <font color="darkgreen">
@@ -342,9 +351,9 @@ Extends from <A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildin
 <H2><IMG SRC="Buildings.HeatTransfer.Coe2a9524198d40e33inderI.png" ALT="Buildings.HeatTransfer.Conduction.SingleLayerCylinder" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Conduction.SingleLayerCylinder"></A><A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction"
 >Buildings.HeatTransfer.Conduction</A>.SingleLayerCylinder</H2>
-<B>Heat conduction in a cylinder</B><p></P>
+<B>Heat conduction in a cylinder</B><p>
 <IMG SRC="Buildings.HeatTransfer.Coe2a9524198d40e33inderD.png" ALT="Buildings.HeatTransfer.Conduction.SingleLayerCylinder">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 </p>
 Model for radial heat transfer in a hollow cylinder.
@@ -394,54 +403,54 @@ the surface temperature, use <code>port_a.T</code> (or <code>port_b.T</code>)
 and not the variable <code>T[1]</code>.
 </p>
 <p>
-<P></P>
+<P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Generic"
 >Generic</A></TD><TD>material</TD><TD>redeclare parameter Building...</TD><TD>Material thermal properties</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Height</A></TD><TD>h</TD><TD>&nbsp;</TD><TD>Height of the cylinder [m]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Radius</A></TD><TD>r_a</TD><TD>&nbsp;</TD><TD>Internal radius [m]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Radius</A></TD><TD>r_b</TD><TD>&nbsp;</TD><TD>External radius [m]</TD></TR>
 <TR><TD>Integer</TD><TD>nSta</TD><TD>&nbsp;</TD><TD>Number of state variables</TD></TR>
 <TR><TD>Real</TD><TD>griFac</TD><TD>2</TD><TD>Grid factor for spacing</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TInt_start</TD><TD>293.15</TD><TD>Initial temperature at port_a, used if steadyStateInitial = false [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TExt_start</TD><TD>293.15</TD><TD>Initial temperature at port_b, used if steadyStateInitial = false [K]</TD></TR>
 <TR><TD>Boolean</TD><TD>steadyStateInitial</TD><TD>false</TD><TD>true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>port_a</TD><TD>Heat port at surface a</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</A></TD><TD>port_b</TD><TD>Heat port at surface b</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SingleLayerCylinder <font color="darkgreen">&quot;Heat conduction in a cylinder&quot;</font>
   <font color="blue">replaceable </font><font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Generic"
 >Buildings.HeatTransfer.Data.Soil.Generic</A> material <font color="darkgreen">
     &quot;Material thermal properties&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Modelica.SIunits.Height</A> h <font color="darkgreen">&quot;Height of the cylinder&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Modelica.SIunits.Radius</A> r_a <font color="darkgreen">&quot;Internal radius&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Modelica.SIunits.Radius</A> r_b <font color="darkgreen">&quot;External radius&quot;</font>;
   <font color="blue">parameter </font>Integer nSta(min=1) <font color="darkgreen">&quot;Number of state variables&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TInt_start=293.15 <font color="darkgreen">
     &quot;Initial temperature at port_a, used if steadyStateInitial = false&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TExt_start=293.15 <font color="darkgreen">
     &quot;Initial temperature at port_b, used if steadyStateInitial = false&quot;</font>;
   <font color="blue">parameter </font>Boolean steadyStateInitial=false <font color="darkgreen">
@@ -449,49 +458,49 @@ and not the variable <code>T[1]</code>.
 
   <font color="blue">parameter </font>Real griFac(min=1) = 2 <font color="darkgreen">&quot;Grid factor for spacing&quot;</font>;
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >Modelica.SIunits.TemperatureDifference</A> dT <font color="darkgreen">&quot;port_a.T - port_b.T&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A> port_a <font color="darkgreen">
     &quot;Heat port at surface a&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b</A> port_b <font color="darkgreen">
     &quot;Heat port at surface b&quot;</font>;</textblock>
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T[nSta](start=
      {TInt_start+ (TExt_start-TInt_start)/<font color="red">Modelica.Math.log</font>(r_b/r_a)
        *<font color="red">Modelica.Math.log</font>((r_a+(r_b-r_a)/(nSta)*(i-0.5))/r_a) <font color="blue">for </font>i<font color="blue"> in </font>1:nSta}) <font color="darkgreen">
     &quot;Temperature of the states&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</A> Q_flow[nSta+1] <font color="darkgreen">
     &quot;Heat flow rate from state i to i+1&quot;</font>;
 
 <font color="darkgreen">//  Modelica.SIunits.TemperatureSlope der_T[nSta]</font>
 <font color="darkgreen">//    &quot;Time derivative of temperature (= der(T))&quot;;</font>
 <font color="blue">protected </font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Modelica.SIunits.Radius</A> r[nSta+1](<font color="blue">each </font>fixed=false) <font color="darkgreen">
     &quot;Radius to the boundary of the i-th domain&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Modelica.SIunits.Radius</A> rC[nSta](<font color="blue">each </font>fixed=false) <font color="darkgreen">
     &quot;Radius to the center of the i-th domain&quot;</font>;
 
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >Modelica.SIunits.SpecificHeatCapacity</A> c= material.c <font color="darkgreen">
     &quot;Specific heat capacity&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >Modelica.SIunits.ThermalConductivity</A> k= material.k <font color="darkgreen">
     &quot;Thermal conductivity of the material&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Modelica.SIunits.Density</A> d = material.d <font color="darkgreen">
     &quot;Density of the material&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
 >Modelica.SIunits.ThermalConductance</A> G[nSta+1](<font color="blue">each </font>fixed=false) <font color="darkgreen">
     &quot;Heat conductance between the temperature nodes&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatCapacity"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatCapacity"
 >Modelica.SIunits.HeatCapacity</A> C[nSta](<font color="blue">each </font>fixed=false) <font color="darkgreen">
     &quot;Heat capacity of each state&quot;</font>;
 
@@ -557,9 +566,9 @@ and not the variable <code>T[1]</code>.
 <H2><IMG SRC="Buildings.HeatTransfer.Co57ad46f24fbd0c15LayerI.png" ALT="Buildings.HeatTransfer.Conduction.MultiLayer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Conduction.MultiLayer"></A><A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction"
 >Buildings.HeatTransfer.Conduction</A>.MultiLayer</H2>
-<B>Model for heat conductance through a solid with multiple material layers</B><p></P>
+<B>Model for heat conductance through a solid with multiple material layers</B><p>
 <IMG SRC="Buildings.HeatTransfer.Co57ad46f24fbd0c15LayerD.png" ALT="Buildings.HeatTransfer.Conduction.MultiLayer">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This is a model of a heat conductor with multiple material layers and energy storage.
 The construction has at least one material layer, and each layer has
@@ -580,45 +589,45 @@ To obtain the surface temperature of the construction, use <code>port_a.T</code>
 and not the variable <code>T[1]</code> because there is a thermal resistance between the surface
 and the temperature state.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor"
 >Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor</A> (Partial model for heat conductor), <A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction"
 >Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction</A> (Partial model for multi-layer constructions).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Heat transfer area [m2]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalResistance"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalResistance"
 >ThermalResistance</A></TD><TD>R</TD><TD>sum(lay[i].R for i in 1:nLay)</TD><TD>Thermal resistance of construction [K/W]</TD></TR>
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
 >Generic</A></TD><TD>layers</TD><TD>redeclare parameter Building...</TD><TD>Construction definition from Data.OpaqueConstructions</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
 <TR><TD>Boolean</TD><TD>steadyStateInitial</TD><TD>false</TD><TD>=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a_start</TD><TD>293.15</TD><TD>Initial temperature at port_a, used if steadyStateInitial = false [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b_start</TD><TD>293.15</TD><TD>Initial temperature at port_b, used if steadyStateInitial = false [K]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>port_a</TD><TD>Heat port at surface a</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</A></TD><TD>port_b</TD><TD>Heat port at surface b</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MultiLayer <font color="darkgreen">
   &quot;Model for heat conductance through a solid with multiple material layers&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor"
 >Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor</A>(
    <font color="blue">final </font>R=<font color="red">sum</font>(lay[i].R <font color="blue">for </font>i<font color="blue"> in </font>1:nLay));
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T[<font color="red">sum</font>(nSta)](<font color="blue">each </font>nominal = 300) <font color="darkgreen">
     &quot;Temperature at the states&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</A> Q_flow[<font color="red">sum</font>(nSta)+nLay] <font color="darkgreen">
     &quot;Heat flow rate from state i to i+1&quot;</font>;
   <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction"
@@ -634,11 +643,11 @@ Extends from <A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildin
    <font color="blue">each </font>steadyStateInitial = steadyStateInitial) <font color="darkgreen">&quot;Material layer&quot;</font>;</textblock>
 
 <font color="blue">protected </font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> _T_a_start[nLay]=
     { T_b_start+(T_a_start-T_b_start) * 1/R *<font color="red"> sum</font>(lay[k].R <font color="blue">for </font>k<font color="blue"> in </font>i:nLay) <font color="blue">for </font>i<font color="blue"> in </font>1:nLay} <font color="darkgreen">
     &quot;Initial temperature at port_a of respective layer, used if steadyStateInitial = false&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> _T_b_start[nLay]=
     { T_a_start+(T_b_start-T_a_start) * 1/R *<font color="red"> sum</font>(lay[k].R <font color="blue">for </font>k<font color="blue"> in </font>1:i) <font color="blue">for </font>i<font color="blue"> in </font>1:nLay} <font color="darkgreen">
     &quot;Initial temperature at port_b of respective layer, used if steadyStateInitial = false&quot;</font>;
@@ -662,6 +671,6 @@ Extends from <A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildin
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>MultiLayer;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:07 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:45:14 2013.
 </address></BODY>
 </HTML>

@@ -17,21 +17,30 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Conversions<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Sensors.Conversions"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.Conversions</H2>
 <B>Package with conversions for sensor models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 This package contains models to convert sensor output.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
 >Modelica.Icons.Package</A> (Icon for standard packages).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Sensors.C43a735b736a0ee37ctionS.png" ALT="Buildings.Fluid.Sensors.Conversions.To_VolumeFraction" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sensors_Conversions.html#Buildings.Fluid.Sensors.Conversions.To_VolumeFraction"
@@ -48,9 +57,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Sensors.C43a735b736a0ee37ctionI.png" ALT="Buildings.Fluid.Sensors.Conversions.To_VolumeFraction" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.Conversions.To_VolumeFraction"></A><A HREF="Buildings_Fluid_Sensors_Conversions.html#Buildings.Fluid.Sensors.Conversions"
 >Buildings.Fluid.Sensors.Conversions</A>.To_VolumeFraction</H2>
-<B>Model to convert between mass fraction and volume fraction</B><p></P>
+<B>Model to convert between mass fraction and volume fraction</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.C43a735b736a0ee37ctionD.png" ALT="Buildings.Fluid.Sensors.Conversions.To_VolumeFraction">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component converts mass fraction to volume fraction for an ideal gas.
@@ -61,40 +70,40 @@ of the measured substance is small enough to be neglected in the molar mass
 of the mixture.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
 >MolarMass</A></TD><TD>MMMea</TD><TD>&nbsp;</TD><TD>Molar mass of measured substance [kg/mol]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
 >MolarMass</A></TD><TD>MMBul</TD><TD>Modelica.Media.IdealGases.Co...</TD><TD>Molar mass of bulk medium [kg/mol]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>m</TD><TD>Mass fraction</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>V</TD><TD>Volume fraction</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> To_VolumeFraction <font color="darkgreen">
   &quot;Model to convert between mass fraction and volume fraction&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> m <font color="darkgreen">&quot;Mass fraction&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> V <font color="darkgreen">&quot;Volume fraction&quot;</font>;</textblock>
 
- <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
+ <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
 >Modelica.SIunits.MolarMass</A> MMMea <font color="darkgreen">&quot;Molar mass of measured substance&quot;</font>;
- <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
+ <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
 >Modelica.SIunits.MolarMass</A> MMBul=Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM <font color="darkgreen">
     &quot;Molar mass of bulk medium&quot;</font>;
 <font color="blue">protected </font>
@@ -105,6 +114,6 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>To_VolumeFraction;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:44 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:52 2013.
 </address></BODY>
 </HTML>

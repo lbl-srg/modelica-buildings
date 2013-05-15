@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic"
 >Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic</A>.BaseClasses</H2>
 <B>Package with base classes for performance data</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains performance curves for the cooling capacity and the EIR 
@@ -44,10 +53,10 @@ The data are described in
 <a href="modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.DXCoil">
 Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.DXCoil</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExcha70214be78ac885a0StageS.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage"
@@ -70,9 +79,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha70214be78ac885a0StageI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses</A>.Stage</H2>
-<B>Generic data record for a stage of a DX coil</B><p></P>
+<B>Generic data record for a stage of a DX coil</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha70214be78ac885a0StageD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This is the base record for DX cooling coil model at a compressor speed.
@@ -82,26 +91,26 @@ See the information section of
 Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil</a>
 for a description of the data.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
 >AngularVelocity</A></TD><TD>spe</TD><TD>&nbsp;</TD><TD>Rotational speed [rad/s]</TD></TR>
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues"
 >NominalValues</A></TD><TD>nomVal</TD><TD>&nbsp;</TD><TD>Nominal values</TD></TR>
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve"
 >PerformanceCurve</A></TD><TD>perCur</TD><TD>&nbsp;</TD><TD>Performance curves for this stage</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> Stage <font color="darkgreen">&quot;Generic data record for a stage of a DX coil&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
 >Modelica.SIunits.AngularVelocity</A> spe(displayUnit=&quot;1/min&quot;) <font color="darkgreen">
     &quot;Rotational speed&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <font color="blue">parameter </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues"
@@ -119,8 +128,8 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha70214be78ac885a0StageI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses</A>.NominalValues</H2>
-<B>Data record of nominal values</B><p></P>
-<P></P><H3>Information</H3>
+<B>Data record of nominal values</B><p>
+<P><H3>Information</H3></P>
 
   <p>
 This is the base record of nominal values for DX cooling coil models. 
@@ -132,62 +141,62 @@ See the information section of
 Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil</a>
 for a description of the data.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >HeatFlowRate</A></TD><TD>Q_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal cooling capacity (negative number) [W]</TD></TR>
 <TR><TD>Real</TD><TD>COP_nominal</TD><TD>&nbsp;</TD><TD>Nominal coefficient of performance</TD></TR>
 <TR><TD>Real</TD><TD>SHR_nominal</TD><TD>&nbsp;</TD><TD>Nominal sensible heat ratio</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal air mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TEvaIn_nominal</TD><TD>273.15 + 19.4</TD><TD>Evaporator entering air dry-bulb temperature at rating condition [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TConIn_nominal</TD><TD>308.15</TD><TD>Condenser entering air temperature at rating condition (wet bulb for evaporative cooled coils, dry bulb otherwise) [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>p_nominal</TD><TD>101325</TD><TD>Atmospheric pressure [Pa]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal</TD></TR>
 <TR><TD>Real</TD><TD>phiIn_nominal</TD><TD>0.5</TD><TD>Relative humidity of entering air at nominal condition</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Re-evaporation data</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tWet</TD><TD>1400</TD><TD>Time until moisture drips from coil when a dry coil is switched on [s]</TD></TR>
 <TR><TD>Real</TD><TD>gamma</TD><TD>1.5</TD><TD>Ratio of evaporation heat transfer divided by latent heat transfer at nominal conditions</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> NominalValues <font color="darkgreen">&quot;Data record of nominal values&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A>;
 
 <font color="darkgreen">//-----------------------------Nominal conditions-----------------------------//</font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</A> Q_flow_nominal(max=0) <font color="darkgreen">
     &quot;Nominal cooling capacity (negative number)&quot;</font>;
   <font color="blue">parameter </font>Real COP_nominal <font color="darkgreen">&quot;Nominal coefficient of performance&quot;</font>;
   <font color="blue">parameter </font>Real SHR_nominal <font color="darkgreen">&quot;Nominal sensible heat ratio&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal <font color="darkgreen">
     &quot;Nominal air mass flow rate&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TEvaIn_nominal=273.15+19.4 <font color="darkgreen">
     &quot;Evaporator entering air dry-bulb temperature at rating condition&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TConIn_nominal=308.15 <font color="darkgreen">
     &quot;Condenser entering air temperature at rating condition (wet bulb for evaporative cooled coils, dry bulb otherwise)&quot;</font>;
 
   <font color="blue">parameter </font>Real phiIn_nominal=0.5 <font color="darkgreen">
     &quot;Relative humidity of entering air at nominal condition&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> p_nominal=101325 <font color="darkgreen">&quot;Atmospheric pressure&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> tWet = 1400 <font color="darkgreen">
     &quot;Time until moisture drips from coil when a dry coil is switched on&quot;</font>;
   <font color="blue">parameter </font>Real gamma(min=0) = 1.5 <font color="darkgreen">
@@ -202,8 +211,8 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha70214be78ac885a0StageI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses</A>.PerformanceCurve</H2>
-<B>Data record for a performance curve</B><p></P>
-<P></P><H3>Information</H3>
+<B>Data record for a performance curve</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This record declares the data used to specify performance curves for DX coils.
@@ -215,8 +224,8 @@ See the information section of
 Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil</a>
 for a description of the data.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -227,21 +236,21 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD>Real</TD><TD>EIRFunT[6]</TD><TD>&nbsp;</TD><TD>Biquadratic coefficients for EIR function of temperature</TD></TR>
 <TR><TD>Real</TD><TD>EIRFunFF[:]</TD><TD>&nbsp;</TD><TD>Polynomial coefficients for EIR function of flow fration</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Minimum and maximum values</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TConInMin</TD><TD>&nbsp;</TD><TD>Minimum condenser inlet temperature for cooling capacity function [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TConInMax</TD><TD>&nbsp;</TD><TD>Maximum condenser inlet temperature for cooling capacity function [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TEvaInMin</TD><TD>&nbsp;</TD><TD>Minimum evaporator inlet temperature for cooling capacity function [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TEvaInMax</TD><TD>&nbsp;</TD><TD>Maximum evaporator inlet temperature for cooling capacity function [K]</TD></TR>
 <TR><TD>Real</TD><TD>ffMin</TD><TD>&nbsp;</TD><TD>Minimum flow fraction for which performance data are valid</TD></TR>
 <TR><TD>Real</TD><TD>ffMax</TD><TD>&nbsp;</TD><TD>Maximum flow fraction for which performance data are valid</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> PerformanceCurve <font color="darkgreen">&quot;Data record for a performance curve&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A>;
 <font color="darkgreen">//-----------------------------Performance curves-----------------------------//</font>
   <font color="blue">parameter </font>Real  capFunT[6] <font color="darkgreen">
@@ -253,16 +262,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="blue">parameter </font>Real  EIRFunFF[:] <font color="darkgreen">
     &quot;Polynomial coefficients for EIR function of flow fration&quot;</font>;
 <font color="darkgreen">//------------------------Range for performance curves------------------------//</font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A>   TConInMin <font color="darkgreen">
     &quot;Minimum condenser inlet temperature for cooling capacity function&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A>   TConInMax <font color="darkgreen">
     &quot;Maximum condenser inlet temperature for cooling capacity function&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A>   TEvaInMin <font color="darkgreen">
     &quot;Minimum evaporator inlet temperature for cooling capacity function&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A>   TEvaInMax <font color="darkgreen">
     &quot;Maximum evaporator inlet temperature for cooling capacity function&quot;</font>;
 
@@ -280,14 +289,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha6c40fe4b72c8c2a3tringI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses</A>.nominalValuesToString</H2>
-<B>Converts the nominal values to a string representation</B><p></P>
-<P></P><H3>Information</H3>
+<B>Converts the nominal values to a string representation</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 Returns a string representation of the nominal values.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -300,11 +309,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>String</TD><TD>s</TD><TD>A string representation of the nominal values</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> nominalValuesToString <font color="darkgreen">
   &quot;Converts the nominal values to a string representation&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A>;
   <font color="blue">input </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues"
 >Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</A>
@@ -326,6 +335,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>nominalValuesToString;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:28:53 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:03 2013.
 </address></BODY>
 </HTML>

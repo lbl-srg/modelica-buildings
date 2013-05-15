@@ -17,25 +17,34 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Storage.BaseClasses"></A><A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage"
 >Buildings.Fluid.Storage</A>.BaseClasses</H2>
 <B>Package with base classes for Buildings.Fluid.Storage</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage"
 >Buildings.Fluid.Storage</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Storage.Ba59ec09b42b7c4dbyancyS.png" ALT="Buildings.Fluid.Storage.BaseClasses.Buoyancy" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Storage_BaseClasses.html#Buildings.Fluid.Storage.BaseClasses.Buoyancy"
@@ -52,9 +61,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Storage.Ba59ec09b42b7c4dbyancyI.png" ALT="Buildings.Fluid.Storage.BaseClasses.Buoyancy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Storage.BaseClasses.Buoyancy"></A><A HREF="Buildings_Fluid_Storage_BaseClasses.html#Buildings.Fluid.Storage.BaseClasses"
 >Buildings.Fluid.Storage.BaseClasses</A>.Buoyancy</H2>
-<B>Model to add buoyancy if there is a temperature inversion in the tank</B><p></P>
+<B>Model to add buoyancy if there is a temperature inversion in the tank</B><p>
 <IMG SRC="Buildings.Fluid.Storage.Ba59ec09b42b7c4dbyancyD.png" ALT="Buildings.Fluid.Storage.BaseClasses.Buoyancy">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model outputs a heat flow rate that can be added to fluid volumes
@@ -63,61 +72,61 @@ For simplicity, this model does not compute a buoyancy induced mass flow rate,
 but rather a heat flow that has the same magnitude as the enthalpy flow
 associated with the buoyancy induced mass flow rate.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Modelica.Media.Interfaces.Pa...</TD><TD>Medium model</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Volume</A></TD><TD>V</TD><TD>&nbsp;</TD><TD>Volume [m3]</TD></TR>
 <TR><TD>Integer</TD><TD>nSeg</TD><TD>2</TD><TD>Number of volume segments</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>&nbsp;</TD><TD>Time constant for mixing [s]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>heatPort[nSeg]</TD><TD>Heat input into the volumes</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Buoyancy <font color="darkgreen">
   &quot;Model to add buoyancy if there is a temperature inversion in the tank&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A>;
   <font color="blue">replaceable </font><font color="blue">package</font> Medium =
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+    <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Modelica.SIunits.Volume</A> V <font color="darkgreen">&quot;Volume&quot;</font>;
   <font color="blue">parameter </font>Integer nSeg(min=2) = 2 <font color="darkgreen">&quot;Number of volume segments&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> tau(min=0) <font color="darkgreen">&quot;Time constant for mixing&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A>[nSeg] heatPort <font color="darkgreen">
     &quot;Heat input into the volumes&quot;</font>;</textblock>
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</A>[nSeg-1] Q_flow <font color="darkgreen">
     &quot;Heat flow rate from segment i+1 to i&quot;</font>;
 <font color="blue">protected </font>
-   <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</A> sta_default =<font color="red"> Medium.setState_pTX</font>(T=Medium.T_default,
          p=Medium.p_default, X=Medium.X_default[1:Medium.nXi]);
-   <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Modelica.SIunits.Density</A> rho_default=<font color="red">Medium.density</font>(sta_default) <font color="darkgreen">
     &quot;Density, used to compute fluid mass&quot;</font>;
-   <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >Modelica.SIunits.SpecificHeatCapacity</A> cp_default=<font color="red">Medium.specificHeatCapacityCp</font>(sta_default) <font color="darkgreen">
     &quot;Specific heat capacity&quot;</font>;
    <font color="blue">parameter </font>Real k(unit=&quot;W/K&quot;) = V*rho_default*cp_default/tau/nSeg <font color="darkgreen">
     &quot;Proportionality constant, since we use dT instead of dH&quot;</font>;
-   <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+   <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >Modelica.SIunits.TemperatureDifference</A> dT[nSeg-1] <font color="darkgreen">
     &quot;Temperature difference between adjoining volumes&quot;</font>;
 <font color="blue">equation </font>
@@ -140,9 +149,9 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <H2><IMG SRC="Buildings.Fluid.Storage.Bd25479539900e37fifierI.png" ALT="Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier"></A><A HREF="Buildings_Fluid_Storage_BaseClasses.html#Buildings.Fluid.Storage.BaseClasses"
 >Buildings.Fluid.Storage.BaseClasses</A>.ThirdOrderStratifier</H2>
-<B>Model to reduce the numerical dissipation in a tank</B><p></P>
+<B>Model to reduce the numerical dissipation in a tank</B><p>
 <IMG SRC="Buildings.Fluid.Storage.Bd25479539900e37fifierD.png" ALT="Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model reduces the numerical dissipation that is introduced
@@ -180,14 +189,14 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 <p>
 The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 or higher.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Modelica.Media.Interfaces.Pa...</TD><TD>Medium model</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>&nbsp;</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Integer</TD><TD>nSeg</TD><TD>&nbsp;</TD><TD>Number of volume segments</TD></TR>
 <TR><TD>Real</TD><TD>alpha</TD><TD>0.5</TD><TD>Under-relaxation coefficient (1: QUICK; 0: 1st order upwind)</TD></TR>
@@ -196,26 +205,26 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>heatPort[nSeg]</TD><TD>Heat input into the volumes</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>m_flow</TD><TD>Mass flow rate from port a to port b</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>H_flow[nSeg + 1]</TD><TD>Enthalpy flow between the volumes</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>fluidPort[nSeg + 2]</TD><TD>Fluid port, needed to get pressure, temperature and species concentration</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ThirdOrderStratifier <font color="darkgreen">
   &quot;Model to reduce the numerical dissipation in a tank&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A>;
-  <font color="blue">replaceable </font><font color="blue">package</font> Medium = <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+  <font color="blue">replaceable </font><font color="blue">package</font> Medium = <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">
     &quot;Medium model&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_small(min=0) <font color="darkgreen">
     &quot;Small mass flow rate for regularization of zero flow&quot;</font>;
   <font color="blue">parameter </font>Integer nSeg(min=4) <font color="darkgreen">&quot;Number of volume segments&quot;</font>;
@@ -224,31 +233,31 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
     min=0,
     max=1) = 0.5 <font color="darkgreen">&quot;Under-relaxation coefficient (1: QUICK; 0: 1st order upwind)&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A>[nSeg] heatPort <font color="darkgreen">
     &quot;Heat input into the volumes&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> m_flow <font color="darkgreen">
     &quot;Mass flow rate from port a to port b&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A>[nSeg + 1] H_flow <font color="darkgreen">
     &quot;Enthalpy flow between the volumes&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >Modelica.Fluid.Interfaces.FluidPort_a</A>[nSeg + 2] fluidPort(<font color="blue">redeclare </font><font color="blue">each </font><font color="blue">
       package</font> Medium = Medium) <font color="darkgreen">
     &quot;Fluid port, needed to get pressure, temperature and species concentration&quot;</font>;</textblock>
 
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A>[nSeg + 1] hOut <font color="darkgreen">
     &quot;Extended vector with new outlet enthalpies to reduce numerical dissipation (at the boundary between two volumes)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A>[nSeg + 2] h <font color="darkgreen">
     &quot;Extended vector with port enthalpies, needed to simplify loop&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</A> Q_flow[nSeg] <font color="darkgreen">
     &quot;Heat exchange computed using upwind third order discretization scheme&quot;</font>;
   <font color="darkgreen">//    Modelica.SIunits.HeatFlowRate Q_flow_upWind</font>
@@ -318,6 +327,6 @@ Number of segments of the enhanced stratified tank should be no less than 4 (nSe
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>ThirdOrderStratifier;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:52 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:45:00 2013.
 </address></BODY>
 </HTML>

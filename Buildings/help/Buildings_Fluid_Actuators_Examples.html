@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Actuators.Examples"></A><A HREF="Buildings_Fluid_Actuators.html#Buildings.Fluid.Actuators"
 >Buildings.Fluid.Actuators</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Fluid.Actuators</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Actuatorse0c7400be67217e9amperS.png" ALT="Buildings.Fluid.Actuators.Examples.Damper" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Actuators_Examples.html#Buildings.Fluid.Actuators.Examples.Damper"
@@ -72,13 +81,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.Actuators.Examples.Damper"></A><A HREF="Buildings_Fluid_Actuators_Examples.html#Buildings.Fluid.Actuators.Examples"
 >Buildings.Fluid.Actuators.Examples</A>.Damper</H2>
 <IMG SRC="Buildings.Fluid.Actuatorse0c7400be67217e9amperD.png" ALT="Buildings.Fluid.Actuators.Examples.Damper">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Damper
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir"
 >Buildings.Media.IdealGases.SimpleAir</A>;
@@ -89,7 +98,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     m_flow_nominal=1,
     filteredOpening=false);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> yRam(
     duration=0.3,
     offset=0,
@@ -107,7 +116,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     nPorts=1,
     p(displayUnit=&quot;Pa&quot;) = 101325,
     T=293.15);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(yRam.y, res.y);
@@ -123,7 +132,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.Actuators.Examples.ThreeWayValves"></A><A HREF="Buildings_Fluid_Actuators_Examples.html#Buildings.Fluid.Actuators.Examples"
 >Buildings.Fluid.Actuators.Examples</A>.ThreeWayValves</H2>
 <IMG SRC="Buildings.Fluid.Actuators503eac9604e41b03alvesD.png" ALT="Buildings.Fluid.Actuators.Examples.ThreeWayValves">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Test model for three way valves. Note that the 
@@ -132,13 +141,13 @@ and the rangeability to a small value
 for better visualization of the valve characteristics.
 To use common values, use the default values.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ThreeWayValves
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
@@ -152,7 +161,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     m_flow_nominal=2,
     filteredOpening=false,
     dpValve_nominal=6000) <font color="darkgreen">&quot;Valve model, linear opening characteristics&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> y(
     height=1,
     duration=1,
@@ -169,9 +178,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     nPorts=2,
     use_p_in=true,
     T=313.15);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> PSin(k=3E5);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> PSou(k=306000);
   <A HREF="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear"
 >Actuators.Valves.ThreeWayEqualPercentageLinear</A> valEquPerLin(
@@ -187,7 +196,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     nPorts=2,
     use_p_in=true,
     T=303.15);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(y.y, valLin.y);
@@ -211,7 +220,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.Actuators.Examples.TwoWayValves"></A><A HREF="Buildings_Fluid_Actuators_Examples.html#Buildings.Fluid.Actuators.Examples"
 >Buildings.Fluid.Actuators.Examples</A>.TwoWayValves</H2>
 <IMG SRC="Buildings.Fluid.Actuatorsaf2424581be3060balvesD.png" ALT="Buildings.Fluid.Actuators.Examples.TwoWayValves">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Test model for two way valves. Note that the 
@@ -225,13 +234,13 @@ The parameter <code>filterOpening</code> is set to <code>false</code>,
 as this model is used to plot the flow at different opening signals
 without taking into account the travel time of the actuator.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TwoWayValves
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A>;
@@ -243,7 +252,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     m_flow_nominal=2,
     filteredOpening=false,
     dpValve_nominal=6000) <font color="darkgreen">&quot;Valve model, linear opening characteristics&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> y(
     height=1,
     duration=1,
@@ -278,7 +287,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     filteredOpening=false,
     dpValve_nominal=6000) <font color="darkgreen">
     &quot;Valve model, equal percentage opening characteristics&quot;</font>;
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(y.y, valLin.y);
@@ -300,7 +309,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.Actuators.Examples.TwoWayValvesMotor"></A><A HREF="Buildings_Fluid_Actuators_Examples.html#Buildings.Fluid.Actuators.Examples"
 >Buildings.Fluid.Actuators.Examples</A>.TwoWayValvesMotor</H2>
 <IMG SRC="Buildings.Fluid.Actuators9fe0316d12d19a2eMotorD.png" ALT="Buildings.Fluid.Actuators.Examples.TwoWayValvesMotor">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Test model for two way valves. Note that the 
@@ -316,13 +325,13 @@ a motor but lacks hysteresis would be to
 set the valve parameter <code>filteredOpening=true</code> instead
 of using the motor model.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TwoWayValvesMotor
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A>;
@@ -346,9 +355,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     nPorts=3,
     use_p_in=true,
     T=293.15);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> PSin(k=3E5);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> PSou(k=306000);
   <A HREF="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening"
 >Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening</A> valQui(
@@ -367,13 +376,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     filteredOpening=false,
     dpValve_nominal=6000) <font color="darkgreen">
     &quot;Valve model, equal percentage opening characteristics&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
 >Modelica.Blocks.Sources.TimeTable</A> ySet(table=[0,0; 60,0; 60,1; 120,1; 180,0.5;
         240,0.5; 300,0; 360,0; 360,0.25; 420,0.25; 480,1; 540,1.5; 600,-0.25]) <font color="darkgreen">
     &quot;Set point for actuator&quot;</font>;
   <A HREF="Buildings_Fluid_Actuators_Motors.html#Buildings.Fluid.Actuators.Motors.IdealMotor"
 >Actuators.Motors.IdealMotor</A> mot(                 tOpe=60) <font color="darkgreen">&quot;Motor model&quot;</font>;
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(PSin.y, sin.p_in);
@@ -397,9 +406,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Actuatorse0c7400be67217e9amperI.png" ALT="Buildings.Fluid.Actuators.Examples.ValveParameterization" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.Examples.ValveParameterization"></A><A HREF="Buildings_Fluid_Actuators_Examples.html#Buildings.Fluid.Actuators.Examples"
 >Buildings.Fluid.Actuators.Examples</A>.ValveParameterization</H2>
-<B>Model to test and illustrate different parameterization for valves</B><p></P>
+<B>Model to test and illustrate different parameterization for valves</B><p>
 <IMG SRC="Buildings.Fluid.Actuators6be7fb79104f09b5ationD.png" ALT="Buildings.Fluid.Actuators.Examples.ValveParameterization">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Test model for two way valves. This model tests the
@@ -410,14 +419,14 @@ to compute the parameters.
 If the mass flow rates differ by more than 1%, then the assert blocks
 will terminate the simulation with an error message.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ValveParameterization <font color="darkgreen">
   &quot;Model to test and illustrate different parameterization for valves&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -432,7 +441,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     dpValve_nominal(displayUnit=&quot;kPa&quot;) = 4500,
     filteredOpening=false) <font color="darkgreen">&quot;Valve model, linear opening characteristics&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> y(k=1) <font color="darkgreen">&quot;Control signal&quot;</font>;
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
 >Buildings.Fluid.Sources.Boundary_pT</A> sou(             <font color="blue">redeclare </font><font color="blue">package</font> Medium
@@ -447,7 +456,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_p_in=false,
     p=300000,
     T=293.15);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PSou(
     duration=1,
     offset=3E5,
@@ -459,7 +468,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     m_flow_nominal=150/3600,
     Kv=0.73,
     filteredOpening=false) <font color="darkgreen">&quot;Valve model, linear opening characteristics&quot;</font>;
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
 >Valves.TwoWayLinear</A> valCv(
@@ -509,13 +518,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.Actuators.Examples.VAVBoxExponential"></A><A HREF="Buildings_Fluid_Actuators_Examples.html#Buildings.Fluid.Actuators.Examples"
 >Buildings.Fluid.Actuators.Examples</A>.VAVBoxExponential</H2>
 <IMG SRC="Buildings.Fluid.Actuators1400bd8f1c20ed50ntialD.png" ALT="Buildings.Fluid.Actuators.Examples.VAVBoxExponential">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> VAVBoxExponential
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir"
@@ -525,12 +534,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Actuators.Dampers.Exponential</A> dam(
          <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium, A=1.8,
     m_flow_nominal=2);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
 >Modelica.Blocks.Sources.Step</A> yDam(
     height=-1,
     offset=1,
     startTime=60);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> P(
     height=-10,
     offset=101330,
@@ -546,7 +555,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
       =        Medium, T=273.15 + 20,
     nPorts=2,
     use_p_in=true);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> PAtm(k=101325);
   <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.VAVBoxExponential"
 >Buildings.Fluid.Actuators.Dampers.VAVBoxExponential</A> vav(
@@ -560,7 +569,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     m_flow_nominal=2,
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     dp_nominal=5 - 0.45*2^2/1.2/1.8^2/2);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(yDam.y,dam. y);
@@ -582,13 +591,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.Actuators.Examples.MixingBox"></A><A HREF="Buildings_Fluid_Actuators_Examples.html#Buildings.Fluid.Actuators.Examples"
 >Buildings.Fluid.Actuators.Examples</A>.MixingBox</H2>
 <IMG SRC="Buildings.Fluid.Actuatorsa4c8bf9f294f7fe4ngBoxD.png" ALT="Buildings.Fluid.Actuators.Examples.MixingBox">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingBox
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesConstantDensity_SimpleAir.html#Buildings.Media.GasesConstantDensity.SimpleAir"
@@ -622,27 +631,27 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
       Medium = Medium, T=273.15 + 20,
     use_p_in=true,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> PAtm(k=101325);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PSup(
     offset=101320,
     height=-10,
     startTime=0,
     duration=20);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PRet(
     height=10,
     offset=101330,
     duration=20,
     startTime=20);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
 >Modelica.Blocks.Sources.Step</A> yDam(
     height=1,
     offset=0,
     startTime=60);</textblock>
 
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(yDam.y, mixBox.y);
@@ -663,13 +672,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.Actuators.Examples.MixingBoxMinimumFlow"></A><A HREF="Buildings_Fluid_Actuators_Examples.html#Buildings.Fluid.Actuators.Examples"
 >Buildings.Fluid.Actuators.Examples</A>.MixingBoxMinimumFlow</H2>
 <IMG SRC="Buildings.Fluid.Actuatorscfabb2695f07577bmFlowD.png" ALT="Buildings.Fluid.Actuators.Examples.MixingBoxMinimumFlow">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingBoxMinimumFlow
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesConstantDensity_SimpleAir.html#Buildings.Media.GasesConstantDensity.SimpleAir"
@@ -706,29 +715,29 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
       Medium = Medium, T=273.15 + 20,
     use_p_in=true,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> PAtm(k=101325);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> yDamMin(k=0.5);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PSup(
     offset=101320,
     height=-10,
     startTime=0,
     duration=20);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PRet(
     height=10,
     offset=101330,
     duration=20,
     startTime=20);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
 >Modelica.Blocks.Sources.Step</A> yDam(
     height=0.1,
     offset=0.45,
     startTime=60);</textblock>
 
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(yDamMin.y, mixBox.yOutMin);
@@ -744,6 +753,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>MixingBoxMinimumFlow;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:28:10 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:43:25 2013.
 </address></BODY>
 </HTML>

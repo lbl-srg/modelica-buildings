@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.Examples"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >Buildings.Fluid.HeatExchangers</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Fluid.HeatExchangers</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessS.png" ALT="Buildings.Fluid.HeatExchangers.Examples.ConstantEffectiveness" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Examples.html#Buildings.Fluid.HeatExchangers.Examples.ConstantEffectiveness"
@@ -89,18 +98,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessI.png" ALT="Buildings.Fluid.HeatExchangers.Examples.ConstantEffectiveness" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Examples.ConstantEffectiveness"></A><A HREF="Buildings_Fluid_HeatExchangers_Examples.html#Buildings.Fluid.HeatExchangers.Examples"
 >Buildings.Fluid.HeatExchangers.Examples</A>.ConstantEffectiveness</H2>
-<B>Model that demonstrates use of a heat exchanger with constant effectiveness</B><p></P>
+<B>Model that demonstrates use of a heat exchanger with constant effectiveness</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessD.png" ALT="Buildings.Fluid.HeatExchangers.Examples.ConstantEffectiveness">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ConstantEffectiveness <font color="darkgreen">
   &quot;Model that demonstrates use of a heat exchanger with constant effectiveness&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium1 = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
@@ -114,7 +123,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     nPorts=1,
     T=273.15 + 10,
     X={0.001,0.999});
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PIn(
     height=200,
     duration=60,
@@ -126,15 +135,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_p_in=true,
     use_T_in=true,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TWat(
     height=10,
     duration=60,
     offset=273.15 + 30,
     startTime=60) <font color="darkgreen">&quot;Water temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TDb(k=293.15) <font color="darkgreen">&quot;Drybulb temperature&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> POut(k=101325);
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
 >Buildings.Fluid.Sources.Boundary_pT</A> sin_1(                       <font color="blue">redeclare </font><font color="blue">
@@ -159,11 +168,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     m2_flow_nominal=5,
     dp1_nominal=500,
     dp2_nominal=10);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system(
     p_ambient=300000,
     T_ambient=313.15);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
 >Modelica.Blocks.Sources.Trapezoid</A> trapezoid(
     amplitude=5000,
     rising=10,
@@ -190,9 +199,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessI.png" ALT="Buildings.Fluid.HeatExchangers.Examples.HeaterCoolerPrescribed" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Examples.HeaterCoolerPrescribed"></A><A HREF="Buildings_Fluid_HeatExchangers_Examples.html#Buildings.Fluid.HeatExchangers.Examples"
 >Buildings.Fluid.HeatExchangers.Examples</A>.HeaterCoolerPrescribed</H2>
-<B>Model that demonstrates the ideal heater model</B><p></P>
+<B>Model that demonstrates the ideal heater model</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha9293f194d788ec1cribedD.png" ALT="Buildings.Fluid.HeatExchangers.Examples.HeaterCoolerPrescribed">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Model that demonstrates the use of an ideal heater.
@@ -201,30 +210,30 @@ as a steady-state model, whereas the other is configured as a dynamic model.
 Both heaters add heat to the medium to track a set-point for the outlet
 temperature.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>3000/1000/20</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> HeaterCoolerPrescribed <font color="darkgreen">
   &quot;Model that demonstrates the ideal heater model&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesConstantDensity_SimpleAir.html#Buildings.Media.GasesConstantDensity.SimpleAir"
 >Buildings.Media.GasesConstantDensity.SimpleAir</A>;
 
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system(m_flow_start=0, energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState);</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal=
      3000/1000/20 <font color="darkgreen">&quot;Nominal mass flow rate&quot;</font>;
 
@@ -246,7 +255,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
 >Buildings.Fluid.Sensors.TemperatureTwoPort</A> senTem1(<font color="blue">redeclare </font><font color="blue">package</font> Medium
       = Medium, m_flow_nominal=m_flow_nominal) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
 >Modelica.Blocks.Sources.TimeTable</A> TSet(table=[0, 273.15 + 20; 120, 273.15 +
         20; 120, 273.15 + 30; 1200, 273.15 + 30]) <font color="darkgreen">&quot;Setpoint&quot;</font>;
   <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
@@ -261,7 +270,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     m_flow_nominal=m_flow_nominal,
     dynamicBalance=false,
     filteredSpeed=false) <font color="darkgreen">&quot;Fan&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const(k=2*m_flow_nominal) <font color="darkgreen">
     &quot;Mass flow rate signal for pump&quot;</font>;
   <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed"
@@ -306,30 +315,30 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessI.png" ALT="Buildings.Fluid.HeatExchangers.Examples.DryEffectivenessNTU" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Examples.DryEffectivenessNTU"></A><A HREF="Buildings_Fluid_HeatExchangers_Examples.html#Buildings.Fluid.HeatExchangers.Examples"
 >Buildings.Fluid.HeatExchangers.Examples</A>.DryEffectivenessNTU</H2>
-<B>Model that demonstrates use of a heat exchanger without condensation that uses the epsilon-NTU relation</B><p></P>
+<B>Model that demonstrates use of a heat exchanger without condensation that uses the epsilon-NTU relation</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha86af08c62a442633ssNTUD.png" ALT="Buildings.Fluid.HeatExchangers.Examples.DryEffectivenessNTU">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >SpecificHeatCapacity</A></TD><TD>cp1</TD><TD>Medium1.specificHeatCapacity...</TD><TD>Specific heat capacity of medium 2 [J/(kg.K)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >SpecificHeatCapacity</A></TD><TD>cp2</TD><TD>Medium2.specificHeatCapacity...</TD><TD>Specific heat capacity of medium 2 [J/(kg.K)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m1_flow</TD><TD>5</TD><TD>Nominal mass flow rate medium 1 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m2_flow</TD><TD>m1_flow*cp1/cp2</TD><TD>Nominal mass flow rate medium 2 [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DryEffectivenessNTU <font color="darkgreen">
   &quot;Model that demonstrates use of a heat exchanger without condensation that uses the epsilon-NTU relation&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium1 = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
@@ -337,20 +346,20 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
  <font color="blue">package</font> Medium2 = <A HREF="Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir"
 >Buildings.Media.IdealGases.SimpleAir</A>;
 
- <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+ <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >Modelica.SIunits.SpecificHeatCapacity</A> cp1=
  <font color="red">Medium1.specificHeatCapacityCp</font>(
       <font color="red">Medium1.setState_pTX</font>(Medium1.p_default, Medium1.T_default, Medium1.X_default)) <font color="darkgreen">
     &quot;Specific heat capacity of medium 2&quot;</font>;
- <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+ <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >Modelica.SIunits.SpecificHeatCapacity</A> cp2=
  <font color="red">Medium2.specificHeatCapacityCp</font>(
       <font color="red">Medium2.setState_pTX</font>(Medium2.p_default, Medium2.T_default, Medium2.X_default)) <font color="darkgreen">
     &quot;Specific heat capacity of medium 2&quot;</font>;
- <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+ <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m1_flow = 5 <font color="darkgreen">
     &quot;Nominal mass flow rate medium 1&quot;</font>;
- <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+ <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m2_flow = m1_flow*cp1/
       cp2 <font color="darkgreen">&quot;Nominal mass flow rate medium 2&quot;</font>;
 
@@ -360,7 +369,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_p_in=true,
     nPorts=5,
     T=273.15 + 10);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PIn(
     height=200,
     duration=60,
@@ -372,15 +381,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_p_in=true,
     use_T_in=true,
     nPorts=5);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TWat(
     height=10,
     duration=60,
     offset=273.15 + 30,
     startTime=60) <font color="darkgreen">&quot;Water temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TDb(k=293.15) <font color="darkgreen">&quot;Drybulb temperature&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> POut(k=101325);
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
 >Buildings.Fluid.Sources.Boundary_pT</A> sin_1(                       <font color="blue">redeclare </font><font color="blue">
@@ -410,7 +419,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     T_a1_nominal=303.15,
     T_a2_nominal=293.15);</textblock>
 
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system(
     p_ambient=300000,
     T_ambient=313.15);
@@ -466,7 +475,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     show_T=true,
     T_a1_nominal=303.15,
     T_a2_nominal=293.15);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
 >Modelica.Blocks.Sources.Trapezoid</A> trapezoid(
     amplitude=5000,
     rising=10,
@@ -509,35 +518,35 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessI.png" ALT="Buildings.Fluid.HeatExchangers.Examples.DryEffectivenessNTUMassFlow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Examples.DryEffectivenessNTUMassFlow"></A><A HREF="Buildings_Fluid_HeatExchangers_Examples.html#Buildings.Fluid.HeatExchangers.Examples"
 >Buildings.Fluid.HeatExchangers.Examples</A>.DryEffectivenessNTUMassFlow</H2>
-<B>Model of epsilon-NTU dry coil that tests variable mass flow rates</B><p></P>
+<B>Model of epsilon-NTU dry coil that tests variable mass flow rates</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha1674378ce5088ccdsFlowD.png" ALT="Buildings.Fluid.HeatExchangers.Examples.DryEffectivenessNTUMassFlow">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Fluid_HeatExchangers_Examples_BaseClasses.html#Buildings.Fluid.HeatExchangers.Examples.BaseClasses.EffectivenessNTUMassFlow"
 >Buildings.Fluid.HeatExchangers.Examples.BaseClasses.EffectivenessNTUMassFlow</A> (Partial model of epsilon-NTU coil that tests variable mass flow rates).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a1_nominal</TD><TD>5 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b1_nominal</TD><TD>10 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a2_nominal</TD><TD>30 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b2_nominal</TD><TD>15 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >HeatFlowRate</A></TD><TD>Q_flow_nominal</TD><TD>m1_flow_nominal*4200*(T_a1_n...</TD><TD>Nominal heat transfer [W]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m1_flow_nominal</TD><TD>0.1</TD><TD>Nominal mass flow rate medium 1 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m2_flow_nominal</TD><TD>m1_flow_nominal*4200/1000*(T...</TD><TD>Nominal mass flow rate medium 2 [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DryEffectivenessNTUMassFlow <font color="darkgreen">
   &quot;Model of epsilon-NTU dry coil that tests variable mass flow rates&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -585,34 +594,34 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessI.png" ALT="Buildings.Fluid.HeatExchangers.Examples.DryEffectivenessNTUPControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Examples.DryEffectivenessNTUPControl"></A><A HREF="Buildings_Fluid_HeatExchangers_Examples.html#Buildings.Fluid.HeatExchangers.Examples"
 >Buildings.Fluid.HeatExchangers.Examples</A>.DryEffectivenessNTUPControl</H2>
-<B>Model that demonstrates use of a heat exchanger without condensation that uses the epsilon-NTU relation with feedback control</B><p></P>
+<B>Model that demonstrates use of a heat exchanger without condensation that uses the epsilon-NTU relation with feedback control</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha100cfae35cc1f436ntrolD.png" ALT="Buildings.Fluid.HeatExchangers.Examples.DryEffectivenessNTUPControl">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a1_nominal</TD><TD>60 + 273.15</TD><TD>Temperature at nominal conditions as port a1 [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b1_nominal</TD><TD>50 + 273.15</TD><TD>Temperature at nominal conditions as port b1 [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a2_nominal</TD><TD>20 + 273.15</TD><TD>Temperature at nominal conditions as port a2 [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b2_nominal</TD><TD>40 + 273.15</TD><TD>Temperature at nominal conditions as port b2 [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m1_flow_nominal</TD><TD>5</TD><TD>Nominal mass flow rate medium 1 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m2_flow_nominal</TD><TD>m1_flow_nominal*4200/1000*(T...</TD><TD>Nominal mass flow rate medium 2 [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DryEffectivenessNTUPControl <font color="darkgreen">
   &quot;Model that demonstrates use of a heat exchanger without condensation that uses the epsilon-NTU relation with feedback control&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium1 = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
@@ -622,22 +631,22 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
  <font color="darkgreen">// package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;</font>
  <font color="blue">package</font> Medium2 = <A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
 >Buildings.Media.GasesPTDecoupled.SimpleAir</A>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a1_nominal = 60+273.15 <font color="darkgreen">
     &quot;Temperature at nominal conditions as port a1&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b1_nominal = 50+273.15 <font color="darkgreen">
     &quot;Temperature at nominal conditions as port b1&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a2_nominal = 20+273.15 <font color="darkgreen">
     &quot;Temperature at nominal conditions as port a2&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b2_nominal = 40+273.15 <font color="darkgreen">
     &quot;Temperature at nominal conditions as port b2&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m1_flow_nominal = 5 <font color="darkgreen">
     &quot;Nominal mass flow rate medium 1&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal) <font color="darkgreen">
     &quot;Nominal mass flow rate medium 2&quot;</font>;
 
@@ -686,7 +695,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     Ti=30,
     k=0.1,
     Td=1);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
 >Modelica.Blocks.Sources.Pulse</A>     TSet(
     amplitude=5,
     period=3600,
@@ -705,7 +714,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     dp1_nominal(displayUnit=&quot;Pa&quot;) = 0,
     dp2_nominal(displayUnit=&quot;Pa&quot;) = 200 + 100);</textblock>
 
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(val.port_b, hex.port_a1);
@@ -726,35 +735,35 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessI.png" ALT="Buildings.Fluid.HeatExchangers.Examples.DryCoilCounterFlowMassFlow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Examples.DryCoilCounterFlowMassFlow"></A><A HREF="Buildings_Fluid_HeatExchangers_Examples.html#Buildings.Fluid.HeatExchangers.Examples"
 >Buildings.Fluid.HeatExchangers.Examples</A>.DryCoilCounterFlowMassFlow</H2>
-<B>Model of a cooling coil that tests variable mass flow rates</B><p></P>
+<B>Model of a cooling coil that tests variable mass flow rates</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha28b55fe09ab73d75sFlowD.png" ALT="Buildings.Fluid.HeatExchangers.Examples.DryCoilCounterFlowMassFlow">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Fluid_HeatExchangers_Examples_BaseClasses.html#Buildings.Fluid.HeatExchangers.Examples.BaseClasses.EffectivenessNTUMassFlow"
 >Buildings.Fluid.HeatExchangers.Examples.BaseClasses.EffectivenessNTUMassFlow</A> (Partial model of epsilon-NTU coil that tests variable mass flow rates).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a1_nominal</TD><TD>5 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b1_nominal</TD><TD>10 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a2_nominal</TD><TD>30 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b2_nominal</TD><TD>15 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >HeatFlowRate</A></TD><TD>Q_flow_nominal</TD><TD>m1_flow_nominal*4200*(T_a1_n...</TD><TD>Nominal heat transfer [W]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m1_flow_nominal</TD><TD>0.1</TD><TD>Nominal mass flow rate medium 1 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m2_flow_nominal</TD><TD>m1_flow_nominal*4200/1000*(T...</TD><TD>Nominal mass flow rate medium 2 [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DryCoilCounterFlowMassFlow <font color="darkgreen">
   &quot;Model of a cooling coil that tests variable mass flow rates&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_Examples_BaseClasses.html#Buildings.Fluid.HeatExchangers.Examples.BaseClasses.EffectivenessNTUMassFlow"
 >Buildings.Fluid.HeatExchangers.Examples.BaseClasses.EffectivenessNTUMassFlow</A>
@@ -781,7 +790,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
         T_a2_nominal,
         T_b2_nominal));</textblock>
 
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.RelativeHumidityTwoPort"
 >Sensors.RelativeHumidityTwoPort</A> senRelHum(         <font color="blue">redeclare </font><font color="blue">package</font> Medium
@@ -801,35 +810,35 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessI.png" ALT="Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow"></A><A HREF="Buildings_Fluid_HeatExchangers_Examples.html#Buildings.Fluid.HeatExchangers.Examples"
 >Buildings.Fluid.HeatExchangers.Examples</A>.WetCoilCounterFlowMassFlow</H2>
-<B>Model of a cooling coil that tests variable mass flow rates</B><p></P>
+<B>Model of a cooling coil that tests variable mass flow rates</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha28b55fe09ab73d75sFlowD.png" ALT="Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Fluid_HeatExchangers_Examples_BaseClasses.html#Buildings.Fluid.HeatExchangers.Examples.BaseClasses.EffectivenessNTUMassFlow"
 >Buildings.Fluid.HeatExchangers.Examples.BaseClasses.EffectivenessNTUMassFlow</A> (Partial model of epsilon-NTU coil that tests variable mass flow rates).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a1_nominal</TD><TD>5 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b1_nominal</TD><TD>10 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a2_nominal</TD><TD>30 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b2_nominal</TD><TD>15 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >HeatFlowRate</A></TD><TD>Q_flow_nominal</TD><TD>m1_flow_nominal*4200*(T_a1_n...</TD><TD>Nominal heat transfer [W]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m1_flow_nominal</TD><TD>0.1</TD><TD>Nominal mass flow rate medium 1 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m2_flow_nominal</TD><TD>m1_flow_nominal*4200/1000*(T...</TD><TD>Nominal mass flow rate medium 2 [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> WetCoilCounterFlowMassFlow <font color="darkgreen">
   &quot;Model of a cooling coil that tests variable mass flow rates&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_Examples_BaseClasses.html#Buildings.Fluid.HeatExchangers.Examples.BaseClasses.EffectivenessNTUMassFlow"
 >Buildings.Fluid.HeatExchangers.Examples.BaseClasses.EffectivenessNTUMassFlow</A>
@@ -856,7 +865,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
         T_b2_nominal),
     show_T=true);</textblock>
 
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.RelativeHumidityTwoPort"
 >Sensors.RelativeHumidityTwoPort</A> senRelHum(         <font color="blue">redeclare </font><font color="blue">package</font> Medium
@@ -876,34 +885,34 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessI.png" ALT="Buildings.Fluid.HeatExchangers.Examples.DryCoilCounterFlowPControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Examples.DryCoilCounterFlowPControl"></A><A HREF="Buildings_Fluid_HeatExchangers_Examples.html#Buildings.Fluid.HeatExchangers.Examples"
 >Buildings.Fluid.HeatExchangers.Examples</A>.DryCoilCounterFlowPControl</H2>
-<B>Model that demonstrates use of a heat exchanger without condensation and with feedback control</B><p></P>
+<B>Model that demonstrates use of a heat exchanger without condensation and with feedback control</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha224e2337237e458entrolD.png" ALT="Buildings.Fluid.HeatExchangers.Examples.DryCoilCounterFlowPControl">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a1_nominal</TD><TD>5 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b1_nominal</TD><TD>10 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a2_nominal</TD><TD>30 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b2_nominal</TD><TD>15 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m1_flow_nominal</TD><TD>0.1</TD><TD>Nominal mass flow rate medium 1 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m2_flow_nominal</TD><TD>m1_flow_nominal*4200/1000*(T...</TD><TD>Nominal mass flow rate medium 2 [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DryCoilCounterFlowPControl <font color="darkgreen">
   &quot;Model that demonstrates use of a heat exchanger without condensation and with feedback control&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">package</font> Medium1 = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A>;
@@ -912,18 +921,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="darkgreen">//package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;</font>
   <font color="darkgreen">//package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;</font>
   <font color="darkgreen">//package Medium2 = Buildings.Media.GasesConstantDensity.MoistAir;</font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a1_nominal=5 + 273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b1_nominal=10 + 273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a2_nominal=30 + 273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b2_nominal=15 + 273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m1_flow_nominal=0.1 <font color="darkgreen">
     &quot;Nominal mass flow rate medium 1&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m2_flow_nominal=m1_flow_nominal*4200/
       1000*(T_a1_nominal - T_b1_nominal)/(T_b2_nominal - T_a2_nominal) <font color="darkgreen">
     &quot;Nominal mass flow rate medium 2&quot;</font>;
@@ -976,7 +985,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium1,
     m_flow_nominal=m1_flow_nominal,
     dpValve_nominal=6000) <font color="darkgreen">&quot;Valve model&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
 >Modelica.Blocks.Sources.TimeTable</A> TSet(table=[0,288.15; 600,288.15; 600,
         298.15; 1200,298.15; 1800,283.15; 2400,283.15; 2400,288.15]) <font color="darkgreen">
     &quot;Setpoint temperature&quot;</font>;
@@ -997,13 +1006,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
         T_a2_nominal,
         T_b2_nominal),
     show_T=true);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const(k=0.8);
   <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pTphi"
 >Buildings.Utilities.Psychrometrics.X_pTphi</A> x_pTphi(use_p_in=false);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const1(k=T_a2_nominal);
   <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
 >Buildings.Controls.Continuous.LimPID</A> con(
@@ -1013,7 +1022,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
     Ti=60) <font color="darkgreen">&quot;Controller&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TWat(
     height=30,
     offset=T_a1_nominal,
@@ -1045,32 +1054,32 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessI.png" ALT="Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPControl"></A><A HREF="Buildings_Fluid_HeatExchangers_Examples.html#Buildings.Fluid.HeatExchangers.Examples"
 >Buildings.Fluid.HeatExchangers.Examples</A>.WetCoilCounterFlowPControl</H2>
-<B>Model that demonstrates use of a heat exchanger with condensation and with feedback control</B><p></P>
+<B>Model that demonstrates use of a heat exchanger with condensation and with feedback control</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha17820c6c5416458cntrolD.png" ALT="Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPControl">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a1_nominal</TD><TD>5 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b1_nominal</TD><TD>10 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a2_nominal</TD><TD>30 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b2_nominal</TD><TD>15 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m1_flow_nominal</TD><TD>0.1</TD><TD>Nominal mass flow rate medium 1 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m2_flow_nominal</TD><TD>m1_flow_nominal*4200/1000*(T...</TD><TD>Nominal mass flow rate medium 2 [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> WetCoilCounterFlowPControl <font color="darkgreen">
   &quot;Model that demonstrates use of a heat exchanger with condensation and with feedback control&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -1081,18 +1090,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="darkgreen">//package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;</font>
   <font color="darkgreen">//package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;</font>
   <font color="darkgreen">//package Medium2 = Buildings.Media.GasesConstantDensity.MoistAir;</font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a1_nominal=5 + 273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b1_nominal=10 + 273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a2_nominal=30 + 273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b2_nominal=15 + 273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m1_flow_nominal=0.1 <font color="darkgreen">
     &quot;Nominal mass flow rate medium 1&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m2_flow_nominal=m1_flow_nominal*4200/
       1000*(T_a1_nominal - T_b1_nominal)/(T_b2_nominal - T_a2_nominal) <font color="darkgreen">
     &quot;Nominal mass flow rate medium 2&quot;</font>;
@@ -1145,7 +1154,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium1,
     m_flow_nominal=m1_flow_nominal,
     dpValve_nominal=6000) <font color="darkgreen">&quot;Valve model&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
 >Modelica.Blocks.Sources.TimeTable</A> TSet(table=[0,288.15; 600,288.15; 600,
         298.15; 1200,298.15; 1800,283.15; 2400,283.15; 2400,288.15]) <font color="darkgreen">
     &quot;Setpoint temperature&quot;</font>;
@@ -1166,13 +1175,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
         T_a2_nominal,
         T_b2_nominal),
     show_T=true);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const(k=0.8);
   <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pTphi"
 >Buildings.Utilities.Psychrometrics.X_pTphi</A> x_pTphi(use_p_in=false);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const1(k=T_a2_nominal);
   <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
 >Buildings.Controls.Continuous.LimPID</A> con(
@@ -1182,7 +1191,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
     Ti=60) <font color="darkgreen">&quot;Controller&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TWat(
     height=30,
     offset=T_a1_nominal,
@@ -1214,32 +1223,32 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessI.png" ALT="Buildings.Fluid.HeatExchangers.Examples.DryCoilDiscretized" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Examples.DryCoilDiscretized"></A><A HREF="Buildings_Fluid_HeatExchangers_Examples.html#Buildings.Fluid.HeatExchangers.Examples"
 >Buildings.Fluid.HeatExchangers.Examples</A>.DryCoilDiscretized</H2>
-<B>Model that demonstrates use of a finite volume model of a heat exchanger without condensation</B><p></P>
+<B>Model that demonstrates use of a finite volume model of a heat exchanger without condensation</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha21c9a0a41250bb58tizedD.png" ALT="Buildings.Fluid.HeatExchangers.Examples.DryCoilDiscretized">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a1_nominal</TD><TD>60 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b1_nominal</TD><TD>40 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a2_nominal</TD><TD>5 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b2_nominal</TD><TD>20 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m1_flow_nominal</TD><TD>5</TD><TD>Nominal mass flow rate medium 1 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m2_flow_nominal</TD><TD>m1_flow_nominal*4200/1000*(T...</TD><TD>Nominal mass flow rate medium 2 [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DryCoilDiscretized <font color="darkgreen">
   &quot;Model that demonstrates use of a finite volume model of a heat exchanger without condensation&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
   <font color="blue">package</font> Medium1 = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
@@ -1247,18 +1256,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="blue">package</font> Medium2 = <A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
 >Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</A>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a1_nominal = 60+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b1_nominal = 40+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a2_nominal =  5+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b2_nominal = 20+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m1_flow_nominal = 5 <font color="darkgreen">
     &quot;Nominal mass flow rate medium 1&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal) <font color="darkgreen">
     &quot;Nominal mass flow rate medium 2&quot;</font>;
 
@@ -1285,7 +1294,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
       package</font> Medium = Medium2, T=303.15,
     use_p_in=true,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PIn(
     offset=101525,
     height=-199,
@@ -1298,15 +1307,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_T_in=true,
     T=283.15,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TWat(
     duration=60,
     startTime=60,
     height=5,
     offset=273.15 + 60) <font color="darkgreen">&quot;Water temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TDb(k=273.15 + 5) <font color="darkgreen">&quot;Drybulb temperature&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> POut(k=101325);
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
 >Buildings.Fluid.Sources.Boundary_pT</A> sin_1(                       <font color="blue">redeclare </font><font color="blue">
@@ -1322,13 +1331,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_T_in=true,
     T=293.15,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PSin_1(
     startTime=240,
     offset=300000,
     height=4990,
     duration=60);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(PIn.y,sou_2. p_in);
@@ -1349,32 +1358,32 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessI.png" ALT="Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretized" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretized"></A><A HREF="Buildings_Fluid_HeatExchangers_Examples.html#Buildings.Fluid.HeatExchangers.Examples"
 >Buildings.Fluid.HeatExchangers.Examples</A>.WetCoilDiscretized</H2>
-<B>Model that demonstrates use of a finite volume model of a heat exchanger with condensation</B><p></P>
+<B>Model that demonstrates use of a finite volume model of a heat exchanger with condensation</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha373ff3b91027d358tizedD.png" ALT="Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretized">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a1_nominal</TD><TD>5 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b1_nominal</TD><TD>10 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a2_nominal</TD><TD>30 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b2_nominal</TD><TD>10 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m1_flow_nominal</TD><TD>5</TD><TD>Nominal mass flow rate medium 1 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m2_flow_nominal</TD><TD>m1_flow_nominal*4200/1000*(T...</TD><TD>Nominal mass flow rate medium 2 [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> WetCoilDiscretized <font color="darkgreen">
   &quot;Model that demonstrates use of a finite volume model of a heat exchanger with condensation&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -1383,18 +1392,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Media.ConstantPropertyLiquidWater</A>;
   <font color="blue">package</font> Medium2 = <A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
 >Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</A>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a1_nominal = 5+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b1_nominal = 10+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a2_nominal = 30+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b2_nominal = 10+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m1_flow_nominal = 5 <font color="darkgreen">
     &quot;Nominal mass flow rate medium 1&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal) <font color="darkgreen">
     &quot;Nominal mass flow rate medium 2&quot;</font>;
 
@@ -1423,7 +1432,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     p=101325,
     T=303.15,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PIn(
     duration=60,
     height=-200,
@@ -1436,7 +1445,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     nPorts=1,
     use_T_in=false,
     T=293.15);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TWat(
     duration=60,
     height=15,
@@ -1456,13 +1465,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_T_in=true,
     T=293.15,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PSin_1(
     duration=60,
     height=5000,
     startTime=240,
     offset=300000);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TWat.y, sou_1.T_in);
@@ -1481,34 +1490,34 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessI.png" ALT="Buildings.Fluid.HeatExchangers.Examples.DryCoilDiscretizedPControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Examples.DryCoilDiscretizedPControl"></A><A HREF="Buildings_Fluid_HeatExchangers_Examples.html#Buildings.Fluid.HeatExchangers.Examples"
 >Buildings.Fluid.HeatExchangers.Examples</A>.DryCoilDiscretizedPControl</H2>
-<B>Model that demonstrates use of a finite volume model of a heat exchanger without condensation and with feedback control</B><p></P>
+<B>Model that demonstrates use of a finite volume model of a heat exchanger without condensation and with feedback control</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha8a73538148617f0entrolD.png" ALT="Buildings.Fluid.HeatExchangers.Examples.DryCoilDiscretizedPControl">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a1_nominal</TD><TD>60 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b1_nominal</TD><TD>50 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a2_nominal</TD><TD>20 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b2_nominal</TD><TD>40 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m1_flow_nominal</TD><TD>5</TD><TD>Nominal mass flow rate medium 1 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m2_flow_nominal</TD><TD>m1_flow_nominal*4200/1000*(T...</TD><TD>Nominal mass flow rate medium 2 [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DryCoilDiscretizedPControl <font color="darkgreen">
   &quot;Model that demonstrates use of a finite volume model of a heat exchanger without condensation and with feedback control&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium1 = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
@@ -1518,18 +1527,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
  <font color="darkgreen">// package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;</font>
  <font color="blue">package</font> Medium2 = <A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
 >Buildings.Media.GasesPTDecoupled.SimpleAir</A>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a1_nominal = 60+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b1_nominal = 50+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a2_nominal = 20+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b2_nominal = 40+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m1_flow_nominal = 5 <font color="darkgreen">
     &quot;Nominal mass flow rate medium 1&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal) <font color="darkgreen">
     &quot;Nominal mass flow rate medium 2&quot;</font>;
 
@@ -1562,7 +1571,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     nPorts=1,
     use_T_in=false,
     T=T_a1_nominal);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PSin_1(
     duration=60,
     height=5000,
@@ -1579,7 +1588,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     filteredOpening=false,
     dpFixed_nominal=2000 + 3000,
     dpValve_nominal=6000) <font color="darkgreen">&quot;Valve model&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
 >Modelica.Blocks.Sources.TimeTable</A> TSet(table=[0,298.15; 600,298.15; 600,
         303.15; 1200,303.15; 1800,298.15; 2400,298.15; 2400,304.15]) <font color="darkgreen">
     &quot;Setpoint temperature&quot;</font>;
@@ -1603,7 +1612,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     dp2_nominal(displayUnit=&quot;Pa&quot;) = 300);
   <A HREF="Buildings_Fluid_Actuators_Motors.html#Buildings.Fluid.Actuators.Motors.IdealMotor"
 >Buildings.Fluid.Actuators.Motors.IdealMotor</A> mot(tOpe=60) <font color="darkgreen">&quot;Motor model&quot;</font>;
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
 >Buildings.Controls.Continuous.LimPID</A> con(
@@ -1632,32 +1641,32 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha47dfe330552b35a7enessI.png" ALT="Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretizedPControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretizedPControl"></A><A HREF="Buildings_Fluid_HeatExchangers_Examples.html#Buildings.Fluid.HeatExchangers.Examples"
 >Buildings.Fluid.HeatExchangers.Examples</A>.WetCoilDiscretizedPControl</H2>
-<B>Model that demonstrates use of a finite volume model of a heat exchanger with condensation and feedback control</B><p></P>
+<B>Model that demonstrates use of a finite volume model of a heat exchanger with condensation and feedback control</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha7fa73cb63f097f0cntrolD.png" ALT="Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretizedPControl">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a1_nominal</TD><TD>5 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b1_nominal</TD><TD>10 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a2_nominal</TD><TD>30 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b2_nominal</TD><TD>10 + 273.15</TD><TD>[K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m1_flow_nominal</TD><TD>5</TD><TD>Nominal mass flow rate medium 1 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m2_flow_nominal</TD><TD>m1_flow_nominal*4200/1000*(T...</TD><TD>Nominal mass flow rate medium 2 [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> WetCoilDiscretizedPControl <font color="darkgreen">
   &quot;Model that demonstrates use of a finite volume model of a heat exchanger with condensation and feedback control&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -1667,18 +1676,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="blue">package</font> Medium2 = <A HREF="Buildings_Media_GasesConstantDensity_MoistAirUnsaturated.html#Buildings.Media.GasesConstantDensity.MoistAirUnsaturated"
 >Buildings.Media.GasesConstantDensity.MoistAirUnsaturated</A>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a1_nominal = 5+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b1_nominal = 10+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a2_nominal = 30+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b2_nominal = 10+273.15;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m1_flow_nominal = 5 <font color="darkgreen">
     &quot;Nominal mass flow rate medium 1&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal) <font color="darkgreen">
     &quot;Nominal mass flow rate medium 2&quot;</font>;
 
@@ -1711,7 +1720,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_T_in=true,
     p=300000 + 7000,
     T=278.15);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PSin(
     duration=60,
     height=5000,
@@ -1727,7 +1736,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     filteredOpening=false,
     dpFixed_nominal=2000,
     dpValve_nominal=5000);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
 >Modelica.Blocks.Sources.TimeTable</A> TSet(table=[0,293.15; 600,293.15; 600,
         288.15; 1200,288.15; 1800,288.15; 2400,295.15; 2400,295.15]) <font color="darkgreen">
     &quot;Setpoint temperature&quot;</font>;
@@ -1749,14 +1758,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
         T_b2_nominal),
     dp2_nominal(displayUnit=&quot;Pa&quot;) = 200,
     dp1_nominal(displayUnit=&quot;Pa&quot;) = 0);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
 >Modelica.Blocks.Sources.Step</A> TSou_2(
     startTime=3000,
     offset=T_a2_nominal,
     height=-3);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
 >Modelica.Blocks.Sources.Step</A> TSou_1(
     startTime=3000,
     height=10,
@@ -1787,6 +1796,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>WetCoilDiscretizedPControl;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:25 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:34 2013.
 </address></BODY>
 </HTML>

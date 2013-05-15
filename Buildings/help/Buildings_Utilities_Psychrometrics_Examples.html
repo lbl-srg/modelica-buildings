@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.Psychrometrics.Examples"></A><A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
 >Buildings.Utilities.Psychrometrics</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Utilities.Psychrometrics</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Utilities.Psychc68238ac211d6579CheckS.png" ALT="Buildings.Utilities.Psychrometrics.Examples.DewPointTemperature" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Psychrometrics_Examples.html#Buildings.Utilities.Psychrometrics.Examples.DewPointTemperature"
@@ -68,22 +77,22 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Psych07f169d9b336056batureI.png" ALT="Buildings.Utilities.Psychrometrics.Examples.DewPointTemperature" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Psychrometrics.Examples.DewPointTemperature"></A><A HREF="Buildings_Utilities_Psychrometrics_Examples.html#Buildings.Utilities.Psychrometrics.Examples"
 >Buildings.Utilities.Psychrometrics.Examples</A>.DewPointTemperature</H2>
-<B>Unit test for dew point temperature calculation</B><p></P>
+<B>Unit test for dew point temperature calculation</B><p>
 <IMG SRC="Buildings.Utilities.Psych07f169d9b336056batureD.png" ALT="Buildings.Utilities.Psychrometrics.Examples.DewPointTemperature">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DewPointTemperature <font color="darkgreen">
   &quot;Unit test for dew point temperature calculation&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
    <font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
 >Buildings.Media.PerfectGases.MoistAir</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.pW_TDewPoi"
 >Buildings.Utilities.Psychrometrics.pW_TDewPoi</A> watVapPre;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> XHum(
     duration=1,
     height=(0.01 - 0.1),
@@ -106,27 +115,27 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Psych07f169d9b336056batureI.png" ALT="Buildings.Utilities.Psychrometrics.Examples.HumidityRatioPressure" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Psychrometrics.Examples.HumidityRatioPressure"></A><A HREF="Buildings_Utilities_Psychrometrics_Examples.html#Buildings.Utilities.Psychrometrics.Examples"
 >Buildings.Utilities.Psychrometrics.Examples</A>.HumidityRatioPressure</H2>
-<B>Unit test for humidity ratio model</B><p></P>
+<B>Unit test for humidity ratio model</B><p>
 <IMG SRC="Buildings.Utilities.Psych65f18cd03739426fssureD.png" ALT="Buildings.Utilities.Psychrometrics.Examples.HumidityRatioPressure">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> HumidityRatioPressure <font color="darkgreen">&quot;Unit test for humidity ratio model&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
 >Buildings.Media.PerfectGases.MoistAir</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.pW_X"
 >Buildings.Utilities.Psychrometrics.pW_X</A> vapPre(
                          use_p_in=true) <font color="darkgreen">&quot;Model for humidity ratio&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> XHumDryAir(
     duration=1,
     height=(0.0133 - 0.2),
     offset=0.2) <font color="darkgreen">&quot;Humidity concentration in [kg/kg dry air]&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> p(k=101325) <font color="darkgreen">&quot;Pressure&quot;</font>;
   <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pW"
 >Buildings.Utilities.Psychrometrics.X_pW</A> humRat(
@@ -153,23 +162,23 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Psych07f169d9b336056batureI.png" ALT="Buildings.Utilities.Psychrometrics.Examples.MassFraction_pTphi" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Psychrometrics.Examples.MassFraction_pTphi"></A><A HREF="Buildings_Utilities_Psychrometrics_Examples.html#Buildings.Utilities.Psychrometrics.Examples"
 >Buildings.Utilities.Psychrometrics.Examples</A>.MassFraction_pTphi</H2>
-<B>Unit test for dew point temperature calculation</B><p></P>
+<B>Unit test for dew point temperature calculation</B><p>
 <IMG SRC="Buildings.Utilities.Psych288977a9371f0717pTphiD.png" ALT="Buildings.Utilities.Psychrometrics.Examples.MassFraction_pTphi">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MassFraction_pTphi <font color="darkgreen">
   &quot;Unit test for dew point temperature calculation&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
    <font color="blue">package</font> Medium1 = <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
 >Buildings.Media.PerfectGases.MoistAir</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
    <font color="blue">package</font> Medium2 = <A HREF="Buildings_Media_GasesPTDecoupled_MoistAir.html#Buildings.Media.GasesPTDecoupled.MoistAir"
 >Buildings.Media.GasesPTDecoupled.MoistAir</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
-<textblock type="annotcomp" expanded="false">    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+<textblock type="annotcomp" expanded="false">    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> Phi(
     offset=0,
     duration=0.5,
@@ -177,13 +186,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pTphi"
 >Buildings.Utilities.Psychrometrics.X_pTphi</A> masFra1 <font color="darkgreen">
     &quot;Mass fraction computation&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> T(
     height=10,
     offset=283.15,
     duration=0.5,
     startTime=0.5) <font color="darkgreen">&quot;Temperature&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> P(k=101325) <font color="darkgreen">&quot;Pressure&quot;</font>;
   <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pTphi"
 >Buildings.Utilities.Psychrometrics.X_pTphi</A> masFra2(use_p_in=false) <font color="darkgreen">
@@ -203,20 +212,20 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Psych07f169d9b336056batureI.png" ALT="Buildings.Utilities.Psychrometrics.Examples.TotalAirDryAir" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Psychrometrics.Examples.TotalAirDryAir"></A><A HREF="Buildings_Utilities_Psychrometrics_Examples.html#Buildings.Utilities.Psychrometrics.Examples"
 >Buildings.Utilities.Psychrometrics.Examples</A>.TotalAirDryAir</H2>
-<B>Unit test for conversion of humidity per total air and dry air mass</B><p></P>
+<B>Unit test for conversion of humidity per total air and dry air mass</B><p>
 <IMG SRC="Buildings.Utilities.Psych7149065a8ed12ad7ryAirD.png" ALT="Buildings.Utilities.Psychrometrics.Examples.TotalAirDryAir">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TotalAirDryAir <font color="darkgreen">
   &quot;Unit test for conversion of humidity per total air and dry air mass&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
    <font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
 >Buildings.Media.PerfectGases.MoistAir</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
-<textblock type="annotcomp" expanded="false">    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+<textblock type="annotcomp" expanded="false">    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> XHum(
     duration=1,
     height=(0.01 - 0.1),
@@ -242,24 +251,24 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Psych07f169d9b336056batureI.png" ALT="Buildings.Utilities.Psychrometrics.Examples.TWetBul_TDryBulPhi" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Psychrometrics.Examples.TWetBul_TDryBulPhi"></A><A HREF="Buildings_Utilities_Psychrometrics_Examples.html#Buildings.Utilities.Psychrometrics.Examples"
 >Buildings.Utilities.Psychrometrics.Examples</A>.TWetBul_TDryBulPhi</H2>
-<B>Model to test the wet bulb temperature computation</B><p></P>
+<B>Model to test the wet bulb temperature computation</B><p>
 <IMG SRC="Buildings.Utilities.Psychd6ba6584b8311b32ulPhiD.png" ALT="Buildings.Utilities.Psychrometrics.Examples.TWetBul_TDryBulPhi">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This examples is a unit test for the wet bulb computation.
 The model on the top uses the accurate computation of the 
 wet bulb temperature, whereas the model below uses the approximate
 computation of the wet bulb temperature.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TWetBul_TDryBulPhi <font color="darkgreen">
   &quot;Model to test the wet bulb temperature computation&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAirUnsaturated.html#Buildings.Media.PerfectGases.MoistAirUnsaturated"
@@ -269,14 +278,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi"
 >Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi</A> wetBulPhi(<font color="blue">redeclare </font><font color="blue">
       package</font> Medium = Medium) <font color="darkgreen">&quot;Model for wet bulb temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> p(k=101325) <font color="darkgreen">&quot;Pressure&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> phi(
     duration=1,
     height=0.98,
     offset=0.01) <font color="darkgreen">&quot;Relative humidity&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TDryBul(k=283.15) <font color="darkgreen">&quot;Dry bulb temperature&quot;</font>;
   <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi"
 >Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi</A> wetBulPhiApp(<font color="blue">redeclare </font><font color="blue">
@@ -299,25 +308,25 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Utilities.Psychrometrics.Examples.TWetBul_TDryBulXi"></A><A HREF="Buildings_Utilities_Psychrometrics_Examples.html#Buildings.Utilities.Psychrometrics.Examples"
 >Buildings.Utilities.Psychrometrics.Examples</A>.TWetBul_TDryBulXi</H2>
 <IMG SRC="Buildings.Utilities.Psych7eb539a2ddc789dbBulXiD.png" ALT="Buildings.Utilities.Psychrometrics.Examples.TWetBul_TDryBulXi">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This examples is a unit test for the wet bulb computation.
 The model on the top uses the accurate computation of the 
 wet bulb temperature, whereas the model below uses the approximate
 computation of the wet bulb temperature.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TWetBul_TDryBulXi
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
 >Buildings.Media.PerfectGases.MoistAir</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+<textblock type="annotcomp" expanded="false">    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TDryBul(
     height=10,
     duration=1,
@@ -325,9 +334,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi"
 >Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi</A> wetBul(         <font color="blue">redeclare </font><font color="blue">
       package</font> Medium = Medium) <font color="darkgreen">&quot;Model for wet bulb temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> p(k=101325) <font color="darkgreen">&quot;Pressure&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> XHum(
     duration=1,
     height=(0.0133 - 0.0175),
@@ -352,34 +361,34 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Psych07f169d9b336056batureI.png" ALT="Buildings.Utilities.Psychrometrics.Examples.WetBul_pTX" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Psychrometrics.Examples.WetBul_pTX"></A><A HREF="Buildings_Utilities_Psychrometrics_Examples.html#Buildings.Utilities.Psychrometrics.Examples"
 >Buildings.Utilities.Psychrometrics.Examples</A>.WetBul_pTX</H2>
-<B>Model to test the wet bulb temperature computation</B><p></P>
+<B>Model to test the wet bulb temperature computation</B><p>
 <IMG SRC="Buildings.Utilities.Psychc2926a853af038ccl_pTXD.png" ALT="Buildings.Utilities.Psychrometrics.Examples.WetBul_pTX">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This examples is a unit test for the wet bulb computation.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> WetBul_pTX <font color="darkgreen">&quot;Model to test the wet bulb temperature computation&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAirUnsaturated.html#Buildings.Media.PerfectGases.MoistAirUnsaturated"
 >Buildings.Media.PerfectGases.MoistAirUnsaturated</A> <font color="darkgreen">
     &quot;Medium model&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> p(k=101325) <font color="darkgreen">&quot;Pressure&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> XDryBul(
     duration=1,
     height=0.014,
     offset=0) <font color="darkgreen">&quot;Dry bulb water vapor mass fraction&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TDryBul(k=293.15) <font color="darkgreen">&quot;Dry bulb temperature&quot;</font>;
   <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.WetBul_pTX"
 >Buildings.Utilities.Psychrometrics.WetBul_pTX</A>      wetBul_TDryBulX(<font color="blue">redeclare </font><font color="blue">
@@ -391,6 +400,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>WetBul_pTX;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:31:49 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:46:53 2013.
 </address></BODY>
 </HTML>

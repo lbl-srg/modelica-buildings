@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.MassExchangers.Examples"></A><A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers"
 >Buildings.Fluid.MassExchangers</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Fluid.MassExchangers</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.MassExcha6cecfb780763d5a7enessS.png" ALT="Buildings.Fluid.MassExchangers.Examples.ConstantEffectiveness" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_MassExchangers_Examples.html#Buildings.Fluid.MassExchangers.Examples.ConstantEffectiveness"
@@ -54,21 +63,21 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.MassExchangers.Examples.ConstantEffectiveness"></A><A HREF="Buildings_Fluid_MassExchangers_Examples.html#Buildings.Fluid.MassExchangers.Examples"
 >Buildings.Fluid.MassExchangers.Examples</A>.ConstantEffectiveness</H2>
 <IMG SRC="Buildings.Fluid.MassExcha6cecfb780763d5a7enessD.png" ALT="Buildings.Fluid.MassExchangers.Examples.ConstantEffectiveness">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 <b>Note:</b> This problem fails to translate in Dymola 2012 due to an error in Dymola's support
 of stream connector. This bug will be corrected in future versions of Dymola.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ConstantEffectiveness
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium1 = <A HREF="Buildings_Media_PerfectGases_MoistAirUnsaturated.html#Buildings.Media.PerfectGases.MoistAirUnsaturated"
@@ -81,7 +90,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium2, T=273.15 + 10,
     use_p_in=true,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PIn(
     height=200,
     duration=60,
@@ -92,15 +101,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_p_in=true,
     use_T_in=true,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TWat(
     height=10,
     duration=60,
     offset=273.15 + 30,
     startTime=60) <font color="darkgreen">&quot;Water temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TDb(k=293.15) <font color="darkgreen">&quot;Drybulb temperature&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> POut(k=101325);
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
 >Buildings.Fluid.Sources.Boundary_pT</A> sin_1(
@@ -118,7 +127,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_T_in=true,
     p=100000,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PSin_1(
     duration=60,
     startTime=240,
@@ -135,7 +144,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     dp1_nominal=100,
     dp2_nominal=100,
     show_T=true);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(PIn.y,sou_2. p_in);
@@ -156,9 +165,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.MassExcha6cecfb780763d5a7enessI.png" ALT="Buildings.Fluid.MassExchangers.Examples.HumidifierPrescribed" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.MassExchangers.Examples.HumidifierPrescribed"></A><A HREF="Buildings_Fluid_MassExchangers_Examples.html#Buildings.Fluid.MassExchangers.Examples"
 >Buildings.Fluid.MassExchangers.Examples</A>.HumidifierPrescribed</H2>
-<B>Model that demonstrates the ideal humidifier model</B><p></P>
+<B>Model that demonstrates the ideal humidifier model</B><p>
 <IMG SRC="Buildings.Fluid.MassExcha2d8960db5c516b9cribedD.png" ALT="Buildings.Fluid.MassExchangers.Examples.HumidifierPrescribed">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Model that demonstrates the use of an ideal humidifier.
@@ -169,30 +178,30 @@ temperature using adiabatic cooling.
 The temperature of the water that is added to the medium is determined by
 the parameter <code>T</code> of the humidifier models.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>3000/1000/20</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> HumidifierPrescribed <font color="darkgreen">
   &quot;Model that demonstrates the ideal humidifier model&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAirUnsaturated.html#Buildings.Media.PerfectGases.MoistAirUnsaturated"
 >Buildings.Media.PerfectGases.MoistAirUnsaturated</A>;
 
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal=
      3000/1000/20 <font color="darkgreen">&quot;Nominal mass flow rate&quot;</font>;
 
@@ -215,7 +224,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
 >Buildings.Fluid.Sensors.TemperatureTwoPort</A> senTem1(<font color="blue">redeclare </font><font color="blue">package</font> Medium
       = Medium, m_flow_nominal=m_flow_nominal) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
 >Modelica.Blocks.Sources.TimeTable</A> TSet(table=[0, 273.15 + 30; 120, 273.15 +
         30; 120, 273.15 + 25; 1200, 273.15 + 25]) <font color="darkgreen">&quot;Setpoint&quot;</font>;
   <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
@@ -268,6 +277,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>HumidifierPrescribed;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:30 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:39 2013.
 </address></BODY>
 </HTML>

@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Functions<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.Functions</H2>
 <B>Package with functions</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains functions that are used in
@@ -33,10 +42,10 @@ This package contains functions that are used in
 >
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExcha8529d460000cfb94ShiftS.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift"
@@ -52,8 +61,8 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions</A>.speedShift</H2>
-<B>Interpolates value between two speeds</B><p></P>
-<P></P><H3>Information</H3>
+<B>Interpolates value between two speeds</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function interpolates data for intermediate compressor speeds
@@ -61,7 +70,7 @@ using cubic hermite splines with linear extrapolation.
 To avoid linear extrapolation below minimum standard speed, 
 the origin is added to the modified arrays. 
 </p>
-<P></P>
+<P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -75,7 +84,7 @@ the origin is added to the modified arrays.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>y</TD><TD>Interpolated value</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> speedShift <font color="darkgreen">&quot;Interpolates value between two speeds&quot;</font>
   <font color="darkgreen">//x in cubic Hermite function</font>
@@ -123,14 +132,14 @@ the origin is added to the modified arrays.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions</A>.warnIfPerformanceOutOfBounds</H2>
-<B>Function that checks the performance and writes a warning if it is outside of 0.9 to 1.1</B><p></P>
-<P></P><H3>Information</H3>
+<B>Function that checks the performance and writes a warning if it is outside of 0.9 to 1.1</B><p>
+<P><H3>Information</H3></P>
 
 This function checks if the numeric argument is outside of the
 interval <i>0.9</i> to <i>1.1</i>.
 If this is the case, the function writes a warning.
 </p>
-<P></P>
+<P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -144,7 +153,7 @@ If this is the case, the function writes a warning.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Integer</TD><TD>retVal</TD><TD>0 if x is inside bounds, -1 if it is below bounds, or +1 if it is above bounds</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> warnIfPerformanceOutOfBounds <font color="darkgreen">
   &quot;Function that checks the performance and writes a warning if it is outside of 0.9 to 1.1&quot;</font>
@@ -175,6 +184,6 @@ If this is the case, the function writes a warning.
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>warnIfPerformanceOutOfBounds;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:10 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:19 2013.
 </address></BODY>
 </HTML>

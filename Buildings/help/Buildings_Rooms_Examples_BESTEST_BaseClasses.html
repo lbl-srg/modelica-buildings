@@ -17,25 +17,34 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Rooms.Examples.BESTEST.BaseClasses"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
 >Buildings.Rooms.Examples.BESTEST</A>.BaseClasses</H2>
 <B>Package with base classes for Buildings.Rooms.Examples.BESTEST</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
 >Buildings.Rooms.Examples.BESTEST</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Rooms.Examples.417da9ea7588af40eduleS.png" ALT="Buildings.Rooms.Examples.BESTEST.BaseClasses.DaySchedule" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST_BaseClasses.html#Buildings.Rooms.Examples.BESTEST.BaseClasses.DaySchedule"
@@ -49,10 +58,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Rooms.Examples.417da9ea7588af40eduleI.png" ALT="Buildings.Rooms.Examples.BESTEST.BaseClasses.DaySchedule" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Rooms.Examples.BESTEST.BaseClasses.DaySchedule"></A><A HREF="Buildings_Rooms_Examples_BESTEST_BaseClasses.html#Buildings.Rooms.Examples.BESTEST.BaseClasses"
 >Buildings.Rooms.Examples.BESTEST.BaseClasses</A>.DaySchedule</H2>
-<B>Schedule that repeats every day</B><p></P>
+<B>Schedule that repeats every day</B><p>
 <IMG SRC="Buildings.Rooms.Examples.417da9ea7588af40eduleD.png" ALT="Buildings.Rooms.Examples.BESTEST.BaseClasses.DaySchedule">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
 >Modelica.Blocks.Sources.CombiTimeTable</A> (Table look-up with respect to time and linear/perodic extrapolation methods (data from matrix/file)).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -64,24 +73,24 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD>String</TD><TD>fileName</TD><TD>&quot;NoName&quot;</TD><TD>File where matrix is stored</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>table data interpretation</TD></TR>
 <TR><TD>Integer</TD><TD>columns[:]</TD><TD>2:size(table, 2)</TD><TD>Columns of table to be interpolated</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Smoothness"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Smoothness"
 >Smoothness</A></TD><TD>smoothness</TD><TD>Modelica.Blocks.Types.Smooth...</TD><TD>Smoothness of table interpolation</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Extrapolation"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Extrapolation"
 >Extrapolation</A></TD><TD>extrapolation</TD><TD>Modelica.Blocks.Types.Extrap...</TD><TD>Extrapolation of data outside the definition range</TD></TR>
 <TR><TD>Real</TD><TD>offset[:]</TD><TD>fill(0, size(table, 2) - 1)</TD><TD>Offsets of output signals</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>startTime</TD><TD>0</TD><TD>Output = offset for time &lt; startTime [s]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y[nout]</TD><TD>Connector of Real output signals</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DaySchedule <font color="darkgreen">&quot;Schedule that repeats every day&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
 >Modelica.Blocks.Sources.CombiTimeTable</A>(
     <font color="blue">final </font>tableOnFile=false,
     <font color="blue">final </font>tableName=&quot;NoName&quot;,
@@ -94,6 +103,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <font color="blue">end </font>DaySchedule;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:31:03 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:46:08 2013.
 </address></BODY>
 </HTML>

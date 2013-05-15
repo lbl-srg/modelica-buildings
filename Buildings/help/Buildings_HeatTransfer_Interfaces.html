@@ -17,21 +17,30 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Interfaces<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Interfaces"></A><A HREF="Buildings_HeatTransfer.html#Buildings.HeatTransfer"
 >Buildings.HeatTransfer</A>.Interfaces</H2>
 <B>Package with interfaces for heat transfer models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 This package contains interfaces for the heat transfer models.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_InterfacesPackage.html#Modelica.Icons.InterfacesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_InterfacesPackage.html#Modelica.Icons.InterfacesPackage"
 >Modelica.Icons.InterfacesPackage</A> (Icon for packages containing interfaces).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.In0a5ed1e13fff6653nflowS.png" ALT="Buildings.HeatTransfer.Interfaces.RadiosityInflow" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
@@ -48,12 +57,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.HeatTransfer.In0a5ed1e13fff6653nflowI.png" ALT="Buildings.HeatTransfer.Interfaces.RadiosityInflow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Interfaces.RadiosityInflow"></A><A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces"
 >Buildings.HeatTransfer.Interfaces</A>.RadiosityInflow</H2>
-<B>Connector for inflowing radiosity</B><p></P>
+<B>Connector for inflowing radiosity</B><p>
 <IMG SRC="Buildings.HeatTransfer.In0a5ed1e13fff6653nflowD.png" ALT="Buildings.HeatTransfer.Interfaces.RadiosityInflow">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 The nominal value is set to <i>&sigma; T<sup>4</sup> = &sigma; 293.15<sup>4</sup> = 419</i>.
-<P></P>
+<P>
 Extends from Real.
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -62,7 +71,7 @@ Extends from Real.
 <TR><TD>&nbsp;</TD><TD>min</TD><TD>0</TD><TD>&nbsp;</TD></TR>
 <TR><TD>&nbsp;</TD><TD>nominal</TD><TD>419</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">connector</font> RadiosityInflow = <font color="blue">flow </font><font color="blue">input </font>Real(min=0, unit=&quot;W&quot;, nominal=419) <font color="darkgreen">
   &quot;Connector for inflowing radiosity&quot;</font>;
@@ -74,12 +83,12 @@ Extends from Real.
 <H2><IMG SRC="Buildings.HeatTransfer.In6044776e44c9c511tflowI.png" ALT="Buildings.HeatTransfer.Interfaces.RadiosityOutflow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Interfaces.RadiosityOutflow"></A><A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces"
 >Buildings.HeatTransfer.Interfaces</A>.RadiosityOutflow</H2>
-<B>Connector for outflowing radiosity</B><p></P>
+<B>Connector for outflowing radiosity</B><p>
 <IMG SRC="Buildings.HeatTransfer.In6044776e44c9c511tflowD.png" ALT="Buildings.HeatTransfer.Interfaces.RadiosityOutflow">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 The nominal value is set to <i>&sigma; T<sup>4</sup> = &sigma; 293.15<sup>4</sup> = 419</i>.
-<P></P>
+<P>
 Extends from Real.
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -88,12 +97,12 @@ Extends from Real.
 <TR><TD>&nbsp;</TD><TD>max</TD><TD>0</TD><TD>&nbsp;</TD></TR>
 <TR><TD>&nbsp;</TD><TD>nominal</TD><TD>419</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">connector</font> RadiosityOutflow = <font color="blue">flow </font><font color="blue">output </font>Real(max=0, unit=&quot;W&quot;, nominal=419) <font color="darkgreen">
   &quot;Connector for outflowing radiosity&quot;</font>;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:30 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:45:36 2013.
 </address></BODY>
 </HTML>

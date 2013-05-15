@@ -17,25 +17,34 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE RadiantSlabs<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.RadiantSlabs"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >Buildings.Fluid.HeatExchangers</A>.RadiantSlabs</H2>
 <B>Package with radiant slab models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains models for radiant slabs 
 with pipes or a capillary heat exchanger 
 embedded in the construction.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExchaf53eae32261856d9tSlabS.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
@@ -58,9 +67,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchaf53eae32261856d9tSlabI.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"></A><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs</A>.SingleCircuitSlab</H2>
-<B>Model of a single circuit of a radiant slab</B><p></P>
+<B>Model of a single circuit of a radiant slab</B><p>
 <IMG SRC="Buildings.Fluid.HeatExchaf53eae32261856d9tSlabD.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This is a model of a single flow circuit of a radiant slab with pipes or a capillary heat exchanger
@@ -232,7 +241,7 @@ The respective partitions are then assigned to the models for heat conduction be
 plane with the pipes and the construction surfaces, <code>con_a</code> and <code>con_b</code>.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab</A> (Base class for radiant slab), <A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Buildings.Fluid.FixedResistances.BaseClasses.Pipe"
 >Buildings.Fluid.FixedResistances.BaseClasses.Pipe</A> (Model of a pipe with finite volume discretization along the flow path).
@@ -241,66 +250,66 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.ht
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses_Types.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType"
 >SystemType</A></TD><TD>sysTyp</TD><TD>&nbsp;</TD><TD>Radiant system type</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Distance"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Distance"
 >Distance</A></TD><TD>disPip</TD><TD>&nbsp;</TD><TD>Pipe distance [m]</TD></TR>
 <TR><TD><A HREF="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.Generic"
 >Generic</A></TD><TD>pipe</TD><TD>&nbsp;</TD><TD>Record for pipe geometry and material</TD></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
 <TR><TD>Integer</TD><TD>nSeg</TD><TD>10</TD><TD>Number of volume segments</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</A></TD><TD>thicknessIns</TD><TD>0</TD><TD>Thickness of insulation [m]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >ThermalConductivity</A></TD><TD>lambdaIns</TD><TD>0.04</TD><TD>Heat conductivity of insulation [W/(m.K)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</A></TD><TD>diameter</TD><TD>pipe.dIn</TD><TD>Pipe diameter (without insulation) [m]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</A></TD><TD>length</TD><TD>A/disPip</TD><TD>Length of the pipe [m]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Construction</TD></TR>
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
 >Generic</A></TD><TD>layers</TD><TD>&nbsp;</TD><TD>Definition of the construction, which must have at least two material layers</TD></TR>
 <TR><TD>Integer</TD><TD>iLayPip</TD><TD>&nbsp;</TD><TD>Number of the interface layer in which the pipes are located</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Surface area of radiant slab [m2]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>Modelica.Fluid.Pipes.BaseCla...</TD><TD>Pressure [Pa]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Construction</TD></TR>
 <TR><TD>Boolean</TD><TD>steadyStateInitial</TD><TD>false</TD><TD>=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start, T_c_start and T_b_start</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a_start</TD><TD>293.15</TD><TD>Initial temperature at surf_a, used if steadyStateInitial = false [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b_start</TD><TD>293.15</TD><TD>Initial temperature at surf_b, used if steadyStateInitial = false [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_c_start</TD><TD>(T_a_start*con_b[1].layers.R...</TD><TD>Initial construction temperature in the layer that contains the pipes, used if steadyStateInitial = false [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
 >AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
 >Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
@@ -314,16 +323,16 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.ht
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>surf_a</TD><TD>Heat port at construction surface</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>surf_b</TD><TD>Heat port at construction surface</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SingleCircuitSlab <font color="darkgreen">&quot;Model of a single circuit of a radiant slab&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab"
@@ -345,12 +354,12 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.ht
       roughness=pipe.roughness,
       m_flow_small=m_flow_small),
       res(dp(nominal=200*length)));
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</A> A <font color="darkgreen">&quot;Surface area of radiant slab&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_c_start=(T_a_start*con_b[1].layers.R+T_b_start*con_a[1].layers.R)/layers.R <font color="darkgreen">
     &quot;Initial construction temperature in the layer that contains the pipes, used if steadyStateInitial = false&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Modelica.SIunits.Velocity</A> v_nominal = 4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_nominal <font color="darkgreen">
     &quot;Velocity at m_flow_nominal&quot;</font>;
 
@@ -395,26 +404,26 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.ht
     <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium,
     <font color="blue">each </font><font color="blue">final </font>A=Modelica.Constants.pi*pipe.dIn*length/nSeg) <font color="darkgreen">
     &quot;Liquid side convective heat transfer&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> mFlu_flow[nSeg](<font color="blue">each </font>y=m_flow) <font color="darkgreen">
     &quot;Input signal for mass flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
 >Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> RWal[nSeg](<font color="blue">each </font>G=2*
         Modelica.Constants.pi*pipe.k*(length/nSeg)/<font color="red">Modelica.Math.log</font>(pipe.dOut/pipe.dIn)) <font color="darkgreen">
     &quot;Thermal conduction through the pipe wall&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
 >Modelica.Thermal.HeatTransfer.Components.ThermalCollector</A> colAllToOne(
      <font color="blue">final </font>m=nSeg) <font color="darkgreen">&quot;Connector to assign multiple heat ports to one heat port&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
 >Modelica.Thermal.HeatTransfer.Components.ThermalCollector</A> colAllToOne1(
      <font color="blue">final </font>m=nSeg) <font color="darkgreen">&quot;Connector to assign multiple heat ports to one heat port&quot;</font>;
- <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+ <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
 >Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> RFic[nSeg](<font color="blue">each </font>G=A/nSeg/Rx) <font color="darkgreen">
     &quot;Average fictitious thermal resistance between pipe surface and plane that contains pipe&quot;</font>;
     </textblock>
 
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
 >Modelica.SIunits.ThermalInsulance</A> Rx=
       <font color="red">Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance</font>(
         disPip=disPip,
@@ -445,9 +454,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.ht
 <H2><IMG SRC="Buildings.Fluid.HeatExchad0a237c4717b4738sSlabI.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab"></A><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs</A>.ParallelCircuitsSlab</H2>
-<B>Model of multiple parallel circuits of a radiant slab</B><p></P>
+<B>Model of multiple parallel circuits of a radiant slab</B><p>
 <IMG SRC="Buildings.Fluid.HeatExchad0a237c4717b4738sSlabD.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This is a model of a radiant slab with pipes or a capillary heat exchanger
@@ -496,8 +505,8 @@ model does not inherit
 >
 Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPort"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPort"
 >Modelica.Fluid.Interfaces.PartialTwoPort</A> (Partial component with two ports), <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab</A> (Base class for radiant slab), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters"
@@ -505,53 +514,53 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses_Types.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType"
 >SystemType</A></TD><TD>sysTyp</TD><TD>&nbsp;</TD><TD>Radiant system type</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Distance"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Distance"
 >Distance</A></TD><TD>disPip</TD><TD>&nbsp;</TD><TD>Pipe distance [m]</TD></TR>
 <TR><TD><A HREF="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.Generic"
 >Generic</A></TD><TD>pipe</TD><TD>&nbsp;</TD><TD>Record for pipe geometry and material</TD></TR>
 <TR><TD>Integer</TD><TD>nCir</TD><TD>1</TD><TD>Number of parallel circuits</TD></TR>
 <TR><TD>Integer</TD><TD>nSeg</TD><TD>10</TD><TD>Number of volume segments in each circuit (along flow path)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</A></TD><TD>length</TD><TD>A/disPip/nCir</TD><TD>Length of the pipe of a single circuit [m]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Construction</TD></TR>
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
 >Generic</A></TD><TD>layers</TD><TD>&nbsp;</TD><TD>Definition of the construction, which must have at least two material layers</TD></TR>
 <TR><TD>Integer</TD><TD>iLayPip</TD><TD>&nbsp;</TD><TD>Number of the interface layer in which the pipes are located</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Surface area of radiant slab (all circuits combined) [m2]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>Modelica.Fluid.Pipes.BaseCla...</TD><TD>Pressure [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate of all circuits combined [kg/s]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Construction</TD></TR>
 <TR><TD>Boolean</TD><TD>steadyStateInitial</TD><TD>false</TD><TD>=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start, T_c_start and T_b_start</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a_start</TD><TD>293.15</TD><TD>Initial temperature at surf_a, used if steadyStateInitial = false [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b_start</TD><TD>293.15</TD><TD>Initial temperature at surf_b, used if steadyStateInitial = false [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
 >AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
 >Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>computeFlowResistance</TD><TD>true</TD><TD>=true, compute flow resistance. Set to false to assume no friction</TD></TR>
@@ -559,7 +568,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
 <TR><TD>Real</TD><TD>deltaM</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate of all circuits combined for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
@@ -569,16 +578,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>surf_a</TD><TD>Heat port at construction surface</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>surf_b</TD><TD>Heat port at construction surface</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ParallelCircuitsSlab <font color="darkgreen">
   &quot;Model of multiple parallel circuits of a radiant slab&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPort"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPort"
 >Modelica.Fluid.Interfaces.PartialTwoPort</A>(
     port_a(p(start=Medium.p_default,
              nominal=Medium.p_default)),
@@ -605,21 +614,21 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="blue">parameter </font>Integer nSeg(min=2) = 10 <font color="darkgreen">
     &quot;Number of volume segments in each circuit (along flow path)&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</A> A <font color="darkgreen">
     &quot;Surface area of radiant slab (all circuits combined)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</A> length = A/disPip/nCir <font color="darkgreen">
     &quot;Length of the pipe of a single circuit&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal <font color="darkgreen">
     &quot;Nominal mass flow rate of all circuits combined&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_small(min=0) = 1E-4*<font color="red">abs</font>(m_flow_nominal) <font color="darkgreen">
     &quot;Small mass flow rate of all circuits combined for regularization of zero flow&quot;</font>;
 
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Modelica.SIunits.Velocity</A> v_nominal = 4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_nominal/nCir <font color="darkgreen">
     &quot;Velocity at m_flow_nominal&quot;</font>;
 
@@ -632,19 +641,19 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
    <font color="blue">parameter </font>Boolean show_T = false <font color="darkgreen">
     &quot;= true, if actual temperature at port is computed (may lead to events)&quot;</font>;
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
 >Modelica.SIunits.VolumeFlowRate</A> V_flow=
       m_flow/<font color="red">Medium.density</font>(sta_a) <font color="blue">if </font>show_V_flow <font color="darkgreen">
     &quot;Volume flow rate at inflowing port (positive when flow from port_a to port_b)&quot;</font>;
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow(start=0) = port_a.m_flow <font color="darkgreen">
     &quot;Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) for all circuits combined&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dp(start=0, displayUnit=&quot;Pa&quot;) = port_a.p - port_b.p <font color="darkgreen">
     &quot;Pressure difference between port_a and port_b&quot;</font>;
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</A> sta_a=<font color="blue">if </font>homotopyInitialization<font color="blue"> then </font>
       <font color="red">Medium.setState_phX</font>(port_a.p,
                           <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a.h_outflow),
@@ -657,7 +666,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
                           <font color="red">actualStream</font>(port_a.Xi_outflow)) <font color="blue">if </font>
          show_T<font color="blue"> or </font>show_V_flow <font color="darkgreen">&quot;Medium properties in port_a&quot;</font>;
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</A> sta_b=<font color="blue">if </font>homotopyInitialization<font color="blue"> then </font>
       <font color="red">Medium.setState_phX</font>(port_b.p,
                           <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b.h_outflow),
@@ -702,14 +711,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     <font color="blue">final </font>length=length,
     <font color="blue">final </font>ReC=4000) <font color="darkgreen">&quot;Single parallel circuit of the radiant slab&quot;</font>;</textblock>
 <font color="blue">protected </font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</A> state_start =<font color="red"> Medium.setState_pTX</font>(
       T=T_start,
       p=p_start,
       X=X_start[1:Medium.nXi]) <font color="darkgreen">&quot;Start state&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Modelica.SIunits.Density</A> rho_nominal =<font color="red"> Medium.density</font>(state_start);
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
 >Modelica.SIunits.DynamicViscosity</A> mu_nominal =<font color="red"> Medium.dynamicViscosity</font>(state_start) <font color="darkgreen">
     &quot;Dynamic viscosity at nominal condition&quot;</font>;
 
@@ -751,6 +760,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>ParallelCircuitsSlab;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:16 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:25 2013.
 </address></BODY>
 </HTML>

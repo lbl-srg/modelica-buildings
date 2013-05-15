@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.MixingVolumes.Examples"></A><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes"
 >Buildings.Fluid.MixingVolumes</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Fluid.MixingVolumes</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeS.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolume" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples.MixingVolume"
@@ -69,21 +78,21 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.MixingVolumes.Examples.MixingVolume"></A><A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
 >Buildings.Fluid.MixingVolumes.Examples</A>.MixingVolume</H2>
 <IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeD.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolume">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolume
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAirUnsaturated.html#Buildings.Media.PerfectGases.MoistAirUnsaturated"
 >Buildings.Media.PerfectGases.MoistAirUnsaturated</A>;
 
-<textblock type="annotcomp" expanded="false">    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+<textblock type="annotcomp" expanded="false">    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> P(
     duration=0.5,
     startTime=0.5,
@@ -133,7 +142,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Vessels.html#Modelica.Fluid.Vessels.ClosedVolume"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels.html#Modelica.Fluid.Vessels.ClosedVolume"
 >Modelica.Fluid.Vessels.ClosedVolume</A> vol(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     V=0.1,
@@ -174,11 +183,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.EnthalpyFlowRate"
 >Buildings.Fluid.Sensors.EnthalpyFlowRate</A> entFloRat2(<font color="blue">redeclare </font><font color="blue">package</font> Medium
       = Medium, m_flow_nominal=2) <font color="darkgreen">&quot;Enthalpy flow rate&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> zero(k=0);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TLiq(k=283.15);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(P.y, sou.p_in);
@@ -213,22 +222,22 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeDryAir"></A><A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
 >Buildings.Fluid.MixingVolumes.Examples</A>.MixingVolumeDryAir</H2>
 <IMG SRC="Buildings.Fluid.MixingVol5ff242669178f93fryAirD.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeDryAir">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolumeDryAir
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir"
 >Buildings.Media.IdealGases.SimpleAir</A>(T_min=<font color="red">Modelica.SIunits.Conversions.from_degC</font>(-50)) <font color="darkgreen">
     &quot;Medium in the component&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+<textblock type="annotcomp" expanded="false">    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> P(
     height=-10,
     offset=101330,
@@ -286,11 +295,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.EnthalpyFlowRate"
 >Buildings.Fluid.Sensors.EnthalpyFlowRate</A> entFloRat2(<font color="blue">redeclare </font><font color="blue">package</font> Medium
       = Medium, m_flow_nominal=2) <font color="darkgreen">&quot;Enthalpy flow rate&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> zero(k=0);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TLiq(k=283.15);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeDryAir"
 >Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</A> vol2(
@@ -323,16 +332,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeI.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeInitialization" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeInitialization"></A><A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
 >Buildings.Fluid.MixingVolumes.Examples</A>.MixingVolumeInitialization</H2>
-<B>Test model for mixing volume initialization</B><p></P>
+<B>Test model for mixing volume initialization</B><p>
 <IMG SRC="Buildings.Fluid.MixingVol599239970206897eationD.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeInitialization">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolumeInitialization <font color="darkgreen">
   &quot;Test model for mixing volume initialization&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir"
 >Buildings.Media.IdealGases.SimpleAir</A>;
@@ -349,12 +358,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     p=101320,
     nPorts=1,
     T=293.15);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Pipes.html#Modelica.Fluid.Pipes.StaticPipe"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Pipes.html#Modelica.Fluid.Pipes.StaticPipe"
 >Modelica.Fluid.Pipes.StaticPipe</A> pipe1(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     length=1,
     diameter=0.25);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Pipes.html#Modelica.Fluid.Pipes.StaticPipe"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Pipes.html#Modelica.Fluid.Pipes.StaticPipe"
 >Modelica.Fluid.Pipes.StaticPipe</A> pipe2(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     length=1,
@@ -365,7 +374,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     V=0.1,
     nPorts=2,
     m_flow_nominal=2);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sou1.ports[1], pipe1.port_a);
@@ -382,13 +391,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeMoistAir"></A><A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
 >Buildings.Fluid.MixingVolumes.Examples</A>.MixingVolumeMoistAir</H2>
 <IMG SRC="Buildings.Fluid.MixingVol9236902d80cabe58stAirD.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeMoistAir">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolumeMoistAir
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -405,15 +414,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     nPorts=2,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial) <font color="darkgreen">&quot;Volume&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
 >Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> TSen <font color="darkgreen">
     &quot;Temperature sensor&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> XSet(k=0.005) <font color="darkgreen">
     &quot;Set point for water mass fraction&quot;</font>;
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
 >Buildings.HeatTransfer.Sources.PrescribedHeatFlow</A> preHeaFlo;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TSet(k=273.15 + 20) <font color="darkgreen">
     &quot;Set point for temperature&quot;</font>;
   <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.pW_X"
@@ -421,13 +430,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     &quot;Conversion from humidity ratio to partial water vapor pressure&quot;</font>;
   <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.TDewPoi_pW"
 >Buildings.Utilities.Psychrometrics.TDewPoi_pW</A> dewPoi <font color="darkgreen">&quot;Dew point temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor"
 >Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor</A> heatFlowSensor;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
 >Modelica.Blocks.Continuous.Integrator</A> QSen <font color="darkgreen">&quot;Sensible heat transfer&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
 >Modelica.Blocks.Continuous.Integrator</A> QWat <font color="darkgreen">&quot;Enthalpy of extracted water&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> HWat_flow(y=vol1.HWat_flow) <font color="darkgreen">
     &quot;MoistAir heat flow rate&quot;</font>;
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
@@ -464,13 +473,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFlowRate"
 >Buildings.Fluid.Sensors.MassFlowRate</A> mOut_flow(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         Medium);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</A> dM_flow(k2=-1);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gai(k=200);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gai1(k=0.1);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(preHeaFlo.port, heatFlowSensor.port_a);
@@ -504,41 +513,41 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeI.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeHeatConduction" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeHeatConduction"></A><A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
 >Buildings.Fluid.MixingVolumes.Examples</A>.MixingVolumeHeatConduction</H2>
-<B>Test model for heat transfer to volume</B><p></P>
+<B>Test model for heat transfer to volume</B><p>
 <IMG SRC="Buildings.Fluid.MixingVol9742f04be823c76fctionD.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeHeatConduction">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model demonstrates the use of the mixing volume with heat conduction to the ambient.
 The mixing volume is configured as a steady-state model.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolumeHeatConduction <font color="darkgreen">
   &quot;Test model for heat transfer to volume&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-    <font color="blue">package</font> Medium = <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Air_SimpleAir.html#Modelica.Media.Air.SimpleAir"
+    <font color="blue">package</font> Medium = <A HREF="../../msl/3.2/help/Modelica_Media_Air_SimpleAir.html#Modelica.Media.Air.SimpleAir"
 >Modelica.Media.Air.SimpleAir</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
 >Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> theCon(G=10) <font color="darkgreen">
     &quot;Thermal conductor&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor"
 >Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor</A> heaFlo <font color="darkgreen">
     &quot;Heat flow sensor&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
 >Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</A> TAmb(T=293.15) <font color="darkgreen">
     &quot;Ambient temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.MassFlowSource_T"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.MassFlowSource_T"
 >Modelica.Fluid.Sources.MassFlowSource_T</A> sou(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     use_m_flow_in=true,
     T=313.15,
     nPorts=1) <font color="darkgreen">&quot;Flow source and sink&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.FixedBoundary"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.FixedBoundary"
 >Modelica.Fluid.Sources.FixedBoundary</A> bou(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     T=303.15,
@@ -553,14 +562,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     allowFlowReversal=true,
     prescribedHeatFlowRate=false,
     nPorts=2);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> ramp(
     duration=1,
     offset=1,
     height=-2);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gain(k=0.01);</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TAmb.port, theCon.port_a);
@@ -579,9 +588,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeI.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumePrescribedHeatFlowRate" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.MixingVolumes.Examples.MixingVolumePrescribedHeatFlowRate"></A><A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
 >Buildings.Fluid.MixingVolumes.Examples</A>.MixingVolumePrescribedHeatFlowRate</H2>
-<B>Test model for heat transfer to volume</B><p></P>
+<B>Test model for heat transfer to volume</B><p>
 <IMG SRC="Buildings.Fluid.MixingVole37d8b148cb235f4wRateD.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumePrescribedHeatFlowRate">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model demonstrates the use of the mixing volume with a prescribed heat flow rate.
@@ -591,27 +600,27 @@ convergence for the case the the prescribed heat flow rate should be zero,
 but due to numerical solutions, it may have a small error that causes the signal to be 
 non-zero.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolumePrescribedHeatFlowRate <font color="darkgreen">
   &quot;Test model for heat transfer to volume&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-    <font color="blue">package</font> Medium = <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Air_SimpleAir.html#Modelica.Media.Air.SimpleAir"
+    <font color="blue">package</font> Medium = <A HREF="../../msl/3.2/help/Modelica_Media_Air_SimpleAir.html#Modelica.Media.Air.SimpleAir"
 >Modelica.Media.Air.SimpleAir</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor"
 >Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor</A> heaFlo <font color="darkgreen">
     &quot;Heat flow sensor&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.MassFlowSource_T"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.MassFlowSource_T"
 >Modelica.Fluid.Sources.MassFlowSource_T</A> sou(
     nPorts=1,
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     use_m_flow_in=true,
     T=313.15) <font color="darkgreen">&quot;Flow source and sink&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.FixedBoundary"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.FixedBoundary"
 >Modelica.Fluid.Sources.FixedBoundary</A> bou(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     nPorts=1,
@@ -626,18 +635,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=true,
     prescribedHeatFlowRate=true);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> ramp(
     duration=1,
     offset=1,
     height=-2);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gain(k=0.01);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const(k=0);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow"
 >Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</A> preHeaFlo <font color="darkgreen">
     &quot;Prescribed heat flow rate&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -657,26 +666,26 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeI.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeMassFlow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeMassFlow"></A><A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
 >Buildings.Fluid.MixingVolumes.Examples</A>.MixingVolumeMassFlow</H2>
-<B>Test model for mass flow into and out of volume</B><p></P>
+<B>Test model for mass flow into and out of volume</B><p>
 <IMG SRC="Buildings.Fluid.MixingVol7d7e508d34d30a9esFlowD.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeMassFlow">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model demonstrates the use of the mixing volume with air flowing into and out of the volume.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolumeMassFlow <font color="darkgreen">
   &quot;Test model for mass flow into and out of volume&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
  <font color="darkgreen">//   package Medium = Modelica.Media.Air.SimpleAir;</font>
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesConstantDensity_SimpleAir.html#Buildings.Media.GasesConstantDensity.SimpleAir"
 >Buildings.Media.GasesConstantDensity.SimpleAir</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.MassFlowSource_T"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.MassFlowSource_T"
 >Modelica.Fluid.Sources.MassFlowSource_T</A> sou(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     nPorts=1,
@@ -696,7 +705,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     nPorts=2,
     allowFlowReversal=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sou.ports[1], vol.ports[1]);
@@ -704,6 +713,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>MixingVolumeMassFlow;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:35 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:44 2013.
 </address></BODY>
 </HTML>

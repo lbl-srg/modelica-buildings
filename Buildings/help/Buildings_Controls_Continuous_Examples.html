@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Controls.Continuous.Examples"></A><A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
 >Buildings.Controls.Continuous</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Controls.Continuous</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDS.png" ALT="Buildings.Controls.Continuous.Examples.LimPID" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples.LimPID"
@@ -65,9 +74,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDI.png" ALT="Buildings.Controls.Continuous.Examples.LimPID" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.Continuous.Examples.LimPID"></A><A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples"
 >Buildings.Controls.Continuous.Examples</A>.LimPID</H2>
-<B>Test model for PID controller with optional reverse action</B><p></P>
+<B>Test model for PID controller with optional reverse action</B><p>
 <IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDD.png" ALT="Buildings.Controls.Continuous.Examples.LimPID">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model tests the implementation of the 
@@ -82,19 +91,19 @@ reverse action.
 The assertion blocks test whether the results
 of all three controllers are identical.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> LimPID <font color="darkgreen">
   &quot;Test model for PID controller with optional reverse action&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
 >Modelica.Blocks.Sources.Pulse</A> pulse(period=0.25);
   <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
 >Buildings.Controls.Continuous.LimPID</A> limPID(
@@ -114,13 +123,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     yMin=-1,
     initType=Modelica.Blocks.Types.InitPID.InitialState) <font color="darkgreen">
     &quot;Controller with reverse action&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const(k=0.5);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gain(k=-1);
   <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
 >Buildings.Utilities.Diagnostics.AssertEquality</A> assertEquality(threShold=1e-10);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
 >Modelica.Blocks.Continuous.LimPID</A> limPIDOri(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
     Ti=1,
@@ -152,9 +161,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDI.png" ALT="Buildings.Controls.Continuous.Examples.PIDHysteresis" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.Continuous.Examples.PIDHysteresis"></A><A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples"
 >Buildings.Controls.Continuous.Examples</A>.PIDHysteresis</H2>
-<B>Example model for PID controller with hysteresis</B><p></P>
+<B>Example model for PID controller with hysteresis</B><p>
 <IMG SRC="Buildings.Controls.Contin17dbd8eb55a05830resisD.png" ALT="Buildings.Controls.Continuous.Examples.PIDHysteresis">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Example that demonstrates the use of the PID controller
@@ -175,14 +184,14 @@ The figure below shows the control error
 <p align="center">
 <img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresis.png" border="1">
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> PIDHysteresis <font color="darkgreen">
   &quot;Example model for PID controller with hysteresis&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -194,22 +203,22 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     yMin=0.3,
     Ti=600,
     Td=60);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TSet(k=273.15 + 40, y(unit=&quot;K&quot;)) <font color="darkgreen">&quot;Set point&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
 >Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</A> cap(C=1000000, T(start=
          313.15, fixed=true));
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
 >Buildings.HeatTransfer.Sources.PrescribedTemperature</A> TBC;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
 >Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> theCon(G=20);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gain(k=2000);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
 >Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> temSen;
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
 >Buildings.HeatTransfer.Sources.PrescribedHeatFlow</A> Q_flow;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> sine(
     freqHz=1/86400,
     offset=273.15,
@@ -236,9 +245,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDI.png" ALT="Buildings.Controls.Continuous.Examples.PIDHysteresisTimer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.Continuous.Examples.PIDHysteresisTimer"></A><A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples"
 >Buildings.Controls.Continuous.Examples</A>.PIDHysteresisTimer</H2>
-<B>Example model for PID controller with hysteresis and timer</B><p></P>
+<B>Example model for PID controller with hysteresis and timer</B><p>
 <IMG SRC="Buildings.Controls.Contin3329b0aec5de7863TimerD.png" ALT="Buildings.Controls.Continuous.Examples.PIDHysteresisTimer">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Example that demonstrates the use of the PID controller
@@ -261,14 +270,14 @@ The figure below shows the control error
 <img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerError.png" border="1"><br/>
 <img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerOutput.png" border="1">
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> PIDHysteresisTimer <font color="darkgreen">
   &quot;Example model for PID controller with hysteresis and timer&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -280,22 +289,22 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=60,
     Td=10);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TSet(k=273.15 + 40, y(unit=&quot;K&quot;)) <font color="darkgreen">&quot;Set point&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
 >Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</A> cap(C=100000, T(start=
           293.15, fixed=true));
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
 >Buildings.HeatTransfer.Sources.PrescribedTemperature</A> TBC;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
 >Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> theCon(G=10);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gain(k=800);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
 >Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> temSen;
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
 >Buildings.HeatTransfer.Sources.PrescribedHeatFlow</A> Q_flow;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> sine(
     freqHz=1/86400,
     offset=273.15,
@@ -321,9 +330,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDI.png" ALT="Buildings.Controls.Continuous.Examples.SignalRanker" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.Continuous.Examples.SignalRanker"></A><A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples"
 >Buildings.Controls.Continuous.Examples</A>.SignalRanker</H2>
-<B>Example model for signal ranker</B><p></P>
+<B>Example model for signal ranker</B><p>
 <IMG SRC="Buildings.Controls.Continacb9fa5017e77eddankerD.png" ALT="Buildings.Controls.Continuous.Examples.SignalRanker">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Example that demonstrates the use of the signal ranker model.
@@ -334,22 +343,22 @@ Note that
 <img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerU.png" border="1"><br/>
 <img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerY.png" border="1">
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SignalRanker <font color="darkgreen">&quot;Example model for signal ranker&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> sine(freqHz=2);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
 >Modelica.Blocks.Sources.Pulse</A> pulse(period=0.25);
   <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.SignalRanker"
 >Buildings.Controls.Continuous.SignalRanker</A> sigRan(
                                                   nin=3);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.ExpSine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.ExpSine"
 >Modelica.Blocks.Sources.ExpSine</A> expSine(freqHz=10);</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sine.y, sigRan.u[1]);
@@ -364,9 +373,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDI.png" ALT="Buildings.Controls.Continuous.Examples.NumberOfRequests" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.Continuous.Examples.NumberOfRequests"></A><A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples"
 >Buildings.Controls.Continuous.Examples</A>.NumberOfRequests</H2>
-<B>Example model for block that outputs the number of requests</B><p></P>
+<B>Example model for block that outputs the number of requests</B><p>
 <IMG SRC="Buildings.Controls.Contin50d874f787c97573uestsD.png" ALT="Buildings.Controls.Continuous.Examples.NumberOfRequests">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Example that demonstrates the use of the block
@@ -380,23 +389,23 @@ The figure below shows the inputs and the output of the block.
 <p align="center">
 <img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Controls/Continuous/Examples/NumberOfRequests.png" border="1">
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> NumberOfRequests <font color="darkgreen">
   &quot;Example model for block that outputs the number of requests&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.NumberOfRequests"
 >Buildings.Controls.Continuous.NumberOfRequests</A> numReq(
     nin=2,
     threShold=0,
     kind=0);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> sine(freqHz=2);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
 >Modelica.Blocks.Sources.Pulse</A> pulse(period=0.25);</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sine.y, numReq.u[1]);
@@ -410,9 +419,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDI.png" ALT="Buildings.Controls.Continuous.Examples.OffTimer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.Continuous.Examples.OffTimer"></A><A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples"
 >Buildings.Controls.Continuous.Examples</A>.OffTimer</H2>
-<B>Example model for off timer</B><p></P>
+<B>Example model for off timer</B><p>
 <IMG SRC="Buildings.Controls.Contin3d44d379dc44136dTimerD.png" ALT="Buildings.Controls.Continuous.Examples.OffTimer">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Example that demonstrates the use of the model
@@ -426,24 +435,24 @@ The figures below show the input and output of the blocks.
 <img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Controls/Continuous/Examples/OffTimer1.png" border="1"><br/>
 <img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Controls/Continuous/Examples/OffTimer2.png" border="1">
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> OffTimer <font color="darkgreen">&quot;Example model for off timer&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanPulse"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanPulse"
 >Modelica.Blocks.Sources.BooleanPulse</A> booleanPulse(period=0.2);
   <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.OffTimer"
 >Buildings.Controls.Continuous.OffTimer</A> offTim1;
   <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.OffTimer"
 >Buildings.Controls.Continuous.OffTimer</A> offTim2;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
 >Modelica.Blocks.Logical.Not</A> not1;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(booleanPulse.y, offTim1.u);
@@ -452,6 +461,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>OffTimer;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:28:04 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:43:20 2013.
 </address></BODY>
 </HTML>

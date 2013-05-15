@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE TestConditionalConstructions<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Rooms.Examples.TestConditionalConstructions"></A><A HREF="Buildings_Rooms_Examples.html#Buildings.Rooms.Examples"
 >Buildings.Rooms.Examples</A>.TestConditionalConstructions</H2>
 <B>Package that tests if constructions can be conditionally removed</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 The thermal zone model 
 <A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
@@ -38,10 +47,10 @@ The models in this package test if the model is well-defined
 if such constructions are removed.
 The models in this package do not represent realistic buildings, but
 are rather designed to test the thermal zone model.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Rooms.Examples.e119c0518a0a6410assesS.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses"
@@ -76,10 +85,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Rooms.Examples.1ee44cf924664ce1indowI.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyExteriorWallNoWindow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyExteriorWallNoWindow"></A><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions.html#Buildings.Rooms.Examples.TestConditionalConstructions"
 >Buildings.Rooms.Examples.TestConditionalConstructions</A>.OnlyExteriorWallNoWindow</H2>
-<B>Test model for room model</B><p></P>
+<B>Test model for room model</B><p>
 <IMG SRC="Buildings.Rooms.Examples.1ee44cf924664ce1indowD.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyExteriorWallNoWindow">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
 >BaseClasses.PartialTestModel</A> (Partial model that is used to build the test cases).
 <P><H3>Parameters</H3><P>
@@ -97,10 +106,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
 >DoubleClearAir13Clear</A></TD><TD>glaSys</TD><TD>&nbsp;</TD><TD>Data record for the glazing system</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> OnlyExteriorWallNoWindow <font color="darkgreen">&quot;Test model for room model&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
 >BaseClasses.PartialTestModel</A>(
@@ -121,10 +130,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Rooms.Examples.1ee44cf924664ce1indowI.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyExteriorWallWithWindow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyExteriorWallWithWindow"></A><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions.html#Buildings.Rooms.Examples.TestConditionalConstructions"
 >Buildings.Rooms.Examples.TestConditionalConstructions</A>.OnlyExteriorWallWithWindow</H2>
-<B>Test model for room model</B><p></P>
+<B>Test model for room model</B><p>
 <IMG SRC="Buildings.Rooms.Examples.1ee44cf924664ce1indowD.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyExteriorWallWithWindow">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
 >BaseClasses.PartialTestModel</A> (Partial model that is used to build the test cases).
 <P><H3>Parameters</H3><P>
@@ -142,10 +151,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
 >DoubleClearAir13Clear</A></TD><TD>glaSys</TD><TD>&nbsp;</TD><TD>Data record for the glazing system</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> OnlyExteriorWallWithWindow <font color="darkgreen">&quot;Test model for room model&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
 >BaseClasses.PartialTestModel</A>(
@@ -172,10 +181,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Rooms.Examples.1ee44cf924664ce1indowI.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyExteriorWallWithWindowExteriorShade" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyExteriorWallWithWindowExteriorShade"></A><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions.html#Buildings.Rooms.Examples.TestConditionalConstructions"
 >Buildings.Rooms.Examples.TestConditionalConstructions</A>.OnlyExteriorWallWithWindowExteriorShade</H2>
-<B>Test model for room model</B><p></P>
+<B>Test model for room model</B><p>
 <IMG SRC="Buildings.Rooms.Examples.ead3ca651b3f9d8fShadeD.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyExteriorWallWithWindowExteriorShade">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
 >BaseClasses.PartialTestModel</A> (Partial model that is used to build the test cases).
 <P><H3>Parameters</H3><P>
@@ -191,11 +200,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
 >Brick120</A></TD><TD>matLayPar</TD><TD>&nbsp;</TD><TD>Construction material for partition walls</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> OnlyExteriorWallWithWindowExteriorShade <font color="darkgreen">
   &quot;Test model for room model&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
 >BaseClasses.PartialTestModel</A>(
@@ -213,10 +222,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
                  til={Buildings.HeatTransfer.Types.Tilt.Floor, Buildings.HeatTransfer.Types.Tilt.Ceiling},
                  <font color="blue">each </font>azi=Buildings.HeatTransfer.Types.Azimuth.W)),
     glaSys(haveExteriorShade=true));
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> uSha(k=0.5) <font color="darkgreen">
     &quot;Control signal for the shading device&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
 >Modelica.Blocks.Routing.Replicator</A> replicator(nout=<font color="red">max</font>(1,nConExtWin));</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(uSha.y,replicator. u);
@@ -230,10 +239,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Rooms.Examples.1ee44cf924664ce1indowI.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyExteriorWallWithWindowInteriorShade" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyExteriorWallWithWindowInteriorShade"></A><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions.html#Buildings.Rooms.Examples.TestConditionalConstructions"
 >Buildings.Rooms.Examples.TestConditionalConstructions</A>.OnlyExteriorWallWithWindowInteriorShade</H2>
-<B>Test model for room model</B><p></P>
+<B>Test model for room model</B><p>
 <IMG SRC="Buildings.Rooms.Examples.ead3ca651b3f9d8fShadeD.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyExteriorWallWithWindowInteriorShade">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
 >BaseClasses.PartialTestModel</A> (Partial model that is used to build the test cases).
 <P><H3>Parameters</H3><P>
@@ -249,11 +258,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
 >Brick120</A></TD><TD>matLayPar</TD><TD>&nbsp;</TD><TD>Construction material for partition walls</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> OnlyExteriorWallWithWindowInteriorShade <font color="darkgreen">
   &quot;Test model for room model&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
 >BaseClasses.PartialTestModel</A>(
@@ -271,10 +280,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
                  til={Buildings.HeatTransfer.Types.Tilt.Floor, Buildings.HeatTransfer.Types.Tilt.Ceiling},
                  <font color="blue">each </font>azi=Buildings.HeatTransfer.Types.Azimuth.W)),
     glaSys(haveInteriorShade=true));
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> uSha(k=0.5) <font color="darkgreen">
     &quot;Control signal for the shading device&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
 >Modelica.Blocks.Routing.Replicator</A> replicator(nout=<font color="red">max</font>(1,nConExtWin));</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(uSha.y,replicator. u);
@@ -288,10 +297,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Rooms.Examples.1ee44cf924664ce1indowI.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyPartition" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyPartition"></A><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions.html#Buildings.Rooms.Examples.TestConditionalConstructions"
 >Buildings.Rooms.Examples.TestConditionalConstructions</A>.OnlyPartition</H2>
-<B>Test model for room model</B><p></P>
+<B>Test model for room model</B><p>
 <IMG SRC="Buildings.Rooms.Examples.2f146bce31c634caitionD.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyPartition">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
 >BaseClasses.PartialTestModel</A> (Partial model that is used to build the test cases).
 <P><H3>Parameters</H3><P>
@@ -309,10 +318,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
 >DoubleClearAir13Clear</A></TD><TD>glaSys</TD><TD>&nbsp;</TD><TD>Data record for the glazing system</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> OnlyPartition <font color="darkgreen">&quot;Test model for room model&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
 >BaseClasses.PartialTestModel</A>(
@@ -335,10 +344,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Rooms.Examples.1ee44cf924664ce1indowI.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyConstructionBoundary" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyConstructionBoundary"></A><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions.html#Buildings.Rooms.Examples.TestConditionalConstructions"
 >Buildings.Rooms.Examples.TestConditionalConstructions</A>.OnlyConstructionBoundary</H2>
-<B>Test model for room model</B><p></P>
+<B>Test model for room model</B><p>
 <IMG SRC="Buildings.Rooms.Examples.09c65b273ee50fd9ndaryD.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.OnlyConstructionBoundary">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
 >BaseClasses.PartialTestModel</A> (Partial model that is used to build the test cases).
 <P><H3>Parameters</H3><P>
@@ -356,10 +365,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
 >DoubleClearAir13Clear</A></TD><TD>glaSys</TD><TD>&nbsp;</TD><TD>Data record for the glazing system</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> OnlyConstructionBoundary <font color="darkgreen">&quot;Test model for room model&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
 >BaseClasses.PartialTestModel</A>(
@@ -385,10 +394,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Rooms.Examples.1ee44cf924664ce1indowI.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.OnlySurfaceBoundary" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Rooms.Examples.TestConditionalConstructions.OnlySurfaceBoundary"></A><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions.html#Buildings.Rooms.Examples.TestConditionalConstructions"
 >Buildings.Rooms.Examples.TestConditionalConstructions</A>.OnlySurfaceBoundary</H2>
-<B>Test model for room model</B><p></P>
+<B>Test model for room model</B><p>
 <IMG SRC="Buildings.Rooms.Examples.870d81772981aa8bndaryD.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.OnlySurfaceBoundary">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
 >BaseClasses.PartialTestModel</A> (Partial model that is used to build the test cases).
 <P><H3>Parameters</H3><P>
@@ -406,10 +415,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
 >DoubleClearAir13Clear</A></TD><TD>glaSys</TD><TD>&nbsp;</TD><TD>Data record for the glazing system</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> OnlySurfaceBoundary <font color="darkgreen">&quot;Test model for room model&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
 >BaseClasses.PartialTestModel</A>(
@@ -434,6 +443,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>OnlySurfaceBoundary;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:31:06 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:46:12 2013.
 </address></BODY>
 </HTML>

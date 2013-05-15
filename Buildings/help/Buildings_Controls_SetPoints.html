@@ -17,25 +17,34 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE SetPoints<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Controls.SetPoints"></A><A HREF="Buildings_Controls.html#Buildings.Controls"
 >Buildings.Controls</A>.SetPoints</H2>
 <B>Package with models for control set points</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 This package contains components models to compute set points of control systems.
 For additional models, see also 
-<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous"
+<A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous"
 >
 Modelica.Blocks.Continuous</a>.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Controls.SetPoi004acb778f1ba78aResetS.png" ALT="Buildings.Controls.SetPoints.HotWaterTemperatureReset" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.HotWaterTemperatureReset"
@@ -58,9 +67,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Controls.SetPoi004acb778f1ba78aResetI.png" ALT="Buildings.Controls.SetPoints.HotWaterTemperatureReset" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.SetPoints.HotWaterTemperatureReset"></A><A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints"
 >Buildings.Controls.SetPoints</A>.HotWaterTemperatureReset</H2>
-<B>Block to compute the supply and return set point of heating systems</B><p></P>
+<B>Block to compute the supply and return set point of heating systems</B><p>
 <IMG SRC="Buildings.Controls.SetPoi004acb778f1ba78aResetD.png" ALT="Buildings.Controls.SetPoints.HotWaterTemperatureReset">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This block computes the set point temperatures for the
 supply and return temperature of a heating system.
@@ -78,94 +87,94 @@ the outside air temperature is greater than
 In such a situation, set <code>dTOutHeaBal=20-12=8</code> Kelvin to 
 shift the heating curve.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>m</TD><TD>1.3</TD><TD>Exponent for heat transfer</TD></TR>
 <TR><TD>Boolean</TD><TD>use_TRoo_in</TD><TD>false</TD><TD>Get the room temperature set point from the input connector</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TRoo</TD><TD>293.15</TD><TD>Fixed value of room temperature set point [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dTOutHeaBal</TD><TD>8</TD><TD>Offset for heating curve [K]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal conditions</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TSup_nominal</TD><TD>&nbsp;</TD><TD>Supply temperature [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TRet_nominal</TD><TD>&nbsp;</TD><TD>Return temperature [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TRoo_nominal</TD><TD>293.15</TD><TD>Room temperature [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TOut_nominal</TD><TD>&nbsp;</TD><TD>Outside temperature [K]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TRoo_in</TD><TD>Room air temperature set point [K]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TOut</TD><TD>Outside temperature [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TSup</TD><TD>Setpoint for supply temperature [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TRet</TD><TD>Setpoint for return temperature [K]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> HotWaterTemperatureReset <font color="darkgreen">
   &quot;Block to compute the supply and return set point of heating systems&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 
   <font color="blue">parameter </font>Real m = 1.3 <font color="darkgreen">&quot;Exponent for heat transfer&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TSup_nominal <font color="darkgreen">&quot;Supply temperature&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TRet_nominal <font color="darkgreen">&quot;Return temperature&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TRoo_nominal = 293.15 <font color="darkgreen">
     &quot;Room temperature&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TOut_nominal <font color="darkgreen">&quot;Outside temperature&quot;</font>;
 
   <font color="blue">parameter </font>Boolean use_TRoo_in = false <font color="darkgreen">
     &quot;Get the room temperature set point from the input connector&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TRoo = 293.15 <font color="darkgreen">
     &quot;Fixed value of room temperature set point&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >Modelica.SIunits.TemperatureDifference</A> dTOutHeaBal(displayUnit=&quot;K&quot;) = 8 <font color="darkgreen">
     &quot;Offset for heating curve&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TRoo_in(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                                <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="blue">if </font>
           use_TRoo_in <font color="darkgreen">&quot;Room air temperature set point&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TOut(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                             <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
     &quot;Outside temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TSup(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                             <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
     &quot;Setpoint for supply temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TRet(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                             <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
     &quot;Setpoint for return temperature&quot;</font>;</textblock>
 
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TRoo_in_internal(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                                         <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
     &quot;Needed to connect to conditional connector&quot;</font>;
   Real qRel <font color="darkgreen">&quot;Relative heating load = Q_flow/Q_flow_nominal&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TOutOffSet <font color="darkgreen">
     &quot;Effective outside temperature for heat transfer (takes into account room heat gains)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal <font color="darkgreen">
     &quot;Effective outside temperature for heat transfer at nominal conditions (takes into account room heat gains)&quot;</font>;
 
@@ -190,9 +199,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Controls.SetPoia9379402f2a3200eeduleI.png" ALT="Buildings.Controls.SetPoints.OccupancySchedule" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.SetPoints.OccupancySchedule"></A><A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints"
 >Buildings.Controls.SetPoints</A>.OccupancySchedule</H2>
-<B>Occupancy schedule with look-ahead</B><p></P>
+<B>Occupancy schedule with look-ahead</B><p>
 <IMG SRC="Buildings.Controls.SetPoia9379402f2a3200eeduleD.png" ALT="Buildings.Controls.SetPoints.OccupancySchedule">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model outputs whether the building is currently occupied,
@@ -211,46 +220,46 @@ and from <i>14:00</i> to <i>19:00</i>. This will be repeated periodically.
 The parameter <code>periodicity</code> defines the periodicity.
 The period always starts at <i>t=0</i> seconds.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>occupancy[:]</TD><TD>3600*{7,19}</TD><TD>Occupancy table, each entry switching occupancy on or off</TD></TR>
 <TR><TD>Boolean</TD><TD>firstEntryOccupied</TD><TD>true</TD><TD>Set to true if first entry in occupancy denotes a changed from unoccupied to occupied</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>period</TD><TD>86400</TD><TD>End time of periodicity [s]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>tNexNonOcc</TD><TD>Time until next non-occupancy</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>tNexOcc</TD><TD>Time until next occupancy</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
 >BooleanOutput</A></TD><TD>occupied</TD><TD>Outputs true if occupied at current time</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> OccupancySchedule <font color="darkgreen">&quot;Occupancy schedule with look-ahead&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 
   <font color="blue">parameter </font>Real occupancy[:]=3600*{7, 19} <font color="darkgreen">
     &quot;Occupancy table, each entry switching occupancy on or off&quot;</font>;
   <font color="blue">parameter </font>Boolean firstEntryOccupied = true <font color="darkgreen">
     &quot;Set to true if first entry in occupancy denotes a changed from unoccupied to occupied&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> period =   86400 <font color="darkgreen">&quot;End time of periodicity&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> tNexNonOcc <font color="darkgreen">
     &quot;Time until next non-occupancy&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> tNexOcc <font color="darkgreen">&quot;Time until next occupancy&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
 >Modelica.Blocks.Interfaces.BooleanOutput</A> occupied <font color="darkgreen">
     &quot;Outputs true if occupied at current time&quot;</font>;</textblock>
 
@@ -258,7 +267,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="blue">final </font><font color="blue">parameter </font>Integer nRow =<font color="red"> size</font>(occupancy,1) <font color="darkgreen">
     &quot;Number of rows in the schedule&quot;</font>;
 
-  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> offSet=<font color="red">integer</font>(time/period)*period <font color="darkgreen">
     &quot;Time off-set, in multiples of period, that is used to switch the time when doing the table lookup&quot;</font>;
   <font color="blue">output </font>Integer nexStaInd <font color="darkgreen">&quot;Next index when occupancy starts&quot;</font>;
@@ -269,9 +278,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="blue">output </font>Integer iPerSto <font color="darkgreen">
     &quot;Counter for the period in which the next occupancy stops&quot;</font>;
 
-  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> tOcc <font color="darkgreen">&quot;Time when next occupancy starts&quot;</font>;
-  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> tNonOcc <font color="darkgreen">&quot;Time when next non-occupancy starts&quot;</font>;
 
 <textblock type="model" expanded="false" path="Buildings.Controls.SetPoints.OccupancySchedule.switchInteger"><font color="blue">encapsulated </font><font color="blue">function</font> switchInteger
@@ -389,9 +398,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Controls.SetPoints.TableI.png" ALT="Buildings.Controls.SetPoints.Table" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.SetPoints.Table"></A><A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints"
 >Buildings.Controls.SetPoints</A>.Table</H2>
-<B>Model for a set point that is interpolated based on a user-specified table</B><p></P>
+<B>Model for a set point that is interpolated based on a user-specified table</B><p>
 <IMG SRC="Buildings.Controls.SetPoints.TableD.png" ALT="Buildings.Controls.SetPoints.Table">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This block can be used to schedule a set-point by using piecewise linear functions.
 For example, the instances
@@ -422,8 +431,8 @@ Otherwise, the table is linearly extrapolated with a constant derivative.
 <p>
 Note that the first column must be strictly increasing.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</A> (Single Input Single Output continuous control block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -435,16 +444,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u</TD><TD>Connector of Real input signal</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Table <font color="darkgreen">
   &quot;Model for a set point that is interpolated based on a user-specified table&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</A>;
   <font color="blue">parameter </font>Real table[:,2]=<font color="red">fill</font>(0.0, 1, 2) <font color="darkgreen">
     &quot;Table matrix ( e.g., table=[u1, y1; u2, y2; u3, y3])&quot;</font>;
@@ -460,7 +469,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
                         <font color="red">size</font>(table,1) <font color="darkgreen">&quot;Number of columns&quot;</font>;
   <font color="blue">final </font><font color="blue">parameter </font>Real[nCol,2] offsetVector = [<font color="red">zeros</font>(nCol), offset*<font color="red">ones</font>(nCol)] <font color="darkgreen">
     &quot;Vector to take offset of output signal into account&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Tables.html#Modelica.Blocks.Tables.CombiTable1D"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Tables.html#Modelica.Blocks.Tables.CombiTable1D"
 >Modelica.Blocks.Tables.CombiTable1D</A> tab(
     tableOnFile=false,
     <font color="blue">final </font>table= (<font color="blue">if </font>constantExtrapolation<font color="blue"> then </font>
@@ -477,6 +486,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Table;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:28:04 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:43:20 2013.
 </address></BODY>
 </HTML>

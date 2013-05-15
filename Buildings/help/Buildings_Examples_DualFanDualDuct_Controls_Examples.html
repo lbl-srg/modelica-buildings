@@ -17,18 +17,27 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Examples.DualFanDualDuct.Controls.Examples"></A><A HREF="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls"
 >Buildings.Examples.DualFanDualDuct.Controls</A>.Examples</H2>
 <B>Example models to test the components</B>
-<P></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Examples.DualFaa40b6bd217db1eaangBoxS.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_DualFanDualDuct_Controls_Examples.html#Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox"
@@ -42,26 +51,26 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.DualFaa40b6bd217db1eaangBoxI.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox"></A><A HREF="Buildings_Examples_DualFanDualDuct_Controls_Examples.html#Buildings.Examples.DualFanDualDuct.Controls.Examples"
 >Buildings.Examples.DualFanDualDuct.Controls.Examples</A>.RoomMixingBox</H2>
-<B>Test model for room mixing box</B><p></P>
+<B>Test model for room mixing box</B><p>
 <IMG SRC="Buildings.Examples.DualFaa40b6bd217db1eaangBoxD.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> RoomMixingBox <font color="darkgreen">&quot;Test model for room mixing box&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-<font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls.RoomMixingBox"
 >Buildings.Examples.DualFanDualDuct.Controls.RoomMixingBox</A> conMix(m_flow_min=1) <font color="darkgreen">
     &quot;Controller for mixing box&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TH(k=273.15 + 20);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TC(k=273.15 + 26);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
 >Modelica.Blocks.Sources.Trapezoid</A> TRoo(
     amplitude=15,
     rising=900,
@@ -69,7 +78,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     falling=900,
     period=3600,
     offset=273.15 + 15) <font color="darkgreen">&quot;Room temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
 >Modelica.Blocks.Sources.Trapezoid</A> m_flow(
     rising=900,
     width=900,
@@ -87,6 +96,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>RoomMixingBox;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:35:24 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:50:27 2013.
 </address></BODY>
 </HTML>

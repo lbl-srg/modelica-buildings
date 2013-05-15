@@ -17,25 +17,34 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation"
 >Buildings.BoundaryConditions.SolarIrradiation</A>.BaseClasses</H2>
 <B>Package with base classes for Buildings.BoundaryConditions.SolarIrradiation</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation"
 >Buildings.BoundaryConditions.SolarIrradiation</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.BoundaryConditi3b8f0fddb5c350e2cientS.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.BrighteningCoefficient" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.BrighteningCoefficient"
@@ -73,54 +82,54 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.BoundaryConditi3b8f0fddb5c350e2cientI.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.BrighteningCoefficient" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.BrighteningCoefficient"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses"
 >Buildings.BoundaryConditions.SolarIrradiation.BaseClasses</A>.BrighteningCoefficient</H2>
-<B>Circumsolar and horizon brightening coefficients</B><p></P>
+<B>Circumsolar and horizon brightening coefficients</B><p>
 <IMG SRC="Buildings.BoundaryConditi3b8f0fddb5c350e2cientD.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.BrighteningCoefficient">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component computes the circumsolar and horizon brightening coefficients.
 </p>
 <pre>
-</PRE><P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+</PRE><P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>zen</TD><TD>Zenith angle of the sun beam [rad]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>skyCle</TD><TD>Sky clearness. skyCle=1: overcast sky; skyCle=8 clear sky</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>skyBri</TD><TD>Sky brightness [0,1]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>F1</TD><TD>Circumsolar brightening coefficient</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>F2</TD><TD>Horizon brightening coefficient</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> BrighteningCoefficient <font color="darkgreen">
   &quot;Circumsolar and horizon brightening coefficients&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
   <font color="blue">import </font>H = <A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.spliceFunction"
 >Buildings.Utilities.Math.Functions.spliceFunction</A>;
 <textblock type="annotcomp" expanded="false"><font color="blue">public </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> zen(
     quantity=&quot;Angle&quot;,
     unit=&quot;rad&quot;,
     displayUnit=&quot;degree&quot;) <font color="darkgreen">&quot;Zenith angle of the sun beam&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> skyCle <font color="darkgreen">
     &quot;Sky clearness. skyCle=1: overcast sky; skyCle=8 clear sky&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> skyBri <font color="darkgreen">&quot;Sky brightness [0,1]&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> F1 <font color="darkgreen">
     &quot;Circumsolar brightening coefficient&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> F2 <font color="darkgreen">&quot;Horizon brightening coefficient&quot;</font>;</textblock>
 <font color="blue">protected </font>
   Real F11;
@@ -224,9 +233,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.BoundaryConditi08e045cbfcfd61b2ropicI.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffuseIsotropic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffuseIsotropic"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses"
 >Buildings.BoundaryConditions.SolarIrradiation.BaseClasses</A>.DiffuseIsotropic</H2>
-<B>Diffuse solar irradiation on a tilted surface with an isotropic model</B><p></P>
+<B>Diffuse solar irradiation on a tilted surface with an isotropic model</B><p>
 <IMG SRC="Buildings.BoundaryConditi08e045cbfcfd61b2ropicD.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffuseIsotropic">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component computes the hemispherical diffuse irradiation on a tilted surface.
@@ -239,48 +248,48 @@ P. Ineichen, R. Perez and R. Seals (1987).
 <i>The Importance of Correct Albedo Determination for Adequately Modeling Energy Received by Tilted Surface</i>,
 Solar Energy, 39(4): 301-305.
 <pre>
-</PRE><P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+</PRE><P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>rho</TD><TD>0.2</TD><TD>Ground reflectance</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>til</TD><TD>&nbsp;</TD><TD>Surface tilt angle [rad]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>HDifHor</TD><TD>Horizontal diffuse solar radiation [W/m2]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>HGloHor</TD><TD>Horizontal global radiation [W/m2]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>HGroDifTil</TD><TD>Diffuse solar irradiation on a tilted surfce from the ground [W/m2]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>HSkyDifTil</TD><TD>Diffuse solar irradiation on a tilted surfce from the sky [W/m2]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> DiffuseIsotropic <font color="darkgreen">
   &quot;Diffuse solar irradiation on a tilted surface with an isotropic model&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 <font color="blue">public </font>
   <font color="blue">parameter </font>Real rho=0.2 <font color="darkgreen">&quot;Ground reflectance&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> til(displayUnit=&quot;deg&quot;) <font color="darkgreen">&quot;Surface tilt angle&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> HDifHor(quantity=
         &quot;RadiantEnergyFluenceRate&quot;, unit=&quot;W/m2&quot;) <font color="darkgreen">
     &quot;Horizontal diffuse solar radiation&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> HGloHor(quantity=
         &quot;RadiantEnergyFluenceRate&quot;, unit=&quot;W/m2&quot;) <font color="darkgreen">&quot;Horizontal global radiation&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> HGroDifTil(<font color="blue">final </font>quantity=&quot;RadiantEnergyFluenceRate&quot;,
       <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="darkgreen">
     &quot;Diffuse solar irradiation on a tilted surfce from the ground&quot;</font>;</textblock>
@@ -288,7 +297,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   Real til_c <font color="darkgreen">&quot;Cosine of tilt angle&quot;</font>;
 
 <textblock type="annotcomp" expanded="false"><font color="blue">public </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> HSkyDifTil(<font color="blue">final </font>quantity=&quot;RadiantEnergyFluenceRate&quot;,
       <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="darkgreen">
     &quot;Diffuse solar irradiation on a tilted surfce from the sky&quot;</font>;</textblock>
@@ -305,9 +314,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.BoundaryConditi2ddff23bb35469e7PerezI.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffusePerez" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffusePerez"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses"
 >Buildings.BoundaryConditions.SolarIrradiation.BaseClasses</A>.DiffusePerez</H2>
-<B>Hemispherical diffuse irradiation on a tilted surface with Perez&#39;s anisotropic model</B><p></P>
+<B>Hemispherical diffuse irradiation on a tilted surface with Perez&#39;s anisotropic model</B><p>
 <IMG SRC="Buildings.BoundaryConditi2ddff23bb35469e7PerezD.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffusePerez">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component computes the hemispherical diffuse irradiation on a tilted surface by using an anisotropic model proposed by Perez. 
@@ -331,74 +340,74 @@ Solar Energy, 44(5):271-289.
 </li>
 </ul>
 <pre>
-</PRE><P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+</PRE><P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>rho</TD><TD>0.2</TD><TD>Ground reflectance</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>til</TD><TD>&nbsp;</TD><TD>Surface tilt angle [rad]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>briCof1</TD><TD>Brightening Coeffcient F1</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>briCof2</TD><TD>Brightening Coeffcient F2</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>HDifHor</TD><TD>Diffuse horizontal solar radiation [W/m2]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>HGloHor</TD><TD>Global horizontal radiation [W/m2]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>zen</TD><TD>Zenith angle of the sun beam [rad]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>incAng</TD><TD>Solar incidence angle on the surface [rad]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>HGroDifTil</TD><TD>Hemispherical diffuse solar irradiation on a tilted surfce from the ground [W/m2]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>HSkyDifTil</TD><TD>Hemispherical diffuse solar irradiation on a tilted surfce from the sky [W/m2]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> DiffusePerez <font color="darkgreen">
   &quot;Hemispherical diffuse irradiation on a tilted surface with Perez&#39;s anisotropic model&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 <font color="blue">public </font>
   <font color="blue">parameter </font>Real rho=0.2 <font color="darkgreen">&quot;Ground reflectance&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> til(displayUnit=&quot;deg&quot;) <font color="darkgreen">&quot;Surface tilt angle&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> briCof1 <font color="darkgreen">&quot;Brightening Coeffcient F1&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> briCof2 <font color="darkgreen">&quot;Brightening Coeffcient F2&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> HDifHor(quantity=
         &quot;RadiantEnergyFluenceRate&quot;, unit=&quot;W/m2&quot;) <font color="darkgreen">
     &quot;Diffuse horizontal solar radiation&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> HGloHor(quantity=
         &quot;RadiantEnergyFluenceRate&quot;, unit=&quot;W/m2&quot;) <font color="darkgreen">&quot;Global horizontal radiation&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> zen(
     quantity=&quot;Angle&quot;,
     unit=&quot;rad&quot;,
     displayUnit=&quot;degree&quot;) <font color="darkgreen">&quot;Zenith angle of the sun beam&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> incAng(
     quantity=&quot;Angle&quot;,
     unit=&quot;rad&quot;,
     displayUnit=&quot;degree&quot;) <font color="darkgreen">&quot;Solar incidence angle on the surface&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> HGroDifTil(<font color="blue">final </font>quantity=
         &quot;RadiantEnergyFluenceRate&quot;, <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="darkgreen">
     &quot;Hemispherical diffuse solar irradiation on a tilted surfce from the ground&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> HSkyDifTil(<font color="blue">final </font>quantity=
         &quot;RadiantEnergyFluenceRate&quot;, <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="darkgreen">
     &quot;Hemispherical diffuse solar irradiation on a tilted surfce from the sky&quot;</font>;</textblock>
@@ -429,42 +438,42 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.BoundaryConditidf605925bb011a47rfaceI.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DirectTiltedSurface" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DirectTiltedSurface"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses"
 >Buildings.BoundaryConditions.SolarIrradiation.BaseClasses</A>.DirectTiltedSurface</H2>
-<B>Direct solar irradiation on a tilted surface</B><p></P>
+<B>Direct solar irradiation on a tilted surface</B><p>
 <IMG SRC="Buildings.BoundaryConditidf605925bb011a47rfaceD.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DirectTiltedSurface">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component computes the direct solar irradiation on a tilted surface.
 </p>
 <pre>
-</PRE><P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+</PRE><P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>incAng</TD><TD>Incidence angle of the sun beam on a tilted surface [rad]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>HDirNor</TD><TD>Direct normal radiation [W/m2]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>HDirTil</TD><TD>Direct solar irradiation on a tilted surfce [W/m2]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> DirectTiltedSurface <font color="darkgreen">
   &quot;Direct solar irradiation on a tilted surface&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> incAng(
     quantity=&quot;Angle&quot;,
     unit=&quot;rad&quot;,
     displayUnit=&quot;degree&quot;) <font color="darkgreen">&quot;Incidence angle of the sun beam on a tilted surface&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> HDirNor(quantity=
         &quot;RadiantEnergyFluenceRate&quot;, unit=&quot;W/m2&quot;) <font color="darkgreen">&quot;Direct normal radiation&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> HDirTil(<font color="blue">final </font>quantity=
         &quot;RadiantEnergyFluenceRate&quot;, <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="darkgreen">
     &quot;Direct solar irradiation on a tilted surfce&quot;</font>;</textblock>
@@ -480,9 +489,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.BoundaryConditi53b9d95fa01f6480rMassI.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.RelativeAirMass" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.RelativeAirMass"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses"
 >Buildings.BoundaryConditions.SolarIrradiation.BaseClasses</A>.RelativeAirMass</H2>
-<B>Relative air mass</B><p></P>
+<B>Relative air mass</B><p>
 <IMG SRC="Buildings.BoundaryConditi53b9d95fa01f6480rMassD.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.RelativeAirMass">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component computes the relative air mass for sky brightness.
@@ -492,29 +501,29 @@ R. Perez (1999).
 <i>Fortran Function irrpz.f</i>,
 Emailed by R. Perez to F.C. Winkelmann on May 21, 1999.<br>
 <pre>
-</PRE><P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+</PRE><P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>zen</TD><TD>Zenith angle of the sun beam [rad]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>relAirMas</TD><TD>Relative air mass</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> RelativeAirMass <font color="darkgreen">&quot;Relative air mass&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 <textblock type="annotcomp" expanded="false"><font color="blue">public </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> zen(
     quantity=&quot;Angle&quot;,
     unit=&quot;rad&quot;,
     displayUnit=&quot;degree&quot;) <font color="darkgreen">&quot;Zenith angle of the sun beam&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> relAirMas <font color="darkgreen">&quot;Relative air mass&quot;</font>;</textblock>
 <font color="blue">protected </font>
   Real zenLim;
@@ -535,9 +544,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.BoundaryConditi67c9583feaebba7ctnessI.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyBrightness" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyBrightness"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses"
 >Buildings.BoundaryConditions.SolarIrradiation.BaseClasses</A>.SkyBrightness</H2>
-<B>Sky brightness</B><p></P>
+<B>Sky brightness</B><p>
 <IMG SRC="Buildings.BoundaryConditi67c9583feaebba7ctnessD.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyBrightness">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component computes the sky brightness.
@@ -547,32 +556,32 @@ R. Perez, P. Ineichen, R. Seals, J. Michalsky and R. Stewart (1990).
 <i>Modeling Dyalight Availability and Irradiance Componets From Direct and Global Irradiance</i>,
 Solar Energy, 44(5):271-289.
 <pre>
-</PRE><P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+</PRE><P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>relAirMas</TD><TD>Relative Air Mass</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>HDifHor</TD><TD>Horizontal diffuse solar radiation [W/m2]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>skyBri</TD><TD>Sky Brightness</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> SkyBrightness <font color="darkgreen">&quot;Sky brightness&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 <textblock type="annotcomp" expanded="false"><font color="blue">public </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> relAirMas <font color="darkgreen">&quot;Relative Air Mass&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> HDifHor(quantity=
         &quot;RadiantEnergyFluenceRate&quot;, unit=&quot;W/m2&quot;) <font color="darkgreen">
     &quot;Horizontal diffuse solar radiation&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> skyBri <font color="darkgreen">&quot;Sky Brightness&quot;</font>;</textblock>
 <font color="blue">equation </font>
   skyBri =<font color="red"> Buildings.Utilities.Math.Functions.smoothMin</font>(
@@ -588,49 +597,49 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.BoundaryConditie87571ee32fa72e3rnessI.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses"
 >Buildings.BoundaryConditions.SolarIrradiation.BaseClasses</A>.SkyClearness</H2>
-<B>Sky clearness</B><p></P>
+<B>Sky clearness</B><p>
 <IMG SRC="Buildings.BoundaryConditie87571ee32fa72e3rnessD.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component computes the sky clearness.
 </p>
 <pre>
-</PRE><P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+</PRE><P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>zen</TD><TD>Zenith angle of the sun beam [rad]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>HDifHor</TD><TD>Horizontal diffuse solar radiation [W/m2]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>HGloHor</TD><TD>Horizontal global solar radiation [W/m2]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>skyCle</TD><TD>Sky clearness. skyCle=1: overast sky; skyCle=8: clear sky</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> SkyClearness <font color="darkgreen">&quot;Sky clearness&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 <textblock type="annotcomp" expanded="false"><font color="blue">public </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> zen(
     quantity=&quot;Angle&quot;,
     unit=&quot;rad&quot;,
     displayUnit=&quot;degreeC&quot;) <font color="darkgreen">&quot;Zenith angle of the sun beam&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> HDifHor(quantity=
         &quot;RadiantEnergyFluenceRate&quot;, unit=&quot;W/m2&quot;) <font color="darkgreen">
     &quot;Horizontal diffuse solar radiation&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> HGloHor(quantity=
         &quot;RadiantEnergyFluenceRate&quot;, unit=&quot;W/m2&quot;) <font color="darkgreen">
     &quot;Horizontal global solar radiation&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> skyCle <font color="darkgreen">
     &quot;Sky clearness. skyCle=1: overast sky; skyCle=8: clear sky&quot;</font>;</textblock>
 <font color="blue">protected </font>
@@ -656,40 +665,40 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.BoundaryConditi1a5fb1311274395eationI.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses"
 >Buildings.BoundaryConditions.SolarIrradiation.BaseClasses</A>.PartialSolarIrradiation</H2>
-<B>Partial model that is used to compute the direct and diffuse solar irradiation</B><p></P>
+<B>Partial model that is used to compute the direct and diffuse solar irradiation</B><p>
 <IMG SRC="Buildings.BoundaryConditi1a5fb1311274395eationD.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This is a partial model that is used to implement the direct and diffuse irradiation.
 </p>
 <pre>
-</PRE><P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+</PRE><P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>til</TD><TD>&nbsp;</TD><TD>Surface tilt [rad]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>H</TD><TD>Radiation per unit area [W/m2]</TD></TR>
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>Bus with weather data</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">block</font> PartialSolarIrradiation <font color="darkgreen">
   &quot;Partial model that is used to compute the direct and diffuse solar irradiation&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> til(displayUnit=&quot;deg&quot;) <font color="darkgreen">&quot;Surface tilt&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> H(
      <font color="blue">final </font>quantity=&quot;RadiantEnergyFluenceRate&quot;,
      <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="darkgreen">&quot;Radiation per unit area&quot;</font>;</textblock>
@@ -700,6 +709,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>PartialSolarIrradiation;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:27:56 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:43:14 2013.
 </address></BODY>
 </HTML>

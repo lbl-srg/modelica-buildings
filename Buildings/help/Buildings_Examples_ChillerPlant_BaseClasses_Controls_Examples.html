@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.Examples</H2>
 <B>Test of components</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Examples.ChillerPlant.BaseClasses.Controls</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Examples.Chille84bb614d47fc5933witchS.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSwitch" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSwitch"
@@ -68,22 +77,22 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chille84bb614d47fc5933witchI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSwitch" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSwitch"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples</A>.ChillerSwitch</H2>
-<B>Test model for ChillerSwitch</B><p></P>
+<B>Test model for ChillerSwitch</B><p>
 <IMG SRC="Buildings.Examples.Chille84bb614d47fc5933witchD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSwitch">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ChillerSwitch <font color="darkgreen">&quot;Test model for ChillerSwitch&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> TSet(
     freqHz=0.0002,
     offset=12,
     amplitude=8);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> CHWST(
     freqHz=0.0001,
     amplitude=5,
@@ -103,28 +112,28 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chille84bb614d47fc5933witchI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSetPointControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSetPointControl"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples</A>.ChillerSetPointControl</H2>
-<B>Test model for chiller setpoint control using TrimAndResponse and LinearPieceWiseTwo</B><p></P>
+<B>Test model for chiller setpoint control using TrimAndResponse and LinearPieceWiseTwo</B><p>
 <IMG SRC="Buildings.Examples.Chille7ac0126651cde116ntrolD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSetPointControl">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mAir_flow_nominal</TD><TD>61.6*2</TD><TD>Nominal mass flow rate at fan [kg/s]</TD></TR>
 <TR><TD>Real</TD><TD>COPc_nominal</TD><TD>3</TD><TD>Chiller COP</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mCHW_flow_nominal</TD><TD>15.2</TD><TD>Nominal mass flow rate at chilled water [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mCW_flow_nominal</TD><TD>mCHW_flow_nominal/COPc_nomin...</TD><TD>Nominal mass flow rate at condenser water [kg/s]</TD></TR>
 <TR><TD>Real</TD><TD>QRoo</TD><TD>100</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ChillerSetPointControl <font color="darkgreen">
   &quot;Test model for chiller setpoint control using TrimAndResponse and LinearPieceWiseTwo&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">package</font> Medium1 = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A>;
@@ -132,14 +141,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Media.ConstantPropertyLiquidWater</A>;
   <font color="blue">package</font> MediumAir = <A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
 >Buildings.Media.GasesPTDecoupled.SimpleAir</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mAir_flow_nominal=61.6*2 <font color="darkgreen">
     &quot;Nominal mass flow rate at fan&quot;</font>;
   <font color="blue">parameter </font>Real COPc_nominal=3 <font color="darkgreen">&quot;Chiller COP&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mCHW_flow_nominal=15.2 <font color="darkgreen">
     &quot;Nominal mass flow rate at chilled water&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mCW_flow_nominal=mCHW_flow_nominal/
       COPc_nominal*(COPc_nominal + 1) <font color="darkgreen">
     &quot;Nominal mass flow rate at condenser water&quot;</font>;
@@ -194,9 +203,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_T_in=false,
     m_flow=mCW_flow_nominal,
     T=283.15);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const(k=273.15 + 20);
   <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
 >Buildings.Controls.Continuous.LimPID</A> limPID(
@@ -218,9 +227,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel"
 >Buildings.Fluid.Storage.ExpansionVessel</A> expVesChi(VTot=1, <font color="blue">redeclare </font><font color="blue">package</font>
       Medium = Medium2);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanConstant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanConstant"
 >Modelica.Blocks.Sources.BooleanConstant</A> booleanConstant1(k=true);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gain(k=mCHW_flow_nominal);
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
 >Buildings.Fluid.Sources.MassFlowSource_T</A> sou2(
@@ -232,12 +241,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
 >Buildings.Fluid.Sources.FixedBoundary</A> sin2(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         MediumAir, nPorts=1);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> sine(
     amplitude=5,
     offset=273.15 + 25,
     freqHz=1/20000);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.FirstOrder"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.FirstOrder"
 >Modelica.Blocks.Continuous.FirstOrder</A> firstOrder1(y_start=273.15 + 10, T=chi.tau1
         /2);
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
@@ -273,17 +282,17 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chille84bb614d47fc5933witchI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.KMinusU" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.KMinusU"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples</A>.KMinusU</H2>
-<B>Test model for KMinusU</B><p></P>
+<B>Test model for KMinusU</B><p>
 <IMG SRC="Buildings.Examples.Chille7309a9e8cce5720ainusUD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.KMinusU">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> KMinusU <font color="darkgreen">&quot;Test model for KMinusU&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> pulse(
     freqHz=0.001,
     amplitude=0.5,
@@ -302,17 +311,17 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chille84bb614d47fc5933witchI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.LinearPiecewiseTwo" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.LinearPiecewiseTwo"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples</A>.LinearPiecewiseTwo</H2>
-<B>Test model for LinearPiecewiseTwo</B><p></P>
+<B>Test model for LinearPiecewiseTwo</B><p>
 <IMG SRC="Buildings.Examples.Chille46c6c22f039c56ebseTwoD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.LinearPiecewiseTwo">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> LinearPiecewiseTwo <font color="darkgreen">&quot;Test model for LinearPiecewiseTwo&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> pulse(
     freqHz=0.001,
     amplitude=0.5,
@@ -339,24 +348,24 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chille84bb614d47fc5933witchI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.RequestCounter" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.RequestCounter"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples</A>.RequestCounter</H2>
-<B>Test model for RequestCounter</B><p></P>
+<B>Test model for RequestCounter</B><p>
 <IMG SRC="Buildings.Examples.Chille19bbeaed62234dacunterD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.RequestCounter">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> RequestCounter <font color="darkgreen">&quot;Test model for RequestCounter&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.RequestCounter"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls.RequestCounter</A> reqCou(
       nAct=3, uTri=0.8);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> act3(k=0.95);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
 >Modelica.Blocks.Sources.Pulse</A> act1(period=10);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> act2(freqHz=0.3, offset=1);</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(act1.y, reqCou.uAct[1]);
@@ -371,22 +380,22 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chille84bb614d47fc5933witchI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.TrimAndRespond" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.TrimAndRespond"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples</A>.TrimAndRespond</H2>
-<B>Test model for TrimAndRespond</B><p></P>
+<B>Test model for TrimAndRespond</B><p>
 <IMG SRC="Buildings.Examples.Chille4018e01c4a28bd53spondD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.TrimAndRespond">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TrimAndRespond <font color="darkgreen">&quot;Test model for TrimAndRespond&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> act3(freqHz=0.002, offset=0.2);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
 >Modelica.Blocks.Sources.Pulse</A> act1(period=500);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> act2(freqHz=0.001, offset=0.3);
   <A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond</A> triAndRes[3](
@@ -408,30 +417,30 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chille84bb614d47fc5933witchI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.WSEControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.WSEControl"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples</A>.WSEControl</H2>
-<B>Test model for WSEControl</B><p></P>
+<B>Test model for WSEControl</B><p>
 <IMG SRC="Buildings.Examples.Chille4753cf9cccc7b195ntrolD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.WSEControl">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> WSEControl <font color="darkgreen">&quot;Test model for WSEControl&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
 >Modelica.Blocks.Sources.Pulse</A> wseCHWST(
     period=300,
     amplitude=15,
     offset=273.15 + 5) <font color="darkgreen">&quot;WSE chilled water supply temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> wseCWST(k=273.15 + 10) <font color="darkgreen">
     &quot;WSE condenser water supply temperature&quot;</font>;
   <A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl</A> wseCon <font color="darkgreen">
     &quot;Controller for the water-side economizer&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TWetBub(k=273.15 + 5) <font color="darkgreen">&quot;Wet bulb temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TTowApp(k=5) <font color="darkgreen">&quot;Cooling tower approach&quot;</font>;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TWetBub.y, wseCon.TWetBul);
@@ -441,6 +450,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>WSEControl;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:32:33 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:47:36 2013.
 </address></BODY>
 </HTML>

@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Storage.Examples"></A><A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage"
 >Buildings.Fluid.Storage</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Fluid.Storage</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Storage.E320a95ea57037f4aesselS.png" ALT="Buildings.Fluid.Storage.Examples.ExpansionVessel" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Storage_Examples.html#Buildings.Fluid.Storage.Examples.ExpansionVessel"
@@ -56,22 +65,22 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Storage.E320a95ea57037f4aesselI.png" ALT="Buildings.Fluid.Storage.Examples.ExpansionVessel" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Storage.Examples.ExpansionVessel"></A><A HREF="Buildings_Fluid_Storage_Examples.html#Buildings.Fluid.Storage.Examples"
 >Buildings.Fluid.Storage.Examples</A>.ExpansionVessel</H2>
-<B>Test model for expansion vessel</B><p></P>
+<B>Test model for expansion vessel</B><p>
 <IMG SRC="Buildings.Fluid.Storage.E320a95ea57037f4aesselD.png" ALT="Buildings.Fluid.Storage.Examples.ExpansionVessel">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This model tests a pressure expansion vessel. The medium model that is used in this
 example changes its density as a function of temperature.
 To see the effect of the expansion vessel, delete the connecting line between
 the volume and the expansion vessel and check how much more the pressure increases
 as the fluid is heated.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ExpansionVessel <font color="darkgreen">&quot;Test model for expansion vessel&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -80,7 +89,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system(p_ambient=400000, massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial);
   <A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel"
 >Buildings.Fluid.Storage.ExpansionVessel</A> expVes(
@@ -91,14 +100,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     V=1,
     nPorts=1,
     m_flow_nominal=0.001) <font color="darkgreen">&quot;Volume of water&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
 >Modelica.Blocks.Sources.Pulse</A> pulse(
     amplitude=20,
     period=3600,
     offset=293.15);
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
 >Buildings.HeatTransfer.Sources.PrescribedTemperature</A> preTem;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
 >Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> theCon(G=10000);</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(pulse.y, preTem.T);
@@ -114,21 +123,21 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Storage.E320a95ea57037f4aesselI.png" ALT="Buildings.Fluid.Storage.Examples.Stratified" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Storage.Examples.Stratified"></A><A HREF="Buildings_Fluid_Storage_Examples.html#Buildings.Fluid.Storage.Examples"
 >Buildings.Fluid.Storage.Examples</A>.Stratified</H2>
-<B>Test model for stratified tank</B><p></P>
+<B>Test model for stratified tank</B><p>
 <IMG SRC="Buildings.Fluid.Storage.Eecea308a8dba966aifiedD.png" ALT="Buildings.Fluid.Storage.Examples.Stratified">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This test model compares two tank models. The only difference between
 the two tank models is that one uses the third order upwind discretization
 scheme that reduces numerical diffusion that is induced when connecting 
 volumes in series.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Stratified <font color="darkgreen">&quot;Test model for stratified tank&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
@@ -142,7 +151,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     nSeg=10,
     m_flow_nominal=0.1,
     VTan=3) <font color="darkgreen">&quot;Tank&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
 >Modelica.Blocks.Sources.TimeTable</A> TWat(table=[0,273.15 + 40; 3600,273.15 +
         40; 3600,273.15 + 20; 7200,273.15 + 20]) <font color="darkgreen">&quot;Water temperature&quot;</font>;
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
@@ -185,16 +194,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.EnthalpyFlowRate"
 >Buildings.Fluid.Sensors.EnthalpyFlowRate</A> HOut_flow1(<font color="blue">redeclare </font><font color="blue">package</font> Medium
       = Medium, m_flow_nominal=0.1) <font color="darkgreen">&quot;Enthalpy flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
 >Modelica.Blocks.Continuous.Integrator</A> dH <font color="darkgreen">
     &quot;Differenz in enthalpy (should be zero at steady-state)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</A> add(k2=-1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
 >Modelica.Blocks.Sources.TimeTable</A> P(table=[0,300000; 4200,300000; 4200,
         305000; 7200,305000; 7200,310000; 10800,310000; 10800,305000]) <font color="darkgreen">
     &quot;Pressure boundary condition&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> sine(
     freqHz=1/86400,
     amplitude=10,
@@ -211,7 +220,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
 >Buildings.HeatTransfer.Sources.PrescribedTemperature</A> TBCTop2 <font color="darkgreen">
     &quot;Boundary condition for tank&quot;</font>;
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TWat.y, sou_1.T_in);
@@ -244,27 +253,27 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Storage.E320a95ea57037f4aesselI.png" ALT="Buildings.Fluid.Storage.Examples.StratifiedLoadingUnloading" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Storage.Examples.StratifiedLoadingUnloading"></A><A HREF="Buildings_Fluid_Storage_Examples.html#Buildings.Fluid.Storage.Examples"
 >Buildings.Fluid.Storage.Examples</A>.StratifiedLoadingUnloading</H2>
-<B>Test model for stratified tank</B><p></P>
+<B>Test model for stratified tank</B><p>
 <IMG SRC="Buildings.Fluid.Storage.E425a05f93b7fe172adingD.png" ALT="Buildings.Fluid.Storage.Examples.StratifiedLoadingUnloading">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This test model compares two tank models. The only difference between
 the two tank models is that one uses the third order upwind discretization
 scheme that reduces numerical diffusion that is induced when connecting 
 volumes in series.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>1*1000/3600/4</TD><TD>[kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> StratifiedLoadingUnloading <font color="darkgreen">&quot;Test model for stratified tank&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -273,7 +282,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Media.ConstantPropertyLiquidWater</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
  <font color="blue">constant </font>Integer nSeg = 7 <font color="darkgreen">&quot;Number of segments in tank&quot;</font>;
 
- <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+ <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal= 1*1000/3600/4;
 
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
@@ -300,7 +309,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     show_T=true,
     m_flow_nominal=m_flow_nominal) <font color="darkgreen">&quot;Tank&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
 >Sources.MassFlowSource_T</A> sin_2(
@@ -319,7 +328,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     show_T=true,
     m_flow_nominal=m_flow_nominal) <font color="darkgreen">&quot;Tank&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
 >Modelica.Blocks.Sources.Pulse</A> pulse(
     amplitude=2*m_flow_nominal,
     offset=-m_flow_nominal,
@@ -336,15 +345,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.EnthalpyFlowRate"
 >Buildings.Fluid.Sensors.EnthalpyFlowRate</A> HOutEnh_flow(<font color="blue">redeclare </font><font color="blue">package</font>
       Medium = Medium, m_flow_nominal=m_flow_nominal) <font color="darkgreen">&quot;Enthalpy flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</A> add(k2=-1);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
 >Modelica.Blocks.Continuous.Integrator</A> dHTanEnh <font color="darkgreen">
     &quot;Difference in enthalpy (should be zero at steady-state)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</A> add1(
                                k2=-1);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
 >Modelica.Blocks.Continuous.Integrator</A> dHTan <font color="darkgreen">
     &quot;Difference in enthalpy (should be zero at steady-state)&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -368,6 +377,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>StratifiedLoadingUnloading;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:52 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:45:00 2013.
 </address></BODY>
 </HTML>

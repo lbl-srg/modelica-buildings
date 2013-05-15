@@ -17,25 +17,34 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.Math.Functions.BaseClasses"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
 >Buildings.Utilities.Math.Functions</A>.BaseClasses</H2>
 <B>Package with base classes for Buildings.Utilities.Math.Functions</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
 >Buildings.Utilities.Math.Functions</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Utilities.Math.07f182cefb588171PowerS.png" ALT="Buildings.Utilities.Math.Functions.BaseClasses.der_2_regNonZeroPower" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions_BaseClasses.html#Buildings.Utilities.Math.Functions.BaseClasses.der_2_regNonZeroPower"
@@ -57,8 +66,8 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.Math.Functions.BaseClasses.der_2_regNonZeroPower"></A><A HREF="Buildings_Utilities_Math_Functions_BaseClasses.html#Buildings.Utilities.Math.Functions.BaseClasses"
 >Buildings.Utilities.Math.Functions.BaseClasses</A>.der_2_regNonZeroPower</H2>
-<B>Power function, regularized near zero, but nonzero value for x=0</B><p></P>
-<P></P><H3>Information</H3>
+<B>Power function, regularized near zero, but nonzero value for x=0</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 Implementation of the second derivative of the function
@@ -66,7 +75,7 @@ Implementation of the second derivative of the function
 >
 Buildings.Utilities.Math.Functions.regNonZeroPower</a>.
 </p>
-<P></P>
+<P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -82,7 +91,7 @@ Buildings.Utilities.Math.Functions.regNonZeroPower</a>.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>der_2_y</TD><TD>Function value</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> der_2_regNonZeroPower <font color="darkgreen">
   &quot;Power function, regularized near zero, but nonzero value for x=0&quot;</font>
@@ -121,8 +130,8 @@ Buildings.Utilities.Math.Functions.regNonZeroPower</a>.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.Math.Functions.BaseClasses.der_polynomial"></A><A HREF="Buildings_Utilities_Math_Functions_BaseClasses.html#Buildings.Utilities.Math.Functions.BaseClasses"
 >Buildings.Utilities.Math.Functions.BaseClasses</A>.der_polynomial</H2>
-<B>Derivative for polynomial function</B><p></P>
-<P></P><H3>Information</H3>
+<B>Derivative for polynomial function</B><p>
+<P><H3>Information</H3></P>
 
 This function computes the first derivative of a polynomial of arbitrary order.
 The original polynomial has the form<br>
@@ -139,7 +148,7 @@ and then calls recursively
 <A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.polynomial"
 >
 Buildings.Utilities.Math.polynomial</a>
-<P></P>
+<P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -153,7 +162,7 @@ Buildings.Utilities.Math.polynomial</a>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>y</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> der_polynomial <font color="darkgreen">&quot;Derivative for polynomial function&quot;</font>
     <font color="blue">input </font>Real x;
@@ -177,8 +186,8 @@ Buildings.Utilities.Math.polynomial</a>
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.Math.Functions.BaseClasses.der_regNonZeroPower"></A><A HREF="Buildings_Utilities_Math_Functions_BaseClasses.html#Buildings.Utilities.Math.Functions.BaseClasses"
 >Buildings.Utilities.Math.Functions.BaseClasses</A>.der_regNonZeroPower</H2>
-<B>Power function, regularized near zero, but nonzero value for x=0</B><p></P>
-<P></P><H3>Information</H3>
+<B>Power function, regularized near zero, but nonzero value for x=0</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 Implementation of the first derivative of the function
@@ -186,7 +195,7 @@ Implementation of the first derivative of the function
 >
 Buildings.Utilities.Math.Functions.regNonZeroPower</a>.
 </p>
-<P></P>
+<P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -201,7 +210,7 @@ Buildings.Utilities.Math.Functions.regNonZeroPower</a>.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>der_y</TD><TD>Function value</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> der_regNonZeroPower <font color="darkgreen">
   &quot;Power function, regularized near zero, but nonzero value for x=0&quot;</font>
@@ -241,8 +250,8 @@ Buildings.Utilities.Math.Functions.regNonZeroPower</a>.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.Math.Functions.BaseClasses.der_spliceFunction"></A><A HREF="Buildings_Utilities_Math_Functions_BaseClasses.html#Buildings.Utilities.Math.Functions.BaseClasses"
 >Buildings.Utilities.Math.Functions.BaseClasses</A>.der_spliceFunction</H2>
-<B>Derivative of splice function</B><p></P>
-<P></P><H3>Information</H3>
+<B>Derivative of splice function</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 Implementation of the first derivative of the function
@@ -250,7 +259,7 @@ Implementation of the first derivative of the function
 >
 Buildings.Utilities.Math.Functions.spliceFunction</a>.
 </p>
-<P></P>
+<P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -269,7 +278,7 @@ Buildings.Utilities.Math.Functions.spliceFunction</a>.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>out</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> der_spliceFunction <font color="darkgreen">&quot;Derivative of splice function&quot;</font>
     <font color="blue">input </font>Real pos;
@@ -306,6 +315,6 @@ Buildings.Utilities.Math.Functions.spliceFunction</a>.
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>der_spliceFunction;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:31:46 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:46:51 2013.
 </address></BODY>
 </HTML>

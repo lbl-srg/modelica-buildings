@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Sensors.Conversions.Examples"></A><A HREF="Buildings_Fluid_Sensors_Conversions.html#Buildings.Fluid.Sensors.Conversions"
 >Buildings.Fluid.Sensors.Conversions</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Fluid.Sensors.Conversions</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Sensors.C83fc9374ae695197ctionS.png" ALT="Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sensors_Conversions_Examples.html#Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction"
@@ -50,9 +59,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Sensors.C83fc9374ae695197ctionI.png" ALT="Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction"></A><A HREF="Buildings_Fluid_Sensors_Conversions_Examples.html#Buildings.Fluid.Sensors.Conversions.Examples"
 >Buildings.Fluid.Sensors.Conversions.Examples</A>.To_VolumeFraction</H2>
-<B>Example problem for conversion model</B><p></P>
+<B>Example problem for conversion model</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.C83fc9374ae695197ctionD.png" ALT="Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This example demonstrates the modeling of a room with one person and CO<sub>2</sub> control.
 The room has a volume of <i>4*4*2.7 m<sup>3</sup></i>, and the CO<sub>2</sub> inflow is from
@@ -61,13 +70,13 @@ A control system regulates the outside air to maintain a CO<sub>2</sub> concentr
 in the room. The outside air has a CO<sub>2</sub> concentration of 300 PPM.
 Note that for simplicity, we allow zero outside air flow rate if the CO<sub>2</sub> concentration is below
 the setpoint, which does not comply with ASHRAE regulations.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> To_VolumeFraction <font color="darkgreen">&quot;Example problem for conversion model&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -78,7 +87,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Sensors.Conversions.To_VolumeFraction</A> conMasVolFra(MMMea=
         Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM) <font color="darkgreen">
     &quot;Conversion from mass fraction CO2 to volume fraction CO2&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> volFra(k=1000E-6) <font color="darkgreen">
     &quot;Set point for volume fraction of 700PPM CO2&quot;</font>;
   <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
@@ -104,7 +113,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_m_flow_in=true,
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     nPorts=1) <font color="darkgreen">&quot;CO2 source&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> CO2Per(k=15/1000/3600*1.977) <font color="darkgreen">
     &quot;CO2 emission per person&quot;</font>;
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
@@ -119,20 +128,20 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     p=100000,
     C={300E-6}*44.009544/28.9651159,
     nPorts=1) <font color="darkgreen">&quot;Sink for exhaust air&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gai(k=50/3600) <font color="darkgreen">&quot;Gain for mass flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> nPeo(k=1) <font color="darkgreen">&quot;Number of people&quot;</font>;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.VolumeFlowRate"
 >Buildings.Fluid.Sensors.VolumeFlowRate</A> senVolFlo(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         Medium, m_flow_nominal=0.1);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> norSet(k=1/1000E-6) <font color="darkgreen">
     &quot;Normalization for set point (to scale control input)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> norMea(k=1/1000E-6) <font color="darkgreen">
     &quot;Normalization for measured concentration (to scale control input)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> conVolFlo(k=3600, y(unit=&quot;m3/h&quot;)) <font color="darkgreen">
     &quot;Conversion from m3/s to m3/h&quot;</font>;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TraceSubstancesTwoPort"
@@ -147,7 +156,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     C_start=0,
     initType=Modelica.Blocks.Types.Init.InitialState) <font color="darkgreen">
     &quot;CO2 concentration in fresh air supply&quot;</font>;
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
 >Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res(
@@ -179,6 +188,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>To_VolumeFraction;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:45 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:53 2013.
 </address></BODY>
 </HTML>

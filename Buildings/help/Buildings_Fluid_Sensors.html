@@ -17,36 +17,45 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Sensors<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Sensors"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
 >Buildings.Fluid</A>.Sensors</H2>
 <B>Package with sensor models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p align = justify>
 Package <code>Sensors</code> consists of idealized sensor components that
 provide variables of a medium model and/or fluid ports as
 output signals. These signals can be, e.g., further processed
 with components of the 
-<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks.html#Modelica.Blocks"
+<A HREF="../../msl/3.2/help/Modelica_Blocks.html#Modelica.Blocks"
 >
 Modelica.Blocks</a> 
 library.
 Also more realistic sensor models can be built, by further
 processing (e.g., by attaching block 
-<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.FirstOrder"
+<A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.FirstOrder"
 >
 Modelica.Blocks.Continuous.FirstOrder</a> to
 model the time constant of the sensor).
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_SensorsPackage.html#Modelica.Icons.SensorsPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_SensorsPackage.html#Modelica.Icons.SensorsPackage"
 >Modelica.Icons.SensorsPackage</A> (Icon for packages containing sensors).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Sensors.UsersGuideS.png" ALT="Buildings.Fluid.Sensors.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sensors_UsersGuide.html#Buildings.Fluid.Sensors.UsersGuide"
@@ -138,9 +147,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Sensors.DensityI.png" ALT="Buildings.Fluid.Sensors.Density" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.Density"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.Density</H2>
-<B>Ideal one port density sensor</B><p></P>
+<B>Ideal one port density sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.DensityD.png" ALT="Buildings.Fluid.Sensors.Density">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the density of the fluid passing its port. 
@@ -150,32 +159,32 @@ The sensor is ideal, i.e. it does not influence the fluid.
 <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Information</a> first.</p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the sensor</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port</TD><TD>&nbsp;</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>d</TD><TD>Density in port medium [kg/m3]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Density <font color="darkgreen">&quot;Ideal one port density sensor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> d(<font color="blue">final </font>quantity=&quot;Density&quot;,
                                           <font color="blue">final </font>unit=&quot;kg/m3&quot;,
                                           min=0) <font color="darkgreen">&quot;Density in port medium&quot;</font>;</textblock>
@@ -191,9 +200,9 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.DensityTwoPortI.png" ALT="Buildings.Fluid.Sensors.DensityTwoPort" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.DensityTwoPort"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.DensityTwoPort</H2>
-<B>Ideal two port density sensor</B><p></P>
+<B>Ideal two port density sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.DensityTwoPortD.png" ALT="Buildings.Fluid.Sensors.DensityTwoPort">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the density of the fluid flowing from port_a to port_b. 
@@ -206,33 +215,33 @@ Setting <code>tau=0</code> is <i>not</i> recommend. See
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>1</TD><TD>Time constant at nominal flow rate [s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*m_flow_nominal</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (InitialState and InitialOutput are identical)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Density</A></TD><TD>d_start</TD><TD>Medium.density(Medium.setSta...</TD><TD>Initial or guess value of output (=state) [kg/m3]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Temperature used to compute d_start [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Pressure used to compute d_start [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Mass fraction used to compute d_start [1]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -240,44 +249,44 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>d</TD><TD>Density of the passing fluid [kg/m3]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DensityTwoPort <font color="darkgreen">&quot;Ideal two port density sensor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> d(<font color="blue">final </font>quantity=&quot;Density&quot;,
                                           <font color="blue">final </font>unit=&quot;kg/m3&quot;,
                                           min=0) <font color="darkgreen">&quot;Density of the passing fluid&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Medium.Density</A>
     d_start=<font color="red">Medium.density</font>(<font color="red">Medium.setState_pTX</font>(p_start, T_start, X_start)) <font color="darkgreen">
     &quot;Initial or guess value of output (=state)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_start=Medium.T_default <font color="darkgreen">
     &quot;Temperature used to compute d_start&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> p_start=Medium.p_default <font color="darkgreen">
     &quot;Pressure used to compute d_start&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> X_start[Medium.nX]=Medium.X_default <font color="darkgreen">
     &quot;Mass fraction used to compute d_start&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Medium.Density</A> dMed(start=d_start) <font color="darkgreen">
     &quot;Medium temperature to which the sensor is exposed&quot;</font>;
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Medium.Density</A> d_a_inflow <font color="darkgreen">&quot;Density of inflowing fluid at port_a&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Medium.Density</A> d_b_inflow <font color="darkgreen">
     &quot;Density of inflowing fluid at port_b or rho_a_inflow, if uni-directional flow&quot;</font>;
 <font color="blue">initial </font><font color="blue">equation </font>
@@ -314,9 +323,9 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.EnthalpyFlowRateI.png" ALT="Buildings.Fluid.Sensors.EnthalpyFlowRate" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.EnthalpyFlowRate"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.EnthalpyFlowRate</H2>
-<B>Ideal enthalphy flow rate sensor</B><p></P>
+<B>Ideal enthalphy flow rate sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.EnthalpyFlowRateD.png" ALT="Buildings.Fluid.Sensors.EnthalpyFlowRate">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the enthalphy flow rate of the medium in the flow
@@ -339,27 +348,27 @@ For a sensor that measures the latent enthalpy flow rate, use
 Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>0</TD><TD>Time constant at nominal flow rate [s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*m_flow_nominal</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (InitialState and InitialOutput are identical)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >SpecificEnthalpy</A></TD><TD>h_out_start</TD><TD>Medium.specificEnthalpy_pTX(...</TD><TD>Initial or guess value of measured specific enthalpy [J/kg]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -367,31 +376,31 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>H_flow</TD><TD>Enthalpy flow rate, positive if from port_a to port_b [W]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> EnthalpyFlowRate <font color="darkgreen">&quot;Ideal enthalphy flow rate sensor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A>(tau=0);
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> H_flow(unit=&quot;W&quot;) <font color="darkgreen">
     &quot;Enthalpy flow rate, positive if from port_a to port_b&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> h_out_start=
     <font color="red">Medium.specificEnthalpy_pTX</font>(Medium.p_default, Medium.T_default, Medium.X_default) <font color="darkgreen">
     &quot;Initial or guess value of measured specific enthalpy&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> hMed_out(start=h_out_start) <font color="darkgreen">
     &quot;Medium enthalpy to which the sensor is exposed&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> h_out(start=h_out_start) <font color="darkgreen">
     &quot;Medium enthalpy that is used to compute the enthalpy flow rate&quot;</font>;
 <font color="blue">initial </font><font color="blue">equation </font>
@@ -428,9 +437,9 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.Sd8c0214459fbde48wRateI.png" ALT="Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.SensibleEnthalpyFlowRate</H2>
-<B>Ideal enthalphy flow rate sensor that outputs the sensible enthalpy flow rate only</B><p></P>
+<B>Ideal enthalphy flow rate sensor that outputs the sensible enthalpy flow rate only</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.EnthalpyFlowRateD.png" ALT="Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the <i>sensible</i> enthalphy flow rate of the medium in the flow
@@ -469,28 +478,28 @@ The sensor can only be used with medium models that implement the function
 <code>enthalpyOfNonCondensingGas(state)</code>.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.IndexWater"
->Buildings.Fluid.BaseClasses.IndexWater</A> (Computes the index of the water substance), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.BaseClasses.IndexWater</A> (Computes the index of the water substance), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>0</TD><TD>Time constant at nominal flow rate [s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*m_flow_nominal</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (InitialState and InitialOutput are identical)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >SpecificEnthalpy</A></TD><TD>h_out_start</TD><TD>Medium.enthalpyOfNonCondensi...</TD><TD>Initial or guess value of measured specific <b>sensible</b> enthalpy [J/kg]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -498,14 +507,14 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>H_flow</TD><TD>Sensible enthalpy flow rate, positive if from port_a to port_b [W]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SensibleEnthalpyFlowRate <font color="darkgreen">
   &quot;Ideal enthalphy flow rate sensor that outputs the sensible enthalpy flow rate only&quot;</font>
@@ -513,31 +522,31 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A>(tau=0);
   <font color="blue">extends </font><A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.IndexWater"
 >Buildings.Fluid.BaseClasses.IndexWater</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> H_flow(unit=&quot;W&quot;) <font color="darkgreen">
     &quot;Sensible enthalpy flow rate, positive if from port_a to port_b&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> h_out_start=
     <font color="red">Medium.enthalpyOfNonCondensingGas</font>(
       <font color="red">Medium.temperature</font>(<font color="red">Medium.setState_phX</font>(
         Medium.p_default, Medium.T_default, Medium.X_default))) <font color="darkgreen">
     &quot;</pre>Initial or guess value of measured specific <b>sensible</b> enthalpy<pre>&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> hMed_out(start=h_out_start) <font color="darkgreen">
     &quot;Medium sensible enthalpy to which the sensor is exposed&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> h_out(start=h_out_start) <font color="darkgreen">
     &quot;Medium sensible enthalpy that is used to compute the enthalpy flow rate&quot;</font>;
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >Medium.MassFraction</A> XiActual[Medium.nXi] <font color="darkgreen">
     &quot;Medium mass fraction to which sensor is exposed to&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy"
 >Medium.SpecificEnthalpy</A> hActual <font color="darkgreen">
     &quot;Medium enthalpy to which sensor is exposed to&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</A> sta <font color="darkgreen">&quot;Medium state to which sensor is exposed to&quot;</font>;
 <font color="blue">initial </font><font color="blue">equation </font>
  <font color="darkgreen">// Compute initial state</font>
@@ -581,9 +590,9 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.Lbffc65370a9de5eawRateI.png" ALT="Buildings.Fluid.Sensors.LatentEnthalpyFlowRate" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.LatentEnthalpyFlowRate"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.LatentEnthalpyFlowRate</H2>
-<B>Ideal enthalphy flow rate sensor that outputs the latent enthalpy flow rate only</B><p></P>
+<B>Ideal enthalphy flow rate sensor that outputs the latent enthalpy flow rate only</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.EnthalpyFlowRateD.png" ALT="Buildings.Fluid.Sensors.LatentEnthalpyFlowRate">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the <i>latent</i> enthalphy flow rate of the medium in the flow
@@ -622,28 +631,28 @@ The sensor can only be used with medium models that implement the function
 <code>enthalpyOfNonCondensingGas(state)</code>.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.IndexWater"
->Buildings.Fluid.BaseClasses.IndexWater</A> (Computes the index of the water substance), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.BaseClasses.IndexWater</A> (Computes the index of the water substance), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>0</TD><TD>Time constant at nominal flow rate [s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*m_flow_nominal</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (InitialState and InitialOutput are identical)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >SpecificEnthalpy</A></TD><TD>h_out_start</TD><TD>Medium.specificEnthalpy_pTX(...</TD><TD>Initial or guess value of measured specific <b>latent</b> enthalpy [J/kg]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -651,14 +660,14 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>H_flow</TD><TD>Latent enthalpy flow rate, positive if from port_a to port_b [W]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> LatentEnthalpyFlowRate <font color="darkgreen">
   &quot;Ideal enthalphy flow rate sensor that outputs the latent enthalpy flow rate only&quot;</font>
@@ -666,32 +675,32 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A>(tau=0);
   <font color="blue">extends </font><A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.IndexWater"
 >Buildings.Fluid.BaseClasses.IndexWater</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> H_flow(unit=&quot;W&quot;) <font color="darkgreen">
     &quot;Latent enthalpy flow rate, positive if from port_a to port_b&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> h_out_start=
     <font color="red">Medium.specificEnthalpy_pTX</font>(Medium.p_default, Medium.T_default, Medium.X_default)
     -<font color="red">Medium.enthalpyOfNonCondensingGas</font>(
       <font color="red">Medium.temperature</font>(<font color="red">Medium.setState_phX</font>(
         Medium.p_default, Medium.T_default, Medium.X_default))) <font color="darkgreen">
     &quot;</pre>Initial or guess value of measured specific <b>latent</b> enthalpy<pre>&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> hMed_out(start=h_out_start) <font color="darkgreen">
     &quot;Medium latent enthalpy to which the sensor is exposed&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> h_out(start=h_out_start) <font color="darkgreen">
     &quot;Medium latent enthalpy that is used to compute the enthalpy flow rate&quot;</font>;
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >Medium.MassFraction</A> XiActual[Medium.nXi] <font color="darkgreen">
     &quot;Medium mass fraction to which sensor is exposed to&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy"
 >Medium.SpecificEnthalpy</A> hActual <font color="darkgreen">
     &quot;Medium enthalpy to which sensor is exposed to&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</A> sta <font color="darkgreen">&quot;Medium state to which sensor is exposed to&quot;</font>;
 <font color="blue">initial </font><font color="blue">equation </font>
  <font color="darkgreen">// Compute initial state</font>
@@ -738,29 +747,29 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.MassFlowRateI.png" ALT="Buildings.Fluid.Sensors.MassFlowRate" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.MassFlowRate"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.MassFlowRate</H2>
-<B>Ideal sensor for mass flow rate</B><p></P>
+<B>Ideal sensor for mass flow rate</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.MassFlowRateD.png" ALT="Buildings.Fluid.Sensors.MassFlowRate">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the mass flow rate flowing from port_a to port_b. 
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</A> (Partial component to model sensors that measure flow properties), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</A> (Partial component to model sensors that measure flow properties), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>0</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>0</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -768,23 +777,23 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>m_flow</TD><TD>Mass flow rate from port_a to port_b [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MassFlowRate <font color="darkgreen">&quot;Ideal sensor for mass flow rate&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</A>(
     <font color="blue">final </font>m_flow_nominal = 0,
     <font color="blue">final </font>m_flow_small = 0);
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> m_flow(quantity=&quot;MassFlowRate&quot;,
                                                <font color="blue">final </font>unit=&quot;kg/s&quot;) <font color="darkgreen">
     &quot;Mass flow rate from port_a to port_b&quot;</font>;</textblock>
@@ -800,51 +809,51 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.MassFractionI.png" ALT="Buildings.Fluid.Sensors.MassFraction" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.MassFraction"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.MassFraction</H2>
-<B>Ideal one port mass fraction sensor</B><p></P>
+<B>Ideal one port mass fraction sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.MassFractionD.png" ALT="Buildings.Fluid.Sensors.MassFraction">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the mass fraction contained in the fluid passing its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the sensor</TD></TR>
 <TR><TD>String</TD><TD>substanceName</TD><TD>&quot;water&quot;</TD><TD>Name of species substance</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port</TD><TD>&nbsp;</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>X</TD><TD>Mass fraction in port medium</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MassFraction <font color="darkgreen">&quot;Ideal one port mass fraction sensor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
   <font color="blue">parameter </font>String substanceName = &quot;water&quot; <font color="darkgreen">&quot;Name of species substance&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> X(min=0, max=1) <font color="darkgreen">
     &quot;Mass fraction in port medium&quot;</font>;</textblock>
 
 <font color="blue">protected </font>
   <font color="blue">parameter </font>Integer ind(fixed=false) <font color="darkgreen">
     &quot;Index of species in vector of auxiliary substances&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >Medium.MassFraction</A> XiVec[Medium.nXi](
       quantity=Medium.extraPropertiesNames) <font color="darkgreen">
     &quot;Trace substances vector, needed because indexed argument for the operator inStream is not supported&quot;</font>;
@@ -872,9 +881,9 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.Md81f541b809781a9oPortI.png" ALT="Buildings.Fluid.Sensors.MassFractionTwoPort" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.MassFractionTwoPort"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.MassFractionTwoPort</H2>
-<B>Ideal two port mass fraction sensor</B><p></P>
+<B>Ideal two port mass fraction sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.Md81f541b809781a9oPortD.png" ALT="Buildings.Fluid.Sensors.MassFractionTwoPort">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the mass fraction of the passing fluid. 
@@ -887,28 +896,28 @@ Setting <code>tau=0</code> is <i>not</i> recommend. See
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>1</TD><TD>Time constant at nominal flow rate [s]</TD></TR>
 <TR><TD>String</TD><TD>substanceName</TD><TD>&quot;water&quot;</TD><TD>Name of species substance</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*m_flow_nominal</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (InitialState and InitialOutput are identical)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >MassFraction</A></TD><TD>X_start</TD><TD>Medium.X_default[ind]</TD><TD>Initial or guess value of output (= state) [kg/kg]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -916,34 +925,34 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>X</TD><TD>Mass fraction of the passing fluid</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MassFractionTwoPort <font color="darkgreen">&quot;Ideal two port mass fraction sensor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
   <font color="blue">parameter </font>String substanceName = &quot;water&quot; <font color="darkgreen">&quot;Name of species substance&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> X(min=0, max=1, start=X_start) <font color="darkgreen">
     &quot;Mass fraction of the passing fluid&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >Medium.MassFraction</A> X_start=Medium.X_default[ind] <font color="darkgreen">
     &quot;Initial or guess value of output (= state)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >Medium.MassFraction</A> XMed(start=X_start) <font color="darkgreen">
     &quot;Mass fraction to which the sensor is exposed&quot;</font>;
 <font color="blue">protected </font>
   <font color="blue">parameter </font>Integer ind(fixed=false) <font color="darkgreen">
     &quot;Index of species in vector of auxiliary substances&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >Medium.MassFraction</A> XiVec[Medium.nXi](
       quantity=Medium.extraPropertiesNames) <font color="darkgreen">
     &quot;Trace substances vector, needed because indexed argument for the operator inStream is not supported&quot;</font>;
@@ -993,41 +1002,41 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.PressureI.png" ALT="Buildings.Fluid.Sensors.Pressure" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.Pressure"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.Pressure</H2>
-<B>Ideal pressure sensor</B><p></P>
+<B>Ideal pressure sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.PressureD.png" ALT="Buildings.Fluid.Sensors.Pressure">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the absolute pressure at its fluid port. The sensor is 
 ideal, i.e., it does not influence the fluid.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the sensor</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port</TD><TD>&nbsp;</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>p</TD><TD>Pressure at port [Pa]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Pressure <font color="darkgreen">&quot;Ideal pressure sensor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> p(<font color="blue">final </font>quantity=&quot;Pressure&quot;,
                                           <font color="blue">final </font>unit=&quot;Pa&quot;,
                                           min=0) <font color="darkgreen">&quot;Pressure at port&quot;</font>;</textblock>
@@ -1042,9 +1051,9 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.RelativeHumidityI.png" ALT="Buildings.Fluid.Sensors.RelativeHumidity" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.RelativeHumidity"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.RelativeHumidity</H2>
-<B>Ideal one port relative humidity sensor</B><p></P>
+<B>Ideal one port relative humidity sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.RelativeHumidityD.png" ALT="Buildings.Fluid.Sensors.RelativeHumidity">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the relative humidity contained in the fluid passing its port. 
@@ -1055,38 +1064,38 @@ Note that this sensor can only be used with media that contain the variable <cod
 which is typically the case for moist air models.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the sensor</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port</TD><TD>&nbsp;</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>phi</TD><TD>Relative humidity in port medium [1]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> RelativeHumidity <font color="darkgreen">&quot;Ideal one port relative humidity sensor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> phi(unit=&quot;1&quot;, min=0) <font color="darkgreen">
     &quot;Relative humidity in port medium&quot;</font>;</textblock>
 
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.BaseProperties"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.BaseProperties"
 >Medium.BaseProperties</A> med <font color="darkgreen">&quot;Medium state at dry bulb temperature&quot;</font>;
 
 <font color="blue">equation </font>
@@ -1104,9 +1113,9 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.Rd67ba12a3932b7cboPortI.png" ALT="Buildings.Fluid.Sensors.RelativeHumidityTwoPort" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.RelativeHumidityTwoPort"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.RelativeHumidityTwoPort</H2>
-<B>Ideal two port relative humidity sensor</B><p></P>
+<B>Ideal two port relative humidity sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.Rd67ba12a3932b7cboPortD.png" ALT="Buildings.Fluid.Sensors.RelativeHumidityTwoPort">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the relative humidity of the fluid flowing from port_a to port_b. 
@@ -1125,25 +1134,25 @@ Setting <code>tau=0</code> is <i>not</i> recommend. See
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>1</TD><TD>Time constant at nominal flow rate [s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*m_flow_nominal</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (InitialState and InitialOutput are identical)</TD></TR>
 <TR><TD>Real</TD><TD>phi_start</TD><TD>0.5</TD><TD>Initial or guess value of output (= state) [1]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
@@ -1152,22 +1161,22 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>phi</TD><TD>Relative humidity of the passing fluid [1]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> RelativeHumidityTwoPort <font color="darkgreen">
   &quot;Ideal two port relative humidity sensor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> phi(unit=&quot;1&quot;,
                                             min=0,
                                             start=phi_start) <font color="darkgreen">
@@ -1177,10 +1186,10 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
   Real phiMed(unit=&quot;1&quot;, min=0, start=phi_start) <font color="darkgreen">
     &quot;Relative humidity to which the sensor is exposed&quot;</font>;
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.BaseProperties"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.BaseProperties"
 >Medium.BaseProperties</A> med_a_inflow <font color="darkgreen">
     &quot;Medium state of inflowing fluid at port a&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.BaseProperties"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.BaseProperties"
 >Medium.BaseProperties</A> med_b_inflow <font color="darkgreen">
     &quot;Medium state of inflowing fluid at port b&quot;</font>;
 <font color="blue">initial </font><font color="blue">equation </font>
@@ -1221,9 +1230,9 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.RelativePressureI.png" ALT="Buildings.Fluid.Sensors.RelativePressure" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.RelativePressure"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.RelativePressure</H2>
-<B>Ideal relative pressure sensor</B><p></P>
+<B>Ideal relative pressure sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.RelativePressureD.png" ALT="Buildings.Fluid.Sensors.RelativePressure">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 The relative pressure "port_a.p - port_b.p" is determined between
@@ -1231,8 +1240,8 @@ the two ports of this component and is provided as output signal. The
 sensor should be connected in parallel with other equipment, no flow
 through the sensor is allowed.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.TranslationalSensor"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.TranslationalSensor"
 >Modelica.Icons.TranslationalSensor</A> (Icon representing a linear measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1243,32 +1252,32 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium in the sensor</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>&nbsp;</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>&nbsp;</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>p_rel</TD><TD>Relative pressure signal [Pa]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> RelativePressure <font color="darkgreen">&quot;Ideal relative pressure sensor&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.TranslationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.TranslationalSensor"
 >Modelica.Icons.TranslationalSensor</A>;
   <font color="blue">replaceable </font><font color="blue">package</font> Medium =
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+    <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">&quot;Medium in the sensor&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >Modelica.Fluid.Interfaces.FluidPort_a</A> port_a(m_flow(min=0),
                                 p(start=Medium.p_default),
                                 <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >Modelica.Fluid.Interfaces.FluidPort_b</A> port_b(m_flow(min=0),
                                 p(start=Medium.p_default),
                                 <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> p_rel(<font color="blue">final </font>quantity=&quot;Pressure&quot;,
                                               <font color="blue">final </font>unit=&quot;Pa&quot;,
                                               displayUnit=&quot;bar&quot;) <font color="darkgreen">
@@ -1297,9 +1306,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Sensors.Ra57f73acc57bf7f3atureI.png" ALT="Buildings.Fluid.Sensors.RelativeTemperature" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.RelativeTemperature"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.RelativeTemperature</H2>
-<B>Ideal relative temperature sensor</B><p></P>
+<B>Ideal relative temperature sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.Ra57f73acc57bf7f3atureD.png" ALT="Buildings.Fluid.Sensors.RelativeTemperature">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 The relative temperature "T(port_a) - T(port_b)" is determined between
@@ -1319,8 +1328,8 @@ See
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 <pre>
-</PRE><P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.TranslationalSensor"
+</PRE><P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.TranslationalSensor"
 >Modelica.Icons.TranslationalSensor</A> (Icon representing a linear measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1331,30 +1340,30 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium in the sensor</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>&nbsp;</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>&nbsp;</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>T_rel</TD><TD>Relative temperature signal [K]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> RelativeTemperature <font color="darkgreen">&quot;Ideal relative temperature sensor&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.TranslationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.TranslationalSensor"
 >Modelica.Icons.TranslationalSensor</A>;
   <font color="blue">replaceable </font><font color="blue">package</font> Medium =
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+    <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">&quot;Medium in the sensor&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >Modelica.Fluid.Interfaces.FluidPort_a</A> port_a(m_flow(min=0),
                                 p(start=Medium.p_default),
                                 <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >Modelica.Fluid.Interfaces.FluidPort_b</A> port_b(m_flow(min=0),
                                 p(start=Medium.p_default),
                                 <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> T_rel(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                               <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
     &quot;Relative temperature signal&quot;</font>;</textblock>
@@ -1381,41 +1390,41 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Sensors.SpecificEnthalpyI.png" ALT="Buildings.Fluid.Sensors.SpecificEnthalpy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.SpecificEnthalpy"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.SpecificEnthalpy</H2>
-<B>Ideal one port specific enthalpy sensor</B><p></P>
+<B>Ideal one port specific enthalpy sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.SpecificEnthalpyD.png" ALT="Buildings.Fluid.Sensors.SpecificEnthalpy">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the specific enthalpy of the fluid passing its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the sensor</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port</TD><TD>&nbsp;</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>h_out</TD><TD>Specific enthalpy in port medium [J/kg]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SpecificEnthalpy <font color="darkgreen">&quot;Ideal one port specific enthalpy sensor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> h_out(<font color="blue">final </font>quantity=&quot;SpecificEnergy&quot;,
                                               <font color="blue">final </font>unit=&quot;J/kg&quot;) <font color="darkgreen">
     &quot;Specific enthalpy in port medium&quot;</font>;</textblock>
@@ -1430,9 +1439,9 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.S0953a63adc594a2doPortI.png" ALT="Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.SpecificEnthalpyTwoPort</H2>
-<B>Ideal two port sensor for the specific enthalpy</B><p></P>
+<B>Ideal two port sensor for the specific enthalpy</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.S0953a63adc594a2doPortD.png" ALT="Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the specific enthalpy of a passing fluid. 
@@ -1445,27 +1454,27 @@ Setting <code>tau=0</code> is <i>not</i> recommend. See
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>1</TD><TD>Time constant at nominal flow rate [s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*m_flow_nominal</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (InitialState and InitialOutput are identical)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >SpecificEnthalpy</A></TD><TD>h_out_start</TD><TD>Medium.specificEnthalpy_pTX(...</TD><TD>Initial or guess value of output (= state) [J/kg]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -1473,31 +1482,31 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>h_out</TD><TD>Specific enthalpy of the passing fluid [J/kg]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SpecificEnthalpyTwoPort <font color="darkgreen">
   &quot;Ideal two port sensor for the specific enthalpy&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> h_out(<font color="blue">final </font>quantity=&quot;SpecificEnergy&quot;,
                                               <font color="blue">final </font>unit=&quot;J/kg&quot;,
                                               start=h_out_start) <font color="darkgreen">
     &quot;Specific enthalpy of the passing fluid&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> h_out_start=
     <font color="red">Medium.specificEnthalpy_pTX</font>(Medium.p_default, Medium.T_default, Medium.X_default) <font color="darkgreen">
     &quot;Initial or guess value of output (= state)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> hMed_out(start=h_out_start) <font color="darkgreen">
     &quot;Medium enthalpy to which the sensor is exposed&quot;</font>;
 <font color="blue">initial </font><font color="blue">equation </font>
@@ -1532,41 +1541,41 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.SpecificEntropyI.png" ALT="Buildings.Fluid.Sensors.SpecificEntropy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.SpecificEntropy"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.SpecificEntropy</H2>
-<B>Ideal one port specific entropy sensor</B><p></P>
+<B>Ideal one port specific entropy sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.SpecificEntropyD.png" ALT="Buildings.Fluid.Sensors.SpecificEntropy">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the specific entropy of the fluid passing its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the sensor</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port</TD><TD>&nbsp;</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>s</TD><TD>Specific entropy in port medium [J/(kg.K)]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SpecificEntropy <font color="darkgreen">&quot;Ideal one port specific entropy sensor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> s(<font color="blue">final </font>quantity=&quot;SpecificEntropy&quot;,
                                           <font color="blue">final </font>unit=&quot;J/(kg.K)&quot;) <font color="darkgreen">
     &quot;Specific entropy in port medium&quot;</font>;</textblock>
@@ -1583,9 +1592,9 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.S08db80dec91469f7oPortI.png" ALT="Buildings.Fluid.Sensors.SpecificEntropyTwoPort" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.SpecificEntropyTwoPort"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.SpecificEntropyTwoPort</H2>
-<B>Ideal two port sensor for the specific entropy</B><p></P>
+<B>Ideal two port sensor for the specific entropy</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.S08db80dec91469f7oPortD.png" ALT="Buildings.Fluid.Sensors.SpecificEntropyTwoPort">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the specific entropy of the passing fluid. 
@@ -1598,27 +1607,27 @@ Setting <code>tau=0</code> is <i>not</i> recommend. See
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>1</TD><TD>Time constant at nominal flow rate [s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*m_flow_nominal</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (InitialState and InitialOutput are identical)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEntropy"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEntropy"
 >SpecificEntropy</A></TD><TD>s_start</TD><TD>Medium.specificEntropy_pTX(M...</TD><TD>Initial or guess value of output (= state) [J/(kg.K)]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -1626,38 +1635,38 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>s</TD><TD>Specific entropy of the passing fluid [J/(kg.K)]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SpecificEntropyTwoPort <font color="darkgreen">
   &quot;Ideal two port sensor for the specific entropy&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> s(<font color="blue">final </font>quantity=&quot;SpecificEntropy&quot;,
                                           <font color="blue">final </font>unit=&quot;J/(kg.K)&quot;,
                                           start=s_start) <font color="darkgreen">
     &quot;Specific entropy of the passing fluid&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEntropy"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEntropy"
 >Modelica.SIunits.SpecificEntropy</A> s_start=
     <font color="red">Medium.specificEntropy_pTX</font>(Medium.p_default, Medium.T_default, Medium.X_default) <font color="darkgreen">
     &quot;Initial or guess value of output (= state)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEntropy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEntropy"
 >Modelica.SIunits.SpecificEntropy</A> sMed(start=s_start) <font color="darkgreen">
     &quot;Medium entropy to which the sensor is exposed&quot;</font>;
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy"
 >Medium.SpecificEntropy</A> s_a_inflow <font color="darkgreen">
     &quot;Specific entropy of inflowing fluid at port_a&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy"
 >Medium.SpecificEntropy</A> s_b_inflow <font color="darkgreen">
     &quot;Specific entropy of inflowing fluid at port_b or s_a_inflow, if uni-directional flow&quot;</font>;
 <font color="blue">initial </font><font color="blue">equation </font>
@@ -1694,39 +1703,39 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.TemperatureI.png" ALT="Buildings.Fluid.Sensors.Temperature" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.Temperature"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.Temperature</H2>
-<B>Ideal one port temperature sensor</B><p></P>
+<B>Ideal one port temperature sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.TemperatureD.png" ALT="Buildings.Fluid.Sensors.Temperature">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the temperature of the fluid passing its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the sensor</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port</TD><TD>&nbsp;</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>T</TD><TD>Temperature in port medium [K]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Temperature <font color="darkgreen">&quot;Ideal one port temperature sensor&quot;</font>
     <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> T(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                           <font color="blue">final </font>unit = &quot;K&quot;, min=0,
                                           displayUnit = &quot;degC&quot;) <font color="darkgreen">
@@ -1743,9 +1752,9 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.T8e9fdae128e70870oPortI.png" ALT="Buildings.Fluid.Sensors.TemperatureTwoPort" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.TemperatureTwoPort"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.TemperatureTwoPort</H2>
-<B>Ideal two port temperature sensor</B><p></P>
+<B>Ideal two port temperature sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.T8e9fdae128e70870oPortD.png" ALT="Buildings.Fluid.Sensors.TemperatureTwoPort">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the temperature of the medium in the flow
@@ -1758,26 +1767,26 @@ Setting <code>tau=0</code> is <i>not</i> recommend. See
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>1</TD><TD>Time constant at nominal flow rate [s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*m_flow_nominal</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (InitialState and InitialOutput are identical)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Initial or guess value of output (= state) [K]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -1785,35 +1794,35 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>T</TD><TD>Temperature of the passing fluid [K]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TemperatureTwoPort <font color="darkgreen">&quot;Ideal two port temperature sensor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> T(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                           <font color="blue">final </font>unit=&quot;K&quot;,
                                           displayUnit = &quot;degC&quot;,
                                           min = 0,
                                           start=T_start) <font color="darkgreen">
     &quot;Temperature of the passing fluid&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_start=Medium.T_default <font color="darkgreen">
     &quot;Initial or guess value of output (= state)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
 >Medium.Temperature</A> TMed(start=T_start) <font color="darkgreen">
     &quot;Medium temperature to which the sensor is exposed&quot;</font>;
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
 >Medium.Temperature</A> T_a_inflow <font color="darkgreen">&quot;Temperature of inflowing fluid at port_a&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
 >Medium.Temperature</A> T_b_inflow <font color="darkgreen">
     &quot;Temperature of inflowing fluid at port_b or T_a_inflow, if uni-directional flow&quot;</font>;
 <font color="blue">initial </font><font color="blue">equation </font>
@@ -1850,9 +1859,9 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.Tf9e5d48a814aaf17oPortI.png" ALT="Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.TemperatureWetBulbTwoPort</H2>
-<B>Ideal wet bulb temperature sensor</B><p></P>
+<B>Ideal wet bulb temperature sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.Tf9e5d48a814aaf17oPortD.png" ALT="Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the wet bulb temperature of the medium in the flow
@@ -1865,26 +1874,26 @@ Setting <code>tau=0</code> is <i>not</i> recommend. See
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>1</TD><TD>Time constant at nominal flow rate [s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*m_flow_nominal</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (InitialState and InitialOutput are identical)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TWetBul_start</TD><TD>Medium.T_default</TD><TD>Initial or guess value of <b>wet bulb</b> temperature (used to compute initial output signal)) [K]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -1892,37 +1901,37 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>T</TD><TD>Wet bulb temperature in port medium [K]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TemperatureWetBulbTwoPort <font color="darkgreen">&quot;Ideal wet bulb temperature sensor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> T(
     start=TWetBul_start,
     <font color="blue">final </font>quantity=&quot;Temperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit = &quot;degC&quot;) <font color="darkgreen">&quot;Wet bulb temperature in port medium&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TWetBul_start = Medium.T_default <font color="darkgreen">
     &quot;</pre>Initial or guess value of <b>wet bulb</b> temperature (used to compute initial output signal))<pre>&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
 >Medium.Temperature</A> TMedWetBul(start=TWetBul_start) <font color="darkgreen">
     &quot;Medium wet bulb temperature to which the sensor is exposed&quot;</font>;
 <font color="blue">protected </font>
   <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi"
 >Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi</A> wetBulMod(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Block for wet bulb temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> h <font color="darkgreen">&quot;Specific enthalpy&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >Medium.MassFraction</A> Xi[Medium.nXi] <font color="darkgreen">
     &quot;Species vector, needed because indexed argument for the operator inStream is not supported&quot;</font>;
 <font color="blue">initial </font><font color="blue">equation </font>
@@ -1963,44 +1972,44 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.TraceSubstancesI.png" ALT="Buildings.Fluid.Sensors.TraceSubstances" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.TraceSubstances"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.TraceSubstances</H2>
-<B>Ideal one port trace substances sensor</B><p></P>
+<B>Ideal one port trace substances sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.TraceSubstancesD.png" ALT="Buildings.Fluid.Sensors.TraceSubstances">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the trace substances contained in the fluid passing its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A> (Partial component to model a sensor that measures a potential variable), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the sensor</TD></TR>
 <TR><TD>String</TD><TD>substanceName</TD><TD>&quot;CO2&quot;</TD><TD>Name of trace substance</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port</TD><TD>&nbsp;</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>C</TD><TD>Trace substance in port medium</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TraceSubstances <font color="darkgreen">&quot;Ideal one port trace substances sensor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
   <font color="blue">parameter </font>String substanceName = &quot;CO2&quot; <font color="darkgreen">&quot;Name of trace substance&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> C <font color="darkgreen">&quot;Trace substance in port medium&quot;</font>;</textblock>
 
 <font color="blue">protected </font>
@@ -2034,9 +2043,9 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.T08b0a06d625012a8oPortI.png" ALT="Buildings.Fluid.Sensors.TraceSubstancesTwoPort" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.TraceSubstancesTwoPort"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.TraceSubstancesTwoPort</H2>
-<B>Ideal two port sensor for trace substance</B><p></P>
+<B>Ideal two port sensor for trace substance</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.T08b0a06d625012a8oPortD.png" ALT="Buildings.Fluid.Sensors.TraceSubstancesTwoPort">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the trace substance of the passing fluid. 
@@ -2049,26 +2058,26 @@ Setting <code>tau=0</code> is <i>not</i> recommend. See
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>1</TD><TD>Time constant at nominal flow rate [s]</TD></TR>
 <TR><TD>String</TD><TD>substanceName</TD><TD>&quot;CO2&quot;</TD><TD>Name of trace substance</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*m_flow_nominal</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (InitialState and InitialOutput are identical)</TD></TR>
 <TR><TD>Real</TD><TD>C_start</TD><TD>&nbsp;</TD><TD>Initial or guess value of output (= state)</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
@@ -2077,22 +2086,22 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>C</TD><TD>Trace substance of the passing fluid</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TraceSubstancesTwoPort <font color="darkgreen">
   &quot;Ideal two port sensor for trace substance&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> C(min=0,
                                           nominal=Medium.C_nominal,
                                           start=C_start) <font color="darkgreen">
@@ -2147,9 +2156,9 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sensors.VolumeFlowRateI.png" ALT="Buildings.Fluid.Sensors.VolumeFlowRate" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.VolumeFlowRate"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.VolumeFlowRate</H2>
-<B>Ideal sensor for volume flow rate</B><p></P>
+<B>Ideal sensor for volume flow rate</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.VolumeFlowRateD.png" ALT="Buildings.Fluid.Sensors.VolumeFlowRate">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component monitors the volume flow rate flowing from port_a to port_b. 
@@ -2162,33 +2171,33 @@ See <A HREF="Buildings_Fluid_Sensors_UsersGuide.html#Buildings.Fluid.Sensors.Use
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
->Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+>Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A> (Partial component to model sensors that measure flow properties using a dynamic model), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A> (Icon representing a round measurement device).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>0</TD><TD>Time constant at nominal flow rate [s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*m_flow_nominal</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (InitialState and InitialOutput are identical)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Density</A></TD><TD>d_start</TD><TD>Medium.density(Medium.setSta...</TD><TD>Initial or guess value of density [kg/m3]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Temperature used to compute d_start [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Pressure used to compute d_start [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Mass fraction used to compute d_start [1]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -2196,48 +2205,48 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>V_flow</TD><TD>Volume flow rate from port_a to port_b [m3/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> VolumeFlowRate <font color="darkgreen">&quot;Ideal sensor for volume flow rate&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
 >Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</A>(tau=0);
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.RotationalSensor"
 >Modelica.Icons.RotationalSensor</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> V_flow(<font color="blue">final </font>quantity=&quot;VolumeFlowRate&quot;,
                                                <font color="blue">final </font>unit=&quot;m3/s&quot;) <font color="darkgreen">
     &quot;Volume flow rate from port_a to port_b&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Medium.Density</A>
     d_start=<font color="red">Medium.density</font>(<font color="red">Medium.setState_pTX</font>(p_start, T_start, X_start)) <font color="darkgreen">
     &quot;Initial or guess value of density&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_start=Medium.T_default <font color="darkgreen">
     &quot;Temperature used to compute d_start&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> p_start=Medium.p_default <font color="darkgreen">
     &quot;Pressure used to compute d_start&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> X_start[Medium.nX]=Medium.X_default <font color="darkgreen">
     &quot;Mass fraction used to compute d_start&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Medium.Density</A> dMed(start=d_start) <font color="darkgreen">
     &quot;Medium temperature to which the sensor is exposed&quot;</font>;
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Medium.Density</A> d_a_inflow(start=d_start) <font color="darkgreen">
     &quot;Density of inflowing fluid at port_a&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Medium.Density</A> d_b_inflow(start=d_start) <font color="darkgreen">
     &quot;Density of inflowing fluid at port_b or rho_a_inflow, if uni-directional flow&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Medium.Density</A> d(start=d_start) <font color="darkgreen">&quot;Density of the passing fluid&quot;</font>;
 <font color="blue">initial </font><font color="blue">equation </font>
   <font color="blue">if </font>dynamic<font color="blue"> then</font>
@@ -2270,6 +2279,6 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>VolumeFlowRate;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:44 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:52 2013.
 </address></BODY>
 </HTML>

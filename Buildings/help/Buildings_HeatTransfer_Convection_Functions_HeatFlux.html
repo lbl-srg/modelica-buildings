@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE HeatFlux<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Convection.Functions.HeatFlux"></A><A HREF="Buildings_HeatTransfer_Convection_Functions.html#Buildings.HeatTransfer.Convection.Functions"
 >Buildings.HeatTransfer.Convection.Functions</A>.HeatFlux</H2>
 <B>Correlations for convective heat flux</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 This package contains functions for the convective heat transfer.
 Input into the functions is the temperature difference between 
@@ -37,9 +46,9 @@ is not differentiable around zero for certain flow configurations,
 such as buoyancy driven flow at a horizontal surface. However, the
 product of convective heat transfer coefficient times temperature 
 difference is differentiable around zero.
-<P></P>
+<P>
 
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Cof8f7c61747a94363ifierS.png" ALT="Buildings.HeatTransfer.Convection.Functions.HeatFlux.constantCoefficient" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.constantCoefficient"
@@ -67,38 +76,38 @@ difference is differentiable around zero.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Convection.Functions.HeatFlux.constantCoefficient"></A><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.constantCoefficient</H2>
-<B>Constant convective heat transfer coefficient</B><p></P>
-<P></P><H3>Information</H3>
+<B>Constant convective heat transfer coefficient</B><p>
+<P><H3>Information</H3></P>
 
 This function computes the convective heat transfer coefficient as
 <code>h=hCon</code>, where <code>hCon=3</code> is a default input argument.
 The convective convective heat flux is
 <code>q_flow = h * dT</code>,
 where <code>dT</code> is the solid temperature minus the fluid temperature.
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux</A> (Partial function for convective heat flux).
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dT</TD><TD>&nbsp;</TD><TD>Temperature difference solid minus fluid [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >CoefficientOfHeatTransfer</A></TD><TD>hCon</TD><TD>3</TD><TD>Constant for convective heat transfer coefficient [W/(m2.K)]</TD></TR>
 </TABLE>
 <P><H3>Outputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >HeatFlux</A></TD><TD>q_flow</TD><TD>Convective heat flux from solid to fluid [W/m2]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> constantCoefficient <font color="darkgreen">
   &quot;Constant convective heat transfer coefficient&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux</A>;
-  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >Modelica.SIunits.CoefficientOfHeatTransfer</A> hCon = 3 <font color="darkgreen">
     &quot;Constant for convective heat transfer coefficient&quot;</font>;
 <font color="blue">algorithm </font>
@@ -111,8 +120,8 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall"></A><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.wall</H2>
-<B>Free convection, wall</B><p></P>
-<P></P><H3>Information</H3>
+<B>Free convection, wall</B><p>
+<P><H3>Information</H3></P>
 
 This function computes the buoyancy-driven convective heat transfer coefficient 
 for a wall as
@@ -120,22 +129,22 @@ for a wall as
 where <code>dT</code> is the solid temperature minus the fluid temperature.
 The convective convective heat flux is then
 <code>q_flow = h * dT</code>.
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux</A> (Partial function for convective heat flux).
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dT</TD><TD>&nbsp;</TD><TD>Temperature difference solid minus fluid [K]</TD></TR>
 </TABLE>
 <P><H3>Outputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >HeatFlux</A></TD><TD>q_flow</TD><TD>Convective heat flux from solid to fluid [W/m2]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> wall <font color="darkgreen">&quot;Free convection, wall&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
@@ -151,8 +160,8 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor"></A><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.floor</H2>
-<B>Free convection, floor</B><p></P>
-<P></P><H3>Information</H3>
+<B>Free convection, floor</B><p>
+<P><H3>Information</H3></P>
 
 This function computes the buoyancy-driven convective heat transfer coefficient 
 for a floor as
@@ -163,22 +172,22 @@ or <code>k=0.76</code> otherwise, and where
 <code>dT</code> is the solid temperature minus the fluid temperature.
 The convective convective heat flux is then
 <code>q_flow = h * dT</code>.
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux</A> (Partial function for convective heat flux).
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dT</TD><TD>&nbsp;</TD><TD>Temperature difference solid minus fluid [K]</TD></TR>
 </TABLE>
 <P><H3>Outputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >HeatFlux</A></TD><TD>q_flow</TD><TD>Convective heat flux from solid to fluid [W/m2]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> floor <font color="darkgreen">&quot;Free convection, floor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
@@ -194,8 +203,8 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling"></A><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.ceiling</H2>
-<B>Free convection, ceiling</B><p></P>
-<P></P><H3>Information</H3>
+<B>Free convection, ceiling</B><p>
+<P><H3>Information</H3></P>
 
 This function computes the buoyancy-driven convective heat transfer coefficient 
 for a ceiling as
@@ -206,22 +215,22 @@ or <code>k=0.76</code> otherwise, and where
 <code>dT</code> is the solid temperature minus the fluid temperature.
 The convective convective heat flux is then
 <code>q_flow = h * dT</code>.
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux</A> (Partial function for convective heat flux).
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dT</TD><TD>&nbsp;</TD><TD>Temperature difference solid minus fluid [K]</TD></TR>
 </TABLE>
 <P><H3>Outputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >HeatFlux</A></TD><TD>q_flow</TD><TD>Convective heat flux from solid to fluid [W/m2]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> ceiling <font color="darkgreen">&quot;Free convection, ceiling&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
@@ -237,8 +246,8 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Convection.Functions.HeatFlux.raleigh"></A><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.raleigh</H2>
-<B>Raleigh number with smooth transition to lower limit</B><p></P>
-<P></P><H3>Information</H3>
+<B>Raleigh number with smooth transition to lower limit</B><p>
+<P><H3>Information</H3></P>
 
 This function returns the Raleigh number.
 The parameter <code>RaMin</code> is used to transition
@@ -246,24 +255,24 @@ to a lower limit for the Raleigh number.
 This is helpful to avoid a Raleigh number of zero or
 to avoid an expression for a convection coefficient that
 has an infinite derivative near zero, i.e., if <i>h=f(Ra<sup>(1/2)</sup>)</i>.
-<P></P>
+<P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Layer thickness [m]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>rho</TD><TD>&nbsp;</TD><TD>Mass density [kg/m3]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >SpecificHeatCapacity</A></TD><TD>c_p</TD><TD>&nbsp;</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
 >DynamicViscosity</A></TD><TD>mu</TD><TD>&nbsp;</TD><TD>Dynamic viscosity [Pa.s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >ThermalConductivity</A></TD><TD>k</TD><TD>&nbsp;</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_a</TD><TD>&nbsp;</TD><TD>Temperature of surface a [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b</TD><TD>&nbsp;</TD><TD>Temperature of surface b [K]</TD></TR>
 <TR><TD>Real</TD><TD>Ra_min</TD><TD>&nbsp;</TD><TD>Minimum value for Raleigh number</TD></TR>
 </TABLE>
@@ -272,28 +281,28 @@ has an infinite derivative near zero, i.e., if <i>h=f(Ra<sup>(1/2)</sup>)</i>.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>Ra</TD><TD>Raleigh number</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> raleigh <font color="darkgreen">
   &quot;Raleigh number with smooth transition to lower limit&quot;</font>
- <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+ <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</A> x <font color="darkgreen">&quot;Layer thickness&quot;</font>;
- <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+ <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Modelica.SIunits.Density</A> rho <font color="darkgreen">&quot;Mass density&quot;</font>;
- <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+ <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >Modelica.SIunits.SpecificHeatCapacity</A> c_p <font color="darkgreen">&quot;Specific heat capacity&quot;</font>;
- <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
+ <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
 >Modelica.SIunits.DynamicViscosity</A> mu <font color="darkgreen">&quot;Dynamic viscosity&quot;</font>;
- <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+ <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >Modelica.SIunits.ThermalConductivity</A> k <font color="darkgreen">&quot;Thermal conductivity&quot;</font>;
- <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+ <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_a <font color="darkgreen">&quot;Temperature of surface a&quot;</font>;
- <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+ <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b <font color="darkgreen">&quot;Temperature of surface b&quot;</font>;
  <font color="blue">input </font>Real Ra_min <font color="darkgreen">&quot;Minimum value for Raleigh number&quot;</font>;
  <font color="blue">output </font>Real Ra <font color="darkgreen">&quot;Raleigh number&quot;</font>;
 <font color="blue">protected </font>
- <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+ <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >Modelica.SIunits.TemperatureDifference</A> dT <font color="darkgreen">&quot;Temperature difference&quot;</font>;
 <font color="blue">algorithm </font>
   dT :=<font color="red">abs</font>(T_a - T_b);
@@ -302,6 +311,6 @@ has an infinite derivative near zero, i.e., if <i>h=f(Ra<sup>(1/2)</sup>)</i>.
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>raleigh;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:09 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:45:16 2013.
 </address></BODY>
 </HTML>

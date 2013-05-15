@@ -17,21 +17,30 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Comfort<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.Comfort"></A><A HREF="Buildings_Utilities.html#Buildings.Utilities"
 >Buildings.Utilities</A>.Comfort</H2>
 <B>Library with models for comfort</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 This package contains models for comfort.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Utilities.Comfort.FangerS.png" ALT="Buildings.Utilities.Comfort.Fanger" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Comfort.html#Buildings.Utilities.Comfort.Fanger"
@@ -48,9 +57,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Comfort.FangerI.png" ALT="Buildings.Utilities.Comfort.Fanger" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Comfort.Fanger"></A><A HREF="Buildings_Utilities_Comfort.html#Buildings.Utilities.Comfort"
 >Buildings.Utilities.Comfort</A>.Fanger</H2>
-<B>Thermal comfort model according to Fanger</B><p></P>
+<B>Thermal comfort model according to Fanger</B><p>
 <IMG SRC="Buildings.Utilities.Comfort.FangerD.png" ALT="Buildings.Utilities.Comfort.Fanger">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 Thermal comfort model according to Fanger, as described in
 the ASHRAE Fundamentals (1997).
@@ -200,66 +209,66 @@ The University of Hong Kong MEBS6006 Environmental Services I;
 http://me.hku.hk/msc-courses/MEBS6006/index.html</a>
 </li>
 </ul>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >HeatFlux</A></TD><TD>W</TD><TD>0</TD><TD>Rate of mechanical work accomplished (must be non-positive, typically equal to 0) [W/m2]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >CoefficientOfHeatTransfer</A></TD><TD>hRad</TD><TD>0.8*4.7</TD><TD>Radiative heat transfer coefficient [W/(m2.K)]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Conditional inputs</TD></TR>
 <TR><TD>Boolean</TD><TD>use_vAir_in</TD><TD>false</TD><TD>Get the air velocity from the input connector</TD></TR>
 <TR><TD>Boolean</TD><TD>use_M_in</TD><TD>false</TD><TD>Get the metabolic rate from the input connector</TD></TR>
 <TR><TD>Boolean</TD><TD>use_ICl_in</TD><TD>true</TD><TD>Get the clothing insulation from the input connector</TD></TR>
 <TR><TD>Boolean</TD><TD>use_pAir_in</TD><TD>false</TD><TD>Get the air pressure from the input connector</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Velocity</A></TD><TD>vAir</TD><TD>0.05</TD><TD>Fixed value for air velocity [m/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >HeatFlux</A></TD><TD>M</TD><TD>60</TD><TD>Fixed value for metabolic rate [W/m2]</TD></TR>
 <TR><TD>Real</TD><TD>ICl</TD><TD>&nbsp;</TD><TD>Fixed value for clothing insulation in units of clo (summer=0.5; winter=0.9)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>pAir</TD><TD>101325</TD><TD>Fixed value for air pressure [Pa]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>PMV</TD><TD>PMV</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>PPD</TD><TD>PPD [0.05...1]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TAir</TD><TD>Air temperature [K]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TRad</TD><TD>Radiation temperature [K]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>phi</TD><TD>Relative humidity</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>pAir_in</TD><TD>Air pressure [Pa]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>ICl_in</TD><TD>Clothing thermal resistance in clo</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>vAir_in</TD><TD>Air velocity</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>M_in</TD><TD>Metabolic heat generation in W/m2 (not in met) [W/m2]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Fanger <font color="darkgreen">&quot;Thermal comfort model according to Fanger&quot;</font>
 <font color="blue">extends </font><A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> PMV <font color="darkgreen">&quot;PMV&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> PPD <font color="darkgreen">&quot;PPD [0.05...1]&quot;</font>;</textblock>
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >Modelica.SIunits.HeatFlux</A> W(max=0)=0 <font color="darkgreen">
     &quot;Rate of mechanical work accomplished (must be non-positive, typically equal to 0)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >Modelica.SIunits.CoefficientOfHeatTransfer</A> hRad(
     min=0,
     max=10)=0.8*4.7 <font color="darkgreen">&quot;Radiative heat transfer coefficient&quot;</font>;
@@ -273,48 +282,48 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
   <font color="blue">parameter </font>Boolean use_pAir_in= false <font color="darkgreen">
     &quot;Get the air pressure from the input connector&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Modelica.SIunits.Velocity</A> vAir= 0.05 <font color="darkgreen">&quot;Fixed value for air velocity&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >Modelica.SIunits.HeatFlux</A> M = 60 <font color="darkgreen">&quot;Fixed value for metabolic rate&quot;</font>;
   <font color="blue">parameter </font>Real ICl <font color="darkgreen">
     &quot;Fixed value for clothing insulation in units of clo (summer=0.5; winter=0.9)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> pAir = 101325 <font color="darkgreen">
     &quot;Fixed value for air pressure&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TAir(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                           <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;) <font color="darkgreen">
     &quot;Air temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TRad(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                           <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;) <font color="darkgreen">
     &quot;Radiation temperature&quot;</font>;</textblock>
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TOpe <font color="darkgreen">&quot;Operative temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TClo <font color="darkgreen">&quot;Surface temperature of clothing&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TSki(
     min=273.15+10,
     max=273.15+42) <font color="darkgreen">&quot;Skin temperature&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> phi(min=0, max=1) <font color="darkgreen">&quot;Relative humidity&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> pAir_in(
     <font color="blue">final </font>quantity=&quot;Pressure&quot;,
     <font color="blue">final </font>unit=&quot;Pa&quot;,
     min=0) <font color="blue">if </font>use_pAir_in <font color="darkgreen">&quot;Air pressure&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> ICl_in <font color="blue">if </font>use_ICl_in <font color="darkgreen">
     &quot;Clothing thermal resistance in clo&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> vAir_in <font color="blue">if </font>
        use_vAir_in <font color="darkgreen">&quot;Air velocity&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> M_in(
     min=40,
     max=600,
@@ -322,25 +331,25 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
     <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="blue">if </font>use_M_in <font color="darkgreen">
     &quot;Metabolic heat generation in W/m2 (not in met)&quot;</font>;</textblock>
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >Modelica.SIunits.CoefficientOfHeatTransfer</A> hCom(
     min=0,
     max=10) <font color="darkgreen">&quot;Combined heat transfer coefficient&quot;</font>;
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >Modelica.SIunits.CoefficientOfHeatTransfer</A> hCon(
     min=0,
     max=10) <font color="darkgreen">&quot;Convective heat transfer coefficient&quot;</font>;
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> pSte(
     min=0,
     max=3000) <font color="darkgreen">&quot;Partial pressure of water vapor in ambient air&quot;</font>;
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >Modelica.SIunits.HeatFlux</A> L <font color="darkgreen">&quot;Thermal load of the body&quot;</font>;
   Real fCl(min=0) <font color="darkgreen">&quot;Clothing area factor (61)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
 >Modelica.SIunits.ThermalInsulance</A> RCl <font color="darkgreen">&quot;Thermal resistance of clothing (10)&quot;</font>;
 
 <font color="blue">protected </font>
@@ -351,19 +360,19 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
   Real fCl2 <font color="darkgreen">&quot;work variable for fCl&quot;</font>;
   Real aux <font color="darkgreen">&quot;Auxiliary variable used to eliminate common subexpressions&quot;</font>;
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> vAir_in_internal <font color="darkgreen">
     &quot;Needed to connect to conditional connector&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> M_in_internal(
     min=40,
     max=600,
     <font color="blue">final </font>quantity=&quot;HeatFlux&quot;,
     <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="darkgreen">&quot;Needed to connect to conditional connector&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> ICl_in_internal <font color="darkgreen">
     &quot;Needed to connect to conditional connector&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> pAir_in_internal(
     <font color="blue">final </font>quantity=&quot;Pressure&quot;,
     <font color="blue">final </font>unit=&quot;Pa&quot;,
@@ -438,6 +447,6 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Fanger;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:31:43 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:46:48 2013.
 </address></BODY>
 </HTML>

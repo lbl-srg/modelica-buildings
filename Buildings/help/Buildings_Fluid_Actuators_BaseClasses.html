@@ -17,25 +17,34 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Actuators.BaseClasses"></A><A HREF="Buildings_Fluid_Actuators.html#Buildings.Fluid.Actuators"
 >Buildings.Fluid.Actuators</A>.BaseClasses</H2>
 <B>Package with base classes for Buildings.Fluid.Actuators</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_Actuators.html#Buildings.Fluid.Actuators"
 >Buildings.Fluid.Actuators</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Actuators05b8ecb1449abd53ignalS.png" ALT="Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
@@ -73,9 +82,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Actuators05b8ecb1449abd53ignalI.png" ALT="Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.ActuatorSignal</H2>
-<B>Partial model that implements the filtered opening for valves and dampers</B><p></P>
+<B>Partial model that implements the filtered opening for valves and dampers</B><p>
 <IMG SRC="Buildings.Fluid.Actuators05b8ecb1449abd53ignalD.png" ALT="Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model implements the filter that is used to approximate the travel
@@ -91,7 +100,7 @@ See
 Buildings.Fluid.Actuators.UsersGuide</a>
 for a description of the filter.
 </p>
-<P></P>
+<P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -99,49 +108,49 @@ for a description of the filter.
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered opening</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredOpening</TD><TD>true</TD><TD>= true, if opening is filtered with a 2nd order CriticalDamping filter</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>riseTime</TD><TD>120</TD><TD>Rise time of the filter (time to reach 99.6 % of an opening step) [s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>init</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (no init/steady state/initial state/initial output)</TD></TR>
 <TR><TD>Real</TD><TD>y_start</TD><TD>1</TD><TD>Initial value of output</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>y</TD><TD>Actuator position (0: closed, 1: open)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y_actual</TD><TD>Actual valve position</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ActuatorSignal <font color="darkgreen">
   &quot;Partial model that implements the filtered opening for valves and dampers&quot;</font>
 
   <font color="blue">parameter </font>Boolean filteredOpening=true <font color="darkgreen">
     &quot;= true, if opening is filtered with a 2nd order CriticalDamping filter&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> riseTime=120 <font color="darkgreen">
     &quot;Rise time of the filter (time to reach 99.6 % of an opening step)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Modelica.Blocks.Types.Init</A> init=Modelica.Blocks.Types.Init.InitialOutput <font color="darkgreen">
     &quot;Type of initialization (no init/steady state/initial state/initial output)&quot;</font>;
   <font color="blue">parameter </font>Real y_start=1 <font color="darkgreen">&quot;Initial value of output&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> y(min=0, max=1) <font color="darkgreen">
     &quot;Actuator position (0: closed, 1: open)&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> y_actual <font color="darkgreen">&quot;Actual valve position&quot;</font>;</textblock>
 
   <font color="darkgreen">// Classes used to implement the filtered opening</font>
 <textblock type="annotcomp" expanded="false"><font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> y_filtered <font color="blue">if </font>filteredOpening <font color="darkgreen">
     &quot;Filtered valve position in the range 0..1&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Filter"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Filter"
 >Modelica.Blocks.Continuous.Filter</A> filter(
      order=2,
      f_cut=5/(2*Modelica.Constants.pi*riseTime),
@@ -171,9 +180,9 @@ for a description of the filter.
 <H2><IMG SRC="Buildings.Fluid.Actuators2c08592b56e2d47fntialI.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.PartialDamperExponential</H2>
-<B>Partial model for air dampers with exponential opening characteristics</B><p></P>
+<B>Partial model for air dampers with exponential opening characteristics</B><p>
 <IMG SRC="Buildings.Fluid.Actuators2c08592b56e2d47fntialD.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Partial model for air dampers with exponential opening characteristics. 
@@ -189,36 +198,36 @@ For a description of the opening characteristics and typical parameter values, s
 >
 Exponential</a>.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance"
 >Buildings.Fluid.BaseClasses.PartialResistance</A> (Partial model for a hydraulic resistance), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
 >Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal</A> (Partial model that implements the filtered opening for valves and dampers).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_turbulent</TD><TD>if use_deltaM then deltaM*m_...</TD><TD>Turbulent flow if |m_flow| &gt;= m_flow_turbulent [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>use_deltaM</TD><TD>true</TD><TD>Set to true to use deltaM for turbulent transition, else ReC is used</TD></TR>
 <TR><TD>Real</TD><TD>deltaM</TD><TD>0.3</TD><TD>Fraction of nominal mass flow rate where transition to turbulent occurs</TD></TR>
 <TR><TD>Boolean</TD><TD>use_v_nominal</TD><TD>true</TD><TD>Set to true to use face velocity to compute area</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Velocity</A></TD><TD>v_nominal</TD><TD>1</TD><TD>Nominal face velocity [m/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>A</TD><TD>m_flow_nominal/rho_default/v...</TD><TD>Face area [m2]</TD></TR>
 <TR><TD>Boolean</TD><TD>roundDuct</TD><TD>false</TD><TD>Set to true for round duct, false for square cross section</TD></TR>
 <TR><TD>Real</TD><TD>ReC</TD><TD>4000</TD><TD>Reynolds number where transition to turbulent starts</TD></TR>
 <TR><TD>Real</TD><TD>kFixed</TD><TD>&nbsp;</TD><TD>Flow coefficient of fixed resistance that may be in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>&nbsp;</TD><TD>Pressure drop at nominal mass flow rate [Pa]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -233,9 +242,9 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered opening</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredOpening</TD><TD>true</TD><TD>= true, if opening is filtered with a 2nd order CriticalDamping filter</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>riseTime</TD><TD>120</TD><TD>Rise time of the filter (time to reach 99.6 % of an opening step) [s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>init</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (no init/steady state/initial state/initial output)</TD></TR>
 <TR><TD>Real</TD><TD>y_start</TD><TD>1</TD><TD>Initial value of output</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Damper coefficients</B></TD></TR>
@@ -249,16 +258,16 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>y</TD><TD>Actuator position (0: closed, 1: open)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y_actual</TD><TD>Actual valve position</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialDamperExponential <font color="darkgreen">
   &quot;Partial model for air dampers with exponential opening characteristics&quot;</font>
@@ -274,9 +283,9 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
     &quot;Fraction of nominal mass flow rate where transition to turbulent occurs&quot;</font>;
  <font color="blue">parameter </font>Boolean use_v_nominal = true <font color="darkgreen">
     &quot;Set to true to use face velocity to compute area&quot;</font>;
- <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+ <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Modelica.SIunits.Velocity</A> v_nominal=1 <font color="darkgreen">&quot;Nominal face velocity&quot;</font>;
- <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+ <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</A> A=m_flow_nominal/rho_default/v_nominal <font color="darkgreen">
     &quot;Face area&quot;</font>;
  <font color="blue">parameter </font>Boolean roundDuct = false <font color="darkgreen">
@@ -292,7 +301,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
     &quot;Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure&quot;</font>;
  <font color="blue">parameter </font>Boolean use_constant_density=true <font color="darkgreen">
     &quot;Set to true to use constant density for flow friction&quot;</font>;
- <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
+ <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Medium.Density</A> rho <font color="darkgreen">&quot;Medium density&quot;</font>;
  <font color="blue">parameter </font>Real kFixed(unit=&quot;&quot;) <font color="darkgreen">
     &quot;Flow coefficient of fixed resistance that may be in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).&quot;</font>;
@@ -301,7 +310,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
  Real k(unit=&quot;&quot;) <font color="darkgreen">
     &quot;Flow coefficient of damper plus fixed resistance, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)&quot;</font>;
 <font color="blue">protected </font>
- <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
+ <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Medium.Density</A> rho_default=<font color="red">Medium.density</font>(sta_default) <font color="darkgreen">
     &quot;Density, used to compute fluid volume&quot;</font>;
  <font color="blue">parameter </font>Real[3] cL=
@@ -314,7 +323,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
     (<font color="red">Modelica.Math.log</font>(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1)} <font color="darkgreen">
     &quot;Polynomial coefficients for curve fit for y &gt; yu&quot;</font>;
  <font color="blue">parameter </font>Real facRouDuc= <font color="blue">if </font>roundDuct<font color="blue"> then </font><font color="red">sqrt</font>(Modelica.Constants.pi)/2<font color="blue"> else </font>1;
- <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+ <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</A> area=
     <font color="blue">if </font>use_v_nominal<font color="blue"> then </font>m_flow_nominal/rho_default/v_nominal<font color="blue"> else </font>A <font color="darkgreen">
     &quot;Face velocity used in the computation&quot;</font>;
@@ -372,9 +381,9 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <H2><IMG SRC="Buildings.Fluid.Actuators8b7314e2935a9e36ValveI.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.PartialThreeWayValve</H2>
-<B>Partial three way valve</B><p></P>
+<B>Partial three way valve</B><p>
 <IMG SRC="Buildings.Fluid.Actuators8b7314e2935a9e36ValveD.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Partial model of a three way valve. This is the base model for valves
@@ -403,7 +412,7 @@ Since this model uses two way valves to construct a three way valve, see
 >
 PartialTwoWayValve</a> for details regarding the valve implementation.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialThreeWayResistance"
 >Buildings.Fluid.BaseClasses.PartialThreeWayResistance</A> (Flow splitter with partial resistance model at each port), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
 >Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal</A> (Partial model that implements the filtered opening for valves and dampers), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ValveParameters"
@@ -411,7 +420,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
 <TR><TD>Real</TD><TD>fraK</TD><TD>0.7</TD><TD>Fraction Kv(port_3-&gt;port_2)/Kv(port_1-&gt;port_2)</TD></TR>
 <TR><TD>Real</TD><TD>l[2]</TD><TD>{0,0}</TD><TD>Valve leakage, l=Kv(y=0)/Kv(y=1)</TD></TR>
@@ -420,70 +429,70 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 >CvTypes</A></TD><TD>CvData</TD><TD>Buildings.Fluid.Types.CvType...</TD><TD>Selection of flow coefficient</TD></TR>
 <TR><TD>Real</TD><TD>Kv</TD><TD>&nbsp;</TD><TD>Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]</TD></TR>
 <TR><TD>Real</TD><TD>Cv</TD><TD>&nbsp;</TD><TD>Cv (US) flow coefficient [USG/min/(psi)^(1/2)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>Av</TD><TD>&nbsp;</TD><TD>Av (metric) flow coefficient [m2]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Pressure-flow linearization</TD></TR>
 <TR><TD>Real</TD><TD>deltaM</TD><TD>0.02</TD><TD>Fraction of nominal flow rate where linearization starts, if y=1</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dpValve_nominal</TD><TD>&nbsp;</TD><TD>Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dpFixed_nominal[2]</TD><TD>{0,0}</TD><TD>Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3 [Pa]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
 <TR><TD>Boolean</TD><TD>dynamicBalance</TD><TD>true</TD><TD>Set to true to use a dynamic balance, which often leads to smaller systems of equations</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mDyn_flow_nominal</TD><TD>m_flow_nominal</TD><TD>Nominal mass flow rate for dynamic momentum and energy balance [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>10</TD><TD>Time constant at nominal flow for dynamic energy and momentum balance [s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered opening</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredOpening</TD><TD>true</TD><TD>= true, if opening is filtered with a 2nd order CriticalDamping filter</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>riseTime</TD><TD>120</TD><TD>Rise time of the filter (time to reach 99.6 % of an opening step) [s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>init</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (no init/steady state/initial state/initial output)</TD></TR>
 <TR><TD>Real</TD><TD>y_start</TD><TD>1</TD><TD>Initial value of output</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
 >AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
 >Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>true</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR><TD>Boolean</TD><TD>linearized[2]</TD><TD>{false,false}</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>rhoStd</TD><TD>Medium.density_pTX(101325, 2...</TD><TD>Inlet density for which valve coefficients are defined [kg/m3]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_1</TD><TD>&nbsp;</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_2</TD><TD>&nbsp;</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_3</TD><TD>&nbsp;</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>y</TD><TD>Actuator position (0: closed, 1: open)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y_actual</TD><TD>Actual valve position</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialThreeWayValve <font color="darkgreen">&quot;Partial three way valve&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialThreeWayResistance"
@@ -529,7 +538,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
     <font color="blue">extends </font><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ValveParameters"
 >Buildings.Fluid.Actuators.BaseClasses.ValveParameters</A>(
       rhoStd=<font color="red">Medium.density_pTX</font>(101325, 273.15+4, Medium.X_default));
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dpFixed_nominal[2](<font color="blue">each </font>displayUnit=&quot;Pa&quot;,
                                                          <font color="blue">each </font>min=0) = {0, 0} <font color="darkgreen">
     &quot;Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3&quot;</font>;
@@ -545,9 +554,9 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
     &quot;= true, use linear relation between m_flow and dp for any flow rate&quot;</font>;
 
 <textblock type="annotcomp" expanded="false"><font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
 >Modelica.Blocks.Math.Feedback</A> inv <font color="darkgreen">&quot;Inversion of control signal&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> uni(<font color="blue">final </font>k=1) <font color="darkgreen">
     &quot;Outputs one for bypass valve&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -562,9 +571,9 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <H2><IMG SRC="Buildings.Fluid.Actuators8f28c1b0799bc0dcValveI.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.PartialTwoWayValve</H2>
-<B>Partial model for a two way valve</B><p></P>
+<B>Partial model for a two way valve</B><p>
 <IMG SRC="Buildings.Fluid.Actuators8f28c1b0799bc0dcValveD.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Partial model for a two way valve. This is the base model for valves
@@ -573,14 +582,14 @@ or quick opening.
 </p>
 <p><b>Modelling options</b></p>
 <p>The following options have been adapted from the valve implementation 
-in <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid"
+in <A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid"
 >
 Modelica.Fluid</a> and are described in 
 <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ValveParameters"
 >
 Buildings.Fluid.Actuators.BaseClasses.ValveParameters</a>.
 <p>
-In contrast to the model in <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid"
+In contrast to the model in <A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid"
 >
 Modelica.Fluid</a>, this model uses the parameter <code>Kv_SI</code>,
 which is the flow coefficient in SI units, i.e., 
@@ -602,7 +611,7 @@ changes.
 The two way valve models are implemented using this partial model, as opposed to using
 different functions for the valve opening characteristics, because
 each valve opening characteristics has different parameters.
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance"
 >Buildings.Fluid.BaseClasses.PartialResistance</A> (Partial model for a hydraulic resistance), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ValveParameters"
 >Buildings.Fluid.Actuators.BaseClasses.ValveParameters</A> (Model with parameters for valves), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
@@ -610,29 +619,29 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_turbulent</TD><TD>deltaM*abs(m_flow_nominal)</TD><TD>Turbulent flow if |m_flow| &gt;= m_flow_turbulent [kg/s]</TD></TR>
 <TR><TD>Real</TD><TD>l</TD><TD>0.0001</TD><TD>Valve leakage, l=Kv(y=0)/Kv(y=1)</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>dpValve_nominal + dpFixed_no...</TD><TD>Pressure drop at nominal mass flow rate [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dpValve_nominal</TD><TD>&nbsp;</TD><TD>Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dpFixed_nominal</TD><TD>0</TD><TD>Pressure drop of pipe and other resistances that are in series [Pa]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Flow Coefficient</TD></TR>
 <TR><TD><A HREF="Buildings_Fluid_Types.html#Buildings.Fluid.Types.CvTypes"
 >CvTypes</A></TD><TD>CvData</TD><TD>Buildings.Fluid.Types.CvType...</TD><TD>Selection of flow coefficient</TD></TR>
 <TR><TD>Real</TD><TD>Kv</TD><TD>&nbsp;</TD><TD>Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]</TD></TR>
 <TR><TD>Real</TD><TD>Cv</TD><TD>&nbsp;</TD><TD>Cv (US) flow coefficient [USG/min/(psi)^(1/2)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>Av</TD><TD>&nbsp;</TD><TD>Av (metric) flow coefficient [m2]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Pressure-flow linearization</TD></TR>
 <TR><TD>Real</TD><TD>deltaM</TD><TD>0.02</TD><TD>Fraction of nominal flow rate where linearization starts, if y=1</TD></TR>
@@ -646,30 +655,30 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
 <TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>rhoStd</TD><TD>Medium.density_pTX(101325, 2...</TD><TD>Inlet density for which valve coefficients are defined [kg/m3]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered opening</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredOpening</TD><TD>true</TD><TD>= true, if opening is filtered with a 2nd order CriticalDamping filter</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>riseTime</TD><TD>120</TD><TD>Rise time of the filter (time to reach 99.6 % of an opening step) [s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>init</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (no init/steady state/initial state/initial output)</TD></TR>
 <TR><TD>Real</TD><TD>y_start</TD><TD>1</TD><TD>Initial value of output</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>y</TD><TD>Actuator position (0: closed, 1: open)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y_actual</TD><TD>Actual valve position</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialTwoWayValve <font color="darkgreen">&quot;Partial model for a two way valve&quot;</font>
 
@@ -685,7 +694,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
 >Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal</A>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dpFixed_nominal(displayUnit=&quot;Pa&quot;, min=0) = 0 <font color="darkgreen">
     &quot;Pressure drop of pipe and other resistances that are in series&quot;</font>;
   <font color="blue">parameter </font>Real l(min=1e-10, max=1) = 0.0001 <font color="darkgreen">
@@ -742,13 +751,13 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Actuators.BaseClasses.ValveParameters"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.ValveParameters</H2>
-<B>Model with parameters for valves</B><p></P>
-<P></P><H3>Information</H3>
+<B>Model with parameters for valves</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 Model that computes the flow coefficients of valves. This base class allows the following modeling options,
 which have been adapted from the valve implementation 
-in <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid"
+in <A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid"
 >
 Modelica.Fluid</a>
 to specify the valve flow coefficient in fully open conditions:
@@ -762,11 +771,11 @@ to specify the valve flow coefficient in fully open conditions:
 <p>
 The treatment of parameters <code>Kv</code> and <code>Cv</code> is
 explained in detail in the 
-<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition.ValveCharacteristics"
+<A HREF="../../msl/3.2/help/Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition.ValveCharacteristics"
 >Users Guide</a>.
 </p>
 <p>
-In contrast to the model in <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid"
+In contrast to the model in <A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid"
 >
 Modelica.Fluid</a>, this model uses the protected parameter <code>Kv_SI</code>,
 which is the flow coefficient in SI units, i.e., 
@@ -788,7 +797,7 @@ Therefore, if
 <code>CvData &lt;&gt; Buildings.Fluid.Types.CvTypes.OpPoint</code>,
 then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 </p>
-<P></P>
+<P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -798,21 +807,21 @@ then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 >CvTypes</A></TD><TD>CvData</TD><TD>Buildings.Fluid.Types.CvType...</TD><TD>Selection of flow coefficient</TD></TR>
 <TR><TD>Real</TD><TD>Kv</TD><TD>&nbsp;</TD><TD>Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]</TD></TR>
 <TR><TD>Real</TD><TD>Cv</TD><TD>&nbsp;</TD><TD>Cv (US) flow coefficient [USG/min/(psi)^(1/2)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>Av</TD><TD>&nbsp;</TD><TD>Av (metric) flow coefficient [m2]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Pressure-flow linearization</TD></TR>
 <TR><TD>Real</TD><TD>deltaM</TD><TD>0.02</TD><TD>Fraction of nominal flow rate where linearization starts, if y=1</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dpValve_nominal</TD><TD>&nbsp;</TD><TD>Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint [Pa]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>rhoStd</TD><TD>&nbsp;</TD><TD>Inlet density for which valve coefficients are defined [kg/m3]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> ValveParameters <font color="darkgreen">&quot;Model with parameters for valves&quot;</font>
 
@@ -825,23 +834,23 @@ then specifying a value for <code>dpValve_nominal</code> is a syntax error.
   <font color="blue">parameter </font>Real Cv(
     fixed= <font color="blue">if </font>CvData==Buildings.Fluid.Types.CvTypes.Cv<font color="blue"> then </font>true<font color="blue"> else </font>false) <font color="darkgreen">
     &quot;Cv (US) flow coefficient [USG/min/(psi)^(1/2)]&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</A> Av(
     fixed= <font color="blue">if </font>CvData==Buildings.Fluid.Types.CvTypes.Av<font color="blue"> then </font>true<font color="blue"> else </font>false) <font color="darkgreen">
     &quot;Av (metric) flow coefficient&quot;</font>;
 
   <font color="blue">parameter </font>Real deltaM = 0.02 <font color="darkgreen">
     &quot;Fraction of nominal flow rate where linearization starts, if y=1&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal <font color="darkgreen">
     &quot;Nominal mass flow rate&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dpValve_nominal(displayUnit=&quot;Pa&quot;,
                                                       min=Modelica.Constants.small,
                                                       fixed= <font color="blue">if </font>CvData==Buildings.Fluid.Types.CvTypes.OpPoint<font color="blue"> then </font>true<font color="blue"> else </font>false) <font color="darkgreen">
     &quot;Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Modelica.SIunits.Density</A> rhoStd <font color="darkgreen">
     &quot;Inlet density for which valve coefficients are defined&quot;</font>;
 
@@ -885,8 +894,8 @@ Obtained CvData = &quot; +<font color="red"> String</font>(CvData) + &quot;.&quo
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Actuators.BaseClasses.der_equalPercentage"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.der_equalPercentage</H2>
-<B>Derivative of valve opening characteristics for equal percentage valve</B><p></P>
-<P></P><H3>Information</H3>
+<B>Derivative of valve opening characteristics for equal percentage valve</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the derivative of the opening characteristics of an equal percentage valve.
@@ -896,7 +905,7 @@ The function is the derivative of
 >
 TwoWayValveEqualPercentage</a>.
 </p>
-<P></P>
+<P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -912,7 +921,7 @@ TwoWayValveEqualPercentage</a>.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>der_phi</TD><TD>Derivative of ratio actual to nominal mass flow rate, dphi/dy</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> der_equalPercentage <font color="darkgreen">
   &quot;Derivative of valve opening characteristics for equal percentage valve&quot;</font>
@@ -957,8 +966,8 @@ TwoWayValveEqualPercentage</a>.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Actuators.BaseClasses.equalPercentage"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.equalPercentage</H2>
-<B>Valve opening characteristics for equal percentage valve</B><p></P>
-<P></P><H3>Information</H3>
+<B>Valve opening characteristics for equal percentage valve</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the opening characteristics of an equal percentage valve.
@@ -971,7 +980,7 @@ For <code>y &lt; delta/2</code>, the valve characteristics is linear. For <code>
 the valve characteristics is equal percentage. In between, a cubic spline is used to ensure
 that the valve characteristics is once continuously differentiable with respect to <code>y</code>.
 </p>
-<P></P>
+<P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -986,7 +995,7 @@ that the valve characteristics is once continuously differentiable with respect 
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>phi</TD><TD>Ratio actual to nominal mass flow rate, phi=Cv(y)/Cv(y=1)</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> equalPercentage <font color="darkgreen">
   &quot;Valve opening characteristics for equal percentage valve&quot;</font>
@@ -1033,8 +1042,8 @@ that the valve characteristics is once continuously differentiable with respect 
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Actuators.BaseClasses.exponentialDamper"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.exponentialDamper</H2>
-<B>Damper opening characteristics for an exponential damper</B><p></P>
-<P></P><H3>Information</H3>
+<B>Damper opening characteristics for an exponential damper</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the opening characteristics of an exponential damper.
@@ -1058,7 +1067,7 @@ This is done for numerical reason since otherwise <code>k</code> may be an itera
 variable, which may cause a lot of warnings and slower convergence if the solver
 attempts <code>k &lt; 0</code> during the iterative solution procedure.
 </p>
-<P></P>
+<P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1076,7 +1085,7 @@ attempts <code>k &lt; 0</code> during the iterative solution procedure.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>kThetaSqRt</TD><TD>Flow coefficient, kThetaSqRT = =sqrt(kTheta) = sqrt(pressure drop/dynamic pressure)</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> exponentialDamper <font color="darkgreen">
   &quot;Damper opening characteristics for an exponential damper&quot;</font>
@@ -1108,6 +1117,6 @@ attempts <code>k &lt; 0</code> during the iterative solution procedure.
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>exponentialDamper;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:28:11 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:43:26 2013.
 </address></BODY>
 </HTML>

@@ -17,23 +17,32 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Convection<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Convection"></A><A HREF="Buildings_HeatTransfer.html#Buildings.HeatTransfer"
 >Buildings.HeatTransfer</A>.Convection</H2>
 <B>Package with models for convective heat transfer</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package provides component models to compute heat convection.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Co1a13882640d66ec8eriorS.png" ALT="Buildings.HeatTransfer.Convection.Exterior" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Exterior"
@@ -59,9 +68,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Co1a13882640d66ec8eriorI.png" ALT="Buildings.HeatTransfer.Convection.Exterior" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Convection.Exterior"></A><A HREF="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection"
 >Buildings.HeatTransfer.Convection</A>.Exterior</H2>
-<B>Model for a exterior (outside) convective heat transfer</B><p></P>
+<B>Model for a exterior (outside) convective heat transfer</B><p>
 <IMG SRC="Buildings.HeatTransfer.Co1a13882640d66ec8eriorD.png" ALT="Buildings.HeatTransfer.Convection.Exterior">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This is a model for a convective heat transfer for exterior, outside-facing surfaces.
 The parameter <code>conMod</code> determines the model that is used to compute
@@ -154,41 +163,41 @@ Walton, G. N. 1981. Passive Solar Extension of the Building Loads Analysis and S
 Thermodynamics (BLAST) Program, Technical Report, United States Army Construction
 Engineering Research Laboratory, Champaign, IL.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_BaseClasses.html#Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection"
 >Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection</A> (Partial model for heat convection).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Heat transfer area [m2]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >CoefficientOfHeatTransfer</A></TD><TD>hFixed</TD><TD>3</TD><TD>Constant convection coefficient [W/(m2.K)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>til</TD><TD>&nbsp;</TD><TD>Surface tilt [rad]</TD></TR>
 <TR><TD><A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.ExteriorConvection"
 >ExteriorConvection</A></TD><TD>conMod</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Convective heat transfer model</TD></TR>
 <TR><TD><A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.SurfaceRoughness"
 >SurfaceRoughness</A></TD><TD>roughness</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Surface roughness</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>azi</TD><TD>&nbsp;</TD><TD>Surface azimuth [rad]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dT.start</TD><TD>0</TD><TD>= solid.T - fluid.T [K]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>solid</TD><TD>&nbsp;</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</A></TD><TD>fluid</TD><TD>&nbsp;</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>v</TD><TD>Wind speed [m/s]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>dir</TD><TD>Wind direction (0=wind from North) [rad]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Exterior <font color="darkgreen">
   &quot;Model for a exterior (outside) convective heat transfer&quot;</font>
@@ -202,21 +211,21 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_BaseClasses.html#Buildin
   <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.SurfaceRoughness"
 >Buildings.HeatTransfer.Types.SurfaceRoughness</A> roughness=
     Buildings.HeatTransfer.Types.SurfaceRoughness.Medium <font color="darkgreen">&quot;Surface roughness&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> azi <font color="darkgreen">&quot;Surface azimuth&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> v(unit=&quot;m/s&quot;) <font color="darkgreen">&quot;Wind speed&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> dir(unit=&quot;rad&quot;, displayUnit=&quot;deg&quot;,
      min=0, max=2*Modelica.Constants.pi) <font color="darkgreen">&quot;Wind direction (0=wind from North)&quot;</font>;</textblock>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >Modelica.SIunits.CoefficientOfHeatTransfer</A> hF <font color="darkgreen">
     &quot;Convective heat transfer coefficient due to forced convection&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >Modelica.SIunits.HeatFlux</A> qN_flow <font color="darkgreen">
     &quot;Convective heat flux from solid -&gt; fluid due to natural convection&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >Modelica.SIunits.HeatFlux</A> qF_flow <font color="darkgreen">
     &quot;Convective heat flux from solid -&gt; fluid due to forced convection&quot;</font>;
 <font color="blue">protected </font>
@@ -276,9 +285,9 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_BaseClasses.html#Buildin
 <H2><IMG SRC="Buildings.HeatTransfer.Coe8b071d8c0d66eaderiorI.png" ALT="Buildings.HeatTransfer.Convection.Interior" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Convection.Interior"></A><A HREF="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection"
 >Buildings.HeatTransfer.Convection</A>.Interior</H2>
-<B>Model for a interior (room-side) convective heat transfer</B><p></P>
+<B>Model for a interior (room-side) convective heat transfer</B><p>
 <IMG SRC="Buildings.HeatTransfer.Coe8b071d8c0d66eaderiorD.png" ALT="Buildings.HeatTransfer.Convection.Interior">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This is a model for a convective heat transfer for interior, room-facing surfaces.
 The parameter <code>conMod</code> determines the model that is used to compute
@@ -320,22 +329,22 @@ Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.wall</a>
 </ul>
 </li>
 </ul>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_BaseClasses.html#Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection"
 >Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection</A> (Partial model for heat convection).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Heat transfer area [m2]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >CoefficientOfHeatTransfer</A></TD><TD>hFixed</TD><TD>3</TD><TD>Constant convection coefficient [W/(m2.K)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>til</TD><TD>&nbsp;</TD><TD>Surface tilt [rad]</TD></TR>
 <TR><TD><A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.InteriorConvection"
 >InteriorConvection</A></TD><TD>conMod</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Convective heat transfer model</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dT.start</TD><TD>0</TD><TD>= solid.T - fluid.T [K]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
@@ -343,12 +352,12 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_BaseClasses.html#Buildin
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>solid</TD><TD>&nbsp;</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</A></TD><TD>fluid</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Interior <font color="darkgreen">
   &quot;Model for a interior (room-side) convective heat transfer&quot;</font>
@@ -361,7 +370,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_BaseClasses.html#Buildin
     &quot;Convective heat transfer model&quot;</font>;
   <font color="blue">parameter </font>Boolean homotopyInitialization = true <font color="darkgreen">&quot;= true, use homotopy method&quot;</font>;
 <font color="blue">protected </font>
-  <font color="blue">constant </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">constant </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> dT0 = 2 <font color="darkgreen">
     &quot;Initial temperature used in homotopy method&quot;</font>;
 <font color="blue">equation </font>
@@ -397,6 +406,6 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_BaseClasses.html#Buildin
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Interior;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:07 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:45:14 2013.
 </address></BODY>
 </HTML>

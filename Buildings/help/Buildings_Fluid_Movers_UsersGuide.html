@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE UsersGuide<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Movers.UsersGuide"></A><A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
 >Buildings.Fluid.Movers</A>.UsersGuide</H2>
 <B>User&#39;s Guide</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains models for fans and pumps. The same models
@@ -333,7 +342,7 @@ when the flow rate is zero.
 </p>
 <h4>Differences to models in Modelica.Fluid.Machines</h4>
 <p>The models with names <code>FlowMachine_*</code> have similar parameters than the
-models in the package <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Machines.html#Modelica.Fluid.Machines"
+models in the package <A HREF="../../msl/3.2/help/Modelica_Fluid_Machines.html#Modelica.Fluid.Machines"
 >Modelica.Fluid.Machines</a>. 
 However, the models in this package differ primarily in the following points:
 <ul>
@@ -351,7 +360,7 @@ pressure at <code>port_b</code>.
 The pressure calculations are based on total pressure in Pascals instead of the pump head in meters. 
 This change was done to avoid ambiguities in the parameterization if the models are used as a fan 
 with air as the medium. The original formulation in 
-<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Machines.html#Modelica.Fluid.Machines"
+<A HREF="../../msl/3.2/help/Modelica_Fluid_Machines.html#Modelica.Fluid.Machines"
 >Modelica.Fluid.Machines</a> converts head to pressure using the density <code>medium.d</code>. Therefore, for fans, head would be converted to pressure using the density of air. However, for fans, manufacturers typically publish the head in millimeters water (mmH20). Therefore, to avoid confusion when using these models with media other than water, 
 we changed the models to use total pressure in Pascals instead of head in meters.
 </li>
@@ -361,10 +370,10 @@ These functions are implemented at <A HREF="Buildings_Fluid_Movers_BaseClasses_C
 >Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </li>
 </ul>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Info"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Info"
 >Modelica.Icons.Info</A> (Icon for general information packages).
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:36 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:45 2013.
 </address></BODY>
 </HTML>

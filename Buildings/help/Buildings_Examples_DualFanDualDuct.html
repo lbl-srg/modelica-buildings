@@ -17,18 +17,27 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE DualFanDualDuct<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Examples.DualFanDualDuct"></A><A HREF="Buildings_Examples.html#Buildings.Examples"
 >Buildings.Examples</A>.DualFanDualDuct</H2>
 <B>Dual fan dual duct HVAC system with five thermal zones</B>
-<P></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Examples.Chille84bb614d47fc5933witchS.png" ALT="Buildings.Examples.DualFanDualDuct.ClosedLoop" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_DualFanDualDuct.html#Buildings.Examples.DualFanDualDuct.ClosedLoop"
@@ -48,9 +57,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.DualFa5d96ebbfc8d7d061dLoopI.png" ALT="Buildings.Examples.DualFanDualDuct.ClosedLoop" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.DualFanDualDuct.ClosedLoop"></A><A HREF="Buildings_Examples_DualFanDualDuct.html#Buildings.Examples.DualFanDualDuct"
 >Buildings.Examples.DualFanDualDuct</A>.ClosedLoop</H2>
-<B>Closed loop model of a dual-fan dual-duct system</B><p></P>
+<B>Closed loop model of a dual-fan dual-duct system</B><p>
 <IMG SRC="Buildings.Examples.DualFa5d96ebbfc8d7d061dLoopD.png" ALT="Buildings.Examples.DualFanDualDuct.ClosedLoop">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model consist of an HVAC system, a building envelope model and a model 
@@ -156,8 +165,8 @@ TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -165,51 +174,51 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD colspan="2">replaceable package MediumA</TD><TD>Buildings.Media.GasesPTDecou...</TD><TD>&nbsp;</TD></TR>
 <TR><TD>Real</TD><TD>yFan_start</TD><TD>0.0</TD><TD>Initial or guess value of output (= state)</TD></TR>
 <TR><TD>Boolean</TD><TD>dynamicBalanceJunction</TD><TD>true</TD><TD>Set to true to use a dynamic balance for junction volumes, which often leads to smaller systems of equations</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</A></TD><TD>energyDynamicsJunctions</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance in junction volumes</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>true</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Volume</A></TD><TD>VRooCor</TD><TD>2698</TD><TD>Room volume corridor [m3]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Volume</A></TD><TD>VRooSou</TD><TD>568.77</TD><TD>Room volume south [m3]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Volume</A></TD><TD>VRooNor</TD><TD>568.77</TD><TD>Room volume north [m3]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Volume</A></TD><TD>VRooEas</TD><TD>360.08</TD><TD>Room volume east [m3]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Volume</A></TD><TD>VRooWes</TD><TD>360.08</TD><TD>Room volume west [m3]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m0_flow_cor</TD><TD>3*VRooCor*conv</TD><TD>Design mass flow rate core [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m0_flow_sou</TD><TD>8*VRooSou*conv</TD><TD>Design mass flow rate perimeter 1 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m0_flow_eas</TD><TD>9*VRooEas*conv</TD><TD>Design mass flow rate perimeter 2 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m0_flow_nor</TD><TD>11*VRooNor*conv</TD><TD>Design mass flow rate perimeter 3 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m0_flow_wes</TD><TD>10*VRooWes*conv</TD><TD>Design mass flow rate perimeter 4 [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>m0_flow_cor + m0_flow_sou + ...</TD><TD>Nominal air mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mAirOut_flow_nominal</TD><TD>0.3*m_flow_nominal</TD><TD>Nominal outside air mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mAirHot_flow_nominal</TD><TD>0.3*m_flow_nominal</TD><TD>Nominal air mass flow rate for hot deck [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mAirCol_flow_nominal</TD><TD>m_flow_nominal</TD><TD>Nominal air mass flow rate for cold deck [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mWatPre_flow_nominal</TD><TD>(TMixHea_nominal - 273.15 - ...</TD><TD>Nominal water mass flow rate for preheat coil [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mWatCol_flow_nominal</TD><TD>(28 - 13)*1000*1.3/4200/15*m...</TD><TD>Nominal water mass flow rate for cooling coil of cold deck [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mWatHot_flow_nominal</TD><TD>(40 - (TMixHea_nominal - 273...</TD><TD>Nominal water mass flow rate for heating coil of cold deck [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TMixHea_nominal</TD><TD>0.3*(273.15 + (-20)) + 0.7*(...</TD><TD>Mixed air temperature at winter design conditions [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TMixCoo_nominal</TD><TD>0.3*(273.15 + (33)) + 0.7*(2...</TD><TD>Mixed air temperature at summer design conditions [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TSupCol_nominal</TD><TD>12 + 273.15</TD><TD>Cold deck temperature at nominal condition [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>lat</TD><TD>41.98*3.14159/180</TD><TD>Latitude [rad]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
@@ -221,12 +230,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>Weather Data Bus</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ClosedLoop <font color="darkgreen">&quot;Closed loop model of a dual-fan dual-duct system&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
   <font color="blue">replaceable </font><font color="blue">package</font> MediumA =
@@ -239,7 +248,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="blue">parameter </font>Real yFan_start=0.0 <font color="darkgreen">&quot;Initial or guess value of output (= state)&quot;</font>;
   <font color="blue">parameter </font>Boolean dynamicBalanceJunction=true <font color="darkgreen">
     &quot;Set to true to use a dynamic balance for junction volumes, which often leads to smaller systems of equations&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Modelica.Fluid.Types.Dynamics</A> energyDynamicsJunctions=Modelica.Fluid.Types.Dynamics.FixedInitial <font color="darkgreen">
     &quot;Formulation of energy balance in junction volumes&quot;</font>;
   <font color="blue">parameter </font>Boolean from_dp=true <font color="darkgreen">
@@ -247,69 +256,69 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="blue">parameter </font>Boolean linearizeFlowResistance=false <font color="darkgreen">
     &quot;= true, use linear relation between m_flow and dp for any flow rate&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Modelica.SIunits.Volume</A> VRooCor=2698 <font color="darkgreen">&quot;Room volume corridor&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Modelica.SIunits.Volume</A> VRooSou=568.77 <font color="darkgreen">&quot;Room volume south&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Modelica.SIunits.Volume</A> VRooNor=568.77 <font color="darkgreen">&quot;Room volume north&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Modelica.SIunits.Volume</A> VRooEas=360.08 <font color="darkgreen">&quot;Room volume east&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Modelica.SIunits.Volume</A> VRooWes=360.08 <font color="darkgreen">&quot;Room volume west&quot;</font>;
 
   <font color="blue">constant </font>Real conv=1.2/3600 <font color="darkgreen">&quot;Conversion factor for nominal mass flow rate&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m0_flow_cor=3*VRooCor*conv <font color="darkgreen">
     &quot;Design mass flow rate core&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m0_flow_sou=8*VRooSou*conv <font color="darkgreen">
     &quot;Design mass flow rate perimeter 1&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m0_flow_eas=9*VRooEas*conv <font color="darkgreen">
     &quot;Design mass flow rate perimeter 2&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m0_flow_nor=11*VRooNor*conv <font color="darkgreen">
     &quot;Design mass flow rate perimeter 3&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m0_flow_wes=10*VRooWes*conv <font color="darkgreen">
     &quot;Design mass flow rate perimeter 4&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal=m0_flow_cor +
       m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes <font color="darkgreen">
     &quot;Nominal air mass flow rate&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mAirOut_flow_nominal = 0.3*m_flow_nominal <font color="darkgreen">
     &quot;Nominal outside air mass flow rate&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mAirHot_flow_nominal = 0.3*m_flow_nominal <font color="darkgreen">
     &quot;Nominal air mass flow rate for hot deck&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mAirCol_flow_nominal = m_flow_nominal <font color="darkgreen">
     &quot;Nominal air mass flow rate for cold deck&quot;</font>;
   <font color="darkgreen">///////////////////////////////////////////////////////////////////////////////////////</font>
   <font color="darkgreen">// Water mass flow rates</font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mWatPre_flow_nominal = (TMixHea_nominal-273.15-(-20))*1000/15/4200*mAirOut_flow_nominal <font color="darkgreen">
     &quot;Nominal water mass flow rate for preheat coil&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mWatCol_flow_nominal = (28-13)*1000*1.3/4200/15*mAirCol_flow_nominal <font color="darkgreen">
     &quot;Nominal water mass flow rate for cooling coil of cold deck&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mWatHot_flow_nominal = (40-(TMixHea_nominal-273.15))*1000/15/4200*mAirHot_flow_nominal <font color="darkgreen">
     &quot;Nominal water mass flow rate for heating coil of cold deck&quot;</font>;
   <font color="darkgreen">// Water temperatures</font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TMixHea_nominal = 0.3*(273.15+(-20)) + 0.7 * (273.15+20) <font color="darkgreen">
     &quot;Mixed air temperature at winter design conditions&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TMixCoo_nominal = 0.3*(273.15+(33)) + 0.7 * (273.15+26) <font color="darkgreen">
     &quot;Mixed air temperature at summer design conditions&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TSupCol_nominal = 12+273.15 <font color="darkgreen">
     &quot;Cold deck temperature at nominal condition&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> lat=41.98*3.14159/180 <font color="darkgreen">&quot;Latitude&quot;</font>;
 
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside"
@@ -390,13 +399,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     p=300000,
     T=285.15,
     nPorts=1) <font color="darkgreen">&quot;Sink for cooling coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.RealPassThrough"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.RealPassThrough"
 >Modelica.Blocks.Routing.RealPassThrough</A> TOut(y(
       <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
       <font color="blue">final </font>unit=&quot;K&quot;,
       displayUnit=&quot;degC&quot;,
       min=0));
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system(
     p_ambient(displayUnit=&quot;Pa&quot;),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -663,7 +672,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >MediumA</A>,
     lat=lat) <font color="darkgreen">
     &quot;Model of a floor of the building that is served by this VAV system&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.DeMultiplex5"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.DeMultiplex5"
 >Modelica.Blocks.Routing.DeMultiplex5</A> TRooAir <font color="darkgreen">
     &quot;Demultiplex for room air temperature&quot;</font>;</textblock>
 
@@ -794,7 +803,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
     dp_nominal={20,0,-20}) <font color="darkgreen">&quot;Splitter for room supply&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> pStaPre_Set(      y(<font color="blue">final </font>unit=&quot;Pa&quot;, min=0), k=30) <font color="darkgreen">
     &quot;Setpoint for static pressure&quot;</font>;
   <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.FanVFD"
@@ -803,17 +812,17 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     y_start=yFan_start,
     r_N_min=0,
     xSet_nominal(displayUnit=&quot;Pa&quot;) = 30) <font color="darkgreen">&quot;Controller for fan of cold deck&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
 >Modelica.Blocks.Logical.Switch</A> swiPumPreCoi <font color="darkgreen">&quot;Switch for preheat coil pump&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.LessThreshold"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.LessThreshold"
 >Modelica.Blocks.Logical.LessThreshold</A> lessThreshold(threshold=273.15 + 10);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> mWatPreOn(k=mWatPre_flow_nominal) <font color="darkgreen">
     &quot;Water flow rate at preheat coil if on&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> mWatPreOff(k=0) <font color="darkgreen">
     &quot;Water flow rate at preheat coil if off&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> pStaBui_Set(y(<font color="blue">final </font>unit=&quot;Pa&quot;, min=0), k=30) <font color="darkgreen">
     &quot;Setpoint for static pressure of building&quot;</font>;</textblock>
 
@@ -943,6 +952,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>ClosedLoop;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:35:22 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:50:25 2013.
 </address></BODY>
 </HTML>

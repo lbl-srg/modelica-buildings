@@ -17,18 +17,27 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Data.BaseClasses"></A><A HREF="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
 >Buildings.HeatTransfer.Data</A>.BaseClasses</H2>
 <B>Base classes for package Data</B>
-<P></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<P>
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Dac3f532245dfa8782erialS.png" ALT="Buildings.HeatTransfer.Data.BaseClasses.Material" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
@@ -45,8 +54,8 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Dac3f532245dfa8782erialI.png" ALT="Buildings.HeatTransfer.Data.BaseClasses.Material" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Data.BaseClasses.Material"></A><A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses"
 >Buildings.HeatTransfer.Data.BaseClasses</A>.Material</H2>
-<B>Thermal properties of materials w/o storage</B><p></P>
-<P></P><H3>Information</H3>
+<B>Thermal properties of materials w/o storage</B><p>
+<P><H3>Information</H3></P>
 
 Base record for materials that declares the thermal properties. 
 </p>
@@ -63,29 +72,29 @@ will be defined in the model of the construction that uses this material.
 This allows use of the same material in walls, floors
 and ceilings of different surface area.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Material thickness [m]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >ThermalConductivity</A></TD><TD>k</TD><TD>&nbsp;</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >SpecificHeatCapacity</A></TD><TD>c</TD><TD>&nbsp;</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>d</TD><TD>&nbsp;</TD><TD>Mass density [kg/m3]</TD></TR>
 <TR><TD>Real</TD><TD>R</TD><TD>&nbsp;</TD><TD>Thermal resistance of a unit area of material [m2.K/W]</TD></TR>
 <TR><TD>Integer</TD><TD>nStaRef</TD><TD>3</TD><TD>Number of state variables in a reference material of 0.2 m concrete</TD></TR>
 <TR><TD>Boolean</TD><TD>steadyState</TD><TD>(c == 0 or d == 0)</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Properties for phase change material</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TSol</TD><TD>&nbsp;</TD><TD>Solidus temperature, used only for PCM. [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TLiq</TD><TD>&nbsp;</TD><TD>Liquidus temperature, used only for PCM [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
 >SpecificInternalEnergy</A></TD><TD>LHea</TD><TD>&nbsp;</TD><TD>Latent heat of phase change [J/kg]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
 <TR><TD>Integer</TD><TD>nSta</TD><TD>max(1, integer(ceil(nStaReal...</TD><TD>Actual number of state variables in material</TD></TR>
@@ -93,18 +102,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
 <TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> Material <font color="darkgreen">&quot;Thermal properties of materials w/o storage&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</A> x <font color="darkgreen">&quot;Material thickness&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >Modelica.SIunits.ThermalConductivity</A> k <font color="darkgreen">&quot;Thermal conductivity&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >Modelica.SIunits.SpecificHeatCapacity</A> c <font color="darkgreen">&quot;Specific heat capacity&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Modelica.SIunits.Density</A> d <font color="darkgreen">&quot;Mass density&quot;</font>;
   <font color="blue">parameter </font>Real R(unit=&quot;m2.K/W&quot;) <font color="darkgreen">
     &quot;Thermal resistance of a unit area of material&quot;</font>;
@@ -121,13 +130,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="blue">parameter </font>Real nStaReal(min=0) = nStaRef*piMat/piRef <font color="darkgreen">
     &quot;Number of states as a real number&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TSol <font color="darkgreen">
     &quot;Solidus temperature, used only for PCM.&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TLiq <font color="darkgreen">
     &quot;Liquidus temperature, used only for PCM&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
 >Modelica.SIunits.SpecificInternalEnergy</A> LHea <font color="darkgreen">
     &quot;Latent heat of phase change&quot;</font>;
 
@@ -146,8 +155,8 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Daa141b80949c15e66rtiesI.png" ALT="Buildings.HeatTransfer.Data.BaseClasses.ThermalProperties" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Data.BaseClasses.ThermalProperties"></A><A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses"
 >Buildings.HeatTransfer.Data.BaseClasses</A>.ThermalProperties</H2>
-<B>Thermal properties of materials with storage</B><p></P>
-<P></P><H3>Information</H3>
+<B>Thermal properties of materials with storage</B><p>
+<P><H3>Information</H3></P>
 
 Base record for materials, used in circular geometry or other configurations, that only declares the thermal properties. 
 </p>
@@ -157,37 +166,37 @@ will be modeled as a thermal resistor that does not store energy.
 </p>
 <p>
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >ThermalConductivity</A></TD><TD>k</TD><TD>&nbsp;</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >SpecificHeatCapacity</A></TD><TD>c</TD><TD>&nbsp;</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>d</TD><TD>&nbsp;</TD><TD>Mass density [kg/m3]</TD></TR>
 <TR><TD>Boolean</TD><TD>steadyState</TD><TD>(c == 0 or d == 0)</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> ThermalProperties <font color="darkgreen">
   &quot;Thermal properties of materials with storage&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >Modelica.SIunits.ThermalConductivity</A> k <font color="darkgreen">&quot;Thermal conductivity&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >Modelica.SIunits.SpecificHeatCapacity</A> c <font color="darkgreen">&quot;Specific heat capacity&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Modelica.SIunits.Density</A> d <font color="darkgreen">&quot;Mass density&quot;</font>;
   <font color="blue">parameter </font>Boolean steadyState= (c == 0<font color="blue"> or </font>d == 0) <font color="darkgreen">
     &quot;Flag, if true, then material is computed using steady-state heat conduction&quot;</font>;
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>ThermalProperties;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:26 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:45:32 2013.
 </address></BODY>
 </HTML>

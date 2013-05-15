@@ -17,24 +17,33 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Dampers<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Actuators.Dampers"></A><A HREF="Buildings_Fluid_Actuators.html#Buildings.Fluid.Actuators"
 >Buildings.Fluid.Actuators</A>.Dampers</H2>
 <B>Package with air damper models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 This package contains components models for air dampers.
 For motor models, see
 <A HREF="Buildings_Fluid_Actuators_Motors.html#Buildings.Fluid.Actuators.Motors"
 >Buildings.Fluid.Actuators.Motors</a>.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Actuatorsb0bd0c96b762b30fntialS.png" ALT="Buildings.Fluid.Actuators.Dampers.Exponential" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.Exponential"
@@ -57,9 +66,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Actuatorsb0bd0c96b762b30fntialI.png" ALT="Buildings.Fluid.Actuators.Dampers.Exponential" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.Dampers.Exponential"></A><A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers"
 >Buildings.Fluid.Actuators.Dampers</A>.Exponential</H2>
-<B>Air damper with exponential opening characteristics</B><p></P>
+<B>Air damper with exponential opening characteristics</B><p>
 <IMG SRC="Buildings.Fluid.Actuatorsb0bd0c96b762b30fntialD.png" ALT="Buildings.Fluid.Actuators.Dampers.Exponential">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This model is an air damper with flow coefficient that is an exponential function 
 of the opening angle. The model is as in ASHRAE 825-RP.
@@ -107,33 +116,33 @@ ASHRAE 825-RP lists the following parameter values as typical:
 P. Haves, L. K. Norford, M. DeSimone and L. Mei,
 <i>A Standard Simulation Testbed for the Evaluation of Control Algorithms &amp; Strategies</i>, 
 ASHRAE Final Report 825-RP, Atlanta, GA.
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential"
 >Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</A> (Partial model for air dampers with exponential opening characteristics).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_turbulent</TD><TD>if use_deltaM then deltaM*m_...</TD><TD>Turbulent flow if |m_flow| &gt;= m_flow_turbulent [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>use_deltaM</TD><TD>true</TD><TD>Set to true to use deltaM for turbulent transition, else ReC is used</TD></TR>
 <TR><TD>Real</TD><TD>deltaM</TD><TD>0.3</TD><TD>Fraction of nominal mass flow rate where transition to turbulent occurs</TD></TR>
 <TR><TD>Boolean</TD><TD>use_v_nominal</TD><TD>true</TD><TD>Set to true to use face velocity to compute area</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Velocity</A></TD><TD>v_nominal</TD><TD>1</TD><TD>Nominal face velocity [m/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>A</TD><TD>m_flow_nominal/rho_default/v...</TD><TD>Face area [m2]</TD></TR>
 <TR><TD>Boolean</TD><TD>roundDuct</TD><TD>false</TD><TD>Set to true for round duct, false for square cross section</TD></TR>
 <TR><TD>Real</TD><TD>ReC</TD><TD>4000</TD><TD>Reynolds number where transition to turbulent starts</TD></TR>
 <TR><TD>Real</TD><TD>kFixed</TD><TD>0</TD><TD>Flow coefficient of fixed resistance that may be in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>(m_flow_nominal/kDam_default...</TD><TD>Pressure drop at nominal mass flow rate [Pa]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -148,9 +157,9 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered opening</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredOpening</TD><TD>true</TD><TD>= true, if opening is filtered with a 2nd order CriticalDamping filter</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>riseTime</TD><TD>120</TD><TD>Rise time of the filter (time to reach 99.6 % of an opening step) [s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>init</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (no init/steady state/initial state/initial output)</TD></TR>
 <TR><TD>Real</TD><TD>y_start</TD><TD>1</TD><TD>Initial value of output</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Damper coefficients</B></TD></TR>
@@ -164,16 +173,16 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>y</TD><TD>Actuator position (0: closed, 1: open)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y_actual</TD><TD>Actual valve position</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Exponential <font color="darkgreen">
   &quot;Air damper with exponential opening characteristics&quot;</font>
@@ -208,9 +217,9 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
 <H2><IMG SRC="Buildings.Fluid.Actuators20e26782bf3c5c2antialI.png" ALT="Buildings.Fluid.Actuators.Dampers.VAVBoxExponential" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.Dampers.VAVBoxExponential"></A><A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers"
 >Buildings.Fluid.Actuators.Dampers</A>.VAVBoxExponential</H2>
-<B>VAV box with a fixed resistance plus a damper model withe exponential characteristics</B><p></P>
+<B>VAV box with a fixed resistance plus a damper model withe exponential characteristics</B><p>
 <IMG SRC="Buildings.Fluid.Actuatorsb0bd0c96b762b30fntialD.png" ALT="Buildings.Fluid.Actuators.Dampers.VAVBoxExponential">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Model of two resistances in series. One resistance has a fixed flow coefficient, the
@@ -223,34 +232,34 @@ flow rate.
 If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
 does not include the flow resistance of the air damper.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential"
 >Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</A> (Partial model for air dampers with exponential opening characteristics).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_turbulent</TD><TD>if use_deltaM then deltaM*m_...</TD><TD>Turbulent flow if |m_flow| &gt;= m_flow_turbulent [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>use_deltaM</TD><TD>true</TD><TD>Set to true to use deltaM for turbulent transition, else ReC is used</TD></TR>
 <TR><TD>Real</TD><TD>deltaM</TD><TD>0.3</TD><TD>Fraction of nominal mass flow rate where transition to turbulent occurs</TD></TR>
 <TR><TD>Boolean</TD><TD>use_v_nominal</TD><TD>true</TD><TD>Set to true to use face velocity to compute area</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Velocity</A></TD><TD>v_nominal</TD><TD>1</TD><TD>Nominal face velocity [m/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>A</TD><TD>m_flow_nominal/rho_default/v...</TD><TD>Face area [m2]</TD></TR>
 <TR><TD>Boolean</TD><TD>roundDuct</TD><TD>false</TD><TD>Set to true for round duct, false for square cross section</TD></TR>
 <TR><TD>Real</TD><TD>ReC</TD><TD>4000</TD><TD>Reynolds number where transition to turbulent starts</TD></TR>
 <TR><TD>Real</TD><TD>kFixed</TD><TD>sqrt(kResSqu)</TD><TD>Flow coefficient of fixed resistance that may be in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>&nbsp;</TD><TD>Pressure drop at nominal mass flow rate [Pa]</TD></TR>
 <TR><TD>Boolean</TD><TD>dp_nominalIncludesDamper</TD><TD>true</TD><TD>set to true if dp_nominal includes the pressure loss of the open damper</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -265,9 +274,9 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered opening</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredOpening</TD><TD>true</TD><TD>= true, if opening is filtered with a 2nd order CriticalDamping filter</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>riseTime</TD><TD>120</TD><TD>Rise time of the filter (time to reach 99.6 % of an opening step) [s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>init</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (no init/steady state/initial state/initial output)</TD></TR>
 <TR><TD>Real</TD><TD>y_start</TD><TD>1</TD><TD>Initial value of output</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Damper coefficients</B></TD></TR>
@@ -281,16 +290,16 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>y</TD><TD>Actuator position (0: closed, 1: open)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y_actual</TD><TD>Actual valve position</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> VAVBoxExponential <font color="darkgreen">
   &quot;VAV box with a fixed resistance plus a damper model withe exponential characteristics&quot;</font>
@@ -301,7 +310,7 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
   <font color="blue">parameter </font>Boolean dp_nominalIncludesDamper = true <font color="darkgreen">
     &quot;set to true if dp_nominal includes the pressure loss of the open damper&quot;</font>;
 <font color="blue">protected </font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dpDamOpe_nominal = k1*m_flow_nominal^2/2/<font color="red">Medium.density</font>(sta_default)/A^2 <font color="darkgreen">
     &quot;Pressure drop of fully open damper at nominal flow rate&quot;</font>;
   <font color="blue">parameter </font>Real kResSqu(unit=&quot;kg.m&quot;, fixed=false) <font color="darkgreen">
@@ -323,9 +332,9 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
 <H2><IMG SRC="Buildings.Fluid.Actuators7813deb2dfec6354ngBoxI.png" ALT="Buildings.Fluid.Actuators.Dampers.MixingBox" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.Dampers.MixingBox"></A><A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers"
 >Buildings.Fluid.Actuators.Dampers</A>.MixingBox</H2>
-<B>Outside air mixing box with interlocked air dampers</B><p></P>
+<B>Outside air mixing box with interlocked air dampers</B><p>
 <IMG SRC="Buildings.Fluid.Actuators7813deb2dfec6354ngBoxD.png" ALT="Buildings.Fluid.Actuators.Dampers.MixingBox">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Model of an outside air mixing box with air dampers.
@@ -338,7 +347,7 @@ flow rate.
 If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
 does not include the flow resistance of the air damper.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconLow"
 >Buildings.BaseClasses.BaseIconLow</A> (Base icon with model name below the icon), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
 >Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal</A> (Partial model that implements the filtered opening for valves and dampers).
@@ -349,36 +358,36 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconL
 <TR><TD>Boolean</TD><TD>use_deltaM</TD><TD>true</TD><TD>Set to true to use deltaM for turbulent transition, else ReC is used</TD></TR>
 <TR><TD>Real</TD><TD>deltaM</TD><TD>0.3</TD><TD>Fraction of nominal mass flow rate where transition to turbulent occurs</TD></TR>
 <TR><TD>Boolean</TD><TD>use_v_nominal</TD><TD>true</TD><TD>Set to true to use face velocity to compute area</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Velocity</A></TD><TD>v_nominal</TD><TD>1</TD><TD>Nominal face velocity [m/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>roundDuct</TD><TD>false</TD><TD>Set to true for round duct, false for square cross section</TD></TR>
 <TR><TD>Real</TD><TD>ReC</TD><TD>4000</TD><TD>Reynolds number where transition to turbulent starts</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>AOut</TD><TD>mOut_flow_nominal/rho_defaul...</TD><TD>Face area outside air damper [m2]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>AExh</TD><TD>mExh_flow_nominal/rho_defaul...</TD><TD>Face area exhaust air damper [m2]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>ARec</TD><TD>mRec_flow_nominal/rho_defaul...</TD><TD>Face area recirculation air damper [m2]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
 <TR><TD>Boolean</TD><TD>dp_nominalIncludesDamper</TD><TD>false</TD><TD>set to true if dp_nominal includes the pressure loss of the open damper</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mOut_flow_nominal</TD><TD>&nbsp;</TD><TD>Mass flow rate outside air damper [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dpOut_nominal</TD><TD>&nbsp;</TD><TD>Pressure drop outside air leg [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mRec_flow_nominal</TD><TD>&nbsp;</TD><TD>Mass flow rate recirculation air damper [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dpRec_nominal</TD><TD>&nbsp;</TD><TD>Pressure drop recirculation air leg [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mExh_flow_nominal</TD><TD>&nbsp;</TD><TD>Mass flow rate exhaust air damper [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dpExh_nominal</TD><TD>&nbsp;</TD><TD>Pressure drop exhaust air leg [Pa]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered opening</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredOpening</TD><TD>true</TD><TD>= true, if opening is filtered with a 2nd order CriticalDamping filter</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>riseTime</TD><TD>120</TD><TD>Rise time of the filter (time to reach 99.6 % of an opening step) [s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>init</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (no init/steady state/initial state/initial output)</TD></TR>
 <TR><TD>Real</TD><TD>y_start</TD><TD>1</TD><TD>Initial value of output</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
@@ -398,33 +407,33 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconL
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>y</TD><TD>Actuator position (0: closed, 1: open)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y_actual</TD><TD>Actual valve position</TD></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_Out</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_Exh</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_Ret</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_Sup</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingBox <font color="darkgreen">&quot;Outside air mixing box with interlocked air dampers&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconLow"
 >Buildings.BaseClasses.BaseIconLow</A>;
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
 >Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal</A>;
-  <font color="blue">outer </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">outer </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system <font color="darkgreen">&quot;System wide properties&quot;</font>;
   <font color="blue">replaceable </font><font color="blue">package</font> Medium =
-      <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+      <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">&quot;Medium in the component&quot;</font>;
-  <font color="blue">import </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Constants.html#Modelica.Constants"
+  <font color="blue">import </font><A HREF="../../msl/3.2/help/Modelica_Constants.html#Modelica.Constants"
 >Modelica.Constants</A>;
 
   <font color="blue">parameter </font>Boolean allowFlowReversal = system.allowFlowReversal <font color="darkgreen">
@@ -459,7 +468,7 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconL
     &quot;Fraction of nominal mass flow rate where transition to turbulent occurs&quot;</font>;
   <font color="blue">parameter </font>Boolean use_v_nominal = true <font color="darkgreen">
     &quot;Set to true to use face velocity to compute area&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Modelica.SIunits.Velocity</A> v_nominal=1 <font color="darkgreen">&quot;Nominal face velocity&quot;</font>;
 
   <font color="blue">parameter </font>Boolean roundDuct = false <font color="darkgreen">
@@ -467,7 +476,7 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconL
   <font color="blue">parameter </font>Real ReC=4000 <font color="darkgreen">
     &quot;Reynolds number where transition to turbulent starts&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</A> AOut=mOut_flow_nominal/rho_default/v_nominal <font color="darkgreen">
     &quot;Face area outside air damper&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.VAVBoxExponential"
@@ -493,7 +502,7 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconL
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     <font color="blue">final </font>filteredOpening=false) <font color="darkgreen">&quot;Exhaust air damper&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</A> AExh=mExh_flow_nominal/rho_default/v_nominal <font color="darkgreen">
     &quot;Face area exhaust air damper&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.VAVBoxExponential"
@@ -519,31 +528,31 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconL
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     <font color="blue">final </font>filteredOpening=false) <font color="darkgreen">&quot;Recirculation air damper&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</A> ARec=mRec_flow_nominal/rho_default/v_nominal <font color="darkgreen">
     &quot;Face area recirculation air damper&quot;</font>;
 
   <font color="blue">parameter </font>Boolean dp_nominalIncludesDamper=false <font color="darkgreen">
     &quot;set to true if dp_nominal includes the pressure loss of the open damper&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mOut_flow_nominal <font color="darkgreen">
     &quot;Mass flow rate outside air damper&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dpOut_nominal(min=0, displayUnit=&quot;Pa&quot;) <font color="darkgreen">
     &quot;Pressure drop outside air leg&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mRec_flow_nominal <font color="darkgreen">
     &quot;Mass flow rate recirculation air damper&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dpRec_nominal(min=0, displayUnit=&quot;Pa&quot;) <font color="darkgreen">
     &quot;Pressure drop recirculation air leg&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mExh_flow_nominal <font color="darkgreen">
     &quot;Mass flow rate exhaust air damper&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dpExh_nominal(min=0, displayUnit=&quot;Pa&quot;) <font color="darkgreen">
     &quot;Pressure drop exhaust air leg&quot;</font>;
 
@@ -562,37 +571,37 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconL
   <font color="blue">parameter </font>Real k1=0.45 <font color="darkgreen">
     &quot;Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >Modelica.Fluid.Interfaces.FluidPort_a</A> port_Out(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         Medium, m_flow(start=0, min=<font color="blue">if </font>allowFlowReversal<font color="blue"> then </font>-Constants.inf<font color="blue"> else </font>
                 0)) <font color="darkgreen">
     &quot;Fluid connector a (positive design flow direction is from port_a to port_b)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >Modelica.Fluid.Interfaces.FluidPort_b</A> port_Exh(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         Medium, m_flow(start=0, max=<font color="blue">if </font>allowFlowReversal<font color="blue"> then </font>+Constants.inf<font color="blue"> else </font>
                 0)) <font color="darkgreen">
     &quot;Fluid connector b (positive design flow direction is from port_a to port_b)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >Modelica.Fluid.Interfaces.FluidPort_a</A> port_Ret(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         Medium, m_flow(start=0, min=<font color="blue">if </font>allowFlowReversal<font color="blue"> then </font>-Constants.inf<font color="blue"> else </font>
                 0)) <font color="darkgreen">
     &quot;Fluid connector a (positive design flow direction is from port_a to port_b)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >Modelica.Fluid.Interfaces.FluidPort_b</A> port_Sup(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         Medium, m_flow(start=0, max=<font color="blue">if </font>allowFlowReversal<font color="blue"> then </font>+Constants.inf<font color="blue"> else </font>
                 0)) <font color="darkgreen">
     &quot;Fluid connector b (positive design flow direction is from port_a to port_b)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> uni(k=1) <font color="darkgreen">&quot;Unity signal&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</A> add(k2=-1);</textblock>
 
 <font color="blue">protected </font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Medium.Density</A> rho_default=<font color="red">Medium.density</font>(sta_default) <font color="darkgreen">
     &quot;Density, used to compute fluid volume&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</A> sta_default=
      <font color="red">Medium.setState_pTX</font>(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
 <font color="blue">equation </font>
@@ -617,9 +626,9 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconL
 <H2><IMG SRC="Buildings.Fluid.Actuators0eb1af8a07a346f5mFlowI.png" ALT="Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow"></A><A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers"
 >Buildings.Fluid.Actuators.Dampers</A>.MixingBoxMinimumFlow</H2>
-<B>Outside air mixing box with parallel damper for minimum outside air flow rate</B><p></P>
+<B>Outside air mixing box with parallel damper for minimum outside air flow rate</B><p>
 <IMG SRC="Buildings.Fluid.Actuators0eb1af8a07a346f5mFlowD.png" ALT="Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Model of an outside air mixing box with air dampers and a flow path for the minimum outside air flow rate.
@@ -631,53 +640,53 @@ flow rate.
 If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
 does not include the flow resistance of the air damper.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.MixingBox"
 >Buildings.Fluid.Actuators.Dampers.MixingBox</A> (Outside air mixing box with interlocked air dampers).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
 <TR><TD>Boolean</TD><TD>use_deltaM</TD><TD>true</TD><TD>Set to true to use deltaM for turbulent transition, else ReC is used</TD></TR>
 <TR><TD>Real</TD><TD>deltaM</TD><TD>0.3</TD><TD>Fraction of nominal mass flow rate where transition to turbulent occurs</TD></TR>
 <TR><TD>Boolean</TD><TD>use_v_nominal</TD><TD>true</TD><TD>Set to true to use face velocity to compute area</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Velocity</A></TD><TD>v_nominal</TD><TD>1</TD><TD>Nominal face velocity [m/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>roundDuct</TD><TD>false</TD><TD>Set to true for round duct, false for square cross section</TD></TR>
 <TR><TD>Real</TD><TD>ReC</TD><TD>4000</TD><TD>Reynolds number where transition to turbulent starts</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>AOut</TD><TD>mOut_flow_nominal/rho_defaul...</TD><TD>Face area outside air damper [m2]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>AExh</TD><TD>mExh_flow_nominal/rho_defaul...</TD><TD>Face area exhaust air damper [m2]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>ARec</TD><TD>mRec_flow_nominal/rho_defaul...</TD><TD>Face area recirculation air damper [m2]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>AOutMin</TD><TD>&nbsp;</TD><TD>Face area minimum outside air damper [m2]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
 <TR><TD>Boolean</TD><TD>dp_nominalIncludesDamper</TD><TD>false</TD><TD>set to true if dp_nominal includes the pressure loss of the open damper</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mOut_flow_nominal</TD><TD>&nbsp;</TD><TD>Mass flow rate outside air damper [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dpOut_nominal</TD><TD>&nbsp;</TD><TD>Pressure drop outside air leg [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mRec_flow_nominal</TD><TD>&nbsp;</TD><TD>Mass flow rate recirculation air damper [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dpRec_nominal</TD><TD>&nbsp;</TD><TD>Pressure drop recirculation air leg [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mExh_flow_nominal</TD><TD>&nbsp;</TD><TD>Mass flow rate exhaust air damper [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dpExh_nominal</TD><TD>&nbsp;</TD><TD>Pressure drop exhaust air leg [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mOutMin_flow_nominal</TD><TD>&nbsp;</TD><TD>Mass flow rate minimum outside air damper [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dpOutMin_nominal</TD><TD>&nbsp;</TD><TD>Pressure drop minimum outside air leg [Pa]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered opening</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredOpening</TD><TD>true</TD><TD>= true, if opening is filtered with a 2nd order CriticalDamping filter</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>riseTime</TD><TD>120</TD><TD>Rise time of the filter (time to reach 99.6 % of an opening step) [s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>init</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (no init/steady state/initial state/initial output)</TD></TR>
 <TR><TD>Real</TD><TD>y_start</TD><TD>1</TD><TD>Initial value of output</TD></TR>
 <TR><TD>Real</TD><TD>yOutMin_start</TD><TD>y_start</TD><TD>Initial value of signal for minimum outside air damper</TD></TR>
@@ -698,57 +707,57 @@ Extends from <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Act
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>y</TD><TD>Actuator position (0: closed, 1: open)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y_actual</TD><TD>Actual valve position</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_Out</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_Exh</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_Ret</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_Sup</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_OutMin</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>yOutMin</TD><TD>Damper position minimum outside air (0: closed, 1: open)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>yOutMin_actual</TD><TD>Actual valve position</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingBoxMinimumFlow <font color="darkgreen">
   &quot;Outside air mixing box with parallel damper for minimum outside air flow rate&quot;</font>
  <font color="blue">extends </font><A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.MixingBox"
 >Buildings.Fluid.Actuators.Dampers.MixingBox</A>;
-  <font color="blue">import </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Constants.html#Modelica.Constants"
+  <font color="blue">import </font><A HREF="../../msl/3.2/help/Modelica_Constants.html#Modelica.Constants"
 >Modelica.Constants</A>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</A> AOutMin <font color="darkgreen">
     &quot;Face area minimum outside air damper&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mOutMin_flow_nominal <font color="darkgreen">
     &quot;Mass flow rate minimum outside air damper&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dpOutMin_nominal(min=0, displayUnit=&quot;Pa&quot;) <font color="darkgreen">
     &quot;Pressure drop minimum outside air leg&quot;</font>;
 
   <font color="blue">parameter </font>Real yOutMin_start=y_start <font color="darkgreen">
     &quot;Initial value of signal for minimum outside air damper&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >Modelica.Fluid.Interfaces.FluidPort_a</A> port_OutMin(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         Medium, m_flow(start=0, min=<font color="blue">if </font>allowFlowReversal<font color="blue"> then </font>-Constants.inf<font color="blue"> else </font>
                 0)) <font color="darkgreen">
     &quot;Fluid connector a (positive design flow direction is from port_a to port_b)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> yOutMin <font color="darkgreen">
     &quot;Damper position minimum outside air (0: closed, 1: open)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> yOutMin_actual <font color="darkgreen">&quot;Actual valve position&quot;</font>;</textblock>
 
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.VAVBoxExponential"
@@ -776,11 +785,11 @@ Extends from <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Act
     A=AOutMin,
     <font color="blue">final </font>filteredOpening=false) <font color="darkgreen">&quot;Damper for minimum outside air intake&quot;</font>;
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> yOutMin_filtered <font color="blue">if </font>filteredOpening <font color="darkgreen">
     &quot;Filtered damper position in the range 0..1&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Filter"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Filter"
 >Modelica.Blocks.Continuous.Filter</A> filterOutMin(
      order=2,
      f_cut=5/(2*Modelica.Constants.pi*riseTime),
@@ -808,6 +817,6 @@ Extends from <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Act
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>MixingBoxMinimumFlow;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:28:06 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:43:22 2013.
 </address></BODY>
 </HTML>

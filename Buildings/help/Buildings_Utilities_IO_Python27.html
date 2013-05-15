@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Python27<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.IO.Python27"></A><A HREF="Buildings_Utilities_IO.html#Buildings.Utilities.IO"
 >Buildings.Utilities.IO</A>.Python27</H2>
 <B>Package to call Python functions</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains blocks and functions that embed Python 2.7 in Modelica.
@@ -41,10 +50,10 @@ See
 Buildings.Utilities.IO.Python27.UsersGuide</a>
 for instruction.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Utilities.IO.Py8af26f242b6fe46aGuideS.png" ALT="Buildings.Utilities.IO.Python27.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_IO_Python27_UsersGuide.html#Buildings.Utilities.IO.Python27.UsersGuide"
@@ -67,9 +76,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.IO.Py68e929374791d999_RealI.png" ALT="Buildings.Utilities.IO.Python27.Real_Real" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.IO.Python27.Real_Real"></A><A HREF="Buildings_Utilities_IO_Python27.html#Buildings.Utilities.IO.Python27"
 >Buildings.Utilities.IO.Python27</A>.Real_Real</H2>
-<B>Block that exchanges a vector of real values with a Python function</B><p></P>
+<B>Block that exchanges a vector of real values with a Python function</B><p>
 <IMG SRC="Buildings.Utilities.IO.Py68e929374791d999_RealD.png" ALT="Buildings.Utilities.IO.Python27.Real_Real">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 Block that exchanges data with a Python function.
 </p>
@@ -115,15 +124,15 @@ Integral of uR[i] over the sampling interval
 </tr>
 </table>
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
 >Modelica.Blocks.Interfaces.DiscreteBlock</A> (Base class of discrete control blocks).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>samplePeriod</TD><TD>&nbsp;</TD><TD>Sample period of component [s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>startTime</TD><TD>0</TD><TD>First sample time instant [s]</TD></TR>
 <TR><TD>String</TD><TD>moduleName</TD><TD>&nbsp;</TD><TD>Name of the python module that contains the function</TD></TR>
 <TR><TD>String</TD><TD>functionName</TD><TD>moduleName</TD><TD>Name of the python function</TD></TR>
@@ -134,16 +143,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>uR[nDblWri]</TD><TD>Real inputs to be sent to Python</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>yR[nDblRea]</TD><TD>Real outputs received from Python</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Real_Real <font color="darkgreen">
   &quot;Block that exchanges a vector of real values with a Python function&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
 >Modelica.Blocks.Interfaces.DiscreteBlock</A>(startTime=0);
 
   <font color="blue">parameter </font>String moduleName <font color="darkgreen">
@@ -156,10 +165,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="blue">parameter </font>Integer flaDblWri[nDblWri] =<font color="red"> zeros</font>(nDblWri) <font color="darkgreen">
     &quot;Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> uR[nDblWri] <font color="darkgreen">
     &quot;Real inputs to be sent to Python&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> yR[nDblRea] <font color="darkgreen">
     &quot;Real outputs received from Python&quot;</font>;</textblock>
 
@@ -212,6 +221,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Real_Real;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:31:46 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:46:51 2013.
 </address></BODY>
 </HTML>

@@ -17,18 +17,27 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.Boreholes.Examples"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes.html#Buildings.Fluid.HeatExchangers.Boreholes"
 >Buildings.Fluid.HeatExchangers.Boreholes</A>.Examples</H2>
 <B>Example files for borehole heat exchanger</B>
-<P></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExcha01b9fc828a215302UTubeS.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Boreholes_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube"
@@ -42,9 +51,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha01b9fc828a215302UTubeI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.Examples"
 >Buildings.Fluid.HeatExchangers.Boreholes.Examples</A>.UTube</H2>
-<B>Model that tests the borehole model</B><p></P>
+<B>Model that tests the borehole model</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha01b9fc828a215302UTubeD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This example models a borehole heat exchanger with two pipes that are
@@ -58,13 +67,13 @@ and the water that returns from the borehole is between
 and 
 <i>21.5</i>&deg;C.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> UTube <font color="darkgreen">&quot;Model that tests the borehole model&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A>;
@@ -82,7 +91,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.HeatTransfer.Data.Soil.Sandstone</A> matSoi,
     TExt0_start=283.15,
     TFil0_start=283.15) <font color="darkgreen">&quot;Borehole heat exchanger&quot;</font>;
-      <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+      <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_ph"
 >Sources.Boundary_ph</A> sin(nPorts=1, <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Sink&quot;</font>;
@@ -92,7 +101,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     use_m_flow_in=true,
     T=298.15) <font color="darkgreen">&quot;Source&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
 >Modelica.Blocks.Sources.Pulse</A> pulse(
     amplitude=0.3,
     period=365*86400,
@@ -104,6 +113,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>UTube;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:28:33 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:43:45 2013.
 </address></BODY>
 </HTML>

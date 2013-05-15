@@ -17,25 +17,34 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Utilities.BaseClasses"></A><A HREF="Buildings_Fluid_Utilities.html#Buildings.Fluid.Utilities"
 >Buildings.Fluid.Utilities</A>.BaseClasses</H2>
 <B>Package with base classes for Buildings.Fluid.Utilities</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_Utilities.html#Buildings.Fluid.Utilities"
 >Buildings.Fluid.Utilities</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Utilities598436af7ef7f5efomialS.png" ALT="Buildings.Fluid.Utilities.BaseClasses.der_extendedPolynomial" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Utilities_BaseClasses.html#Buildings.Fluid.Utilities.BaseClasses.der_extendedPolynomial"
@@ -49,8 +58,8 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Utilities598436af7ef7f5efomialI.png" ALT="Buildings.Fluid.Utilities.BaseClasses.der_extendedPolynomial" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Utilities.BaseClasses.der_extendedPolynomial"></A><A HREF="Buildings_Fluid_Utilities_BaseClasses.html#Buildings.Fluid.Utilities.BaseClasses"
 >Buildings.Fluid.Utilities.BaseClasses</A>.der_extendedPolynomial</H2>
-<B>Polynomial that is linearly extended at user specified values</B><p></P>
-<P></P><H3>Information</H3>
+<B>Polynomial that is linearly extended at user specified values</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function is the derivative of  
@@ -58,8 +67,8 @@ This function is the derivative of
 >
 extendedPolynomial</a> with respect to <code>x</code>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -75,11 +84,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>der_y</TD><TD>Derivative dy/dx</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> der_extendedPolynomial <font color="darkgreen">
   &quot;Polynomial that is linearly extended at user specified values&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A>;
   <font color="blue">input </font>Real x <font color="darkgreen">&quot;x value&quot;</font>;
   <font color="blue">input </font>Real[:] c <font color="darkgreen">&quot;Polynomial coefficients&quot;</font>;
@@ -109,6 +118,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>der_extendedPolynomial;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:52 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:45:00 2013.
 </address></BODY>
 </HTML>

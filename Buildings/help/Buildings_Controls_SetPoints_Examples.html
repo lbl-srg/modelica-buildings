@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Controls.SetPoints.Examples"></A><A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints"
 >Buildings.Controls.SetPoints</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Controls.SetPoints</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Controls.SetPoi771d7148520761d8ResetS.png" ALT="Buildings.Controls.SetPoints.Examples.HotWaterTemperatureReset" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_SetPoints_Examples.html#Buildings.Controls.SetPoints.Examples.HotWaterTemperatureReset"
@@ -56,9 +65,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Controls.SetPoi771d7148520761d8ResetI.png" ALT="Buildings.Controls.SetPoints.Examples.HotWaterTemperatureReset" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.SetPoints.Examples.HotWaterTemperatureReset"></A><A HREF="Buildings_Controls_SetPoints_Examples.html#Buildings.Controls.SetPoints.Examples"
 >Buildings.Controls.SetPoints.Examples</A>.HotWaterTemperatureReset</H2>
-<B>Test model for the heating curve</B><p></P>
+<B>Test model for the heating curve</B><p>
 <IMG SRC="Buildings.Controls.SetPoi771d7148520761d8ResetD.png" ALT="Buildings.Controls.SetPoints.Examples.HotWaterTemperatureReset">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Example that demonstrates the use of the hot water temperature reset
@@ -77,13 +86,13 @@ The figure below shows the computed supply and return water temperatures.
 <p align="center">
 <img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Controls/SetPoints/Examples/HotWaterTemperatureReset.png" border="1">
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> HotWaterTemperatureReset <font color="darkgreen">&quot;Test model for the heating curve&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.HotWaterTemperatureReset"
 >Buildings.Controls.SetPoints.HotWaterTemperatureReset</A> heaCur(
@@ -91,7 +100,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     TSup_nominal=333.15,
     TRet_nominal=313.15,
     TOut_nominal=263.15);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TOut(
     height=40,
     duration=1,
@@ -104,12 +113,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     TRet_nominal=313.15,
     TOut_nominal=263.15,
     dTOutHeaBal=15);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
 >Modelica.Blocks.Sources.Step</A> TRoo(
     offset=273.15 + 20,
     startTime=0.5,
     height=-5) <font color="darkgreen">&quot;Night set back from 20 to 15 deg C&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TOut2(k=273.15 - 10);</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TOut.y, heaCur.TOut);
@@ -124,9 +133,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Controls.SetPoi771d7148520761d8ResetI.png" ALT="Buildings.Controls.SetPoints.Examples.OccupancySchedule" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.SetPoints.Examples.OccupancySchedule"></A><A HREF="Buildings_Controls_SetPoints_Examples.html#Buildings.Controls.SetPoints.Examples"
 >Buildings.Controls.SetPoints.Examples</A>.OccupancySchedule</H2>
-<B>Test model for occupancy schedule with look-ahead</B><p></P>
+<B>Test model for occupancy schedule with look-ahead</B><p>
 <IMG SRC="Buildings.Controls.SetPoi5c7de315a948be04eduleD.png" ALT="Buildings.Controls.SetPoints.Examples.OccupancySchedule">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Example that demonstrates the use of the occupancy schedule.
@@ -137,14 +146,14 @@ and the blue line hits zero when the schedule indicates a non-occupied time.
 <p align="center">
 <img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Controls/SetPoints/Examples/OccupancySchedule.png" border="1">
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> OccupancySchedule <font color="darkgreen">
   &quot;Test model for occupancy schedule with look-ahead&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.OccupancySchedule"
 >Buildings.Controls.SetPoints.OccupancySchedule</A> occSchDay <font color="darkgreen">&quot;Day schedule&quot;</font>;
@@ -160,9 +169,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Controls.SetPoi771d7148520761d8ResetI.png" ALT="Buildings.Controls.SetPoints.Examples.Table" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.SetPoints.Examples.Table"></A><A HREF="Buildings_Controls_SetPoints_Examples.html#Buildings.Controls.SetPoints.Examples"
 >Buildings.Controls.SetPoints.Examples</A>.Table</H2>
-<B>Test model for table that determines set points</B><p></P>
+<B>Test model for table that determines set points</B><p>
 <IMG SRC="Buildings.Controls.SetPoi7f5e8f9fee46c12dTableD.png" ALT="Buildings.Controls.SetPoints.Examples.Table">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Example that demonstrates the use of the block
@@ -170,19 +179,19 @@ Example that demonstrates the use of the block
 >
 Buildings.Controls.SetPoints.Table</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Table <font color="darkgreen">&quot;Test model for table that determines set points&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.Table"
 >Buildings.Controls.SetPoints.Table</A> tabConExt(table=[20,0; 22,0.5; 25,0.5; 26,1]);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TRoo(
     duration=1,
     offset=15,
@@ -196,6 +205,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Table;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:28:05 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:43:21 2013.
 </address></BODY>
 </HTML>

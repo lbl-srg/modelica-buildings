@@ -17,24 +17,33 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Functions<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions"></A><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses</A>.Functions</H2>
 <B>Functions for convective heat transfer</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains functions that are used to construct the models in
 <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs</a>.
 </p>
-<P></P>
+<P>
 
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExchadcafa2e11cd35818tanceS.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance"
@@ -47,8 +56,8 @@ This package contains functions that are used to construct the models in
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance"></A><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions</A>.AverageResistance</H2>
-<B>Average fictitious resistance for plane that contains the pipes</B><p></P>
-<P></P><H3>Information</H3>
+<B>Average fictitious resistance for plane that contains the pipes</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes a fictitious thermal resistance between the pipe outer wall 
@@ -79,50 +88,50 @@ only valid during steady-state.
 For a fully dynamic model, a finite element method for the radiant slab would need to be implemented.
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Distance"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Distance"
 >Distance</A></TD><TD>disPip</TD><TD>&nbsp;</TD><TD>pipe distance [m]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Diameter"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Diameter"
 >Diameter</A></TD><TD>dPipOut</TD><TD>&nbsp;</TD><TD>pipe outside diameter [m]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >ThermalConductivity</A></TD><TD>k</TD><TD>&nbsp;</TD><TD>pipe level construction element thermal conductivity [W/(m.K)]</TD></TR>
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses_Types.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType"
 >SystemType</A></TD><TD>sysTyp</TD><TD>&nbsp;</TD><TD>Type of radiant system</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >ThermalConductivity</A></TD><TD>kIns</TD><TD>&nbsp;</TD><TD>floor slab insulation thermal conductivity [W/(m.K)]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Thickness"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Thickness"
 >Thickness</A></TD><TD>dIns</TD><TD>&nbsp;</TD><TD>floor slab insulation thickness [m]</TD></TR>
 </TABLE>
 <P><H3>Outputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
 >ThermalInsulance</A></TD><TD>Rx</TD><TD>Thermal insulance [m2.K/W]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> AverageResistance <font color="darkgreen">
   &quot;Average fictitious resistance for plane that contains the pipes&quot;</font>
-  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Distance"
+  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Distance"
 >Modelica.SIunits.Distance</A> disPip <font color="darkgreen">&quot;pipe distance&quot;</font>;
-  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Diameter"
+  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Diameter"
 >Modelica.SIunits.Diameter</A> dPipOut <font color="darkgreen">&quot;pipe outside diameter&quot;</font>;
-  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >Modelica.SIunits.ThermalConductivity</A> k <font color="darkgreen">
     &quot;pipe level construction element thermal conductivity&quot;</font>;
   <font color="blue">input </font><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses_Types.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType</A>
      sysTyp <font color="darkgreen">&quot;Type of radiant system&quot;</font>;
-  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >Modelica.SIunits.ThermalConductivity</A> kIns <font color="darkgreen">
     &quot;floor slab insulation thermal conductivity&quot;</font>;
-  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Thickness"
+  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Thickness"
 >Modelica.SIunits.Thickness</A> dIns <font color="darkgreen">&quot;floor slab insulation thickness&quot;</font>;
-  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
+  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
 >Modelica.SIunits.ThermalInsulance</A> Rx <font color="darkgreen">&quot;Thermal insulance&quot;</font>;
 <font color="blue">protected </font>
   Real cri(unit=&quot;1&quot;) <font color="darkgreen">
@@ -166,6 +175,6 @@ For a fully dynamic model, a finite element method for the radiant slab would ne
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>AverageResistance;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:18 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:27 2013.
 </address></BODY>
 </HTML>

@@ -17,23 +17,32 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils"
 >Buildings.Fluid.HeatExchangers.DXCoils</A>.BaseClasses</H2>
 <B>Package with base classes for DX cooling coil model</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils"
 >Buildings.Fluid.HeatExchangers.DXCoils</a>.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExchad1856c8f4f4d7f77PointS.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint"
@@ -110,9 +119,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchad1856c8f4f4d7f77PointI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.ApparatusDewPoint</H2>
-<B>Calculates air properties at apparatus dew point</B><p></P>
+<B>Calculates air properties at apparatus dew point</B><p>
 <IMG SRC="Buildings.Fluid.HeatExchad1856c8f4f4d7f77PointD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This blocks outputs the state of the moist air at the dew point of the coil.
@@ -122,7 +131,7 @@ computed by its base class
 >
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition</a>.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition</A> (Partial block for apparatus dew and dry point calculation).
 <P><H3>Parameters</H3><P>
@@ -130,7 +139,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
 >DXCoil</A></TD><TD>datCoi</TD><TD>&nbsp;</TD><TD>Performance data</TD></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >PartialCondensingGases</A></TD><TD>Medium model</TD></TR>
 <TR><TD>Boolean</TD><TD>variableSpeedCoil</TD><TD>&nbsp;</TD><TD>Flag, set to true to interpolate data</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
@@ -139,43 +148,43 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>speRat</TD><TD>Speed index</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>Q_flow</TD><TD>Cooling capacity of the coil [W]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>m_flow</TD><TD>Evaporator air mass flow rate [kg/s]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>p</TD><TD>Evaporator air static pressure [Pa]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>XEvaIn</TD><TD>Evaporator inlet air mass fraction</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>hEvaIn</TD><TD>Evaporator air inlet specific enthalpy [J/kg]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>stage</TD><TD>Stage of coil, or 0/1 for variable-speed coil</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>hADP</TD><TD>Specific enthalpy of air at apparatus dew point [J/kg]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>XADP</TD><TD>Humidity mass fraction of air at  apparatus dew point</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TADP</TD><TD>Dry bulb temperature of air at apparatus dew point [K]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> ApparatusDewPoint <font color="darkgreen">
   &quot;Calculates air properties at apparatus dew point&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> hADP(
     nominal=40000,
     quantity=&quot;SpecificEnergy&quot;,
     unit=&quot;J/kg&quot;) <font color="darkgreen">&quot;Specific enthalpy of air at apparatus dew point&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> XADP(
     min=0,
     max=1.0) <font color="darkgreen">&quot;Humidity mass fraction of air at  apparatus dew point&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TADP(
     quantity=&quot;Temperature&quot;,
     unit=&quot;K&quot;,
@@ -183,13 +192,13 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
     min=233.15,
     max=373.15) <font color="darkgreen">&quot;Dry bulb temperature of air at apparatus dew point&quot;</font>;</textblock>
 <font color="blue">protected </font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TSatMin = 273.15+3 <font color="darkgreen">
     &quot;Minimum apparatus saturation temperature&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> XSatMin = 0.004667 <font color="darkgreen">
     &quot;Mass fraction at saturation of coil inlet conditions&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> hMin(fixed=false) <font color="darkgreen">
     &quot;Minimum enthalpy of apparatus dew point&quot;</font>;
 
@@ -222,9 +231,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <H2><IMG SRC="Buildings.Fluid.HeatExchaf59fed7a934d7f72PointI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.ApparatusDryPoint</H2>
-<B>Calculates air properties at dry coil surface</B><p></P>
+<B>Calculates air properties at dry coil surface</B><p>
 <IMG SRC="Buildings.Fluid.HeatExchaf59fed7a934d7f72PointD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This blocks outputs the state of the moist air at of the coil, assuming no condensation occurs.
@@ -234,7 +243,7 @@ computed by its base class
 >
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition</a>.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition</A> (Partial block for apparatus dew and dry point calculation).
 <P><H3>Parameters</H3><P>
@@ -242,7 +251,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
 >DXCoil</A></TD><TD>datCoi</TD><TD>&nbsp;</TD><TD>Performance data</TD></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >PartialCondensingGases</A></TD><TD>Medium model</TD></TR>
 <TR><TD>Boolean</TD><TD>variableSpeedCoil</TD><TD>&nbsp;</TD><TD>Flag, set to true to interpolate data</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
@@ -251,47 +260,47 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>speRat</TD><TD>Speed index</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>Q_flow</TD><TD>Cooling capacity of the coil [W]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>m_flow</TD><TD>Evaporator air mass flow rate [kg/s]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>p</TD><TD>Evaporator air static pressure [Pa]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>XEvaIn</TD><TD>Evaporator inlet air mass fraction</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>hEvaIn</TD><TD>Evaporator air inlet specific enthalpy [J/kg]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>stage</TD><TD>Stage of coil, or 0/1 for variable-speed coil</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TDry</TD><TD>Dry bulb temperature of air at dry coil condition [K]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> ApparatusDryPoint <font color="darkgreen">
   &quot;Calculates air properties at dry coil surface&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TDry(
     quantity=&quot;Temperature&quot;,
     unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;,
     min=253.15,
     max=373.15) <font color="darkgreen">&quot;Dry bulb temperature of air at dry coil condition&quot;</font>;</textblock>
-  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> hDry <font color="darkgreen">
     &quot;Enthalpy of air at coil surface&quot;</font>;
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> XEvaInVec[Medium.nX] <font color="darkgreen">
     &quot;Mass fraction of air inlet condition&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TADP(start=283.15) <font color="darkgreen">
     &quot;Apparatus dew point temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> hMin <font color="darkgreen">
     &quot;Minimum enthalpy of apparatus dew point&quot;</font>;
 <font color="blue">equation </font>
@@ -322,15 +331,15 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <H2><IMG SRC="Buildings.Fluid.HeatExcha8c92194f2b979144ationI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.Condensation</H2>
-<B>Calculates rate of condensation</B><p></P>
+<B>Calculates rate of condensation</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha8c92194f2b979144ationD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This block computes the water mass flow rate that condenses.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -341,37 +350,37 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TDewPoi</TD><TD>Dew point temperature [K]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>Q_flow</TD><TD>Heat flow [W]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>SHR</TD><TD>Sensible heat ratio</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>mWat_flow</TD><TD>Mass flow rate of water condensed at cooling coil [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> Condensation <font color="darkgreen">&quot;Calculates rate of condensation&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
   <font color="blue">replaceable </font><font color="blue">package</font> Medium =
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+    <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >Modelica.Media.Interfaces.PartialCondensingGases</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TDewPoi(
     start=278.15,
     unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;) <font color="darkgreen">&quot;Dew point temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> Q_flow(
     max=0,
     unit=&quot;W&quot;) <font color="darkgreen">&quot;Heat flow&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> SHR(
     min=0,
     max=1) <font color="darkgreen">&quot;Sensible heat ratio&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> mWat_flow(
     quantity=&quot;MassFlowRate&quot;,
     unit=&quot;kg/s&quot;) <font color="darkgreen">&quot;Mass flow rate of water condensed at cooling coil&quot;</font>;</textblock>
@@ -386,9 +395,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha924ebce5ae74de27acityI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.CoolingCapacity</H2>
-<B>Calculates cooling capacity at given temperature and flow fraction</B><p></P>
+<B>Calculates cooling capacity at given temperature and flow fraction</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha924ebce5ae74de27acityD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <h4>
 Cooling capacity modifiers
@@ -581,14 +590,14 @@ Below this range, this model reduces the cooling capacity and the energy input r
 so that both are zero if <i>ff &lt; ff<sub>min</sub>/4</i>, where
 <i>ff<sub>min</sub></i> is the minimum flow fraction for which the performance curves are valid.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD>Integer</TD><TD>nSta</TD><TD>&nbsp;</TD><TD>Number of coil stages (not counting the off stage)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>&nbsp;</TD><TD>Small mass flow rate for regularization [kg/s]</TD></TR>
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage"
 >Stage</A></TD><TD>sta[nSta]</TD><TD>&nbsp;</TD><TD>Performance data for this stage</TD></TR>
@@ -596,39 +605,39 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>stage</TD><TD>Stage of coil, or 0/1 for variable-speed coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TConIn</TD><TD>Temperature of air entering the condenser coil  [K]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>m_flow</TD><TD>Air mass flow rate at the evaporator [kg/s]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TEvaIn</TD><TD>Temperature of air entering the evaporator (wet bulb for wet coil and dry bulb for dry coil) [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Q_flow[nSta]</TD><TD>Total cooling capacity [W]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>EIR[nSta]</TD><TD>Energy Input Ratio</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> CoolingCapacity <font color="darkgreen">
   &quot;Calculates cooling capacity at given temperature and flow fraction&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >Modelica.Blocks.Interfaces.IntegerInput</A> stage(<font color="blue">final </font>min=0) <font color="darkgreen">
     &quot;Stage of coil, or 0/1 for variable-speed coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TConIn(
     quantity=&quot;Temperature&quot;,
     unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;) <font color="darkgreen">&quot;Temperature of air entering the condenser coil &quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> m_flow(
     quantity=&quot;MassFlowRate&quot;,
     unit=&quot;kg/s&quot;) <font color="darkgreen">&quot;Air mass flow rate at the evaporator&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TEvaIn(
     quantity=&quot;Temperature&quot;,
     unit=&quot;K&quot;,
@@ -637,7 +646,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     </textblock>
   <font color="blue">parameter </font>Integer nSta(min=1) <font color="darkgreen">
     &quot;Number of coil stages (not counting the off stage)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_small <font color="darkgreen">
     &quot;Small mass flow rate for regularization&quot;</font>;
   <font color="blue">parameter </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage"
@@ -646,11 +655,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     &quot;Performance data for this stage&quot;</font>;
   <font color="blue">output </font>Real[nSta] ff(<font color="blue">each </font>min=0) <font color="darkgreen">
     &quot;Air flow fraction: ratio of actual air flow rate by rated mass flwo rate&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> Q_flow[nSta](
     <font color="blue">each </font>max=0,
     <font color="blue">each </font>unit=&quot;W&quot;) <font color="darkgreen">&quot;Total cooling capacity&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> EIR[nSta](<font color="blue">each </font>min=0) <font color="darkgreen">
     &quot;Energy Input Ratio&quot;</font>;</textblock>
 <font color="darkgreen">//------------------------------Cooling capacity---------------------------------//</font>
@@ -816,9 +825,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha7b1370a8257fcdfcyCoilI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.DryCoil</H2>
-<B>Calculates dry coil condition</B><p></P>
+<B>Calculates dry coil condition</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha7b1370a8257fcdfcyCoilD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This block calculates the rate of cooling and the coil surface condition
@@ -835,7 +844,7 @@ See
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition</A> (Partial block for dry and wet coil conditions).
 <P><H3>Parameters</H3><P>
@@ -849,39 +858,39 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>stage</TD><TD>Stage of coil, or 0/1 for variable-speed coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>speRat</TD><TD>Speed ratio</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>m_flow</TD><TD>Air mass flow rate</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TEvaIn</TD><TD>Temperature of air entering the cooling coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>XEvaIn</TD><TD>Inlet air mass fraction</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>p</TD><TD>Pressure at inlet of coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>hEvaIn</TD><TD>Specific enthalpy of air entering the coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TConIn</TD><TD>Outside air dry bulb temperature for an air cooled condenser or wetbulb temperature for an evaporative cooled condenser [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>EIR</TD><TD>Energy Input Ratio</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Q_flow</TD><TD>Total cooling capacity [W]</TD></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TDry</TD><TD>Dry bulb temperature of air at ADP [K]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DryCoil <font color="darkgreen">&quot;Calculates dry coil condition&quot;</font>
  <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition</A>;
   <font color="blue">replaceable </font><font color="blue">package</font> Medium =
-      <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+      <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >Modelica.Media.Interfaces.PartialCondensingGases</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TDry(
     quantity=&quot;Temperature&quot;,
     unit=&quot;K&quot;,
@@ -913,9 +922,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <H2><IMG SRC="Buildings.Fluid.HeatExchaf63652c0b5cf61f2ectorI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.DryWetSelector</H2>
-<B>Selects results from dry or wet coil</B><p></P>
+<B>Selects results from dry or wet coil</B><p>
 <IMG SRC="Buildings.Fluid.HeatExchaf63652c0b5cf61f2ectorD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This block smoothly transitions the results from the dry coil and
@@ -924,105 +933,105 @@ The independent variable for the transition is the difference between
 the water mass fractions at the apparatus dew point, as computed by the wet coil model,
 and the coil inlet mass fraction. 
 </p>
-<P></P>
+<P>
 
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>XEvaIn</TD><TD>Inlet air mass fraction</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>XADP</TD><TD>Mass fraction at ADP</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>EIRWet</TD><TD>Energy Input Ratio</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>QWet_flow</TD><TD>Total cooling capacity [W]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>SHRWet</TD><TD>Sensible Heat Ratio: Ratio of sensible heat load to total heat load</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TADPWet</TD><TD>Dry bulb temperature of air at ADP [K]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>mWetWat_flow</TD><TD>Mass flow rate of water condensed at cooling coil [kg/s]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>EIRDry</TD><TD>Energy Input Ratio</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>QDry_flow</TD><TD>Total cooling capacity [W]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TADPDry</TD><TD>Dry bulb temperature of air at ADP [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>EIR</TD><TD>Energy Input Ratio</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Q_flow</TD><TD>Total cooling capacity [W]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>SHR</TD><TD>Sensible Heat Ratio: Ratio of sensible heat load to total heat load</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TADP</TD><TD>Dry bulb temperature of air at ADP [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>mWat_flow</TD><TD>Mass flow rate of water condensed at cooling coil [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> DryWetSelector <font color="darkgreen">&quot;Selects results from dry or wet coil&quot;</font>
 
- <font color="blue">constant </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+ <font color="blue">constant </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> deltaX=0.0001 <font color="darkgreen">
     &quot;Range of x where transition between dry and wet coil occurs&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> XEvaIn <font color="darkgreen">&quot;Inlet air mass fraction&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> XADP <font color="darkgreen">&quot;Mass fraction at ADP&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> EIRWet <font color="darkgreen">&quot;Energy Input Ratio&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> QWet_flow(
     max=0,
     unit=&quot;W&quot;) <font color="darkgreen">&quot;Total cooling capacity&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> SHRWet(
     min=0,
     max=1.0) <font color="darkgreen">
     &quot;Sensible Heat Ratio: Ratio of sensible heat load to total heat load&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TADPWet(
     quantity=&quot;Temperature&quot;,
     unit=&quot;K&quot;,
     min=273.15,
     max=373.15) <font color="darkgreen">&quot;Dry bulb temperature of air at ADP&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> mWetWat_flow(
     quantity=&quot;MassFlowRate&quot;,
     unit=&quot;kg/s&quot;) <font color="darkgreen">&quot;Mass flow rate of water condensed at cooling coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> EIRDry <font color="darkgreen">&quot;Energy Input Ratio&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> QDry_flow(max=0, unit=&quot;W&quot;) <font color="darkgreen">
     &quot;Total cooling capacity&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TADPDry(
     quantity=&quot;Temperature&quot;,
     unit=&quot;K&quot;,
     min=273.15,
     max=373.15) <font color="darkgreen">&quot;Dry bulb temperature of air at ADP&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> EIR <font color="darkgreen">&quot;Energy Input Ratio&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> Q_flow(
     max=0,
     unit=&quot;W&quot;) <font color="darkgreen">&quot;Total cooling capacity&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> SHR(
     min=0,
     max=1.0) <font color="darkgreen">
     &quot;Sensible Heat Ratio: Ratio of sensible heat load to total heat load&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TADP(
     quantity=&quot;Temperature&quot;,
     unit=&quot;K&quot;,
     min=273.15,
     max=373.15) <font color="darkgreen">&quot;Dry bulb temperature of air at ADP&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> mWat_flow(
     quantity=&quot;MassFlowRate&quot;,
     unit=&quot;kg/s&quot;) <font color="darkgreen">&quot;Mass flow rate of water condensed at cooling coil&quot;</font>;</textblock>
@@ -1032,7 +1041,7 @@ and the coil inlet mass fraction.
  <font color="blue">output </font>Real fraWet(min=0, max=1) <font color="darkgreen">
     &quot;Fraction of results that are taken from the wet coil model&quot;</font>;
 <font color="blue">protected </font>
-  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> dX <font color="darkgreen">
     &quot;Difference between apparatus dew point mass fraction of wet coil and inlet air mass fraction&quot;</font>;
 <font color="blue">equation </font>
@@ -1058,9 +1067,9 @@ and the coil inlet mass fraction.
 <H2><IMG SRC="Buildings.Fluid.HeatExcha674bdd2f2735086colingI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.DXCooling</H2>
-<B>DX cooling coil operation </B><p></P>
+<B>DX cooling coil operation </B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha674bdd2f2735086colingD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This block combines the models for the dry coil and the wet coil.
@@ -1069,7 +1078,7 @@ mass fraction at the apparatus dew point temperature and
 the mass fraction of the coil inlet air,
 may be from the dry coil, the wet coil, or a weighted average of the two.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface</A> (Partial block for DX coil).
 <P><H3>Parameters</H3><P>
@@ -1083,47 +1092,47 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>stage</TD><TD>Stage of coil, or 0/1 for variable-speed coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>speRat</TD><TD>Speed ratio</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>m_flow</TD><TD>Air mass flow rate</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TEvaIn</TD><TD>Temperature of air entering the cooling coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>XEvaIn</TD><TD>Inlet air mass fraction</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>p</TD><TD>Pressure at inlet of coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>hEvaIn</TD><TD>Specific enthalpy of air entering the coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TConIn</TD><TD>Outside air dry bulb temperature for an air cooled condenser or wetbulb temperature for an evaporative cooled condenser [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>EIR</TD><TD>Energy Input Ratio</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Q_flow</TD><TD>Total cooling capacity [W]</TD></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TCoiSur</TD><TD>Coil surface temperature [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>mWat_flow</TD><TD>Mass flow rate of water condensed at cooling coil [kg/s]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>SHR</TD><TD>Sensible Heat Ratio: Ratio of sensible heat load to total heat load</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DXCooling <font color="darkgreen">&quot;DX cooling coil operation &quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface</A>;
   <font color="blue">replaceable </font><font color="blue">package</font> Medium =
-      <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+      <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >Modelica.Media.Interfaces.PartialCondensingGases</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
 
   <font color="blue">constant </font>Boolean variableSpeedCoil <font color="darkgreen">
     &quot;Flag, set to true for coil with variable speed&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TCoiSur(
     quantity=&quot;Temperature&quot;,
     unit=&quot;K&quot;,
@@ -1142,11 +1151,11 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
   <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector</A> dryWet <font color="darkgreen">
     &quot;Actual coil condition&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> mWat_flow(
     quantity=&quot;MassFlowRate&quot;,
     unit=&quot;kg/s&quot;) <font color="darkgreen">&quot;Mass flow rate of water condensed at cooling coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> SHR(
     min=0,
     max=1.0) <font color="darkgreen">
@@ -1193,9 +1202,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.EssentialParameters</H2>
-<B>A partial block for essential parameters</B><p></P>
+<B>A partial block for essential parameters</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha292b0d1e3b2d3401etersD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This partial block declares parameters that are required by most classes
@@ -1204,7 +1213,7 @@ in the package
 > 
 Buildings.Fluid.HeatExchangers.DXCoils</a>.
 </p>
-<P></P>
+<P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1212,7 +1221,7 @@ Buildings.Fluid.HeatExchangers.DXCoils</a>.
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
 >DXCoil</A></TD><TD>datCoi</TD><TD>&nbsp;</TD><TD>Performance data</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">block</font> EssentialParameters <font color="darkgreen">
   &quot;A partial block for essential parameters&quot;</font>
@@ -1232,9 +1241,9 @@ Buildings.Fluid.HeatExchangers.DXCoils</a>.
 <H2><IMG SRC="Buildings.Fluid.HeatExcha77701eece82d67eaationI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.Evaporation</H2>
-<B>Model that computes evaporation of water that accumulated on the coil surface</B><p></P>
+<B>Model that computes evaporation of water that accumulated on the coil surface</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha77701eece82d67eaationD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model computes the water accumulation on the surface of a cooling coil.
@@ -1518,8 +1527,8 @@ Don B. Shirey III, Hugh I. Henderson, Jr. and Richard A. Raustad.
 Understanding the Dehumidification Performance of Air-Conditioning Equipment at Part-Load Conditions.</a>
 Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1529,48 +1538,48 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >NominalValues</A></TD><TD>nomVal</TD><TD>&nbsp;</TD><TD>Nominal values</TD></TR>
 <TR><TD>Boolean</TD><TD>computeReevaporation</TD><TD>true</TD><TD>Set to true to compute reevaporation of water that accumulated on coil</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mAir_flow_small</TD><TD>0.1*abs(nomVal.m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
 >BooleanInput</A></TD><TD>on</TD><TD>Control signal, true if compressor is on</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>mWat_flow</TD><TD>Water flow rate added into the medium [kg/s]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TWat</TD><TD>Temperature of liquid that is drained from or injected into volume [K]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>mAir_flow</TD><TD>Air mass flow rate [kg/s]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>XEvaOut</TD><TD>Water mass fraction [1]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TEvaOut</TD><TD>Air temperature [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>mTotWat_flow</TD><TD>Total moisture mass flow rate into the air stream [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Evaporation <font color="darkgreen">
   &quot;Model that computes evaporation of water that accumulated on the coil surface&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
   <font color="blue">replaceable </font><font color="blue">package</font> Medium =
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+    <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >Modelica.Media.Interfaces.PartialCondensingGases</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
 
 <textblock type="annotcomp" expanded="false">  <font color="blue">parameter </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues"
 >Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</A>
      nomVal <font color="darkgreen">&quot;Nominal values&quot;</font>;</textblock>
 
-    <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+    <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mAir_flow_small(min=0)=
       0.1*<font color="red">abs</font>(nomVal.m_flow_nominal) <font color="darkgreen">
     &quot;Small mass flow rate for regularization of zero flow&quot;</font>;
 
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Mass"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Mass"
 >Modelica.SIunits.Mass</A> mMax(min=0, fixed=false) <font color="darkgreen">
     &quot;Maximum mass of water that can accumulate on the coil&quot;</font>;
 
@@ -1579,77 +1588,77 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 
   <font color="darkgreen">////////////////////////////////////////////////////////////////////////////////</font>
   <font color="darkgreen">// Input and output signals</font>
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
 >Modelica.Blocks.Interfaces.BooleanInput</A> on <font color="darkgreen">
     &quot;Control signal, true if compressor is on&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> mWat_flow(<font color="blue">final </font>quantity=&quot;MassFlowRate&quot;,
                                                  <font color="blue">final </font>unit = &quot;kg/s&quot;) <font color="darkgreen">
     &quot;Water flow rate added into the medium&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TWat(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
                                             <font color="blue">final </font>unit = &quot;K&quot;,
                                             displayUnit = &quot;degC&quot;) <font color="darkgreen">
     &quot;Temperature of liquid that is drained from or injected into volume&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> mAir_flow(<font color="blue">final </font>quantity=&quot;MassFlowRate&quot;,
                                                  <font color="blue">final </font>unit = &quot;kg/s&quot;) <font color="darkgreen">
     &quot;Air mass flow rate&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> XEvaOut(min=0, max=1, unit=&quot;1&quot;) <font color="darkgreen">
     &quot;Water mass fraction&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TEvaOut(
     <font color="blue">final </font>quantity=&quot;Temperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;) <font color="darkgreen">&quot;Air temperature&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> mTotWat_flow(<font color="blue">final </font>quantity=&quot;MassFlowRate&quot;,
                                                      <font color="blue">final </font>unit = &quot;kg/s&quot;) <font color="darkgreen">
     &quot;Total moisture mass flow rate into the air stream&quot;</font>;</textblock>
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Mass"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Mass"
 >Modelica.SIunits.Mass</A> m(start=0, nominal=-5000*1400/2257E3) <font color="darkgreen">
     &quot;Mass of water that accumulated on the coil&quot;</font>;
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mEva_flow(max=0) <font color="darkgreen">
     &quot;Moisture mass flow rate that evaporates into air stream&quot;</font>;
   <font color="darkgreen">////////////////////////////////////////////////////////////////////////////////</font>
   <font color="darkgreen">// Protected parameters and variables</font>
 <font color="blue">protected </font>
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</A> QSen_flow_nominal(max=0, fixed=false) <font color="darkgreen">
     &quot;Nominal sensible heat flow rate (negative number)&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</A> QLat_flow_nominal(max=0, fixed=false) <font color="darkgreen">
     &quot;Nominal latent heat flow rate (negative number)&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> XEvaIn_nominal(fixed=false) <font color="darkgreen">
     &quot;Mass fraction at nominal inlet conditions&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> XEvaOut_nominal(fixed=false) <font color="darkgreen">
     &quot;Mass fraction at nominal outlet conditions&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TEvaOut_nominal(fixed=false) <font color="darkgreen">
     &quot;Dry bulb temperature at nominal outlet conditions&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TEvaWetBulOut_nominal(fixed=false) <font color="darkgreen">
     &quot;Wet bulb temperature at nominal outlet conditions&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> XEvaWetBulOut_nominal(fixed=false) <font color="darkgreen">
     &quot;Water vapor mass fraction at nominal outlet wet bulb condition&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> dX_nominal(max=0, fixed=false) <font color="darkgreen">
     &quot;Driving potential for mass transfer&quot;</font>;
 
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> h_fg(fixed=false) <font color="darkgreen">
     &quot;Latent heat of vaporization&quot;</font>;
   <font color="blue">final </font><font color="blue">parameter </font>Real gammaMax(min=0, fixed=false) <font color="darkgreen">&quot;Maximum value for gamma&quot;</font>;
@@ -1660,7 +1669,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="blue">final </font><font color="blue">parameter </font>Real K2(min=0, fixed=false) <font color="darkgreen">
     &quot;Coefficient used for convective mass transfer&quot;</font>;
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> XEvaWetBulOut <font color="darkgreen">
     &quot;Water vapor mass fraction at wet bulb conditions at air inlet&quot;</font>;
 
@@ -1668,17 +1677,17 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="darkgreen"> // check if on, which is an input connector, is used in the edge() function</font>
   Boolean off=<font color="blue">not </font>on <font color="darkgreen">&quot;Signal, true when component is off&quot;</font>;
 
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TEvaWetBulOut <font color="darkgreen">&quot;Wet bulb temperature at coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> dX <font color="darkgreen">
     &quot;Difference in water vapor concentration that drives mass transfer&quot;</font>;
 
-  <font color="blue">constant </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+  <font color="blue">constant </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >Modelica.SIunits.SpecificHeatCapacity</A> cpAir_nominal=
      Buildings.Media.PerfectGases.Common.SingleGasData.Air.cp <font color="darkgreen">
     &quot;Specific heat capacity of air&quot;</font>;
-  <font color="blue">constant </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+  <font color="blue">constant </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >Modelica.SIunits.SpecificHeatCapacity</A> cpSte_nominal=
      Buildings.Media.PerfectGases.Common.SingleGasData.H2O.cp <font color="darkgreen">
     &quot;Specific heat capacity of water vapor&quot;</font>;
@@ -1831,9 +1840,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha5e776f995361fe28PowerI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.InputPower</H2>
-<B>Electrical power consumed by the unit</B><p></P>
+<B>Electrical power consumed by the unit</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha5e776f995361fe28PowerD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This block calculates total electrical energy consumed by the unit using 
@@ -1845,47 +1854,47 @@ The electrical energy consumed by the unit is
 <p align="center" style="font-style:italic;">
   P = -Q<sub>cool</sub> EIR
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>Q_flow</TD><TD>Cooling capacity of the coil [W]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>EIR</TD><TD>Energy input ratio</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>SHR</TD><TD>Sensible heat ratio</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>P</TD><TD>Electrical power consumed by the unit [W]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>QSen_flow</TD><TD>Sensible heat flow rate [W]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>QLat_flow</TD><TD>Latent heat flow rate [W]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> InputPower <font color="darkgreen">&quot;Electrical power consumed by the unit&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
-<textblock type="annotcomp" expanded="false">   <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> Q_flow(
     quantity=&quot;Power&quot;,
     unit=&quot;W&quot;) <font color="darkgreen">&quot;Cooling capacity of the coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> EIR <font color="darkgreen">&quot;Energy input ratio&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> SHR(min=0, max=1) <font color="darkgreen">&quot;Sensible heat ratio&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> P(
     quantity=&quot;Power&quot;,
     unit=&quot;W&quot;) <font color="darkgreen">&quot;Electrical power consumed by the unit&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> QSen_flow(quantity=&quot;Power&quot;, unit=&quot;W&quot;) <font color="darkgreen">
     &quot;Sensible heat flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> QLat_flow(quantity=&quot;Power&quot;, unit=&quot;W&quot;) <font color="darkgreen">
     &quot;Latent heat flow rate&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -1901,15 +1910,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha3626cd4d1788ba28itionI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.NominalCondition</H2>
-<B>Calculates inlet and outlet fluid parameters at nominal condition</B><p></P>
-<P></P><H3>Information</H3>
+<B>Calculates inlet and outlet fluid parameters at nominal condition</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This block calculates inlet and outlet fluid parameters at the nominal condition.
 These parameters are required to determine the apparatus dew point at the nominal condition. 
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1918,48 +1927,48 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues"
 >NominalValues</A></TD><TD>per</TD><TD>&nbsp;</TD><TD>Performance data</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> NominalCondition <font color="darkgreen">
   &quot;Calculates inlet and outlet fluid parameters at nominal condition&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A>;
   <font color="blue">replaceable </font><font color="blue">package</font> Medium =
-      <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+      <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >Modelica.Media.Interfaces.PartialCondensingGases</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
   <font color="blue">parameter </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues"
 >Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</A>
                                                                           per <font color="darkgreen">
     &quot;Performance data&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> XEvaIn_nominal=
      <font color="red">Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi</font>(
         pSat=<font color="red">Medium.saturationPressure</font>(per.TEvaIn_nominal),
         p=per.p_nominal,
         phi=per.phiIn_nominal) <font color="darkgreen">
     &quot;Rated/Nominal mass fraction of air entering coil&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> hEvaIn_nominal=
    <font color="red">Medium.h_pTX</font>(
      p=per.p_nominal,
      T=per.TEvaIn_nominal,
      X=<font color="red">cat</font>(1,{XEvaIn_nominal}, {1-<font color="red">sum</font>({XEvaIn_nominal})})) <font color="darkgreen">
     &quot;Rated enthalpy of air entering cooling coil&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> hOut_nominal=
     hEvaIn_nominal + per.Q_flow_nominal / per.m_flow_nominal <font color="darkgreen">
     &quot;Rated enthalpy of air exiting cooling coil&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TOut_nominal=
     per.TEvaIn_nominal + (per.SHR_nominal * per.Q_flow_nominal)/(per.m_flow_nominal * Cp_nominal) <font color="darkgreen">
     &quot;Dry-bulb temperature of the air leaving the cooling coil at nominal condition&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> XEvaOut_nominal(start=0.005, min=0, max=1.0)=
      XEvaIn_nominal + (hOut_nominal- hEvaIn_nominal)*(1-per.SHR_nominal)/
      <font color="red">Medium.enthalpyOfCondensingGas</font>(T=per.TEvaIn_nominal) <font color="darkgreen">
     &quot;Rated/Nominal mass fraction of air leaving the coil&quot;</font>;
 <font color="blue">protected </font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >Modelica.SIunits.SpecificHeatCapacity</A> Cp_nominal=
     <font color="red">Medium.specificHeatCapacityCp</font>(<font color="red">Medium.setState_pTX</font>(
           p=per.p_nominal, T=per.TEvaIn_nominal, X=<font color="red">cat</font>(1,{XEvaIn_nominal}, {1-<font color="red">sum</font>({XEvaIn_nominal})}))) <font color="darkgreen">
@@ -1973,9 +1982,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchae858fc254f2ac3f3itionI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.PartialCoilCondition</H2>
-<B>Partial block for dry and wet coil conditions</B><p></P>
+<B>Partial block for dry and wet coil conditions</B><p>
 <IMG SRC="Buildings.Fluid.HeatExchae858fc254f2ac3f3itionD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This partial block is the base class for 
@@ -1986,7 +1995,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil</a> and
 > 
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil</a>.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface</A> (Partial block for DX coil).
 <P><H3>Parameters</H3><P>
@@ -1999,28 +2008,28 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>stage</TD><TD>Stage of coil, or 0/1 for variable-speed coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>speRat</TD><TD>Speed ratio</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>m_flow</TD><TD>Air mass flow rate</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TEvaIn</TD><TD>Temperature of air entering the cooling coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>XEvaIn</TD><TD>Inlet air mass fraction</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>p</TD><TD>Pressure at inlet of coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>hEvaIn</TD><TD>Specific enthalpy of air entering the coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TConIn</TD><TD>Outside air dry bulb temperature for an air cooled condenser or wetbulb temperature for an evaporative cooled condenser [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>EIR</TD><TD>Energy Input Ratio</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Q_flow</TD><TD>Total cooling capacity [W]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">block</font> PartialCoilCondition <font color="darkgreen">
   &quot;Partial block for dry and wet coil conditions&quot;</font>
@@ -2071,9 +2080,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <H2><IMG SRC="Buildings.Fluid.HeatExchae858fc254f2ac3f3itionI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.PartialCoilInterface</H2>
-<B>Partial block for DX coil</B><p></P>
+<B>Partial block for DX coil</B><p>
 <IMG SRC="Buildings.Fluid.HeatExchadb27dc53cc93e876rfaceD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This partial block declares the inputs and outputs that are common for  
@@ -2083,8 +2092,8 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCondition</a> and
 > 
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block), <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters</A> (A partial block for essential parameters).
 <P><H3>Parameters</H3><P>
@@ -2096,59 +2105,59 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>stage</TD><TD>Stage of coil, or 0/1 for variable-speed coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>speRat</TD><TD>Speed ratio</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>m_flow</TD><TD>Air mass flow rate</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TEvaIn</TD><TD>Temperature of air entering the cooling coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>XEvaIn</TD><TD>Inlet air mass fraction</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>p</TD><TD>Pressure at inlet of coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>hEvaIn</TD><TD>Specific enthalpy of air entering the coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TConIn</TD><TD>Outside air dry bulb temperature for an air cooled condenser or wetbulb temperature for an evaporative cooled condenser [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>EIR</TD><TD>Energy Input Ratio</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Q_flow</TD><TD>Total cooling capacity [W]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">block</font> PartialCoilInterface <font color="darkgreen">&quot;Partial block for DX coil&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >Modelica.Blocks.Interfaces.IntegerInput</A> stage <font color="darkgreen">
     &quot;Stage of coil, or 0/1 for variable-speed coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> speRat <font color="darkgreen">&quot;Speed ratio&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> m_flow <font color="darkgreen">&quot;Air mass flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TEvaIn <font color="darkgreen">
     &quot;Temperature of air entering the cooling coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> XEvaIn <font color="darkgreen">&quot;Inlet air mass fraction&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> p <font color="darkgreen">&quot;Pressure at inlet of coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> hEvaIn <font color="darkgreen">
     &quot;Specific enthalpy of air entering the coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TConIn(
     unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;) <font color="darkgreen">
     &quot;Outside air dry bulb temperature for an air cooled condenser or wetbulb temperature for an evaporative cooled condenser&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> EIR <font color="darkgreen">&quot;Energy Input Ratio&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> Q_flow(
     max=0,
     unit=&quot;W&quot;) <font color="darkgreen">&quot;Total cooling capacity&quot;</font>;</textblock>
@@ -2162,9 +2171,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha5585a7c2cd552408XCoilI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.PartialDXCoil</H2>
-<B>Partial model for DX coil</B><p></P>
+<B>Partial model for DX coil</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha5585a7c2cd552408XCoilD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This partial model is the base class for
@@ -2185,7 +2194,7 @@ See
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters</A> (A partial block for essential parameters), <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.IndexWater"
 >Buildings.Fluid.BaseClasses.IndexWater</A> (Computes the index of the water substance), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
@@ -2195,22 +2204,22 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
 >DXCoil</A></TD><TD>datCoi</TD><TD>&nbsp;</TD><TD>Performance data</TD></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >PartialCondensingGases</A></TD><TD>Medium model</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>datCoi.sta[nSta].nomVal.m_fl...</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>&nbsp;</TD><TD>Pressure [Pa]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
@@ -2222,43 +2231,43 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <TR><TD>Real</TD><TD>deltaM</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>30</TD><TD>Time constant at nominal flow (if energyDynamics &lt;&gt; SteadyState) [s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Moisture balance</TD></TR>
 <TR><TD>Boolean</TD><TD>computeReevaporation</TD><TD>true</TD><TD>Set to true to compute reevaporation of water that accumulated on coil</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
 >AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
 >Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TConIn</TD><TD>Outside air dry bulb temperature for an air cooled condenser or wetbulb temperature for an evaporative cooled condenser [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>P</TD><TD>Electrical power consumed by the unit [W]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>QSen_flow</TD><TD>Sensible heat flow rate [W]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>QLat_flow</TD><TD>Latent heat flow rate [W]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialDXCoil <font color="darkgreen">&quot;Partial model for DX coil&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters"
@@ -2272,19 +2281,19 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 >Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</A> vol,
     <font color="blue">final </font>m_flow_nominal = datCoi.sta[nSta].nomVal.m_flow_nominal);
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TConIn(
     unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;) <font color="darkgreen">
     &quot;Outside air dry bulb temperature for an air cooled condenser or wetbulb temperature for an evaporative cooled condenser&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> P(
     quantity=&quot;Power&quot;,
     unit=&quot;W&quot;) <font color="darkgreen">&quot;Electrical power consumed by the unit&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> QSen_flow(quantity=&quot;Power&quot;, unit=&quot;W&quot;) <font color="darkgreen">
     &quot;Sensible heat flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> QLat_flow(quantity=&quot;Power&quot;, unit=&quot;W&quot;) <font color="darkgreen">
     &quot;Latent heat flow rate&quot;</font>;</textblock>
 
@@ -2305,29 +2314,29 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
   <font color="darkgreen">// Q_flow and EIR are set the zero. Hence, it is safe to assume</font>
   <font color="darkgreen">// forward flow, which will avoid an event</font>
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> hEvaIn=
     <font color="red">inStream</font>(port_a.h_outflow) <font color="darkgreen">&quot;Enthalpy of air entering the cooling coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TEvaIn =<font color="red"> Medium.T_phX</font>(p=port_a.p, h=hEvaIn, X=XEvaIn) <font color="darkgreen">
     &quot;Dry bulb temperature of air entering the cooling coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> XEvaIn[Medium.nXi] =<font color="red"> inStream</font>(port_a.Xi_outflow) <font color="darkgreen">
     &quot;Mass fraction/absolute humidity of air entering the cooling coil&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> p(<font color="blue">final </font>y=port_a.p) <font color="darkgreen">
     &quot;Inlet air pressure&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> X(<font color="blue">final </font>y=XEvaIn[i_w]) <font color="darkgreen">
     &quot;Inlet air mass fraction&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> T(<font color="blue">final </font>y=TEvaIn) <font color="darkgreen">
     &quot;Inlet air temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> m(<font color="blue">final </font>y=port_a.m_flow) <font color="darkgreen">
     &quot;Inlet air mass flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> h(<font color="blue">final </font>y=hEvaIn) <font color="darkgreen">
     &quot;Inlet air specific enthalpy&quot;</font>;
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
@@ -2335,7 +2344,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
   <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower"
 >BaseClasses.InputPower</A> pwr <font color="darkgreen">&quot;Electrical power consumed by the unit&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
 >Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> TVol <font color="darkgreen">
     &quot;Temperature of the control volume&quot;</font>;</textblock>
 <font color="blue">initial </font><font color="blue">algorithm </font>
@@ -2383,9 +2392,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <H2><IMG SRC="Buildings.Fluid.HeatExchae2833c094a90cf9bitionI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.PartialSurfaceCondition</H2>
-<B>Partial block for apparatus dew and dry point calculation</B><p></P>
+<B>Partial block for apparatus dew and dry point calculation</B><p>
 <IMG SRC="Buildings.Fluid.HeatExchae2833c094a90cf9bitionD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This partial block is the base class for
@@ -2412,8 +2421,8 @@ for intermediate speeds.
 For coils with variable speed compressors, the computations are also done if the coil is off,
 as this ensures that the derivatives are continuous near the off conditions.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block), <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters</A> (A partial block for essential parameters).
 <P><H3>Parameters</H3><P>
@@ -2428,59 +2437,59 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>speRat</TD><TD>Speed index</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>Q_flow</TD><TD>Cooling capacity of the coil [W]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>m_flow</TD><TD>Evaporator air mass flow rate [kg/s]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>p</TD><TD>Evaporator air static pressure [Pa]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>XEvaIn</TD><TD>Evaporator inlet air mass fraction</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>hEvaIn</TD><TD>Evaporator air inlet specific enthalpy [J/kg]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>stage</TD><TD>Stage of coil, or 0/1 for variable-speed coil</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">block</font> PartialSurfaceCondition <font color="darkgreen">
   &quot;Partial block for apparatus dew and dry point calculation&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters</A>;
   <font color="blue">replaceable </font><font color="blue">package</font> Medium =
-      <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+      <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >Modelica.Media.Interfaces.PartialCondensingGases</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
 
   <font color="blue">constant </font>Boolean variableSpeedCoil <font color="darkgreen">&quot;Flag, set to true to interpolate data&quot;</font>;
 
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_small = datCoi.m_flow_small <font color="darkgreen">
     &quot;Small mass flow rate for the evaporator, used for regularization&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
 >Modelica.SIunits.AngularVelocity</A> maxSpe(displayUnit=&quot;1/min&quot;)= datCoi.sta[nSta].spe <font color="darkgreen">
     &quot;Maximum rotational speed&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> speRat <font color="darkgreen">&quot;Speed index&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> Q_flow(
     quantity=&quot;Power&quot;,
     unit=&quot;W&quot;) <font color="darkgreen">&quot;Cooling capacity of the coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> m_flow(
     quantity=&quot;MassFlowRate&quot;,
     unit=&quot;kg/s&quot;) <font color="darkgreen">&quot;Evaporator air mass flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> p(
     quantity=&quot;Pressure&quot;,
     unit=&quot;Pa&quot;) <font color="darkgreen">&quot;Evaporator air static pressure&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> XEvaIn <font color="darkgreen">
     &quot;Evaporator inlet air mass fraction&quot;</font>;</textblock><font color="darkgreen"> //(start=0.005, min=0, max=1.0)</font>
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> hEvaIn(
     quantity=&quot;SpecificEnergy&quot;,
     unit=&quot;J/kg&quot;) <font color="darkgreen">&quot;Evaporator air inlet specific enthalpy&quot;</font>;</textblock>
@@ -2488,7 +2497,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     start=0.25,
     min=0,
     max=1.0) <font color="darkgreen">&quot;Bypass factor&quot;</font>;
- <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+ <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
 >Modelica.SIunits.AngularVelocity</A> spe(displayUnit=&quot;1/min&quot;) <font color="darkgreen">
     &quot;Rotational speed&quot;</font>;
 
@@ -2498,10 +2507,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
       <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Calculates UA/Cp of the coil&quot;</font>;</textblock>
 
 <font color="blue">protected </font>
-  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nonzero <font color="darkgreen">
     &quot;Evaporator air mass flow rate, bounded away from zero&quot;</font>;
-  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> delta_h(
     start=40000,
     min=0.0) <font color="darkgreen">
@@ -2511,7 +2520,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     fixed=false) <font color="darkgreen">&quot;UA/Cp of coil&quot;</font>;
 
 <textblock type="annotcomp" expanded="false"><font color="blue">public </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >Modelica.Blocks.Interfaces.IntegerInput</A> stage <font color="darkgreen">
     &quot;Stage of coil, or 0/1 for variable-speed coil&quot;</font>;</textblock>
 <font color="blue">algorithm </font>
@@ -2559,15 +2568,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha11adce10f89a9e20RatioI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.SensibleHeatRatio</H2>
-<B>Calculates the sensible heat ratio</B><p></P>
+<B>Calculates the sensible heat ratio</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha11adce10f89a9e20RatioD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This block computes the sensible heat ratio.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -2578,61 +2587,61 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
 >BooleanInput</A></TD><TD>on</TD><TD>Set to true to enable compressor, or false to disable compressor</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>p</TD><TD>Pressure at inlet of coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TEvaIn</TD><TD>Temperature of air entering the cooling coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>XADP</TD><TD>Humidity mass fraction of air at ADP</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>hADP</TD><TD>Specific enthalpy of air at ADP [J/kg]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>hEvaIn</TD><TD>Specific enthalpy of air entering the coil</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>SHR</TD><TD>Sensible Heat Ratio: Ratio of sensible heat load to total heat load</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> SensibleHeatRatio <font color="darkgreen">&quot;Calculates the sensible heat ratio&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
   <font color="blue">replaceable </font><font color="blue">package</font> Medium =
-      <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+      <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >Modelica.Media.Interfaces.PartialCondensingGases</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
 >Modelica.Blocks.Interfaces.BooleanInput</A> on <font color="darkgreen">
     &quot;Set to true to enable compressor, or false to disable compressor&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> p <font color="darkgreen">&quot;Pressure at inlet of coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TEvaIn <font color="darkgreen">
     &quot;Temperature of air entering the cooling coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> XADP(
     min=0,
     max=1.0) <font color="darkgreen">&quot;Humidity mass fraction of air at ADP&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> hADP(
     nominal=40000,
     quantity=&quot;SpecificEnergy&quot;,
     unit=&quot;J/kg&quot;) <font color="darkgreen">&quot;Specific enthalpy of air at ADP&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> hEvaIn <font color="darkgreen">
     &quot;Specific enthalpy of air entering the coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> SHR(
     min=0,
     max=1.0) <font color="darkgreen">
     &quot;Sensible Heat Ratio: Ratio of sensible heat load to total heat load&quot;</font>;</textblock>
 
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> h_TEvaIn_XADP <font color="darkgreen">
     &quot;Enthalpy at inlet air temperature and humidity mass fraction at ADP&quot;</font>;
   Real entRat <font color="darkgreen">&quot;Enthalpy ratio&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> epsH = 100 <font color="darkgreen">
     &quot;Small value for enthalpy to avoid division by zero&quot;</font>;
 <font color="blue">algorithm </font>
@@ -2670,17 +2679,17 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha6f5fe0cd6a3992daelectI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.SpeedSelect</H2>
-<B>Selects the lower specified speed ratio for multispeed model</B><p></P>
+<B>Selects the lower specified speed ratio for multispeed model</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha6f5fe0cd6a3992daelectD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This blocks outputs the normalized speed of the compressor,
 whereas the highest stage is assigned a normalized speed of one,
 and all other stages are proportional to their actual speed.
   </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -2691,24 +2700,24 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>stage</TD><TD>Stage of cooling coil (0: off, 1: first stage, 2: second stage...)</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>speRat</TD><TD>Standard speed ratio</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> SpeedSelect <font color="darkgreen">
   &quot;Selects the lower specified speed ratio for multispeed model&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 
   <font color="blue">parameter </font>Integer nSta(min=1) <font color="darkgreen">&quot;Number of standard compressor speeds&quot;</font>;
   <font color="blue">parameter </font>Real speSet[nSta] <font color="darkgreen">&quot;Array of standard compressor speeds&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >Modelica.Blocks.Interfaces.IntegerInput</A> stage <font color="darkgreen">
     &quot;Stage of cooling coil (0: off, 1: first stage, 2: second stage...)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> speRat <font color="darkgreen">&quot;Standard speed ratio&quot;</font>;</textblock>
 <font color="blue">protected </font>
   <font color="blue">final </font><font color="blue">parameter </font>Real speRatNor[nSta](<font color="blue">each </font>min=0, max=1)=
@@ -2729,9 +2738,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchae5e3ed3d735158e2ShiftI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedShift" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedShift"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.SpeedShift</H2>
-<B>Interpolates values between speeds</B><p></P>
+<B>Interpolates values between speeds</B><p>
 <IMG SRC="Buildings.Fluid.HeatExchae5e3ed3d735158e2ShiftD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedShift">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This block uses the
@@ -2741,44 +2750,44 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift</a> func
 to interpolate the input array.
 Depending on input speed ratio and speed set array the input array <i>u</i> is interpolated.  
 </p>
-<P></P>
+<P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD>Integer</TD><TD>nSta</TD><TD>&nbsp;</TD><TD>Number of standard compressor speeds</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
 >AngularVelocity</A></TD><TD>speSet[nSta]</TD><TD>&nbsp;</TD><TD>Compressor speeds [rad/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>variableSpeedCoil</TD><TD>&nbsp;</TD><TD>Flag, set to true to interpolate data</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>speRat</TD><TD>Speed ratio</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u[nSta]</TD><TD>Array to be interpolated</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Interpolated value</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>stage</TD><TD>Stage of coil, or 0/1 for variable-speed coil</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> SpeedShift <font color="darkgreen">&quot;Interpolates values between speeds&quot;</font>
   <font color="blue">parameter </font>Integer nSta <font color="darkgreen">&quot;Number of standard compressor speeds&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
 >Modelica.SIunits.AngularVelocity</A> speSet[nSta](<font color="blue">each </font>displayUnit=&quot;1/min&quot;) <font color="darkgreen">
     &quot;Compressor speeds&quot;</font>;
   <font color="blue">constant </font>Boolean variableSpeedCoil <font color="darkgreen">&quot;Flag, set to true to interpolate data&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> speRat <font color="darkgreen">&quot;Speed ratio&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> u[nSta] <font color="darkgreen">&quot;Array to be interpolated&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> y <font color="darkgreen">&quot;Interpolated value&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >Modelica.Blocks.Interfaces.IntegerInput</A> stage <font color="darkgreen">
     &quot;Stage of coil, or 0/1 for variable-speed coil&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -2799,8 +2808,8 @@ Depending on input speed ratio and speed set array the input array <i>u</i> is i
 <H2><IMG SRC="Buildings.Fluid.HeatExcha0f2a3a8bf900018f.UACpI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.UACp</H2>
-<B>Calculates UA/Cp of the coil</B><p></P>
-<P></P><H3>Information</H3>
+<B>Calculates UA/Cp of the coil</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This model calculates the <i>UA/c<sub>p</sub></i> value and the bypass factor
@@ -2828,39 +2837,39 @@ and, hence,
 <p align="center" style="font-style:italic;">
  UA &frasl; c<sub>p</sub> = - m&#775; log(b)
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition"
->Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition</A> (Calculates inlet and outlet fluid parameters at nominal condition), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition</A> (Calculates inlet and outlet fluid parameters at nominal condition), <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >PartialCondensingGases</A></TD><TD>Medium model</TD></TR>
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues"
 >NominalValues</A></TD><TD>per</TD><TD>&nbsp;</TD><TD>Performance data</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> UACp <font color="darkgreen">&quot;Calculates UA/Cp of the coil&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</A> XADP_nominal(
     start=0.008,
     min=0,
     max=1.0,
     fixed=false) <font color="darkgreen">
     &quot;Rated/Nominal mass fraction of air at coil apparatus dew point&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TADP_nominal(
     start=273.15+10,
     fixed=false) <font color="darkgreen">&quot;Coil apparatus dew point temperature&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> hADP_nominal(
     fixed=false) <font color="darkgreen">
     &quot;Enthalpy of air at coil apparatus dew point (at rated condition)&quot;</font>;
@@ -2876,7 +2885,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
   <font color="blue">parameter </font>Boolean homotopyInitialization = true <font color="darkgreen">&quot;= true, use homotopy method&quot;</font>;
 <font color="blue">protected </font>
   <font color="blue">constant </font>Real phiADP_nominal = 1.0 <font color="darkgreen">&quot;Realtive humidity at ADP&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
 >Modelica.SIunits.AbsolutePressure</A> psat_ADP_nominal(
     start=1250,
     fixed=false) <font color="darkgreen">&quot;Saturation pressure&quot;</font>;
@@ -2935,9 +2944,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <H2><IMG SRC="Buildings.Fluid.HeatExchac6d89d57cbafcdf8tCoilI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.WetCoil</H2>
-<B>Calculates wet coil condition </B><p></P>
+<B>Calculates wet coil condition </B><p>
 <IMG SRC="Buildings.Fluid.HeatExchac6d89d57cbafcdf8tCoilD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This block calculates the rate of cooling and the coil surface condition
@@ -2954,7 +2963,7 @@ See
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition</A> (Partial block for dry and wet coil conditions).
 <P><H3>Parameters</H3><P>
@@ -2968,56 +2977,56 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>stage</TD><TD>Stage of coil, or 0/1 for variable-speed coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>speRat</TD><TD>Speed ratio</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>m_flow</TD><TD>Air mass flow rate</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TEvaIn</TD><TD>Temperature of air entering the cooling coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>XEvaIn</TD><TD>Inlet air mass fraction</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>p</TD><TD>Pressure at inlet of coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>hEvaIn</TD><TD>Specific enthalpy of air entering the coil</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TConIn</TD><TD>Outside air dry bulb temperature for an air cooled condenser or wetbulb temperature for an evaporative cooled condenser [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>EIR</TD><TD>Energy Input Ratio</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Q_flow</TD><TD>Total cooling capacity [W]</TD></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TADP</TD><TD>Dry bulb temperature of air at ADP [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>SHR</TD><TD>Sensible Heat Ratio: Ratio of sensible heat load to total heat load</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>mWat_flow</TD><TD>Mass flow rate of water condensed at cooling coil [kg/s]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>XADP</TD><TD>Humidity mass fraction of air at  apparatus dew point</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> WetCoil <font color="darkgreen">&quot;Calculates wet coil condition &quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition</A>;
   <font color="blue">replaceable </font><font color="blue">package</font> Medium =
-      <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+      <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >Modelica.Media.Interfaces.PartialCondensingGases</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TADP(
     quantity=&quot;Temperature&quot;,
     unit=&quot;K&quot;,
     min=273.15,
     max=373.15) <font color="darkgreen">&quot;Dry bulb temperature of air at ADP&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> SHR(
     min=0,
     max=1.0) <font color="darkgreen">
     &quot;Sensible Heat Ratio: Ratio of sensible heat load to total heat load&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> mWat_flow(
     quantity=&quot;MassFlowRate&quot;,
     unit=&quot;kg/s&quot;) <font color="darkgreen">&quot;Mass flow rate of water condensed at cooling coil&quot;</font>;</textblock>
@@ -3038,11 +3047,11 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation</A> conRat(
       <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Calculates rate of condensation&quot;</font>;
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.IntegerToBoolean"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.IntegerToBoolean"
 >Modelica.Blocks.Math.IntegerToBoolean</A> onSwi(<font color="blue">final </font>threshold=1) <font color="darkgreen">
     &quot;On/off switch&quot;</font>;
 <font color="blue">public </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> XADP <font color="darkgreen">
     &quot;Humidity mass fraction of air at  apparatus dew point&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -3076,6 +3085,6 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>WetCoil;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:10 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:19 2013.
 </address></BODY>
 </HTML>

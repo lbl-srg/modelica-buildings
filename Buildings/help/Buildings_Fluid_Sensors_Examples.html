@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Sensors.Examples"></A><A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Fluid.Sensors</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Sensors.C83fc9374ae695197ctionS.png" ALT="Buildings.Fluid.Sensors.Examples.EnthalpyFlowRate" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sensors_Examples.html#Buildings.Fluid.Sensors.Examples.EnthalpyFlowRate"
@@ -68,16 +77,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Sensors.Ef0b7de606ba2a231wRateI.png" ALT="Buildings.Fluid.Sensors.Examples.EnthalpyFlowRate" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.Examples.EnthalpyFlowRate"></A><A HREF="Buildings_Fluid_Sensors_Examples.html#Buildings.Fluid.Sensors.Examples"
 >Buildings.Fluid.Sensors.Examples</A>.EnthalpyFlowRate</H2>
-<B>Test model for the enthalpy flow rate sensors</B><p></P>
+<B>Test model for the enthalpy flow rate sensors</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.Ef0b7de606ba2a231wRateD.png" ALT="Buildings.Fluid.Sensors.Examples.EnthalpyFlowRate">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> EnthalpyFlowRate <font color="darkgreen">
   &quot;Test model for the enthalpy flow rate sensors&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -97,16 +106,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Sources.Boundary_ph</A> sin(use_h_in=true, <font color="blue">redeclare </font><font color="blue">package</font>
       Medium = Medium,
     nPorts=1);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> ramp(
     duration=1,
     height=-2,
     offset=1);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const(k=10);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const1(k=20);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort"
 >Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort</A> senH(<font color="blue">redeclare </font><font color="blue">package</font> Medium
@@ -117,7 +126,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
         Medium);
   <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
 >Buildings.Utilities.Diagnostics.AssertEquality</A> assertEquality;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
 >Modelica.Blocks.Math.Product</A> product;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(ramp.y, sou.m_flow_in);
@@ -140,15 +149,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Sensors.Ef0b7de606ba2a231wRateI.png" ALT="Buildings.Fluid.Sensors.Examples.ExtraProperty" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.Examples.ExtraProperty"></A><A HREF="Buildings_Fluid_Sensors_Examples.html#Buildings.Fluid.Sensors.Examples"
 >Buildings.Fluid.Sensors.Examples</A>.ExtraProperty</H2>
-<B>Test model for the extra property sensor</B><p></P>
+<B>Test model for the extra property sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.Ebe696d74f5cf652dpertyD.png" ALT="Buildings.Fluid.Sensors.Examples.ExtraProperty">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ExtraProperty <font color="darkgreen">&quot;Test model for the extra property sensor&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -161,13 +170,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     V=2*3*3,
     nPorts=4,
     m_flow_nominal=1E-6) <font color="darkgreen">&quot;Mixing volume&quot;</font>;
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate"
 >Sources.PrescribedExtraPropertyFlowRate</A> sou(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     nPorts=3,
     use_m_flow_in=true);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> step(k=8.18E-6);
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TraceSubstances"
 >Buildings.Fluid.Sensors.TraceSubstances</A> senVol(
@@ -176,14 +185,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Sensors.TraceSubstances</A> senSou(
                     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium, substanceName=&quot;CO2&quot;) <font color="darkgreen">
     &quot;Sensor at source&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> m_flow(k=15*1.2/3600) <font color="darkgreen">&quot;Fresh air flow rate&quot;</font>;
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
 >Buildings.Fluid.Sources.MassFlowSource_T</A> mSou(
                                           <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     use_m_flow_in=true,
     nPorts=2);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gain(k=-1);
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
 >Buildings.Fluid.Sources.MassFlowSource_T</A> mSin(
@@ -204,7 +213,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
 >Buildings.Utilities.Diagnostics.AssertEquality</A> assertEquality(startTime=0,
       threShold=1E-8);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> zer(k=0) <font color="darkgreen">&quot;Zero signal&quot;</font>;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.Pressure"
 >Buildings.Fluid.Sensors.Pressure</A> preSen(  <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">
@@ -235,19 +244,19 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Sensors.Ef0b7de606ba2a231wRateI.png" ALT="Buildings.Fluid.Sensors.Examples.TemperatureDryBulb" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.Examples.TemperatureDryBulb"></A><A HREF="Buildings_Fluid_Sensors_Examples.html#Buildings.Fluid.Sensors.Examples"
 >Buildings.Fluid.Sensors.Examples</A>.TemperatureDryBulb</H2>
-<B>Test model for the dry bulb temperature sensor</B><p></P>
+<B>Test model for the dry bulb temperature sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.E30365b01e18a3818yBulbD.png" ALT="Buildings.Fluid.Sensors.Examples.TemperatureDryBulb">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This examples is a unit test for the dynamic dry bulb temperature sensor.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TemperatureDryBulb <font color="darkgreen">
   &quot;Test model for the dry bulb temperature sensor&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
@@ -263,28 +272,28 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_T_in=true,
     use_m_flow_in=true,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TDryBul(
     height=10,
     duration=1,
     offset=273.15 + 30) <font color="darkgreen">&quot;Dry bulb temperature&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> XHum(
     height=(0.0133 - 0.0175),
     offset=0.0175,
     duration=60) <font color="darkgreen">&quot;Humidity concentration&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const(k=1);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
 >Modelica.Blocks.Math.Feedback</A> feedback;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
 >Buildings.Fluid.Sensors.TemperatureTwoPort</A> temSteSta(
                                                <font color="blue">redeclare </font><font color="blue">package</font> Medium =
         Medium, m_flow_nominal=2,
     tau=0) <font color="darkgreen">&quot;Steady state temperature sensor&quot;</font>;
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
 >Modelica.Blocks.Sources.Pulse</A> m_flow(
     offset=-1,
     amplitude=2,
@@ -314,9 +323,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Sensors.Ef0b7de606ba2a231wRateI.png" ALT="Buildings.Fluid.Sensors.Examples.TemperatureWetBulb" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.Examples.TemperatureWetBulb"></A><A HREF="Buildings_Fluid_Sensors_Examples.html#Buildings.Fluid.Sensors.Examples"
 >Buildings.Fluid.Sensors.Examples</A>.TemperatureWetBulb</H2>
-<B>Test model for the wet bulb temperature sensor</B><p></P>
+<B>Test model for the wet bulb temperature sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.E7bfb87b00f5a381ctBulbD.png" ALT="Buildings.Fluid.Sensors.Examples.TemperatureWetBulb">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This examples is a unit test for the wet bulb sensor.
 The problem setup is such that the moisture concentration and
@@ -326,20 +335,20 @@ This wet bulb temperature is checked against a constant value with
 an assert statement.
 In case this assert is triggered, then either the wet bulb sensor or
 the medium model got broken (assuming that the inputs remained unchanged).
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TemperatureWetBulb <font color="darkgreen">
   &quot;Test model for the wet bulb temperature sensor&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
 >Buildings.Media.PerfectGases.MoistAir</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
-<textblock type="annotcomp" expanded="false">    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+<textblock type="annotcomp" expanded="false">    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> p(
     duration=1,
     offset=101325,
@@ -361,21 +370,21 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_T_in=true,
     use_X_in=true,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TDryBul(
     height=10,
     offset=273.15 + 30,
     duration=50) <font color="darkgreen">&quot;Dry bulb temperature&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> XHum(
     height=(0.0133 - 0.0175),
     offset=0.0175,
     duration=50) <font color="darkgreen">&quot;Humidity concentration&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const(k=1);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
 >Modelica.Blocks.Math.Feedback</A> feedback;
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFraction"
 >Buildings.Fluid.Sensors.MassFraction</A> masFra(
@@ -399,18 +408,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Sensors.Ef0b7de606ba2a231wRateI.png" ALT="Buildings.Fluid.Sensors.Examples.MassFraction" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.Examples.MassFraction"></A><A HREF="Buildings_Fluid_Sensors_Examples.html#Buildings.Fluid.Sensors.Examples"
 >Buildings.Fluid.Sensors.Examples</A>.MassFraction</H2>
-<B>Test model for the mass fraction sensor</B><p></P>
+<B>Test model for the mass fraction sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.Eb501ca4b0508a8a6ctionD.png" ALT="Buildings.Fluid.Sensors.Examples.MassFraction">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This examples is a unit test for the mass fraction sensor.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MassFraction <font color="darkgreen">&quot;Test model for the mass fraction sensor&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -432,7 +441,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     X={0.02,0.98},
     m_flow=10,
     nPorts=1);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFraction"
 >Buildings.Fluid.Sensors.MassFraction</A> senMasFra2(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
@@ -466,16 +475,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Sensors.Ef0b7de606ba2a231wRateI.png" ALT="Buildings.Fluid.Sensors.Examples.MoistAirEnthalpyFlowRate" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.Examples.MoistAirEnthalpyFlowRate"></A><A HREF="Buildings_Fluid_Sensors_Examples.html#Buildings.Fluid.Sensors.Examples"
 >Buildings.Fluid.Sensors.Examples</A>.MoistAirEnthalpyFlowRate</H2>
-<B>Test model for the sensible and latent enthalpy flow rate sensors</B><p></P>
+<B>Test model for the sensible and latent enthalpy flow rate sensors</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.E8f2434a6a52546a9wRateD.png" ALT="Buildings.Fluid.Sensors.Examples.MoistAirEnthalpyFlowRate">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MoistAirEnthalpyFlowRate <font color="darkgreen">
   &quot;Test model for the sensible and latent enthalpy flow rate sensors&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -498,12 +507,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     nPorts=1,
     T=313.15,
     X={0.02,0.98});
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> ramp(
     duration=1,
     height=-2,
     offset=1);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort"
 >Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort</A> senH(<font color="blue">redeclare </font><font color="blue">package</font> Medium
@@ -514,7 +523,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
         Medium);
   <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
 >Buildings.Utilities.Diagnostics.AssertEquality</A> assEqu1;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
 >Modelica.Blocks.Math.Product</A> product;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.LatentEnthalpyFlowRate"
 >Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</A> senHLat_flow(<font color="blue">redeclare </font><font color="blue">package</font>
@@ -524,7 +533,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate</A> senHSen_flow(<font color="blue">redeclare </font><font color="blue">
       package</font> Medium = Medium, m_flow_nominal=1) <font color="darkgreen">
     &quot;Sensor for sensible enthalpy flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</A> add1;
   <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
 >Buildings.Utilities.Diagnostics.AssertEquality</A> assEqu2;</textblock>
@@ -553,18 +562,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Sensors.Ef0b7de606ba2a231wRateI.png" ALT="Buildings.Fluid.Sensors.Examples.RelativeHumidity" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.Examples.RelativeHumidity"></A><A HREF="Buildings_Fluid_Sensors_Examples.html#Buildings.Fluid.Sensors.Examples"
 >Buildings.Fluid.Sensors.Examples</A>.RelativeHumidity</H2>
-<B>Test model for relative humidity sensor</B><p></P>
+<B>Test model for relative humidity sensor</B><p>
 <IMG SRC="Buildings.Fluid.Sensors.E0834a268b4cde4abidityD.png" ALT="Buildings.Fluid.Sensors.Examples.RelativeHumidity">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This examples is a unit test for the relative humidity sensor.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> RelativeHumidity <font color="darkgreen">&quot;Test model for relative humidity sensor&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -585,21 +594,21 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_X_in=true,
     nPorts=2,
     use_m_flow_in=true);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TDryBul(
     height=10,
     duration=1,
     offset=273.15 + 30) <font color="darkgreen">&quot;Dry bulb temperature&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> XHum(
     duration=1,
     height=(0.0133 - 0.0175),
     offset=0.0175) <font color="darkgreen">&quot;Humidity concentration&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const(k=1);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
 >Modelica.Blocks.Math.Feedback</A> feedback;
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
 >Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> dp(
@@ -609,7 +618,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.RelativeHumidity"
 >Buildings.Fluid.Sensors.RelativeHumidity</A> senRelHum(<font color="blue">redeclare </font><font color="blue">package</font> Medium
       = Medium);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> m_flow(
     duration=1,
     height=-2,
@@ -632,6 +641,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>RelativeHumidity;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:47 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:55 2013.
 </address></BODY>
 </HTML>

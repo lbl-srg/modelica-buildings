@@ -17,18 +17,27 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE ThermalZones<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Examples.VAVReheat.ThermalZones"></A><A HREF="Buildings_Examples_VAVReheat.html#Buildings.Examples.VAVReheat"
 >Buildings.Examples.VAVReheat</A>.ThermalZones</H2>
 <B>Package with models for the thermal zones</B>
-<P></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Examples.VAVRehc1ab3c3d3e6c8e8aranchS.png" ALT="Buildings.Examples.VAVReheat.ThermalZones.VAVBranch" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_ThermalZones.html#Buildings.Examples.VAVReheat.ThermalZones.VAVBranch"
@@ -48,16 +57,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.VAVRehc1ab3c3d3e6c8e8aranchI.png" ALT="Buildings.Examples.VAVReheat.ThermalZones.VAVBranch" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.VAVReheat.ThermalZones.VAVBranch"></A><A HREF="Buildings_Examples_VAVReheat_ThermalZones.html#Buildings.Examples.VAVReheat.ThermalZones"
 >Buildings.Examples.VAVReheat.ThermalZones</A>.VAVBranch</H2>
-<B>Supply branch of a VAV system</B><p></P>
+<B>Supply branch of a VAV system</B><p>
 <IMG SRC="Buildings.Examples.VAVRehc1ab3c3d3e6c8e8aranchD.png" ALT="Buildings.Examples.VAVReheat.ThermalZones.VAVBranch">
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package MediumA</TD><TD>Modelica.Media.Interfaces.Pa...</TD><TD>Medium model for air</TD></TR>
 <TR><TD colspan="2">replaceable package MediumW</TD><TD>Modelica.Media.Interfaces.Pa...</TD><TD>Medium model for water</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Mass flow rate of this thermal zone [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Volume</A></TD><TD>VRoo</TD><TD>&nbsp;</TD><TD>Room volume [m3]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
@@ -65,24 +74,24 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package MediumA</TD><TD>Medium model for air</TD></TR>
 <TR><TD colspan="2">replaceable package MediumW</TD><TD>Medium model for water</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a1 to port_b1)</TD></TR>
 <TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
 >ControlBus</A></TD><TD>controlBus</TD><TD>&nbsp;</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>yDam</TD><TD>Signal for VAV damper</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TRoo</TD><TD>Measured room temperature [K]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> VAVBranch <font color="darkgreen">&quot;Supply branch of a VAV system&quot;</font>
-  <font color="blue">replaceable </font><font color="blue">package</font> MediumA = <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+  <font color="blue">replaceable </font><font color="blue">package</font> MediumA = <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">
     &quot;Medium model for air&quot;</font>;
-  <font color="blue">replaceable </font><font color="blue">package</font> MediumW = <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+  <font color="blue">replaceable </font><font color="blue">package</font> MediumW = <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">
     &quot;Medium model for water&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.VAVBoxExponential"
@@ -114,20 +123,20 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >MediumW</A>,
     p(displayUnit=&quot;Pa&quot;) = 3E5,
     nPorts=1) <font color="darkgreen">&quot;Sink for terminal box &quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >Modelica.Fluid.Interfaces.FluidPort_a</A> port_a(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         <A HREF="Buildings_Examples_VAVReheat_ThermalZones_MediumA.html#Buildings.Examples.VAVReheat.ThermalZones.VAVBranch.MediumA"
 >MediumA</A>) <font color="darkgreen">
     &quot;Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >Modelica.Fluid.Interfaces.FluidPort_a</A> port_b(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         <A HREF="Buildings_Examples_VAVReheat_ThermalZones_MediumA.html#Buildings.Examples.VAVReheat.ThermalZones.VAVBranch.MediumA"
 >MediumA</A>) <font color="darkgreen">
     &quot;Fluid connector b (positive design flow direction is from port_a1 to port_b1)&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal <font color="darkgreen">
     &quot;Mass flow rate of this thermal zone&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Modelica.SIunits.Volume</A> VRoo <font color="darkgreen">&quot;Room volume&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.RoomVAV"
 >Controls.RoomVAV</A> con <font color="darkgreen">&quot;Room temperature controller&quot;</font>;
@@ -137,7 +146,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Sensors.MassFlowRate</A> senMasFlo(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         <A HREF="Buildings_Examples_VAVReheat_ThermalZones_MediumA.html#Buildings.Examples.VAVReheat.ThermalZones.VAVBranch.MediumA"
 >MediumA</A>) <font color="darkgreen">&quot;Sensor for mass flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> fraMasFlo(k=1/m_flow_nominal) <font color="darkgreen">
     &quot;Fraction of mass flow rate, relative to nominal flow&quot;</font>;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
@@ -146,9 +155,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >MediumA</A>,
     m_flow_nominal=m_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialState) <font color="darkgreen">&quot;Supply air temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> yDam <font color="darkgreen">&quot;Signal for VAV damper&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> ACH(k=1/VRoo/1.2*3600) <font color="darkgreen">&quot;Air change per hour&quot;</font>;
   <A HREF="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
 >Buildings.Fluid.Actuators.Valves.TwoWayLinear</A> valHea(
@@ -166,7 +175,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     p(displayUnit=&quot;Pa&quot;) = 3E5 + 12000,
     nPorts=1,
     T=323.15) <font color="darkgreen">&quot;Source for terminal box &quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TRoo(unit=&quot;K&quot;, displayUnit=&quot;degC&quot;) <font color="darkgreen">
     &quot;Measured room temperature&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -195,16 +204,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.VAVRehb2b0a584dabea245FloorI.png" ALT="Buildings.Examples.VAVReheat.ThermalZones.Floor" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.VAVReheat.ThermalZones.Floor"></A><A HREF="Buildings_Examples_VAVReheat_ThermalZones.html#Buildings.Examples.VAVReheat.ThermalZones"
 >Buildings.Examples.VAVReheat.ThermalZones</A>.Floor</H2>
-<B>Model of a floor of the building</B><p></P>
+<B>Model of a floor of the building</B><p>
 <IMG SRC="Buildings.Examples.VAVRehb2b0a584dabea245FloorD.png" ALT="Buildings.Examples.VAVReheat.ThermalZones.Floor">
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Modelica.Media.Interfaces.Pa...</TD><TD>Medium model for air</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>lat</TD><TD>&nbsp;</TD><TD>Latitude [rad]</TD></TR>
 <TR><TD>Real</TD><TD>winWalRat</TD><TD>0.33</TD><TD>Window to wall ratio for exterior walls</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</A></TD><TD>hWin</TD><TD>1.5</TD><TD>Height of windows [m]</TD></TR>
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Plywood"
 >Plywood</A></TD><TD>matFur</TD><TD>&nbsp;</TD><TD>Material for furniture</TD></TR>
@@ -239,35 +248,35 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model for air</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
 >VesselFluidPorts_b</A></TD><TD>portsSou[2]</TD><TD>Fluid inlets and outlets</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
 >VesselFluidPorts_b</A></TD><TD>portsEas[2]</TD><TD>Fluid inlets and outlets</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
 >VesselFluidPorts_b</A></TD><TD>portsNor[2]</TD><TD>Fluid inlets and outlets</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
 >VesselFluidPorts_b</A></TD><TD>portsWes[2]</TD><TD>Fluid inlets and outlets</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
 >VesselFluidPorts_b</A></TD><TD>portsCor[2]</TD><TD>Fluid inlets and outlets</TD></TR>
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>Weather bus</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TRooAir[5]</TD><TD>Room air temperatures</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>p_rel</TD><TD>Relative pressure signal of building static pressure</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Floor <font color="darkgreen">&quot;Model of a floor of the building&quot;</font>
-  <font color="blue">replaceable </font><font color="blue">package</font> Medium = <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+  <font color="blue">replaceable </font><font color="blue">package</font> Medium = <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">
     &quot;Medium model for air&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> lat <font color="darkgreen">&quot;Latitude&quot;</font>;
   <font color="blue">parameter </font>Real winWalRat(
     min=0.01,
     max=0.99) = 0.33 <font color="darkgreen">&quot;Window to wall ratio for exterior walls&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</A> hWin = 1.5 <font color="darkgreen">&quot;Height of windows&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Plywood"
 >HeatTransfer.Data.Solids.Plywood</A> matFur(x=0.15, nStaRef=5) <font color="darkgreen">
@@ -332,7 +341,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     shade=<font color="red">Buildings.HeatTransfer.Data.Shades.Gray</font>(),
     haveInteriorShade=false,
     haveExteriorShade=false) <font color="darkgreen">&quot;Data record for the glazing system&quot;</font>;</textblock>
-  <font color="blue">constant </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+  <font color="blue">constant </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Modelica.SIunits.Height</A> hRoo=2.74 <font color="darkgreen">&quot;Room height&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
 >Rooms.MixedAir</A> sou(
@@ -486,28 +495,28 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
       til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
     nPorts=11,
     intConMod=intConMod) <font color="darkgreen">&quot;Core zone&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
 >Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b</A> portsSou[2](
       <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Fluid inlets and outlets&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
 >Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b</A> portsEas[2](
       <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Fluid inlets and outlets&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
 >Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b</A> portsNor[2](
       <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Fluid inlets and outlets&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
 >Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b</A> portsWes[2](
       <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Fluid inlets and outlets&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
 >Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b</A> portsCor[2](
       <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Fluid inlets and outlets&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.MatrixGain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.MatrixGain"
 >Modelica.Blocks.Math.MatrixGain</A> gai(K=20*[0.4; 0.4; 0.2]) <font color="darkgreen">
     &quot;Matrix gain to split up heat gain in radiant, convective and latent gain&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> uSha(k=0) <font color="darkgreen">
     &quot;Control signal for the shading device&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
 >Modelica.Blocks.Routing.Replicator</A> replicator(nout=1);
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >BoundaryConditions.WeatherData.Bus</A> weaBus <font color="darkgreen">&quot;Weather bus&quot;</font>;
@@ -531,24 +540,24 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     s=33.27/49.91,
     azi=Buildings.HeatTransfer.Types.Azimuth.W) <font color="darkgreen">
     &quot;Model for air infiltration through the envelope&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
 >Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> temAirSou <font color="darkgreen">
     &quot;Air temperature sensor&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
 >Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> temAirEas <font color="darkgreen">
     &quot;Air temperature sensor&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
 >Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> temAirNor <font color="darkgreen">
     &quot;Air temperature sensor&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
 >Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> temAirWes <font color="darkgreen">
     &quot;Air temperature sensor&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
 >Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> temAirPer5 <font color="darkgreen">
     &quot;Air temperature sensor&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex5"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex5"
 >Modelica.Blocks.Routing.Multiplex5</A> multiplex5_1;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TRooAir[5] <font color="darkgreen">&quot;Room air temperatures&quot;</font>;
   <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.DoorDiscretizedOpen"
 >Airflow.Multizone.DoorDiscretizedOpen</A> opeSouCor(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
@@ -562,7 +571,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.DoorDiscretizedOpen"
 >Airflow.Multizone.DoorDiscretizedOpen</A> opeWesCor(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         Medium, wOpe=10) <font color="darkgreen">&quot;Opening between perimeter3 and core&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
 >Modelica.Blocks.Sources.CombiTimeTable</A> intGaiFra(table=[0,0.05; 3600*8,0.05; 3600*9,0.9;
         3600*12,0.9; 3600*12,0.8; 3600*13,0.8; 3600*13,1; 3600*17,1; 3600*19,0.1; 3600*24,0.05], extrapolation=
         Modelica.Blocks.Types.Extrapolation.Periodic) <font color="darkgreen">
@@ -572,7 +581,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     &quot;Building pressure measurement&quot;</font>;
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside"
 >Fluid.Sources.Outside</A> out(nPorts=1, <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> p_rel <font color="darkgreen">
     &quot;Relative pressure signal of building static pressure&quot;</font>;</textblock>
   <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.InteriorConvection"
@@ -662,50 +671,50 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.VAVRehce3b63093adbf40bakageI.png" ALT="Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage"></A><A HREF="Buildings_Examples_VAVReheat_ThermalZones.html#Buildings.Examples.VAVReheat.ThermalZones"
 >Buildings.Examples.VAVReheat.ThermalZones</A>.RoomLeakage</H2>
-<B>Room leakage model</B><p></P>
+<B>Room leakage model</B><p>
 <IMG SRC="Buildings.Examples.VAVRehce3b63093adbf40bakageD.png" ALT="Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 Room leakage.
-</p><P></P>
+</p><P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Modelica.Media.Interfaces.Pa...</TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Volume</A></TD><TD>VRoo</TD><TD>&nbsp;</TD><TD>Room volume [m3]</TD></TR>
 <TR><TD>Real</TD><TD>s</TD><TD>&nbsp;</TD><TD>Side ratio, s=length of this wall/length of adjacent wall</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>azi</TD><TD>&nbsp;</TD><TD>Surface azimuth (South:0, West:pi/2) [rad]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>&nbsp;</TD></TR>
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>Bus with weather data</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> RoomLeakage <font color="darkgreen">&quot;Room leakage model&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A>;
-  <font color="blue">replaceable </font><font color="blue">package</font> Medium = <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+  <font color="blue">replaceable </font><font color="blue">package</font> Medium = <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">
     &quot;Medium in the component&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Modelica.SIunits.Volume</A> VRoo <font color="darkgreen">&quot;Room volume&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
 >Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     dp_nominal=50,
     m_flow_nominal=VRoo*1.2/3600) <font color="darkgreen">&quot;Resistance model&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >Modelica.Fluid.Interfaces.FluidPort_b</A> port_b(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         Medium);
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside_CpLowRise"
@@ -718,11 +727,11 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFlowRate"
 >Fluid.Sensors.MassFlowRate</A> senMasFlo1(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
       allowFlowReversal=true) <font color="darkgreen">&quot;Sensor for mass flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> ACHInf(k=1/VRoo/1.2*3600, y(unit=&quot;1/h&quot;)) <font color="darkgreen">
     &quot;Air change per hour due to infiltration&quot;</font>;</textblock>
   <font color="blue">parameter </font>Real s <font color="darkgreen">&quot;Side ratio, s=length of this wall/length of adjacent wall&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> azi <font color="darkgreen">&quot;Surface azimuth (South:0, West:pi/2)&quot;</font>;
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(res.port_b, port_b);
@@ -733,6 +742,6 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>RoomLeakage;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:37:59 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:52:59 2013.
 </address></BODY>
 </HTML>

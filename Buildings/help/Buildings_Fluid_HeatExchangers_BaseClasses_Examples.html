@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.BaseClasses.Examples"></A><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses"
 >Buildings.Fluid.HeatExchangers.BaseClasses</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Fluid.HeatExchangers.BaseClasses</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExchad9c6226290dfaec4ementS.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HexElement" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HexElement"
@@ -62,18 +71,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchad9c6226290dfaec4ementI.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HexElement" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HexElement"></A><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.BaseClasses.Examples"
 >Buildings.Fluid.HeatExchangers.BaseClasses.Examples</A>.HexElement</H2>
-<B>Model that tests the basic element that is used to built heat exchanger models</B><p></P>
+<B>Model that tests the basic element that is used to built heat exchanger models</B><p>
 <IMG SRC="Buildings.Fluid.HeatExchad9c6226290dfaec4ementD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HexElement">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> HexElement <font color="darkgreen">
   &quot;Model that tests the basic element that is used to built heat exchanger models&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
  <font color="blue">package</font> Medium_W = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A>;
@@ -86,7 +95,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_T_in=true,
     T=288.15,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> PIn(
     height=20,
     duration=300,
@@ -99,15 +108,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_T_in=true,
     T=283.15,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TWat(
     startTime=1,
     height=4,
     duration=300,
     offset=303.15) <font color="darkgreen">&quot;Water temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TDb(k=278.15) <font color="darkgreen">&quot;Drybulb temperature&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> POut(k=101325);
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
 >Buildings.Fluid.Sources.Boundary_pT</A> sin_1(
@@ -143,7 +152,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     <font color="blue">redeclare </font><font color="blue">package</font> Medium2 = Medium_A,
     dp1_nominal=5,
     dp2_nominal=5);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TDb1(k=303.15) <font color="darkgreen">&quot;Drybulb temperature&quot;</font>;
     <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
 >Fluid.FixedResistances.FixedResistanceDpM</A> res_11(
@@ -155,9 +164,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     m_flow_nominal=5,
     dp_nominal=5,
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium_A);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> hACon(k=10000) <font color="darkgreen">&quot;Convective heat transfer&quot;</font>;
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TDb.y, sou_1.T_in);
@@ -185,10 +194,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchad9c6226290dfaec4ementI.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.Manifold" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.Manifold"></A><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.BaseClasses.Examples"
 >Buildings.Fluid.HeatExchangers.BaseClasses.Examples</A>.Manifold</H2>
-<B>Test model for coil manifold</B><p></P>
+<B>Test model for coil manifold</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha1f0b9f71f2e13fe0ifoldD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.Manifold">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -196,16 +205,16 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD>Integer</TD><TD>nPipPar</TD><TD>3</TD><TD>Number of parallel pipes</TD></TR>
 <TR><TD>Integer</TD><TD>nPipSeg</TD><TD>4</TD><TD>Number of pipe segments</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Manifold <font color="darkgreen">&quot;Test model for coil manifold&quot;</font>
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
  <font color="blue">parameter </font>Integer nPipPar = 3 <font color="darkgreen">&quot;Number of parallel pipes&quot;</font>;
  <font color="blue">parameter </font>Integer nPipSeg = 4 <font color="darkgreen">&quot;Number of pipe segments&quot;</font>;
-<textblock type="annotcomp" expanded="false">    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+<textblock type="annotcomp" expanded="false">    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> POut(k=101325);
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
 >Buildings.Fluid.Sources.Boundary_pT</A> sin_1(                       <font color="blue">redeclare </font><font color="blue">
@@ -231,12 +240,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFlowRate"
 >Buildings.Fluid.Sensors.MassFlowRate</A>[nPipPar] mfr_1(<font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font>
       Medium = Medium);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TDb(
     height=1,
     duration=1,
     offset=293.15);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> P(
     duration=1,
     height=40,
@@ -293,7 +302,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
       <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
       nPipPar=nPipPar,
     mStart_flow_a=5) <font color="darkgreen">&quot;Header for water-side heat exchanger register&quot;</font>;
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(POut.y, sin_1.p_in);
@@ -320,15 +329,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchad9c6226290dfaec4ementI.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.MassExchange" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.MassExchange"></A><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.BaseClasses.Examples"
 >Buildings.Fluid.HeatExchangers.BaseClasses.Examples</A>.MassExchange</H2>
-<B>Test model for latent heat exchange</B><p></P>
+<B>Test model for latent heat exchange</B><p>
 <IMG SRC="Buildings.Fluid.HeatExchaf7f8fe1c20fda1f7hangeD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.MassExchange">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MassExchange <font color="darkgreen">&quot;Test model for latent heat exchange&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
 >Buildings.Media.PerfectGases.MoistAir</A>;
@@ -336,15 +345,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange</A> masExc(<font color="blue">redeclare </font><font color="blue">
       package</font> Medium =
                Medium) <font color="darkgreen">&quot;Model for mass exchange&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TSur(
     duration=1,
     height=20,
     offset=273.15 + 5) <font color="darkgreen">&quot;Surface temperature&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> X_w(k=0.01) <font color="darkgreen">
     &quot;Humidity mass fraction in medium&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> Gc(k=1) <font color="darkgreen">
     &quot;Sensible convective thermal conductance&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -360,18 +369,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchad9c6226290dfaec4ementI.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.MassExchangeDummy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.MassExchangeDummy"></A><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.BaseClasses.Examples"
 >Buildings.Fluid.HeatExchangers.BaseClasses.Examples</A>.MassExchangeDummy</H2>
-<B>Test model for dummy model that is used to replace the latent heat exchange model in dry coils</B><p></P>
+<B>Test model for dummy model that is used to replace the latent heat exchange model in dry coils</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha8b2b0304e03ac29aDummyD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.MassExchangeDummy">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MassExchangeDummy <font color="darkgreen">
   &quot;Test model for dummy model that is used to replace the latent heat exchange model in dry coils&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
 >Buildings.Media.PerfectGases.MoistAir</A>;
@@ -379,15 +388,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.HeatExchangers.BaseClasses.MassExchangeDummy</A>
                                                           masExc <font color="darkgreen">
     &quot;Model for mass exchange&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TSur(
     duration=1,
     height=20,
     offset=273.15 + 5) <font color="darkgreen">&quot;Surface temperature&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> X_w(k=0.01) <font color="darkgreen">
     &quot;Humidity mass fraction in medium&quot;</font>;
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> Gc(k=1) <font color="darkgreen">
     &quot;Sensible convective thermal conductance&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -403,18 +412,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchad9c6226290dfaec4ementI.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.EpsilonNTUZ" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.BaseClasses.Examples.EpsilonNTUZ"></A><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.BaseClasses.Examples"
 >Buildings.Fluid.HeatExchangers.BaseClasses.Examples</A>.EpsilonNTUZ</H2>
-<B>Test model for the functions epsilon_ntuZ and ntu_epsilonZ</B><p></P>
-<P></P><H3>Information</H3>
+<B>Test model for the functions epsilon_ntuZ and ntu_epsilonZ</B><p>
+<P><H3>Information</H3></P>
 
 Model to test the implementation of the epsilon-NTU functions and their inverse functions.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> EpsilonNTUZ <font color="darkgreen">
   &quot;Test model for the functions epsilon_ntuZ and ntu_epsilonZ&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font>f = <A HREF="Buildings_Fluid_Types.html#Buildings.Fluid.Types.HeatExchangerFlowRegime"
 >Buildings.Fluid.Types.HeatExchangerFlowRegime</A>;
@@ -440,6 +449,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>EpsilonNTUZ;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:28 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:37 2013.
 </address></BODY>
 </HTML>

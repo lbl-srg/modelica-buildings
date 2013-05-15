@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Movers.Examples"></A><A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
 >Buildings.Fluid.Movers</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Fluid.Movers</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Movers.Ex53ef92c3a9bf1c0fine_yS.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachine_y" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples.FlowMachine_y"
@@ -87,7 +96,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.Movers.Examples.FlowMachine_y"></A><A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
 >Buildings.Fluid.Movers.Examples</A>.FlowMachine_y</H2>
 <IMG SRC="Buildings.Fluid.Movers.Ex53ef92c3a9bf1c0fine_yD.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachine_y">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This example demonstrates and tests the use of a flow machine whose mass flow rate is reduced to zero.
@@ -96,24 +105,24 @@ This example demonstrates and tests the use of a flow machine whose mass flow ra
 The fans have been configured as steady-state models.
 This ensures that the actual speed is equal to the input signal.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow"
 >Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow</A> (Base class to test flow machines with zero flow rate).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>1</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>500</TD><TD>Nominal pressure difference [Pa]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachine_y
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
  <font color="blue">extends </font><A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow"
 >Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow</A>(
@@ -143,9 +152,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Movers.Ex53ef92c3a9bf1c0fine_yI.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachine_y_linear" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.Examples.FlowMachine_y_linear"></A><A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
 >Buildings.Fluid.Movers.Examples</A>.FlowMachine_y_linear</H2>
-<B>Test model for pump with linear characteristic for pressure vs. flow rate</B><p></P>
+<B>Test model for pump with linear characteristic for pressure vs. flow rate</B><p>
 <IMG SRC="Buildings.Fluid.Movers.Ex415bfce1535e79a8inearD.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachine_y_linear">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This example demonstrates and tests the use of a flow machine whose speed is reduced to zero.
@@ -159,35 +168,35 @@ the model is non-singular.
 The fans have been configured as steady-state models.
 This ensures that the actual speed is equal to the input signal.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>0.5</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>10000</TD><TD>Nominal pressure [Pa]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachine_y_linear <font color="darkgreen">
   &quot;Test model for pump with linear characteristic for pressure vs. flow rate&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal = 0.5 <font color="darkgreen">
     &quot;Nominal mass flow rate&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dp_nominal = 10000 <font color="darkgreen">&quot;Nominal pressure&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> y(
     offset=1,
     duration=0.5,
@@ -207,7 +216,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     dynamicBalance=false,
     pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0}),
     filteredSpeed=false) <font color="darkgreen">&quot;Pump with fixed pressure raise&quot;</font>;
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
 >Buildings.Fluid.Sources.Boundary_pT</A> sou1(
@@ -260,7 +269,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm"></A><A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
 >Buildings.Fluid.Movers.Examples</A>.FlowMachine_Nrpm</H2>
 <IMG SRC="Buildings.Fluid.Movers.Ex59738dc78e0092b2_NrpmD.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This example demonstrates and tests the use of a flow machine whose mass flow rate is reduced to zero.
@@ -269,24 +278,24 @@ This example demonstrates and tests the use of a flow machine whose mass flow ra
 The fans have been configured as steady-state models.
 This ensures that the actual speed is equal to the input signal.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow"
 >Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow</A> (Base class to test flow machines with zero flow rate).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>1</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>500</TD><TD>Nominal pressure difference [Pa]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachine_Nrpm
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
  <font color="blue">extends </font><A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow"
 >Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow</A>(
@@ -317,7 +326,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.Movers.Examples.FlowMachine_dp"></A><A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
 >Buildings.Fluid.Movers.Examples</A>.FlowMachine_dp</H2>
 <IMG SRC="Buildings.Fluid.Movers.Exf3980f7a37e382e5ne_dpD.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachine_dp">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This example demonstrates and tests the use of a flow machine whose mass flow rate is reduced to zero.
@@ -326,24 +335,24 @@ This example demonstrates and tests the use of a flow machine whose mass flow ra
 The fans have been configured as steady-state models.
 This ensures that the actual speed is equal to the input signal.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow"
 >Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow</A> (Base class to test flow machines with zero flow rate).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>1</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>500</TD><TD>Nominal pressure difference [Pa]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachine_dp
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
  <font color="blue">extends </font><A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow"
 >Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow</A>(
@@ -372,7 +381,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.Movers.Examples.FlowMachine_m_flow"></A><A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
 >Buildings.Fluid.Movers.Examples</A>.FlowMachine_m_flow</H2>
 <IMG SRC="Buildings.Fluid.Movers.Ex89549a164e91c3af_flowD.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachine_m_flow">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This example demonstrates and tests the use of a flow machine whose mass flow rate is reduced to zero.
@@ -381,24 +390,24 @@ This example demonstrates and tests the use of a flow machine whose mass flow ra
 The fans have been configured as steady-state models.
 This ensures that the actual speed is equal to the input signal.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow"
 >Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow</A> (Base class to test flow machines with zero flow rate).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>1</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>500</TD><TD>Nominal pressure difference [Pa]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachine_m_flow
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
  <font color="blue">extends </font><A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow"
 >Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow</A>(
@@ -427,18 +436,18 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.Movers.Examples.ControlledFlowMachineDynamic"></A><A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
 >Buildings.Fluid.Movers.Examples</A>.ControlledFlowMachineDynamic</H2>
 <IMG SRC="Buildings.Fluid.Movers.Ex3d3adf2022b528a1namicD.png" ALT="Buildings.Fluid.Movers.Examples.ControlledFlowMachineDynamic">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This example demonstrates the use of the flow model with four different configurations.
 At steady-state, all flow models have the same mass flow rate and pressure difference.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine"
 >Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine</A>.
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ControlledFlowMachineDynamic
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine"
 >Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine</A>(
@@ -457,23 +466,23 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.Movers.Examples.ControlledFlowMachine"></A><A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
 >Buildings.Fluid.Movers.Examples</A>.ControlledFlowMachine</H2>
 <IMG SRC="Buildings.Fluid.Movers.Exc47b300f7acc903echineD.png" ALT="Buildings.Fluid.Movers.Examples.ControlledFlowMachine">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This example demonstrates the use of the flow model with four different configurations.
 At steady-state, all flow models have the same mass flow rate and pressure difference.
 Note that <code>addPowerToMedium=false</code> since otherwise, 
 Dymola computes the enthalpy change of the component as a fraction <code>(k*m_flow+P_internal)/m_flow</code>
 which leads to an error because of <code>0/0</code> at zero flow rate.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine"
 >Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine</A>.
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ControlledFlowMachine
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine"
 >Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine</A>(
@@ -492,20 +501,20 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <A NAME="Buildings.Fluid.Movers.Examples.FlowMachine"></A><A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
 >Buildings.Fluid.Movers.Examples</A>.FlowMachine</H2>
 <IMG SRC="Buildings.Fluid.Movers.Ex91459e85e6aa6fc5chineD.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachine">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachine
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
 
    <font color="blue">package</font> Medium = <A HREF="Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir"
 >Buildings.Media.IdealGases.SimpleAir</A>;
-<textblock type="annotcomp" expanded="false">    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+<textblock type="annotcomp" expanded="false">    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> P(
     height=-1500,
     offset=101325,
@@ -519,7 +528,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     mNorMax_flow=2,
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     m_flow_nominal=10);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> N(k=22.3333);
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
 >Buildings.Fluid.Sources.Boundary_pT</A> sou(             <font color="blue">redeclare </font><font color="blue">package</font> Medium
@@ -533,25 +542,25 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     use_p_in=true,
     T=293.15,
     nPorts=1);
-    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> PAtm(k=101325);
   <A HREF="Buildings_Utilities_Reports.html#Buildings.Utilities.Reports.Printer"
 >Buildings.Utilities.Reports.Printer</A> printer(
     nin=6,
     header=&quot;time dp dpNorm mNorm m_flow power&quot;);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> fan_mFlow(y=fan.m_flow);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> simTim2(y=time);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> fan_dp(y=fan.dp);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> fan_dpNor(y=fan.pNor);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> fan_mNor(y=fan.mNor_flow);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> fan_PSha(y=fan.PSha);
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
 >Buildings.Fluid.Sensors.TemperatureTwoPort</A>
@@ -585,47 +594,47 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Movers.Ex53ef92c3a9bf1c0fine_yI.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachineFeedbackControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.Examples.FlowMachineFeedbackControl"></A><A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
 >Buildings.Fluid.Movers.Examples</A>.FlowMachineFeedbackControl</H2>
-<B>Flow machine with feedback control</B><p></P>
+<B>Flow machine with feedback control</B><p>
 <IMG SRC="Buildings.Fluid.Movers.Ex694abd0b2821bbf9ntrolD.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachineFeedbackControl">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This example demonstrates the use of a fan with closed loop control.
 The fan is controlled to track a required mass flow rate.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>0.1</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>500</TD><TD>Nominal pressure difference [Pa]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachineFeedbackControl <font color="darkgreen">&quot;Flow machine with feedback control&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
 >Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</A>;
 
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal= 0.1 <font color="darkgreen">
     &quot;Nominal mass flow rate&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dp_nominal = 500 <font color="darkgreen">
     &quot;Nominal pressure difference&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
 >Modelica.Blocks.Sources.Pulse</A> y(
     offset=0.25,
     startTime=0,
@@ -663,7 +672,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.5,
     Ti=15);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gain1(k=1/m_flow_nominal);</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sou.ports[1], senMasFlo.port_a);
@@ -684,40 +693,40 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Movers.Ex53ef92c3a9bf1c0fine_yI.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachineParallel_y" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.Examples.FlowMachineParallel_y"></A><A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
 >Buildings.Fluid.Movers.Examples</A>.FlowMachineParallel_y</H2>
-<B>Test model for two flow machines in parallel</B><p></P>
+<B>Test model for two flow machines in parallel</B><p>
 <IMG SRC="Buildings.Fluid.Movers.Ex9735479621eeffb8lel_yD.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachineParallel_y">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This example tests the configuration of two flow machines that are installed in parallel.
 Both flow machines start with full speed. 
 At <i>t=150</i> second, the speed of the flow machine on the top is reduced to zero.
 As its speed is reduced, the mass flow rate changes its direction in such a way that the flow machine
 at the top has reverse flow.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>1</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
 <TR><TD><A HREF="Buildings_Media_Interfaces_PartialSimpleMedium.html#Buildings.Media.Interfaces.PartialSimpleMedium.ThermodynamicState"
 >ThermodynamicState</A></TD><TD>state_start</TD><TD>Medium.setState_pTX(T=Medium...</TD><TD>Start state</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>rho_nominal</TD><TD>Medium.density(state_start)</TD><TD>Density, used to compute fluid mass [kg/m3]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachineParallel_y <font color="darkgreen">
   &quot;Test model for two flow machines in parallel&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal=
      1 <font color="darkgreen">&quot;Nominal mass flow rate&quot;</font>;
 
@@ -755,7 +764,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const2(k=1);</textblock>
 
   <font color="blue">parameter </font><A HREF="Buildings_Media_Interfaces_PartialSimpleMedium.html#Buildings.Media.Interfaces.PartialSimpleMedium.ThermodynamicState"
@@ -763,10 +772,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default) <font color="darkgreen">&quot;Start state&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Modelica.SIunits.Density</A> rho_nominal=<font color="red">Medium.density</font>(
      state_start) <font color="darkgreen">&quot;Density, used to compute fluid mass&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
 >Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> dpIn2(
@@ -784,7 +793,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     dp_nominal=1000,
     m_flow_nominal=0.5*m_flow_nominal) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
 >Modelica.Blocks.Sources.Step</A>     const1(
     height=-1,
     offset=1,
@@ -811,9 +820,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Movers.Ex53ef92c3a9bf1c0fine_yI.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachineSeries_y" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.Examples.FlowMachineSeries_y"></A><A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
 >Buildings.Fluid.Movers.Examples</A>.FlowMachineSeries_y</H2>
-<B>Test model for two flow machines in series</B><p></P>
+<B>Test model for two flow machines in series</B><p>
 <IMG SRC="Buildings.Fluid.Movers.Exe67c978a08cc80f2ies_yD.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachineSeries_y">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This example tests the configuration of two flow machines that are installed in series.
 Both flow machines start with full speed. 
@@ -821,31 +830,31 @@ At <i>t=150</i> seconds, the speed of the flow machine on the left is reduced to
 As its speed is reduced, the mass flow rate is reduced. Note that even at zero input, the mass flow rate is non-zero,
 but the pressure drop of the pump <code>floMac1.dp</code> is positive, which means that this pump has a flow resistance.
 However, <code>flowMac2.dp</code> is always negative, as this pump has a constant control input of 1.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>1</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
 <TR><TD><A HREF="Buildings_Media_Interfaces_PartialSimpleMedium.html#Buildings.Media.Interfaces.PartialSimpleMedium.ThermodynamicState"
 >ThermodynamicState</A></TD><TD>state_start</TD><TD>Medium.setState_pTX(T=Medium...</TD><TD>Start state</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>rho_nominal</TD><TD>Medium.density(state_start)</TD><TD>Density, used to compute fluid mass [kg/m3]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachineSeries_y <font color="darkgreen">
   &quot;Test model for two flow machines in series&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal=
      1 <font color="darkgreen">&quot;Nominal mass flow rate&quot;</font>;
 
@@ -863,7 +872,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     T=293.15,
     nPorts=1);</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const2(k=1);</textblock>
 
   <font color="blue">parameter </font><A HREF="Buildings_Media_Interfaces_PartialSimpleMedium.html#Buildings.Media.Interfaces.PartialSimpleMedium.ThermodynamicState"
@@ -871,17 +880,17 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default) <font color="darkgreen">&quot;Start state&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Modelica.SIunits.Density</A> rho_nominal=<font color="red">Medium.density</font>(
      state_start) <font color="darkgreen">&quot;Density, used to compute fluid mass&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y"
 >Buildings.Fluid.Movers.FlowMachine_y</A> floMac2(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0}),
     dynamicBalance=false) <font color="darkgreen">&quot;Model of a flow machine&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
 >Modelica.Blocks.Sources.Step</A>     const1(
     height=-1,
     offset=1,
@@ -908,9 +917,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Movers.Ex53ef92c3a9bf1c0fine_yI.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachine_y_pumpCurves" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.Examples.FlowMachine_y_pumpCurves"></A><A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
 >Buildings.Fluid.Movers.Examples</A>.FlowMachine_y_pumpCurves</H2>
-<B>Test model for pump that illustrates the pump curves</B><p></P>
+<B>Test model for pump that illustrates the pump curves</B><p>
 <IMG SRC="Buildings.Fluid.Movers.Exdfcea95892ce7d29urvesD.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachine_y_pumpCurves">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This example demonstrates how the pump curves changes for different (constant) input
@@ -919,32 +928,32 @@ If <code>y &ge; delta = 0.05</code>, the pump curves are polynomials.
 For <code>y &lt; delta = 0.05</code>, the pump curves convert to linear functions to
 avoid a singularity at the origin.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>0.5</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>10000</TD><TD>Nominal pressure [Pa]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachine_y_pumpCurves <font color="darkgreen">
   &quot;Test model for pump that illustrates the pump curves&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal = 0.5 <font color="darkgreen">
     &quot;Nominal mass flow rate&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dp_nominal = 10000 <font color="darkgreen">&quot;Nominal pressure&quot;</font>;
 
    <font color="blue">model</font> pumpModel = <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y"
@@ -965,7 +974,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples.FlowMachine_y_pumpCurves.pumpModel"
 >pumpModel</A> pum3(filteredSpeed=false) <font color="darkgreen">&quot;Pump&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> y(
     offset=1,
     duration=0.5,
@@ -979,7 +988,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     T=293.15,
     nPorts=4);</textblock>
 
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
 >Buildings.Fluid.Sources.Boundary_pT</A> sou1(
@@ -994,7 +1003,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0.01*dp_nominal,
     filteredOpening=false) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A>
                                y1(k=1) <font color="darkgreen">&quot;Input signal&quot;</font>;</textblock>
 
@@ -1004,7 +1013,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0.01*dp_nominal,
     filteredOpening=false) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A>
                                y2(k=0.5) <font color="darkgreen">&quot;Input signal&quot;</font>;</textblock>
 
@@ -1014,7 +1023,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0.01*dp_nominal,
     filteredOpening=false) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A>
                                y3(k=0.05) <font color="darkgreen">&quot;Input signal&quot;</font>;
   <A HREF="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
@@ -1023,7 +1032,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0.01*dp_nominal,
     filteredOpening=false) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A>
                                y4(k=0.01) <font color="darkgreen">&quot;Input signal&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -1057,12 +1066,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.Movers.Ex3f057c3f50440c46ModelI.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachine_y_pumpCurves.pumpModel" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.Examples.FlowMachine_y_pumpCurves.pumpModel"></A><A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples.FlowMachine_y_pumpCurves"
 >Buildings.Fluid.Movers.Examples.FlowMachine_y_pumpCurves</A>.pumpModel</H2>
-<B>Declaration of pump model</B><p></P>
+<B>Declaration of pump model</B><p>
 <IMG SRC="Buildings.Fluid.Movers.Ex3f057c3f50440c46ModelD.png" ALT="Buildings.Fluid.Movers.Examples.FlowMachine_y_pumpCurves.pumpModel">
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
 <TR><TD>Boolean</TD><TD>addPowerToMedium</TD><TD>true</TD><TD>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Characteristics</TD></TR>
@@ -1076,43 +1085,43 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >powerParameters</A></TD><TD>power</TD><TD>&nbsp;</TD><TD>Volume flow rate vs. electrical power consumption</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
 <TR><TD>Real</TD><TD>r_V.start</TD><TD>1</TD><TD>Ratio V_flow/V_flow_max [1]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
 <TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered speed</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredSpeed</TD><TD>true</TD><TD>= true, if speed is filtered with a 2nd order CriticalDamping filter</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>riseTime</TD><TD>30</TD><TD>Rise time of the filter (time to reach 99.6 % of the speed) [s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</A></TD><TD>init</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (no init/steady state/initial state/initial output)</TD></TR>
 <TR><TD>Real</TD><TD>N_start</TD><TD>0</TD><TD>Initial value of speed</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
 <TR><TD>Boolean</TD><TD>dynamicBalance</TD><TD>false</TD><TD>Set to true to use a dynamic balance, which often leads to smaller systems of equations</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>tau</TD><TD>1</TD><TD>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
 >AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
 >Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
 <TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
@@ -1120,21 +1129,21 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>P</TD><TD>Electrical power consumed [W]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>N_actual</TD><TD>[1/min]</TD></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>heatPort</TD><TD>Heat dissipation to environment</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>y</TD><TD>Constant normalized rotational speed [1]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> pumpModel = <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y"
 >Buildings.Fluid.Movers.FlowMachine_y</A> (
@@ -1146,6 +1155,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   &quot;Declaration of pump model&quot;</font>;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:42 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:50 2013.
 </address></BODY>
 </HTML>

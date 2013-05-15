@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE ChillerPlant<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Examples.ChillerPlant"></A><A HREF="Buildings_Examples.html#Buildings.Examples"
 >Buildings.Examples</A>.ChillerPlant</H2>
 <B>Chiller plant with water side economizer for data center</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <h4>System Configuration</h4>
 <p>This example demonstrates the implementation of a chiller plant with water-side economizer (WSE) to cool a data center.
@@ -138,10 +147,10 @@ and <i>T<sub>min</sub></i> and <i>T<sub>max</sub></i> are the minimum and maximu
 Stein, J. (2009). Waterside Economizing in Data Centers: Design and Control Considerations. ASHRAE Transactions, 115(2), 192-200.<br>
 Taylor, S.T. (2007). Increasing Efficiency with VAV System Static Pressure Setpoint Reset. ASHRAE Journal, June, 24-32.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Examples.Chille7a424d00a711b732ntrolS.png" ALT="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl"
@@ -161,9 +170,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chille7a424d00a711b732ntrolI.png" ALT="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl"></A><A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
 >Buildings.Examples.ChillerPlant</A>.DataCenterContinuousTimeControl</H2>
-<B>Model of data center that approximates the trim and response logic</B><p></P>
+<B>Model of data center that approximates the trim and response logic</B><p>
 <IMG SRC="Buildings.Examples.Chille7a424d00a711b732ntrolD.png" ALT="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model is the chilled water plant with continuous time control.
@@ -173,26 +182,26 @@ significantly reduces computing time. The model is described at
 >
 Buildings.Examples.ChillerPlant</a>.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"
 >Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl</A> (Primary only chiller plant system with water-side economizer).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mAir_flow_nominal</TD><TD>roo.QRoo_flow/(1005*15)</TD><TD>Nominal mass flow rate at fan [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Power</A></TD><TD>P_nominal</TD><TD>80E3</TD><TD>Nominal compressor power (at y=1) [W]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dTEva_nominal</TD><TD>10</TD><TD>Temperature difference evaporator inlet-outlet [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dTCon_nominal</TD><TD>10</TD><TD>Temperature difference condenser outlet-inlet [K]</TD></TR>
 <TR><TD>Real</TD><TD>COPc_nominal</TD><TD>3</TD><TD>Chiller COP</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mCHW_flow_nominal</TD><TD>2*roo.QRoo_flow/(4200*20)</TD><TD>Nominal mass flow rate at chilled water [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mCW_flow_nominal</TD><TD>2*roo.QRoo_flow/(4200*6)</TD><TD>Nominal mass flow rate at condenser water [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>500</TD><TD>Nominal pressure difference [Pa]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
@@ -201,7 +210,7 @@ Extends from <A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.Ch
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DataCenterContinuousTimeControl <font color="darkgreen">
   &quot;Model of data center that approximates the trim and response logic&quot;</font>
@@ -218,9 +227,9 @@ Extends from <A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.Ch
 <H2><IMG SRC="Buildings.Examples.Chille7a424d00a711b732ntrolI.png" ALT="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"></A><A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
 >Buildings.Examples.ChillerPlant</A>.DataCenterDiscreteTimeControl</H2>
-<B>Primary only chiller plant system with water-side economizer</B><p></P>
+<B>Primary only chiller plant system with water-side economizer</B><p>
 <IMG SRC="Buildings.Examples.Chillebac61742302af0adntrolD.png" ALT="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model is the chilled water plant with discrete time control and
@@ -230,26 +239,26 @@ trim and response logic for a data center. The model is described at
 Buildings.Examples.ChillerPlant</a>.
 </p>
 <pre>
-</PRE><P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+</PRE><P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mAir_flow_nominal</TD><TD>roo.QRoo_flow/(1005*15)</TD><TD>Nominal mass flow rate at fan [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Power</A></TD><TD>P_nominal</TD><TD>80E3</TD><TD>Nominal compressor power (at y=1) [W]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dTEva_nominal</TD><TD>10</TD><TD>Temperature difference evaporator inlet-outlet [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dTCon_nominal</TD><TD>10</TD><TD>Temperature difference condenser outlet-inlet [K]</TD></TR>
 <TR><TD>Real</TD><TD>COPc_nominal</TD><TD>3</TD><TD>Chiller COP</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mCHW_flow_nominal</TD><TD>2*roo.QRoo_flow/(4200*20)</TD><TD>Nominal mass flow rate at chilled water [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mCW_flow_nominal</TD><TD>2*roo.QRoo_flow/(4200*6)</TD><TD>Nominal mass flow rate at condenser water [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_nominal</TD><TD>500</TD><TD>Nominal pressure difference [Pa]</TD></TR>
 <TR><TD><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond"
 >TrimAndRespond</A></TD><TD>triAndRes</TD><TD>redeclare Buildings.Examples...</TD><TD>Trim and respond logic</TD></TR>
@@ -260,11 +269,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DataCenterDiscreteTimeControl <font color="darkgreen">
   &quot;Primary only chiller plant system with water-side economizer&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">package</font> MediumAir = <A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
 >Buildings.Media.GasesPTDecoupled.SimpleAir</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
@@ -273,28 +282,28 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     &quot;Medium model&quot;</font>;
   <font color="blue">package</font> MediumCW = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mAir_flow_nominal=roo.QRoo_flow/(1005
       *15) <font color="darkgreen">&quot;Nominal mass flow rate at fan&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</A> P_nominal=80E3 <font color="darkgreen">
     &quot;Nominal compressor power (at y=1)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >Modelica.SIunits.TemperatureDifference</A> dTEva_nominal=10 <font color="darkgreen">
     &quot;Temperature difference evaporator inlet-outlet&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >Modelica.SIunits.TemperatureDifference</A> dTCon_nominal=10 <font color="darkgreen">
     &quot;Temperature difference condenser outlet-inlet&quot;</font>;
   <font color="blue">parameter </font>Real COPc_nominal=3 <font color="darkgreen">&quot;Chiller COP&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mCHW_flow_nominal=2*roo.QRoo_flow/(
       4200*20) <font color="darkgreen">&quot;Nominal mass flow rate at chilled water&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mCW_flow_nominal=2*roo.QRoo_flow/(
       4200*6) <font color="darkgreen">&quot;Nominal mass flow rate at condenser water&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dp_nominal=500 <font color="darkgreen">
     &quot;Nominal pressure difference&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
@@ -316,7 +325,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     dp1_nominal(displayUnit=&quot;Pa&quot;) = 1000,
     dp2_nominal=249*3,
     UA_nominal=mAir_flow_nominal*1006*5) <font color="darkgreen">&quot;Cooling coil&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> mFanFlo(k=mAir_flow_nominal) <font color="darkgreen">
     &quot;Mass flow rate of fan&quot;</font>;
   <A HREF="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom"
@@ -328,7 +337,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     rooHei=3,
     m_flow_nominal=mAir_flow_nominal,
     QRoo_flow=500000) <font color="darkgreen">&quot;Room model&quot;</font>;
-  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system(T_ambient=283.15);
   <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_dp"
 >Fluid.Movers.FlowMachine_dp</A> pumCHW(
@@ -383,7 +392,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
         MediumCW, VTot=1);
   <A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl</A> wseCon;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> expTowTApp(y=cooTow.TApp_nominal) <font color="darkgreen">
     &quot;Cooling tower approach&quot;</font>;
   <A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.ElectricEIR"
@@ -427,10 +436,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     y21=273.15 + 5.56,
     y10=0.2,
     y20=273.15 + 22) <font color="darkgreen">&quot;Translate the control signal for chiller setpoint reset&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TAirSet(k=273.15 + 27) <font color="darkgreen">
     &quot;Set temperature for air supply to the room&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
 >Modelica.Blocks.Math.BooleanToReal</A> chiCon <font color="darkgreen">&quot;Contorl signal for chiller&quot;</font>;
   <A HREF="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
 >Fluid.Actuators.Valves.TwoWayLinear</A> val4(
@@ -453,7 +462,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Sensors.TemperatureTwoPort</A> TCWLeaTow(<font color="blue">redeclare </font><font color="blue">package</font> Medium
       = MediumCW, m_flow_nominal=mCW_flow_nominal) <font color="darkgreen">
     &quot;Temperature of condenser water leaving the cooling tower&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> cooTowFanCon(k=1) <font color="darkgreen">
     &quot;Control singal for cooling tower fan&quot;</font>;
   <A HREF="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage"
@@ -488,27 +497,27 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     dp_nominal=89580);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gain(k=20*6485);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
 >Modelica.Blocks.Math.Feedback</A> feedback;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterThreshold"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterThreshold"
 >Modelica.Blocks.Logical.GreaterThreshold</A> greaterThreshold;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Or"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Or"
 >Modelica.Blocks.Logical.Or</A> or1;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
 >Modelica.Blocks.Math.BooleanToReal</A> mCWFlo(realTrue=mCW_flow_nominal) <font color="darkgreen">
     &quot;Mass flow rate of condensor loop&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> PHVAC(y=fan.P + pumCHW.P + pumCW.P +
         cooTow.PFan + chi.P) <font color="darkgreen">&quot;Power consumed by HVAC system&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> PIT(y=roo.QSou.Q_flow) <font color="darkgreen">
     &quot;Power consumed by IT&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
 >Modelica.Blocks.Continuous.Integrator</A> EHVAC(initType=Modelica.Blocks.Types.Init.InitialState,
       y_start=0) <font color="darkgreen">&quot;Energy consumed by HVAC&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
 >Modelica.Blocks.Continuous.Integrator</A> EIT(initType=Modelica.Blocks.Types.Init.InitialState,
       y_start=0) <font color="darkgreen">&quot;Energy consumed by IT&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -579,6 +588,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>DataCenterDiscreteTimeControl;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:32:28 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:47:32 2013.
 </address></BODY>
 </HTML>

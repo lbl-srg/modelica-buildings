@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.Math.Examples"></A><A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
 >Buildings.Utilities.Math</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Utilities.Math</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Utilities.Math.dc883f3df1718b8ccubicS.png" ALT="Buildings.Utilities.Math.Examples.Bicubic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Examples.html#Buildings.Utilities.Math.Examples.Bicubic"
@@ -71,26 +80,26 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.dc883f3df1718b8ccubicI.png" ALT="Buildings.Utilities.Math.Examples.Bicubic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.Examples.Bicubic"></A><A HREF="Buildings_Utilities_Math_Examples.html#Buildings.Utilities.Math.Examples"
 >Buildings.Utilities.Math.Examples</A>.Bicubic</H2>
-<B>Test model for bicubic function</B><p></P>
+<B>Test model for bicubic function</B><p>
 <IMG SRC="Buildings.Utilities.Math.dc883f3df1718b8ccubicD.png" ALT="Buildings.Utilities.Math.Examples.Bicubic">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model tests the implementation of the bicubic function.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Bicubic <font color="darkgreen">&quot;Test model for bicubic function&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> x1(duration=1);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> x2(
     height=2,
     duration=1,
@@ -110,26 +119,26 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.dc883f3df1718b8ccubicI.png" ALT="Buildings.Utilities.Math.Examples.Biquadratic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.Examples.Biquadratic"></A><A HREF="Buildings_Utilities_Math_Examples.html#Buildings.Utilities.Math.Examples"
 >Buildings.Utilities.Math.Examples</A>.Biquadratic</H2>
-<B>Test model for biquadratic function</B><p></P>
+<B>Test model for biquadratic function</B><p>
 <IMG SRC="Buildings.Utilities.Math.5abfc6af63ee5853raticD.png" ALT="Buildings.Utilities.Math.Examples.Biquadratic">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model tests the implementation of the biquadratic function.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Biquadratic <font color="darkgreen">&quot;Test model for biquadratic function&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> x1(duration=1);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> x2(
     height=2,
     duration=1,
@@ -149,9 +158,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.dc883f3df1718b8ccubicI.png" ALT="Buildings.Utilities.Math.Examples.BooleanReplicator" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.Examples.BooleanReplicator"></A><A HREF="Buildings_Utilities_Math_Examples.html#Buildings.Utilities.Math.Examples"
 >Buildings.Utilities.Math.Examples</A>.BooleanReplicator</H2>
-<B>Test model for boolean replicator</B><p></P>
+<B>Test model for boolean replicator</B><p>
 <IMG SRC="Buildings.Utilities.Math.34f053e98e0c8df0catorD.png" ALT="Buildings.Utilities.Math.Examples.BooleanReplicator">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model tests the implementation of 
@@ -159,16 +168,16 @@ This model tests the implementation of
 >
 Buildings.Utilities.Math.BooleanReplicator</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> BooleanReplicator <font color="darkgreen">&quot;Test model for boolean replicator&quot;</font>
 
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanTable"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanTable"
 >Modelica.Blocks.Sources.BooleanTable</A> booTab(table={100,200,400,500}) <font color="darkgreen">
     &quot;Boolean input signal&quot;</font>;
   <A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math.BooleanReplicator"
@@ -185,9 +194,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.dc883f3df1718b8ccubicI.png" ALT="Buildings.Utilities.Math.Examples.IntegerReplicator" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.Examples.IntegerReplicator"></A><A HREF="Buildings_Utilities_Math_Examples.html#Buildings.Utilities.Math.Examples"
 >Buildings.Utilities.Math.Examples</A>.IntegerReplicator</H2>
-<B>Test model for integer replicator</B><p></P>
+<B>Test model for integer replicator</B><p>
 <IMG SRC="Buildings.Utilities.Math.e3f2eb4fac778322catorD.png" ALT="Buildings.Utilities.Math.Examples.IntegerReplicator">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model tests the implementation of 
@@ -195,16 +204,16 @@ This model tests the implementation of
 >
 Buildings.Utilities.Math.IntegerReplicator</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> IntegerReplicator <font color="darkgreen">&quot;Test model for integer replicator&quot;</font>
 
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.IntegerTable"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.IntegerTable"
 >Modelica.Blocks.Sources.IntegerTable</A> intTab(table=[0,1;1, 4;1.5, 5;2, 6]) <font color="darkgreen">
     &quot;Integer input signal&quot;</font>;
   <A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math.IntegerReplicator"
@@ -221,36 +230,36 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.dc883f3df1718b8ccubicI.png" ALT="Buildings.Utilities.Math.Examples.SmoothBlocks" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.Examples.SmoothBlocks"></A><A HREF="Buildings_Utilities_Math_Examples.html#Buildings.Utilities.Math.Examples"
 >Buildings.Utilities.Math.Examples</A>.SmoothBlocks</H2>
-<B>Test model for smooth min and smooth max functions</B><p></P>
+<B>Test model for smooth min and smooth max functions</B><p>
 <IMG SRC="Buildings.Utilities.Math.9fa5593e15857974locksD.png" ALT="Buildings.Utilities.Math.Examples.SmoothBlocks">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model tests the implementation of blocks that approximate non-differentiable functions
 by smooth functions.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SmoothBlocks <font color="darkgreen">
   &quot;Test model for smooth min and smooth max functions&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math.SmoothMax"
 >SmoothMax</A> smoMax(deltaX=0.5);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Max"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Max"
 >Modelica.Blocks.Math.Max</A> max;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> sine(freqHz=8);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> sine1;
   <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
 >Diagnostics.AssertEquality</A> assEquMax(threShold=0.08);
   <A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math.SmoothMin"
 >SmoothMin</A> smoMin(deltaX=0.5);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Min"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Min"
 >Modelica.Blocks.Math.Min</A> Min;
   <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
 >Diagnostics.AssertEquality</A> assEquMin(threShold=0.08);</textblock>
@@ -277,32 +286,32 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.dc883f3df1718b8ccubicI.png" ALT="Buildings.Utilities.Math.Examples.VectorFunctions" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.Examples.VectorFunctions"></A><A HREF="Buildings_Utilities_Math_Examples.html#Buildings.Utilities.Math.Examples"
 >Buildings.Utilities.Math.Examples</A>.VectorFunctions</H2>
-<B>Test model for functions that take a vector as argument</B><p></P>
+<B>Test model for functions that take a vector as argument</B><p>
 <IMG SRC="Buildings.Utilities.Math.6b60e8863349fee9tionsD.png" ALT="Buildings.Utilities.Math.Examples.VectorFunctions">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model tests the implementation of functions that take a vector as an argument.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> VectorFunctions <font color="darkgreen">
   &quot;Test model for functions that take a vector as argument&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Min"
 >Buildings.Utilities.Math.Min</A> minVec(
                    nin=3);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> sine(freqHz=6);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> sine1(
                                     freqHz=8);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> sine2(freqHz=10);
   <A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Max"
 >Buildings.Utilities.Math.Max</A> maxVec(
@@ -329,24 +338,24 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.dc883f3df1718b8ccubicI.png" ALT="Buildings.Utilities.Math.Examples.SmoothLimit" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.Examples.SmoothLimit"></A><A HREF="Buildings_Utilities_Math_Examples.html#Buildings.Utilities.Math.Examples"
 >Buildings.Utilities.Math.Examples</A>.SmoothLimit</H2>
-<B>Test model for smooth limit</B><p></P>
+<B>Test model for smooth limit</B><p>
 <IMG SRC="Buildings.Utilities.Math.3d0d777b384ea291LimitD.png" ALT="Buildings.Utilities.Math.Examples.SmoothLimit">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model tests the implementation of smooth limit function.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SmoothLimit <font color="darkgreen">&quot;Test model for smooth limit&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> sine(freqHz=8);
   <A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math.SmoothLimit"
 >Buildings.Utilities.Math.SmoothLimit</A> smoLim(
@@ -365,9 +374,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Math.dc883f3df1718b8ccubicI.png" ALT="Buildings.Utilities.Math.Examples.Splice" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Math.Examples.Splice"></A><A HREF="Buildings_Utilities_Math_Examples.html#Buildings.Utilities.Math.Examples"
 >Buildings.Utilities.Math.Examples</A>.Splice</H2>
-<B>Test model for splice</B><p></P>
+<B>Test model for splice</B><p>
 <IMG SRC="Buildings.Utilities.Math.Examples.SpliceD.png" ALT="Buildings.Utilities.Math.Examples.Splice">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model tests the implementation of 
@@ -375,23 +384,23 @@ This model tests the implementation of
 >
 Buildings.Utilities.Math.Splice</a>
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Splice <font color="darkgreen">&quot;Test model for splice&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Splice"
 >Buildings.Utilities.Math.Splice</A> splice(deltax=0.2);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</A> sine(freqHz=0.5);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const1(k=-0.5);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const(k=0.5);</textblock>
 <font color="blue">equation </font>
 
@@ -401,6 +410,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Splice;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:31:48 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:46:52 2013.
 </address></BODY>
 </HTML>

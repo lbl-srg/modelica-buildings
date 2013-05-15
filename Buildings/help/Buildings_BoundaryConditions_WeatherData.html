@@ -17,23 +17,32 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE WeatherData<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.BoundaryConditions.WeatherData"></A><A HREF="Buildings_BoundaryConditions.html#Buildings.BoundaryConditions"
 >Buildings.BoundaryConditions</A>.WeatherData</H2>
 <B>Weather data reader</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 This package contains models to read weather data. It also contains
 an expandable connector called <code>Bus</code> that
 is used in the library to provide weather data to the different models.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.BoundaryConditi1a4ba17d6f304515GuideS.png" ALT="Buildings.BoundaryConditions.WeatherData.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_UsersGuide.html#Buildings.BoundaryConditions.WeatherData.UsersGuide"
@@ -59,9 +68,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.BoundaryConditiad988c03c070a4c6rTMY3I.png" ALT="Buildings.BoundaryConditions.WeatherData.ReaderTMY3" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.WeatherData.ReaderTMY3"></A><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData"
 >Buildings.BoundaryConditions.WeatherData</A>.ReaderTMY3</H2>
-<B>Reader for TMY3 weather data</B><p></P>
+<B>Reader for TMY3 weather data</B><p>
 <IMG SRC="Buildings.BoundaryConditiad988c03c070a4c6rTMY3D.png" ALT="Buildings.BoundaryConditions.WeatherData.ReaderTMY3">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data. 
@@ -281,7 +290,7 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </p>
 <pre>
-</PRE><P></P>
+</PRE><P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -291,22 +300,22 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 <TR bgcolor="#e0e0e0"><TD colspan=4>Data source</TD></TR>
 <TR><TD><A HREF="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.DataSource"
 >DataSource</A></TD><TD>pAtmSou</TD><TD>Buildings.BoundaryConditions...</TD><TD>Atmospheric pressure</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>pAtm</TD><TD>101325</TD><TD>Atmospheric pressure (used if pAtmSou=Parameter) [Pa]</TD></TR>
 <TR><TD><A HREF="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.DataSource"
 >DataSource</A></TD><TD>TDryBulSou</TD><TD>Buildings.BoundaryConditions...</TD><TD>Dry bulb temperature</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TDryBul</TD><TD>293.15</TD><TD>Dry bulb temperature (used if TDryBul=Parameter) [K]</TD></TR>
 <TR><TD><A HREF="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.DataSource"
 >DataSource</A></TD><TD>relHumSou</TD><TD>Buildings.BoundaryConditions...</TD><TD>Relative humidity</TD></TR>
 <TR><TD>Real</TD><TD>relHum</TD><TD>0.5</TD><TD>Relative humidity (used if relHum=Parameter) [1]</TD></TR>
 <TR><TD><A HREF="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.DataSource"
 >DataSource</A></TD><TD>winSpeSou</TD><TD>Buildings.BoundaryConditions...</TD><TD>Wind speed</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Velocity</A></TD><TD>winSpe</TD><TD>1</TD><TD>Wind speed (used if winSpe=Parameter) [m/s]</TD></TR>
 <TR><TD><A HREF="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.DataSource"
 >DataSource</A></TD><TD>winDirSou</TD><TD>Buildings.BoundaryConditions...</TD><TD>Wind direction</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>winDir</TD><TD>1.0</TD><TD>Wind direction (used if winDir=Parameter) [rad]</TD></TR>
 <TR><TD><A HREF="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.RadiationDataSource"
 >RadiationDataSource</A></TD><TD>HSou</TD><TD>Buildings.BoundaryConditions...</TD><TD>Radiation</TD></TR>
@@ -317,28 +326,28 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>pAtm_in</TD><TD>Input pressure [Pa]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TDryBul_in</TD><TD>Input dry bulb temperature [K]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>relHum_in</TD><TD>Input relative humidity [1]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>winSpe_in</TD><TD>Input wind speed [m/s]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>winDir_in</TD><TD>Input wind direction [rad]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>HGloHor_in</TD><TD>Input global horizontal radiation [W/m2]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>HDifHor_in</TD><TD>Input diffuse horizontal radiation [W/m2]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>HDirNor_in</TD><TD>Input direct normal radiation [W/m2]</TD></TR>
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>Weather Data Bus</TD></TR>
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarSubBus"
 >SolarSubBus</A></TD><TD>solBus</TD><TD>Sub bus with solar position</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> ReaderTMY3 <font color="darkgreen">&quot;Reader for TMY3 weather data&quot;</font>
 
@@ -349,10 +358,10 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
   <font color="blue">parameter </font><A HREF="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.DataSource"
 >Buildings.BoundaryConditions.Types.DataSource</A> pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter <font color="darkgreen">
     &quot;Atmospheric pressure&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> pAtm=101325 <font color="darkgreen">
     &quot;Atmospheric pressure (used if pAtmSou=Parameter)&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> pAtm_in(
     <font color="blue">final </font>quantity=&quot;Pressure&quot;,
     <font color="blue">final </font>unit=&quot;Pa&quot;,
@@ -363,10 +372,10 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
   <font color="blue">parameter </font><A HREF="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.DataSource"
 >Buildings.BoundaryConditions.Types.DataSource</A> TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File <font color="darkgreen">
     &quot;Dry bulb temperature&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TDryBul(displayUnit=&quot;degC&quot;) = 293.15 <font color="darkgreen">
     &quot;Dry bulb temperature (used if TDryBul=Parameter)&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TDryBul_in(
     <font color="blue">final </font>quantity=&quot;Temperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
@@ -381,7 +390,7 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
     min=0,
     max=1,
     unit=&quot;1&quot;) = 0.5 <font color="darkgreen">&quot;Relative humidity (used if relHum=Parameter)&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> relHum_in(
     min=0,
     max=1,
@@ -392,10 +401,10 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
   <font color="blue">parameter </font><A HREF="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.DataSource"
 >Buildings.BoundaryConditions.Types.DataSource</A> winSpeSou=Buildings.BoundaryConditions.Types.DataSource.File <font color="darkgreen">
     &quot;Wind speed&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Modelica.SIunits.Velocity</A> winSpe(min=0) = 1 <font color="darkgreen">
     &quot;Wind speed (used if winSpe=Parameter)&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> winSpe_in(
     <font color="blue">final </font>quantity=&quot;Velocity&quot;,
     <font color="blue">final </font>unit=&quot;m/s&quot;,
@@ -406,10 +415,10 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
   <font color="blue">parameter </font><A HREF="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.DataSource"
 >Buildings.BoundaryConditions.Types.DataSource</A> winDirSou=Buildings.BoundaryConditions.Types.DataSource.File <font color="darkgreen">
     &quot;Wind direction&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> winDir=1.0 <font color="darkgreen">
     &quot;Wind direction (used if winDir=Parameter)&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> winDir_in(
     <font color="blue">final </font>quantity=&quot;Angle&quot;,
     <font color="blue">final </font>unit=&quot;rad&quot;,
@@ -422,36 +431,36 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 
   <font color="darkgreen">//--------------------------------------------------------------</font>
   <font color="darkgreen">// Global horizontal radiation</font>
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> HGloHor_in(
     <font color="blue">final </font>quantity=&quot;RadiantEnergyFluenceRate&quot;,
     <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="blue">if </font>(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor<font color="blue"> or </font>HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor) <font color="darkgreen">
     &quot;Input global horizontal radiation&quot;</font>;</textblock>
   <font color="darkgreen">//--------------------------------------------------------------</font>
   <font color="darkgreen">// Diffuse horizontal radiation</font>
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> HDifHor_in(
     <font color="blue">final </font>quantity=&quot;RadiantEnergyFluenceRate&quot;,
     <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="blue">if </font>(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor<font color="blue"> or </font>HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor) <font color="darkgreen">
     &quot;Input diffuse horizontal radiation&quot;</font>;</textblock>
   <font color="darkgreen">//--------------------------------------------------------------</font>
   <font color="darkgreen">// Direct normal radiation</font>
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> HDirNor_in(<font color="blue">final </font>quantity=&quot;RadiantEnergyFluenceRate&quot;,
       <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="blue">if </font>
                           (HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor<font color="blue"> or </font>HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor) <font color="darkgreen">
     &quot;Input direct normal radiation&quot;</font>;</textblock>
 
   <font color="blue">parameter </font>String filNam=&quot;&quot; <font color="darkgreen">&quot;Name of weather data file&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> lon(displayUnit=&quot;deg&quot;)=
     <font color="red">Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3</font>(
     filNam) <font color="darkgreen">&quot;Longitude&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> lat(displayUnit=&quot;deg&quot;)=
     <font color="red">Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3</font>(
     filNam) <font color="darkgreen">&quot;Latitude&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> timZon(displayUnit=&quot;h&quot;)=
     <font color="red">Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3</font>(filNam) <font color="darkgreen">
     &quot;Time zone&quot;</font>;
@@ -468,7 +477,7 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
   <font color="blue">constant </font>Real epsCos = 1e-6 <font color="darkgreen">&quot;Small value to avoid division by 0&quot;</font>;
 
 <textblock type="annotcomp" expanded="false"><font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Tables.html#Modelica.Blocks.Tables.CombiTable1Ds"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Tables.html#Modelica.Blocks.Tables.CombiTable1Ds"
 >Modelica.Blocks.Tables.CombiTable1Ds</A> datRea(
     <font color="blue">final </font>tableOnFile=true,
     <font color="blue">final </font>tableName=&quot;tab1&quot;,
@@ -512,16 +521,16 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
     &quot;Check the sky black-body temperature&quot;</font>;
   <A HREF="Buildings_Utilities.html#Buildings.Utilities.SimulationTime"
 >Utilities.SimulationTime</A> simTim <font color="darkgreen">&quot;Simulation time&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</A> add <font color="darkgreen">
     &quot;Add 30 minutes to time to shift weather data reader&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> con30mins(<font color="blue">final </font>k=1800) <font color="darkgreen">
     &quot;Constant used to shift weather data reader&quot;</font>;
   <A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime"
 >Buildings.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime</A> locTim(
       <font color="blue">final </font>lon=lon, <font color="blue">final </font>timZon=timZon) <font color="darkgreen">&quot;Local civil time&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Tables.html#Modelica.Blocks.Tables.CombiTable1Ds"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Tables.html#Modelica.Blocks.Tables.CombiTable1Ds"
 >Modelica.Blocks.Tables.CombiTable1Ds</A> datRea1(
     <font color="blue">final </font>tableOnFile=true,
     <font color="blue">final </font>tableName=&quot;tab1&quot;,
@@ -538,51 +547,51 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
   <A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarTime"
 >BaseClasses.SolarTime</A> solTim <font color="darkgreen">&quot;Solar time&quot;</font>;</textblock>
   <font color="darkgreen">// Conditional connectors</font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> pAtm_in_internal(
     <font color="blue">final </font>quantity=&quot;Pressure&quot;,
     <font color="blue">final </font>unit=&quot;Pa&quot;,
     displayUnit=&quot;bar&quot;) <font color="darkgreen">&quot;Needed to connect to conditional connector&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TDryBul_in_internal(
     <font color="blue">final </font>quantity=&quot;Temperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;) <font color="darkgreen">&quot;Needed to connect to conditional connector&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> relHum_in_internal(
     <font color="blue">final </font>quantity=&quot;1&quot;,
     min=0,
     max=1) <font color="darkgreen">&quot;Needed to connect to conditional connector&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> winSpe_in_internal(
     <font color="blue">final </font>quantity=&quot;Velocity&quot;,
     <font color="blue">final </font>unit=&quot;m/s&quot;) <font color="darkgreen">&quot;Needed to connect to conditional connector&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> winDir_in_internal(
     <font color="blue">final </font>quantity=&quot;Angle&quot;,
     <font color="blue">final </font>unit=&quot;rad&quot;,
     displayUnit=&quot;deg&quot;) <font color="darkgreen">&quot;Needed to connect to conditional connector&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> HGloHor_in_internal(
     <font color="blue">final </font>quantity=&quot;RadiantEnergyFluenceRate&quot;,
     <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="darkgreen">&quot;Needed to connect to conditional connector&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> HDifHor_in_internal(
     <font color="blue">final </font>quantity=&quot;RadiantEnergyFluenceRate&quot;,
     <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="darkgreen">&quot;Needed to connect to conditional connector&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> HDirNor_in_internal(
     <font color="blue">final </font>quantity=&quot;RadiantEnergyFluenceRate&quot;,
     <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="darkgreen">&quot;Needed to connect to conditional connector&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math_UnitConversions.html#Modelica.Blocks.Math.UnitConversions.From_deg"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math_UnitConversions.html#Modelica.Blocks.Math.UnitConversions.From_deg"
 >Modelica.Blocks.Math.UnitConversions.From_deg</A> conWinDir <font color="darkgreen">
     &quot;Convert the wind direction unit from [deg] to [rad]&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math_UnitConversions.html#Modelica.Blocks.Math.UnitConversions.From_degC"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math_UnitConversions.html#Modelica.Blocks.Math.UnitConversions.From_degC"
 >Modelica.Blocks.Math.UnitConversions.From_degC</A> conTDryBul;
   <A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation"
 >BaseClasses.ConvertRadiation</A> conHorRad;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math_UnitConversions.html#Modelica.Blocks.Math.UnitConversions.From_degC"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math_UnitConversions.html#Modelica.Blocks.Math.UnitConversions.From_degC"
 >Modelica.Blocks.Math.UnitConversions.From_degC</A> conTDewPoi <font color="darkgreen">
     &quot;Convert the dew point temperature form [degC] to [K]&quot;</font>;
   <A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation"
@@ -603,9 +612,9 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
    <A HREF="Buildings_BoundaryConditions_SolarGeometry_BaseClasses.html#Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle"
 >SolarGeometry.BaseClasses.SolarHourAngle</A>
     solHouAng;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> latitude(<font color="blue">final </font>k=lat) <font color="darkgreen">&quot;Latitude&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> longitude(<font color="blue">final </font>k=lon) <font color="darkgreen">&quot;Longitude&quot;</font>;</textblock>
 
   <font color="darkgreen">//---------------------------------------------------------------------------</font>
@@ -785,26 +794,26 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 <H2><IMG SRC="Buildings.BoundaryConditi4cf2958f71af316aa.BusI.png" ALT="Buildings.BoundaryConditions.WeatherData.Bus" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.WeatherData.Bus"></A><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData"
 >Buildings.BoundaryConditions.WeatherData</A>.Bus</H2>
-<B>Data bus that stores weather data</B><p></P>
+<B>Data bus that stores weather data</B><p>
 <IMG SRC="Buildings.BoundaryConditi4cf2958f71af316aa.BusD.png" ALT="Buildings.BoundaryConditions.WeatherData.Bus">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component is an expandable connector that is used to implement a bus that contains the weather data.
 </p>
 <pre>
-</PRE><P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.SignalBus"
+</PRE><P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.SignalBus"
 >Modelica.Icons.SignalBus</A> (Icon for signal bus).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">expandable connector</font> Bus <font color="darkgreen">&quot;Data bus that stores weather data&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.SignalBus"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.SignalBus"
 >Modelica.Icons.SignalBus</A>;
 
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Bus;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:27:58 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:43:16 2013.
 </address></BODY>
 </HTML>

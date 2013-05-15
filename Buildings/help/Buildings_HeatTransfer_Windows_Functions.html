@@ -17,24 +17,33 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Functions<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions"></A><A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows"
 >Buildings.HeatTransfer.Windows</A>.Functions</H2>
 <B>Functions used in window radiation model</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains functions that are used to compute 
 heat transfer in the window model.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
 >Modelica.Icons.Package</A> (Icon for standard packages).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" ALT="Buildings.HeatTransfer.Windows.Functions.devAbsExteriorIrradiationInteriorShading" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.devAbsExteriorIrradiationInteriorShading"
@@ -104,14 +113,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.devAbsExteriorIrradiationInteriorShading"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.devAbsExteriorIrradiationInteriorShading</H2>
-<B>Angular and hemispherical absorptance of a shading device for exterior irradiation with interior shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Angular and hemispherical absorptance of a shading device for exterior irradiation with interior shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the angular and hemispherical absorptance of a shading device for exterior irradiation with interior shading.
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -127,7 +136,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>absExtIrrIntShaDev[HEM]</TD><TD>Absorptance of a shading device for exterior irradiation with interior shading</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> devAbsExteriorIrradiationInteriorShading <font color="darkgreen">
   &quot;Angular and hemispherical absorptance of a shading device for exterior irradiation with interior shading&quot;</font>
@@ -154,13 +163,13 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.devAbsInteriorIrradiationInteriorShading"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.devAbsInteriorIrradiationInteriorShading</H2>
-<B>Hemiperical absorptance of a shading device for interior irradiation with interior shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Hemiperical absorptance of a shading device for interior irradiation with interior shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the hemiperical absorbtance of a shading device for interior irradiation with interior shading. 
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -176,7 +185,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>absIntIrrIntShaDev</TD><TD>Hemiperical absorbtance of a shading device for interior irradiation with interior shading</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> devAbsInteriorIrradiationInteriorShading <font color="darkgreen">
   &quot;Hemiperical absorptance of a shading device for interior irradiation with interior shading&quot;</font>
@@ -204,13 +213,13 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.getAngle"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.getAngle</H2>
-<B>Generate incident angles</B><p></P>
-<P></P><H3>Information</H3>
+<B>Generate incident angles</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes discrete incident angles for the window radiation calculation. The range is from 0 to 90 degree. 
 </p>
-<P></P>
+<P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -220,14 +229,14 @@ This function computes discrete incident angles for the window radiation calcula
 <P><H3>Outputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>psi[NDIR]</TD><TD>Array of incident angles [rad]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> getAngle <font color="darkgreen">&quot;Generate incident angles&quot;</font>
   <font color="blue">input </font>Integer NDIR <font color="darkgreen">&quot;Number of incident angles&quot;</font>;
-  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> psi[NDIR] <font color="darkgreen">&quot;Array of incident angles&quot;</font>;
 
 <font color="blue">protected </font>
@@ -246,8 +255,8 @@ This function computes discrete incident angles for the window radiation calcula
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.getGlassTR"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.getGlassTR</H2>
-<B>Transmittance and reflectance of glass</B><p></P>
-<P></P><H3>Information</H3>
+<B>Transmittance and reflectance of glass</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the angular variation of the transmittance and reflectance of each glass pane.
@@ -256,7 +265,7 @@ Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room
 For instance, <code>traRef[TRA, 1, N, iD]</code> means transmittance between layer <code>1</code> to <code>N</code> for exterior irradiation and 
 <code>traRef[TRA, N, 1, iD]</code> means the transmittance for interior irradiation.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</A> (Partial function for glass radiation property).
 <P><H3>Inputs</H3><P>
@@ -271,7 +280,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>traRef[3, N, N, HEM]</TD><TD>Glass transmittance, front and back reflectance</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> getGlassTR <font color="darkgreen">&quot;Transmittance and reflectance of glass&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
@@ -317,14 +326,14 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationExteriorShading"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.glassAbsExteriorIrradiationExteriorShading</H2>
-<B>Angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading.
 Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room. 
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -341,7 +350,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>absExtIrrExtSha[N, HEM]</TD><TD>Angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> glassAbsExteriorIrradiationExteriorShading <font color="darkgreen">
   &quot;Angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading&quot;</font>
@@ -373,14 +382,14 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationInteriorShading"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.glassAbsExteriorIrradiationInteriorShading</H2>
-<B>Angular and hemispherical absorptance of each glass pane for exterior irradiation with interior shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Angular and hemispherical absorptance of each glass pane for exterior irradiation with interior shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes angular and hemispherical absorptance of each glass pane for exterior irradiation with interior shading. 
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -397,7 +406,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>absExtIrrNoShaIntSha[N, HEM]</TD><TD>Angular and hemispherical absorptance of each glass pane for exterior irradiation with interior shading</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> glassAbsExteriorIrradiationInteriorShading <font color="darkgreen">
   &quot;Angular and hemispherical absorptance of each glass pane for exterior irradiation with interior shading&quot;</font>
@@ -462,15 +471,15 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationNoShading"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.glassAbsExteriorIrradiationNoShading</H2>
-<B>Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes specular and hemispherical absorptance of each glass pane for exterior irradiation without shading.
 It counts the transmittance and reflectance among different panes.
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation</A> (Partial function for window radiation property).
 <P><H3>Inputs</H3><P>
@@ -487,7 +496,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
      Indices: abs[1 to N : ] -&gt; pane 1 to N; 
      abs[ : 1 to HEM] -&gt; angular (1:HEM-1) and hemispherical (HEM)</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> glassAbsExteriorIrradiationNoShading <font color="darkgreen">
   &quot;Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading&quot;</font>
@@ -562,14 +571,14 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationExteriorShading"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.glassAbsInteriorIrradiationExteriorShading</H2>
-<B>Hemispherical absorptance of each glass pane for interior irradiation with exterior shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Hemispherical absorptance of each glass pane for interior irradiation with exterior shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the hemispherical absorptance of each glass pane for interior irradiation with exterior shading. 
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -586,7 +595,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>absIntIrrExtSha[N]</TD><TD>Hemispherical absorptance of each glass pane for interior irradiation with exterior shading</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> glassAbsInteriorIrradiationExteriorShading <font color="darkgreen">
   &quot;Hemispherical absorptance of each glass pane for interior irradiation with exterior shading&quot;</font>
@@ -644,14 +653,14 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationInteriorShading"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.glassAbsInteriorIrradiationInteriorShading</H2>
-<B>Hemispherical absorptance of each glass pane for interior irradiation with interior shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Hemispherical absorptance of each glass pane for interior irradiation with interior shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the hemispherical absorbtance of each glass pane for interior irradiation with interior shading. 
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -668,7 +677,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>absIntIrrIntSha[N]</TD><TD>Hemispherical absorbtance of each glass pane for interior irradiation with interior shading</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> glassAbsInteriorIrradiationInteriorShading <font color="darkgreen">
   &quot;Hemispherical absorptance of each glass pane for interior irradiation with interior shading&quot;</font>
@@ -698,8 +707,8 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationNoShading"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.glassAbsInteriorIrradiationNoShading</H2>
-<B>Hemispherical absorptance of each glass pane for interior irradiation without shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Hemispherical absorptance of each glass pane for interior irradiation without shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the hemispherical absorptance of each glass pane for interior irradiation without no shading. 
@@ -708,7 +717,7 @@ It is a reverse of the function
 <a href="modelica://Buildings.HeatTransfer.Windows.Functions.glassAbsInterirorIrradiationNoShading">
 Buildings.HeatTransfer.Windows.Functions.glassAbsInterirorIrradiationNoShading</a>.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation</A> (Partial function for window radiation property).
 <P><H3>Inputs</H3><P>
@@ -723,7 +732,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>absIntIrrNoSha[N]</TD><TD>Hemispherical absorptance of each glass layer for interior irradiation without shading</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> glassAbsInteriorIrradiationNoShading <font color="darkgreen">
   &quot;Hemispherical absorptance of each glass pane for interior irradiation without shading&quot;</font>
@@ -771,8 +780,8 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.glassProperty"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.glassProperty</H2>
-<B>Compute angular variation and hemispherical integration of the transmittance and reflectance for each glass pane without shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Compute angular variation and hemispherical integration of the transmittance and reflectance for each glass pane without shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the angular variation and the hemispherical integration of the transmittance and reflectance for each glass pane.
@@ -781,7 +790,7 @@ The function checks the difference between front and back reflectances.
 If the difference is less than the tolerance (0.005), it uses the formula for uncoated glass. 
 Otherwise, the formula for coated glass will be used.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</A> (Partial function for glass radiation property).
 <P><H3>Inputs</H3><P>
@@ -791,7 +800,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TD>Integer</TD><TD>HEM</TD><TD>&nbsp;</TD><TD>Index of hemispherical integration</TD></TR>
 <TR><TD>Real</TD><TD>glass[3, N]</TD><TD>&nbsp;</TD><TD>Propertry of each glass pane</TD></TR>
 <TR><TD>Real</TD><TD>xGla[N]</TD><TD>&nbsp;</TD><TD>Thickness of each glass pane</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>psi[HEM - 1]</TD><TD>&nbsp;</TD><TD>Incident angles [rad]</TD></TR>
 </TABLE>
 <P><H3>Outputs</H3><P>
@@ -799,7 +808,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>layer[3, N, HEM]</TD><TD>Transmittance, front and back reflectance</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> glassProperty <font color="darkgreen">
   &quot;Compute angular variation and hemispherical integration of the transmittance and reflectance for each glass pane without shading&quot;</font>
@@ -807,7 +816,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</A>;
   <font color="blue">input </font>Real glass[3, N] <font color="darkgreen">&quot;Propertry of each glass pane&quot;</font>;
   <font color="blue">input </font>Real xGla[N] <font color="darkgreen">&quot;Thickness of each glass pane&quot;</font>;
-  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> psi[HEM - 1] <font color="darkgreen">&quot;Incident angles&quot;</font>;
 
   <font color="blue">output </font>Real layer[3, N, HEM] <font color="darkgreen">&quot;Transmittance, front and back reflectance&quot;</font>;
@@ -856,13 +865,13 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.glassPropertyCoated"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.glassPropertyCoated</H2>
-<B>Compute angular variation and hemispherical integration of the transmittance and reflectance for a coated glass pane without shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Compute angular variation and hemispherical integration of the transmittance and reflectance for a coated glass pane without shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the angular variation and the hemispherical integration of the transmittance and reflectance for one coated glass pane.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation</A> (Partial function for single glass radiation property).
 <P><H3>Inputs</H3><P>
@@ -870,7 +879,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD>Integer</TD><TD>HEM</TD><TD>&nbsp;</TD><TD>Index of hemispherical integration</TD></TR>
 <TR><TD>Real</TD><TD>glass[3]</TD><TD>&nbsp;</TD><TD>Propertry of one glass pane</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>psi[HEM - 1]</TD><TD>&nbsp;</TD><TD>Incident angles [rad]</TD></TR>
 </TABLE>
 <P><H3>Outputs</H3><P>
@@ -878,14 +887,14 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>layer[3, HEM]</TD><TD>Transmittance, front and back reflectance</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> glassPropertyCoated <font color="darkgreen">
   &quot;Compute angular variation and hemispherical integration of the transmittance and reflectance for a coated glass pane without shading&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation</A>;
   <font color="blue">input </font>Real glass[3] <font color="darkgreen">&quot;Propertry of one glass pane&quot;</font>;
-  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> psi[HEM - 1] <font color="darkgreen">&quot;Incident angles&quot;</font>;
 
   <font color="blue">output </font>Real layer[3, HEM] <font color="darkgreen">&quot;Transmittance, front and back reflectance&quot;</font>;
@@ -959,8 +968,8 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.glassPropertyUncoated"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.glassPropertyUncoated</H2>
-<B>Compute angular variation and hemispherical integration of the transmittance and reflectance for a uncoated glass pane without shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Compute angular variation and hemispherical integration of the transmittance and reflectance for a uncoated glass pane without shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the angular variation and the hemispherical integration of the transmittance and reflectance for one uncoated glass pane.
@@ -1127,7 +1136,7 @@ Thierry Stephane Nouidui, Michael Wetter, and Wangda Zuo.
 Validation of the window model of the Modelica Buildings library.</a>
 <i>Proc. of the 5th SimBuild Conference</i>, Madison, WI, USA, August 2012.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation</A> (Partial function for single glass radiation property).
 <P><H3>Inputs</H3><P>
@@ -1135,9 +1144,9 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD>Integer</TD><TD>HEM</TD><TD>&nbsp;</TD><TD>Index of hemispherical integration</TD></TR>
 <TR><TD>Real</TD><TD>glass[3]</TD><TD>&nbsp;</TD><TD>Propertry of one glass pane</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Thickness [m]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>psi[HEM - 1]</TD><TD>&nbsp;</TD><TD>Incident angles [rad]</TD></TR>
 </TABLE>
 <P><H3>Outputs</H3><P>
@@ -1145,7 +1154,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>layer[3, HEM]</TD><TD>Transmittance, front and back reflectance</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> glassPropertyUncoated <font color="darkgreen">
   &quot;Compute angular variation and hemispherical integration of the transmittance and reflectance for a uncoated glass pane without shading&quot;</font>
@@ -1153,9 +1162,9 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation</A>;
 
   <font color="blue">input </font>Real glass[3] <font color="darkgreen">&quot;Propertry of one glass pane&quot;</font>;
-  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</A> x <font color="darkgreen">&quot;Thickness&quot;</font>;
-  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> psi[HEM - 1] <font color="darkgreen">&quot;Incident angles&quot;</font>;
   <font color="blue">output </font>Real layer[3, HEM] <font color="darkgreen">&quot;Transmittance, front and back reflectance&quot;</font>;
 
@@ -1273,15 +1282,15 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.glassTRExteriorIrradiationNoShading"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.glassTRExteriorIrradiationNoShading</H2>
-<B>Transmittance and reflectance of glass panes for exterior irradiation without shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Transmittance and reflectance of glass panes for exterior irradiation without shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the angular variation of the transmittance and reflectance of each glass pane for exteior irradiation without shading. 
 It accounts for the transmittance and reflectance among different panes. 
 Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room. 
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</A> (Partial function for glass radiation property).
 <P><H3>Inputs</H3><P>
@@ -1296,7 +1305,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>traRef[3, N, N, HEM]</TD><TD>Transmittance and reflectance of each glass pane for exterior irradiation without shading</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> glassTRExteriorIrradiationNoShading <font color="darkgreen">
   &quot;Transmittance and reflectance of glass panes for exterior irradiation without shading&quot;</font>
@@ -1359,15 +1368,15 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.glassTRInteriorIrradiationNoShading"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.glassTRInteriorIrradiationNoShading</H2>
-<B>Transmittance and reflectance of each glass pane for interior irradiation without shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Transmittance and reflectance of each glass pane for interior irradiation without shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the angular variation of the transmittance and reflectance of each glass pane for interior irradiation without shading. 
 It accounts for the transmittance and reflectance among different panes. 
 Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room. 
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</A> (Partial function for glass radiation property).
 <P><H3>Inputs</H3><P>
@@ -1382,7 +1391,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>traRef[3, N, N, HEM]</TD><TD>Glass transmittance, front and back reflectance</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> glassTRInteriorIrradiationNoShading <font color="darkgreen">
   &quot;Transmittance and reflectance of each glass pane for interior irradiation without shading&quot;</font>
@@ -1438,14 +1447,14 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.winTExteriorIrradiationInteriorShading"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.winTExteriorIrradiationInteriorShading</H2>
-<B>Angular and hemispherical transmittance of a window system (glass and shading device) for exterior irradiation with interior shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Angular and hemispherical transmittance of a window system (glass and shading device) for exterior irradiation with interior shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the angular and hemispherical transmittance of a window system (glass and shading device) for exterior irradiation with interior shading. 
 Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room. 
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -1461,7 +1470,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>traExtIrrIntSha[HEM]</TD><TD>Angular and hemispherical transmittance of a window system (glass and shading device) forh exterior irradiation with interior shading</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> winTExteriorIrradiationInteriorShading <font color="darkgreen">
   &quot;Angular and hemispherical transmittance of a window system (glass and shading device) for exterior irradiation with interior shading&quot;</font>
@@ -1487,14 +1496,14 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.winTExteriorIrradiatrionExteriorShading"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.winTExteriorIrradiatrionExteriorShading</H2>
-<B>Angular and hemispherical transmittance of a window system (glass + shading device) for exterior irradiation with exterior shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Angular and hemispherical transmittance of a window system (glass + shading device) for exterior irradiation with exterior shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the angular and hemispherical transmittance of a window system (glass + shading device) for exterior irradiation with exterior shading. 
 Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room. 
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -1510,7 +1519,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>traExtIrrExtSha[HEM]</TD><TD>Angular and hemispherical transmittance of a window system (glass + shading device) for exterior irradiation with exterior shading</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> winTExteriorIrradiatrionExteriorShading <font color="darkgreen">
   &quot;Angular and hemispherical transmittance of a window system (glass + shading device) for exterior irradiation with exterior shading&quot;</font>
@@ -1539,8 +1548,8 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.winTRInteriorIrradiationExteriorShading"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.winTRInteriorIrradiationExteriorShading</H2>
-<B>Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with exterior shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with exterior shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes hemispherical transmittance and back reflectance of a window for interior irradiation with exterior shading. 
@@ -1551,7 +1560,7 @@ traRefIntIrrExtSha[2]: Back reflectance;
 traRefIntIrrExtSha[3]: Dummy value
 </pre>
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -1567,7 +1576,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>traRefIntIrrExtSha[3]</TD><TD>Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with exterior shading</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> winTRInteriorIrradiationExteriorShading <font color="darkgreen">
   &quot;Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with exterior shading&quot;</font>
@@ -1590,14 +1599,14 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Functions.winTRInteriorIrradiationInteriorShading"></A><A HREF="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
 >Buildings.HeatTransfer.Windows.Functions</A>.winTRInteriorIrradiationInteriorShading</H2>
-<B>Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with interior shading</B><p></P>
-<P></P><H3>Information</H3>
+<B>Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with interior shading</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This function computes the hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with interior shading. 
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
 </p>
-<P></P>
+<P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -1613,7 +1622,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>traRefIntIrrIntSha[3]</TD><TD>Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with interior shading</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> winTRInteriorIrradiationInteriorShading <font color="darkgreen">
   &quot;Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with interior shading&quot;</font>
@@ -1638,6 +1647,6 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>winTRInteriorIrradiationInteriorShading;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:26 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:45:32 2013.
 </address></BODY>
 </HTML>

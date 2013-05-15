@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Generic<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data.html#Buildings.Fluid.HeatExchangers.DXCoils.Data"
 >Buildings.Fluid.HeatExchangers.DXCoils.Data</A>.Generic</H2>
 <B>Package with generic performance curves</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains performance curves for the cooling capacity and the EIR 
@@ -45,10 +54,10 @@ The data are described in
 >
 Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
 >Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExchacbda96459db20e98XCoilS.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
@@ -65,8 +74,8 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchacbda96459db20e98XCoilI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic"
 >Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic</A>.DXCoil</H2>
-<B>Performance record for a DX Cooling Coil with one or multiple stages</B><p></P>
-<P></P><H3>Information</H3>
+<B>Performance record for a DX Cooling Coil with one or multiple stages</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This record declares the performance data for the DX cooling coil model.
@@ -160,8 +169,8 @@ same amount of polynomial coefficients. For example, if a
 quadratic function is used for stage one, then stage two must also use 
 a quadratic function.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -171,14 +180,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage"
 >Stage</A></TD><TD>sta[nSta]</TD><TD>&nbsp;</TD><TD>Data record for coil performance at each stage</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Minimum conditions</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>0.0001*sta[1].nomVal.m_flow_...</TD><TD>Small mass flow rate for regularization near zero flow [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> DXCoil <font color="darkgreen">
   &quot;Performance record for a DX Cooling Coil with one or multiple stages&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A>;
   <font color="blue">parameter </font>Integer nSta(min=1) <font color="darkgreen">&quot;Number of stages&quot;</font>;
   <font color="blue">parameter </font>Real minSpeRat( min=0,max=1)=0.2 <font color="darkgreen">&quot;Minimum speed ratio&quot;</font>;
@@ -189,12 +198,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage</A>
                                                                                   sta[nSta] <font color="darkgreen">
     &quot;Data record for coil performance at each stage&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_small = 0.0001*sta[1].nomVal.m_flow_nominal <font color="darkgreen">
     &quot;Small mass flow rate for regularization near zero flow&quot;</font>;
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>DXCoil;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:28:53 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:44:03 2013.
 </address></BODY>
 </HTML>

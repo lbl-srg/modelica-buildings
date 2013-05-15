@@ -17,18 +17,27 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.Examples</H2>
 <B>Example models to test base classes</B>
-<P></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentS.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.BoreholeSegment" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.BoreholeSegment"
@@ -54,25 +63,25 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.BoreholeSegment" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.BoreholeSegment"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples</A>.BoreholeSegment</H2>
-<B>Model that tests a basic segment that is used to built a borehole</B><p></P>
+<B>Model that tests a basic segment that is used to built a borehole</B><p>
 <IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.BoreholeSegment">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This example illustrates modeling a segment of a borehole heat exchanger.
 It simulates the behavior of the borehole on a single horizontal section including the ground and the
 boundary condition.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> BoreholeSegment <font color="darkgreen">
   &quot;Model that tests a basic segment that is used to built a borehole&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">   <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">   <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A>;
@@ -127,8 +136,8 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.Factorial" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.Factorial"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples</A>.Factorial</H2>
-<B>Test the function factorial</B><p></P>
-<P></P><H3>Information</H3>
+<B>Test the function factorial</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This example tests the function
@@ -136,18 +145,18 @@ This example tests the function
 >
 Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.factorial</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD>Integer</TD><TD>x[:]</TD><TD>{1,2,3,4,5}</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Factorial <font color="darkgreen">&quot;Test the function factorial&quot;</font>
- <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+ <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">parameter </font>Integer x[:] = {1, 2, 3, 4, 5};
   Integer y[5];
@@ -163,22 +172,22 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.HexInternalElement" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.HexInternalElement"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples</A>.HexInternalElement</H2>
-<B>Model that tests the basic element that is used to built borehole models</B><p></P>
+<B>Model that tests the basic element that is used to built borehole models</B><p>
 <IMG SRC="Buildings.Fluid.HeatExcha8430a40eab150c4dementD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.HexInternalElement">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This example illustrates modeling the internal part of a borehole heat exchanger.
 The borehole is constitued with two pipes that are symetricaly spaced in the borehole. 
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> HexInternalElement <font color="darkgreen">
   &quot;Model that tests the basic element that is used to built borehole models&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
@@ -230,30 +239,30 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.SingleUTubeBoundaryCondition" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.SingleUTubeBoundaryCondition"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples</A>.SingleUTubeBoundaryCondition</H2>
-<B>Test model the temperature boundary condition of a single U tube heat exchanger</B><p></P>
+<B>Test model the temperature boundary condition of a single U tube heat exchanger</B><p>
 <IMG SRC="Buildings.Fluid.HeatExchaad9773be0b395648itionD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.SingleUTubeBoundaryCondition">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This example tests the temperature boundary condition at the external part of a cylinder.
 
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >HeatFlowRate</A></TD><TD>Q_flow</TD><TD>-50</TD><TD>Heat flow rate extracted at center of cylinder [W]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SingleUTubeBoundaryCondition <font color="darkgreen">
   &quot;Test model the temperature boundary condition of a single U tube heat exchanger&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</A>  Q_flow=-50 <font color="darkgreen">
     &quot;Heat flow rate extracted at center of cylinder&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition"
@@ -265,7 +274,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     <font color="blue">redeclare </font><font color="blue">final </font><A HREF="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Sandstone"
 >Buildings.HeatTransfer.Data.Soil.Sandstone</A> matSoi,
     TExt_start=293.15) <font color="darkgreen">&quot;Boundary condition&quot;</font>;
- <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+ <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
 >Modelica.Blocks.Sources.Step</A> step(
     height=Q_flow,
     offset=0,
@@ -279,7 +288,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     <font color="blue">redeclare </font><font color="blue">final </font><A HREF="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Sandstone"
 >Buildings.HeatTransfer.Data.Soil.Sandstone</A> matSoi,
     TExt_start=293.15) <font color="darkgreen">&quot;Boundary condition&quot;</font>;
- <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+ <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> con(k=Q_flow);
   <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition</A>
@@ -290,7 +299,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     <font color="blue">redeclare </font><font color="blue">final </font><A HREF="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Sandstone"
 >Buildings.HeatTransfer.Data.Soil.Sandstone</A> matSoi,
     TExt_start=293.15) <font color="darkgreen">&quot;Boundary condition&quot;</font>;
- <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+ <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
 >Modelica.Blocks.Sources.Pulse</A> pulse(
     offset=0,
     startTime=0,
@@ -309,8 +318,8 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.ExchangeValues" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.ExchangeValues"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples</A>.ExchangeValues</H2>
-<B>Test problem for the function that exchanges values</B><p></P>
-<P></P><H3>Information</H3>
+<B>Test problem for the function that exchanges values</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 This example tests the function
@@ -320,19 +329,19 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues</a> by
 assigning and reading different elements of the array.
 The assert statements check whether the returned values is correct.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>x</TD><TD>3</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ExchangeValues <font color="darkgreen">
   &quot;Test problem for the function that exchanges values&quot;</font>
- <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+ <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">parameter </font>Real x = 3;
   Real y;
@@ -364,6 +373,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>ExchangeValues;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:28:35 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:43:47 2013.
 </address></BODY>
 </HTML>

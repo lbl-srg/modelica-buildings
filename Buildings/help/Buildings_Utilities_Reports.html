@@ -17,23 +17,32 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Reports<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.Reports"></A><A HREF="Buildings_Utilities.html#Buildings.Utilities"
 >Buildings.Utilities</A>.Reports</H2>
 <B>Library with models that facilitates the reporting of values</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains components models to report values to files.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Utilities.Reports.PrinterS.png" ALT="Buildings.Utilities.Reports.Printer" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Reports.html#Buildings.Utilities.Reports.Printer"
@@ -53,9 +62,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Reports.PrinterI.png" ALT="Buildings.Utilities.Reports.Printer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Reports.Printer"></A><A HREF="Buildings_Utilities_Reports.html#Buildings.Utilities.Reports"
 >Buildings.Utilities.Reports</A>.Printer</H2>
-<B>Model that prints values to a file</B><p></P>
+<B>Model that prints values to a file</B><p>
 <IMG SRC="Buildings.Utilities.Reports.PrinterD.png" ALT="Buildings.Utilities.Reports.Printer">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model prints to a file or the terminal at a fixed sample interval.
@@ -69,15 +78,15 @@ The parameter <code>configuration</code> controls the printing as follows:
 <tr><td><code>2</code></td> <td>print at sample times and at end of simulation</td></tr>
 <tr><td><code>3</code></td> <td>print at end of simulation only</td></tr>
  </table>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
 >Modelica.Blocks.Interfaces.DiscreteBlock</A> (Base class of discrete control blocks).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>samplePeriod</TD><TD>&nbsp;</TD><TD>Sample period of component [s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>startTime</TD><TD>0</TD><TD>First sample time instant [s]</TD></TR>
 <TR><TD>String</TD><TD>header</TD><TD>&quot;&quot;</TD><TD>Header to be printed</TD></TR>
 <TR><TD>String</TD><TD>fileName</TD><TD>&quot;&quot;</TD><TD>File name (empty string is the terminal)</TD></TR>
@@ -89,13 +98,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>x[nin]</TD><TD>Value to be printed</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Printer <font color="darkgreen">&quot;Model that prints values to a file&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
 >Modelica.Blocks.Interfaces.DiscreteBlock</A>;
 
   <font color="blue">parameter </font>String header=&quot;&quot; <font color="darkgreen">&quot;Header to be printed&quot;</font>;
@@ -105,7 +114,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     &quot;Index for treating final report (see documentation)&quot;</font>;
   <font color="blue">parameter </font>Integer minimumLength =  1 <font color="darkgreen">&quot;Minimum length of result string&quot;</font>;
   <font color="blue">parameter </font>Integer significantDigits = 16 <font color="darkgreen">&quot;Number of significant digits&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> x[nin] <font color="darkgreen">&quot;Value to be printed&quot;</font>;</textblock>
 
 <font color="blue">initial </font><font color="blue">algorithm </font>
@@ -139,14 +148,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Utilities.Reporad1c8d3c0668f525ArrayI.png" ALT="Buildings.Utilities.Reports.printRealArray" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Reports.printRealArray"></A><A HREF="Buildings_Utilities_Reports.html#Buildings.Utilities.Reports"
 >Buildings.Utilities.Reports</A>.printRealArray</H2>
-<B>Print string to terminal or file</B><p></P>
-<P></P><H3>Information</H3>
+<B>Print string to terminal or file</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 Function that prints a real array to an output file.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -161,10 +170,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>String</TD><TD>outStr</TD><TD>String to be printed</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> printRealArray <font color="darkgreen">&quot;Print string to terminal or file&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A>;
   <font color="blue">input </font>Real[:] x <font color="darkgreen">&quot;Input to be printed&quot;</font>;
   <font color="blue">input </font>String fileName=&quot;&quot; <font color="darkgreen">&quot;File where to print (empty string is the terminal)&quot;</font>;
@@ -182,6 +191,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>printRealArray;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:31:49 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:46:53 2013.
 </address></BODY>
 </HTML>

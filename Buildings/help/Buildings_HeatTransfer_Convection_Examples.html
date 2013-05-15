@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Convection.Examples"></A><A HREF="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection"
 >Buildings.HeatTransfer.Convection</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.HeatTransfer.Convection</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Co7f48dc4b8119a8e2eriorS.png" ALT="Buildings.HeatTransfer.Convection.Examples.Exterior" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Convection_Examples.html#Buildings.HeatTransfer.Convection.Examples.Exterior"
@@ -53,25 +62,25 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Co7f48dc4b8119a8e2eriorI.png" ALT="Buildings.HeatTransfer.Convection.Examples.Exterior" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Convection.Examples.Exterior"></A><A HREF="Buildings_HeatTransfer_Convection_Examples.html#Buildings.HeatTransfer.Convection.Examples"
 >Buildings.HeatTransfer.Convection.Examples</A>.Exterior</H2>
-<B>Test model for exterior heat transfer coefficients</B><p></P>
+<B>Test model for exterior heat transfer coefficients</B><p>
 <IMG SRC="Buildings.HeatTransfer.Co7f48dc4b8119a8e2eriorD.png" ALT="Buildings.HeatTransfer.Convection.Examples.Exterior">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This example tests the convective heat transfer models for exterior surfaces.
 From <i>t=0...3600</i> seconds, the wind traverses from North to West to South to East and back to
 North. The plot shows the influence of the wind direction on the forced convection
 coefficient for wall surfaces that face North, West, East and South.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Exterior <font color="darkgreen">&quot;Test model for exterior heat transfer coefficients&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> T1(k=290.15);
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
 >Buildings.HeatTransfer.Sources.FixedTemperature</A> TB(T=293.15);
@@ -117,10 +126,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.HeatTransfer.Sources.FixedTemperature</A> TB2(T=293.15);
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
 >Buildings.HeatTransfer.Sources.FixedTemperature</A> TB3(T=293.15);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> direction(duration=3600, height=2*3.14159) <font color="darkgreen">
     &quot;Wind direction (0=from north)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> vWin(k=2) <font color="darkgreen">&quot;Wind speed&quot;</font>;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(T1.y, TA4.T);
@@ -152,22 +161,22 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Co7f48dc4b8119a8e2eriorI.png" ALT="Buildings.HeatTransfer.Convection.Examples.Interior" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Convection.Examples.Interior"></A><A HREF="Buildings_HeatTransfer_Convection_Examples.html#Buildings.HeatTransfer.Convection.Examples"
 >Buildings.HeatTransfer.Convection.Examples</A>.Interior</H2>
-<B>Test model for convective heat transfer coefficients</B><p></P>
+<B>Test model for convective heat transfer coefficients</B><p>
 <IMG SRC="Buildings.HeatTransfer.Co4de5c5fd0119a887eriorD.png" ALT="Buildings.HeatTransfer.Convection.Examples.Interior">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This example tests the convective heat transfer models.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Interior <font color="darkgreen">&quot;Test model for convective heat transfer coefficients&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> step(
     duration=1,
     startTime=0,
@@ -226,6 +235,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Interior;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:09 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:45:16 2013.
 </address></BODY>
 </HTML>

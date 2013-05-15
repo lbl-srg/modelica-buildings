@@ -17,25 +17,34 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Controls<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses"
 >Buildings.Examples.ChillerPlant.BaseClasses</A>.Controls</H2>
 <B>Package with control components for Buildings.Examples.ChillerPlant</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains component models that are used to construct the control system in
 <A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
 >Buildings.Examples.ChillerPlant</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Examples.Chille185e20d8bdde5cc2witchS.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch"
@@ -70,9 +79,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chille185e20d8bdde5cc2witchI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.ChillerSwitch</H2>
-<B>Control unit for enabling/disabling chiller</B><p></P>
+<B>Control unit for enabling/disabling chiller</B><p>
 <IMG SRC="Buildings.Examples.Chille185e20d8bdde5cc2witchD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 The controls for enabling/disabling chiller are as follows:
 <ul>
@@ -89,50 +98,50 @@ The chiller is disabled when
 </ul>
 where <i>T<sub>Chi_CHWST</sub></i> is chiller chilled water supply temperature, <i>T<sub>ChiSet</sub></i> is set temperature for chilled water leaving chiller, and <i>T<sub>DeaBan</sub></i> is dead band to prevent short cycling. 
 <pre>
-</PRE><P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+</PRE><P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>deaBan</TD><TD>&nbsp;</TD><TD>Dead band of temperature to prevent chiller short cycling [K]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>chiCHWST</TD><TD>Chiller chilled water supply temperature (water entering chiller) [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
 >BooleanOutput</A></TD><TD>y</TD><TD>Control signal for chiller. 1: Enable, 0: Disable</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TSet</TD><TD>Set temperature of chiller [K]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> ChillerSwitch <font color="darkgreen">&quot;Control unit for enabling/disabling chiller&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> chiCHWST(
     <font color="blue">final </font>quantity=&quot;Temperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <font color="darkgreen">
     &quot;Chiller chilled water supply temperature (water entering chiller)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
 >Modelica.Blocks.Interfaces.BooleanOutput</A> y <font color="darkgreen">
     &quot;Control signal for chiller. 1: Enable, 0: Disable&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TSet(
     <font color="blue">final </font>quantity=&quot;Temperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <font color="darkgreen">&quot;Set temperature of chiller&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> deaBan <font color="darkgreen">
     &quot;Dead band of temperature to prevent chiller short cycling&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Hysteresis"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Hysteresis"
 >Modelica.Blocks.Logical.Hysteresis</A> hysteresis(uLow=0, uHigh=deaBan);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</A> add(k1=+1, k2=-1);</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(hysteresis.y, y);</textblock>
@@ -150,15 +159,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chille68f475eb386a85cdinusUI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.KMinusU</H2>
-<B>Output y=k-u</B><p></P>
+<B>Output y=k-u</B><p>
 <IMG SRC="Buildings.Examples.Chille68f475eb386a85cdinusUD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This component computes the value of
 <p align="left" style="font-style:italic;"> y = k - u. </p>
 <pre>
-</PRE><P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+</PRE><P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -168,21 +177,21 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u</TD><TD>Input</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Output</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> KMinusU <font color="darkgreen">&quot;Output y=k-u&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 <font color="blue">public </font>
   <font color="blue">parameter </font>Real k <font color="darkgreen">&quot;Sum of u and y&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> u <font color="darkgreen">&quot;Input&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> y <font color="darkgreen">&quot;Output&quot;</font>;</textblock>
 <font color="blue">equation </font>
   y = k - u;
@@ -195,9 +204,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chille53ac86a0e07312c8seTwoI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.LinearPiecewiseTwo</H2>
-<B>A two-pieces linear piecewise function</B><p></P>
+<B>A two-pieces linear piecewise function</B><p>
 <IMG SRC="Buildings.Examples.Chille53ac86a0e07312c8seTwoD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component calcuates the output according to two piecewise linear function as 
@@ -216,8 +225,8 @@ This component calcuates the output according to two piecewise linear function a
        (y<sub>21</sub>-y<sub>20</sub>)/(x<sub>2</sub>-x<sub>1</sub>)</i></td>
 </tr>
 </table> 
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -233,15 +242,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u</TD><TD>Set point</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y[2]</TD><TD>Connectors of Real output signal</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> LinearPiecewiseTwo <font color="darkgreen">&quot;A two-pieces linear piecewise function&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
   <font color="blue">parameter </font>Real x0 <font color="darkgreen">&quot;First interval [x0, x1]&quot;</font>;
   <font color="blue">parameter </font>Real x1 <font color="darkgreen">&quot;First interval [x0, x1] and second interval (x1, x2]&quot;</font>;
@@ -250,9 +259,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="blue">parameter </font>Real y11 <font color="darkgreen">&quot;y[1] at u = x1&quot;</font>;
   <font color="blue">parameter </font>Real y20 <font color="darkgreen">&quot;y[2] at u = x1&quot;</font>;
   <font color="blue">parameter </font>Real y21 <font color="darkgreen">&quot;y[2] at u = x2&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> u <font color="darkgreen">&quot;Set point&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> y[2] <font color="darkgreen">&quot;Connectors of Real output signal&quot;</font>;
   <A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.Table"
 >Buildings.Controls.SetPoints.Table</A> y1Tab(table=[x0, y10; x1, y11; x2, y11]) <font color="darkgreen">
@@ -274,13 +283,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chillea603ef0e56637393unterI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.RequestCounter" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.RequestCounter"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.RequestCounter</H2>
-<B>Count the number of actuators that have request</B><p></P>
+<B>Count the number of actuators that have request</B><p>
 <IMG SRC="Buildings.Examples.Chillea603ef0e56637393unterD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.RequestCounter">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
    This model counts the number of requests sent by actuators. A request is triggerred when an input singal <code>uAct[i]</code> is larger than <code>uTri</code>.
-   <P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+   <P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -291,23 +300,23 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
 >IntegerOutput</A></TD><TD>nInc</TD><TD>Number of actuators requesting control signal increase</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>uAct[nAct]</TD><TD>Input signal from actuators</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> RequestCounter <font color="darkgreen">
   &quot;Count the number of actuators that have request&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
   <font color="blue">parameter </font>Integer nAct <font color="darkgreen">&quot;Number of actuators&quot;</font>;
   <font color="blue">parameter </font>Real uTri <font color="darkgreen">&quot;Value to trigger a request from actuator&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
 >Modelica.Blocks.Interfaces.IntegerOutput</A> nInc <font color="darkgreen">
     &quot;Number of actuators requesting control signal increase&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> uAct[nAct] <font color="darkgreen">&quot;Input signal from actuators&quot;</font>;</textblock>
 <font color="blue">algorithm </font>
   nInc := 0;
@@ -325,9 +334,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chillecc60e43d7e68836cspondI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.TrimAndRespond</H2>
-<B>Trim and respond logic</B><p></P>
+<B>Trim and respond logic</B><p>
 <IMG SRC="Buildings.Examples.Chillecc60e43d7e68836cspondD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
    This model implements the trim and respond logic. The model samples the outputs of actuators every <code>tSam</code>.
@@ -337,15 +346,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <li>If <code>u &lt; 0</code>, then <code>y = y - yDec</code>.</li>
 </ul>
 </p>
-   <P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteSISO"
+   <P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteSISO"
 >Modelica.Blocks.Interfaces.DiscreteSISO</A> (Single Input Single Output discrete control block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>samplePeriod</TD><TD>&nbsp;</TD><TD>Sample period of component [s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</A></TD><TD>startTime</TD><TD>0</TD><TD>First sample time instant [s]</TD></TR>
 <TR><TD>Real</TD><TD>uTri</TD><TD>&nbsp;</TD><TD>Value to triggering the request for actuator</TD></TR>
 <TR><TD>Real</TD><TD>yEqu0</TD><TD>&nbsp;</TD><TD>y setpoint when equipment starts</TD></TR>
@@ -355,42 +364,42 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u</TD><TD>Continuous input signal</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Continuous output signal</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> TrimAndRespond <font color="darkgreen">&quot;Trim and respond logic&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteSISO"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteSISO"
 >Modelica.Blocks.Interfaces.DiscreteSISO</A>;
   <font color="blue">parameter </font>Real uTri <font color="darkgreen">&quot;Value to triggering the request for actuator&quot;</font>;
   <font color="blue">parameter </font>Real yEqu0 <font color="darkgreen">&quot;y setpoint when equipment starts&quot;</font>;
   <font color="blue">parameter </font>Real yDec(max=0) <font color="darkgreen">&quot;y decrement (must be negative)&quot;</font>;
   <font color="blue">parameter </font>Real yInc(min=0) <font color="darkgreen">&quot;y increment (must be positive)&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterEqualThreshold"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterEqualThreshold"
 >Modelica.Blocks.Logical.GreaterEqualThreshold</A>
                                            incY(threshold=0) <font color="darkgreen">
     &quot;Outputs true if y needs to be increased&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
 >Modelica.Blocks.Logical.Switch</A> swi;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.Sampler"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.Sampler"
 >Modelica.Blocks.Discrete.Sampler</A> sam(samplePeriod=samplePeriod) <font color="darkgreen">&quot;Sampler&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> conYDec(k=yDec) <font color="darkgreen">&quot;y decrease&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> conYInc(k=yInc) <font color="darkgreen">&quot;y increase&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.UnitDelay"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.UnitDelay"
 >Modelica.Blocks.Discrete.UnitDelay</A> uniDel1(
     y_start=yEqu0,
     samplePeriod=samplePeriod,
     startTime=samplePeriod);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</A> add;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear.Limiter"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear.Limiter"
 >Modelica.Blocks.Nonlinear.Limiter</A> lim(uMax=1, uMin=0) <font color="darkgreen">&quot;State limiter&quot;</font>;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(lim.y, y);</textblock>
@@ -415,32 +424,32 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chille204c27065169fa82ationI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.TrimAndRespondContinuousTimeApproximation</H2>
-<B>Trim and respond logic</B><p></P>
+<B>Trim and respond logic</B><p>
 <IMG SRC="Buildings.Examples.Chille204c27065169fa82ationD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
    This model implements a continuous time approximation to the trim and respond
    control algorithm.
 </p>
-   <P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+   <P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</A> (Single Input Single Output continuous control block).
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u</TD><TD>Connector of Real input signal</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> TrimAndRespondContinuousTimeApproximation <font color="darkgreen">
   &quot;Trim and respond logic&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</A>;
 
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
@@ -452,7 +461,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=120,
     k=0.1);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> const(k=0);</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(const.y, conPID.u_s);
@@ -467,9 +476,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.Chillee4403c6d2f2446d2ntrolI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.WSEControl</H2>
-<B>Control unit for WSE</B><p></P>
+<B>Control unit for WSE</B><p>
 <IMG SRC="Buildings.Examples.Chillee4403c6d2f2446d2ntrolD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This component decides if the WSE is set to on or off.
@@ -497,89 +506,89 @@ where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for t
 <i>T<sub>WetBul</sub></i> is the wet bulb temperature, <i>T<sub>TowApp</sub></i> is the cooling tower approach, <i>T<sub>WSEApp</sub></i> is the approach for the WSE, <i>T<sub>WSE_CHWRT</sub></i> is the chilled water return temperature for the WSE, and <i>T<sub>WSE_CWST</sub></i> is the condenser water return temperature for the WSE.
 </p> 
 <pre>
-</PRE><P></P>
+</PRE><P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dTOff</TD><TD>1</TD><TD>Temperature difference to switch WSE off [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dTW</TD><TD>1</TD><TD>Temperature difference that is added to WSE on guard [K]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>wseCHWST</TD><TD>WSE chilled water supply temperature (water entering WSE) [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y2</TD><TD>Control signal for chiller shutoff valve</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TWetBul</TD><TD>Wet bulb temperature [K]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>towTApp</TD><TD>Cooling tower approach [K]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>wseCWST</TD><TD>WSE condenser water supply temperature (water entering WSE) [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y1</TD><TD>Control signal for WSE shutoff valve</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> WSEControl <font color="darkgreen">&quot;Control unit for WSE&quot;</font>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >Modelica.SIunits.TemperatureDifference</A> dTOff = 1 <font color="darkgreen">
     &quot;Temperature difference to switch WSE off&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >Modelica.SIunits.TemperatureDifference</A> dTW = 1 <font color="darkgreen">
     &quot;Temperature difference that is added to WSE on guard&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> wseCHWST(
     <font color="blue">final </font>quantity=&quot;Temperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <font color="darkgreen">
     &quot;WSE chilled water supply temperature (water entering WSE)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> y2 <font color="darkgreen">
     &quot;Control signal for chiller shutoff valve&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TWetBul(
     <font color="blue">final </font>quantity=&quot;Temperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <font color="darkgreen">&quot;Wet bulb temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> towTApp(
     <font color="blue">final </font>quantity=&quot;Temperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <font color="darkgreen">&quot;Cooling tower approach&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> wseCWST(
     <font color="blue">final </font>quantity=&quot;Temperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <font color="darkgreen">
     &quot;WSE condenser water supply temperature (water entering WSE)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
 >Modelica.Blocks.Math.BooleanToReal</A> booToRea2;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> y1 <font color="darkgreen">
     &quot;Control signal for WSE shutoff valve&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica_StateGraph2 2.0.1/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
+  <A HREF="../../msl/Modelica_StateGraph2 2.0.1/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
 >Modelica_StateGraph2.Step</A> off(
     use_activePort=true,
     nOut=1,
     nIn=1,
     <font color="blue">final </font>initialStep=true);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica_StateGraph2 2.0.1/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
+  <A HREF="../../msl/Modelica_StateGraph2 2.0.1/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
 >Modelica_StateGraph2.Transition</A> T1(delayedTransition=true, waitTime=1200,
     use_conditionPort=false,
     condition=wseCHWST &gt; 0.9*TWetBul + towTApp + dTW);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica_StateGraph2 2.0.1/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
+  <A HREF="../../msl/Modelica_StateGraph2 2.0.1/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
 >Modelica_StateGraph2.Step</A> on(nIn=1, nOut=1,
     <font color="blue">final </font>initialStep=false);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica_StateGraph2 2.0.1/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
+  <A HREF="../../msl/Modelica_StateGraph2 2.0.1/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
 >Modelica_StateGraph2.Transition</A> T2(delayedTransition=true, waitTime=1200,
     use_conditionPort=false,
     condition=wseCHWST &lt; wseCWST + dTOff);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
 >Modelica.Blocks.Math.BooleanToReal</A> booToRea1(realTrue=0, realFalse=1);</textblock>
 <font color="blue">equation </font>
 
@@ -594,6 +603,6 @@ where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for t
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>WSEControl;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:32:31 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:47:34 2013.
 </address></BODY>
 </HTML>

@@ -17,18 +17,27 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Controls<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Examples.DualFanDualDuct.Controls"></A><A HREF="Buildings_Examples_DualFanDualDuct.html#Buildings.Examples.DualFanDualDuct"
 >Buildings.Examples.DualFanDualDuct</A>.Controls</H2>
 <B>Package with controller models</B>
-<P></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Examples.DualFa2c425dcef754e6b4mplesS.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_DualFanDualDuct_Controls_Examples.html#Buildings.Examples.DualFanDualDuct.Controls.Examples"
@@ -54,44 +63,44 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.DualFa59bcbbedc084117angBoxI.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.RoomMixingBox" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.DualFanDualDuct.Controls.RoomMixingBox"></A><A HREF="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls"
 >Buildings.Examples.DualFanDualDuct.Controls</A>.RoomMixingBox</H2>
-<B>Controller for room mixing box</B><p></P>
+<B>Controller for room mixing box</B><p>
 <IMG SRC="Buildings.Examples.DualFa59bcbbedc084117angBoxD.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.RoomMixingBox">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 This controller outputs the control signal for the air damper for the hot deck and the cold deck.
 The control signal for the hot deck is the larger of the two signals needed to track the room heating
 temperature setpoint, and the minimum air flow rate.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_min</TD><TD>&nbsp;</TD><TD>Minimum mass flow rate [kg/s]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TRoo</TD><TD>Measured room temperature [K]</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>yHot</TD><TD>Signal for hot air damper</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>yCol</TD><TD>Signal for cold deck air damper</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>mAir_flow</TD><TD>Measured air mass flow rate into the room</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TRooSetHea</TD><TD>Room temperature setpoint for heating [K]</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TRooSetCoo</TD><TD>Room temperature setpoint for cooling [K]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> RoomMixingBox <font color="darkgreen">&quot;Controller for room mixing box&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_min <font color="darkgreen">&quot;Minimum mass flow rate&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
 >Buildings.Controls.Continuous.LimPID</A> conHea(
@@ -111,15 +120,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
     Ti=120) <font color="darkgreen">&quot;Controller for cooling (acts on damper)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TRoo(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                           <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
     &quot;Measured room temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> yHot <font color="darkgreen">&quot;Signal for hot air damper&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> yCol <font color="darkgreen">&quot;Signal for cold deck air damper&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> mAir_flow <font color="darkgreen">
     &quot;Measured air mass flow rate into the room&quot;</font>;
   <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
@@ -131,31 +140,31 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
     Ti=120) <font color="darkgreen">&quot;Controller for mass flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> mAirSet(k=m_flow_min) <font color="darkgreen">
     &quot;Set point for minimum air flow rate&quot;</font>;
   <A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math.SmoothMax"
 >Buildings.Utilities.Math.SmoothMax</A> smoothMaxHea(deltaX=0.01) <font color="darkgreen">
     &quot;Adds control signal for minimum flow rate of zone&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TRooSetHea(unit=&quot;K&quot;) <font color="darkgreen">
     &quot;Room temperature setpoint for heating&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TRooSetCoo(unit=&quot;K&quot;) <font color="darkgreen">
     &quot;Room temperature setpoint for cooling&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> gaiCoo(y=
         <font color="red">Buildings.Utilities.Math.Functions.smoothLimit</font>(
         (TRoo - TRooSetHea)/(TRooSetCoo - TRooSetHea),
         0,
         1,
         0.01)) <font color="darkgreen">&quot;Gain for adding minimum flow rate to cooling signal&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> gaiHea(y=1 - gaiCoo.y) <font color="darkgreen">
     &quot;Gain for adding minimum flow rate to cooling signal&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
 >Modelica.Blocks.Math.Product</A> product;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
 >Modelica.Blocks.Math.Product</A> product1;
   <A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math.SmoothMax"
 >Buildings.Utilities.Math.SmoothMax</A> smoothMaxCoo(deltaX=0.01) <font color="darkgreen">
@@ -186,17 +195,17 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.DualFa072f3213c26605e2pointI.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.CoolingCoilTemperatureSetpoint" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.DualFanDualDuct.Controls.CoolingCoilTemperatureSetpoint"></A><A HREF="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls"
 >Buildings.Examples.DualFanDualDuct.Controls</A>.CoolingCoilTemperatureSetpoint</H2>
-<B>Set point scheduler for cooling coil</B><p></P>
+<B>Set point scheduler for cooling coil</B><p>
 <IMG SRC="Buildings.Examples.DualFa072f3213c26605e2pointD.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.CoolingCoilTemperatureSetpoint">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TOn</TD><TD>&nbsp;</TD><TD>Setpoint during on [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TOff</TD><TD>&nbsp;</TD><TD>Setpoint during off [K]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
@@ -204,31 +213,31 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
 >ControlBus</A></TD><TD>controlBus</TD><TD>&nbsp;</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TSet</TD><TD>Temperature set point</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> CoolingCoilTemperatureSetpoint <font color="darkgreen">
   &quot;Set point scheduler for cooling coil&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
   <font color="blue">import </font><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.OperationModes"
 >Buildings.Examples.VAVReheat.Controls.OperationModes</A>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TOn <font color="darkgreen">&quot;Setpoint during on&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TOff <font color="darkgreen">&quot;Setpoint during off&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> TSetPoi(y=<font color="blue">if </font>(mode.y ==
         OperationModes.occupied<font color="blue"> or </font>mode.y == OperationModes.unoccupiedPreCool<font color="blue">
          or </font>mode.y == OperationModes.safety)<font color="blue"> then </font>TOn<font color="blue"> else </font>TOff) <font color="darkgreen">
     &quot;Air temperature setpoint&quot;</font>;
   <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
 >VAVReheat.Controls.ControlBus</A> controlBus;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.IntegerPassThrough"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.IntegerPassThrough"
 >Modelica.Blocks.Routing.IntegerPassThrough</A> mode;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TSet <font color="darkgreen">&quot;Temperature set point&quot;</font>;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(controlBus.controlMode, mode.u);
@@ -243,17 +252,17 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.DualFa072f3213c26605e2pointI.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.HeatingCoilTemperatureSetpoint" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.DualFanDualDuct.Controls.HeatingCoilTemperatureSetpoint"></A><A HREF="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls"
 >Buildings.Examples.DualFanDualDuct.Controls</A>.HeatingCoilTemperatureSetpoint</H2>
-<B>Set point scheduler for heating coil</B><p></P>
+<B>Set point scheduler for heating coil</B><p>
 <IMG SRC="Buildings.Examples.DualFa072f3213c26605e2pointD.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.HeatingCoilTemperatureSetpoint">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 Extends from <A HREF="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls.CoolingCoilTemperatureSetpoint"
 >CoolingCoilTemperatureSetpoint</A> (Set point scheduler for cooling coil).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TOn</TD><TD>&nbsp;</TD><TD>Setpoint during on [K]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TOff</TD><TD>&nbsp;</TD><TD>Setpoint during off [K]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
@@ -261,10 +270,10 @@ Extends from <A HREF="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
 >ControlBus</A></TD><TD>controlBus</TD><TD>&nbsp;</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TSet</TD><TD>Temperature set point</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> HeatingCoilTemperatureSetpoint <font color="darkgreen">
   &quot;Set point scheduler for heating coil&quot;</font>
@@ -282,10 +291,10 @@ Extends from <A HREF="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings
 <H2><IMG SRC="Buildings.Examples.DualFa933eaae2866abfd2anVFDI.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.FanVFD" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.DualFanDualDuct.Controls.FanVFD"></A><A HREF="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls"
 >Buildings.Examples.DualFanDualDuct.Controls</A>.FanVFD</H2>
-<B>Controller for fan revolution</B><p></P>
+<B>Controller for fan revolution</B><p>
 <IMG SRC="Buildings.Examples.DualFa933eaae2866abfd2anVFDD.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.FanVFD">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</A> (Single Input Single Output continuous control block).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -296,19 +305,19 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u</TD><TD>Connector of Real input signal</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 <TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
 >ControlBus</A></TD><TD>controlBus</TD><TD>&nbsp;</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u_m</TD><TD>Connector of measurement input signal</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> FanVFD <font color="darkgreen">&quot;Controller for fan revolution&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</A>;
   <font color="blue">import </font><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.OperationModes"
 >Buildings.Examples.VAVReheat.Controls.OperationModes</A>;
@@ -319,26 +328,26 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=60,
     Ti=10) <font color="darkgreen">&quot;Controller&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gaiMea(k=1/xSet_nominal) <font color="darkgreen">
     &quot;Gain to normalize measurement signal&quot;</font>;</textblock>
   <font color="blue">parameter </font>Real xSet_nominal <font color="darkgreen">&quot;Nominal setpoint (used for normalization)&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
 >VAVReheat.Controls.ControlBus</A> controlBus;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Extractor"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Extractor"
 >Modelica.Blocks.Routing.Extractor</A> extractor(nin=6);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> off(k=r_N_min) <font color="darkgreen">&quot;Off signal&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> on(k=1) <font color="darkgreen">&quot;On signal&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gaiSet(k=1/xSet_nominal) <font color="darkgreen">
     &quot;Gain to normalize setpoint signal&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> u_m <font color="darkgreen">
     &quot;Connector of measurement input signal&quot;</font>;</textblock>
   <font color="blue">parameter </font>Real r_N_min=0.01 <font color="darkgreen">&quot;Minimum normalized fan speed&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.FirstOrder"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.FirstOrder"
 >Modelica.Blocks.Continuous.FirstOrder</A> firstOrder(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=r_N_min,
@@ -360,6 +369,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>FanVFD;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:35:24 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:50:26 2013.
 </address></BODY>
 </HTML>

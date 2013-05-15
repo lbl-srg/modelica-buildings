@@ -17,18 +17,27 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE ThermalZones<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Examples.DualFanDualDuct.ThermalZones"></A><A HREF="Buildings_Examples_DualFanDualDuct.html#Buildings.Examples.DualFanDualDuct"
 >Buildings.Examples.DualFanDualDuct</A>.ThermalZones</H2>
 <B>Package with models for the thermal zones</B>
-<P></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<P>
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Examples.DualFa1eee5ef8a44b3216ranchS.png" ALT="Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_DualFanDualDuct_ThermalZones.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch"
@@ -42,65 +51,65 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Examples.DualFa1eee5ef8a44b3216ranchI.png" ALT="Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch"></A><A HREF="Buildings_Examples_DualFanDualDuct_ThermalZones.html#Buildings.Examples.DualFanDualDuct.ThermalZones"
 >Buildings.Examples.DualFanDualDuct.ThermalZones</A>.SupplyBranch</H2>
-<B>Supply branch of a dual duct system</B><p></P>
+<B>Supply branch of a dual duct system</B><p>
 <IMG SRC="Buildings.Examples.DualFa1eee5ef8a44b3216ranchD.png" ALT="Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch">
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package MediumA</TD><TD>Modelica.Media.Interfaces.Pa...</TD><TD>Medium model for air</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</A></TD><TD>energyDynamicsJunctions</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance in junction volumes</TD></TR>
 <TR><TD>Boolean</TD><TD>dynamicBalanceJunction</TD><TD>true</TD><TD>Set to true to use a dynamic balance for junction volumes, which often leads to smaller systems of equations</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Mass flow rate cold air deck [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mAirHot_flow_nominal</TD><TD>0.3*m_flow_nominal</TD><TD>Mass flow rate hot air deck [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mAirCol_flow_nominal</TD><TD>m_flow_nominal</TD><TD>Mass flow rate cold air deck [kg/s]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Volume</A></TD><TD>VRoo</TD><TD>&nbsp;</TD><TD>Room volume [m3]</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package MediumA</TD><TD>Medium model for air</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_aHot</TD><TD>Connector for hot deck</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_aCol</TD><TD>Connector for cold deck</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a1 to port_b1)</TD></TR>
 <TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
 >ControlBus</A></TD><TD>controlBus</TD><TD>&nbsp;</TD></TR>
-<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TRoo</TD><TD>Measured room temperature</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>p_relCol</TD><TD>Pressure signal of cold deck</TD></TR>
-<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>p_relHot</TD><TD>Pressure signal of hot deck</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SupplyBranch <font color="darkgreen">&quot;Supply branch of a dual duct system&quot;</font>
-  <font color="blue">replaceable </font><font color="blue">package</font> MediumA = <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+  <font color="blue">replaceable </font><font color="blue">package</font> MediumA = <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">
     &quot;Medium model for air&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >Modelica.Fluid.Interfaces.FluidPort_a</A> port_aHot(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         <A HREF="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
 >MediumA</A>) <font color="darkgreen">&quot;Connector for hot deck&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >Modelica.Fluid.Interfaces.FluidPort_a</A> port_aCol(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         <A HREF="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
 >MediumA</A>) <font color="darkgreen">&quot;Connector for cold deck&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >Modelica.Fluid.Interfaces.FluidPort_a</A> port_b(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         <A HREF="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
 >MediumA</A>) <font color="darkgreen">
     &quot;Fluid connector b (positive design flow direction is from port_a1 to port_b1)&quot;</font>;</textblock>
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Modelica.Fluid.Types.Dynamics</A> energyDynamicsJunctions=Modelica.Fluid.Types.Dynamics.FixedInitial <font color="darkgreen">
     &quot;Formulation of energy balance in junction volumes&quot;</font>;
   <font color="blue">parameter </font>Boolean dynamicBalanceJunction=true <font color="darkgreen">
@@ -110,17 +119,17 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <font color="blue">parameter </font>Boolean linearizeFlowResistance=false <font color="darkgreen">
     &quot;= true, use linear relation between m_flow and dp for any flow rate&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal <font color="darkgreen">
     &quot;Mass flow rate cold air deck&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mAirHot_flow_nominal = 0.3*m_flow_nominal <font color="darkgreen">
     &quot;Mass flow rate hot air deck&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mAirCol_flow_nominal = m_flow_nominal <font color="darkgreen">
     &quot;Mass flow rate cold air deck&quot;</font>;
 
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Modelica.SIunits.Volume</A> VRoo <font color="darkgreen">&quot;Room volume&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls.RoomMixingBox"
 >Controls.RoomMixingBox</A> con(m_flow_min=VRoo*3*1.2/3600) <font color="darkgreen">
@@ -152,12 +161,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Sensors.MassFlowRate</A> senMasFlo(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         <A HREF="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
 >MediumA</A>) <font color="darkgreen">&quot;Sensor for mass flow rate&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> fraMasFlo(k=1/m_flow_nominal) <font color="darkgreen">
     &quot;Fraction of mass flow rate, relative to nominal flow&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> ACH(k=1/VRoo/1.2*3600) <font color="darkgreen">&quot;Air change per hour&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TRoo <font color="darkgreen">&quot;Measured room temperature&quot;</font>;
   <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
 >Fluid.FixedResistances.SplitterFixedResistanceDpM</A> mix(
@@ -180,9 +189,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Fluid.Sensors.RelativePressure</A> senRelPreCol(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         <A HREF="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
 >MediumA</A>) <font color="darkgreen">&quot;Relative pressure cold deck (compared to room pressure)&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> p_relCol <font color="darkgreen">&quot;Pressure signal of cold deck&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> p_relHot <font color="darkgreen">&quot;Pressure signal of hot deck&quot;</font>;
   <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
 >Fluid.Sensors.TemperatureTwoPort</A> TSup(<font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
@@ -213,6 +222,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>SupplyBranch;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:35:26 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:50:29 2013.
 </address></BODY>
 </HTML>

@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Examples"></A><A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows"
 >Buildings.HeatTransfer.Windows</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -33,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.HeatTransfer.Windows</a>.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Widbbc42178240ed63nsferS.png" ALT="Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer"
@@ -62,15 +71,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Widbbc42178240ed63nsferI.png" ALT="Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer"></A><A HREF="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
 >Buildings.HeatTransfer.Windows.Examples</A>.BoundaryHeatTransfer</H2>
-<B>Test model for the heat transfer at the window boundary condition</B><p></P>
+<B>Test model for the heat transfer at the window boundary condition</B><p>
 <IMG SRC="Buildings.HeatTransfer.Widbbc42178240ed63nsferD.png" ALT="Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>A</TD><TD>1</TD><TD>Window surface area [m2]</TD></TR>
 <TR><TD>Real</TD><TD>fFra</TD><TD>0.2</TD><TD>Fraction of frame, = frame area divided by total area</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeRadiation</TD><TD>false</TD><TD>Set to true to linearize emissive power</TD></TR>
@@ -83,15 +92,15 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
 >DoubleClearAir13Clear</A></TD><TD>glaSys</TD><TD>&nbsp;</TD><TD>Parameters for glazing system</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> BoundaryHeatTransfer <font color="darkgreen">
   &quot;Test model for the heat transfer at the window boundary condition&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</A> A=1 <font color="darkgreen">&quot;Window surface area&quot;</font>;
   <font color="blue">parameter </font>Real fFra=0.2 <font color="darkgreen">
     &quot;Fraction of frame, = frame area divided by total area&quot;</font>;
@@ -108,19 +117,19 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade,
     vieFacSky=0.5) <font color="darkgreen">&quot;Exterior convective heat transfer&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TOut(y(unit=&quot;K&quot;), k=273.15) <font color="darkgreen">
     &quot;Outside air temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TRooAir(k=293.15, y(unit=&quot;K&quot;)) <font color="darkgreen">
     &quot;Room air temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TRooRad(k=293.15, y(unit=&quot;K&quot;)) <font color="darkgreen">
     &quot;Room radiative temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> uSha(duration=1, startTime=0) <font color="darkgreen">
     &quot;Shading control signal&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> vWin(k=1) <font color="darkgreen">&quot;Wind speed&quot;</font>;
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
 >Buildings.HeatTransfer.Sources.PrescribedTemperature</A> TOuts <font color="darkgreen">
@@ -166,7 +175,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
 >Buildings.HeatTransfer.Sources.PrescribedTemperature</A> TRAir3 <font color="darkgreen">
     &quot;Room air temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> QAbsSW_flow(k=0) <font color="darkgreen">&quot;Absorbed solar radiation&quot;</font>;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(uSha.y, extCon.uSha);
@@ -200,17 +209,17 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Widbbc42178240ed63nsferI.png" ALT="Buildings.HeatTransfer.Windows.Examples.FixedShade" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.Examples.FixedShade"></A><A HREF="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
 >Buildings.HeatTransfer.Windows.Examples</A>.FixedShade</H2>
-<B>Test model for the fixed shade model</B><p></P>
+<B>Test model for the fixed shade model</B><p>
 <IMG SRC="Buildings.HeatTransfer.Wi08ff5147d0ee924fShadeD.png" ALT="Buildings.HeatTransfer.Windows.Examples.FixedShade">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This model tests window overhang and side fins. There are three instances of <code>sha</code>.
 The first instance models an overhang, the second models side fins and the third has neither an overhang
 nor a side fin.
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -220,10 +229,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
 >DoubleClearAir13Clear</A></TD><TD>glaSys</TD><TD>&nbsp;</TD><TD>Glazing system</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FixedShade <font color="darkgreen">&quot;Test model for the fixed shade model&quot;</font>
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.FixedShade"
@@ -238,9 +247,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     lat=weaDat.lat,
     til=Buildings.HeatTransfer.Types.Tilt.Wall,
     azi=Buildings.HeatTransfer.Types.Azimuth.S) <font color="darkgreen">&quot;Direct solar irradiation&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
 >Modelica.Blocks.Routing.Replicator</A> H(nout=4) <font color="darkgreen">&quot;Replicator&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
 >Modelica.Blocks.Routing.Replicator</A> incAng(nout=4) <font color="darkgreen">&quot;Replicator&quot;</font>;
   <font color="blue">parameter </font><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow"
 >Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow</A> conPar[4](
@@ -285,9 +294,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Widbbc42178240ed63nsferI.png" ALT="Buildings.HeatTransfer.Windows.Examples.Overhang" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.Examples.Overhang"></A><A HREF="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
 >Buildings.HeatTransfer.Windows.Examples</A>.Overhang</H2>
-<B>This example tests the window overhang model</B><p></P>
+<B>This example tests the window overhang model</B><p>
 <IMG SRC="Buildings.HeatTransfer.Wiaa2dc68451c0f32erhangD.png" ALT="Buildings.HeatTransfer.Windows.Examples.Overhang">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This example demonstrates the use of the overhang model.
@@ -299,15 +308,15 @@ A similar example of an overhang model with more basic components is implemented
 >
 Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang</a>. 
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Overhang <font color="darkgreen">&quot;This example tests the window overhang model&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
@@ -341,9 +350,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Widbbc42178240ed63nsferI.png" ALT="Buildings.HeatTransfer.Windows.Examples.SideFins" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.Examples.SideFins"></A><A HREF="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
 >Buildings.HeatTransfer.Windows.Examples</A>.SideFins</H2>
-<B>This example demonstrates the use of side fins for a window</B><p></P>
+<B>This example demonstrates the use of side fins for a window</B><p>
 <IMG SRC="Buildings.HeatTransfer.Wi767018d992a7d3ddeFinsD.png" ALT="Buildings.HeatTransfer.Windows.Examples.SideFins">
-<P></P><H3>Information</H3>
+<P><H3>Information</H3></P>
 
 <p>
 This example uses the window sidefin model to calculate the fraction of total window area exposed to the sun.</p>
@@ -355,16 +364,16 @@ A similar example of can be found in
 <A HREF="Buildings_HeatTransfer_Windows_BaseClasses_Examples.html#Buildings.HeatTransfer.Windows.BaseClasses.Examples.SideFins"
 >Buildings.HeatTransfer.Windows.BaseClasses.Examples.SideFins</a>. 
 </p>
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SideFins <font color="darkgreen">
   &quot;This example demonstrates the use of side fins for a window&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
@@ -395,23 +404,23 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Wic07f621693a1af49indowI.png" ALT="Buildings.HeatTransfer.Windows.Examples.Window" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.Examples.Window"></A><A HREF="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
 >Buildings.HeatTransfer.Windows.Examples</A>.Window</H2>
-<B>Test model for the window</B><p></P>
+<B>Test model for the window</B><p>
 <IMG SRC="Buildings.HeatTransfer.Wic07f621693a1af49indowD.png" ALT="Buildings.HeatTransfer.Windows.Examples.Window">
-<P></P><H3>Information</H3>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+<P><H3>Information</H3></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>A</TD><TD>1</TD><TD>Window surface area [m2]</TD></TR>
 <TR><TD>Real</TD><TD>fFra</TD><TD>0.2</TD><TD>Fraction of frame, = frame area divided by total area</TD></TR>
 <TR><TD>Boolean</TD><TD>linearize</TD><TD>false</TD><TD>Set to true to linearize emissive power</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>lat</TD><TD>0.34906585039887</TD><TD>Latitude [rad]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>azi</TD><TD>0</TD><TD>Surface azimuth [rad]</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</A></TD><TD>til</TD><TD>1.5707963267949</TD><TD>Surface tilt [rad]</TD></TR>
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
 >DoubleClearAir13Clear</A></TD><TD>glaSys</TD><TD>&nbsp;</TD><TD>&nbsp;</TD></TR>
@@ -422,23 +431,23 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Window <font color="darkgreen">&quot;Test model for the window&quot;</font>
   <font color="blue">import </font><A HREF="Buildings.html#Buildings"
 >Buildings</A>;
-  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</A> A=1 <font color="darkgreen">&quot;Window surface area&quot;</font>;
   <font color="blue">parameter </font>Real fFra=0.2 <font color="darkgreen">
     &quot;Fraction of frame, = frame area divided by total area&quot;</font>;
   <font color="blue">parameter </font>Boolean linearize = false <font color="darkgreen">&quot;Set to true to linearize emissive power&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> lat=0.34906585039887 <font color="darkgreen">&quot;Latitude&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> azi=0 <font color="darkgreen">&quot;Surface azimuth&quot;</font>;
-  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> til=1.5707963267949 <font color="darkgreen">&quot;Surface tilt&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.Window"
 >Buildings.HeatTransfer.Windows.Window</A> window(
@@ -469,10 +478,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade,
     vieFacSky=0.5) <font color="darkgreen">&quot;Exterior convective heat transfer&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TRooAir(k=293.15, y(unit=&quot;K&quot;)) <font color="darkgreen">
     &quot;Room air temperature&quot;</font>;
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> uSha(duration=0.5, startTime=0.25) <font color="darkgreen">
     &quot;Shading control signal&quot;</font>;
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
@@ -503,7 +512,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
                                                         filNam=
         &quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> HRoo(k=0.1) <font color="darkgreen">&quot;Solar irradiation from room&quot;</font>;
   <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation"
 >Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation</A> winRad(
@@ -565,6 +574,6 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Window;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:15 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:45:22 2013.
 </address></BODY>
 </HTML>

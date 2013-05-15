@@ -17,15 +17,24 @@ table   { solid #000; border-collapse: collapse;}
 </style>
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
-<BODY><P></P>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE FlowModels<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.BaseClasses.FlowModels"></A><A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses"
 >Buildings.Fluid.BaseClasses</A>.FlowModels</H2>
 <B>Flow models for pressure drop calculations</B>
-<P></P>
-<P></P><H3>Information</H3>
+<P>
+<P><H3>Information</H3></P>
 
 This package contains a basic flow model that is used by the 
 various models that compute pressure drop.
@@ -41,10 +50,10 @@ detailed pressure drop calculation.
 If a more detailed computation of the flow resistance is needed,
 then a user can use models from the 
 <code>Modelica.Fluid</code> library.
-<P></P>
-Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P></P><H3>Package Content</H3>
+<P><H3>Package Content</H3><p>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.BaseClassa417cb31b9e73fe8on_dpS.png" ALT="Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp"
@@ -64,8 +73,8 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <H2><IMG SRC="Buildings.Fluid.BaseClassa417cb31b9e73fe8on_dpI.png" ALT="Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp"></A><A HREF="Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels"
 >Buildings.Fluid.BaseClasses.FlowModels</A>.basicFlowFunction_dp</H2>
-<B>Basic class for flow models</B><p></P>
-<P></P><H3>Information</H3>
+<B>Basic class for flow models</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 Function that computes the pressure drop of flow elements as
@@ -79,39 +88,39 @@ Therefore, the flow coefficient is
 </p>
 The input <code>m_flow_turbulent</code> determines the location of the regularization.
 </p>
-<P></P>
+<P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp</TD><TD>&nbsp;</TD><TD>Pressure difference between port_a and port_b (= port_a.p - port_b.p) [Pa]</TD></TR>
 <TR><TD>Real</TD><TD>k</TD><TD>&nbsp;</TD><TD>Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_turbulent</TD><TD>&nbsp;</TD><TD>Mass flow rate [kg/s]</TD></TR>
 </TABLE>
 <P><H3>Outputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow</TD><TD>Mass flow rate in design flow direction [kg/s]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> basicFlowFunction_dp <font color="darkgreen">&quot;Basic class for flow models&quot;</font>
 
-  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dp(displayUnit=&quot;Pa&quot;) <font color="darkgreen">
     &quot;Pressure difference between port_a and port_b (= port_a.p - port_b.p)&quot;</font>;
   <font color="blue">input </font>Real k(min=0, unit=&quot;&quot;) <font color="darkgreen">
     &quot;Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)&quot;</font>;
-  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_turbulent(min=0) <font color="darkgreen">&quot;Mass flow rate&quot;</font>;
-  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow <font color="darkgreen">
     &quot;Mass flow rate in design flow direction&quot;</font>;
 <font color="blue">protected </font>
-  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dp_turbulent(displayUnit=&quot;Pa&quot;) <font color="darkgreen">
     &quot;Turbulent flow if |dp| &gt;= dp_small, not a parameter because k can be a function of time&quot;</font>;
 <font color="blue">protected </font>
@@ -130,8 +139,8 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 <H2><IMG SRC="Buildings.Fluid.BaseClassa417cb31b9e73fe8on_dpI.png" ALT="Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow"></A><A HREF="Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels"
 >Buildings.Fluid.BaseClasses.FlowModels</A>.basicFlowFunction_m_flow</H2>
-<B>Basic class for flow models</B><p></P>
-<P></P><H3>Information</H3>
+<B>Basic class for flow models</B><p>
+<P><H3>Information</H3></P>
 
 <p>
 Function that computes the pressure drop of flow elements as
@@ -145,35 +154,35 @@ Therefore, the flow coefficient is
 </p>
 The input <code>m_flow_turbulent</code> determines the location of the regularization.
 </p>
-<P></P>
+<P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow</TD><TD>&nbsp;</TD><TD>Mass flow rate in design flow direction [kg/s]</TD></TR>
 <TR><TD>Real</TD><TD>k</TD><TD>&nbsp;</TD><TD>Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)</TD></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_turbulent</TD><TD>&nbsp;</TD><TD>Mass flow rate [kg/s]</TD></TR>
 </TABLE>
 <P><H3>Outputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp</TD><TD>Pressure difference between port_a and port_b (= port_a.p - port_b.p) [Pa]</TD></TR>
 </TABLE>
-<P></P><H3>Modelica definition</H3>
+<P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> basicFlowFunction_m_flow <font color="darkgreen">&quot;Basic class for flow models&quot;</font>
 
-  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow <font color="darkgreen">
     &quot;Mass flow rate in design flow direction&quot;</font>;
   <font color="blue">input </font>Real k(unit=&quot;&quot;) <font color="darkgreen">
     &quot;Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)&quot;</font>;
-  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_turbulent(min=0) <font color="darkgreen">&quot;Mass flow rate&quot;</font>;
-  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dp(displayUnit=&quot;Pa&quot;) <font color="darkgreen">
     &quot;Pressure difference between port_a and port_b (= port_a.p - port_b.p)&quot;</font>;
 <font color="blue">protected </font>
@@ -185,6 +194,6 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>basicFlowFunction_m_flow;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:52 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 09:45:00 2013.
 </address></BODY>
 </HTML>
