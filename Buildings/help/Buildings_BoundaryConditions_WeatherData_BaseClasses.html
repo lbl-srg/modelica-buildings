@@ -1,0 +1,1211 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.BoundaryConditions.WeatherData.BaseClasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with base classes for Buildings.BoundaryConditions.WeatherData&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses"></A><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData"
+>Buildings.BoundaryConditions.WeatherData</A>.BaseClasses</H2>
+<B>Package with base classes for Buildings.BoundaryConditions.WeatherData</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData"
+>Buildings.BoundaryConditions.WeatherData</a>.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditid4282976bdca1c9aeightS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckCeilingHeight" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckCeilingHeight"
+>CheckCeilingHeight</A>
+</TD><TD>Ensures that the ceiling height is above a lower bound</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi39ad3eefba51c617ationS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation"
+>CheckRadiation</A>
+</TD><TD>Ensure that the radiation is not smaller than 0</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi97a067a1c4fe7079idityS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRelativeHumidity" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRelativeHumidity"
+>CheckRelativeHumidity</A>
+</TD><TD>Check the validity of relative humidity</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi14f4ce1b0e7b8d4dssureS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckPressure" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckPressure"
+>CheckPressure</A>
+</TD><TD>Ensures that the interpolated pressure is between prescribed bounds</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditie57e871c757583a4CoverS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckSkyCover" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckSkyCover"
+>CheckSkyCover</A>
+</TD><TD>Constrains the sky cover to [0, 1]</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditif0f8e132478d3505atureS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature"
+>CheckTemperature</A>
+</TD><TD>Check the validity of temperature data</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditieb2217f1e1b9895cctionS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindDirection" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindDirection"
+>CheckWindDirection</A>
+</TD><TD>Constrains the wind direction to [0, 2*pi] degree</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditieb2217f1e1b9895cctionS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindSpeed" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindSpeed"
+>CheckWindSpeed</A>
+</TD><TD>Ensures that the wind speed is non-negative</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi43983e98661758f1ationS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation"
+>ConvertRadiation</A>
+</TD><TD>Convert the unit of solar radiation received from the TMY3 data file</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditib12523e4b6ee874fidityS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity"
+>ConvertRelativeHumidity</A>
+</TD><TD>Convert the relative humidity from percentage to real</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi2ce70f9a1e7b9e99tTimeS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime"
+>ConvertTime</A>
+</TD><TD>Converts the simulation time to calendar time in scale of 1 year (365 days)</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditid85d73eaee3a1d23fTimeS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.EquationOfTime" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.EquationOfTime"
+>EquationOfTime</A>
+</TD><TD>Equation of time</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi30e002c349993706lTimeS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime"
+>LocalCivilTime</A>
+</TD><TD>Converts the clock time to local civil time.</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi6825a7ab9c303332ubBusS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarSubBus" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarSubBus"
+>SolarSubBus</A>
+</TD><TD>Data bus that stores solar position</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditid50f98c467e4fdc8rTimeS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarTime" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarTime"
+>SolarTime</A>
+</TD><TD>Solar time</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi80c2cce860645e83ePathS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath"
+>getAbsolutePath</A>
+</TD><TD>Gets the absolute path of a URI</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi80c2cce860645e83ePathS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3"
+>getHeaderElementTMY3</A>
+</TD><TD>Gets an element from the header of a TMY3 weather data file</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi80c2cce860645e83ePathS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3"
+>getLatitudeTMY3</A>
+</TD><TD>Gets the latitude from a TMY3 weather data file</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi80c2cce860645e83ePathS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3"
+>getLongitudeTMY3</A>
+</TD><TD>Gets the longitude from a TMY3 weather data file</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi80c2cce860645e83ePathS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3"
+>getTimeZoneTMY3</A>
+</TD><TD>Gets the time zone from a TMY3 weather data file</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditid2317d73b1f8c6c6mplesS.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses_Examples.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples"
+>Examples</A>
+</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE CheckCeilingHeight<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditid4282976bdca1c9aeightI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckCeilingHeight" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckCeilingHeight"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.CheckCeilingHeight</H2>
+<B>Ensures that the ceiling height is above a lower bound</B><p></P>
+<IMG SRC="Buildings.BoundaryConditid4282976bdca1c9aeightD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckCeilingHeight">
+<P></P><H3>Information</H3>
+
+<p>
+This component ensures that the ceiling height is at least <i>0</i> meters.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>ceiHeiIn</TD><TD>Input ceiling height [m]</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>ceiHeiOut</TD><TD>Ceiling height [m]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> CheckCeilingHeight <font color="darkgreen">
+  &quot;Ensures that the ceiling height is above a lower bound&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> ceiHeiIn(<font color="blue">final </font>quantity=&quot;Height&quot;, <font color="blue">final </font>unit=
+           &quot;m&quot;) <font color="darkgreen">&quot;Input ceiling height&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> ceiHeiOut(<font color="blue">final </font>quantity=&quot;Height&quot;,
+      <font color="blue">final </font>unit=&quot;m&quot;) <font color="darkgreen">&quot;Ceiling height&quot;</font>;</textblock>
+  <font color="blue">constant </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Modelica.SIunits.Height</A> ceiHeiMin=0 <font color="darkgreen">&quot;Minimum allowed ceiling height&quot;</font>;
+<font color="blue">equation </font>
+
+  ceiHeiOut =<font color="red"> Buildings.Utilities.Math.Functions.smoothMax</font>(
+    ceiHeiIn,
+    ceiHeiMin,
+    0.1);
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>CheckCeilingHeight;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE CheckRadiation<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditi39ad3eefba51c617ationI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.CheckRadiation</H2>
+<B>Ensure that the radiation is not smaller than 0</B><p></P>
+<IMG SRC="Buildings.BoundaryConditi39ad3eefba51c617ationD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation">
+<P></P><H3>Information</H3>
+
+<p>
+This component ensures that the radiation is not smaller than 0. 
+Modelica Table will interpolate data when it reads the data from a file.
+Thus, it is possible to generate negative value due to the interpolation.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>HIn</TD><TD>Input radiation [W/m2]</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>HOut</TD><TD>Radiation [W/m2]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> CheckRadiation <font color="darkgreen">
+  &quot;Ensure that the radiation is not smaller than 0&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> HIn(<font color="blue">final </font>quantity=
+        &quot;RadiantEnergyFluenceRate&quot;, <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="darkgreen">&quot;Input radiation&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> HOut(<font color="blue">final </font>quantity=
+        &quot;RadiantEnergyFluenceRate&quot;, <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="darkgreen">&quot;Radiation&quot;</font>;</textblock>
+
+  <font color="blue">constant </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.RadiantEnergyFluenceRate"
+>Modelica.SIunits.RadiantEnergyFluenceRate</A> HMin=0.0001 <font color="darkgreen">
+    &quot;Minimum value for radiation&quot;</font>;
+<font color="blue">equation </font>
+
+  HOut =<font color="red"> Buildings.Utilities.Math.Functions.smoothMax</font>(
+    x1=HIn,
+    x2=HMin,
+    deltaX=HMin/10);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>CheckRadiation;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE CheckRelativeHumidity<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditi97a067a1c4fe7079idityI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRelativeHumidity" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRelativeHumidity"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.CheckRelativeHumidity</H2>
+<B>Check the validity of relative humidity</B><p></P>
+<IMG SRC="Buildings.BoundaryConditi97a067a1c4fe7079idityD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRelativeHumidity">
+<P></P><H3>Information</H3>
+
+<p>
+This component constrains the value of relative humidity to a range of <i>[0, 1]</i>.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>relHumIn</TD><TD>Input relative humidity [1]</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>relHumOut</TD><TD>Relative humidity [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> CheckRelativeHumidity <font color="darkgreen">&quot;Check the validity of relative humidity&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> relHumIn(<font color="blue">final </font>unit=&quot;1&quot;) <font color="darkgreen">
+    &quot;Input relative humidity&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> relHumOut(<font color="blue">final </font>unit=&quot;1&quot;) <font color="darkgreen">
+    &quot;Relative humidity&quot;</font>;</textblock>
+  <font color="blue">constant </font>Real delta=0.01 <font color="darkgreen">&quot;Smoothing parameter&quot;</font>;
+<font color="blue">protected </font>
+  <font color="blue">constant </font>Real relHumMin=delta <font color="darkgreen">&quot;Lower bound&quot;</font>;
+  <font color="blue">constant </font>Real relHumMax=1 - delta <font color="darkgreen">&quot;Upper bound&quot;</font>;
+
+<font color="blue">equation </font>
+  relHumOut =<font color="red"> Buildings.Utilities.Math.Functions.smoothLimit</font>(
+    relHumIn,
+    relHumMin,
+    relHumMax,
+    delta/10);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>CheckRelativeHumidity;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE CheckPressure<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditi14f4ce1b0e7b8d4dssureI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckPressure" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckPressure"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.CheckPressure</H2>
+<B>Ensures that the interpolated pressure is between prescribed bounds</B><p></P>
+<IMG SRC="Buildings.BoundaryConditi14f4ce1b0e7b8d4dssureD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckPressure">
+<P></P><H3>Information</H3>
+
+<p>
+This component ensures that the interpolated pressure is between <i>31,000</i> Pa and <i>120,000</i> Pa.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>PIn</TD><TD>Input pressure [Pa]</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>POut</TD><TD>Atmospheric pressure [Pa]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> CheckPressure <font color="darkgreen">
+  &quot;Ensures that the interpolated pressure is between prescribed bounds&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> PIn(<font color="blue">final </font>quantity=&quot;Pressure&quot;, <font color="blue">final </font>unit=
+           &quot;Pa&quot;) <font color="darkgreen">&quot;Input pressure&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> POut(<font color="blue">final </font>quantity=&quot;Pressure&quot;, <font color="blue">final </font>unit=
+           &quot;Pa&quot;) <font color="darkgreen">&quot;Atmospheric pressure&quot;</font>;</textblock>
+  <font color="blue">constant </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</A> PMin=3100 <font color="darkgreen">&quot;Minimum allowed pressure&quot;</font>;
+  <font color="blue">constant </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</A> PMax=120000 <font color="darkgreen">&quot;Maximum allowed pressure&quot;</font>;
+<font color="blue">equation </font>
+  <font color="red">assert</font>(PIn &gt; PMin, &quot;Pressure out of bounds.\n&quot; + &quot;   PIn = &quot; +<font color="red"> String</font>(PIn));
+  <font color="red">assert</font>(PIn &lt; PMax, &quot;Pressure out of bounds.\n&quot; + &quot;   PIn = &quot; +<font color="red"> String</font>(PIn));
+  POut = PIn;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>CheckPressure;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE CheckSkyCover<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditie57e871c757583a4CoverI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckSkyCover" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckSkyCover"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.CheckSkyCover</H2>
+<B>Constrains the sky cover to [0, 1]</B><p></P>
+<IMG SRC="Buildings.BoundaryConditie57e871c757583a4CoverD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckSkyCover">
+<P></P><H3>Information</H3>
+
+<p>
+This component constrains the interpolated sky cover between <i>0</i> and <i>10</i>.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>nIn</TD><TD>Input sky cover [0, 10]</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>nOut</TD><TD>Sky cover [0, 10] [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> CheckSkyCover <font color="darkgreen">&quot;Constrains the sky cover to [0, 1]&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> nIn <font color="darkgreen">&quot;Input sky cover [0, 10]&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> nOut(unit=&quot;1&quot;) <font color="darkgreen">&quot;Sky cover [0, 10]&quot;</font>;</textblock>
+
+  <font color="blue">constant </font>Real delta=0.01 <font color="darkgreen">&quot;Smoothing parameter&quot;</font>;
+<font color="blue">protected </font>
+  <font color="blue">constant </font>Real nMin=delta <font color="darkgreen">&quot;Lower bound&quot;</font>;
+  <font color="blue">constant </font>Real nMax=10 - delta <font color="darkgreen">&quot;Upper bound&quot;</font>;
+<font color="blue">equation </font>
+  nOut =<font color="red"> Buildings.Utilities.Math.Functions.smoothLimit</font>(
+    nIn,
+    nMin,
+    nMax,
+    delta/10)/10;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>CheckSkyCover;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE CheckTemperature<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditif0f8e132478d3505atureI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.CheckTemperature</H2>
+<B>Check the validity of temperature data</B><p></P>
+<IMG SRC="Buildings.BoundaryConditif0f8e132478d3505atureD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature">
+<P></P><H3>Information</H3>
+
+<p>
+This component checks the value of temperature. 
+If the temperature is outside <code>TMin</code> and <code>TMax</code>, 
+the simulation will stop with an error.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TMin</TD><TD>203.15</TD><TD>Minimum allowed temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TMax</TD><TD>343.15</TD><TD>Maximum allowed temperature [K]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TIn</TD><TD>Input Temperature [K]</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>TOut</TD><TD>Output temperature [K]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> CheckTemperature <font color="darkgreen">&quot;Check the validity of temperature data&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TIn(
+    <font color="blue">final </font>quantity=&quot;Temperature&quot;,
+    <font color="blue">final </font>unit=&quot;K&quot;,
+    displayUnit=&quot;degC&quot;) <font color="darkgreen">&quot;Input Temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> TOut(
+    <font color="blue">final </font>quantity=&quot;Temperature&quot;,
+    <font color="blue">final </font>unit=&quot;K&quot;,
+    displayUnit=&quot;degC&quot;) <font color="darkgreen">&quot;Output temperature&quot;</font>;</textblock>
+
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TMin(displayUnit=&quot;degC&quot;) = 203.15 <font color="darkgreen">
+    &quot;Minimum allowed temperature&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TMax(displayUnit=&quot;degC&quot;) = 343.15 <font color="darkgreen">
+    &quot;Maximum allowed temperature&quot;</font>;
+
+<font color="blue">equation </font>
+  TOut = TIn;
+  <font color="red">assert</font>(TOut &gt; TMin, &quot;Temperature out of bounds.\n&quot; + &quot;   TOut = &quot; +<font color="red"> String</font>(
+    TOut));
+  <font color="red">assert</font>(TOut &lt; TMax, &quot;Temperature out of bounds.\n&quot; + &quot;   TOut = &quot; +<font color="red"> String</font>(
+    TOut));
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>CheckTemperature;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE CheckWindDirection<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditieb2217f1e1b9895cctionI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindDirection" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindDirection"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.CheckWindDirection</H2>
+<B>Constrains the wind direction to [0, 2*pi] degree</B><p></P>
+<IMG SRC="Buildings.BoundaryConditieb2217f1e1b9895cctionD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindDirection">
+<P></P><H3>Information</H3>
+
+<p>
+This component constrains the interpolated wind direction between <i>0</i> and <i>360</i> degree.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>nIn</TD><TD>Input wind direction [rad]</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>nOut</TD><TD>Wind direction [rad]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> CheckWindDirection <font color="darkgreen">
+  &quot;Constrains the wind direction to [0, 2*pi] degree&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> nIn(
+    <font color="blue">final </font>quantity=&quot;Angle&quot;,
+    <font color="blue">final </font>unit=&quot;rad&quot;,
+    displayUnit=&quot;deg&quot;) <font color="darkgreen">&quot;Input wind direction&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> nOut(
+    <font color="blue">final </font>quantity=&quot;Angle&quot;,
+    <font color="blue">final </font>unit=&quot;rad&quot;,
+    displayUnit=&quot;deg&quot;) <font color="darkgreen">&quot;Wind direction&quot;</font>;</textblock>
+
+  <font color="blue">constant </font>Real delta=0.01 <font color="darkgreen">&quot;Smoothing parameter&quot;</font>;
+<font color="blue">protected </font>
+  <font color="blue">constant </font>Real nMin=0 <font color="darkgreen">&quot;Lower bound&quot;</font>;
+  <font color="blue">constant </font>Real nMax=2*Modelica.Constants.pi <font color="darkgreen">&quot;Upper bound&quot;</font>;
+<font color="blue">equation </font>
+
+  nOut =<font color="red"> Buildings.Utilities.Math.Functions.smoothLimit</font>(
+    nIn,
+    nMin,
+    nMax,
+    delta/10);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>CheckWindDirection;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE CheckWindSpeed<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditieb2217f1e1b9895cctionI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindSpeed" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindSpeed"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.CheckWindSpeed</H2>
+<B>Ensures that the wind speed is non-negative</B><p></P>
+<IMG SRC="Buildings.BoundaryConditia14bf8812373f21fSpeedD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindSpeed">
+<P></P><H3>Information</H3>
+
+<p>
+This component ensures that the wind speed is non-negative.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>winSpeIn</TD><TD>Input wind speed [m/s]</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>winSpeOut</TD><TD>Wind speed [m/s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> CheckWindSpeed <font color="darkgreen">&quot;Ensures that the wind speed is non-negative&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> winSpeIn(<font color="blue">final </font>quantity=&quot;Velocity&quot;,
+      <font color="blue">final </font>unit=&quot;m/s&quot;) <font color="darkgreen">&quot;Input wind speed&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> winSpeOut(<font color="blue">final </font>quantity=&quot;Velocity&quot;,
+      <font color="blue">final </font>unit=&quot;m/s&quot;) <font color="darkgreen">&quot;Wind speed&quot;</font>;</textblock>
+  <font color="blue">constant </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+>Modelica.SIunits.Velocity</A> winSpeMin=1e-6 <font color="darkgreen">
+    &quot;Minimum allowed wind speed&quot;</font>;
+
+<font color="blue">equation </font>
+  <font color="darkgreen">// Modelica Table will interpolate data when it reads the weather data file.</font>
+  <font color="darkgreen">// It can generate negative values due to the interpolation.</font>
+  winSpeOut =<font color="red"> Buildings.Utilities.Math.Functions.smoothMax</font>(
+    x1=winSpeIn,
+    x2=winSpeMin,
+    deltaX=winSpeMin/10);
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>CheckWindSpeed;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ConvertRadiation<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditi43983e98661758f1ationI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.ConvertRadiation</H2>
+<B>Convert the unit of solar radiation received from the TMY3 data file</B><p></P>
+<IMG SRC="Buildings.BoundaryConditi43983e98661758f1ationD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation">
+<P></P><H3>Information</H3>
+
+<p>
+The TMY3 data for solar radiation is the radiation accumulated in one hour. Thus, it used a unit of <code>Wh/m2</code>.
+This component converts <code>Wh/m2</code> to <code>W/m2</code> that is the standard unit in Modelica.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>HIn</TD><TD>Input radiation [W.h/m2]</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>HOut</TD><TD>Radiation [W/m2]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> ConvertRadiation <font color="darkgreen">
+  &quot;Convert the unit of solar radiation received from the TMY3 data file&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> HIn(<font color="blue">final </font>unit=&quot;W.h/m2&quot;) <font color="darkgreen">
+    &quot;Input radiation&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> HOut(<font color="blue">final </font>quantity=
+        &quot;RadiantEnergyFluenceRate&quot;, <font color="blue">final </font>unit=&quot;W/m2&quot;) <font color="darkgreen">&quot;Radiation&quot;</font>;</textblock>
+
+<font color="blue">protected </font>
+  <font color="blue">constant </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> Hou=3600 <font color="darkgreen">&quot;1 hour&quot;</font>;
+
+<font color="blue">equation </font>
+  HOut = HIn/<font color="red">Modelica.SIunits.Conversions.to_hour</font>(Hou);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ConvertRadiation;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ConvertRelativeHumidity<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditib12523e4b6ee874fidityI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.ConvertRelativeHumidity</H2>
+<B>Convert the relative humidity from percentage to real</B><p></P>
+<IMG SRC="Buildings.BoundaryConditib12523e4b6ee874fidityD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity">
+<P></P><H3>Information</H3>
+
+<p>
+This component converts the relative humidity from percentage to real.
+Input is the relative humidity in percentage, as this is the data
+format that is used in the Typical Meteorological Year weather data.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>relHumIn</TD><TD>Value of relative humidity in percentage [1]</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>relHumOut</TD><TD>Relative humidity between 0 and 1 [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> ConvertRelativeHumidity <font color="darkgreen">
+  &quot;Convert the relative humidity from percentage to real&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> relHumIn(unit=&quot;1&quot;) <font color="darkgreen">
+    &quot;Value of relative humidity in percentage&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> relHumOut(unit=&quot;1&quot;) <font color="darkgreen">
+    &quot;Relative humidity between 0 and 1&quot;</font>;</textblock>
+<font color="blue">equation </font>
+  relHumOut = relHumIn/100;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ConvertRelativeHumidity;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ConvertTime<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditi2ce70f9a1e7b9e99tTimeI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.ConvertTime</H2>
+<B>Converts the simulation time to calendar time in scale of 1 year (365 days)</B><p></P>
+<IMG SRC="Buildings.BoundaryConditi2ce70f9a1e7b9e99tTimeD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime">
+<P></P><H3>Information</H3>
+
+<p>
+This component converts the simulation time to calendar time in a scale of 1 year (365 days).
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>simTim</TD><TD>Simulation time [s]</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>calTim</TD><TD>Calendar time [s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> ConvertTime <font color="darkgreen">
+  &quot;Converts the simulation time to calendar time in scale of 1 year (365 days)&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> simTim(<font color="blue">final </font>quantity=&quot;Time&quot;, <font color="blue">final </font>unit=
+       &quot;s&quot;) <font color="darkgreen">&quot;Simulation time&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> calTim(<font color="blue">final </font>quantity=&quot;Time&quot;, <font color="blue">final </font>
+      unit=&quot;s&quot;) <font color="darkgreen">&quot;Calendar time&quot;</font>;</textblock>
+
+<font color="blue">protected </font>
+  <font color="blue">constant </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> year=31536000 <font color="darkgreen">&quot;Number of seconds in a year&quot;</font>;
+  <font color="blue">discrete </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> tStart <font color="darkgreen">&quot;Start time of period&quot;</font>;
+  <font color="darkgreen">//Integer count &quot;Period count&quot;;</font>
+
+<font color="blue">initial </font><font color="blue">algorithm </font>
+  tStart :=<font color="red"> integer</font>(simTim/year)*year;
+<font color="blue">equation </font>
+  <font color="blue">when </font>simTim -<font color="red"> pre</font>(tStart) &gt; year<font color="blue"> then</font>
+    tStart =<font color="red"> integer</font>(simTim/year)*year;
+  <font color="blue">end when</font>;
+  calTim = simTim - tStart;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ConvertTime;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE EquationOfTime<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditid85d73eaee3a1d23fTimeI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.EquationOfTime" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.EquationOfTime"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.EquationOfTime</H2>
+<B>Equation of time</B><p></P>
+<IMG SRC="Buildings.BoundaryConditid85d73eaee3a1d23fTimeD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.EquationOfTime">
+<P></P><H3>Information</H3>
+
+<p>
+This component computes the difference between solar noon and noon of local civic time.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>nDay</TD><TD>Zero-based day number in seconds (January 1=0, January 2=86400) [s]</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>eqnTim</TD><TD>Equation of time [s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> EquationOfTime <font color="darkgreen">&quot;Equation of time&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> nDay(quantity=&quot;Time&quot;, unit=&quot;s&quot;) <font color="darkgreen">
+    &quot;Zero-based day number in seconds (January 1=0, January 2=86400)&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> eqnTim(
+    <font color="blue">final </font>quantity=&quot;Time&quot;,
+    <font color="blue">final </font>unit=&quot;s&quot;,
+    displayUnit=&quot;min&quot;) <font color="darkgreen">&quot;Equation of time&quot;</font>;</textblock>
+<font color="blue">protected </font>
+  Real Bt;
+<font color="blue">equation </font>
+  Bt = Modelica.Constants.pi*((nDay + 86400)/86400 - 81)/182 <font color="darkgreen">
+    &quot;Our unit is s instead of day in (A.4.2b)&quot;</font>;
+  eqnTim = 60*(9.87*<font color="red">Modelica.Math.sin</font>(2*Bt) - 7.53*<font color="red">Modelica.Math.cos</font>(Bt) - 1.5*
+    <font color="red">Modelica.Math.sin</font>(Bt)) <font color="darkgreen">&quot;Our unit is s instead of min in (A.4.2a)&quot;</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>EquationOfTime;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE LocalCivilTime<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditi30e002c349993706lTimeI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.LocalCivilTime</H2>
+<B>Converts the clock time to local civil time.</B><p></P>
+<IMG SRC="Buildings.BoundaryConditi30e002c349993706lTimeD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime">
+<P></P><H3>Information</H3>
+
+<p>
+This component converts the clock time to local civil time. 
+The parameter <code>timZon</code> represents the time zone of the facility  (relative to Greenwich Mean Time or the 0th meridian). Time zones west of GMT (e.g. North America) are represented as negative; 
+east of GMT as positive. Fraction of hours are represented in decimals (e.g. for <i>6:30</i>, use <i>6.5</i>).
+</p>
+<p>
+The formula is based on Michael Wetter's thesis (A4.1):<pre>
+  locTim = greTim + (lon*180/pi)*86400/360 = cloTim - timZon + lon*43200/pi 
+</pre>
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>timZon</TD><TD>&nbsp;</TD><TD>Time zone [s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>lon</TD><TD>&nbsp;</TD><TD>Longitude [rad]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>cloTim</TD><TD>Clock time [s]</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>locTim</TD><TD>Local civil time [s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> LocalCivilTime <font color="darkgreen">&quot;Converts the clock time to local civil time.&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> cloTim(<font color="blue">final </font>quantity=&quot;Time&quot;, <font color="blue">final </font>unit=
+       &quot;s&quot;) <font color="darkgreen">&quot;Clock time&quot;</font>;</textblock>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> timZon(displayUnit=&quot;h&quot;) <font color="darkgreen">&quot;Time zone&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> lon(displayUnit=&quot;deg&quot;) <font color="darkgreen">&quot;Longitude&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> locTim(<font color="blue">final </font>quantity=&quot;Time&quot;, <font color="blue">final </font>unit=
+           &quot;s&quot;) <font color="darkgreen">&quot;Local civil time&quot;</font>;</textblock>
+
+<font color="blue">equation </font>
+  locTim = cloTim - timZon + lon*43200/Modelica.Constants.pi;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>LocalCivilTime;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SolarSubBus<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditi6825a7ab9c303332ubBusI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarSubBus" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarSubBus"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.SolarSubBus</H2>
+<B>Data bus that stores solar position</B><p></P>
+<IMG SRC="Buildings.BoundaryConditi6825a7ab9c303332ubBusD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarSubBus">
+<P></P><H3>Information</H3>
+
+<p>
+This component is an expandable connector that is used to implement a bus that contains the solar position.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.SignalSubBus"
+>Modelica.Icons.SignalSubBus</A> (Icon for signal sub-bus).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">expandable connector</font> SolarSubBus <font color="darkgreen">
+  &quot;Data bus that stores solar position&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.SignalSubBus"
+>Modelica.Icons.SignalSubBus</A>;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>SolarSubBus;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SolarTime<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditid50f98c467e4fdc8rTimeI.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarTime" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarTime"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.SolarTime</H2>
+<B>Solar time</B><p></P>
+<IMG SRC="Buildings.BoundaryConditid50f98c467e4fdc8rTimeD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarTime">
+<P></P><H3>Information</H3>
+
+<p>
+This component computes the local solar time.
+</p>
+<p>
+<b>Note:</b> To avoid events, this block does not convert solar time to a scale of 24 hours.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>locTim</TD><TD>Local time [s]</TD></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>equTim</TD><TD>Equation of time [s]</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>solTim</TD><TD>Solar time [s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> SolarTime <font color="darkgreen">&quot;Solar time&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> locTim(quantity=&quot;Time&quot;, unit=&quot;s&quot;) <font color="darkgreen">
+    &quot;Local time&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> equTim(quantity=&quot;Time&quot;, unit=&quot;s&quot;) <font color="darkgreen">
+    &quot;Equation of time&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> solTim(
+    <font color="blue">final </font>quantity=&quot;Time&quot;,
+    <font color="blue">final </font>unit=&quot;s&quot;,
+    displayUnit=&quot;s&quot;) <font color="darkgreen">&quot;Solar time&quot;</font>;</textblock>
+<font color="blue">algorithm </font>
+  solTim := locTim + equTim <font color="darkgreen">&quot;Our unit is s in stead of h in (A.4.3)&quot;</font>;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>SolarTime;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE getAbsolutePath<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.getAbsolutePath</H2>
+<B>Gets the absolute path of a URI</B><p></P>
+<P></P><H3>Information</H3>
+
+This function returns the absolute path of the uniform resource identifier
+by searching for a file with the name
+</p>
+<pre>
+file://uri
+modelica://uri
+modelica://Buildings/uri
+</pre>
+The function returns the absolute path of the first file that is found, using the above search order.
+If the file is not found, then this function terminates with an <code>assert</code>.
+</p>
+<p>
+This function has been introduced to allow users to specify the name of weather data
+files with a path that is relative to the library path.
+This allows users to change the current working directory while still being able to read
+the files.
+</p>                       
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>String</TD><TD>uri</TD><TD>&nbsp;</TD><TD>A uri</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>String</TD><TD>path</TD><TD>The absolute path of the file pointed to by the URI</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> getAbsolutePath <font color="darkgreen">&quot;Gets the absolute path of a URI&quot;</font>
+  <font color="blue">input </font>String uri <font color="darkgreen">&quot;A uri&quot;</font>;
+  <font color="blue">output </font>String path <font color="darkgreen">&quot;The absolute path of the file pointed to by the URI&quot;</font>;
+<font color="blue">algorithm </font>
+  <font color="darkgreen">// If uri does not start with file:// or modelica://, then add file:// to it.</font>
+  <font color="darkgreen">// This is done because a data reader uses as a parameter the file name without file://</font>
+  <font color="blue">if </font>(<font color="red">Modelica.Utilities.Strings.find</font>(uri, &quot;file://&quot;, startIndex=1, caseSensitive=false) == 0<font color="blue">
+  and </font><font color="red">Modelica.Utilities.Strings.find</font>(uri, &quot;modelica://&quot;, startIndex=1, caseSensitive=false) == 0)<font color="blue"> then</font>
+  <font color="darkgreen">// try file://+uri</font>
+    path :=<font color="red">ModelicaServices.ExternalReferences.loadResource</font>(&quot;file://&quot; + uri);
+    path :=<font color="red"> Modelica.Utilities.Files.fullPathName</font>(name=path);
+    <font color="blue">if </font><font color="blue">not </font><font color="red">Modelica.Utilities.Files.exist</font>(path)<font color="blue"> then</font>
+      <font color="darkgreen">// try modelica://+uri</font>
+      path :=<font color="red"> ModelicaServices.ExternalReferences.loadResource</font>(&quot;modelica://&quot; + uri);
+      path :=<font color="red"> Modelica.Utilities.Files.fullPathName</font>(name=path);
+      <font color="blue">if </font><font color="blue">not </font><font color="red">Modelica.Utilities.Files.exist</font>(path)<font color="blue"> then</font>
+        <font color="darkgreen">// try modelica://Buildings/+uri</font>
+        path :=<font color="red"> ModelicaServices.ExternalReferences.loadResource</font>(&quot;modelica://Buildings/&quot; + uri);
+        path :=<font color="red"> Modelica.Utilities.Files.fullPathName</font>(name=path);
+        <font color="red">assert</font>(<font color="red">Modelica.Utilities.Files.exist</font>(path), &quot;File &#39;&quot; + uri + &quot;&#39; does not exist.
+  Expected to find either &#39;file://&quot; + uri + &quot;
+                       or &#39;modelica://&quot; + uri + &quot; +
+                       or &#39;modelica://Buildings/&quot; + uri);
+      <font color="blue">end if</font>;
+    <font color="blue">end if</font>;
+  <font color="blue">else</font>
+    path :=<font color="red"> ModelicaServices.ExternalReferences.loadResource</font>(uri);
+    path :=<font color="red"> Modelica.Utilities.Files.fullPathName</font>(name=path);
+
+    <font color="red">assert</font>(<font color="red">Modelica.Utilities.Files.exist</font>(path), &quot;File &#39;&quot; + uri + &quot;&#39; does not exist.&quot;);
+
+  <font color="blue">end if</font>;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>getAbsolutePath;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE getHeaderElementTMY3<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.getHeaderElementTMY3</H2>
+<B>Gets an element from the header of a TMY3 weather data file</B><p></P>
+<P></P><H3>Information</H3>
+
+This function scans the weather data file for a line that starts with the string <pre>
+start
+</pre>
+where <code>start</code> is a parameter.
+When this line is found, the function returns the element at the position number
+<code>position</code>, where <code>position</code> is a parameter.
+A comma is used as the delimiter of the elements.
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>String</TD><TD>filNam</TD><TD>&nbsp;</TD><TD>Name of weather data file</TD></TR>
+<TR><TD>String</TD><TD>start</TD><TD>&nbsp;</TD><TD>Start of the string that contains the elements</TD></TR>
+<TR><TD>String</TD><TD>name</TD><TD>&nbsp;</TD><TD>Name of data element, used in error reporting</TD></TR>
+<TR><TD>Integer</TD><TD>position</TD><TD>&nbsp;</TD><TD>Position of the element on the line that contains &#39;start&#39;</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>String</TD><TD>element</TD><TD>Element at position &#39;pos&#39; of the line that starts with &#39;start&#39;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> getHeaderElementTMY3 <font color="darkgreen">
+  &quot;Gets an element from the header of a TMY3 weather data file&quot;</font>
+ <font color="blue">input </font>String filNam <font color="darkgreen">&quot;Name of weather data file&quot;</font>;
+ <font color="blue">input </font>String start <font color="darkgreen">&quot;Start of the string that contains the elements&quot;</font>;
+ <font color="blue">input </font>String name <font color="darkgreen">&quot;Name of data element, used in error reporting&quot;</font>;
+ <font color="blue">input </font>Integer position(min=1) <font color="darkgreen">
+    &quot;Position of the element on the line that contains &#39;start&#39;&quot;</font>;
+ <font color="blue">output </font>String element <font color="darkgreen">
+    &quot;Element at position &#39;pos&#39; of the line that starts with &#39;start&#39;&quot;</font>;
+<font color="blue">protected </font>
+ String lin <font color="darkgreen">&quot;Line that is used in parser&quot;</font>;
+ Integer iLin <font color="darkgreen">&quot;Line number&quot;</font>;
+ Integer index =  0 <font color="darkgreen">&quot;Index of string #LOCATION&quot;</font>;
+ Integer staInd <font color="darkgreen">&quot;Start index used when parsing a real number&quot;</font>;
+ Integer nexInd <font color="darkgreen">&quot;Next index used when parsing a real number&quot;</font>;
+ Boolean found <font color="darkgreen">&quot;Flag, true if #LOCATION has been found&quot;</font>;
+ Boolean EOF <font color="darkgreen">&quot;Flag, true if EOF has been reached&quot;</font>;
+ String fouDel <font color="darkgreen">&quot;Found delimiter&quot;</font>;
+<font color="blue">algorithm </font>
+  <font color="darkgreen">// Get line that starts with &#39;start&#39;</font>
+  iLin :=0;
+  EOF :=false;
+  <font color="blue">while </font>(<font color="blue">not </font>EOF)<font color="blue"> and </font>(index == 0)<font color="blue"> loop</font>
+    iLin:=iLin + 1;
+    (lin, EOF) :=<font color="red">Modelica.Utilities.Streams.readLine</font>(fileName=<font color="red">getAbsolutePath</font>(filNam),
+      lineNumber=iLin);
+    index :=<font color="red">Modelica.Utilities.Strings.find</font>(
+      string=lin,
+      searchString=start,
+      startIndex=1,
+      caseSensitive=false);
+  <font color="blue">end while</font>;
+  <font color="red">assert</font>(<font color="blue">not </font>EOF, &quot;Error: Did not find &#39;&quot; + start + &quot;&#39; when scanning the weather file.&quot;
+                      + &quot;\n   Check for correct weather file syntax.&quot;);
+  <font color="darkgreen">// Loop over the tokens until the position is reached</font>
+  nexInd :=1;
+  <font color="blue">for </font>i<font color="blue"> in </font>1:position-1<font color="blue"> loop</font>
+  nexInd :=<font color="red">Modelica.Utilities.Strings.find</font>(
+      string=lin,
+      searchString=  &quot;,&quot;,
+      startIndex=nexInd+1);
+   <font color="red">assert</font>(nexInd &gt; 0, &quot;Error when scanning weather file. Not enough tokens to find &quot; + name + &quot;.&quot;
+         + &quot;\n   Check for correct file syntax.&quot; + &quot;\n   The scanned line is &#39;&quot; +
+        lin + &quot;&#39;.&quot;);
+  <font color="blue">end for</font>;
+  staInd := nexInd;
+  <font color="darkgreen">// Find the next delimiter</font>
+  nexInd :=<font color="red">Modelica.Utilities.Strings.find</font>(
+      string=lin,
+      searchString=  &quot;,&quot;,
+      startIndex=nexInd+1);
+  <font color="red">assert</font>(nexInd &gt; 0, &quot;Error when scanning weather file. Not enough tokens to find &quot; + name + &quot;.&quot;
+         + &quot;\n   Check for correct file syntax.&quot; + &quot;\n   The scanned line is &#39;&quot; +
+         lin + &quot;&#39;.&quot;);
+  <font color="darkgreen">// Get the element</font>
+  element :=<font color="red">Modelica.Utilities.Strings.substring</font>(lin, startIndex=staInd+1, endIndex=nexInd-1);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>getHeaderElementTMY3;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE getLatitudeTMY3<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.getLatitudeTMY3</H2>
+<B>Gets the latitude from a TMY3 weather data file</B><p></P>
+<P></P><H3>Information</H3>
+
+This function returns the latitude of the TMY3 weather data file.
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>String</TD><TD>filNam</TD><TD>&nbsp;</TD><TD>Name of weather data file</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>lat</TD><TD>Latitude from the weather file [rad]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> getLatitudeTMY3 <font color="darkgreen">
+  &quot;Gets the latitude from a TMY3 weather data file&quot;</font>
+ <font color="blue">input </font>String filNam <font color="darkgreen">&quot;Name of weather data file&quot;</font>;
+ <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> lat <font color="darkgreen">&quot;Latitude from the weather file&quot;</font>;
+<font color="blue">protected </font>
+ Integer nexInd <font color="darkgreen">&quot;Next index, used for error handling&quot;</font>;
+ String element <font color="darkgreen">&quot;String representation of the returned element&quot;</font>;
+<font color="blue">algorithm </font>
+  element :=
+    <font color="red">Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3</font>(
+      filNam=filNam,
+      start=&quot;#LOCATION&quot;,
+      name=  &quot;longitude&quot;,
+      position=7);
+   (nexInd, lat) :=<font color="red">Modelica.Utilities.Strings.Advanced.scanReal</font>(
+    string=element,
+    startIndex=1,
+    unsigned=false);
+  <font color="red"> assert</font>(nexInd &gt; 1, &quot;Error when converting the latitude &#39;&quot; +
+                      element + &quot;&#39; from a String to a Real.&quot;);
+  <font color="darkgreen"> // Convert from degree to rad</font>
+   lat :=lat*Modelica.Constants.pi/180;
+  <font color="darkgreen"> // Check if latitude is valid</font>
+  <font color="red"> assert</font>(<font color="red">abs</font>(lat) &lt;= Modelica.Constants.pi+Modelica.Constants.eps,
+       &quot;Wrong value for latitude. Received lat = &quot; +
+       <font color="red">String</font>(lat) + &quot; (= &quot; +<font color="red"> String</font>(lat*180/Modelica.Constants.pi) + &quot; degrees).&quot;);
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>getLatitudeTMY3;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE getLongitudeTMY3<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.getLongitudeTMY3</H2>
+<B>Gets the longitude from a TMY3 weather data file</B><p></P>
+<P></P><H3>Information</H3>
+
+This function returns the longitude of the TMY3 weather data file.
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>String</TD><TD>filNam</TD><TD>&nbsp;</TD><TD>Name of weather data file</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>lon</TD><TD>Longitude from the weather file [rad]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> getLongitudeTMY3 <font color="darkgreen">
+  &quot;Gets the longitude from a TMY3 weather data file&quot;</font>
+ <font color="blue">input </font>String filNam <font color="darkgreen">&quot;Name of weather data file&quot;</font>;
+ <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> lon <font color="darkgreen">&quot;Longitude from the weather file&quot;</font>;
+<font color="blue">protected </font>
+ Integer nexInd <font color="darkgreen">&quot;Next index, used for error handling&quot;</font>;
+ String element <font color="darkgreen">&quot;String representation of the returned element&quot;</font>;
+<font color="blue">algorithm </font>
+  element :=
+    <font color="red">Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3</font>(
+      filNam=filNam,
+      start=&quot;#LOCATION&quot;,
+      name=  &quot;longitude&quot;,
+      position=8);
+   (nexInd, lon) :=<font color="red">Modelica.Utilities.Strings.Advanced.scanReal</font>(
+    string=element,
+    startIndex=1,
+    unsigned=false);
+  <font color="red"> assert</font>(nexInd &gt; 1, &quot;Error when converting the longitude &#39;&quot; +
+                      element + &quot;&#39; from a String to a Real.&quot;);
+  <font color="darkgreen"> // Convert from degree to rad</font>
+   lon :=lon*Modelica.Constants.pi/180;
+  <font color="darkgreen"> // Check if longitude is valid</font>
+  <font color="red"> assert</font>(<font color="red">abs</font>(lon) &lt; 2*Modelica.Constants.pi,
+       &quot;Wrong value for longitude. Received lon = &quot; +
+       <font color="red">String</font>(lon) + &quot; (= &quot; +<font color="red"> String</font>(lon*180/Modelica.Constants.pi) + &quot; degrees).&quot;);
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>getLongitudeTMY3;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE getTimeZoneTMY3<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3"></A><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses"
+>Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.getTimeZoneTMY3</H2>
+<B>Gets the time zone from a TMY3 weather data file</B><p></P>
+<P></P><H3>Information</H3>
+
+This function returns the time zone of the TMY3 weather data file.
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>String</TD><TD>filNam</TD><TD>&nbsp;</TD><TD>Name of weather data file</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>timZon</TD><TD>Time zone from the weather file [s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> getTimeZoneTMY3 <font color="darkgreen">
+  &quot;Gets the time zone from a TMY3 weather data file&quot;</font>
+ <font color="blue">input </font>String filNam <font color="darkgreen">&quot;Name of weather data file&quot;</font>;
+ <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> timZon <font color="darkgreen">&quot;Time zone from the weather file&quot;</font>;
+<font color="blue">protected </font>
+ Integer nexInd <font color="darkgreen">&quot;Next index, used for error handling&quot;</font>;
+ String element <font color="darkgreen">&quot;String representation of the returned element&quot;</font>;
+<font color="blue">algorithm </font>
+  element :=
+    <font color="red">Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3</font>(
+      filNam=filNam,
+      start=&quot;#LOCATION&quot;,
+      name=  &quot;longitude&quot;,
+      position=9);
+   (nexInd, timZon) :=<font color="red">Modelica.Utilities.Strings.Advanced.scanReal</font>(
+    string=element,
+    startIndex=1,
+    unsigned=false);
+  <font color="red"> assert</font>(nexInd &gt; 1, &quot;Error when converting the time zone &#39;&quot; +
+                      element + &quot;&#39; from a String to a Real.&quot;);
+   timZon :=timZon*3600;
+  <font color="darkgreen"> // Check if time zone is valid</font>
+  <font color="red"> assert</font>(<font color="red">abs</font>(timZon) &lt; 24*3600,
+       &quot;Wrong value for time zone. Received timZon = &quot; +
+       <font color="red">String</font>(timZon) + &quot; (= &quot; +<font color="red"> String</font>(timZon/3600) + &quot; hours).&quot;);
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>getTimeZoneTMY3;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:27:58 2013.
+</address></BODY>
+</HTML>

@@ -1,0 +1,404 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Rooms.BaseClasses.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Rooms.BaseClasses.Examples"></A><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses"
+>Buildings.Rooms.BaseClasses</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses"
+>
+Buildings.Rooms.BaseClasses</a>.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.BaseClass145abf963d918f48tGainS.png" ALT="Buildings.Rooms.BaseClasses.Examples.HeatGain" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_BaseClasses_Examples.html#Buildings.Rooms.BaseClasses.Examples.HeatGain"
+>HeatGain</A>
+</TD><TD>Test model for the HeatGain model</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.BaseClass145abf963d918f48tGainS.png" ALT="Buildings.Rooms.BaseClasses.Examples.InfraredRadiationGainDistribution" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_BaseClasses_Examples.html#Buildings.Rooms.BaseClasses.Examples.InfraredRadiationGainDistribution"
+>InfraredRadiationGainDistribution</A>
+</TD><TD>Test model for infrared radiation gain</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.BaseClass145abf963d918f48tGainS.png" ALT="Buildings.Rooms.BaseClasses.Examples.InfraredRadiationExchange" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_BaseClasses_Examples.html#Buildings.Rooms.BaseClasses.Examples.InfraredRadiationExchange"
+>InfraredRadiationExchange</A>
+</TD><TD>Test model for infrared radiation exchange</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.BaseClass145abf963d918f48tGainS.png" ALT="Buildings.Rooms.BaseClasses.Examples.RadiationTemperature" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_BaseClasses_Examples.html#Buildings.Rooms.BaseClasses.Examples.RadiationTemperature"
+>RadiationTemperature</A>
+</TD><TD>Test model for the radiation temperature</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.BaseClass8ca9ac36dd1ecc92assesS.png" ALT="Buildings.Rooms.BaseClasses.Examples.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_BaseClasses_Examples_BaseClasses.html#Buildings.Rooms.BaseClasses.Examples.BaseClasses"
+>BaseClasses</A>
+</TD><TD>Package with base classes for Buildings.Rooms.BaseClasses.Examples</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE HeatGain<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.BaseClass145abf963d918f48tGainI.png" ALT="Buildings.Rooms.BaseClasses.Examples.HeatGain" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.BaseClasses.Examples.HeatGain"></A><A HREF="Buildings_Rooms_BaseClasses_Examples.html#Buildings.Rooms.BaseClasses.Examples"
+>Buildings.Rooms.BaseClasses.Examples</A>.HeatGain</H2>
+<B>Test model for the HeatGain model</B><p></P>
+<IMG SRC="Buildings.Rooms.BaseClass145abf963d918f48tGainD.png" ALT="Buildings.Rooms.BaseClasses.Examples.HeatGain">
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</A></TD><TD>AFlo</TD><TD>50</TD><TD>Floor area [m2]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> HeatGain <font color="darkgreen">&quot;Test model for the HeatGain model&quot;</font>
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+  <font color="blue">package</font> MediumA = <A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
+>Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</A> <font color="darkgreen">
+    &quot;Medium model&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.HeatGain"
+>Buildings.Rooms.BaseClasses.HeatGain</A> heatGain(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        MediumA, AFlo=AFlo);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qConGai_flow(k=10) <font color="darkgreen">&quot;Convective heat gain&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qRadGai_flow1(k=0) <font color="darkgreen">&quot;Radiative heat gain&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex3"
+>Modelica.Blocks.Routing.Multiplex3</A> multiplex3_1;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qLatGai_flow(k=10) <font color="darkgreen">&quot;Latent heat gain&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate"
+>Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate</A> QSen_flow(<font color="blue">redeclare </font><font color="blue">package</font>
+      Medium = MediumA, m_flow_nominal=2E-4);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.LatentEnthalpyFlowRate"
+>Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</A> QLat_flow(<font color="blue">redeclare </font><font color="blue">package</font>
+      Medium = MediumA, m_flow_nominal=2E-4);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> boundary(          <font color="blue">redeclare </font><font color="blue">package</font>
+      Medium = MediumA, nPorts=1);
+  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assertEquality;</textblock>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</A> AFlo=50 <font color="darkgreen">&quot;Floor area&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gainLat(k=AFlo);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assertEquality1;
+  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</A> vol(
+    nPorts=2,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+    V=AFlo*2.5,
+    m_flow_nominal=1E-3);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qSenAir_flow(k=0) <font color="darkgreen">
+    &quot;Sensible heat flow of air stream (must be zero)&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(qRadGai_flow1.y,multiplex3_1. u1[1]);
+  <font color="red">connect</font>(qConGai_flow.y,multiplex3_1. u2[1]);
+  <font color="red">connect</font>(qLatGai_flow.y, multiplex3_1.u3[1]);
+  <font color="red">connect</font>(multiplex3_1.y, heatGain.qGai_flow);
+  <font color="red">connect</font>(heatGain.QLat_flow, QSen_flow.port_a);
+  <font color="red">connect</font>(QSen_flow.port_b, QLat_flow.port_a);
+  <font color="red">connect</font>(assertEquality.u2, QSen_flow.H_flow);
+  <font color="red">connect</font>(assertEquality1.u2, QLat_flow.H_flow);
+  <font color="red">connect</font>(gainLat.y, assertEquality1.u1);
+  <font color="red">connect</font>(qLatGai_flow.y, gainLat.u);
+  <font color="red">connect</font>(boundary.ports[1], vol.ports[1]);
+  <font color="red">connect</font>(vol.ports[2], QLat_flow.port_b);
+  <font color="red">connect</font>(qSenAir_flow.y, assertEquality.u1);
+  <font color="red">connect</font>(heatGain.QCon_flow, vol.heatPort);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>HeatGain;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE InfraredRadiationGainDistribution<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.BaseClass145abf963d918f48tGainI.png" ALT="Buildings.Rooms.BaseClasses.Examples.InfraredRadiationGainDistribution" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.BaseClasses.Examples.InfraredRadiationGainDistribution"></A><A HREF="Buildings_Rooms_BaseClasses_Examples.html#Buildings.Rooms.BaseClasses.Examples"
+>Buildings.Rooms.BaseClasses.Examples</A>.InfraredRadiationGainDistribution</H2>
+<B>Test model for infrared radiation gain</B><p></P>
+<IMG SRC="Buildings.Rooms.BaseClass02a46148662012f8utionD.png" ALT="Buildings.Rooms.BaseClasses.Examples.InfraredRadiationGainDistribution">
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Rooms_BaseClasses_Examples_BaseClasses.html#Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation"
+>Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation</A> (Partial model to test infrared radiation inside the room).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</A></TD><TD>datConExt[NConExt]</TD><TD>datConExt(each A=1)</TD><TD>Data for exterior construction</TD></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow"
+>ParameterConstructionWithWindow</A></TD><TD>datConExtWin[NConExtWin]</TD><TD>datConExtWin(each A=1, each ...</TD><TD>Data for exterior construction with window</TD></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</A></TD><TD>datConPar[NConPar]</TD><TD>datConPar(each A=1)</TD><TD>Data for partition construction</TD></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</A></TD><TD>datConBou[NConBou]</TD><TD>datConBou(each A=1)</TD><TD>Data for construction boundary</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"
+>Generic</A></TD><TD>surBou[NSurBou]</TD><TD>surBou(each A=1)</TD><TD>Record for data of surfaces whose heat conduction is modeled outside of this room</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Exterior constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConExt</TD><TD>1</TD><TD>Number of exterior constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of window constructions</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Partition constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConPar</TD><TD>1</TD><TD>Number of partition constructions</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Boundary constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of constructions that have their outside surface exposed to the boundary of this room</TD></TR>
+<TR><TD>Integer</TD><TD>nSurBou</TD><TD>1</TD><TD>Number of surface heat transfer models that connect to constructions that are modeled outside of this room</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> InfraredRadiationGainDistribution <font color="darkgreen">
+  &quot;Test model for infrared radiation gain&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_BaseClasses_Examples_BaseClasses.html#Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation"
+>Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation</A>;
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution"
+>Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution</A> irRadGai(
+    nConExt=nConExt,
+    nConExtWin=nConExtWin,
+    nConPar=nConPar,
+    nConBou=nConBou,
+    nSurBou=nSurBou,
+    <font color="blue">final </font>datConExt=datConExt,
+    <font color="blue">final </font>datConExtWin=datConExtWin,
+    <font color="blue">final </font>datConPar=datConPar,
+    <font color="blue">final </font>datConBou=datConBou,
+    <font color="blue">final </font>surBou=surBou,
+    haveShade=true) <font color="darkgreen">
+    &quot;Distribution for infrared radiative heat gains (e.g., due to equipment and people)&quot;</font>;
+<font color="blue">protected </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> QRad_flow(k=1) <font color="darkgreen">&quot;Radiative heat gain&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> zer[NConExtWin](<font color="blue">each </font>k=0) <font color="darkgreen">
+    &quot;Outputs zero. This block is needed to send a signal to the shading connector if no window is used in the room model&quot;</font>;
+    </textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conConExt.port_a, irRadGai.conExt);
+  <font color="red">connect</font>(conConExtWin.port_a, irRadGai.conExtWin);
+  <font color="red">connect</font>(conConExtWinFra.port_a, irRadGai.conExtWinFra);
+  <font color="red">connect</font>(conConPar_a.port_a, irRadGai.conPar_a);
+  <font color="red">connect</font>(conConPar_b.port_a, irRadGai.conPar_b);
+  <font color="red">connect</font>(conConBou.port_a, irRadGai.conBou);
+  <font color="red">connect</font>(conSurBou.port_a, irRadGai.conSurBou);
+  <font color="red">connect</font>(QRad_flow.y, irRadGai.Q_flow);
+  <font color="red">connect</font>(zer.y, irRadGai.uSha);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>InfraredRadiationGainDistribution;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE InfraredRadiationExchange<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.BaseClass145abf963d918f48tGainI.png" ALT="Buildings.Rooms.BaseClasses.Examples.InfraredRadiationExchange" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.BaseClasses.Examples.InfraredRadiationExchange"></A><A HREF="Buildings_Rooms_BaseClasses_Examples.html#Buildings.Rooms.BaseClasses.Examples"
+>Buildings.Rooms.BaseClasses.Examples</A>.InfraredRadiationExchange</H2>
+<B>Test model for infrared radiation exchange</B><p></P>
+<IMG SRC="Buildings.Rooms.BaseClass5e4cb7c8b697d53fhangeD.png" ALT="Buildings.Rooms.BaseClasses.Examples.InfraredRadiationExchange">
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Rooms_BaseClasses_Examples_BaseClasses.html#Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation"
+>Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation</A> (Partial model to test infrared radiation inside the room).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</A></TD><TD>datConExt[NConExt]</TD><TD>datConExt(each A=1)</TD><TD>Data for exterior construction</TD></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow"
+>ParameterConstructionWithWindow</A></TD><TD>datConExtWin[NConExtWin]</TD><TD>datConExtWin(each A=1, each ...</TD><TD>Data for exterior construction with window</TD></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</A></TD><TD>datConPar[NConPar]</TD><TD>datConPar(each A=1)</TD><TD>Data for partition construction</TD></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</A></TD><TD>datConBou[NConBou]</TD><TD>datConBou(each A=1)</TD><TD>Data for construction boundary</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"
+>Generic</A></TD><TD>surBou[NSurBou]</TD><TD>surBou(each A=1)</TD><TD>Record for data of surfaces whose heat conduction is modeled outside of this room</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Exterior constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConExt</TD><TD>1</TD><TD>Number of exterior constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of window constructions</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Partition constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConPar</TD><TD>1</TD><TD>Number of partition constructions</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Boundary constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of constructions that have their outside surface exposed to the boundary of this room</TD></TR>
+<TR><TD>Integer</TD><TD>nSurBou</TD><TD>1</TD><TD>Number of surface heat transfer models that connect to constructions that are modeled outside of this room</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> InfraredRadiationExchange <font color="darkgreen">
+  &quot;Test model for infrared radiation exchange&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_BaseClasses_Examples_BaseClasses.html#Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation"
+>Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation</A>;
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.InfraredRadiationExchange"
+>Buildings.Rooms.BaseClasses.InfraredRadiationExchange</A> irRadExc(
+    nConExt=nConExt,
+    nConExtWin=nConExtWin,
+    nConPar=nConPar,
+    nConBou=nConBou,
+    nSurBou=nSurBou,
+    <font color="blue">final </font>datConExt=datConExt,
+    <font color="blue">final </font>datConExtWin=datConExtWin,
+    <font color="blue">final </font>datConPar=datConPar,
+    <font color="blue">final </font>datConBou=datConBou,
+    <font color="blue">final </font>surBou=surBou,
+    linearizeRadiation=true) <font color="darkgreen">
+    &quot;Distribution for infrared radiative heat transfer&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.Constant"
+>Buildings.HeatTransfer.Radiosity.Constant</A> radSou[NConExtWin](<font color="blue">each </font>k=-187) <font color="darkgreen">
+    &quot;Radiosity source for window&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conConExt.port_a, irRadExc.conExt);
+  <font color="red">connect</font>(conConExtWin.port_a, irRadExc.conExtWin);
+  <font color="red">connect</font>(conConExtWinFra.port_a, irRadExc.conExtWinFra);
+  <font color="red">connect</font>(conConPar_a.port_a, irRadExc.conPar_a);
+  <font color="red">connect</font>(conConPar_b.port_a, irRadExc.conPar_b);
+  <font color="red">connect</font>(conConBou.port_a, irRadExc.conBou);
+  <font color="red">connect</font>(conSurBou.port_a, irRadExc.conSurBou);
+  <font color="red">connect</font>(radSou.JOut, irRadExc.JInConExtWin);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>InfraredRadiationExchange;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE RadiationTemperature<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.BaseClass145abf963d918f48tGainI.png" ALT="Buildings.Rooms.BaseClasses.Examples.RadiationTemperature" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.BaseClasses.Examples.RadiationTemperature"></A><A HREF="Buildings_Rooms_BaseClasses_Examples.html#Buildings.Rooms.BaseClasses.Examples"
+>Buildings.Rooms.BaseClasses.Examples</A>.RadiationTemperature</H2>
+<B>Test model for the radiation temperature</B><p></P>
+<IMG SRC="Buildings.Rooms.BaseClass5e5239ba97123907atureD.png" ALT="Buildings.Rooms.BaseClasses.Examples.RadiationTemperature">
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Rooms_BaseClasses_Examples_BaseClasses.html#Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation"
+>Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation</A> (Partial model to test infrared radiation inside the room).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</A></TD><TD>datConExt[NConExt]</TD><TD>datConExt(each A=1)</TD><TD>Data for exterior construction</TD></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow"
+>ParameterConstructionWithWindow</A></TD><TD>datConExtWin[NConExtWin]</TD><TD>datConExtWin(each A=1, each ...</TD><TD>Data for exterior construction with window</TD></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</A></TD><TD>datConPar[NConPar]</TD><TD>datConPar(each A=1)</TD><TD>Data for partition construction</TD></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</A></TD><TD>datConBou[NConBou]</TD><TD>datConBou(each A=1)</TD><TD>Data for construction boundary</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"
+>Generic</A></TD><TD>surBou[NSurBou]</TD><TD>surBou(each A=1)</TD><TD>Record for data of surfaces whose heat conduction is modeled outside of this room</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Exterior constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConExt</TD><TD>1</TD><TD>Number of exterior constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of window constructions</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Partition constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConPar</TD><TD>1</TD><TD>Number of partition constructions</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Boundary constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of constructions that have their outside surface exposed to the boundary of this room</TD></TR>
+<TR><TD>Integer</TD><TD>nSurBou</TD><TD>1</TD><TD>Number of surface heat transfer models that connect to constructions that are modeled outside of this room</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> RadiationTemperature <font color="darkgreen">&quot;Test model for the radiation temperature&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_BaseClasses_Examples_BaseClasses.html#Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation"
+>Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation</A>
+    (
+    bouConExt(<font color="blue">each </font>T=289.15),
+    bouConExtWin(<font color="blue">each </font>T=290.15),
+    bouConExtWinFra(<font color="blue">each </font>T=285.15),
+    bouConPar_b(<font color="blue">each </font>T=291.15),
+    bouConBou(<font color="blue">each </font>T=295.15),
+    bouSurBou(<font color="blue">each </font>T=296.15));
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.RadiationTemperature"
+>Buildings.Rooms.BaseClasses.RadiationTemperature</A> radTem(
+    nConExt=nConExt,
+    nConExtWin=nConExtWin,
+    nConPar=nConPar,
+    nConBou=nConBou,
+    nSurBou=nSurBou,
+    <font color="blue">final </font>datConExt=datConExt,
+    <font color="blue">final </font>datConExtWin=datConExtWin,
+    <font color="blue">final </font>datConPar=datConPar,
+    <font color="blue">final </font>datConBou=datConBou,
+    <font color="blue">final </font>surBou=surBou,
+    haveShade=true) <font color="darkgreen">&quot;Radiative temperature&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> uSha[NConExtWin](<font color="blue">each </font>k=0.5) <font color="darkgreen">
+    &quot;Shade control signal&quot;</font>;
+<font color="blue">protected </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conGlaUns[
+    NConExtWin](<font color="blue">each </font>G=100) <font color="darkgreen">&quot;Heat conductor&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conGlaSha[
+    NConExtWin](<font color="blue">each </font>G=100) <font color="darkgreen">&quot;Heat conductor&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conSha[NConExtWin](
+      <font color="blue">each </font>G=100) <font color="darkgreen">&quot;Heat conductor&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> bouGlaUns[NConExtWin](<font color="blue">each </font>T=
+        288.15) <font color="darkgreen">&quot;Boundary condition&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> bouGlaSha[NConExtWin](<font color="blue">each </font>T=
+        284.15) <font color="darkgreen">&quot;Boundary condition&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> bouSha[NConExtWin](
+      <font color="blue">each </font>T=293.15) <font color="darkgreen">&quot;Boundary condition&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conConExt.port_a, radTem.conExt);
+  <font color="red">connect</font>(conConExtWin.port_a, radTem.conExtWin);
+  <font color="red">connect</font>(conConExtWinFra.port_a, radTem.conExtWinFra);
+  <font color="red">connect</font>(conConPar_a.port_a, radTem.conPar_a);
+  <font color="red">connect</font>(conConPar_b.port_a, radTem.conPar_b);
+  <font color="red">connect</font>(conConBou.port_a, radTem.conBou);
+  <font color="red">connect</font>(conSurBou.port_a, radTem.conSurBou);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(uSha.y, radTem.uSha);
+  <font color="red">connect</font>(bouGlaUns.port, conGlaUns.port_b);
+  <font color="red">connect</font>(bouGlaSha.port, conGlaSha.port_b);
+  <font color="red">connect</font>(bouSha.port, conSha.port_b);
+  <font color="red">connect</font>(radTem.glaUns, conGlaUns.port_a);
+  <font color="red">connect</font>(radTem.glaSha, conGlaSha.port_a);
+  <font color="red">connect</font>(radTem.sha, conSha.port_a);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>RadiationTemperature;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:31:43 2013.
+</address></BODY>
+</HTML>

@@ -1,0 +1,1222 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Examples.Tutorial.SpaceCooling</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with example for how to build a model for space cooling&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SpaceCooling<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Examples.Tutorial.SpaceCooling"></A><A HREF="Buildings_Examples_Tutorial.html#Buildings.Examples.Tutorial"
+>Buildings.Examples.Tutorial</A>.SpaceCooling</H2>
+<B>Package with example for how to build a model for space cooling</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>This package contains examples with step-by-step instructions for how to build a system model for space cooling as shown in the figure below. The temperautures correspond to design conditions that will be used to size the components. The room heat capacity has been increased by a factor of three to approximate the thermal storage effect of furniture and building constructions. </p>
+<p align="center"><img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/schematics.png"/> </p>
+<p>The model consists of </p>
+<p><ol>
+<li>a room with a cooling load due to internal heat gains and due to conductive heat gains from the environment, </li>
+<li>a fresh air supply with a heat recovery, a cooling coil and a fan. The fan is operating continuously at full speed. The room air temperature is controlled by a controller that switches the water flow rate through the coil on and off with a dead-band of <i>1</i> Kelvin. </li>
+</ol></p>
+<p>To explain the implementation of this model, the model has been created in the following three stages: </p>
+<p><ol>
+<li><A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System1"
+>Buildings.Examples.Tutorial.SpaceCooling.System1</a> implements the room model without air supply. </li>
+<li><A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System2"
+>Buildings.Examples.Tutorial.SpaceCooling.System2</a> implements the air supply with open-loop control. </li>
+<li><A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System3"
+>Buildings.Examples.Tutorial.SpaceCooling.System3</a> adds closed-loop control. </li>
+</ol></p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Examples.Tutori183681cb9fd28122stem1S.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System1" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System1"
+>System1</A>
+</TD><TD>First part of the system model, consisting of the room with heat transfer</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.Tutori92999cf2e5017513stem2S.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System2" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System2"
+>System2</A>
+</TD><TD>Second part of the system model with air supply and open loop control</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.Tutori92999cf2e5017513stem2S.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System3" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System3"
+>System3</A>
+</TD><TD>Third part of the system model with air supply and closed loop control</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE System1<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.Tutori92999cf1e5017510stem1I.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System1" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.Tutorial.SpaceCooling.System1"></A><A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling"
+>Buildings.Examples.Tutorial.SpaceCooling</A>.System1</H2>
+<B>First part of the system model, consisting of the room with heat transfer</B><p></P>
+<IMG SRC="Buildings.Examples.Tutori92999cf1e5017510stem1D.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System1">
+<P></P><H3>Information</H3>
+
+<p>
+This part of the system model implements the room with a heat gain.
+The room is simplified as a volume of air, a prescribed heat source for
+the internal convective heat gain, and a heat conductor for steady-state
+heat conduction to the outside.
+To increase the heat capacity of the room, such as due to heat stored
+in furniture and in building constructions, the heat capacity
+of the room air was increased by a factor of three.
+The convective heat transfer coefficient is lumped into the heat conductor
+model.
+</p>
+<h4>Implementation</h4>
+<p>
+This section describes step by step how we implemented the model.
+</p>
+<ol>
+<li>
+<p>
+First, we dragged 
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>
+Modelica.Fluid.System</a> into the model and keep its name at
+its default setting, which is <code>system</code>.
+This model is required for all fluid flow models to set
+global properties.
+</p>
+</li>
+<li>
+<p>
+Next, to define the medium properties, we added the declaration
+</p>
+<pre>
+  replaceable package MediumA =
+      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+</pre>
+<p>
+This will allow the propagation of the medium model to all models that contain air.
+In this example, there is only one model with air, but when we connect an air
+supply, there will be multiple models that use this medium.
+</p>
+<p>
+We called the medium <code>MediumA</code> to distinguish it from
+<code>MediumW</code> that we will use in later versions of the model for components that
+have water as a medium. Because we do not anticipate saturated air, we used
+the medium model
+<A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
+>
+Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</a>
+instead of 
+<A HREF="Buildings_Media_GasesPTDecoupled_MoistAir.html#Buildings.Media.GasesPTDecoupled.MoistAir"
+>
+Buildings.Media.GasesPTDecoupled.MoistAir</a>
+as the latter is computationally more expensive.
+Note that although the medium model is for unsaturated air, the cooling coil
+will be able to reduce the moisture content of the medium. But since
+the air outlet state of the cooling coil has a relative humidity below <i>100%</i>,
+we can use this medium model for unsaturated air.
+</p>
+<p>
+We also defined the system-level parameters
+<pre>
+  parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
+  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
+    "Nominal mass flow rate";
+  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 1000 
+    "Internal heat gains of the room";
+</pre>
+to declare that the room volume is <i>180</i> m<sup>3</sup>, that the room
+has a nominal mass flow rate of <i>6</i> air changes per hour and that the internal heat gains of the room are <i>1000</i> Watts.
+These parameters have been declared at the top-level of the model
+as they will be used in several other models.
+Declaring them at the top-level allows to propagate them to other
+models, and to easily change them at one location should this be required
+when revising the model.
+</p>
+</li>
+<li>
+<p>
+To model the room air, approximated as a completely mixed volume of air, 
+an instance of
+<A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>
+Buildings.Fluid.MixingVolumes.MixingVolume</a>
+has been used, as this model can be used with dry air or moist air.
+The medium model has been set to <code>MediumA</code>, and the nominal mass
+flow rate is set to <code>mA_flow_nominal</code>.
+The nominal mass flow rate is used for numerical reasons and should be set 
+to the approximate order of magnitude. It only has an effect if the mass flow
+rate is near zero and what "near zero" means depends on the magnitude of
+<code>m_flow_nominal</code>, as it is used for the default value of the parameter
+<code>m_flow_small</code> on the <code>Assumptions</code> tag of the model.
+See also 
+<A HREF="Buildings_Fluid_UsersGuide.html#Buildings.Fluid.UsersGuide"
+>
+Buildings.Fluid.UsersGuide</a>
+for an explanation of the purpose of <code>m_flow_small</code>.
+</p>
+</li>
+<li>
+<p>
+Since we need to increase the heat capacity of the room air to approximate
+energy storage in furniture and building constructions, we connected the instance
+<code>heaCap</code> to the heat port of the room air.
+The model <code>heaCap</code> models energy storage. We set its capacity to
+<i>C=2*V*1.2*1006</i> J/K. This will increase the total heat capacity 
+of the room air by a factor of three.
+</p>
+</li>
+<li>
+<p>
+We used the instance <code>heaCon</code> to model the heat conductance to the ambient.
+Since our room should have a heat loss of <i>10</i> kW at a temperature difference
+of <i>30</i> Kelvin, we set the conductance to 
+<i>G=10000 &frasl; 30</i> W/K.
+</p>
+</li>
+<li>
+<p>
+Finally, we used the instance <code>preHea</code> to model a prescribed, constant heat gain of
+<i>1000</i> Watts, such as due to internal heat source.
+</p>
+</li>
+</ol>
+<p>
+This completes the initial version of the model. When simulating the model
+for <i>3</i> hours, or <i>10800</i> seconds, the
+response shown below should be seen.
+<p align="center">
+<img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System1Temperatures.png" border="1">
+</p>
+<p>
+To verify the correctness of the model, we can compare the simulated results to the
+following analytical solutions:
+</p>
+<p>
+<ol>
+<li>
+At steady-state, the temperature difference to the outside should be
+<i>&Delta; T = Q&#775; &frasl; UA = 1000/(10000/30) = 3</i> Kelvin, which 
+corresponds to a room temperature of <i>-7</i>&deg;C.
+</li>
+<li>
+It can be shown that the time constant of the room is
+<i>&tau; = C &frasl; UA = 1950</i> seconds, where
+<i>C</i> is the heat capacity of the room air and the thermal storage element
+that is connected to it, and 
+<i>G</i> is the heat conductance.
+</li>
+</ol>
+</p>
+<p>
+Both analytical values agree with the simulation results shown in the above figure.
+</p>
+<!-- Notes -->
+<h4>Notes</h4>
+<p>
+For a more realistic model of a room, the model 
+<A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>
+Buildings.Rooms.MixedAir</a>
+could have been used.
+For transient heat conduction, models from the
+package
+<A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction"
+>
+Buildings.HeatTransfer.Conduction</a>
+could have been used.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package MediumA</TD><TD>Buildings.Media.GasesPTDecou...</TD><TD>&nbsp;</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</A></TD><TD>V</TD><TD>6*10*3</TD><TD>Room volume [m3]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>mA_flow_nominal</TD><TD>V*6/3600</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</A></TD><TD>QRooInt_flow</TD><TD>1000</TD><TD>Internal heat gains of the room [W]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package MediumA</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> System1 <font color="darkgreen">
+  &quot;First part of the system model, consisting of the room with heat transfer&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">replaceable </font><font color="blue">package</font> MediumA =
+      <A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
+>Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</A>;
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;
+  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Fluid.MixingVolumes.MixingVolume</A> vol(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System1.MediumA"
+>MediumA</A>,
+    m_flow_nominal=mA_flow_nominal,
+    V=V);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> theCon(G=10000/30) <font color="darkgreen">
+    &quot;Thermal conductance with the ambient&quot;</font>;</textblock>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</A> V=6*10*3 <font color="darkgreen">&quot;Room volume&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mA_flow_nominal = V*6/3600 <font color="darkgreen">
+    &quot;Nominal mass flow rate&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QRooInt_flow = 1000 <font color="darkgreen">
+    &quot;Internal heat gains of the room&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</A> TOut(T=263.15) <font color="darkgreen">
+    &quot;Outside temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow"
+>Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</A> preHea(Q_flow=
+        QRooInt_flow) <font color="darkgreen">&quot;Prescribed heat flow&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
+>Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</A> heaCap(C=2*V*1.2*1006) <font color="darkgreen">
+    &quot;Heat capacity for furniture and walls&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TOut.port, theCon.port_a);
+  <font color="red">connect</font>(theCon.port_b, vol.heatPort);
+  <font color="red">connect</font>(preHea.port, vol.heatPort);
+  <font color="red">connect</font>(heaCap.port, vol.heatPort);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>System1;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE System2<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.Tutori92999cf2e5017513stem2I.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System2" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.Tutorial.SpaceCooling.System2"></A><A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling"
+>Buildings.Examples.Tutorial.SpaceCooling</A>.System2</H2>
+<B>Second part of the system model with air supply and open loop control</B><p></P>
+<IMG SRC="Buildings.Examples.Tutori92999cf2e5017513stem2D.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System2">
+<P></P><H3>Information</H3>
+
+<p>
+This part of the system model adds a space cooling with
+open loop control to the model
+<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System1"
+>
+Buildings.Examples.Tutorial.SpaceCooling.System1</a>.
+The space cooling consist of a model for the ambient conditions
+<code>out</code>, a heat recovery <code>hex</code>,
+a cooling coil <code>cooCoi</code> and a fan <code>fan</code>.
+There is also a return duct that connects the room volume 
+<code>vol</code> with the heat recovery.
+Weather data are obtained from the instance <code>weaDat</code>
+which is connected to the model for the ambient air conditions <code>out</code>
+and the outside temperature that is used for the heat conductance
+<code>TOut</code>.
+</p>
+<p>
+In this model, the duct pressure loss is not modelled
+explicitly, but rather lumped into the pressure drops of the
+heat exchangers.
+</p>
+<h4>Implementation</h4>
+<p>
+This section describes the steps that were required to build the model.
+</p>
+<ol>
+<li>
+<p>
+The first step was to copy the model 
+<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System1"
+>
+Buildings.Examples.Tutorial.SpaceCooling.System1</a>.
+Note that for larger models, it is recommended to extend models instead
+of copying them to avoid code duplication, as code duplication
+makes it hard to maintain different versions of a model.
+But for this model, we copied the old model to
+avoid this model to be dependent on
+<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System1"
+>
+Buildings.Examples.Tutorial.SpaceCooling.System1</a>.
+</p>
+</li>
+<li>
+<p>
+As this model will also use water as the medium for the water-side
+of the cooling coil, we added the medium declaration
+</p>
+<pre>
+  replaceable package MediumW =
+    Buildings.Media.ConstantPropertyLiquidWater;
+</pre>
+</li>
+<li>
+<p>
+Next, we defined system-level parameters for the water and air temperatures
+and the water and air mass flow rates.
+These declarations are essentially the design calculations which are
+then used to size the components and flow rates.
+It is good practice to list them at the top-level of the model
+to allow easy change of temperatures or loads at a central place,
+and automatic propagation of the new results to models that use
+these parameters.
+</p>
+<p>
+Note that we use an assignment for the nominal air mass flow rate
+<code>mA_flow_nominal</code> that is different from the assignment in
+<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System1"
+>
+Buildings.Examples.Tutorial.SpaceCooling.System1</a> because
+now, the air flow rate is a result of the sizing calculations.
+<p/>
+<p>
+The calculations are as follows:
+<pre>
+  //////////////////////////////////////////////////////////
+  // Heat recovery effectiveness
+  parameter Real eps = 0.8 "Heat recovery effectiveness";
+
+  /////////////////////////////////////////////////////////
+  // Air temperatures at design conditions
+  parameter Modelica.SIunits.Temperature TASup_nominal = 273.15+18 
+    "Nominal air temperature supplied to room";
+  parameter Modelica.SIunits.Temperature TRooSet = 273.15+24 
+    "Nominal room air temperature";
+  parameter Modelica.SIunits.Temperature TOut_nominal = 273.15+30 
+    "Design outlet air temperature";
+  parameter Modelica.SIunits.Temperature THeaRecLvg=
+    TOut_nominal - eps*(TOut_nominal-TRooSet) 
+    "Air temperature leaving the heat recovery";
+
+  /////////////////////////////////////////////////////////
+  // Cooling loads and air mass flow rates
+  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow=
+     1000 "Internal heat gains of the room";
+  parameter Modelica.SIunits.HeatFlowRate QRooC_flow_nominal=
+    -QRooInt_flow-10E3/30*(TOut_nominal-TRooSet) 
+    "Nominal cooling load of the room";
+  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal=
+    1.3*QRooC_flow_nominal/1006/(TASup_nominal-TRooSet) 
+    "Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback";
+  parameter Modelica.SIunits.TemperatureDifference dTFan = 2 
+    "Estimated temperature raise across fan that needs to be made up by the cooling coil";
+  parameter Modelica.SIunits.HeatFlowRate QCoiC_flow_nominal=4*
+    (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006) 
+    "Cooling load of coil, taking into account economizer, and increased due to latent heat removal";
+
+  /////////////////////////////////////////////////////////
+  // Water temperatures and mass flow rates
+  parameter Modelica.SIunits.Temperature TWSup_nominal = 273.15+16 
+    "Water supply temperature";
+  parameter Modelica.SIunits.Temperature TWRet_nominal = 273.15+12 
+    "Water return temperature";
+  parameter Modelica.SIunits.MassFlowRate mW_flow_nominal=
+    QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200 
+    "Nominal water mass flow rate";
+</pre>
+</li>
+</ol>
+<p>
+Now, we explain the component models that are used to assemble the system model.
+</p>
+<ol start="4">
+<li>
+The weather data are obtained from the instance
+<code>weaDat</code> in which we set the location to Chicago, IL.
+We also configured the model to use a constant atmospheric pressure,
+as opposed to the pressure from the weather file, as we are not interested
+in modeling the effect of changes in the atmospheric pressure.
+Furthermore, we configured the model to use a constant dry-bulb 
+temperature of <code>TOut_nominal</code>. This helps in testing the 
+model at the design conditions, and can easily be changed later to 
+use weather data from the file.
+Thus, although we use a model that reads a weather data file, for
+now we want to use constant outside conditions to simplify the testing
+of the model.
+</p>
+</li>
+<li>
+<p>
+To use weather data for the heat conduction, we changed the instance
+<code>TOut</code> to a model that allows obtaining the temperature from
+the input port.
+To connect this input port to weather data, we added the connector
+<code>weaBus</code>, as this is needed to pick a single variable, the
+dry-bulb temperature, from the weather bus which carries all weather data.
+</p>
+</li>
+<li>
+<p>
+To model ambient outside <i>air</i> conditions, we use the instance
+<code>out</code> which is connected directly to the weather data model
+<code>weaDat</code>.
+In this model, we also set the medium model to <code>MediumA</code>.
+</p>
+</li>
+<li>
+<p>
+Next, we set in all new component models the medium model to 
+<code>MediumA</code> if it is part of the air system, or to 
+<code>MediumW</code> if it is part of the water system.
+From the information section of the cooling coil, we see
+that its parameter <code>Medium1</code> needs to be water,
+and <code>Medium2</code> needs to be air.
+</p>
+</li>
+</ol>
+<p>
+Next, we configured the air-side components of the model.
+</p>
+<ol start="8">
+<li>
+<p>
+For the heat recovery <code>hex</code>, we set the effectiveness
+to the parameter <code>eps</code>, which we defined earlier to be
+<i>0.8</i>.
+We also set the nominal mass flow rates to <code>mA_flow_nominal</code>
+and the pressure drops on both sides to <i>200</i> Pascals.
+This pressure drop is attained when the air mass flow rate is
+equal to <code>mA_flow_nominal</code>, and it is adjusted for
+other flow rates using a quadratic law with regularization when
+the flow rate is below <i>10%</i> of <code>mA_flow_nominal</code>.
+This default value can be changed on the tab <code>Flow resistance</code>
+of the model.
+</p>
+</li>
+<li>
+<p>
+To configure the cooling coil model <code>cooCoi</code>, we set the 
+water and air side nominal mass flow rates and pressure drops to
+</p>
+<pre>
+    m1_flow_nominal=mW_flow_nominal,
+    m2_flow_nominal=mA_flow_nominal,
+    dp1_nominal=6000,
+    dp2_nominal=200,
+</pre>
+<p>
+This model also requires the specification of the <i>UA</i>-value.
+We assign this value using the equation
+</p>
+<p align="center" style="font-style:italic;">
+  UA = Q&#775; &frasl; lmtd,
+</p>
+<p>
+where <i>Q&#775;</i> is the exchanged heat and
+<i>lmtd</i> is the logarithmic mean temperature difference.
+The computation of the <i>UA</i> is done using the 
+parameter assignment
+</p>
+<pre>
+  UA_nominal=-QCoiC_flow_nominal/
+        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+          T_a1=THeaRecLvg,
+          T_b1=TASup_nominal,
+          T_a2=TWSup_nominal,
+          T_b2=TWRet_nominal)
+</pre>
+<p>
+which calls the function
+<A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.lmtd"
+>
+Buildings.Fluid.HeatExchangers.BaseClasses.lmtd</a>.
+In order to see the coil inlet and outlet temperatures, we set the parameter
+</p>
+<pre>
+  show_T = true
+</pre>
+<p>
+Its default value is <code>false</code>, as this setting can lead to faster computation
+in large system models in which the flow rate crosses zero, because crossing zero
+triggers the numerical solution for a state-event which can be computationally expensive.
+</p>
+</li>
+<li>
+<p>
+For the fan, we set the nominal mass flow rate to <code>mA_flow_nominal</code>
+and also connect its input port to the component <code>mAir_flow</code>,
+which assigns a constant air flow rate.
+We leave the fan efficiency at its default value of <i>0.7</i>.
+</p>
+</li>
+<li>
+<p>
+For the two temperature sensors in the supply duct, we also set the nominal mass flow
+rate to <code>mA_flow_nominal</code>.
+</p>
+</li>
+</ol>
+<p>
+Now, what is left is to configure the water-side components.
+</p>
+<ol start="12">
+<li>
+We configured the component <code>souWat</code> so that
+it obtains its mass flow rate from the input connector,
+and we connected this input connector to the constant block
+<code>mWat_flow</code>.
+To set the water temperature that leaves this component,
+we set the parameter <code>T=TWSup_nominal</code>.
+Alternatively, we could have used the model 
+<A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
+>
+Buildings.Fluid.Movers.FlowMachine_m_flow</a>
+as is used for the fan, but we chose to use the simpler model
+<A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>
+Buildings.Fluid.Sources.MassFlowSource_T</a>
+as this model allows the direct specification of the
+leaving fluid temperature.
+</p>
+</li>
+<li>
+<p>
+To complete the water circuit, we also used the instance <code>sinWat</code>.
+This model is required for the water to flow out of the heat exchanger into
+an infinite reservoir. It is also required to set a reference for the 
+pressure of the water loop.
+Since in our model, no water flows out of this reservoir, there is no need to set
+its temperature.
+</p>
+</li>
+</ol>
+<p>
+This completes the initial version of the model. When simulating the model, the
+response shown below should be seen.
+<p align="center">
+<img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System2Temperatures.png" border="1">
+</p>
+<!-- Notes -->
+<h4>Notes</h4>
+<p>
+If we were interested in computing electricity use for the pump,
+we could have used the same model as for the fan.
+</p>
+<p>
+To explicitely model duct pressure drop, we could have added
+<A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>
+Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> to the model.
+However, computationally it is cheaper to lump these pressure drops into other component models.
+In fact, rather than separately computing the pressure drop of the heat recovery and the air-side
+pressure drop of the cooling coil, we could have modeled the cooling coil pressure drop as
+<code>dp_nominal = 2*200+200</code> and set for the heat recovery
+<code>dp1_nominal = 0</code> and
+<code>dp2_nominal = 0</code>. Setting the nominal pressure drop to zero will remove this equation 
+from the model.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package MediumA</TD><TD>Buildings.Media.GasesPTDecou...</TD><TD>&nbsp;</TD></TR>
+<TR><TD colspan="2">replaceable package MediumW</TD><TD>Buildings.Media.ConstantProp...</TD><TD>&nbsp;</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</A></TD><TD>V</TD><TD>6*10*3</TD><TD>Room volume [m3]</TD></TR>
+<TR><TD>Real</TD><TD>eps</TD><TD>0.8</TD><TD>Heat recovery effectiveness</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TASup_nominal</TD><TD>273.15 + 18</TD><TD>Nominal air temperature supplied to room [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TRooSet</TD><TD>273.15 + 24</TD><TD>Nominal room air temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TOut_nominal</TD><TD>273.15 + 30</TD><TD>Design outlet air temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>THeaRecLvg</TD><TD>TOut_nominal - eps*(TOut_nom...</TD><TD>Air temperature leaving the heat recovery [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</A></TD><TD>QRooInt_flow</TD><TD>1000</TD><TD>Internal heat gains of the room [W]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</A></TD><TD>QRooC_flow_nominal</TD><TD>-QRooInt_flow - 10E3/30*(TOu...</TD><TD>Nominal cooling load of the room [W]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>mA_flow_nominal</TD><TD>1.3*QRooC_flow_nominal/1006/...</TD><TD>Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</A></TD><TD>dTFan</TD><TD>2</TD><TD>Estimated temperature raise across fan that needs to be made up by the cooling coil [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</A></TD><TD>QCoiC_flow_nominal</TD><TD>4*(QRooC_flow_nominal + mA_f...</TD><TD>Cooling load of coil, taking into account economizer, and increased due to latent heat removal [W]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TWSup_nominal</TD><TD>273.15 + 16</TD><TD>Water supply temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TWRet_nominal</TD><TD>273.15 + 12</TD><TD>Water return temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>mW_flow_nominal</TD><TD>QCoiC_flow_nominal/(TWRet_no...</TD><TD>Nominal water mass flow rate [kg/s]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package MediumA</TD><TD>&nbsp;</TD></TR>
+<TR><TD colspan="2">replaceable package MediumW</TD><TD>&nbsp;</TD></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> System2 <font color="darkgreen">
+  &quot;Second part of the system model with air supply and open loop control&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">replaceable </font><font color="blue">package</font> MediumA =
+      <A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
+>Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</A>;
+
+  <font color="blue">replaceable </font><font color="blue">package</font> MediumW =
+      <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A>;
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;
+  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Fluid.MixingVolumes.MixingVolume</A> vol(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System2.MediumA"
+>MediumA</A>,
+    m_flow_nominal=mA_flow_nominal,
+    V=V,
+    nPorts=2);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> theCon(G=10000/30) <font color="darkgreen">
+    &quot;Thermal conductance with the ambient&quot;</font>;</textblock>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</A> V=6*10*3 <font color="darkgreen">&quot;Room volume&quot;</font>;
+  <font color="darkgreen">//////////////////////////////////////////////////////////</font>
+  <font color="darkgreen">// Heat recovery effectiveness</font>
+  <font color="blue">parameter </font>Real eps = 0.8 <font color="darkgreen">&quot;Heat recovery effectiveness&quot;</font>;
+
+  <font color="darkgreen">/////////////////////////////////////////////////////////</font>
+  <font color="darkgreen">// Air temperatures at design conditions</font>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TASup_nominal = 273.15+18 <font color="darkgreen">
+    &quot;Nominal air temperature supplied to room&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TRooSet = 273.15+24 <font color="darkgreen">
+    &quot;Nominal room air temperature&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TOut_nominal = 273.15+30 <font color="darkgreen">
+    &quot;Design outlet air temperature&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> THeaRecLvg=
+    TOut_nominal - eps*(TOut_nominal-TRooSet) <font color="darkgreen">
+    &quot;Air temperature leaving the heat recovery&quot;</font>;
+
+  <font color="darkgreen">/////////////////////////////////////////////////////////</font>
+  <font color="darkgreen">// Cooling loads and air mass flow rates</font>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QRooInt_flow=
+     1000 <font color="darkgreen">&quot;Internal heat gains of the room&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QRooC_flow_nominal=
+    -QRooInt_flow-10E3/30*(TOut_nominal-TRooSet) <font color="darkgreen">
+    &quot;Nominal cooling load of the room&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mA_flow_nominal=
+    1.3*QRooC_flow_nominal/1006/(TASup_nominal-TRooSet) <font color="darkgreen">
+    &quot;Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> dTFan = 2 <font color="darkgreen">
+    &quot;Estimated temperature raise across fan that needs to be made up by the cooling coil&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QCoiC_flow_nominal=4*
+    (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006) <font color="darkgreen">
+    &quot;Cooling load of coil, taking into account economizer, and increased due to latent heat removal&quot;</font>;
+
+  <font color="darkgreen">/////////////////////////////////////////////////////////</font>
+  <font color="darkgreen">// Water temperatures and mass flow rates</font>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TWSup_nominal = 273.15+16 <font color="darkgreen">
+    &quot;Water supply temperature&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TWRet_nominal = 273.15+12 <font color="darkgreen">
+    &quot;Water return temperature&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mW_flow_nominal=
+    QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200 <font color="darkgreen">
+    &quot;Nominal water mass flow rate&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature</A>
+                                                         TOut <font color="darkgreen">
+    &quot;Outside temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow"
+>Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</A> preHea(Q_flow=
+        QRooInt_flow) <font color="darkgreen">&quot;Prescribed heat flow&quot;</font>;
+  <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
+>Fluid.Movers.FlowMachine_m_flow</A> fan(<font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System2.MediumA"
+>MediumA</A>,
+      m_flow_nominal=mA_flow_nominal) <font color="darkgreen">&quot;Supply air fan&quot;</font>;
+  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.ConstantEffectiveness"
+>Fluid.HeatExchangers.ConstantEffectiveness</A> hex(<font color="blue">redeclare </font><font color="blue">package</font> Medium1 =
+        <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System2.MediumA"
+>MediumA</A>, <font color="blue">redeclare </font><font color="blue">package</font> Medium2 = <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System2.MediumA"
+>MediumA</A>,
+    m1_flow_nominal=mA_flow_nominal,
+    m2_flow_nominal=mA_flow_nominal,
+    dp1_nominal=200,
+    dp2_nominal=200,
+    eps=eps) <font color="darkgreen">&quot;Heat recovery&quot;</font>;
+  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.WetCoilCounterFlow"
+>Fluid.HeatExchangers.WetCoilCounterFlow</A> cooCoi(<font color="blue">redeclare </font><font color="blue">package</font> Medium1 =
+        <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumW.html#Buildings.Examples.Tutorial.SpaceCooling.System2.MediumW"
+>MediumW</A>, <font color="blue">redeclare </font><font color="blue">package</font> Medium2 = <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System2.MediumA"
+>MediumA</A>,
+    m1_flow_nominal=mW_flow_nominal,
+    m2_flow_nominal=mA_flow_nominal,
+    dp1_nominal=6000,
+    dp2_nominal=200,
+    UA_nominal=-QCoiC_flow_nominal/
+        <font color="red">Buildings.Fluid.HeatExchangers.BaseClasses.lmtd</font>(
+        T_a1=THeaRecLvg,
+        T_b1=TASup_nominal,
+        T_a2=TWSup_nominal,
+        T_b2=TWRet_nominal),
+    show_T=true) <font color="darkgreen">&quot;Cooling coil&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside"
+>Fluid.Sources.Outside</A> out(nPorts=2, <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System2.MediumA"
+>MediumA</A>);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Fluid.Sources.MassFlowSource_T</A> souWat(
+    nPorts=1,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumW.html#Buildings.Examples.Tutorial.SpaceCooling.System2.MediumW"
+>MediumW</A>,
+    use_m_flow_in=true,
+    T=TWSup_nominal) <font color="darkgreen">&quot;Source for water flow rate&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Fluid.Sources.FixedBoundary</A> sinWat(nPorts=1, <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumW.html#Buildings.Examples.Tutorial.SpaceCooling.System2.MediumW"
+>MediumW</A>) <font color="darkgreen">&quot;Sink for water circuit&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
+    pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
+    TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
+    TDryBul=TOut_nominal,
+    filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
+    &quot;Weather data reader&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>BoundaryConditions.WeatherData.Bus</A> weaBus;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> mAir_flow(k=mA_flow_nominal) <font color="darkgreen">
+    &quot;Fan air flow rate&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> mWat_flow(k=mW_flow_nominal) <font color="darkgreen">
+    &quot;Water flow rate&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Fluid.Sensors.TemperatureTwoPort</A> senTemHXOut(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System2.MediumA"
+>MediumA</A>, m_flow_nominal=mA_flow_nominal) <font color="darkgreen">
+    &quot;Temperature sensor for heat recovery outlet on supply side&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Fluid.Sensors.TemperatureTwoPort</A> senTemSupAir(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System2.MediumA"
+>MediumA</A>, m_flow_nominal=mA_flow_nominal) <font color="darkgreen">
+    &quot;Temperature sensor for supply air&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
+>Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</A> heaCap(C=2*V*1.2*1006) <font color="darkgreen">
+    &quot;Heat capacity for furniture and walls&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(theCon.port_b, vol.heatPort);
+  <font color="red">connect</font>(preHea.port, vol.heatPort);
+  <font color="red">connect</font>(fan.port_b, vol.ports[1]);
+  <font color="red">connect</font>(vol.ports[2], hex.port_a2);
+  <font color="red">connect</font>(out.ports[1], hex.port_a1);
+  <font color="red">connect</font>(out.ports[2], hex.port_b2);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(souWat.ports[1], cooCoi.port_a1);
+  <font color="red">connect</font>(cooCoi.port_b1, sinWat.ports[1]);
+  <font color="red">connect</font>(weaDat.weaBus, out.weaBus);
+  <font color="red">connect</font>(weaDat.weaBus, weaBus);
+  <font color="red">connect</font>(weaBus.TDryBul, TOut.T);
+  <font color="red">connect</font>(fan.m_flow_in, mAir_flow.y);
+  <font color="red">connect</font>(mWat_flow.y, souWat.m_flow_in);
+  <font color="red">connect</font>(hex.port_b1, senTemHXOut.port_a);
+  <font color="red">connect</font>(senTemHXOut.port_b, cooCoi.port_a2);
+  <font color="red">connect</font>(cooCoi.port_b2, senTemSupAir.port_a);
+  <font color="red">connect</font>(senTemSupAir.port_b, fan.port_a);
+  <font color="red">connect</font>(TOut.port, theCon.port_a);
+  <font color="red">connect</font>(heaCap.port, vol.heatPort);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>System2;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE System3<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.Tutori92999cf2e5017513stem2I.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System3" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.Tutorial.SpaceCooling.System3"></A><A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling"
+>Buildings.Examples.Tutorial.SpaceCooling</A>.System3</H2>
+<B>Third part of the system model with air supply and closed loop control</B><p></P>
+<IMG SRC="Buildings.Examples.Tutori92999cf3e5017512stem3D.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System3">
+<P></P><H3>Information</H3>
+
+<p>
+This part of the system model modifies
+<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System2"
+>
+Buildings.Examples.Tutorial.SpaceCooling.System2</a>
+to use the actual outside temperature for a summer day, 
+and it adds closed loop control.
+The closed loop control measures the room temperature and switches
+the chilled water flow rate on or off.
+</p>
+<h4>Implementation</h4>
+<p>
+This section describes how we modified 
+<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System2"
+>
+Buildings.Examples.Tutorial.SpaceCooling.System2</a>
+to build this model.
+</p>
+<ol>
+<li>
+<p>
+The first step was to copy the model 
+<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System2"
+>
+Buildings.Examples.Tutorial.SpaceCooling.System2</a>.
+</p>
+</li>
+<li>
+<p>
+Next, we changed in <code>weaDat</code> the parameter that determines
+whether the outside dry bulb temperature is used from the weather data file 
+or set to a constant value. This can be accomplished in the GUI of the weather data reader
+as follows:
+<p align="center">
+<img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TOutChange.png" border="1">
+</p>
+</li>
+</ol>
+<p>
+If the model is now simulated, the following plot could be generated that shows that the
+room is cooled too much due to the open loop control:
+<p align="center">
+<img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesOpenLoop.png" border="1">
+</p>
+<p>
+To add closed loop control, we proceeded as follows.
+</p>
+<ol start="3">
+<li>
+<p>
+First, we made an instance of the on/off controller
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.OnOffController"
+>
+Modelica.Blocks.Logical.OnOffController</a> and set its name to <code>con</code>.
+We set the parameter for the bandwidth to <i>1</i> Kelvin.
+This model requires as an input the measured temperature and the set point.
+</p>
+</li>
+<li>
+<p>
+For the set point, we made the instance <code>TRooSetPoi</code> to feed a constant
+set point into the controller.
+</p>
+</li>
+<li>
+<p>
+The instance <code>senTemRoo</code> has been added to measure the room air temperature.
+Note that we decided to measure directly the room air temperature. If we would have used
+a temperature sensor in the return air stream, then its temperature would never change when
+the mass flow rate is zero, and hence it would not measure how the room temperature changes
+when the fan is off.
+</p>
+</li>
+<li>
+<p>
+Since the controller output is a boolean signal, but the instance
+<code>souWat</code> needs a real signal as an input for the water mass flow rate,
+we needed to add a conversion block. We therefore replaced the instance
+<code>mWat_flow</code> from a constant block to the block
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
+>
+Modelica.Blocks.Math.BooleanToReal</a>.
+Because the cooling control has a reverse action, i.e., 
+if the measured value exceeds the set point, the system should switch 
+on instead of off, we configured the parameters of the conversion block
+as follow:
+</p>
+<pre>
+  realTrue=0
+  realFalse=mW_flow_nominal
+</pre>
+<p>
+This will output <code>mW_flow_nominal</code> when the room temperature
+is above the set point, and <i>0</i> otherwise.
+</p>
+</li>
+</ol>
+<p>
+This completes building the model shown in the figure on 
+<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling"
+>
+Buildings.Examples.Tutorial.SpaceCooling</a>. 
+When simulating the model, the response shown below should be seen.
+<p align="center">
+<img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesClosedLoop.png" border="1">
+<br/>
+<img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3FlowRateClosedLoop.png" border="1">
+</p>
+<!-- Notes -->
+<h4>Notes</h4>
+<p>
+To add a continuous controller for the coil water flow rate, we could have used the model
+<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>
+Buildings.Controls.Continuous.LimPID</a>.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package MediumA</TD><TD>Buildings.Media.GasesPTDecou...</TD><TD>&nbsp;</TD></TR>
+<TR><TD colspan="2">replaceable package MediumW</TD><TD>Buildings.Media.ConstantProp...</TD><TD>&nbsp;</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</A></TD><TD>V</TD><TD>6*10*3</TD><TD>Room volume [m3]</TD></TR>
+<TR><TD>Real</TD><TD>eps</TD><TD>0.8</TD><TD>Heat recovery effectiveness</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TASup_nominal</TD><TD>273.15 + 18</TD><TD>Nominal air temperature supplied to room [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TRooSet</TD><TD>273.15 + 24</TD><TD>Nominal room air temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TOut_nominal</TD><TD>273.15 + 30</TD><TD>Design outlet air temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>THeaRecLvg</TD><TD>TOut_nominal - eps*(TOut_nom...</TD><TD>Air temperature leaving the heat recovery [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</A></TD><TD>QRooInt_flow</TD><TD>1000</TD><TD>Internal heat gains of the room [W]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</A></TD><TD>QRooC_flow_nominal</TD><TD>-QRooInt_flow - 10E3/30*(TOu...</TD><TD>Nominal cooling load of the room [W]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>mA_flow_nominal</TD><TD>1.3*QRooC_flow_nominal/1006/...</TD><TD>Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</A></TD><TD>dTFan</TD><TD>2</TD><TD>Estimated temperature raise across fan that needs to be made up by the cooling coil [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</A></TD><TD>QCoiC_flow_nominal</TD><TD>4*(QRooC_flow_nominal + mA_f...</TD><TD>Cooling load of coil, taking into account economizer, and increased due to latent heat removal [W]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TWSup_nominal</TD><TD>273.15 + 16</TD><TD>Water supply temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TWRet_nominal</TD><TD>273.15 + 12</TD><TD>Water return temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>mW_flow_nominal</TD><TD>QCoiC_flow_nominal/(TWRet_no...</TD><TD>Nominal water mass flow rate [kg/s]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package MediumA</TD><TD>&nbsp;</TD></TR>
+<TR><TD colspan="2">replaceable package MediumW</TD><TD>&nbsp;</TD></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> System3 <font color="darkgreen">
+  &quot;Third part of the system model with air supply and closed loop control&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">replaceable </font><font color="blue">package</font> MediumA =
+      <A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
+>Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</A>;
+
+  <font color="blue">replaceable </font><font color="blue">package</font> MediumW =
+      <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A>;
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;
+  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Fluid.MixingVolumes.MixingVolume</A> vol(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System3.MediumA"
+>MediumA</A>,
+    m_flow_nominal=mA_flow_nominal,
+    V=V,
+    nPorts=2);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> theCon(G=10000/30) <font color="darkgreen">
+    &quot;Thermal conductance with the ambient&quot;</font>;</textblock>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</A> V=6*10*3 <font color="darkgreen">&quot;Room volume&quot;</font>;
+  <font color="darkgreen">//////////////////////////////////////////////////////////</font>
+  <font color="darkgreen">// Heat recovery effectiveness</font>
+  <font color="blue">parameter </font>Real eps = 0.8 <font color="darkgreen">&quot;Heat recovery effectiveness&quot;</font>;
+
+  <font color="darkgreen">/////////////////////////////////////////////////////////</font>
+  <font color="darkgreen">// Air temperatures at design conditions</font>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TASup_nominal = 273.15+18 <font color="darkgreen">
+    &quot;Nominal air temperature supplied to room&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TRooSet = 273.15+24 <font color="darkgreen">
+    &quot;Nominal room air temperature&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TOut_nominal = 273.15+30 <font color="darkgreen">
+    &quot;Design outlet air temperature&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> THeaRecLvg=
+    TOut_nominal - eps*(TOut_nominal-TRooSet) <font color="darkgreen">
+    &quot;Air temperature leaving the heat recovery&quot;</font>;
+
+  <font color="darkgreen">/////////////////////////////////////////////////////////</font>
+  <font color="darkgreen">// Cooling loads and air mass flow rates</font>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QRooInt_flow=
+     1000 <font color="darkgreen">&quot;Internal heat gains of the room&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QRooC_flow_nominal=
+    -QRooInt_flow-10E3/30*(TOut_nominal-TRooSet) <font color="darkgreen">
+    &quot;Nominal cooling load of the room&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mA_flow_nominal=
+    1.3*QRooC_flow_nominal/1006/(TASup_nominal-TRooSet) <font color="darkgreen">
+    &quot;Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> dTFan = 2 <font color="darkgreen">
+    &quot;Estimated temperature raise across fan that needs to be made up by the cooling coil&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QCoiC_flow_nominal=4*
+    (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006) <font color="darkgreen">
+    &quot;Cooling load of coil, taking into account economizer, and increased due to latent heat removal&quot;</font>;
+
+  <font color="darkgreen">/////////////////////////////////////////////////////////</font>
+  <font color="darkgreen">// Water temperatures and mass flow rates</font>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TWSup_nominal = 273.15+16 <font color="darkgreen">
+    &quot;Water supply temperature&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TWRet_nominal = 273.15+12 <font color="darkgreen">
+    &quot;Water return temperature&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mW_flow_nominal=
+    QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200 <font color="darkgreen">
+    &quot;Nominal water mass flow rate&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature</A>
+                                                         TOut <font color="darkgreen">
+    &quot;Outside temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow"
+>Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</A> preHea(Q_flow=
+        QRooInt_flow) <font color="darkgreen">&quot;Prescribed heat flow&quot;</font>;
+  <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
+>Fluid.Movers.FlowMachine_m_flow</A> fan(<font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System3.MediumA"
+>MediumA</A>,
+      m_flow_nominal=mA_flow_nominal) <font color="darkgreen">&quot;Supply air fan&quot;</font>;
+  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.ConstantEffectiveness"
+>Fluid.HeatExchangers.ConstantEffectiveness</A> hex(<font color="blue">redeclare </font><font color="blue">package</font> Medium1 =
+        <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System3.MediumA"
+>MediumA</A>, <font color="blue">redeclare </font><font color="blue">package</font> Medium2 = <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System3.MediumA"
+>MediumA</A>,
+    m1_flow_nominal=mA_flow_nominal,
+    m2_flow_nominal=mA_flow_nominal,
+    dp1_nominal=200,
+    dp2_nominal=200,
+    eps=eps) <font color="darkgreen">&quot;Heat recovery&quot;</font>;
+  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.WetCoilCounterFlow"
+>Fluid.HeatExchangers.WetCoilCounterFlow</A> cooCoi(<font color="blue">redeclare </font><font color="blue">package</font> Medium1 =
+        <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumW.html#Buildings.Examples.Tutorial.SpaceCooling.System3.MediumW"
+>MediumW</A>, <font color="blue">redeclare </font><font color="blue">package</font> Medium2 = <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System3.MediumA"
+>MediumA</A>,
+    m1_flow_nominal=mW_flow_nominal,
+    m2_flow_nominal=mA_flow_nominal,
+    dp1_nominal=6000,
+    UA_nominal=-QCoiC_flow_nominal/
+        <font color="red">Buildings.Fluid.HeatExchangers.BaseClasses.lmtd</font>(
+        T_a1=THeaRecLvg,
+        T_b1=TASup_nominal,
+        T_a2=TWSup_nominal,
+        T_b2=TWRet_nominal),
+    dp2_nominal=200,
+    show_T=true) <font color="darkgreen">&quot;Cooling coil&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside"
+>Fluid.Sources.Outside</A> out(nPorts=2, <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System3.MediumA"
+>MediumA</A>);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Fluid.Sources.MassFlowSource_T</A> souWat(
+    nPorts=1,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumW.html#Buildings.Examples.Tutorial.SpaceCooling.System3.MediumW"
+>MediumW</A>,
+    use_m_flow_in=true,
+    T=TWSup_nominal) <font color="darkgreen">&quot;Source for water flow rate&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Fluid.Sources.FixedBoundary</A> sinWat(nPorts=1, <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumW.html#Buildings.Examples.Tutorial.SpaceCooling.System3.MediumW"
+>MediumW</A>) <font color="darkgreen">&quot;Sink for water circuit&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
+    pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
+    TDryBul=TOut_nominal,
+    filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;,
+    TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File) <font color="darkgreen">
+    &quot;Weather data reader&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>BoundaryConditions.WeatherData.Bus</A> weaBus;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> mAir_flow(k=mA_flow_nominal) <font color="darkgreen">
+    &quot;Fan air flow rate&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Fluid.Sensors.TemperatureTwoPort</A> senTemHXOut(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System3.MediumA"
+>MediumA</A>, m_flow_nominal=mA_flow_nominal) <font color="darkgreen">
+    &quot;Temperature sensor for heat recovery outlet on supply side&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Fluid.Sensors.TemperatureTwoPort</A> senTemSupAir(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        <A HREF="Buildings_Examples_Tutorial_SpaceCooling_MediumA.html#Buildings.Examples.Tutorial.SpaceCooling.System3.MediumA"
+>MediumA</A>, m_flow_nominal=mA_flow_nominal) <font color="darkgreen">
+    &quot;Temperature sensor for supply air&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.OnOffController"
+>Modelica.Blocks.Logical.OnOffController</A> con(bandwidth=1) <font color="darkgreen">
+    &quot;Controller for coil water flow rate&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> TRooSetPoi(k=TRooSet) <font color="darkgreen">
+    &quot;Room temperature set point&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> senTemRoo <font color="darkgreen">
+    &quot;Room temperature sensor&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
+>Modelica.Blocks.Math.BooleanToReal</A> mWat_flow(realTrue=0, realFalse=
+        mW_flow_nominal) <font color="darkgreen">&quot;Conversion from boolean to real for water flow rate&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
+>Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</A> heaCap(C=2*V*1.2*1006) <font color="darkgreen">
+    &quot;Heat capacity for furniture and walls&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(theCon.port_b, vol.heatPort);
+  <font color="red">connect</font>(preHea.port, vol.heatPort);
+  <font color="red">connect</font>(fan.port_b, vol.ports[1]);
+  <font color="red">connect</font>(vol.ports[2], hex.port_a2);
+  <font color="red">connect</font>(out.ports[1], hex.port_a1);
+  <font color="red">connect</font>(out.ports[2], hex.port_b2);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(souWat.ports[1], cooCoi.port_a1);
+  <font color="red">connect</font>(cooCoi.port_b1, sinWat.ports[1]);
+  <font color="red">connect</font>(weaDat.weaBus, out.weaBus);
+  <font color="red">connect</font>(weaDat.weaBus, weaBus);
+  <font color="red">connect</font>(weaBus.TDryBul, TOut.T);
+  <font color="red">connect</font>(fan.m_flow_in, mAir_flow.y);
+  <font color="red">connect</font>(hex.port_b1, senTemHXOut.port_a);
+  <font color="red">connect</font>(senTemHXOut.port_b, cooCoi.port_a2);
+  <font color="red">connect</font>(cooCoi.port_b2, senTemSupAir.port_a);
+  <font color="red">connect</font>(senTemSupAir.port_b, fan.port_a);
+  <font color="red">connect</font>(TOut.port, theCon.port_a);
+  <font color="red">connect</font>(TRooSetPoi.y, con.reference);
+  <font color="red">connect</font>(vol.heatPort, senTemRoo.port);
+  <font color="red">connect</font>(senTemRoo.T, con.u);
+  <font color="red">connect</font>(con.y, mWat_flow.u);
+  <font color="red">connect</font>(mWat_flow.y, souWat.m_flow_in);
+  <font color="red">connect</font>(heaCap.port, vol.heatPort);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>System3;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:32:21 2013.
+</address></BODY>
+</HTML>

@@ -1,0 +1,480 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.HeatExchangers.CoolingTowers</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with cooling tower models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE CoolingTowers<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.HeatExchangers.CoolingTowers"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
+>Buildings.Fluid.HeatExchangers</A>.CoolingTowers</H2>
+<B>Package with cooling tower models</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains components models for cooling towers.
+</p>
+<p>
+The model
+<A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers.html#Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach"
+>
+Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach</a>
+computes a fixed approach temperature.
+</p>
+<p>
+The model
+<A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers.html#Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc"
+>
+Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a>
+computes the cooling tower performance based the York formula.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExcha55e4598e263b512croachS.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers.html#Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach"
+>FixedApproach</A>
+</TD><TD>Cooling tower with constant approach temperature</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExcha078dece6025f8f7akCalcS.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers.html#Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc"
+>YorkCalc</A>
+</TD><TD>Cooling tower with variable speed using the York calculation for the approach temperature</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExcha833f52c7e4263aafmplesS.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Examples.html#Buildings.Fluid.HeatExchangers.CoolingTowers.Examples"
+>Examples</A>
+</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExcha1e56b70b21e50c79tionsS.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Correlations.html#Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations"
+>Correlations</A>
+</TD><TD>Package with correlations for cooling tower performance</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExcha436fb05bd009008cassesS.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses"
+>BaseClasses</A>
+</TD><TD>Package with base classes for Buildings.Fluid.HeatExchangers.CoolingTowers</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE FixedApproach<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.HeatExcha55e4598e263b512croachI.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach"></A><A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers.html#Buildings.Fluid.HeatExchangers.CoolingTowers"
+>Buildings.Fluid.HeatExchangers.CoolingTowers</A>.FixedApproach</H2>
+<B>Cooling tower with constant approach temperature</B><p></P>
+<IMG SRC="Buildings.Fluid.HeatExcha55e4598e263b512croachD.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach">
+<P></P><H3>Information</H3>
+
+<p>
+Model for a steady-state or dynamic cooling tower with constant approach temperature.
+The approach temperature is the difference between the leaving water temperature and
+the entering air temperature.
+The entering air temperature is used from the signal <code>TAir</code>. If 
+connected to the a dry-bulb temperature, then a dry cooling tower is modeled.
+If connected to a wet-bulb temperature, then a wet cooling tower is modeled.
+</p><p>
+By connecting a signal that contains either the dry-bulb or the wet-bulb
+temperature, this model can be used to estimate the water return temperature
+from a cooling tower. 
+For a more detailed model, use for example the
+<A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers.html#Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc"
+>YorkCalc</a>
+model.
+</p>
+<P></P>
+Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower"
+>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower</A> (Base class for cooling towers).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium in the component</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</A></TD><TD>TApp</TD><TD>2</TD><TD>Approach temperature difference [K]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp_nominal</TD><TD>&nbsp;</TD><TD>Pressure [Pa]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
+<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
+<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>true</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
+<TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
+<TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
+<TR><TD>Real</TD><TD>deltaM</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>tau</TD><TD>30</TD><TD>Time constant at nominal flow (if energyDynamics &lt;&gt; SteadyState) [s]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+>Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>TLvg</TD><TD>Leaving water temperature</TD></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TAir</TD><TD>Entering air dry or wet bulb temperature [K]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> FixedApproach <font color="darkgreen">
+  &quot;Cooling tower with constant approach temperature&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower"
+>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower</A>;
+
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> TApp(min=0, displayUnit=&quot;K&quot;) = 2 <font color="darkgreen">
+    &quot;Approach temperature difference&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TAir(min=0, unit=&quot;K&quot;) <font color="darkgreen">
+    &quot;Entering air dry or wet bulb temperature&quot;</font>;</textblock>
+<font color="blue">equation </font>
+  TAppAct=TApp;
+  TAirHT=TAir;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>FixedApproach;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE YorkCalc<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.HeatExcha078dece6025f8f7akCalcI.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc"></A><A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers.html#Buildings.Fluid.HeatExchangers.CoolingTowers"
+>Buildings.Fluid.HeatExchangers.CoolingTowers</A>.YorkCalc</H2>
+<B>Cooling tower with variable speed using the York calculation for the approach temperature</B><p></P>
+<IMG SRC="Buildings.Fluid.HeatExcha078dece6025f8f7akCalcD.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc">
+<P></P><H3>Information</H3>
+
+<p>
+Model for a steady-state or dynamic cooling tower with variable speed fan using the York calculation for the
+approach temperature at off-design conditions.
+</p>
+<h4>Thermal performance</h4>
+<p>
+To compute the thermal performance, this model takes as parameters 
+the approach temperature, the range temperature and the inlet air wet bulb temperature 
+at the design condition. Since the design mass flow rate (of the chiller condenser loop)
+is also a parameter, these parameters define the rejected heat.
+</p>
+<p>
+For off-design conditions, the model uses the actual range temperature and a polynomial 
+to compute the approach temperature for free convection and for forced convection, i.e.,
+with the fan operating. The polynomial is valid for a York cooling tower.
+If the fan input signal <code>y</code> is below the minimum fan revolution <code>yMin</code>,
+then the cooling tower operates in free convection mode, otherwise it operates in
+the forced convection mode.
+For numerical reasons, this transition occurs in the range of <code>y &isin; [0.9*yMin, yMin]</code>.
+</p>
+<h4>Fan power consumption</h4>
+<p>
+The fan power consumption at the design condition can be specified as follows:
+<ul>
+<li>
+The parameter <code>fraPFan_nominal</code> can be used to specify at the 
+nominal conditions the fan power divided by the water flow rate. The default value is 
+<i>275</i> Watts for a water flow rate of <i>0.15</i> kg/s. 
+</li>
+<li>
+The parameter <code>PFan_nominal</code> can be set to the fan power at nominal conditions.
+If a user does not set this parameter, then the fan power will be
+<code>PFan_nominal = fraPFan_nominal * m_flow_nominal</code>, where <code>m_flow_nominal</code>
+is the nominal water flow rate.
+</li>
+</ul>
+</p>
+<p>
+In the forced convection mode, the actual fan power is 
+computed as <code>PFan=fanRelPow(y) * PFan_nominal</code>, where
+the default value for the fan relative power consumption at part load is
+<code>fanRelPow(y)=y<sup>3</sup></code>.
+In the free convection mode, the fan power consumption is zero.
+For numerical reasons, the transition of fan power from the part load mode
+to zero power consumption in the free convection mode occurs in the range 
+<code>y &isin; [0.9*yMin, yMin]</code>.
+<br/>
+To change the fan relative power consumption at part load in the forced convection mode, 
+points of fan controls signal and associated relative power consumption can be specified.
+In between these points, the values are interpolated using cubic splines.
+</p>
+<h4>Comparison the the cooling tower model of EnergyPlus</h4>
+<p> 
+This model is similar to the model <code>Cooling Tower:Variable Speed</code> that
+is implemented in the EnergyPlus building energy simulation program version 6.0.
+The main differences are
+<ol>
+<li>
+Not implemented are the basin heater power consumption, and
+the make-up water usage.
+</li>
+<li>
+The model has no built-in control to switch individual cells of the tower on or off.
+To switch cells on or off, use multiple instances of this model, and use your own
+control law to compute the input signal <code>y</code>.
+</li>
+</ol>
+</p>
+<h4>References</h4>
+<p>
+<a href="http://www.energyplus.gov">EnergyPlus 2.0.0 Engineering Reference</a>, April 9, 2007.
+</p>
+<P></P>
+Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower"
+>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower</A> (Base class for cooling towers).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium in the component</TD></TR>
+<TR><TD>Real</TD><TD>fraPFan_nominal</TD><TD>275/0.15</TD><TD>Fan power divived by water mass flow rate at design condition [W/(kg/s)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</A></TD><TD>PFan_nominal</TD><TD>fraPFan_nominal*m_flow_nominal</TD><TD>Fan power [W]</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</A></TD><TD>fanRelPow</TD><TD>&nbsp;</TD><TD>Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)</TD></TR>
+<TR><TD>Real</TD><TD>yMin</TD><TD>0.3</TD><TD>Minimum control signal until fan is switched off (used for smoothing between forced and free convection regime)</TD></TR>
+<TR><TD>Real</TD><TD>fraFreCon</TD><TD>0.125</TD><TD>Fraction of tower capacity in free convection regime</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp_nominal</TD><TD>&nbsp;</TD><TD>Pressure [Pa]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TAirInWB_nominal</TD><TD>273.15 + 25.55</TD><TD>Design inlet air wet bulb temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</A></TD><TD>TApp_nominal</TD><TD>3.89</TD><TD>Design approach temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</A></TD><TD>TRan_nominal</TD><TD>5.56</TD><TD>Design range temperature (water in - water out) [K]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
+<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
+<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>true</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
+<TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
+<TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
+<TR><TD>Real</TD><TD>deltaM</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>tau</TD><TD>30</TD><TD>Time constant at nominal flow (if energyDynamics &lt;&gt; SteadyState) [s]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+>Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>TLvg</TD><TD>Leaving water temperature</TD></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TAir</TD><TD>Entering air wet bulb temperature [K]</TD></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>y</TD><TD>Fan control signal</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> YorkCalc <font color="darkgreen">
+  &quot;Cooling tower with variable speed using the York calculation for the approach temperature&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower"
+>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower</A>;
+  <font color="blue">import </font>cha = <A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics</A>;
+
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TAirInWB_nominal = 273.15+25.55 <font color="darkgreen">
+    &quot;Design inlet air wet bulb temperature&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> TApp_nominal(displayUnit=&quot;K&quot;) = 3.89 <font color="darkgreen">
+    &quot;Design approach temperature&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> TRan_nominal(displayUnit=&quot;K&quot;) = 5.56 <font color="darkgreen">
+    &quot;Design range temperature (water in - water out)&quot;</font>;
+  <font color="blue">parameter </font>Real fraPFan_nominal(unit=&quot;W/(kg/s)&quot;) = 275/0.15 <font color="darkgreen">
+    &quot;Fan power divived by water mass flow rate at design condition&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</A> PFan_nominal = fraPFan_nominal*m_flow_nominal <font color="darkgreen">
+    &quot;Fan power&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">parameter </font><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters</A>
+                                                                            fanRelPow(
+       r_V = {0, 0.1,   0.3,   0.6,   1},
+       eta = {0, 0.1^3, 0.3^3, 0.6^3, 1}) <font color="darkgreen">
+    &quot;Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)&quot;</font>;
+    </textblock>
+
+  <font color="blue">parameter </font>Real yMin(min=0.01, max=1) = 0.3 <font color="darkgreen">
+    &quot;Minimum control signal until fan is switched off (used for smoothing between forced and free convection regime)&quot;</font>;
+  <font color="blue">parameter </font>Real fraFreCon(min=0, max=1) = 0.125 <font color="darkgreen">
+    &quot;Fraction of tower capacity in free convection regime&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TAir(min=0, unit=&quot;K&quot;) <font color="darkgreen">
+    &quot;Entering air wet bulb temperature&quot;</font>;</textblock>
+
+  <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Correlations.html#Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BoundsYorkCalc"
+>Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BoundsYorkCalc</A> bou <font color="darkgreen">
+    &quot;Bounds for correlation&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> y <font color="darkgreen">&quot;Fan control signal&quot;</font>;</textblock>
+
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> TRan(nominal=1, displayUnit=&quot;K&quot;) <font color="darkgreen">
+    &quot;Range temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</A> FRWat <font color="darkgreen">
+    &quot;Ratio actual over design water mass flow ratio&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</A> FRAir <font color="darkgreen">
+    &quot;Ratio actual over design air mass flow ratio&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</A> PFan <font color="darkgreen">&quot;Fan power&quot;</font>;
+<font color="blue">protected </font>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</A> FRWat0(min=0, start=1, fixed=false) <font color="darkgreen">
+    &quot;Ratio actual over design water mass flow ratio at nominal condition&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TWatIn0(fixed=false) <font color="darkgreen">
+    &quot;Water inlet temperature at nominal condition&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TWatOut_nominal(fixed=false) <font color="darkgreen">
+    &quot;Water outlet temperature at nominal condition&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mRef_flow(min=0, start=m_flow_nominal, fixed=false) <font color="darkgreen">
+    &quot;Reference water flow rate&quot;</font>;
+
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> dTMax(nominal=1, displayUnit=&quot;K&quot;) <font color="darkgreen">
+    &quot;Maximum possible temperature difference&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> TAppCor(min=0, nominal=1, displayUnit=&quot;K&quot;) <font color="darkgreen">
+    &quot;Approach temperature for forced convection&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> TAppFreCon(min=0, nominal=1, displayUnit=&quot;K&quot;) <font color="darkgreen">
+    &quot;Approach temperature for free convection&quot;</font>;
+
+  <font color="blue">final </font><font color="blue">parameter </font>Real fanRelPowDer[<font color="red">size</font>(fanRelPow.r_V,1)](fixed=false) <font color="darkgreen">
+    &quot;Coefficients for fan relative power consumption as a function of control signal&quot;</font>;
+
+<font color="blue">initial </font><font color="blue">equation </font>
+  TWatOut_nominal = TAirInWB_nominal + TApp_nominal;
+  TRan_nominal = TWatIn0 - TWatOut_nominal;<font color="darkgreen"> // by definition of the range temp.</font>
+  TApp_nominal =<font color="red"> Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc</font>(
+                   TRan=TRan_nominal, TWetBul=TAirInWB_nominal,
+                   FRWat=FRWat0, FRAir=1);<font color="darkgreen"> // this will be solved for FRWat0</font>
+  mRef_flow = m_flow_nominal/FRWat0;
+
+  <font color="darkgreen">// Derivatives for spline that interpolates the fan relative power</font>
+  fanRelPowDer =<font color="red"> Buildings.Utilities.Math.Functions.splineDerivatives</font>(
+            x=fanRelPow.r_V,
+            y=fanRelPow.eta,
+            ensureMonotonicity=<font color="red">Buildings.Utilities.Math.Functions.isMonotonic</font>(x=fanRelPow.eta,
+                                                                              strict=false));
+  <font color="darkgreen">// Check validity of relative fan power consumption at y=yMin and y=1</font>
+  <font color="red">assert</font>(<font color="red">cha.efficiency</font>(data=fanRelPow, r_V=yMin, d=fanRelPowDer) &gt; -1E-4,
+    &quot;The fan relative power consumption must be non-negative for y=0.&quot;
+  + &quot;\n   Obtained fanRelPow(0) = &quot; +<font color="red"> String</font>(<font color="red">cha.efficiency</font>(data=fanRelPow, r_V=yMin, d=fanRelPowDer))
+  + &quot;\n   You need to choose different values for the parameter fanRelPow.&quot;);
+  <font color="red">assert</font>(<font color="red">abs</font>(1-<font color="red">cha.efficiency</font>(data=fanRelPow, r_V=1, d=fanRelPowDer))&lt;1E-4, &quot;The fan relative power consumption must be one for y=1.&quot;
+  + &quot;\n   Obtained fanRelPow(1) = &quot; +<font color="red"> String</font>(<font color="red">cha.efficiency</font>(data=fanRelPow, r_V=1, d=fanRelPowDer))
+  + &quot;\n   You need to choose different values for the parameter fanRelPow.&quot;
+  + &quot;\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.&quot;);
+<font color="blue">equation </font>
+  <font color="darkgreen">// Air temperature used for the heat transfer</font>
+  TAirHT=TAir;
+  <font color="darkgreen">// Range temperature</font>
+  TRan =<font color="red"> Medium.temperature</font>(sta_a) -<font color="red"> Medium.temperature</font>(sta_b);
+  <font color="darkgreen">// Fractional mass flow rates</font>
+  FRWat = m_flow/mRef_flow;
+  FRAir = y;
+
+  TAppCor =<font color="red"> Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc</font>(
+               TRan=TRan, TWetBul=TAir,
+               FRWat=FRWat, FRAir=<font color="red">max</font>(FRWat/bou.liqGasRat_max, FRAir));
+  dTMax =<font color="red"> Medium.temperature</font>(sta_a) - TAir;
+  TAppFreCon = (1-fraFreCon) * dTMax  + fraFreCon *
+               <font color="red">Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc</font>(
+                   TRan=TRan, TWetBul=TAir, FRWat=FRWat, FRAir=1);
+
+  <font color="darkgreen">// Actual approach temperature and fan power consumption,</font>
+  <font color="darkgreen">// which depends on forced vs. free convection.</font>
+  <font color="darkgreen">// The transition is for y in [yMin-yMin/10, yMin]</font>
+  [TAppAct, PFan] =<font color="red"> Buildings.Utilities.Math.Functions.spliceFunction</font>(
+                                                 pos=[TAppCor,
+                                                 <font color="red">cha.efficiency</font>(
+                                                     data=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal],
+                                                 neg=[TAppFreCon, 0],
+                                                 x=y-yMin+yMin/20,
+                                                 deltax=yMin/20);
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>YorkCalc;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:28:36 2013.
+</address></BODY>
+</HTML>

@@ -1,0 +1,434 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.Sources.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Sources.Examples"></A><A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources"
+>Buildings.Fluid.Sources</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources"
+>
+Buildings.Fluid.Sources</a>.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Sources.Ed0159128609b82fayFlowS.png" ALT="Buildings.Fluid.Sources.Examples.PrescribedExtraPropertyFlow" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sources_Examples.html#Buildings.Fluid.Sources.Examples.PrescribedExtraPropertyFlow"
+>PrescribedExtraPropertyFlow</A>
+</TD><TD>&nbsp;</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Sources.Ed0159128609b82fayFlowS.png" ALT="Buildings.Fluid.Sources.Examples.Outside" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sources_Examples.html#Buildings.Fluid.Sources.Examples.Outside"
+>Outside</A>
+</TD><TD>Test model for source and sink with outside weather data</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Sources.Ed0159128609b82fayFlowS.png" ALT="Buildings.Fluid.Sources.Examples.Outside_Cp" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sources_Examples.html#Buildings.Fluid.Sources.Examples.Outside_Cp"
+>Outside_Cp</A>
+</TD><TD>Test model for source and sink with outside weather data and wind pressure</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Sources.Ed0159128609b82fayFlowS.png" ALT="Buildings.Fluid.Sources.Examples.Outside_CpLowRise" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sources_Examples.html#Buildings.Fluid.Sources.Examples.Outside_CpLowRise"
+>Outside_CpLowRise</A>
+</TD><TD>Test model for source and sink with outside weather data and wind pressure</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE PrescribedExtraPropertyFlow<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Sources.Ed0159128609b82fayFlowI.png" ALT="Buildings.Fluid.Sources.Examples.PrescribedExtraPropertyFlow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Sources.Examples.PrescribedExtraPropertyFlow"></A><A HREF="Buildings_Fluid_Sources_Examples.html#Buildings.Fluid.Sources.Examples"
+>Buildings.Fluid.Sources.Examples</A>.PrescribedExtraPropertyFlow</H2>
+<IMG SRC="Buildings.Fluid.Sources.Ed0159128609b82fayFlowD.png" ALT="Buildings.Fluid.Sources.Examples.PrescribedExtraPropertyFlow">
+<P></P><H3>Information</H3>
+
+This model demonstrates the use of trace substances that are added
+to a volume of air.
+The source is a step function of <i>2</i> kg/s CO<sub>2</sub> from <i>t=0</i> second
+to <i>t=0.5</i> second.
+The sensors <code>C</code> and <code>C1</code> measure the same concentration that initially increases
+and then remains constant as there is no flow through the volumes <code>vol</code> and <code>vol1</code>.
+The sensors 
+<code>C2</code> and
+<code>C3</code> first meaure an increase in concentration, which then decays to zero
+as there is a mass flow rate with zero CO<sub>2</sub> from the source <code>bou</code> to the sink <code>sin</code>.
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> PrescribedExtraPropertyFlow
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
+>Buildings.Media.GasesPTDecoupled.SimpleAir</A>(extraPropertiesNames={&quot;CO2&quot;});
+ <font color="darkgreen">// package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir;</font>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>MixingVolumes.MixingVolume</A> vol(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    V=100,
+    m_flow_nominal=1,
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">&quot;Mixing volume&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate"
+>PrescribedExtraPropertyFlowRate</A> sou(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+      use_m_flow_in=true,
+    nPorts=1);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+>Modelica.Blocks.Sources.Step</A> step(          startTime=0.5,
+    height=-2,
+    offset=2);
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> res(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=1,
+    dp_nominal=1) <font color="darkgreen">
+    &quot;Resistance, used to check if species are transported between ports&quot;</font>;
+  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>MixingVolumes.MixingVolume</A> vol1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    V=100,
+    m_flow_nominal=1,
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">&quot;Mixing volume&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate"
+>PrescribedExtraPropertyFlowRate</A> sou1(
+                                      <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+      use_m_flow_in=true);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assEqu(threShold=1E-4) <font color="darkgreen">
+    &quot;Assert that both volumes have the same concentration&quot;</font>;
+  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>MixingVolumes.MixingVolume</A> vol2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    p_start=Medium.p_default,
+    V=100,
+    m_flow_nominal=1,
+    nPorts=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">&quot;Mixing volume&quot;</font>;
+  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>MixingVolumes.MixingVolume</A> vol3(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    p_start=Medium.p_default,
+    V=100,
+    m_flow_nominal=1,
+    nPorts=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">&quot;Mixing volume&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</A> spl(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal={1,1,1},
+    dp_nominal={1,1,1},
+    from_dp=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assEqu1(
+                                                     threShold=1E-4) <font color="darkgreen">
+    &quot;Assert that both volumes have the same concentration&quot;</font>;
+  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>MixingVolumes.MixingVolume</A> vol4(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    nPorts=3,
+    p_start=Medium.p_default,
+    V=100,
+    m_flow_nominal=1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">&quot;Mixing volume&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate"
+>PrescribedExtraPropertyFlowRate</A> sou2(
+                                      <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+      use_m_flow_in=true);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> bou(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    p=101325,
+    nPorts=1,
+    T=293.15);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> sin(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    nPorts=2,
+    p=101320,
+    T=293.15) <font color="darkgreen">&quot;Sink boundary conditions&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> res1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=1,
+    dp_nominal=1) <font color="darkgreen">
+    &quot;Resistance, used to check if species are transported between ports&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> res2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=1,
+    dp_nominal=1) <font color="darkgreen">
+    &quot;Resistance, used to check if species are transported between ports&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> res3(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=1,
+    dp_nominal=1) <font color="darkgreen">
+    &quot;Resistance, used to check if species are transported between ports&quot;</font>;
+  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TraceSubstances"
+>Sensors.TraceSubstances</A> C(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">
+    &quot;Trace substance sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TraceSubstances"
+>Sensors.TraceSubstances</A> C1(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">
+    &quot;Trace substance sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TraceSubstances"
+>Sensors.TraceSubstances</A> C2(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">
+    &quot;Trace substance sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TraceSubstances"
+>Sensors.TraceSubstances</A> C3(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">
+    &quot;Trace substance sensor&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(vol4.ports[2], spl.port_3);
+  <font color="red">connect</font>(res3.port_b, vol4.ports[3]);
+  <font color="red">connect</font>(res1.port_b, sin.ports[1]);
+  <font color="red">connect</font>(res2.port_b, sin.ports[2]);
+  <font color="red">connect</font>(bou.ports[1], res3.port_a);
+  <font color="red">connect</font>(sou1.ports[1], res.port_a);
+  <font color="red">connect</font>(sou2.ports[1], vol4.ports[1]);
+  <font color="red">connect</font>(step.y, sou.m_flow_in);
+  <font color="red">connect</font>(step.y, sou1.m_flow_in);
+  <font color="red">connect</font>(step.y, sou2.m_flow_in);
+  <font color="red">connect</font>(assEqu.u1, C.C);
+  <font color="red">connect</font>(C1.C, assEqu.u2);
+  <font color="red">connect</font>(assEqu1.u1, C2.C);
+  <font color="red">connect</font>(C3.C, assEqu1.u2);
+  <font color="red">connect</font>(sou.ports[1], vol.ports[1]);
+  <font color="red">connect</font>(vol.ports[2], C.port);
+  <font color="red">connect</font>(res.port_b, vol1.ports[1]);
+  <font color="red">connect</font>(vol1.ports[2], C1.port);
+  <font color="red">connect</font>(spl.port_1, vol2.ports[1]);
+  <font color="red">connect</font>(vol2.ports[2], res1.port_a);
+  <font color="red">connect</font>(spl.port_2, vol3.ports[1]);
+  <font color="red">connect</font>(vol3.ports[2], res2.port_a);
+  <font color="red">connect</font>(C2.port, vol2.ports[3]);
+  <font color="red">connect</font>(C3.port, vol3.ports[3]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>PrescribedExtraPropertyFlow;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Outside<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Sources.Ed0159128609b82fayFlowI.png" ALT="Buildings.Fluid.Sources.Examples.Outside" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Sources.Examples.Outside"></A><A HREF="Buildings_Fluid_Sources_Examples.html#Buildings.Fluid.Sources.Examples"
+>Buildings.Fluid.Sources.Examples</A>.Outside</H2>
+<B>Test model for source and sink with outside weather data</B><p></P>
+<IMG SRC="Buildings.Fluid.Sources.Examples.OutsideD.png" ALT="Buildings.Fluid.Sources.Examples.Outside">
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Outside <font color="darkgreen">
+  &quot;Test model for source and sink with outside weather data&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesConstantDensity_MoistAirUnsaturated.html#Buildings.Media.GasesConstantDensity.MoistAirUnsaturated"
+>Buildings.Media.GasesConstantDensity.MoistAirUnsaturated</A> <font color="darkgreen">
+    &quot;Medium model for air&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside"
+>Buildings.Fluid.Sources.Outside</A> bou(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium, nPorts=
+       1) <font color="darkgreen">&quot;Model with outside conditions&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=
+        &quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>MassFlowSource_T</A> sin(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium, m_flow=-1,
+    nPorts=1) <font color="darkgreen">&quot;Sink&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Sensors.TemperatureTwoPort</A> senTem(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+      m_flow_nominal=1) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.RelativeHumidityTwoPort"
+>Sensors.RelativeHumidityTwoPort</A> senRelHum(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+      m_flow_nominal=1);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFractionTwoPort"
+>Sensors.MassFractionTwoPort</A> senMasFra(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+      m_flow_nominal=1) <font color="darkgreen">&quot;Sensor for mass fraction of water&quot;</font>;
+  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaDat.weaBus, bou.weaBus);
+  <font color="red">connect</font>(senTem.port_b, sin.ports[1]);
+  <font color="red">connect</font>(senRelHum.port_a, bou.ports[1]);
+  <font color="red">connect</font>(senRelHum.port_b, senMasFra.port_a);
+  <font color="red">connect</font>(senMasFra.port_b, senTem.port_a);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Outside;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Outside_Cp<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Sources.Ed0159128609b82fayFlowI.png" ALT="Buildings.Fluid.Sources.Examples.Outside_Cp" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Sources.Examples.Outside_Cp"></A><A HREF="Buildings_Fluid_Sources_Examples.html#Buildings.Fluid.Sources.Examples"
+>Buildings.Fluid.Sources.Examples</A>.Outside_Cp</H2>
+<B>Test model for source and sink with outside weather data and wind pressure</B><p></P>
+<IMG SRC="Buildings.Fluid.Sources.E959bd2734d68cee9de_CpD.png" ALT="Buildings.Fluid.Sources.Examples.Outside_Cp">
+<P></P><H3>Information</H3>
+
+<p>
+This model demonstrates the use of a source for ambient temperature, pressure and
+species concentration.
+The models <code>bou1</code> and <code>bou2</code> compute the ambient pressure
+based on the weather file and the wind pressure.
+The model <code>bou1</code> uses a parameter for the wind pressure coefficient,
+whereas <code>bou2</code> uses the wind pressure coefficient from its input port.
+The model <code>bouFix</code> does not compute any wind pressure.
+Adding the wind pressure to the models on the left-hand side induces a mass flow
+rate through the orifice models <code>ori1</code> and <code>ori2</code>.
+Since both source models use the same constant wind pressure coefficient, the
+mass flow rate through the orifice model is the same.
+In more realistic applications, the constant source <code>Cp</code> would be
+replaced by a model that computes a wind pressure coefficient that takes into
+account the wind direction relative to the building.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Outside_Cp <font color="darkgreen">
+  &quot;Test model for source and sink with outside weather data and wind pressure&quot;</font>
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesConstantDensity_MoistAirUnsaturated.html#Buildings.Media.GasesConstantDensity.MoistAirUnsaturated"
+>Buildings.Media.GasesConstantDensity.MoistAirUnsaturated</A> <font color="darkgreen">
+    &quot;Medium model for air&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside_Cp"
+>Buildings.Fluid.Sources.Outside_Cp</A> bou1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    nPorts=1,
+    Cp=0.6) <font color="darkgreen">&quot;Model with outside conditions&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
+    filNam=&quot;Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
+  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside"
+>Buildings.Fluid.Sources.Outside</A> bouFix(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+      nPorts=2) <font color="darkgreen">&quot;Model with outside conditions&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> Cp(k=0.6) <font color="darkgreen">
+    &quot;Constant value for Cp (used to demonstrate input connector)&quot;</font>;
+  <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
+>Buildings.Airflow.Multizone.Orifice</A> ori1(A=0.1, <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium) <font color="darkgreen">&quot;Orifice&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside_Cp"
+>Buildings.Fluid.Sources.Outside_Cp</A> bou2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    nPorts=1,
+    use_Cp_in=true) <font color="darkgreen">&quot;Model with outside conditions&quot;</font>;
+  <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
+>Buildings.Airflow.Multizone.Orifice</A> ori2(A=0.1, <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium) <font color="darkgreen">&quot;Orifice&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaDat.weaBus, bou1.weaBus);
+  <font color="red">connect</font>(bou1.ports[1], ori1.port_a);
+  <font color="red">connect</font>(ori1.port_b, bouFix.ports[1]);
+  <font color="red">connect</font>(weaDat.weaBus, bouFix.weaBus);
+  <font color="red">connect</font>(bou2.Cp_in, Cp.y);
+  <font color="red">connect</font>(bou2.ports[1], ori2.port_a);
+  <font color="red">connect</font>(ori2.port_b, bouFix.ports[2]);
+  <font color="red">connect</font>(weaDat.weaBus, bou2.weaBus);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Outside_Cp;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Outside_CpLowRise<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Sources.Ed0159128609b82fayFlowI.png" ALT="Buildings.Fluid.Sources.Examples.Outside_CpLowRise" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Sources.Examples.Outside_CpLowRise"></A><A HREF="Buildings_Fluid_Sources_Examples.html#Buildings.Fluid.Sources.Examples"
+>Buildings.Fluid.Sources.Examples</A>.Outside_CpLowRise</H2>
+<B>Test model for source and sink with outside weather data and wind pressure</B><p></P>
+<IMG SRC="Buildings.Fluid.Sources.Eaf429b76d61edd5cwRiseD.png" ALT="Buildings.Fluid.Sources.Examples.Outside_CpLowRise">
+<P></P><H3>Information</H3>
+
+<p>
+This model demonstrates the use of a source for ambient conditions that computes
+the wind pressure on a facade of a low-rise building.
+Weather data are used for San Francisco, for a period of a week
+where the wind blows primarily from North-West.
+The plot shows that the wind pressure on the north- and west-facing
+facade is positive,
+whereas it is negative for the south- and east-facing facades.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Outside_CpLowRise <font color="darkgreen">
+  &quot;Test model for source and sink with outside weather data and wind pressure&quot;</font>
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesConstantDensity_MoistAirUnsaturated.html#Buildings.Media.GasesConstantDensity.MoistAirUnsaturated"
+>Buildings.Media.GasesConstantDensity.MoistAirUnsaturated</A> <font color="darkgreen">
+    &quot;Medium model for air&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside_CpLowRise"
+>Buildings.Fluid.Sources.Outside_CpLowRise</A> west(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    s=5,
+    azi=Buildings.HeatTransfer.Types.Azimuth.W,
+    Cp0=0.6) <font color="darkgreen">&quot;Model with outside conditions&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
+    filNam=&quot;Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
+  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside_CpLowRise"
+>Buildings.Fluid.Sources.Outside_CpLowRise</A> north(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    s=1/5,
+    azi=Buildings.HeatTransfer.Types.Azimuth.N,
+    Cp0=0.6) <font color="darkgreen">&quot;Model with outside conditions&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside_CpLowRise"
+>Buildings.Fluid.Sources.Outside_CpLowRise</A> south(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    s=1/5,
+    azi=Buildings.HeatTransfer.Types.Azimuth.S,
+    Cp0=0.6) <font color="darkgreen">&quot;Model with outside conditions&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside_CpLowRise"
+>Buildings.Fluid.Sources.Outside_CpLowRise</A> east(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    s=5,
+    azi=Buildings.HeatTransfer.Types.Azimuth.E,
+    Cp0=0.6) <font color="darkgreen">&quot;Model with outside conditions&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaDat.weaBus, west.weaBus);
+  <font color="red">connect</font>(weaDat.weaBus, north.weaBus);
+  <font color="red">connect</font>(weaDat.weaBus, south.weaBus);
+  <font color="red">connect</font>(weaDat.weaBus, east.weaBus);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Outside_CpLowRise;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:49 2013.
+</address></BODY>
+</HTML>

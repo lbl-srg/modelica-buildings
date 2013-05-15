@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Media.GasesPTDecoupled</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with models for gases where pressure and temperature are independent of each other&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE GasesPTDecoupled<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Media.GasesPTDecoupled"></A><A HREF="Buildings_Media.html#Buildings.Media"
+>Buildings.Media</A>.GasesPTDecoupled</H2>
+<B>Package with models for gases where pressure and temperature are independent of each other</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+Medium models in this package use the gas law
+<i>d/d<sub>stp</sub> = p/p<sub>stp</sub></i> where 
+<i>p<sub>std</sub></i> and <i>d<sub>stp</sub></i> are constants for a reference
+temperature and density instead of the ideal gas law
+<i>&rho; = p &frasl;(R T)</i>.
+</p>
+<p>
+This new formulation often leads to smaller systems of nonlinear equations 
+because pressure and temperature are decoupled, at the expense of accuracy.
+</p>
+<p>
+Note that models in this package implement the equation for the internal energy as
+<p align="center" style="font-style:italic;">
+  u = h - p<sub>stp</sub> &frasl; &rho;<sub>stp</sub>,
+</p>
+where 
+<i>u</i> is the internal energy per unit mass,
+<i>h</i> is the enthalpy per unit mass,
+<i>p<sub>stp</sub></i> is the static pressure and
+<i>&rho;<sub>stp</sub></i> is the mass density at standard pressure and temperature.
+The reason for this implementation is that in general,
+<p align="center" style="font-style:italic;">
+  h = u + p v,
+</p>
+from which follows that
+<p align="center" style="font-style:italic;">
+  u = h - p v = h - p &frasl; &rho; = h - p<sub>stp</sub> &frasl; &rho;<sub>std</sub>,
+</p>
+because <i>p &frasl; &rho; = p<sub>stp</sub> &frasl; &rho;<sub>stp</sub></i> in this medium model.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+>Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Media.GasesPTDe33497096d27f3ef0mplesS.png" ALT="Buildings.Media.GasesPTDecoupled.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_Examples.html#Buildings.Media.GasesPTDecoupled.Examples"
+>Examples</A>
+</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
+<TR><TD><IMG SRC="Buildings.Media.GasesPTDeda228dbf039d8b34stAirS.png" ALT="Buildings.Media.GasesPTDecoupled.MoistAir" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_MoistAir.html#Buildings.Media.GasesPTDecoupled.MoistAir"
+>MoistAir</A>
+</TD><TD>Package with moist air model that decouples pressure and temperature</TD></TR>
+<TR><TD><IMG SRC="Buildings.Media.GasesPTDeda228dbf039d8b34stAirS.png" ALT="Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
+>MoistAirUnsaturated</A>
+</TD><TD>Package with moist air model that decouples pressure and temperature and that has no liquid water</TD></TR>
+<TR><TD><IMG SRC="Buildings.Media.GasesPTDeda228dbf039d8b34stAirS.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
+>SimpleAir</A>
+</TD><TD>Package with dry air model that decouples pressure and temperature</TD></TR>
+</TABLE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:30 2013.
+</address></BODY>
+</HTML>

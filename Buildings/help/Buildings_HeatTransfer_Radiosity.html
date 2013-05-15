@@ -1,0 +1,425 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.HeatTransfer.Radiosity</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with models for radiosity transfer&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Radiosity<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.HeatTransfer.Radiosity"></A><A HREF="Buildings_HeatTransfer.html#Buildings.HeatTransfer"
+>Buildings.HeatTransfer</A>.Radiosity</H2>
+<B>Package with models for radiosity transfer</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package provides component models for the
+infrared radiative heat exchange of window assemblies.
+The models are according to TARCOG 2006,
+except for the outdoor radiosity, which is computed by 
+<A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.OutdoorRadiosity"
+>
+Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
+The outdoor radiosity is different from the TARCOG implementation so
+that the same equations are used for windows as are used for 
+opaque walls in the room heat transfer model of the package
+<A HREF="Buildings_Rooms.html#Buildings.Rooms"
+>
+Buildings.Rooms</a>.
+</p>
+<h4>References</h4>
+<p>
+TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
+of thermal performance of glazing systems with our without
+shading devices, Technical Report, Oct. 17, 2006.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Ra5f99d4f072a6cb39stantS.png" ALT="Buildings.HeatTransfer.Radiosity.Constant" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.Constant"
+>Constant</A>
+</TD><TD>Generate constant radiosity signal</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Raa7786ee4f84b857crfaceS.png" ALT="Buildings.HeatTransfer.Radiosity.OpaqueSurface" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.OpaqueSurface"
+>OpaqueSurface</A>
+</TD><TD>Model for an opaque surface</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Rac862d98bef892d01osityS.png" ALT="Buildings.HeatTransfer.Radiosity.IndoorRadiosity" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.IndoorRadiosity"
+>IndoorRadiosity</A>
+</TD><TD>Model for indoor radiosity</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Ra0d0f96fe0cb8d02fosityS.png" ALT="Buildings.HeatTransfer.Radiosity.OutdoorRadiosity" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.OutdoorRadiosity"
+>OutdoorRadiosity</A>
+</TD><TD>Model for the outdoor radiosity that strikes the window</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Ra1b890539d2c1fbb7itterS.png" ALT="Buildings.HeatTransfer.Radiosity.RadiositySplitter" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.RadiositySplitter"
+>RadiositySplitter</A>
+</TD><TD>Splits the incoming radiosity into two flows based on an input signal</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Ra791c5b45ad44fe6bmplesS.png" ALT="Buildings.HeatTransfer.Radiosity.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Radiosity_Examples.html#Buildings.HeatTransfer.Radiosity.Examples"
+>Examples</A>
+</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Rabc8dbaa5ef6b243dassesS.png" ALT="Buildings.HeatTransfer.Radiosity.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses"
+>BaseClasses</A>
+</TD><TD>Package with base classes for Buildings.HeatTransfer.Radiosity</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Constant<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Ra5f99d4f072a6cb39stantI.png" ALT="Buildings.HeatTransfer.Radiosity.Constant" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Radiosity.Constant"></A><A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity"
+>Buildings.HeatTransfer.Radiosity</A>.Constant</H2>
+<B>Generate constant radiosity signal</B><p></P>
+<IMG SRC="Buildings.HeatTransfer.Ra5f99d4f072a6cb39stantD.png" ALT="Buildings.HeatTransfer.Radiosity.Constant">
+<P></P><H3>Information</H3>
+
+<p>
+Constant radiosity source. This model requires <i>k &le; 0</i> because the
+radiosity leaves the component and hence needs to be negative or zero.
+</p>
+<p>
+This model is used in 
+<a href="modelica:Buildings.HeatTransfer.BaseClasses.DummyConstructionExterior">
+Buildings.HeatTransfer.BaseClasses.DummyConstructionExterior</a>.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>k</TD><TD>&nbsp;</TD><TD>Radiosity that leaves this component (k &lt;= 0)</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>output <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>RadiosityOutflow</A></TD><TD>JOut</TD><TD>[W]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> Constant <font color="darkgreen">&quot;Generate constant radiosity signal&quot;</font>
+  <font color="blue">parameter </font>Real k(max=0, start=0) <font color="darkgreen">
+    &quot;Radiosity that leaves this component (k &lt;= 0)&quot;</font>;
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>Interfaces.RadiosityOutflow</A> JOut;</textblock>
+<font color="blue">equation </font>
+  JOut = k;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Constant;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE OpaqueSurface<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Raa7786ee4f84b857crfaceI.png" ALT="Buildings.HeatTransfer.Radiosity.OpaqueSurface" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Radiosity.OpaqueSurface"></A><A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity"
+>Buildings.HeatTransfer.Radiosity</A>.OpaqueSurface</H2>
+<B>Model for an opaque surface</B><p></P>
+<IMG SRC="Buildings.HeatTransfer.Raa7786ee4f84b857crfaceD.png" ALT="Buildings.HeatTransfer.Radiosity.OpaqueSurface">
+<P></P><H3>Information</H3>
+
+Model for the emissive power of an opaque surface. 
+<P></P>
+Extends from <A HREF="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface"
+>Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface</A> (Model for the radiosity balance of a device with one surface), <A HREF="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersOneSurface"
+>Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersOneSurface</A> (Parameters that are used to model one surface).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Surface area [m2]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR</TD><TD>&nbsp;</TD><TD>Infrared absorptivity [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</A></TD><TD>rhoIR</TD><TD>1 - absIR</TD><TD>Infrared reflectivity [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>TransmissionCoefficient</A></TD><TD>tauIR</TD><TD>1 - rhoIR - absIR</TD><TD>Infrared transmissivity [1]</TD></TR>
+<TR><TD>Boolean</TD><TD>linearize</TD><TD>false</TD><TD>Set to true to linearize emissive power</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T0</TD><TD>293.15</TD><TD>Temperature used to linearize radiative heat transfer [K]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
+>RadiosityInflow</A></TD><TD>JIn</TD><TD>Incoming radiosity [W]</TD></TR>
+<TR><TD>output <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>RadiosityOutflow</A></TD><TD>JOut</TD><TD>Outgoing radiosity [W]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</A></TD><TD>heatPort</TD><TD>Heat port of this surface</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> OpaqueSurface <font color="darkgreen">&quot;Model for an opaque surface&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface"
+>Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface</A>;
+  <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersOneSurface"
+>Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersOneSurface</A>(
+      <font color="blue">final </font>tauIR=1 - rhoIR - absIR, <font color="blue">final </font>rhoIR=1 - absIR);
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A> heatPort <font color="darkgreen">
+    &quot;Heat port of this surface&quot;</font>;</textblock>
+<font color="blue">protected </font>
+  <font color="blue">final </font><font color="blue">parameter </font>Real T03(
+    min=0,
+    unit=&quot;K3&quot;) = T0^3 <font color="darkgreen">&quot;3rd power of temperature T0&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Real T04(
+    min=0,
+    unit=&quot;K4&quot;) = T0^4 <font color="darkgreen">&quot;4th power of temperature T0&quot;</font>;
+  Real T4(
+    min=1E8,
+    start=293.15^4,
+    nominal=1E10,
+    unit=&quot;K4&quot;) <font color="darkgreen">&quot;4th power of temperature&quot;</font>;
+
+<font color="blue">equation </font>
+  T4 = <font color="blue">if </font>linearize<font color="blue"> then </font>4*T03*heatPort.T - 3*T04<font color="blue"> else </font>heatPort.T^4;
+  0 = JOut + A*absIR*Modelica.Constants.sigma*T4 + rhoIR*JIn;
+  0 = heatPort.Q_flow + JIn + JOut;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>OpaqueSurface;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE IndoorRadiosity<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Rac862d98bef892d01osityI.png" ALT="Buildings.HeatTransfer.Radiosity.IndoorRadiosity" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Radiosity.IndoorRadiosity"></A><A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity"
+>Buildings.HeatTransfer.Radiosity</A>.IndoorRadiosity</H2>
+<B>Model for indoor radiosity</B><p></P>
+<IMG SRC="Buildings.HeatTransfer.Raa7786ee4f84b857crfaceD.png" ALT="Buildings.HeatTransfer.Radiosity.IndoorRadiosity">
+<P></P><H3>Information</H3>
+
+Model for the indoor emissive power that hits a window.
+The computation is according to TARCOG 2006.
+</p>
+<h4>References</h4>
+<p>
+TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
+of thermal performance of glazing systems with our without
+shading devices, Technical Report, Oct. 17, 2006.
+<P></P>
+Extends from <A HREF="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface"
+>Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface</A> (Model for the radiosity balance of a device with one surface), <A HREF="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersOneSurface"
+>Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersOneSurface</A> (Parameters that are used to model one surface).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Surface area [m2]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR</TD><TD>1</TD><TD>Infrared absorptivity [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</A></TD><TD>rhoIR</TD><TD>0</TD><TD>Infrared reflectivity [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>TransmissionCoefficient</A></TD><TD>tauIR</TD><TD>0</TD><TD>Infrared transmissivity [1]</TD></TR>
+<TR><TD>Boolean</TD><TD>linearize</TD><TD>false</TD><TD>Set to true to linearize emissive power</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T0</TD><TD>293.15</TD><TD>Temperature used to linearize radiative heat transfer [K]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
+>RadiosityInflow</A></TD><TD>JIn</TD><TD>Incoming radiosity [W]</TD></TR>
+<TR><TD>output <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>RadiosityOutflow</A></TD><TD>JOut</TD><TD>Outgoing radiosity [W]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</A></TD><TD>heatPort</TD><TD>Heat port of this surface</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> IndoorRadiosity <font color="darkgreen">&quot;Model for indoor radiosity&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface"
+>Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface</A>;
+  <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersOneSurface"
+>Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersOneSurface</A>(
+    <font color="blue">final </font>absIR=1,
+    <font color="blue">final </font>tauIR=0,
+    <font color="blue">final </font>rhoIR=0);
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A> heatPort <font color="darkgreen">
+    &quot;Heat port of this surface&quot;</font>;</textblock>
+<font color="blue">protected </font>
+  <font color="blue">final </font><font color="blue">parameter </font>Real T03(
+    min=0,
+    unit=&quot;K3&quot;) = T0^3 <font color="darkgreen">&quot;3rd power of temperature T0&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Real T04(
+    min=0,
+    unit=&quot;K4&quot;) = T0^4 <font color="darkgreen">&quot;4th power of temperature T0&quot;</font>;
+  Real T4(
+    min=1E8,
+    start=293.15^4,
+    nominal=1E10,
+    unit=&quot;K4&quot;) <font color="darkgreen">&quot;4th power of temperature&quot;</font>;
+<font color="blue">equation </font>
+  T4 = <font color="blue">if </font>linearize<font color="blue"> then </font>4*T03*heatPort.T - 3*T04<font color="blue"> else </font>heatPort.T^4;
+  JOut = -A*Modelica.Constants.sigma*T4;
+  0 = heatPort.Q_flow + JIn + JOut;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>IndoorRadiosity;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE OutdoorRadiosity<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Ra0d0f96fe0cb8d02fosityI.png" ALT="Buildings.HeatTransfer.Radiosity.OutdoorRadiosity" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Radiosity.OutdoorRadiosity"></A><A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity"
+>Buildings.HeatTransfer.Radiosity</A>.OutdoorRadiosity</H2>
+<B>Model for the outdoor radiosity that strikes the window</B><p></P>
+<IMG SRC="Buildings.HeatTransfer.Ra0d0f96fe0cb8d02fosityD.png" ALT="Buildings.HeatTransfer.Radiosity.OutdoorRadiosity">
+<P></P><H3>Information</H3>
+
+<p>
+Model for the infrared radiosity balance of the outdoor environment.
+</p>
+<P></P>
+
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Area of receiving surface [m2]</TD></TR>
+<TR><TD>Real</TD><TD>vieFacSky</TD><TD>&nbsp;</TD><TD>View factor from receiving surface to sky (=1 for roofs)</TD></TR>
+<TR><TD>Boolean</TD><TD>linearize</TD><TD>false</TD><TD>Set to true to linearize emissive power</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T0</TD><TD>293.15</TD><TD>Temperature used to linearize radiative heat transfer [K]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TOut</TD><TD>Outside temperature [K]</TD></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TBlaSky</TD><TD>Black body sky temperature [K]</TD></TR>
+<TR><TD>output <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>RadiosityOutflow</A></TD><TD>JOut</TD><TD>Radiosity that flows out of component [W]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> OutdoorRadiosity <font color="darkgreen">
+  &quot;Model for the outdoor radiosity that strikes the window&quot;</font>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</A> A <font color="darkgreen">&quot;Area of receiving surface&quot;</font>;
+  <font color="blue">parameter </font>Real vieFacSky(min=0, max=1) <font color="darkgreen">
+    &quot;View factor from receiving surface to sky (=1 for roofs)&quot;</font>;
+  <font color="blue">parameter </font>Boolean linearize=false <font color="darkgreen">&quot;Set to true to linearize emissive power&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T0=293.15 <font color="darkgreen">
+    &quot;Temperature used to linearize radiative heat transfer&quot;</font>;
+  Real TRad4(unit=&quot;K4&quot;) <font color="darkgreen">&quot;4th power of the mean outdoor temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TRad <font color="darkgreen">&quot;Mean radiant temperature&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TOut(
+    <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
+    <font color="blue">final </font>unit=&quot;K&quot;,
+    min=0) <font color="darkgreen">&quot;Outside temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TBlaSky(
+    <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
+    <font color="blue">final </font>unit=&quot;K&quot;,
+    min=0) <font color="darkgreen">&quot;Black body sky temperature&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>Buildings.HeatTransfer.Interfaces.RadiosityOutflow</A> JOut <font color="darkgreen">
+    &quot;Radiosity that flows out of component&quot;</font>;</textblock>
+<font color="blue">protected </font>
+  <font color="blue">final </font><font color="blue">parameter </font>Real T03(
+    min=0,
+    unit=&quot;K3&quot;) = T0^3 <font color="darkgreen">&quot;3rd power of temperature T0&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Real T04(
+    min=0,
+    unit=&quot;K4&quot;) = T0^4 <font color="darkgreen">&quot;4th power of temperature T0&quot;</font>;
+<font color="blue">equation </font>
+  TRad4 = (vieFacSky*TBlaSky^4 + (1 - vieFacSky)*TOut^4);
+  JOut = -A*Modelica.Constants.sigma*TRad4;
+  TRad = <font color="blue">if </font>linearize<font color="blue"> then </font>(TRad4 + 3*T04)/(4*T03)<font color="blue"> else </font>TRad4^(1/4);
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>OutdoorRadiosity;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE RadiositySplitter<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Ra1b890539d2c1fbb7itterI.png" ALT="Buildings.HeatTransfer.Radiosity.RadiositySplitter" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Radiosity.RadiositySplitter"></A><A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity"
+>Buildings.HeatTransfer.Radiosity</A>.RadiositySplitter</H2>
+<B>Splits the incoming radiosity into two flows based on an input signal</B><p></P>
+<IMG SRC="Buildings.HeatTransfer.Ra1b890539d2c1fbb7itterD.png" ALT="Buildings.HeatTransfer.Radiosity.RadiositySplitter">
+<P></P><H3>Information</H3>
+<PRE>
+</pre>
+<p>
+This blocks splits the incoming radiosity into two fluxes according to
+<p align="center" style="font-style:italic;">
+  J<sub>Out,1</sub> = - u J<sub>In</sub>,<br>
+  J<sub>Out,2</sub> = - (1-u)  J<sub>In</sub>.
+</p>
+The minus sign on the left hand side is because <i>J<sub>In</sub></i>
+and <i>J<sub>Out</sub></i> are flow variables.
+</p>
+<p>
+This block may be used to split the radiosity flux into a fraction that 
+strikes the shaded part of a window, and a fraction that strikes the
+non-shaded part.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
+>RadiosityInflow</A></TD><TD>JIn</TD><TD>[W]</TD></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>u</TD><TD>u times incoming radiosity</TD></TR>
+<TR><TD>output <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>RadiosityOutflow</A></TD><TD>JOut_1</TD><TD>[W]</TD></TR>
+<TR><TD>output <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>RadiosityOutflow</A></TD><TD>JOut_2</TD><TD>(1-u) times incoming radiosity [W]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> RadiositySplitter <font color="darkgreen">
+  &quot;Splits the incoming radiosity into two flows based on an input signal&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
+>Interfaces.RadiosityInflow</A> JIn;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> u(min=0, max=1) <font color="darkgreen">
+    &quot;u times incoming radiosity&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>Interfaces.RadiosityOutflow</A> JOut_1;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>Interfaces.RadiosityOutflow</A> JOut_2 <font color="darkgreen">&quot;(1-u) times incoming radiosity&quot;</font>;</textblock>
+<font color="blue">equation </font>
+  JOut_1 = - u    * JIn;
+  JOut_2 = - (1-u)* JIn;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>RadiositySplitter;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:09 2013.
+</address></BODY>
+</HTML>

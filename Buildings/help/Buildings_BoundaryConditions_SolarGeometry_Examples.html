@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.BoundaryConditions.SolarGeometry.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.BoundaryConditions.SolarGeometry.Examples"></A><A HREF="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry"
+>Buildings.BoundaryConditions.SolarGeometry</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry"
+>
+Buildings.BoundaryConditions.SolarGeometry</a>.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi9b5e22b4f3b548b1AngleS.png" ALT="Buildings.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_SolarGeometry_Examples.html#Buildings.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle"
+>IncidenceAngle</A>
+</TD><TD>Test model for solar incidence angle</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi9b5e22b4f3b548b1AngleS.png" ALT="Buildings.BoundaryConditions.SolarGeometry.Examples.ZenithAngle" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_SolarGeometry_Examples.html#Buildings.BoundaryConditions.SolarGeometry.Examples.ZenithAngle"
+>ZenithAngle</A>
+</TD><TD>Test model for zenith angle</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE IncidenceAngle<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditi9b5e22b4f3b548b1AngleI.png" ALT="Buildings.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle"></A><A HREF="Buildings_BoundaryConditions_SolarGeometry_Examples.html#Buildings.BoundaryConditions.SolarGeometry.Examples"
+>Buildings.BoundaryConditions.SolarGeometry.Examples</A>.IncidenceAngle</H2>
+<B>Test model for solar incidence angle</B><p></P>
+<IMG SRC="Buildings.BoundaryConditi9b5e22b4f3b548b1AngleD.png" ALT="Buildings.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle">
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> IncidenceAngle <font color="darkgreen">&quot;Test model for solar incidence angle&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle"
+>Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle</A> incAng(
+    lat=0.73097781993588,
+    azi=0.3,
+    til=0.5) <font color="darkgreen">&quot;Incidence angle&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
+    filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
+    &quot;Weather data (Chicago)&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaDat.weaBus, incAng.weaBus);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>IncidenceAngle;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ZenithAngle<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditi9b5e22b4f3b548b1AngleI.png" ALT="Buildings.BoundaryConditions.SolarGeometry.Examples.ZenithAngle" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.SolarGeometry.Examples.ZenithAngle"></A><A HREF="Buildings_BoundaryConditions_SolarGeometry_Examples.html#Buildings.BoundaryConditions.SolarGeometry.Examples"
+>Buildings.BoundaryConditions.SolarGeometry.Examples</A>.ZenithAngle</H2>
+<B>Test model for zenith angle</B><p></P>
+<IMG SRC="Buildings.BoundaryConditie5febb0c421207c5AngleD.png" ALT="Buildings.BoundaryConditions.SolarGeometry.Examples.ZenithAngle">
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> ZenithAngle <font color="darkgreen">&quot;Test model for zenith angle&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry.ZenithAngle"
+>Buildings.BoundaryConditions.SolarGeometry.ZenithAngle</A> zen(lat = 0.2);
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
+    filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaDat.weaBus, zen.weaBus);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ZenithAngle;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:27:51 2013.
+</address></BODY>
+</HTML>

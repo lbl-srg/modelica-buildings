@@ -1,0 +1,235 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.HeatTransfer.Data.GlazingSystems</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with thermophysical properties for glazing systems&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE GlazingSystems<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.HeatTransfer.Data.GlazingSystems"></A><A HREF="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
+>Buildings.HeatTransfer.Data</A>.GlazingSystems</H2>
+<B>Package with thermophysical properties for glazing systems</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+Package with generic records that implement thermophysical properties for glazing systems.
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+>Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da91987f7feea3ab84nericS.png" ALT="Buildings.HeatTransfer.Data.GlazingSystems.Generic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.Generic"
+>Generic</A>
+</TD><TD>Thermal properties of glazing systems</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da91987f7feea3ab84nericS.png" ALT="Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3"
+>SingleClear3</A>
+</TD><TD>Single pane, clear glass 3mm</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da91987f7feea3ab84nericS.png" ALT="Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>DoubleClearAir13Clear</A>
+</TD><TD>Double pane, clear glass 3mm, air 12.7, clear glass 3mm</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da91987f7feea3ab84nericS.png" ALT="Buildings.HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear"
+>TripleClearAir13ClearAir13Clear</A>
+</TD><TD>Triple pane, clear glass 3mm, air 12.7, clear glass 3mm, air 12.7, clear glass 3mm</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Generic<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da41367f9557865e20nericI.png" ALT="Buildings.HeatTransfer.Data.GlazingSystems.Generic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.GlazingSystems.Generic"></A><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems"
+>Buildings.HeatTransfer.Data.GlazingSystems</A>.Generic</H2>
+<B>Thermal properties of glazing systems</B><p></P>
+<IMG SRC="Buildings.HeatTransfer.Da41367f9557865e20nericD.png" ALT="Buildings.HeatTransfer.Data.GlazingSystems.Generic">
+<P></P><H3>Information</H3>
+
+Generic record that implements thermophysical properties for glazing systems.
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</A> (Icon for records).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>nLay</TD><TD>&nbsp;</TD><TD>Number of glass layers</TD></TR>
+<TR><TD>Boolean</TD><TD>haveExteriorShade</TD><TD>false</TD><TD>Set to true if window has an exterior shade (at surface a)</TD></TR>
+<TR><TD>Boolean</TD><TD>haveInteriorShade</TD><TD>false</TD><TD>Set to true if window has an interior shade (at surface b)</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses.Generic"
+>Generic</A></TD><TD>glass[nLay]</TD><TD>&nbsp;</TD><TD>Layer by layer declaration of glass layers, starting from outside to room-side</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Generic</A></TD><TD>gas[nLay - 1]</TD><TD>&nbsp;</TD><TD>Layer by layer declaration of glass layers, starting from outside to room-side</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Shades.html#Buildings.HeatTransfer.Data.Shades.Generic"
+>Generic</A></TD><TD>shade</TD><TD>&nbsp;</TD><TD>Shade</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</A></TD><TD>UFra</TD><TD>&nbsp;</TD><TD>U-value of frame [W/(m2.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIRFra</TD><TD>0.8</TD><TD>Infrared absorptivity of window frame [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absSolFra</TD><TD>0.5</TD><TD>Solar absorptivity of window frame [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> Generic <font color="darkgreen">&quot;Thermal properties of glazing systems&quot;</font>
+    <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</A>;
+  <font color="blue">parameter </font>Integer nLay(min=1, fixed=true) <font color="darkgreen">&quot;Number of glass layers&quot;</font>;
+  <font color="blue">parameter </font>Boolean haveExteriorShade = false <font color="darkgreen">
+    &quot;Set to true if window has an exterior shade (at surface a)&quot;</font>;
+  <font color="blue">parameter </font>Boolean haveInteriorShade = false <font color="darkgreen">
+    &quot;Set to true if window has an interior shade (at surface b)&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean windowHasShade = haveExteriorShade<font color="blue"> or </font>haveInteriorShade <font color="darkgreen">
+    &quot;Set to true if the window has an exterior or an interior shade&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses.Generic"
+>Glasses.Generic</A> glass[nLay] <font color="darkgreen">
+    &quot;Layer by layer declaration of glass layers, starting from outside to room-side&quot;</font>;
+  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Gases.Generic</A> gas[nLay-1] <font color="darkgreen">
+    &quot;Layer by layer declaration of glass layers, starting from outside to room-side&quot;</font>;</textblock>
+  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_Shades.html#Buildings.HeatTransfer.Data.Shades.Generic"
+>Shades.Generic</A> shade <font color="darkgreen">&quot;Shade&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>Modelica.SIunits.CoefficientOfHeatTransfer</A> UFra <font color="darkgreen">&quot;U-value of frame&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</A> absIRFra=0.8 <font color="darkgreen">
+    &quot;Infrared absorptivity of window frame&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</A> absSolFra=0.5 <font color="darkgreen">
+    &quot;Solar absorptivity of window frame&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean haveShade = haveInteriorShade<font color="blue"> or </font>haveExteriorShade <font color="darkgreen">
+    &quot;Parameter that is true if the construction has a shade&quot;</font>;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Generic;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SingleClear3<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da41367f9557865e20nericI.png" ALT="Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3"></A><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems"
+>Buildings.HeatTransfer.Data.GlazingSystems</A>.SingleClear3</H2>
+<B>Single pane, clear glass 3mm</B><p></P>
+<IMG SRC="Buildings.HeatTransfer.Da41367f9557865e20nericD.png" ALT="Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3">
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>nLay</TD><TD>1</TD><TD>Number of glass layers</TD></TR>
+<TR><TD>Boolean</TD><TD>haveExteriorShade</TD><TD>false</TD><TD>Set to true if window has an exterior shade (at surface a)</TD></TR>
+<TR><TD>Boolean</TD><TD>haveInteriorShade</TD><TD>false</TD><TD>Set to true if window has an interior shade (at surface b)</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses.Generic"
+>Generic</A></TD><TD>glass[nLay]</TD><TD>{Glasses.ID102()}</TD><TD>Layer by layer declaration of glass layers, starting from outside to room-side</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Generic</A></TD><TD>gas[nLay - 1]</TD><TD>&nbsp;</TD><TD>Layer by layer declaration of glass layers, starting from outside to room-side</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Shades.html#Buildings.HeatTransfer.Data.Shades.Generic"
+>Generic</A></TD><TD>shade</TD><TD>&nbsp;</TD><TD>Shade</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</A></TD><TD>UFra</TD><TD>3</TD><TD>U-value of frame [W/(m2.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIRFra</TD><TD>0.8</TD><TD>Infrared absorptivity of window frame [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absSolFra</TD><TD>0.5</TD><TD>Solar absorptivity of window frame [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> SingleClear3 =
+    <A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.Generic"
+>Buildings.HeatTransfer.Data.GlazingSystems.Generic</A> (
+       glass={<font color="red">Glasses.ID102</font>()},
+       UFra=3,
+       <font color="blue">final </font>nLay=1) <font color="darkgreen">&quot;Single pane, clear glass 3mm&quot;</font>;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE DoubleClearAir13Clear<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da41367f9557865e20nericI.png" ALT="Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"></A><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems"
+>Buildings.HeatTransfer.Data.GlazingSystems</A>.DoubleClearAir13Clear</H2>
+<B>Double pane, clear glass 3mm, air 12.7, clear glass 3mm</B><p></P>
+<IMG SRC="Buildings.HeatTransfer.Da41367f9557865e20nericD.png" ALT="Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear">
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>nLay</TD><TD>2</TD><TD>Number of glass layers</TD></TR>
+<TR><TD>Boolean</TD><TD>haveExteriorShade</TD><TD>false</TD><TD>Set to true if window has an exterior shade (at surface a)</TD></TR>
+<TR><TD>Boolean</TD><TD>haveInteriorShade</TD><TD>false</TD><TD>Set to true if window has an interior shade (at surface b)</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses.Generic"
+>Generic</A></TD><TD>glass[nLay]</TD><TD>{Glasses.ID101(),Glasses.ID1...</TD><TD>Layer by layer declaration of glass layers, starting from outside to room-side</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Generic</A></TD><TD>gas[nLay - 1]</TD><TD>{Gases.Air(x=0.0127)}</TD><TD>Layer by layer declaration of glass layers, starting from outside to room-side</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Shades.html#Buildings.HeatTransfer.Data.Shades.Generic"
+>Generic</A></TD><TD>shade</TD><TD>&nbsp;</TD><TD>Shade</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</A></TD><TD>UFra</TD><TD>1.4</TD><TD>U-value of frame [W/(m2.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIRFra</TD><TD>0.8</TD><TD>Infrared absorptivity of window frame [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absSolFra</TD><TD>0.5</TD><TD>Solar absorptivity of window frame [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> DoubleClearAir13Clear =
+    <A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.Generic"
+>Buildings.HeatTransfer.Data.GlazingSystems.Generic</A> (
+    <font color="blue">final </font>glass={<font color="red">Glasses.ID101</font>(),<font color="red"> Glasses.ID102</font>()},
+    <font color="blue">final </font>gas={<font color="red">Gases.Air</font>(x=0.0127)},
+    UFra=1.4,
+    <font color="blue">final </font>nLay=2) <font color="darkgreen">&quot;Double pane, clear glass 3mm, air 12.7, clear glass 3mm&quot;</font>;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE TripleClearAir13ClearAir13Clear<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da41367f9557865e20nericI.png" ALT="Buildings.HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear"></A><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems"
+>Buildings.HeatTransfer.Data.GlazingSystems</A>.TripleClearAir13ClearAir13Clear</H2>
+<B>Triple pane, clear glass 3mm, air 12.7, clear glass 3mm, air 12.7, clear glass 3mm</B><p></P>
+<IMG SRC="Buildings.HeatTransfer.Da41367f9557865e20nericD.png" ALT="Buildings.HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear">
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>nLay</TD><TD>3</TD><TD>Number of glass layers</TD></TR>
+<TR><TD>Boolean</TD><TD>haveExteriorShade</TD><TD>false</TD><TD>Set to true if window has an exterior shade (at surface a)</TD></TR>
+<TR><TD>Boolean</TD><TD>haveInteriorShade</TD><TD>false</TD><TD>Set to true if window has an interior shade (at surface b)</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses.Generic"
+>Generic</A></TD><TD>glass[nLay]</TD><TD>{Glasses.ID102(),Glasses.ID1...</TD><TD>Layer by layer declaration of glass layers, starting from outside to room-side</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Generic</A></TD><TD>gas[nLay - 1]</TD><TD>{Gases.Air(x=0.0127),Gases.A...</TD><TD>Layer by layer declaration of glass layers, starting from outside to room-side</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Shades.html#Buildings.HeatTransfer.Data.Shades.Generic"
+>Generic</A></TD><TD>shade</TD><TD>&nbsp;</TD><TD>Shade</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</A></TD><TD>UFra</TD><TD>1.4</TD><TD>U-value of frame [W/(m2.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIRFra</TD><TD>0.8</TD><TD>Infrared absorptivity of window frame [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absSolFra</TD><TD>0.5</TD><TD>Solar absorptivity of window frame [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> TripleClearAir13ClearAir13Clear =
+    <A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.Generic"
+>Buildings.HeatTransfer.Data.GlazingSystems.Generic</A> (
+    <font color="blue">final </font>glass={<font color="red">Glasses.ID102</font>(),<font color="red">Glasses.ID102</font>(),<font color="red">Glasses.ID102</font>()},
+    <font color="blue">final </font>gas={<font color="red">Gases.Air</font>(x=0.0127),<font color="red">Gases.Air</font>(x=0.0127)},
+    UFra=1.4,
+    <font color="blue">final </font>nLay=3) <font color="darkgreen">
+  &quot;Triple pane, clear glass 3mm, air 12.7, clear glass 3mm, air 12.7, clear glass 3mm&quot;</font>;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:26 2013.
+</address></BODY>
+</HTML>

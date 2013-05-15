@@ -1,0 +1,250 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.HeatTransfer.Sources</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Thermal sources&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Sources<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.HeatTransfer.Sources"></A><A HREF="Buildings_HeatTransfer.html#Buildings.HeatTransfer"
+>Buildings.HeatTransfer</A>.Sources</H2>
+<B>Thermal sources</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+This package is identical to
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources"
+>
+Modelica.Thermal.HeatTransfer.Sources</a>, except that
+the parameters <code>alpha</code> and <code>T_ref</code> have
+been deleted in the models
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow"
+>
+Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a> and
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow"
+>
+Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>
+ as these can cause division by zero in some fluid flow models.
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_SourcesPackage.html#Modelica.Icons.SourcesPackage"
+>Modelica.Icons.SourcesPackage</A> (Icon for packages containing sources).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Soa73a5e56000c3e1fatureS.png" ALT="Buildings.HeatTransfer.Sources.FixedTemperature" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>FixedTemperature</A>
+</TD><TD>Fixed temperature boundary condition in Kelvin</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.So87eeec3b70f568b6atureS.png" ALT="Buildings.HeatTransfer.Sources.PrescribedTemperature" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>PrescribedTemperature</A>
+</TD><TD>Variable temperature boundary condition in Kelvin</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Soc09986e8e025f938tFlowS.png" ALT="Buildings.HeatTransfer.Sources.FixedHeatFlow" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedHeatFlow"
+>FixedHeatFlow</A>
+</TD><TD>Fixed heat flow boundary condition</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.So891191677dd718catFlowS.png" ALT="Buildings.HeatTransfer.Sources.PrescribedHeatFlow" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
+>PrescribedHeatFlow</A>
+</TD><TD>Prescribed heat flow boundary condition</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE FixedTemperature<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Soa73a5e56000c3e1fatureI.png" ALT="Buildings.HeatTransfer.Sources.FixedTemperature" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Sources.FixedTemperature"></A><A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources"
+>Buildings.HeatTransfer.Sources</A>.FixedTemperature</H2>
+<B>Fixed temperature boundary condition in Kelvin</B><p></P>
+<IMG SRC="Buildings.HeatTransfer.Soa73a5e56000c3e1fatureD.png" ALT="Buildings.HeatTransfer.Sources.FixedTemperature">
+<P></P><H3>Information</H3>
+
+<p>
+This model defines a fixed temperature T at its port in Kelvin,
+i.e., it defines a fixed temperature as a boundary condition.
+</p>
+<pre>
+</PRE><P></P>
+
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T</TD><TD>&nbsp;</TD><TD>Fixed temperature at port [K]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+>HeatPort_b</A></TD><TD>port</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> FixedTemperature <font color="darkgreen">
+  &quot;Fixed temperature boundary condition in Kelvin&quot;</font>
+
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T <font color="darkgreen">&quot;Fixed temperature at port&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b</A> port;</textblock>
+<font color="blue">equation </font>
+  port.T = T;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>FixedTemperature;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE PrescribedTemperature<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.So87eeec3b70f568b6atureI.png" ALT="Buildings.HeatTransfer.Sources.PrescribedTemperature" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Sources.PrescribedTemperature"></A><A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources"
+>Buildings.HeatTransfer.Sources</A>.PrescribedTemperature</H2>
+<B>Variable temperature boundary condition in Kelvin</B><p></P>
+<IMG SRC="Buildings.HeatTransfer.So87eeec3b70f568b6atureD.png" ALT="Buildings.HeatTransfer.Sources.PrescribedTemperature">
+<P></P><H3>Information</H3>
+
+<p>
+This model represents a variable temperature boundary condition.
+The temperature in [K] is given as input signal <b>T</b>
+to the model. The effect is that an instance of this model acts as
+an infinite reservoir able to absorb or generate as much energy
+as required to keep the temperature at the specified value.
+</p>
+<pre>
+</PRE><P></P>
+
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+>HeatPort_b</A></TD><TD>port</TD><TD>&nbsp;</TD></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>T</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> PrescribedTemperature <font color="darkgreen">
+  &quot;Variable temperature boundary condition in Kelvin&quot;</font>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b</A> port;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> T;</textblock>
+<font color="blue">equation </font>
+  port.T = T;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>PrescribedTemperature;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE FixedHeatFlow<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Soc09986e8e025f938tFlowI.png" ALT="Buildings.HeatTransfer.Sources.FixedHeatFlow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Sources.FixedHeatFlow"></A><A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources"
+>Buildings.HeatTransfer.Sources</A>.FixedHeatFlow</H2>
+<B>Fixed heat flow boundary condition</B><p></P>
+<IMG SRC="Buildings.HeatTransfer.Soc09986e8e025f938tFlowD.png" ALT="Buildings.HeatTransfer.Sources.FixedHeatFlow">
+<P></P><H3>Information</H3>
+
+<p>
+This model allows a specified amount of heat flow rate to be "injected"
+into a thermal system at a given port.  The constant amount of heat
+flow rate Q_flow is given as a parameter. The heat flows into the
+component to which the component FixedHeatFlow is connected,
+if parameter Q_flow is positive.
+</p>
+<p>
+This model is identical to
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow"
+>
+Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a>, except that
+the parameters <code>alpha</code> and <code>T_ref</code> have
+been deleted as these can cause division by zero in some fluid flow models.
+</p>
+<P></P>
+
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</A></TD><TD>Q_flow</TD><TD>&nbsp;</TD><TD>Fixed heat flow rate at port [W]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+>HeatPort_b</A></TD><TD>port</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> FixedHeatFlow <font color="darkgreen">&quot;Fixed heat flow boundary condition&quot;</font>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> Q_flow <font color="darkgreen">&quot;Fixed heat flow rate at port&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b</A> port;</textblock>
+<font color="blue">equation </font>
+  port.Q_flow = -Q_flow;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>FixedHeatFlow;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE PrescribedHeatFlow<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.So891191677dd718catFlowI.png" ALT="Buildings.HeatTransfer.Sources.PrescribedHeatFlow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Sources.PrescribedHeatFlow"></A><A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources"
+>Buildings.HeatTransfer.Sources</A>.PrescribedHeatFlow</H2>
+<B>Prescribed heat flow boundary condition</B><p></P>
+<IMG SRC="Buildings.HeatTransfer.So891191677dd718catFlowD.png" ALT="Buildings.HeatTransfer.Sources.PrescribedHeatFlow">
+<P></P><H3>Information</H3>
+
+<p>
+This model allows a specified amount of heat flow rate to be "injected"
+into a thermal system at a given port.  The amount of heat
+is given by the input signal Q_flow into the model. The heat flows into the
+component to which the component PrescribedHeatFlow is connected,
+if the input signal is positive.
+</p>
+<p>
+This model is identical to
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow"
+>
+Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>, except that
+the parameters <code>alpha</code> and <code>T_ref</code> have
+been deleted as these can cause division by zero in some fluid flow models.
+</p>
+<pre>
+</PRE><P></P>
+
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>Q_flow</TD><TD>&nbsp;</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+>HeatPort_b</A></TD><TD>port</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> PrescribedHeatFlow <font color="darkgreen">&quot;Prescribed heat flow boundary condition&quot;</font>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> Q_flow;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b</A> port;</textblock>
+<font color="blue">equation </font>
+  port.Q_flow = -Q_flow;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>PrescribedHeatFlow;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:10 2013.
+</address></BODY>
+</HTML>

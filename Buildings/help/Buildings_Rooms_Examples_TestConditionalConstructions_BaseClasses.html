@@ -1,0 +1,133 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with base classes for Buildings.Rooms.Examples.TestConditionalConstructions&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses"></A><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions.html#Buildings.Rooms.Examples.TestConditionalConstructions"
+>Buildings.Rooms.Examples.TestConditionalConstructions</A>.BaseClasses</H2>
+<B>Package with base classes for Buildings.Rooms.Examples.TestConditionalConstructions</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<A HREF="Buildings_Rooms_Examples_TestConditionalConstructions.html#Buildings.Rooms.Examples.TestConditionalConstructions"
+>Buildings.Rooms.Examples.TestConditionalConstructions</a>.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"
+>PartialTestModel</A>
+</TD><TD>Partial model that is used to build the test cases</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE PartialTestModel<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel"></A><A HREF="Buildings_Rooms_Examples_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses"
+>Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses</A>.PartialTestModel</H2>
+<B>Partial model that is used to build the test cases</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.e7a22c8797d21217ModelD.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions.BaseClasses.PartialTestModel">
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>nConExt</TD><TD>&nbsp;</TD><TD>Number of exterior constructions that do not have a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>&nbsp;</TD><TD>Number of exterior constructions that do have a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConPar</TD><TD>&nbsp;</TD><TD>Number of partition constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>&nbsp;</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD>Integer</TD><TD>nSurBou</TD><TD>&nbsp;</TD><TD>Number of surface that are connected to the room air volume</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>Insulation100Concrete200</A></TD><TD>matLayExt</TD><TD>&nbsp;</TD><TD>Construction material for exterior walls</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>Brick120</A></TD><TD>matLayPar</TD><TD>&nbsp;</TD><TD>Construction material for partition walls</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>DoubleClearAir13Clear</A></TD><TD>glaSys</TD><TD>&nbsp;</TD><TD>Data record for the glazing system</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">partial </font><font color="blue">model</font> PartialTestModel <font color="darkgreen">
+  &quot;Partial model that is used to build the test cases&quot;</font>
+  <font color="blue">package</font> MediumA = <A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
+>Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</A> <font color="darkgreen">
+    &quot;Medium model&quot;</font>;
+  <font color="blue">parameter </font>Integer nConExt <font color="darkgreen">
+    &quot;Number of exterior constructions that do not have a window&quot;</font>;
+  <font color="blue">parameter </font>Integer nConExtWin <font color="darkgreen">
+    &quot;Number of exterior constructions that do have a window&quot;</font>;
+  <font color="blue">parameter </font>Integer nConPar <font color="darkgreen">&quot;Number of partition constructions&quot;</font>;
+  <font color="blue">parameter </font>Integer nConBou <font color="darkgreen">
+    &quot;Number of surface that are connected to constructions that are modeled inside the room&quot;</font>;
+  <font color="blue">parameter </font>Integer nSurBou <font color="darkgreen">
+    &quot;Number of surface that are connected to the room air volume&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>MixedAir</A> roo(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+    <font color="blue">final </font>nConExt=nConExt,
+    <font color="blue">final </font>nConExtWin=nConExtWin,
+    <font color="blue">final </font>nConPar=nConPar,
+    <font color="blue">final </font>nConBou=nConBou,
+    <font color="blue">final </font>nSurBou=nSurBou,
+    AFlo=20,
+    hRoo=2.7,
+    linearizeRadiation = true,
+    lat=0.73268921998722) <font color="darkgreen">&quot;Room model&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;
+  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200</A> matLayExt <font color="darkgreen">
+    &quot;Construction material for exterior walls&quot;</font>;
+  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>HeatTransfer.Data.OpaqueConstructions.Brick120</A> matLayPar <font color="darkgreen">
+    &quot;Construction material for partition walls&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qConGai_flow(k=0) <font color="darkgreen">&quot;Convective heat gain&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qRadGai_flow(k=0) <font color="darkgreen">&quot;Radiative heat gain&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex3"
+>Modelica.Blocks.Routing.Multiplex3</A> multiplex3_1;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qLatGai_flow(k=0) <font color="darkgreen">&quot;Latent heat gain&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
+  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear</A> glaSys(UFra=2,
+    shade=<font color="red">Buildings.HeatTransfer.Data.Shades.Gray</font>(),
+    haveExteriorShade=false,
+    haveInteriorShade=false) <font color="darkgreen">&quot;Data record for the glazing system&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(qRadGai_flow.y, multiplex3_1.u1[1]);
+  <font color="red">connect</font>(qConGai_flow.y, multiplex3_1.u2[1]);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(qLatGai_flow.y, multiplex3_1.u3[1]);
+  <font color="red">connect</font>(multiplex3_1.y, roo.qGai_flow);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaDat.weaBus, roo.weaBus);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>PartialTestModel;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:31:07 2013.
+</address></BODY>
+</HTML>

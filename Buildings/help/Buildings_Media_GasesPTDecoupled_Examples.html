@@ -1,0 +1,283 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Media.GasesPTDecoupled.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Media.GasesPTDecoupled.Examples"></A><A HREF="Buildings_Media_GasesPTDecoupled.html#Buildings.Media.GasesPTDecoupled"
+>Buildings.Media.GasesPTDecoupled</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_Media_GasesPTDecoupled.html#Buildings.Media.GasesPTDecoupled"
+>
+Buildings.Media.GasesPTDecoupled</a>.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Media.GasesPTDe93cba70c7a68a2c2stAirS.png" ALT="Buildings.Media.GasesPTDecoupled.Examples.TestMoistAir" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_Examples.html#Buildings.Media.GasesPTDecoupled.Examples.TestMoistAir"
+>TestMoistAir</A>
+</TD><TD>&nbsp;</TD></TR>
+<TR><TD><IMG SRC="Buildings.Media.GasesPTDe93cba70c7a68a2c2stAirS.png" ALT="Buildings.Media.GasesPTDecoupled.Examples.TestMoistAirUnsaturated" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_Examples.html#Buildings.Media.GasesPTDecoupled.Examples.TestMoistAirUnsaturated"
+>TestMoistAirUnsaturated</A>
+</TD><TD>&nbsp;</TD></TR>
+<TR><TD><IMG SRC="Buildings.Media.GasesPTDe93cba70c7a68a2c2stAirS.png" ALT="Buildings.Media.GasesPTDecoupled.Examples.TestSimpleAir" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_Examples.html#Buildings.Media.GasesPTDecoupled.Examples.TestSimpleAir"
+>TestSimpleAir</A>
+</TD><TD>&nbsp;</TD></TR>
+<TR><TD><IMG SRC="Buildings.Media.GasesPTDe93cba70c7a68a2c2stAirS.png" ALT="Buildings.Media.GasesPTDecoupled.Examples.MoistAirTemperatureEnthalpyInversion" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_Examples.html#Buildings.Media.GasesPTDecoupled.Examples.MoistAirTemperatureEnthalpyInversion"
+>MoistAirTemperatureEnthalpyInversion</A>
+</TD><TD>Model to check computation of h(T) and its inverse</TD></TR>
+<TR><TD><IMG SRC="Buildings.Media.GasesPTDe93cba70c7a68a2c2stAirS.png" ALT="Buildings.Media.GasesPTDecoupled.Examples.MoistAirUnsaturatedTemperatureEnthalpyInversion" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_Examples.html#Buildings.Media.GasesPTDecoupled.Examples.MoistAirUnsaturatedTemperatureEnthalpyInversion"
+>MoistAirUnsaturatedTemperatureEnthalpyInversion</A>
+</TD><TD>Model to check computation of h(T) and its inverse</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE TestMoistAir<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Media.GasesPTDe93cba70c7a68a2c2stAirI.png" ALT="Buildings.Media.GasesPTDecoupled.Examples.TestMoistAir" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Media.GasesPTDecoupled.Examples.TestMoistAir"></A><A HREF="Buildings_Media_GasesPTDecoupled_Examples.html#Buildings.Media.GasesPTDecoupled.Examples"
+>Buildings.Media.GasesPTDecoupled.Examples</A>.TestMoistAir</H2>
+<IMG SRC="Buildings.Media.GasesPTDe93cba70c7a68a2c2stAirD.png" ALT="Buildings.Media.GasesPTDecoupled.Examples.TestMoistAir">
+<P></P><H3>Information</H3>
+
+This is a simple test for the medium model. It uses the test model described in
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_UsersGuide_MediumDefinition.html#Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium"
+>
+Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium</a>.
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Examples_Tests_Components.html#Modelica.Media.Examples.Tests.Components.PartialTestModel"
+>Modelica.Media.Examples.Tests.Components.PartialTestModel</A> (Basic test model to test a medium).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium model</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Initial value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Initial value of temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</A></TD><TD>h_start</TD><TD>Medium.h_default</TD><TD>Initial value of specific enthalpy [J/kg]</TD></TR>
+<TR><TD>Real</TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Initial value of mass fractions</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> TestMoistAir
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Examples_Tests_Components.html#Modelica.Media.Examples.Tests.Components.PartialTestModel"
+>Modelica.Media.Examples.Tests.Components.PartialTestModel</A>(
+     <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+          <A HREF="Buildings_Media_GasesPTDecoupled_MoistAir.html#Buildings.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Media.GasesPTDecoupled.MoistAir</A>);
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>TestMoistAir;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE TestMoistAirUnsaturated<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Media.GasesPTDe93cba70c7a68a2c2stAirI.png" ALT="Buildings.Media.GasesPTDecoupled.Examples.TestMoistAirUnsaturated" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Media.GasesPTDecoupled.Examples.TestMoistAirUnsaturated"></A><A HREF="Buildings_Media_GasesPTDecoupled_Examples.html#Buildings.Media.GasesPTDecoupled.Examples"
+>Buildings.Media.GasesPTDecoupled.Examples</A>.TestMoistAirUnsaturated</H2>
+<IMG SRC="Buildings.Media.GasesPTDe93cba70c7a68a2c2stAirD.png" ALT="Buildings.Media.GasesPTDecoupled.Examples.TestMoistAirUnsaturated">
+<P></P><H3>Information</H3>
+
+This is a simple test for the medium model. It uses the test model described in
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_UsersGuide_MediumDefinition.html#Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium"
+>
+Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium</a>.
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Examples_Tests_Components.html#Modelica.Media.Examples.Tests.Components.PartialTestModel"
+>Modelica.Media.Examples.Tests.Components.PartialTestModel</A> (Basic test model to test a medium).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium model</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Initial value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Initial value of temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</A></TD><TD>h_start</TD><TD>Medium.h_default</TD><TD>Initial value of specific enthalpy [J/kg]</TD></TR>
+<TR><TD>Real</TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Initial value of mass fractions</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> TestMoistAirUnsaturated
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Examples_Tests_Components.html#Modelica.Media.Examples.Tests.Components.PartialTestModel"
+>Modelica.Media.Examples.Tests.Components.PartialTestModel</A>(
+     <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+          <A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
+>Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</A>);
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>TestMoistAirUnsaturated;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE TestSimpleAir<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Media.GasesPTDe93cba70c7a68a2c2stAirI.png" ALT="Buildings.Media.GasesPTDecoupled.Examples.TestSimpleAir" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Media.GasesPTDecoupled.Examples.TestSimpleAir"></A><A HREF="Buildings_Media_GasesPTDecoupled_Examples.html#Buildings.Media.GasesPTDecoupled.Examples"
+>Buildings.Media.GasesPTDecoupled.Examples</A>.TestSimpleAir</H2>
+<IMG SRC="Buildings.Media.GasesPTDe93cba70c7a68a2c2stAirD.png" ALT="Buildings.Media.GasesPTDecoupled.Examples.TestSimpleAir">
+<P></P><H3>Information</H3>
+
+This is a simple test for the medium model. It uses the test model described in
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_UsersGuide_MediumDefinition.html#Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium"
+>
+Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium</a>.
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Examples_Tests_Components.html#Modelica.Media.Examples.Tests.Components.PartialTestModel"
+>Modelica.Media.Examples.Tests.Components.PartialTestModel</A> (Basic test model to test a medium).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium model</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Initial value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Initial value of temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</A></TD><TD>h_start</TD><TD>Medium.h_default</TD><TD>Initial value of specific enthalpy [J/kg]</TD></TR>
+<TR><TD>Real</TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Initial value of mass fractions</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> TestSimpleAir
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Examples_Tests_Components.html#Modelica.Media.Examples.Tests.Components.PartialTestModel"
+>Modelica.Media.Examples.Tests.Components.PartialTestModel</A>(
+     <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+          <A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
+>Buildings.Media.GasesPTDecoupled.SimpleAir</A>);
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>TestSimpleAir;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE MoistAirTemperatureEnthalpyInversion<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Media.GasesPTDe93cba70c7a68a2c2stAirI.png" ALT="Buildings.Media.GasesPTDecoupled.Examples.MoistAirTemperatureEnthalpyInversion" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Media.GasesPTDecoupled.Examples.MoistAirTemperatureEnthalpyInversion"></A><A HREF="Buildings_Media_GasesPTDecoupled_Examples.html#Buildings.Media.GasesPTDecoupled.Examples"
+>Buildings.Media.GasesPTDecoupled.Examples</A>.MoistAirTemperatureEnthalpyInversion</H2>
+<B>Model to check computation of h(T) and its inverse</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Media_BaseClasses.html#Buildings.Media.BaseClasses.TestTemperatureEnthalpyInversion"
+>Buildings.Media.BaseClasses.TestTemperatureEnthalpyInversion</A> (Model to check computation of h(T) and its inverse).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+>PartialCondensingGases</A></TD><TD>&nbsp;</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T0</TD><TD>273.15 + 20</TD><TD>Temperature [K]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> MoistAirTemperatureEnthalpyInversion <font color="darkgreen">
+  &quot;Model to check computation of h(T) and its inverse&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">extends </font><A HREF="Buildings_Media_BaseClasses.html#Buildings.Media.BaseClasses.TestTemperatureEnthalpyInversion"
+>Buildings.Media.BaseClasses.TestTemperatureEnthalpyInversion</A>(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesPTDecoupled_MoistAir.html#Buildings.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Media.GasesPTDecoupled.MoistAir</A>);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>MoistAirTemperatureEnthalpyInversion;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE MoistAirUnsaturatedTemperatureEnthalpyInversion<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Media.GasesPTDe93cba70c7a68a2c2stAirI.png" ALT="Buildings.Media.GasesPTDecoupled.Examples.MoistAirUnsaturatedTemperatureEnthalpyInversion" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Media.GasesPTDecoupled.Examples.MoistAirUnsaturatedTemperatureEnthalpyInversion"></A><A HREF="Buildings_Media_GasesPTDecoupled_Examples.html#Buildings.Media.GasesPTDecoupled.Examples"
+>Buildings.Media.GasesPTDecoupled.Examples</A>.MoistAirUnsaturatedTemperatureEnthalpyInversion</H2>
+<B>Model to check computation of h(T) and its inverse</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Media_BaseClasses.html#Buildings.Media.BaseClasses.TestTemperatureEnthalpyInversion"
+>Buildings.Media.BaseClasses.TestTemperatureEnthalpyInversion</A> (Model to check computation of h(T) and its inverse).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+>PartialCondensingGases</A></TD><TD>&nbsp;</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T0</TD><TD>273.15 + 20</TD><TD>Temperature [K]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> MoistAirUnsaturatedTemperatureEnthalpyInversion <font color="darkgreen">
+  &quot;Model to check computation of h(T) and its inverse&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">extends </font><A HREF="Buildings_Media_BaseClasses.html#Buildings.Media.BaseClasses.TestTemperatureEnthalpyInversion"
+>Buildings.Media.BaseClasses.TestTemperatureEnthalpyInversion</A>(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        <A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
+>Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</A>);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>MoistAirUnsaturatedTemperatureEnthalpyInversion;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:30 2013.
+</address></BODY>
+</HTML>

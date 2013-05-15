@@ -1,0 +1,181 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.Chillers.Examples.BaseClasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with base classes for Buildings.Fluid.Chillers.Examples&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Chillers.Examples.BaseClasses"></A><A HREF="Buildings_Fluid_Chillers_Examples.html#Buildings.Fluid.Chillers.Examples"
+>Buildings.Fluid.Chillers.Examples</A>.BaseClasses</H2>
+<B>Package with base classes for Buildings.Fluid.Chillers.Examples</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<A HREF="Buildings_Fluid_Chillers_Examples.html#Buildings.Fluid.Chillers.Examples"
+>Buildings.Fluid.Chillers.Examples</a>.
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Fluid_Chillers_Examples_BaseClasses.html#Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric"
+>PartialElectric</A>
+</TD><TD>Base class for test model of chiller electric EIR</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE PartialElectric<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric"></A><A HREF="Buildings_Fluid_Chillers_Examples_BaseClasses.html#Buildings.Fluid.Chillers.Examples.BaseClasses"
+>Buildings.Fluid.Chillers.Examples.BaseClasses</A>.PartialElectric</H2>
+<B>Base class for test model of chiller electric EIR</B><p></P>
+<IMG SRC="Buildings.Fluid.Chillers.d7b420a1ec6f89a1edEIRD.png" ALT="Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric">
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</A></TD><TD>P_nominal</TD><TD>-per.QEva_flow_nominal/per.C...</TD><TD>Nominal compressor power (at y=1) [W]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</A></TD><TD>dTEva_nominal</TD><TD>10</TD><TD>Temperature difference evaporator inlet-outlet [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</A></TD><TD>dTCon_nominal</TD><TD>10</TD><TD>Temperature difference condenser outlet-inlet [K]</TD></TR>
+<TR><TD>Real</TD><TD>COPc_nominal</TD><TD>3</TD><TD>Chiller COP</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>mEva_flow_nominal</TD><TD>per.mEva_flow_nominal</TD><TD>Nominal mass flow rate at evaporator [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>mCon_flow_nominal</TD><TD>per.mCon_flow_nominal</TD><TD>Nominal mass flow rate at condenser [kg/s]</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses.PartialElectric"
+>PartialElectric</A></TD><TD>chi</TD><TD>redeclare Buildings.Fluid.Ch...</TD><TD>Chiller model</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_Chillers_Data_BaseClasses.html#Buildings.Fluid.Chillers.Data.BaseClasses.Chiller"
+>Chiller</A></TD><TD>per</TD><TD>redeclare parameter Building...</TD><TD>Base class for performance data</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">partial </font><font color="blue">model</font> PartialElectric <font color="darkgreen">
+  &quot;Base class for test model of chiller electric EIR&quot;</font>
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+ <font color="blue">package</font> Medium1 = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
+ <font color="blue">package</font> Medium2 = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</A> P_nominal=-per.QEva_flow_nominal/per.COP_nominal <font color="darkgreen">
+    &quot;Nominal compressor power (at y=1)&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> dTEva_nominal=10 <font color="darkgreen">
+    &quot;Temperature difference evaporator inlet-outlet&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> dTCon_nominal=10 <font color="darkgreen">
+    &quot;Temperature difference condenser outlet-inlet&quot;</font>;
+  <font color="blue">parameter </font>Real COPc_nominal = 3 <font color="darkgreen">&quot;Chiller COP&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mEva_flow_nominal=
+     per.mEva_flow_nominal <font color="darkgreen">&quot;Nominal mass flow rate at evaporator&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mCon_flow_nominal=
+     per.mCon_flow_nominal <font color="darkgreen">&quot;Nominal mass flow rate at condenser&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">replaceable </font><A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses.PartialElectric"
+>Buildings.Fluid.Chillers.BaseClasses.PartialElectric</A>
+    chi <font color="blue">constrainedby </font>Buildings.Fluid.Chillers.BaseClasses.PartialElectric(
+       <font color="blue">redeclare </font><font color="blue">package</font> Medium1 = Medium1,
+       <font color="blue">redeclare </font><font color="blue">package</font> Medium2 = Medium2,
+       dp1_nominal=6000,
+       dp2_nominal=6000) <font color="darkgreen">&quot;Chiller model&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</A> sou1(nPorts=1,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium1,
+    use_T_in=true,
+    m_flow=mCon_flow_nominal,
+    T=298.15);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</A> sou2(nPorts=1,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium2,
+    use_T_in=true,
+    m_flow=mEva_flow_nominal,
+    T=291.15);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Buildings.Fluid.Sources.FixedBoundary</A> sin1(          <font color="blue">redeclare </font><font color="blue">package</font> Medium
+      = Medium1, nPorts=1);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Buildings.Fluid.Sources.FixedBoundary</A> sin2(          <font color="blue">redeclare </font><font color="blue">package</font> Medium
+      = Medium2, nPorts=1);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</A> TSet(
+    duration=3600,
+    startTime=3*3600,
+    offset=273.15 + 10,
+    height=8) <font color="darkgreen">&quot;Set point for leaving chilled water temperature&quot;</font>;
+  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</A> TCon_in(
+    height=10,
+    offset=273.15 + 20,
+    duration=3600,
+    startTime=2*3600) <font color="darkgreen">&quot;Condenser inlet temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</A> TEva_in(
+    offset=273.15 + 15,
+    height=5,
+    startTime=3600,
+    duration=3600) <font color="darkgreen">&quot;Evaporator inlet temperature&quot;</font>;
+  <font color="blue">replaceable </font><font color="blue">parameter </font><A HREF="Buildings_Fluid_Chillers_Data_BaseClasses.html#Buildings.Fluid.Chillers.Data.BaseClasses.Chiller"
+>Buildings.Fluid.Chillers.Data.BaseClasses.Chiller</A> per
+  <font color="blue">constrainedby </font>Buildings.Fluid.Chillers.Data.BaseClasses.Chiller <font color="darkgreen">
+    &quot;Base class for performance data&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</A> pulse(period=3600/2);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterThreshold"
+>Modelica.Blocks.Logical.GreaterThreshold</A> greaterThreshold(threshold=0.5);
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium1,
+    m_flow_nominal=mCon_flow_nominal,
+    dp_nominal=6000) <font color="darkgreen">&quot;Flow resistance&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res2(
+    dp_nominal=6000,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium2,
+    m_flow_nominal=mEva_flow_nominal) <font color="darkgreen">&quot;Flow resistance&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sou1.ports[1], chi.port_a1);
+  <font color="red">connect</font>(sou2.ports[1], chi.port_a2);
+  <font color="red">connect</font>(TCon_in.y, sou1.T_in);
+  <font color="red">connect</font>(TEva_in.y, sou2.T_in);
+  <font color="red">connect</font>(TSet.y, chi.TSet);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(greaterThreshold.u, pulse.y);
+  <font color="red">connect</font>(greaterThreshold.y, chi.on);
+  <font color="red">connect</font>(chi.port_b1, res1.port_a);
+  <font color="red">connect</font>(res1.port_b, sin1.ports[1]);
+  <font color="red">connect</font>(chi.port_b2, res2.port_a);
+  <font color="red">connect</font>(res2.port_b, sin2.ports[1]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>PartialElectric;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:28:18 2013.
+</address></BODY>
+</HTML>

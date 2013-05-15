@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Controls.Discrete</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with models for discrete time controls&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Discrete<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Controls.Discrete"></A><A HREF="Buildings_Controls.html#Buildings.Controls"
+>Buildings.Controls</A>.Discrete</H2>
+<B>Package with models for discrete time controls</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+This package contains components models for discrete time controls.
+For additional models, see also 
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete"
+>
+Modelica.Blocks.Discrete</a>.
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Controls.Discrete.BooleanDelayS.png" ALT="Buildings.Controls.Discrete.BooleanDelay" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Discrete.html#Buildings.Controls.Discrete.BooleanDelay"
+>BooleanDelay</A>
+</TD><TD>Zero order hold for boolean variable</TD></TR>
+<TR><TD><IMG SRC="Buildings.Controls.Discrete.ExamplesS.png" ALT="Buildings.Controls.Discrete.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Discrete_Examples.html#Buildings.Controls.Discrete.Examples"
+>Examples</A>
+</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BooleanDelay<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Controls.Discrete.BooleanDelayI.png" ALT="Buildings.Controls.Discrete.BooleanDelay" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Controls.Discrete.BooleanDelay"></A><A HREF="Buildings_Controls_Discrete.html#Buildings.Controls.Discrete"
+>Buildings.Controls.Discrete</A>.BooleanDelay</H2>
+<B>Zero order hold for boolean variable</B><p></P>
+<IMG SRC="Buildings.Controls.Discrete.BooleanDelayD.png" ALT="Buildings.Controls.Discrete.BooleanDelay">
+<P></P><H3>Information</H3>
+
+<p>
+Block that delays the boolean input signal by
+one sampling interval.
+For example, 
+if <i>u</i> denotes the input,
+<i>y</i> denotes the output, and 
+<i>t<sub>i</sub></i> and <i>t<sub>i+1</sub></i>
+denote subsequent sampling
+instants, then the model outputs
+</p>
+<p align="center" style="font-style:italic;">
+y(t<sub>i+1</sub>) = u(t<sub>i</sub>).
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanSISO"
+>Modelica.Blocks.Interfaces.BooleanSISO</A> (Single Input Single Output control block with signals of type Boolean), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+>Modelica.Blocks.Interfaces.DiscreteBlock</A> (Base class of discrete control blocks).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>samplePeriod</TD><TD>&nbsp;</TD><TD>Sample period of component [s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>startTime</TD><TD>0</TD><TD>First sample time instant [s]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+>BooleanInput</A></TD><TD>u</TD><TD>Connector of Boolean input signal</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+>BooleanOutput</A></TD><TD>y</TD><TD>Connector of Boolean output signal</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> BooleanDelay <font color="darkgreen">&quot;Zero order hold for boolean variable&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanSISO"
+>Modelica.Blocks.Interfaces.BooleanSISO</A>;
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+>Modelica.Blocks.Interfaces.DiscreteBlock</A>;
+<font color="blue">protected </font>
+  Boolean ySample;
+<font color="blue">algorithm </font>
+  <font color="blue">when </font>{sampleTrigger,<font color="red"> initial</font>()}<font color="blue"> then</font>
+    y := ySample;
+    ySample := u;
+  <font color="blue">end when</font>;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>BooleanDelay;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:28:04 2013.
+</address></BODY>
+</HTML>

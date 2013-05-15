@@ -1,0 +1,398 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.MassExchangers</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with mass exchanger models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE MassExchangers<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.MassExchangers"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
+>Buildings.Fluid</A>.MassExchangers</H2>
+<B>Package with mass exchanger models</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+This package contains models for mass exchangers.
+For heat exchanger models with humidity transfer, see the package
+<A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
+>
+Buildings.Fluid.HeatExchangers</a>.
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.MassExchaa4d623e75411fcaeenessS.png" ALT="Buildings.Fluid.MassExchangers.ConstantEffectiveness" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.ConstantEffectiveness"
+>ConstantEffectiveness</A>
+</TD><TD>Heat and moisture exchanger with constant effectiveness</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.MassExcha223cfd8096caead7ribedS.png" ALT="Buildings.Fluid.MassExchangers.HumidifierPrescribed" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.HumidifierPrescribed"
+>HumidifierPrescribed</A>
+</TD><TD>Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.MassExchangers.ExamplesS.png" ALT="Buildings.Fluid.MassExchangers.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_MassExchangers_Examples.html#Buildings.Fluid.MassExchangers.Examples"
+>Examples</A>
+</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ConstantEffectiveness<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.MassExchaa4d623e75411fcaeenessI.png" ALT="Buildings.Fluid.MassExchangers.ConstantEffectiveness" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.MassExchangers.ConstantEffectiveness"></A><A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers"
+>Buildings.Fluid.MassExchangers</A>.ConstantEffectiveness</H2>
+<B>Heat and moisture exchanger with constant effectiveness</B><p></P>
+<IMG SRC="Buildings.Fluid.MassExchaa4d623e75411fcaeenessD.png" ALT="Buildings.Fluid.MassExchangers.ConstantEffectiveness">
+<P></P><H3>Information</H3>
+
+<p>
+Model for a heat and moisture exchanger with constant effectiveness.
+</p>
+<p>
+This model transfers heat and moisture in the amount of 
+<pre>
+  Q = epsS * Q_max,
+  m = epsL * mWat_max,
+</pre>
+where <code>epsS</code> and <code>epsL</code> are constant effectiveness 
+for the sensible and latent heat transfer,  
+<code>Q_max</code> is the maximum heat that can be transferred and
+<code>mWat_max</code> is the maximum moisture that can be transferred.
+</p>
+<p>
+In the region <code>mK_flow_small > abs(mK_flow) > mK_flow_small/2</code>, for <code>K = 1</code> or
+<code>2</code>, the effectivness <code>epsS</code> and <code>epsL</code> are transitioned from 
+their user-specified value to 0. This improves the numerical robustness near
+zero flow.
+</p>
+<p>
+For a sensible heat exchanger, use
+<A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.ConstantEffectiveness"
+>
+Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>
+instead of this model.
+</p>
+<p>
+This model can only be used with medium models that define the integer constant
+<code>Water</code> which needs to be equal to the index of the water mass fraction 
+in the species vector.
+</p>
+<P></P>
+Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness"
+>Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness</A> (Partial model to implement heat exchangers based on effectiveness model).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium1</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium 1 in the component</TD></TR>
+<TR><TD colspan="2">replaceable package Medium2</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium 2 in the component</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</A></TD><TD>Q1_flow</TD><TD>epsS*QMax_flow</TD><TD>Heat transfered into the medium 1 [W]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>mXi1_flow[Medium1.nXi]</TD><TD>{if (i == Medium1.Water) the...</TD><TD>Mass flow rates of independent substances added to the medium 1 [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</A></TD><TD>Q2_flow</TD><TD>-Q1_flow</TD><TD>Heat transfered into the medium 2 [W]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>mXi2_flow[Medium2.nXi]</TD><TD>{if (i == Medium2.Water) the...</TD><TD>Mass flow rates of independent substances added to the medium 2 [kg/s]</TD></TR>
+<TR><TD>Boolean</TD><TD>sensibleOnly1</TD><TD>false</TD><TD>Set to true if sensible exchange only for medium 1</TD></TR>
+<TR><TD>Boolean</TD><TD>sensibleOnly2</TD><TD>false</TD><TD>Set to true if sensible exchange only for medium 2</TD></TR>
+<TR><TD>Real</TD><TD>epsS</TD><TD>0.8</TD><TD>Sensible heat exchanger effectiveness</TD></TR>
+<TR><TD>Real</TD><TD>epsL</TD><TD>0.8</TD><TD>Latent heat exchanger effectiveness</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m1_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m2_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp1_nominal</TD><TD>&nbsp;</TD><TD>Pressure [Pa]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp2_nominal</TD><TD>&nbsp;</TD><TD>Pressure [Pa]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m1_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a1 to port_b1 (m1_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp1.start</TD><TD>0</TD><TD>Pressure difference between port_a1 and port_b1 [Pa]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m2_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a2 to port_b2 (m2_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp2.start</TD><TD>0</TD><TD>Pressure difference between port_a2 and port_b2 [Pa]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
+<TR><TD>Boolean</TD><TD>allowFlowReversal1</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal in medium 1, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
+<TR><TD>Boolean</TD><TD>allowFlowReversal2</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal in medium 2, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</A></TD><TD>h_outflow_a1_start</TD><TD>Medium1.h_default</TD><TD>Start value for enthalpy flowing out of port a1 [J/kg]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</A></TD><TD>h_outflow_b1_start</TD><TD>Medium1.h_default</TD><TD>Start value for enthalpy flowing out of port b1 [J/kg]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</A></TD><TD>h_outflow_a2_start</TD><TD>Medium2.h_default</TD><TD>Start value for enthalpy flowing out of port a2 [J/kg]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</A></TD><TD>h_outflow_b2_start</TD><TD>Medium2.h_default</TD><TD>Start value for enthalpy flowing out of port b2 [J/kg]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m1_flow_small</TD><TD>1E-4*abs(m1_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
+<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
+<TR><TD>Boolean</TD><TD>from_dp1</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
+<TR><TD>Boolean</TD><TD>linearizeFlowResistance1</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
+<TR><TD>Real</TD><TD>deltaM1</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Medium 2</TD></TR>
+<TR><TD>Boolean</TD><TD>from_dp2</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
+<TR><TD>Boolean</TD><TD>linearizeFlowResistance2</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
+<TR><TD>Real</TD><TD>deltaM2</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a1</TD><TD>Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b1</TD><TD>Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a2</TD><TD>Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> ConstantEffectiveness <font color="darkgreen">
+  &quot;Heat and moisture exchanger with constant effectiveness&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness"
+>Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness</A>(
+  sensibleOnly1=false,
+  sensibleOnly2=false,
+  Q1_flow = epsS * QMax_flow,
+  Q2_flow = -Q1_flow,
+  mXi1_flow = {<font color="blue">if </font>( i == Medium1.Water)<font color="blue"> then </font>mWat_flow<font color="blue"> else </font>0 <font color="blue">for </font>i<font color="blue"> in </font>1:Medium1.nXi},
+  mXi2_flow = {<font color="blue">if </font>( i == Medium2.Water)<font color="blue"> then </font>-mWat_flow<font color="blue"> else </font>0 <font color="blue">for </font>i<font color="blue"> in </font>1:Medium2.nXi});
+
+  <font color="blue">parameter </font>Real epsS(min=0, max=1) = 0.8 <font color="darkgreen">
+    &quot;Sensible heat exchanger effectiveness&quot;</font>;
+  <font color="blue">parameter </font>Real epsL(min=0, max=1) = 0.8 <font color="darkgreen">&quot;Latent heat exchanger effectiveness&quot;</font>;
+
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>Medium1.MassFraction</A> X_w_in1 <font color="darkgreen">&quot;Inlet water mass fraction of medium 1&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>Medium2.MassFraction</A> X_w_in2 <font color="darkgreen">&quot;Inlet water mass fraction of medium 2&quot;</font>;
+
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mWat_flow <font color="darkgreen">
+    &quot;Water flow rate from medium 2 to medium 1&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mMax_flow <font color="darkgreen">
+    &quot;Maximum water flow rate from medium 2 to medium 1&quot;</font>;
+
+<font color="blue">protected </font>
+  Real gai1(min=0, max=1) <font color="darkgreen">&quot;Auxiliary variable for smoothing at zero flow&quot;</font>;
+  Real gai2(min=0, max=1) <font color="darkgreen">&quot;Auxiliary variable for smoothing at zero flow&quot;</font>;
+<font color="blue">equation </font>
+  <font color="darkgreen">// Definitions for effectiveness model</font>
+  X_w_in1 =<font color="red"> Modelica.Fluid.Utilities.regStep</font>(m1_flow,
+                  state_a1_inflow.X[Medium1.Water],
+                  state_b1_inflow.X[Medium1.Water], m1_flow_small);
+  X_w_in2 =<font color="red"> Modelica.Fluid.Utilities.regStep</font>(m2_flow,
+                  state_a2_inflow.X[Medium2.Water],
+                  state_b2_inflow.X[Medium2.Water], m2_flow_small);
+
+  <font color="darkgreen">// mass exchange</font>
+  <font color="darkgreen">// Compute a gain that goes to zero near zero flow rate.</font>
+  <font color="darkgreen">// This is required to smoothen the heat transfer at very small flow rates.</font>
+  <font color="darkgreen">// Note that gaiK = 1 for abs(mK_flow) &gt; mK_flow_small</font>
+  gai1 =<font color="red"> Modelica.Fluid.Utilities.regStep</font>(<font color="red">abs</font>(m1_flow) - 0.75*m1_flow_small,
+              1, 0, 0.25*m1_flow_small);
+  gai2 =<font color="red"> Modelica.Fluid.Utilities.regStep</font>(<font color="red">abs</font>(m2_flow) - 0.75*m2_flow_small,
+              1, 0, 0.25*m2_flow_small);
+
+  mMax_flow =<font color="red"> smooth</font>(1,<font color="red"> min</font>(<font color="red">smooth</font>(1, gai1 *<font color="red"> abs</font>(m1_flow)),
+                            <font color="red">smooth</font>(1, gai2 *<font color="red"> abs</font>(m2_flow)))) * (X_w_in2 - X_w_in1);
+  mWat_flow = epsL * mMax_flow;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ConstantEffectiveness;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE HumidifierPrescribed<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.MassExcha223cfd8096caead7ribedI.png" ALT="Buildings.Fluid.MassExchangers.HumidifierPrescribed" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.MassExchangers.HumidifierPrescribed"></A><A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers"
+>Buildings.Fluid.MassExchangers</A>.HumidifierPrescribed</H2>
+<B>Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction</B><p></P>
+<IMG SRC="Buildings.Fluid.MassExcha223cfd8096caead7ribedD.png" ALT="Buildings.Fluid.MassExchangers.HumidifierPrescribed">
+<P></P><H3>Information</H3>
+
+<p>
+Model for an air humidifier or dehumidifier.
+</p>
+<p>
+This model adds (or removes) moisture from the air stream.
+The amount of exchanged moisture is equal to
+</p>
+<p align="center" style="font-style:italic;">
+m&#775;<sub>wat</sub> = u  m&#775;<sub>wat,nom</sub>,
+</p>
+<p>
+where <i>u</i> is the control input signal and
+<i>m&#775;<sub>wat,nom</sub></i> is equal to the parameter <code>mWat_flow_nominal</code>.
+The parameter <code>mWat_flow_nominal</code> can be positive or negative.
+If <i>m&#775;<sub>wat</sub></i> is positive, then moisture is added
+to the air stream, otherwise it is removed.
+</p>
+<p>If the connector <code>T_in</code> is left unconnected, the value
+set by the parameter <code>T</code> is used for the temperature of the water that is 
+added to the air stream.
+</p>
+<p>
+This model can only be used with medium models that define the integer constant
+<code>Water</code> which needs to be equal to the index of the water mass fraction 
+in the species vector.
+</p>
+<P></P>
+Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
+>Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</A> (Partial model transporting one fluid stream with storing mass or energy).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium in the component</TD></TR>
+<TR><TD>Boolean</TD><TD>use_T_in</TD><TD>false</TD><TD>Get the temperature from the input connector</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T</TD><TD>293.15</TD><TD>Temperature of water that is added to the fluid stream (used if use_T_in=false) [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>mWat_flow_nominal</TD><TD>&nbsp;</TD><TD>Water mass flow rate at u=1, positive for humidification [kg/s]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp_nominal</TD><TD>&nbsp;</TD><TD>Pressure [Pa]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
+<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
+<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
+<TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
+<TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
+<TR><TD>Real</TD><TD>deltaM</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>tau</TD><TD>30</TD><TD>Time constant at nominal flow (if energyDynamics &lt;&gt; SteadyState) [s]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+>Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>T_in</TD><TD>Temperature of water added to the fluid stream</TD></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>u</TD><TD>Control input</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> HumidifierPrescribed <font color="darkgreen">
+  &quot;Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
+>Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</A>(
+    <font color="blue">redeclare </font><font color="blue">final </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"
+>Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</A> vol);
+
+  <font color="blue">parameter </font>Boolean use_T_in= false <font color="darkgreen">
+    &quot;Get the temperature from the input connector&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T = 293.15 <font color="darkgreen">
+    &quot;Temperature of water that is added to the fluid stream (used if use_T_in=false)&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mWat_flow_nominal <font color="darkgreen">
+    &quot;Water mass flow rate at u=1, positive for humidification&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> T_in <font color="blue">if </font>use_T_in <font color="darkgreen">
+    &quot;Temperature of water added to the fluid stream&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> u <font color="darkgreen">&quot;Control input&quot;</font>;</textblock>
+<font color="blue">protected </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> T_in_internal <font color="darkgreen">
+    &quot;Needed to connect to conditional connector&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gai(k=mWat_flow_nominal) <font color="darkgreen">&quot;Gain&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow"
+>Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</A> preHea <font color="darkgreen">
+    &quot;Prescribed heat flow&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> realExpression(y=
+        <font color="red">Medium.enthalpyOfLiquid</font>(T_in_internal));
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
+>Modelica.Blocks.Math.Product</A> pro <font color="darkgreen">
+    &quot;Product to compute latent heat added to volume&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> realExpression1(y=T_in_internal);</textblock>
+<font color="blue">equation </font>
+  <font color="darkgreen">// Conditional connect statement</font>
+  <font color="red">connect</font>(T_in, T_in_internal);
+  <font color="blue">if </font><font color="blue">not </font>use_T_in<font color="blue"> then</font>
+    T_in_internal = T;
+  <font color="blue">end if</font>;
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(u, gai.u);
+  <font color="red">connect</font>(gai.y, vol.mWat_flow);
+  <font color="red">connect</font>(realExpression.y, pro.u1);
+  <font color="red">connect</font>(gai.y, pro.u2);
+  <font color="red">connect</font>(pro.y, preHea.Q_flow);
+  <font color="red">connect</font>(preHea.port, vol.heatPort);
+  <font color="red">connect</font>(vol.TWat, realExpression1.y);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>HumidifierPrescribed;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:29:29 2013.
+</address></BODY>
+</HTML>

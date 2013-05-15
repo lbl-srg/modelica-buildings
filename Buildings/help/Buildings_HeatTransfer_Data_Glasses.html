@@ -1,0 +1,343 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.HeatTransfer.Data.Glasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with thermophysical properties for window glas&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Glasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.HeatTransfer.Data.Glasses"></A><A HREF="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
+>Buildings.HeatTransfer.Data</A>.Glasses</H2>
+<B>Package with thermophysical properties for window glas</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+This package implements thermophysical properties for window glas.
+</p>
+<p>
+Since the infrared transmissivity is part of the Window 5 data and since
+it depends on the glass thickness, the glass thickness is a parameter
+that is set for all glass layers.
+This configuration is different from the records fo gas properties, 
+which do not yet set the value for the thickness of the gas gap.
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+>Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da91987f7feea3ab84nericS.png" ALT="Buildings.HeatTransfer.Data.Glasses.Generic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses.Generic"
+>Generic</A>
+</TD><TD>Thermal properties of window glass</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da91987f7feea3ab84nericS.png" ALT="Buildings.HeatTransfer.Data.Glasses.ID100" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses.ID100"
+>ID100</A>
+</TD><TD>Generic Bronze Glass 3.1mm. Manufacturer: Generic.</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da91987f7feea3ab84nericS.png" ALT="Buildings.HeatTransfer.Data.Glasses.ID101" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses.ID101"
+>ID101</A>
+</TD><TD>Generic Bronze Glass 5.7mm. Manufacturer: Generic.</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da91987f7feea3ab84nericS.png" ALT="Buildings.HeatTransfer.Data.Glasses.ID102" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses.ID102"
+>ID102</A>
+</TD><TD>Generic Clear Glass 3.048mm. Manufacturer: Generic.</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da91987f7feea3ab84nericS.png" ALT="Buildings.HeatTransfer.Data.Glasses.ID103" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses.ID103"
+>ID103</A>
+</TD><TD>Generic Clear Glass 5.7mm. Manufacturer: Generic.</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Generic<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da91987f7feea3ab84nericI.png" ALT="Buildings.HeatTransfer.Data.Glasses.Generic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.Glasses.Generic"></A><A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses"
+>Buildings.HeatTransfer.Data.Glasses</A>.Generic</H2>
+<B>Thermal properties of window glass</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+This record implements thermophysical properties for window glas.
+</p>
+<p>
+The table below compares the data of this record with the variables used in the WINDOW 6 output file.
+</p>
+<p>
+Note that
+<ul>
+<li>the surface <code>a</code> is usually the outside-facing surface, and the surface
+<code>b</code> is usually the room-facing surface.
+</li>
+<li>by the term <i>solar</i>, we mean the whole solar spectrum.
+Data in the solar spectrum are used for computing solar heat gains.
+</li>
+<li>by the term <i>infrared</i> (or <i>infrared</i>), we mean the infrared spectrum. 
+Data in the infrared spectrum are used for thermal radiation that is emitted by surfaces that are 
+around room or ambient temperature.
+</li>
+<li>WINDOW 6 uses spectral data in the calculation of optical properties of window systems, 
+whereas the model in this library uses averages over the whole solar or infrared spectrum.
+</li>
+</ul>
+</p>
+<p>
+<table border="1">
+<thead>
+ <tr>
+   <th>Buildings library variable name</th>
+   <th>WINDOW 6 variable name</th>
+ </tr>
+</thead>
+<tbody>
+<tr>
+  <td>tauSol</td>  <td>Tsol</td>
+</tr>
+<tr>
+  <td>rhoSol_a</td>  <td>Rsol1</td>
+</tr>
+<tr>
+  <td>rhoSol_b</td>  <td>Rsol2</td>
+</tr>
+<tr>
+  <td>tauIR</td>  <td>Tir</td>
+</tr>
+<tr>
+  <td>absIR_a</td>  <td>Emis1</td>
+</tr>
+<tr>
+  <td>absIR_b</td>  <td>Emis2</td>
+</tr>
+</tbody>
+</table>
+
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</A> (Icon for records).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>0.003</TD><TD>Thickness [m]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>k</TD><TD>1</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>TransmissionCoefficient</A></TD><TD>tauSol</TD><TD>0.6</TD><TD>Solar transmittance [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</A></TD><TD>rhoSol_a</TD><TD>0.075</TD><TD>Solar reflectance of surface a (usually outside-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</A></TD><TD>rhoSol_b</TD><TD>0.075</TD><TD>Solar reflectance of surface b (usually room-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>TransmissionCoefficient</A></TD><TD>tauIR</TD><TD>0</TD><TD>Infrared transmissivity of glass [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR_a</TD><TD>0.84</TD><TD>Infrared absorptivity of surface a (usually outside-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR_b</TD><TD>0.84</TD><TD>Infrared absorptivity of surface b (usually room-facing surface) [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> Generic <font color="darkgreen">&quot;Thermal properties of window glass&quot;</font>
+    <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</A>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</A> x=0.003 <font color="darkgreen">&quot;Thickness&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>Modelica.SIunits.ThermalConductivity</A> k=1 <font color="darkgreen">&quot;Thermal conductivity&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>Modelica.SIunits.TransmissionCoefficient</A> tauSol = 0.6 <font color="darkgreen">
+    &quot;Solar transmittance&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>Modelica.SIunits.ReflectionCoefficient</A> rhoSol_a = 0.075 <font color="darkgreen">
+    &quot;Solar reflectance of surface a (usually outside-facing surface)&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>Modelica.SIunits.ReflectionCoefficient</A> rhoSol_b = 0.075 <font color="darkgreen">
+    &quot;Solar reflectance of surface b (usually room-facing surface)&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>Modelica.SIunits.TransmissionCoefficient</A> tauIR = 0 <font color="darkgreen">
+    &quot;Infrared transmissivity of glass&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</A> absIR_a = 0.84 <font color="darkgreen">
+    &quot;Infrared absorptivity of surface a (usually outside-facing surface)&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</A> absIR_b = 0.84 <font color="darkgreen">
+    &quot;Infrared absorptivity of surface b (usually room-facing surface)&quot;</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Generic;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ID100<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da91987f7feea3ab84nericI.png" ALT="Buildings.HeatTransfer.Data.Glasses.ID100" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.Glasses.ID100"></A><A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses"
+>Buildings.HeatTransfer.Data.Glasses</A>.ID100</H2>
+<B>Generic Bronze Glass 3.1mm. Manufacturer: Generic.</B><p></P>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>0.0031</TD><TD>Thickness [m]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>k</TD><TD>1.0</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>TransmissionCoefficient</A></TD><TD>tauSol</TD><TD>0.646</TD><TD>Solar transmittance [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</A></TD><TD>rhoSol_a</TD><TD>0.062</TD><TD>Solar reflectance of surface a (usually outside-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</A></TD><TD>rhoSol_b</TD><TD>0.063</TD><TD>Solar reflectance of surface b (usually room-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>TransmissionCoefficient</A></TD><TD>tauIR</TD><TD>0</TD><TD>Infrared transmissivity of glass [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR_a</TD><TD>0.84</TD><TD>Infrared absorptivity of surface a (usually outside-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR_b</TD><TD>0.84</TD><TD>Infrared absorptivity of surface b (usually room-facing surface) [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> ID100 =   <A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses.Generic"
+>Buildings.HeatTransfer.Data.Glasses.Generic</A> (
+    x=0.0031,
+    k=1.0,
+    tauSol=0.646,
+    rhoSol_a=0.062,
+    rhoSol_b=0.063,
+    tauIR=0,
+    absIR_a=0.84,
+    absIR_b=0.84) <font color="darkgreen">&quot;Generic Bronze Glass 3.1mm. Manufacturer: Generic.&quot;</font>;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ID101<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da91987f7feea3ab84nericI.png" ALT="Buildings.HeatTransfer.Data.Glasses.ID101" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.Glasses.ID101"></A><A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses"
+>Buildings.HeatTransfer.Data.Glasses</A>.ID101</H2>
+<B>Generic Bronze Glass 5.7mm. Manufacturer: Generic.</B><p></P>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>0.0057</TD><TD>Thickness [m]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>k</TD><TD>1.0</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>TransmissionCoefficient</A></TD><TD>tauSol</TD><TD>0.486</TD><TD>Solar transmittance [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</A></TD><TD>rhoSol_a</TD><TD>0.053</TD><TD>Solar reflectance of surface a (usually outside-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</A></TD><TD>rhoSol_b</TD><TD>0.053</TD><TD>Solar reflectance of surface b (usually room-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>TransmissionCoefficient</A></TD><TD>tauIR</TD><TD>0</TD><TD>Infrared transmissivity of glass [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR_a</TD><TD>0.84</TD><TD>Infrared absorptivity of surface a (usually outside-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR_b</TD><TD>0.84</TD><TD>Infrared absorptivity of surface b (usually room-facing surface) [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> ID101 =   <A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses.Generic"
+>Buildings.HeatTransfer.Data.Glasses.Generic</A> (
+    x=0.0057,
+    k=1.0,
+    tauSol=0.486,
+    rhoSol_a=0.053,
+    rhoSol_b=0.053,
+    tauIR=0,
+    absIR_a=0.84,
+    absIR_b=0.84) <font color="darkgreen">&quot;Generic Bronze Glass 5.7mm. Manufacturer: Generic.&quot;</font>;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ID102<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da91987f7feea3ab84nericI.png" ALT="Buildings.HeatTransfer.Data.Glasses.ID102" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.Glasses.ID102"></A><A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses"
+>Buildings.HeatTransfer.Data.Glasses</A>.ID102</H2>
+<B>Generic Clear Glass 3.048mm. Manufacturer: Generic.</B><p></P>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>0.003</TD><TD>Thickness [m]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>k</TD><TD>1.0</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>TransmissionCoefficient</A></TD><TD>tauSol</TD><TD>0.834</TD><TD>Solar transmittance [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</A></TD><TD>rhoSol_a</TD><TD>0.075</TD><TD>Solar reflectance of surface a (usually outside-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</A></TD><TD>rhoSol_b</TD><TD>0.075</TD><TD>Solar reflectance of surface b (usually room-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>TransmissionCoefficient</A></TD><TD>tauIR</TD><TD>0</TD><TD>Infrared transmissivity of glass [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR_a</TD><TD>0.84</TD><TD>Infrared absorptivity of surface a (usually outside-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR_b</TD><TD>0.84</TD><TD>Infrared absorptivity of surface b (usually room-facing surface) [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> ID102 =   <A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses.Generic"
+>Buildings.HeatTransfer.Data.Glasses.Generic</A> (
+    x=0.003,
+    k=1.0,
+    tauSol=0.834,
+    rhoSol_a=0.075,
+    rhoSol_b=0.075,
+    tauIR=0,
+    absIR_a=0.84,
+    absIR_b=0.84) <font color="darkgreen">&quot;Generic Clear Glass 3.048mm. Manufacturer: Generic.&quot;</font>;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ID103<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da91987f7feea3ab84nericI.png" ALT="Buildings.HeatTransfer.Data.Glasses.ID103" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.Glasses.ID103"></A><A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses"
+>Buildings.HeatTransfer.Data.Glasses</A>.ID103</H2>
+<B>Generic Clear Glass 5.7mm. Manufacturer: Generic.</B><p></P>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>0.0057</TD><TD>Thickness [m]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>k</TD><TD>1.0</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>TransmissionCoefficient</A></TD><TD>tauSol</TD><TD>0.771</TD><TD>Solar transmittance [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</A></TD><TD>rhoSol_a</TD><TD>0.070</TD><TD>Solar reflectance of surface a (usually outside-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</A></TD><TD>rhoSol_b</TD><TD>0.070</TD><TD>Solar reflectance of surface b (usually room-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>TransmissionCoefficient</A></TD><TD>tauIR</TD><TD>0</TD><TD>Infrared transmissivity of glass [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR_a</TD><TD>0.84</TD><TD>Infrared absorptivity of surface a (usually outside-facing surface) [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR_b</TD><TD>0.84</TD><TD>Infrared absorptivity of surface b (usually room-facing surface) [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> ID103 =   <A HREF="Buildings_HeatTransfer_Data_Glasses.html#Buildings.HeatTransfer.Data.Glasses.Generic"
+>Buildings.HeatTransfer.Data.Glasses.Generic</A> (
+    x=0.0057,
+    k=1.0,
+    tauSol=0.771,
+    rhoSol_a=0.070,
+    rhoSol_b=0.070,
+    tauIR=0,
+    absIR_a=0.84,
+    absIR_b=0.84) <font color="darkgreen">&quot;Generic Clear Glass 5.7mm. Manufacturer: Generic.&quot;</font>;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:26 2013.
+</address></BODY>
+</HTML>

@@ -1,0 +1,192 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.HeatTransfer.Data.OpaqueSurfaces</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with thermophysical properties for opaque surfaces&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE OpaqueSurfaces<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.HeatTransfer.Data.OpaqueSurfaces"></A><A HREF="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
+>Buildings.HeatTransfer.Data</A>.OpaqueSurfaces</H2>
+<B>Package with thermophysical properties for opaque surfaces</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+Package with records for opaque surfaces.
+</p>
+<p>
+The parameter <code>absIR</code>
+is used to compute infrared heat radiation (in the infrared spectrum).
+The parameter <code>absSol</code>
+is used to compute solar heat radiation (in the solar spectrum).
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+>Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Dac45028642295e677nericS.png" ALT="Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"
+>Generic</A>
+</TD><TD>Thermal properties of opaque surfaces</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Dac45028642295e677nericS.png" ALT="Buildings.HeatTransfer.Data.OpaqueSurfaces.Black" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Black"
+>Black</A>
+</TD><TD>Black surface with absIR=1.0, absSol=1.0</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Dac45028642295e677nericS.png" ALT="Buildings.HeatTransfer.Data.OpaqueSurfaces.Gray" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Gray"
+>Gray</A>
+</TD><TD>Gray surface with absIR=0.5, absSol=0.5</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Dac45028642295e677nericS.png" ALT="Buildings.HeatTransfer.Data.OpaqueSurfaces.White" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.White"
+>White</A>
+</TD><TD>White surface with absIR=0.0, absSol=0.0</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Generic<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Dac45028642295e677nericI.png" ALT="Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"></A><A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces"
+>Buildings.HeatTransfer.Data.OpaqueSurfaces</A>.Generic</H2>
+<B>Thermal properties of opaque surfaces</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+This record implements thermophysical properties for opaque surfaces.
+</p>
+<p>
+The parameter <code>absIR</code>
+is used to compute infrared heat radiation (in the infrared spectrum).
+The parameter <code>absSol</code>
+is used to compute solar heat radiation (in the solar spectrum).
+</p>
+<P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</A> (Icon for records).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Area [m2]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>til</TD><TD>&nbsp;</TD><TD>Surface tilt (0: ceiling, pi/2: wall, pi: floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR</TD><TD>0.84</TD><TD>Infrared absorptivity [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absSol</TD><TD>0.84</TD><TD>Solar absorptivity [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> Generic <font color="darkgreen">&quot;Thermal properties of opaque surfaces&quot;</font>
+    <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</A>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</A> A <font color="darkgreen">&quot;Area&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> til <font color="darkgreen">
+    &quot;Surface tilt (0: ceiling, pi/2: wall, pi: floor&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</A> absIR=0.84 <font color="darkgreen">&quot;Infrared absorptivity&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</A> absSol=0.84 <font color="darkgreen">&quot;Solar absorptivity&quot;</font>;
+ <font color="blue">final </font><font color="blue">parameter </font>Boolean isFloor=til &gt; 2.74889125<font color="blue"> and </font>til &lt; 3.53428875 <font color="darkgreen">
+    &quot;Flag, true if construction is a floor&quot;</font>;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Generic;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Black<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Dac45028642295e677nericI.png" ALT="Buildings.HeatTransfer.Data.OpaqueSurfaces.Black" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.OpaqueSurfaces.Black"></A><A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces"
+>Buildings.HeatTransfer.Data.OpaqueSurfaces</A>.Black</H2>
+<B>Black surface with absIR=1.0, absSol=1.0</B><p></P>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Area [m2]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>til</TD><TD>&nbsp;</TD><TD>Surface tilt (0: ceiling, pi/2: wall, pi: floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR</TD><TD>1.0</TD><TD>Infrared absorptivity [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absSol</TD><TD>1.0</TD><TD>Solar absorptivity [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> Black=<A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"
+>Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic</A> (absIR=1.0,
+      absSol=1.0) <font color="darkgreen">&quot;Black surface with absIR=1.0, absSol=1.0&quot;</font>;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Gray<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Dac45028642295e677nericI.png" ALT="Buildings.HeatTransfer.Data.OpaqueSurfaces.Gray" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.OpaqueSurfaces.Gray"></A><A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces"
+>Buildings.HeatTransfer.Data.OpaqueSurfaces</A>.Gray</H2>
+<B>Gray surface with absIR=0.5, absSol=0.5</B><p></P>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Area [m2]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>til</TD><TD>&nbsp;</TD><TD>Surface tilt (0: ceiling, pi/2: wall, pi: floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR</TD><TD>0.5</TD><TD>Infrared absorptivity [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absSol</TD><TD>0.5</TD><TD>Solar absorptivity [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> Gray=<A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"
+>Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic</A> (absIR=0.5,
+      absSol=0.5) <font color="darkgreen">&quot;Gray surface with absIR=0.5, absSol=0.5&quot;</font>;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE White<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Dac45028642295e677nericI.png" ALT="Buildings.HeatTransfer.Data.OpaqueSurfaces.White" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.OpaqueSurfaces.White"></A><A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces"
+>Buildings.HeatTransfer.Data.OpaqueSurfaces</A>.White</H2>
+<B>White surface with absIR=0.0, absSol=0.0</B><p></P>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Area [m2]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>til</TD><TD>&nbsp;</TD><TD>Surface tilt (0: ceiling, pi/2: wall, pi: floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absIR</TD><TD>0.0</TD><TD>Infrared absorptivity [1]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</A></TD><TD>absSol</TD><TD>0.0</TD><TD>Solar absorptivity [1]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> White=<A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"
+>Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic</A> (absIR=0.0,
+      absSol=0.0) <font color="darkgreen">&quot;White surface with absIR=0.0, absSol=0.0&quot;</font>;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 08:30:26 2013.
+</address></BODY>
+</HTML>
