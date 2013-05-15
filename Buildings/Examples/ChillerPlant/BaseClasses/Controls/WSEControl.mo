@@ -155,7 +155,5 @@ January 18, 2011, by Wangda Zuo:<br>
 First implementation.
 </li>
 </ul></HTML>"),
-    Diagram(coordinateSystem(extent={{-20,-80},{180,240}},  preserveAspectRatio=false),
-                   graphics),
-    experiment(StopTime=3600));
+    Diagram(coordinateSystem(extent={{-20,-80},{180,240}},  preserveAspectRatio=false)));
 end WSEControl;
