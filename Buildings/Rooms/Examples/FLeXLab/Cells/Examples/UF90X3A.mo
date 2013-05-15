@@ -3,7 +3,11 @@ model UF90X3A "Example demonstrating the use of UF90X3A"
   import Buildings;
   extends Buildings.Rooms.Examples.FLeXLab.Cells.UF90X3A(roo(nPorts=2,
         nConExtWin=nConExtWin,
-      redeclare package Medium = Air), sla(redeclare package Medium = Water));
+      redeclare package Medium = Air,
+      nConBou=0), sla(redeclare package Medium = Water, m_flow_nominal=0.063));
+
+      //fixme - m_flow_nominal is currently unknown. 0.063 kg/s is a placeholder value
+
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.CombiTimeTable shaPos(table=[0,1; 86400,1])
     "Position of the shade"
@@ -127,5 +131,6 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -150},{200,150}}), graphics));
+            -150},{200,150}}), graphics), Commands(file="Resources/Scripts/Dymola/Rooms/Examples/FLeXLab/Cells/Examples/UF90X3A.mos"
+        "Simulate and Plot"));
 end UF90X3A;
