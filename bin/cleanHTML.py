@@ -8,6 +8,12 @@
 import os, string, fnmatch, os.path, sys
 from os import listdir
 from os.path import isfile, join
+
+def validateLine(line):
+    li = ['home/mwetter', 'dymola/Modelica']
+    for s in li:
+        if s in line:
+            print "*** Error: Invalid string '%s' in html file." % s
 # --------------------------
 # Global settings
 LIBHOME=os.path.abspath(".")
@@ -25,8 +31,8 @@ replacements = {'</HEAD>':
                '../../msl/3.2/help',
                'file:////opt/dymola/Modelica/Library':
                '../../msl',
-               '/home/mwetter/proj/ldrd/bie/modeling/bie/tags/releases/${VERSION}/bie/modelica/Buildings/Resources':
-               '../Resources',
+               '/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings':
+               '..',
                '<PRE></pre>':'', '<pre></PRE>':''}
 for fil in files:
     filNam = helpDir + os.path.sep + fil
@@ -38,5 +44,7 @@ for fil in files:
             lines[i] = lines[i].replace(old, new)
     filObj=open(filNam, 'w')
     for lin in lines:
+        # Check if line contains a wrong string
+        validateLine(lin)
         filObj.write(lin)
     filObj.close()
