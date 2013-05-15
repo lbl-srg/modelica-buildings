@@ -1,6 +1,6 @@
 within Buildings.Rooms.Examples.FLeXLab.Cells.BaseClasses;
-model GenericTestCell
-  "Generic model of a test cell. Can be extended to create specific cells"
+model GenericTestCellConditionalConnectionsBETA
+  "Generic model of a test cell. Can be extended to create specific cells. Work in progress to use conditional connectors for text file and air/water inputs. Shelved because deemed too gankity/weird/non-robust"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 
   //Medium declarations
@@ -23,6 +23,75 @@ model GenericTestCell
   //Wall number declarations
   parameter Integer nConExtWin = 1
     "Number of walls using the construction conExtWin";
+
+  //Conditional connectors
+  //User can select to enter data via a text file, or via input connectors (i.e. model AHU and connect to room model via fluid port)
+  parameter Boolean use_AirPor = false
+    "True = Connect airflow via fluid port, false = reference external data file"
+  annotation(Dialog(tab="Conditional connectors"));
+
+  //Input data file declarations
+  //fixme - For all input data files state what each column is and units in documentation. Example: TGro has 1 column, ground temperature, in K. Example 2: watCon has two columns: flow (kg/s) and T (K)
+  parameter Boolean use_TGro_file = false
+    "True = external data file, false = table typed into parameter window"
+    annotation(Dialog(tab="Input data", group="Ground temperature"));
+  parameter Real TGro_table[:,:] = [0,288.15; 86400,288.15]
+    "Default data for TGro"
+    annotation(Dialog(tab="Input data", group="Ground temperature",enable = not use_TGro_file));
+  parameter String TGroTableName="NoName" "Name of table in TGro file"
+    annotation(Dialog(tab="Input data", group="Ground temperature",enable = use_TGro_file));
+  parameter String TGroFileName = "NoName"
+    "Name and location of TGro text file"
+    annotation(Dialog(tab="Input data", group="Ground temperature",enable = use_TGro_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
+                         caption="Open file in which table is present")));
+  parameter Boolean use_watCon_file = false
+    "True = external data file, false = table typed into parameter window"
+    annotation(Dialog(tab="Input data", group="Inlet water conditions"));
+  parameter Real watCon_table[:,:] = [0, 0.06, 303.15; 86400, 0.06, 303.15]
+    "Default data for inlet water conditions"
+    annotation(Dialog(tab="Input data", group="Inlet water conditions",enable = not use_watCon_file));
+  parameter String watConTableName="NoName" "Name of table in watCon text file"
+    annotation(Dialog(tab="Input data", group="Inlet water conditions",enable = use_watCon_file));
+  parameter String watConFileName = "NoName"
+    "Name and location of watCon text file"
+    annotation(Dialog(tab="Input data", group="Inlet water conditions",enable = use_watCon_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
+                         caption="Open file in which table is present")));
+  parameter Boolean use_airCon_file = false
+    "True = external data file, false = table typed into parameter window"
+    annotation(Dialog(tab="Input data", group="Inlet air conditions", enable = not use_AirPor));
+  parameter Real airCon_table[:,:] = [0, 0.1, 293.15; 86400, 0.1, 293.15]
+    "Default data for inlet air conditions"
+    annotation(Dialog(tab="Input data", group="Inlet air conditions",enable = not use_airCon_file));
+  parameter String airConTableName="NoName" "Name of table in watCon text file"
+    annotation(Dialog(tab="Input data", group="Inlet air conditions",enable = use_airCon_file));
+  parameter String airConFileName = "NoName"
+    "Name and location of airCon text file"
+    annotation(Dialog(tab="Input data", group="Inlet air conditions",enable = use_airCon_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
+                         caption="Open file in which table is present")));
+  parameter Boolean use_intGai_file = false
+    "True = external data file, false = table typed into parameter window"
+    annotation(Dialog(tab="Input data", group="Internal gains"));
+  parameter Real intGai_table[:,:] = [0, 0, 0, 0; 86400, 0, 0, 0]
+    "Default data for internal gains"
+    annotation(Dialog(tab="Input data", group="Internal gains",enable = not use_intGai_file));
+  parameter String intGaiTableName="NoName" "Name of table in intGai text file"
+    annotation(Dialog(tab="Input data", group="Internal gains",enable = use_intGai_file));
+  parameter String intGaiFileName = "NoName"
+    "Name and location of intGai text file"
+    annotation(Dialog(tab="Input data", group="Internal gains",enable = use_intGai_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
+                         caption="Open file in which table is present")));
+  parameter Boolean use_shaPos_file = false
+    "True = external data file, false = table typed into parameter window"
+    annotation(Dialog(tab="Input data", group="Shade position"));
+  parameter Real shaPos_table[:,:] = [0, 1; 86400, 1]
+    "Default data for shade position"
+    annotation(Dialog(tab="Input data", group="Shade position",enable = not use_shaPos_file));
+  parameter String shaPosTableName="NoName" "Name of table in shaPos text file"
+    annotation(Dialog(tab="Input data", group="Shade position",enable = use_shaPos_file));
+  parameter String shaPosFileName = "NoName"
+    "Name and location of shaPos text file"
+    annotation(Dialog(tab="Input data", group="Shade position",enable = use_shaPos_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
+                         caption="Open file in which table is present")));
 
   Rooms.MixedAir roo(
     intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
@@ -53,7 +122,11 @@ model GenericTestCell
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={14,-76})));
-  Modelica.Blocks.Sources.CombiTimeTable TGro(table=[0,288.15; 86400,288.15])
+  Modelica.Blocks.Sources.CombiTimeTable TGro(
+      tableOnFile=use_TGro_file,
+    table=TGro_table,
+    tableName=TGroTableName,
+    fileName=TGroFileName)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -71,8 +144,12 @@ model GenericTestCell
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={58,-42})));
-  Modelica.Blocks.Sources.CombiTimeTable watCon(table=[0,0.06,303.15; 86400,0.06,
-        303.15]) "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
+  Modelica.Blocks.Sources.CombiTimeTable watCon(
+    tableOnFile=use_watCon_file,
+    table=watCon_table,
+    tableName=watConTableName,
+    fileName=watConFileName)
+    "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
     annotation (Placement(transformation(extent={{-110,-48},{-90,-28}})));
   HeatTransfer.Data.OpaqueConstructions.Generic slaCon(nLay=3, material={
         Buildings.HeatTransfer.Data.Solids.Generic(
@@ -100,11 +177,18 @@ model GenericTestCell
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="/home/peter/FLeXLab/FLeXLab/bie/modelica/Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{6,94},{26,114}})));
-  Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0])
+  Modelica.Blocks.Sources.CombiTimeTable intGai(
+    tableOnFile=use_intGai_file,
+    table=intGai_table,
+    tableName=intGaiTableName,
+    fileName=intGaiFileName)
     "Internal gain heat flow (Radiant = 1, Convective = 2, Latent = 3)"
     annotation (Placement(transformation(extent={{-124,46},{-104,66}})));
-  Modelica.Blocks.Sources.CombiTimeTable shaPos(table=[0,1; 86400,1])
-    "Position of the shade"
+  Modelica.Blocks.Sources.CombiTimeTable shaPos(
+    tableOnFile=use_shaPos_file,
+    table=shaPos_table,
+    tableName=shaPosTableName,
+    fileName=shaPosFileName) "Position of the shade"
     annotation (Placement(transformation(extent={{-90,74},{-70,94}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{-82,46},{-62,66}})));
@@ -112,17 +196,25 @@ model GenericTestCell
     nPorts=1,
     use_m_flow_in=true,
     use_T_in=true,
-    redeclare package Medium = Air) "Inlet air conditions (from AHU)"
+    redeclare package Medium = Air) if not use_AirPor
+    "Inlet air conditions (from AHU)"
     annotation (Placement(transformation(extent={{-94,18},{-74,38}})));
   Fluid.Sources.Boundary_pT airOut(nPorts=1, redeclare package Medium = Air)
     annotation (Placement(transformation(extent={{-96,-12},{-76,8}})));
-  Modelica.Blocks.Sources.CombiTimeTable airCon(table=[0,0.1,293.15; 86400,0.1,293.15])
+  Modelica.Blocks.Sources.CombiTimeTable airCon(
+    tableOnFile=use_airCon_file,
+    table=airCon_table,
+    tableName=airConTableName,
+    fileName=airConFileName) if not use_AirPor
     "Inlet air conditions (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-152,22},{-132,42}})));
 
   //Do not currently have details on window construction. For now this is a generic window placeholder
   Modelica.Blocks.Routing.Replicator replicator(nout=max(1, nConExtWin))
     annotation (Placement(transformation(extent={{-46,74},{-26,94}})));
+  Modelica.Fluid.Interfaces.FluidPort_a airPor_a(redeclare package Medium = Air) if use_AirPor
+    "Inlet port for air entering room"
+    annotation (Placement(transformation(extent={{-210,18},{-190,38}})));
 equation
   connect(TGro.y[1], preT.T)                            annotation (Line(
       points={{14,-97},{14,-88}},
@@ -179,6 +271,7 @@ equation
       points={{-76,-2},{-24,-2},{-24,14},{5,14}},
       color={0,127,255},
       smooth=Smooth.None));
+  if not use_AirPor then
   connect(airCon.y[1],airIn. m_flow_in) annotation (Line(
       points={{-131,32},{-112,32},{-112,36},{-94,36}},
       color={0,0,127},
@@ -191,6 +284,9 @@ equation
       points={{-74,28},{-24,28},{-24,14},{1,14}},
       color={0,127,255},
       smooth=Smooth.None));
+  else
+      connect(airPor_a,roo.ports[1]);
+  end if;
   connect(shaPos.y[1], replicator.u) annotation (Line(
       points={{-69,84},{-48,84}},
       color={0,0,127},
@@ -206,4 +302,4 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -150},{200,150}}),      graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-200,-150},{200,150}})));
-end GenericTestCell;
+end GenericTestCellConditionalConnectionsBETA;
