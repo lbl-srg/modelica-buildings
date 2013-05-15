@@ -71,6 +71,5 @@ First implementation.
           lineThickness=1,
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,0,0},
-          textString="3")}),
-    experiment(StopTime=600));
+          textString="3")}));
 end RequestCounter;

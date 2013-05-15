@@ -82,7 +82,6 @@ equation
       smooth=Smooth.None));
   annotation (
     defaultComponentName="triAndRes",
-    Icon,
     Documentation(info="<html>
 <p>
    This model implements the trim and respond logic. The model samples the outputs of actuators every <code>tSam</code>.
@@ -113,6 +112,5 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
-    experiment(StopTime=3600));
+            100}})));
 end TrimAndRespond;
