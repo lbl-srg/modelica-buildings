@@ -121,9 +121,9 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-class Version_1_5_build1 "Version 1.5 build 1"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    class Version_1_5_build1 "Version 1.5 build 1"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
 <p>
 Version X.Y build Z is ... xxx
 </p>
@@ -204,12 +204,14 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">
+           Corrected the glass layer thickness, which was <i>5.7</i> mm instead of
+           <i>3</i> mm, as the documentation states.
     </td>
 </tr>
 </table>
@@ -257,7 +259,7 @@ xxx
 </ul>
 </p>
 </html>"));
-end Version_1_5_build1;
+    end Version_1_5_build1;
 
   class Version_1_4_build1 "Version 1.4 build 1"
     extends Modelica.Icons.ReleaseNotes;
