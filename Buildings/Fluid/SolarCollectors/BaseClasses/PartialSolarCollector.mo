@@ -9,6 +9,8 @@ model PartialSolarCollector "Partial model for solar collectors"
   parameter Integer nSeg(min=3) = 3
     "Number of segments to be used in the simulation";
 
+    //fixme - Add some thing about nSeg = number of segments between inlet and outlet in documentation. Consider creating a user guide to put it in.
+
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
   parameter Modelica.SIunits.Angle til "Surface tilt";
@@ -23,17 +25,21 @@ model PartialSolarCollector "Partial model for solar collectors"
     max=1.0) = 0 "Shading coefficient. 0.0: no shading, 1.0: full shading"
     annotation(Dialog(enable = not use_shaCoe_in, group = "Shading"));
 
-  parameter Buildings.Fluid.SolarCollectors.Types.NumberSelection nColType = Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number
+  parameter Buildings.Fluid.SolarCollectors.Types.NumberSelection nColType=
+  Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number
     "Selection of area specification format"
     annotation(Dialog(group="Area declarations"));
-  parameter Integer nPanels(fixed= if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then true else false)
+  parameter Integer nPanels(fixed= (nColType ==
+  Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number))
     "Number of panels in the system"
     annotation(Dialog(group="Area declarations", enable= (nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number)));
-  parameter Modelica.SIunits.Area TotalArea(fixed=if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area then true else false)
+  parameter Modelica.SIunits.Area TotalArea(fixed=if nColType ==
+  Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area then true else false)
     "Total area of panels in the system"
     annotation(Dialog(group="Area declarations", enable=(nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area)));
 
-  parameter Buildings.Fluid.SolarCollectors.Types.SystemConfiguration SysConfig = Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series
+  parameter Buildings.Fluid.SolarCollectors.Types.SystemConfiguration SysConfig=
+  Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series
     "Selection of system configuration"
     annotation(Dialog(group="Configuration declarations"));
 
@@ -41,8 +47,9 @@ model PartialSolarCollector "Partial model for solar collectors"
     "Shading coefficient"
   annotation(Placement(transformation(extent={{-140,60},{-100,20}},   rotation=0)));
 
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nSegFinal](
-      each C=C/nSeg) if
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nSeg](each C=C/
+        nSeg, T(
+        each start =   T_start)) if
      not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Heat capacity for one segment of the the solar collector"
     annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
@@ -77,26 +84,28 @@ model PartialSolarCollector "Partial model for solar collectors"
     use_dh=false) "Flow resistance"
                                  annotation (Placement(transformation(extent={{-50,-10},
             {-30,10}}, rotation=0)));
-  Buildings.Fluid.MixingVolumes.MixingVolume vol[nSegFinal](
+  Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](
     each nPorts=2,
     redeclare package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
     each energyDynamics=energyDynamics,
     each p_start=p_start,
     each T_start=T_start,
-    each V=perPar.V/nSeg) annotation (Placement(transformation(
+    each V=perPar.V/nSeg)
+    "Volume of fluid in one segment of the solar collector"
+                          annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={48,-16})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen[nSegFinal]
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen[nSeg]
     "Temperature sensor"
           annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={6,-16})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow QLos[nSegFinal]
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow QLos[nSeg]
     annotation (Placement(transformation(extent={{38,20},{58,40}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaGai[nSegFinal]
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaGai[nSeg]
     annotation (Placement(transformation(extent={{38,60},{58,80}})));
 
 //protected
@@ -107,34 +116,17 @@ model PartialSolarCollector "Partial model for solar collectors"
     Modelica.Blocks.Interfaces.RealInput shaCoe_internal
     "Internally used shading coefficient";
 
-//fixme - Comments apply down to next fixme.
-//This section does not work. NOT SURE HOW TO PROGRAM TO DO WHAT I WANT
-//Generates error about fixed = false. Says that fixed = false implies it must be solved in initial conditions, but is a structural component and must be solved at translation
-//Don't quite understand the bit picture. How does all of this fit together? Initial conditions v translation. What specifically does fixed = false signify?
+    final parameter Modelica.SIunits.Pressure dp_nominal_final=
+    if SysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
+       nPanels_internal*perPar.dp_nominal
+    else
+      perPar.dp_nominal "Nominal pressure loss across the system of collectors";
 
-//Error stating that both parameters have attribute fixed = false continues even after attribute is removed...
-    final parameter Integer nSegFinal(min=3,start = 3, fixed = false)
-    "Number of segments used in the stated system configuration";
-
-    final parameter Modelica.SIunits.Pressure dp_nominal_final(start = perPar.dp_nominal, fixed = false)
-    "Nominal pressure loss across the system of collectors";
-
-initial algorithm
+  parameter Integer nPanels_internal=
   if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
-    TotalArea :=perPar.A*nPanels;
+    nPanels
   else
-    nPanels :=integer(ceil(TotalArea/perPar.A));
-  end if;
-
-  if SysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
-    dp_nominal_final :=nPanels*perPar.dp_nominal;
-    nSegFinal :=integer(ceil(nPanels*nSeg));
-  else
-    dp_nominal_final :=perPar.dp_nominal;
-    nSegFinal :=nSeg;
-  end if;
-
-//fixme - End fixme section
+    integer(ceil(TotalArea/perPar.A)) "Number of collector panels";
 
 equation
   connect(shaCoe_internal,shaCoe_in);
@@ -195,7 +187,9 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
+            graphics),
     Icon(graphics={
         Rectangle(
           extent={{-86,100},{88,-100}},

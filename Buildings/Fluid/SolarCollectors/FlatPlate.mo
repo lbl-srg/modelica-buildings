@@ -9,14 +9,14 @@ model FlatPlate "Model of a flat plate solar thermal collector"
     final B1=per.B1,
     final shaCoe=shaCoe,
     final til=til,
-    final nSeg=nSegFinal,
+    final nSeg=nSeg,
     final y_intercept=per.y_intercept,
     final A_c=TotalArea,
     use_shaCoe_in=use_shaCoe_in)
              annotation (Placement(transformation(extent={{0,60},{20,80}})));
 
   SolarCollectors.BaseClasses.ASHRAEHeatLoss heaLos(
-    final nSeg=nSegFinal,
+    final nSeg=nSeg,
     final A_c=TotalArea,
     final slope=per.slope,
     final y_intercept=per.y_intercept,
