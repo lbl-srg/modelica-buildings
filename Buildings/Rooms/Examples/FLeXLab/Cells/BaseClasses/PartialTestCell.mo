@@ -47,6 +47,16 @@ model PartialTestCell
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{176,124},{196,144}})));
 
+  Modelica.Blocks.Sources.CombiTimeTable TGro(table=[0,288.15; 86400,288.15])
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-4,-132})));
+  Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0])
+    "Internal gain heat flow (Radiant = 1, Convective = 2, Latent = 3)"
+    annotation (Placement(transformation(extent={{-116,30},{-96,50}})));
+  Modelica.Blocks.Routing.Multiplex3 multiplex3_1
+    annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
 equation
   connect(sla.surf_b, preT.port)                  annotation (Line(
       points={{-4,-76},{-4,-90}},
@@ -59,6 +69,26 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
 
+  connect(TGro.y[1], preT.T) annotation (Line(
+      points={{-4,-121},{-4,-112}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
+      points={{-49,40},{-40,40},{-40,10},{-22,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(intGai.y[1],multiplex3_1. u1[1]) annotation (Line(
+      points={{-95,40},{-82,40},{-82,47},{-72,47}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(intGai.y[2],multiplex3_1. u2[1]) annotation (Line(
+      points={{-95,40},{-72,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(intGai.y[1],multiplex3_1. u3[1]) annotation (Line(
+      points={{-95,40},{-82,40},{-82,33},{-72,33}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -150},{200,150}}),      graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-200,-150},{200,150}})),

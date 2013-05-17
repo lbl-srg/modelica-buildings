@@ -12,20 +12,12 @@ model UF90X3A "Example demonstrating the use of UF90X3A"
   Modelica.Blocks.Sources.CombiTimeTable shaPos(table=[0,1; 86400,1])
     "Position of the shade"
     annotation (Placement(transformation(extent={{-102,74},{-82,94}})));
-  Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0])
-    "Internal gain heat flow (Radiant = 1, Convective = 2, Latent = 3)"
-    annotation (Placement(transformation(extent={{-124,30},{-104,50}})));
   Modelica.Blocks.Sources.CombiTimeTable airCon(table=[0,0.1,293.15; 86400,0.1,293.15])
     "Inlet air conditions (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-142,-4},{-122,16}})));
   Modelica.Blocks.Sources.CombiTimeTable watCon(table=[0,0.06,303.15; 86400,0.06,
         303.15]) "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
     annotation (Placement(transformation(extent={{-114,-72},{-94,-52}})));
-  Modelica.Blocks.Sources.CombiTimeTable TGro(table=[0,288.15; 86400,288.15])
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-4,-132})));
   Buildings.Fluid.Sources.MassFlowSource_T
                                  watIn(
     nPorts=1,
@@ -34,8 +26,6 @@ model UF90X3A "Example demonstrating the use of UF90X3A"
     redeclare package Medium = Water)
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{-56,-76},{-36,-56}})));
-  Modelica.Blocks.Routing.Multiplex3 multiplex3_1
-    annotation (Placement(transformation(extent={{-76,30},{-56,50}})));
   Buildings.Fluid.Sources.MassFlowSource_T
                                  airIn(
     use_m_flow_in=true,
@@ -66,10 +56,6 @@ model UF90X3A "Example demonstrating the use of UF90X3A"
     "Number of external constructions which include windows";
 
 equation
-  connect(TGro.y[1], preT.T) annotation (Line(
-      points={{-4,-121},{-4,-112}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(shaPos.y[1], replicator.u) annotation (Line(
       points={{-81,84},{-72,84}},
       color={0,0,127},
@@ -77,10 +63,6 @@ equation
   connect(watIn.ports[1], sla.port_a)    annotation (Line(
       points={{-36,-66},{-18,-66}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{-55,40},{-38,40},{-38,10},{-22,10}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(sla.port_b,watOut. ports[1])    annotation (Line(
       points={{2,-66},{34,-66}},
@@ -92,18 +74,6 @@ equation
       smooth=Smooth.None));
   connect(watCon.y[2], watIn.T_in) annotation (Line(
       points={{-93,-62},{-58,-62}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(intGai.y[1], multiplex3_1.u1[1]) annotation (Line(
-      points={{-103,40},{-94,40},{-94,47},{-78,47}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(intGai.y[2], multiplex3_1.u2[1]) annotation (Line(
-      points={{-103,40},{-78,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(intGai.y[1], multiplex3_1.u3[1]) annotation (Line(
-      points={{-103,40},{-94,40},{-94,33},{-78,33}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(airCon.y[1], airIn.m_flow_in) annotation (Line(
