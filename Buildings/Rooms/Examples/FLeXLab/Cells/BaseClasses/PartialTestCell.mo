@@ -40,9 +40,6 @@ model PartialTestCell
 
   Fluid.Data.Pipes.PEX_RADTEST pipe
     annotation (Placement(transformation(extent={{-194,-98},{-174,-78}})));
-                 //fixme - Is it legit to use this model for air gap (2nd layer)? Probably b/c partition wall (only care about thermal mass, not heat transfer)
-
-  //fixme - Roof construction is completely made up. Inadequate information available, only know that insulation is R20. Currently 1/2" plywood => R20 insul => 1/2 in steel sheeting
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="/home/peter/FLeXLab/FLeXLab/bie/modelica/Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-12,70},{8,90}})));

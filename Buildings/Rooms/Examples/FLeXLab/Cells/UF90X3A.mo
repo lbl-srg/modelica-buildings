@@ -43,6 +43,8 @@ model UF90X3A
       layers=slaCon,
       iLayPip=1));
 
+  //fixme - How is the area of the frame defined? Have U-value in W/(m2-K) but don't see any way to specify thickness of frame.
+
   parameter Modelica.SIunits.Area A = 60.97 "Floor area of the test cell";
   parameter Modelica.SIunits.Length disPip = 0.2 "Distance between the pipes";
 
@@ -57,8 +59,6 @@ model UF90X3A
   HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear glaSys(
       haveExteriorShade=true)
     annotation (Placement(transformation(extent={{-164,-98},{-144,-78}})));
-
-    //fixme - Not necessarily the right window model. Get specs from specifications (see Cindy Regnier e-mail, Apr 16)
 
   Data.Constructions.OpaqueConstructions.Gyp16Insul102Ply13
                                         R20Wal
