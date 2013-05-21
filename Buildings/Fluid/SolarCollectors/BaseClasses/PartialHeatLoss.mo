@@ -36,6 +36,8 @@ public
     annotation(Dialog(group="Nominal condition"));
 
 protected
+  Modelica.SIunits.Temperature TEnvVector[nSeg] = fill(TEnv,nSeg)
+    "Vector of nSeg entries of TEnv";
   final parameter Modelica.SIunits.HeatFlowRate QUse_nominal(fixed = false)
     "Useful heat gain at nominal conditions";
   final parameter Modelica.SIunits.HeatFlowRate QLos_nominal(fixed = false)
@@ -45,7 +47,7 @@ protected
   final parameter Modelica.SIunits.Temperature dT_nominal_fluid[nSeg](each start = 293.15, fixed = false)
     "Temperature of each semgent in the collector at nominal conditions";
   Medium.ThermodynamicState sta[nSeg]=Medium.setState_pTX(
-      T=dT_nominal_fluid,
+      T=dT_nominal_fluid+TEnvVector,
       p=Medium.p_default,
       X=Medium.X_default);
   Modelica.SIunits.SpecificHeatCapacity Cp[nSeg] = Medium.specificHeatCapacityCp(sta)
