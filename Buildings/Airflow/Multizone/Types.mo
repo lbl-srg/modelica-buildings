@@ -7,10 +7,11 @@ package Types "Package with type definitions"
       actual "Actual density based on flow direction")
     "Enumeration to select density in medium column" annotation (
       Documentation(info="<html>
- 
 <p>
 Enumeration to define the choice of valve flow coefficient
 (to be selected via choices menu):
+</p>
+<p>
 <table border=\"1\">
 <tr><th>Enumeration</th>
     <th>Description</th></tr>

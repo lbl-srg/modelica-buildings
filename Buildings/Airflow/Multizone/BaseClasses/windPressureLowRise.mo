@@ -96,6 +96,7 @@ Swami and Chandra (1987) recommend <i>C<sub>p0</sub> = 0.6</i> for
 all low-rise buildings as this represents the average of 
 various values reported in the literature.
 The attenuation factor is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 C<sub>p</sub> &frasl; C<sub>p0</sub> = ln(1.248 - 0.703 sin(&alpha; &frasl; 2)
       - 1.175 sin<sup>2</sup>(&alpha;)
@@ -104,9 +105,11 @@ C<sub>p</sub> &frasl; C<sub>p0</sub> = ln(1.248 - 0.703 sin(&alpha; &frasl; 2)
        +0.071 G<sup>2</sup> * sin<sup>2</sup>(&alpha; &frasl; 2)
        + 0.717 cos<sup>2</sup>(&alpha; &frasl; 2)),
 </p>
+<p>
 where 
 <i>C<sub>p</sub></i> is the wind pressure coefficient for
 the current angle of incidence.
+</p>
 <p>
 This function is used in
 <a href=\"modelica://Buildings.Fluid.Sources.Outside_CpLowRise\">

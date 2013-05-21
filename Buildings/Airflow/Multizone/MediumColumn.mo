@@ -161,6 +161,8 @@ stack effect.</p>
 <p>
 The model can be used with the following three configurations, which are
 controlled by the setting of the parameter <code>densitySelection</code>:
+</p>
+<p>
 <ul>
 <li>
 <code>top</code>:
