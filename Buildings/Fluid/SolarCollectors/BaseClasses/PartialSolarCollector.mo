@@ -29,13 +29,17 @@ model PartialSolarCollector "Partial model for solar collectors"
   Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number
     "Selection of area specification format"
     annotation(Dialog(group="Area declarations"));
-  parameter Integer nPanels(fixed= (nColType ==
-  Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number))
-    "Number of panels in the system"
+  parameter Integer nPanels=
+  if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
+    nPanels
+  else
+    integer(ceil(TotalArea/perPar.A)) "Number of panels in the system"
     annotation(Dialog(group="Area declarations", enable= (nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number)));
-  parameter Modelica.SIunits.Area TotalArea(fixed=if nColType ==
-  Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area then true else false)
-    "Total area of panels in the system"
+  parameter Modelica.SIunits.Area TotalArea=
+  if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area then
+    TotalArea
+  else
+    nPanels*perPar.A "Total area of panels in the system"
     annotation(Dialog(group="Area declarations", enable=(nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area)));
 
   parameter Buildings.Fluid.SolarCollectors.Types.SystemConfiguration SysConfig=
@@ -187,8 +191,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
             graphics),
     Icon(graphics={
         Rectangle(
