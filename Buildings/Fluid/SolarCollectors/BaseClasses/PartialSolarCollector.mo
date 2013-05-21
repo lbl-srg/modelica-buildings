@@ -1,10 +1,10 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 model PartialSolarCollector "Partial model for solar collectors"
  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
-  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(dp_nominal = dp_nominal_final);
+  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(final dp_nominal = dp_nominal_final);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     showDesignFlowDirection=false,
-    m_flow_nominal=perPar.mperA_flow_nominal*perPar.A,
+    final m_flow_nominal=perPar.mperA_flow_nominal*perPar.A,
     final show_T=true);
   parameter Integer nSeg(min=3) = 3
     "Number of segments to be used in the simulation";
@@ -15,7 +15,7 @@ model PartialSolarCollector "Partial model for solar collectors"
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
   parameter Modelica.SIunits.Angle til "Surface tilt";
   parameter Modelica.SIunits.HeatCapacity C=385*perPar.mDry
-    "Heat capacity of solar collector without fluid (cp_copper*mDry)";
+    "Heat capacity of solar collector without fluid (default: cp_copper*mDry)";
 
   parameter Boolean use_shaCoe_in = false
     "Enables an input connector for shaCoe"

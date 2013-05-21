@@ -14,11 +14,11 @@ model Tubular "Example showing the use of Tubular"
     nPanels=10,
     SysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel,
 
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area,
+    TotalArea=50,
     lat=0.73097781993588,
     azi=0.3,
-    til=0.5,
-    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area,
-    TotalArea=50) "Tubular solar collector model"
+    til=0.5) "Tubular solar collector model"
              annotation (Placement(transformation(extent={{-12,-20},{8,0}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
