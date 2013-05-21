@@ -10,11 +10,15 @@ model Tubular "Example showing the use of Tubular"
     shaCoe=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_shaCoe_in=false,
+    per=Buildings.Fluid.SolarCollectors.Data.Tubular.AMKCollectraAGOWR20(),
+    nPanels=10,
+    SysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel,
+
     lat=0.73097781993588,
     azi=0.3,
     til=0.5,
-    per=Buildings.Fluid.SolarCollectors.Data.Tubular.AMKCollectraAGOWR20())
-    "Tubular solar collector model"
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area,
+    TotalArea=50) "Tubular solar collector model"
              annotation (Placement(transformation(extent={{-12,-20},{8,0}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")

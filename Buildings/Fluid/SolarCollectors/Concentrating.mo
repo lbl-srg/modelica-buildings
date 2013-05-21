@@ -3,11 +3,9 @@ model Concentrating "Model of a concentrating solar collector"
 extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     parameter SolarCollectors.Data.GenericSolarCollector per "Performance data"
                         annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Temperature TMean_nominal
-    "Inlet temperature at nominal condition"
-    annotation(Dialog(group="Nominal condition"));
+
   BaseClasses.EN12975SolarGain solHeaGai(
-    final A_c=per.A,
+    final A_c=TotalArea_internal,
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
     final B0=per.B0,
@@ -18,7 +16,7 @@ extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     final use_shaCoe_in=use_shaCoe_in)
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   BaseClasses.EN12975HeatLoss heaLos(
-    final A_c=per.A,
+    final A_c=TotalArea_internal,
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
     final C1=per.C1,
@@ -26,7 +24,7 @@ extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     redeclare package Medium = Medium,
     final G_nominal=per.G_nominal,
     final dT_nominal=per.dT_nominal,
-    final m_flow_nominal=per.mperA_flow_nominal*per.A)
+    final m_flow_nominal=per.mperA_flow_nominal*TotalArea_internal)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
            annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Math.Add add

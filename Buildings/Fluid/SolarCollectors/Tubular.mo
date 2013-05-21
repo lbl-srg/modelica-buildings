@@ -10,16 +10,16 @@ model Tubular "Model of a tubular solar collector"
     final B0=per.B0,
     final B1=per.B1,
     final shaCoe=shaCoe,
-    final A_c=per.A,
+    final A_c=TotalArea_internal,
     final til=til,
     use_shaCoe_in=use_shaCoe_in)
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   BaseClasses.ASHRAEHeatLoss heaLos(
-    final A_c=per.A,
+    final A_c=TotalArea_internal,
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
     final slope=per.slope,
-    m_flow_nominal=per.mperA_flow_nominal*per.A,
+    m_flow_nominal=per.mperA_flow_nominal*TotalArea_internal,
     redeclare package Medium = Medium,
     final G_nominal=per.G_nominal,
     dT_nominal=per.dT_nominal)

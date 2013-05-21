@@ -128,10 +128,8 @@ model PartialSolarCollector "Partial model for solar collectors"
       perPar.dp_nominal "Nominal pressure loss across the system of collectors";
 
   parameter Modelica.SIunits.Area TotalArea_internal=
-    if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
-      nPanels * perPar.A
-    else
-      TotalArea "Area used in the simulation";
+      nPanels_internal * perPar.A "Area used in the simulation";
+
   parameter Integer nPanels_internal=
     if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
       nPanels
