@@ -28,7 +28,7 @@ public
   parameter Modelica.SIunits.Irradiance G_nominal
     "Irradiance at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
-   parameter Modelica.SIunits.Temperature dT_nominal
+   parameter Modelica.SIunits.TemperatureDifference dT_nominal
     "Ambient temperature at nomincal conditions"
      annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
