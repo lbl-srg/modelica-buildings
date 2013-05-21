@@ -108,7 +108,7 @@ model PartialSolarCollector "Partial model for solar collectors"
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaGai[nSeg]
     annotation (Placement(transformation(extent={{38,60},{58,80}})));
 
-//protected
+protected
   parameter SolarCollectors.Data.GenericSolarCollector perPar
     "Partial performance data"
     annotation(choicesAllMatching=true);

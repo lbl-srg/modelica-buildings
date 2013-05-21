@@ -45,7 +45,7 @@ protected
   final parameter Modelica.SIunits.Temperature dT_nominal_fluid[nSeg](each start = 293.15, fixed = false)
     "Temperature of each semgent in the collector at nominal conditions";
   Medium.ThermodynamicState sta[nSeg]=Medium.setState_pTX(
-      T=TFlu,
+      T=dT_nominal_fluid,
       p=Medium.p_default,
       X=Medium.X_default);
   Modelica.SIunits.SpecificHeatCapacity Cp[nSeg] = Medium.specificHeatCapacityCp(sta)

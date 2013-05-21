@@ -18,7 +18,7 @@ record GenericSolarCollector
     "Temperature dependence of heat loss from EN12975 ratings data";
    parameter Modelica.SIunits.Irradiance G_nominal
     "Nominal solar irradiance specified in ratings data";
-   parameter Modelica.SIunits.Temperature dT_nominal
+   parameter Modelica.SIunits.TemperatureDifference dT_nominal
     "Nominal temperature difference specified in ratings data";
 annotation(Documentation(info="<html>
 <p>
