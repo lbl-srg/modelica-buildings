@@ -15,15 +15,15 @@ model FlatPlate "Model of a flat plate solar thermal collector"
     use_shaCoe_in=use_shaCoe_in)
              annotation (Placement(transformation(extent={{0,60},{20,80}})));
 
-  SolarCollectors.BaseClasses.ASHRAEHeatLoss heaLos(
+  BaseClasses.ASHRAEHeatLoss                 heaLos(
     final nSeg=nSeg,
     final A_c=TotalArea,
     final slope=per.slope,
     final y_intercept=per.y_intercept,
-    m_flow_nominal=per.mperA_flow_nominal*per.A,
     redeclare package Medium = Medium,
     final G_nominal=per.G_nominal,
-    dT_nominal=per.dT_nominal)
+    dT_nominal=per.dT_nominal,
+    m_flow_nominal=per.mperA_flow_nominal*TotalArea)
     "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
         annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
