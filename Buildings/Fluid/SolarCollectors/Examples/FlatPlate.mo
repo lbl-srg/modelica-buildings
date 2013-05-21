@@ -10,15 +10,16 @@ model FlatPlate "Test model for FlatPlate"
     shaCoe=0,
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    SysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.ThermaLiteHS20(),
     nSeg=3,
     TotalArea=3.94,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    SysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel,
+
     lat=0.73097781993588,
     azi=0.3,
     til=0.5,
-    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
-    nPanels=2) "Flat plate solar collector model"
+    nPanels=10) "Flat plate solar collector model"
              annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
