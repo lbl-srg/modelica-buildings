@@ -30,16 +30,17 @@ model PartialSolarCollector "Partial model for solar collectors"
     "Selection of area specification format"
     annotation(Dialog(group="Area declarations"));
   parameter Integer nPanels=
-  if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
-    nPanels
-  else
-    integer(ceil(TotalArea/perPar.A)) "Number of panels in the system"
+   if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
+     nPanels
+   else
+     integer(ceil(TotalArea/perPar.A))
+    "Desired number of panels in the simulations"
     annotation(Dialog(group="Area declarations", enable= (nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number)));
   parameter Modelica.SIunits.Area TotalArea=
-  if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area then
-    TotalArea
-  else
-    nPanels*perPar.A "Total area of panels in the system"
+   if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area then
+     TotalArea
+   else
+     nPanels * perPar.A "Desired area in the system"
     annotation(Dialog(group="Area declarations", enable=(nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area)));
 
   parameter Buildings.Fluid.SolarCollectors.Types.SystemConfiguration SysConfig=
@@ -112,7 +113,7 @@ model PartialSolarCollector "Partial model for solar collectors"
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaGai[nSeg]
     annotation (Placement(transformation(extent={{38,60},{58,80}})));
 
-protected
+//protected
   parameter SolarCollectors.Data.GenericSolarCollector perPar
     "Partial performance data"
     annotation(choicesAllMatching=true);
@@ -126,11 +127,17 @@ protected
     else
       perPar.dp_nominal "Nominal pressure loss across the system of collectors";
 
+  parameter Modelica.SIunits.Area TotalArea_internal=
+    if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
+      nPanels * perPar.A
+    else
+      TotalArea "Area used in the simulation";
   parameter Integer nPanels_internal=
-  if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
-    nPanels
-  else
-    integer(ceil(TotalArea/perPar.A)) "Number of collector panels";
+    if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
+      nPanels
+    else
+      integer(ceil(TotalArea/perPar.A))
+    "Number of panels used in the simulation";
 
 equation
   connect(shaCoe_internal,shaCoe_in);
