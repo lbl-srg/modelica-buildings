@@ -9,8 +9,8 @@ model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
         transformation(extent={{60,60},{80,80}}, rotation=0)));
   Modelica.Blocks.Sources.Sine     TEnv(
     freqHz=0.01,
-    amplitude=7,
-    offset=273.15 + 7.2001)
+    amplitude=7.5,
+    offset=273.15 + 10)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Sine     T1(
     amplitude=5,

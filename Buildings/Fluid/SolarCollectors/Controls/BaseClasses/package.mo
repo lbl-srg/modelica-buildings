@@ -10,5 +10,4 @@ This package contains base classes that are used in the
 <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls\">Buildings.Fluid.SolarCollectors.Controls</a> package.
 </p>
 </html>"));
-
 end BaseClasses;

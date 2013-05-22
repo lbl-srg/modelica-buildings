@@ -9,8 +9,6 @@ model PartialSolarCollector "Partial model for solar collectors"
   parameter Integer nSeg(min=3) = 3
     "Number of segments to be used in the simulation";
 
-    //fixme - Add some thing about nSeg = number of segments between inlet and outlet in documentation. Consider creating a user guide to put it in.
-
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
   parameter Modelica.SIunits.Angle til "Surface tilt";
