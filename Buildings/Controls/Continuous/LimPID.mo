@@ -15,16 +15,18 @@ protected
   annotation (
 defaultComponentName="conPID",
 Documentation(info="<html>
+<p>
 This model is identical to 
 <a href=\"Modelica:Modelica.Blocks.Continuous.LimPID\">
 Modelica.Blocks.Continuous.LimPID</a> except
 that it can be configured to have a reverse action.
-</P>
+</p>
 <p>
 If the parameter <code>reverseAction=false</code> (the default),
 then <code>u_m &lt; u_s</code> increases the controller output, 
 otherwise the controller output is decreased.
 Thus, 
+</p>
 <ul>
 <li>
 for a heating coil with a two-way valve, set <code>reverseAction = false</code>,

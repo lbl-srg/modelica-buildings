@@ -442,7 +442,6 @@ condensation in the boiler:
     Q_flow_nominal/4200/(TBoiSup_nominal-TBoiRet_min) 
     \"Boiler nominal mass flow rate\";
 </pre>
-</p>
 </li>
 </ol>
 <p>

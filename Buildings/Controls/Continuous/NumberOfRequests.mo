@@ -46,7 +46,6 @@ Block that outputs the number of inputs that exceed a threshold.
 The parameter <code>kind</code> is used to determine the kind of the 
 inequality. The table below shows the allowed settings.
 </p>
-<p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
 <th>Value of parameter <code>kind</code></th>
@@ -69,7 +68,6 @@ inequality. The table below shows the allowed settings.
 <td><code>u[i] &lt; threShold</code></td>
 </tr>
 </table>
-</p>
 <p>
 This model may be used to check how many rooms
 exceed a temperature threshold.

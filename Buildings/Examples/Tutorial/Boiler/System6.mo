@@ -518,7 +518,6 @@ The weather data reader is implemented using
     filNam=\"Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos\") 
     \"Weather data reader\";
 </pre>
-</p>
 <p>
 The yellow icon in the middle of the figure is an instance of
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.Bus\">
