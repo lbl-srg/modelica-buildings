@@ -11,7 +11,7 @@ block TWetBul_TDryBulPhi
     "Set to true to approximate wet bulb temperature" annotation (Evaluate=true);
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     start=303,
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}},rotation=
@@ -31,7 +31,7 @@ block TWetBul_TDryBulPhi
 
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));

@@ -2,7 +2,7 @@ within Buildings.Examples.ChillerPlant.BaseClasses.Controls;
 block ChillerSwitch "Control unit for enabling/disabling chiller"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   Modelica.Blocks.Interfaces.RealInput chiCHWST(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg")
     "Chiller chilled water supply temperature (water entering chiller)"
@@ -13,7 +13,7 @@ block ChillerSwitch "Control unit for enabling/disabling chiller"
         transformation(extent={{100,-22},{144,22}}), iconTransformation(extent=
             {{100,-16},{120,4}})));
   Modelica.Blocks.Interfaces.RealInput TSet(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg") "Set temperature of chiller" annotation (Placement(
         transformation(extent={{-140,-80},{-100,-40}}), iconTransformation(

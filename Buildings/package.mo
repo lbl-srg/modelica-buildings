@@ -223,12 +223,44 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SkyTemperature.BlackBody<br>
+              Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature<br>
+              Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br>
+              Buildings.Controls.SetPoints.HotWaterTemperatureReset<br>
+              Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch<br>
+              Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl<br>
+              Buildings.Fluid.Boilers.BoilerPolynomial<br>
+              Buildings.Fluid.HeatExchangers.BaseClasses.HexElement<br>
+              Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange<br>
+              Buildings.Fluid.HeatExchangers.BaseClasses.MassExchangeDummy<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil<br>
+              Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort<br>
+              Buildings.Fluid.Sensors.RelativeTemperature<br>
+              Buildings.Fluid.Sensors.Temperature<br>
+              Buildings.Fluid.Sensors.TemperatureTwoPort<br>
+              Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort<br>
+              Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss<br>
+              Buildings.Utilities.Comfort.Fanger<br>
+              Buildings.Utilities.IO.BCVTB.From_degC<br>
+              Buildings.Utilities.IO.BCVTB.To_degC<br>
+              Buildings.Utilities.Psychrometrics.TDewPoi_pW<br>
+              Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi<br>
+              Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi<br>
+              Buildings.Utilities.Psychrometrics.WetBul_pTX<br>
+              Buildings.Utilities.Psychrometrics.pW_TDewPoi
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Replaced wrong attribute <code>quantity=\"Temperature\"</code>
+                     with <code>quantity=\"ThermodynamicTemperature\"</code>.
     </td>
 </tr>
 </table>

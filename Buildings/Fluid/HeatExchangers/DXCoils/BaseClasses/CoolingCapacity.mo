@@ -8,7 +8,7 @@ block CoolingCapacity
     annotation (Placement(transformation(extent={{-124,88},{-100,112}}),
         iconTransformation(extent={{-120,90},{-100,110}})));
   Modelica.Blocks.Interfaces.RealInput TConIn(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     displayUnit="degC") "Temperature of air entering the condenser coil "
      annotation (Placement(transformation(extent={{-120,38},{-100,58}})));
@@ -17,7 +17,7 @@ block CoolingCapacity
     unit="kg/s") "Air mass flow rate at the evaporator"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealInput TEvaIn(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     displayUnit="degC")
     "Temperature of air entering the evaporator (wet bulb for wet coil and dry bulb for dry coil)"

@@ -5,7 +5,7 @@ model WSEControl "Control unit for WSE"
   parameter Modelica.SIunits.TemperatureDifference dTW = 1
     "Temperature difference that is added to WSE on guard";
   Modelica.Blocks.Interfaces.RealInput wseCHWST(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg")
     "WSE chilled water supply temperature (water entering WSE)" annotation (
@@ -16,18 +16,18 @@ model WSEControl "Control unit for WSE"
         transformation(extent={{180,-10},{200,10}}),iconTransformation(extent={{180,-10},
             {200,10}})));
   Modelica.Blocks.Interfaces.RealInput TWetBul(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg") "Wet bulb temperature" annotation (Placement(
         transformation(extent={{-60,60},{-20,100}}),  iconTransformation(extent={{-60,60},
             {-20,100}})));
   Modelica.Blocks.Interfaces.RealInput towTApp(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg") "Cooling tower approach"
     annotation (Placement(transformation(extent={{-60,0},{-20,40}})));
   Modelica.Blocks.Interfaces.RealInput wseCWST(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg")
     "WSE condenser water supply temperature (water entering WSE)" annotation (

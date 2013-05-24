@@ -45,12 +45,12 @@ extends Buildings.BaseClasses.BaseIcon;
      annotation (Evaluate = true,
                 Dialog(enable = not use_pAir_in, group="Conditional inputs"));
 
-  Modelica.Blocks.Interfaces.RealInput TAir(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealInput TAir(final quantity="ThermodynamicTemperature",
                                           final unit = "K", displayUnit = "degC")
     "Air temperature"
     annotation (Placement(
         transformation(extent={{-120,90},{-100,110}})));
-  Modelica.Blocks.Interfaces.RealInput TRad(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealInput TRad(final quantity="ThermodynamicTemperature",
                                           final unit = "K", displayUnit = "degC")
     "Radiation temperature"
     annotation (

@@ -8,14 +8,14 @@ block PartialHeatLoss
     "Medium in the component";
 
   Modelica.Blocks.Interfaces.RealInput TEnv(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     displayUnit="degC") "Temperature of environment"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   parameter Integer nSeg(min=3) = 3 "Number of segments in the collector model";
 public
   Modelica.Blocks.Interfaces.RealInput TFlu[nSeg](
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit = "K",
     displayUnit="degC") "Temperature of the heat transfer fluid"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));

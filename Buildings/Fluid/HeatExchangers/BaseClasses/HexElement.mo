@@ -68,7 +68,7 @@ model HexElement "Element of a heat exchanger"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}}, rotation=
            0)));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen(
-    T(final quantity="Temperature",
+    T(final quantity="ThermodynamicTemperature",
       final unit = "K", displayUnit = "degC", min=0))
     "Temperature sensor of metal"
     annotation (Placement(transformation(extent={{8,-10},{28,10}},  rotation=0)));

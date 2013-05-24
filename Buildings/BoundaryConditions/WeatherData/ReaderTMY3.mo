@@ -28,7 +28,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     "Dry bulb temperature (used if TDryBul=Parameter)"
     annotation (Evaluate=true, Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput TDryBul_in(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") if (TDryBulSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input dry bulb temperature"
@@ -210,7 +210,7 @@ protected
     final unit="Pa",
     displayUnit="bar") "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput TDryBul_in_internal(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput relHum_in_internal(
