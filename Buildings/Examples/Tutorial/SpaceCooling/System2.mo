@@ -291,6 +291,7 @@ now, the air flow rate is a result of the sizing calculations.
 <p/>
 <p>
 The calculations are as follows:
+</p>
 <pre>
   //////////////////////////////////////////////////////////
   // Heat recovery effectiveness
@@ -341,6 +342,7 @@ Now, we explain the component models that are used to assemble the system model.
 </p>
 <ol start=\"4\">
 <li>
+<p>
 The weather data are obtained from the instance
 <code>weaDat</code> in which we set the location to Chicago, IL.
 We also configured the model to use a constant atmospheric pressure,

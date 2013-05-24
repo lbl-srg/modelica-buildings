@@ -67,6 +67,7 @@ equation
   annotation (
 defaultComponentName="hotWatRes",
 Documentation(info="<html>
+<p>
 This block computes the set point temperatures for the
 supply and return temperature of a heating system.
 The set point for the room air temperature can either be specified
