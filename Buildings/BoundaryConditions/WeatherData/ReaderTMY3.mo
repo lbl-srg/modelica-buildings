@@ -842,7 +842,6 @@ the enumeration
 Buildings.BoundaryConditions.Types.DataSource</a>
 is used as follows:
 </p>
-<p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <!-- ============================================== -->
 <tr>
@@ -879,7 +878,6 @@ is used as follows:
   </td>
 </tr>
 </table>
-</p>
 <p>
 Because global, diffuse and direct radiation are related to each other, the parameter
 <code>HSou</code> is treated differently.
@@ -888,7 +886,6 @@ It is set to a value of the enumeration
 Buildings.BoundaryConditions.Types.RadiationDataSource</a>,
 and allows the following configurations:
 </p>
-<p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <!-- ============================================== -->
 <tr>
@@ -932,9 +929,9 @@ and allows the following configurations:
   </td>
 </tr>
 </table>
-</p>
 <p>
 <b>Notes</b>
+</p>
 <ol>
 <li>
 <p>
@@ -954,6 +951,7 @@ For medium models for moist air and dry air, the default is
 <p>
 Different units apply depending on whether data are obtained from a file, or 
 from a parameter or an input connector:
+</p>
 <ul>
 <li>
 When using TMY3 data from a file (e.g. <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos</code>), the units must be the same as the original TMY3 file used by EnergyPlus (e.g. 
@@ -976,7 +974,6 @@ For instance, the unit must be
 <code>rad</code> for wind direction.
 </li>
 </ul>
-</p>
 </li>
 <li>
 <p>
@@ -984,7 +981,6 @@ The ReaderTMY3 should only be used with TMY3 data. It contains a time shift for 
 </p>
 </li>
 </ol>
-</p>
 <h4>Implementation</h4>
 <p>
 To read weather data from the TMY3 weather data file, there are
@@ -1005,14 +1001,12 @@ time is shifted by <i>30</i> minutes prior to reading the weather data.
 <img src=\"modelica://Buildings/Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\" border=\"1\">
 </p>
 <h4>References</h4>
-<p>
 <ul>
 <li>
 Wilcox S. and W. Marion. <i>Users Manual for TMY3 Data Sets</i>. 
 Technical Report, NREL/TP-581-43156, revised May 2008.
 </li>
 </ul>
-</p>
 </html>
 ", revisions="<html>
 <ul>

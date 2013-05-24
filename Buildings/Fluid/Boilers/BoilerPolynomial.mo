@@ -148,6 +148,7 @@ equation
           smooth=Smooth.None)}),
 defaultComponentName="boi",
 Documentation(info="<html>
+<p>
 This is a model of a boiler whose efficiency is described
 by a polynomial. 
 The heat input into the medium is
@@ -216,19 +217,24 @@ for <code>T=T0</code>.
 </p>
 <p>
 The fuel mass flow rate and volume flow rate are computed as 
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   m&#775;<sub>f</sub> = Q&#775;<sub>f</sub> &frasl; h<sub>f</sub>
 </p>
+<p>
 and
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   V&#775;<sub>f</sub> = m&#775;<sub>f</sub> &frasl; &rho;<sub>f</sub>,
 </p>
+<p>
 where the fuel heating value
 <i>h<sub>f</sub></i> and the fuel mass density
 <i>&rho;<sub>f</sub></i> are obtained from the 
 parameter <code>fue</code>.
 Note that if <i>&eta;</i> is the efficiency relative to the lower heating value,
 then the fuel properties also need to be used for the lower heating value.
+</p>
 <p>
 Optionally, the port <code>heatPort</code> can be connected to a heat port
 outside of this model to impose a boundary condition in order to

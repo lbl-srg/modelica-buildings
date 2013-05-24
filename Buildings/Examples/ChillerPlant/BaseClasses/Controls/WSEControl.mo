@@ -112,6 +112,7 @@ equation
 <p>
 This component decides if the WSE is set to on or off.
 The WSE is enabled when
+</p>
 <ol>
 <li>The WSE has been disabled for at least 20 minutes, and</li>
 <li>
@@ -120,9 +121,9 @@ The WSE is enabled when
 </i>
 </li>
 </ol>
-</p>
 <p>
 The WSE is disabled when
+</p>
 <ol>
 <li>The WSE has been enabled for at least 20 minutes, and</li>
 <li>
@@ -131,6 +132,7 @@ The WSE is disabled when
 </i>
 </li>
 </ol>
+<p>
 where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for the WSE, 
 <i>T<sub>WetBul</sub></i> is the wet bulb temperature, <i>T<sub>TowApp</sub></i> is the cooling tower approach, <i>T<sub>WSEApp</sub></i> is the approach for the WSE, <i>T<sub>WSE_CHWRT</sub></i> is the chilled water return temperature for the WSE, and <i>T<sub>WSE_CWST</sub></i> is the condenser water return temperature for the WSE.
 </p> 

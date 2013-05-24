@@ -86,12 +86,12 @@ equation
 <p>
    This model implements the trim and respond logic. The model samples the outputs of actuators every <code>tSam</code>.
    The control sequence is as follows:
-   <ul>
-<li>If <code>u &ge; 0</code>, then <code>y = y + nActInc</code>,</li> 
-<li>If <code>u &lt; 0</code>, then <code>y = y - yDec</code>.</li>
-</ul>
 </p>
-   </html>", revisions="<html>
+<ul>
+  <li>If <code>u &ge; 0</code>, then <code>y = y + nActInc</code>,</li> 
+  <li>If <code>u &lt; 0</code>, then <code>y = y - yDec</code>.</li>
+</ul>
+</html>", revisions="<html>
 <ul>
 <li>
 December 5, 2012, by Michael Wetter:<br>

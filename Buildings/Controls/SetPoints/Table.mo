@@ -39,8 +39,10 @@ equation
   annotation (
 defaultComponentName="tab",
 Documentation(info="<html>
+<p>
 This block can be used to schedule a set-point by using piecewise linear functions.
 For example, the instances
+</p>
 <pre>
 Buildings.Controls.SetPoints.Table tabLinExt(constantExtrapolation=false, 
                                              table=[20, 0.0; 
@@ -53,6 +55,7 @@ Buildings.Controls.SetPoints.Table tabConExt(constantExtrapolation=true,
                                                     25, 0.5; 
                                                     26, 1.0]);
 </pre>
+<p>
 will cause the following output:
 </p>
 <p>
