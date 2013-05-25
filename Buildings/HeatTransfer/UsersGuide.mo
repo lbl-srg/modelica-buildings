@@ -1,6 +1,6 @@
 within Buildings.HeatTransfer;
 package UsersGuide "User's Guide"
-  extends Modelica.Icons.Info;
+  extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
 The package <code>Buildings.HeatTransfer</code> consists of models
