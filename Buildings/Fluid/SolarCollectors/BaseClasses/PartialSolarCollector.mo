@@ -12,6 +12,7 @@ model PartialSolarCollector "Partial model for solar collectors"
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
   parameter Modelica.SIunits.Angle til "Surface tilt";
+  parameter Real rho "Ground reflectance";
   parameter Modelica.SIunits.HeatCapacity C=385*perPar.mDry
     "Heat capacity of solar collector without fluid (default: cp_copper*mDry)";
 
@@ -27,21 +28,14 @@ model PartialSolarCollector "Partial model for solar collectors"
   Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number
     "Selection of area specification format"
     annotation(Dialog(group="Area declarations"));
-  parameter Integer nPanels=
-   if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
-     nPanels
-   else
-     integer(ceil(TotalArea/perPar.A))
-    "Desired number of panels in the simulations"
+  parameter Integer nPanels= 0 "Desired number of panels in the simulation"
     annotation(Dialog(group="Area declarations", enable= (nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number)));
-  parameter Modelica.SIunits.Area TotalArea=
-   if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area then
-     TotalArea
-   else
-     nPanels * perPar.A "Desired area in the system"
+
+  parameter Modelica.SIunits.Area totalArea=0
+    "Total are of panels in the simulation"
     annotation(Dialog(group="Area declarations", enable=(nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area)));
 
-  parameter Buildings.Fluid.SolarCollectors.Types.SystemConfiguration SysConfig=
+  parameter Buildings.Fluid.SolarCollectors.Types.SystemConfiguration sysConfig=
   Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series
     "Selection of system configuration"
     annotation(Dialog(group="Configuration declarations"));
@@ -56,16 +50,19 @@ model PartialSolarCollector "Partial model for solar collectors"
      not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Heat capacity for one segment of the the solar collector"
     annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
+
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
                                                                annotation (Placement(
-        transformation(extent={{-110,68},{-90,88}}), iconTransformation(extent=
+        transformation(extent={{-110,70},{-90,90}}), iconTransformation(extent=
             {{16,90},{36,110}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTilIso(
     final outSkyCon=true,
     final outGroCon=true,
     final til=til,
     final lat=lat,
-    final azi=azi) annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
+    final azi=azi,
+    rho=rho)       annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
+
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=til,
     lat=lat,
@@ -120,7 +117,7 @@ protected
     "Internally used shading coefficient";
 
     final parameter Modelica.SIunits.Pressure dp_nominal_final=
-    if SysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
+    if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
        nPanels_internal*perPar.dp_nominal
     else
       perPar.dp_nominal "Nominal pressure loss across the system of collectors";
@@ -128,12 +125,11 @@ protected
   parameter Modelica.SIunits.Area TotalArea_internal=
       nPanels_internal * perPar.A "Area used in the simulation";
 
-  parameter Integer nPanels_internal=
+  parameter Real nPanels_internal=
     if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
       nPanels
     else
-      integer(ceil(TotalArea/perPar.A))
-    "Number of panels used in the simulation";
+      totalArea/perPar.A "Number of panels used in the simulation";
 
 equation
   connect(shaCoe_internal,shaCoe_in);
@@ -143,7 +139,7 @@ equation
   end if;
 
   connect(weaBus, HDifTilIso.weaBus) annotation (Line(
-      points={{-100,78},{-88,78},{-88,82},{-80,82}},
+      points={{-100,80},{-88,80},{-88,82},{-80,82}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -151,7 +147,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, HDirTil.weaBus) annotation (Line(
-      points={{-100,78},{-88,78},{-88,56},{-80,56}},
+      points={{-100,80},{-88,80},{-88,56},{-80,56}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(

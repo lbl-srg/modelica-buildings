@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors;
-package UsersGuide "\"User's Guide\""
+package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   extends Modelica.Icons.Information;
 
   annotation(preferredview="info",
