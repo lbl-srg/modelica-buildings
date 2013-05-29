@@ -17,18 +17,19 @@ model SolarPumpController
     annotation (Placement(transformation(extent={{100,-18},{136,18}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data input"
     annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
-protected
+
   BaseClasses.GCritCalc gCritCalc(
     final slope=per.slope,
     final y_intercept=per.y_intercept)
     "Calculates the critical insolation based on collector design and current weather conditions"
     annotation (Placement(transformation(extent={{-58,-20},{-38,0}})));
-  Buildings.Utilities.Math.SmoothHeaviside smoHea(final delta=delY)
-    "Creates a smooth 1/0 output"
-    annotation (Placement(transformation(extent={{28,-10},{48,10}})));
   Modelica.Blocks.Math.Add add(final k2=-1)
     "Compares the current insolation to the critical insolation"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+protected
+  Buildings.Utilities.Math.SmoothHeaviside smoHea(final delta=delY)
+    "Creates a smooth 1/0 output"
+    annotation (Placement(transformation(extent={{28,-10},{48,10}})));
 
 equation
   connect(TIn, gCritCalc.TIn) annotation (Line(

@@ -4,7 +4,7 @@ model SolarPumpController "Example for the solar pump controller"
   extends Modelica.Icons.Example;
   Buildings.Fluid.SolarCollectors.Controls.SolarPumpController
         pumCon(per=
-        Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B())
+        Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.ThermaLiteHS20())
     "Model controlling the on/off status of the pump"
     annotation (Placement(transformation(extent={{-6,0},{14,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -13,8 +13,8 @@ model SolarPumpController "Example for the solar pump controller"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Sine sine(
     amplitude=20,
-    offset=273.15 + 30,
-    freqHz=0.0001) "Water inlet temperature"
+    freqHz=0.0001,
+    offset=273.15 + 40) "Water inlet temperature"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
   connect(weaDat.weaBus, pumCon.weaBus)  annotation (Line(
