@@ -39,7 +39,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-100,78},{-88,78},{-88,36},{-2,36}},
+      points={{-100,80},{-88,80},{-88,36},{-2,36}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -114,5 +114,95 @@ equation
  First implementation.
  </li>
  </ul>
- </html>"));
+ </html>"),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={
+        Rectangle(
+          extent={{-50,50},{50,-50}},
+          lineColor={27,0,55},
+          fillColor={26,0,55},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-50,50},{-70,70},{-70,-72},{-50,-50},{-50,-50},{-50,50}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          smooth=Smooth.None,
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-50,50},{50,50},{70,70},{-70,70},{-70,70},{-50,50}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          smooth=Smooth.None,
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-70,-72},{70,-72},{50,-50},{-50,-50},{-50,-50},{-70,-72}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          smooth=Smooth.None,
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{70,-72},{70,70},{50,50},{50,-50},{50,-50},{70,-72}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          smooth=Smooth.None,
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-24,26},{28,-26}},
+          lineColor={255,0,0},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-52,0},{-30,0}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1),
+        Line(
+          points={{-6,-6},{8,8}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1,
+          origin={-24,30},
+          rotation=90),
+        Line(
+          points={{-10,0},{10,0}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1,
+          origin={0,40},
+          rotation=90),
+        Line(
+          points={{-8,-8},{6,6}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1,
+          origin={28,32},
+          rotation=180),
+        Line(
+          points={{32,0},{52,0}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1),
+        Line(
+          points={{-8,-8},{6,6}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1,
+          origin={30,-30},
+          rotation=90),
+        Line(
+          points={{-10,0},{10,0}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1,
+          origin={2,-40},
+          rotation=90),
+        Line(
+          points={{-36,-40},{-20,-24}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1)}));
 end Concentrating;

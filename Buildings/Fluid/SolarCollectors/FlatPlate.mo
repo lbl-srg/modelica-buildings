@@ -35,7 +35,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-100,78},{-88,78},{-88,36},{-2,36}},
+      points={{-100,80},{-88,80},{-88,36},{-2,36}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -70,86 +70,75 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
             graphics),
-    Icon(graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+         graphics={
         Rectangle(
-          extent={{-86,100},{88,-100}},
-          lineColor={215,215,215},
-          fillColor={215,215,215},
+          extent={{-84,100},{84,-100}},
+          lineColor={27,0,55},
+          fillColor={26,0,55},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-10,80},{10,-100}},
-          lineColor={215,215,215},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{30,80},{50,-100}},
-          lineColor={215,215,215},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-50,80},{-28,-100}},
-          lineColor={215,215,215},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-60,100},{60,80}},
-          lineColor={215,215,215},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-100,0},{-76,0},{-76,-90},{66,-90},{66,-60},{-64,-60},{-64,
+              -30},{66,-30},{66,0},{-64,0},{-64,28},{66,28},{66,60},{-64,60},{
+              -64,86},{78,86},{78,0},{98,0},{100,0}},
+          color={0,128,255},
+          thickness=1,
+          smooth=Smooth.None),
         Ellipse(
-          extent={{-24,28},{28,-24}},
+          extent={{-24,26},{28,-26}},
           lineColor={255,0,0},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid),
-        Line(
-          points={{-48,2},{-28,2}},
-          color={255,0,0},
-          smooth=Smooth.None,
-          thickness=1),
-        Line(
-          points={{34,2},{54,2}},
-          color={255,0,0},
-          smooth=Smooth.None,
-          thickness=1),
-        Line(
-          points={{-8,-8},{6,6}},
-          color={255,0,0},
-          smooth=Smooth.None,
-          thickness=1,
-          origin={30,34},
-          rotation=180),
-        Line(
-          points={{-34,-38},{-18,-22}},
-          color={255,0,0},
-          smooth=Smooth.None,
-          thickness=1),
-        Line(
-          points={{-8,-8},{6,6}},
-          color={255,0,0},
-          smooth=Smooth.None,
-          thickness=1,
-          origin={32,-28},
-          rotation=90),
         Line(
           points={{-6,-6},{8,8}},
           color={255,0,0},
           smooth=Smooth.None,
           thickness=1,
-          origin={-22,32},
+          origin={-24,30},
           rotation=90),
+        Line(
+          points={{-50,0},{-30,0}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1),
+        Line(
+          points={{-36,-40},{-20,-24}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1),
         Line(
           points={{-10,0},{10,0}},
           color={255,0,0},
           smooth=Smooth.None,
           thickness=1,
-          origin={4,-38},
+          origin={2,-40},
           rotation=90),
+        Line(
+          points={{-8,-8},{6,6}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1,
+          origin={30,-30},
+          rotation=90),
+        Line(
+          points={{32,0},{52,0}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1),
+        Line(
+          points={{-8,-8},{6,6}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1,
+          origin={28,32},
+          rotation=180),
         Line(
           points={{-10,0},{10,0}},
           color={255,0,0},
           smooth=Smooth.None,
           thickness=1,
-          origin={2,42},
+          origin={0,40},
           rotation=90)}),
     defaultComponentName="solCol",
     Documentation(info="<html>

@@ -34,7 +34,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-100,78},{-88,78},{-88,36},{-14,36}},
+      points={{-100,80},{-88,80},{-88,36},{-14,36}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -105,5 +105,86 @@ equation
  First implementation.
  </li>
  </ul>
- </html>"));
+ </html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-86,100},{88,-100}},
+          lineColor={215,215,215},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-54,80},{-32,-100}},
+          lineColor={215,215,215},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-14,80},{6,-100}},
+          lineColor={215,215,215},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{26,80},{46,-100}},
+          lineColor={215,215,215},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-64,100},{56,80}},
+          lineColor={215,215,215},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-30,24},{22,-28}},
+          lineColor={255,0,0},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-56,-2},{-36,-2}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1),
+        Line(
+          points={{-6,-6},{8,8}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1,
+          origin={-30,28},
+          rotation=90),
+        Line(
+          points={{-10,0},{10,0}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1,
+          origin={-6,38},
+          rotation=90),
+        Line(
+          points={{-8,-8},{6,6}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1,
+          origin={22,30},
+          rotation=180),
+        Line(
+          points={{26,-2},{46,-2}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1),
+        Line(
+          points={{-8,-8},{6,6}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1,
+          origin={24,-32},
+          rotation=90),
+        Line(
+          points={{-10,0},{10,0}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1,
+          origin={-4,-42},
+          rotation=90),
+        Line(
+          points={{-42,-42},{-26,-26}},
+          color={255,0,0},
+          smooth=Smooth.None,
+          thickness=1)}));
 end Tubular;
