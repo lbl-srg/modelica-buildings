@@ -27,6 +27,7 @@ algorithm
 
 annotation (
     Documentation(info="<html>
+<p>
 This function checks if the numeric argument is outside of the
 interval <i>0.9</i> to <i>1.1</i>.
 If this is the case, the function writes a warning.

@@ -247,6 +247,7 @@ equation
           smooth=Smooth.None)}),
     defaultComponentName="rad",
     Documentation(info="<html>
+<p>
 This is a model of a radiator that can be used as a dynamic or steady-state model.
 The required parameters are data that are typically available from
 manufacturers that follow the European Norm EN 442-2.
@@ -269,6 +270,7 @@ the convective and radiative heat transfer
 <i>Q<sup>i</sup><sub>c</sub></i> and
 <i>Q<sup>i</sup><sub>r</sub></i>
 from the radiator to the room is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q<sup>i</sup><sub>c</sub> = sign(T<sup>i</sup>-T<sub>a</sub>)
      (1-f<sub>r</sub>) UA &frasl; N |T<sup>i</sup>-T<sub>a</sub>|<sup>n</sup> 
@@ -276,6 +278,7 @@ from the radiator to the room is
   Q<sup>i</sup><sub>r</sub> = sign(T<sup>i</sup>-T<sub>r</sub>)
      f<sub>r</sub> UA &frasl; N |T<sup>i</sup>-T<sub>r</sub>|<sup>n</sup>
 </p>
+<p>
 where
 <i>T<sup>i</sup></i> is the water temperature of the element,
 <i>T<sub>a</sub></i> is the temperature of the room air,

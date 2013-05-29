@@ -168,6 +168,7 @@ For numerical reasons, this transition occurs in the range of <code>y &isin; [0.
 <h4>Fan power consumption</h4>
 <p>
 The fan power consumption at the design condition can be specified as follows:
+</p>
 <ul>
 <li>
 The parameter <code>fraPFan_nominal</code> can be used to specify at the 
@@ -181,7 +182,6 @@ If a user does not set this parameter, then the fan power will be
 is the nominal water flow rate.
 </li>
 </ul>
-</p>
 <p>
 In the forced convection mode, the actual fan power is 
 computed as <code>PFan=fanRelPow(y) * PFan_nominal</code>, where
@@ -201,6 +201,7 @@ In between these points, the values are interpolated using cubic splines.
 This model is similar to the model <code>Cooling Tower:Variable Speed</code> that
 is implemented in the EnergyPlus building energy simulation program version 6.0.
 The main differences are
+</p>
 <ol>
 <li>
 Not implemented are the basin heater power consumption, and
@@ -212,7 +213,6 @@ To switch cells on or off, use multiple instances of this model, and use your ow
 control law to compute the input signal <code>y</code>.
 </li>
 </ol>
-</p>
 <h4>References</h4>
 <p>
 <a href=\"http://www.energyplus.gov\">EnergyPlus 2.0.0 Engineering Reference</a>, April 9, 2007.
