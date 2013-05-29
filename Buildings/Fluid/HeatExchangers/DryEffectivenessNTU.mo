@@ -182,10 +182,12 @@ defaultComponentName="hex",
 <p>
 Model of a heat exchanger without humidity condensation. 
 This model transfers heat in the amount of 
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q = Q<sub>max</sub>  &epsilon;<br>
   &epsilon; = f(NTU, Z, flowRegime),
 </p>
+<p>
 where
 <i>Q<sub>max</sub></i> is the maximum heat that can be transferred,
 <i>&epsilon;</i> is the heat transfer effectiveness, 

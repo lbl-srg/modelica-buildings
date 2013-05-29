@@ -27,6 +27,7 @@ This model computes the total thermal resistance from the fluid to the borehole 
 This thermal resistance is then used for a three-resistance model.
 It assumes that the pipe configuration is symmetric. 
 The resistance is obtain using
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
  R = 2 R<sub>b</sub>,
 </p>
@@ -34,7 +35,8 @@ The resistance is obtain using
 where <i>R<sub>b</sub></i> is the total borehole resistance as defined by Hellstrom (1991). 
 </p>
 <p>
-The resistance <i>R<sub>b</sub></i> includes three different thermal resistances: 
+The resistance <i>R<sub>b</sub></i> includes three different thermal resistances:
+</p>
 <ol>
 <li>
 a convective resistance from the brine to the pipe wall,
@@ -46,7 +48,6 @@ a thermal resistance of the pipe wall, and
 the thermal resistance of the filling material.
 </li>
 </ol>
-</p>
 <h4>Implementation</h4>
 <p>
 The calculation of <i>R<sub>b</sub></i> is done using the function

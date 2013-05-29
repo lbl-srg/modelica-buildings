@@ -125,6 +125,7 @@ uses the condenser leaving temperature instead of the entering temperature,
 and it uses a bicubic polynomial to compute the part load performance.
 </p>
 <p> This model uses three functions to predict capacity and power consumption:
+</p>
 <ul>
 <li>
 A biquadratic function is used to predict cooling capacity as a function of
@@ -139,6 +140,7 @@ A biquadratic functions is used to predict power input to cooling capacity ratio
 condenser leaving and evaporator leaving fluid temperature.
 </li>
 </ul>
+<p>
 These curves are stored in the data record <code>per</code> and are available from
 <a href=\"Buildings.Fluid.Chillers.Data.ElectricReformulatedEIRChiller\">
 Buildings.Fluid.Chillers.Data.ElectricReformulatedEIRChiller</a>.
@@ -155,6 +157,7 @@ The model takes as an input the set point for the leaving chilled water temperat
 which is met if the chiller has sufficient capacity.
 Thus, the model has a built-in, ideal temperature control.
 The model has three tests on the part load ratio and the cycling ratio:
+</p>
 <ol>
 <li>
 The test<pre>
@@ -182,8 +185,8 @@ computes the part load ratio of the compressor.
 The assumption is that for a part load ratio below <code>per.PLRMinUnl</code>,
 the chiller uses hot gas bypass to reduce the capacity, while the compressor
 power draw does not change. 
-</li></ol>
-</p>
+</li>
+</ol>
 <p>
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
 </p>
@@ -195,7 +198,6 @@ order differential equation for the evaporator and condenser fluid volumes.
 The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
 </p>
 <h4>References</h4>
-<p>
 <ul>
 <li>
 Hydeman, M., N. Webb, P. Sreedharan, and S. Blanc. 2002. Development and Testing of a

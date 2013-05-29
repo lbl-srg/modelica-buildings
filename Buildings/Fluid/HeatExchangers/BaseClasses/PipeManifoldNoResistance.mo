@@ -20,7 +20,7 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                     graphics),
 Documentation(info="<html>
 <p>
-Pipe manifold without flow resistance.</p>
+Pipe manifold without flow resistance.
 </p>
 <p>
 This model connects the flows between the ports without 

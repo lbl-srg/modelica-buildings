@@ -282,9 +282,11 @@ from <i>16.5</i> minutes (<i>990</i> seconds) to
 <i>29</i> minutes (<i>1740</i> seconds). 
 Thus, we use a default value of <i>t<sub>wet</sub>=1400</i> seconds.
 The maximum amount of water that can accumulate on the coil is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   m<sub>max</sub> = -Q&#775;<sub>L,nom</sub> &nbsp; t<sub>wet</sub> &frasl; h<sub>fg</sub> 
 </p>
+<p>
 where
 <i>Q&#775;<sub>L,nom</sub>&lt;0</i> is the latent capacity at the nominal conditions and
 <i>h<sub>fg</sub></i> is the latent heat of evaporation.
@@ -294,9 +296,11 @@ When the coil is off, the water that has been accumulated on the coil
 evaporates into the air. The rate of water vapor evaporation at nominal operating
 conditions is defined by the parameter <i>&gamma;<sub>nom</sub></i>. The definition of
 <i>&gamma;<sub>nom</sub></i> is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   &gamma;<sub>nom</sub> = Q&#775;<sub>e,nom</sub> &frasl; Q&#775;<sub>L,nom</sub>,
 </p>
+<p>
 where 
 <i>Q&#775;<sub>e,nom</sub>&lt;0</i> is the rate of evaporation from the coil surface into 
 the air stream right after the coil is switched off.
@@ -306,9 +310,11 @@ The default value is <i>&gamma;<sub>nom</sub> = 1.5</i>.
 <p>
 First, we discuss the accumulation of water on the coil.
 The rate of water accumulation is computed as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   dm(t)&frasl;dt = -m&#775;<sub>wat</sub>(t)
 </p>
+<p>
 where
 <i>m&#775;<sub>wat</sub>(t) &le; 0</i> is the water vapor mass flow rate that is extracted
 from the air at the current operating conditions.
@@ -341,6 +347,7 @@ For an evaporative cooler,
 <p align=\"center\" style=\"font-style:italic;\">
   &eta;(t) = 1-exp(-NTU(t)),
 </p>
+<p>
 where
 <i>NTU(t)=(hA)<sub>m</sub>/C&#775;<sub>a</sub></i> are the number of mass transfer units and 
 <i>C&#775;<sub>a</sub></i> is the air capacity flow rate.
@@ -491,6 +498,7 @@ which corresponds to a mass transfer effectiveness of <i>0.8</i>. If
 To regularize the equations near zero air mass flow rate and zero humidity on the coil, the
 following conditions have been imposed in such a way that the model
 is once continuously differentiable with bounded derivatives on compact sets:
+</p>
 <ul>
 <li>
 We impose that 
@@ -505,6 +513,7 @@ to ensure that the evaporation mass flow rate remains bounded at zero air flow r
 and that it is symmetric near zero without having to trigger an event.
 </li>
 </ul>
+<p>
 This is implemented by replacing for <i>|m&#775;<sub>a</sub>(t)| &lt; &delta;</i>
 the equation for the evaporation mass flow rate by
 </p>
