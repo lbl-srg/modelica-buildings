@@ -115,7 +115,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus,solCol. weaBus) annotation (Line(
-      points={{-10,90},{10.6,90},{10.6,66}},
+      points={{-10,90},{-2,90},{-2,65.6}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -124,7 +124,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, pumCon.weaBus) annotation (Line(
-      points={{-10,90},{-6,90},{-6,72},{-82,72},{-82,60.2}},
+      points={{-10,90},{-2,90},{-2,72},{-82,72},{-82,60.2}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));

@@ -53,8 +53,7 @@ model PartialSolarCollector "Partial model for solar collectors"
 
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
                                                                annotation (Placement(
-        transformation(extent={{-110,70},{-90,90}}), iconTransformation(extent=
-            {{16,90},{36,110}})));
+        transformation(extent={{-110,86},{-90,106}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTilIso(
     final outSkyCon=true,
     final outGroCon=true,
@@ -139,7 +138,7 @@ equation
   end if;
 
   connect(weaBus, HDifTilIso.weaBus) annotation (Line(
-      points={{-100,80},{-88,80},{-88,82},{-80,82}},
+      points={{-100,96},{-88,96},{-88,82},{-80,82}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -147,7 +146,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, HDirTil.weaBus) annotation (Line(
-      points={{-100,80},{-88,80},{-88,56},{-80,56}},
+      points={{-100,96},{-88,96},{-88,56},{-80,56}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -190,8 +189,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
             graphics),
     Icon(graphics),
     defaultComponentName="solCol",

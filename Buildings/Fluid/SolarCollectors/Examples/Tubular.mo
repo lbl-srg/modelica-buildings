@@ -13,17 +13,17 @@ model Tubular "Example showing the use of Tubular"
     per=Buildings.Fluid.SolarCollectors.Data.Tubular.AMKCollectraAGOWR20(),
     nPanels=10,
     SysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel,
-
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area,
     TotalArea=50,
     lat=0.73097781993588,
     azi=0.3,
     til=0.5) "Tubular solar collector model"
              annotation (Placement(transformation(extent={{-12,-20},{8,0}})));
+
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data input file"
-    annotation (Placement(transformation(extent={{-32,20},{-12,40}})));
+    annotation (Placement(transformation(extent={{-46,20},{-26,40}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     use_p_in=false,
@@ -67,8 +67,8 @@ equation
       points={{-72,-10},{-52,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(weaDat.weaBus,solCol. weaBus) annotation (Line(
-      points={{-12,30},{0.6,30},{0.6,0}},
+  connect(weaDat.weaBus, solCol.weaBus) annotation (Line(
+      points={{-26,30},{-18,30},{-18,-0.4},{-12,-0.4}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));

@@ -12,17 +12,17 @@ model Concentrating "Example showing the use of Concentrating"
     use_shaCoe_in=false,
     per=Buildings.Fluid.SolarCollectors.Data.Concentrating.VerificationModel(),
     SysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
-
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area,
     TotalArea=50,
     lat=0.73097781993588,
     azi=0.3,
     til=0.5) "Concentrating solar collector model"
              annotation (Placement(transformation(extent={{-14,-20},{6,0}})));
+
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data input file"
-    annotation (Placement(transformation(extent={{-34,20},{-14,40}})));
+    annotation (Placement(transformation(extent={{-48,20},{-28,40}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     use_p_in=false,
@@ -67,8 +67,8 @@ equation
       points={{-74,-10},{-54,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(weaDat.weaBus,solCol. weaBus) annotation (Line(
-      points={{-14,30},{-1.4,30},{-1.4,0}},
+  connect(weaDat.weaBus, solCol.weaBus) annotation (Line(
+      points={{-28,30},{-20,30},{-20,-0.4},{-14,-0.4}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));

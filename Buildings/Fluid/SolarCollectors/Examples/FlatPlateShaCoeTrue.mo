@@ -23,7 +23,7 @@ model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data input file"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-48,30},{-28,50}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     use_p_in=false,
@@ -72,14 +72,14 @@ equation
       points={{-80,-10},{-60,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(weaDat.weaBus, solCol.weaBus) annotation (Line(
-      points={{-20,30},{-7.4,30},{-7.4,0}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
   connect(shaCoe.y, solCol.shaCoe_in) annotation (Line(
       points={{-67,16},{-32,16},{-32,-6},{-22,-6}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, solCol.weaBus) annotation (Line(
+      points={{-28,40},{-24,40},{-24,-0.4},{-20,-0.4}},
+      color={255,204,51},
+      thickness=0.5,
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,

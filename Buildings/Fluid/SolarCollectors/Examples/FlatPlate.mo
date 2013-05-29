@@ -24,7 +24,7 @@ model FlatPlate "Test model for FlatPlate"
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data input file"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-52,20},{-32,40}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     use_p_in=false,
@@ -69,7 +69,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus, solCol.weaBus) annotation (Line(
-      points={{-20,30},{-7.4,30},{-7.4,0}},
+      points={{-32,30},{-26,30},{-26,-0.4},{-20,-0.4}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
