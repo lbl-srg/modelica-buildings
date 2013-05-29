@@ -80,10 +80,12 @@ Documentation(info="<html>
 <p>
 This is a model of a resistance with a fixed flow coefficient.
 The mass flow rate is computed as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 m&#775; = k  
 &radic;<span style=\"text-decoration:overline;\">&Delta;P</span>,
 </p>
+<p>
 where 
 <i>k</i> is a constant and 
 <i>&Delta;P</i> is the pressure drop.
@@ -98,7 +100,6 @@ with finite slope.
 The value of <code>m_flow_turbulent</code> is
 computed as follows:
 </p>
-<p>
 <ul>
 <li>
 If the parameter <code>use_dh</code> is <code>false</code>
@@ -119,7 +120,6 @@ the medium model. The parameter
 can be set by the user.
 </li>
 </ul>
-</p>
 <p>
 The figure below shows the pressure drop for the parameters
 <code>m_flow_nominal=5</code> kg/s,
@@ -157,7 +157,6 @@ This can be difficult to guarantee, as pressure imbalance after
 the initialization, or due to medium expansion and contraction,
 can lead to reverse flow.
 </p>
-<p>
 <h4>Notes</h4>
 <p>
 For more detailed models that compute the actual flow friction, 
@@ -173,6 +172,7 @@ The pressure drop is computed by calling a function in the package
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels\">
 Buildings.Fluid.BaseClasses.FlowModels</a>,
 This package contains regularized implementations of the equation
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>

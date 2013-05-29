@@ -212,6 +212,7 @@ The first layer of this material is the one at the heat port <code>surf_a</code>
 is at the heat port <code>surf_b</code>.
 The parameter <code>iLayPip</code> must be set to the number of the interface in which the pipes
 are located. For example, consider the following floor slab.
+</p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/construction.png\"/>
 </p>
@@ -295,7 +296,6 @@ The parameter <code>sysTyp</code> is used to select the equation that is used to
 the average temperature in the plane of the pipes.
 It needs to be set to the following values:
 </p>
-<p>
   <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr>
       <th>sysTyp</th>
@@ -312,7 +312,6 @@ It needs to be set to the following values:
           construction surface.</td>
     </tr>
   </table>
-</p>
 <h4>Limitations</h4>
 <p>
 The analogy with a three-resistance network and the corresponding equation for

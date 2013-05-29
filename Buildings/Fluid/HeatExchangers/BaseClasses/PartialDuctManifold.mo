@@ -14,7 +14,7 @@ partial model PartialDuctManifold
 annotation(Diagram(graphics),
                     Documentation(info="<html>
 <p>
-Partial duct manifold for a heat exchanger.</p>
+Partial duct manifold for a heat exchanger.
 </p>
 <p>
 This model defines the duct connection to a heat exchanger.
