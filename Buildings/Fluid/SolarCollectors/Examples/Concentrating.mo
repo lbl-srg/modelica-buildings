@@ -11,12 +11,13 @@ model Concentrating "Example showing the use of Concentrating"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_shaCoe_in=false,
     per=Buildings.Fluid.SolarCollectors.Data.Concentrating.VerificationModel(),
-    SysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
-    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area,
-    TotalArea=50,
+    sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
     lat=0.73097781993588,
     azi=0.3,
-    til=0.5) "Concentrating solar collector model"
+    til=0.5,
+    rho=0.2,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nPanels=5) "Concentrating solar collector model"
              annotation (Placement(transformation(extent={{-14,-20},{6,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -88,6 +89,6 @@ equation
         </li>
         </ul>
         </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),     graphics));
 end Concentrating;

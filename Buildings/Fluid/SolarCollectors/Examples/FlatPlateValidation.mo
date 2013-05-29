@@ -13,7 +13,10 @@ model FlatPlateValidation "Validation model for FlatPlate"
     nSeg=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     lat=0.6457718232379,
-    til=0.78539816339745)
+    til=0.78539816339745,
+    rho=0.2,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nPanels=1)
     "Flat plate solar collector model, has been modified for validation purposes"
              annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
@@ -57,7 +60,7 @@ model FlatPlateValidation "Validation model for FlatPlate"
 
 equation
   connect(weaDat.weaBus, solCol.weaBus) annotation (Line(
-      points={{-20,30},{32.6,30},{32.6,4.44089e-16}},
+      points={{-20,30},{20,30},{20,-0.4}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));

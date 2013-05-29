@@ -8,16 +8,17 @@ model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
     redeclare package Medium = Medium,
     nSeg=3,
     shaCoe=0,
-    G_nominal=800,
     from_dp=true,
-    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_shaCoe_in=true,
+    rho=0.2,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nPanels=5,
     lat=0.73097781993588,
     azi=0.3,
     til=0.5,
-    TEnv_nominal=283.15,
-    TIn_nominal=293.15,
-    use_shaCoe_in=true) "Flat plate solar collector model"
+    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.GuangdongFSPTY95())
+    "Flat plate solar collector model"
              annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=

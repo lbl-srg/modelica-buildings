@@ -1,6 +1,6 @@
 simulateModel("Buildings.Fluid.SolarCollectors.Examples.FlatPlateShaCoeTrue", stopTime = 86400, method = "dassl", resultFile = "FlatPlateShaCoeTrue");
 createPlot(id = 1,
- position = {35, 30, 400, 137},
+ position = {35, 30, 1000, 350},
  y = {"TOut.T"},
  range = {0,86400,0, 20},
  autoscale = true,

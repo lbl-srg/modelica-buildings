@@ -12,9 +12,9 @@ model Tubular "Example showing the use of Tubular"
     use_shaCoe_in=false,
     per=Buildings.Fluid.SolarCollectors.Data.Tubular.AMKCollectraAGOWR20(),
     nPanels=10,
-    SysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel,
-    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area,
-    TotalArea=50,
+    sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    rho=0.2,
     lat=0.73097781993588,
     azi=0.3,
     til=0.5) "Tubular solar collector model"
@@ -88,6 +88,6 @@ equation
         </li>
         </ul>
         </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),     graphics));
 end Tubular;

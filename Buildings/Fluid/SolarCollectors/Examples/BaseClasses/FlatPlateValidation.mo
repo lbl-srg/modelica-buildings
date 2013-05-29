@@ -48,12 +48,7 @@ protected
     "Internally used shading coefficient";
 
 equation
-  connect(shaCoe_internal,shaCoe_in);
   connect(shaCoe_internal,solHeaGai.shaCoe_in);
-
-  if not use_shaCoe_in then
-    shaCoe_internal=shaCoe;
-  end if;
 
   connect(solHeaGai.QSol_flow, heaGai.Q_flow) annotation (Line(
       points={{33,70},{38,70}},
@@ -81,7 +76,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-100,78},{-88,78},{-88,36},{-2,36}},
+      points={{-100,96},{-88,96},{-88,36},{-2,36}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(

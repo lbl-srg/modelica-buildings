@@ -12,15 +12,18 @@ model FlatPlateWithTank
   Buildings.Fluid.SolarCollectors.FlatPlate solCol(
     nSeg=3,
     shaCoe=0,
-    G_nominal=800,
     redeclare package Medium = Medium_2,
-    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2002001J(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    rho=0.2,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nPanels=5,
+    sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+
     lat=0.73097781993588,
     azi=0.3,
     til=0.78539816339745,
-    TEnv_nominal=283.15,
-    TIn_nominal=293.15) "Flat plate solar collector model"
+    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.YourHomeTechHP2014
+        ()) "Flat plate solar collector model"
              annotation (Placement(transformation(extent={{-2,46},{18,66}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
       computeWetBulbTemperature=false) "Weather data file reader"
@@ -59,9 +62,9 @@ model FlatPlateWithTank
         rotation=180,
         origin={27,-33})));
   Buildings.Fluid.SolarCollectors.Controls.SolarPumpController
-                                                     pumCon(
-    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B())
-    "Pump controller"                                                                                                     annotation (Placement(transformation(
+                                                     pumCon(per=
+        Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.YourHomeTechHP2014
+        ()) "Pump controller"                                                                                             annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-88,50})));
