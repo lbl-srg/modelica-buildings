@@ -6,23 +6,23 @@ function spliceFunction
     input Real deltax "Half width of transition interval";
     output Real out "Smoothed value";
 protected
-    Real scaledX;
     Real scaledX1;
     Real y;
+    constant Real asin1 = Modelica.Math.asin(1);
 algorithm
     scaledX1 := x/deltax;
-    scaledX := scaledX1*Modelica.Math.asin(1);
     if scaledX1 <= -0.999999999 then
-      y := 0;
+      out := neg;
     elseif scaledX1 >= 0.999999999 then
-      y := 1;
+      out := pos;
     else
-      y := (Modelica.Math.tanh(Modelica.Math.tan(scaledX)) + 1)/2;
+      y := (Modelica.Math.tanh(Modelica.Math.tan(scaledX1*asin1)) + 1)/2;
+      out := pos*y + (1 - y)*neg;
     end if;
-    out := pos*y + (1 - y)*neg;
+
     annotation (
-smoothOrder=1, 
-derivative=BaseClasses.der_spliceFunction, 
+smoothOrder=1,
+derivative=BaseClasses.der_spliceFunction,
 Documentation(info="<html>
 <p>
 Function to provide a once continuously differentialbe transition between 
@@ -34,6 +34,10 @@ Modelica.Media.Air.MoistAir.Utilities.spliceFunction</a> and provided here
 for easier accessability to model developers.
 </html>", revisions="<html>
 <ul>
+<li>
+May 10, 2013, by Michael Wetter:<br>
+Reformulated implementation to avoid unrequired computations.
+</li>
 <li>
 May 11, 2010, by Michael Wetter:<br>
 Removed default value for transition interval as this is problem dependent.

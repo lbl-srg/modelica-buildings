@@ -80,13 +80,13 @@ which have been adapted from the valve implementation
 in <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>
 to specify the valve flow coefficient in fully open conditions:
+</p>
 <ul>
 <li><code>CvData = Buildings.Fluid.Types.CvTypes.Av</code>: the flow coefficient is given by the metric <code>Av</code> coefficient (m^2).
 <li><code>CvData = Buildings.Fluid.Types.CvTypes.Kv</code>: the flow coefficient is given by the metric <code>Kv</code> coefficient (m^3/h).
 <li><code>CvData = Buildings.Fluid.Types.CvTypes.Cv</code>: the flow coefficient is given by the US <code>Cv</code> coefficient (USG/min).
 <li><code>CvData = Buildings.Fluid.Types.CvTypes.OpPoint</code>: the flow is computed from the nominal operating point specified by <code>dp_nominal</code> and <code>m_flow_nominal</code>.
 </ul>
-</p>
 <p>
 The treatment of parameters <code>Kv</code> and <code>Cv</code> is
 explained in detail in the 

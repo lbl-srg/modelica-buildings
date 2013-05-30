@@ -5,7 +5,7 @@ model WSEControl "Control unit for WSE"
   parameter Modelica.SIunits.TemperatureDifference dTW = 1
     "Temperature difference that is added to WSE on guard";
   Modelica.Blocks.Interfaces.RealInput wseCHWST(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg")
     "WSE chilled water supply temperature (water entering WSE)" annotation (
@@ -16,18 +16,18 @@ model WSEControl "Control unit for WSE"
         transformation(extent={{180,-10},{200,10}}),iconTransformation(extent={{180,-10},
             {200,10}})));
   Modelica.Blocks.Interfaces.RealInput TWetBul(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg") "Wet bulb temperature" annotation (Placement(
         transformation(extent={{-60,60},{-20,100}}),  iconTransformation(extent={{-60,60},
             {-20,100}})));
   Modelica.Blocks.Interfaces.RealInput towTApp(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg") "Cooling tower approach"
     annotation (Placement(transformation(extent={{-60,0},{-20,40}})));
   Modelica.Blocks.Interfaces.RealInput wseCWST(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg")
     "WSE condenser water supply temperature (water entering WSE)" annotation (
@@ -112,6 +112,7 @@ equation
 <p>
 This component decides if the WSE is set to on or off.
 The WSE is enabled when
+</p>
 <ol>
 <li>The WSE has been disabled for at least 20 minutes, and</li>
 <li>
@@ -120,9 +121,9 @@ The WSE is enabled when
 </i>
 </li>
 </ol>
-</p>
 <p>
 The WSE is disabled when
+</p>
 <ol>
 <li>The WSE has been enabled for at least 20 minutes, and</li>
 <li>
@@ -131,6 +132,7 @@ The WSE is disabled when
 </i>
 </li>
 </ol>
+<p>
 where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for the WSE, 
 <i>T<sub>WetBul</sub></i> is the wet bulb temperature, <i>T<sub>TowApp</sub></i> is the cooling tower approach, <i>T<sub>WSEApp</sub></i> is the approach for the WSE, <i>T<sub>WSE_CHWRT</sub></i> is the chilled water return temperature for the WSE, and <i>T<sub>WSE_CWST</sub></i> is the condenser water return temperature for the WSE.
 </p> 
@@ -155,7 +157,5 @@ January 18, 2011, by Wangda Zuo:<br>
 First implementation.
 </li>
 </ul></HTML>"),
-    Diagram(coordinateSystem(extent={{-20,-80},{180,240}},  preserveAspectRatio=false),
-                   graphics),
-    experiment(StopTime=3600));
+    Diagram(coordinateSystem(extent={{-20,-80},{180,240}},  preserveAspectRatio=false)));
 end WSEControl;

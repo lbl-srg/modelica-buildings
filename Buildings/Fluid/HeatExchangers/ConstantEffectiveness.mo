@@ -29,10 +29,12 @@ Documentation(info="<html>
 Model for a heat exchanger with constant effectiveness.
 </p>
 <p>
-This model transfers heat in the amount of 
+This model transfers heat in the amount of
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q = Q<sub>max</sub> &epsilon;,
 </p>
+<p>
 where <i>&epsilon;</i> is a constant effectiveness and 
 <i>Q<sub>max</sub></i> is the maximum heat that can be transferred.
 </p>

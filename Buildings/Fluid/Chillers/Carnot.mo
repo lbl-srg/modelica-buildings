@@ -52,7 +52,10 @@ model Carnot
   Real COPCar(min=0) "Carnot efficiency";
   Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
   Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
-  Modelica.SIunits.Power P "Compressor power";
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
+    "Electric power consumed by compressor"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
   Modelica.SIunits.Temperature TCon
     "Condenser temperature used to compute efficiency";
   Modelica.SIunits.Temperature TEva
@@ -70,6 +73,7 @@ protected
   Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow)
     "Condenser heat flow rate"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+
 initial equation
   assert(dTEva_nominal>0, "Parameter dTEva_nominal must be positive.");
   assert(dTCon_nominal>0, "Parameter dTCon_nominal must be positive.");
@@ -206,18 +210,23 @@ equation
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="y")}),
+          textString="y"),
+        Text(extent={{64,96},{114,82}},   textString="P",
+          lineColor={0,0,127})}),
 defaultComponentName="chi",
 Documentation(info="<html>
+<p>
 This is model of a chiller whose coefficient of performance (COP) changes
 with temperatures in the same way as the Carnot efficiency changes.
 The COP at the nominal conditions can be specified by a parameter, or
 it can be computed by the model based on the Carnot effectiveness, in which
 case
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   COP<sub>0</sub> = &eta;<sub>car</sub> COP<sub>car</sub>
 = &eta;<sub>car</sub> T<sub>eva</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>),
 </p>
+<p>
 where <i>T<sub>eva</sub></i> is the evaporator temperature 
 and <i>T<sub>con</sub></i> is the condenser temperature.
 On the <code>Advanced</code> tab, a user can specify the temperature that
@@ -228,9 +237,11 @@ are the temperature of the fluid volume, of <code>port_a</code>, of
 </p>
 <p>
 The chiller COP is computed as the product
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   COP = &eta;<sub>car</sub> COP<sub>car</sub> &eta;<sub>PL</sub>,
 </p>
+<p>
 where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness, 
 <i>COP<sub>car</sub></i> is the Carnot efficiency and
 <i>&eta;<sub>PL</sub></i> is a polynomial in the control signal <i>y</i>
@@ -247,6 +258,10 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 10, 2013 by Michael Wetter:<br>
+Added electric power <code>P</code> as an output signal.
+</li>
 <li>
 October 11, 2010 by Michael Wetter:<br>
 Fixed bug in energy balance.

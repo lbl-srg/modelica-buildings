@@ -46,7 +46,8 @@ partial model PartialThreeWayValve "Partial three way valve"
 
   parameter Real fraK(min=0, max=1) = 0.7
     "Fraction Kv(port_3->port_2)/Kv(port_1->port_2)";
-  parameter Real[2] l(min=0, max=1) = {0, 0} "Valve leakage, l=Cv(y=0)/Cvs";
+  parameter Real[2] l(each min=0, each max=1) = {0, 0}
+    "Valve leakage, l=Kv(y=0)/Kv(y=1)";
   parameter Real deltaM = 0.02
     "Fraction of nominal flow rate where linearization starts, if y=1"
     annotation(Dialog(group="Pressure-flow linearization"));
@@ -162,20 +163,20 @@ a parameter.
 The flow coefficient for the bypass flow from <code>port_3 -> port_2</code>
 is computed as
 </p>
-<p>
 <pre>
          Kv(port_3 -> port_2)
   fraK = ----------------------
          Kv(port_1 -> port_2)
 </pre> 
-</p>
 <p>
 where <code>0 &lt; fraK &le; 1</code> is a parameter with a default value
 of <code>fraK=0.7</code>.
-</p><p>
+</p>
+<p>
 Since this model uses two way valves to construct a three way valve, see 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
-PartialTwoWayValve</a> for details regarding the valve implementation.
+Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a> 
+for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
 <ul>

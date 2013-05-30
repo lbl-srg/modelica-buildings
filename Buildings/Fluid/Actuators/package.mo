@@ -65,9 +65,8 @@ An equivalent model could be created by deleting the two resistance models
 <pre>
   val(dpValve_nominal=6000, dpFixed={10000, 100}, m_flow_nominal=0.1);
 </pre>
-<p>
-</p>
 <h4>Transients of actuators</h4>
+<p>
 This section describes how valves and dampers can be configured
 to approximate the travel time of an actuator.
 Such an approximation can also lead to faster simulation because

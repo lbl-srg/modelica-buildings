@@ -23,27 +23,27 @@ block HotWaterTemperatureReset
                 Dialog(enable = not use_TRoo_in));
   parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8
     "Offset for heating curve";
-  Modelica.Blocks.Interfaces.RealInput TRoo_in(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealInput TRoo_in(final quantity="ThermodynamicTemperature",
                                                final unit = "K", displayUnit = "degC", min=0) if
           use_TRoo_in "Room air temperature set point"
     annotation (Placement(transformation(extent={{-139,-80},{-99,-40}},
           rotation=0)));
 
-  Modelica.Blocks.Interfaces.RealInput TOut(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealInput TOut(final quantity="ThermodynamicTemperature",
                                             final unit = "K", displayUnit = "degC", min=0)
     "Outside temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealOutput TSup(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealOutput TSup(final quantity="ThermodynamicTemperature",
                                             final unit = "K", displayUnit = "degC", min=0)
     "Setpoint for supply temperature"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput TRet(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealOutput TRet(final quantity="ThermodynamicTemperature",
                                             final unit = "K", displayUnit = "degC", min=0)
     "Setpoint for return temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
 protected
-  Modelica.Blocks.Interfaces.RealInput TRoo_in_internal(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealInput TRoo_in_internal(final quantity="ThermodynamicTemperature",
                                                         final unit = "K", displayUnit = "degC", min=0)
     "Needed to connect to conditional connector";
   Real qRel "Relative heating load = Q_flow/Q_flow_nominal";
@@ -67,6 +67,7 @@ equation
   annotation (
 defaultComponentName="hotWatRes",
 Documentation(info="<html>
+<p>
 This block computes the set point temperatures for the
 supply and return temperature of a heating system.
 The set point for the room air temperature can either be specified

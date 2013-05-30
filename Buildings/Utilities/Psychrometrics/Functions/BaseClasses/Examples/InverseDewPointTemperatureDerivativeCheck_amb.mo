@@ -17,7 +17,7 @@ equation
             100,100}})),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/InverseDewPointTemperatureDerivativeCheck_amb.mos" "Simulate and plot"),
     experiment(
-      StartTime=273.15,
+      StartTime=611,
       StopTime=7383),
     Documentation(info="<html>
 <p>

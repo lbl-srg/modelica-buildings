@@ -6,7 +6,7 @@ model DryCoil "Calculates dry coil condition"
       Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
       annotation (choicesAllMatching=true);
   Modelica.Blocks.Interfaces.RealOutput TDry(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=233.15,
     max=373.15) "Dry bulb temperature of air at ADP"

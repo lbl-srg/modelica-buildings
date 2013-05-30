@@ -30,9 +30,10 @@ partial model PartialElectric
   Real COP(min=0) "Coefficient of performance";
   Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
   Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
-  Modelica.Blocks.Interfaces.RealOutput P(unit="W")
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
     "Electric power consumed by compressor"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
 
   Real capFunT(min=0, nominal=1, start=1)
     "Cooling capacity factor function of temperature curve";
@@ -154,8 +155,10 @@ equation
       points={{-19,-40},{12,-40},{12,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Icon(graphics={
-        Text(extent={{64,4},{114,-10}},   textString="P",
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),
+                   graphics={
+        Text(extent={{62,96},{112,82}},   textString="P",
           lineColor={0,0,127}),
         Text(extent={{-94,-24},{-48,-36}},  textString="T_CHWS",
           lineColor={0,0,127}),
@@ -230,7 +233,10 @@ equation
           lineColor={0,0,0},
           smooth=Smooth.None,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(extent={{-108,36},{-62,24}},
+          lineColor={0,0,127},
+          textString="on")}),
 Documentation(info="<html>
 <p>
 Base class for model of an electric chiller, based on the DOE-2.1 chiller model and the
@@ -242,9 +248,11 @@ The model takes as an input the set point for the leaving chilled water temperat
 which is met if the chiller has sufficient capacity.
 Thus, the model has a built-in, ideal temperature control.
 The model has three tests on the part load ratio and the cycling ratio:
+</p>
 <ol>
 <li>
-The test<pre>
+The test
+<pre>
   PLR1 =min(QEva_flow_set/QEva_flow_ava, PLRMax);
 </pre>
 ensures that the chiller capacity does not exceed the chiller capacity specified
@@ -255,7 +263,10 @@ The test <pre>
   CR = min(PLR1/per.PRLMin, 1.0);
 </pre>
 computes a cycling ratio. This ratio expresses the fraction of time
-that a chiller would run if it were to cycle because its load is smaller than the minimal load at which it can operature. Notice that this model does continuously operature even if the part load ratio is below the minimum part load ratio. Its leaving evaporator and condenser temperature can therefore be considered as an 
+that a chiller would run if it were to cycle because its load is smaller than 
+the minimal load at which it can operature. Notice that this model does continuously operature even if 
+the part load ratio is below the minimum part load ratio. Its leaving evaporator and condenser temperature 
+can therefore be considered as an 
 average temperature between the modes where the compressor is off and on.
 </li>
 <li>
@@ -266,14 +277,16 @@ computes the part load ratio of the compressor.
 The assumption is that for a part load ratio below <code>PLRMinUnl</code>,
 the chiller uses hot gas bypass to reduce the capacity, while the compressor
 power draw does not change. 
-</li></ol>
-</p>
+</li>
+</ol>
 <p>
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
 </p>
 <h4>Implementation</h4>
-<p>Models that extend from this base class need to provide
+<p>
+Models that extend from this base class need to provide
 three functions to predict capacity and power consumption:
+</p>
 <ul>
 <li>
 A function to predict cooling capacity. The function value needs
@@ -288,7 +301,6 @@ A function to predict the power input as a function of the part load ratio.
 The function value needs to be assigned to <code>EIRFunPLR</code>.
 </li>
 </ul>
-</p>
 </html>",
 revisions="<html>
 <ul>

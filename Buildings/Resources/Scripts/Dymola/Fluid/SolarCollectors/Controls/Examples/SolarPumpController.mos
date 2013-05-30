@@ -1,0 +1,15 @@
+simulateModel("Buildings.Fluid.SolarCollectors.Controls.Examples.SolarPumpController", stopTime = 86400, method = "dassl", resultFile = "SolarPumpController");
+
+createPlot(id = 1,
+ position = {35, 30, 400, 137},
+ y = {"pumCon.y"},
+ range = {0,86400,-0.1, 1.1},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true, 
+ subPlot = 1,
+ filename = "SolarPumpController.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

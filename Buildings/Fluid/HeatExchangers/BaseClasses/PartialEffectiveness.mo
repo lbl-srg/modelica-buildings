@@ -72,7 +72,7 @@ equation
   T_in2 = if allowFlowReversal2 then
     fra_a2 * Medium2.temperature(state_a2_inflow) + fra_b2 * Medium2.temperature(state_b2_inflow) else
     Medium2.temperature(state_a2_inflow);
-
+  // fixme: mwetter: this generates an event. Check if this is the root cause of the events in VAVReheat.mo
   C1_flow = abs(m1_flow)*
     ( if allowFlowReversal1 then
            fra_a1 * Medium1.specificHeatCapacityCp(state_a1_inflow) +
@@ -98,11 +98,13 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-Partial model to implement heat exchanger models
+Partial model to implement heat exchanger models.
 </p>
 <p>
 Classes that extend this model need to implement heat and 
-mass balance equations in a form like<pre>
+mass balance equations in a form like
+</p>
+<pre>
   // transfered heat
   Q1_flow = eps * QMax_flow;
   // no heat loss to ambient
@@ -111,6 +113,7 @@ mass balance equations in a form like<pre>
   mXi1_flow = zeros(Medium1.nXi);
   mXi2_flow = zeros(Medium2.nXi);
 </pre>
+<p>
 Thus, if medium 1 is heated in this device, then <code>Q1_flow &gt; 0</code>
 and <code>QMax_flow &gt; 0</code>.
 </p>

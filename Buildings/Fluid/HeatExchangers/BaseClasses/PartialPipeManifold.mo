@@ -9,7 +9,7 @@ partial model PartialPipeManifold "Partial pipe manifold for a heat exchanger"
 annotation(Diagram(graphics),
                     Documentation(info="<html>
 <p>
-Partial pipe manifold for a heat exchanger.</p>
+Partial pipe manifold for a heat exchanger.
 </p>
 <p>
 This model defines the pipe connection to a heat exchanger.

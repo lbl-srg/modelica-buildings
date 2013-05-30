@@ -2,8 +2,9 @@ within Buildings.HeatTransfer.Conduction;
 model MultiLayer
   "Model for heat conductance through a solid with multiple material layers"
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor(
-   final R=sum(lay[:].R));
-  Modelica.SIunits.Temperature T[sum(nSta)](each nominal = 300) "Temperature at the states";
+   final R=sum(lay[i].R for i in 1:nLay));
+  Modelica.SIunits.Temperature T[sum(nSta)](each nominal = 300)
+    "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[sum(nSta)+nLay]
     "Heat flow rate from state i to i+1";
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
@@ -18,11 +19,11 @@ protected
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 protected
-  parameter Modelica.SIunits.Temperature _T_a_start[nLay] = 
-    { T_b_start+(T_a_start-T_b_start) * 1/R * sum(lay[k].R for k in i:nLay) for i in 1:nLay }
+  parameter Modelica.SIunits.Temperature _T_a_start[nLay]=
+    { T_b_start+(T_a_start-T_b_start) * 1/R * sum(lay[k].R for k in i:nLay) for i in 1:nLay}
     "Initial temperature at port_a of respective layer, used if steadyStateInitial = false";
-  parameter Modelica.SIunits.Temperature _T_b_start[nLay] =
-    { T_a_start+(T_b_start-T_a_start) * 1/R * sum(lay[k].R for k in 1:i) for i in 1:nLay }
+  parameter Modelica.SIunits.Temperature _T_b_start[nLay]=
+    { T_a_start+(T_b_start-T_a_start) * 1/R * sum(lay[k].R for k in 1:i) for i in 1:nLay}
     "Initial temperature at port_b of respective layer, used if steadyStateInitial = false";
 equation
   // This section assigns the temperatures and heat flow rates of the layer models to

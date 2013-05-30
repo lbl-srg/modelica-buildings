@@ -1,8 +1,9 @@
 within Buildings.BoundaryConditions.WeatherData;
 package UsersGuide "User's Guide"
-  extends Modelica.Icons.Info;
+  extends Modelica.Icons.Information;
 annotation (preferredView="info",
 Documentation(info="<html>
+<p>
 This package contains models to read weather data.
 The weather data format is the Typical Meteorological Year (TMY3)
 as obtained from the EnergyPlus web site at
@@ -12,6 +13,7 @@ http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm</a>.
 <h4>Adding new weather data</h4>
 <p>
 To add new weather data, proceed as follows:
+</p>
 <ol>
 <li>
 Download the weather data file with the <code>epw</code> extension from
@@ -33,7 +35,6 @@ by the model
 Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
 </li>
 </ol>
-</p>
 <h4>Implementation</h4>
 <p>
 The TMY3 weather data, as well as the EnergyPlus weather data, start at 1:00 AM

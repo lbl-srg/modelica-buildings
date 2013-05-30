@@ -189,7 +189,6 @@ Buildings.HeatTransfer.Types.SurfaceRoughness</a>.The coefficients for the surfa
 <tr><td>MediumSmooth</td><td>1.13</td>  <td>Clear pine</td></tr>
 <tr><td>Smooth</td>       <td>1.11</td>  <td>Smooth plaster</td></tr>
 <tr><td>VerySmooth</td>  <td>1.00</td>  <td>Glass</td></tr>
-</tr>
 </table>
 </p>
 </li>

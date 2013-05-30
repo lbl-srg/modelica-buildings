@@ -4,7 +4,7 @@ model TemperatureWetBulbTwoPort "Ideal wet bulb temperature sensor"
 
   Modelica.Blocks.Interfaces.RealOutput T(
     start=TWetBul_start,
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit = "degC") "Wet bulb temperature in port medium"
     annotation (Placement(transformation(

@@ -8,9 +8,9 @@ partial model PartialTwoPortInterface
     port_b(p(start=Medium.p_default,
            nominal=Medium.p_default)));
 
-  parameter Medium.MassFlowRate m_flow_nominal "Nominal mass flow rate"
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -28,7 +28,7 @@ partial model PartialTwoPortInterface
       m_flow/Medium.density(sta_a) if show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
 
-  Medium.MassFlowRate m_flow(start=0) = port_a.m_flow
+  Modelica.SIunits.MassFlowRate m_flow(start=0) = port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
   Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa")
     "Pressure difference between port_a and port_b";

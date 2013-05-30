@@ -14,10 +14,10 @@ algorithm
   if (flowRegime == f.ParallelFlow) then // parallel flow
     a := Z+1;
     assert(eps < 1/a,
-      "Invalid input data. eps > 1/(1+Z) is physically not possible for parallel flow." +
-      "\n  Received eps = " + String(eps) +
-      "\n             Z = " + String(Z) +
-      "\n       1/(Z+1) = " + String(1/a));
+      "Invalid input data. eps > 1/(1+Z) is physically not possible for parallel flow.
+  Received eps = " + String(eps) + "
+             Z = " + String(Z) + "
+       1/(Z+1) = " + String(1/a));
     NTU := -(Modelica.Math.log(1-eps*a))/(a);
   elseif (flowRegime == f.CounterFlow) then// counter flow
    // a is constraining Z since eps is not defined for Z=1.
@@ -60,6 +60,7 @@ algorithm
              inverse(eps=Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(NTU=NTU, Z=Z, flowRegime=flowRegime)),
            smoothOrder=1,
 Documentation(info="<html>
+<p>
 This function computes the number of transfer units for a given heat exchanger effectiveness,
 capacity flow ratio and heat exchanger flow regime.
 </p>

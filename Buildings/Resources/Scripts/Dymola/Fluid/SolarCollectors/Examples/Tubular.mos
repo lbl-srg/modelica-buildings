@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.SolarCollectors.Examples.Tubular", stopTime = 86400, method = "dassl", resultFile = "Tubular");
+createPlot(id = 1,
+ position = {35, 30, 400, 137},
+ y = {"TOut.T"},
+ range = {0,86400,0, 20},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true, 
+ subPlot = 1,
+ filename = "Tubular.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

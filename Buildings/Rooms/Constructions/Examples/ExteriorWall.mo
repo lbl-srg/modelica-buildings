@@ -34,11 +34,11 @@ model ExteriorWall "Test model for an exterior wall without a window"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Modelica.Blocks.Sources.Constant TRoo(k=273.15 + 20) "Room air temperature"
     annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
-  HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
+  parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
     "Record for material layers"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
-  Buildings.Rooms.BaseClasses.ParameterConstruction conPar[1](
+  parameter Buildings.Rooms.BaseClasses.ParameterConstruction conPar[1](
     each til=Buildings.HeatTransfer.Types.Tilt.Wall,
     each azi=0,
     each A=3*10,
@@ -83,6 +83,11 @@ This model tests the exterior construction without windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
 <li>
 March 7, 2012, by Michael Wetter:<br>
 Updated example to use new data model 
