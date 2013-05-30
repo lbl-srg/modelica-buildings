@@ -1,6 +1,9 @@
 within Districts.BuildingLoads.BaseClasses;
 partial block PartialRegression "Partial model for regression of building load"
   extends Modelica.Blocks.Interfaces.BlockIcon;
+  parameter Integer nU = 4 "Dimension of input vector";
+  parameter Integer nY = 9 "Dimension of output vector";
+
   Modelica.Blocks.Interfaces.RealInput TOut(unit="K")
     "Outdoor dry-bulb temperature" annotation (Placement(transformation(extent={
             {-140,60},{-100,100}}), iconTransformation(extent={{-140,60},{-100,100}})));
