@@ -18,9 +18,8 @@ model SolarPumpController
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data input"
     annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
 
-  BaseClasses.GCritCalc gCritCalc(
-    final slope=per.slope,
-    final y_intercept=per.y_intercept)
+  Buildings.Fluid.SolarCollectors.Controls.BaseClasses.ICritCalc criSol(final
+      slope=per.slope, final y_intercept=per.y_intercept)
     "Calculates the critical insolation based on collector design and current weather conditions"
     annotation (Placement(transformation(extent={{-58,-20},{-38,0}})));
   Modelica.Blocks.Math.Add add(final k2=-1)
@@ -32,11 +31,11 @@ protected
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
 
 equation
-  connect(TIn, gCritCalc.TIn) annotation (Line(
+  connect(TIn, criSol.TIn)    annotation (Line(
       points={{-120,-40},{-84,-40},{-84,-16},{-60,-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.TDryBul, gCritCalc.TEnv) annotation (Line(
+  connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(
       points={{-102,60},{-84,60},{-84,-4},{-60,-4}},
       color={255,204,51},
       thickness=0.5,
@@ -44,7 +43,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(gCritCalc.GCrit, add.u2) annotation (Line(
+  connect(criSol.ICrit, add.u2)    annotation (Line(
       points={{-36.4,-10},{-32,-10},{-32,-6},{-22,-6}},
       color={0,0,127},
       smooth=Smooth.None));

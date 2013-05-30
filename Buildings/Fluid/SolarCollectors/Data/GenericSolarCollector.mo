@@ -1,5 +1,6 @@
 within Buildings.Fluid.SolarCollectors.Data;
 record GenericSolarCollector
+  "Generic data record providing inputs for specific collector data records"
 
   parameter SolarCollectors.Types.Area ATyp "Gross or aperture area";
   parameter Modelica.SIunits.Area A "Area";
@@ -22,8 +23,8 @@ record GenericSolarCollector
     "Nominal temperature difference specified in ratings data";
 annotation(Documentation(info="<html>
 <p>
-Partial data file which is used for the <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">Buildings.Fluid.Solarcollectors.BaseClasses.PartialSolarCollector</a>
-model.
+Generic data file which is used for the <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">
+Buildings.Fluid.Solarcollectors.BaseClasses.PartialSolarCollector</a> model.
 </p>
 </html>"));
 end GenericSolarCollector;

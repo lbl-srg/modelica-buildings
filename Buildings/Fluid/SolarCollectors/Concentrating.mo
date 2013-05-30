@@ -27,9 +27,6 @@ extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     final m_flow_nominal=per.mperA_flow_nominal*TotalArea_internal)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
            annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Modelica.Blocks.Math.Add add
-    "Combines HSkyDifTil and HGroDifTil to be a single HDif value"
-    annotation (Placement(transformation(extent={{-42,74},{-34,82}})));
 
 equation
   connect(shaCoe_internal,solHeaGai.shaCoe_in);
@@ -39,7 +36,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-100,80},{-88,80},{-88,36},{-2,36}},
+      points={{-100,96},{-88,96},{-88,36},{-2,36}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -54,24 +51,16 @@ equation
       points={{-59,56},{-54,56},{-54,72.6},{-2,72.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(add.y, solHeaGai.HSkyDifTil) annotation (Line(
-      points={{-33.6,78},{-2,78}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(HDifTilIso.HGroDifTil, add.u2) annotation (Line(
-      points={{-59,76},{-54,76},{-54,75.6},{-42.8,75.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(HDifTilIso.HSkyDifTil, add.u1) annotation (Line(
-      points={{-59,88},{-54,88},{-54,80.4},{-42.8,80.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(solHeaGai.QSol_flow, heaGai.Q_flow) annotation (Line(
       points={{21,70},{38,70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
       points={{21,30},{38,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(HDifTilIso.H, solHeaGai.HSkyDifTil) annotation (Line(
+      points={{-59,82},{-50,82},{-50,78},{-2,78}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

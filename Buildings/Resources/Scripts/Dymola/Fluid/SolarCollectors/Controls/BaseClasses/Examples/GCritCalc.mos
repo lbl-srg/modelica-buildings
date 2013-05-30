@@ -1,10 +1,10 @@
 removePlots();
 
-simulateModel("Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples.GCritCalc", stopTime=100, method="dassl", resultFile="GCritCalc");
+simulateModel("Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples.ICritCalc", stopTime=100, method="dassl", resultFile="ICritCalc");
 
 createPlot(id = 17,
  position = {54, 38, 407, 281},
- y = {"GCritCalc.GCrit"},
+ y = {"criSol.ICrit"},
  range = {0.0, 100.0, -50.0, 300.0},
  autoscale = true,
  autoerase = true,
@@ -13,7 +13,7 @@ createPlot(id = 17,
  grid = true,
  color = true,
  online = false,
- filename = "GCritCalc.mat",
+ filename = "ICritCalc.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}});

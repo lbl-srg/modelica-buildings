@@ -19,6 +19,7 @@ record AMKCollectraAGOWR20 =
     annotation(Documentation(info = "<html>
     <h4>References</h4>
     <p>
-    Ratings data taken from the Solar Rating Certification Corporation website. SRCC# = 2012018A.<br>
+    Ratings data taken from the <a href=\"http://www.solar-rating.org\">Solar Rating Certification Corporation website</a>.
+    SRCC# = 2012018A.<br>
     </p>
     </html>"));

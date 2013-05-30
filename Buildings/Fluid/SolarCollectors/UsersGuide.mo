@@ -12,7 +12,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   ASHRAE93 and EN12975 test procedures. Data packages containing default values for several collectors
   are available in packages for concentrating, flat plate and tubular collectors.  
   </p>
-  <h4>Use</h4>
+  <h4>Use of the <code>Buildings.Fluid.SolarCollectors</code> models</h4>
   <p>
   A model of a solar thermal collector mainly consists of the three following items:<br>
   <ul>
@@ -45,7 +45,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   <p>
   Finally, the parameters of the system must be defined. The complex parameters are used as follows:
   <ol>
-  <li><code>nSeg</code>: This parameter referes to the number of segments between the inlet and outlet of the system,
+  <li><code>nSeg</code>: This parameter refers to the number of segments between the inlet and outlet of the system,
   not the number of segments in each solar thermal collector.</li>
   <li><code>nColType</code>: This parameter allows the user to specify how the number of collectors in the system
   is defined. Options are <code>Number</code>, allowing the user to enter a number of panels, or <code>TotalArea</code>, allowing
@@ -53,9 +53,8 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   <ol>
   <li><code>Number</code>: If <code>Number</code> is selected for <code>nColType</code> the user enters a number of panels. The simulation then
   identifies the area of the system and uses that in solar gain and heat loss computations.</li>
-  <li><code>TotalArea</code>: If <code>TotalArea</code> is selected for <code>nColType</code> the user enters a desired surface area of panels
-  The simulation then identifies the number of panels which most closely corresponds to this area, rounds
-  up, and multiplies by the area of a collector to find the area used in solar gain and heat loss computations.</li>
+  <li><code>TotalArea</code>: If <code>TotalArea</code> is selected for <code>nColType</code> the user enters a desired surface area of panels.
+  The model then uses this specified area in the simulation.</li>
   </ol>
   <li><code>SysConfig</code>: This parameter allows the user to specify if the panels in the system are installed in a 
   series or parallel configuration. The handling of <code>dp_nominal</code> is changed depending on the
@@ -71,7 +70,10 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   </ol>
   </p>
   <h4>References</h4>
-  ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of Solar Collectors (ANSI approved)
+  <ul>
+  <li>ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of Solar Collectors (ANSI approved)</li>
+  <li>CEN 2006, European Standard 12975-1:2006, European Committee for Standardization </li>
+  </ul>
   </html>"));
 
 end UsersGuide;

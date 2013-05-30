@@ -44,10 +44,10 @@ model PartialSolarCollector "Partial model for solar collectors"
     "Shading coefficient"
   annotation(Placement(transformation(extent={{-140,60},{-100,20}},   rotation=0)));
 
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nSeg](each C=C/
-        nSeg, T(
-        each start =   T_start)) if
-     not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nSeg](
+    each C=C/nSeg,
+    T(each start =   T_start)) if
+       not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Heat capacity for one segment of the the solar collector"
     annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
 
@@ -60,12 +60,12 @@ model PartialSolarCollector "Partial model for solar collectors"
     final til=til,
     final lat=lat,
     final azi=azi,
-    rho=rho)       annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
+    final rho=rho)       annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
 
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
-    til=til,
-    lat=lat,
-    azi=azi) annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
+    final til=til,
+    final lat=lat,
+    final azi=azi) annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
 
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Medium)
@@ -86,11 +86,11 @@ model PartialSolarCollector "Partial model for solar collectors"
   Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](
     each nPorts=2,
     redeclare package Medium = Medium,
-    each m_flow_nominal=m_flow_nominal,
-    each energyDynamics=energyDynamics,
-    each p_start=p_start,
-    each T_start=T_start,
-    each V=perPar.V/nSeg)
+    each final m_flow_nominal=m_flow_nominal,
+    each final energyDynamics=energyDynamics,
+    each final p_start=p_start,
+    each final T_start=T_start,
+    each final V=perPar.V/nSeg)
     "Volume of fluid in one segment of the solar collector"
                           annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},

@@ -35,7 +35,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-100,80},{-88,80},{-88,36},{-2,36}},
+      points={{-100,96},{-88,96},{-88,36},{-2,36}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -51,11 +51,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDifTilIso.HSkyDifTil, solHeaGai.HSkyDifTil) annotation (Line(
-      points={{-59,88},{-18,88},{-18,78},{-2,78}},
+      points={{-59,88},{-32,88},{-32,78},{-2,78}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDifTilIso.HGroDifTil, solHeaGai.HGroDifTil) annotation (Line(
-      points={{-59,76},{-32,76},{-32,74.8},{-2,74.8}},
+      points={{-59,76},{-40,76},{-40,74.8},{-2,74.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaLos.QLos, QLos.Q_flow) annotation (Line(

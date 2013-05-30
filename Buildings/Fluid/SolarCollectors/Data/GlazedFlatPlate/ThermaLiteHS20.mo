@@ -16,10 +16,9 @@ record ThermaLiteHS20 =
     C2=0,
     G_nominal = 1000,
     dT_nominal = 10) "Therma-Lite, HS-20"
-    annotation(Documentation(info = "<html>
+    annotation(Documentation(info = "<html>  
     <h4>References</h4>
     <p>
-    Ratings data taken from the Solar Rating Certification Corporation website. SRCC# = 2012047A.<br>
-    dP_nominal represents the pressure loss at the energy gain test flow rate (the used nominal flow rate) based on available pressure drop data at different flow rates.
+    Ratings data taken from the <a href=\"http://www.solar-rating.org\">Solar Rating Certification Corporation website</a>. SRCC# = 2012047A.<br>
     </p>
     </html>"));
