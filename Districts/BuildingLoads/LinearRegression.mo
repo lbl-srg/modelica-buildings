@@ -5,7 +5,7 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
   parameter String fileName="NoName"
     "File where matrix with regression coefficients is stored"
     annotation(Dialog(group="table data definition", enable = tableOnFile,
-                         __Dymola_loadSelector(filter=".mos files (*.mos);;All files (*.*)",
+                         __Dymola_loadSelector(filter=".txt files (*.txt);;All files (*.*)",
                          caption="Open file in which table is present")));
   parameter Real pf=0.8 "Power factor";
   BoundaryConditions.WeatherData.Bus

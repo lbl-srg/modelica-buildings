@@ -11,11 +11,11 @@ protected
     final fileName=fileName,
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="tab1",
-    columns=2:46) "Table reader with coefficients for linear model"
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    columns=2:47) "Table reader with coefficients for linear model"
+    annotation (Placement(transformation(extent={{-48,0},{-28,20}})));
   Utilities.SimulationTime simTim "Simulation time"
-    annotation (Placement(transformation(extent={{-52,0},{-32,20}})));
-  Multiply mul
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+  Multiply mul(nU=nU, nY=nY)
     "Block that multiplies the regression coefficients with the input signal"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Modelica.Blocks.Interfaces.IntegerOutput weekDay "Weekday indicator"
@@ -23,9 +23,18 @@ protected
   Modelica.Blocks.Math.RealToInteger weeDayInd
     "Type conversion for week-day indicator"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
+public
+  Modelica.Blocks.Sources.Constant const[nY + nY*nU](k=0)
+    annotation (Placement(transformation(extent={{-48,74},{-28,94}})));
+  Modelica.Blocks.Routing.ExtractSignal extSig(
+    nin=nY + nU*nY + 1,
+    nout=nY + nU*nY,
+    extract=2:nY + nU*nY + 1)
+    "Extract the signals used for the data regression"
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
   connect(simTim.y, coef.u) annotation (Line(
-      points={{-31,10},{-22,10}},
+      points={{-79,10},{-50,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mul.TOut, TOut) annotation (Line(
@@ -80,16 +89,22 @@ equation
       points={{21,43},{24,43},{24,42},{28,42},{28,-70},{110,-70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(coef.y, mul.beta) annotation (Line(
-      points={{1,10},{10,10},{10,38}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(weeDayInd.y, weekDay) annotation (Line(
       points={{61,-90},{110,-90}},
       color={255,127,0},
       smooth=Smooth.None));
   connect(coef.y[1], weeDayInd.u) annotation (Line(
-      points={{1,10},{10,10},{10,-90},{38,-90}},
+      points={{-27,10},{-14,10},{-14,-90},{38,-90}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  for i in 1:nY+nY*nU loop
+  end for;
+  connect(coef.y, extSig.u) annotation (Line(
+      points={{-27,10},{-2,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(mul.beta, extSig.y) annotation (Line(
+      points={{10,38},{10,30},{26,30},{26,10},{21,10}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
