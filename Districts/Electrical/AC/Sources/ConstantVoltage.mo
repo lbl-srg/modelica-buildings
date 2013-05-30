@@ -1,9 +1,9 @@
 within Districts.Electrical.AC.Sources;
 model ConstantVoltage "Constant AC voltage"
   extends Districts.Electrical.AC.Sources.BaseClasses.SinglePhaseSource;
-  parameter Modelica.SIunits.Frequency f(start=1) "frequency of the source";
-  parameter Modelica.SIunits.Voltage V(start=1) "RMS voltage of the source";
-  parameter Modelica.SIunits.Angle phi(start=0) "phase shift of the source";
+  parameter Modelica.SIunits.Frequency f(start=60) "Frequency of the source";
+  parameter Modelica.SIunits.Voltage V(start=480) "RMS voltage of the source";
+  parameter Modelica.SIunits.Angle phi(start=0) "Phase shift of the source";
   Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
     voltageSource(
     f=f,
