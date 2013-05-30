@@ -10,10 +10,10 @@ block Multiply
         rotation=90,
         origin={0,-120})));
 
+  parameter Integer nU = 4 "Dimension of input vector";
+  parameter Integer nY = 9 "Dimension of output vector";
 protected
-  constant Integer nU = 4 "Dimension of input vector";
-  constant Integer nY = 9 "Dimension of output vector";
-  constant Integer os = nY+1 "Offset for building the matrix";
+  parameter Integer os = nY+1 "Offset for building the matrix";
   Real y[nY] "Output vector";
 algorithm
  // Compute y = beta0 + beta1 * u
