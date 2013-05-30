@@ -37,7 +37,7 @@ model ApparatusDewPoint "Test model for ApparatusDewPoint"
     startTime=0,
     table=[0.0,0.00; 600,0.25; 1800,0.5; 2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
-  Data.Generic.DXCoil
+  parameter Data.Generic.DXCoil
                 datCoi(nSta=4, sta={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
         spe=900/60,
@@ -135,7 +135,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-experiment(StopTime=1.0),
+experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/ApparatusDewPoint.mos"
         "Simulate and plot"),
           Documentation(info="<html>

@@ -184,9 +184,11 @@ half an hour before occupancy starts in order to ventilate the room.
 </p>
 <p>
 The occupancy is defined by a time schedule of the form
+</p>
 <pre>
   occupancy = 3600*{7, 12, 14, 19}
 </pre>
+<p>
 This indicates that the occupancy is from <i>7:00</i> until <i>12:00</i>
 and from <i>14:00</i> to <i>19:00</i>. This will be repeated periodically.
 The parameter <code>periodicity</code> defines the periodicity.

@@ -51,7 +51,7 @@ model CenterOfGlass "Test model for center of glas heat transfer"
     "Radiosity that strikes shading device"
     annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
 
-  Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveExteriorShade=true,
     haveInteriorShade=true,
@@ -247,5 +247,13 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
                       graphics),
     Documentation(info="<html>
 This model tests the heat transfer for the center of the glass, with and without a shading device.
+</html>", revisions="<html>
+<ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
+</ul>
 </html>"));
 end CenterOfGlass;

@@ -32,7 +32,11 @@ partial model PowerInterface
   parameter Modelica.SIunits.Density rho_default
     "Fluid density at medium default state";
 
-  Modelica.SIunits.Power PEle "Electrical power input";
+  Modelica.Blocks.Interfaces.RealOutput P(quantity="Modelica.SIunits.Power",
+   unit="W") "Electrical power consumed"
+  annotation (Placement(transformation(extent={{100,70},{120,90}},
+        rotation=0)));
+
   Modelica.SIunits.Power WHyd
     "Hydraulic power input (converted to flow work and heat)";
   Modelica.SIunits.Power WFlo "Flow work";
@@ -69,7 +73,9 @@ initial algorithm
    else
       Buildings.Utilities.Math.Functions.splineDerivatives(
       x=motorEfficiency.r_V,
-      y=motorEfficiency.eta);
+      y=motorEfficiency.eta,
+      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=motorEfficiency.eta,
+                                                                        strict=false));
   hydDer :=
      if use_powerCharacteristic then
        zeros(size(hydraulicEfficiency.r_V, 1))
@@ -81,13 +87,13 @@ initial algorithm
                    y=hydraulicEfficiency.eta);
 equation
   eta = etaHyd * etaMot;
-//  WFlo = eta * PEle;
+//  WFlo = eta * P;
   // Flow work
   WFlo = dpMachine*VMachine_flow;
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd
   etaHyd * WHyd   = WFlo;
   // Heat input into medium
-  QThe_flow +  WFlo = if motorCooledByFluid then PEle else WHyd;
+  QThe_flow +  WFlo = if motorCooledByFluid then P else WHyd;
   // At m_flow = 0, the solver may still obtain positive values for QThe_flow.
   // The next statement sets the heat input into the medium to zero for very small flow rates.
   if homotopyInitialization then
@@ -100,7 +106,9 @@ equation
   end if;
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}})),
+            100}}), graphics={
+        Text(extent={{64,86},{114,72}},   textString="P",
+          lineColor={0,0,127})}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}),
             graphics),
@@ -113,7 +121,7 @@ Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
 <h4>Implementation</h4>
 <p>
 Models that extend this model need to provide an implementation of
-<code>WFlo = eta * PEle</code>.
+<code>WFlo = eta * P</code>.
 This equation is not implemented in this model to allow other models
 to properly guard against division by zero.
 </p>
@@ -125,7 +133,7 @@ December 14, 2012 by Michael Wetter:<br>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li><i>October 11, 2012</i> by Michael Wetter:<br>
-    Removed <code>WFlo = eta * PEle</code> so that classes that use this partial model
+    Removed <code>WFlo = eta * P</code> so that classes that use this partial model
     can properly implement the equation so it guards against division by zero.
 </li>
 <li><i>March 1, 2010</i>

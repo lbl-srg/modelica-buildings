@@ -31,7 +31,7 @@ model MediumColumn
 
   Modelica.SIunits.VolumeFlowRate V_flow=m_flow/Medium.density(sta_a)
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
-  Medium.MassFlowRate m_flow(start=0)
+  Modelica.SIunits.MassFlowRate m_flow(start=0)
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
   Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa")
     "Pressure difference between port_a and port_b";
@@ -161,6 +161,8 @@ stack effect.</p>
 <p>
 The model can be used with the following three configurations, which are
 controlled by the setting of the parameter <code>densitySelection</code>:
+</p>
+<p>
 <ul>
 <li>
 <code>top</code>:

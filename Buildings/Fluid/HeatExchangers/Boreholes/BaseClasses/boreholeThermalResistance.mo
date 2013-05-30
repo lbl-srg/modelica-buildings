@@ -46,6 +46,7 @@ algorithm
 This model computes the borehole total thermal resistance for a single U-tube.
 The computation is as defined in Hellstom (1991).
 The total thermal resistance is the contribution of three different resistances as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
  R<sub>tot</sub>= R<sub>Con</sub> + R<sub>tub</sub> + R<sub>fil</sub>.
 </p>
@@ -57,10 +58,11 @@ where
 </p>
 <p>
 The convective resistance is obtained as
+</p>
 <p>
  <p align=\"center\" style=\"font-style:italic;\">
- R<sub>Con</sub> = 1 &frasl; (4 &pi; h<sub>seg</sub> r<sub>tub</sub> h<sub>in</sub> ),
- </p> 
+ R<sub>Con</sub> = 1 &frasl; (4 &pi; h<sub>seg</sub> r<sub>tub</sub> h<sub>in</sub>),
+</p> 
 <p>
 where <i>h<sub>seg</sub></i> is the height of the segment and 
 <i>h<sub>in</sub></i> is the convective heat transfer coefficient. 
@@ -82,12 +84,14 @@ The conductive resistance is determined using
 <p align=\"center\" style=\"font-style:italic;\">
 R<sub>tub</sub>= ln[ ( r<sub>tub</sub>+e<sub>tub</sub> ) &frasl; r<sub>tub</sub> ] &frasl; 4 &pi; 
    k<sub>tub</sub> h<sub>seg</sub>,
- </p>
+</p>
+<p>
 where <i>k<sub>tub</sub></i> the heat conductivity of the pipe and 
 <i>e<sub>tub</sub></i> is the thickness of the wall.
 </p>
 <p>
 The resistance of the filling material is determined using the correlation from Paul (1996) :
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 R<sub>fil</sub> = k<sub>fil</sub> h<sub>seg</sub> &beta;<sub>0</sub> 
   (r<sub>Bor</sub> &frasl; (r<sub>tub</sub> + e<sub>tub</sub>)) <sup>&beta;<sub>1</sub></sup> ,
@@ -107,7 +111,7 @@ Values listed by Paul are given in the table below.
   <tr><td> middle  </td><td> 17.44 </td><td> -0.6052  </td></tr>
   <tr><td> spaced </td><td> 21.91 </td><td> -0.3796 </td></tr>
   </table>
-  </p>
+</p>
 <h4>References</h4>
 <p>
 Hellstrom, G (1991). <br>

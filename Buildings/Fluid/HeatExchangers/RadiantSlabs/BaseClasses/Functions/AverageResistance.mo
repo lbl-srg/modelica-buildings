@@ -57,7 +57,8 @@ Documentation(info="<html>
 This function computes a fictitious thermal resistance between the pipe outer wall 
 and a fictitious, average temperature of the plane that contains the pipes.
 The equation is the same as is implemented in TRNSYS 17.
-Different equations are used for 
+Different equations are used for
+</p>
 <ul>
 <li>
 floor heating systems (if 
@@ -74,7 +75,6 @@ capillary tube systems (if
 and <code>disPip/dPipOut &lt; 5.8</code>).
 </li>
 </ul>
-</p>
 <h4>Limitations</h4>
 <p>
 The resistance <code>Rx</code> is based on a steady-state heat transfer analysis. Therefore, it is

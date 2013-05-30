@@ -3,12 +3,12 @@ block CheckTemperature "Check the validity of temperature data"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   Modelica.Blocks.Interfaces.RealInput TIn(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Input Temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput TOut(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Output temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));

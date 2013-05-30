@@ -442,7 +442,6 @@ condensation in the boiler:
     Q_flow_nominal/4200/(TBoiSup_nominal-TBoiRet_min) 
     \"Boiler nominal mass flow rate\";
 </pre>
-</p>
 </li>
 </ol>
 <p>
@@ -554,7 +553,7 @@ outside the allowed range.
 </p>
 </li>
 </ol>
-<!-- ----------------------- -->
+<!-- ============================== -->
 <p>
 This completes the initial version of the model. When simulating the model
 for <i>2</i> days, or <i>172800</i> seconds, the

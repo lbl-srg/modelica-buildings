@@ -51,6 +51,7 @@ algorithm
  end for;
   end if;
 annotation(Documentation(info="<html>
+<p>
 This function calculates the temperature drop of the soil at the outer boundary of the cylinder.
 The analytical formula of Hart and Couvillion (1986) for constant 
 heat extraction is adapted to a non-constant heat flux. 
@@ -64,6 +65,7 @@ constant rate of heat extractions are super-imposed as
 &Delta;T ( r , t=n &Delta;t )= 1 &frasl; ( 4 &pi; k ) 
   &sum;  W(u(r, t= i &Delta;t)) (q<sub>n-i+1</sub>-q<sub>n-i</sub>),
 </p>
+<p>
 where <i>r</i> is the radius for which the temperature is computed,
 <i>k</i> is the thermal conductivity of the material,
 <i>W</i> is a solution of the heat conduction in polar coordinates and
@@ -72,6 +74,7 @@ the specific rate of heat extraction per unit lenght at time
 <i>t=i &Delta;t</i>.
 The value of 
 <i>W</i> is obtained using
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 W(u)=[-0.5772 - ln(u) + u - u<sup>2</sup>/(2 &nbsp; 2!) +u<sup>3</sup>/(3 &nbsp; 3!) - u<sup>4</sup>/(4 &nbsp; 4!) + ....].
 </p>

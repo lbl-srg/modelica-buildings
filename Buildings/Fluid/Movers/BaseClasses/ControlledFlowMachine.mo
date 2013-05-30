@@ -10,7 +10,7 @@ model ControlledFlowMachine
      final rho_default = Medium.density(sta_default));
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
-//  parameter Medium.MassFlowRate m_flow_nominal
+//  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
 //    "Nominal mass flow rate, used as flow rate if control_m_flow";
 //  parameter Modelica.SIunits.MassFlowRate m_flow_max = m_flow_nominal
 //    "Maximum mass flow rate (at zero head)";
@@ -40,7 +40,7 @@ equation
   VMachine_flow = -port_b.m_flow/rho_in;
   // To compute the electrical power, we set a lower bound for eta to avoid
   // a division by zero.
-  PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
+  P = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
 
   connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
       points={{-79,20},{-70,20}},
@@ -83,7 +83,7 @@ Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
 October 11, 2012, by Michael Wetter:<br>
-Added implementation of <code>WFlo = eta * PEle</code> with
+Added implementation of <code>WFlo = eta * P</code> with
 guard against division by zero.
 </li>
 <li>

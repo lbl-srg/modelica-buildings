@@ -13,8 +13,9 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
   parameter Modelica.SIunits.Pressure dpFixed_nominal(displayUnit="Pa", min=0) = 0
     "Pressure drop of pipe and other resistances that are in series"
      annotation(Dialog(group = "Nominal condition"));
-  parameter Real l(min=1e-10, max=1) = 0.0001 "Valve leakage, l=Cv(y=0)/Cvs";
-  Real phi "Ratio actual to nominal mass flow rate of valve, phi=Cv(y)/Cv(y=1)";
+  parameter Real l(min=1e-10, max=1) = 0.0001
+    "Valve leakage, l=Kv(y=0)/Kv(y=1)";
+  Real phi "Ratio actual to nominal mass flow rate of valve, phi=Kv(y)/Kv(y=1)";
 protected
  parameter Real kFixed(unit="") = if dpFixed_nominal > Modelica.Constants.small
     then m_flow_nominal / sqrt(dpFixed_nominal) else 0
@@ -97,25 +98,31 @@ Partial model for a two way valve. This is the base model for valves
 with different opening characteristics, such as linear, equal percentage
 or quick opening.
 </p>
-<p><b>Modelling options</b></p>
-<p>The following options have been adapted from the valve implementation 
+<h4>Modelling options</h4>
+<p>
+The following options have been adapted from the valve implementation 
 in <a href=\"modelica://Modelica.Fluid\">
-Modelica.Fluid</a> and are described in 
+Modelica.Fluid</a> 
+and are described in 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.ValveParameters\">
 Buildings.Fluid.Actuators.BaseClasses.ValveParameters</a>.
+</p>
 <p>
 In contrast to the model in <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>, this model uses the parameter <code>Kv_SI</code>,
 which is the flow coefficient in SI units, i.e., 
 it is the ratio between mass flow rate in <code>kg/s</code> and square root 
 of pressure drop in <code>Pa</code>.
-</p><p>
+</p>
+<p>
 To prevent the derivative <code>d/dP (m_flow)</code> to be infinite near
-the origin, this model linearizes the pressure drop vs. flow relation
+the origin, this model linearizes the pressure drop versus flow relation
 ship. The region in which it is linearized is parameterized by 
+</p>
 <pre>
   m_turbulent_flow = deltaM * m_flow_nominal
 </pre>
+<p>
 Because the parameterization contains <code>Kv_SI</code>, the values for
 <code>deltaM</code> and <code>dp_nominal</code> need not be changed if the valve size
 changes.
@@ -125,6 +132,7 @@ changes.
 The two way valve models are implemented using this partial model, as opposed to using
 different functions for the valve opening characteristics, because
 each valve opening characteristics has different parameters.
+</p>
 </html>",
 revisions="<html>
 <ul>

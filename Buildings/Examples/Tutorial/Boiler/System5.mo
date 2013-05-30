@@ -500,6 +500,7 @@ We configured the controller as
     Ti=120,    
     Td=1) \"Controller for valve in boiler loop\";
 </pre>
+<p>
 We set the proportional band to <i>10</i> Kelvin, hence <code>k=0.1</code>.
 We set the integral time constant to <i>120</i> seconds, which is 
 the same time as is required to open or close the valve.

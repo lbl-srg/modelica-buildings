@@ -121,6 +121,178 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+    class Version_1_5_build1 "Version 1.5 build 1"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
+<p>
+Version X.Y build Z is ... xxx
+</p>
+<!-- New libraries -->
+<p>
+The following <b style=\"color:blue\">new libraries</b> have been added:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+    </tr>
+</table>
+</p>
+<!-- New components for existing libraries -->
+<p>
+The following <b style=\"color:blue\">new components</b> have been added
+to <b style=\"color:blue\">existing</b> libraries:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td> 
+    </tr>
+</table>
+</p>
+<!-- Backward compatible changes -->
+<p>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">backward compatible</b> way:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+</p>
+<!-- Non-backward compatible changes to existing components -->
+<p>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">non-backward compatible</b> way:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+</p>
+<!-- Errors that have been fixed -->
+<p>
+The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+that can lead to wrong simulation results):
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear
+    </td>
+    <td valign=\"top\">
+           Corrected the glass layer thickness, which was <i>5.7</i> mm instead of
+           <i>3</i> mm, as the documentation states.
+    </td>
+</tr>
+</table>
+</p>
+<!-- Uncritical errors -->
+<p>
+The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+units are wrong or errors in documentation):
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SkyTemperature.BlackBody<br>
+              Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature<br>
+              Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br>
+              Buildings.Controls.SetPoints.HotWaterTemperatureReset<br>
+              Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch<br>
+              Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl<br>
+              Buildings.Fluid.Boilers.BoilerPolynomial<br>
+              Buildings.Fluid.HeatExchangers.BaseClasses.HexElement<br>
+              Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange<br>
+              Buildings.Fluid.HeatExchangers.BaseClasses.MassExchangeDummy<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation<br>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil<br>
+              Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort<br>
+              Buildings.Fluid.Sensors.RelativeTemperature<br>
+              Buildings.Fluid.Sensors.Temperature<br>
+              Buildings.Fluid.Sensors.TemperatureTwoPort<br>
+              Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort<br>
+              Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss<br>
+              Buildings.Utilities.Comfort.Fanger<br>
+              Buildings.Utilities.IO.BCVTB.From_degC<br>
+              Buildings.Utilities.IO.BCVTB.To_degC<br>
+              Buildings.Utilities.Psychrometrics.TDewPoi_pW<br>
+              Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi<br>
+              Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi<br>
+              Buildings.Utilities.Psychrometrics.WetBul_pTX<br>
+              Buildings.Utilities.Psychrometrics.pW_TDewPoi
+    </td>
+    <td valign=\"top\">Replaced wrong attribute <code>quantity=\"Temperature\"</code>
+                     with <code>quantity=\"ThermodynamicTemperature\"</code>.
+    </td>
+</tr>
+</table>
+</p>
+<!-- Github issues -->
+<p>
+The following
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
+have been fixed:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">#xxx</a>
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+<p>
+Note:
+</p>
+<ul>
+<li> 
+xxx
+</li>
+</ul>
+</p>
+</html>"));
+    end Version_1_5_build1;
+
   class Version_1_4_build1 "Version 1.4 build 1"
     extends Modelica.Icons.ReleaseNotes;
      annotation (preferredView="info",
@@ -135,21 +307,14 @@ of the room heat transfer model.
 </p>
 <p>
 Non-backward compatible changes had to be introduced
-</p>
-<p>
-<ul>
-<li>
 in the valve models
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves\">
 Buildings.Fluid.Actuators.Valves</a> to fully comply with the Modelica language specification,
-</li>
-<li>
 and in the models in the package 
 <a href=\"modelica://Buildings.Utilities.Diagnostics\">
 Buildings.Utilities.Diagnostics</a>
 as they used the <code>cardinality</code> function which is deprecated in the Modelica
 Language Specification.
-</li>
 </p>
 <p>
 See below for details.
@@ -177,12 +342,14 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.WeatherData</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">This function is used by the weather data reader to set
+                       the path to the weather file relative to the root directory
+                       of the Buildings library.
     </td> 
     </tr>
 </table>
@@ -271,7 +438,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        Therefore, if using these models, both input signals must be connected.
     </td>
 </tr>
-</table>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.splineDerivatives
+    </td>
+    <td valign=\"top\">Removed the default value
+                       <code>input Boolean ensureMonotonicity=isMonotonic(y, strict=false)</code>
+                       as the Modelica language specification is not clear whether defaults can be computed
+                       or must be constants.
+    </td>
+</tr></table>
 </p>
 <!-- Errors that have been fixed -->
 <p>
@@ -339,13 +513,11 @@ units are wrong or errors in documentation):
                        instances of these models used the correct value.
     </td>
 </tr>
-
 <tr><td valign=\"top\">Buildings.Fluid.Actuators.BaseClasses.ValveParameters
     </td>
     <td valign=\"top\">Removed stray backslash in write statement.
     </td>
 </tr>
-
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
                        Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation<br/>
                        Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger
@@ -353,7 +525,12 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Removed wrong unit attribute of <code>COut</code>.
     </td>
 </tr>
-
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.HexElement
+    </td>
+    <td valign=\"top\">Changed the redeclaration of <code>vol2</code> to be replaceable,
+                     as <code>vol2</code> is replaced in some models.
+    </td>
+</tr>
 </table>
 </p>
 <!-- Github issues -->
@@ -366,7 +543,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b>Add explanation of nStaRef.</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/70\">#70</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/70\">&#35;70</a>
     </td>
     <td valign=\"top\">
     Described in
@@ -379,7 +556,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b>Assert statement does not fire.</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/72\">#72</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/72\">&#35;72</a>
     </td>
     <td valign=\"top\">
     The blocks <code>Buildings.Utilities.Diagnostics.AssertEquality</code> and
@@ -392,7 +569,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b><code>HotWaterTemperatureReset</code> computes wrong results if room temperature differs from nominal value.</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">#74</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">&#35;74</a>
     </td>
     <td valign=\"top\">The equation
 <pre>TSup = TRoo_in_internal
@@ -407,7 +584,7 @@ should be formulated as
 <tr><td colspan=\"2\"><b>Bug in <code>RadiantSlabs.SingleCircuitSlab</code> fictitious resistance RFic.</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/79\">#79</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/79\">&#35;79</a>
     </td>
     <td valign=\"top\">This bug has been fixed in the assignment of the fictitious thermal resistance by replacing
                      <code>RFic[nSeg](each G=A/Rx)</code> with
@@ -973,12 +1150,12 @@ have been fixed:
 <tr><td colspan=\"2\"><b>Heat transfer in glass layer</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/56\">#56</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/56\">&#35;56</a>
     </td>
     <td valign=\"top\">Fixed bug in heat flow through the glass layer if the infrared transmissivity is non-zero.
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/57\">#57</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/57\">&#35;57</a>
     </td>
     <td valign=\"top\">Fixed bug in temperature linearization of window glass.
     </td>
@@ -986,7 +1163,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b>Overshooting in enhanced stratified tank</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/15\">#15</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/15\">&#35;15</a>
     </td>
     <td valign=\"top\">Revised the implementation to reduce the temperature over-shoot.
     </td>
@@ -1287,7 +1464,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b>Exterior longwave radiation exchange in window model</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/51\">#51</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/51\">&#35;51</a>
     </td>
     <td valign=\"top\">Changed model to use new implementation of
                        Buildings.HeatTransfer.Radiosity.OutdoorRadiosity.
@@ -1296,7 +1473,7 @@ have been fixed:
                        the opaque constructions.
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/53\">#53</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/53\">&#35;53</a>
     </td>
     <td valign=\"top\">Fixed bug in Buildings.Controls.SetPoints.OccupancySchedule that 
                        led to wrong results when the simulation started at a time different from zero.
@@ -1433,7 +1610,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.Boreholes</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/45\">#45</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/45\">&#35;45</a>
     </td>
     <td valign=\"top\">Dymola 2012 FD01 hangs when simulating a borehole heat exchanger.
     This was caused by a wrong release of memory in <code>freeArray.c</code>.
@@ -1442,7 +1619,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/46\">#46</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/46\">&#35;46</a>
     </td>
     <td valign=\"top\">The convective internal heat gain has the wrong sign.
     </td>
@@ -1827,7 +2004,6 @@ that can lead to wrong simulation results):
                      roofs and for floors. Prior to this bug fix, the outside facing surface
                      of a ceiling received solar irradiation as if it were a floor 
                      and vice versa.</td></tr>
-</td></tr>
 <tr><td valign=\"top\">Buildings.Rooms.MixedAir</br>
                      Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</td>
     <td valign=\"top\">Fixed bug (<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">issue 36</a>) 
@@ -1835,7 +2011,6 @@ that can lead to wrong simulation results):
                      it receives solar radiation. The previous version did not compute 
                      the infrared radiation exchange between the
                      window frame and the sky.</td></tr>
-</td></tr>
 
 </table>
 <p>
@@ -1858,32 +2033,32 @@ have been fixed:
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/8\">#8</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/8\">&#35;8</a></td>
     <td valign=\"top\">
          Add switches for new data.
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/19\">#19</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/19\">&#35;19</a></td>
     <td valign=\"top\">
          Shift the time for the radiation data 30 min forth and output the local civil time in the data reader. 
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/41\">#41</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/41\">&#35;41</a></td>
     <td valign=\"top\">
        Using when-then sentences to reduce CPU time.
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/43\">#43</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/43\">&#35;43</a></td>
     <td valign=\"top\">
          Add a ConvertRadiation to convert the unit of radiation from TMY3.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/28\">#28</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/28\">&#35;28</a></td>
     <td valign=\"top\">
          Move scripts to Buildings\\Resources\\Scripts\\Dymola.
     </td>
@@ -1891,7 +2066,7 @@ have been fixed:
 
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/18\">#18</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/18\">&#35;18</a></td>
     <td valign=\"top\">
          Add a smooth interpolation function to avoid the event.
     </td>
@@ -1899,7 +2074,7 @@ have been fixed:
 
 <tr><td colspan=\"2\"><b>Buildings.Media</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/30\">#30</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/30\">&#35;30</a></td>
     <td valign=\"top\">
          Removed non-required structurally incomplete annotation.
     </td>
@@ -1907,13 +2082,13 @@ have been fixed:
 
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/35\">#35</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/35\">&#35;35</a></td>
     <td valign=\"top\">
          Wrong surface tilt for radiation at exterior surfaces of floors and ceilings.
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">#36</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">&#35;36</a></td>
     <td valign=\"top\">
          High window frame temperatures.
     </td>
@@ -2791,68 +2966,52 @@ on the Buildings library.
 <p>
 <ul>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_4_build1\">
-Version 1.4 build1</a>(xxx, 2013)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build1\">Version 1.5 build1</a>(xxx, 2013)</a>
 </li>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_3_build1\">
-Version 1.3 build1</a>(January 8, 2013)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_4_build1\">Version 1.4 build1</a>(May 15, 2013)</a>
 </li>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_2_build1\">
-Version 1.2 build1</a>(July 26, 2012)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_3_build1\">Version 1.3 build1</a>(January 8, 2013)</a>
 </li>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_1_build1\">
-Version 1.1 build1</a>(February 29, 2012)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_2_build1\">Version 1.2 build1</a>(July 26, 2012)</a>
 </li>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">
-Version 1.0 build2</a>(December 8, 2011)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_1_build1\">Version 1.1 build1</a>(February 29, 2012)</a>
 </li>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build1\">
-Version 1.0 build1</a>(November 4, 2011)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">Version 1.0 build2</a>(December 8, 2011)</a>
 </li>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">
-Version 0.12.0 </a>(May 6, 2011)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build1\">Version 1.0 build1</a>(November 4, 2011)</a>
+</li>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_0\">
-Version 0.11.0 </a>(March 17, 2011)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">Version 0.12.0 </a>(May 6, 2011)</a>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">
-Version 0.10.0 </a>(July 30, 2010)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_0\">Version 0.11.0 </a>(March 17, 2011)</a>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">
-Version 0.9.1 </a>(June 24, 2010)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">Version 0.10.0 </a>(July 30, 2010)</a>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">
-Version 0.9.0 </a>(June 11, 2010)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">Version 0.9.1 </a>(June 24, 2010)</a>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_8_0\">
-Version 0.8.0 </a>(February 6, 2010)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">Version 0.9.0 </a>(June 11, 2010)</a>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_7_0\">
-Version 0.7.0 </a>(September 29, 2009)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_8_0\">Version 0.8.0 </a>(February 6, 2010)</a>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_6_0\">
-Version 0.6.0 </a>(May 15, 2009)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_7_0\">Version 0.7.0 </a>(September 29, 2009)</a>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_5_0\">
-Version 0.5.0 </a>(February 19, 2009)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_6_0\">Version 0.6.0 </a>(May 15, 2009)</a>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">
-Version 0.4.0 </a>(October 31, 2008)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_5_0\">Version 0.5.0 </a>(February 19, 2009)</a>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_3_0\">
-Version 0.3.0 </a>(September 30, 2008)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">Version 0.4.0 </a>(October 31, 2008)</a>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_2_0\">
-Version 0.2.0 </a>(June 17, 2008)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_3_0\">Version 0.3.0 </a>(September 30, 2008)</a>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_1_0\">
-Version 0.1.0 </a>(May 27, 2008)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_2_0\">Version 0.2.0 </a>(June 17, 2008)</a>
+<li> 
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_1_0\">Version 0.1.0 </a>(May 27, 2008)</a>
 </li>
 </ul>
 </p>
@@ -3238,13 +3397,14 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="1.4",
+version="1.5",
 versionBuild=0,
-versionDate="2013-04-04",
-dateModified = "2013-04-04",
+versionDate="2013-05-15",
+dateModified = "2013-05-15",
 uses(Modelica(version="3.2")),
 uses(Modelica_StateGraph2(version="2.0.1")),
 conversion(
+ noneFromVersion="1.4",
  noneFromVersion="1.3",
  noneFromVersion="1.2",
  from(version="1.1",
@@ -3276,9 +3436,10 @@ The heat distribution is done using a hydronic heating system with a three way v
 </p>
 <p>
 The web page for this library is
-<a href=\"http://simulationresearch.lbl.gov/modelica\">http://simulationresearch.lbl.gov/modelica</a>. 
-Contributions from different users to further advance this library are
-welcomed.
+<a href=\"http://simulationresearch.lbl.gov/modelica\">http://simulationresearch.lbl.gov/modelica</a>,
+and the development page is
+<a href=\"https://github.com/lbl-srg/modelica-buildings\">https://github.com/lbl-srg/modelica-buildings</a>.
+Contributions to further advance the library are welcomed.
 Contributions may not only be in the form of model development, but also
 through model use, model testing,
 requirements definition or providing feedback regarding the model applicability

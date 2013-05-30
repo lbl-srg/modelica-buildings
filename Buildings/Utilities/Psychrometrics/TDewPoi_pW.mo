@@ -7,7 +7,7 @@ block TDewPoi_pW
                                                                       rotation=
             0)));
   Modelica.Blocks.Interfaces.RealOutput T(start=278.15,
-                                         final quantity="Temperature",
+                                         final quantity="ThermodynamicTemperature",
                                          final unit="K",
                                          min = 0,
                                          displayUnit="degC")
