@@ -11,12 +11,9 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
   BoundaryConditions.WeatherData.Bus
       weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{-110,
             -10},{-90,10}}),     iconTransformation(extent={{-110,-10},{-90,10}})));
-  Electrical.AC.Interfaces.ThreePhasePlug threePhasePlug annotation (Placement(
-        transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={
-            {90,-10},{110,10}})));
-  BaseClasses.LinearRegression regLoa(fileName=fileName)
+  BaseClasses.LinearRegression regLoa(final fileName=fileName)
     "Building load based on a piecewise linear regression"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Electrical.AC.Loads.VariableCapacitorResistor totEleLoa[3](
     each P_nominal=1/3.,
     each pf=pf) "Total building electrical load"
@@ -27,25 +24,28 @@ protected
         rotation=180,
         origin={70,0})));
 
+  Modelica.Blocks.Routing.Replicator replicator(nout=3)
+    "Replicator for the 3 phases"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+public
+  Electrical.AC.Interfaces.ThreePhasePlug threePhasePlug
+    "Electricity connection of building"
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
   connect(regLoa.TOut, weaBus.TDryBul)           annotation (Line(
-      points={{-22,8},{-56,8},{-56,0},{-100,0}},
+      points={{-62,8},{-80,8},{-80,0},{-100,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(regLoa.TDewPoi, weaBus.TDewPoi)           annotation (Line(
-      points={{-22,4},{-56,4},{-56,0},{-100,0}},
+      points={{-62,4},{-80,4},{-80,0},{-100,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(regLoa.HDirNor, weaBus.HDirNor)           annotation (Line(
-      points={{-22,-4},{-56,-4},{-56,0},{-100,0}},
+      points={{-62,-4},{-80,-4},{-80,0},{-100,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(regLoa.HDif, weaBus.HDifHor)           annotation (Line(
-      points={{-22,-8},{-56,-8},{-56,0},{-100,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(regLoa.PTot, totEleLoa.y)           annotation (Line(
-      points={{1,-5},{16,-5},{16,0},{18,0},{18,8.88178e-16},{20,8.88178e-16}},
+      points={{-62,-8},{-80,-8},{-80,4.44089e-16},{-100,4.44089e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(totEleLoa[1].sPhasePlug, adaptor.phase3) annotation (Line(
@@ -60,9 +60,17 @@ equation
       points={{40,0},{50,0},{50,-6},{60,-6}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(threePhasePlug, adaptor.threePhasePlug) annotation (Line(
-      points={{100,0},{100,-5.55112e-16},{78,-5.55112e-16}},
+  connect(regLoa.PTot, replicator.u) annotation (Line(
+      points={{-39,-5},{-20,-5},{-20,0},{-12,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(adaptor.threePhasePlug, threePhasePlug) annotation (Line(
+      points={{78,0},{100,0}},
       color={0,0,0},
+      smooth=Smooth.None));
+  connect(replicator.y, totEleLoa.y) annotation (Line(
+      points={{11,4.44089e-16},{15.5,4.44089e-16},{15.5,0},{20,0}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
@@ -275,6 +283,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
+                    graphics));
 end LinearRegression;
