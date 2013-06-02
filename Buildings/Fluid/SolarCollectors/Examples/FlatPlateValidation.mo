@@ -101,7 +101,7 @@ can be accessed in the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Exam
 </html>",revisions="<html>
 <ul>
 <li>
-Mar 27, 2013, by Peter Grant:<br>
+Mar 27, 2013, by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>

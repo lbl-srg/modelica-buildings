@@ -81,7 +81,7 @@ the Number of Transfer Units and the heat exchanger effectiveness go to zero.
 revisions="<html>
 <ul>
 <li>
-February 20, 2010, by Michael Wetter:<br>
+February 20, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

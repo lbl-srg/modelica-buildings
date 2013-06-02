@@ -268,7 +268,7 @@ equation
           </html>",
           revisions = "<html>
           <ul>
-          <li> Peter Grant, Jan 29, 2013<br>
+          <li> Peter Grant, Jan 29, 2013<br/>
           First implementation.
           </li>
           </ul>

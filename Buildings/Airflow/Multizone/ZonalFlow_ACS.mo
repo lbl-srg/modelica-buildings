@@ -63,13 +63,13 @@ where <code>ACS</code> is an input and the volume <code>V</code> is a parameter.
 revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
-<li>July 20, 2010 by Michael Wetter:<br>
+<li>July 20, 2010 by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>
-<li>January 4, 2006 by Michael Wetter:<br>
+<li>January 4, 2006 by Michael Wetter:<br/>
        Implemented first version.
 </li>
 </ul>

@@ -57,11 +57,11 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2012 by Wangda Zuo:<br>
+March 29, 2012 by Wangda Zuo:<br/>
 Revised the implementation to reduce the temperature overshoot.
 </li>
 <li>
-June 23, 2010 by Michael Wetter and Wangda Zuo:<br>
+June 23, 2010 by Michael Wetter and Wangda Zuo:<br/>
 Changed model that is used to correct the numerical diffusion. 
 The previous version used the model from Stefan Wischhusen, 
 <a href=\"http://www.modelica.org/events/modelica2006/Proceedings/sessions/Session3a2.pdf\">
@@ -77,7 +77,7 @@ which is implemented in
 Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </li>
 <li>
-October 23, 2008 by Michael Wetter:<br>
+October 23, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

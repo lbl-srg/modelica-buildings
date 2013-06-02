@@ -18,11 +18,11 @@ Buildings.Fluid.HeatExchangers.DXCoils</a>.
 revisions="<html>
 <ul>
 <li>
-January 7, 2013 by Michael Wetter:<br>
+January 7, 2013 by Michael Wetter:<br/>
 Removed medium declaration to avoid multiple definitions of the medium.
 </li>
 <li>
-August 1, 2012 by Kaustubh Phalak:<br>
+August 1, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

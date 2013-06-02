@@ -27,7 +27,7 @@ Records that implements thermophysical properties for window shades.
   revisions="<html>
 <ul>
 <li>
-Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br>
+Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
@@ -48,7 +48,7 @@ Package with records that implement thermophysical properties for window shades.
   revisions="<html>
 <ul>
 <li>
-Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br>
+Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

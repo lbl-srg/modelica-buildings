@@ -83,11 +83,11 @@ Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_KC</a>.
 revisions="<html>
 <ul>
 <li>
-April 5, 2012, by Michael Wetter:<br>
+April 5, 2012, by Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-April 3, 2012, by Xiufeng Pang:<br>
+April 3, 2012, by Xiufeng Pang:<br/>
 First implementation.
 </li>
 </ul>

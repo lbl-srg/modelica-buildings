@@ -26,11 +26,11 @@ for a description of the data.
 revisions="<html>
 <ul>
 <li>
-September 25, 2012 by Michael Wetter:<br>
+September 25, 2012 by Michael Wetter:<br/>
 Revised documentation.
 </li>
 <li>
-August 13, 2012 by Kaustubh Phalak:<br>
+August 13, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>

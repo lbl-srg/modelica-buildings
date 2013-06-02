@@ -91,11 +91,11 @@ the medium model got broken (assuming that the inputs remained unchanged).
 </html>", revisions="<html>
 <ul>
 <li>
-June 4, 2011 by Michael Wetter:<br>
+June 4, 2011 by Michael Wetter:<br/>
 Adjusted parameters and simulation stop time since the sensor was changed to a dynamic sensor.
 </li>
 <li>
-May 6, 2008 by Michael Wetter:<br>
+May 6, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

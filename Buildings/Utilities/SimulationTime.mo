@@ -48,7 +48,7 @@ Modelica.Blocks.Sources.Clock</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-May 18, 2010, by Wangda Zuo:<br>
+May 18, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

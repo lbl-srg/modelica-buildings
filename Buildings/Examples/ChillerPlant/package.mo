@@ -117,7 +117,7 @@ and <i>T<sub>min</sub></i> and <i>T<sub>max</sub></i> are the minimum and maximu
 </p>
 <h4>Reference</h4>
 <p>
-Stein, J. (2009). Waterside Economizing in Data Centers: Design and Control Considerations. ASHRAE Transactions, 115(2), 192-200.<br>
+Stein, J. (2009). Waterside Economizing in Data Centers: Design and Control Considerations. ASHRAE Transactions, 115(2), 192-200.<br/>
 Taylor, S.T. (2007). Increasing Efficiency with VAV System Static Pressure Setpoint Reset. ASHRAE Journal, June, 24-32.
 </p>
 </html>"));

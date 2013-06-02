@@ -12,7 +12,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-November 20, 2012 by Thierry S. Nouidui:<br>
+November 20, 2012 by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>

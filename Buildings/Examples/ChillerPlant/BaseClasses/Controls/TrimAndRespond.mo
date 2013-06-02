@@ -94,19 +94,19 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
-December 5, 2012, by Michael Wetter:<br>
+December 5, 2012, by Michael Wetter:<br/>
 Simplified implementation.
 </li>
 <li>
-September 21, 2012, by Wangda Zuo:<br>
+September 21, 2012, by Wangda Zuo:<br/>
 Deleted the status input that was not needed for new control.
 </li>
 <li>
-July 20, 2011, by Wangda Zuo:<br>
+July 20, 2011, by Wangda Zuo:<br/>
 Added comments, redefine variable names, and merged to library.
 </li>
 <li>
-January 6 2011, by Michael Wetter and Wangda Zuo:<br>
+January 6 2011, by Michael Wetter and Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

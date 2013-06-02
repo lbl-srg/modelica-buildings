@@ -120,28 +120,28 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
-February 14, 2012, by Michael Wetter:<br>
+February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
 </li>
 <li>
-May 25, 2011, by Michael Wetter:<br>
+May 25, 2011, by Michael Wetter:<br/>
 Revised implementation of energy balance to avoid having to use conditionally removed models.
 </li>
 <li>
-July 27, 2010, by Michael Wetter:<br>
+July 27, 2010, by Michael Wetter:<br/>
 Redesigned model to fix bug in medium balance.
 </li>
-<li>July 5, 2010, by Michael Wetter:<br>
+<li>July 5, 2010, by Michael Wetter:<br/>
 Changed <code>assert(dp_in >= 0, ...)</code> to <code>assert(dp_in >= -0.1, ...)</code>.
 The former implementation triggered the assert if <code>dp_in</code> was solved for
 in a nonlinear equation since the solution can be slightly negative while still being
 within the solver tolerance.
 </li>
-<li>March 24, 2010, by Michael Wetter:<br>
+<li>March 24, 2010, by Michael Wetter:<br/>
 Revised implementation to allow zero flow rate.
 </li>
 <li>October 1, 2009,
-    by Michael Wetter:<br>
+    by Michael Wetter:<br/>
        Added model to the Buildings library.
 </ul>
 </html>"),

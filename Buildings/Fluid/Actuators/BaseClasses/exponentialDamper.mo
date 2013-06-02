@@ -53,20 +53,20 @@ attempts <code>k &lt; 0</code> during the iterative solution procedure.
 revisions="<html>
 <ul>
 <li>
-July 1, 2011 by Michael Wetter:<br>
+July 1, 2011 by Michael Wetter:<br/>
 Added constraint to control input to avoid using a number outside
 <code>0</code> and <code>1</code> in case that the control input
 has a numerical integration error.
 </li>
 <li>
-April 4, 2010 by Michael Wetter:<br>
+April 4, 2010 by Michael Wetter:<br/>
 Reformulated implementation. The new implementation computes
 <code>sqrt(kTheta)</code>. This avoid having <code>kTheta</code> in
 the iteration variables, which caused warnings when the solver attempted
 <code>kTheta &lt; 0</code>.
 </li>
 <li>
-June 22, 2008 by Michael Wetter:<br>
+June 22, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

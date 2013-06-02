@@ -34,7 +34,7 @@ Added assert statement as <code>epsilon_ntuZ</code> computes <code>NTU^(-0.22)</
 </ul>
 </li>
 <li>
-February 16, 2010, by Michael Wetter:<br>
+February 16, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

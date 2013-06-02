@@ -119,7 +119,7 @@ Integral of uR[i] over the sampling interval
 </html>", revisions="<html>
 <ul>
 <li>
-February 5, 2013, by Michael Wetter:<br>
+February 5, 2013, by Michael Wetter:<br/>
 First implementation, 
 based on
 <a href=\"modelica://Buildings.Utilities.IO.BCVTB.BCVTB\">

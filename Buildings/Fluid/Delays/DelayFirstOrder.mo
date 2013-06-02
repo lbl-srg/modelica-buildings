@@ -37,18 +37,18 @@ The heat flux connector is optional, it need not be connnected.
 revisions="<html>
 <ul>
 <li>
-September 24, 2008, by Michael Wetter:<br>
+September 24, 2008, by Michael Wetter:<br/>
 Changed base class from <code>Modelica.Fluid</code> to <code>Buildings</code> library.
 This was done to track the auxiliary species flow <code>mC_flow</code>.
 </li>
 <li>
-September 4, 2008, by Michael Wetter:<br>
+September 4, 2008, by Michael Wetter:<br/>
 Fixed bug in assignment of parameter <code>sta0</code>. 
 The earlier implementation
 required temperature to be a state, which is not always the case.
 </li>
 <li>
-March 17, 2008, by Michael Wetter:<br>
+March 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

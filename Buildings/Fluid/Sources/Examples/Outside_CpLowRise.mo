@@ -70,7 +70,7 @@ whereas it is negative for the south- and east-facing facades.
 </html>", revisions="<html>
 <ul>
 <li>
-October 26, 2011 by Michael Wetter:<br>
+October 26, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

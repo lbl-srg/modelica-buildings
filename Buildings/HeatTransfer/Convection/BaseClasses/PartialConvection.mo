@@ -77,7 +77,7 @@ Partial model for a convective heat transfer model.
 </html>", revisions="<html>
 <ul>
 <li>
-March 8 2010, by Michael Wetter:<br>
+March 8 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

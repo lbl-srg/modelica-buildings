@@ -34,11 +34,11 @@ whereas the other function requires a numerical solution.
 </html>", revisions="<html>
 <ul>
 <li>
-March 9, 2012 by Michael Wetter:<br>
+March 9, 2012 by Michael Wetter:<br/>
 Added <code>smoothOrder=99</code> and <code>displayUnit</code> for pressure.
 </li>
 <li>
-May 21, 2010 by Michael Wetter:<br>
+May 21, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

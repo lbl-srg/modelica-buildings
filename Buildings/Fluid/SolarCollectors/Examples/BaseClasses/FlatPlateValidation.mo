@@ -212,7 +212,7 @@ based on the dry mass and the specific heat capacity of copper.
 </html>", revisions="<html>
 <ul>
 <li>
-January 4, 2013, by Peter Grant:<br>
+January 4, 2013, by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>

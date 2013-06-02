@@ -71,11 +71,11 @@ be computed as a function of temperature and mass flow rate.
 revisions="<html>
 <ul>
 <li>
-May 10, 2013, by Michael Wetter:<br>
+May 10, 2013, by Michael Wetter:<br/>
 Revised and simplified the implementation.
 </li>
 <li>
-February 26, 2013, by Peter Grant:<br>
+February 26, 2013, by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>

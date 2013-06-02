@@ -21,11 +21,11 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-July 20, 2011, by Wangda Zuo:<br>
+July 20, 2011, by Wangda Zuo:<br/>
 Added <code>.mos</code> file and merged to library.
 </li>
 <li>
-January 18, 2011, by Wangda Zuo:<br>
+January 18, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

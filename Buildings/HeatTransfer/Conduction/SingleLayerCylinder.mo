@@ -213,11 +213,11 @@ and not the variable <code>T[1]</code>.
 revisions="<html>
 <ul>
 <li>
-March 9, 2012, by Michael Wetter:<br>
+March 9, 2012, by Michael Wetter:<br/>
 Removed protected variable <code>der_T</code> as it is not required.
 </li>
 <li>
-April 14 2011, by Pierre Vigouroux:<br>
+April 14 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

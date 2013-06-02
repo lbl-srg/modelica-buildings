@@ -252,15 +252,15 @@ which are lumped into one state. The boiler outlet temperature is equal to this 
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
-December 22, 2011 by Michael Wetter:<br>
+December 22, 2011 by Michael Wetter:<br/>
 Added computation of fuel usage and improved the documentation.
 </li>
 <li>
-May 25, 2011 by Michael Wetter:<br>
+May 25, 2011 by Michael Wetter:<br/>
 <ul>
 <li>
 Removed parameter <code>dT_nominal</code>, and require instead
@@ -275,7 +275,7 @@ model for the new base class that does not have a temperature sensor.
 </ul>
 </li>
 <li>
-January 29, 2009 by Michael Wetter:<br>
+January 29, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -12,7 +12,7 @@ This function outputs the average of the vector.
 revisions="<html>
 <ul>
 <li>
-April 3, 2009, by Michael Wetter:<br>
+April 3, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

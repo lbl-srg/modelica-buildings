@@ -124,11 +124,11 @@ through the pipe.
 </html>", revisions="<html>
 <ul>
 <li>
-February 22, 2012 by Michael Wetter:<br>
+February 22, 2012 by Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-February 12, 2012 by Wangda Zuo:<br>
+February 12, 2012 by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

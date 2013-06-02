@@ -114,9 +114,9 @@ Values listed by Paul are given in the table below.
 </p>
 <h4>References</h4>
 <p>
-Hellstrom, G (1991). <br>
+Hellstrom, G (1991). <br/>
  <a href=\"http://intraweb.stockton.edu/eyos/energy_studies/content/docs/proceedings/HELLS.PDF\">
- Thermal Performance of Borehole Heat Exchangers</a>.<br> 
+ Thermal Performance of Borehole Heat Exchangers</a>.<br/> 
 Department of Mathematical Physics, Lund Institute of Technology.
 </p>
 <p>
@@ -127,7 +127,7 @@ Master of Science Thesis, South Dakota State University.
 </html>", revisions="<html>
 <ul>
 <li>
-August 2011, by Pierre Vigouroux:<br>
+August 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

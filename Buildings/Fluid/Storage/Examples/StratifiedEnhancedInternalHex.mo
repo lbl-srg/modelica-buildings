@@ -92,13 +92,13 @@ equation
         This model provides an example of how the <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
         Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> model can be used. In it a constant
         water draw is taken from the tank while a constant flow of hot water is passed through the heat
-        exchanger to heat the water in the tank.<br>
+        exchanger to heat the water in the tank.<br/>
         </p>
         </html>",
         revisions = "<html>
         <ul>
         <li>
-        Mar 27, 2013 by Peter Grant:<br>
+        Mar 27, 2013 by Peter Grant:<br/>
         First implementation
         </li>
         </ul>

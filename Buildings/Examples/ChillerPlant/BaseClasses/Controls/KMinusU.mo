@@ -20,11 +20,11 @@ This component computes the value of
 ", revisions="<html>
 <ul>
 <li>
-July 20, 2011, by Wangda Zuo:<br>
+July 20, 2011, by Wangda Zuo:<br/>
 Add comments and merge to library. 
 </li>
 <li>
-May 19, 2010, by Wangda Zuo:<br>
+May 19, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

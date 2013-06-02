@@ -75,11 +75,11 @@ Note that the first column must be strictly increasing.
 revisions="<html>
 <ul>
 <li>
-April 5, 2011, by Michael Wetter:<br>
+April 5, 2011, by Michael Wetter:<br/>
 Fixed wrong table declaration.
 </li>
 <li>
-July 13, 2010, by Michael Wetter:<br>
+July 13, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -549,7 +549,7 @@ Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 </html>", revisions="<html>
 <ul>
 <li>
-August 21, 2012 by Michael Wetter:<br>
+August 21, 2012 by Michael Wetter:<br/>
 First implementation. 
 </li>
 </ul>

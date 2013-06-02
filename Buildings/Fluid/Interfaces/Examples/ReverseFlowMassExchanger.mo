@@ -341,7 +341,7 @@ of stream connector. This bug will be corrected in future versions of Dymola.
 </html>", revisions="<html>
 <ul>
 <li>
-August 19, 2010, by Michael Wetter:<br>
+August 19, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

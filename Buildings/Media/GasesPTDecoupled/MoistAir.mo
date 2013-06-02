@@ -353,54 +353,54 @@ because pressure and temperature are decoupled, at the expense of accuracy.
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2013, by Michael Wetter:<br>
+March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the
 <code>BaseProperties</code> declaration. This avoids an error
 when models are checked in Dymola 2014 in the pedenatic mode.
 </li>
 <li>
-April 12, 2012, by Michael Wetter:<br>
+April 12, 2012, by Michael Wetter:<br/>
 Added keyword <code>each</code> to <code>Xi(stateSelect=...</code>.
 </li>
 <li>
-April 4, 2012, by Michael Wetter:<br>
+April 4, 2012, by Michael Wetter:<br/>
 Added redeclaration of <code>ThermodynamicState</code> to avoid a warning
 during model check and translation.
 </li>
 <li>
-August 3, 2011, by Michael Wetter:<br>
+August 3, 2011, by Michael Wetter:<br/>
 Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
 For this medium, the function is <code>u=h-pStd/dStp</code>.
 </li>
 <li>
-January 13, 2010, by Michael Wetter:<br>
+January 13, 2010, by Michael Wetter:<br/>
 Added function <code>enthalpyOfNonCondensingGas</code> and its derivative.
 </li>
 <li>
-January 13, 2010, by Michael Wetter:<br>
+January 13, 2010, by Michael Wetter:<br/>
 Fixed implementation of derivative functions.
 </li>
 <li>
-August 28, 2008, by Michael Wetter:<br>
+August 28, 2008, by Michael Wetter:<br/>
 Referenced <code>spliceFunction</code> from package 
 <a href=\"modelica://Buildings.Utilities.Math\">Buildings.Utilities.Math</a>
 to avoid duplicate code.
 </li>
 <li>
-August 21, 2008, by Michael Wetter:<br>
+August 21, 2008, by Michael Wetter:<br/>
 Replaced <code>d*pStp = p*dStp</code> by
 <code>d/dStp = p/pStp</code> to indicate that division by 
 <code>dStp</code> and <code>pStp</code> is allowed.
 </li>
 <li>
-August 22, 2008, by Michael Wetter:<br>
+August 22, 2008, by Michael Wetter:<br/>
 Changed function 
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir.density\">
 density</a> so that it uses <code>rho=p/pStd*rhoStp</code>
 instead of the ideal gas law.
 </li>
 <li>
-August 18, 2008, by Michael Wetter:<br>
+August 18, 2008, by Michael Wetter:<br/>
 Changed function 
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir.T_phX\">
 T_phX</a> so that it uses the implementation of
@@ -408,7 +408,7 @@ T_phX</a> so that it uses the implementation of
 Buildings.Media.PerfectGases.MoistAir.T_phX</a>.
 </li>
 <li>
-August 15, 2008, by Michael Wetter:<br>
+August 15, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

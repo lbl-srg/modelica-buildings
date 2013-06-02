@@ -20,11 +20,11 @@ The size of the array <code>a</code> is automatically enlarged as needed.
 </p>
 </html>", revisions="<html>
 <ul><li>
-September 9, 2011, by Michael Wetter:<br>
+September 9, 2011, by Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-July 27, 2011, by Pierre Vigouroux:<br>
+July 27, 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>
