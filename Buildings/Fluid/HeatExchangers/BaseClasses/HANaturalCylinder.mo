@@ -151,7 +151,7 @@ equation
             </p>
             <p>
             where <i>Nu<sub>D</sub></i> is the Nusselt number, <i>Ra<sub>D</sub></i> is the Rayleigh number and 
-            <i>Pr</i> is the Prandtl number.<br>
+            <i>Pr</i> is the Prandtl number.<br/>
             This correclation is accurate for <i>Ra<sub>D</sub></i> less than 10<sup>12</sup>.
             </p>
             <p>
@@ -170,14 +170,14 @@ equation
             <h4>Revisions</h4>
             <ul>
             <li>
-            May 10, 2013 by Michael Wetter:<br>
+            May 10, 2013 by Michael Wetter:<br/>
             Revised implementation to use <code>hA_nominal</code> as a parameter, and compute the 
             associated surface area <code>A</code>. This revision was required to have a consistent
             computation of the the <code>hA</code> values inside and outside of the coil in the 
             heat exchanger model of the water tank.
             </li>
             <li>
-            February 26, 2013 by Peter Grant:<br>
+            February 26, 2013 by Peter Grant:<br/>
             First implementation.
             </li>
             </ul>

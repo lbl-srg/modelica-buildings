@@ -83,13 +83,13 @@ Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 <p>
 <ul>
 <li>
-June 3, 2011 by Michael Wetter:<br>
+June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that 
 the time constant increases as the mass flow rate tends to zero.
 This can improve the numerics.
 </li>
 <li>
-April 9, 2008 by Michael Wetter:<br>
+April 9, 2008 by Michael Wetter:<br/>
 First implementation.
 Implementation is based on enthalpy sensor of <code>Modelica.Fluid</code>.
 </li>

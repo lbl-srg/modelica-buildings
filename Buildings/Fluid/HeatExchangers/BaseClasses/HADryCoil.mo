@@ -138,13 +138,13 @@ Berkeley, CA, 1999.
 revisions="<html>
 <ul>
 <li>
-June 8, 2010, by Michael Wetter:<br>
+June 8, 2010, by Michael Wetter:<br/>
 Fixed bug in computation of <code>s_w</code>.
 The old implementation used the current inlet water temperature instead
 of the design condition that corresponds to <code>UA_nominal</code>.
 </li>
 <li>
-April 16, 2008, by Michael Wetter:<br>
+April 16, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

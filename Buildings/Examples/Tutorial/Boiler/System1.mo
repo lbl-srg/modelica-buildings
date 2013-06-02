@@ -289,7 +289,7 @@ could have been used.
 </html>", revisions="<html>
 <ul>
 <li>
-January 27, 2012, by Michael Wetter:<br>
+January 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

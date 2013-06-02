@@ -1257,11 +1257,11 @@ shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
-December 6, 2011, by Michael Wetter:<br>
+December 6, 2011, by Michael Wetter:<br/>
 Improved control for minimum zone flow rate.
 </li>
 <li>
-July 18, 2011, by Michael Wetter:<br>
+July 18, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -106,11 +106,11 @@ condition differs.
 </html>", revisions="<html>
 <ul>
 <li>
-January 23 2013, by Michael Wetter:<br>
+January 23 2013, by Michael Wetter:<br/>
 Assigned fixed value to <code>nSta</code> of constructions.
 </li>
 <li>
-March 6 2010, by Michael Wetter:<br>
+March 6 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

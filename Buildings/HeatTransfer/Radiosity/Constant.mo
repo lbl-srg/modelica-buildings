@@ -48,7 +48,7 @@ Buildings.HeatTransfer.BaseClasses.DummyConstructionExterior</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-November 22, 2010, by Michael Wetter:<br>
+November 22, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

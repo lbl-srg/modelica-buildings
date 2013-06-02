@@ -33,7 +33,7 @@ as the leakage flow or regularization near the origin.
 revisions="<html>
 <ul>
 <li>
-February 20, 2012 by Michael Wetter:<br>
+February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
 and added new parameter <code>dpFixed_nominal</code>.
 See 
@@ -41,15 +41,15 @@ See
 Buildings.Fluid.Actuators.UsersGuide</a>.
 </li>
 <li>
-February 14, 2012 by Michael Wetter:<br>
+February 14, 2012 by Michael Wetter:<br/>
 Added filter to approximate the travel time of the actuator.
 </li>
 <li>
-March 25, 2011, by Michael Wetter:<br>
+March 25, 2011, by Michael Wetter:<br/>
 Added homotopy method.
 </li>
 <li>
-June 5, 2008 by Michael Wetter:<br>
+June 5, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

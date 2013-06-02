@@ -55,28 +55,28 @@ It implements the function that computes the specific internal energy.
 </html>", revisions="<html>
 <ul>
 <li>
-April 16, 2013, by Michael Wetter:<br>
+April 16, 2013, by Michael Wetter:<br/>
 Changed package to extend directly from
 <code>Buildings.Media.Interfaces.PartialSimpleMedium</code>
 to avoid an error in OpenModelica.
 </li>
 <li>
-August 20, 2012, by Michael Wetter:<br>
+August 20, 2012, by Michael Wetter:<br/>
 Fixed wrong hyperlink in the documentation.
 </li>
 <li>
-October 2, 2008, by Michael Wetter:<br>
+October 2, 2008, by Michael Wetter:<br/>
 Changed base class to 
 <a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleMedium\">
 Buildings.Media.Interfaces.PartialSimpleMedium</a> to allow compressibility
 to break algebraic equation systems (at the expense of stiffness).
 </li>
 <li>
-September 4, 2008, by Michael Wetter:<br>
+September 4, 2008, by Michael Wetter:<br/>
 Added implementation for partial function <code>specificInternalEnergy</code>.
 </li>
 <li>
-March 19, 2008, by Michael Wetter:<br>
+March 19, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

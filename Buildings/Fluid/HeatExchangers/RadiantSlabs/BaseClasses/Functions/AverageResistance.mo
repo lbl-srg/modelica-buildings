@@ -86,15 +86,15 @@ For a fully dynamic model, a finite element method for the radiant slab would ne
 revisions="<html>
 <ul>
 <li>
-April 17, 2012, by Michael Wetter:<br>
+April 17, 2012, by Michael Wetter:<br/>
 Added term <code>1/s</code> in computation of <code>infSum</code>.
 </li>
 <li>
-April 5, 2012, by Michael Wetter:<br>
+April 5, 2012, by Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-April 3, 2012, by Xiufeng Pang:<br>
+April 3, 2012, by Xiufeng Pang:<br/>
 First implementation.
 </li>
 </ul>

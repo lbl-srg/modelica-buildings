@@ -252,14 +252,14 @@ as there is a mass flow rate with zero CO<sub>2</sub> from the source <code>bou<
 </html>", revisions="<html>
 <ul>
 <li>
-April 29, 2013, by Michael Wetter:<br>
+April 29, 2013, by Michael Wetter:<br/>
 Changed the initialization of the medium volumes from free initial conditions
 to <code>Modelica.Fluid.Types.Dynamics.FixedInitial</code>.
 This was required for <code>vol</code> and <code>vol1</code> to have the same
 computations for the initial states.
 </li>
 <li>
-September 18, 2008 by Michael Wetter:<br>
+September 18, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -305,17 +305,17 @@ The function value needs to be assigned to <code>EIRFunPLR</code>.
 revisions="<html>
 <ul>
 <li>
-Jan. 10, 2011, by Michael Wetter:<br>
+Jan. 10, 2011, by Michael Wetter:<br/>
 Added input signal to switch chiller off, and changed base class to use a dynamic model.
 The change of the base class was required to improve the robustness of the model when the control 
 is switched on again.
 </li>
 <li>
-Sep. 8, 2010, by Michael Wetter:<br>
+Sep. 8, 2010, by Michael Wetter:<br/>
 Revised model and included it in the Buildings library.
 </li>
 <li>
-October 13, 2008, by Brandon Hencey:<br>
+October 13, 2008, by Brandon Hencey:<br/>
 First implementation.
 </li>
 </ul>

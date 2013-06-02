@@ -15,7 +15,7 @@ are rather designed to test the thermal zone model.
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2010, by Michael Wetter:<br>
+December 14, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

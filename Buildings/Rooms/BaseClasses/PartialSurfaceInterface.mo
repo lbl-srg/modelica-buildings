@@ -171,7 +171,7 @@ such as <code>haveConExt</code>, which is set to
 revisions="<html>
 <ul>
 <li>
-July 17, 2012, by Michael Wetter:<br>
+July 17, 2012, by Michael Wetter:<br/>
 Added validity check of surface areas.
 This helped catching a bug in an early implementation of BESTEST Case960
 in which the extending class set <code>nConExtWin=0</code>, 
@@ -180,14 +180,14 @@ Because the radiation balance model computes exchange among
 <code>NConExtWin=max(nConExtWin, 1)</code> areas, its result was wrong.
 </li>
 <li>
-November 6, 2011, by Michael Wetter:<br>
+November 6, 2011, by Michael Wetter:<br/>
 Changed parameters that contain radiative properties from final to non-final, as
 they need to be overwritten by 
 <a href=\"modelica://Buildings.Rooms.BaseClasses.SolarRadiationExchange\">
 Buildings.Rooms.BaseClasses.SolarRadiationExchange</a>.
 </li>
 <li>
-November 16 2010, by Michael Wetter:<br>
+November 16 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

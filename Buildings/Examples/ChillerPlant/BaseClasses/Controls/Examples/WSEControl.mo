@@ -40,11 +40,11 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-July 21, 2011, by Wangda Zuo:<br>
+July 21, 2011, by Wangda Zuo:<br/>
 Merged to library.
 </li>
 <li>
-January 6, 2011, by Wangda Zuo:<br>
+January 6, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

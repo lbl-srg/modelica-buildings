@@ -16,7 +16,7 @@ heat capacity.
           "<html>
 <ul>
 <li>
-April 24, 2011, by Pierre Vigouroux:<br>
+April 24, 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>
@@ -67,7 +67,7 @@ spatial grid.
 revisions="<html>
 <ul>
 <li>
-September 9, 2011, by Michael Wetter:<br>
+September 9, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

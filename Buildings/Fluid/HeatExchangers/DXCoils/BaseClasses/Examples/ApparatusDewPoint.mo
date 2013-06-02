@@ -148,7 +148,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint</a>.
 revisions="<html>
 <ul>
 <li>
-April 10, 2012 by Kaustubh Phalak:<br>
+April 10, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

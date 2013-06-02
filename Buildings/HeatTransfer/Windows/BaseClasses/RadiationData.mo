@@ -117,11 +117,11 @@ Record that computes the solar radiation data for a glazing system.
 </html>", revisions="<html>
 <ul>
 <li>
-December 12, 2011, by Wangda Zuo:<br>
+December 12, 2011, by Wangda Zuo:<br/>
 Add glass thickness as a parameter for glassProperty(). It is needed by the calculation of property for uncoated glass.
 </li>
 <li>
-December 12, 2010, by Michael Wetter:<br>
+December 12, 2010, by Michael Wetter:<br/>
 Replaced record 
 <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">
 Buildings.HeatTransfer.Data.GlazingSystems</a> with the
@@ -129,7 +129,7 @@ parameters used by this model.
 This was needed to integrate the radiation model into the room model.
 </li>
 <li>
-December 10, 2010, by Wangda Zuo:<br>
+December 10, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

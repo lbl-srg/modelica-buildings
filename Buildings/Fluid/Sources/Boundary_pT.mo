@@ -162,7 +162,7 @@ with exception of boundary pressure, do not have an effect.
 revisions="<html>
 <ul>
 <li>
-September 29, 2009, by Michael Wetter:<br>
+September 29, 2009, by Michael Wetter:<br/>
 First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>

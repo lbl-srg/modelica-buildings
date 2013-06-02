@@ -122,7 +122,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sens
     Documentation(revisions="<html>
 <ul>
 <li>
-January 23 2013, by Michael Wetter:<br>
+January 23 2013, by Michael Wetter:<br/>
 Changed time constant of <code>senH</code> so that it has
 the same transient response model as <code>senH_flow</code>.
 </li>

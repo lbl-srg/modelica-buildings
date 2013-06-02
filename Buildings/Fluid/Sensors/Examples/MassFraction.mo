@@ -69,7 +69,7 @@ This examples is a unit test for the mass fraction sensor.
 </html>", revisions="<html>
 <ul>
 <li>
-April 7, 2009 by Michael Wetter:<br>
+April 7, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

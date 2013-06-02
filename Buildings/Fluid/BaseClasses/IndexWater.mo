@@ -28,7 +28,7 @@ and terminates the simulation.
 </html>", revisions="<html>
 <ul>
 <li>
-December 18, 2012, by Michael Wetter:<br>
+December 18, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

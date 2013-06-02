@@ -153,7 +153,7 @@ This model is implemented in <code>bcvtb\\examples\\dymola-room</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-May 15, 2009, by Michael Wetter:<br>
+May 15, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

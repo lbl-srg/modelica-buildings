@@ -25,7 +25,7 @@ traRefIntIrrExtSha[3]: Dummy value
 </html>", revisions="<html>
 <ul>
 <li>
-August 29, 2010, by Wangda Zuo:<br>
+August 29, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

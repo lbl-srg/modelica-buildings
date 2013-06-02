@@ -49,7 +49,7 @@ the origin is added to the modified arrays.
 revisions="<html>
 <ul>
 <li>
-August 24, 2012, by Michael Wetter:<br>
+August 24, 2012, by Michael Wetter:<br/>
 Moved function from 
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</code>
 to 
@@ -61,11 +61,11 @@ already contains a block called
 that do not distinguish between upper and lower case letters.
 </li>
 <li>
-August 9, 2012, by Kaustubh Phalak:<br>
+August 9, 2012, by Kaustubh Phalak:<br/>
 Origin added in support points to avoid linear extrapolation below standard rotational speed. 
 </li>
 <li>
-August 1, 2012 by Kaustubh Phalak:<br>
+August 1, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

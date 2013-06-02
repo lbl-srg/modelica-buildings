@@ -238,7 +238,7 @@ Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
         revisions="<html>
 <ul>
 <li>
-August 9, 2011 by Michael Wetter:<br>
+August 9, 2011 by Michael Wetter:<br/>
 Changed assignment of tilt in instance <code>conOpa</code>.
 This fixes the bug in <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/35\">issue 35</a>
 that led to the wrong solar radiation gain for roofs and floors. 
@@ -248,15 +248,15 @@ Buildings.Rooms.MixedAir</a> at the place where it makes an instance of this mod
 the change in the tilt parameter of the convective heat transfer model was required.)
 </li>
 <li>
-March 28, 2011, by Michael Wetter:<br>
+March 28, 2011, by Michael Wetter:<br/>
 Propaged parameter <code>hFixed</code> to top-level of the model.
 </li>
 <li>
-March 23, 2011, by Michael Wetter:<br>
+March 23, 2011, by Michael Wetter:<br/>
 Removed default value for convection model.
 </li>
 <li>
-November 23, 2010, by Michael Wetter:<br>
+November 23, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

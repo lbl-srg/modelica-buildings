@@ -74,24 +74,24 @@ The calculations follow the description in Wetter (2004), Appendix A.4.3.
 <h4>References</h4>
 <ul>
 <li>
-Michael Wetter.<br>
+Michael Wetter.<br/>
 <a href=\"http://simulationresearch.lbl.gov/wetter/download/mwdiss.pdf\">
-Simulation-based Building Energy Optimization</a>.<br>
+Simulation-based Building Energy Optimization</a>.<br/>
 Dissertation. University of California at Berkeley. 2004.
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
 <li>
-December 12, 2011, by Wangda Zuo:<br>
+December 12, 2011, by Wangda Zuo:<br/>
 Add glass thickness as a parameter for radDat. It is needed by the claculation of property for uncoated glass.
 </li>
 <li>
-February 2, 2010, by Michael Wetter:<br>
+February 2, 2010, by Michael Wetter:<br/>
 Made connector <code>uSha</code> a conditional connector.
 </li>
 <li>
-December 16, 2010, by Wangda Zuo:<br>
+December 16, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

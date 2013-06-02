@@ -84,7 +84,7 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 revisions="<html>
 <ul>
 <li>
-September 29, 2009, by Michael Wetter:<br>
+September 29, 2009, by Michael Wetter:<br/>
 First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>

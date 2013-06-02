@@ -266,12 +266,12 @@ and it is used to accomodate for the thermal expansion of the water.
 </html>", revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valve as
 this parameter no longer has a default value.
 </li>
 <li>
-November 1, 2011 by Michael Wetter:<br>
+November 1, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

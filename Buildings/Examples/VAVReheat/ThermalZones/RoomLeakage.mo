@@ -82,7 +82,7 @@ Room leakage.
 </p></html>", revisions="<html>
 <ul>
 <li>
-July 20, 2007 by Michael Wetter:<br>
+July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

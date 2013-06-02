@@ -65,15 +65,15 @@ component has a carbon dioxide concentration of <i>1</i>.
 </html>", revisions="<html>
 <ul>
 <li>
-March 27, 2013, by Michael Wetter:<br>
+March 27, 2013, by Michael Wetter:<br/>
 Removed binding for <code>C_in_internal</code> to allow pedantic check in Dymola 2014.
 </li>
 <li>
-February 22, by Michael Wetter:<br>
+February 22, by Michael Wetter:<br/>
 Improved code that searches for the index of the trace substance in the medium model.
 </li>
 <li>
-September 18, 2008 by Michael Wetter:<br>
+September 18, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -36,7 +36,7 @@ windows on the west and east walls have an overhang and side fins.
 revisions="<html>
 <ul>
 <li>
-July 7, 2012, by Kaustubh Phalak:<br>
+July 7, 2012, by Kaustubh Phalak:<br/>
 Extended from case 620 for side fins and overhang.
 </li>
 </ul>

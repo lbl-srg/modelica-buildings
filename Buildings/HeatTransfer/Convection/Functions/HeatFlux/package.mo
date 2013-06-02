@@ -14,7 +14,7 @@ difference is differentiable around zero.
 </html>", revisions="<html>
 <ul>
 <li>
-March 8 2010, by Michael Wetter:<br>
+March 8 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

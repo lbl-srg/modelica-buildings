@@ -60,7 +60,7 @@ except that it adds an input signal <code>u</code>.
 ", revisions="<html>
 <ul>
 <li>
-August 18 2010, by Michael Wetter:<br>
+August 18 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

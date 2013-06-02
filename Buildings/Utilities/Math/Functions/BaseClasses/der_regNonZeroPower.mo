@@ -39,11 +39,11 @@ Buildings.Utilities.Math.Functions.regNonZeroPower</a>.
 revisions="<html>
 <ul>
 <li>
-March 30, 2011, by Michael Wetter:<br>
+March 30, 2011, by Michael Wetter:<br/>
 Added <code>zeroDerivative</code> keyword.
 </li>
 <li>
-April 9, 2009, by Michael Wetter:<br>
+April 9, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

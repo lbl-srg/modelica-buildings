@@ -52,11 +52,11 @@ This model calculates the heat lost from a multiple-segment model using ratings 
 the ratings data must be converted to a <i>UA</i> value which, for a given number of segments, returns the same heat loss as the ratings data would at 
 nominal conditions. The <i>UA</i> value is identified using the system of equations below:
 <p align=\"center\" style=\"font-style:italic;\">
-Q<sub>Use,nom</sub> = G<sub>nom</sub> A<sub>c</sub> F<sub>R</sub>(&tau;&alpha;) - C<sub>1</sub> A<sub>c</sub> (T<sub>Mean,nom</sub>-T<sub>Env,nom</sub>)-C<sub>2</sub> A<sub>c</sub> (T<sub>Mean,nom</sub>-T<sub>Env,nom</sub>)<sup>2</sup><br>
-T<sub>Fluid,nom</sub>[nSeg]=T<sub>Mean,nom</sub>+Q<sub>Use,nom</sub>/(m<sub>flow,nom</sub> C<sub>p</sub>)<br>
-Q<sub>Los,nom</sub>=-C<sub>1</sub> A<sub>c</sub> (T<sub>Mean,nom</sub>-T<sub>Env,nom</sub>)-C<sub>2</sub> A<sub>c</sub> (T<sub>Mean,nom</sub>-T<sub>Env,nom</sub>)<sup>2</sup><br>
-T<sub>Fluid,nom</sub>[i] = T<sub>Fluid,nom</sub>[i-1] + (G<sub>nom</sub> F<sub>R</sub>(&tau;&alpha;) A<sub>c</sub>/nSeg - UA/nSeg (T<sub>Fluid,nom</sub>[i-1]-T<sub>Env,nom</sub>))/(m<sub>Flow,nom</sub> c<sub>p</sub>)<br>
-Q<sub>Loss,UA</sub>=UA/nSeg (T<sub>Fluid,nom</sub>[i]-T<sub>Env,nom</sub>)<br>
+Q<sub>Use,nom</sub> = G<sub>nom</sub> A<sub>c</sub> F<sub>R</sub>(&tau;&alpha;) - C<sub>1</sub> A<sub>c</sub> (T<sub>Mean,nom</sub>-T<sub>Env,nom</sub>)-C<sub>2</sub> A<sub>c</sub> (T<sub>Mean,nom</sub>-T<sub>Env,nom</sub>)<sup>2</sup><br/>
+T<sub>Fluid,nom</sub>[nSeg]=T<sub>Mean,nom</sub>+Q<sub>Use,nom</sub>/(m<sub>flow,nom</sub> C<sub>p</sub>)<br/>
+Q<sub>Los,nom</sub>=-C<sub>1</sub> A<sub>c</sub> (T<sub>Mean,nom</sub>-T<sub>Env,nom</sub>)-C<sub>2</sub> A<sub>c</sub> (T<sub>Mean,nom</sub>-T<sub>Env,nom</sub>)<sup>2</sup><br/>
+T<sub>Fluid,nom</sub>[i] = T<sub>Fluid,nom</sub>[i-1] + (G<sub>nom</sub> F<sub>R</sub>(&tau;&alpha;) A<sub>c</sub>/nSeg - UA/nSeg (T<sub>Fluid,nom</sub>[i-1]-T<sub>Env,nom</sub>))/(m<sub>Flow,nom</sub> c<sub>p</sub>)<br/>
+Q<sub>Loss,UA</sub>=UA/nSeg (T<sub>Fluid,nom</sub>[i]-T<sub>Env,nom</sub>)<br/>
 sum(Q<sub>Loss,UA</sub>[1:nSeg])=Q<sub>Loss,nom</sub>
 </p>
 <p>
@@ -74,7 +74,7 @@ CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </html>", revisions="<html>
 <ul>
 <li>
-Jan 16, 2012, by Peter Grant:<br>
+Jan 16, 2012, by Peter Grant:<br/>
 First implementation
 </li>
 </ul>

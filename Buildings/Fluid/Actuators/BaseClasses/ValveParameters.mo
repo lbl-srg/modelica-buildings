@@ -117,18 +117,18 @@ then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 </html>", revisions="<html>
 <ul>
 <li>
-March 25, 2013, by Michael Wetter:<br>
+March 25, 2013, by Michael Wetter:<br/>
 Removed stray backslash in write statement.
 </li>
 <li>
-February 28, 2013, by Michael Wetter:<br>
+February 28, 2013, by Michael Wetter:<br/>
 Reformulated assignment of parameters, and removed <code>Kv_SI</code> as
 a public parameter because it is always computed based on other parameters.
 This change avoids a translation error in Dymola 2014 beta1 in
 the pedantic mode, and a translation warning otherwise.
 </li>
 <li>
-February 18, 2009 by Michael Wetter:<br>
+February 18, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

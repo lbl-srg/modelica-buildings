@@ -117,26 +117,26 @@ of equations, which may result in faster simulation.
 </html>", revisions="<html>
 <ul>
 <li>
-February 7, 2012 by Michael Wetter:<br>
+February 7, 2012 by Michael Wetter:<br/>
 Revised due to changes in conservation equations in <code>Buildings.Fluid.Interfaces</code>.
 </li>
 <li>
-September 16, 2011 by Michael Wetter:<br>
+September 16, 2011 by Michael Wetter:<br/>
 Set <code>m(stateSelect=StateSelect.always)</code>, since
 setting the <code>stateSelect</code> attribute leads to smaller systems of equations.
 </li>
 <li>
-July 26, 2011 by Michael Wetter:<br>
+July 26, 2011 by Michael Wetter:<br/>
 Revised model to use new declarations from
 <a href=\"Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
 <li>
-May 25, 2011 by Michael Wetter:<br>
+May 25, 2011 by Michael Wetter:<br/>
 Revised model due to a change in the fluid volume model.
 </li>
 <li>
-Nov. 4, 2009 by Michael Wetter:<br>
+Nov. 4, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

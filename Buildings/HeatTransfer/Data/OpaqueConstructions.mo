@@ -73,14 +73,14 @@ Buildings.HeatTransfer.Convection.Exterior</a>.
           "<html>
 <ul>
 <li>
-March 13, 2013, by Michael Wetter:<br>
+March 13, 2013, by Michael Wetter:<br/>
 Replaced <code>Buildings.HeatTransfer.Data.Solids.Generic</code>
 with
 <code>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</code>
 to allow use of phase change material.
 </li>
 <li>
-November 16, 2010, by Michael Wetter:<br>
+November 16, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -122,7 +122,7 @@ are used to compute solar heat radiation (in the solar spectrum).
 revisions="<html>
 <ul>
 <li>
-November 16, 2010, by Michael Wetter:<br>
+November 16, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

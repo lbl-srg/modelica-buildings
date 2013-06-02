@@ -37,7 +37,7 @@ because <i>p &frasl; &rho; = p<sub>stp</sub> &frasl; &rho;<sub>stp</sub></i> in 
 </html>", revisions="<html>
 <ul>
 <li>
-March 19, 2008, by Michael Wetter:<br>
+March 19, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
