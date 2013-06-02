@@ -42,12 +42,12 @@ Diagram(coordinateSystem(
     Documentation(revisions="<html>
 <ul>
 <li>
-July 15, 2012, by Michael Wetter:<br>
+July 15, 2012, by Michael Wetter:<br/>
 Revised implementation to extend from base case to avoid duplicate code.
 Merged model into the Buildings library.
 </li>
 <li>
-June 5, 2012, by Vladimir Vukovic:<br>
+June 5, 2012, by Vladimir Vukovic:<br/>
 First implementation.
 </li>
 </ul>

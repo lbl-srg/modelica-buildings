@@ -311,12 +311,12 @@ radiation.
         revisions="<html>
 <ul>
 <li>
-November 6, 2011, by Michael Wetter:<br>
+November 6, 2011, by Michael Wetter:<br/>
 Fixed bug as in the old version, the absorbtance and reflectance
 of the infrared spectrum has been used instead of the solar spectrum.
 </li>
 <li>
-Dec. 1 2010, by Michael Wetter:<br>
+Dec. 1 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

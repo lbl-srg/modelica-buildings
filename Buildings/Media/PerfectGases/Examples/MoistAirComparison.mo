@@ -70,13 +70,13 @@ from <a href=\"modelica://Modelica.Media.Air.MoistAir\">Modelica.Media.Air.Moist
 </html>",   revisions="<html>
 <ul>
 <li>
-April 1, 2013, by Michael Wetter:<br>
+April 1, 2013, by Michael Wetter:<br/>
 Changed <code>IdealMedium</code> from <code>Modelica.Media.Air.MoistAir</code>
 to <code>Buildings.Media.GasesConstantDensity.MoistAir</code> as the old declaration
 leads to an error if the model is checked in pedantic mode in Dymola 2014.
 </li>
 <li>
-May 12, 2008, by Michael Wetter:<br>
+May 12, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

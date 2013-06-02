@@ -20,7 +20,7 @@ For the xml file name, on Windows use two backslashes to separate directories, i
 revisions="<html>
 <ul>
 <li>
-May 5, 2009, by Michael Wetter:<br>
+May 5, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

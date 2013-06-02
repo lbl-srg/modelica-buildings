@@ -311,14 +311,14 @@ This model tests the exterior construction with two windows.
 </html>", revisions="<html>
 <ul>
 <li>
-March 7, 2012, by Michael Wetter:<br>
+March 7, 2012, by Michael Wetter:<br/>
 Updated example to use new data model 
 <a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow\">
 Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow</a>
 in model for boundary conditions.
 </li>
 <li>
-December 6, 2010, by Michael Wetter:<br>
+December 6, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

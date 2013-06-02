@@ -29,7 +29,7 @@ Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
 revisions="<html>
 <ul>
 <li>
-February 12, 2011, by Michael Wetter:<br>
+February 12, 2011, by Michael Wetter:<br/>
 First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>

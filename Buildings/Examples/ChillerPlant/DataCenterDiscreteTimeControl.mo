@@ -640,19 +640,19 @@ Buildings.Examples.ChillerPlant</a>.
 ", revisions="<html>
 <ul>
 <li>
-December 5, 2012, by Michael Wetter:<br>
+December 5, 2012, by Michael Wetter:<br/>
 Removed the filtered speed calculation for the valves to reduce computing time by 25%.
 </li>
 <li>
-October 16, 2012, by Wangda Zuo:<br>
+October 16, 2012, by Wangda Zuo:<br/>
 Reimplemented the controls.
 </li>
 <li>
-July 20, 2011, by Wangda Zuo:<br>
+July 20, 2011, by Wangda Zuo:<br/>
 Added comments and merge to library.
 </li>
 <li>
-January 18, 2011, by Wangda Zuo:<br>
+January 18, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

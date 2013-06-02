@@ -47,16 +47,16 @@ TwoWayValveEqualPercentage</a>.
 revisions="<html>
 <ul>
 <li>
-March 30, 2011 by Michael Wetter:<br>
+March 30, 2011 by Michael Wetter:<br/>
 Removed inputs for which no derivative is implemented from the argument list, and added
 <code>zeroDerivative</code> keyword in function that calls this function.
 </li>
 <li>
-February 4, 2010 by Michael Wetter:<br>
+February 4, 2010 by Michael Wetter:<br/>
 Fixed implementation of derivative function.
 </li>
 <li>
-June 6, 2008 by Michael Wetter:<br>
+June 6, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

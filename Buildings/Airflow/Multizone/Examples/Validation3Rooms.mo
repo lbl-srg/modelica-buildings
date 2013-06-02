@@ -256,7 +256,7 @@ This is a model of three rooms that exchange air among each based
 on density difference between the air in the rooms and the outside.
 The model implements the configuration shown below.</p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Airflow/Multizone/Examples/3roomValidation.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/Airflow/Multizone/Examples/3roomValidation.png\" border=\"1\" alt=\"Configuration of the three rooms.\"/>
 </p>
 <p>
 This model has been used for a comparative model validation between CONTAM and

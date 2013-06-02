@@ -49,11 +49,11 @@ At the beginning of the simulation, this block outputs the time that has elapsed
 </html>", revisions="<html>
 <ul>
 <li>
-January 4, 2011, by Wangda Zuo and Michael Wetter:<br>
+January 4, 2011, by Wangda Zuo and Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-February 12, 2009, by Michael Wetter:<br>
+February 12, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

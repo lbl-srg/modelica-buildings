@@ -114,7 +114,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chil
     Documentation(revisions="<html>
 <ul>
 <li>
-March 26, 2013 by Michael Wetter:<br>
+March 26, 2013 by Michael Wetter:<br/>
 Removed assignment of parameter that had attribute <code>fixed=false</code>.
 </li>
 </ul>

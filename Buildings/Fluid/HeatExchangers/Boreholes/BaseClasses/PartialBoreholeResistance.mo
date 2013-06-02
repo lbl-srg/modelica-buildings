@@ -97,7 +97,7 @@ Partial model for the thermal resistance of the borehole.
 </html>", revisions="<html>
 <ul>
 <li>
-September 9 2011, by Michael Wetter:<br>
+September 9 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

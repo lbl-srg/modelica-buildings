@@ -78,28 +78,28 @@ the head or the mass flow rate.
       revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
-October 11, 2012, by Michael Wetter:<br>
+October 11, 2012, by Michael Wetter:<br/>
 Added implementation of <code>WFlo = eta * P</code> with
 guard against division by zero.
 </li>
 <li>
-May 25, 2011, by Michael Wetter:<br>
+May 25, 2011, by Michael Wetter:<br/>
 Revised implementation of energy balance to avoid having to use conditionally removed models.
 </li>
 <li>
-November 11, 2010, by Michael Wetter:<br>
+November 11, 2010, by Michael Wetter:<br/>
 Changed <code>V_flow_max=m_flow_nominal/rho_nominal;</code> to <code>V_flow_max=m_flow_max/rho_nominal;</code>
 </li>
 <li>
-July 27, 2010, by Michael Wetter:<br>
+July 27, 2010, by Michael Wetter:<br/>
 Redesigned model to fix bug in medium balance.
 </li>
 <li>
-March 24, 2010, by Michael Wetter:<br>
+March 24, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

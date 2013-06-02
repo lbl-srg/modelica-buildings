@@ -99,7 +99,7 @@ Publication of the National Water Well Association.
 revisions="<html>
 <ul>
 <li>
-July 27, 2011, by Pierre Vigouroux:<br>
+July 27, 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

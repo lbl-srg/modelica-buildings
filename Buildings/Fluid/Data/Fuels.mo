@@ -45,7 +45,7 @@ This is a generic record where the fuel properties need to be specified by the u
 </html>", revisions="<html>
 <ul>
 <li>
-December 22, 2011, by Michael Wetter:<br>
+December 22, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -64,7 +64,7 @@ that are released per kilogram fuel that is burnt.
 </html>", revisions="<html>
 <ul>
 <li>
-December 22, 2011, by Michael Wetter:<br>
+December 22, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

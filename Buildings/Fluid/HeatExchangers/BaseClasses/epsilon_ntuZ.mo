@@ -47,7 +47,7 @@ This function computes the heat exchanger effectiveness for a given number of tr
 revisions="<html>
 <ul>
 <li>
-February 11, 2010, by Michael Wetter:<br>
+February 11, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -49,19 +49,19 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 revisions="<html>
 <ul>
 <li>
-August 10, 2011, by Michael Wetter:<br>
+August 10, 2011, by Michael Wetter:<br/>
 Removed <code>if-then</code> optimization that set <code>dp=0</code> if <code>m_flow=0</code>,
 as this causes the derivative to be discontinuous at <code>m_flow=0</code>.
 </li>
 <li>
-August 4, 2011, by Michael Wetter:<br>
+August 4, 2011, by Michael Wetter:<br/>
 Removed option to use a linear function. The linear implementation is now done
 in models that call this function. With the previous implementation, 
 the symbolic processor may not rearrange the equations, which can lead 
 to coupled equations instead of an explicit solution.
 </li>
 <li>
-April 13, 2009, by Michael Wetter:<br>
+April 13, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -81,11 +81,11 @@ Solar Energy, 39(4): 301-305.
 ", revisions="<html>
 <ul>
 <li>
-June 6, 2012, by Wangda Zuo:<br>
+June 6, 2012, by Wangda Zuo:<br/>
 Added contributions from sky and ground that were separated in base class.
 </li>
 <li>
-May 24, 2010, by Wangda Zuo:<br>
+May 24, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

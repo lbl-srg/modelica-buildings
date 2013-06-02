@@ -17,7 +17,7 @@ Buildings.Examples.ChillerPlant</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-December 5, 2012, by Michael Wetter:<br>
+December 5, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

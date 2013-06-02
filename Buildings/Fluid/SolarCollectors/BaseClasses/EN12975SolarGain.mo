@@ -82,13 +82,13 @@ this model uses a coefficient from test data to for diffuse radiation.
 
 <h4>References</h4>
 <p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br>
+<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br/>
 CEN 2006, European Standard 12975-1:2006, European Committee for Standardization 
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-Jan 15, 2013, by Peter Grant:<br>
+Jan 15, 2013, by Peter Grant:<br/>
 First implementation
 </li>
 </ul>

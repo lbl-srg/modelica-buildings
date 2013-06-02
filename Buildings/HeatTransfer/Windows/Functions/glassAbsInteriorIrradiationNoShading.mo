@@ -48,7 +48,7 @@ Buildings.HeatTransfer.Windows.Functions.glassAbsInterirorIrradiationNoShading</
 </html>", revisions="<html>
 <ul>
 <li>
-September 7, 2010, by Wangda Zuo:<br>
+September 7, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

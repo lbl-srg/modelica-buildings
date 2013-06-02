@@ -4,6 +4,6 @@ extends Modelica.Icons.MaterialPropertiesPackage;
 
 
 annotation (Documentation(info="<html>
-Package with performance data for solar thermal collectors.<br>
+Package with performance data for solar thermal collectors.<br/>
 </html>"));
 end Data;

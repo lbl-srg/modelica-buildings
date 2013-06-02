@@ -1011,11 +1011,11 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 ", revisions="<html>
 <ul>
 <li>
-May 2, 2013, by Michael Wetter:<br>
+May 2, 2013, by Michael Wetter:<br/>
 Added function call to <code>getAbsolutePath</code>.
 </li>
 <li>
-October 16, 2012, by Michael Wetter:<br>
+October 16, 2012, by Michael Wetter:<br/>
 Added computation of the wet bulb temperature.
 Computing the wet bulb temperature introduces a nonlinear
 equation. As we have not observed an increase in computing time
@@ -1026,60 +1026,60 @@ wet bulb temperature can be removed.
 Revised documentation.
 </li>
 <li>
-August 11, 2012, by Wangda Zuo:<br>
+August 11, 2012, by Wangda Zuo:<br/>
 Renamed <code>radHor</code> to <code>radHorIR</code> and 
 improved the optional inputs for radiation data.
 </li>
 <li>
-July 24, 2012, by Wangda Zuo:<br>
+July 24, 2012, by Wangda Zuo:<br/>
 Corrected the notes of SI unit requirements for input files.
 </li>
 <li>
-July 13, 2012, by Michael Wetter:<br>
+July 13, 2012, by Michael Wetter:<br/>
 Removed assignment of <code>HGloHor_in</code> in its declaration,
 because this gives an overdetermined system if the input connector
 is used.
 Removed non-required assignments of attribute <code>displayUnit</code>.
 </li>
 <li>
-February 25, 2012, by Michael Wetter:<br>
+February 25, 2012, by Michael Wetter:<br/>
 Added subbus for solar position, which is needed by irradition and
 shading model.
 </li>
 <li>
-November 29, 2011, by Michael Wetter:<br>
+November 29, 2011, by Michael Wetter:<br/>
 Fixed wrong display unit for <code>pAtm_in_internal</code> and 
 made propagation of parameter final.
 </li>
 <li>
-October 27, 2011, by Wangda Zuo:<br>
-1. Added optional connectors for dry bulb temperature, relative humidity, wind speed, wind direction, global horizontal radiation, diffuse horizontal radiation.<br>
+October 27, 2011, by Wangda Zuo:<br/>
+1. Added optional connectors for dry bulb temperature, relative humidity, wind speed, wind direction, global horizontal radiation, diffuse horizontal radiation.<br/>
 2. Separate the unit convertion for TMY3 data and data validity check. 
 </li>
 <li>
-October 3, 2011, by Michael Wetter:<br>
+October 3, 2011, by Michael Wetter:<br/>
 Propagated value for sky temperature calculation to make it accessible as a parameter.
 </li>
 <li>
-July 20, 2011, by Michael Wetter:<br>
+July 20, 2011, by Michael Wetter:<br/>
 Added the option to use a constant, an input signal or the weather file as the source
 for the atmospheric pressure.
 </li><li>
-March 15, 2011, by Wangda Zuo:<br>
+March 15, 2011, by Wangda Zuo:<br/>
 Delete the wet bulb temperature since it may cause numerical problem.
 </li>
 <li>
-March 7, 2011, by Wangda Zuo:<br>
+March 7, 2011, by Wangda Zuo:<br/>
 Added wet bulb temperature. Changed reader to read only needed columns. 
 Added explanation for 30 minutes shift for radiation data.  
 </li>
 <li>
-March 5, 2011, by Michael Wetter:<br>
+March 5, 2011, by Michael Wetter:<br/>
 Changed implementation to obtain longitude and time zone directly
 from weather file.
 </li>
 <li>
-June 25, 2010, by Wangda Zuo:<br>
+June 25, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

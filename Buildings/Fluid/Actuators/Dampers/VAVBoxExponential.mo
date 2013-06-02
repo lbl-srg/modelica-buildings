@@ -37,28 +37,28 @@ does not include the flow resistance of the air damper.
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
-April 13, 2010 by Michael Wetter:<br>
+April 13, 2010 by Michael Wetter:<br/>
 Added <code>noEvent</code> to guard evaluation of the square root
 for negative numbers during the solver iterations.
 </li>
 <li>
-June 10, 2008 by Michael Wetter:<br>
+June 10, 2008 by Michael Wetter:<br/>
 Introduced new partial base class, 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
 PartialDamperExponential</a>.
 </li>
 <li>
-September 11, 2007 by Michael Wetter:<br>
+September 11, 2007 by Michael Wetter:<br/>
 Redefined <code>kRes</code>, now the pressure drop of the fully open damper is subtracted from the fixed resistance.
 <li>
-February 24, 2010 by Michael Wetter:<br>
+February 24, 2010 by Michael Wetter:<br/>
 Added parameter <code>dp_nominalIncludesDamper</code>.
 <li>
-July 27, 2007 by Michael Wetter:<br>
+July 27, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

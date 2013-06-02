@@ -41,7 +41,7 @@ improving the numerical efficiency.
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2013, by Michael Wetter:<br>
+March 29, 2013, by Michael Wetter:<br/>
 Changed the parameter <code>initType</code> to
 <code>Modelica.Blocks.Types.Init.InitialState</code>.
 This allows a pedantic model check in Dymola 2014 of models that instanciate sensors
@@ -49,7 +49,7 @@ but do not set this parameter. It also ensures that different Modelica simulator
 the same initialization problem.
 </li>
 <li>
-July 7, 2011, by Michael Wetter:<br>
+July 7, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

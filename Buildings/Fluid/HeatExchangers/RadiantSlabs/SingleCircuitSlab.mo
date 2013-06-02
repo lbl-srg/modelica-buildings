@@ -333,17 +333,17 @@ plane with the pipes and the construction surfaces, <code>con_a</code> and <code
 revisions="<html>
 <ul>
 <li>
-February 27, 2013, by Michael Wetter:<br>
+February 27, 2013, by Michael Wetter:<br/>
 Fixed bug in the assignment of the fictitious thermal resistance by replacing
 <code>RFic[nSeg](each G=A/Rx)</code> with
 <code>RFic[nSeg](each G=A/nSeg/Rx)</code>.
 </li>
 <li>
-April 5, 2012, by Michael Wetter:<br>
+April 5, 2012, by Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-April 3, 2012, by Xiufeng Pang:<br>
+April 3, 2012, by Xiufeng Pang:<br/>
 First implementation.
 </li>
 </ul>

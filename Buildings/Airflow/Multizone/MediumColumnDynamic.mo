@@ -192,15 +192,15 @@ at the top of the column.
 </html>",
 revisions="<html>
 <ul>
-<li><i>July 31, 2011</i> by Michael Wetter:<br>
+<li><i>July 31, 2011</i> by Michael Wetter:<br/>
 Changed model to use new base class 
 <a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
-<li><i>May 25, 2011</i> by Michael Wetter:<br>
+<li><i>May 25, 2011</i> by Michael Wetter:<br/>
        Added <code>m_flow_nominal</code>, which is used if component is configured as steady-state.
 </li>
-<li><i>July 28, 2010</i> by Michael Wetter:<br>
+<li><i>July 28, 2010</i> by Michael Wetter:<br/>
        Released first version.
 </li>
 </ul>

@@ -24,7 +24,7 @@ The nominal value is set to <i>&sigma; T<sup>4</sup> = &sigma; 293.15<sup>4</sup
 revisions="<html>
 <ul>
 <li>
-September 3, 2010, by Michael Wetter:<br>
+September 3, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

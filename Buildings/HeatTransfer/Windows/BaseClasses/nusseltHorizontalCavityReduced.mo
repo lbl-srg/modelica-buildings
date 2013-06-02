@@ -46,7 +46,7 @@ shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
-December 9, 2010, by Michael Wetter:<br>
+December 9, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

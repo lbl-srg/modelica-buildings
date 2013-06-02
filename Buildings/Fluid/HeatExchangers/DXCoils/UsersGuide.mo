@@ -165,7 +165,7 @@ If there is reverse flow, then no cooling is provided and no power is consumed.
 </html>", revisions="<html>
 <ul>
 <li>
-September 24, 2012 by Michael Wetter:<br>
+September 24, 2012 by Michael Wetter:<br/>
 First implementation. 
 </li>
 </ul>

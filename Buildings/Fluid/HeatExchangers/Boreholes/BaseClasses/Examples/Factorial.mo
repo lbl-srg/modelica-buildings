@@ -21,7 +21,7 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.factorial</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-August 2011, by Pierre Vigouroux:<br>
+August 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

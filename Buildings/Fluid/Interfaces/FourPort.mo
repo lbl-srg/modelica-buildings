@@ -89,12 +89,12 @@ Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 </html>", revisions="<html>
 <ul>
 <li>
-September 17, 2010 by Michael Wetter:<br>
+September 17, 2010 by Michael Wetter:<br/>
 Fixed bug: The start value for <code>port_b1.h_outflow</code>
 was set to <code>h_outflow_b2_start</code> instead of <code>h_outflow_b1_start</code>.
 </li>
 <li>
-February 26, 2010 by Michael Wetter:<br>
+February 26, 2010 by Michael Wetter:<br/>
 Added start values for outflowing enthalpy because they 
 are often iteration variables in nonlinear equation systems.
 </li>

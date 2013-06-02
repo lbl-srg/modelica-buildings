@@ -25,7 +25,7 @@ defaultComponentName="radSpl",
 <p>
 This blocks splits the incoming radiosity into two fluxes according to
 <p align=\"center\" style=\"font-style:italic;\">
-  J<sub>Out,1</sub> = - u J<sub>In</sub>,<br>
+  J<sub>Out,1</sub> = - u J<sub>In</sub>,<br/>
   J<sub>Out,2</sub> = - (1-u)  J<sub>In</sub>.
 </p>
 The minus sign on the left hand side is because <i>J<sub>In</sub></i>
@@ -40,7 +40,7 @@ non-shaded part.
 ", revisions="<html>
 <ul>
 <li>
-October 23 2010, by Michael Wetter:<br>
+October 23 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

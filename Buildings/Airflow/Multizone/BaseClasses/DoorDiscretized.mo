@@ -102,21 +102,21 @@ using the model for a door that can be open or closed.
 revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
-<li><i>December 6, 2011</i> by Michael Wetter:<br>
+<li><i>December 6, 2011</i> by Michael Wetter:<br/>
        Removed protected variable <code>rhoAve</code>.
 </li>
-<li><i>August 12, 2011</i> by Michael Wetter:<br>
+<li><i>August 12, 2011</i> by Michael Wetter:<br/>
        Changed model to use the new function 
        <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
        Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
 </li>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
+<li><i>July 20, 2010</i> by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>
-<li><i>February 8, 2005</i> by Michael Wetter:<br>
+<li><i>February 8, 2005</i> by Michael Wetter:<br/>
        Released first version.
 </ul>
 </html>"));

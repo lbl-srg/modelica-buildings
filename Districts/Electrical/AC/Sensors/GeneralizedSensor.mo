@@ -6,7 +6,6 @@ model GeneralizedSensor
             80,-20},{120,20}})));
 equation
 
-
   connect(sPhasePlug.p, loads.p) annotation (Line(
       points={{-100,8.88178e-16},{0,8.88178e-16},{0,4.44089e-16},{100,
           4.44089e-16}},

@@ -26,7 +26,7 @@ This component computes the direct solar irradiation on a tilted surface.
 ", revisions="<html>
 <ul>
 <li>
-May 24, 2010, by Wangda Zuo:<br>
+May 24, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

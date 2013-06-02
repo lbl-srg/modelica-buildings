@@ -76,11 +76,11 @@ This is a simplified room model for a data center. There is no heat exchange bet
 </p></html>", revisions="<html>
 <ul>
 <li>
-July 21, 2011 by Wangda Zuo:<br>
+July 21, 2011 by Wangda Zuo:<br/>
 Merge to library.
 </li>
 <li>
-December 10, 2010 by Wangda Zuo:<br>
+December 10, 2010 by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

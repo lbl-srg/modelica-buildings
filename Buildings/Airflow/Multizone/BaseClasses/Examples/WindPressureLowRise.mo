@@ -22,7 +22,7 @@ function.
 </html>", revisions="<html>
 <ul>
 <li>
-October 27, 2011, by Michael Wetter:<br>
+October 27, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

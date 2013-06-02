@@ -116,7 +116,7 @@ connector variables are not used.
 </html>", revisions="<html>
 <ul>
 <li>
-April 19, 2013 by Michael Wetter:<br>
+April 19, 2013 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

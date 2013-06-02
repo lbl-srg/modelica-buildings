@@ -315,7 +315,7 @@ Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-September 16, 2010, by Michael Wetter:<br>
+September 16, 2010, by Michael Wetter:<br/>
 Removed the <code>stateSelect</code> assignment in <pre>
 BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else
@@ -334,7 +334,7 @@ if the <code>stateSelect</code> is not set to <code>StateSelect.prefer</code>
 for steady-state models.
 </li>
 <li>
-August 2, 2011, by Michael Wetter:<br>
+August 2, 2011, by Michael Wetter:<br/>
 <ul>
 <li>
 Made a new copy from the Modelica Standard Library since

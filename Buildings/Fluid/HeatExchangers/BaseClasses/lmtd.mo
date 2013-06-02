@@ -25,7 +25,7 @@ Note that the implementation requires the temperature differences to be non-zero
 revisions="<html>
 <ul>
 <li>
-May 28, 2010, by Michael Wetter:<br>
+May 28, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

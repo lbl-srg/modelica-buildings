@@ -43,11 +43,11 @@ Buildings.Utilities.Math.Functions.spliceFunction</a>.
 revisions="<html>
 <ul>
 <li>
-May 10, 2013, by Michael Wetter:<br>
+May 10, 2013, by Michael Wetter:<br/>
 Reformulated implementation to avoid unrequired computations.
 </li>
 <li>
-April 7, 2009, by Michael Wetter:<br>
+April 7, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

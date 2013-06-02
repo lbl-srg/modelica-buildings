@@ -221,7 +221,7 @@ been deleted as these can cause division by zero in some fluid flow models.
 </HTML>",revisions="<html>
 <ul>
 <li>
-March 29 2011, by Michael Wetter:<br>
+March 29 2011, by Michael Wetter:<br/>
 First implementation based on <a href=\"modelica:Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow\">
 Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a>.
 </li>
@@ -297,7 +297,7 @@ been deleted as these can cause division by zero in some fluid flow models.
 ",revisions="<html>
 <ul>
 <li>
-March 29 2011, by Michael Wetter:<br>
+March 29 2011, by Michael Wetter:<br/>
 First implementation based on <a href=\"modelica:Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\">
 Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>.
 </li>

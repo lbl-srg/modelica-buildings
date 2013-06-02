@@ -184,7 +184,7 @@ Model of a heat exchanger without humidity condensation.
 This model transfers heat in the amount of 
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  Q = Q<sub>max</sub>  &epsilon;<br>
+  Q = Q<sub>max</sub>  &epsilon;<br/>
   &epsilon; = f(NTU, Z, flowRegime),
 </p>
 <p>
@@ -213,7 +213,7 @@ instead of this model.
 </html>", revisions="<html>
 <ul>
 <li>
-February 12, 2010, by Michael Wetter:<br>
+February 12, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
