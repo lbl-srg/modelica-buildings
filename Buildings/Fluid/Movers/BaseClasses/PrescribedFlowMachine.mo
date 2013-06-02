@@ -46,14 +46,14 @@ or the normalized pump speed <code>y=Nrpm/N_nominal</code>.
       revisions="<html>
 <ul>
 <li>
-May 25, 2011, by Michael Wetter:<br>
+May 25, 2011, by Michael Wetter:<br/>
 Revised implementation of energy balance to avoid having to use conditionally removed models.
 </li>
 <li>
-July 27, 2010, by Michael Wetter:<br>
+July 27, 2010, by Michael Wetter:<br/>
 Redesigned model to fix bug in medium balance.
 </li>
-<li>March 24 2010, by Michael Wetter:<br>
+<li>March 24 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

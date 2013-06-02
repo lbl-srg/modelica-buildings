@@ -29,11 +29,11 @@ See the package <code>Examples</code> for the graph.
 </html>", revisions="<html>
 <ul>
 <li>
-May 10, 2013, by Michael Wetter:<br>
+May 10, 2013, by Michael Wetter:<br/>
 Reformulated implementation to avoid unrequired computations.
 </li>
 <li>
-April 18, 2011, by Michael Wetter:<br>
+April 18, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -484,11 +484,11 @@ are corrected by dividing them by
 revisions="<html>
 <ul>
 <li>
-September 4, 2012 by Michael Wetter:<br>
+September 4, 2012 by Michael Wetter:<br/>
 Modified example to avoid having to access protected data.
 </li>
 <li>
-August 20, 2012 by Kaustubh Phalak:<br>
+August 20, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

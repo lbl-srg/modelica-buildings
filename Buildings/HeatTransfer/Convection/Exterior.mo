@@ -207,13 +207,13 @@ Engineering Research Laboratory, Champaign, IL.
 </html>", revisions="<html>
 <ul>
 <li>
-November 29, 2011, by Michael Wetter:<br>
+November 29, 2011, by Michael Wetter:<br/>
 Fixed error in assignment of wind-based convection coefficient. 
 The old implementation did not take into account the surface roughness.
 Bug fix is due to feedback from Tobias Klingbeil (Fraunhofer ISE).
 </li>
 <li>
-March 10 2010, by Michael Wetter:<br>
+March 10 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -21,7 +21,7 @@ to produce a response as shown in the figure below in which the sampling
 interval is <i>0.1</i> second, as indicated by the markers.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/Discrete/Examples/BooleanDelay.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/Discrete/Examples/BooleanDelay.png\" border=\"1\" alt=\"Input and output of the boolean delay.\"/>
 </p>
 </html>", revisions="<html>
 <ul>

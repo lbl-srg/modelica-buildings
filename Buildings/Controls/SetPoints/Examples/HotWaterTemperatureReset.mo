@@ -61,7 +61,7 @@ an outside temperature of
 The figure below shows the computed supply and return water temperatures.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/SetPoints/Examples/HotWaterTemperatureReset.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/SetPoints/Examples/HotWaterTemperatureReset.png\" border=\"1\" alt=\"Supply and return water temperatures.\"/>
 </p>
 </html>", revisions="<html>
 <ul>

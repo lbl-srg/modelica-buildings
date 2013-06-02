@@ -73,13 +73,13 @@ This is handled internally and not exposed to the global solver.
 revisions="<html>
 <ul>
 <li>
-August 10, 2011, by Michael Wetter:<br>
+August 10, 2011, by Michael Wetter:<br/>
 Changed implementation to use 
 <code>Modelica.Media.Common.OneNonLinearEquation</code> instead of
 <code>Buildings.Utilities.Math.BaseClasses.OneNonLinearEquation</code>.
 </li>
 <li>
-February 11, 2010, by Michael Wetter:<br>
+February 11, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -159,7 +159,7 @@ short-cycles.
 revisions="<html>
 <ul>
 <li>
-August 23, 2012 by Michael Wetter:<br>
+August 23, 2012 by Michael Wetter:<br/>
 First implementation. 
 </li>
 </ul>

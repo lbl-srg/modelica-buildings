@@ -41,7 +41,7 @@ Buildings.Utilities.Math.Functions.Examples.CubicHermite</a>.
 revisions="<html>
 <ul>
 <li>
-September 27, 2011 by Michael Wetter:<br>
+September 27, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

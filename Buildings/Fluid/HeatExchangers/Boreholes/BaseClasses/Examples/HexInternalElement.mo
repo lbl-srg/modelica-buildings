@@ -64,7 +64,7 @@ The borehole is constitued with two pipes that are symetricaly spaced in the bor
 </html>", revisions="<html>
 <ul>
 <li>
-August 2011, by Pierre Vigouroux:<br>
+August 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

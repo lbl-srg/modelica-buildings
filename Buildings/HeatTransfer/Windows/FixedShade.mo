@@ -270,21 +270,21 @@ Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 revisions="<html>
 <ul>
 <li>
-July 7, 2012, by Michael Wetter:<br>
+July 7, 2012, by Michael Wetter:<br/>
 Renamed model from <code>Shade</code> to <code>FixedShade</code> because
 shade is already used for window interior and exterior shades.
 </li><li>
-July 5, 2012, by Michael Wetter:<br>
+July 5, 2012, by Michael Wetter:<br/>
 Moved model from package <code>Buildings.Rooms.BaseClasses</code> to 
 <code>Buildings.HeatTransfer.Windows</code>, because the overhang and side fin
 models are also in this package.
 </li>
 <li>
-May 21, 2012, by Kaustubh Phalak:<br>
+May 21, 2012, by Kaustubh Phalak:<br/>
 Enabled the model to use overhang and side at the same time. 
 </li>
 <li>
-March 5, 2012, by Michael Wetter:<br>
+March 5, 2012, by Michael Wetter:<br/>
 First implementation. 
 </li>
 

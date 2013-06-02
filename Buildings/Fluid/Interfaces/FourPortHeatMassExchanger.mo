@@ -216,11 +216,11 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-February 6, 2012, by Michael Wetter:<br>
+February 6, 2012, by Michael Wetter:<br/>
 Updated documentation.
 </li>
 <li>
-February 3, 2012, by Michael Wetter:<br>
+February 3, 2012, by Michael Wetter:<br/>
 Removed assignment of <code>m_flow_small</code> as it is no
 longer used in its base class.
 </li>
@@ -241,20 +241,20 @@ Set nominal values for <code>vol1.C</code> and <code>vol2.C</code>.
 </ul>
 </li>
 <li>
-July 11, 2011, by Michael Wetter:<br>
+July 11, 2011, by Michael Wetter:<br/>
 Changed parameterization of fluid volume so that steady-state balance is
 used when <code>tau = 0</code>.
 </li>
 <li>
-March 25, 2011, by Michael Wetter:<br>
+March 25, 2011, by Michael Wetter:<br/>
 Added homotopy operator.
 </li>
 <li>
-April 13, 2009, by Michael Wetter:<br>
+April 13, 2009, by Michael Wetter:<br/>
 Added model to compute flow friction.
 </li>
 <li>
-September 10, 2008 by Michael Wetter:<br>
+September 10, 2008 by Michael Wetter:<br/>
 Added <code>stateSelect=StateSelect.always</code> for temperature of volume 1.
 </li>
 <li>
@@ -262,13 +262,13 @@ Changed temperature sensor from Celsius to Kelvin.
 Unit conversion should be made during output
 processing.
 <li>
-August 5, 2008, by Michael Wetter:<br>
+August 5, 2008, by Michael Wetter:<br/>
 Replaced instances of <code>Delays.DelayFirstOrder</code> with instances of
 <code>MixingVolumes.MixingVolume</code>. This allows to extract liquid for a condensing cooling
 coil model.
 </li>
 <li>
-March 25, 2008, by Michael Wetter:<br>
+March 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -116,7 +116,7 @@ This example tests the convective heat transfer models.
 </html>", revisions="<html>
 <ul>
 <li>
-March 9 2010, by Michael Wetter:<br>
+March 9 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

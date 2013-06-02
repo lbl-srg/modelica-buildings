@@ -235,28 +235,28 @@ is set set to <i>h' = k &nbsp; h</i>, where <i>0 &le; k &le; 1</i> is a paramete
 <h4>References</h4>
 <ul>
 <li>
-Jon L. Wright.<br>
+Jon L. Wright.<br/>
 Calculating Center-Glass Performance Indices
-of Glazing Systems with Shading Devices.<br>
+of Glazing Systems with Shading Devices.<br/>
 <i>ASHRAE Transactions</i>, SL-08-020. 2008.
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
 <li>
-April 2, 2011 by Michael Wetter:<br>
+April 2, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-February 3, by Michael Wetter:<br>
+February 3, by Michael Wetter:<br/>
 Corrected bug in start value of radiosity port and in heat balance of shade.
 </li>
 <li>
-January 28 2011, by Michael Wetter:<br>
+January 28 2011, by Michael Wetter:<br/>
 Fixed computation of convective heat balance between air, shade and glass.
 </li>
 <li>
-November 3 2010, by Michael Wetter:<br>
+November 3 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

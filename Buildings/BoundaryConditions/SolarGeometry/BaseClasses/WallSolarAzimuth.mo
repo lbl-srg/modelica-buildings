@@ -51,19 +51,19 @@ In the northern hemisphere at solar noon, the value of the wall solar azimuth an
 ", revisions="<html>
 <ul>
 <li>
-July 5, 2012, by Michael Wetter:<br>
+July 5, 2012, by Michael Wetter:<br/>
 Decreased <code>deltaX</code> from <i>1e-3</i> to <i>1e-4</i>, as
 the looser tolerance gives sharp changes in 
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang\">
 Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang</a>.
 </li>
 <li>
-February 23, 2012, by Michael Wetter:<br>
+February 23, 2012, by Michael Wetter:<br/>
 Guarded against division by zero because the altitude angle can be <i>90</i> degree
 in the tropics, and hence its cosine can take on zero.
 </li>
 <li>
-Feb 01, 2012, by Kaustubh Phalak<br>
+Feb 01, 2012, by Kaustubh Phalak<br/>
 First implementation.
 </li>
 </ul>

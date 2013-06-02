@@ -259,15 +259,15 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
 revisions="<html>
 <ul>
 <li>
-May 10, 2013 by Michael Wetter:<br>
+May 10, 2013 by Michael Wetter:<br/>
 Added electric power <code>P</code> as an output signal.
 </li>
 <li>
-October 11, 2010 by Michael Wetter:<br>
+October 11, 2010 by Michael Wetter:<br/>
 Fixed bug in energy balance.
 </li>
 <li>
-March 3, 2009 by Michael Wetter:<br>
+March 3, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -53,7 +53,7 @@ This is the base record for chiller models.
   revisions="<html>
 <ul>
 <li>
-September 15, 2010, by Michael Wetter:<br>
+September 15, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -98,7 +98,7 @@ Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-September 17, 2010 by Michael Wetter:<br>
+September 17, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

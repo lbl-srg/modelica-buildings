@@ -11,8 +11,7 @@ package Types "Package with type definitions"
 Enumeration to define the choice of valve flow coefficient
 (to be selected via choices menu):
 </p>
-<p>
-<table border=\"1\">
+<table border=\"1\" summary=\"Explanation of the enumeration\">
 <tr><th>Enumeration</th>
     <th>Description</th></tr>
 <tr><td>fromTop</td>
@@ -29,7 +28,6 @@ to the bottom port.
     <td>Use this setting to use the density based on the actual flow direction. 
 </td></tr>
  </table>
-</p>
 </html>"));
 annotation (preferredView="info", Documentation(info="<html>
 This package contains type definitions.

@@ -194,11 +194,11 @@ corresponding to the temperature <i>T<sub>sur</sub></i> which is an input.
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions and fixed error in the documentation.
 </li>
 <li>
-August 13, 2008 by Michael Wetter:<br>
+August 13, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

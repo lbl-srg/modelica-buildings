@@ -67,7 +67,7 @@ This example tests the temperature boundary condition at the external part of a 
 </html>", revisions="<html>
 <ul>
 <li>
-April 14 2011, by Pierre Vigouroux:<br>
+April 14 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

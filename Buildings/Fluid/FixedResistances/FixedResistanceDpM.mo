@@ -188,11 +188,11 @@ This leads to simpler equations.
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
-January 16, 2012 by Michael Wetter:<br>
+January 16, 2012 by Michael Wetter:<br/>
 To simplify object inheritance tree, revised base classes
 <code>Buildings.Fluid.BaseClasses.PartialResistance</code>,
 <code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
@@ -202,11 +202,11 @@ and model
 <code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code>.
 </li>
 <li>
-May 30, 2008 by Michael Wetter:<br>
+May 30, 2008 by Michael Wetter:<br/>
 Added parameters <code>use_dh</code> and <code>deltaM</code> for easier parameterization.
 </li>
 <li>
-July 20, 2007 by Michael Wetter:<br>
+July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

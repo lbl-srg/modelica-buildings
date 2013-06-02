@@ -37,7 +37,7 @@ Depending on input speed ratio and speed set array the input array <i>u</i> is i
 revisions="<html>
 <ul>
 <li>
-August 24, 2012, by Michael Wetter:<br>
+August 24, 2012, by Michael Wetter:<br/>
 Moved function from 
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</code>
 to 
@@ -49,7 +49,7 @@ already contains a block called
 that do not distinguish between upper and lower case letters.
 </li>
 <li>
-Aug. 9, 2012 by Kaustubh Phalak:<br>
+Aug. 9, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

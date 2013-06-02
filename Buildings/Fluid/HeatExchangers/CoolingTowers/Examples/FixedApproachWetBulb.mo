@@ -31,7 +31,7 @@ outdoor wet-bulb temperature.
 </html>", revisions="<html>
 <ul>
 <li>
-July 12, 2011, by Michael Wetter:<br>
+July 12, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

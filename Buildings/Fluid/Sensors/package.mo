@@ -27,10 +27,10 @@ model the time constant of the sensor).
     <li>adapted documentation to stream connectors, i.e. less need for two port sensors</li>
     </ul>
 <li><i>4 Dec 2008</i>
-    by Michael Wetter<br>
+    by Michael Wetter<br/>
        included sensors for trace substance</li>
 <li><i>31 Oct 2007</i>
-    by Carsten Heinrich<br>
+    by Carsten Heinrich<br/>
        updated sensor models, included one and two port sensors for thermodynamic state variables</li>
 </ul>
 </html>"));

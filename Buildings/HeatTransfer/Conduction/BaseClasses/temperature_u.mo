@@ -52,11 +52,11 @@ to be computed once, whereas <i>T(u)</i> must be evaluated at each time step.
 revisions="<html>
 <ul>
 <li>
-March 9, 2013, by Michael Wetter:<br>
+March 9, 2013, by Michael Wetter:<br/>
 Revised implementation to use new data record.
 </li>
 <li>
-January 19, 2013, by Armin Teskeredzic:<br>
+January 19, 2013, by Armin Teskeredzic:<br/>
 First implementations.
 </li>
 </ul>

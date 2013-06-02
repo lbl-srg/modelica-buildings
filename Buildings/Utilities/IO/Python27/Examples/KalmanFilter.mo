@@ -86,7 +86,7 @@ http://www.scipy.org/Cookbook/KalmanFiltering</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-February 5, 2013, by Michael Wetter:<br>
+February 5, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

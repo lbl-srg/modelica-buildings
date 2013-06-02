@@ -45,7 +45,7 @@ which is typically the case for moist air models.
 ", revisions="<html>
 <ul>
 <li>
-May 12, 2010 by Michael Wetter:<br>
+May 12, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

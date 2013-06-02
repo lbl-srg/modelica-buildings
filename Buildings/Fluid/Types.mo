@@ -88,7 +88,7 @@ Note that for a given heat exchanger, the
 revisions="<html>
 <ul>
 <li>
-February 18, 2009, by Michael Wetter:<br>
+February 18, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

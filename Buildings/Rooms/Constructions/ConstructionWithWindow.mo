@@ -377,7 +377,7 @@ defaultComponentName="conWin",
 Documentation(revisions="<html>
 <ul>
 <li>
-December 6 2010, by Michael Wetter:<br>
+December 6 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

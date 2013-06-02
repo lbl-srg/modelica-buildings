@@ -226,37 +226,37 @@ units are wrong or errors in documentation):
 <tr><td colspan=\"2\"><b>Buildings</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.BoundaryConditions.SkyTemperature.BlackBody<br>
-              Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature<br>
-              Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br>
-              Buildings.Controls.SetPoints.HotWaterTemperatureReset<br>
-              Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch<br>
-              Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl<br>
-              Buildings.Fluid.Boilers.BoilerPolynomial<br>
-              Buildings.Fluid.HeatExchangers.BaseClasses.HexElement<br>
-              Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange<br>
-              Buildings.Fluid.HeatExchangers.BaseClasses.MassExchangeDummy<br>
-              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint<br>
-              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint<br>
-              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity<br>
-              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling<br>
-              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil<br>
-              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector<br>
-              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation<br>
-              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil<br>
-              Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort<br>
-              Buildings.Fluid.Sensors.RelativeTemperature<br>
-              Buildings.Fluid.Sensors.Temperature<br>
-              Buildings.Fluid.Sensors.TemperatureTwoPort<br>
-              Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort<br>
-              Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss<br>
-              Buildings.Utilities.Comfort.Fanger<br>
-              Buildings.Utilities.IO.BCVTB.From_degC<br>
-              Buildings.Utilities.IO.BCVTB.To_degC<br>
-              Buildings.Utilities.Psychrometrics.TDewPoi_pW<br>
-              Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi<br>
-              Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi<br>
-              Buildings.Utilities.Psychrometrics.WetBul_pTX<br>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SkyTemperature.BlackBody<br/>
+              Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature<br/>
+              Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br/>
+              Buildings.Controls.SetPoints.HotWaterTemperatureReset<br/>
+              Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch<br/>
+              Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl<br/>
+              Buildings.Fluid.Boilers.BoilerPolynomial<br/>
+              Buildings.Fluid.HeatExchangers.BaseClasses.HexElement<br/>
+              Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange<br/>
+              Buildings.Fluid.HeatExchangers.BaseClasses.MassExchangeDummy<br/>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint<br/>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint<br/>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity<br/>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling<br/>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil<br/>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector<br/>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation<br/>
+              Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil<br/>
+              Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort<br/>
+              Buildings.Fluid.Sensors.RelativeTemperature<br/>
+              Buildings.Fluid.Sensors.Temperature<br/>
+              Buildings.Fluid.Sensors.TemperatureTwoPort<br/>
+              Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort<br/>
+              Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss<br/>
+              Buildings.Utilities.Comfort.Fanger<br/>
+              Buildings.Utilities.IO.BCVTB.From_degC<br/>
+              Buildings.Utilities.IO.BCVTB.To_degC<br/>
+              Buildings.Utilities.Psychrometrics.TDewPoi_pW<br/>
+              Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi<br/>
+              Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi<br/>
+              Buildings.Utilities.Psychrometrics.WetBul_pTX<br/>
               Buildings.Utilities.Psychrometrics.pW_TDewPoi
     </td>
     <td valign=\"top\">Replaced wrong attribute <code>quantity=\"Temperature\"</code>
@@ -429,7 +429,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Utilities.Diagnostics.AssertEquality<br>
+<tr><td valign=\"top\">Buildings.Utilities.Diagnostics.AssertEquality<br/>
                        Buildings.Utilities.Diagnostics.AssertInequality
     </td>
     <td valign=\"top\">Removed the option to not connect input signals, as this
@@ -468,7 +468,7 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab<br>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab<br/>
                      Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitSlab
     </td>
     <td valign=\"top\">Fixed bug in the assignment of the fictitious thermal resistance by replacing
@@ -481,7 +481,7 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Utilities.Diagnostics.AssertEquality<br>
+<tr><td valign=\"top\">Buildings.Utilities.Diagnostics.AssertEquality<br/>
                        Buildings.Utilities.Diagnostics.AssertInequality
     </td>
     <td valign=\"top\">Replaced <code>when</code> test with <code>if</code> test as
@@ -709,10 +709,10 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachine_dp<br>
-                       Buildings.Fluid.Movers.FlowMachine_m_flow<br>
-                       Buildings.Fluid.Movers.FlowMachine_Nrpm<br>
-                       Buildings.Fluid.Movers.FlowMachine_y<br>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachine_dp<br/>
+                       Buildings.Fluid.Movers.FlowMachine_m_flow<br/>
+                       Buildings.Fluid.Movers.FlowMachine_Nrpm<br/>
+                       Buildings.Fluid.Movers.FlowMachine_y<br/>
     </td>
     <td valign=\"top\">Reformulated implementation of efficiency model
                        to avoid a division by zero at zero mass flow rate 
@@ -743,7 +743,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br> 
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br/> 
                        Buildings.BoundaryConditions.Types
     </td>
     <td valign=\"top\">Improved the optional inputs for the radiation data global horizontal, diffuse horizontal and direct normal radiation. 
@@ -760,18 +760,18 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized<br>
-                     Buildings.Airflow.Multizone.DoorDiscretizedOpen<br>
-                     Buildings.Airflow.Multizone.DoorDiscretizedOperable<br>
-                     Buildings.Airflow.Multizone.Orifice<br>
-                     Buildings.Airflow.Multizone.ZonalFlow_ACS<br>
-                     Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential<br>
-                     Buildings.Fluid.Actuators.Dampers.MixingBox<br>
-                     Buildings.Fluid.Actuators.Dampers.VAVBoxExponential<br>
-                     Buildings.Fluid.BaseClasses.PartialResistance<br>
-                     Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger<br>
-                     Buildings.Fluid.Movers.BaseClasses.PowerInterface<br>
-                     Buildings.Fluid.Storage.BaseClasses.Buoyancy<br>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized<br/>
+                     Buildings.Airflow.Multizone.DoorDiscretizedOpen<br/>
+                     Buildings.Airflow.Multizone.DoorDiscretizedOperable<br/>
+                     Buildings.Airflow.Multizone.Orifice<br/>
+                     Buildings.Airflow.Multizone.ZonalFlow_ACS<br/>
+                     Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential<br/>
+                     Buildings.Fluid.Actuators.Dampers.MixingBox<br/>
+                     Buildings.Fluid.Actuators.Dampers.VAVBoxExponential<br/>
+                     Buildings.Fluid.BaseClasses.PartialResistance<br/>
+                     Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger<br/>
+                     Buildings.Fluid.Movers.BaseClasses.PowerInterface<br/>
+                     Buildings.Fluid.Storage.BaseClasses.Buoyancy<br/>
                      Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange
     </td>
     <td valign=\"top\">Renamed protected parameters for consistency with the naming conventions.
@@ -780,7 +780,7 @@ have been <b style=\"color:blue\">improved</b> in a
                      where computed based on the medium default properties.
     </td>
 </tr>    
-<tr><td valign=\"top\">Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate<br>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate<br/>
                      Buildings.Fluid.Sensors.LatentEnthalpyFlowRate
     </td>
     <td valign=\"top\">Moved computation of parameter <code>i_w</code> to new base class
@@ -797,8 +797,8 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl<br> 
-                       Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond<br>
+<tr><td valign=\"top\">Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl<br/> 
+                       Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond<br/>
                        Buildings.Examples.ChillerPlant.BaseClasses.Controls.ZeroOrderHold
     </td>
     <td valign=\"top\">Re-implemented the controls for setpoint reset. 
@@ -836,7 +836,7 @@ units are wrong or errors in documentation):
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br/>
                        Buildings.BoundaryConditions.SkyTemperature.BlackBody
     </td>
     <td valign=\"top\">Renamed <code>radHor</code> to <code>radHorIR</code>.
@@ -919,8 +919,8 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.FixedShade<br>
-                       Buildings.HeatTransfer.Windows.Overhang<br>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.FixedShade<br/>
+                       Buildings.HeatTransfer.Windows.Overhang<br/>
                        Buildings.HeatTransfer.Windows.SideFins
     </td>
     <td valign=\"top\">For windows with either an overhang or side fins,
@@ -1243,21 +1243,21 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.Exponential<br>
-                       Buildings.Fluid.Actuators.Dampers.VAVBoxExponential<br>
-                       Buildings.Fluid.Actuators.Dampers.MixingBox<br>
-                       Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br>
-                       Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br>
-                       Buildings.Fluid.Actuators.Valves.ThreeWayLinear<br>
-                       Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage<br>
-                       Buildings.Fluid.Actuators.Valves.TwoWayLinear<br>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.Exponential<br/>
+                       Buildings.Fluid.Actuators.Dampers.VAVBoxExponential<br/>
+                       Buildings.Fluid.Actuators.Dampers.MixingBox<br/>
+                       Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br/>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayLinear<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayLinear<br/>
                        Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening
     </td>
     <td valign=\"top\">Added an optional 2nd order lowpass filter for the input signal. 
                        The filter approximates the travel time of the actuators. 
                        It also makes the system of equations easier to solve
                        because a step change in the input signal causes a gradual change in the actuator
-                       position.<br>
+                       position.<br/>
                        Note that this filter affects the time response of closed loop control.
                        Therefore, enabling the filter may require retuning of control loops.
                        See the user's guide of the Buildings.Fluid.Actuators package.
@@ -1268,16 +1268,16 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added computation of fuel usage and improved the documentation.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachine_y<br>
-                       Buildings.Fluid.Movers.FlowMachine_Nrpm<br>
-                       Buildings.Fluid.Movers.FlowMachine_dp<br>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachine_y<br/>
+                       Buildings.Fluid.Movers.FlowMachine_Nrpm<br/>
+                       Buildings.Fluid.Movers.FlowMachine_dp<br/>
                        Buildings.Fluid.Movers.FlowMachine_m_flow
     </td>
     <td valign=\"top\">Added a 2nd order lowpass filter to the input signal. 
                        The filter approximates the startup and shutdown transients of fans or pumps.
                        It also makes the system of equations easier to solve
                        because a step change in the input signal causes a gradual change in the
-                       mass flow rate.<br>
+                       mass flow rate.<br/>
                        Note that this filter affects the time response of closed loop control.
                        Therefore, enabling the filter may require retuning of control loops.
                        See the user's guide of the Buildings.Fluid.Movers package.
@@ -1339,10 +1339,10 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br>
-                       Buildings.Fluid.Actuators.Valves.ThreeWayLinear<br>
-                       Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage<br>
-                       Buildings.Fluid.Actuators.Valves.TwoWayLinear<br>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br/>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayLinear<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayLinear<br/>
                        Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening
     </td>
     <td valign=\"top\">Changed models to allow modeling of a fixed resistance that is 
@@ -1365,7 +1365,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.HeatTransfer.Radiosity.OutdoorRadiosity<br>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Radiosity.OutdoorRadiosity<br/>
                        Buildings.HeatTransfer.Windows.ExteriorHeatTransfer
     </td>
     <td valign=\"top\">Changed model to use new implementation of
@@ -1408,7 +1408,7 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilCounterFlow<br>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilCounterFlow<br/>
                        Buildings.Fluid.HeatExchangers.WetCoilCounterFlow
     </td>
     <td valign=\"top\">Corrected error in assignment of <code>dp2_nominal</code>.
@@ -1755,9 +1755,9 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</td>
     <td valign=\"top\">This model can now be configured as a steady-state or dynamic model.</td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilCounterFlow<br>
-                     Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br>
-                     Buildings.Fluid.HeatExchangers.DryCoilDiscretized<br>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilCounterFlow<br/>
+                     Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
+                     Buildings.Fluid.HeatExchangers.DryCoilDiscretized<br/>
                      Buildings.Fluid.HeatExchangers.WetCoilDiscretized</td>
     <td valign=\"top\">The implementation for handling zero flow rate, if the models
 are used as steady-state models, have been improved.</td>
@@ -1772,7 +1772,7 @@ are used as steady-state models, have been improved.</td>
 
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.CoolingTowers</b></td></tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc<br>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc<br/>
                      Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach</td>
     <td valign=\"top\">
        These models are now based on a new base class <code>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower</code>.
@@ -1840,7 +1840,7 @@ This required the introduction of a new parameter <code>m_flow_nominal</code>
 that is used for the regularization near zero mass flow rate.</td></tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b></td></tr>
-<tr><td valign=\"top\">Buildings.Fluid.Storage.Examples.Stratified<br>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.Examples.Stratified<br/>
                      Buildings.Fluid.MixingVolumes</td>
     <td valign=\"top\">
                      Removed the parameters <code>use_T_start</code> and <code>h_start</code>,
@@ -1858,8 +1858,8 @@ attribute for the mass flow rate in the pressure drop model.</td>
 </tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid.MixingVolumes</b></td></tr>
-<tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.MixingVolume<br>
-                     Buildings.Fluid.MixingVolumes.MixingVolumeDryAir<br>
+<tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.MixingVolume<br/>
+                     Buildings.Fluid.MixingVolumes.MixingVolumeDryAir<br/>
                      Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</td>
     <td valign=\"top\">The implementation has been changed to better handle mass flow rates
 near zero flow if the components have exactly two fluid ports connected.
@@ -1868,9 +1868,9 @@ that is used for the regularization near zero mass flow rate.</td>
 </tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b></td></tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachine_y<br>
-                     Buildings.Fluid.Movers.FlowMachine_Nrpm<br>
-                     Buildings.Fluid.Movers.FlowMachine_dp<br>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachine_y<br/>
+                     Buildings.Fluid.Movers.FlowMachine_Nrpm<br/>
+                     Buildings.Fluid.Movers.FlowMachine_dp<br/>
                      Buildings.Fluid.Movers.FlowMachine_m_flow</td>
     <td valign=\"top\">
                      The performance data are now defined through records and not
@@ -1896,10 +1896,10 @@ that is used for the regularization near zero mass flow rate.</td>
 
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Interfaces</b></td></tr>
-<tr><td valign=\"top\">Buildings.Fluid.Interfaces.FourPortHeatMassExchanger<br>
-                     Buildings.Fluid.Interfaces.PartialDynamicStaticFourPortHeatMassExchanger<br>
-                     Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger<br>
-                     Buildings.Fluid.Interfaces.PartialDynamicStaticTwoPortHeatMassExchanger<br>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.FourPortHeatMassExchanger<br/>
+                     Buildings.Fluid.Interfaces.PartialDynamicStaticFourPortHeatMassExchanger<br/>
+                     Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger<br/>
+                     Buildings.Fluid.Interfaces.PartialDynamicStaticTwoPortHeatMassExchanger<br/>
                      Buildings.Fluid.Interfaces.ConservationEquation</td>
     <td valign=\"top\">The implementation has been changed to better handle mass flow rates
 near zero flow if the components have exactly two fluid ports connected.</td>
@@ -1938,7 +1938,7 @@ near zero flow if the components have exactly two fluid ports connected.</td>
 </tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Reports</b></td></tr>
-<tr><td valign=\"top\">Buildings.Utilities.Reports.Printer<br>
+<tr><td valign=\"top\">Buildings.Utilities.Reports.Printer<br/>
                      Buildings.Utilities.Reports.printRealArray</td>
     <td valign=\"top\">Changed parameter <code>precision</code> to <code>significantDigits</code> and 
                      <code>minimumWidth</code> to <code>minimumLength</code> 
@@ -2380,7 +2380,7 @@ that can lead to wrong simulation results):
       Buildings.Fluid.Storage.StratifiedEnhanced</a>.
       The model 
       <a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
-      Buildings.Fluid.Storage.Stratified</a> was not affected.<br>
+      Buildings.Fluid.Storage.Stratified</a> was not affected.<br/>
       The bug has been fixed by using the newly introduced model
       <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
         Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>. This model
@@ -2879,7 +2879,7 @@ the new medium model
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
 Buildings.Media.GasesPTDecoupled.MoistAir</a>
 has been added.
-<br>
+<br/>
 In addition, this package now contains a bug fix that is needed for Modelica 2.2.1 and 2.2.2.
 The bugs are fixed by using a new
 base class
@@ -3027,14 +3027,14 @@ on the Buildings library.
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Contact</font></h4>
 <p>
-The development of the Buildings library is organized by<br>
-<a href=\"http://simulationresearch.lbl.gov/wetter\">Michael Wetter</a><br>
-    Lawrence Berkeley National Laboratory (LBNL)<br>
-    One Cyclotron Road<br> 
-    Bldg. 90-3147<br>
-    Berkeley, CA 94720<br>
-    USA<br>
-    email: <A HREF=\"mailto:MWetter@lbl.gov\">MWetter@lbl.gov</A><br>
+The development of the Buildings library is organized by<br/>
+<a href=\"http://simulationresearch.lbl.gov/wetter\">Michael Wetter</a><br/>
+    Lawrence Berkeley National Laboratory (LBNL)<br/>
+    One Cyclotron Road<br/> 
+    Bldg. 90-3147<br/>
+    Berkeley, CA 94720<br/>
+    USA<br/>
+    email: <A HREF=\"mailto:MWetter@lbl.gov\">MWetter@lbl.gov</A><br/>
 </p>
 </html>
 "));
@@ -3170,11 +3170,11 @@ To reproduce the Original Work in copies, either alone or as part of a collectio
 To create Derivative Works according to Section 1d) of this License. 
 </li><li>
 To distribute or communicate to the public copies of the <u>Original Work</u> or a <u>Derivative Work</u> under <u>this License</u>. No fee, neither as a copyright-license fee, nor as a selling fee for the copy as such may be charged under this License. Furthermore, a verbatim copy of this License must be included in any copy of the Original Work or a Derivative Work under this License. 
-<br>
+<br/>
 For the matter of clarity, it is permitted A) to distribute or communicate such copies as part of a (possible commercial) collection where other parts are provided under different licenses and a license fee is charged for the other parts only and B) to charge for mere printing and shipping costs. 
 </li><li>
 To distribute or communicate to the public copies of a <u>Derivative Work</u>, alternatively to Section 2c), under <u>any other license</u> of your choice, especially also under a license for commercial/proprietary software, as long as You comply with Sections 3, 4 and 8 below. 
-<br>
+<br/>
 For the matter of clarity, no restrictions regarding fees, either as to a copyright-license fee or as to a selling fee for the copy as such apply. 
 </li><li>
 To perform the Original Work publicly. 

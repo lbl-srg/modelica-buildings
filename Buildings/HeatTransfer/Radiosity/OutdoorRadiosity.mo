@@ -97,15 +97,15 @@ Model for the infrared radiosity balance of the outdoor environment.
 </html>", revisions="<html>
 <ul>
 <li>
-February 10, 2012, by Wangda Zuo:<br>
+February 10, 2012, by Wangda Zuo:<br/>
 Fixed a bug for temperature linearization.
 </li>
 <li>
-February 8, 2012 by Michael Wetter:<br>
+February 8, 2012 by Michael Wetter:<br/>
 Changed implementation to use the same equations as is used for opaque walls.
 </li>
 <li>
-August 18, 2010, by Michael Wetter:<br>
+August 18, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

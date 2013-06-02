@@ -96,15 +96,15 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition</a>.
 revisions="<html>
 <ul>
 <li>
-September 21, 2012 by Michael Wetter:<br>
+September 21, 2012 by Michael Wetter:<br/>
 Revised implementation and documentation.
 </li>
 <li>
-July 4, 2012 by Kaustubh Phalak:<br>
+July 4, 2012 by Kaustubh Phalak:<br/>
 Updated to handle zero mass flow rate and freezing coil condition. 
 </li>
 <li>
-April 9, 2012 by Kaustubh Phalak:<br>
+April 9, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

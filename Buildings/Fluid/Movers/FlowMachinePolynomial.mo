@@ -119,19 +119,19 @@ defaultComponentName="mov",
     Documentation(revisions="<html>
 <ul>
 <li>
-March 27, 2010, by Michael Wetter:<br>
+March 27, 2010, by Michael Wetter:<br/>
 Changed computation of density, which was needed due to changes in its base class.
 </li>
 <li>
-March 11, 2008, by Michael Wetter:<br>
+March 11, 2008, by Michael Wetter:<br/>
 Changed to new base class <code>PartialTwoPortTransformer</code>.
 </li>
 <li>
-October 18, 2007, by Michael Wetter:<br>
+October 18, 2007, by Michael Wetter:<br/>
 Added scaling factors to allow quickly to scale the fan pressure drop and mass flow rate.
 </li>
 <li>
-July 20, 2007, by Michael Wetter:<br>
+July 20, 2007, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

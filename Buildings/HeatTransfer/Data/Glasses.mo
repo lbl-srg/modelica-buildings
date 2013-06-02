@@ -77,11 +77,11 @@ whereas the model in this library uses averages over the whole solar or infrared
   revisions="<html>
 <ul>
 <li>
-December 09, 2011, by Wangda Zuo:<br>
+December 09, 2011, by Wangda Zuo:<br/>
 Compare the variable names with those in Window 6 and correct the variable names <i>Emis1</i> and <i>Emis2</i> in documentation.
 </li>
 <li>
-Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br>
+Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
@@ -138,7 +138,7 @@ which do not yet set the value for the thickness of the gas gap.
 revisions="<html>
 <ul>
 <li>
-September 9, 2010, by Michael Wetter:<br>
+September 9, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
