@@ -1017,15 +1017,15 @@ system.
 </html>", revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Removed assignment of <code>Kv_SI</code> because this is now a protected parameter.
 </li>
 <li>
-December 6, 2011, by Michael Wetter:<br>
+December 6, 2011, by Michael Wetter:<br/>
 Added internal heat gains, which were set to zero in the previous version.
 </li>
 <li>
-January 30, 2009, by Michael Wetter:<br>
+January 30, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

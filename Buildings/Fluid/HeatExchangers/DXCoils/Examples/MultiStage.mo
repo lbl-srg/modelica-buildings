@@ -141,7 +141,7 @@ The model has open-loop control and time-varying input conditions.
 revisions="<html>
 <ul>
 <li>
-July 26, 2012 by Kaustubh Phalak:<br>
+July 26, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

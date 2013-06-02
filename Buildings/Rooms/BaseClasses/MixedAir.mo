@@ -813,11 +813,11 @@ solar absorptivity.
 </html>", revisions="<html>
 <ul>
 <li>
-December 9, 2011, by Michael Wetter:<br>
+December 9, 2011, by Michael Wetter:<br/>
 Reconnected heat ports to clean-up model.
 </li>
 <li>
-November 29, 2011, by Michael Wetter:<br>
+November 29, 2011, by Michael Wetter:<br/>
 Added missing connect statement between window frame
 surface and window frame convection model. Prior to this bug fix,
 no convective heat transfer was computed between window frame and
@@ -825,7 +825,7 @@ room air.
 Bug fix is due to feedback from Tobias Klingbeil (Fraunhofer ISE).
 </li>
 <li>
-November 16 2010, by Michael Wetter:<br>
+November 16 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

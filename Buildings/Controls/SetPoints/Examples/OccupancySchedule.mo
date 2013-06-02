@@ -17,7 +17,7 @@ is decreased. The red line hits zero when the schedule indicates an occupied tim
 and the blue line hits zero when the schedule indicates a non-occupied time.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/SetPoints/Examples/OccupancySchedule.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/SetPoints/Examples/OccupancySchedule.png\" border=\"1\" alt=\"Time until next occupancy.\"/>
 </p>
 </html>", revisions="<html>
 <ul>

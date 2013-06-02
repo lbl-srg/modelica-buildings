@@ -59,7 +59,7 @@ Buildings.Controls.SetPoints.Table tabConExt(constantExtrapolation=true,
 will cause the following output:
 </p>
 <p>
-<img src=\"modelica://Buildings/Resources/Images/Controls/SetPoints/Table.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/SetPoints/Table.png\" border=\"1\" alt=\"Table output.\"/>
 </p>
 <p>
 For the default setting <code>constantExtrapolation=true</code>, the
@@ -75,11 +75,11 @@ Note that the first column must be strictly increasing.
 revisions="<html>
 <ul>
 <li>
-April 5, 2011, by Michael Wetter:<br>
+April 5, 2011, by Michael Wetter:<br/>
 Fixed wrong table declaration.
 </li>
 <li>
-July 13, 2010, by Michael Wetter:<br>
+July 13, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

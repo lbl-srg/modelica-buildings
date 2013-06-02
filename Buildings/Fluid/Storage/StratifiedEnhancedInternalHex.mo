@@ -212,11 +212,11 @@ equation
             revisions = "<html>
             <ul>
             <li>
-            May 10, 2013 by Michael Wetter:<br>
+            May 10, 2013 by Michael Wetter:<br/>
             Removed <code>m_flow_nominal_tank</code> which was not used.
             </li>
             <li>
-            January 29, 2013 by Peter Grant:<br>
+            January 29, 2013 by Peter Grant:<br/>
             First implementation.
             </li>
             </ul>

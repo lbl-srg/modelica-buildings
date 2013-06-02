@@ -39,7 +39,7 @@ for a cooling coils with a two-way valve, set <code>reverseAction = true</code>.
 revisions="<html>
 <ul>
 <li>
-February 24, 2010, by Michael Wetter:<br>
+February 24, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

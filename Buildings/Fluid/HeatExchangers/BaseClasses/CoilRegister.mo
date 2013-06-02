@@ -186,12 +186,12 @@ between the fluid volumes and the solid in each heat exchanger element.
 revisions="<html>
 <ul>
 <li>
-August 12, 2008 by Michael Wetter:<br>
+August 12, 2008 by Michael Wetter:<br/>
 Introduced option to compute each medium using a steady state model or
 a dynamic model.
 </li>
 <li>
-March 25, 2008, by Michael Wetter:<br>
+March 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

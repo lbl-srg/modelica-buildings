@@ -10,14 +10,16 @@ model SinglePhaseLine
     Length=Length,
     P=P,
     V=V,
-    useExtTemp=true)
+    useExtTemp=true,
+    cable=cable)
     annotation (Placement(transformation(extent={{-20,0},{20,40}})));
   Line neutral(
     wireMaterial = material,
     Length=Length,
     P=P,
     V=V,
-    useExtTemp=true)
+    useExtTemp=true,
+    cable=cable)
     annotation (Placement(transformation(extent={{-20,-40},{20,0}})));
   parameter Modelica.SIunits.Distance Length(min=0) "Length of the line";
   parameter Modelica.SIunits.Power P(min=0) "Nominal power of the line";
@@ -38,8 +40,12 @@ model SinglePhaseLine
         origin={0,30})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=T_in)
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  replaceable Districts.Electrical.AC.Transmission.Materials.Material material = Districts.Electrical.AC.Transmission.Functions.choseMaterial(0.0)
-    annotation (Dialog(tab="Material"),Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{40,60},{60,80}})));
+  parameter Cables.Cable cable=
+      Districts.Electrical.AC.Transmission.Functions.selectCable(P, V)
+    "Type of cable" annotation (Dialog(tab="Material"), choicesAllMatching=true);
+  replaceable Districts.Electrical.AC.Transmission.Materials.Material material = Districts.Electrical.AC.Transmission.Functions.selectMaterial(
+                                                                                                    0.0)
+    annotation (Dialog(tab="Material"), choicesAllMatching=true, Placement(transformation(extent={{40,60},{60,80}})));
 protected
   Modelica.Blocks.Interfaces.RealInput T_in;
 equation

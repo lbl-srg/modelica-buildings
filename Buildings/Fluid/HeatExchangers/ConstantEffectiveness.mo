@@ -54,16 +54,16 @@ instead of this model.
 revisions="<html>
 <ul>
 <li>
-January 28, 2010, by Michael Wetter:<br>
+January 28, 2010, by Michael Wetter:<br/>
 Added regularization near zero flow.
 </li>
 <li>
-October 2, 2009, by Michael Wetter:<br>
+October 2, 2009, by Michael Wetter:<br/>
 Changed computation of inlet temperatures to use 
 <code>state_*_inflow</code> which is already known in base class.
 </li>
 <li>
-April 28, 2008, by Michael Wetter:<br>
+April 28, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

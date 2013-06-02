@@ -47,11 +47,11 @@ These parameters are required to determine the apparatus dew point at the nomina
 revisions="<html>
 <ul>
 <li>
-September 20, 2012 by Michael Wetter:<br>
+September 20, 2012 by Michael Wetter:<br/>
 Reimplemented class as a record. 
 </li>
 <li>
-April 9, 2012 by Kaustubh Phalak:<br>
+April 9, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

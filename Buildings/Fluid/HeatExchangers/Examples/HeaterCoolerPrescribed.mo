@@ -139,7 +139,7 @@ temperature.
 </html>", revisions="<html>
 <ul>
 <li>
-July 11, 2011, by Michael Wetter:<br>
+July 11, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

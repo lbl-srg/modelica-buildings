@@ -135,7 +135,7 @@ condition differs.
 </html>", revisions="<html>
 <ul>
 <li>
-March 6 2010, by Michael Wetter:<br>
+March 6 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

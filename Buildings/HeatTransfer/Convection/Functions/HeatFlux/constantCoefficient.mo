@@ -17,7 +17,7 @@ where <code>dT</code> is the solid temperature minus the fluid temperature.
         revisions="<html>
 <ul>
 <li>
-March 10 2010, by Michael Wetter:<br>
+March 10 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

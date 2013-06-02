@@ -83,7 +83,7 @@ this model, and <i>y</i> is the length of the adjacent wall as shown
 in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.png\" border=\"1\" alt=\"Definition of the aspect ratio.\"/>
 </p>
 <p>
 Based on the wind incidence angle <i>&alpha;</i> and the side ratio
@@ -116,9 +116,7 @@ This function is used in
 Buildings.Fluid.Sources.Outside_CpLowRise</a>
 which can be used directly with components of this package.
 </p>
-<p>
 <h4>References</h4>
-<p>
 <ul>
 <li>
 Muthusamy V. Swami and
@@ -142,7 +140,6 @@ January, 2001.
 Gaithersburg, MD.
 </li>
 </ul>
-</p>
 <h4>Implementation</h4>
 <p>
 Symmetry requires that the first derivative of the wind pressure coefficient
@@ -156,7 +153,7 @@ which generally leads to better numeric performance.
 </html>", revisions="<html>
 <ul>
 <li>
-October 27, 2011 by Michael Wetter:<br>
+October 27, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

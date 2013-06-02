@@ -59,15 +59,15 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
-<li><i>December 6, 2011</i> by Michael Wetter:<br>
+<li><i>December 6, 2011</i> by Michael Wetter:<br/>
        Replaced <code>rho</code> with <code>rho_nominal</code> because
        <code>rho</code> is computed in an <code>equation</code> section and not
        in the <code>initial equation</code> section.
 </li>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
+<li><i>July 20, 2010</i> by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>
-<li><i>February 4, 2005</i> by Michael Wetter:<br>
+<li><i>February 4, 2005</i> by Michael Wetter:<br/>
        Released first version.
 </ul>
 </html>"));

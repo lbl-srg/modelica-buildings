@@ -8,7 +8,7 @@ Package with records for SRCC rating information for glazed flat-plate solar the
 </html>", revisions="<html>
 <ul>
 <li>
-June 8, 2012, by Wangda Zuo:<br>
+June 8, 2012, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

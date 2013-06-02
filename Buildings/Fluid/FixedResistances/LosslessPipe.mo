@@ -50,7 +50,7 @@ Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>.
 revisions="<html>
 <ul>
 <li>
-June 13, 2008 by Michael Wetter:<br>
+June 13, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

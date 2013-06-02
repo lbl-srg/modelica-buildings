@@ -245,18 +245,18 @@ Buildings.Fluid.Storage.ExpansionVessel</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-March 27, 2013 by Michael Wetter:<br>
+March 27, 2013 by Michael Wetter:<br/>
 Removed wrong unit attribute of <code>COut</code>,
 and added min and max attributes for <code>XiOut</code>.
 </li>
 <li>
-July 31, 2011 by Michael Wetter:<br>
+July 31, 2011 by Michael Wetter:<br/>
 Added test to stop model translation if the setting for
 <code>energyBalance</code> and <code>massBalance</code>
 can lead to inconsistent equations.
 </li>
 <li>
-July 26, 2011 by Michael Wetter:<br>
+July 26, 2011 by Michael Wetter:<br/>
 Removed the option to use <code>h_start</code>, as this
 is not needed for building simulation. 
 Also removed the reference to <code>Modelica.Fluid.System</code>.
@@ -264,40 +264,40 @@ Moved parameters and medium to
 <a href=\"Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 <li>
-July 14, 2011 by Michael Wetter:<br>
+July 14, 2011 by Michael Wetter:<br/>
 Added start value for medium density.
 </li>
 <li>
-March 29, 2011 by Michael Wetter:<br>
+March 29, 2011 by Michael Wetter:<br/>
 Changed default value for <code>substanceDynamics</code> and
 <code>traceDynamics</code> from <code>energyDynamics</code>
 to <code>massDynamics</code>.
 </li>
 <li>
-September 28, 2010 by Michael Wetter:<br>
+September 28, 2010 by Michael Wetter:<br/>
 Changed array index for nominal value of <code>Xi</code>.
 <li>
-September 13, 2010 by Michael Wetter:<br>
+September 13, 2010 by Michael Wetter:<br/>
 Set nominal attributes for medium based on default medium values.
 </li>
 <li>
-July 30, 2010 by Michael Wetter:<br>
+July 30, 2010 by Michael Wetter:<br/>
 Added parameter <code>C_nominal</code> which is used as the nominal attribute for <code>C</code>.
 Without this value, the ODE solver gives wrong results for concentrations around 1E-7.
 </li>
 <li>
-March 21, 2010 by Michael Wetter:<br>
+March 21, 2010 by Michael Wetter:<br/>
 Changed pressure start value from <code>system.p_start</code>
 to <code>Medium.p_default</code> since HVAC models may have water and 
 air, which are typically at different pressures.
 </li>
-<li><i>February 6, 2010</i> by Michael Wetter:<br>
+<li><i>February 6, 2010</i> by Michael Wetter:<br/>
 Added to <code>Medium.BaseProperties</code> the initialization 
 <code>X(start=X_start[1:Medium.nX])</code>. Previously, the initialization
 was only done for <code>Xi</code> but not for <code>X</code>, which caused the
 medium to be initialized to <code>reference_X</code>, ignoring the value of <code>X_start</code>.
 </li>
-<li><i>October 12, 2009</i> by Michael Wetter:<br>
+<li><i>October 12, 2009</i> by Michael Wetter:<br/>
 Implemented first version in <code>Buildings</code> library, based on model from
 <code>Modelica.Fluid 1.0</code>.
 </li>

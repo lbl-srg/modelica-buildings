@@ -196,11 +196,11 @@ for an explanation of the model.
 revisions="<html>
 <ul>
 <li>
-September 24, 2012 by Michael Wetter:<br>
+September 24, 2012 by Michael Wetter:<br/>
 Revised documentation.
 </li>
 <li>
-September 4, 2012 by Michael Wetter:<br>
+September 4, 2012 by Michael Wetter:<br/>
 Moved assignments to declaration section to avoid mixing graphical modeling with textual
 modeling in <code>equation</code> section.
 Redeclare medium model as <code>Modelica.Media.Interfaces.PartialCondensingGases</code>
@@ -208,7 +208,7 @@ to remove errors during model check.
 Added output connectors for sensible and latent heat flow rate.
 </li>
 <li>
-April 12, 2012 by Kaustubh Phalak:<br>
+April 12, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

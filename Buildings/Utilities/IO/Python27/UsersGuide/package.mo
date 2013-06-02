@@ -92,9 +92,9 @@ Use the same commands as for <i>Linux 32 bit, Dymola 2013 FD01</i> because Dymol
   <!-- =================================================================== -->
     <tr>
       <td>Windows 32 bit, Dymola 2014 
-      <br>Windows 64 bit, Dymola 2014
-      <br>Windows 32 bit, Dymola 2013 FD01 
-      <br>Windows 64 bit, Dymola 2013 FD01 </td>
+      <br/>Windows 64 bit, Dymola 2014
+      <br/>Windows 32 bit, Dymola 2013 FD01 
+      <br/>Windows 64 bit, Dymola 2013 FD01 </td>
       <td>
         Add to the system environment variable <code>PYTHONPATH</code> the directory 
         <code>\"Path_To_Buildings_Library\"\\Resources\\Python-Sources</code>.

@@ -28,7 +28,7 @@ is used to compute solar heat radiation (in the solar spectrum).
   revisions="<html>
 <ul>
 <li>
-November 16, 2010, by Michael Wetter:<br>
+November 16, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -60,7 +60,7 @@ is used to compute solar heat radiation (in the solar spectrum).
   revisions="<html>
 <ul>
 <li>
-November 16, 2010, by Michael Wetter:<br>
+November 16, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

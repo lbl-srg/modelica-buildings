@@ -398,26 +398,26 @@ so that both are zero if <i>ff &lt; ff<sub>min</sub>/4</i>, where
 revisions="<html>
 <ul>
 <li>
-December 18, 2012 by Michael Wetter:<br>
+December 18, 2012 by Michael Wetter:<br/>
 Added warning if the evaporator or condenser inlet temperature of the current stage
 cross the minimum and maximum allowed values.
 </li>
 <li>
-September 20, 2012 by Michael Wetter:<br>
+September 20, 2012 by Michael Wetter:<br/>
 Revised model and documentation.
 </li>
 <li>
-May 18, 2012 by Kaustubh Phalak:<br>
+May 18, 2012 by Kaustubh Phalak:<br/>
 Combined cooling capacity and EIR modifier function together to avoid repeatation of same variable calculations.
 Added heaviside function. 
 </li>
 <li>
-April 20, 2012 by Michael Wetter:<br>
+April 20, 2012 by Michael Wetter:<br/>
 Added unit conversion directly to function calls to avoid doing
 the conversion when the coil is switched off.
 </li>
 <li>
-April 6, 2012 by Kaustubh Phalak:<br>
+April 6, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

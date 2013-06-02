@@ -112,15 +112,15 @@ or instantiates this model sets <code>mXi<i>N</i>_flow = zeros(Medium.nXi<i>N</i
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2011, by Michael Wetter:<br>
+March 29, 2011, by Michael Wetter:<br/>
 Changed energy and mass balance to avoid a division by zero if <code>m_flow=0</code>.
 </li>
 <li>
-March 27, 2011, by Michael Wetter:<br>
+March 27, 2011, by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-August 19, 2010, by Michael Wetter:<br>
+August 19, 2010, by Michael Wetter:<br/>
 Fixed bug in energy and moisture balance that affected results if a component
 adds or removes moisture to the air stream. 
 In the old implementation, the enthalpy and species
@@ -132,17 +132,17 @@ Also, the results for forward flow and reverse flow differed by this amount.
 With the new implementation, the energy and moisture balance is exact.
 </li>
 <li>
-March 22, 2010, by Michael Wetter:<br>
+March 22, 2010, by Michael Wetter:<br/>
 Added constants <code>sensibleOnly1</code> and
 <code>sensibleOnly2</code> to 
 simplify species balance equations.
 </li>
 <li>
-April 13, 2009, by Michael Wetter:<br>
+April 13, 2009, by Michael Wetter:<br/>
 Added model to compute flow friction.
 </li>
 <li>
-March 25, 2008, by Michael Wetter:<br>
+March 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -217,15 +217,15 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-October 17, 2012, by Wangda Zuo:<br>
+October 17, 2012, by Wangda Zuo:<br/>
 Revised for the new trim and respond control.
 </li>
 <li>
-July 21, 2011, by Wangda Zuo:<br>
+July 21, 2011, by Wangda Zuo:<br/>
 Added mos file and merged to library.
 </li>
 <li>
-January 18, 2011, by Wangda Zuo:<br>
+January 18, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

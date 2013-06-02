@@ -16,6 +16,6 @@ record SRCC2011127A =
     slope=0) "Cogenra Solar, SunDeck"
     annotation(Documentation(info = "<html>
     <h4>References</h4>
-    Ratings data taken from the Solar Rating Certification Corporation website. SRCC# = 2011127A.<br>
+    Ratings data taken from the Solar Rating Certification Corporation website. SRCC# = 2011127A.<br/>
     </p>
     </html>"));

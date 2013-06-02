@@ -227,18 +227,18 @@ to calculate the shaded fraction of the window.
 revisions="<html>
 <ul>
 <li>
-July 5, 2012, by Michael Wetter:<br>
+July 5, 2012, by Michael Wetter:<br/>
 Changed definitions of side fin height <code>h</code> to be
 measured from the top of the window.
 This allows changing the window height without having to adjust the
 side fin parameters.
 </li>
 <li>
-February 25, 2012, by Michael Wetter:<br>
+February 25, 2012, by Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-Feb 01, 2012, by Kaustubh Phalak:<br>
+Feb 01, 2012, by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

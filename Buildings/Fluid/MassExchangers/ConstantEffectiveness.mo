@@ -110,11 +110,11 @@ in the species vector.
 revisions="<html>
 <ul>
 <li>
-January 28, 2010, by Michael Wetter:<br>
+January 28, 2010, by Michael Wetter:<br/>
 Added regularization near zero flow.
 </li>
 <li>
-October 21, 2008, by Michael Wetter:<br>
+October 21, 2008, by Michael Wetter:<br/>
 First implementation, based on 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
 Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>.

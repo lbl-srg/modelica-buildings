@@ -69,7 +69,7 @@ This model adds the convective heat transfer coefficient to its base model.
 </html>", revisions="<html>
 <ul>
 <li>
-October 25 2010, by Michael Wetter:<br>
+October 25 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

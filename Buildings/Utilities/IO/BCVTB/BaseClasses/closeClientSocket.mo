@@ -16,7 +16,7 @@ Function that closes the inter-process communication.
 revisions="<html>
 <ul>
 <li>
-May 5, 2009, by Michael Wetter:<br>
+May 5, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

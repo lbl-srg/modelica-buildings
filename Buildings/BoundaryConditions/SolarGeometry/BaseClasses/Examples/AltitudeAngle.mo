@@ -86,7 +86,7 @@ Components used in this model are:
 revisions="<html>
 <ul>
 <li>
-Feb 01, 2012, by Kaustubh Phalak<br>
+Feb 01, 2012, by Kaustubh Phalak<br/>
 First implementation.
 </li>
 </ul>

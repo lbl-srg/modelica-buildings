@@ -15,7 +15,7 @@ Basic class that provides a label with the component name above the icon.
 revisions="<html>
 <ul>
 <li>
-April 28, 2008, by Michael Wetter:<br>
+April 28, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

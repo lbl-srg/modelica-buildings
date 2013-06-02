@@ -121,11 +121,11 @@ Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.wall</a>
 </html>", revisions="<html>
 <ul>
 <li>
-April 2, 2011 by Michael Wetter:<br>
+April 2, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-March 10 2010, by Michael Wetter:<br>
+March 10 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -25,12 +25,12 @@ Diagram(coordinateSystem(
     Documentation(revisions="<html>
 <ul>
 <li>
-July 16, 2012, by Michael Wetter:<br>
+July 16, 2012, by Michael Wetter:<br/>
 Revised implementation to extend from base case to avoid duplicate code.
 Merged model into the Buildings library.
 </li>
 <li>
-June 26, 2012, by Rainer Czetina and Rafael Velazquez:<br>
+June 26, 2012, by Rainer Czetina and Rafael Velazquez:<br/>
 First implementation.
 </li>
 </ul>

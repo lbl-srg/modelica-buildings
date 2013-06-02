@@ -318,7 +318,7 @@ Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-February 8 2012, by Michael Wetter:<br>
+February 8 2012, by Michael Wetter:<br/>
 Changed model to use new implementation of
 <a href=\"modelica://Buildings.HeatTransfer.Radiosity.OutdoorRadiosity\">
 Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
@@ -327,7 +327,7 @@ heat transfer between window and ambient as is used for
 the opaque constructions.
 </li>
 <li>
-August 9, 2011, by Michael Wetter:<br>
+August 9, 2011, by Michael Wetter:<br/>
 Fixed bug that caused too high a surface temperature of the window frame.
 The previous version did not compute the infrared radiation exchange between the
 window frame and the sky. This has been corrected by adding the instance
@@ -335,7 +335,7 @@ window frame and the sky. This has been corrected by adding the instance
 This closes ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">issue 36</a>.
 </li>
 <li>
-November 23, 2010, by Michael Wetter:<br>
+November 23, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

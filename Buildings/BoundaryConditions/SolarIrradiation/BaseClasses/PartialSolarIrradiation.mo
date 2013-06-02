@@ -21,12 +21,12 @@ This is a partial model that is used to implement the direct and diffuse irradia
 ", revisions="<html>
 <ul>
 <li>
-Dec. 12, 2010, by Michael Wetter:<br>
+Dec. 12, 2010, by Michael Wetter:<br/>
 Changed output signal to avoid ambiguity in blocks that output also other
 quantities such as the incidence angle.
 </li>
 <li>
-Sep. 4, 2010, by Michael Wetter:<br>
+Sep. 4, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

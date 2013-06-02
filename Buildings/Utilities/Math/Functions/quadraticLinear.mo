@@ -22,7 +22,7 @@ This function computes
 </html>", revisions="<html>
 <ul>
 <li>
-February 29, 2009 by Michael Wetter:<br>
+February 29, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
