@@ -52,9 +52,11 @@ This model computes the air exchange between volumes.
 </p>
 <p>
 Input is the air change per seconds. The volume flow rate is computed as
+</p>
 <pre>
   V_flow = ACS * V
 </pre>
+<p>
 where <code>ACS</code> is an input and the volume <code>V</code> is a parameter.
 </p>
 </html>",
