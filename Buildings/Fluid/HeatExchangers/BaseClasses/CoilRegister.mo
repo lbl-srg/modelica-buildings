@@ -182,8 +182,6 @@ The <i>hA</i> value for both fluids is an input.
 The driving force for the heat transfer is the temperature difference
 between the fluid volumes and the solid in each heat exchanger element.
 </p>
-<p>
-</p>
 </html>",
 revisions="<html>
 <ul>

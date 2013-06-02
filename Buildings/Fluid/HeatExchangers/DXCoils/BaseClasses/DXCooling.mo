@@ -10,7 +10,7 @@ model DXCooling "DX cooling coil operation "
     "Flag, set to true for coil with variable speed";
 
   Modelica.Blocks.Interfaces.RealOutput TCoiSur(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=240,
     max=400) "Coil surface temperature"

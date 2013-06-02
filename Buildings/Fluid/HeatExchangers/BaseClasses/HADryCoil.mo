@@ -116,7 +116,6 @@ For a detailed explanation of the equation, see
 the references below.
 </p>
 <h4>References</h4>
-<p>
 <ul>
 <li>
 Wetter Michael,
@@ -135,7 +134,6 @@ Lawrence Berkeley National Laboratory,
 Berkeley, CA, 1999.
 </li>
 </ul>
-</p>
 </html>",
 revisions="<html>
 <ul>

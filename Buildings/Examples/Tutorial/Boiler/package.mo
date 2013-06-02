@@ -36,9 +36,9 @@ It shall be switched off if either the outdoor temperature is above
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/schematics.png\"/>
 </p>
-<p>The model consists of
-</p>
 <p>
+The model consists of
+</p>
 <ol>
 <li>
 a room with a heating load, approximated as steady-state heat transfer with the environment,
@@ -51,13 +51,17 @@ a boiler loop with constant mass flow rate, boiler on/off control and control va
 to ensure a minimum return water temperature.
 </li>
 </ol>
+<p>
+To explain the implementation of this model, the model has been created in the following stages:
 </p>
-<p>To explain the implementation of this model, the model has been created in the following stages: </p>
-<p><ol>
-<li><a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System1\">
+<ol>
+<li>
+<a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System1\">
 Buildings.Examples.Tutorial.Boiler.System1</a> 
-implements the room model without any heating. </li>
-<li><a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System2\">
+implements the room model without any heating. 
+</li>
+<li>
+<a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System2\">
 Buildings.Examples.Tutorial.Boiler.System2</a> 
 adds a radiator that is fed with water at a constant temperature and flow rate.
 The pump is switched on and off depending on the room temperature.
@@ -89,6 +93,5 @@ Buildings.Examples.Tutorial.Boiler.System7</a>
 replaces the boiler and pump control using a state machine.
 </li>
 </ol>
-</p>
 </html>"));
 end Boiler;

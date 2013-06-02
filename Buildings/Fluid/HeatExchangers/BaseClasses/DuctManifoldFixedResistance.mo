@@ -70,7 +70,7 @@ equation
                       graphics),
 Documentation(info="<html>
 <p>
-Duct manifold with a fixed flow resistance.</p>
+Duct manifold with a fixed flow resistance.
 </p>
 <p>
 This model causes the flow to be distributed equally

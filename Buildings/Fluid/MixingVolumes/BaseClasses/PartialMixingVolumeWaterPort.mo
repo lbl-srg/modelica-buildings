@@ -9,7 +9,7 @@ partial model PartialMixingVolumeWaterPort
     "Water flow rate added into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}},rotation=
            0)));
-  Modelica.Blocks.Interfaces.RealInput TWat(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealInput TWat(final quantity="ThermodynamicTemperature",
                                             final unit = "K", displayUnit = "degC", min=260)
     "Temperature of liquid that is drained from or injected into volume"
     annotation (Placement(transformation(extent={{-140,28},{-100,68}},

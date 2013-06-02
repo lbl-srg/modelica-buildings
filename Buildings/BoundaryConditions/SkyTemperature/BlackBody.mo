@@ -8,19 +8,19 @@ block BlackBody "Calculate black body sky temperature"
     annotation(choicesAllMatching=true,
                Evaluate=true);
   Modelica.Blocks.Interfaces.RealInput TDryBul(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Dry bulb temperature at ground level"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput TDewPoi(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Dew point temperature"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
   Modelica.Blocks.Interfaces.RealInput nOpa "Opaque sky cover"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealOutput TBlaSky(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     displayUnit="degC",
     final unit="K") "Black-body sky temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));

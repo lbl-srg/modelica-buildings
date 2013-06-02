@@ -13,7 +13,7 @@ equation
   annotation (Diagram(graphics),
 Documentation(info="<html>
 <p>
-Duct manifold without flow resistance.</p>
+Duct manifold without flow resistance.
 </p>
 <p>
 This model connects the flows between the ports without 

@@ -98,25 +98,31 @@ Partial model for a two way valve. This is the base model for valves
 with different opening characteristics, such as linear, equal percentage
 or quick opening.
 </p>
-<p><b>Modelling options</b></p>
-<p>The following options have been adapted from the valve implementation 
+<h4>Modelling options</h4>
+<p>
+The following options have been adapted from the valve implementation 
 in <a href=\"modelica://Modelica.Fluid\">
-Modelica.Fluid</a> and are described in 
+Modelica.Fluid</a> 
+and are described in 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.ValveParameters\">
 Buildings.Fluid.Actuators.BaseClasses.ValveParameters</a>.
+</p>
 <p>
 In contrast to the model in <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>, this model uses the parameter <code>Kv_SI</code>,
 which is the flow coefficient in SI units, i.e., 
 it is the ratio between mass flow rate in <code>kg/s</code> and square root 
 of pressure drop in <code>Pa</code>.
-</p><p>
+</p>
+<p>
 To prevent the derivative <code>d/dP (m_flow)</code> to be infinite near
-the origin, this model linearizes the pressure drop vs. flow relation
+the origin, this model linearizes the pressure drop versus flow relation
 ship. The region in which it is linearized is parameterized by 
+</p>
 <pre>
   m_turbulent_flow = deltaM * m_flow_nominal
 </pre>
+<p>
 Because the parameterization contains <code>Kv_SI</code>, the values for
 <code>deltaM</code> and <code>dp_nominal</code> need not be changed if the valve size
 changes.
@@ -126,6 +132,7 @@ changes.
 The two way valve models are implemented using this partial model, as opposed to using
 different functions for the valve opening characteristics, because
 each valve opening characteristics has different parameters.
+</p>
 </html>",
 revisions="<html>
 <ul>

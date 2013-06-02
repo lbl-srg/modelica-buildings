@@ -157,10 +157,12 @@ Documentation(info="<html>
 <p>
 This model describes the pressure difference of a vertical medium
 column. It can be used to model the pressure difference caused by 
-stack effect.</p>
+stack effect.
+</p>
 <p>
 The model can be used with the following three configurations, which are
 controlled by the setting of the parameter <code>densitySelection</code>:
+</p>
 <ul>
 <li>
 <code>top</code>:
@@ -177,7 +179,6 @@ to <code>port_b</code>.
 Use this setting to use the density based on the actual flow direction. 
 </li>
 </ul>
-</p>
 <p>
 The settings <code>top</code> and <code>bottom</code>
 should be used when rooms or different floors of a building are 

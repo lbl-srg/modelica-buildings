@@ -68,7 +68,7 @@ model HexElement "Element of a heat exchanger"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}}, rotation=
            0)));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen(
-    T(final quantity="Temperature",
+    T(final quantity="ThermodynamicTemperature",
       final unit = "K", displayUnit = "degC", min=0))
     "Temperature sensor of metal"
     annotation (Placement(transformation(extent={{8,-10},{28,10}},  rotation=0)));
@@ -120,30 +120,37 @@ Element of a heat exchanger with dynamics on the fluids and the solid.
 The <i>hA</i> value for both fluids is an input.
 The driving force for the heat transfer is the temperature difference
 between the fluid volumes and the solid.
+</p>
 <p>
 The heat capacity <i>C</i> of the metal is assigned as follows.
 Suppose the metal temperature is governed by
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   C dT &frasl; dt = (hA)<sub>1</sub> (T<sub>1</sub> - T)
   + (hA)<sub>2</sub> (T<sub>2</sub> - T)
 </p>
+<p>
 where <i>hA</i> are the convective heat transfer coefficients times 
 heat transfer area that also take
 into account heat conduction in the heat exchanger fins and
 <i>T<sub>1</sub></i> and <i>T<sub>2</sub></i> are the medium temperatures.
 Assuming <i>(hA)<sub>1</sub>=(hA)<sub>2</sub></i>, 
 this equation can be rewritten as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   C dT &frasl; dt =
   2 (UA)<sub>0</sub> ( (T<sub>1</sub> - T) + (T<sub>2</sub> - T) )
 
 </p>
+<p>
 where <i>(UA)<sub>0</sub></i> is the <i>UA</i> value at nominal conditions. 
 Hence we set the heat capacity of the metal 
 to
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 C = 2 (UA)<sub>0</sub> &tau;<sub>m</sub>
 </p>
+<p>
 where <i>&tau;<sub>m</sub></i> is the time constant that the metal
 of the heat exchanger has if the metal is approximated by a lumped
 thermal mass.

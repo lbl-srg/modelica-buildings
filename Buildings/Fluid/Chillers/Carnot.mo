@@ -215,15 +215,18 @@ equation
           lineColor={0,0,127})}),
 defaultComponentName="chi",
 Documentation(info="<html>
+<p>
 This is model of a chiller whose coefficient of performance (COP) changes
 with temperatures in the same way as the Carnot efficiency changes.
 The COP at the nominal conditions can be specified by a parameter, or
 it can be computed by the model based on the Carnot effectiveness, in which
 case
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   COP<sub>0</sub> = &eta;<sub>car</sub> COP<sub>car</sub>
 = &eta;<sub>car</sub> T<sub>eva</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>),
 </p>
+<p>
 where <i>T<sub>eva</sub></i> is the evaporator temperature 
 and <i>T<sub>con</sub></i> is the condenser temperature.
 On the <code>Advanced</code> tab, a user can specify the temperature that
@@ -234,9 +237,11 @@ are the temperature of the fluid volume, of <code>port_a</code>, of
 </p>
 <p>
 The chiller COP is computed as the product
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   COP = &eta;<sub>car</sub> COP<sub>car</sub> &eta;<sub>PL</sub>,
 </p>
+<p>
 where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness, 
 <i>COP<sub>car</sub></i> is the Carnot efficiency and
 <i>&eta;<sub>PL</sub></i> is a polynomial in the control signal <i>y</i>
