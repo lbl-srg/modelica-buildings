@@ -11,7 +11,7 @@
 #####################################################################
 
 def validate():
-    import buildingspy.development.Validator as v
+    import buildingspy.development.validator as v
     val = v.Validator()
     val.validateHTMLInPackage(".")
 
