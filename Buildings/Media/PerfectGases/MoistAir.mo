@@ -441,22 +441,22 @@ it has a constant specific heat capacity.
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2013, by Michael Wetter:<br>
+March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the
 <code>BaseProperties</code> declaration. This avoids an error
 when models are checked in Dymola 2014 in the pedenatic mode.
 </li>
 <li>
-April 12, 2012, by Michael Wetter:<br>
+April 12, 2012, by Michael Wetter:<br/>
 Added keyword <code>each</code> to <code>Xi(stateSelect=...</code>.
 </li>
 <li>
-April 4, 2012, by Michael Wetter:<br>
+April 4, 2012, by Michael Wetter:<br/>
 Added redeclaration of <code>ThermodynamicState</code> to avoid a warning
 during model check and translation.
 </li>
 <li>
-February 22, 2010, by Michael Wetter:<br>
+February 22, 2010, by Michael Wetter:<br/>
 Changed <code>T_phX</code> to first compute <code>T</code> 
 in closed form assuming no saturation. Then, a check is done to determine
 whether the state is in the fog region. If the state is in the fog region,
@@ -465,29 +465,29 @@ can lead to significantly shorter computing
 time in models that frequently call <code>T_phX</code>.
 </li>
 <li>
-January 27, 2010, by Michael Wetter:<br>
+January 27, 2010, by Michael Wetter:<br/>
 Fixed bug that lead to run-time error in <code>T_phX</code>.
 </li>
 <li>
-January 13, 2010, by Michael Wetter:<br>
+January 13, 2010, by Michael Wetter:<br/>
 Added function <code>enthalpyOfNonCondensingGas</code> and its derivative.
 </li>
 <li>
-January 13, 2010, by Michael Wetter:<br>
+January 13, 2010, by Michael Wetter:<br/>
 Fixed implementation of derivative functions.
 </li>
 <li>
-October 12, 2009, by Michael Wetter:<br>
+October 12, 2009, by Michael Wetter:<br/>
 Added annotation for analytic derivative for functions
 <code>saturationPressureLiquid</code> and <code>sublimationPressureIce</code>.
 <li>
-August 28, 2008, by Michael Wetter:<br>
+August 28, 2008, by Michael Wetter:<br/>
 Referenced <code>spliceFunction</code> from package 
 <a href=\"modelica://Buildings.Utilities.Math\">Buildings.Utilities.Math</a>
 to avoid duplicate code.
 </li>
 <li>
-May 8, 2008, by Michael Wetter:<br>
+May 8, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

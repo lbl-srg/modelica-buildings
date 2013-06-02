@@ -27,10 +27,10 @@ for doors that can be open or closed as a function of an input signal.
 </html>",
 revisions="<html>
 <ul>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
+<li><i>July 20, 2010</i> by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>
-<li><i>February 4, 2005</i> by Michael Wetter:<br>
+<li><i>February 4, 2005</i> by Michael Wetter:<br/>
        Released first version.
 </ul>
 </html>"));

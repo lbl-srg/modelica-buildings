@@ -67,7 +67,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio</a>.
 revisions="<html>
 <ul>
 <li>
-Aug 9, 2012 by Kaustubh Phalak:<br>
+Aug 9, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

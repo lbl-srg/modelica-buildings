@@ -354,7 +354,7 @@ directory even if <code>activateInterface=false</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-July 19, 2012, by Michael Wetter:<br>
+July 19, 2012, by Michael Wetter:<br/>
 Added a call to <code>Buildings.Utilities.IO.BCVTB.BaseClasses.exchangeReals</code>
 in the <code>initial algorithm</code> section.
 This is needed to propagate the initial condition to the server.
@@ -363,13 +363,13 @@ warning message in Ptolemy that says that the simulation reached its stop time
 one time step prior to the final time.
 </li>
 <li>
-January 19, 2010, by Michael Wetter:<br>
+January 19, 2010, by Michael Wetter:<br/>
 Introduced parameter to set initial value to be sent to the BCVTB.
 In the prior implementation, if a variable was in an algebraic loop, then zero was
 sent for this variable.
 </li>
 <li>
-May 14, 2009, by Michael Wetter:<br>
+May 14, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

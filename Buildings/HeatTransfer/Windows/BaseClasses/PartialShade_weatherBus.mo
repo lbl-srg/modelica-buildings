@@ -46,7 +46,7 @@ Partial model to implement overhang and side fin model with weather bus as a con
 revisions="<html>
 <ul>
 <li>
-Feb 25, 2012, by Michael Wetter:<br>
+Feb 25, 2012, by Michael Wetter:<br/>
 First implementation. 
 </li>
 </ul>

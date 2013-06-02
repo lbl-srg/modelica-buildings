@@ -137,13 +137,13 @@ each valve opening characteristics has different parameters.
 revisions="<html>
 <ul>
 <li>
-March 20, 2013, by Michael Wetter:<br>
+March 20, 2013, by Michael Wetter:<br/>
 Set <code>dp(nominal=6000)</code> as the previous formulation gives an error during model check
 in Dymola 2014. The reason is that the previous formulation used <code>dpValve_nominal</code>, which
 is not known at translation time.
 </li>
 <li>
-February 28, 2013, by Michael Wetter:<br>
+February 28, 2013, by Michael Wetter:<br/>
 Reformulated assignment of parameters.
 Removed default value for <code>dpValve_nominal</code>, as this
 parameter has the attribute <code>fixed=false</code> for some values
@@ -152,7 +152,7 @@ Changed assignment of nominal attribute of <code>dp</code> to avoid assigning
 a non-literal value.
 </li>
 <li>
-February 20, 2012 by Michael Wetter:<br>
+February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
 and added new parameter <code>dpFixed_nominal</code>.
 See 
@@ -160,7 +160,7 @@ See
 Buildings.Fluid.Actuators.UsersGuide</a>.
 </li>
 <li>
-January 16, 2012 by Michael Wetter:<br>
+January 16, 2012 by Michael Wetter:<br/>
 To simplify object inheritance tree, revised base classes
 <code>Buildings.Fluid.BaseClasses.PartialResistance</code>,
 <code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
@@ -170,27 +170,27 @@ and model
 <code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code>.
 </li>
 <li>
-August 12, 2011 by Michael Wetter:<br>
+August 12, 2011 by Michael Wetter:<br/>
 Added <code>assert</code> statement to prevent <code>l=0</code> due to the
 implementation of 
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
 Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>.
 </li>
 <li>
-April 4, 2011 by Michael Wetter:<br>
+April 4, 2011 by Michael Wetter:<br/>
 Revised implementation to use new base class for actuators.
 </li>
 <li>
-February 18, 2009 by Michael Wetter:<br>
+February 18, 2009 by Michael Wetter:<br/>
 Implemented parameterization of flow coefficient as in 
 <code>Modelica.Fluid</code>.
 </li>
 <li>
-August 15, 2008 by Michael Wetter:<br>
+August 15, 2008 by Michael Wetter:<br/>
 Set valve leakage to nonzero value.
 </li>
 <li>
-June 3, 2008 by Michael Wetter:<br>
+June 3, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

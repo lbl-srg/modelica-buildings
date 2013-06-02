@@ -26,7 +26,7 @@ Buildings.Fluid.Chillers.ElectricEIR</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-September 17, 2010 by Michael Wetter:<br>
+September 17, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

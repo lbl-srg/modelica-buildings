@@ -110,11 +110,11 @@ without taking into account the travel time of the actuator.
 </html>", revisions="<html>
 <ul>
 <li>
-February 28, 2013, by Michael Wetter:<br>
+February 28, 2013, by Michael Wetter:<br/>
 Added default value for <code>dpValve_nominal</code>.
 </li>
 <li>
-June 16, 2008 by Michael Wetter:<br>
+June 16, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

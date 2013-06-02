@@ -249,28 +249,28 @@ The output is <code>absRad[1, 2:N+1] = Part1 + Part2; absRad[2, 2:N+1] = Part3 +
 <h4>References</h4>
 <ul>
 <li>
-Michael Wetter.<br>
+Michael Wetter.<br/>
 <a href=\"http://simulationresearch.lbl.gov/wetter/download/mwdiss.pdf\">
-Simulation-based Building Energy Optimization</a>.<br>
+Simulation-based Building Energy Optimization</a>.<br/>
 Dissertation. University of California at Berkeley. 2004.
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
 <li>
-March 4, 2011, by Wangda Zuo:<br>
+March 4, 2011, by Wangda Zuo:<br/>
 Remove the if-statement and integer function that can trigger events.
 </li>
 <li>
-February 2, 2010, by Michael Wetter:<br>
+February 2, 2010, by Michael Wetter:<br/>
 Made connector <code>uSha</code> a conditional connector.
 </li>
 <li>
-December 15, 2010, by Wangda Zuo:<br>
+December 15, 2010, by Wangda Zuo:<br/>
 Separate transmittance and absorbance.
 </li>
 <li>
-December 12, 2010, by Michael Wetter:<br>
+December 12, 2010, by Michael Wetter:<br/>
 Replaced record 
 <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">
 Buildings.HeatTransfer.Data.GlazingSystems</a> with the
@@ -278,7 +278,7 @@ parameters used by this model.
 This was needed to integrate the radiation model into the room model.
 </li>
 <li>
-December 10, 2010, by Wangda Zuo:<br>
+December 10, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

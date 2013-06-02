@@ -65,7 +65,7 @@ to both models. More detailed information is available in the documentation for 
 </html>", revisions="<html>
 <ul>
 <li>
-Apr 17, 2013, by Peter Grant:<br>
+Apr 17, 2013, by Peter Grant:<br/>
 First implementation
 </li>
 </ul>

@@ -73,7 +73,7 @@ The local copy has done to enable compatibility with both versions.
 </html>", revisions="<html>
 <ul>
 <li>
-April 17, 2013, by Michael Wetter:<br>
+April 17, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -13,7 +13,7 @@
 #	"Districts.Electrical.Analog.Conversion.DCDCConverter" "Districts.Electrical.DC.Conversion.DCDCConverter" \
 #	"Districts.Electrical.Analog.Conversion.Examples.DCDCConverter" "Districts.Electrical.DC.Conversion.Examples.DCDCConverter")
 
-LIST=(  "quantity=\"Temperature\"" "quantity=\"ThermodynamicTemperature\"" )
+LIST=(  "<br>" "<br/>" )
 
 i=0
 while [ $i -le 1 ]; do
@@ -39,8 +39,10 @@ for ff in $fl; do
     if [ $? == 0 ]; then
 	echo "Found string in file $ff"
 #        emacs $ff
-	sed "s/${OLD}/AAABBAAA/g" -i $ff
-	sed "s/AAABBAAA/${NEW}/g" -i $ff
+	sed "s|${OLD}|AAABBAAA|g" $ff > temp.temp
+	mv temp.temp $ff
+	sed "s|AAABBAAA|${NEW}|g" $ff > temp.temp
+	mv temp.temp $ff
     fi
 done
 

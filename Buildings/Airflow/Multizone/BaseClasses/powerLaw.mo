@@ -78,13 +78,13 @@ of a model.
 revisions="<html>
 <ul>
 <li>
-<i>August 12, 2011</i> by Michael Wetter:<br>
+<i>August 12, 2011</i> by Michael Wetter:<br/>
 Reimplemented model so that it is continuously differentiable.
 </li>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
+<li><i>July 20, 2010</i> by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>
-<li><i>February 4, 2005</i> by Michael Wetter:<br>
+<li><i>February 4, 2005</i> by Michael Wetter:<br/>
        Released first version.
 </ul>
 </html>"));

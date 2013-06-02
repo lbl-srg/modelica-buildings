@@ -151,16 +151,16 @@ defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
 <li>
-February 14, 2012 by Michael Wetter:<br>
+February 14, 2012 by Michael Wetter:<br/>
 Added filter to approximate the travel time of the actuator.
 </li>
 <li>
-February 3, 2012, by Michael Wetter:<br>
+February 3, 2012, by Michael Wetter:<br/>
 Removed assignment of <code>m_flow_small</code> as it is no
 longer used in its base class.
 </li>
 <li>
-February 24, 2010 by Michael Wetter:<br>
+February 24, 2010 by Michael Wetter:<br/>
 Changed implementation of flow resistance. Instead of using a
 fixed resistance and a damper model in series, only one model is used
 that internally adds these two resistances. This leads to smaller systems
@@ -169,7 +169,7 @@ of nonlinear equations. This new implementation extends
 Buildings.Fluid.Actuators.Dampers.MixingBox</a>.
 </li>
 <li>
-July 20, 2007 by Michael Wetter:<br>
+July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

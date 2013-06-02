@@ -26,7 +26,7 @@ compile time, the implementation is done in a C function.
 </html>", revisions="<html>
 <ul>
 <li>
-July 28 2011, by Pierre Vigouroux:<br>
+July 28 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>
@@ -46,12 +46,12 @@ Destructor that frees the memory of the object
 </html>", revisions="<html>
 <ul>
 <li>
-December 5, 2011, by Michael Wetter:<br>
+December 5, 2011, by Michael Wetter:<br/>
 Fixed bug in <code>freeArray.c</code>, which called <code>free(table->n)</code>,
 where <code>n</code> is an <code>int</code>. This caused Dymola 2012-FD01 to hang.
 </li>
 <li>
-July 27, 2011, by Pierre Vigouroux:<br>
+July 27, 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>
@@ -69,7 +69,7 @@ of real parameters in an array of extendable dimension.
 revisions="<html>
 <ul>
 <li>
-July 28 2011, by Pierre Vigouroux:<br>
+July 28 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

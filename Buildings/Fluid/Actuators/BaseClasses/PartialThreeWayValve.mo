@@ -181,7 +181,7 @@ for details regarding the valve implementation.
 </html>", revisions="<html>
 <ul>
 <li>
-February 28, 2013, by Michael Wetter:<br>
+February 28, 2013, by Michael Wetter:<br/>
 Reformulated assignment of parameters.
 Removed default value for <code>dpValve_nominal</code>, as this
 parameter has the attribute <code>fixed=false</code> for some values
@@ -194,11 +194,11 @@ Because the parameter set correctly its attributes <code>min=0</code> and <code>
 instances of this model used the correct value.
 </li>
 <li>
-April 12, 2012 by Michael Wetter:<br>
+April 12, 2012 by Michael Wetter:<br/>
 Removed duplicate declaration of <code>m_flow_nominal</code>.
 </li>
 <li>
-February 20, 2012 by Michael Wetter:<br>
+February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
 and added new parameter <code>dpFixed_nominal=0</code>.
 See 
@@ -206,11 +206,11 @@ See
 Buildings.Fluid.Actuators.UsersGuide</a>.
 </li>
 <li>
-March 25, 2011, by Michael Wetter:<br>
+March 25, 2011, by Michael Wetter:<br/>
 Added homotopy method.
 </li>
 <li>
-June 3, 2008 by Michael Wetter:<br>
+June 3, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -97,7 +97,7 @@ This examples is a unit test for the relative humidity sensor.
 </html>", revisions="<html>
 <ul>
 <li>
-May 12, 2010 by Michael Wetter:<br>
+May 12, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -227,7 +227,7 @@ This component is a partial model of a solar thermal collector. It can be expand
  Because these curves behave poorly for angles greater than 60 degrees 
  the model does not calculatue either direct or diffuse solar radiation gains
  when the incidence angle is greater than 60 degrees. 
-<br>
+<br/>
 2. By default, the estimated heat capacity of the collector without fluid is calculated based on the dry mass and the specific heat capacity of copper.
 </p>
 <h4>References</h4>
@@ -237,7 +237,7 @@ This component is a partial model of a solar thermal collector. It can be expand
 </html>", revisions="<html>
 <ul>
 <li>
-January 4, 2013, by Peter Grant:<br>
+January 4, 2013, by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>

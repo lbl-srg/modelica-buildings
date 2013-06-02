@@ -129,18 +129,18 @@ to properly guard against division by zero.
       revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
-<li><i>October 11, 2012</i> by Michael Wetter:<br>
+<li><i>October 11, 2012</i> by Michael Wetter:<br/>
     Removed <code>WFlo = eta * P</code> so that classes that use this partial model
     can properly implement the equation so it guards against division by zero.
 </li>
 <li><i>March 1, 2010</i>
-    by Michael Wetter:<br>
+    by Michael Wetter:<br/>
     Revised implementation to allow <code>N=0</code>.
 <li><i>October 1, 2009</i>
-    by Michael Wetter:<br>
+    by Michael Wetter:<br/>
     Changed model so that it is based on total pressure in Pascals instead of the pump head in meters.
     This change is needed if the device is used with air as a medium. The original formulation in Modelica.Fluid
     converts head to pressure using the density medium.d. Therefore, for fans, head would be converted to pressure
@@ -149,7 +149,7 @@ Renamed protected parameters for consistency with the naming conventions.
     the model has been changed to use total pressure in Pascals instead of head in meters.
 </li>
 <li><i>31 Oct 2005</i>
-    by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br>
+    by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br/>
        Model added to the Fluid library</li>
 </ul>
 </html>"));

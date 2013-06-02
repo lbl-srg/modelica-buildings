@@ -87,17 +87,17 @@ shift the heating curve.
 </html>", revisions="<html>
 <ul>
 <li>
-February 13, 2013, by Michael Wetter:<br>
+February 13, 2013, by Michael Wetter:<br/>
 Corrected error that led to wrong results if the room air temperature is
 different from its nominal value <code>TRoo_nominal</code>.
 See ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">#74</a>.
 </li>
 <li>
-November 21, 2011, by Michael Wetter:<br>
+November 21, 2011, by Michael Wetter:<br/>
 Improved documentation.
 </li>
 <li>
-February 5, 2009 by Michael Wetter:<br>
+February 5, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

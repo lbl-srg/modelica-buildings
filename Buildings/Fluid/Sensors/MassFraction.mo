@@ -54,11 +54,11 @@ The sensor is ideal, i.e. it does not influence the fluid.
 ", revisions="<html>
 <ul>
 <li>
-February 22, by Michael Wetter:<br>
+February 22, by Michael Wetter:<br/>
 Improved the code that searches for the index of the substance in the medium model.
 </li>
 <li>
-April 7, 2009 by Michael Wetter:<br>
+April 7, 2009 by Michael Wetter:<br/>
 First implementation.
 Implementation is based on enthalpy sensor of <code>Modelica.Fluid</code>.
 </li>

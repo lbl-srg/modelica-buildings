@@ -28,7 +28,7 @@ The room temperature is free floating.
 </html>", revisions="<html>
 <ul>
 <li>
-October 6, 2011, by Michael Wetter:<br>
+October 6, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

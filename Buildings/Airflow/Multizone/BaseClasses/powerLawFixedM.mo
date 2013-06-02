@@ -74,7 +74,7 @@ Buildings.Airflow.Multizone.BaseClasses.powerLaw</a>.
 revisions="<html>
 <ul>
 <li>
-<i>August 12, 2011</i> by Michael Wetter:<br>
+<i>August 12, 2011</i> by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

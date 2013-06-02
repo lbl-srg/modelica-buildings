@@ -17,7 +17,7 @@ Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-May 12, 2008, by Michael Wetter:<br>
+May 12, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

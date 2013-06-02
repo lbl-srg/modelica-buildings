@@ -190,11 +190,11 @@ shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
-April 2, 2011 by Michael Wetter:<br>
+April 2, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-August 18 2010, by Michael Wetter:<br>
+August 18 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

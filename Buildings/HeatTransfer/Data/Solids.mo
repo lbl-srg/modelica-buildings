@@ -21,7 +21,7 @@ heat capacity.
           "<html>
 <ul>
 <li>
-September 9, 2010, by Michael Wetter:<br>
+September 9, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -139,7 +139,7 @@ Finally, we divide the material layer in compartments of length
 revisions="<html>
 <ul>
 <li>
-September 9, 2010, by Michael Wetter:<br>
+September 9, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -196,13 +196,13 @@ equation
         <p>
         bou1 <a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">(Buildings.Fluid.Sources.MassFlowSource_T)</a> provides a constant mass flow rate for a hot water
         draw while bou <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">(Buildings.Fluid.Sources.Boundary_pT)</a> provides an outlet boundary condition for the outlet
-        of the draw.<br>
+        of the draw.<br/>
         </p>
         </html>",
         revisions="<html>
         <ul>
         <li>
-        Mar 27, 2013 by Peter Grant:<br>
+        Mar 27, 2013 by Peter Grant:<br/>
         First implementation
         </li>
         </ul>

@@ -469,41 +469,41 @@ because it allows to invert the function <code>T_phX</code> analytically.
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2013, by Michael Wetter:<br>
+March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the
 <code>BaseProperties</code> declaration. This avoids an error
 when models are checked in Dymola 2014 in the pedenatic mode.
 </li>
 <li>
-April 12, 2012, by Michael Wetter:<br>
+April 12, 2012, by Michael Wetter:<br/>
 Added keyword <code>each</code> to <code>Xi(stateSelect=...</code>.
 </li>
 <li>
-April 4, 2012, by Michael Wetter:<br>
+April 4, 2012, by Michael Wetter:<br/>
 Added redeclaration of <code>ThermodynamicState</code> to avoid a warning
 during model check and translation.
 </li>
 <li>
-August 3, 2011, by Michael Wetter:<br>
+August 3, 2011, by Michael Wetter:<br/>
 Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
 For this medium, the function is <code>u=h-pStd/dStp</code>.
 </li>
 <li>
-January 27, 2010, by Michael Wetter:<br>
+January 27, 2010, by Michael Wetter:<br/>
 Fixed bug in <code>else</code> branch of function <code>setState_phX</code>
 that lead to a run-time error when the constructor of this function was called.
 </li>
 <li>
-January 22, 2010, by Michael Wetter:<br>
+January 22, 2010, by Michael Wetter:<br/>
 Added implementation of function
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated.enthalpyOfNonCondensingGas\">
 enthalpyOfNonCondensingGas</a> and its derivative.
 <li>
-January 13, 2010, by Michael Wetter:<br>
+January 13, 2010, by Michael Wetter:<br/>
 Fixed implementation of derivative functions.
 </li>
 <li>
-August 28, 2008, by Michael Wetter:<br>
+August 28, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

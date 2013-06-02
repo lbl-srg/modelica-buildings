@@ -21,7 +21,7 @@ must have the same size.
   revisions="<html>
 <ul>
 <li>
-September 28, 2011, by Michael Wetter:<br>
+September 28, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -59,7 +59,7 @@ in the <code>initial algorithm</code> section, which is not supported.
   revisions="<html>
 <ul>
 <li>
-March 22, 2013, by Michael Wetter:<br>
+March 22, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -87,7 +87,7 @@ must have the same size.
   revisions="<html>
 <ul>
 <li>
-September 28, 2011, by Michael Wetter:<br>
+September 28, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -114,12 +114,12 @@ must have the same size.
   revisions="<html>
 <ul>
 <li>
-October 10, 2012, by Michael Wetter:<br>
+October 10, 2012, by Michael Wetter:<br/>
 Fixed wrong <code>displayUnit</code> and 
 <code>max</code> attribute for power.
 </li>
 <li>
-September 28, 2011, by Michael Wetter:<br>
+September 28, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -251,7 +251,7 @@ in all input variables.
 </html>", revisions="<html>
 <ul>
 <li>
-August 25, 2011, by Michael Wetter:<br>
+August 25, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -281,7 +281,7 @@ approaches zero.
 </html>", revisions="<html>
 <ul>
 <li>
-August 25, 2011, by Michael Wetter:<br>
+August 25, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -351,7 +351,7 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 </html>", revisions="<html>
 <ul>
 <li>
-September 28, 2011, by Michael Wetter:<br>
+September 28, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -416,7 +416,7 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 </html>", revisions="<html>
 <ul>
 <li>
-September 28, 2011, by Michael Wetter:<br>
+September 28, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -468,7 +468,7 @@ power</a></td>
 revisions="<html>
 <ul>
 <li>
-September 29, 2011, by Michael Wetter:<br>
+September 29, 2011, by Michael Wetter:<br/>
 New implementation due to changes from polynomial to cubic hermite splines.
 </li>
 </ul>

@@ -163,7 +163,7 @@ coefficient for wall surfaces that face North, West, East and South.
 </html>", revisions="<html>
 <ul>
 <li>
-March 9 2010, by Michael Wetter:<br>
+March 9 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

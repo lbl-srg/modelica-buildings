@@ -121,7 +121,7 @@ the simulation if the return value is different from the expected value.
 </html>", revisions="<html>
 <ul>
 <li>
-January 31, 2013, by Michael Wetter:<br>
+January 31, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

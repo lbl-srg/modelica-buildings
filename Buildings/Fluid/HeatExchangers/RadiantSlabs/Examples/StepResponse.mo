@@ -139,7 +139,7 @@ This example models the step response of a radiant slab.
 revisions="<html>
 <ul>
 <li>
-April 5, 2012, by Michael Wetter:<br>
+April 5, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

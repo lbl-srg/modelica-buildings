@@ -110,11 +110,11 @@ a quadratic function.
 revisions="<html>
 <ul>
 <li>
-September 25, 2012 by Michael Wetter:<br>
+September 25, 2012 by Michael Wetter:<br/>
 Added documentation.
 </li>
 <li>
-July 23, 2012 by Kaustubh Phalak:<br>
+July 23, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>

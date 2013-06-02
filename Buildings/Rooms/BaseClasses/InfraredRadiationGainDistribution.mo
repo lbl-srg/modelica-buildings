@@ -116,7 +116,7 @@ that will strike the glass or the window shade.
         revisions="<html>
 <ul>
 <li>
-December 1, 2010, by Michael Wetter:<br>
+December 1, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

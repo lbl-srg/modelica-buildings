@@ -33,12 +33,12 @@ heating and no cooling.
 </html>", revisions="<html>
 <ul>
 <li>
-July 15, 2012, by Michael Wetter:<br>
+July 15, 2012, by Michael Wetter:<br/>
 Revised implementation to extend from base case to avoid duplicate code.
 Merged model into the Buildings library.
 </li>
 <li>
-June 26, 2012, by Rafael Velazquez:<br>
+June 26, 2012, by Rafael Velazquez:<br/>
 First implementation.
 </li>
 </ul>

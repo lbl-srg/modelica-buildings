@@ -65,25 +65,25 @@ Buildings.Rooms.BaseClasses.MixedAir</a>.
 revisions="<html>
 <ul>
 <li>
-August 2, 2011, by Michael Wetter:<br>
+August 2, 2011, by Michael Wetter:<br/>
 Set <code>substanceDynamics</code> and <code>traceDynamics</code> to final
 and equal to <code>energyDynamics</code>, 
 as there is no need to make them different from <code>energyDynamics</code>.
 </li>
 <li>
-August 1, 2011, by Michael Wetter:<br>
+August 1, 2011, by Michael Wetter:<br/>
 Changed default value for <code>energyDynamics</code> to
 <code>Modelica.Fluid.Types.Dynamics.DynamicFreeInitial</code> because
 <code>Modelica.Fluid.Types.Dynamics.SteadyStateInitial</code> leads
 to high order DAE that Dymola cannot reduce.
 </li>
 <li>
-July 31, 2011, by Michael Wetter:<br>
+July 31, 2011, by Michael Wetter:<br/>
 Changed default value for <code>energyDynamics</code> to
 <code>Modelica.Fluid.Types.Dynamics.SteadyStateInitial</code>.
 </li>
 <li>
-April 13, 2009, by Michael Wetter:<br>
+April 13, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

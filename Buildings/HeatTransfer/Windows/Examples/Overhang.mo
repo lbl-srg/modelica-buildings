@@ -57,12 +57,12 @@ Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang</a>.
 revisions="<html>
 <ul>
 <li>
-July 5, 2012, by Michael Wetter:<br>
+July 5, 2012, by Michael Wetter:<br/>
 Changed definitions of <code>wL</code> and <code>wR</code> to be
 measured from the corner of the window instead of the centerline.
 </li>
 <li>
-Feb 01, 2012, by Kaustubh Phalak:<br>
+Feb 01, 2012, by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

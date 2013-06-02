@@ -88,7 +88,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector</a>.
 revisions="<html>
 <ul>
 <li>
-August 29, 2012 by Kaustubh Phalak:<br>
+August 29, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>
