@@ -283,11 +283,11 @@ Validation of the window model of the Modelica Buildings library.</a>
 </html>", revisions="<html>
 <ul>
 <li>
-August 06, 2012, by Wangda Zuo:<br>
+August 06, 2012, by Wangda Zuo:<br/>
 Improved the documentation for implementation and added comments for model limitations.
 </li>
 <li>
-December 09, 2011, by Wangda Zuo:<br>
+December 09, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

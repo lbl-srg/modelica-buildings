@@ -359,7 +359,7 @@ Buildings.Controls.Continuous.LimPID</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 11, 2012, by Michael Wetter:<br>
+January 11, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

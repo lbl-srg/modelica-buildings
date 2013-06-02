@@ -451,30 +451,30 @@ thermo-fluid systems.
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2013, by Michael Wetter:<br>
+March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the
 <code>BaseProperties</code> declaration. This avoids an error
 when models are checked in Dymola 2014 in the pedenatic mode.
 </li>
 <li>
-April 12, 2012, by Michael Wetter:<br>
+April 12, 2012, by Michael Wetter:<br/>
 Added keyword <code>each</code> to <code>Xi(stateSelect=...</code>.
 </li>
 <li>
-April 4, 2012, by Michael Wetter:<br>
+April 4, 2012, by Michael Wetter:<br/>
 Added redeclaration of <code>ThermodynamicState</code> to avoid a warning
 during model check and translation.
 </li>
 <li>
-January 27, 2010, by Michael Wetter:<br>
+January 27, 2010, by Michael Wetter:<br/>
 Added function <code>enthalpyOfNonCondensingGas</code> and its derivative.
 </li>
 <li>
-January 27, 2010, by Michael Wetter:<br>
+January 27, 2010, by Michael Wetter:<br/>
 Fixed bug with temperature offset in <code>T_phX</code>.
 </li>
 <li>
-August 18, 2008, by Michael Wetter:<br>
+August 18, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

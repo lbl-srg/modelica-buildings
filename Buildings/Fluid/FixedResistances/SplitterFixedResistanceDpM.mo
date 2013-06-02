@@ -130,22 +130,22 @@ system of equations.
 </html>", revisions="<html>
 <ul>
 <li>
-February 1, 2012 by Michael Wetter:<br>
+February 1, 2012 by Michael Wetter:<br/>
 Expanded documentation.
 </li>
 <li>
-August 4, 2011 by Michael Wetter:<br>
+August 4, 2011 by Michael Wetter:<br/>
 Added <code>final allowFlowReversal=true</code> to all resistances since it is impractical
 to avoid flow reversal in large flow networks where such a setting may be useful.
 </li>
 <li>
-June 11, 2008 by Michael Wetter:<br>
+June 11, 2008 by Michael Wetter:<br/>
 Based class on 
 <a href=\"modelica://Buildings.Fluid.BaseClasses.PartialThreeWayFixedResistance\">
 PartialThreeWayFixedResistance</a>.
 </li>
 <li>
-July 20, 2007 by Michael Wetter:<br>
+July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

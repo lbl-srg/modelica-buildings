@@ -140,20 +140,20 @@ where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for t
 ", revisions="<html>
 <ul>
 <li>
-April 1, 2013, by Wangda Zuo:<br>
+April 1, 2013, by Wangda Zuo:<br/>
 Added <code>final</code> attribute to initial state declaration.
 This is required for a successful model check in Dymola 2014 using the pedantic check. 
 </li>
 <li>
-September 12, 2011, by Wangda Zuo:<br>
+September 12, 2011, by Wangda Zuo:<br/>
 Deleted the first order continuous block and changed the model to use SI units. 
 </li>
 <li>
-July 20, 2011, by Wangda Zuo:<br>
+July 20, 2011, by Wangda Zuo:<br/>
 Added comments, redefined variables names, and merged to library. 
 </li>
 <li>
-January 18, 2011, by Wangda Zuo:<br>
+January 18, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul></HTML>"),

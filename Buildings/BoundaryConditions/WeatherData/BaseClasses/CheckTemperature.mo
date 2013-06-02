@@ -37,15 +37,15 @@ the simulation will stop with an error.
 ", revisions="<html>
 <ul>
 <li>
-October 27, 2011, by Wangda Zuo:<br>
+October 27, 2011, by Wangda Zuo:<br/>
 Delete the unit convertion part and name it from ConvertTemperature to CheckTemperature.
 </li>
 <li>
-March 23, 2011, by Michael Wetter:<br>
+March 23, 2011, by Michael Wetter:<br/>
 Set <code>displayUnit</code> argument for temperature output signal.
 </li>
 <li>
-July 08, 2010, by Wangda Zuo:<br>
+July 08, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

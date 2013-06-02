@@ -82,7 +82,7 @@ In it water is passed through a solar collector while being heated by the sun in
 </html>",revisions="<html>
 <ul>
 <li>
-Mar 27, 2013, by Peter Grant:<br>
+Mar 27, 2013, by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>

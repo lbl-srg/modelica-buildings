@@ -17,6 +17,6 @@ record SRCC2002001J =
     annotation(Documentation(info = "<html>
     <h4>References</h4>
     <p>
-    Ratings data taken from the Solar Rating Certification Corporation website. SRCC# = 2002001J.<br>
+    Ratings data taken from the Solar Rating Certification Corporation website. SRCC# = 2002001J.<br/>
     </p>
     </html>"));

@@ -599,18 +599,18 @@ Documentation(info="<html>
 revisions="<html>
 <ul>
 <li>
-January 24, 2013, by Michael Wetter:<br>
+January 24, 2013, by Michael Wetter:<br/>
 Increased parameter <code>startTime</code> of the assert block
 and set initial conditions to 
 <code>Modelica.Fluid.Types.Dynamics.FixedInitial</code>.
 </li>
 <li>
-July 11, 2011, by Michael Wetter:<br>
+July 11, 2011, by Michael Wetter:<br/>
 Changed model to sensors with two fluid ports.
 Moved model to <code>Buildings.Fluid.Interfaces.Examples</code>.
 </li>
 <li>
-April 17, 2008, by Michael Wetter:<br>
+April 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

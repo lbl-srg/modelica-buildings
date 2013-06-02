@@ -50,7 +50,7 @@ for an explanation of the model.
 revisions="<html>
 <ul>
 <li>
-September 6, 2012 by Michael Wetter:<br>
+September 6, 2012 by Michael Wetter:<br/>
 Changed control signal from a real number to an integer that is equal to the stage of
 the coil.
 Removed filter at the control input signal because there is anyway an 
@@ -60,7 +60,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling</a>
 to a higher computing time.
 </li>
 <li>
-July 28, 2012 by Kaustubh Phalak:<br>
+July 28, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

@@ -41,7 +41,7 @@ Generic record that implements thermophysical properties for glazing systems.
   revisions="<html>
 <ul>
 <li>
-Sep. 3 2010, by Michael Wetter:<br>
+Sep. 3 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -76,14 +76,14 @@ Package with generic records that implement thermophysical properties for glazin
   revisions="<html>
 <ul>
 <li>
-May 15, 2013, by Michael Wetter:<br>
+May 15, 2013, by Michael Wetter:<br/>
 In <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear\">
 Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear</a>,
 corrected the glass layer thickness, which was <i>5.7</i> mm instead of
 <i>3</i> mm, as the documentation states.
 </li>
 <li>
-Sep. 3 2010, by Michael Wetter:<br>
+Sep. 3 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

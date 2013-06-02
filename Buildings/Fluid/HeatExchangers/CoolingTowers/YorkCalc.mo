@@ -220,11 +220,11 @@ control law to compute the input signal <code>y</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-September 29, 2011, by Michael Wetter:<br>
+September 29, 2011, by Michael Wetter:<br/>
 Revised model to use cubic spline interpolation instead of a polynomial.
 </li>
 <li>
-July 12, 2011, by Michael Wetter:<br>
+July 12, 2011, by Michael Wetter:<br/>
 Introduced common base class for
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a>
 and
@@ -232,21 +232,21 @@ and
 so that they can be used as replaceable models.
 </li>
 <li>
-May 12, 2011, by Michael Wetter:<br>
+May 12, 2011, by Michael Wetter:<br/>
 Added binding equations for <code>Q_flow</code> and <code>mXi_flow</code>.
 </li>
 <li>
-March 8, 2011, by Michael Wetter:<br>
+March 8, 2011, by Michael Wetter:<br/>
 Removed base class and unused variables.
 </li>
 <li>
-February 25, 2011, by Michael Wetter:<br>
+February 25, 2011, by Michael Wetter:<br/>
 Revised implementation to facilitate scaling the model to different nominal sizes.
 Removed parameter <code>mWat_flow_nominal</code> since it is equal to <code>m_flow_nominal</code>,
 which is the water flow rate from the chiller condenser loop.
 </li>
 <li>
-May 16, 2008, by Michael Wetter:<br>
+May 16, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

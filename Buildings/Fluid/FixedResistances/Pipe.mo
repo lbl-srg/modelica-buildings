@@ -112,16 +112,16 @@ Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
 </html>", revisions="<html>
 <ul>
 <li>
-February 22, 2012 by Michael Wetter:<br>
+February 22, 2012 by Michael Wetter:<br/>
 Renamed <code>useMultipleHeatPort</code> to <code>useMultipleHeatPorts</code> and 
 used heat port connector from <code>Modelica.Fluid</code> package for vector of heat ports.
 </li>
 <li>
-February 15, 2012 by Michael Wetter:<br>
+February 15, 2012 by Michael Wetter:<br/>
 Revised implementation and added default values.
 </li>
 <li>
-February 12, 2012 by Wangda Zuo:<br>
+February 12, 2012 by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

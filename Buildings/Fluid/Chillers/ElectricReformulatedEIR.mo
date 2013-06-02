@@ -212,11 +212,11 @@ Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
 revisions="<html>
 <ul>
 <li>
-Jan. 9, 2011, by Michael Wetter:<br>
+Jan. 9, 2011, by Michael Wetter:<br/>
 Added input signal to switch chiller off.
 </li>
 <li>
-September 17, 2010, by Michael Wetter:<br>
+September 17, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

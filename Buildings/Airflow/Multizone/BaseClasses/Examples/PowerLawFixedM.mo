@@ -56,7 +56,7 @@ This is verified by an <code>assert</code> statement.
 </html>", revisions="<html>
 <ul>
 <li>
-August 12, 2011, by Michael Wetter:<br>
+August 12, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

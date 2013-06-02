@@ -37,18 +37,18 @@ each window only sees its own overhang.
 revisions="<html>
 <ul>
 <li>
-July 6, 2012, by Michael Wetter:<br>
+July 6, 2012, by Michael Wetter:<br/>
 Changed implementation to extend from Case 600, rather
 than copying Case 600.
 This better shows what is different relative to Case 600
 as it avoid duplicate code.
 </li>
 <li>
-May 1, 2012, by Kaustubh Phalak:<br>
+May 1, 2012, by Kaustubh Phalak:<br/>
 Modified the Case 600 for implementation of Case 610.
 </li>
 <li>
-October 6, 2011, by Michael Wetter:<br>
+October 6, 2011, by Michael Wetter:<br/>
 First implementation of Case 600.
 </li>
 </ul>

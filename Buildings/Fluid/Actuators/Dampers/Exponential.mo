@@ -78,32 +78,32 @@ ASHRAE Final Report 825-RP, Atlanta, GA.
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
-June 22, 2008 by Michael Wetter:<br>
+June 22, 2008 by Michael Wetter:<br/>
 Extended range of control signal from 0 to 1 by implementing the function 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper\">
 exponentialDamper</a>.
 </li>
 <li>
-June 10, 2008 by Michael Wetter:<br>
+June 10, 2008 by Michael Wetter:<br/>
 Introduced new partial base class, 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
 PartialDamperExponential</a>.
 </li>
 <li>
-June 30, 2007 by Michael Wetter:<br>
+June 30, 2007 by Michael Wetter:<br/>
 Introduced new partial base class, 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialActuator\">PartialActuator</a>.
 </li>
 <li>
-July 27, 2007 by Michael Wetter:<br>
+July 27, 2007 by Michael Wetter:<br/>
 Introduced partial base class.
 </li>
 <li>
-July 20, 2007 by Michael Wetter:<br>
+July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

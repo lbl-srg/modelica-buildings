@@ -24,11 +24,11 @@ It has been obtained from the EnergyPlus 7.1 example file
 revisions="<html>
 <ul>
 <li>
-September 25, 2012 by Michael Wetter:<br>
+September 25, 2012 by Michael Wetter:<br/>
 Revised documentation.
 </li>
 <li>
-August 15, 2012 by Kaustubh Phalak:<br>
+August 15, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>

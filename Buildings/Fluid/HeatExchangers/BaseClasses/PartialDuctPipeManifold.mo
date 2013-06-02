@@ -70,11 +70,11 @@ for air-side and water-side heat exchanger manifolds.
 revisions="<html>
 <ul>
 <li>
-August 22, 2008, by Michael Wetter:<br>
+August 22, 2008, by Michael Wetter:<br/>
 Added start value for port mass flow rate.
 </li>
 <li>
-April 14, 2008, by Michael Wetter:<br>
+April 14, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

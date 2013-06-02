@@ -128,11 +128,11 @@ mass transfer and pressure drop equations.
 </html>", revisions="<html>
 <ul>
 <li>
-April 26, 2013 by Marco Bonvini:<br>
+April 26, 2013 by Marco Bonvini:<br/>
 Moved the definitions of <code>dp1</code> and <code>dp2</code> because they cause some problem with PyFMI.
 </li>
 <li>
-March 27, 2012 by Michael Wetter:<br>
+March 27, 2012 by Michael Wetter:<br/>
 Replaced the erroneous function call <code>Medium.density</code> with 
 <code>Medium1.density</code> and <code>Medium2.density</code>.
 Changed condition to remove <code>sta_a1</code> and <code>sta_a2</code> to also
@@ -142,22 +142,22 @@ if <code>show_V_flow=true</code>, but worked correctly otherwise
 because the erroneous function call is removed if  <code>show_V_flow=false</code>.
 </li>
 <li>
-March 27, 2011 by Michael Wetter:<br>
+March 27, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-March 21, 2010 by Michael Wetter:<br>
+March 21, 2010 by Michael Wetter:<br/>
 Changed pressure start value from <code>system.p_start</code>
 to <code>Medium.p_default</code> since HVAC models may have water and 
 air, which are typically at different pressures.
 </li>
 <li>
-September 19, 2008 by Michael Wetter:<br>
+September 19, 2008 by Michael Wetter:<br/>
 Added equations for the mass balance of extra species flow,
 i.e., <code>C</code> and <code>mC_flow</code>.
 </li>
 <li>
-April 28, 2008, by Michael Wetter:<br>
+April 28, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

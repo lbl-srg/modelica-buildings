@@ -242,14 +242,14 @@ and the mean radiant temperature, weighted by their respective heat transfer coe
 
 <h4>Optimum operative temperatures</h4>
 <B>Winter:</B>
-activity <i>1.2</i> met,<br>
-clothing = <i>0.9</i> clo (sweater, long sleeve shirt, heavy pants),<br>
-air flow = <i>30</i> fpm (<i>0.15</i> m/sec),<br>
-mean radiant temperature equal to air temperature,<br>
+activity <i>1.2</i> met,<br/>
+clothing = <i>0.9</i> clo (sweater, long sleeve shirt, heavy pants),<br/>
+air flow = <i>30</i> fpm (<i>0.15</i> m/sec),<br/>
+mean radiant temperature equal to air temperature,<br/>
 Optimum Operative Temperature (top) = <i>22.7</i>&#176; C (<i>71</i>&#176; F)<P>
 <B>Summer:</B>
-clothing = <i>0.5</i> clo,<br>
-air flow = <i>50</i> fpm (<i>0.25</i> m/sec),<br>
+clothing = <i>0.5</i> clo,<br/>
+air flow = <i>50</i> fpm (<i>0.25</i> m/sec),<br/>
 Optimum Operative Temperature (top) = <i>24.4</i>&#176; C (<i>76</i>&#176; F).
 <p>
 All equation numbers in the model refer to the ASHRAE Handbook Fundamentals,
@@ -358,11 +358,11 @@ other computations, changed parameter and input to model, set clothing insulatio
 rather than computing it in model, added model to UTC library.
 </li>
 <li><i>June, 2005</i>
-       Michael Wetter and Sorin Costiner:<br>
+       Michael Wetter and Sorin Costiner:<br/>
        Improved version, added PPDDraft, TOpe, performed studies
 </li>
 <li><i>March 03, 2005</i>
-       Michael Wetter and Sorin Costiner:<br>
+       Michael Wetter and Sorin Costiner:<br/>
        First implementation.
 </li>
 </ul>

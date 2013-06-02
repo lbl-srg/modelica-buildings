@@ -323,13 +323,13 @@ The room temperature is free floating.
 </html>", revisions="<html>
 <ul>
 <li>
-July 15, 2012, by Michael Wetter:<br>
+July 15, 2012, by Michael Wetter:<br/>
 Added reference results.
 Changed implementation to make this model the base class
 for all BESTEST cases.
 Added computation of hourly and annual averaged room air temperature.
 <li>
-October 6, 2011, by Michael Wetter:<br>
+October 6, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

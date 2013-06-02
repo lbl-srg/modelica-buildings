@@ -125,11 +125,11 @@ Exponential</a>.
 revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
-January 16, 2012 by Michael Wetter:<br>
+January 16, 2012 by Michael Wetter:<br/>
 To simplify object inheritance tree, revised base classes
 <code>Buildings.Fluid.BaseClasses.PartialResistance</code>,
 <code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
@@ -139,20 +139,20 @@ and model
 <code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code>.
 </li>
 <li>
-August 5, 2011, by Michael Wetter:<br>
+August 5, 2011, by Michael Wetter:<br/>
 Moved linearized pressure drop equation from the function body to the equation
 section. With the previous implementation, 
 the symbolic processor may not rearrange the equations, which can lead 
 to coupled equations instead of an explicit solution.
 </li>
 <li>
-June 22, 2008 by Michael Wetter:<br>
+June 22, 2008 by Michael Wetter:<br/>
 Extended range of control signal from 0 to 1 by implementing the function 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper\">
 exponentialDamper</a>.
 </li>
 <li>
-June 10, 2008 by Michael Wetter:<br>
+June 10, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

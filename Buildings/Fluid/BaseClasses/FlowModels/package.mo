@@ -19,7 +19,7 @@ then a user can use models from the
 </html>", revisions="<html>
 <ul>
 <li>
-April 10, 2009 by Michael Wetter:<br>
+April 10, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

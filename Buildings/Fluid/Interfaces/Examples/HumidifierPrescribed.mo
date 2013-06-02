@@ -648,16 +648,16 @@ than a prescribed threshold.</p>
 revisions="<html>
 <ul>
 <li>
-January 24, 2013, by Michael Wetter:<br>
+January 24, 2013, by Michael Wetter:<br/>
 Set initial conditions to 
 <code>Modelica.Fluid.Types.Dynamics.FixedInitial</code>.
 </li>
 <li>
-July 11, 2011, by Michael Wetter:<br>
+July 11, 2011, by Michael Wetter:<br/>
 Moved model to <code>Buildings.Fluid.Interfaces.Examples</code>.
 </li>
 <li>
-April 18, 2008, by Michael Wetter:<br>
+April 18, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

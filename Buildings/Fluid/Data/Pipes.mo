@@ -82,7 +82,7 @@ Comparative Evaluation Tests. Luzern, Switzerland. April 2003.
 </html>", revisions="<html>
 <ul>
 <li>
-April 5, 2012, by Michael Wetter:<br>
+April 5, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -103,7 +103,7 @@ This is a generic record for pipes.
 </html>", revisions="<html>
 <ul>
 <li>
-April 5, 2012, by Michael Wetter:<br>
+April 5, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -120,7 +120,7 @@ The PEX diameters are based on DIN 11850.
 </html>", revisions="<html>
 <ul>
 <li>
-April 5, 2012, by Michael Wetter:<br>
+April 5, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

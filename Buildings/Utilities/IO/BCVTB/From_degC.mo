@@ -28,7 +28,7 @@ as the unit for temperature.
 revisions="<html>
 <ul>
 <li>
-April 14, 2010, by Michael Wetter:<br>
+April 14, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

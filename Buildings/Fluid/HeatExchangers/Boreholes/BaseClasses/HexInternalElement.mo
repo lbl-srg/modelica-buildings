@@ -241,7 +241,7 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.InterferenceResistance</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-July 28 2011, by Pierre Vigouroux:<br>
+July 28 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

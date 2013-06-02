@@ -157,18 +157,18 @@ will terminate the simulation with an error message.
 </html>", revisions="<html>
 <ul>
 <li>
-April 1, 2013, by Michael Wetter:<br>
+April 1, 2013, by Michael Wetter:<br/>
 Removed the valve from <code>Modelica.Fluid</code> to allow a successful check
 of the model in the pedantic mode in Dymola 2014.
 </li>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Removed assignment of <code>dpValve_nominal</code> if
 <code>CvData &lt;&gt; Buildings.Fluid.Types.CvTypes.OpPoint</code>,
 as in this case, it is computed by the model.
 </li>
 <li>
-February 18, 2009 by Michael Wetter:<br>
+February 18, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

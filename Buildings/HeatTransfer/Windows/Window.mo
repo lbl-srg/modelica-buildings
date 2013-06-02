@@ -452,11 +452,11 @@ Validation of the window model of the Modelica Buildings library.</a>
 </html>", revisions="<html>
 <ul>
 <li>
-December 19, 2011, by Wangda Zuo:<br>
+December 19, 2011, by Wangda Zuo:<br/>
 Add a warning note to remind users that the model does not count wave length dependence for calculation.
 </li>
 <li>
-March 10 2010, by Michael Wetter:<br>
+March 10 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

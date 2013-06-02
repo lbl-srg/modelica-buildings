@@ -30,13 +30,13 @@ equation
   Documentation(info="<html>
   <p>
   This model provides an example of how to use the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc\">
-  Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc</a> model.<br>
+  Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc</a> model.<br/>
   </p>
   </html>",
   revisions="<html>
   <ul>
   <li>
-  Mar 27, 2013 by Peter Grant:<br>
+  Mar 27, 2013 by Peter Grant:<br/>
   First implementation
   </li>
   </ul>

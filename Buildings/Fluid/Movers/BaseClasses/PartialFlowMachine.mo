@@ -169,18 +169,18 @@ and more robust simulation, in particular if the mass flow is equal to zero.
       revisions="<html>
 <ul>
 <li>
-May 25, 2011, by Michael Wetter:<br>
+May 25, 2011, by Michael Wetter:<br/>
 Revised implementation of energy balance to avoid having to use conditionally removed models.
 </li>
 <li>
-July 29, 2010, by Michael Wetter:<br>
+July 29, 2010, by Michael Wetter:<br/>
 Reduced fan time constant from 10 to 1 second.
 </li>
 <li>
-July 27, 2010, by Michael Wetter:<br>
+July 27, 2010, by Michael Wetter:<br/>
 Redesigned model to fix bug in medium balance.
 </li>
-<li>March 24 2010, by Michael Wetter:<br>
+<li>March 24 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

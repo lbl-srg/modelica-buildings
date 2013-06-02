@@ -65,11 +65,11 @@ and ceilings of different surface area.
   revisions="<html>
 <ul>
 <li>
-June 3 2010, by Michael Wetter:<br>
+June 3 2010, by Michael Wetter:<br/>
 Implemented adaptive computation of number of states based on a reference construction of <i>0.2 m</i> concrete.
 </li>
 <li>
-March 6 2010, by Michael Wetter:<br>
+March 6 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -131,10 +131,10 @@ will be modeled as a thermal resistor that does not store energy.
   revisions="<html>
 <ul>
 <li>
-April 2011, by Pierre Vigouroux:<br>
+April 2011, by Pierre Vigouroux:<br/>
 
 <li>
-April 12 2011, by Pierre Vigouroux:<br>
+April 12 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

@@ -34,7 +34,7 @@ Function to interpolate within a data array without triggerring events.
 </html>", revisions="<html>
 <ul>
 <li>
-March 4, 2011, by Wangda Zuo:<br>
+March 4, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

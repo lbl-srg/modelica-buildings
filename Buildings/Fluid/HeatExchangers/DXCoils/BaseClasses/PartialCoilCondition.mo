@@ -89,7 +89,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil</a>.
 revisions="<html>
 <ul>
 <li>
-August 1, 2012 by Kaustubh Phalak:<br>
+August 1, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>
