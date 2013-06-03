@@ -31,7 +31,7 @@ model HADryCoil "Sensible convective heat transfer model for air to water coil"
     "Convective heat transfer medium 2" annotation (Placement(transformation(
           extent={{100,-80},{120,-60}}, rotation=0)));
 
-  parameter Real r_nominal(min=0, max=1)=0.5
+  parameter Real r_nominal(min=0)=0.5
     "Ratio between air-side and water-side convective heat transfer coefficient"
           annotation(Dialog(tab="General", group="Nominal condition"));
   parameter Modelica.SIunits.ThermalConductance hA_nominal_w(min=0)=UA_nominal * (r_nominal+1)/r_nominal
@@ -116,7 +116,6 @@ For a detailed explanation of the equation, see
 the references below.
 </p>
 <h4>References</h4>
-<p>
 <ul>
 <li>
 Wetter Michael,
@@ -135,18 +134,17 @@ Lawrence Berkeley National Laboratory,
 Berkeley, CA, 1999.
 </li>
 </ul>
-</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-June 8, 2010, by Michael Wetter:<br>
+June 8, 2010, by Michael Wetter:<br/>
 Fixed bug in computation of <code>s_w</code>.
 The old implementation used the current inlet water temperature instead
 of the design condition that corresponds to <code>UA_nominal</code>.
 </li>
 <li>
-April 16, 2008, by Michael Wetter:<br>
+April 16, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

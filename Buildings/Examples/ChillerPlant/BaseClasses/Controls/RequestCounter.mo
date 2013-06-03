@@ -25,11 +25,11 @@ algorithm
    </html>", revisions="<html>
 <ul>
 <li>
-July 20, 2011, by Wangda Zuo:<br>
+July 20, 2011, by Wangda Zuo:<br/>
 Add comments and merge to library.
 </li>
 <li>
-January 6, 2011, by Michael Wetter and Wangda Zuo:<br>
+January 6, 2011, by Michael Wetter and Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

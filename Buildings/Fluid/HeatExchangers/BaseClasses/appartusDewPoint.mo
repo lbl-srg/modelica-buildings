@@ -64,6 +64,7 @@ algorithm
   end while;
   annotation(preferredView="info",
            Documentation(info="<html>
+<p>
 This function computes iteratively the apparatus dew point temperature for a cooling coil.
 The apparatus dew point temperature is defined as in the HVAC2 Toolkit (Brandemuehl <i>et al.</i>
 1993), namely as the intersection of the line between coil air inlet state <i>(T,X)</i> and
@@ -88,7 +89,7 @@ energy calculations</i>. ASHRAE, Atlanta. 1993.
 revisions="<html>
 <ul>
 <li>
-April 22, 2010, by Michael Wetter:<br>
+April 22, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -39,7 +39,6 @@ model CoilRegister "Register for a heat exchanger"
     each UA_nominal=UA_nominal/nPipPar/nPipSeg,
     each energyDynamics1=energyDynamics1,
     each energyDynamics2=energyDynamics2,
-    each allowCondensation=allowCondensation,
     each from_dp1=from_dp1,
     each linearizeFlowResistance1=linearizeFlowResistance1,
     each deltaM1=deltaM1,
@@ -104,8 +103,7 @@ model CoilRegister "Register for a heat exchanger"
   parameter Modelica.SIunits.Time tau_m=60
     "Time constant of metal at nominal UA value"
     annotation (Dialog(group="Nominal condition"));
-  parameter Boolean allowCondensation = true
-    "Set to false to compute sensible heat transfer only";
+
   parameter Modelica.Fluid.Types.Dynamics energyDynamics1=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 1"
@@ -184,18 +182,16 @@ The <i>hA</i> value for both fluids is an input.
 The driving force for the heat transfer is the temperature difference
 between the fluid volumes and the solid in each heat exchanger element.
 </p>
-<p>
-</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-August 12, 2008 by Michael Wetter:<br>
+August 12, 2008 by Michael Wetter:<br/>
 Introduced option to compute each medium using a steady state model or
 a dynamic model.
 </li>
 <li>
-March 25, 2008, by Michael Wetter:<br>
+March 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -2,7 +2,7 @@ within Buildings.Media.GasesConstantDensity;
 package SimpleAir
   "Package with dry air model that decouples pressure and temperature"
   extends Buildings.Media.Interfaces.PartialSimpleIdealGasMedium(
-     ThermoStates = Modelica.Media.Interfaces.PartialMedium.Choices.IndependentVariables.pT,
+     ThermoStates = Buildings.Media.Interfaces.Choices.IndependentVariables.pT,
      final singleState = true,
      mediumName="GasesConstantDensity.SimpleAir",
      cp_const=1005.45,
@@ -174,12 +174,12 @@ Dummy function that returns <code>0</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-August 3, 2011, by Michael Wetter:<br>
+August 3, 2011, by Michael Wetter:<br/>
 Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
 For this medium, the function is <code>u=h-p/dStp</code>.
 </li>
 <li>
-April 27, 2011, by Michael Wetter:<br>
+April 27, 2011, by Michael Wetter:<br/>
 First implementation to allow using the room model with a medium that does not contain water vapor.
 </li>
 </ul>
@@ -198,7 +198,7 @@ Dummy function that returns <code>0</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-April 27, 2011, by Michael Wetter:<br>
+April 27, 2011, by Michael Wetter:<br/>
 First implementation to allow using the room model with a medium that does not contain water vapor.
 </li>
 </ul>
@@ -208,7 +208,7 @@ end saturationPressure;
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This medium model is similar to 
-<a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>
+<a href=\"Modelica:Modelica.Media.Air.SimpleAir\">
 Modelica.Media.Air.SimpleAir</a>, except that the
 gas density is constant.
 </p>
@@ -221,7 +221,7 @@ networks.
 </p>
 <p>
 As in
-<a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>
+<a href=\"Modelica:Modelica.Media.Air.SimpleAir\">
 Modelica.Media.Air.SimpleAir</a>, the
 specific enthalpy h and specific internal energy u are only
 a function of temperature T and all other provided medium
@@ -230,35 +230,35 @@ quantities are constant.
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2013, by Michael Wetter:<br>
+March 29, 2013, by Michael Wetter:<br/>
 Changed declarationo of <code>parameter Boolean standardOrderComponents = true</code>
 to final to avoid an error when checking models in pedantic mode in Dymola 2014.
 </li>
 <li>
-August 3, 2011, by Michael Wetter:<br>
+August 3, 2011, by Michael Wetter:<br/>
 Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
 For this medium, the function is <code>u=h-p/dStp</code>.
 </li>
 <li>
-August 2, 2011, by Michael Wetter:<br>
+August 2, 2011, by Michael Wetter:<br/>
 Fixed error in the function <code>density</code> which returned a non-constant density,
 and added a call to <code>ModelicaError(...)</code> in <code>setState_dTX</code> since this
 function cannot assign the medium pressure based on the density (as density is a constant
 in this model).
 </li>
 <li>
-April 27, 2011, by Michael Wetter:<br>
+April 27, 2011, by Michael Wetter:<br/>
 Added function <code>enthalpyOfCondensingGas</code>, which returns <code>0</code>,
 to allow using the room model with a medium that does not contain water vapor.
 </li>
 <li>
-August 21, 2008, by Michael Wetter:<br>
+August 21, 2008, by Michael Wetter:<br/>
 Replaced <code>d*pStp = p*dStp</code> by
 <code>d/dStp = p/pStp</code> to indicate that division by 
 <code>dStp</code> and <code>pStp</code> is allowed.
 </li>
 <li>
-March 19, 2008, by Michael Wetter:<br>
+March 19, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

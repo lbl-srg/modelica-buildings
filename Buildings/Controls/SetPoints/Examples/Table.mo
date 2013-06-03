@@ -21,7 +21,9 @@ equation
       points={{-59,10},{-50,10},{-50,50},{-22,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/Table.mos"
+  annotation (
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/Table.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

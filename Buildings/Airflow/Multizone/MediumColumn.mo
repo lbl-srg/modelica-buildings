@@ -31,7 +31,7 @@ model MediumColumn
 
   Modelica.SIunits.VolumeFlowRate V_flow=m_flow/Medium.density(sta_a)
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
-  Medium.MassFlowRate m_flow(start=0)
+  Modelica.SIunits.MassFlowRate m_flow(start=0)
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
   Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa")
     "Pressure difference between port_a and port_b";
@@ -51,7 +51,13 @@ initial equation
     Medium.X_default))) > 1E-10,
     "Error: The density of the medium that is used to compute buoyancy force is independent of temperature."
      + "\n       You need to select a different medium model.");
-  assert(densitySelection > 0,
+  // The next assert tests for all allowed values of the enumeration.
+  // Testing against densitySelection > 0 gives an error in OpenModelica as enumerations start with 1.
+  assert(densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromTop
+         or
+         densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom
+         or
+         densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.actual,
     "You need to set the parameter \"densitySelection\" for the model MediumColumn.");
 equation
   // Design direction of mass flow rate
@@ -151,10 +157,12 @@ Documentation(info="<html>
 <p>
 This model describes the pressure difference of a vertical medium
 column. It can be used to model the pressure difference caused by 
-stack effect.</p>
+stack effect.
+</p>
 <p>
 The model can be used with the following three configurations, which are
 controlled by the setting of the parameter <code>densitySelection</code>:
+</p>
 <ul>
 <li>
 <code>top</code>:
@@ -171,7 +179,6 @@ to <code>port_b</code>.
 Use this setting to use the density based on the actual flow direction. 
 </li>
 </ul>
-</p>
 <p>
 The settings <code>top</code> and <code>bottom</code>
 should be used when rooms or different floors of a building are 
@@ -193,14 +200,17 @@ Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
-<li><i>July 28, 2010</i> by Michael Wetter:<br>
+<li><i>April 17, 2013</i> by Michael Wetter:<br/>
+       Reformulated the assert statement that checks for the correct value of <code>densitySelection</code>.
+</li>
+<li><i>July 28, 2010</i> by Michael Wetter:<br/>
        Changed sign for pressure difference.
 </li>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
+<li><i>July 20, 2010</i> by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
        Reimplemented assigment of density based on flow direction or based on outflowing state.
 </li>
-<li><i>February 24, 2005</i> by Michael Wetter:<br>
+<li><i>February 24, 2005</i> by Michael Wetter:<br/>
        Released first version.
 </ul>
 </html>"),

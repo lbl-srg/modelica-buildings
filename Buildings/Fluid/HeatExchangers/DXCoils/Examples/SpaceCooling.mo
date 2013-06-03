@@ -665,7 +665,7 @@ Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 11, 2012, by Michael Wetter:<br>
+January 11, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -676,5 +676,5 @@ First implementation.
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/SpaceCooling.mos"
         "Simulate and plot"),
     experiment(StartTime=1.58112e7,
-               StopTime=1.6416e7));
+               StopTime=1.6416e+07));
 end SpaceCooling;

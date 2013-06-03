@@ -91,23 +91,23 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 <p>
 <ul>
 <li>
-November 3, 2011, by Michael Wetter:<br>
+November 3, 2011, by Michael Wetter:<br/>
 Moved <code>der(X) := 0;</code> from the initial algorithm section to 
 the initial equation section
 as this assignment does not conform to the Modelica specification.
 </li>
 <li>
-June 3, 2011 by Michael Wetter:<br>
+June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that 
 the time constant increases as the mass flow rate tends to zero.
 This significantly improves the numerics.
 </li>
 <li>
-February 22, by Michael Wetter:<br>
+February 22, by Michael Wetter:<br/>
 Improved code that searches for index of the substance name in the medium model.
 </li>
 <li>
-Feb. 8, 2011 by Michael Wetter:<br>
+Feb. 8, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

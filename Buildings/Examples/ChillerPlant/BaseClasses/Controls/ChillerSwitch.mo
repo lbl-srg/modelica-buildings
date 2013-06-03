@@ -2,7 +2,7 @@ within Buildings.Examples.ChillerPlant.BaseClasses.Controls;
 block ChillerSwitch "Control unit for enabling/disabling chiller"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   Modelica.Blocks.Interfaces.RealInput chiCHWST(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg")
     "Chiller chilled water supply temperature (water entering chiller)"
@@ -13,7 +13,7 @@ block ChillerSwitch "Control unit for enabling/disabling chiller"
         transformation(extent={{100,-22},{144,22}}), iconTransformation(extent=
             {{100,-16},{120,4}})));
   Modelica.Blocks.Interfaces.RealInput TSet(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg") "Set temperature of chiller" annotation (Placement(
         transformation(extent={{-140,-80},{-100,-40}}), iconTransformation(
@@ -53,29 +53,29 @@ equation
         initialScale=0.01,
         grid={2,2})),
     Documentation(info="<HTML>
-The controls for enabling/disabling chiller are as follows:</h4>
+The controls for enabling/disabling chiller are as follows:
 <ul>
 <li>
 The chiller is enabled when 
-<code align=\"left\" style=\"font-style:italic;\">
-  T<sub>Chi_CHWST</sub> &gt; T<sub>ChiSet</sub> + T<sub>DeaBan</sub> </code>
+<p align=\"left\" style=\"font-style:italic;\">
+  T<sub>Chi_CHWST</sub> &gt; T<sub>ChiSet</sub> + T<sub>DeaBan</sub> </p>
   </li>
 <li>
 The chiller is disabled when 
-<code align=\"left\" style=\"font-style:italic;\">
-  T<sub>Chi_CHWST</sub> &le; T<sub>ChiSet</sub></code>
+<p align=\"left\" style=\"font-style:italic;\">
+  T<sub>Chi_CHWST</sub> &le; T<sub>ChiSet</sub></p>
 </li>
 </ul>
-where <code>T<sub>Chi_CHWST</sub></code> is chiller chilled water supply temperature, <code>T<sub>ChiSet</sub></code> is set temperature for chilled water leaving chiller, and <code>T<sub>DeaBan</sub></code> is dead band to prevent short cycling. 
+where <i>T<sub>Chi_CHWST</sub></i> is chiller chilled water supply temperature, <i>T<sub>ChiSet</sub></i> is set temperature for chilled water leaving chiller, and <i>T<sub>DeaBan</sub></i> is dead band to prevent short cycling. 
 </HTML>
 ", revisions="<html>
 <ul>
 <li>
-July 20, 2011, by Wangda Zuo:<br>
+July 20, 2011, by Wangda Zuo:<br/>
 Add comments, change variable names, and merge to library.
 </li>
 <li>
-January 18, 2011, by Wangda Zuo:<br>
+January 18, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul></HTML>"),

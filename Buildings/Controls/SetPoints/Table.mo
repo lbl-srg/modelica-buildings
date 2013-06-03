@@ -39,8 +39,10 @@ equation
   annotation (
 defaultComponentName="tab",
 Documentation(info="<html>
+<p>
 This block can be used to schedule a set-point by using piecewise linear functions.
 For example, the instances
+</p>
 <pre>
 Buildings.Controls.SetPoints.Table tabLinExt(constantExtrapolation=false, 
                                              table=[20, 0.0; 
@@ -53,10 +55,11 @@ Buildings.Controls.SetPoints.Table tabConExt(constantExtrapolation=true,
                                                     25, 0.5; 
                                                     26, 1.0]);
 </pre>
+<p>
 will cause the following output:
 </p>
 <p>
-<img src=\"modelica://Buildings/Resources/Images/Controls/SetPoints/Table.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/SetPoints/Table.png\" border=\"1\" alt=\"Table output.\"/>
 </p>
 <p>
 For the default setting <code>constantExtrapolation=true</code>, the
@@ -72,11 +75,11 @@ Note that the first column must be strictly increasing.
 revisions="<html>
 <ul>
 <li>
-April 5, 2011, by Michael Wetter:<br>
+April 5, 2011, by Michael Wetter:<br/>
 Fixed wrong table declaration.
 </li>
 <li>
-July 13, 2010, by Michael Wetter:<br>
+July 13, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

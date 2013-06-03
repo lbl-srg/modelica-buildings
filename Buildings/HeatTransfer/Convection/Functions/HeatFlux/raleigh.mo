@@ -27,7 +27,7 @@ has an infinite derivative near zero, i.e., if <i>h=f(Ra<sup>(1/2)</sup>)</i>.
 revisions="<html>
 <ul>
 <li>
-August 18 2010, by Michael Wetter:<br>
+August 18 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

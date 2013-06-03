@@ -24,7 +24,7 @@ Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-September 17, 2010 by Michael Wetter:<br>
+September 17, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -5400,22 +5400,22 @@ Chiller:Electric:ReformulatedEIR,
       EIRFunT =             {1.056335684,0.045975279,0.001839862,-0.028575058,0.000935916,-0.002552237},
       EIRFunPLR =           {0.243594787,-0.017680952,0.000731787,0.848300868,-0.358252903,0.000896547,-9.0516E-06,0.736449508,0.000316148,-0.022213923},
       etaMotor =            1.0)
-"ReformEIRChiller Trane CVHG670-44&86 2490kW/6.5COP"
+"ReformEIRChiller Trane CVHG670-44&amp;86 2490kW/6.5COP"
 annotation (Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
 Chiller:Electric:ReformulatedEIR,
-    ReformEIRChiller Trane CVHG670-44&86 2490kW/6.5COP,  !- Name
+    ReformEIRChiller Trane CVHG670-44&amp;86 2490kW/6.5COP,  !- Name
     2490036,                 !- Reference Capacity {W}
     6.505,                   !- Reference COP {W/W}
     6.67,                    !- Reference Leaving Chilled Water Temperature {C}
     35.24,                   !- Reference Leaving Condenser Water Temperature {C}
     0.08894,                 !- Reference Chilled Water Flow Rate {m3/s}
     0.13400,                 !- Reference Condenser Water Flow Rate {m3/s}
-    ReformEIRChiller Trane CVHG670-44&86 2490kW/6.5COP CAPFT,  !- Cooling Capacity Function of Temperature Curve Name
-    ReformEIRChiller Trane CVHG670-44&86 2490kW/6.5COP EIRFT,  !- Electric Input to Cooling Output Ratio Function of Temperature Curve Name
-    ReformEIRChiller Trane CVHG670-44&86 2490kW/6.5COP EIRFPLR,  !- Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name
+    ReformEIRChiller Trane CVHG670-44&amp;86 2490kW/6.5COP CAPFT,  !- Cooling Capacity Function of Temperature Curve Name
+    ReformEIRChiller Trane CVHG670-44&amp;86 2490kW/6.5COP EIRFT,  !- Electric Input to Cooling Output Ratio Function of Temperature Curve Name
+    ReformEIRChiller Trane CVHG670-44&amp;86 2490kW/6.5COP EIRFPLR,  !- Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name
     0.087,                   !- Minimum Part Load Ratio
     1.001,                   !- Maximum Part Load Ratio
     0.801,                   !- Optimum Part Load Ratio

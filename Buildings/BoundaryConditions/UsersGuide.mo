@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions;
 package UsersGuide "User's Guide"
-  extends Modelica.Icons.Info;
+  extends Modelica.Icons.Information;
 annotation (preferredView="info",
 Documentation(info="<html>
 <p>This package contains models to read or compute boundary conditions, such as weather data, solar irradition and sky temperatures.
@@ -22,9 +22,9 @@ can be used.
 <h4>References</h4>
 <ul>
 <li>
-Michael Wetter.<br>
+Michael Wetter.<br/>
 <a href=\"http://simulationresearch.lbl.gov/wetter/download/mwdiss.pdf\">
-Simulation-based Building Energy Optimization</a>.<br>
+Simulation-based Building Energy Optimization</a>.<br/>
 Dissertation. University of California at Berkeley. 2004.
 </li>
 </ul>

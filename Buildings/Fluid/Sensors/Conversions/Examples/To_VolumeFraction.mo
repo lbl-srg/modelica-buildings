@@ -163,12 +163,13 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos"
+experiment(StopTime=36000),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},{200,100}})),
     Documentation(info="<html>
 This example demonstrates the modeling of a room with one person and CO<sub>2</sub> control.
-The room has a volume of <i>4*4*2.7 m<sup>3</sub></i>, and the CO<sub>2</sub> inflow is from 
+The room has a volume of <i>4*4*2.7 m<sup>3</sup></i>, and the CO<sub>2</sub> inflow is from
 one person.
 A control system regulates the outside air to maintain a CO<sub>2</sub> concentration of 1000 PPM 
 in the room. The outside air has a CO<sub>2</sub> concentration of 300 PPM.
@@ -177,14 +178,14 @@ the setpoint, which does not comply with ASHRAE regulations.
 </html>", revisions="<html>
 <ul>
 <li>
-March 27, 2013 by Michael Wetter:<br>
+March 27, 2013 by Michael Wetter:<br/>
 Added a flow resistance between the volume and the ambient to decouple the
 state of the volume from the boundary conditions. This is needed to allow
 a pedantic model check in Dymola 2014, as otherwise, the initial conditions of
 the volume could not be specified without introducing redundant equations.
 </li>
 <li>
-February 13, 2010 by Michael Wetter:<br>
+February 13, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

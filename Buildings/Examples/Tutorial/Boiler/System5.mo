@@ -500,6 +500,7 @@ We configured the controller as
     Ti=120,    
     Td=1) \"Controller for valve in boiler loop\";
 </pre>
+<p>
 We set the proportional band to <i>10</i> Kelvin, hence <code>k=0.1</code>.
 We set the integral time constant to <i>120</i> seconds, which is 
 the same time as is required to open or close the valve.
@@ -510,6 +511,7 @@ proportional gain, and finally changing it to a PI-controller and tuning the
 integral time constant.
 </p>
 </li>
+<li>
 <p>
 The valve control for the radiator loop is implemented similar to
 the boiler loop, with the exception that the setpoint is computed
@@ -533,7 +535,7 @@ Its configuration is
 </pre>
 </li>
 </ol>
-<!-- ----------------------- -->
+<!-- ============================================== -->
 <p>
 This completes the closed loop control.
 When simulating the model
@@ -555,12 +557,12 @@ Buildings.Examples.Tutorial.Boiler.System4</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valves as
 this parameter no longer has a default value.
 </li>
 <li>
-January 27, 2012, by Michael Wetter:<br>
+January 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

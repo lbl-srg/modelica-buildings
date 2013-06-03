@@ -1,12 +1,11 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HexElement "Element of a heat exchanger"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
-    vol1(
-          V=m1_flow_nominal*tau1/rho1_nominal,
+    vol1( V=m1_flow_nominal*tau1/rho1_nominal,
           nPorts=2,
           final energyDynamics=energyDynamics1,
           final massDynamics=energyDynamics1),
-    redeclare
+    redeclare replaceable
       Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort
         vol2(
           nPorts = 2,
@@ -42,13 +41,8 @@ model HexElement "Element of a heat exchanger"
         extent={{-20,-20},{20,20}},
         rotation=90)));
 
-  parameter Boolean allowCondensation = true
-    "Set to false to compute sensible heat transfer only";
-
-  MassExchange masExc(
-       redeclare package Medium = Medium2) if allowCondensation
-    "Model for mass exchange"        annotation (Placement(transformation(
-          extent={{48,-44},{68,-24}}, rotation=0)));
+  replaceable MassExchangeDummy masExc "Model for mass exchange"
+    annotation (Placement(transformation(extent={{48,-44},{68,-24}}, rotation=0)));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics1=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -74,7 +68,7 @@ model HexElement "Element of a heat exchanger"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}}, rotation=
            0)));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen(
-    T(final quantity="Temperature",
+    T(final quantity="ThermodynamicTemperature",
       final unit = "K", displayUnit = "degC", min=0))
     "Temperature sensor of metal"
     annotation (Placement(transformation(extent={{8,-10},{28,10}},  rotation=0)));
@@ -126,30 +120,37 @@ Element of a heat exchanger with dynamics on the fluids and the solid.
 The <i>hA</i> value for both fluids is an input.
 The driving force for the heat transfer is the temperature difference
 between the fluid volumes and the solid.
+</p>
 <p>
 The heat capacity <i>C</i> of the metal is assigned as follows.
 Suppose the metal temperature is governed by
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   C dT &frasl; dt = (hA)<sub>1</sub> (T<sub>1</sub> - T)
   + (hA)<sub>2</sub> (T<sub>2</sub> - T)
 </p>
+<p>
 where <i>hA</i> are the convective heat transfer coefficients times 
 heat transfer area that also take
 into account heat conduction in the heat exchanger fins and
 <i>T<sub>1</sub></i> and <i>T<sub>2</sub></i> are the medium temperatures.
 Assuming <i>(hA)<sub>1</sub>=(hA)<sub>2</sub></i>, 
 this equation can be rewritten as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   C dT &frasl; dt =
   2 (UA)<sub>0</sub> ( (T<sub>1</sub> - T) + (T<sub>2</sub> - T) )
 
 </p>
+<p>
 where <i>(UA)<sub>0</sub></i> is the <i>UA</i> value at nominal conditions. 
 Hence we set the heat capacity of the metal 
 to
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 C = 2 (UA)<sub>0</sub> &tau;<sub>m</sub>
 </p>
+<p>
 where <i>&tau;<sub>m</sub></i> is the time constant that the metal
 of the heat exchanger has if the metal is approximated by a lumped
 thermal mass.
@@ -158,18 +159,29 @@ thermal mass.
 revisions="<html>
 <ul>
 <li>
-July 11, 2011, by Michael Wetter:<br>
+May 1, 2013, by Michael Wetter:<br/>
+Changed the redeclaration of <code>vol2</code> to be replaceable,
+as <code>vol2</code> is replaced in some models.
+</li>
+<li>
+April 19, 2013, by Michael Wetter:<br/>
+Made instance <code>MassExchange</code> replaceable, rather than
+conditionally removing the model, to avoid a warning
+during translation because of unused connector variables.
+</li>
+<li>
+July 11, 2011, by Michael Wetter:<br/>
 Removed assignment of medium in <code>vol1</code> and <code>vol2</code>,
 since this assignment is already done in the base class using the
 <code>final</code> modifier.
 </li>
 <li>
-August 12, 2008, by Michael Wetter:<br>
+August 12, 2008, by Michael Wetter:<br/>
 Introduced option to compute each medium using a steady state model or
 a dynamic model.
 </li>
 <li>
-March 25, 2008, by Michael Wetter:<br>
+March 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

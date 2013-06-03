@@ -10,8 +10,8 @@ model MassFraction_pTphi "Unit test for dew point temperature calculation"
     height=1) "Relative humidity"
                  annotation (Placement(transformation(extent={{-80,-60},{-60,-40}},
                    rotation=0)));
-  Buildings.Utilities.Psychrometrics.X_pTphi masFra1(           redeclare
-      package Medium = Medium1) "Mass fraction computation"
+  Buildings.Utilities.Psychrometrics.X_pTphi masFra1
+    "Mass fraction computation"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
     Modelica.Blocks.Sources.Ramp T(
     height=10,
@@ -23,8 +23,8 @@ model MassFraction_pTphi "Unit test for dew point temperature calculation"
     Modelica.Blocks.Sources.Constant P(k=101325) "Pressure"
                  annotation (Placement(transformation(extent={{-80,20},{-60,40}},
                    rotation=0)));
-  Buildings.Utilities.Psychrometrics.X_pTphi masFra2(           redeclare
-      package Medium = Medium2, use_p_in=false) "Mass fraction computation"
+  Buildings.Utilities.Psychrometrics.X_pTphi masFra2(use_p_in=false)
+    "Mass fraction computation"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 equation
   connect(T.y, masFra1.T)
@@ -51,7 +51,9 @@ equation
       points={{-59,30},{-42,30},{-42,16},{-22,16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/MassFraction_pTphi.mos"
+  annotation(
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/MassFraction_pTphi.mos"
         "Simulate and plot"),                                                                                                    Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
 end MassFraction_pTphi;

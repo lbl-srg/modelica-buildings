@@ -16,14 +16,14 @@ info="<html>
 <p>
 Function that computes
 <p align=\"center\" style=\"font-style:italic;\">
- y = &sum;<sub>i=1</sub><sup>n</sup> c<sub>i</sub> x<sup>i-1<sup>
+ y = &sum;<sub>i=1</sub><sup>n</sup> c<sub>i</sub> x<sup>i-1</sup>
 </p>
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-April 28, 2008, by Michael Wetter:<br>
+April 28, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

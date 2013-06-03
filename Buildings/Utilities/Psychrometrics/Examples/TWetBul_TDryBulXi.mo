@@ -56,7 +56,8 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}),
                         graphics),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TWetBul_TDryBulXi.mos"
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TWetBul_TDryBulXi.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This examples is a unit test for the wet bulb computation.
@@ -66,11 +67,11 @@ computation of the wet bulb temperature.
 </html>", revisions="<html>
 <ul>
 <li>
-October 1, 2012 by Michael Wetter:<br>
+October 1, 2012 by Michael Wetter:<br/>
 Revised implementation to add approximate computation of wet bulb temperature.
 </li>
 <li>
-May 7, 2008 by Michael Wetter:<br>
+May 7, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

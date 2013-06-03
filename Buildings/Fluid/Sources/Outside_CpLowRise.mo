@@ -129,13 +129,13 @@ NIST, NISTIR 6585.
 January, 2001.
 Gaithersburg, MD.
 </li>
-</ol>
+</ul>
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-October 26, 2011 by Michael Wetter:<br>
+October 26, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -69,9 +69,6 @@ model DryCoilCounterFlow
     annotation (Placement(transformation(extent={{-60,80},{-40,100}}, rotation=
             0)));
 protected
-  constant Boolean allowCondensation=false
-    "Set to false to compute sensible heat transfer only"
-    annotation (Dialog(tab="Heat transfer"));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_1(redeclare package Medium
       = Medium1,
     allowFlowReversal=allowFlowReversal1,
@@ -111,7 +108,6 @@ protected
     each UA_nominal=UA_nominal/nEle,
     each energyDynamics1=energyDynamics1,
     each energyDynamics2=energyDynamics2,
-    each allowCondensation=allowCondensation,
     each deltaM1=deltaM1,
     each deltaM2=deltaM2,
     each from_dp1=from_dp1,
@@ -236,18 +232,18 @@ this model computes only sensible heat transfer.
 </html>", revisions="<html>
 <ul>
 <li>
-February 2, 2012, by Michael Wetter:<br>
+February 2, 2012, by Michael Wetter:<br/>
 Corrected error in assignment of <code>dp2_nominal</code>.
 The previous assignment caused a pressure drop in all except one element,
 instead of the opposite. This caused too high a flow resistance
 of the heat exchanger.
 </li>
 <li>
-October 8, 2011, by Michael Wetter:<br>
+October 8, 2011, by Michael Wetter:<br/>
 Set <code>show_T=false</code> to avoid state events near zero flow.
 </li>
 <li>
-May 27, 2010, by Michael Wetter:<br>
+May 27, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

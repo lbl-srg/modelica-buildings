@@ -70,13 +70,13 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 <p>
 <ul>
 <li>
-June 3, 2011 by Michael Wetter:<br>
+June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that 
 the time constant increases as the mass flow rate tends to zero.
 This significantly improves the numerics.
 </li>
 <li>
-September 29, 2009, by Michael Wetter:<br>
+September 29, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

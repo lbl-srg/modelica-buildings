@@ -30,10 +30,10 @@ model ParallelCircuitsSlab
   parameter Modelica.SIunits.Length length = A/disPip/nCir
     "Length of the pipe of a single circuit";
 
-  parameter Medium.MassFlowRate m_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate of all circuits combined"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate of all circuits combined for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
 
@@ -56,7 +56,7 @@ model ParallelCircuitsSlab
       m_flow/Medium.density(sta_a) if show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
 
-  Medium.MassFlowRate m_flow(start=0) = port_a.m_flow
+  Modelica.SIunits.MassFlowRate m_flow(start=0) = port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction) for all circuits combined";
   Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa") = port_a.p - port_b.p
     "Pressure difference between port_a and port_b";
@@ -241,7 +241,7 @@ Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-June 27, 2012, by Michael Wetter:<br>
+June 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

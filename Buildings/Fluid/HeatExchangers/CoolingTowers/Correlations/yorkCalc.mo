@@ -69,11 +69,11 @@ See <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Correlatio
 </html>", revisions="<html>
 <ul>
 <li>
-July 12, 2011, by Michael Wetter:<br>
+July 12, 2011, by Michael Wetter:<br/>
 Added <code>smoothMax</code> function to prevent division by zero.
 </li>
 <li>
-May 14, 2008, by Michael Wetter:<br>
+May 14, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

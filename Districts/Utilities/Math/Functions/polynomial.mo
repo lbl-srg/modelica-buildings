@@ -35,6 +35,6 @@ First implementation.
 </li>
 </ul>
 </html>",
-smoothOrder=999, 
+smoothOrder=999,
 derivative(zeroDerivative=a)=Districts.Utilities.Math.Functions.BaseClasses.der_polynomial);
 end polynomial;

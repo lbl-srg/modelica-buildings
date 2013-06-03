@@ -29,7 +29,7 @@ This component constrains the value of relative humidity to a range of <i>[0, 1]
 ", revisions="<html>
 <ul>
 <li>
-October 27, 2011, by Wangda Zuo:<br>
+October 27, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

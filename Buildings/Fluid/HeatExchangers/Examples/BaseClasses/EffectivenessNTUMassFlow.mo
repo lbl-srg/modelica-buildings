@@ -50,8 +50,7 @@ partial model EffectivenessNTUMassFlow
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.Constant const(k=0.8)
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false, redeclare
-      package Medium = Medium2)
+  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
     annotation (Placement(transformation(extent={{150,-42},{170,-22}})));
   Modelica.Blocks.Sources.Constant const1(k=T_a2_nominal)
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));

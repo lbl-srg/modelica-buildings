@@ -36,11 +36,11 @@ extendedPolynomial</a> with respect to <code>x</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-March 23, 2011 by Michael Wetter:<br>
+March 23, 2011 by Michael Wetter:<br/>
 Changed order of argument list to make <code>x</code> the first argument.
 </li>
 <li>
-June 16, 2008 by Michael Wetter:<br>
+June 16, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

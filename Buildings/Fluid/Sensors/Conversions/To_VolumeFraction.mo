@@ -65,12 +65,12 @@ of the mixture.
 revisions="<html>
 <ul>
 <li>
-February 13, 2011 by Michael Wetter:<br>
+February 13, 2011 by Michael Wetter:<br/>
 Changed connectors from the obsolete <code>RealSignal</code>
 to <code>RealInput</code> and <code>RealOutput</code>.
 </li>
 <li>
-September 22, 2008 by Michael Wetter:<br>
+September 22, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,0 +1,21 @@
+removePlots();
+
+simulateModel("Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAESolarGain", stopTime=100, method="dassl", resultFile="ASHRAESolarGain");
+
+createPlot(id = 8,
+ position = {0, 0, 1486, 632},
+ y = {"solHeaGai.QSol_flow[1]", "solHeaGai.QSol_flow[2]", "solHeaGai.QSol_flow[3]"},
+ range = {0.0, 100.0, 174.0, 218.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "ASHRAESolarGain.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}, {0,128,0}});
+
+

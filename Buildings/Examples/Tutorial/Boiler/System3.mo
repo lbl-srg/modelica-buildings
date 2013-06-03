@@ -442,7 +442,6 @@ condensation in the boiler:
     Q_flow_nominal/4200/(TBoiSup_nominal-TBoiRet_min) 
     \"Boiler nominal mass flow rate\";
 </pre>
-</p>
 </li>
 </ol>
 <p>
@@ -554,7 +553,7 @@ outside the allowed range.
 </p>
 </li>
 </ol>
-<!-- ----------------------- -->
+<!-- ============================== -->
 <p>
 This completes the initial version of the model. When simulating the model
 for <i>2</i> days, or <i>172800</i> seconds, the
@@ -574,12 +573,12 @@ this indicates that the model is correct.
 </html>", revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valves as
 this parameter no longer has a default value.
 </li>
 <li>
-January 27, 2012, by Michael Wetter:<br>
+January 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

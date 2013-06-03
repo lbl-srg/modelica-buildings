@@ -98,7 +98,8 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                         graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/ThreeWayValves.mos"
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/ThreeWayValves.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -111,11 +112,11 @@ To use common values, use the default values.
 </html>", revisions="<html>
 <ul>
 <li>
-February 28, 2013, by Michael Wetter:<br>
+February 28, 2013, by Michael Wetter:<br/>
 Added default value for <code>dpValve_nominal</code>.
 </li>
 <li>
-June 16, 2008 by Michael Wetter:<br>
+June 16, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -24,7 +24,7 @@ This function computes the hemiperical absorbtance of a shading device for inter
 </html>", revisions="<html>
 <ul>
 <li>
-August 29, 2010, by Wangda Zuo:<br>
+August 29, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

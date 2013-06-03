@@ -147,7 +147,7 @@ equation
   // This approach is easier than using a conditional connector, since
   // this port carries a flow variable, and hence the sign of the radiosity
   // would change in a connect statement.
-  if (cardinality(JInConExtWin) == 0) then
+  if (nWin == 0) then
     JInConExtWin = zeros(NConExtWin);
   end if;
   // Assign temperature of opaque surfaces
@@ -365,23 +365,28 @@ The view factor from surface <i>i</i> to <i>j</i> is approximated as
 </html>", revisions="<html>
 <ul>
 <li>
-February 10, 2012 by Wangda Zuo:<br>
+April 18, 2013, by Michael Wetter:<br/>
+Removed <code>cardinality</code> function as this is 
+deprecated in the MSL specification and not correctly implemented in omc.
+</li>
+<li>
+February 10, 2012 by Wangda Zuo:<br/>
 Fixed a bug for linearization of T4. 
 </li>
 <li>
-April 21, 2011 by Michael Wetter:<br>
+April 21, 2011 by Michael Wetter:<br/>
 Fixed a bug in the view factor calculation, and rewrote the model to reduce simulation time. The bug caused too much radiosity to flow from large to small surfaces because the law of reciprocity for view factors was not satisfied. This led to low surface temperatures if a surface had a large area compared to other surfaces.
 </li>
 <li>
-April 2, 2011 by Michael Wetter:<br>
+April 2, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-Feb. 3, 2011, by Michael Wetter:<br>
+Feb. 3, 2011, by Michael Wetter:<br/>
 Corrected bug in start value of radiosity, reformulated equations to get
 smaller system of coupled equations.
 <li>
-Dec. 1, 2010, by Michael Wetter:<br>
+Dec. 1, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

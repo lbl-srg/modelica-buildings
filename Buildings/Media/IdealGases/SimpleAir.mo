@@ -16,7 +16,7 @@ Dummy function that returns <code>0</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-April 27, 2011, by Michael Wetter:<br>
+April 27, 2011, by Michael Wetter:<br/>
 First implementation to allow using the room model with a medium that does not contain water vapor.
 </li>
 </ul>
@@ -37,7 +37,7 @@ Dummy function that returns <code>0</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-April 27, 2011, by Michael Wetter:<br>
+April 27, 2011, by Michael Wetter:<br/>
 First implementation to allow using the room model with a medium that does not contain water vapor.
 </li>
 </ul>
@@ -55,11 +55,11 @@ with the <code>Buildings</code> library are at a central location.
         revisions="<html>
 <ul>
 <li>
-April 27, 2011, by Michael Wetter:<br>
+April 27, 2011, by Michael Wetter:<br/>
 Added function <code>enthalpyOfCondensingGas</code>, which returns <code>0</code>,
 to allow using the room model with a medium that does not contain water vapor.
 </li><li>
-September 4, 2008, by Michael Wetter:<br>
+September 4, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

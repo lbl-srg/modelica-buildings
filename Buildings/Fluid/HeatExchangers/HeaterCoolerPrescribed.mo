@@ -69,16 +69,16 @@ can be positive or negative.
 revisions="<html>
 <ul>
 <li>
-July 11, 2011, by Michael Wetter:<br>
+July 11, 2011, by Michael Wetter:<br/>
 Redeclared fluid volume as final. This prevents the fluid volume model
 to appear in the dialog window.
 </li>
 <li>
-May 24, 2011, by Michael Wetter:<br>
+May 24, 2011, by Michael Wetter:<br/>
 Changed base class to allow using the model as a dynamic or a steady-state model.
 </li>
 <li>
-April 17, 2008, by Michael Wetter:<br>
+April 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

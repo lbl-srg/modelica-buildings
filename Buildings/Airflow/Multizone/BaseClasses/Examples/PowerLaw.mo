@@ -14,7 +14,8 @@ equation
   dp = 10*(-1+2*time);
   V_flow = Buildings.Airflow.Multizone.BaseClasses.powerLaw(dp=dp, k=k, m=m, dp_turbulent=dp_turbulent);
   annotation (
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos"
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This examples demonstrates the 
@@ -25,7 +26,7 @@ function.
 </html>", revisions="<html>
 <ul>
 <li>
-August 12, 2011, by Michael Wetter:<br>
+August 12, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

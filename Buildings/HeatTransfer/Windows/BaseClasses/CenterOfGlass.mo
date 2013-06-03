@@ -168,7 +168,7 @@ The model contains these main component models:
 <li>
 the models <code>extSha</code> and <code>intSha</code>
 for the heat balance of the shade, modeled using
-<a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Shade\"</a>
+<a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Shade\">
 Buildings.HeatTransfer.Windows.BaseClasses.Shade</a>.
 </li>
 <li>
@@ -198,12 +198,12 @@ Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>
 </html>", revisions="<html>
 <ul>
 <li>
-July 9 2012, by Wangda Zuo:<br>
+July 9 2012, by Wangda Zuo:<br/>
 Fixed a bug in the parameter assignment of the instance <code>glass</code>.
 Previously, the infrared emissivity of surface a was assigned to the surface b.
 </li>
 <li>
-Sep. 3 2010, by Michael Wetter:<br>
+Sep. 3 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

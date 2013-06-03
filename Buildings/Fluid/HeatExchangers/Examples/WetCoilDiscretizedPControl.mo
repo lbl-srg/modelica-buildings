@@ -165,12 +165,13 @@ equation
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {200,200}}),       graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilDiscretizedPControl.mos"
+experiment(StopTime=3600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilDiscretizedPControl.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valve as
 this parameter no longer has a default value.
 </li>

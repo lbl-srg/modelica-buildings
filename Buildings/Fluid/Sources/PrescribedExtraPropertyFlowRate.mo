@@ -8,7 +8,7 @@ model PrescribedExtraPropertyFlowRate
     "Get the trace substance mass flow rate from the input connector"
     annotation(Evaluate=true, HideResult=true);
 
-  parameter Medium.MassFlowRate m_flow = 0
+  parameter Modelica.SIunits.MassFlowRate m_flow = 0
     "Fixed mass flow rate going out of the fluid port"
     annotation (Evaluate = true,
                 Dialog(enable = not use_m_flow_in));
@@ -44,7 +44,7 @@ equation
     m_flow_in_internal = m_flow;
   end if;
 
-  assert(sum(m_flow_in_internal) >= 0, "Reverse flow for species source is not yet implemented.");
+  assert(m_flow_in_internal >= 0, "Reverse flow for species source is not yet implemented.");
   sum(ports.m_flow) = -m_flow_in_internal;
   medium.T = Medium.T_default;
   medium.Xi = Medium.X_default[1:Medium.nXi];
@@ -65,15 +65,15 @@ component has a carbon dioxide concentration of <i>1</i>.
 </html>", revisions="<html>
 <ul>
 <li>
-March 27, 2013, by Michael Wetter:<br>
+March 27, 2013, by Michael Wetter:<br/>
 Removed binding for <code>C_in_internal</code> to allow pedantic check in Dymola 2014.
 </li>
 <li>
-February 22, by Michael Wetter:<br>
+February 22, by Michael Wetter:<br/>
 Improved code that searches for the index of the trace substance in the medium model.
 </li>
 <li>
-September 18, 2008 by Michael Wetter:<br>
+September 18, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

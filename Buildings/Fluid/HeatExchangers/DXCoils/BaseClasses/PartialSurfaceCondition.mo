@@ -118,7 +118,6 @@ It uses the function
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift\"> 
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift</a>
 for intermediate compressor speeds.
-</i>
 </p>
 <h4>Implementation</h4>
 <p>
@@ -131,11 +130,11 @@ as this ensures that the derivatives are continuous near the off conditions.
 revisions="<html>
 <ul>
 <li>
-September 24, 2012 by Michael Wetter:<br>
+September 24, 2012 by Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-August 24, 2012, by Michael Wetter:<br>
+August 24, 2012, by Michael Wetter:<br/>
 Moved function from 
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</code>
 to 
@@ -147,7 +146,7 @@ already contains a block called
 that do not distinguish between upper and lower case letters.
 </li>
 <li>
-August 1, 2012 by Kaustubh Phalak:<br>
+August 1, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

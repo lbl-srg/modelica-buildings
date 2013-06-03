@@ -7,7 +7,8 @@ model ControlledFlowMachineDynamic
     fan2(dynamicBalance=true, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     fan3(dynamicBalance=true, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
   annotation (
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ControlledFlowMachineDynamic.mos"
+experiment(StopTime=600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ControlledFlowMachineDynamic.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This example demonstrates the use of the flow model with four different configurations.

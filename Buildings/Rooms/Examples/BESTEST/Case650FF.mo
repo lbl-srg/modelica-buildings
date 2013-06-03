@@ -21,7 +21,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case650FF.mos"
+  annotation (
+experiment(StopTime=3.1536e+07),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case650FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is used for the test case 650FF of the BESTEST validation suite.
@@ -31,12 +33,12 @@ heating and no cooling.
 </html>", revisions="<html>
 <ul>
 <li>
-July 15, 2012, by Michael Wetter:<br>
+July 15, 2012, by Michael Wetter:<br/>
 Revised implementation to extend from base case to avoid duplicate code.
 Merged model into the Buildings library.
 </li>
 <li>
-June 26, 2012, by Rafael Velazquez:<br>
+June 26, 2012, by Rafael Velazquez:<br/>
 First implementation.
 </li>
 </ul>

@@ -31,11 +31,11 @@ and all other stages are proportional to their actual speed.
 revisions="<html>
 <ul>
 <li>
-September 5, 2012 by Michael Wetter:<br>
+September 5, 2012 by Michael Wetter:<br/>
 Reimplemented model to use integer input as a control signal.
 </li>
 <li>
-August 29, 2012 by Kaustubh Phalak:<br>
+August 29, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

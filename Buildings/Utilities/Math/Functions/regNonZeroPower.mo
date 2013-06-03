@@ -43,7 +43,7 @@ so that
 <p>
 This function replaces <i>y=|x|<sup>n</sup></i> in the interval
 <i>-&delta;...+&delta;</i> by a 4-th order polynomial that has the same
-function value and the first and second derivative at <i>x=&pm; &delta;</i>.
+function value and the first and second derivative at <i>x=&plusmn; &delta;</i>.
 </p>
 <p>
 A typical use of this function is to replace the 
@@ -64,11 +64,11 @@ See the package <code>Examples</code> for the graph.
 </html>", revisions="<html>
 <ul>
 <li>
-March 30, 2011, by Michael Wetter:<br>
+March 30, 2011, by Michael Wetter:<br/>
 Added <code>zeroDerivative</code> keyword.
 </li>
 <li>
-April 14, 2008, by Michael Wetter:<br>
+April 14, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

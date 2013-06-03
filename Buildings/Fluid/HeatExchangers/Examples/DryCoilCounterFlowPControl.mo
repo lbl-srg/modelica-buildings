@@ -93,9 +93,8 @@ model DryCoilCounterFlowPControl
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.Constant const(k=0.8)
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false, redeclare
-      package Medium = Medium2)
-    annotation (Placement(transformation(extent={{150,-42},{170,-22}})));
+  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
+    annotation (Placement(transformation(extent={{150,-40},{170,-20}})));
   Modelica.Blocks.Sources.Constant const1(k=T_a2_nominal)
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
   Buildings.Controls.Continuous.LimPID con(
@@ -138,15 +137,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(x_pTphi.X, sou_2.X_in) annotation (Line(
-      points={{171,-32},{178,-32},{178,-34},{186,-34},{186,16},{142,16}},
+      points={{171,-30},{186,-30},{186,16},{142,16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, x_pTphi.phi) annotation (Line(
-      points={{121,-60},{136,-60},{136,-38},{148,-38}},
+      points={{121,-60},{136,-60},{136,-36},{148,-36}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const1.y, x_pTphi.T) annotation (Line(
-      points={{121,-28},{134,-28},{134,-32},{148,-32}},
+      points={{121,-28},{134,-28},{134,-30},{148,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const1.y, sou_2.T_in) annotation (Line(
@@ -175,12 +174,13 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilCounterFlowPControl.mos"
+experiment(StopTime=3600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilCounterFlowPControl.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valve as
 this parameter no longer has a default value.
 </li>

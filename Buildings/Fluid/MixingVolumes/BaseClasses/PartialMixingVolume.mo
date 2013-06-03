@@ -9,7 +9,7 @@ partial model PartialMixingVolume
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -88,9 +88,9 @@ protected
   // Outputs that are needed to assign the medium properties
   Modelica.Blocks.Interfaces.RealOutput hOut_internal(unit="J/kg")
     "Internal connector for leaving temperature of the component";
-  Modelica.Blocks.Interfaces.RealOutput XiOut_internal[Medium.nXi](unit="1")
+  Modelica.Blocks.Interfaces.RealOutput XiOut_internal[Medium.nXi](each unit="1")
     "Internal connector for leaving species concentration of the component";
-  Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](unit="1")
+  Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
 
 equation
@@ -102,17 +102,6 @@ equation
   m_flow_small    = " + String(m_flow_small) + "
   ports[1].m_flow = " + String(ports[1].m_flow) + "
 ");
-  end if;
-// Only one connection allowed to a port to avoid unwanted ideal mixing
-  if not useSteadyStateTwoPort then
-    for i in 1:nPorts loop
-    assert(cardinality(ports[i]) == 2 or cardinality(ports[i]) == 0,"
-each ports[i] of volume can at most be connected to one component.
-If two or more connections are present, ideal mixing takes
-place with these connections, which is usually not the intention
-of the modeller. Increase nPorts to add an additional port.
-");
-     end for;
   end if;
   // actual definition of port variables
   // If the model computes the energy and mass balances as steady-state,
@@ -175,17 +164,23 @@ Buildings.Fluid.MixingVolumes</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-February 7, 2012 by Michael Wetter:<br>
+April 18, 2013 by Michael Wetter:<br/>
+Removed the check of multiple connections to the same element
+of a fluid port, as this check required the use of the deprecated
+<code>cardinality</code> function.
+</li>
+<li>
+February 7, 2012 by Michael Wetter:<br/>
 Revised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.
 </li>
 <li>
-September 17, 2011 by Michael Wetter:<br>
+September 17, 2011 by Michael Wetter:<br/>
 Removed instance <code>medium</code> as this is already used in <code>dynBal</code>.
 Removing the base properties led to 30% faster computing time for a solar thermal system
 that contains many fluid volumes. 
 </li>
 <li>
-September 13, 2011 by Michael Wetter:<br>
+September 13, 2011 by Michael Wetter:<br/>
 Changed in declaration of <code>medium</code> the parameter assignment
 <code>preferredMediumStates=true</code> to
 <code>preferredMediumStates= not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)</code>.
@@ -193,18 +188,18 @@ Otherwise, for a steady-state model, Dymola 2012 may differentiate the model to 
 as a state. See ticket Dynasim #13596.
 </li>
 <li>
-July 26, 2011 by Michael Wetter:<br>
+July 26, 2011 by Michael Wetter:<br/>
 Revised model to use new declarations from
 <a href=\"Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
 <li>
-July 14, 2011 by Michael Wetter:<br>
+July 14, 2011 by Michael Wetter:<br/>
 Added start values for mass and internal energy of dynamic balance
 model.
 </li>
 <li>
-May 25, 2011 by Michael Wetter:<br>
+May 25, 2011 by Michael Wetter:<br/>
 <ul>
 <li>
 Changed implementation of balance equation. The new implementation uses a different model if 
@@ -226,20 +221,20 @@ no noticable overhead in always having the <code>heatPort</code> connector prese
 </ul>
 </li>
 <li>
-July 30, 2010 by Michael Wetter:<br>
+July 30, 2010 by Michael Wetter:<br/>
 Added nominal value for <code>mC</code> to avoid wrong trajectory 
 when concentration is around 1E-7.
 See also <a href=\"https://trac.modelica.org/Modelica/ticket/393\">
 https://trac.modelica.org/Modelica/ticket/393</a>.
 </li>
 <li>
-February 7, 2010 by Michael Wetter:<br>
+February 7, 2010 by Michael Wetter:<br/>
 Simplified model and its base classes by removing the port data
 and the vessel area.
 Eliminated the base class <code>PartialLumpedVessel</code>.
 </li>
 <li>
-October 12, 2009 by Michael Wetter:<br>
+October 12, 2009 by Michael Wetter:<br/>
 Changed base class to
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume\">
 Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.

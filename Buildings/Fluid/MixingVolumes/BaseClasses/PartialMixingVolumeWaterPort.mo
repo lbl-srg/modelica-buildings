@@ -9,7 +9,7 @@ partial model PartialMixingVolumeWaterPort
     "Water flow rate added into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}},rotation=
            0)));
-  Modelica.Blocks.Interfaces.RealInput TWat(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealInput TWat(final quantity="ThermodynamicTemperature",
                                             final unit = "K", displayUnit = "degC", min=260)
     "Temperature of liquid that is drained from or injected into volume"
     annotation (Placement(transformation(extent={{-140,28},{-100,68}},
@@ -17,7 +17,7 @@ partial model PartialMixingVolumeWaterPort
   Modelica.Blocks.Interfaces.RealOutput X_w "Species composition of medium"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}, rotation=
            0)));
-  Medium.MassFlowRate mXi_flow[Medium.nXi]
+  Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
   Modelica.SIunits.HeatFlowRate HWat_flow
     "Enthalpy flow rate of extracted water";
@@ -42,33 +42,33 @@ is used that does not implement this function.
 </html>", revisions="<html>
 <ul>
 <li>
-February 7, 2012 by Michael Wetter:<br>
+February 7, 2012 by Michael Wetter:<br/>
 Revised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.
 </li>
 <li>
-January 10, 2011 by Michael Wetter:<br>
+January 10, 2011 by Michael Wetter:<br/>
 Removed <code>ports_p_static</code> and used instead <code>medium.p</code> since
 <code>ports_p_static</code> is not available in 
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a> which is sometimes used to replace this model.
 </li>
 <li>
-July 30, 2010 by Michael Wetter:<br>
+July 30, 2010 by Michael Wetter:<br/>
 Added nominal value for <code>mC</code> to avoid wrong trajectory 
 when concentration is around 1E-7.
 See also <a href=\"https://trac.modelica.org/Modelica/ticket/393\">
 https://trac.modelica.org/Modelica/ticket/393</a>.
 </li>
 <li>
-March 24, 2010 by Michael Wetter:<br>
+March 24, 2010 by Michael Wetter:<br/>
 Changed base class from <code>Modelica.Fluid</code> to <code>Buildings.Fluid</code>.
 <li>
-August 12, 2008 by Michael Wetter:<br>
+August 12, 2008 by Michael Wetter:<br/>
 Introduced option to compute model in steady state. This allows the heat exchanger model
 to switch from a dynamic model for the medium to a steady state model.
 </li>
 <li>
-August 13, 2008 by Michael Wetter:<br>
+August 13, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

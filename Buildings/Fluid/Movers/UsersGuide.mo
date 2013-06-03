@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers;
 package UsersGuide "User's Guide"
-  extends Modelica.Icons.Info;
+  extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>

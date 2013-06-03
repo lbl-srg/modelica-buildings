@@ -11,7 +11,7 @@ model SpeedShift "Test model for SpeedShift block"
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.25; 900,0.50; 1800,0.50;
         2700,0.75; 3600,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-92,40},{-72,60}})));
-  Data.Generic.DXCoil
+  parameter Data.Generic.DXCoil
                 datCoi(nSta=4, sta={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
         spe=900/60,
@@ -82,6 +82,7 @@ equation
       color={255,127,0},
       smooth=Smooth.None));
 annotation (Diagram(graphics),
+experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/SpeedShift.mos"
         "Simulate and plot"),
           Documentation(info="<html>
@@ -94,7 +95,12 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedShift</a>.
 revisions="<html>
 <ul>
 <li>
-August 8, 2012 by Kaustubh Phalak:<br>
+May 1, 2013, by Michael Wetter:<br/>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
+<li>
+August 8, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

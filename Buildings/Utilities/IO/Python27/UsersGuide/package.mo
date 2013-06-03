@@ -40,7 +40,7 @@ following system configurations:
       <th>System</th>
       <th>Settings</th>
     </tr>
-  <!-- ------------------------------------------------------------------------- -->
+  <!-- =================================================================== -->
     <tr>
       <td>Linux 32 bit, Dymola 2014</td>
       <td>
@@ -53,13 +53,13 @@ Alternatively, these lines could be added to the file <code>~/.bashrc</code>.
       </td>
     </tr>
     <tr>
-  <!-- ------------------------------------------------------------------------- -->
+  <!-- =================================================================== -->
       <td>Linux 64 bit, Dymola 2014</td>
       <td>
 Use the same commands as for <i>Linux 64 bit, Dymola 2014</i> because Dymola 2014 only generates 32 bit code.
       </td>
     </tr>
-  <!-- ------------------------------------------------------------------------- -->
+  <!-- =================================================================== -->
     <tr>
       <td>Linux 32 bit, Dymola 2013 FD01</td>
       <td>
@@ -82,25 +82,25 @@ with
 </p>
       </td>
     </tr>
-  <!-- ------------------------------------------------------------------------- -->
+  <!-- =================================================================== -->
     <tr>
       <td>Linux 64 bit, Dymola 2013 FD01</td>
       <td>
 Use the same commands as for <i>Linux 32 bit, Dymola 2013 FD01</i> because Dymola 2013 FD01 only generates 32 bit code.
       </td>
     </tr>
-  <!-- ------------------------------------------------------------------------- -->
+  <!-- =================================================================== -->
     <tr>
       <td>Windows 32 bit, Dymola 2014 
-      <br>Windows 64 bit, Dymola 2014
-      <br>Windows 32 bit, Dymola 2013 FD01 
-      <br>Windows 64 bit, Dymola 2013 FD01 </td>
+      <br/>Windows 64 bit, Dymola 2014
+      <br/>Windows 32 bit, Dymola 2013 FD01 
+      <br/>Windows 64 bit, Dymola 2013 FD01 </td>
       <td>
         Add to the system environment variable <code>PYTHONPATH</code> the directory 
         <code>\"Path_To_Buildings_Library\"\\Resources\\Python-Sources</code>.
       </td>
     </tr>
-  <!-- ------------------------------------------------------------------------- -->
+  <!-- =================================================================== -->
   </table>
 </p>
 <h4>Number of values to read to Python and write from Python</h4>

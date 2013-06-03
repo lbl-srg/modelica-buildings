@@ -7,22 +7,23 @@ model MixedAirFreeResponse "Free response of room model"
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-72,-32},{-52,-12}})));
 
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
+  parameter
+    Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
     matLayExt "Construction material for exterior walls"
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
 
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 matLayPar
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 matLayPar
     "Construction material for partition walls"
     annotation (Placement(transformation(extent={{-20,140},{0,160}})));
 
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(
         material={
           HeatTransfer.Data.Solids.InsulationBoard(x=0.2),
           HeatTransfer.Data.Solids.Concrete(x=0.2)},
         final nLay=2) "Construction material for roof"
     annotation (Placement(transformation(extent={{20,140},{40,160}})));
 
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matLayFlo(
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matLayFlo(
         material={
           HeatTransfer.Data.Solids.Concrete(x=0.2),
           HeatTransfer.Data.Solids.InsulationBoard(x=0.15),
@@ -30,7 +31,7 @@ model MixedAirFreeResponse "Free response of room model"
         final nLay=3) "Construction material for floor"
     annotation (Placement(transformation(extent={{60,140},{80,160}})));
 
-  Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveInteriorShade=false,
@@ -176,7 +177,12 @@ Buildings.Rooms.MixedAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2010, by Michael Wetter:<br>
+May 1, 2013, by Michael Wetter:<br/>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
+<li>
+December 14, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

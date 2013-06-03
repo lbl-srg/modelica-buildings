@@ -17,7 +17,7 @@ model Case610 "Case 600 with south shading"
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case610.mos"
         "Simulate and plot"),
         experiment(
-      StopTime=3.1536e+007,
+      StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-006),
 Diagram(coordinateSystem(
@@ -37,18 +37,18 @@ each window only sees its own overhang.
 revisions="<html>
 <ul>
 <li>
-July 6, 2012, by Michael Wetter:<br>
+July 6, 2012, by Michael Wetter:<br/>
 Changed implementation to extend from Case 600, rather
 than copying Case 600.
 This better shows what is different relative to Case 600
 as it avoid duplicate code.
 </li>
 <li>
-May 1, 2012, by Kaustubh Phalak:<br>
+May 1, 2012, by Kaustubh Phalak:<br/>
 Modified the Case 600 for implementation of Case 610.
 </li>
 <li>
-October 6, 2011, by Michael Wetter:<br>
+October 6, 2011, by Michael Wetter:<br/>
 First implementation of Case 600.
 </li>
 </ul>

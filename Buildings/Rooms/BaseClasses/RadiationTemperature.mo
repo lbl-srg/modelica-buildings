@@ -238,7 +238,7 @@ where
 <i>&epsilon;<sub>g</sub></i> is the infrared absorptivity of the glass,
 <i>&tau;<sub>s</sub></i> is the infrared transmittance of the shade, and
 <i>T<sub>gs</sub></i> is the glass temperature behind the shade.
-<br>
+<br/>
 For the unshaded part of the window, the radiative power is
 <p align=\"center\" style=\"font-style:italic;\">
  E = A &nbsp; (1-u) &nbsp; &epsilon;<sub>g</sub> &nbsp; T<sub>gn</sub>
@@ -250,11 +250,11 @@ where
 revisions="<html>
 <ul>
 <li>
-March 29 2011, by Michael Wetter:<br>
+March 29 2011, by Michael Wetter:<br/>
 Rewrote sum for the radiation temperature.
 </li>
 <li>
-Jan. 18 2011, by Michael Wetter:<br>
+Jan. 18 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

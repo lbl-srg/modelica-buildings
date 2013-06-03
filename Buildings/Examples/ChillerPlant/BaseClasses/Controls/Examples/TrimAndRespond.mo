@@ -36,15 +36,15 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-October 17, 2012, by Wangda Zuo:<br>
+October 17, 2012, by Wangda Zuo:<br/>
 Revised the example according to the new control.
 </li>
 <li>
-July 21, 2011, by Wangda Zuo:<br>
+July 21, 2011, by Wangda Zuo:<br/>
 Merged to library.
 </li>
 <li>
-January 6, 2011, by Wangda Zuo:<br>
+January 6, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

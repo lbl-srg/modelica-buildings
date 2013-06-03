@@ -56,11 +56,11 @@ Otherwise, the formula for coated glass will be used.
 </html>", revisions="<html>
 <ul>
 <li>
-December 12, 2011, by Wangda Zuo:<br>
+December 12, 2011, by Wangda Zuo:<br/>
 Calculate the property using formula for coated (existing) and uncoated glass (newly added).
 </li>
 <li>
-August 24, 2010, by Wangda Zuo:<br>
+August 24, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

@@ -80,7 +80,9 @@ initial equation
   // Derivatives for spline that interpolates the fan relative power
   fanRelPowDer = Buildings.Utilities.Math.Functions.splineDerivatives(
             x=fanRelPow.r_V,
-            y=fanRelPow.eta);
+            y=fanRelPow.eta,
+            ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=fanRelPow.eta,
+                                                                              strict=false));
   // Check validity of relative fan power consumption at y=yMin and y=1
   assert(cha.efficiency(data=fanRelPow, r_V=yMin, d=fanRelPowDer) > -1E-4,
     "The fan relative power consumption must be non-negative for y=0."
@@ -166,12 +168,13 @@ For numerical reasons, this transition occurs in the range of <code>y &isin; [0.
 <h4>Fan power consumption</h4>
 <p>
 The fan power consumption at the design condition can be specified as follows:
+</p>
 <ul>
 <li>
 The parameter <code>fraPFan_nominal</code> can be used to specify at the 
 nominal conditions the fan power divided by the water flow rate. The default value is 
 <i>275</i> Watts for a water flow rate of <i>0.15</i> kg/s. 
-</i>
+</li>
 <li>
 The parameter <code>PFan_nominal</code> can be set to the fan power at nominal conditions.
 If a user does not set this parameter, then the fan power will be
@@ -179,7 +182,6 @@ If a user does not set this parameter, then the fan power will be
 is the nominal water flow rate.
 </li>
 </ul>
-</p>
 <p>
 In the forced convection mode, the actual fan power is 
 computed as <code>PFan=fanRelPow(y) * PFan_nominal</code>, where
@@ -196,9 +198,10 @@ In between these points, the values are interpolated using cubic splines.
 </p>
 <h4>Comparison the the cooling tower model of EnergyPlus</h4>
 <p> 
-This model is similar to the model <oode>Cooling Tower:Variable Speed</code> that
+This model is similar to the model <code>Cooling Tower:Variable Speed</code> that
 is implemented in the EnergyPlus building energy simulation program version 6.0.
 The main differences are
+</p>
 <ol>
 <li>
 Not implemented are the basin heater power consumption, and
@@ -208,7 +211,8 @@ the make-up water usage.
 The model has no built-in control to switch individual cells of the tower on or off.
 To switch cells on or off, use multiple instances of this model, and use your own
 control law to compute the input signal <code>y</code>.
-</p>
+</li>
+</ol>
 <h4>References</h4>
 <p>
 <a href=\"http://www.energyplus.gov\">EnergyPlus 2.0.0 Engineering Reference</a>, April 9, 2007.
@@ -216,11 +220,11 @@ control law to compute the input signal <code>y</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-September 29, 2011, by Michael Wetter:<br>
+September 29, 2011, by Michael Wetter:<br/>
 Revised model to use cubic spline interpolation instead of a polynomial.
 </li>
 <li>
-July 12, 2011, by Michael Wetter:<br>
+July 12, 2011, by Michael Wetter:<br/>
 Introduced common base class for
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a>
 and
@@ -228,21 +232,21 @@ and
 so that they can be used as replaceable models.
 </li>
 <li>
-May 12, 2011, by Michael Wetter:<br>
+May 12, 2011, by Michael Wetter:<br/>
 Added binding equations for <code>Q_flow</code> and <code>mXi_flow</code>.
 </li>
 <li>
-March 8, 2011, by Michael Wetter:<br>
+March 8, 2011, by Michael Wetter:<br/>
 Removed base class and unused variables.
 </li>
 <li>
-February 25, 2011, by Michael Wetter:<br>
+February 25, 2011, by Michael Wetter:<br/>
 Revised implementation to facilitate scaling the model to different nominal sizes.
 Removed parameter <code>mWat_flow_nominal</code> since it is equal to <code>m_flow_nominal</code>,
 which is the water flow rate from the chiller condenser loop.
 </li>
 <li>
-May 16, 2008, by Michael Wetter:<br>
+May 16, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

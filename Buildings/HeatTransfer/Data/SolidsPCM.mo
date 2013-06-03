@@ -19,11 +19,11 @@ and declares parameters and constants for phase change materials.
 </html>", revisions="<html>
 <ul>
 <li>
-March 9, 2013, by Michael Wetter:<br>
+March 9, 2013, by Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-February 20, 2013, by Michael Wetter:<br>
+February 20, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -53,7 +53,7 @@ Simplified numerical description of latent storage characteristics for phase cha
   revisions="<html>
 <ul>
 <li>
-March 18, 2013, by Michael Wetter:<br>
+March 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -80,7 +80,7 @@ Simplified numerical description of latent storage characteristics for phase cha
   revisions="<html>
 <ul>
 <li>
-March 18, 2013, by Michael Wetter:<br>
+March 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -111,11 +111,17 @@ thermal conductivity, mass density and specific
 heat capacity, as well as the solidus and liquidus temperatures, and 
 the latent heat.
 </p>
+<p>
+For a description of the parameter <code>nStaRef</code>, which is
+used to generate the spatial grid, see the documentation of the package
+<a href=\"modelica://Buildings.HeatTransfer.Data.Solids\">
+Buildings.HeatTransfer.Data.Solids</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-February 20, 2013, by Michael Wetter:<br>
+February 20, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

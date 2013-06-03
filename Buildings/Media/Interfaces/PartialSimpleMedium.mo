@@ -3,7 +3,7 @@ partial package PartialSimpleMedium
   "Medium model with linear dependency of u, h from temperature. Most other quantities are constant."
 
   extends Modelica.Media.Interfaces.PartialPureSubstance(
-        ThermoStates=Choices.IndependentVariables.pT,
+        ThermoStates=Buildings.Media.Interfaces.Choices.IndependentVariables.pT,
         final singleState=constantDensity,
         reference_p=p0,
         p_default=p0);
@@ -238,7 +238,7 @@ the density is
 </html>", revisions="<html>
 <ul>
 <li>
-September 16, 2010, by Michael Wetter:<br>
+September 16, 2010, by Michael Wetter:<br/>
 Removed the <code>stateSelect</code> assignment in <pre>
 BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else
@@ -257,26 +257,26 @@ if the <code>stateSelect</code> is not set to <code>StateSelect.prefer</code>
 for steady-state models.
 </li>
 <li>
-August 3, 2011, by Michael Wetter:<br>
+August 3, 2011, by Michael Wetter:<br/>
 Fixed bug in function <code>density</code>, which always returned <code>d_const</code>, regardless
 of the constant <code>constantDensity</code>.
 </li>
 <li>
-August 1, 2011, by Michael Wetter:<br>
+August 1, 2011, by Michael Wetter:<br/>
 Fixed bug in assignment of <code>singleState</code>.
 </li>
 <li>
-September 13, 2010, by Michael Wetter:<br>
+September 13, 2010, by Michael Wetter:<br/>
 Set default values and reference pressure.
 </li>
 <li>
-February 18, 2010, by Michael Wetter:<br>
+February 18, 2010, by Michael Wetter:<br/>
 In <a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleMedium.setState_psX\">
 setState_psX</a>, replaced
 <code>reference_T</code> with <code>T0</code> because enthalpy is defined as zero at <code>T0</code>.
 </li>
 <li>
-October 2, 2009, by Michael Wetter:<br>
+October 2, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

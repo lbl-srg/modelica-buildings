@@ -84,15 +84,18 @@ protected
     "Flag, used to pick the right representatio of the fan or pump pressure curve";
   parameter Integer nOri = size(pressure.V_flow,1)
     "Number of data points for pressure curve";
-  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur1(
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur1(
     final n = nOri,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
-  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur2(
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur2(
    final n = nOri + 1,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
-  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur3(
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur3(
    final n = nOri + 2,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
@@ -106,7 +109,9 @@ protected
    if use_powerCharacteristic then
      Buildings.Utilities.Math.Functions.splineDerivatives(
                    x=power.V_flow,
-                   y=power.P)
+                   y=power.P,
+                   ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=power.P,
+                                                                                     strict=false))
    else
      zeros(size(power.V_flow,1))
     "Coefficients for polynomial of pressure vs. flow rate";
@@ -431,21 +436,21 @@ equation
   end if;
   // Power consumption
   if use_powerCharacteristic then
-    // For the homotopy, we want PEle/V_flow to be bounded as V_flow -> 0 to avoid a very high medium
+    // For the homotopy, we want P/V_flow to be bounded as V_flow -> 0 to avoid a very high medium
     // temperature near zero flow.
     if homotopyInitialization then
-      PEle = homotopy(actual=cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer),
+      P = homotopy(actual=cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer),
                       simplified=VMachine_flow/V_flow_nominal*
                             cha.power(data=power, V_flow=V_flow_nominal, r_N=1, d=powDer));
     else
-      PEle = (rho/rho_default)*cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer);
+      P = (rho/rho_default)*cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer);
     end if;
     // To compute the efficiency, we set a lower bound on the electricity consumption.
-    // This is needed because WFlo can be close to zero when PEle is zero, thereby
+    // This is needed because WFlo can be close to zero when P is zero, thereby
     // causing a division by zero.
-    // Earlier versions of the model computed WFlo = eta * PEle, but this caused
+    // Earlier versions of the model computed WFlo = eta * P, but this caused
     // a division by zero.
-    eta = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=PEle, x2=1E-5, deltaX=1E-6);
+    eta = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=P, x2=1E-5, deltaX=1E-6);
     // In this configuration, we only now the total power consumption.
     // Because nothing is known about etaMot versus etaHyd, we set etaHyd=1. This will
     // cause etaMot=eta, because eta=etaHyd*etaMot.
@@ -464,12 +469,12 @@ equation
     end if;
     // To compute the electrical power, we set a lower bound for eta to avoid
     // a division by zero.
-    PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
+    P = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
 
   end if;
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Line(
           points={{0,70},{40,70}},
@@ -502,6 +507,8 @@ If <code>use_powerCharacteristic = true</code>, then the data points for
 normalized volume flow rate versus power consumption
 is used to determine the power consumption, and then the efficiency
 is computed based on the actual power consumption and the flow work. 
+</li>
+</ul>
 </p>
 <h4>Implementation</h4>
 <p>
@@ -526,39 +533,38 @@ to be used during the simulation.
 revisions="<html>
 <ul>
 <li>
-March 20, 2013, by Michael Wetter:<br>
+March 20, 2013, by Michael Wetter:<br/>
 Removed assignment in declaration of <code>pCur?.V_flow</code> as
 these parameters have the attribute <code>fixed=false</code> set.
 </li>
 <li>
-October 11, 2012, by Michael Wetter:<br>
-Added implementation of <code>WFlo = eta * PEle</code> with
+October 11, 2012, by Michael Wetter:<br/>
+Added implementation of <code>WFlo = eta * P</code> with
 guard against division by zero.
 Changed implementation of <code>etaMot=sqrt(eta)</code> to 
 <code>etaHyd = 1</code> to avoid infinite derivative as <code>eta</code>
 converges to zero.
 </li>
-</li>
 <li>
-February 20, 2012, by Michael Wetter:<br>
+February 20, 2012, by Michael Wetter:<br/>
 Assigned value to nominal attribute of <code>VMachine_flow</code>.
 </li>
 <li>
-February 14, 2012, by Michael Wetter:<br>
+February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
 </li>
 <li>
-October 4 2011, by Michael Wetter:<br>
+October 4 2011, by Michael Wetter:<br/>
 Revised the implementation of the pressure drop computation as a function
 of speed and volume flow rate.
 The new implementation avoids a singularity near zero volume flow rate and zero speed.
 </li>
 <li>
-March 28 2011, by Michael Wetter:<br>
+March 28 2011, by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-March 23 2010, by Michael Wetter:<br>
+March 23 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -41,11 +41,11 @@ public
     "Volume flow rate at inflowing port (positive when flow from port_a2 to port_b2)";
   Medium1.MassFlowRate m1_flow(start=0) = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp1(start=0, displayUnit="Pa") = port_a1.p - port_b1.p
+  Modelica.SIunits.Pressure dp1(start=0, displayUnit="Pa")
     "Pressure difference between port_a1 and port_b1";
   Medium2.MassFlowRate m2_flow(start=0) = port_a2.m_flow
     "Mass flow rate from port_a2 to port_b2 (m2_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp2(start=0, displayUnit="Pa") = port_a2.p - port_b2.p
+  Modelica.SIunits.Pressure dp2(start=0, displayUnit="Pa")
     "Pressure difference between port_a2 and port_b2";
   Medium1.ThermodynamicState sta_a1=if homotopyInitialization then
       Medium1.setState_phX(port_a1.p,
@@ -104,6 +104,9 @@ protected
   Medium2.ThermodynamicState state_b2_inflow=
     Medium2.setState_phX(port_b2.p, inStream(port_b2.h_outflow), inStream(port_b2.Xi_outflow))
     "state for medium inflowing through port_b2";
+equation
+  dp1 = port_a1.p - port_b1.p;
+  dp2 = port_a2.p - port_b2.p;
   annotation (
   preferredView="info",
     Diagram(coordinateSystem(
@@ -125,7 +128,11 @@ mass transfer and pressure drop equations.
 </html>", revisions="<html>
 <ul>
 <li>
-March 27, 2012 by Michael Wetter:<br>
+April 26, 2013 by Marco Bonvini:<br/>
+Moved the definitions of <code>dp1</code> and <code>dp2</code> because they cause some problem with PyFMI.
+</li>
+<li>
+March 27, 2012 by Michael Wetter:<br/>
 Replaced the erroneous function call <code>Medium.density</code> with 
 <code>Medium1.density</code> and <code>Medium2.density</code>.
 Changed condition to remove <code>sta_a1</code> and <code>sta_a2</code> to also
@@ -135,22 +142,22 @@ if <code>show_V_flow=true</code>, but worked correctly otherwise
 because the erroneous function call is removed if  <code>show_V_flow=false</code>.
 </li>
 <li>
-March 27, 2011 by Michael Wetter:<br>
+March 27, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-March 21, 2010 by Michael Wetter:<br>
+March 21, 2010 by Michael Wetter:<br/>
 Changed pressure start value from <code>system.p_start</code>
 to <code>Medium.p_default</code> since HVAC models may have water and 
 air, which are typically at different pressures.
 </li>
 <li>
-September 19, 2008 by Michael Wetter:<br>
+September 19, 2008 by Michael Wetter:<br/>
 Added equations for the mass balance of extra species flow,
 i.e., <code>C</code> and <code>mC_flow</code>.
 </li>
 <li>
-April 28, 2008, by Michael Wetter:<br>
+April 28, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

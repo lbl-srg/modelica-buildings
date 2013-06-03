@@ -637,7 +637,7 @@ before they can be switched off.
 </p>
 </li>
 </ol>
-<!-- ----------------------- -->
+<!-- ============================================== -->
 <p>
 When simulating the model
 for <i>2</i> days, or <i>172800</i> seconds, the
@@ -650,16 +650,16 @@ response shown below should be seen.
 </html>", revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valves as
 this parameter no longer has a default value.
 </li>
 <li>
-April 13, 2012, by Michael Wetter:<br>
+April 13, 2012, by Michael Wetter:<br/>
 Removed first order filter at boiler pump input.
 </li>
 <li>
-January 27, 2012, by Michael Wetter:<br>
+January 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

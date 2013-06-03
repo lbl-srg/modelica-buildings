@@ -1,0 +1,23 @@
+simulateModel("Districts.Electrical.AC.Conversion.Examples.ACACConverter", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="ACACConverter");
+removePlots();
+createPlot(id = 5,
+ position = {0, 0, 1674, 829},
+ y = {"conACAC.pin1_pQS.v.re", "conACAC.pin2_pQS.v.re"},
+ range = {0.0, 4000.0, 50.0, 130.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "ACACConverter.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}});
+
+
+
+
+
+

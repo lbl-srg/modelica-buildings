@@ -6,13 +6,13 @@ model ConductorInitialization "Test model for heat conductor initialization"
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic compositeWall(
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic compositeWall(
       material={insulation,brick}, final nLay=2)
     "Composite wall consisting of insulation and material"
     annotation (Placement(transformation(extent={{60,72},{80,92}})));
-  Buildings.HeatTransfer.Data.Solids.Brick brick(x=0.18, nStaRef=3)
+  parameter Buildings.HeatTransfer.Data.Solids.Brick brick(x=0.18, nStaRef=3)
     annotation (Placement(transformation(extent={{18,72},{38,92}})));
-  Buildings.HeatTransfer.Data.Solids.InsulationBoard insulation(x=0.05, nStaRef=2)
+  parameter Buildings.HeatTransfer.Data.Solids.InsulationBoard insulation(x=0.05, nStaRef=2)
     annotation (Placement(transformation(extent={{-20,72},{0,92}})));
 
   Buildings.HeatTransfer.Conduction.MultiLayer conS1(
@@ -128,14 +128,16 @@ equation
           extent={{-86,-32},{32,-24}},
           lineColor={0,0,0},
           textString="Fixed initial state T(0)")}),
-          __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorInitialization.mos" "Simulate and plot"),
+experiment(StopTime=86400),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorInitialization.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This example illustrates how to initialize heat conductors in steady state and with
 predefined temperatures.
 </html>", revisions="<html>
 <ul>
 <li>
-March 6 2010, by Michael Wetter:<br>
+March 6 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

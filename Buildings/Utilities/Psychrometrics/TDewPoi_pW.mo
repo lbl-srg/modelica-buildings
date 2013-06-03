@@ -7,7 +7,7 @@ block TDewPoi_pW
                                                                       rotation=
             0)));
   Modelica.Blocks.Interfaces.RealOutput T(start=278.15,
-                                         final quantity="Temperature",
+                                         final quantity="ThermodynamicTemperature",
                                          final unit="K",
                                          min = 0,
                                          displayUnit="degC")
@@ -33,13 +33,13 @@ temperatures.
 </html>", revisions="<html>
 <ul>
 <li>
-September 4, 2008 by Michael Wetter:<br>
+September 4, 2008 by Michael Wetter:<br/>
 Changed from causal to acausal ports, needed, for example, for
 <a href=\"modelica://Buildings.Fluid.Examples.MixingVolumeMoistAir\">
 Buildings.Fluid.Examples.MixingVolumeMoistAir</a>.
 </li>
 <li>
-August 7, 2008 by Michael Wetter:<br>
+August 7, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -56,7 +56,6 @@ model DryCoilDiscretized
     each tau_m=tau_m,
     each final energyDynamics1=energyDynamics1,
     each final energyDynamics2=energyDynamics2,
-    each allowCondensation=allowCondensation,
     each from_dp1=from_dp1,
     each linearizeFlowResistance1=linearizeFlowResistance1,
     each deltaM1=deltaM1,
@@ -359,33 +358,33 @@ this model computes only sensible heat transfer.
 </html>", revisions="<html>
 <ul>
 <li>
-October 8, 2010, by Michael Wetter:<br>
+October 8, 2010, by Michael Wetter:<br/>
 Set <code>show_T=false</code> to avoid state events near zero flow.
 </li>
 <li>
-March 24, 2011, by Michael Wetter:<br>
+March 24, 2011, by Michael Wetter:<br/>
 Replaced integer division <code>nReg/2</code> by <code>div(nReg,2)</code>
 when instantiating an array of models as the former leads to a syntax error
 in Dymola 7.4 FD01.
 </li>
 <li>
-May 28, 2010, by Michael Wetter:<br>
+May 28, 2010, by Michael Wetter:<br/>
 Fixed bug in assigning pressure drops that led to too high a resistances.
 </li><li>
-September 10, 2008, by Michael Wetter:<br>
+September 10, 2008, by Michael Wetter:<br/>
 Added additional parameters.
 </li>
 <li>
-September 9, 2008 by Michael Wetter:<br>
+September 9, 2008 by Michael Wetter:<br/>
 Propagated more parameters.
 </li>
 <li>
-August 12, 2008 by Michael Wetter:<br>
+August 12, 2008 by Michael Wetter:<br/>
 Introduced option to compute each medium using a steady state model or
 a dynamic model.
 </li>
 <li>
-March 25, 2008, by Michael Wetter:<br>
+March 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

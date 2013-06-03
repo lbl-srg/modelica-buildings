@@ -590,7 +590,8 @@ equation
           extent={{-188,-20},{-38,-84}},
           lineColor={0,0,255},
           textString="Same system as above, but with flow reversed")}),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HeaterCoolerPrescribed.mos"
+experiment(StopTime=3600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HeaterCoolerPrescribed.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>Model that tests the basic class that is used for the heater models. It adds and removes heat for forward and reverse flow. The top and bottom models should give similar results, although the sign of the temperature difference over the components differ because of the reverse flow. The model uses assert statements that will be triggered if results that are expected to be close to each other differ by more than a prescribed threshold. All temperature sensors are configured as steady-state sensors to avoid differences in temperature due to the dynamic response of the sensor.</p>
@@ -598,18 +599,18 @@ Documentation(info="<html>
 revisions="<html>
 <ul>
 <li>
-January 24, 2013, by Michael Wetter:<br>
+January 24, 2013, by Michael Wetter:<br/>
 Increased parameter <code>startTime</code> of the assert block
 and set initial conditions to 
 <code>Modelica.Fluid.Types.Dynamics.FixedInitial</code>.
 </li>
 <li>
-July 11, 2011, by Michael Wetter:<br>
+July 11, 2011, by Michael Wetter:<br/>
 Changed model to sensors with two fluid ports.
 Moved model to <code>Buildings.Fluid.Interfaces.Examples</code>.
 </li>
 <li>
-April 17, 2008, by Michael Wetter:<br>
+April 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

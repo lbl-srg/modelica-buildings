@@ -25,6 +25,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics),
+experiment(StopTime=2),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Splice.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -36,7 +37,7 @@ Buildings.Utilities.Math.Splice</a>
 </html>", revisions="<html>
 <ul>
 <li>
-July 27, 2012, by Kaustubh Phalak:<br>
+July 27, 2012, by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>

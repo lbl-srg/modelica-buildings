@@ -118,9 +118,8 @@ model MoistAir
   Modelica.Blocks.Math.Gain perToRel1(
                                      k=0.01) "Converts 0...100 to 0...1"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Utilities.Psychrometrics.X_pTphi masFra(
-                                           use_p_in=false, redeclare package
-      Medium = Medium) "Mass fraction"
+  Buildings.Utilities.Psychrometrics.X_pTphi masFra(use_p_in=false)
+    "Mass fraction"
     annotation (Placement(transformation(extent={{50,56},{70,76}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{0,156},{20,176}})));
@@ -322,21 +321,27 @@ where <code>XY</code> denotes the EnergyPlus version number.
 </html>", revisions="<html>
 <ul>
 <li>
-January 13, 2012, by Michael Wetter:<br>
+May 1, 2013, by Michael Wetter:<br/>
+Removed the medium declaration in the instance 
+of the model <code>Buildings.Utilities.Psychrometrics.X_pTphi</code> as
+this model no longer allows to replace the medium.
+</li>
+<li>
+January 13, 2012, by Michael Wetter:<br/>
 Updated fan parameters, which were still for version 0.12 of the 
 Buildings library and hence caused a translation error with version 1.0 or higher.
 </li>
 <li>
-April 5, 2011, by Michael Wetter:<br>
+April 5, 2011, by Michael Wetter:<br/>
 Changed sensor models from one-port sensors to two port sensors.
 </li>
 <li>
-January 21, 2010 by Michael Wetter:<br>
+January 21, 2010 by Michael Wetter:<br/>
 Changed model to include fan instead of having flow driven by two reservoirs at 
 different pressure.
 </li>
 <li>
-September 11, 2009, by Michael Wetter:<br>
+September 11, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

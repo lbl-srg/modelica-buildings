@@ -21,7 +21,6 @@ The computation is according to TARCOG 2006, which specifies the convection
 coefficient as
 <p align=\"center\" style=\"font-style:italic;\">
   h = 4 W &frasl; (m<sup>2</sup> K).
-</i>
 </p>
 <h4>References</h4>
 <p>
@@ -31,7 +30,7 @@ shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
-August 19 2010, by Michael Wetter:<br>
+August 19 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

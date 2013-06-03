@@ -9,7 +9,7 @@ partial model PartialPipeManifold "Partial pipe manifold for a heat exchanger"
 annotation(Diagram(graphics),
                     Documentation(info="<html>
 <p>
-Partial pipe manifold for a heat exchanger.</p>
+Partial pipe manifold for a heat exchanger.
 </p>
 <p>
 This model defines the pipe connection to a heat exchanger.
@@ -20,11 +20,11 @@ between the ports with and without flow friction.
 revisions="<html>
 <ul>
 <li>
-August 22, 2008, by Michael Wetter:<br>
+August 22, 2008, by Michael Wetter:<br/>
 Added start value for port mass flow rate.
 </li>
 <li>
-April 14, 2008, by Michael Wetter:<br>
+April 14, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

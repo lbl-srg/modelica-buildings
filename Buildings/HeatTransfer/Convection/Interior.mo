@@ -85,21 +85,21 @@ The parameter <code>conMod</code> determines the model that is used to compute
 the heat transfer coefficient:
 </p>
 <p>
-<ol>
+<ul>
 <li><p>If <code>conMod=<a href=\"modelica://Buildings.HeatTransfer.Types.InteriorConvection\">
 Buildings.HeatTransfer.Types.InteriorConvection.Fixed</a></code>, then
 the convective heat transfer coefficient is set to the value specified by the parameter
 <code>hFixed</code>.
 </p>
 </li>
-</li>
+<li>
 <p>
 If <code>conMod=<a href=\"modelica://Buildings.HeatTransfer.Types.InteriorConvection\">
 Buildings.HeatTransfer.Types.InteriorConvection.Temperature</a></code>, then
 the convective heat tranfer coefficient is a function of the temperature difference.
 The convective heat flux is computed using
 </p>
-<ol>
+<ul>
 <li>
 for floors the function 
 <a href=\"modelica://Buildings.HeatTransfer.Convection.Functions.ConvectiveHeatFlux.floor\">
@@ -115,16 +115,17 @@ for walls the function
 <a href=\"modelica://Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.wall\">
 Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.wall</a>
 </li>
-</ol>
+</ul>
 </li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
-April 2, 2011 by Michael Wetter:<br>
+April 2, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-March 10 2010, by Michael Wetter:<br>
+March 10 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

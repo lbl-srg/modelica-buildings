@@ -40,6 +40,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 annotation (Diagram(graphics),
+experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/Condensation.mos"
         "Simulate and plot"),
           Documentation(info="<html>
@@ -52,7 +53,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation</a>.
 revisions="<html>
 <ul>
 <li>
-Aug 8, 2012 by Kaustubh Phalak:<br>
+Aug 8, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

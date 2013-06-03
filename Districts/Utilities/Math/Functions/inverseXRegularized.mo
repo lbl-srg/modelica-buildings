@@ -1,7 +1,6 @@
 within Districts.Utilities.Math.Functions;
 function inverseXRegularized
   "Function that approximates 1/x by a twice continuously differentiable function"
-
  input Real x "Abscissa value";
  input Real delta(min=0) "Abscissa value below which approximation occurs";
  output Real y "Function value";

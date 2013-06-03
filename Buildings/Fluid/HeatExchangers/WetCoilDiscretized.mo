@@ -3,9 +3,12 @@ model WetCoilDiscretized
   "Coil with discretization along the flow paths and humidity condensation"
   // When replacing the volume, the Medium is constrained so that the enthalpyOfLiquid
   // function is known. Otherwise, checkModel(...) will fail
-  extends DryCoilDiscretized(final allowCondensation=true,
-  each hexReg(ele(redeclare each final
-          Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2)),
+  extends DryCoilDiscretized(
+    each hexReg(each ele(redeclare each final
+          Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2,
+          redeclare each final
+          Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange
+            masExc(redeclare final package Medium = Medium2))),
     temSen_1(m_flow_nominal=m1_flow_nominal),
     temSen_2(m_flow_nominal=m2_flow_nominal));
  annotation (
@@ -37,11 +40,11 @@ Modelica.Media.Air.MoistAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-September 10, 2008 by Michael Wetter:<br>
+September 10, 2008 by Michael Wetter:<br/>
 Added values for <code>stateSelect</code> attributes.
 </li>
 <li>
-August 13, 2008 by Michael Wetter:<br>
+August 13, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

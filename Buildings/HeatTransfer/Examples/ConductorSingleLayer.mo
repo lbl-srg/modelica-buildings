@@ -95,7 +95,8 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}})),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayer.mos"
+experiment(StopTime=86400),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayer.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This example tests if two conductors in series computes the same heat transfer
@@ -105,11 +106,11 @@ condition differs.
 </html>", revisions="<html>
 <ul>
 <li>
-January 23 2013, by Michael Wetter:<br>
+January 23 2013, by Michael Wetter:<br/>
 Assigned fixed value to <code>nSta</code> of constructions.
 </li>
 <li>
-March 6 2010, by Michael Wetter:<br>
+March 6 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

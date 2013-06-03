@@ -15,8 +15,8 @@ package ConstantPropertyLiquidWater
     T_max=Cv.from_degC(130),
     T0=273.15,
     MM_const=0.018015268,
-    fluidConstants=Modelica.Media.Water.simpleWaterConstants,
-    ThermoStates=Modelica.Media.Interfaces.PartialMedium.Choices.IndependentVariables.T);
+    fluidConstants=Modelica.Media.Water.ConstantPropertyLiquidWater.simpleWaterConstants,
+    ThermoStates=Buildings.Media.Interfaces.Choices.IndependentVariables.T);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Text(

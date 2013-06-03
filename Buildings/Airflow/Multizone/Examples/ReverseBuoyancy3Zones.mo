@@ -228,6 +228,7 @@ equation
           extent={{-176,160},{48,48}},
           lineColor={135,135,135},
           lineThickness=1)}),
+experiment(StopTime=3600),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ReverseBuoyancy3Zones.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

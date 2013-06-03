@@ -205,33 +205,33 @@ The output is <code>QTra_flow = Part1 + Part2 + Part3 + Part4</code>
 <h4>References</h4>
 <ul>
 <li>
-Michael Wetter.<br>
+Michael Wetter.<br/>
 <a href=\"http://simulationresearch.lbl.gov/wetter/download/mwdiss.pdf\">
-Simulation-based Building Energy Optimization</a>.<br>
+Simulation-based Building Energy Optimization</a>.<br/>
 Dissertation. University of California at Berkeley. 2004.
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
 <li>
-December 12, 2011, by Wangda Zuo:<br>
+December 12, 2011, by Wangda Zuo:<br/>
 Add glass thickness as a parameter for tra and abs. It is needed by the claculation of property for uncoated glass.
 </li>
 <li>
-February 2, 2010, by Michael Wetter:<br>
+February 2, 2010, by Michael Wetter:<br/>
 Made connector <code>uSha</code> a conditional connector.
 </li>
 <li>
-January 4, 2011, by Michael Wetter:<br>
+January 4, 2011, by Michael Wetter:<br/>
 Added assert statement to check that <code>uSha=0</code> if no shade is present.
 This is needed to avoid wrong results in the room model.
 </li>
 <li>
-December 15, 2010, by Wangda Zuo:<br>
+December 15, 2010, by Wangda Zuo:<br/>
 Revise the model by separating transmittance and absorbance.
 </li>
 <li>
-December 12, 2010, by Michael Wetter:<br>
+December 12, 2010, by Michael Wetter:<br/>
 Replaced record 
 <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">
 Buildings.HeatTransfer.Data.GlazingSystems</a> with the
@@ -239,7 +239,7 @@ parameters used by this model.
 This was needed to integrate the radiation model into the room model.
 </li>
 <li>
-December 10, 2010, by Wangda Zuo:<br>
+December 10, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

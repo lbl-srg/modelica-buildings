@@ -4,7 +4,7 @@ function der_equalPercentage
 
   input Real y "Valve opening signal, y=1 is fully open";
   input Real R "Rangeability, R=50...100 typically";
-  input Real l(min=0, max=1) "Valve leakage, l=Cv(y=0)/Cvs";
+  input Real l(min=0, max=1) "Valve leakage, l=Kv(y=0)/Kv(y=1)";
   input Real delta "Range of significant deviation from equal percentage law";
   input Real der_y "Derivative of valve opening signal";
   output Real der_phi
@@ -47,16 +47,16 @@ TwoWayValveEqualPercentage</a>.
 revisions="<html>
 <ul>
 <li>
-March 30, 2011 by Michael Wetter:<br>
+March 30, 2011 by Michael Wetter:<br/>
 Removed inputs for which no derivative is implemented from the argument list, and added
 <code>zeroDerivative</code> keyword in function that calls this function.
 </li>
 <li>
-February 4, 2010 by Michael Wetter:<br>
+February 4, 2010 by Michael Wetter:<br/>
 Fixed implementation of derivative function.
 </li>
 <li>
-June 6, 2008 by Michael Wetter:<br>
+June 6, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

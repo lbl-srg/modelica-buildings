@@ -1,0 +1,33 @@
+simulateModel("Districts.Electrical.DC.Sources.Examples.WindTurbine", stopTime=172800, method="dassl", tolerance=1e-05, resultFile="WindTurbine");
+removePlots();
+createPlot(id = 10,
+ position = {0, 0, 1528, 883},
+ y = {"tur.P"},
+ range = {0.0, 175000.0, -20.0, 200.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "WindTurbine.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}});
+createPlot(id = 10,
+ position = {0, 0, 1528, 439},
+ y = {"tur.vWin"},
+ range = {0.0, 175000.0, -0.5, 6.5},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}});
+

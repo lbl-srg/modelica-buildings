@@ -18,7 +18,7 @@ equation
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/DewPointTemperatureDerivativeCheck_amb.mos" "Simulate and plot"),
     experiment(
       StartTime=273.15,
-      StopTime=473.15),
+      StopTime=323.15),
     Documentation(info="<html>
 <p>
 This example checks whether the function derivative
@@ -28,7 +28,7 @@ is not correct, the model will stop with an assert statement.
 </html>", revisions="<html>
 <ul>
 <li>
-October 29, 2008, by Michael Wetter:<br>
+October 29, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
