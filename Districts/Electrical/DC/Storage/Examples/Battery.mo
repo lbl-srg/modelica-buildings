@@ -177,12 +177,12 @@ equation
       points={{68,-40},{68,-20}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sou.dcPlug, bat.dcPlug) annotation (Line(
-      points={{88,-20},{94,-20},{94,30},{100,30}},
+  connect(sou.term, loa.term) annotation (Line(
+      points={{88,-20},{124,-20}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sou.dcPlug, loa.dcPlug) annotation (Line(
-      points={{88,-20},{124,-20}},
+  connect(sou.term, bat.term) annotation (Line(
+      points={{88,-20},{94,-20},{94,30},{100,30}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,

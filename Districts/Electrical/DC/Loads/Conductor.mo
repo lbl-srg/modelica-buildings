@@ -1,6 +1,6 @@
 within Districts.Electrical.DC.Loads;
 model Conductor "Model of a constant conductive load"
-    extends Districts.Electrical.DC.Interfaces.OnePort;
+    extends Districts.Electrical.DC.Interfaces.OnePort_n;
  parameter Modelica.SIunits.Power P_nominal(min=0)
     "Nominal power (P_nominal >= 0)";
 protected

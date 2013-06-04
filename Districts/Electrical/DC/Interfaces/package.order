@@ -1,3 +1,8 @@
-DCplug
-TwoPin
-OnePort
+TwoPin_p
+TwoPin_n
+TwoPinComponent_p
+TwoPinComponent_n
+OnePort_p
+OnePort_n
+TwoPort
+TwoPortConv

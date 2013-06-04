@@ -6,8 +6,8 @@ model Resistor "Ideal linear electrical resistor"
   parameter Modelica.SIunits.LinearTemperatureCoefficient alpha=0
     "Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref))";
 
-  extends Districts.Electrical.DC.Interfaces.OnePort;
-  extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(                    T = T_ref);
+  extends Districts.Electrical.DC.Interfaces.OnePort_n;
+  extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
   Modelica.SIunits.Resistance R_actual
     "Actual resistance = R*(1 + alpha*(T_heatPort - T_ref))";
 

@@ -1,6 +1,6 @@
 within Districts.Electrical.DC.Sources;
 model PVSimple "Simple PV model"
-  extends Districts.Electrical.DC.Interfaces.OnePort;
+  extends Districts.Electrical.DC.Interfaces.OnePort_p;
   parameter Modelica.SIunits.Area A "Net surface area";
   parameter Real fAct(min=0, max=1, unit="1") = 0.9
     "Fraction of surface area with active solar cells";
@@ -35,7 +35,7 @@ equation
           lineColor={0,0,255},
           textString="+"),
         Text(
-          extent={{51,68},{151,18}},
+          extent={{-150,-12},{-50,-62}},
           lineColor={0,0,255},
           textString="-"),
         Polygon(
