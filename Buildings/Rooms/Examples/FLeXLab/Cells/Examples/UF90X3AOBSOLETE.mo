@@ -1,7 +1,8 @@
 within Buildings.Rooms.Examples.FLeXLab.Cells.Examples;
-model UF90X3A "Example demonstrating the use of UF90X3A"
+model UF90X3AOBSOLETE "Example demonstrating the use of UF90X3A"
   import Buildings;
-  extends Buildings.Rooms.Examples.FLeXLab.Cells.UF90X3A(roo(nPorts=2,
+  extends Buildings.Rooms.Examples.FLeXLab.Cells.UF90X3AOBSOLETE(
+                                                         roo(nPorts=2,
         nConExtWin=nConExtWin,
       redeclare package Medium = Air,
       nConBou=0), sla(redeclare package Medium = Water, m_flow_nominal=0.063));
@@ -55,6 +56,9 @@ model UF90X3A "Example demonstrating the use of UF90X3A"
   parameter Integer nConExtWin = 1
     "Number of external constructions which include windows";
 
+  Buildings.Rooms.Examples.FLeXLab.Cells.UF90X3A
+                                               cellA
+    annotation (Placement(transformation(extent={{94,36},{134,76}})));
 equation
   connect(shaPos.y[1], replicator.u) annotation (Line(
       points={{-81,84},{-72,84}},
@@ -103,4 +107,4 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -150},{200,150}}), graphics), Commands(file="Resources/Scripts/Dymola/Rooms/Examples/FLeXLab/Cells/Examples/UF90X3A.mos"
         "Simulate and Plot"));
-end UF90X3A;
+end UF90X3AOBSOLETE;
