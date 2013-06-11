@@ -31,7 +31,7 @@ As stated in EnergyPlus7.0.0 the incidence angle equation performs poorly at ang
 </html>", revisions="<html>
 <ul>
 <li>
-May 22, 2012, by Wangda Zuo:<br>
+May 22, 2012, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

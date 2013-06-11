@@ -11,6 +11,4 @@ DryCoilDiscretized
 WetCoilDiscretized
 DryCoilDiscretizedPControl
 WetCoilDiscretizedPControl
-IndirectTankHeatExchanger
-StratifiedEnhancedInternalHX
 BaseClasses

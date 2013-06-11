@@ -3,7 +3,7 @@ block ApparatusDryPoint "Calculates air properties at dry coil surface"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition;
   Modelica.Blocks.Interfaces.RealOutput TDry(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     displayUnit="degC",
     min=253.15,
@@ -80,11 +80,11 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition</a>.
 revisions="<html>
 <ul>
 <li>
-September 21, 2012 by Michael Wetter:<br>
+September 21, 2012 by Michael Wetter:<br/>
 Revised implementation and documentation.
 </li>
 <li>
-April 9, 2012 by Kaustubh Phalak:<br>
+April 9, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

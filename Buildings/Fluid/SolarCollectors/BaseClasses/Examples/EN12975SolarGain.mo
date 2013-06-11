@@ -62,7 +62,7 @@ Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-Mar 27, 2013 by Peter Grant:<br>
+Mar 27, 2013 by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>

@@ -111,12 +111,12 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-February 15, 2012 by Michael Wetter:<br>
+February 15, 2012 by Michael Wetter:<br/>
 Changed base class from which the model extends.
 Propagated parameters of volume to the top if this model.
 </li>
 <li>
-February 12, 2012 by Wangda Zuo:<br>
+February 12, 2012 by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

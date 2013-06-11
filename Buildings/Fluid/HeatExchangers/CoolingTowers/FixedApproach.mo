@@ -41,7 +41,7 @@ model.
 </html>", revisions="<html>
 <ul>
 <li>
-July 12, 2011, by Michael Wetter:<br>
+July 12, 2011, by Michael Wetter:<br/>
 Introduced common base class for
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a>
 and
@@ -49,19 +49,19 @@ and
 so that they can be used as replaceable models.
 </li>
 <li>
-May 12, 2011, by Michael Wetter:<br>
+May 12, 2011, by Michael Wetter:<br/>
 Added binding equations for <code>Q_flow</code> and <code>mXi_flow</code>.
 </li>
 <li>
-March 8, 2011, by Michael Wetter:<br>
+March 8, 2011, by Michael Wetter:<br/>
 Removed base class and unused variables.
 </li>
 <li>
-April 7, 2009, by Michael Wetter:<br>
+April 7, 2009, by Michael Wetter:<br/>
 Changed interface to new Modelica.Fluid stream concept.
 </li>
 <li>
-May 14, 2008, by Michael Wetter:<br>
+May 14, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

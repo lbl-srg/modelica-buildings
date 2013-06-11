@@ -4,12 +4,12 @@ model RayleighNumber
   extends Modelica.Blocks.Interfaces.BlockIcon;
    replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Fluid medium model";
-  parameter Modelica.SIunits.Diameter ChaLen = 0.01905 "Characteristic length";
+  parameter Modelica.SIunits.Diameter ChaLen "Characteristic length";
   Real Gr "Grashof number";
   Real B(unit="1/K") "isobaricExpansionCoefficient";
-   Real nu(unit = "m2/s") "Kinematic viscosity of the medium";
-   Modelica.SIunits.DynamicViscosity mu "Dynamic viscosity of the medium";
-   Modelica.SIunits.Density rho "Density of the medium";
+  Real nu(unit = "m2/s") "Kinematic viscosity of the medium";
+  Modelica.SIunits.DynamicViscosity mu "Dynamic viscosity of the medium";
+  Modelica.SIunits.Density rho "Density of the medium";
 
    Modelica.Blocks.Interfaces.RealInput TSur(unit = "K")
     "Surface temperature of the HX"
@@ -50,7 +50,7 @@ This model calculates the rayleigh number for a given fluid and characteristic l
 Ra<sub>L</sub> = Gr<sub>L</sub> Pr (g B (T<sub>S</sub> - T<sub>F</sub>) L<sup>3</sup>) /(&nu;*&alpha;)
 </p>
 <p>
-where:<br>
+where:<br/>
   <i>Ra<sub>L</sub></i> is the Rayleigh number, <i>Gr<sub>L</sub></i> is the Grashof number, <i>Pr</i> is the Prandtl number, <i>g</i> is gravity, <i>B</i> is the isobaric expansion coefficient,
   <i>T<sub>S</sub></i> is the temperature of the surface, <i>T<sub>F</sub></i> is the temperature of the fluid, <i>L</i> is the characteristic length, <i>&nu;</i> is the kinematic viscosity
   and <i>&alpha;</i> is the thermal diffusivity.
@@ -70,7 +70,7 @@ revisions="<html>
 <h4>Revisions</h4>
 <ul>
 <li>
-February 26, 2013 by Peter Grant <br>
+February 26, 2013 by Peter Grant <br/>
 First implementation
 </li>
 </ul>

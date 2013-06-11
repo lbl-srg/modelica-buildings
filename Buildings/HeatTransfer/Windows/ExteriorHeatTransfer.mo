@@ -101,7 +101,7 @@ This model adds the convective heat transfer coefficient to its base model.
 </html>", revisions="<html>
 <ul>
 <li>
-February 8 2012, by Michael Wetter:<br>
+February 8 2012, by Michael Wetter:<br/>
 Changed model to use new implementation of
 <a href=\"modelica://Buildings.HeatTransfer.Radiosity.OutdoorRadiosity\">
 Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
@@ -110,7 +110,7 @@ heat transfer between window and ambient as is used for
 the opaque constructions.
 </li>
 <li>
-October 25 2010, by Michael Wetter:<br>
+October 25 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

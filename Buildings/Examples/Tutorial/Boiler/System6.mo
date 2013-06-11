@@ -518,7 +518,6 @@ The weather data reader is implemented using
     filNam=\"Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos\") 
     \"Weather data reader\";
 </pre>
-</p>
 <p>
 The yellow icon in the middle of the figure is an instance of
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.Bus\">
@@ -560,12 +559,12 @@ maintained at their set point.
 </html>", revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valves as
 this parameter no longer has a default value.
 </li>
 <li>
-January 27, 2012, by Michael Wetter:<br>
+January 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

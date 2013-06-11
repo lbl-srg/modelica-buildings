@@ -99,12 +99,12 @@ Angle measured in horizontal plane between projection of sun's rays and normal t
 revisions="<html>
 <ul>
 <li>
-July 5, 2012, by Michael Wetter:<br>
+July 5, 2012, by Michael Wetter:<br/>
 Changed definitions of side fin height <code>h</code> to be
 measured from the top of the window.
 </li>
 <li>
-Feb 01, 2012, by Kaustubh Phalak<br>
+Feb 01, 2012, by Kaustubh Phalak<br/>
 First implementation. 
 </li>
 </ul>

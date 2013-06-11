@@ -126,7 +126,7 @@ Diagram(coordinateSystem(
     Documentation(revisions="<html>
 <ul>
 <li>
-July 15, 2012, by Michael Wetter:<br>
+July 15, 2012, by Michael Wetter:<br/>
 Changed computation of power to use hourly averaged power
 instead of instantaneous power in order to avoid peaks 
 after set point changes.
@@ -139,11 +139,11 @@ Buildings.Rooms.Examples.BESTEST.Case600FF</a>.
 
 </li>
 <li>
-July 14, 2012, by Michael Wetter:<br>
+July 14, 2012, by Michael Wetter:<br/>
 Changed units of integrator to use Joules instead of MWh.
 </li>
 <li>
-October 6, 2011, by Michael Wetter:<br>
+October 6, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

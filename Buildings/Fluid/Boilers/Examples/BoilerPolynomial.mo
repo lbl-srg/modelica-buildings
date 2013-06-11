@@ -108,12 +108,12 @@ so that <code>boi1</code> is a dynamic model and
 </html>", revisions="<html>
 <ul>
 <li>
-April 27, 2013, by Michael Wetter:<br>
+April 27, 2013, by Michael Wetter:<br/>
 Removed first order filter from the output of the table.
 This is not needed and leads to a dynamic state selection.
 </li>
 <li>
-November 1, 2011 by Michael Wetter:<br>
+November 1, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -137,17 +137,17 @@ The time constant of the mixing volume is determined by the parameter <code>tau<
 </html>", revisions="<html>
 <ul>
 <li>
-March 23 2010, by Michael Wetter:<br>
+March 23 2010, by Michael Wetter:<br/>
 Changed start values from <code>system.p_start</code> or (code <code>T_start</code>)
 to <code>Medium.p_default</code>.
 </li>
 <li>
-September 18, 2008 by Michael Wetter:<br>
+September 18, 2008 by Michael Wetter:<br/>
 Replaced splitter model with a fluid port since the 
 splitter model in Modelica.Fluid 1.0 beta does not transport
 <code>mC_flow</code>.
 <li>
-June 11, 2008 by Michael Wetter:<br>
+June 11, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

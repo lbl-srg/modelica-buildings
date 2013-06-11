@@ -1,6 +1,6 @@
 within Buildings.Fluid.Sensors;
 package UsersGuide "User's Guide"
-  extends Modelica.Icons.Info;
+  extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
@@ -82,16 +82,16 @@ The table below summarizes the recommendations for the use of sensors.
 <tr><td valign=\"top\">steady-state (<code>tau=0</code>)</td>
     <td valign=\"top\">dynamic (<code>tau &gt; 0</code>)</td>
 </tr>
-<tr><td valign=\"top\">temperature<br>
-                       relative humidity<br>
-                       mass fraction<br>
-                       trace substances<br>
+<tr><td valign=\"top\">temperature<br/>
+                       relative humidity<br/>
+                       mass fraction<br/>
+                       trace substances<br/>
                        specific enthalpy</td>
     <td valign=\"top\">use only if connected to a volume</td>
     <td valign=\"top\">avoid</td>
     <td valign=\"top\">recommended</td>
 </tr>
-<tr><td valign=\"top\">volume flow rate<br>
+<tr><td valign=\"top\">volume flow rate<br/>
                        enthalpy flow rate</td>
     <td valign=\"top\">-</td>
     <td valign=\"top\">recommended</td>

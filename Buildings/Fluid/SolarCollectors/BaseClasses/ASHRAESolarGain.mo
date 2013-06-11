@@ -138,7 +138,7 @@ In the above equation x can refer to beam, sky or ground.
 using, respectively, Eq 557 and 558 from the EnergyPlus documentation. They are:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&theta;<sub>sky</sub>=59.68-0.1388 til+0.001497 til<sup>2</sup><br>
+&theta;<sub>sky</sub>=59.68-0.1388 til+0.001497 til<sup>2</sup><br/>
 &theta;<sub>gnd</sub>=90.0-0.5788 til+0.002693 til<sup>2</sup>
 </p>
 <p>
@@ -148,13 +148,13 @@ is the surface tilt of the collector.
 
 <h4>References</h4>
 <p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br>
+<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br/>
 ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of Solar Collectors (ANSI approved)
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-Jan 15, 2013, by Peter Grant:<br>
+Jan 15, 2013, by Peter Grant:<br/>
 First implementation
 </li>
 </ul>

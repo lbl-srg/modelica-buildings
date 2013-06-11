@@ -168,12 +168,12 @@ Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate</a>.
  </p>
  <h4>References</h4>
  <p>
- <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011. <br>
+ <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011. <br/>
  </p>
  </html>", revisions="<html>
 <ul>
 <li>
-January 4, 2013, by Peter Grant:<br>
+January 4, 2013, by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>

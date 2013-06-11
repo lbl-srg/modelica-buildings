@@ -24,6 +24,7 @@ initial algorithm
    annotation (
 defaultComponentName="dam",
 Documentation(info="<html>
+<p>
 This model is an air damper with flow coefficient that is an exponential function 
 of the opening angle. The model is as in ASHRAE 825-RP.
 A control signal of <code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper 
@@ -32,9 +33,11 @@ for consistency within this library.
 </p>
 <p>
 For <code>yL &lt; y &lt; yU</code>, the damper characteristics is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   k = exp(a+b (1-y)).
 </p>
+<p>
 Outside this range, the damper characteristic is defined by a quadratic polynomial that
 matches the damper resistance at <code>y=0</code> and <code>y=yL</code> or <code>y=yU</code> and 
 <code>y=1</code>, respectively. In addition, the polynomials are such that <code>k(y)</code> is
@@ -67,38 +70,40 @@ ASHRAE 825-RP lists the following parameter values as typical:
 </table>
 </p>
 <h4>References</h4>
+<p>
 P. Haves, L. K. Norford, M. DeSimone and L. Mei,
 <i>A Standard Simulation Testbed for the Evaluation of Control Algorithms &amp; Strategies</i>, 
 ASHRAE Final Report 825-RP, Atlanta, GA.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
-June 22, 2008 by Michael Wetter:<br>
+June 22, 2008 by Michael Wetter:<br/>
 Extended range of control signal from 0 to 1 by implementing the function 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper\">
 exponentialDamper</a>.
 </li>
 <li>
-June 10, 2008 by Michael Wetter:<br>
+June 10, 2008 by Michael Wetter:<br/>
 Introduced new partial base class, 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
 PartialDamperExponential</a>.
 </li>
 <li>
-June 30, 2007 by Michael Wetter:<br>
+June 30, 2007 by Michael Wetter:<br/>
 Introduced new partial base class, 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialActuator\">PartialActuator</a>.
 </li>
 <li>
-July 27, 2007 by Michael Wetter:<br>
+July 27, 2007 by Michael Wetter:<br/>
 Introduced partial base class.
 </li>
 <li>
-July 20, 2007 by Michael Wetter:<br>
+July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

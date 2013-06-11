@@ -9,20 +9,22 @@ model Line "Cable line dispersion model"
   parameter Modelica.SIunits.Temperature Tcable = T_ref
     "Fixed temperature of the cable" annotation(Dialog(tab="Model", enable = not useExtTemp));
   parameter Districts.Electrical.AC.Transmission.Cables.Cable cable=
-      Districts.Electrical.AC.Transmission.Functions.choseCable(P, V)
+      Districts.Electrical.AC.Transmission.Functions.selectCable(
+                                                                P, V)
     "Type of cable"
-  annotation (Evaluate=true, choicesAllMatching=true,Dialog(tab="Tech. specification"), Placement(transformation(extent={{20,60},
+  annotation (choicesAllMatching=true,Dialog(tab="Tech. specification"), Placement(transformation(extent={{20,60},
             {40,80}})));
-  parameter Districts.Electrical.AC.Transmission.Materials.Material wireMaterial = Districts.Electrical.AC.Transmission.Functions.choseMaterial(0.0)
+  parameter Districts.Electrical.AC.Transmission.Materials.Material wireMaterial = Districts.Electrical.AC.Transmission.Functions.selectMaterial(
+                                                                                                    0.0)
     "Material of the cable"
-    annotation (Evaluate=true, choicesAllMatching=true,Dialog(tab="Tech. specification"), Placement(transformation(extent={{60,60},
+    annotation (choicesAllMatching=true,Dialog(tab="Tech. specification"), Placement(transformation(extent={{60,60},
             {80,80}})));
   final parameter Modelica.SIunits.Temperature T_ref=wireMaterial.T0
     "Reference temperature of the line" annotation(Evaluate=True);
-  final parameter Modelica.SIunits.LinearTemperatureCoefficient alpha=wireMaterial.alphaT0
+  parameter Modelica.SIunits.LinearTemperatureCoefficient alpha=wireMaterial.alphaT0
     "Linear temperature coefficient of the material"                                                                                         annotation(Evaluate=True);
-  final parameter Modelica.SIunits.Resistance R = wireMaterial.r0*Length/(cable.S*1e6)
-    "Resistance of the cable";
+  parameter Modelica.SIunits.Resistance R = wireMaterial.r0*Length/(cable.S*1e6)
+    "Resistance of the cable" annotation(Evaluate=True);
   final parameter Modelica.SIunits.Inductance L = Length*(0.055 - 0.4606*log(cable.d/2) + 0.4606*log(2*cable.i))*1e-3/1e3
     "Inductance of the cable due to mutual and self inductance" annotation(Evaluate = True);
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Resistor
@@ -78,13 +80,13 @@ equation
       color={85,170,255},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(cableTemp.port, resistorLine.heatPort) annotation (Line(
-      points={{-40,22},{-30,22},{-30,10}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(cableTemperature.y, cableTemp.T) annotation (Line(
       points={{-71,22},{-62,22}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(cableTemp.port, resistorLine.heatPort) annotation (Line(
+      points={{-40,22},{-30,22},{-30,10}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(

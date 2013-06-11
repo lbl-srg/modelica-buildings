@@ -33,11 +33,11 @@ y(t<sub>i+1</sub>) = u(t<sub>i</sub>).
 revisions="<html>
 <ul>
 <li>
-November 21, 2011, by Michael Wetter:<br>
+November 21, 2011, by Michael Wetter:<br/>
 Improved documentation.
 </li>
 <li>
-November 26, 2008, by Michael Wetter:<br>
+November 26, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

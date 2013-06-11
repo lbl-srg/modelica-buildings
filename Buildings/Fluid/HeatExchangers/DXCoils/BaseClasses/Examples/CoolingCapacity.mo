@@ -72,12 +72,12 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity</a>.
 revisions="<html>
 <ul>
 <li>
-May 1, 2013, by Michael Wetter:<br>
+May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements
 to be parameters does not imply that the whole record has the variability of a parameter.
 </li>
 <li>
-April 10, 2012 by Kaustubh Phalak:<br>
+April 10, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

@@ -2,7 +2,7 @@ within Buildings.Fluid.Sensors;
 model Temperature "Ideal one port temperature sensor"
     extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
 
-  Modelica.Blocks.Interfaces.RealOutput T(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
                                           final unit = "K", min=0,
                                           displayUnit = "degC")
     "Temperature in port medium"
@@ -22,7 +22,7 @@ The sensor is ideal, i.e. it does not influence the fluid.
 revisions="<html>
 <ul>
 <li>
-September 29, 2009, by Michael Wetter:<br>
+September 29, 2009, by Michael Wetter:<br/>
 First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>

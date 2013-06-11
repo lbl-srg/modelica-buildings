@@ -141,20 +141,20 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Removed unused protected parameters <code>sta0</code> and <code>cp0</code>.
 </li>
 <li>
-March 29, 2012 by Wangda Zuo:<br>
+March 29, 2012 by Wangda Zuo:<br/>
 Revised the implementation to reduce the temperature overshoot.
 </li>
 <li>
-July 28, 2010 by Wangda Zuo:<br>
+July 28, 2010 by Wangda Zuo:<br/>
 Rewrote third order upwind scheme to avoid state events.
 This leads to more robust and faster simulation.
 </li>
 <li>
-June 23, 2010 by Michael Wetter and Wangda Zuo:<br>
+June 23, 2010 by Michael Wetter and Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

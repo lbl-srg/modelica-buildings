@@ -99,22 +99,22 @@ The model is used as a base for the interzonal air flow models.
 revisions="<html>
 <ul>
 <li>
-March 27, 2013 by Michael Wetter:<br>
+March 27, 2013 by Michael Wetter:<br/>
 Added assignment of initial value for <code>mExc</code> to avoid error when checking model
 in pedantic mode with Dymola 2014.
 </li>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
-<li>December 6, 2011 by Michael Wetter:<br>
+<li>December 6, 2011 by Michael Wetter:<br/>
        Removed <code>fixed=false</code> attribute of protected parameter
        <code>k</code>.
 </li>
-<li>July 20, 2010 by Michael Wetter:<br>
+<li>July 20, 2010 by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>
-<li>February 4, 2005 by Michael Wetter:<br>
+<li>February 4, 2005 by Michael Wetter:<br/>
        Released first version.
 </ul>
 </html>"));

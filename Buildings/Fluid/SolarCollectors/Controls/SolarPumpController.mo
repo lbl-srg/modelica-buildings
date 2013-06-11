@@ -82,13 +82,13 @@ equation
   <h4>References</h4>
   <p>
   J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), 
-  John Wiley & Sons, Inc.<br>
+  John Wiley & Sons, Inc.<br/>
   </p>
   </html>",
   revisions = "<html>
   <ul>
   <li>
-  January 15, 2013 by Peter Grant <br>
+  January 15, 2013 by Peter Grant <br/>
   First implementation
   </li>
   </ul>

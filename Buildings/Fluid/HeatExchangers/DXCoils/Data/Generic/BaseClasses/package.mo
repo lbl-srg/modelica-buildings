@@ -28,7 +28,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.DXCoil</a>.
 revisions="<html>
 <ul>
 <li>
-July 23, 2012 by Kaustubh Phalak:<br>
+July 23, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>

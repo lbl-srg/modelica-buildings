@@ -104,6 +104,7 @@ we can use this medium model for unsaturated air.
 </p>
 <p>
 We also defined the system-level parameters
+</p>
 <pre>
   parameter Modelica.SIunits.Volume V=6*10*3 \"Room volume\";
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
@@ -111,6 +112,7 @@ We also defined the system-level parameters
   parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 1000 
     \"Internal heat gains of the room\";
 </pre>
+<p>
 to declare that the room volume is <i>180</i> m<sup>3</sup>, that the room
 has a nominal mass flow rate of <i>6</i> air changes per hour and that the internal heat gains of the room are <i>1000</i> Watts.
 These parameters have been declared at the top-level of the model
@@ -169,6 +171,7 @@ Finally, we used the instance <code>preHea</code> to model a prescribed, constan
 This completes the initial version of the model. When simulating the model
 for <i>3</i> hours, or <i>10800</i> seconds, the
 response shown below should be seen.
+</p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System1Temperatures.png\" border=\"1\">
 </p>
@@ -176,7 +179,6 @@ response shown below should be seen.
 To verify the correctness of the model, we can compare the simulated results to the
 following analytical solutions:
 </p>
-<p>
 <ol>
 <li>
 At steady-state, the temperature difference to the outside should be
@@ -191,7 +193,6 @@ that is connected to it, and
 <i>G</i> is the heat conductance.
 </li>
 </ol>
-</p>
 <p>
 Both analytical values agree with the simulation results shown in the above figure.
 </p>
@@ -211,7 +212,7 @@ could have been used.
 </html>", revisions="<html>
 <ul>
 <li>
-January 11, 2012, by Michael Wetter:<br>
+January 11, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

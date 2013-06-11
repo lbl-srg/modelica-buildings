@@ -70,7 +70,7 @@ boundary condition.
 </html>", revisions="<html>
 <ul>
 <li>
-August 30, 2011, by Pierre Vigouroux:<br>
+August 30, 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

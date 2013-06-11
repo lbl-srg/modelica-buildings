@@ -48,18 +48,18 @@ associated with the buoyancy induced mass flow rate.
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with naming convention.
 </li>
 <li>
-October 8, 2011 by Michael Wetter:<br>
+October 8, 2011 by Michael Wetter:<br/>
 Added <code>noEvent(...)</code> to
 <code>Q_flow[i] = k*smooth(1, if dT[i]>0 then dT[i]^2 else 0);</code>
 since the equation returns the same value to the left and right of 
 <code>dT[i]>0</code>.
 </li>
 <li>
-September 16, 2011 by Michael Wetter:<br>
+September 16, 2011 by Michael Wetter:<br/>
 Changed the implementation from <code>Q_flow[i] = k*max(heatPort[i+1].T-heatPort[i].T, 0);</code> to
 <code>Q_flow[i] = k*smooth(1, if dT[i]>0 then dT[i]^2 else 0);</code>.
 The previous implementation was not differentiable. In modeling a solar system, this
@@ -67,7 +67,7 @@ change reduced the computing time by a factor of 20 during the time when the pum
 were almost switched off and colder temperature was fed from the collector to the tank.
 </li>
 <li>
-October 28, 2008 by Michael Wetter:<br>
+October 28, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

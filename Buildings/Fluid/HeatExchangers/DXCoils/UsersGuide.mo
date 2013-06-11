@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils;
 package UsersGuide "User's Guide"
-  extends Modelica.Icons.Info;
+  extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
@@ -10,7 +10,6 @@ This package contains models for direct evaporation cooling coils
 <p>
 The following three DX coil models are available:
 </p>
-<p>
   <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr>
       <th>DX coil model</th>
@@ -45,7 +44,6 @@ The following three DX coil models are available:
       <td>Real number; <i>0</i> for coil off, <i>1</i> for coil at full speed.</td>
     </tr>
   </table>
-</p>
 <h4>Control of the coils</h4>
 <p>
 The DX coil models take as a control input 
@@ -131,7 +129,8 @@ determined as shown in the figure below.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/DXCoils/BaseClasses/ApparatusDewPoint.png\" border=\"1\">
-</p> 
+</p>
+<p>
 The method used is the bypass factor method, which assumes that of the leaving air, a fraction is at the
 same condition as the entering air, and the other fraction is at the apparatus dew point.
 This computation requires the ratio <i>UA &frasl; c<sub>p</sub></i>, which 
@@ -149,7 +148,6 @@ can be neglected.
 <p>
 This model has the following limitations:
 </p>
-<p>
 <ul>
 <li>
 It does not account for fan in the evaporator or in the condenser air stream.
@@ -164,11 +162,10 @@ The air must flow from port a to port b.
 If there is reverse flow, then no cooling is provided and no power is consumed.
 </li>
 </ul>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 24, 2012 by Michael Wetter:<br>
+September 24, 2012 by Michael Wetter:<br/>
 First implementation. 
 </li>
 </ul>

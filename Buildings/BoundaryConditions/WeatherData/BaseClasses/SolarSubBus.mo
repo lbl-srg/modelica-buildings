@@ -19,7 +19,7 @@ This component is an expandable connector that is used to implement a bus that c
 ", revisions="<html>
 <ul>
 <li>
-February 25, 2012, by Michael Wetter:<br>
+February 25, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

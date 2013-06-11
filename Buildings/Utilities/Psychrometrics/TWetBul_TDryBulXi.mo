@@ -12,7 +12,7 @@ block TWetBul_TDryBulXi
 
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     start=303,
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}},rotation=
@@ -25,7 +25,7 @@ block TWetBul_TDryBulXi
            0)));
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
@@ -178,13 +178,13 @@ DOI: 10.1175/JAMC-D-11-0143.1
 revisions="<html>
 <ul>
 <li>
-October 1, 2012 by Michael Wetter:<br>
+October 1, 2012 by Michael Wetter:<br/>
 Revised implementation to change the dimension of the nonlinear
 system of equations from two to one.
 Added option to compute wet bulb temperature explicitly.
 </li>
 <li>
-February 22, 2011 by Michael Wetter:<br>
+February 22, 2011 by Michael Wetter:<br/>
 Changed the code sections that obtain the water concentration. The old version accessed
 the water concentration using the index of the vector <code>X</code>.
 However, Dymola 7.4 cannot differentiate the function if vector elements are accessed
@@ -192,16 +192,16 @@ using their index. In the new implementation, an inner product is used to access
 In addition, the medium substance name is searched using a case insensitive search.
 </li>
 <li>
-February 17, 2010 by Michael Wetter:<br>
+February 17, 2010 by Michael Wetter:<br/>
 Renamed block from <code>WetBulbTemperature</code> to <code>TWetBul_TDryBulXi</code>
 and changed obsolete real connectors to input and output connectors.
 </li>
 <li>
-May 19, 2008 by Michael Wetter:<br>
+May 19, 2008 by Michael Wetter:<br/>
 Added relative humidity as a port.
 </li>
 <li>
-May 7, 2008 by Michael Wetter:<br>
+May 7, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

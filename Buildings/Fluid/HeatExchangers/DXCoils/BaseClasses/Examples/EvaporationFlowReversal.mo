@@ -97,7 +97,7 @@ it remains for a while.
 revisions="<html>
 <ul>
 <li>
-August 25, 2012 by Michael Wetter:<br>
+August 25, 2012 by Michael Wetter:<br/>
 First implementation. 
 </li>
 </ul>

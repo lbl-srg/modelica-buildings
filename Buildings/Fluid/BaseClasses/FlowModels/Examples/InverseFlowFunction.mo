@@ -35,11 +35,11 @@ are not invertible.
 </html>", revisions="<html>
 <ul>
 <li>
-August 8, 2012, by Michael Wetter:<br>
+August 8, 2012, by Michael Wetter:<br/>
 Updated documentation.
 </li>
 <li>
-July 12, 2012, by Michael Wetter:<br>
+July 12, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

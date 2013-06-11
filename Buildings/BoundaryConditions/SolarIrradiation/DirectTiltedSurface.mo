@@ -69,11 +69,11 @@ For a definition of the parameters, see the
 ", revisions="<html>
 <ul>
 <li>
-December 12, 2010, by Michael Wetter:<br>
+December 12, 2010, by Michael Wetter:<br/>
 Added incidence angle as output as this is needed for the room model.
 </li>
 <li>
-May 24, 2010, by Wangda Zuo:<br>
+May 24, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

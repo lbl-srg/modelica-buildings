@@ -208,7 +208,6 @@ at the top-level of the model by adding the lines
   replaceable package MediumW = 
       Buildings.Media.ConstantPropertyLiquidWater \"Medium model\";
 </pre>
-</p>
 </li>
 <li>
 <p>
@@ -269,8 +268,6 @@ Thus, we define the radiator mass flow rate as
     Q_flow_nominal/4200/(TRadSup_nominal-TRadRet_nominal)
     \"Radiator nominal mass flow rate\";
 </pre>
-<p>
-</p>
 </li>
 <li>
 <p>
@@ -287,6 +284,7 @@ We configured the parameters of the radiator model as
     T_a_nominal=TRadSup_nominal,
     T_b_nominal=TRadRet_nominal) \"Radiator\";
 </pre>
+<p>
 We configured the parameters of the pump model as
 </p>
 <pre>
@@ -296,6 +294,7 @@ We configured the parameters of the pump model as
 </pre>
 </li>
 <li>
+<p>
 To enable the pump when the room temperature is below 
 <i>19</i>&deg;C and to switch it off when the room temperature
 is below 
@@ -350,6 +349,7 @@ This will approximate a continuous change in mass flow rate when the
 pump is switched on or off.
 Finally, we closed the control loop between the room temperature sensor and the
 pump input signal.
+</p>
 </li>
 </ol>
 <!-- ============================== -->
@@ -384,7 +384,7 @@ could have been used.
 </html>", revisions="<html>
 <ul>
 <li>
-January 27, 2012, by Michael Wetter:<br>
+January 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -154,59 +154,59 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
-October 17, 2012, by Michael Wetter:<br>
+October 17, 2012, by Michael Wetter:<br/>
 Fixed broken link in documentation.
 </li>
 <li>
-February 3, 2012, by Michael Wetter:<br>
+February 3, 2012, by Michael Wetter:<br/>
 Removed assignment of <code>m_flow_small</code> as it is no
 longer used in the pressure drop model.
 </li>
 <li>
-January 15, 2011, by Michael Wetter:<br>
+January 15, 2011, by Michael Wetter:<br/>
 Fixed wrong class reference in information section.
 </li>
 <li>
-September 13, 2011, by Michael Wetter:<br>
+September 13, 2011, by Michael Wetter:<br/>
 Changed assignment of <code>vol(mass/energyDynamics=...)</code> as the
 previous assignment caused a non-literal start value that was ignored.
 </li>
 <li>
-July 29, 2011, by Michael Wetter:<br>
+July 29, 2011, by Michael Wetter:<br/>
 Added start value for outflowing enthalpy.
 </li>
 <li>
-July 11, 2011, by Michael Wetter:<br>
+July 11, 2011, by Michael Wetter:<br/>
 Changed parameterization of fluid volume so that steady-state balance is
 used when <code>tau = 0</code>.
 </li>
 <li>
-May 25, 2011, by Michael Wetter:<br>
+May 25, 2011, by Michael Wetter:<br/>
 Removed temperature sensor and changed implementation of fluid volume
 to allow use of this model for the steady-state and dynamic humidifier
 <a href=\"modelica://Buildings.Fluid.MassExchangers.HumidifierPrescribed\">
 Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
 </li>
 <li>
-March 25, 2011, by Michael Wetter:<br>
+March 25, 2011, by Michael Wetter:<br/>
 Added homotopy operator.
 </li>
 <li>
-March 21, 2010 by Michael Wetter:<br>
+March 21, 2010 by Michael Wetter:<br/>
 Changed pressure start value from <code>system.p_start</code>
 to <code>Medium.p_default</code> since HVAC models may have water and 
 air, which are typically at different pressures.
 </li>
 <li>
-April 13, 2009, by Michael Wetter:<br>
+April 13, 2009, by Michael Wetter:<br/>
 Added model to compute flow friction.
 </li>
 <li>
-January 29, 2009 by Michael Wetter:<br>
+January 29, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

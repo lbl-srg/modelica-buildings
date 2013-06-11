@@ -70,7 +70,7 @@ wind pressure coefficient is obtained from the input connector
 revisions="<html>
 <ul>
 <li>
-October 26, 2011 by Michael Wetter:<br>
+October 26, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -70,7 +70,7 @@ equation
                       graphics),
 Documentation(info="<html>
 <p>
-Duct manifold with a fixed flow resistance.</p>
+Duct manifold with a fixed flow resistance.
 </p>
 <p>
 This model causes the flow to be distributed equally
@@ -81,20 +81,20 @@ for each flow path.
 revisions="<html>
 <ul>
 <li>
-September 10, 2008, by Michael Wetter:<br>
+September 10, 2008, by Michael Wetter:<br/>
 Added additional parameters.
 </li>
 <li>
-August 22, 2008, by Michael Wetter:<br>
+August 22, 2008, by Michael Wetter:<br/>
 Added start value for resistance mass flow rate.
 </li>
 <li>
-August 21, 2008, by Michael Wetter:<br>
+August 21, 2008, by Michael Wetter:<br/>
 Added mixing volume to break large nonlinear system of equations in model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilDiscretized\">
 Buildings.Fluid.HeatExchangers.DryCoilDiscretized</a>.
 </li><li>
-April 14, 2008, by Michael Wetter:<br>
+April 14, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

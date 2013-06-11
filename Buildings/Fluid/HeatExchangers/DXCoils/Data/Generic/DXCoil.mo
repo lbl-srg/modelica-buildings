@@ -24,7 +24,6 @@ defaultComponentName="datCoi", Documentation(info="<html>
 This record declares the performance data for the DX cooling coil model.
 The performance data are structured as follows:
 </p>
-<p>
 <pre>
   nSta      - Number of stages. Set to 1 for single speed coil, 
               2 for dual-speed (or dual stage coils), etc.
@@ -32,11 +31,9 @@ The performance data are structured as follows:
   sta       - Array of records with one performance curve for each stage,
               as described below.
 </pre>
-</p>
 <p>
 Each element of the array <code>per</code> has the following data.
 </p>
-<p>
 <pre>
   spe       - Rotational speed for the respective stage.
               (This is only used for variable speed coils to interpolate for 
@@ -79,7 +76,6 @@ Each element of the array <code>per</code> has the following data.
                  for which the performance curves are valid.
                  Outside this range, they will be linearly extrapolated.      
 </pre>
-</p>
 <p>
 The data used to develop the performance curves
 <code>capFunT</code> and 
@@ -114,11 +110,11 @@ a quadratic function.
 revisions="<html>
 <ul>
 <li>
-September 25, 2012 by Michael Wetter:<br>
+September 25, 2012 by Michael Wetter:<br/>
 Added documentation.
 </li>
 <li>
-July 23, 2012 by Kaustubh Phalak:<br>
+July 23, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>

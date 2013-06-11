@@ -18,5 +18,5 @@ record TRNSYSValidation =
     dT_nominal=10)
   "Default values in the TRNSYS Simulation Studio SDHW example"
     annotation(Documentation(info="<html>
-    Default values in the TRNSYS Simualtion Studio SDHW example.<br>
+    Default values in the TRNSYS Simualtion Studio SDHW example.<br/>
     </html>"));

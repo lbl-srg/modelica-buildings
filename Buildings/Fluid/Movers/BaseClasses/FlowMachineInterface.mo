@@ -533,12 +533,12 @@ to be used during the simulation.
 revisions="<html>
 <ul>
 <li>
-March 20, 2013, by Michael Wetter:<br>
+March 20, 2013, by Michael Wetter:<br/>
 Removed assignment in declaration of <code>pCur?.V_flow</code> as
 these parameters have the attribute <code>fixed=false</code> set.
 </li>
 <li>
-October 11, 2012, by Michael Wetter:<br>
+October 11, 2012, by Michael Wetter:<br/>
 Added implementation of <code>WFlo = eta * P</code> with
 guard against division by zero.
 Changed implementation of <code>etaMot=sqrt(eta)</code> to 
@@ -546,25 +546,25 @@ Changed implementation of <code>etaMot=sqrt(eta)</code> to
 converges to zero.
 </li>
 <li>
-February 20, 2012, by Michael Wetter:<br>
+February 20, 2012, by Michael Wetter:<br/>
 Assigned value to nominal attribute of <code>VMachine_flow</code>.
 </li>
 <li>
-February 14, 2012, by Michael Wetter:<br>
+February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
 </li>
 <li>
-October 4 2011, by Michael Wetter:<br>
+October 4 2011, by Michael Wetter:<br/>
 Revised the implementation of the pressure drop computation as a function
 of speed and volume flow rate.
 The new implementation avoids a singularity near zero volume flow rate and zero speed.
 </li>
 <li>
-March 28 2011, by Michael Wetter:<br>
+March 28 2011, by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-March 23 2010, by Michael Wetter:<br>
+March 23 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

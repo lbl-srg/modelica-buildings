@@ -44,7 +44,7 @@ The assert statements check whether the returned values is correct.
 </html>", revisions="<html>
 <ul>
 <li>
-September 10, 2011, by Michael Wetter:<br>
+September 10, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

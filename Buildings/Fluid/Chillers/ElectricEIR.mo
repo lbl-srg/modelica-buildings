@@ -137,6 +137,7 @@ Model of an electric chiller, based on the DOE-2.1 chiller model and
 the EnergyPlus chiller model <code>Chiller:Electric:EIR</code>.
 </p>
 <p> This model uses three functions to predict capacity and power consumption:
+</p>
 <ul>
 <li>
 A biquadratic function is used to predict cooling capacity as a function of
@@ -150,6 +151,7 @@ A biquadratic functions is used to predict power input to cooling capacity ratio
 condenser entering and evaporator leaving fluid temperature.
 </li>
 </ul>
+<p>
 These curves are stored in the data record <code>per</code> and are available from
 <a href=\"Buildings.Fluid.Chillers.Data.ElectricEIR\">
 Buildings.Fluid.Chillers.Data.ElectricEIR</a>.
@@ -166,6 +168,7 @@ The model takes as an input the set point for the leaving chilled water temperat
 which is met if the chiller has sufficient capacity.
 Thus, the model has a built-in, ideal temperature control.
 The model has three tests on the part load ratio and the cycling ratio:
+</p>
 <ol>
 <li>
 The test<pre>
@@ -193,8 +196,8 @@ computes the part load ratio of the compressor.
 The assumption is that for a part load ratio below <code>per.PLRMinUnl</code>,
 the chiller uses hot gas bypass to reduce the capacity, while the compressor
 power draw does not change. 
-</li></ol>
-</p>
+</li>
+</ol>
 <p>
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
 </p>
@@ -216,15 +219,15 @@ Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
 revisions="<html>
 <ul>
 <li>
-Jan. 9, 2011, by Michael Wetter:<br>
+Jan. 9, 2011, by Michael Wetter:<br/>
 Added input signal to switch chiller off.
 </li>
 <li>
-Sep. 8, 2010, by Michael Wetter:<br>
+Sep. 8, 2010, by Michael Wetter:<br/>
 Revised model and included it in the Buildings library.
 </li>
 <li>
-October 13, 2008, by Brandon Hencey:<br>
+October 13, 2008, by Brandon Hencey:<br/>
 First implementation.
 </li>
 </ul>

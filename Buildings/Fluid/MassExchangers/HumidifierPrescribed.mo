@@ -146,15 +146,15 @@ in the species vector.
 revisions="<html>
 <ul>
 <li>
-May 24, 2011, by Michael Wetter:<br>
+May 24, 2011, by Michael Wetter:<br/>
 Changed base class to allow using the model as a dynamic or a steady-state model.
 </li>
 <li>
-April 14, 2010, by Michael Wetter:<br>
+April 14, 2010, by Michael Wetter:<br/>
 Converted temperature input to a conditional connector.
 </li>
 <li>
-April 17, 2008, by Michael Wetter:<br>
+April 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

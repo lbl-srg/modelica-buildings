@@ -78,13 +78,13 @@ equation
         Documentation(info="<html>
         <p>
         This model demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.Concentrating\">Buildings.Fluid.SolarCollectors.Concentrating</a>.
-        In it water is passed through the solar collector while being heated by the sun in the San Francisco, CA, USA climate.<br>
+        In it water is passed through the solar collector while being heated by the sun in the San Francisco, CA, USA climate.<br/>
         </p>
         </html>",
         revisions="<html>
         <ul>
         <li>
-        Mar 27, 2013 by Peter Grant:<br>
+        Mar 27, 2013 by Peter Grant:<br/>
         First implementation
         </li>
         </ul>

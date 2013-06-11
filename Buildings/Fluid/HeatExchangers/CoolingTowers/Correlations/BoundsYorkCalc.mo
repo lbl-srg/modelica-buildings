@@ -21,7 +21,7 @@ This data record contains the bounds for the YorkCalc cooling tower correlations
 revisions="<html>
 <ul>
 <li>
-May 16, 2008 by Michael Wetter:<br>
+May 16, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

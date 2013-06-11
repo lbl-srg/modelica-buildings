@@ -15,7 +15,7 @@ model RelativeTemperature "Ideal relative temperature sensor"
     annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=
            0)));
 
-  Modelica.Blocks.Interfaces.RealOutput T_rel(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealOutput T_rel(final quantity="ThermodynamicTemperature",
                                               final unit = "K", displayUnit = "degC", min=0)
     "Relative temperature signal"
      annotation (Placement(
@@ -84,7 +84,7 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 revisions="<html>
 <ul>
 <li>
-September 29, 2009, by Michael Wetter:<br>
+September 29, 2009, by Michael Wetter:<br/>
 First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>

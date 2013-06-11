@@ -87,11 +87,11 @@ However, <code>flowMac2.dp</code> is always negative, as this pump has a constan
 </html>", revisions="<html>
 <ul>
 <li>
-February 14, 2012, by Michael Wetter:<br>
+February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
 </li>
 <li>
-March 24 2010, by Michael Wetter:<br>
+March 24 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

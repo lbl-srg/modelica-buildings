@@ -6,7 +6,8 @@ record GenericSolarCollector
   parameter Modelica.SIunits.Area A "Area";
   parameter Modelica.SIunits.Mass mDry "Dry weight";
   parameter Modelica.SIunits.Volume V "Fluid volume";
-  parameter Modelica.SIunits.Pressure dp_nominal "Pressure drop during test";
+  parameter Modelica.SIunits.Pressure dp_nominal
+    "fixme: This is the maximum static pressure before it bursts, but it is used as the flow resistance! Pressure drop during test";
   parameter Real mperA_flow_nominal(unit="kg/(s.m2)")
     "Mass flow rate per unit area of collector";
    parameter Real B0 "1st incident angle modifier coefficient";

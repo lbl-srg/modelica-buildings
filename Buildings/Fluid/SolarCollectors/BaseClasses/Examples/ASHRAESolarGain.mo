@@ -64,7 +64,7 @@ Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain</a>. All of the inpu
 </html>", revisions="<html>
 <ul>
 <li>
-Mat 27, 2013 by Peter Grant:<br>
+Mat 27, 2013 by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>

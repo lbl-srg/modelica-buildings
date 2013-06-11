@@ -65,7 +65,7 @@ Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a>. All of the input
 </html>", revisions="<html>
 <ul>
 <li>
-Mar 27, 2013 by Peter Grant:<br>
+Mar 27, 2013 by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>

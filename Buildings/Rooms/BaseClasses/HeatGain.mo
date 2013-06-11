@@ -93,17 +93,17 @@ the mass flow rate at the fluid port is equal to zero.
         revisions="<html>
 <ul>
 <li>
-December 6, 2011, by Michael Wetter:<br>
+December 6, 2011, by Michael Wetter:<br/>
 Fixed sign error in convective heat gain that is assigned to 
 <code>QCon_flow.Q_flow</code>.
 This closes ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/46\">issue 46</a>.
 </li>
 <li>
-April 27, 2011, by Michael Wetter:<br>
+April 27, 2011, by Michael Wetter:<br/>
 Changed assert statement to allow use of model for media without water vapor.
 </li>
 <li>
-June 9, 2010, by Michael Wetter:<br>
+June 9, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -161,11 +161,11 @@ between the surfaces, require access to the area and absorptivity of the surface
         revisions="<html>
 <ul>
 <li>
-February 22, by Michael Wetter:<br>
+February 22, by Michael Wetter:<br/>
 Improved the code that searches for the index of 'water' in the medium model.
 </li>
 <li>
-June 8 2010, by Michael Wetter:<br>
+June 8 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

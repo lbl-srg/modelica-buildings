@@ -7,12 +7,13 @@ model PartialSolarCollector "Partial model for solar collectors"
     final m_flow_nominal=perPar.mperA_flow_nominal*perPar.A,
     final show_T=true);
   parameter Integer nSeg(min=3) = 3
-    "Number of segments to be used in the simulation";
+    "Number of segments used to discretize the collector model";
 
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
   parameter Modelica.SIunits.Angle til "Surface tilt";
   parameter Real rho "Ground reflectance";
+  // fixme: C must scale with the area.
   parameter Modelica.SIunits.HeatCapacity C=385*perPar.mDry
     "Heat capacity of solar collector without fluid (default: cp_copper*mDry)";
 
@@ -81,8 +82,9 @@ model PartialSolarCollector "Partial model for solar collectors"
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
     use_dh=false) "Flow resistance"
-                                 annotation (Placement(transformation(extent={{-50,-10},
+    annotation (Placement(transformation(extent={{-50,-10},
             {-30,10}}, rotation=0)));
+    // fixme: V must scale with area, and it must be divided by nSeg
   Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](
     each nPorts=2,
     redeclare package Medium = Medium,
@@ -92,7 +94,12 @@ model PartialSolarCollector "Partial model for solar collectors"
     each final T_start=T_start,
     each final V=perPar.V/nSeg)
     "Volume of fluid in one segment of the solar collector"
-                          annotation (Placement(transformation(
+    each m_flow_nominal=m_flow_nominal,
+    each V=perPar.V,
+    each energyDynamics=energyDynamics,
+    each p_start=p_start,
+    each T_start=T_start) "Medium volumes"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={48,-16})));
@@ -141,18 +148,12 @@ equation
       points={{-100,96},{-88,96},{-88,82},{-80,82}},
       color={255,204,51},
       thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
+      smooth=Smooth.None));
   connect(weaBus, HDirTil.weaBus) annotation (Line(
       points={{-100,96},{-88,96},{-88,56},{-80,56}},
       color={255,204,51},
       thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
+      smooth=Smooth.None));
   connect(port_a, senMasFlo.port_a) annotation (Line(
       points={{-100,0},{-80,0}},
       color={0,127,255},
@@ -205,7 +206,7 @@ This component is a partial model of a solar thermal collector. It can be expand
  Because these curves behave poorly for angles greater than 60 degrees 
  the model does not calculatue either direct or diffuse solar radiation gains
  when the incidence angle is greater than 60 degrees. 
-<br>
+<br/>
 2. By default, the estimated heat capacity of the collector without fluid is calculated based on the dry mass and the specific heat capacity of copper.
 </p>
 <h4>References</h4>
@@ -215,7 +216,7 @@ This component is a partial model of a solar thermal collector. It can be expand
 </html>", revisions="<html>
 <ul>
 <li>
-January 4, 2013, by Peter Grant:<br>
+January 4, 2013, by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>

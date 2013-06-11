@@ -10,7 +10,7 @@ model MassExchange
   Modelica.Blocks.Interfaces.RealInput XInf "Water mass fraction of medium"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
           rotation=0)));
-  Modelica.Blocks.Interfaces.RealInput TSur(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealInput TSur(final quantity="ThermodynamicTemperature",
                                             final unit = "K", displayUnit = "degC", min=0)
     "Surface temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}},
@@ -18,7 +18,7 @@ model MassExchange
   Modelica.Blocks.Interfaces.RealOutput mWat_flow(final unit = "kg/s")
     "Water flow rate"
     annotation (Placement(transformation(extent={{100,10},{120,30}}, rotation=0)));
-  Modelica.Blocks.Interfaces.RealOutput TLiq(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealOutput TLiq(final quantity="ThermodynamicTemperature",
                                              final unit = "K", displayUnit = "degC", min=0)
     "Temperature at which condensate drains from system"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}, rotation=
@@ -165,20 +165,24 @@ Using the Lewis number which is defined as the ratio between the heat and mass
 diffusion coefficients, one can obtain the ratio between convection 
 heat transfer coefficient <i>h</i> in (W/(m^2*K)) and
 mass transfer coefficient <i>h<sub>m</sub></i> in (m/s) as follows:
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   h &frasl; h<sub>m</sub> = &rho;  c<sub>p</sub>  Le<sup>(1-n)</sup> &frasl;
  h<sub>m</sub>
 </p>
+<p>
 where <i>&rho;</i> is the mass density,
 <i>c<sub>p</sub></i> is the specific heat capacity
 of the bulk medium and <i>n</i> is a coefficient from the boundary layer analysis, which
 is typically <i>n=1/3</i>.
 From this equation, we can compute the water vapor mass flow rate 
 <i>n<sub>A</sub></i> in (kg/s) as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   n<sub>A</sub> = G<sub>c</sub> &frasl; (c<sub>p</sub> Le<sup>(1-n)</sup>)
   (X<sub>s</sub> - X<sub>&#8734;</sub>),
 </p>
+<p>
 where <i>G<sub>c</sub></i> is the sensible heat conductivity in (W/K) and 
 <i>X<sub>s</sub></i> and 
 <i>X<sub>&#8734;</sub></i> are the water vapor mass per unit volume 
@@ -190,11 +194,11 @@ corresponding to the temperature <i>T<sub>sur</sub></i> which is an input.
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions and fixed error in the documentation.
 </li>
 <li>
-August 13, 2008 by Michael Wetter:<br>
+August 13, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

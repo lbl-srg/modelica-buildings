@@ -68,6 +68,8 @@ The altitude angle is the angle between the sun ray and the projection of the ra
 </p>
 <p>
 Components used in this model are:
+</p>
+<p>
 <ul>
 <li>
 <a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination</a>
@@ -84,7 +86,7 @@ Components used in this model are:
 revisions="<html>
 <ul>
 <li>
-Feb 01, 2012, by Kaustubh Phalak<br>
+Feb 01, 2012, by Kaustubh Phalak<br/>
 First implementation.
 </li>
 </ul>

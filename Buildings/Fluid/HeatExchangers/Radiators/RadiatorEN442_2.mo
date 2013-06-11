@@ -247,6 +247,7 @@ equation
           smooth=Smooth.None)}),
     defaultComponentName="rad",
     Documentation(info="<html>
+<p>
 This is a model of a radiator that can be used as a dynamic or steady-state model.
 The required parameters are data that are typically available from
 manufacturers that follow the European Norm EN 442-2.
@@ -269,13 +270,15 @@ the convective and radiative heat transfer
 <i>Q<sup>i</sup><sub>c</sub></i> and
 <i>Q<sup>i</sup><sub>r</sub></i>
 from the radiator to the room is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q<sup>i</sup><sub>c</sub> = sign(T<sup>i</sup>-T<sub>a</sub>)
      (1-f<sub>r</sub>) UA &frasl; N |T<sup>i</sup>-T<sub>a</sub>|<sup>n</sup> 
-  <br> <br>
+  <br/> <br/>
   Q<sup>i</sup><sub>r</sub> = sign(T<sup>i</sup>-T<sub>r</sub>)
      f<sub>r</sub> UA &frasl; N |T<sup>i</sup>-T<sub>r</sub>|<sup>n</sup>
 </p>
+<p>
 where
 <i>T<sup>i</sup></i> is the water temperature of the element,
 <i>T<sub>a</sub></i> is the temperature of the room air,
@@ -304,7 +307,7 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </html>", revisions="<html>
 <ul>
 <li>
-April 4, 2011 by Michael Wetter:<br>
+April 4, 2011 by Michael Wetter:<br/>
 Changed the implementation to use
 <a href=\"modelica://Buildings.Utilities.Math.Functions.regNonZeroPower\">
 Buildings.Utilities.Math.Functions.regNonZeroPower</a>.
@@ -312,11 +315,11 @@ This allows formulating the model without any non-differentiable function
 inside the equation section.
 </li>
 <li>
-April 2, 2011 by Michael Wetter:<br>
+April 2, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-February 11, 2011 by Michael Wetter:<br>
+February 11, 2011 by Michael Wetter:<br/>
 Revised the initialization to ensure that at the nominal conditions, the
 amount of transferred heat is excatly the same as the specified nominal power.
 In the previous implementation, the UA-value was computed using a simplified
@@ -324,11 +327,11 @@ expression for the temperature difference, leading to a slightly different amoun
 of heat transfer.
 </li>
 <li>
-February 4, 2011 by Michael Wetter:<br>
+February 4, 2011 by Michael Wetter:<br/>
 Simplified implementation.
 </li>
 <li>
-January 30, 2009 by Michael Wetter:<br>
+January 30, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
