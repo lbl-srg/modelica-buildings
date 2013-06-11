@@ -53,13 +53,11 @@ model UF90X3AWithRadiantFloor
     A=60.97,
     pipe=pipe,
     layers=slaCon,
-    disPip=0.2)
+    disPip=0.229)
     annotation (Placement(transformation(extent={{16,-56},{36,-36}})));
 
-  //fixme - Currently disPip = 0.2m. Don't know actual measurement of disPip, change when more detailed information available
-
-  Modelica.Blocks.Sources.CombiTimeTable watCon(table=[0,0.06,303.15; 86400,0.06,
-        303.15]) "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
+  Modelica.Blocks.Sources.CombiTimeTable watCon(table=[0,0.06,293.15; 86400,
+        0.06,293.15]) "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
     annotation (Placement(transformation(extent={{-104,-52},{-84,-32}})));
   Buildings.Fluid.Sources.MassFlowSource_T
                                  watIn(
