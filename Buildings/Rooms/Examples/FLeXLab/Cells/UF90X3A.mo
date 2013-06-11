@@ -46,4 +46,33 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   Data.Constructions.OpaqueConstructions.PartitionWall
                                                     parCon
     annotation (Placement(transformation(extent={{-180,-192},{-160,-172}})));
+
+  annotation(Documentation(info="<html>
+  <p>
+  This is a model for test cell 3A in the LBNL User Facility. The model is based on 
+  <a href=\"modelica:Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>. Appropriate
+  condstructions and parameters have been used to describe the test cell.
+  </p>
+  <p>
+  Constructions used to describe the walls used in 
+  <a href=\"modelica:Buildings.Rooms.Examples.FLeXLab.Cells.UF90X3A\">
+  Buildings.Rooms.Examples.FLeXLab.Cells.UF90X3A</a> are available in 
+  <a href=\"modelica:Buildings.Rooms.Examples.FLeXLab.Constructions.OpaqueConstructions\">
+  Buildings.Rooms.Examples.FLeXLab.Constructions.OpaqueConstructions</a>. All wall 
+  construction models are made using information from architectural drawings. Constructions
+  used to describe the windows are available in
+  <a href=\"modelica:Buildings.Rooms.Examples.FLeXLab.Data.Constructions.GlazingSystems\">
+  Buildings.Rooms.Examples.FLeXLab.Data.Constructions.GLazingSystems</a>. Window models are based on
+  information available in the construction specifications.
+  </p>
+  <p>
+  This model assumes that the removable wall between cells A and B is installed.<br>
+  </p>
+  </html>",
+  revisions = "<html>
+  <ul>
+  <li>Jun 10, 2013 by Peter Grant:<br>
+  First implementation.</li>
+  </ul>
+  </html>"));
 end UF90X3A;
