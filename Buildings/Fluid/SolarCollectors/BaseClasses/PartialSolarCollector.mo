@@ -13,8 +13,7 @@ model PartialSolarCollector "Partial model for solar collectors"
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
   parameter Modelica.SIunits.Angle til "Surface tilt";
   parameter Real rho "Ground reflectance";
-  // fixme: C must scale with the area.
-  parameter Modelica.SIunits.HeatCapacity C=385*perPar.mDry
+  parameter Modelica.SIunits.HeatCapacity C=385*perPar.mDry*nPanels_internal
     "Heat capacity of solar collector without fluid (default: cp_copper*mDry)";
 
   parameter Boolean use_shaCoe_in = false
@@ -84,7 +83,6 @@ model PartialSolarCollector "Partial model for solar collectors"
     use_dh=false) "Flow resistance"
     annotation (Placement(transformation(extent={{-50,-10},
             {-30,10}}, rotation=0)));
-    // fixme: V must scale with area, and it must be divided by nSeg
   Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](
     each nPorts=2,
     redeclare package Medium = Medium,
@@ -92,13 +90,13 @@ model PartialSolarCollector "Partial model for solar collectors"
     each final energyDynamics=energyDynamics,
     each final p_start=p_start,
     each final T_start=T_start,
-    each final V=perPar.V/nSeg)
-    "Volume of fluid in one segment of the solar collector";
-
+    each final V=perPar.V/nSeg*nPanels_internal)
+    "Volume of fluid in one segment of the solar collector"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={48,-16})));
+
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen[nSeg]
     "Temperature sensor"
           annotation (Placement(transformation(
