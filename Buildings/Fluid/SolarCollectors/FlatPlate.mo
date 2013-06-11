@@ -1,7 +1,7 @@
 within Buildings.Fluid.SolarCollectors;
 model FlatPlate "Model of a flat plate solar thermal collector"
-  extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
-  parameter SolarCollectors.Data.GenericSolarCollector per
+  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
     annotation(choicesAllMatching=true);
 
   BaseClasses.ASHRAESolarGain                 solHeaGai(

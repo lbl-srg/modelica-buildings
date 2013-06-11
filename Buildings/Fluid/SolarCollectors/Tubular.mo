@@ -1,8 +1,8 @@
 within Buildings.Fluid.SolarCollectors;
 model Tubular "Model of a tubular solar collector"
-  extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
-    parameter SolarCollectors.Data.GenericSolarCollector per "Performance data"
-                        annotation (choicesAllMatching=true);
+  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
+    parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
+    "Performance data"  annotation (choicesAllMatching=true);
 
   BaseClasses.ASHRAESolarGain solHeaGai(
     final nSeg=nSeg,

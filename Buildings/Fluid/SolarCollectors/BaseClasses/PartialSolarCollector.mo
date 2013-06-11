@@ -93,12 +93,8 @@ model PartialSolarCollector "Partial model for solar collectors"
     each final p_start=p_start,
     each final T_start=T_start,
     each final V=perPar.V/nSeg)
-    "Volume of fluid in one segment of the solar collector"
-    each m_flow_nominal=m_flow_nominal,
-    each V=perPar.V,
-    each energyDynamics=energyDynamics,
-    each p_start=p_start,
-    each T_start=T_start) "Medium volumes"
+    "Volume of fluid in one segment of the solar collector";
+
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -115,7 +111,7 @@ model PartialSolarCollector "Partial model for solar collectors"
     annotation (Placement(transformation(extent={{38,60},{58,80}})));
 
 protected
-  parameter SolarCollectors.Data.GenericSolarCollector perPar
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector perPar
     "Partial performance data"
     annotation(choicesAllMatching=true);
 
@@ -222,3 +218,4 @@ First implementation.
 </ul>
 </html>"));
 end PartialSolarCollector;
+
