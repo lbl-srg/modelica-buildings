@@ -5,8 +5,9 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   annotation(preferredview="info",
   Documentation(info="<html>
   <p>
-  The package <code>Buildings.Fluid.SolarCollectors</code> contains models 
-  used for the simulation   of solar thermal systems. Top-level models are 
+  The package <a href=\"modelica:Buildings.Fluid.SolarCollectors\">
+  Buildings.Fluid.SolarCollectors</a> contains models used for 
+  simulation of solar thermal systems. Top-level models are 
   available for concentrating, flat plate, and   tubular solar collectors. 
   The three models use different models for solar gain, heat loss and data 
   packages. Solar gain and heat loss models are available for use with data 
