@@ -2,8 +2,9 @@ within Buildings.Fluid.SolarCollectors.BaseClasses;
 model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   extends SolarCollectors.BaseClasses.PartialParameters;
-  Modelica.Blocks.Interfaces.RealInput GSkyDifTil(
-                                    unit="W/m2", quantity="Irradiance")
+  Modelica.Blocks.Interfaces.RealInput HSkyDifTil(
+                                    unit="W/m2", quantity=
+        "RadiantEnergyFluenceRate")
     "Diffuse solar irradiation on a tilted surfce from the sky"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput incAng(
@@ -11,8 +12,9 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
     unit="rad",
     displayUnit="degree") "Incidence angle of the sun beam on a tilted surface"
     annotation (Placement(transformation(extent={{-140,-46},{-100,-6}})));
-  Modelica.Blocks.Interfaces.RealInput GDirTil(
-                                    unit="W/m2", quantity="Irradiance")
+  Modelica.Blocks.Interfaces.RealInput HDirTil(
+                                    unit="W/m2", quantity=
+        "RadiantEnergyFluenceRate")
     "Direct solar irradiation on a tilted surfce"
     annotation (Placement(transformation(extent={{-140,6},{-100,46}})));
   Modelica.Blocks.Interfaces.RealOutput QSol_flow[nSeg](final unit="W")
@@ -57,8 +59,8 @@ equation
   end if;
 
   for i in 1 : nSeg loop
-  QSol_flow[i] = A_c/nSeg*(y_intercept*(iamBea*GDirTil*(1.0 - shaCoe_internal) + iamDiff *
-  GSkyDifTil));
+  QSol_flow[i] = A_c/nSeg*(y_intercept*(iamBea*HDirTil*(1.0 - shaCoe_internal) + iamDiff *
+  HSkyDifTil));
   end for;
   annotation (
     defaultComponentName="solHeaGai",
@@ -101,8 +103,8 @@ First implementation
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
             graphics),
     Icon(graphics={Text(
           extent={{-48,-32},{36,-66}},

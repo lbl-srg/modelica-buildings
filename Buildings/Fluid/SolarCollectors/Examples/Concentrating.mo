@@ -73,8 +73,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/
-  Examples/Concentrating.mos" "Simulate and Plot"),
+  annotation (
         Documentation(info="<html>
         <p>
         This model demonstrates the implementation of 
@@ -93,5 +92,8 @@ equation
         </ul>
         </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics));
+            100}}),     graphics),
+    Commands(file=
+          "Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/Concentrating.mos"
+        "Simulate and Plot"));
 end Concentrating;

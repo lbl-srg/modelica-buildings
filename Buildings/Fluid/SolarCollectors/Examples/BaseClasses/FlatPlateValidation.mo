@@ -62,19 +62,7 @@ equation
       points={{-59,52},{-32,52},{-32,66},{10,66}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HDirTil.H, solHeaGai.HDirTil) annotation (Line(
-      points={{-59,56},{-40,56},{-40,72},{10,72}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
-  connect(HDifTilIso.HGroDifTil, solHeaGai.HGroDifTil) annotation (Line(
-      points={{-59,76},{-32,76},{-32,74.8},{10,74.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(HDifTilIso.HSkyDifTil, solHeaGai.HSkyDifTil) annotation (Line(
-      points={{-59,88},{-16,88},{-16,78},{10,78}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
       points={{-100,96},{-88,96},{-88,36},{-2,36}},
       color={255,204,51},
@@ -87,9 +75,21 @@ equation
       points={{21,30},{38,30}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(HDifTilIso.HSkyDifTil, solHeaGai.HSkyDifTil) annotation (Line(
+      points={{-59,88},{-30,88},{-30,78},{10,78}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(HDifTilIso.HGroDifTil, solHeaGai.HGroDifTil) annotation (Line(
+      points={{-59,76},{-40,76},{-40,74.8},{10,74.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(HDirTil.H, solHeaGai.HDirTil) annotation (Line(
+      points={{-59,56},{-40,56},{-40,72},{10,72}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics),
     Icon(graphics={
         Rectangle(
           extent={{-86,100},{88,-100}},

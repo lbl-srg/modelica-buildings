@@ -15,18 +15,18 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
     A_c=per.A,
     shaCoe=0,
     use_shaCoe_in=true,
-    til=0.78539816339745)
+    til=0.78539816339745) "Solar heat gain model using ASHRAE 93 calculations"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.Constant
                                incAng(k=0.523) "Incidence angle"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Modelica.Blocks.Sources.Constant IDirTil(k=800)
+  Modelica.Blocks.Sources.Constant HDirTil(k=800)
     "Direct beam radiation, tilted surface"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Modelica.Blocks.Sources.Constant IGroDifTil(k=200)
+  Modelica.Blocks.Sources.Constant HGroDifTil(k=200)
     "Diffuse radiation from the ground, tilted surface"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.Constant ISkyDifTil(k=200)
+  Modelica.Blocks.Sources.Constant HSkyDifTil(k=200)
     "Diffuse radiation from the sky, tilted surface"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Constant shaCoe(k=0.25) "Shading coefficient"
@@ -40,15 +40,15 @@ equation
       points={{-19,-46},{2,-46},{2,-18},{18,-18}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(IDirTil.y, solHeaGai.GDirTil) annotation (Line(
+  connect(HDirTil.y, solHeaGai.HDirTil) annotation (Line(
       points={{-19,10},{0,10},{0,-8},{18,-8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(IGroDifTil.y, solHeaGai.GGroDifTil) annotation (Line(
+  connect(HGroDifTil.y, solHeaGai.HGroDifTil) annotation (Line(
       points={{-59,30},{4,30},{4,-5.2},{18,-5.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ISkyDifTil.y, solHeaGai.GSkyDifTil) annotation (Line(
+  connect(HSkyDifTil.y, solHeaGai.HSkyDifTil) annotation (Line(
       points={{-19,50},{8,50},{8,-2},{18,-2}},
       color={0,0,127},
       smooth=Smooth.None));

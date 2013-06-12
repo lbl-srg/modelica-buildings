@@ -41,14 +41,13 @@ model FlatPlateValidation "Validation model for FlatPlate"
     use_T_in=true)
     "Inlet for water flow, at a prescribed flow rate and temperature"
     annotation (Placement(transformation(extent={{-12,-20},{8,0}})));
-  Modelica.Blocks.Sources.CombiTimeTable
-   combiTable1Ds(
+  Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     tableName="TRNSYS",
     columns=2:5,
     fileName=
         "Fluid/SolarCollectors/Examples/ValidationData/TRNSYSAnnualData.txt")
-    "Data reader with inlet conditions from TRNSYS"
+    "Data reader with inlet conditions from TRNSYS (y[1]=T_In (C), y[2] =, y[3] =, y[4] = m_flow (kg/s), y[5] = )"
     annotation (Placement(transformation(extent={{-88,-20},{-68,0}})));
 
   Modelica.Blocks.Math.Add add
@@ -76,11 +75,11 @@ equation
       points={{-29,-30},{-24,-30},{-24,-6},{-14,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(combiTable1Ds.y[1], add.u1) annotation (Line(
+  connect(datRea.y[1], add.u1)        annotation (Line(
       points={{-67,-10},{-60,-10},{-60,-24},{-52,-24}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(combiTable1Ds.y[4], bou.m_flow_in)      annotation (Line(
+  connect(datRea.y[4], bou.m_flow_in)             annotation (Line(
       points={{-67,-10},{-44,-10},{-44,-2},{-12,-2}},
       color={0,0,127},
       smooth=Smooth.None));

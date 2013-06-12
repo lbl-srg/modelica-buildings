@@ -16,17 +16,17 @@ model EN12975SolarGain "Example showing the use of EN12975SolarGain"
     iamDiff=per.IAMDiff,
     shaCoe=0,
     use_shaCoe_in=true,
-    til=45)
+    til=45) "Solar heat gain model using EN12975 calculations"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.Ramp incAng(duration=86400, height=60*(2*Modelica.Constants.pi
         /360)) "Incidence angle"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Modelica.Blocks.Sources.Sine     IDirTil(
+  Modelica.Blocks.Sources.Sine     HDirTil(
     offset=400,
     amplitude=300,
     freqHz=2/86400) "Direct beam radiation, tilted surface"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Modelica.Blocks.Sources.Sine IDifTil(
+  Modelica.Blocks.Sources.Sine HDifTil(
     amplitude=200,
     freqHz=1/86400,
     offset=300) "Diffuse radiation, tilted surface"
@@ -42,11 +42,11 @@ equation
       points={{-5,-50},{8,-50},{8,-18},{18,-18}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(IDirTil.y, solHeaGai.GDirTil) annotation (Line(
+  connect(HDirTil.y, solHeaGai.HDirTil) annotation (Line(
       points={{-19,10},{-6,10},{-6,-7.4},{18,-7.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(IDifTil.y, solHeaGai.GSkyDifTil) annotation (Line(
+  connect(HDifTil.y, solHeaGai.HSkyDifTil) annotation (Line(
       points={{-19,50},{0,50},{0,-2},{18,-2}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -67,8 +67,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975SolarGain.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975SolarGain.mos"
         "Simulate and Plot"),
     Icon(graphics));
 end EN12975SolarGain;

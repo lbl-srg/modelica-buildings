@@ -54,7 +54,7 @@ model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
   Modelica.Blocks.Sources.Ramp     shaCoe(
     startTime=34040,
     height=1,
-    duration=24193)
+    duration=24193) "Varying shading coefficient"
     annotation (Placement(transformation(extent={{-88,6},{-68,26}})));
 equation
   connect(solCol.port_b, TOut.port_a) annotation (Line(

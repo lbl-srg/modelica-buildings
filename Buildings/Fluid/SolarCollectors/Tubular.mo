@@ -13,6 +13,7 @@ model Tubular "Model of a tubular solar collector"
     final A_c=TotalArea_internal,
     final til=til,
     use_shaCoe_in=use_shaCoe_in)
+    "Identifies heat gained from the sun using standard ASHRAE93 calculations"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   BaseClasses.ASHRAEHeatLoss heaLos(
     final A_c=TotalArea_internal,
@@ -49,20 +50,20 @@ equation
       points={{-59,56},{-52,56},{-52,72},{-12,72}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HDifTilIso.HGroDifTil, solHeaGai.HGroDifTil) annotation (Line(
-      points={{-59,76},{-52,76},{-52,74.8},{-12,74.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(HDifTilIso.HSkyDifTil, solHeaGai.HSkyDifTil) annotation (Line(
-      points={{-59,88},{-50,88},{-50,78},{-12,78}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
       points={{9,30},{38,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solHeaGai.QSol_flow, heaGai.Q_flow) annotation (Line(
       points={{11,70},{38,70}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(HDifTilIso.HGroDifTil, solHeaGai.HGroDifTil) annotation (Line(
+      points={{-59,76},{-52,76},{-52,74.8},{-12,74.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(HDifTilIso.HSkyDifTil, solHeaGai.HSkyDifTil) annotation (Line(
+      points={{-59,88},{-50,88},{-50,78},{-12,78}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

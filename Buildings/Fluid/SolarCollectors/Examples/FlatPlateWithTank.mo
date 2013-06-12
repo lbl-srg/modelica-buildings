@@ -171,8 +171,9 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-                      __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/
-                      Examples/FlatPlateWithTank.mos" "Simulate and Plot"),
+                      __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
+        "Simulate and Plot"),
         Documentation(info="<html>
         <p>
         This example shows how several different models can be combined to create an entire 

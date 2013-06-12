@@ -14,6 +14,7 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
     final til=til,
     final iamDiff=per.IAMDiff,
     final use_shaCoe_in=use_shaCoe_in)
+    "Identifies heat gained from the sun using standard EN12975 calculations"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   BaseClasses.EN12975HeatLoss heaLos(
     final A_c=TotalArea_internal,
@@ -47,10 +48,6 @@ equation
       points={{-59,52},{-50,52},{-50,67.4},{-2,67.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HDirTil.H, solHeaGai.HDirTil) annotation (Line(
-      points={{-59,56},{-54,56},{-54,72.6},{-2,72.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(solHeaGai.QSol_flow, heaGai.Q_flow) annotation (Line(
       points={{21,70},{38,70}},
       color={0,0,127},
@@ -60,7 +57,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDifTilIso.H, solHeaGai.HSkyDifTil) annotation (Line(
-      points={{-59,82},{-50,82},{-50,78},{-2,78}},
+      points={{-59,82},{-54,82},{-54,78},{-2,78}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(HDirTil.H, solHeaGai.HDirTil) annotation (Line(
+      points={{-59,56},{-54,56},{-54,72.6},{-2,72.6}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

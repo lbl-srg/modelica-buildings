@@ -72,8 +72,9 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/
-  Examples/Tubular.mos" "Simulate and Plot"),
+  annotation (__Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/Tubular.mos"
+        "Simulate and Plot"),
         Documentation(info="<html>
         <p>
         This model demonstrates the implementation of 

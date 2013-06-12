@@ -69,7 +69,7 @@ function nusselt
   input Real Ra "Raleigh number";
   output Real Nu(min=0) "Nusselt number";
   protected
-  Real num "Numberator";
+  Real num "Numerator";
   Real den "Denominator";
 algorithm
   num := (0.387*Buildings.Utilities.Math.Functions.smoothMax(Ra,1,0.1)^(1/6));

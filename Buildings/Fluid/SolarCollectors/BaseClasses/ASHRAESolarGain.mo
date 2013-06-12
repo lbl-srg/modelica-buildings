@@ -3,12 +3,12 @@ block ASHRAESolarGain
   "Calculate the solar heat gain of a solar collector per ASHRAE Standard 93"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   extends SolarCollectors.BaseClasses.PartialParameters;
-  Modelica.Blocks.Interfaces.RealInput GSkyDifTil(quantity=
-        "Irradiance", unit="W/m2")
+  Modelica.Blocks.Interfaces.RealInput HSkyDifTil(
+                      unit="W/m2", quantity="RadiantEnergyFluenceRate")
     "Diffuse solar irradiation on a tilted surfce from the sky"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput GGroDifTil(quantity=
-        "Irradiance", unit="W/m2")
+  Modelica.Blocks.Interfaces.RealInput HGroDifTil(
+                      unit="W/m2", quantity="RadiantEnergyFluenceRate")
     "Diffuse solar irradiation on a tilted surfce from the ground"
     annotation (Placement(transformation(extent={{-140,28},{-100,68}})));
   Modelica.Blocks.Interfaces.RealInput incAng(
@@ -16,8 +16,8 @@ block ASHRAESolarGain
     unit="rad",
     displayUnit="degree") "Incidence angle of the sun beam on a tilted surface"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput GDirTil(quantity=
-        "Irradiance", unit="W/m2")
+  Modelica.Blocks.Interfaces.RealInput HDirTil(
+                      unit="W/m2", quantity="RadiantEnergyFluenceRate")
     "Direct solar irradiation on a tilted surfce"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
   Modelica.Blocks.Interfaces.RealOutput QSol_flow[nSeg](final unit="W")
@@ -51,9 +51,9 @@ protected
   final parameter Real tilDeg(
   unit = "deg") = Modelica.SIunits.Conversions.to_deg(til)
     "Surface tilt angle in degrees";
-  final parameter Modelica.SIunits.HeatFlux GTotMin = 1
+  final parameter Modelica.SIunits.HeatFlux HTotMin = 1
     "Minimum HTot to avoid div/0";
-  final parameter Real GMinDel = 0.001
+  final parameter Real HMinDel = 0.001
     "Delta of the smoothing function for HTot";
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_internal
@@ -96,15 +96,15 @@ equation
   // E+ Equ (556)
   iam = Buildings.Utilities.Math.Functions.smoothHeaviside(
       1/3*Modelica.Constants.pi-incAng,Modelica.Constants.pi/60)*
-      ((GDirTil*iamBea + GSkyDifTil*iamSky + GGroDifTil*iamGro)/
-      Buildings.Utilities.Math.Functions.smoothMax((GDirTil +
-      GSkyDifTil + GGroDifTil), GTotMin, GMinDel));
+      ((HDirTil*iamBea + HSkyDifTil*iamSky + HGroDifTil*iamGro)/
+      Buildings.Utilities.Math.Functions.smoothMax((HDirTil +
+      HSkyDifTil + HGroDifTil), HTotMin, HMinDel));
   // Modified from EnergyPlus Equ (559) by applying shade effect for
   //direct solar radiation
   // Only solar heat gain is considered here
   for i in 1 : nSeg loop
-    QSol_flow[i] = A_c/nSeg*(y_intercept*iam*(GDirTil*(1.0 -
-    shaCoe_internal) + GSkyDifTil + GGroDifTil));
+    QSol_flow[i] = A_c/nSeg*(y_intercept*iam*(HDirTil*(1.0 -
+    shaCoe_internal) + HSkyDifTil + HGroDifTil));
   end for;
 
   annotation (
@@ -181,8 +181,8 @@ First implementation
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
             graphics),
     Icon(graphics={Text(
           extent={{-48,-32},{36,-66}},

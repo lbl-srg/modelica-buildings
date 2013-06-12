@@ -13,6 +13,7 @@ model FlatPlate "Model of a flat plate solar thermal collector"
     final y_intercept=per.y_intercept,
     use_shaCoe_in=use_shaCoe_in,
     final A_c=TotalArea_internal)
+    "Identifies heat gained from the sun using standard ASHRAE93 calculations"
              annotation (Placement(transformation(extent={{0,60},{20,80}})));
 
   BaseClasses.ASHRAEHeatLoss                 heaLos(
@@ -50,14 +51,6 @@ equation
       points={{-59,56},{-40,56},{-40,72},{-2,72}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HDifTilIso.HSkyDifTil, solHeaGai.HSkyDifTil) annotation (Line(
-      points={{-59,88},{-32,88},{-32,78},{-2,78}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(HDifTilIso.HGroDifTil, solHeaGai.HGroDifTil) annotation (Line(
-      points={{-59,76},{-40,76},{-40,74.8},{-2,74.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
       points={{21,30},{38,30}},
       color={0,0,127},
@@ -66,9 +59,17 @@ equation
       points={{21,70},{38,70}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(HDifTilIso.HGroDifTil, solHeaGai.HGroDifTil) annotation (Line(
+      points={{-59,76},{-40,76},{-40,74.8},{-2,74.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(HDifTilIso.HSkyDifTil, solHeaGai.HSkyDifTil) annotation (Line(
+      points={{-59,88},{-32,88},{-32,78},{-2,78}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
             graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
