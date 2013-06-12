@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HNatCyl
   "Calculates the convection coefficient for natural convection around a cylinder"
+  //fixme - Looks like Michael trying to replace with HANaturalCylinder (True??). If so, should delete this
   extends Modelica.Blocks.Interfaces.BlockIcon;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Partial medium model to be replaced with specific medium";
