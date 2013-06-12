@@ -77,7 +77,7 @@ equation
   The critical radiation is defined per Duffie and Beckman. It is calculated using Equation 6.8.2.
   </p>
   <p align=\"center\" style=\"font-style:italic;\">
-  I<sub>TC</sub>=(F<sub>R</sub>U<sub>L</sub> (T<sub>i</sub>-T<sub>a</sub>))/(F<sub>R</sub>(&tau;&alpha;))
+  G<sub>TC</sub>=(F<sub>R</sub>U<sub>L</sub> (T<sub>i</sub>-T<sub>a</sub>))/(F<sub>R</sub>(&tau;&alpha;))
   </p>
   <h4>References</h4>
   <p>

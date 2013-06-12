@@ -175,8 +175,8 @@ equation
         "Simulate and Plot"),
         Documentation(info="<html>
         <p>
-        This example shows how several different models can be combined to create an entire solar water heating system. The <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHX\">
-        Buildings.Fluid.Storage.StratifiedEnhancedInternalHX</a> (tan) model is used to represent the tank filled with hot water. A loop, powered by a pump
+        This example shows how several different models can be combined to create an entire solar water heating system. The <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
+        Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> (tan) model is used to represent the tank filled with hot water. A loop, powered by a pump
         <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">(Buildings.Fluid.Movers.FlowMachine_m_flow</a>, pum) passes the water through an expansion tank
         <a href=\"modelica://Buildings.Fluid.Storage.ExpansionVessel\"> (Buildings.Fluid.Storage.ExpansionVessel</a>, exp), a temperature sensor
         <a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\"> (Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TIn), the solar collector

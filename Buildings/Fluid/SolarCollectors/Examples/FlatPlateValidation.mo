@@ -96,7 +96,7 @@ equation
 This model was used to validate the <a href=\"modelica://Buildings.Fluid.SolarCollectors.FlatPlate\"> Buildings.Fluid.SolarCollectors.FlatPlate</a> solar collector model against TRNSYS data.
 Data files are used to ensure that the FlatPlate solar collector model saw the same inlet and weather conditions as the TRNSYS simulation. A special version of the
 <a href=\"modelica://Buildings.Fluid.SolarCollectors.FlatPlate\"> Buildings.Fluid.SolarCollectors.FlatPlate</a> solar collector model was made to accommodate the data files. It 
-can be accessed in the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.BaseClasses\">Buildings.Fluid.SolarCollectors.ExamplesBaseClasses</a> folder.
+is named <a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.BaseClasses.FlatPlateValidation\">Buildings.Fluid.SolarCollectors.Examples.BaseClasses.FlatPlateValidation</a>.
 </p>
 </html>",revisions="<html>
 <ul>

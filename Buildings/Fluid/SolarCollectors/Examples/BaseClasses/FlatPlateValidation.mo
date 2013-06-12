@@ -176,8 +176,8 @@ equation
 <p>
 This component models the flat plate solar thermal collector. 
 This model uses ASHRAE 93 ratings data and references 
-the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate\">
-Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate</a> data library.
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.TRNSYSValidation\">
+Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.TRNSYSValidation</a>.
 </p>
 <h4>Notice</h4>
 <p>

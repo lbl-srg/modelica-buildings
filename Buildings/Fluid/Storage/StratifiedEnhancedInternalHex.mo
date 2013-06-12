@@ -192,8 +192,8 @@ equation
             <a href=\"Buildings.Fluid.Storage.StratifiedEnhanced\">Buildings.Fluid.Storage.StratifiedEnhanced</a>.</p>
             <p>
             The modifications consist of adding a heat exchanger 
-            (<a href=\"Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger\">
-            Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger</a>) and fluid ports to connect to the heat exchanger.
+            (<a href=\"Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\">
+            Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a>) and fluid ports to connect to the heat exchanger.
             The modifications allow to run a fluid through the tank causing heat transfer to the stored fluid. 
             A typical example is a storage tank in a solar hot water system.
             </p>
