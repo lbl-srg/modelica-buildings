@@ -18,7 +18,7 @@ model SolarPumpController
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data input"
     annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
 
-  Buildings.Fluid.SolarCollectors.Controls.BaseClasses.ICritCalc criSol(final
+  Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc criSol(final
       slope=per.slope, final y_intercept=per.y_intercept)
     "Calculates the critical insolation based on collector design and current weather conditions"
     annotation (Placement(transformation(extent={{-58,-20},{-38,0}})));
@@ -43,10 +43,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(criSol.ICrit, add.u2)    annotation (Line(
-      points={{-36.4,-10},{-32,-10},{-32,-6},{-22,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(weaBus.HDirNor, add.u1) annotation (Line(
       points={{-102,60},{-34,60},{-34,6},{-22,6}},
       color={255,204,51},
@@ -61,6 +57,10 @@ equation
       smooth=Smooth.None));
   connect(add.y, smoHea.u)          annotation (Line(
       points={{1,6.66134e-16},{14,6.66134e-16},{14,0},{26,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(criSol.GCrit, add.u2) annotation (Line(
+      points={{-36.4,-10},{-32,-10},{-32,-6},{-22,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

@@ -1,8 +1,8 @@
 within Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples;
-model ICritCalc "Example showing the use of ICritCalc"
+model GCritCalc "Example showing the use of GCritCalc"
   import Buildings;
   extends Modelica.Icons.Example;
-  Buildings.Fluid.SolarCollectors.Controls.BaseClasses.ICritCalc criSol(slope=-3.764,
+  Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc criSol(slope=-3.764,
       y_intercept=0.602)
     "Calculates the critical insolation based on collector design and current weather conditions"
     annotation (Placement(transformation(extent={{-12,0},{8,20}})));
@@ -43,4 +43,4 @@ equation
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/SolarCollectors/Controls/BaseClasses/Examples/GCritCalc.mos"
         "Simulate and Plot"));
-end ICritCalc;
+end GCritCalc;

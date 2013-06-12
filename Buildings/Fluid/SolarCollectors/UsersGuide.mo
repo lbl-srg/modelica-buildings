@@ -14,7 +14,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   </p>
   <h4>Use of the <code>Buildings.Fluid.SolarCollectors</code> models</h4>
   <p>
-  A model of a solar thermal collector mainly consists of the three following items:<br>
+  A model of a solar thermal collector mainly consists of the three following items:<br/>
   <ul>
   <li>A package containing ratings data.</li>
   <li>Models for solar gain and heat loss corresponding to the format of the referenced ratings data.</li>

@@ -189,8 +189,8 @@ equation
         both the heat gain in the water from the sun and the heat loss to the ambient conditions.
         </p>
         <p>
-        The flow rate through the pump is controlled by a solar pump controller model <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\"> 
-        (Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a>, pumCon) and a gain model. The controller outputs a binary on (1) / off (0) signal. The
+        The flow rate through the pump is controlled by a solar pump controller model (<a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\"> 
+        Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a>, pumCon) and a gain model. The controller outputs a binary on (1) / off (0) signal. The
         on/off signal is passed through the gain model, multiplying by 0.04, to represent a flow rate of 0.04 kg/s when the pump is active.
         </p>
         <p>
