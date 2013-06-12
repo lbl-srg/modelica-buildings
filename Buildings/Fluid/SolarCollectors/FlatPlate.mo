@@ -154,9 +154,9 @@ Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate</a>.
  <p>
  <ul>
  <li>
- As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier equation coefficients 
- are only valid for incident angles of 60 degrees or less. 
-  Because these curves behave poorly for angles greater than 60 degrees 
+ As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier 
+ equation coefficients are only valid for incident angles of 60 degrees or less. 
+ Because these curves behave poorly for angles greater than 60 degrees 
  the model does not calculate either direct or diffuse solar radiation gains
  when the incidence angle is greater than 60 degrees.  
  </li>

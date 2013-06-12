@@ -2,7 +2,7 @@ within Buildings.Fluid.SolarCollectors.BaseClasses.Examples;
 model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
   import Buildings;
   extends Modelica.Icons.Example;
-  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector               per=
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per=
       Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.ThermaLiteHS20()
     "Performance data" annotation (choicesAllMatching=true);
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
@@ -20,13 +20,13 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
   Modelica.Blocks.Sources.Constant
                                incAng(k=0.523) "Incidence angle"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Modelica.Blocks.Sources.Constant HDirTil(k=800)
+  Modelica.Blocks.Sources.Constant IDirTil(k=800)
     "Direct beam radiation, tilted surface"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Modelica.Blocks.Sources.Constant HGroDifTil(k=200)
+  Modelica.Blocks.Sources.Constant IGroDifTil(k=200)
     "Diffuse radiation from the ground, tilted surface"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.Constant HSkyDifTil(k=200)
+  Modelica.Blocks.Sources.Constant ISkyDifTil(k=200)
     "Diffuse radiation from the sky, tilted surface"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Constant shaCoe(k=0.25) "Shading coefficient"
@@ -36,20 +36,20 @@ equation
       points={{-59,-30},{-20,-30},{-20,-14},{18,-14}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HDirTil.y, solHeaGai.HDirTil) annotation (Line(
-      points={{-19,10},{-6,10},{-6,-8},{18,-8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(HGroDifTil.y, solHeaGai.HGroDifTil) annotation (Line(
-      points={{-59,30},{-2,30},{-2,-5.2},{18,-5.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(HSkyDifTil.y, solHeaGai.HSkyDifTil) annotation (Line(
-      points={{-19,50},{8,50},{8,-2},{18,-2}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(shaCoe.y, solHeaGai.shaCoe_in) annotation (Line(
       points={{-19,-46},{2,-46},{2,-18},{18,-18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(IDirTil.y, solHeaGai.GDirTil) annotation (Line(
+      points={{-19,10},{0,10},{0,-8},{18,-8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(IGroDifTil.y, solHeaGai.GGroDifTil) annotation (Line(
+      points={{-59,30},{4,30},{4,-5.2},{18,-5.2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(ISkyDifTil.y, solHeaGai.GSkyDifTil) annotation (Line(
+      points={{-19,50},{8,50},{8,-2},{18,-2}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -57,7 +57,8 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This examples demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain\">
+This examples demonstrates the implementation of 
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain\">
 Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain</a>.
 </p>
 </html>", revisions="<html>

@@ -12,7 +12,8 @@ extends Modelica.Icons.ExamplesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains examples demonstrating the use of models that can be found in <a href=\"modelica://Buildings.Fluid.SolarCollectors\"> Buildings.Fluid.SolarCollectors</a>. 
+This package contains examples demonstrating the use of models that can be found in 
+<a href=\"modelica://Buildings.Fluid.SolarCollectors\"> Buildings.Fluid.SolarCollectors</a>. 
 </p>
 </html>"));
 end Examples;

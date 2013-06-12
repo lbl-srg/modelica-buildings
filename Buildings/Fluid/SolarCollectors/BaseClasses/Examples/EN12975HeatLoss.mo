@@ -60,7 +60,8 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This examples demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
+This examples demonstrates the implementation of 
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
 Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>.
 </p>
 </html>", revisions="<html>
@@ -71,7 +72,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975HeatLoss.mos"
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975HeatLoss.mos"
         "Simulate and Plot"),
     Icon(graphics));
 end EN12975HeatLoss;

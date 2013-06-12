@@ -59,7 +59,8 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This examples demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss\">
+This examples demonstrates the implementation of 
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss\">
 Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a>.
 </p>
 </html>", revisions="<html>
@@ -70,7 +71,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/ASHRAEHeatLoss.mos"
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/ASHRAEHeatLoss.mos"
         "Simulate and Plot"),
     Icon(graphics));
 end ASHRAEHeatLoss;

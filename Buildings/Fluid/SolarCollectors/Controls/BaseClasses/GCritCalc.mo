@@ -18,19 +18,22 @@ GCrit = -slope * (TIn - TEnv) / y_intercept;
   annotation (defaultComponentName="criSol",
   Documentation(info="<html>
    <p>
-   This component calculates the solar radiation necessary for the fluid in the collector to gain heat. 
-   It is used in the model <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\">
+   This component calculates the solar radiation necessary for the fluid 
+   in the collector to gain heat. It is used in the model 
+   <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\">
    Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a>.
    </p>
    <p>
-   The critical solar radiation level is calculated using Equation 6.8.2 in Duffie and Beckman (2006). It is:
+   The critical solar radiation level is calculated using Equation 6.8.2 in Duffie 
+   and Beckman (2006). It is:
    </p>
    <p align=\"center\" style=\"font-style:italic;\">
    G<sub>Crit</sub>=F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>)/(F<sub>R</sub>(&tau;&alpha;))
    </p>
    <h4>References</h4>
    <p>
-   J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), John Wiley & Sons, Inc.<br/>
+   J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd 
+   Edition), John Wiley & Sons, Inc.<br/>
    </p>
    </html>",
   revisions = "<html>

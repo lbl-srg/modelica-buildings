@@ -28,7 +28,8 @@ equation
   annotation (
   Documentation(info="<html>
   <p>
-  This model provides an example of how to use the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.BaseClasses.ICritCalc\">
+  This model provides an example of how to use the 
+  <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.BaseClasses.ICritCalc\">
   Buildings.Fluid.SolarCollectors.Controls.BaseClasses.ICritCalc</a> model.<br/>
   </p>
   </html>",

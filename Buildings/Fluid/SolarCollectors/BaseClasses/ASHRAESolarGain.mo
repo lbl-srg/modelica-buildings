@@ -61,7 +61,8 @@ protected
 
 initial equation
   // E+ Equ (557)
-  incAngSky = Modelica.SIunits.Conversions.from_deg(59.68 - 0.1388*(tilDeg) + 0.001497*(tilDeg)^2);
+  incAngSky = Modelica.SIunits.Conversions.from_deg(59.68 - 0.1388*(tilDeg) +
+  0.001497*(tilDeg)^2);
   // Diffuse radiation from the sky
   // E+ Equ (555)
   iamSky = SolarCollectors.BaseClasses.IAM(
@@ -69,7 +70,8 @@ initial equation
     B0,
     B1);
   // E+ Equ (558)
-  incAngGro = Modelica.SIunits.Conversions.from_deg(90 - 0.5788*(tilDeg)+0.002693*(tilDeg)^2);
+  incAngGro = Modelica.SIunits.Conversions.from_deg(90 - 0.5788*(tilDeg)+
+  0.002693*(tilDeg)^2);
   // Diffuse radiation from the ground
   // E+ Equ (555)
   iamGro = SolarCollectors.BaseClasses.IAM(
@@ -85,56 +87,74 @@ equation
   end if;
 
   // E+ Equ (555)
-  iamBea = Buildings.Utilities.Math.Functions.smoothHeaviside(1/3*Modelica.Constants.pi
-     - incAng, Modelica.Constants.pi/60)*SolarCollectors.BaseClasses.IAM(
+  iamBea = Buildings.Utilities.Math.Functions.smoothHeaviside(1/3*
+  Modelica.Constants.pi- incAng, Modelica.Constants.pi/60)*
+  SolarCollectors.BaseClasses.IAM(
     incAng,
     B0,
     B1);
   // E+ Equ (556)
   iam = Buildings.Utilities.Math.Functions.smoothHeaviside(
-      1/3*Modelica.Constants.pi-incAng,Modelica.Constants.pi/60)*((GDirTil*iamBea + GSkyDifTil*iamSky + GGroDifTil*iamGro)/
-      Buildings.Utilities.Math.Functions.smoothMax((GDirTil + GSkyDifTil + GGroDifTil), GTotMin, GMinDel));
-  // Modified from EnergyPlus Equ (559) by applying shade effect for direct solar radiation
+      1/3*Modelica.Constants.pi-incAng,Modelica.Constants.pi/60)*
+      ((GDirTil*iamBea + GSkyDifTil*iamSky + GGroDifTil*iamGro)/
+      Buildings.Utilities.Math.Functions.smoothMax((GDirTil +
+      GSkyDifTil + GGroDifTil), GTotMin, GMinDel));
+  // Modified from EnergyPlus Equ (559) by applying shade effect for
+  //direct solar radiation
   // Only solar heat gain is considered here
   for i in 1 : nSeg loop
-    QSol_flow[i] = A_c/nSeg*(y_intercept*iam*(GDirTil*(1.0 - shaCoe_internal) + GSkyDifTil + GGroDifTil));
+    QSol_flow[i] = A_c/nSeg*(y_intercept*iam*(GDirTil*(1.0 -
+    shaCoe_internal) + GSkyDifTil + GGroDifTil));
   end for;
 
   annotation (
     defaultComponentName="solHeaGai",
     Documentation(info="<html>
 <p>
-This component computes the solar heat gain of the solar thermal collector. It only calculates the solar heat gain without considering the heat loss
-to the environment. This model uses ratings data according to ASHRAE93. The solar heat gain is calculated using Equations 555 - 559 in the referenced
+This component computes the solar heat gain of the solar thermal collector. 
+It only calculates the solar heat gain without considering the heat loss
+to the environment. This model uses ratings data according to ASHRAE93. 
+The solar heat gain is calculated using Equations 555 - 559 in the referenced
 EnergyPlus documentation.
 </p>
 <p>
-The solar radiation absorbed by the panel is identified using Eq 559 from the EnergyPlus documentation. It is:
+The solar radiation absorbed by the panel is identified using Eq 559 from 
+the EnergyPlus documentation. It is:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;) K<sub>(&tau;&alpha;)<sub>net</sub></sub> (I<sub>Dir</sub> (1-shaCoe)+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>))
+Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;) 
+K<sub>(&tau;&alpha;)<sub>net</sub></sub> (I<sub>Dir</sub> 
+(1-shaCoe)+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>))
 </p>
-The solar radiation equation indicates that the collector is divided into multiple segments. The number of segments used in the simulation is specified
-by the user (parameter: <code>nSeg</code>). The area of an individual segment is identified by dividing the collector area by the total number of segments. The term
+The solar radiation equation indicates that the collector is divided into multiple 
+segments. The number of segments used in the simulation is specified by the user 
+(parameter: <code>nSeg</code>). The area of an individual segment is identified by 
+dividing the collector area by the total number of segments. The term
 <i>shaCoe</i> is used to define the percentage of the collector that is shaded.
 </p>
 <p>
-The incidence angle modifier used in the solar radiation equation is found using Eq 556 from the EnergyPlus documentation. It is:
+The incidence angle modifier used in the solar radiation equation is found using 
+Eq 556 from the EnergyPlus documentation. It is:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-K<sub>(&tau;&alpha;),net</sub>=(G<sub>beam</sub> K<sub>(&tau;&alpha;),beam</sub>+G<sub>sky</sub> K<sub>(&tau;&alpha;),sky</sub>+G<sub>gnd</sub> K<sub>(&tau;&alpha;),gnd</sub>) / (G<sub>beam</sub>+G<sub>sky</sub>+G<sub>gnd</sub>)
+K<sub>(&tau;&alpha;),net</sub>=(G<sub>beam</sub> K<sub>(&tau;&alpha;),
+beam</sub>+G<sub>sky</sub> K<sub>(&tau;&alpha;),sky</sub>+G<sub>gnd</sub> K<sub>
+(&tau;&alpha;),gnd</sub>) / (G<sub>beam</sub>+G<sub>sky</sub>+G<sub>gnd</sub>)
 </p>
 <p>
-Each incidence angle modifier is calculated using Eq 555 from the EnergyPlus documentation. It is:
+Each incidence angle modifier is calculated using Eq 555 from the EnergyPlus 
+documentation. It is:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  K<sub>(&tau;&alpha;),x</sub>=1+b<sub>0</sub> (1/cos(&theta;)-1)+b<sub>1</sub> (1/cos(&theta;)-1)<sup>2</sup>
+  K<sub>(&tau;&alpha;),x</sub>=1+b<sub>0</sub> (1/cos(&theta;)-1)+b<sub>1</sub> 
+  (1/cos(&theta;)-1)<sup>2</sup>
 </p>
 <p>
 In the above equation x can refer to beam, sky or ground.
 </p>
 <p>
-<i>&theta;</i> is the incidence angle. For beam radiation <i>&theta;</i> is found via standard geometry. The incidence angle for sky and ground diffuse radiation are found
+<i>&theta;</i> is the incidence angle. For beam radiation <i>&theta;</i> is 
+found via standard geometry. The incidence angle for sky and ground diffuse radiation are found
 using, respectively, Eq 557 and 558 from the EnergyPlus documentation. They are:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -142,14 +162,16 @@ using, respectively, Eq 557 and 558 from the EnergyPlus documentation. They are:
 &theta;<sub>gnd</sub>=90.0-0.5788 til+0.002693 til<sup>2</sup>
 </p>
 <p>
-These two equations must be evaluated in degrees. The necessary unit conversions are made internally, and the user does not need to worry about it. <i>Til</i>
-is the surface tilt of the collector.
+These two equations must be evaluated in degrees. The necessary unit conversions are made 
+internally. <i>Til</i> is the surface tilt of the collector.
 </p>
 
 <h4>References</h4>
 <p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br/>
-ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of Solar Collectors (ANSI approved)
+<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, 
+October 13, 2011.<br/>
+ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of Solar 
+Collectors (ANSI approved)
 </p>
 </html>", revisions="<html>
 <ul>

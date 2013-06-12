@@ -44,7 +44,8 @@ protected
     "Heat loss at nominal conditions";
   final parameter Modelica.SIunits.HeatFlowRate QLosUA[nSeg](fixed = false)
     "Heat loss at current conditions";
-  final parameter Modelica.SIunits.Temperature dT_nominal_fluid[nSeg](each start = 293.15, fixed = false)
+  final parameter Modelica.SIunits.Temperature dT_nominal_fluid[nSeg](each
+  start = 293.15, fixed = false)
     "Temperature of each semgent in the collector at nominal conditions";
   Medium.ThermodynamicState sta[nSeg]=Medium.setState_pTX(
       T=dT_nominal_fluid+TEnvVector,
@@ -59,10 +60,13 @@ protected
     defaultComponentName="heaLos",
     Documentation(info="<html>
 <p>
-This component is a partial model used as the base for <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss\">
-Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a> and <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
-Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>. It contains the input, output and parameter declarations which are common
-to both models. More detailed information is available in the documentation for the extending classes.
+This component is a partial model used as the base for 
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss\">
+Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a> and 
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
+Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>. It contains the input,
+output and parameter declarations which are common to both models. More detailed 
+information is available in the documentation for the extending classes.
 </p>
 </html>", revisions="<html>
 <ul>

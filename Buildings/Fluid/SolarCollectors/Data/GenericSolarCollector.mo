@@ -24,7 +24,8 @@ record GenericSolarCollector
     "Nominal temperature difference specified in ratings data";
 annotation(Documentation(info="<html>
 <p>
-Generic data file which is used for the <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">
+Generic data file which is used for the 
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">
 Buildings.Fluid.Solarcollectors.BaseClasses.PartialSolarCollector</a> model.
 </p>
 </html>"));

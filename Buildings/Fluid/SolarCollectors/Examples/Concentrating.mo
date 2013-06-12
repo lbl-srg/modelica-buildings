@@ -73,12 +73,15 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/Concentrating.mos"
-        "Simulate and Plot"),
+  annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/
+  Examples/Concentrating.mos" "Simulate and Plot"),
         Documentation(info="<html>
         <p>
-        This model demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.Concentrating\">Buildings.Fluid.SolarCollectors.Concentrating</a>.
-        In it water is passed through the solar collector while being heated by the sun in the San Francisco, CA, USA climate.<br/>
+        This model demonstrates the implementation of 
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.Concentrating\">
+        Buildings.Fluid.SolarCollectors.Concentrating</a>.
+        In it water is passed through the solar collector while being heated by 
+        the sun in the San Francisco, CA, USA climate.<br/>
         </p>
         </html>",
         revisions="<html>
