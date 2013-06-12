@@ -79,8 +79,14 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This example demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.FlatPlate\"> Buildings.Fluid.SolarCollectors.FlatPlate</a>. 
-In it water is passed through a solar collector while being heated by the sun in the San Francisco, CA, USA climate.
+This example demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.FlatPlate\"> 
+Buildings.Fluid.SolarCollectors.FlatPlate</a>. In it water is passed through a solar collector while being heated
+by the sun in the San Francisco, CA, USA climate.
+</p>
+<p>
+This model uses <code>TotalArea</code> instead of <code>nPanels</code> to define the system size. Aside from that change,
+this model is identical to <a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.FlatPlate\">
+Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
 </p>
 </html>",revisions="<html>
 <ul>

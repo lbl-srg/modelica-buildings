@@ -58,8 +58,7 @@ equation
     Documentation(info="<html>
 <p>
 This examples demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain\">
-Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain</a>. All of the inputs are constant resulting in a very simple model and constants for the
- output.
+Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain</a>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -65,8 +65,6 @@ of water instead of a medium model.
 <p>
 Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David DeWitt, John Wiley and Sons, 1996
 </p>
-</html>",
-revisions="<html>
 <h4>Revisions</h4>
 <ul>
 <li>

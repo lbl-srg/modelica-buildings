@@ -17,12 +17,12 @@ initial equation
    m_flow_nominal * Cp_avg * (dT_nominal_fluid[nSeg]) = QUse_nominal;
    //Identifies QLost at nominal conditions
    QLos_nominal = -slope * A_c * (dT_nominal);
-    //Governing equation for the first segment (i=1)
-    G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal) = m_flow_nominal * Cp[1] * (dT_nominal_fluid[1]);
-    //Loop with the governing equations for segments 2:nSeg-1
-    for i in 2:nSeg-1 loop
-      G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal_fluid[i-1]+dT_nominal) = m_flow_nominal * Cp[i] * (dT_nominal_fluid[i]-dT_nominal_fluid[i-1]);
-    end for;
+   //Governing equation for the first segment (i=1)
+   G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal) = m_flow_nominal * Cp[1] * (dT_nominal_fluid[1]);
+   //Loop with the governing equations for segments 2:nSeg-1
+   for i in 2:nSeg-1 loop
+     I_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal_fluid[i-1]+dT_nominal) = m_flow_nominal * Cp[i] * (dT_nominal_fluid[i]-dT_nominal_fluid[i-1]);
+   end for;
    for i in 1:nSeg loop
      nSeg * QLosUA[i] = UA * (dT_nominal_fluid[i]+dT_nominal);
    end for;

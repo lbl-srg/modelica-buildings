@@ -60,7 +60,7 @@ equation
     Documentation(info="<html>
 <p>
 This examples demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss\">
-Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a>. All of the inputs are constants resulting in a very simple model and a constant output.
+Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a>.
 </p>
 </html>", revisions="<html>
 <ul>

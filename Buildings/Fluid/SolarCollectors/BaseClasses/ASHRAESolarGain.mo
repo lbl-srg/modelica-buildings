@@ -3,12 +3,12 @@ block ASHRAESolarGain
   "Calculate the solar heat gain of a solar collector per ASHRAE Standard 93"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   extends SolarCollectors.BaseClasses.PartialParameters;
-  Modelica.Blocks.Interfaces.RealInput HSkyDifTil(quantity=
-        "RadiantEnergyFluenceRate", unit="W/m2")
+  Modelica.Blocks.Interfaces.RealInput GSkyDifTil(quantity=
+        "Irradiance", unit="W/m2")
     "Diffuse solar irradiation on a tilted surfce from the sky"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput HGroDifTil(quantity=
-        "RadiantEnergyFluenceRate", unit="W/m2")
+  Modelica.Blocks.Interfaces.RealInput GGroDifTil(quantity=
+        "Irradiance", unit="W/m2")
     "Diffuse solar irradiation on a tilted surfce from the ground"
     annotation (Placement(transformation(extent={{-140,28},{-100,68}})));
   Modelica.Blocks.Interfaces.RealInput incAng(
@@ -16,8 +16,8 @@ block ASHRAESolarGain
     unit="rad",
     displayUnit="degree") "Incidence angle of the sun beam on a tilted surface"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput HDirTil(quantity=
-        "RadiantEnergyFluenceRate", unit="W/m2")
+  Modelica.Blocks.Interfaces.RealInput GDirTil(quantity=
+        "Irradiance", unit="W/m2")
     "Direct solar irradiation on a tilted surfce"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
   Modelica.Blocks.Interfaces.RealOutput QSol_flow[nSeg](final unit="W")
@@ -51,9 +51,9 @@ protected
   final parameter Real tilDeg(
   unit = "deg") = Modelica.SIunits.Conversions.to_deg(til)
     "Surface tilt angle in degrees";
-  final parameter Modelica.SIunits.HeatFlux HTotMin = 1
+  final parameter Modelica.SIunits.HeatFlux GTotMin = 1
     "Minimum HTot to avoid div/0";
-  final parameter Real HMinDel = 0.001
+  final parameter Real GMinDel = 0.001
     "Delta of the smoothing function for HTot";
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_internal
@@ -92,12 +92,12 @@ equation
     B1);
   // E+ Equ (556)
   iam = Buildings.Utilities.Math.Functions.smoothHeaviside(
-      1/3*Modelica.Constants.pi-incAng,Modelica.Constants.pi/60)*((HDirTil*iamBea + HSkyDifTil*iamSky + HGroDifTil*iamGro)/
-      Buildings.Utilities.Math.Functions.smoothMax((HDirTil + HSkyDifTil + HGroDifTil), HTotMin, HMinDel));
+      1/3*Modelica.Constants.pi-incAng,Modelica.Constants.pi/60)*((GDirTil*iamBea + GSkyDifTil*iamSky + GGroDifTil*iamGro)/
+      Buildings.Utilities.Math.Functions.smoothMax((GDirTil + GSkyDifTil + GGroDifTil), GTotMin, GMinDel));
   // Modified from EnergyPlus Equ (559) by applying shade effect for direct solar radiation
   // Only solar heat gain is considered here
   for i in 1 : nSeg loop
-    QSol_flow[i] = A_c/nSeg*(y_intercept*iam*(HDirTil*(1.0 - shaCoe_internal) + HSkyDifTil + HGroDifTil));
+    QSol_flow[i] = A_c/nSeg*(y_intercept*iam*(GDirTil*(1.0 - shaCoe_internal) + GSkyDifTil + GGroDifTil));
   end for;
 
   annotation (
@@ -112,7 +112,7 @@ EnergyPlus documentation.
 The solar radiation absorbed by the panel is identified using Eq 559 from the EnergyPlus documentation. It is:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;) K<sub>(&tau;&alpha;)<sub>net</sub></sub> (G<sub>Dir</sub> (1-shaCoe)+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>))
+Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;) K<sub>(&tau;&alpha;)<sub>net</sub></sub> (I<sub>Dir</sub> (1-shaCoe)+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>))
 </p>
 The solar radiation equation indicates that the collector is divided into multiple segments. The number of segments used in the simulation is specified
 by the user (parameter: <code>nSeg</code>). The area of an individual segment is identified by dividing the collector area by the total number of segments. The term
@@ -159,7 +159,9 @@ First implementation
 </li>
 </ul>
 </html>"),
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+            graphics),
     Icon(graphics={Text(
           extent={{-48,-32},{36,-66}},
           lineColor={0,0,255},
