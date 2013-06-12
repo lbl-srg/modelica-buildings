@@ -47,7 +47,7 @@ model FlatPlateValidation "Validation model for FlatPlate"
     columns=2:5,
     fileName=
         "Fluid/SolarCollectors/Examples/ValidationData/TRNSYSAnnualData.txt")
-    "Data reader with inlet conditions from TRNSYS (y[1]=T_In (C), y[2] =, y[3] =, y[4] = m_flow (kg/s), y[5] = )"
+    "Data reader with inlet conditions from TRNSYS"
     annotation (Placement(transformation(extent={{-88,-20},{-68,0}})));
 
   Modelica.Blocks.Math.Add add
