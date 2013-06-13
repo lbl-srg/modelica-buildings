@@ -35,7 +35,10 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
     amplitude=100,
     offset=100) "Diffuse radiation, tilted surface"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Modelica.Blocks.Sources.Constant shaCoe(k=0.25) "Shading coefficient"
+  Modelica.Blocks.Sources.Ramp shaCoe(
+    height=-1,
+    duration=86400,
+    offset=1) "Shading coefficient"
     annotation (Placement(transformation(extent={{-40,-52},{-20,-32}})));
 equation
   connect(HGroDifTil.y, solHeaGai.HGroDifTil) annotation (Line(

@@ -11,11 +11,11 @@ protected
   final parameter Modelica.SIunits.ThermalConductance UA(start = -slope*A_c, fixed = false)
     "Coefficient describing heat loss to ambient conditions";
 initial equation
-   //Identifies QUse at nominal conditions
+   //Identifies useful heat gain at nominal conditions
    QUse_nominal = G_nominal * A_c * y_intercept + slope * A_c * (dT_nominal);
    //Identifies TFlu[nSeg] at nominal conditions
    m_flow_nominal * Cp_avg * (dT_nominal_fluid[nSeg]) = QUse_nominal;
-   //Identifies QLost at nominal conditions
+   //Identifies heat lost to environment at nominal conditions
    QLos_nominal = -slope * A_c * (dT_nominal);
    //Governing equation for the first segment (i=1)
    G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal) = m_flow_nominal * Cp[1]
@@ -86,7 +86,9 @@ First implementation
 </li>
 </ul>
 </html>"),
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+            graphics),
     Icon(graphics={Text(
           extent={{-48,-32},{36,-66}},
           lineColor={0,0,255},

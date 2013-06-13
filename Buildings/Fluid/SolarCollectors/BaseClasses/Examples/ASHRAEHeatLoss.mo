@@ -10,22 +10,22 @@ model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
   Modelica.Blocks.Sources.Sine     TEnv(
     freqHz=0.01,
     amplitude=7.5,
-    offset=273.15 + 10)
+    offset=273.15 + 10) "Temperature of the surrounding environment (K)"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Sine     T1(
     amplitude=5,
     freqHz=0.1,
-    offset=273.15 + 20)
+    offset=273.15 + 20) "Temperature in the first segment (K)"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Blocks.Sources.Sine     T2(
     amplitude=5,
     freqHz=0.1,
-    offset=273.15 + 25)
+    offset=273.15 + 25) "Temperature in the second segment (K)"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.Sine     T3(
     amplitude=5,
     freqHz=0.1,
-    offset=273.15 + 30)
+    offset=273.15 + 30) "Temperature in the third segment (K)"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss   heaLos(
     nSeg=3,
@@ -35,7 +35,7 @@ model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
     m_flow_nominal=per.mperA_flow_nominal*per.A,
     redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
     G_nominal=per.G_nominal,
-    dT_nominal=per.dT_nominal)
+    dT_nominal=per.dT_nominal) "Heat loss model using ASHRAE93 calculations"
     annotation (Placement(transformation(extent={{62,20},{82,40}})));
 equation
   connect(TEnv.y, heaLos.TEnv) annotation (Line(

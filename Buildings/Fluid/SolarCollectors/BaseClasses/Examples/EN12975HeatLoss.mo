@@ -8,22 +8,22 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
   Modelica.Blocks.Sources.Sine     TEnv(
     freqHz=0.01,
     offset=273.15 + 10,
-    amplitude=7.5)
+    amplitude=7.5) "Temperature of the surrounding environment (K)"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Sine     T1(
     amplitude=5,
     freqHz=0.1,
-    offset=273.15 + 20)
+    offset=273.15 + 20) "Temperature of the first segment (K)"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Blocks.Sources.Sine     T2(
     amplitude=5,
     freqHz=0.1,
-    offset=273.15 + 25)
+    offset=273.15 + 25) "Temperature of the second segment (K)"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.Sine     T3(
     amplitude=5,
     freqHz=0.1,
-    offset=273.15 + 30)
+    offset=273.15 + 30) "Temperature of the third segment (K)"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss  heaLos(
     nSeg=3,
@@ -34,7 +34,7 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
     G_nominal=1000,
     m_flow_nominal=per.mperA_flow_nominal*per.A,
     A_c=per.A,
-    dT_nominal=293.15)
+    dT_nominal=293.15) "Heat loss model using EN12975 calculations"
     annotation (Placement(transformation(extent={{62,20},{82,40}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,60},{80,80}})));

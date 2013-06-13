@@ -10,7 +10,7 @@ block PartialHeatLoss
   Modelica.Blocks.Interfaces.RealInput TEnv(
     quantity="ThermodynamicTemperature",
     unit="K",
-    displayUnit="degC") "Temperature of environment"
+    displayUnit="degC") "Temperature of surrounding environment"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   parameter Integer nSeg(min=3) = 3 "Number of segments in the collector model";
 public
@@ -76,7 +76,9 @@ First implementation
 </li>
 </ul>
 </html>"),
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
+            graphics),
     Icon(graphics={Text(
           extent={{-48,-32},{36,-66}},
           lineColor={0,0,255},

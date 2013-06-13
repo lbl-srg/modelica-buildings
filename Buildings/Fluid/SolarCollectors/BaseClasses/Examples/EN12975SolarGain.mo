@@ -31,7 +31,10 @@ model EN12975SolarGain "Example showing the use of EN12975SolarGain"
     freqHz=1/86400,
     offset=300) "Diffuse radiation, tilted surface"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Sources.Constant shaCoe(k=0.25) "Shading coefficient"
+  Modelica.Blocks.Sources.Ramp     shaCoe(
+    duration=86400,
+    offset=1,
+    height=-1) "Shading coefficient"
     annotation (Placement(transformation(extent={{-26,-60},{-6,-40}})));
 equation
   connect(incAng.y, solHeaGai.incAng) annotation (Line(

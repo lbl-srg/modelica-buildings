@@ -49,7 +49,7 @@ protected
   final parameter Modelica.SIunits.Angle incAngGro( fixed = false)
     "Incident angle of diffuse radiation from the ground";
   final parameter Real tilDeg(
-  unit = "deg") = Modelica.SIunits.Conversions.to_deg(til)
+    unit = "deg") = Modelica.SIunits.Conversions.to_deg(til)
     "Surface tilt angle in degrees";
   final parameter Modelica.SIunits.HeatFlux HTotMin = 1
     "Minimum HTot to avoid div/0";
@@ -181,8 +181,8 @@ First implementation
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
             graphics),
     Icon(graphics={Text(
           extent={{-48,-32},{36,-66}},

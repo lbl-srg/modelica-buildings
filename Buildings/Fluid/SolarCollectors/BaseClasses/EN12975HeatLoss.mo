@@ -15,12 +15,12 @@ protected
      start=QLos_nominal/(dT_nominal))
     "Coefficient describing heat loss to ambient conditions";
 initial equation
-   //Identifies QUse at nominal conditions
+   //Identifies useful heat gain at nominal conditions
    QUse_nominal = G_nominal * A_c * y_intercept -C1 * A_c *
       (dT_nominal) - C2 * A_c * (dT_nominal)^2;
    //Identifies TFlu[nSeg] at nominal conditions
    m_flow_nominal * Cp_avg * (dT_nominal_fluid[nSeg]) = QUse_nominal;
-   //Identifies QLos at nominal conditions
+   //Identifies heat lost to environment at nominal conditions
    QLos_nominal = -C1 * A_c * (dT_nominal)-C2 * A_c * (dT_nominal)^2;
    //Governing equation for the first segment (i=1)
    G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal)

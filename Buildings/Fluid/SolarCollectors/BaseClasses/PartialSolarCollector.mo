@@ -14,7 +14,7 @@ model PartialSolarCollector "Partial model for solar collectors"
   parameter Modelica.SIunits.Angle til "Surface tilt";
   parameter Real rho "Ground reflectance";
   parameter Modelica.SIunits.HeatCapacity C=385*perPar.mDry*nPanels_internal
-    "Heat capacity of solar collector without fluid (default: cp_copper*mDry)";
+    "Heat capacity of solar collector without fluid (default: cp_copper*mDry*nPanels)";
 
   parameter Boolean use_shaCoe_in = false
     "Enables an input connector for shaCoe"
@@ -32,7 +32,7 @@ model PartialSolarCollector "Partial model for solar collectors"
     annotation(Dialog(group="Area declarations", enable= (nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number)));
 
   parameter Modelica.SIunits.Area totalArea=0
-    "Total are of panels in the simulation"
+    "Total area of panels in the simulation"
     annotation(Dialog(group="Area declarations", enable=(nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area)));
 
   parameter Buildings.Fluid.SolarCollectors.Types.SystemConfiguration sysConfig=
