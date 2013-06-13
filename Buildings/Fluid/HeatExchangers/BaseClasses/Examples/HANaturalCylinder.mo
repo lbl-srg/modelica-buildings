@@ -8,17 +8,18 @@ model HANaturalCylinder "Test model for natural convection outside of a coil"
     hA_nominal=10,
     TFlu_nominal=293.15,
     TSur_nominal=313.15)
+    "Calculates an hA value for natural convection around a cylinder"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Ramp TSur(
     duration=100,
     height=50,
-    offset=293.15)
+    offset=293.15) "Temperature of the pipe surface (K)"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Ramp TFlu(
     duration=100,
     startTime=150,
     height=50,
-    offset=293.15)
+    offset=293.15) "Temperature of the surrounding fluid (K)"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 equation
   connect(TSur.y, hANatCyl.TSur) annotation (Line(
