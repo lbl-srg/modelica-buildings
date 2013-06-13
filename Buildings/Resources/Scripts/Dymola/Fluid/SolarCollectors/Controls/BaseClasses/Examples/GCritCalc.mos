@@ -4,7 +4,7 @@ simulateModel("Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples.GCr
 
 createPlot(id = 17,
  position = {54, 38, 407, 281},
- y = {"criSol.ICrit"},
+ y = {"criSol.GCrit"},
  range = {0.0, 100.0, -50.0, 300.0},
  autoscale = true,
  autoerase = true,
