@@ -70,7 +70,7 @@ model PartialSolarCollector "Partial model for solar collectors"
                    annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
 
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
-        Medium) "Mass flow rate sensor"
+        Medium, allowFlowReversal=allowFlowReversal) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-80,-11},{-60,11}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare final package Medium = Medium,
@@ -191,8 +191,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
             graphics),
     Icon(graphics),
     defaultComponentName="solCol",

@@ -11,7 +11,6 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
     final B0=per.B0,
     final B1=per.B1,
     final shaCoe=shaCoe,
-    final til=til,
     final iamDiff=per.IAMDiff,
     final use_shaCoe_in=use_shaCoe_in)
     "Identifies heat gained from the sun using standard EN12975 calculations"
@@ -25,7 +24,7 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
     redeclare package Medium = Medium,
     final G_nominal=per.G_nominal,
     final dT_nominal=per.dT_nominal,
-    final m_flow_nominal=per.mperA_flow_nominal*TotalArea_internal)
+    final m_flow_nominal=per.mperA_flow_nominal*per.A)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
            annotation (Placement(transformation(extent={{0,20},{20,40}})));
 

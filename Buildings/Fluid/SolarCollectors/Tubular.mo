@@ -20,10 +20,10 @@ model Tubular "Model of a tubular solar collector"
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
     final slope=per.slope,
-    m_flow_nominal=per.mperA_flow_nominal*TotalArea_internal,
     redeclare package Medium = Medium,
     final G_nominal=per.G_nominal,
-    dT_nominal=per.dT_nominal)
+    dT_nominal=per.dT_nominal,
+    m_flow_nominal=per.mperA_flow_nominal*per.A)
     "Calculates the heat lost to the surroundings using the standard ASHRAE calculations"
     annotation (Placement(transformation(extent={{-12,20},{8,40}})));
 

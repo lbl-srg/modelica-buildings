@@ -24,7 +24,7 @@ model FlatPlate "Model of a flat plate solar thermal collector"
     final G_nominal=per.G_nominal,
     dT_nominal=per.dT_nominal,
     final A_c=TotalArea_internal,
-    m_flow_nominal=per.mperA_flow_nominal*TotalArea_internal)
+    m_flow_nominal=per.mperA_flow_nominal*per.A)
     "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
         annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
