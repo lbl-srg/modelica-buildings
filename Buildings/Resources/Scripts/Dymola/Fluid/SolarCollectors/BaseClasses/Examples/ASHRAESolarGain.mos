@@ -1,6 +1,6 @@
 removePlots();
 
-simulateModel("Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAESolarGain", stopTime=100, method="dassl", resultFile="ASHRAESolarGain");
+simulateModel("Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAESolarGain", stopTime=86400, method="dassl", resultFile="ASHRAESolarGain");
 
 createPlot(id = 8,
  position = {0, 0, 1486, 632},
