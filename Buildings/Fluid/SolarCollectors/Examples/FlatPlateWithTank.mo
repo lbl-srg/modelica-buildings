@@ -69,7 +69,7 @@ model FlatPlateWithTank
         rotation=270,
         origin={-88,50})));
   Buildings.HeatTransfer.Sources.FixedTemperature      rooT(T=293.15)
-    "Convert TRoo from Real to K"
+    "Room temperature"
     annotation (Placement(transformation(extent={{-40,-92},{-20,-72}})));
   Modelica.Blocks.Math.Gain gain(k=0.04) "Flow rate of the system in kg/s"
                                  annotation (Placement(transformation(

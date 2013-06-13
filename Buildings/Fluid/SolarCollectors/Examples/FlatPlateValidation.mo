@@ -4,7 +4,7 @@ model FlatPlateValidation "Validation model for FlatPlate"
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
     "Medium in the system";
-  Buildings.Fluid.SolarCollectors.Examples.BaseClasses.FlatPlateValidation
+  Buildings.Fluid.SolarCollectors.FlatPlate
    solCol(
     redeclare package Medium = Medium,
     shaCoe=0,
@@ -45,8 +45,7 @@ model FlatPlateValidation "Validation model for FlatPlate"
     tableOnFile=true,
     tableName="TRNSYS",
     columns=2:5,
-    fileName=
-        "Fluid/SolarCollectors/Examples/ValidationData/TRNSYSAnnualData.txt")
+    fileName="Fluid/SolarCollectors/Examples/ValidationData/TRNSYSAnnualData.txt")
     "Data reader with inlet conditions from TRNSYS"
     annotation (Placement(transformation(extent={{-88,-20},{-68,0}})));
 
@@ -96,12 +95,11 @@ This model was used to validate the
 <a href=\"modelica://Buildings.Fluid.SolarCollectors.FlatPlate\"> 
 Buildings.Fluid.SolarCollectors.FlatPlate</a> solar collector model against TRNSYS data.
 Data files are used to ensure that the FlatPlate solar collector model saw the same 
-inlet and weather conditions as the TRNSYS simulation. A special version of the
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.FlatPlate\"> 
-Buildings.Fluid.SolarCollectors.FlatPlate</a> solar collector model was made to 
-accommodate the data files. It is named 
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.BaseClasses.FlatPlateValidation\">
-Buildings.Fluid.SolarCollectors.Examples.BaseClasses.FlatPlateValidation</a>.
+inlet and weather conditions as the TRNSYS simulation. The solar collector model must
+reference the 
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.TRNSYSValidation\">
+Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.TRNSYSValidation</a> data record
+when comparing model results to the stored TRNSYS results.
 </p>
 </html>",revisions="<html>
 <ul>
