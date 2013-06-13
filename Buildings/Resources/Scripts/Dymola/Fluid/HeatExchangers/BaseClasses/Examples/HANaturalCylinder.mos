@@ -1,16 +1,10 @@
-<<<<<<< HEAD:Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HNatCyl.mos
-simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HNatCyl", stopTime=250, method="dassl", resultFile="HNatCyl");
+removePlots();
 
-createPlot(id = 8,
- position = {0, 0, 1609, 781},
- y = {"hNatCyl.h","hNatCyl.Nusselt"},
-=======
-simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HANaturalCylinder", stopTime=50, method="dassl", resultFile="HANaturalCylinder");
+simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HANaturalCylinder", stopTime=250, method="dassl", resultFile="HANaturalCylinder");
 
 createPlot(id = 8,
  position = {0, 0, 800, 600},
- y = {"hANatCyl.h"},
->>>>>>> master:Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HANaturalCylinder.mos
+ y = {"hANatCyl.hA"},
  range = {0.0, 51.0, 0.0, 900.0},
  erase = false,
  autoscale = true,
@@ -23,6 +17,6 @@ createPlot(id = 8,
  filename = "HANaturalCylinder.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
- colors = {{0,0,255},{0,255,0}});
+ colors = {{0,0,255}});
 
 
