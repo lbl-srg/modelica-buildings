@@ -28,7 +28,7 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
     min=0.0,
     max=1.0) = 0 "Shading coefficient 0.0: no shading, 1.0: full shading"
          annotation(Dialog(enable = not use_shaCoe_in,group="Shading"));
-  parameter Modelica.SIunits.Angle til "Surface tilt";
+
   parameter Real iamDiff "Incidence angle modifier for diffuse radiation";
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
@@ -107,7 +107,7 @@ documentation.
 <p>
 <i>K<sub>(&tau;&alpha;),Beam</sub></i> is the incidence angle modifier for beam radiation, <i>b
 <sub>0</sub></i> is the first incidence angle modifier coefficient, <i>&theta;</i> is the 
-surface tilt and <i>b<sub>1</sub></i> is the second incidence angle modifier coefficient.
+incidence angle and <i>b<sub>1</sub></i> is the second incidence angle modifier coefficient.
 </p>
 <h4>References</h4>
 <p>

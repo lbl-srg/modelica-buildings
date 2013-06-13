@@ -65,10 +65,7 @@ initial equation
   0.001497*(tilDeg)^2);
   // Diffuse radiation from the sky
   // E+ Equ (555)
-  iamSky = SolarCollectors.BaseClasses.IAM(
-    incAngSky,
-    B0,
-    B1);
+  iamSky = SolarCollectors.BaseClasses.IAM(incAngSky, B0, B1);
   // E+ Equ (558)
   incAngGro = Modelica.SIunits.Conversions.from_deg(90 - 0.5788*(tilDeg)+
   0.002693*(tilDeg)^2);

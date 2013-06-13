@@ -15,10 +15,10 @@ model FlatPlate "Test model for FlatPlate"
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    nPanels=15,
     lat=0.73097781993588,
     azi=0.3,
-    til=0.5,
-    nPanels=15) "Flat plate solar collector model"
+    til=0.5) "Flat plate solar collector model"
              annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=

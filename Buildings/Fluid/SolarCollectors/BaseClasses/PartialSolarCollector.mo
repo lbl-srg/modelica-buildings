@@ -60,15 +60,17 @@ model PartialSolarCollector "Partial model for solar collectors"
     final til=til,
     final lat=lat,
     final azi=azi,
-    final rho=rho)       annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
+    final rho=rho) "Diffuse solar irradiation on a tilted surface"
+                         annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
 
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     final til=til,
     final lat=lat,
-    final azi=azi) annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
+    final azi=azi) "Direct solar irradiation on a tilted surface"
+                   annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
 
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
-        Medium)
+        Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-80,-11},{-60,11}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare final package Medium = Medium,
@@ -80,7 +82,8 @@ model PartialSolarCollector "Partial model for solar collectors"
     final show_V_flow=show_V_flow,
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
-    use_dh=false) "Flow resistance"
+    use_dh=false,
+    deltaM=deltaM) "Flow resistance"
     annotation (Placement(transformation(extent={{-50,-10},
             {-30,10}}, rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](
@@ -104,8 +107,10 @@ model PartialSolarCollector "Partial model for solar collectors"
         rotation=180,
         origin={6,-16})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow QLos[nSeg]
+    "Rate of heat loss to the surrounding environment"
     annotation (Placement(transformation(extent={{38,20},{58,40}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaGai[nSeg]
+    "Rate of solar heat gain"
     annotation (Placement(transformation(extent={{38,60},{58,80}})));
 
 protected
@@ -184,8 +189,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
             graphics),
     Icon(graphics),
     defaultComponentName="solCol",
