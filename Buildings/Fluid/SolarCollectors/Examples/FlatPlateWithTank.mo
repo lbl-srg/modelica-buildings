@@ -52,11 +52,11 @@ model FlatPlateWithTank
     HexTopHeight=0.9,
     HexBotHeight=0.65,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=293.15,
     Q_flow_nominal=3000,
+    mHex_flow_nominal=3000/20/4200,
+    T_start=293.15,
     TTan_nominal=293.15,
-    THex_nominal=323.15,
-    mHex_flow_nominal=3000/20/4200) "Storage tank model"
+    THex_nominal=323.15) "Storage tank model"
                  annotation (Placement(transformation(
         extent={{-15,-15},{15,15}},
         rotation=0,

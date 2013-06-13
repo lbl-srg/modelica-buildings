@@ -31,10 +31,10 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
     y_intercept=per.y_intercept,
     C1=per.C1,
     C2=per.C2,
-    G_nominal=1000,
     m_flow_nominal=per.mperA_flow_nominal*per.A,
     A_c=per.A,
-    dT_nominal=293.15) "Heat loss model using EN12975 calculations"
+    G_nominal=per.G_nominal,
+    dT_nominal=per.dT_nominal) "Heat loss model using EN12975 calculations"
     annotation (Placement(transformation(extent={{62,20},{82,40}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,60},{80,80}})));

@@ -12,12 +12,12 @@ model Concentrating "Example showing the use of Concentrating"
     use_shaCoe_in=false,
     per=Buildings.Fluid.SolarCollectors.Data.Concentrating.VerificationModel(),
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
-    lat=0.73097781993588,
-    azi=0.3,
-    til=0.5,
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
-    nPanels=5) "Concentrating solar collector model"
+    nPanels=5,
+    lat=0.73097781993588,
+    azi=0.3,
+    til=0.5) "Concentrating solar collector model"
              annotation (Placement(transformation(extent={{-14,-20},{6,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=

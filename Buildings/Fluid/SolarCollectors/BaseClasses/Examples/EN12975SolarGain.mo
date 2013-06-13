@@ -16,7 +16,7 @@ model EN12975SolarGain "Example showing the use of EN12975SolarGain"
     iamDiff=per.IAMDiff,
     shaCoe=0,
     use_shaCoe_in=true,
-    til=45) "Solar heat gain model using EN12975 calculations"
+    til=0.69813170079773) "Solar heat gain model using EN12975 calculations"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.Ramp incAng(duration=86400, height=60*(2*Modelica.Constants.pi
         /360)) "Incidence angle"
