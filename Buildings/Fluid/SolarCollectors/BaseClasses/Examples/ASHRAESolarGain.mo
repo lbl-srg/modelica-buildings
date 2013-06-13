@@ -22,8 +22,7 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
     freqHz=4/86400,
     offset=100) "Diffuse radiation from the ground, tilted surface"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.Ramp incAng1(
-                                      duration=86400, height=60*(2*Modelica.Constants.pi
+  Modelica.Blocks.Sources.Ramp incAng(duration=86400, height=60*(2*Modelica.Constants.pi
         /360)) "Incidence angle"
     annotation (Placement(transformation(extent={{-78,-30},{-58,-10}})));
   Modelica.Blocks.Sources.Sine HDirTil(
@@ -36,19 +35,18 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
     amplitude=100,
     offset=100) "Diffuse radiation, tilted surface"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Modelica.Blocks.Sources.Constant shaCoe1(
-                                          k=0.25) "Shading coefficient"
+  Modelica.Blocks.Sources.Constant shaCoe(k=0.25) "Shading coefficient"
     annotation (Placement(transformation(extent={{-40,-52},{-20,-32}})));
 equation
   connect(HGroDifTil.y, solHeaGai.HGroDifTil) annotation (Line(
       points={{-59,30},{4,30},{4,-5.2},{18,-5.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(shaCoe1.y, solHeaGai.shaCoe_in) annotation (Line(
+  connect(shaCoe.y, solHeaGai.shaCoe_in) annotation (Line(
       points={{-19,-42},{6,-42},{6,-18},{18,-18}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(incAng1.y, solHeaGai.incAng) annotation (Line(
+  connect(incAng.y, solHeaGai.incAng) annotation (Line(
       points={{-57,-20},{0,-20},{0,-14},{18,-14}},
       color={0,0,127},
       smooth=Smooth.None));
