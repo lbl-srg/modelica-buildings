@@ -12,7 +12,7 @@ block PartialHeatLoss
     unit="K",
     displayUnit="degC") "Temperature of surrounding environment"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  parameter Integer nSeg(min=3) = 3 "Number of segments in the collector model";
+
 public
   Modelica.Blocks.Interfaces.RealInput TFlu[nSeg](
     quantity="ThermodynamicTemperature",
