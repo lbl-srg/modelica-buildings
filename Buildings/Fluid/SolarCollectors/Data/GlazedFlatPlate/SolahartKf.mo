@@ -20,6 +20,6 @@ record SolahartKf =
     <h4>References</h4>
     <p>
     Ratings data taken from the <a href=\"http://www.solar-rating.org\">
-    Solar Rating Certification Corporation website</a>. SRCC# = 2012021A.
+    Solar Rating and Certification Corporation website</a>. SRCC# = 2012021A.
     </p>
     </html>"));

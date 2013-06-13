@@ -119,22 +119,22 @@ EnergyPlus documentation.
 </p>
 <p>
 The solar radiation absorbed by the panel is identified using Eq 559 from 
-the EnergyPlus documentation. It is:
+the EnergyPlus documentation.
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;) 
-K<sub>(&tau;&alpha;)<sub>net</sub></sub> (I<sub>Dir</sub> 
+K<sub>(&tau;&alpha;)<sub>net</sub></sub> (G<sub>Dir</sub> 
 (1-shaCoe)+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>))
 </p>
 The solar radiation equation indicates that the collector is divided into multiple 
 segments. The number of segments used in the simulation is specified by the user 
 (parameter: <code>nSeg</code>). The area of an individual segment is identified by 
 dividing the collector area by the total number of segments. The term
-<i>shaCoe</i> is used to define the percentage of the collector that is shaded.
+<code>shaCoe</code> is used to define the percentage of the collector that is shaded.
 </p>
 <p>
 The incidence angle modifier used in the solar radiation equation is found using 
-Eq 556 from the EnergyPlus documentation. It is:
+Eq 556 from the EnergyPlus documentation.
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 K<sub>(&tau;&alpha;),net</sub>=(G<sub>beam</sub> K<sub>(&tau;&alpha;),
@@ -143,19 +143,17 @@ beam</sub>+G<sub>sky</sub> K<sub>(&tau;&alpha;),sky</sub>+G<sub>gnd</sub> K<sub>
 </p>
 <p>
 Each incidence angle modifier is calculated using Eq 555 from the EnergyPlus 
-documentation. It is:
+documentation.
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   K<sub>(&tau;&alpha;),x</sub>=1+b<sub>0</sub> (1/cos(&theta;)-1)+b<sub>1</sub> 
   (1/cos(&theta;)-1)<sup>2</sup>
 </p>
 <p>
-In the above equation x can refer to beam, sky or ground.
-</p>
-<p>
-<i>&theta;</i> is the incidence angle. For beam radiation <i>&theta;</i> is 
-found via standard geometry. The incidence angle for sky and ground diffuse radiation are found
-using, respectively, Eq 557 and 558 from the EnergyPlus documentation. They are:
+In the above equation x can refer to beam, sky or ground. <i>&theta;</i> is 
+the incidence angle. For beam radiation <i>&theta;</i> is found via standard 
+geometry. The incidence angle for sky and ground diffuse radiation are found
+using, respectively, Eq 557 and 558 from the EnergyPlus documentation.
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 &theta;<sub>sky</sub>=59.68-0.1388 til+0.001497 til<sup>2</sup><br/>

@@ -27,15 +27,18 @@ GCrit = -slope * (TIn - TEnv) / y_intercept;
    </p>
    <p>
    The critical solar radiation level is calculated using Equation 6.8.2 in Duffie 
-   and Beckman (2006). It is:
+   and Beckman (2006).
    </p>
    <p align=\"center\" style=\"font-style:italic;\">
-   G<sub>Crit</sub>=F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>)/(F<sub>R</sub>(&tau;&alpha;))
+   G<sub>Crit</sub>=F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>)
+   /(F<sub>R</sub>(&tau;&alpha;))
    </p>
    <p>
-   where <i>G<sub>TC</sub></i> is the critical irradiance, <i>F<sub>R</sub>U<sub>L</sub></i> is the heat 
-   loss coefficient, <i>T<sub>In</sub></i> is the inlet temperature, <i>T<sub>Env</sub></i> is the ambient
-   temperature, and <i>F<sub>R</sub>(&tau;&alpha;)</i> is the maximum efficiency.
+   where <i>G<sub>TC</sub></i> is the critical solar radiation, 
+   <i>F<sub>R</sub>U<sub>L</sub></i> is the heat loss coefficient, 
+   <i>T<sub>In</sub></i> is the inlet temperature, <i>T<sub>Env</sub></i> is the 
+   ambient temperature, and <i>F<sub>R</sub>(&tau;&alpha;)</i> is the maximum 
+   efficiency.
    </p>   
    <h4>References</h4>
    <p>

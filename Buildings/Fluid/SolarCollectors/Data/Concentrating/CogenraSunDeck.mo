@@ -15,11 +15,11 @@ record CogenraSunDeck =
     slope=0) "Cogenra Solar, Inc., SunDeck 1.0"
     annotation(Documentation(info = "<html>
     <p>
-    Necessary data for calculating dP_nominal, G_nominal and dT_nominal 
+    Necessary data for calculating dp_nominal, G_nominal and dT_nominal 
     is not provided in the EN12975 test data. All are left blank.
     </p>    
     <h4>References</h4>
     Ratings data taken from the <a href=\"http://www.solar-rating.org\">
-    Solar Rating Certification Corporation website</a>. SRCC# = 2011127A.<br/>
+    Solar Rating and Certification Corporation website</a>. SRCC# = 2011127A.<br/>
     </p>
     </html>"));

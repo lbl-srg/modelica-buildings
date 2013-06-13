@@ -208,7 +208,8 @@ calculated based on the dry mass and the specific heat capacity of copper.
 <h4>References</h4>
 <p>
 <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, 
-October 13, 2011.
+October 13, 2011.<br/>
+CEN 2006, European Standard 12975-1:2006, European Committee for Standardization 
 </p>
 </html>", revisions="<html>
 <ul>

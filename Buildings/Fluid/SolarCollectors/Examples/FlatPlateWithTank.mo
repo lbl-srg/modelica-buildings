@@ -171,8 +171,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-                      __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
+                      __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
         "Simulate and Plot"),
         Documentation(info="<html>
         <p>
@@ -182,7 +181,7 @@ equation
         Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> (tan) model is used to 
         represent the tank filled with hot water. A loop, powered by a pump
         (<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
-        Buildings.Fluid.Movers.FlowMachine_m_flow</a>, pum) passes the water through an expansion tank
+        Buildings.Fluid.Movers.FlowMachine_m_flow</a>, pum), passes the water through an expansion tank
         (<a href=\"modelica://Buildings.Fluid.Storage.ExpansionVessel\"> 
         Buildings.Fluid.Storage.ExpansionVessel</a>, exp), a temperature sensor
         (<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\"> 
@@ -214,7 +213,7 @@ equation
         <p>
         bou1 (<a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">
         Buildings.Fluid.Sources.MassFlowSource_T)</a> provides a constant mass flow rate for a hot water
-        (draw while bou <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
+        draw while bou (<a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
         Buildings.Fluid.Sources.Boundary_pT)</a> provides an outlet boundary condition for the outlet
         of the draw.<br/>
         </p>

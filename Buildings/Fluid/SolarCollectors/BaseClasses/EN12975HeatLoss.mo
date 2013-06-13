@@ -75,7 +75,7 @@ a constant through the rest of the simulation. The actual heat
 loss from the collector is calculated using:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
--Q<sub>Loss</sub>[i] = UA/nSeg (T<sub>Fluid</sub>[i] - T<sub>Env</sub>)
+Q<sub>Loss</sub>[i] = UA/nSeg (T<sub>Fluid</sub>[i] - T<sub>Env</sub>)
 </p>
 
 <h4>References</h4>

@@ -71,19 +71,22 @@ equation
   Documentation(info = "<html>
   <p>
   This component models a pump controller which might be used in a solar thermal system. 
-  It sets a flow rate for the system and controls whether the pump is active or inactive.
-  The pump is activated when the incident solar radiation is greater than the critical radiation.
+  It controls whether the pump is active or inactive based on the incident solar radiation
+  and the system parameters. The pump is activated when the incident solar radiation is 
+  greater than the critical radiation.
   </p>
   <p>
-  The critical radiation is defined per Duffie and Beckman. It is calculated using Equation 6.8.2.
+  The critical radiation is defined per Duffie and Beckman (2006). It is calculated using 
+  Equation 6.8.2.
   </p>
   <p align=\"center\" style=\"font-style:italic;\">
   G<sub>TC</sub>=(F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>))/(F<sub>R</sub>(&tau;&alpha;))
   </p>
   <p>
-  where <i>G<sub>TC</sub></i> is the critical irradiance, <i>F<sub>R</sub>U<sub>L</sub></i> is the heat 
-  loss coefficient, <i>T<sub>In</sub></i> is the inlet temperature, <i>T<sub>Env</sub></i> is the ambient
-  temperature, and <i>F<sub>R</sub>(&tau;&alpha;)</i> is the maximum efficiency.
+  where <i>G<sub>TC</sub></i> is the critical solar radiation, <i>F<sub>R</sub>U<sub>L</sub></i> 
+  is the heat loss coefficient, <i>T<sub>In</sub></i> is the inlet temperature, 
+  <i>T<sub>Env</sub></i> is the ambient temperature, and <i>F<sub>R</sub>(&tau;&alpha;)</i> 
+  is the maximum efficiency.
   </p>
   <h4>References</h4>
   <p>

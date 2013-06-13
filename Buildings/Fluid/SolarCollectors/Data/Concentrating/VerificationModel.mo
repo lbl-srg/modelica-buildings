@@ -18,9 +18,10 @@ record VerificationModel =
     dT_nominal = 20) "All inputs necessary for verification of EN12975 models"
     annotation(Documentation(info = "<html>
     <p>
-    No model tested to EN12975 standards provides all of the necessary information 
-    for modeling. Specific limitations are dp_nominal, G_nominal and dT_nominal. This
-    data record was created to allow verification of EN12975 base classes despite the
-    limitations in available data.
+    No model on the <a href=\"http://www.solar-rating.org\"> Solar Rating and 
+    Certification Corporation </a> website tested to EN12975 standards provides all 
+    of the necessary information for modeling. Specific limitations are dp_nominal, 
+    G_nominal and dT_nominal. This data record was created to allow verification of 
+    EN12975 base classes despite the limitations in available data.
     </p>
     </html>"));

@@ -76,18 +76,39 @@ documentation. It is:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q<sub>flow</sub>[i] = A<sub>c</sub>/nSeg F<sub>R</sub>(&tau;&alpha;) (K<sub>(&tau;&alpha;),
-beam</sub> G<sub>bea</sub> (1-shaCoe)+K<sub>Diff</sub> G<sub>sky</sub>)
+Beam</sub> G<sub>bea</sub> (1-shaCoe)+K<sub>Diff</sub> G<sub>Diff</sub>)
+</p>
+<p>
+<i>Q<sub>flow[i]</sub></i> is the heat gained in each segment, <i>A<sub>c</sub></i> is the area
+of the collector, <code>nSeg</code> is the number of segments in the collector, <i>F<sub>R</sub>
+(&tau;&alpha;)</i> is the maximum efficiency of the collector, <i>K<sub>(&tau;&alpha;),Beam</sub> 
+</i>is the incidence angle modifier for beam radiation, <i>G<sub>beam</sub></i> is the current beam
+radiation on the collector, <code>shaCoe</code> is the shading coefficient, <i>K<sub>Diff</sub></i>
+is the incidence angle modifier for diffuse radiation and <i>G<sub>Diff</sub></i> is the diffuse
+radiation striking the surface.
 </p>
 <p>
 The solar radiation equation indicates that the collector is divided into multiple segments. 
-The number of segments used in the simulation is specified by the user parameter <code>nSeg</code>.
+The number of segments used in the simulation is specified using the parameter <code>nSeg</code>.
 The area of an individual segment is identified by dividing the collector area by the total number 
-of segments. The term <i>shaCoe</i> is used to define the percentage of the collector which is shaded.
+of segments. The parameter <code>shaCoe</code> is used to define the percentage of the collector which is shaded.
 The main difference between this model and the ASHRAE model is the handling of diffuse radiation. The 
 ASHRAE model contains calculated incidence angle modifiers for both sky and ground diffuse radiation
-while this model uses a coefficient from test data to for diffuse radiation.
+while this model uses a coefficient from test data for diffuse radiation.
 </p>
-
+<p>
+The incidence angle modifier for beam radiation is calculated using Eq 555 from the EnergyPlus 
+documentation.
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  K<sub>(&tau;&alpha;),Beam</sub>=1+b<sub>0</sub> (1/cos(&theta;)-1)+b<sub>1</sub> 
+  (1/cos(&theta;)-1)<sup>2</sup>
+</p>
+<p>
+<i>K<sub>(&tau;&alpha;),Beam</sub></i> is the incidence angle modifier for beam radiation, <i>b
+<sub>0</sub></i> is the first incidence angle modifier coefficient, <i>&theta;</i> is the 
+surface tilt and <i>b<sub>1</sub></i> is the second incidence angle modifier coefficient.
+</p>
 <h4>References</h4>
 <p>
 <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br/>

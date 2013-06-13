@@ -18,7 +18,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   <h4>Use of the <code>Buildings.Fluid.SolarCollectors</code> models</h4>
   <p>
   A model of a solar thermal collector mainly consists of the three following
-  items:<br/>
+  items:
   <ul>
   <li>A package containing ratings data.</li>
   <li>Models for solar gain and heat loss corresponding to the format of the
@@ -44,7 +44,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   these models.
   </p>
   <p>
-  Currently there are two test methods for solar thermal collectors. The 
+  There are two test methods for solar thermal collectors. The 
   American standard is ASHRAE93 and the European standard is EN12975. Models 
   calculating solar gain and heat loss using coefficients from both test 
   methods are available in 
@@ -52,12 +52,12 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   Buildings.Fluid.SolarCollectors.BaseClasses</a>. Users should be careful 
   to ensure that the solar gain and heat loss models used in their simulation 
   match the ratings data entered into the data package. By default the 
-  concentrating model uses EN12975 models while flat plate and tubular use 
-  ASHRAE93 models.
+  concentrating model uses EN12975 models while flat plate and tubular models 
+  use ASHRAE93 models.
   </p>
   <p>
-  Finally, the parameters of the system must be defined. The complex parameters 
-  are used as follows:
+  Finally, the parameters of the system must be defined. Most of the parameters
+  are very straightforward. The complex parameters are used as follows:
   <ol>
   <li><code>nSeg</code>: This parameter refers to the number of segments between 
   the inlet and outlet of the system, not the number of segments in each solar 
@@ -72,21 +72,23 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   system and uses that in solar gain and heat loss computations.</li>
   <li><code>TotalArea</code>: If <code>TotalArea</code> is selected for 
   <code>nColType</code> the user enters a desired surface area of panels.
-  The model then uses this specified area in the simulation.</li>
+  The model then uses this specified area in solar gain and heat loss
+  computations. The number of panels in the system is identified by dividing the
+  specified area by the area of each panel.</li>
   </ol>
-  <li><code>SysConfig</code>: This parameter allows the user to specify if the 
-  panels in the system are installed in a series or parallel configuration. The 
-  handling of <code>dp_nominal</code> is changed depending on the selection.</li>
+  <li><code>SysConfig</code>: This parameter allows the user to specify the installation
+  configuration of the system. Options are <code>Series</code> and <code>Parallel</code>.
+  The handling of <code>dp_nominal</code> is changed depending on the selection.</li>
   <ol>
   <li><code>Series</code>: If <code>Series</code> is selected it is assumed that 
-  all panels in the system are in series. As a result there is a pressure drop 
-  corresponding to <code>dp_nominal</code> for each panel and the effective
+  all panels in the system are connected in series. As a result there is a pressure 
+  drop corresponding to <code>dp_nominal</code> for each panel and the effective
   <code>dp_nominal</code> for the system is <code>dp_nominal</code> * 
   <code>nPanels</code>.</li>
   <li><code>Parallel</code>: If <code>Parallel</code> is selected it is assumed 
-  that all panels in the system are in parallel. As a result the fluid flows 
-  through only a single panel and the <code>dp_nominal</code> for the system is
-  <code>dp_nominal</code> specified in the collector data package.</li>
+  that all panels in the system are connected in parallel. As a result the fluid 
+  flows through only a single panel and the <code>dp_nominal</code> for the system 
+  is <code>dp_nominal</code> specified in the collector data package.</li>
   </ol>
   </ol>
   </p>

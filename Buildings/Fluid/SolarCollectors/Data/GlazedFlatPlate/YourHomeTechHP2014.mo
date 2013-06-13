@@ -20,7 +20,7 @@ record YourHomeTechHP2014 =
     <h4>References</h4>
     <p>
     Ratings data taken from the <a href=\"http://www.solar-rating.org\">
-    Solar Rating Certification Corporation website</a>.
+    Solar Rating and Certification Corporation website</a>.
     SRCC# = 2012041A.
     </p>
     </html>"));
