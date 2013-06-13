@@ -108,7 +108,7 @@ equation
   end for;
 
   annotation (
-    defaultComponentName="solHeaGai",
+    defaultComponentName="solGai",
     Documentation(info="<html>
 <p>
 This component computes the solar heat gain of the solar thermal collector. 

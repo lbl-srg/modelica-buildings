@@ -4,7 +4,7 @@ model Tubular "Model of a tubular solar collector"
     parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
     "Performance data"  annotation (choicesAllMatching=true);
 
-  BaseClasses.ASHRAESolarGain solHeaGai(
+  BaseClasses.ASHRAESolarGain solGai(
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
     final B0=per.B0,
@@ -28,7 +28,7 @@ model Tubular "Model of a tubular solar collector"
     annotation (Placement(transformation(extent={{-12,20},{8,40}})));
 
 equation
-  connect(shaCoe_internal,solHeaGai.shaCoe_in);
+  connect(shaCoe_internal, solGai.shaCoe_in);
 
   connect(temSen.T, heaLos.TFlu) annotation (Line(
       points={{-4,-16},{-20,-16},{-20,24},{-14,24}},
@@ -42,11 +42,11 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(HDirTil.inc, solHeaGai.incAng) annotation (Line(
+  connect(HDirTil.inc, solGai.incAng)    annotation (Line(
       points={{-59,52},{-50,52},{-50,66},{-12,66}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HDirTil.H, solHeaGai.HDirTil) annotation (Line(
+  connect(HDirTil.H, solGai.HDirTil)    annotation (Line(
       points={{-59,56},{-52,56},{-52,72},{-12,72}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -54,15 +54,15 @@ equation
       points={{9,30},{38,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(solHeaGai.QSol_flow, heaGai.Q_flow) annotation (Line(
+  connect(solGai.QSol_flow, heaGai.Q_flow)    annotation (Line(
       points={{11,70},{38,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HDifTilIso.HGroDifTil, solHeaGai.HGroDifTil) annotation (Line(
+  connect(HDifTilIso.HGroDifTil, solGai.HGroDifTil) annotation (Line(
       points={{-59,76},{-52,76},{-52,74.8},{-12,74.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HDifTilIso.HSkyDifTil, solHeaGai.HSkyDifTil) annotation (Line(
+  connect(HDifTilIso.HSkyDifTil, solGai.HSkyDifTil) annotation (Line(
       points={{-59,88},{-50,88},{-50,78},{-12,78}},
       color={0,0,127},
       smooth=Smooth.None));

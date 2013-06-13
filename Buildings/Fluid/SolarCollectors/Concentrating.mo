@@ -4,7 +4,7 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
     parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
     "Performance data"  annotation (choicesAllMatching=true);
 
-  BaseClasses.EN12975SolarGain solHeaGai(
+  BaseClasses.EN12975SolarGain solGai(
     final A_c=TotalArea_internal,
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
@@ -30,7 +30,7 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
            annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
 equation
-  connect(shaCoe_internal,solHeaGai.shaCoe_in);
+  connect(shaCoe_internal, solGai.shaCoe_in);
 
   connect(temSen.T, heaLos.TFlu) annotation (Line(
       points={{-4,-16},{-16,-16},{-16,24},{-2,24}},
@@ -44,11 +44,11 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(HDirTil.inc, solHeaGai.incAng) annotation (Line(
+  connect(HDirTil.inc, solGai.incAng)    annotation (Line(
       points={{-59,52},{-50,52},{-50,67.4},{-2,67.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(solHeaGai.QSol_flow, heaGai.Q_flow) annotation (Line(
+  connect(solGai.QSol_flow, heaGai.Q_flow)    annotation (Line(
       points={{21,70},{38,70}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -56,11 +56,11 @@ equation
       points={{21,30},{38,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HDifTilIso.H, solHeaGai.HSkyDifTil) annotation (Line(
+  connect(HDifTilIso.H, solGai.HSkyDifTil) annotation (Line(
       points={{-59,82},{-54,82},{-54,78},{-2,78}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HDirTil.H, solHeaGai.HDirTil) annotation (Line(
+  connect(HDirTil.H, solGai.HDirTil) annotation (Line(
       points={{-59,56},{-54,56},{-54,72.6},{-2,72.6}},
       color={0,0,127},
       smooth=Smooth.None));

@@ -3,8 +3,7 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   extends SolarCollectors.BaseClasses.PartialParameters;
   Modelica.Blocks.Interfaces.RealInput HSkyDifTil(
-                                    unit="W/m2", quantity=
-        "RadiantEnergyFluenceRate")
+                                    unit="W/m2", quantity="RadiantEnergyFluenceRate")
     "Diffuse solar irradiation on a tilted surfce from the sky"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput incAng(
@@ -13,8 +12,7 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
     displayUnit="degree") "Incidence angle of the sun beam on a tilted surface"
     annotation (Placement(transformation(extent={{-140,-46},{-100,-6}})));
   Modelica.Blocks.Interfaces.RealInput HDirTil(
-                                    unit="W/m2", quantity=
-        "RadiantEnergyFluenceRate")
+                                    unit="W/m2", quantity="RadiantEnergyFluenceRate")
     "Direct solar irradiation on a tilted surfce"
     annotation (Placement(transformation(extent={{-140,6},{-100,46}})));
   Modelica.Blocks.Interfaces.RealOutput QSol_flow[nSeg](final unit="W")
@@ -63,7 +61,7 @@ equation
   HSkyDifTil));
   end for;
   annotation (
-    defaultComponentName="solHeaGai",
+    defaultComponentName="solGai",
     Documentation(info="<html>
 <p>
 This component computes the solar heat gain of the solar thermal collector. It only calculates 
@@ -103,8 +101,8 @@ First implementation
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
             graphics),
     Icon(graphics={Text(
           extent={{-48,-32},{36,-66}},
