@@ -6,19 +6,20 @@ model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
     "Medium in the system";
   Buildings.Fluid.SolarCollectors.FlatPlate         solCol(
     redeclare package Medium = Medium,
-    nSeg=3,
     shaCoe=0,
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_shaCoe_in=true,
+    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.GuangdongFSPTY95(),
+    nSeg=3,
     rho=0.2,
+    azi=0,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=5,
-    lat=0.73097781993588,
-    azi=0.3,
-    til=0.5,
-    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.GuangdongFSPTY95())
-    "Flat plate solar collector model"
+    sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+
+    lat=0.65938539140346,
+    til=0.5235987755983) "Flat plate solar collector model"
              annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -43,10 +44,10 @@ model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
-    T=273.15 + 10,
     use_p_in=false,
     nPorts=1,
-    p(displayUnit="Pa") = 101325 + solCol.dp_nominal) "Inlet for water flow"   annotation (Placement(
+    p(displayUnit="Pa") = 101325 + solCol.dp_nominal,
+    T=273.15 + 10) "Inlet for water flow"                                      annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,

@@ -11,11 +11,11 @@ model FlatPlate "Test model for FlatPlate"
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.ThermaLiteHS20(),
-    nSeg=3,
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
     nPanels=15,
+    nSeg=3,
     lat=0.73097781993588,
     azi=0.3,
     til=0.5) "Flat plate solar collector model"

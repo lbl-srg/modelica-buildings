@@ -37,7 +37,7 @@ block ASHRAESolarGain
     "Shading coefficient"
   annotation(Placement(transformation(extent={{-140,-60},{-100,-100}},rotation=0)));
   parameter Modelica.SIunits.Angle til "Surface tilt";
-protected
+//protected
   final parameter Real iamSky( fixed = false)
     "Incident angle modifier for diffuse solar radiation from the sky";
   final parameter Real iamGro( fixed = false)
@@ -55,7 +55,7 @@ protected
     "Minimum HTot to avoid div/0";
   final parameter Real HMinDel = 0.001
     "Delta of the smoothing function for HTot";
-
+protected
   Modelica.Blocks.Interfaces.RealInput shaCoe_internal
     "Inernally used shading coefficient";
 
@@ -67,6 +67,7 @@ initial equation
   // E+ Equ (555)
   iamSky = SolarCollectors.BaseClasses.IAM(incAngSky, B0, B1);
   // E+ Equ (558)
+  //fixme - The results of this equation are highly suspicious. Validate.
   incAngGro = Modelica.SIunits.Conversions.from_deg(90 - 0.5788*(tilDeg)+
   0.002693*(tilDeg)^2);
   // Diffuse radiation from the ground
