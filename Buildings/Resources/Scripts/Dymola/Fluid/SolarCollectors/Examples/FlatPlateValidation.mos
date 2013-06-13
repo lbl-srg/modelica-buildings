@@ -4,7 +4,7 @@ simulateModel("Buildings.Fluid.SolarCollectors.Examples.FlatPlateValidation", st
 
 createPlot(id = 1,
  position = {0, 0, 1528, 781},
- y = {"solCol.vol[3].T", "combiTable1Ds.y[2]"},
+ y = {"solCol.vol[3].T", "datRea.y[2]"},
  range = {0.0, 88000.0, 3.0, 29.0},
  autoscale = true,
  autoerase = true,
