@@ -54,33 +54,32 @@ equation
             fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/Overhang.png")}),
 defaultComponentName="ove",
 Documentation(info="<html>
-<p>
 For a window with an overhang, this model outputs the fraction of 
 the area that is exposed to the sun.
 The models can also be used for doors with an overhang. 
-</p>
-<p>
+<br/><br/>
+
 The overhang can be asymmetrical (i.e. wR &ne; wL is allowed) 
 about the vertical centerline of the window. However, the
 overhang must completely cover the window,
 i.e., <code>wL &ge; 0</code> and <code>wR &ge; 0</code>. 
 <code>wL</code> and <code>wR</code> must be measured from the respective corner
 of the window.
-</p>
-<p>
+<br/><br/>
+
 The figure below shows the parameters.
-</p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/Overhang.png\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/Overhang.png\" />
 </p>
-<p>
+<br/>
+
 The surface azimuth <code>azi</code> is as defined in 
 <a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
 Buildings.HeatTransfer.Types.Azimuth</a>.
-</p>
+
 <h4>Limitations</h4>
-<p>
-The model assumes that 
+
+The model assumes that<br/>
 <ul>
 <li> 
 the overhang is at least as wide as the window, i.e., 
@@ -91,13 +90,12 @@ the overhang is at least as wide as the window, i.e.,
 the overhang is horizontal.
 </li>
 </ul>
-</p>
+
 <h4>Implementation</h4>
-<p>
 The implementation is explained in 
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Overhang\">
 Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
-</p>
+
 </html>",
 revisions="<html>
 <ul>

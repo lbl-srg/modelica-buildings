@@ -25,7 +25,6 @@ This record implements thermophysical properties for window glas.
 <p>
 The table below compares the data of this record with the variables used in the WINDOW 6 output file.
 </p>
-<p>
 Note that
 <ul>
 <li>the surface <code>a</code> is usually the outside-facing surface, and the surface
@@ -42,9 +41,8 @@ around room or ambient temperature.
 whereas the model in this library uses averages over the whole solar or infrared spectrum.
 </li>
 </ul>
-</p>
-<p>
-<table border=\"1\">
+
+<table summary=\"summary\" border=\"1\">
 <thead>
  <tr>
    <th>Buildings library variable name</th>
@@ -127,8 +125,8 @@ First implementation.
   annotation(preferredView="info",
             Documentation(info="<html>
 This package implements thermophysical properties for window glas.
-</p>
-<p>
+<br/><br/>
+
 Since the infrared transmissivity is part of the Window 5 data and since
 it depends on the glass thickness, the glass thickness is a parameter
 that is set for all glass layers.

@@ -121,13 +121,13 @@ The construction has at least one material layer, and each layer has
 at least one temperature node. The layers are modeled using an instance of 
 <a href=\"Buildings.HeatTransfer.Conduction.SingleLayer\">
 Buildings.HeatTransfer.Conduction.SingleLayer</a>.
-</p>
+<br/><br/>
 The construction material is defined by a record of the package
 <a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueConstructions\">
 Buildings.HeatTransfer.Data.OpaqueConstructions</a>.
 This record allows specifying materials that store energy, and material
 that are a thermal conductor only with no heat storage.
-</p>
+
 <p>
 To obtain the surface temperature of the construction, use <code>port_a.T</code> (or <code>port_b.T</code>)
 and not the variable <code>T[1]</code> because there is a thermal resistance between the surface
