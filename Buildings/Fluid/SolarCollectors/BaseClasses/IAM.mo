@@ -8,12 +8,22 @@ function IAM "Function for incident angle modifer"
   parameter Modelica.SIunits.Angle incAngMin = Modelica.Constants.pi / 2 -0.1
     "Minimum incidence angle to avoid /0";
   parameter Real delta = 0.0001 "Width of the smoothing function";
+
 algorithm
   // E+ Equ (555)
-  incAngMod := 1 + B0*(1/Buildings.Utilities.Math.Functions.smoothMax(
+
+  //fixme - This formula almost always returns 0 for iamGro.
+  //Using eqns in E+ documentation incAngGro ranges 60-90.
+  //Equations behave poorly at 60+ deg, so force iam to 0.
+  //Results in 0 for iamGro. Always. How is this handled in E+?
+
+  incAngMod :=
+  Buildings.Utilities.Math.Functions.smoothHeaviside(
+  Modelica.Constants.pi/3-incAng, delta)*
+  (1 + B0*(1/Buildings.Utilities.Math.Functions.smoothMax(
   Modelica.Math.cos(incAng), Modelica.Math.cos(incAngMin), delta) - 1) +
   B1*(1/Buildings.Utilities.Math.Functions.smoothMax(Modelica.Math.cos(incAng),
-  Modelica.Math.cos(incAngMin), delta) - 1)^2;
+  Modelica.Math.cos(incAngMin), delta) - 1)^2);
 
   annotation (
     Documentation(info="<html>
@@ -21,13 +31,13 @@ algorithm
 <p>
 This function computes the incidence angle modifier for solar insolation 
 striking the surface of the solar thermal collector. It is calculated using 
-Eq 555 in EnergyPlus 7.0.0 Engineering Reference.
+Eq 555 in the EnergyPlus 7.0.0 Engineering Reference.
 </p>
 <h4>Notice</h4>
 <p>
 As stated in EnergyPlus7.0.0 the incidence angle equation performs poorly 
-at angles greater than 60 degrees. The incidence angle modifier should only 
-be calculated when the incidence angle is 60 degrees or less.
+at angles greater than 60 degrees. This model outputs 0 whenever the incidence
+angle is greater than 60 degrees.
 </p>
 <h4>References</h4>
 <p>

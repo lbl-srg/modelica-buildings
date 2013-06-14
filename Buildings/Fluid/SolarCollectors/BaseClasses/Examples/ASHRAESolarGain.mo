@@ -8,13 +8,13 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
         transformation(extent={{60,60},{80,80}}, rotation=0)));
   Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain   solHeaGai(
-    B0=per.B0,
-    B1=per.B1,
-    y_intercept=per.y_intercept,
     nSeg=3,
-    A_c=per.A,
     shaCoe=0,
     use_shaCoe_in=true,
+    A_c=per.A,
+    y_intercept=per.y_intercept,
+    B0=per.B0,
+    B1=per.B1,
     til=0.78539816339745) "Solar heat gain model using ASHRAE 93 calculations"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.Sine     HGroDifTil(

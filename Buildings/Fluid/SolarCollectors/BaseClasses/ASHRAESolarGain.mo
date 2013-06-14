@@ -37,7 +37,7 @@ block ASHRAESolarGain
     "Shading coefficient"
   annotation(Placement(transformation(extent={{-140,-60},{-100,-100}},rotation=0)));
   parameter Modelica.SIunits.Angle til "Surface tilt";
-//protected
+protected
   final parameter Real iamSky( fixed = false)
     "Incident angle modifier for diffuse solar radiation from the sky";
   final parameter Real iamGro( fixed = false)
@@ -55,7 +55,7 @@ block ASHRAESolarGain
     "Minimum HTot to avoid div/0";
   final parameter Real HMinDel = 0.001
     "Delta of the smoothing function for HTot";
-protected
+
   Modelica.Blocks.Interfaces.RealInput shaCoe_internal
     "Inernally used shading coefficient";
 

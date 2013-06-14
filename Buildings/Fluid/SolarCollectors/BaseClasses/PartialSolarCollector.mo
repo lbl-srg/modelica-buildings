@@ -77,13 +77,13 @@ model PartialSolarCollector "Partial model for solar collectors"
     final from_dp=from_dp,
     final show_T=show_T,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal,
     final allowFlowReversal=allowFlowReversal,
     final show_V_flow=show_V_flow,
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
     use_dh=false,
-    deltaM=deltaM) "Flow resistance"
+    deltaM=deltaM,
+    final dp_nominal=dp_nominal_final) "Flow resistance"
     annotation (Placement(transformation(extent={{-50,-10},
             {-30,10}}, rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](

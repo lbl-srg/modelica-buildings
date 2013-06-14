@@ -28,13 +28,13 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss  heaLos(
     nSeg=3,
     redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
-    y_intercept=per.y_intercept,
     C1=per.C1,
     C2=per.C2,
     m_flow_nominal=per.mperA_flow_nominal*per.A,
-    A_c=per.A,
     G_nominal=per.G_nominal,
-    dT_nominal=per.dT_nominal) "Heat loss model using EN12975 calculations"
+    dT_nominal=per.dT_nominal,
+    A_c=per.A,
+    y_intercept=per.y_intercept) "Heat loss model using EN12975 calculations"
     annotation (Placement(transformation(extent={{62,20},{82,40}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
