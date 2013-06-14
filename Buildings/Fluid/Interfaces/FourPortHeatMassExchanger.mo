@@ -192,11 +192,11 @@ equation
         extent={{-100,-100},{100,100}},
         grid={1,1})),
     Documentation(info="<html>
-<p>
+
 This component transports two fluid streams between four ports. 
 It provides the basic model for implementing a dynamic heat exchanger.
-</p>
-<p>
+<br/><br/>
+
 The model can be used as-is, although there will be no heat or mass transfer
 between the two fluid streams. 
 To add heat transfer, heat flow can be added to the heat port of the two volumes.
@@ -207,9 +207,9 @@ To add moisture input into (or moisture output from) volume <code>vol2</code>,
 the model can be replaced as shown in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
-</p>
+<br/>
 <h4>Implementation</h4>
-<p>
+
 The variable names follow the conventions used in 
 <a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">
 Modelica.Fluid.HeatExchangers.BasicHX</a>.

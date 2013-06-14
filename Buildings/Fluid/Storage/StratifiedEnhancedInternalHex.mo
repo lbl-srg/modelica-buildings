@@ -189,7 +189,7 @@ equation
             defaultComponentName = "tan",
             Documentation(info = "<html>
             This model is an extension of 
-            <a href=\"Buildings.Fluid.Storage.StratifiedEnhanced\">Buildings.Fluid.Storage.StratifiedEnhanced</a>.</p>
+            <a href=\"Buildings.Fluid.Storage.StratifiedEnhanced\">Buildings.Fluid.Storage.StratifiedEnhanced</a>.<br/>
             <p>
             The modifications consist of adding a heat exchanger 
             (<a href=\"Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger\">

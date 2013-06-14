@@ -82,8 +82,6 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ", revisions="<html>
-<html>
-<p>
 <ul>
 <li>
 June 3, 2011 by Michael Wetter:<br/>

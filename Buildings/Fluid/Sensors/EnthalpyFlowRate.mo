@@ -2,24 +2,20 @@ within Buildings.Fluid.Sensors;
 model EnthalpyFlowRate "Ideal enthalphy flow rate sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(tau=0);
   extends Modelica.Icons.RotationalSensor;
-
   Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
     "Enthalpy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-
   parameter Modelica.SIunits.SpecificEnthalpy h_out_start=
     Medium.specificEnthalpy_pTX(Medium.p_default, Medium.T_default, Medium.X_default)
     "Initial or guess value of measured specific enthalpy"
     annotation (Dialog(group="Initialization"));
-
   Modelica.SIunits.SpecificEnthalpy hMed_out(start=h_out_start)
     "Medium enthalpy to which the sensor is exposed";
   Modelica.SIunits.SpecificEnthalpy h_out(start=h_out_start)
     "Medium enthalpy that is used to compute the enthalpy flow rate";
-
 initial equation
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
@@ -29,7 +25,6 @@ initial equation
       h_out = h_out_start;
     end if;
   end if;
-
 equation
   if allowFlowReversal then
     hMed_out = Modelica.Fluid.Utilities.regStep(port_a.m_flow,
@@ -46,7 +41,6 @@ equation
   end if;
   // Sensor output signal
   H_flow = port_a.m_flow * h_out;
-
 annotation (defaultComponentName="senEntFlo",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}})),
@@ -79,8 +73,6 @@ Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 </p>
 </html>
 ", revisions="<html>
-<html>
-<p>
 <ul>
 <li>
 June 3, 2011 by Michael Wetter:<br/>

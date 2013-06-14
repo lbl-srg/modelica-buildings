@@ -33,12 +33,11 @@ This model represents an instantaneously mixed volume.
 Potential and kinetic energy at the port are neglected,
 and there is no pressure drop at the ports.
 The volume can exchange heat through its <code>heatPort</code>.
-</p>
-<p>
+<br/><br/>
+
 The volume can be parameterized as a steady-state model or as
-dynamic model.
-</p>
-<p>
+dynamic model.<br/>
+
 To increase the numerical robustness of the model, the parameter
 <code>prescribedHeatFlowRate</code> can be set by the user. 
 This parameter only has an effect if the model has exactly two fluid ports connected,
@@ -55,15 +54,15 @@ is computed as <i>K * (T-heatPort.T)</i>, for some temperature <i>T</i> and some
 which may itself be a function of temperature or mass flow rate.
 </li>
 </ul>
-</p>
+
 <h4>Implementation</h4>
-<p>
+
 If the model is operated in steady-state and has two fluid ports connected,
 then the same energy and mass balance implementation is used as in
 steady-state component models, i.e., the use of <code>actualStream</code>
 is not used for the properties at the port.
-</p>
-<p>
+<br/><br/>
+
 The implementation of these balance equations is done in the instances
 <code>dynBal</code> for the dynamic balance and <code>steBal</code>
 for the steady-state balance. Both models use the same input variables:
@@ -79,14 +78,14 @@ where <code>m_flowInv</code> approximates the expression <code>1/m_flow</code>.
 The variable <code>mXi_flow</code> is used to add a species mass flow rate to the fluid.
 </li>
 </ul>
-</p>
-<p>
+<br/><br/>
+
 For simple models that uses this model, see
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed\">
 Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</a> and
 <a href=\"modelica://Buildings.Fluid.MassExchangers.HumidifierPrescribed\">
 Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
-</p>
+
 </html>", revisions="<html>
 <ul>
 <li>

@@ -2,7 +2,6 @@ within Buildings.Fluid.Sensors;
 model DensityTwoPort "Ideal two port density sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
-
   Modelica.Blocks.Interfaces.RealOutput d(final quantity="Density",
                                           final unit="kg/m3",
                                           min=0) "Density of the passing fluid"
@@ -23,7 +22,6 @@ model DensityTwoPort "Ideal two port density sensor"
   parameter Modelica.SIunits.MassFraction X_start[Medium.nX]=Medium.X_default
     "Mass fraction used to compute d_start"
     annotation (Dialog(group="Initialization"));
-
   Medium.Density dMed(start=d_start)
     "Medium temperature to which the sensor is exposed";
 protected
@@ -80,8 +78,6 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ", revisions="<html>
-<html>
-<p>
 <ul>
 <li>
 June 3, 2011 by Michael Wetter:<br/>

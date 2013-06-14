@@ -8,7 +8,8 @@ partial model PartialTwoPortInterface
     port_b(p(start=Medium.p_default,
            nominal=Medium.p_default)));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate"
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
@@ -65,7 +66,6 @@ equation
         extent={{-100,-100},{100,100}},
         grid={1,1})),
     Documentation(info="<html>
-<p>
 This component defines the interface for models that 
 transports a fluid between two ports. It is similar to 
 <a href=\"Modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
@@ -75,13 +75,11 @@ include the species balance
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
 </pre>
 Thus, it can be used as a base class for a heat <i>and</i> mass transfer component
-</p>
-<p>
+<br/><br/>
 The model is used by other models in this package that add heat transfer,
 mass transfer and pressure drop equations. See for example
 <a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
 Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

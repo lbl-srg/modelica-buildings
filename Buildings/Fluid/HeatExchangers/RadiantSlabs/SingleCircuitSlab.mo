@@ -179,7 +179,7 @@ example in which the pipes are embedded in the concrete slab, and
 the layers below the pipes are insulation and reinforced concrete.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/resistances.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/resistances.png\"/>
 </p>
 <p>
 The construction <code>con_a</code> computes transient heat conduction
@@ -214,10 +214,10 @@ The parameter <code>iLayPip</code> must be set to the number of the interface in
 are located. For example, consider the following floor slab.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/construction.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/construction.png\"/>
 </p>
 Then, the construction definition is
-</p>
+<br/>
 <pre>
   Buildings.HeatTransfer.Data.OpaqueConstructions.Generic layers(
         nLay=3, 
@@ -296,7 +296,7 @@ The parameter <code>sysTyp</code> is used to select the equation that is used to
 the average temperature in the plane of the pipes.
 It needs to be set to the following values:
 </p>
-  <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr>
       <th>sysTyp</th>
       <th>System type</th>

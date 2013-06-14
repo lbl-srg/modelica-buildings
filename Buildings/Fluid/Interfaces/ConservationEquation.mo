@@ -216,7 +216,6 @@ needs to be assigned.
 For most components, this can be set to a parameter. However, for components such as 
 expansion vessels, the fluid volume can change in time.
 </p>
-<p>
 Input connectors of the model are
 <ul>
 <li>
@@ -226,7 +225,6 @@ Input connectors of the model are
 <code>mXi_flow</code>, which is the species mass flow rate added to the medium.
 </li>
 </ul>
-</p>
 <p>
 The model can be used as a dynamic model or as a steady-state model.
 However, for a steady-state model with exactly two fluid ports connected, 
