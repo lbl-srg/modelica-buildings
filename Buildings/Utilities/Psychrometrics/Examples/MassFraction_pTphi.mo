@@ -51,7 +51,7 @@ equation
       points={{-59,30},{-42,30},{-42,16},{-22,16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(
+  annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/MassFraction_pTphi.mos"
         "Simulate and plot"),                                                                                                    Diagram(

@@ -18,7 +18,6 @@ protected
 Partial function to compute the dew point temperature for moist air between <i>0 degC</i> and <i>30 degC</i>,
 and for its inverse function.
 </p>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
