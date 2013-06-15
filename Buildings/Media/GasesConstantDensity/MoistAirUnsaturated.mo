@@ -416,8 +416,7 @@ in this model, the air must not be saturated. If the air is saturated,
 use the medium model
 <a href=\"modelica://Buildings.Media.GasesConstantDensity.MoistAir\">
 Buildings.Media.GasesConstantDensity.MoistAir</a> instead of this one.
-</p>
-<p>
+<br/><br/>
 This medium model has been added to allow an explicit computation of
 the function 
 <code>T_phX</code> so that it is once differentiable in <code>h</code>
@@ -425,11 +424,9 @@ with a continuous derivative. This allows obtaining an analytic
 expression for the Jacobian, and therefore simplifies the computation
 of initial conditions that can be numerically challenging for 
 thermo-fluid systems.
-</p>
-<p>
+<br/><br/>
 This new formulation often leads to smaller systems of nonlinear equations 
 because it allows to invert the function <code>T_phX</code> analytically.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

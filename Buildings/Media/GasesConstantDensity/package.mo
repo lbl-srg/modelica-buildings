@@ -1,17 +1,19 @@
 within Buildings.Media;
 package GasesConstantDensity "Package with models for gases where pressure and temperature are independent of each other"
   extends Modelica.Icons.MaterialPropertiesPackage;
+
+
+
+
 annotation (preferredView="info", Documentation(info="<html>
-<p>
 Medium models in this package use a constant mass density.
-<p>
+<br/><br/>
 The use of a constant density avoids having pressure as a state variable in mixing volumes. Hence, fast transients
 introduced by a change in pressure are avoided. 
 The drawback is that the dimensionality of the coupled
 nonlinear equation system is typically larger for flow
 networks.
-</p>
-<p>
+<br/><br/>
 Note that models in this package implement the equation for the internal energy as
 <p align=\"center\" style=\"font-style:italic;\">
   u = h - p &frasl; &rho;<sub>stp</sub>,
@@ -30,7 +32,6 @@ from which follows that
   u = h - p v = h - p &frasl; &rho; = h - p &frasl; &rho;<sub>std</sub>,
 </p>
 because <i>&rho; = &rho;<sub>std</sub></i> in this medium model.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

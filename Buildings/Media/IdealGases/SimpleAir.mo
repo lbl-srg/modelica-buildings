@@ -3,7 +3,8 @@ package SimpleAir "Air: Simple dry air model (-50..100 degC)"
   extends Modelica.Media.Air.SimpleAir(
      T_min=Modelica.SIunits.Conversions.from_degC(-50));
 
-replaceable function enthalpyOfCondensingGas "Enthalpy of steam per unit mass of steam"
+replaceable function enthalpyOfCondensingGas
+    "Enthalpy of steam per unit mass of steam"
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
   output SpecificEnthalpy h "steam enthalpy";
@@ -23,7 +24,7 @@ First implementation to allow using the room model with a medium that does not c
 </html>"));
 end enthalpyOfCondensingGas;
 
-replaceable function saturationPressure 
+replaceable function saturationPressure
     "Return saturation pressure of condensing fluid"
   extends Modelica.Icons.Function;
   input Temperature Tsat "saturation temperature";

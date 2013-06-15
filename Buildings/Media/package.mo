@@ -1,6 +1,7 @@
 within Buildings;
 package Media "Package with medium models"
   extends Modelica.Icons.MaterialPropertiesPackage;
+
   annotation (preferredView="info", Documentation(info="<html>
 This package contains different implementations for
 various media.
