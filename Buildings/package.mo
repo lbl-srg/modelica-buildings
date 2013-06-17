@@ -502,7 +502,6 @@ units are wrong or errors in documentation):
 The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
-</p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Add explanation of nStaRef.</b>
     </td>
@@ -1636,7 +1635,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">
                       Buildings.Fluid.Actuators.BaseClasses.PartialActuator<br/>
                       Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential<br/>
-                      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</br>
+                      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve<br/>
                       Buildings.Fluid.BaseClasses.PartialResistance<br/>
                       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp<br/>
                       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow<br/>
@@ -1857,14 +1856,14 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Fixed error in <code>if-then</code> statement that led to
                        a selection of the wrong branch to compute the sky temperature.</td></tr>
 <tr><td colspan=\"2\"><b>Buildings.Media</b></td></tr>
-<tr><td valign=\"top\">Buildings.Media.PartialSimpleMedium</br>
+<tr><td valign=\"top\">Buildings.Media.PartialSimpleMedium<br/>
                        Buildings.Media.GasesConstantDensity.SimpleAir</td>
     <td valign=\"top\">Fixed error in assignment of <code>singleState</code> parameter. 
                        This change can lead to different initial conditions if the density of 
                        water is modeled as a function of pressure, or if the
                        medium model Buildings.Media.GasesConstantDensity.SimpleAir is used.</td></tr>
 
-<tr><td valign=\"top\">Buildings.Media.GasesConstantDensity</br>
+<tr><td valign=\"top\">Buildings.Media.GasesConstantDensity<br/>
                        Buildings.Media.GasesConstantDensity.MoistAir<br/>
                        Buildings.Media.GasesConstantDensity.MoistAirUnsaturated<br/>
                        Buildings.Media.GasesConstantDensity.SimpleAir</td>
@@ -1896,14 +1895,14 @@ that can lead to wrong simulation results):
 </td></tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
-<tr><td valign=\"top\">Buildings.Rooms.MixedAir</br>
+<tr><td valign=\"top\">Buildings.Rooms.MixedAir<br/>
                      Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions</td>
     <td valign=\"top\">Fixed bug (<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/35\">issue 35</a>) 
                      that leads to the wrong solar heat gain for
                      roofs and for floors. Prior to this bug fix, the outside facing surface
                      of a ceiling received solar irradiation as if it were a floor 
                      and vice versa.</td></tr>
-<tr><td valign=\"top\">Buildings.Rooms.MixedAir</br>
+<tr><td valign=\"top\">Buildings.Rooms.MixedAir<br/>
                      Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</td>
     <td valign=\"top\">Fixed bug (<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">issue 36</a>) 
                      that leads to too high a surface temperature of the window frame when
@@ -2833,7 +2832,6 @@ to the medium properties.
 This section summarizes the changes that have been performed
 on the Buildings library.
 </p>
-<p>
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build1\">Version 1.5 build1</a>(xxx, 2013)</a>
@@ -2884,9 +2882,7 @@ on the Buildings library.
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_1_0\">Version 0.1.0 </a>(May 27, 2008)</a>
 </li>
 </ul>
-</p>
-<p>
-</p>
+
 </html>
 "));
   end ReleaseNotes;
@@ -3133,9 +3129,8 @@ In these cases, save a copy of the Modelica License 2 in one directory of the di
     annotation (preferredView="info",
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Copyright</font></h4>
-<p>
 Copyright (c) 2009-2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
-</p><p>
+<p>
 If you have questions about your rights to use or distribute this software, please contact Berkeley Lab's Technology Transfer Department at 
 <A HREF=\"mailto:TTD@lbl.gov\">TTD@lbl.gov</A>
 </p><p>
@@ -3146,25 +3141,21 @@ NOTICE. This software was developed under partial funding from the U.S. Departme
   end Copyright;
   annotation (preferredView="info",
   Documentation(info="<html>
-<p>
 The <code>Buildings</code> library is a free open-source library for modeling of building energy and control systems. 
 Many models are based on models from the package
 <a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a> and use
 the same ports to ensure compatibility with models from that library.
-</p><p>
+<br/><br/>
 The web page for this library is
 <a href=\"http://simulationresearch.lbl.gov/modelica\">http://simulationresearch.lbl.gov/modelica</a>. 
 We welcome contributions from different users to further advance this library, 
 whether it is through collaborative model development, through model use and testing
 or through requirements definition or by providing feedback regarding the model applicability
 to solve specific problems.
-</p>
-<p>
-The library has the following <i>User's Guides</i>:
-</p>
+<br/><br/>
+The library has the following <i>User's Guides</i>:<br/>
 <ol>
 <li>
-<p>
 General information about the use of the <code>Buildings</code> library
 is available at
 <a href=\"http://simulationresearch.lbl.gov/modelica/userGuide\">
@@ -3173,18 +3164,14 @@ This web site covers general information that is not specific to the
 use of individual sublibraries or models.
 Discussed topics include 
 how to get started, best practices, how to post-process results using Python,
-work-around for problems and how to develop models.
-</p>
+work-around for problems and how to develop models.<br/>
 </li>
 <li>
-<p>
 Some of the main sublibraries have their own
 User's Guides that can be accessed by the links below.
 These User's Guides are discussing items that are specific to the
-individual libraries.
-</p>
-<p>
-<table border=1 cellspacing=0 cellpadding=2>
+individual libraries.<br/>
+<table summary=\"summary\" border=1 cellspacing=0 cellpadding=2>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Airflow.Multizone.UsersGuide\">Airflow.Multizone</a>
    </td>
    <td valign=\"top\">Package for multizone airflow and contaminant transport.</td>
@@ -3228,28 +3215,17 @@ individual libraries.
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
    </td>
    <td valign=\"top\">Package to call Python functions from Modelica.</td>
-</tr></table>
-</p>
+</tr></table><br/>
 </li>
 <li>
-<p>
 There is also a tutorial available at 
 <a href=\"modelica://Buildings.Examples.Tutorial\">
 Buildings.Examples.Tutorial</a>.
 The tutorial contains step by step instructions for how to build system models.
-</p>
 </li>
 </ol>
-</p>
 </html>"));
 end UsersGuide;
-
-
-
-
-
-
-
 
 
 
