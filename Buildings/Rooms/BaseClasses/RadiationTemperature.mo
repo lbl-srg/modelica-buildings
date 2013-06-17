@@ -222,7 +222,7 @@ where
 <i>A<sup>i</sup></i> are the surface areas of the room,
 <i>&epsilon;<sup>i</sup></i> are the infrared emissivities of the surfaces, and
 <i>T<sup>i</sup></i> are the surface temperatures.
-<p>
+<br/><br/>
 If a the windows have a shade, then the equation is modified to take the actual shaded and non-shaded
 surface area into account. In this situation, the shaded part of a window has a infrared radiative power
 of 
@@ -245,7 +245,6 @@ For the unshaded part of the window, the radiative power is
 </p>
 where
 <i>T<sub>gn</sub></i> is the glass temperature of the non-shaded part of the window.
-</p>
 </html>",
 revisions="<html>
 <ul>

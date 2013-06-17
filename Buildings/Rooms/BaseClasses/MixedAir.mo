@@ -586,8 +586,8 @@ equation
       color={190,0,0},
       smooth=Smooth.None));
   connect(conExtWinFra, solRadExc.conExtWinFra) annotation (Line(
-      points={{242,5.55112e-16},{214,0},{160,0},{160,60},{-60,60},{-60,50},{
-          -79.9167,50}},
+      points={{242,5.55112e-16},{214,5.55112e-16},{160,5.55112e-16},{160,60},{
+          -60,60},{-60,50},{-79.9167,50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_a, solRadExc.conPar_a) annotation (Line(
@@ -746,8 +746,7 @@ This model integrates various components that model
 heat exchange between the room-facing surfaces of constructions
 and the room air, the internal heat gains, and the fluid port that
 can be used to connect models of HVAC systems to the room model.
-</p>
-<p>
+<br/><br/>
 The main components that are used in this model are as follows:
 <ol>
 <li>
@@ -807,9 +806,6 @@ in proportion to the product of the receiving areas times their
 solar absorptivity.
 </li>
 </ol>
-</p>
-
-
 </html>", revisions="<html>
 <ul>
 <li>

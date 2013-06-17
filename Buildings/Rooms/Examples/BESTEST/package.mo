@@ -1,7 +1,24 @@
 within Buildings.Rooms.Examples;
 package BESTEST "BESTEST validation models"
   extends Modelica.Icons.ExamplesPackage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   constant Integer nStaRef = 6 "Number of states in a reference material";
+
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
@@ -16,10 +33,8 @@ All examples have a script that runs an annual simulation and
 plots the results with the minimum, mean and maximum value
 listed in the ANSI/ASHRAE Standard 140-2007.
 </p>
-<p>
 The script compares the following quantities
-</p>
-<p>
+<br/>
 <ul>
 <li>
 For free floating cases, the annual hourly integrated minimum (and maximum)
@@ -30,11 +45,9 @@ For cases with heating and cooling, the annual heating and cooling energy,
 and the annual hourly integrated minimum (and maximum) peak heating and cooling power.
 </li>
 </ul>
-</p>
-<p>
+<br/>
 Note that in addition to the BESTESTs, the window model has been validated separately
 in Nouidui et al. (2012).
-</p>
 <h4>Implementation</h4>
 <p>
 Heating and cooling is controlled using the PI controller
