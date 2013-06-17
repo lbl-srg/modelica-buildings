@@ -12,11 +12,6 @@ function IAM "Function for incident angle modifer"
 algorithm
   // E+ Equ (555)
 
-  //fixme - This formula almost always returns 0 for iamGro.
-  //Using eqns in E+ documentation incAngGro ranges 60-90.
-  //Equations behave poorly at 60+ deg, so force iam to 0.
-  //Results in 0 for iamGro. Always. How is this handled in E+?
-
   incAngMod :=
   Buildings.Utilities.Math.Functions.smoothHeaviside(
   Modelica.Constants.pi/3-incAng, delta)*
