@@ -227,14 +227,14 @@ The method of super position is used to calculate the window shaded area.
 The area below the overhang is divided as shown in the figure. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangSuperPosition.png\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangSuperPosition.png\" />
 </p>
 <p>
 Dimensional variables used in code for the rectangle <i>DEGI, AEGH, CFGI</i> and <i>BFGH</i>
 are shown in the figure below:
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangVariables.png\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangVariables.png\" />
 </p>
 <p>
 The rectangles <i>DEGI, AEGH, CFGI</i> and <i>BFGH</i> have the same geometric configuration 

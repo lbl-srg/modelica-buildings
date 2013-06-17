@@ -4,7 +4,6 @@ model SideFins
   import Buildings;
   extends Buildings.Rooms.BaseClasses.SideFins;
   extends Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus;
-
   Buildings.HeatTransfer.Windows.BaseClasses.SideFins fin(
     final dep=dep,
     final h=h,
@@ -52,7 +51,7 @@ Side fins are assumed to extend at least to the lower edge of the window.
 as shadow on the window anyway.)
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/SideFins.png\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/SideFins.png\" />
 </p>
 <p>
 The parameter <code>h</code> is measured
@@ -60,10 +59,9 @@ from the top of the window to the top of the side fins.
 The side fin must extend at least to the bottom of the window.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/WindowSideFinsExtendedSideFin.png\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/WindowSideFinsExtendedSideFin.png\" />
 </p>
 <h4>Limitations</h4>
-<p>
 The model assumes that 
 <ul>
 <li>
@@ -77,7 +75,7 @@ the bottom of the side fins must be at an equal or lower height than the
 bottom of the window.
 </li>
 </ul> 
-</p>
+
 <h4>Implementation</h4>
 <p>
 The detailed calculation method is explained in 

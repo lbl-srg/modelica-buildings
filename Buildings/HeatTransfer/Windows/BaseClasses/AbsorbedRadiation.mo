@@ -193,9 +193,9 @@ algorithm
     Documentation(info="<html>
 The model calculates absorbed solar radiation on the window. 
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
-</p>
-<p>
-The absorbed radiation by exterior shades includes:</p>
+<br/><br/>
+
+The absorbed radiation by exterior shades includes:
 <ol>
 <li>
 the directly absorbed exterior radiation: <code>AWin*uSha*(HDir+HDif)*(1-tau-rho)</code>
@@ -211,9 +211,9 @@ the absorbed interior radiation is neglected.
 </li>
 </ol>
 The output is <code>absRad[2, 1]</code>
-</p>
-<p>
-The absorbed radiation by interior shades includes:</p>
+<br/><br/>
+
+The absorbed radiation by interior shades includes:
 <ol>
 <li>
 the absorbed exterior radiation (angular part): <code>AWin*uSha*HDir*alpha(IncAng)</code>
@@ -226,9 +226,9 @@ the absorbed interior radiation (diffusive part): <code>AWin*uSha*HRoo*(1-tau-rh
 </li>
 </ol>
 The output is <code>absRad[2, N+2]</code>
-</p>
-<p>
-The absorbed radiation by glass includes:</p>
+<br/><br/>
+
+The absorbed radiation by glass includes:
 <ol>
 <li>
 the absorbed radiation by unshaded part (diffusive part): <code>AWin*(1-uSha)*(HDif*alphaEx(HEM)+HRoo*alphaIn(HEM))</code>
@@ -244,7 +244,6 @@ the absorbed radiation by shaded part (angular part from exterior source): <code
 </li>
 </ol>
 The output is <code>absRad[1, 2:N+1] = Part1 + Part2; absRad[2, 2:N+1] = Part3 + Part4</code>
-</p>
 
 <h4>References</h4>
 <ul>

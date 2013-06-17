@@ -261,7 +261,7 @@ equation
           the heat exchanger, and convection from the heat exchanger to the surrounding fluid.</p>
           <p>
           The model is based on <a href=\"Buildings.Fluid.HeatExchangers.BaseClasses.HASingleFlow\">
-          Buildings.Fluid.HeatExchangers.BaseClasses.HASingleFlow</a><p>
+          Buildings.Fluid.HeatExchangers.BaseClasses.HASingleFlow</a>
           <p>
           The fluid ports are intended to be connected to a circulated heat transfer fluid 
           while the heat port is intended to be connected to a stagnant fluid.</p>          

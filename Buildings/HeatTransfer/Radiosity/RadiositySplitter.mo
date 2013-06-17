@@ -22,7 +22,6 @@ equation
 defaultComponentName="radSpl",
     Documentation(info="
 <html>
-<p>
 This blocks splits the incoming radiosity into two fluxes according to
 <p align=\"center\" style=\"font-style:italic;\">
   J<sub>Out,1</sub> = - u J<sub>In</sub>,<br/>
@@ -30,7 +29,6 @@ This blocks splits the incoming radiosity into two fluxes according to
 </p>
 The minus sign on the left hand side is because <i>J<sub>In</sub></i>
 and <i>J<sub>Out</sub></i> are flow variables.
-</p>
 <p>
 This block may be used to split the radiosity flux into a fraction that 
 strikes the shaded part of a window, and a fraction that strikes the

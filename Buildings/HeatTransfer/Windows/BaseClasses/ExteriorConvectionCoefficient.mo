@@ -30,9 +30,9 @@ coefficient as
 </p>
 where <i>v</i> is the wind speed in <i>m/s</i> and
 <i>h</i> is the convective heat transfer coefficient in <i>W/(m2*K)</i>.
-</p>
+<br/>
 <h4>References</h4>
-<p>
+
 TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.

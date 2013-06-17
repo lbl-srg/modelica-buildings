@@ -55,7 +55,6 @@ Documentation(info="<html>
 This model can be used to inject trace substances into a system.
 The model adds a mass flow rate to its port with a
 trace substance concentration of <i>1</i>.
-</p>
 <p>
 A typical use of this model is to add carbon dioxide to room air, since the 
 carbon dioxide concentration is typically so small that it need not be 

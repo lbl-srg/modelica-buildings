@@ -12,9 +12,8 @@ This function is used to identify the prandtl number of water at a given tempera
 fit to data from Incropera and Dewitt (1996).
 </p>
 <h4>References</h4>
-<p>
-Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David P. Dewitt, John Wiley & Sons, 1996
-<p>
+
+Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David P. Dewitt, John Wiley &amp; Sons, 1996
 </html>",
 revisions="<html>
 <ul>

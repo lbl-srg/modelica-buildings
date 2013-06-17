@@ -114,7 +114,6 @@ If the parameter <code>linearizeFlowResistance</code> is set to true,
 then the whole pressure drop vs. flow resistance curve is linearized.
 </p>
 <h4>Implementation</h4>
-<p>
 This model uses inputs and constants that need to be set by models
 that extend or instantiate this model.
 The following inputs need to be assigned:
@@ -126,7 +125,7 @@ The following inputs need to be assigned:
 <code>mXi_flow</code>, which is the species mass flow rate added to the medium.
 </li>
 </ul>
-</p>
+
 <p>
 Set the constant <code>sensibleOnly=true</code> if the model that extends
 or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.

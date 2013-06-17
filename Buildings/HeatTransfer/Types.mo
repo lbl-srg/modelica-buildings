@@ -9,20 +9,19 @@ package Types "Package with type definitions"
       Smooth "Smooth",
       VerySmooth "Very smooth") "Enumeration defining the surface roughness"
   annotation (Documentation(info="<html>
-<p>
 This enumeration is used to define the surface roughness
 which may be used to compute the convective heat transfer coefficients of 
 building construction.
-</p>
-<p>
+<br/><br/>
+
 The surface roughness will be used to compute the
 wind-driven convective heat transfer coefficient in 
 <a href=\"modelica://Buildings.HeatTransfer.Convection.Exterior\">
 Buildings.HeatTransfer.Convection.Exterior</a>.
 The possible surface roughness are
-</p>
-<p>
-<table border=\"1\">
+<br/><br/>
+
+<table summary=\"summary\" border=\"1\">
 <tr>
 <th>Roughness index</th>
 <th>Example material</th>
@@ -34,7 +33,6 @@ The possible surface roughness are
 <tr><td>Smooth</td>        <td>Smooth plaster</td></tr>
 <tr><td>VerySmooth</td>    <td>Glass</td></tr>
 </table>
-</p>
 </html>"));
 
   type ExteriorConvection = enumeration(
@@ -42,10 +40,9 @@ The possible surface roughness are
       TemperatureWind "Wind speed and temperature dependent")
     "Enumeration defining the convective heat transfer model for exterior surfaces"
   annotation (Documentation(info="<html>
-<p>
 This enumeration is used to set the function
 that is used to compute the convective
-heat transfer coefficient for exterior (outside-side facing) surfaces.</p>
+heat transfer coefficient for exterior (outside-side facing) surfaces.
 </html>"));
 
   type InteriorConvection = enumeration(
@@ -53,10 +50,9 @@ heat transfer coefficient for exterior (outside-side facing) surfaces.</p>
       Temperature "Temperature dependent")
     "Enumeration defining the convective heat transfer model for interior surfaces"
   annotation (Documentation(info="<html>
-<p>
 This enumeration is used to set the function
 that is used to compute the convective
-heat transfer coefficient for interior (room-side facing) surfaces.</p>
+heat transfer coefficient for interior (room-side facing) surfaces.
 </html>"));
 
   package Tilt "Enumeration for surface tilt"

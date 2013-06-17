@@ -3,18 +3,16 @@ package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
-<p>
 This package contains models of sensors.
 There are models with one and with two fluid ports.
-</p>
+
 <h4>Selection and parameterization of sensor models</h4>
-<p>
 When selecting a sensor model, a distinction needs to be made
 whether the measured quantity depends on the direction of the flow or
 not, and whether the sensor output signal is the product of the mass flow rate
 and a medium property.
-</p>
-<p>
+<br/><br/>
+
 Output signals that depend on the flow direction and are not multiplied by
 the mass flow rate are temperature, relative humidity, 
 water vapor concentration <i>X</i>, trace substances <i>C</i> and density. 
@@ -28,22 +26,21 @@ configuration on the left in the figure below should be used, and not the config
 For an explanation, see
 <a href=\"modelica:Modelica.Fluid.Examples.Explanatory.MeasuringTemperature\">
 Modelica.Fluid.Examples.Explanatory.MeasuringTemperature</a>.
-</p>
-<p>
-<table border=\"1\" cellspacing=0 cellpadding=2>
+<br/><br/>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
 <tr><th valign=\"top\" align=\"left\">Correct use</th>
     <td valign=\"top\">
-    <img src=\"modelica://Buildings/Resources/Images/Fluid/Sensors/twoPortHex.png\">
+    <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Sensors/twoPortHex.png\" />
     </td>
 </tr>
 <tr><th valign=\"top\" align=\"left\">Not recommended</th>
     <td valign=\"top\">
-    <img src=\"modelica://Buildings/Resources/Images/Fluid/Sensors/onePortHex.png\">
+    <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Sensors/onePortHex.png\" />
     </td>
 </tr>
 </table>
-</p>
-<p>
+<br/><br/>
+
 Except for the mass flow rate sensor,
 all sensors with two ports can be 
 configured as dynamic sensors or as steady-state sensor.
@@ -53,8 +50,8 @@ as a dynamic sensor, which the default setting.
 Configuring a sensor as a dynamic sensor is done by setting the time constant to a non-zero
 value. Typically, setting <code>tau=10</code> seconds yields good results.
 For <code>tau=0</code>, numerical problems may occur if mass flow rates are close to zero.
-</p>
-<p>
+<br/><br/>
+
 If the sensor output signal is the product of mass flow rate times a measured fluid property, 
 such as sensors for volumentric flow rate or enthalpy flow rate,
 then the sensor is by default configured as steady-state sensor. These sensors may be configured by the user
@@ -65,16 +62,15 @@ such as specific enthalpy <i>h</i> by the mass flow rate <i>m&#775;</i>
 to output the measured signal <i>H&#775;=m&#775; h</i>.
 Hence, as the mass flow rate goes to zero, the sensor output
 signal also goes to zero, which seems to avoid numerical problems.
-</p>
-<p>
+<br/><br/>
+
 For static pressure measurements, sensors with one or with two 
 ports can be used for all connection topologies.
-</p>
-<p>
+<br/><br/>
+
 The table below summarizes the recommendations for the use of sensors.
-</p>
-<p>
-<table border=\"1\" cellspacing=0 cellpadding=2>
+<br/>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
 <tr><th rowspan=\"2\" valign=\"top\">Measured quantity</th>
     <th rowspan=\"2\" valign=\"top\">One port sensor</th>
     <th colspan=\"2\" valign=\"top\">Two port sensor</th>
@@ -103,9 +99,8 @@ The table below summarizes the recommendations for the use of sensors.
     <td valign=\"top\">recommended</td>
 </tr>
 </table>
-</p>
+
 <h4>Sensor Dynamics</h4>
-<p>
 If a sensor is configured as a dynamic sensor by setting <code>tau &gt; 0</code>, 
 then the measured quantity, say the temperature <i>T</i>, is
 computed as
@@ -122,12 +117,10 @@ An equivalent physical model of such a sensor would be a perfectly mixed volume
 with a sensor that outputs the temperature of this volume. In this situation, the size of the volume would
 be <i>V=&tau; &nbsp; m&#775;<sub>0</sub> &frasl; &rho;</i>, where
 <i>&rho;</i> is the density of the fluid.
-</p>
+
 <h4>Implementation</h4>
-<p>
 The above equation is implemented in such a way that it is differentiable in the mass flow rate.
-</p>
-<p>
+<br/><br/>
 Note that the implementation of the dynamic sensors does not use the model
 <a href=\"modelica://Buildings.Fluid.MixingVolumes\">
 Buildings.Fluid.MixingVolumes</a>.
@@ -138,6 +131,6 @@ model the dynamics of a sensor. Moreover, in many building system applications,
 the sensor dynamics is not of concern, but is rather used here to avoid numerical
 problems that steady-state models of sensors cause when flow rates are 
 very close to zero.
-</p>
+
 </html>"));
 end UsersGuide;

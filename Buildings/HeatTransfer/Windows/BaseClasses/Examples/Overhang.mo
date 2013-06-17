@@ -70,7 +70,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (Diagram(graphics), 
+  annotation (Diagram(graphics),
 experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/Overhang.mos"
         "Simulate and plot"),
@@ -83,7 +83,7 @@ For a detailed description of the overhang block, see
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Overhang\">Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 The required data for the solar angle calculations is obtained from weather data.
 </p>
-<p>
+
 Solar angles used in this model are:
 <ul>
 <li>
@@ -103,7 +103,7 @@ Angle between Sun ray and horizontal surface
 Angle measured in horizontal plane between projection of sun's rays and normal to vertical surface 
 </li>
 </ul>
-</p>
+
 <p>
 The values of the parameters of the overhang model have been set in such
 a way that the overhang in non-symmetric with respect to the window center-line.

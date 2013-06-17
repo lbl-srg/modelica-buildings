@@ -122,7 +122,6 @@ It implements a steady-state conservation equation for energy and mass fractions
 The model has zero pressure drop between its ports.
 </p>
 <h4>Implementation</h4>
-<p>
 Input connectors of the model are
 <ul>
 <li>
@@ -132,7 +131,7 @@ Input connectors of the model are
 <code>mXi_flow</code>, which is the species mass flow rate added to the medium.
 </li>
 </ul>
-</p>
+
 <p>
 The model can only be used as a steady-state model with two fluid ports.
 For a model with a dynamic balance, and more fluid ports, use

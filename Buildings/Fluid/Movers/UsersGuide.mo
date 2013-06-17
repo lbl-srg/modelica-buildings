@@ -3,12 +3,10 @@ package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
-<p>
 This package contains models for fans and pumps. The same models
 are used for fans or pumps. 
-</p>
+
 <h4>Model description</h4>
-<p>
 The models use 
 performance curves that compute pressure rise, 
 electrical power draw and efficiency as a function 
@@ -16,9 +14,8 @@ of the volume flow rate and the speed.
 These performance curves are described in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
-</p>
+
 <h5>Models that use performance curves for pressure rise</h5>
-<p>
 The models
 <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_y\">
 Buildings.Fluid.Movers.FlowMachine_y</a> and
@@ -33,12 +30,11 @@ For other speeds, similarity laws are used to scale the performance curves, as
 described in 
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>.
-<p>
+<br/><br/>
+
 For example, suppose a pump needs to be modeled whose pressure versus flow relation crosses, at
 full speed, the points shown in the table below.
-</p>
-<p>
-  <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr>
       <th>Volume flow rate [m<sup>3</sup>&frasl;h] </th>
       <th>Head [Pa]</th>
@@ -56,8 +52,7 @@ full speed, the points shown in the table below.
       <td>15000</td>
     </tr>
   </table>
-</p>
-<p>
+<br/>
 Then, a declaration would be
 <pre>
   Buildings.Fluid.Movers.FlowMachine_y pum(
@@ -66,15 +61,14 @@ Then, a declaration would be
              dp    ={45,35,15}*1000))
     \"Circulation pump\";
 </pre>
-</p>
-<p>
+<br/><br/>
+
 This will model the following pump curve for the pump input signal <code>y=1</code>.
-</p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide_pumpCurve.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide_pumpCurve.png\"/>
 </p>
+
 <h5>Models that have idealized perfect controls</h5>
-<p>
 The models <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
 Buildings.Fluid.Movers.FlowMachine_dp</a> and
 <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
@@ -94,13 +88,11 @@ is defined by the flow resistance of the duct or piping network, and
 at zero pressure difference, solving for the flow rate and the revolution leads to a singularity.
 </li>
 </ul>
-</p>
+
 <h5>Start-up and shut-down transients</h5>
-<p>
 All models have a parameter <code>filteredSpeed</code>. This
 parameter affects the fan output as follows:
-</p>
-<p>
+
 <ol>
 <li>
 If <code>filteredSpeed=false</code>, then the input signal <code>y</code> (or
@@ -122,16 +114,16 @@ The rise time is the time required to reach <i>99.6%</i> of the full speed, or,
 if the fan is switched off, to reach a fan speed of <i>0.4%</i>.
 </li>
 </ol>
-</p>
-<p>
+
+<br/><br/>
 The figure below shows for a fan with <code>filteredSpeed=true</code>
 and <code>riseTime=30</code> seconds the 
 speed input signal and the actual speed.
-</p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide_fanSpeedFiltered.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide_fanSpeedFiltered.png\"/>
 </p>
-<p>
+<br/><br/>
+
 Although many simulations do not require such a detailed model
 that approximates the transients of fans or pumps, it turns
 out that using this filter can reduce computing time and 
@@ -144,8 +136,8 @@ For most simulations, we therefore recommend to use the default settings
 of <code>filteredSpeed=true</code> and <code>riseTime=30</code> seconds.
 An exception are situations in which the fan or pump is operated at a fixed speed during
 the whole simulation. In this case, set <code>filteredSpeed=false</code>.
-</p>
-<p>
+<br/><br/>
+
 Note that if the fan is part of a closed loop control, then the filter affects
 the transient response of the control. 
 When changing the value of <code>filteredSpeed</code>, the control gains
@@ -163,48 +155,41 @@ These values may need to be changed for different applications as they are also 
 of the loop gain.
 If the control loop shows oscillatory behavior, then reduce <code>k</code> and/or increase <code>Ti</code>.
 If the control loop reacts too slow, do the opposite.
-</p>
+
 <h5>Efficiency and electrical power consumption</h5>
-<p>
 All models compute the motor power draw <i>P<sub>ele</sub></i>,
 the hydraulic power input <i>W<sub>hyd</sub></i>, the flow work
 <i>W<sub>flo</sub></i> and the heat dissipated into the medium
 <i>Q</i>. Based on the first law, the flow work is
-</p>
 <p align=\"center\" style=\"font-style:italic;\">
   W<sub>flo</sub> = | V &Delta;p |.
 </p>
-<p>
+<br/>
 The heat dissipated into the medium is as follows: 
 If the motor is cooled by the fluid, as indicated by 
 <code>motorCooledByFluid=true</code>, then the heat dissipated into the medium is
-</p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q = P<sub>ele</sub> - W<sub>flo</sub>.
 </p>
-<p>
+<br/>
+
 If <code>motorCooledByFluid=false</code>, then the motor is outside the fluid stream,
 and only the shaft, or hydraulic, work <i>W<sub>hyd</sub></i> enters the thermodynamic
 control volume. Hence,
-</p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q = Q<sub>hyd</sub> - W<sub>flo</sub>.
 </p>
-<p>
 The efficiencies are computed as
-</p>
 <p align=\"center\" style=\"font-style:italic;\">
   &eta; = W<sub>flo</sub> &frasl; P<sub>ele</sub> = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub> <br/>
   &eta;<sub>hyd</sub> = W<sub>flo</sub> &frasl; W<sub>hyd</sub> <br/>
   &eta;<sub>mot</sub> = W<sub>hyd</sub> &frasl; P<sub>ele</sub> <br/>
 </p>
-<p>
 where
 <i>&eta;<sub>hyd</sub></i> is the hydraulic efficiency,
 <i>&eta;<sub>mot</sub></i> is the motor efficiency and
 <i>Q</i> is the heat released by the motor.
-</p>
-<p>
+<br/>
 If <code>use_powerCharacteristic=true</code>,
 then a set of data points for the power <i>P<sub>ele</sub></i> for different
 volume flow rates at full speed needs to be provided by the user.
@@ -228,7 +213,7 @@ the model computes
   &eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub><br/>
   P<sub>ele</sub> = W<sub>flo</sub> &frasl; &eta;.
 </p>
-<p>
+<br/>
 The efficiency data for the motor are a list of points 
 <i>r<sub>V</sub></i> and <i>&eta;<sub>mot</sub></i>,
 where <i>r<sub>V</sub></i> is the ratio of actual volume flow rate divided by the
@@ -240,11 +225,11 @@ The models
 Buildings.Fluid.Movers.FlowMachine_y</a> and
 <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_Nrpm\">
 Buildings.Fluid.Movers.FlowMachine_Nrpm</a> set
-</p>
 <pre>
   V_flow_max = V_flow(dp=0, r_N=1);
 </pre>
-<p>
+<br/><br/>
+
 where <code>r_N</code> is the ratio of actual to nominal speed.
 Since <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
 Buildings.Fluid.Movers.FlowMachine_dp</a> and
@@ -252,23 +237,21 @@ Buildings.Fluid.Movers.FlowMachine_dp</a> and
 Buildings.Fluid.Movers.FlowMachine_m_flow</a>
 do not have a flow versus pressure performance curve, the parameter
 <code>V_flow_max</code> is assigned in these two models as
-</p>
+<br/>
 <pre>
   V_flow_max = m_flow_nominal/rho_nominal,
 </pre>
-<p>
+<br/>
 where <code>m_flow_nominal</code> is the maximum flow rate, which needs to be
 provided by the user as a parameter for these models, and <code>rho_nominal</code> is the
 density at the nominal operating point.
-</p>
+
 <h5>Fluid volume of the component</h5>
-<p>
 All models can be configured to have a fluid volume at the low-pressure side.
 Adding such a volume sometimes helps the solver to find a solution during
 initialization and time integration of large models.
-</p>
+
 <h5>Enthalpy change of the component</h5>
-<p>
 If <code>motorCooledByFluid=true</code>, then
 the enthalpy change between the inlet and outlet fluid port is equal 
 to the electrical power <i>P<sub>ele</sub></i> that is consumed by the component.
@@ -279,23 +262,21 @@ If it is set to <code>false</code>, then no enthalpy change occurs between
 inlet and outlet other than the flow work <i>W<sub>flo</sub></i>.
 This can lead to simpler equations, but the temperature rise across the component
 will be underestimated, in particular for fans.
-</p>
+
 <h5>Further description</h5>
-<p>
 For a detailed description of the models with names <code>FlowMachine_*</code>,
 see their base class <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\">
 Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine.</a>
-</p>
+
 <h5>Deprecated model</h5>
-<p>
 The model <a href=\"modelica://Buildings.Fluid.Movers.FlowMachinePolynomial\">
 Buildings.Fluid.Movers.FlowMachinePolynomial</a> is in this package for compatibility 
 with older versions of this library. It is recommended to use the other models as they optionally
 allow use of a medium volume that provides state variables which are needed in some models 
 when the flow rate is zero.
-</p>
+
 <h4>Differences to models in Modelica.Fluid.Machines</h4>
-<p>The models with names <code>FlowMachine_*</code> have similar parameters than the
+The models with names <code>FlowMachine_*</code> have similar parameters than the
 models in the package <a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a>. 
 However, the models in this package differ primarily in the following points:
 <ul>

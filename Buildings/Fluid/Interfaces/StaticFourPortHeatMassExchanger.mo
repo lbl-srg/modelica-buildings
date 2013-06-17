@@ -61,14 +61,12 @@ equation
         extent={{-100,-100},{100,100}},
         grid={1,1})),
     Documentation(info="<html>
-<p>
 This component transports two fluid streams between four ports, without
 storing mass or energy. It is similar to
 <a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
 Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>,
 but it has four ports instead of two.
-</p>
-<p>
+<br/><br/>
 If <code>dp<i>N</i>_nominal &gt; Modelica.Constants.eps</code>, 
 where <code><i>N</i></code> denotes the fluid <i>1</i> or <i>2</i>,
 then the model computes
@@ -79,12 +77,8 @@ At <code>|m<i>N</i>_flow| &lt; deltaM<i>N</i> * m<i>N</i>_flow_nominal</code>,
 the pressure drop vs. flow relation is linearized.
 If the parameter <code>linearizeFlowResistance<i>N</i></code> is set to true,
 then the whole pressure drop vs. flow resistance curve is linearized.
-</p>
-
-
-</p>
+<br/><br/>
 <h4>Implementation</h4>
-<p>
 This model uses inputs and constants that need to be set by models
 that extend or instantiate this model.
 The following inputs need to be assigned, where <code><i>N</i></code> denotes <code>1</code> or
@@ -97,18 +91,14 @@ The following inputs need to be assigned, where <code><i>N</i></code> denotes <c
 <code>mXi<i>N</i>_flow</code>, which is the species mass flow rate added to the medium <i>N</i>.
 </li>
 </ul>
-</p>
-<p>
+<br/><br/>
 Set the constant <code>sensibleOnly<i>N</i>=true</code> if the model that extends
 or instantiates this model sets <code>mXi<i>N</i>_flow = zeros(Medium.nXi<i>N</i>)</code>.
-</p>
-<p>
+<br/><br/>
      Note that the model does not implement <code>0 = Q1_flow + Q2_flow</code> or
      <code>0 = mXi1_flow + mXi2_flow</code>. If there is no heat or mass transfer
      with the environment, then a model that extends this model needs to provide these 
      equations.
-</p>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

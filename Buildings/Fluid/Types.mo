@@ -19,7 +19,7 @@ Enumeration to define the choice of valve flow coefficient
 (to be selected via choices menu):
 </p>
  
-<table border=\"1\">
+<table summary=\"summary\"  border=\"1\">
 <tr><th>Enumeration</th>
     <th>Description</th></tr>
  
@@ -61,11 +61,11 @@ Users Guide</a>.
     "Enumeration for heat exchanger construction"
   annotation(Documentation(info="<html>
  Enumeration that defines the heat exchanger construction.
-</p>
+<br/><br/>
 <p>
 The following heat exchanger configurations are available in this enumeration:
 </p>
-<table border=\"1\">
+<table summary=\"summary\" border=\"1\">
 <tr><th>Enumeration</th><th>Description</th></tr>
 <tr><td>ParallelFlow</td><td>Parallel flow</td></tr>
 <tr><td>CounterFlow</td><td>Counter flow</td></tr>
@@ -84,16 +84,15 @@ Note that for a given heat exchanger, the
  HeatExchangerFlowRegime</a> can change to parallel flow if one of the two capacity flow rates reverts
  its direction.
  </p>
-</html>",
-revisions="<html>
+</html>", revisions=
+          "<html>
 <ul>
 <li>
 February 18, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"
-));
+</html>"));
 
   type HeatExchangerFlowRegime = enumeration(
       ParallelFlow "Parallel flow",
@@ -114,7 +113,7 @@ effectiveness and Number of Transfer Units.
 <p>
 The following heat exchanger flow regimes are available in this enumeration:
 </p>
-<table border=\"1\">
+<table summary=\"summary\" border=\"1\">
 <tr><th>Enumeration</th><th>Description</th></tr>
 <tr><td>ParallelFlow</td><td>Parallel flow</td></tr>
 <tr><td>CounterFlow</td><td>Counter flow</td></tr>

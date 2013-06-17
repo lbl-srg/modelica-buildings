@@ -1,7 +1,6 @@
 within Buildings.Fluid.Sensors;
 model TemperatureTwoPort "Ideal two port temperature sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
-
   Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
                                           final unit="K",
                                           displayUnit = "degC",
@@ -12,7 +11,6 @@ model TemperatureTwoPort "Ideal two port temperature sensor"
         origin={0,110},
         extent={{10,-10},{-10,10}},
         rotation=270)));
-
   parameter Modelica.SIunits.Temperature T_start=Medium.T_default
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
@@ -47,7 +45,6 @@ equation
   else
     T = TMed;
   end if;
-
 annotation (defaultComponentName="senTem",
   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),
@@ -98,8 +95,6 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ", revisions="<html>
-<html>
-<p>
 <ul>
 <li>
 June 3, 2011 by Michael Wetter:<br/>

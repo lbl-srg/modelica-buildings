@@ -111,7 +111,7 @@ The model also computes the infrared radiative heat balance using an instance
 of the model
 <a href=\"Buildings.HeatTransfer.Radiosity.WindowPane\">
 Buildings.HeatTransfer.Radiosity.WindowPane</a>.
-</p>
+<br/>
 </html>", revisions="<html>
 <ul>
 <li>

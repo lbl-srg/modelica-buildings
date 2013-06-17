@@ -7,18 +7,15 @@ package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
-<p>
 The package <code>Buildings.Fluid.Interface</code> consists of basic
 classes that can be used by developers to create new component models.
-</p>
-<p>
+<br/><br/>
 The classes whose name contains <code>TwoPort</code> or 
 <code>FourPort</code> can be used for components with 
 two or four fluid ports, respectively. If a class name contains
 <code>Static</code>, then it can only be used for a steady-state model.
 Otherwise, it may be used for a steady-state or a dynamic model.
-</p>
-<p>
+<br/><br/>
 The most basic classes are the records
 <a href=\"modelica://Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters\">
 Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters</a>,
@@ -27,13 +24,12 @@ Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters</a> and
 <a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 These define parameters that are needed by many fluid flow components.
-</p>
-<p>
+<br/><br/>
+
 Next, we describe the basic classes. For a more detailed description,
 see the <i>info</i> section of the class.
-</p>
-<p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
 <!-- ============================================== -->
   <td><a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
@@ -49,8 +45,8 @@ see the <i>info</i> section of the class.
       For most components, this can be set to a parameter. However, for components such as 
       expansion vessels, the fluid volume can change in time.
       </p>
-      <p>
-      The model has the following input connectors:
+      
+      The model has the following input connectors:<br/>
 <ul>
 <li>
 <code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
@@ -59,7 +55,7 @@ see the <i>info</i> section of the class.
 <code>mXi_flow</code>, which is the species mass flow rate added to the medium.
 </li>
 </ul> 
- </p>
+ 
   <p>
   Models that instanciate this model can used these connectors to interface with the conservation equations.
   </p>
@@ -74,8 +70,8 @@ see the <i>info</i> section of the class.
       This is a basic model for steady-state conservation equations
       for mass and energy of a component with two fluid ports.
       </p>
-      <p>
-      The model has the following input connectors:
+      
+      The model has the following input connectors:<br/>
 <ul>
 <li>
 <code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
@@ -84,7 +80,7 @@ see the <i>info</i> section of the class.
 <code>mXi_flow</code>, which is the species mass flow rate added to the medium.
 </li>
 </ul>
-  </p>
+
   <p>
   Models that instanciate this model can used these connectors to interface with the conservation equations.
   </p>
@@ -199,7 +195,7 @@ see the <i>info</i> section of the class.
   </td>
 </tr>
 </table>
-</p>
+
 </html>"));
 
 end UsersGuide;
