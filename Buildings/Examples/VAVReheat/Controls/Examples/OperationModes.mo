@@ -1,7 +1,6 @@
 within Buildings.Examples.VAVReheat.Controls.Examples;
 model OperationModes "Test model for operation modes"
     extends Modelica.Icons.Example;
-
   import ModelicaVAV = Buildings.Examples.VAVReheat;
   ModelicaVAV.Controls.ModeSelector operationModes
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
