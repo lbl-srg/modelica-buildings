@@ -17,7 +17,6 @@ model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=5,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
-
     lat=0.65938539140346,
     til=0.5235987755983) "Flat plate solar collector model"
              annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
@@ -46,8 +45,9 @@ model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
     redeclare package Medium = Medium,
     use_p_in=false,
     nPorts=1,
-    p(displayUnit="Pa") = 101325 + solCol.dp_nominal,
-    T=273.15 + 10) "Inlet for water flow"                                      annotation (Placement(
+    T=273.15 + 10,
+    p(displayUnit="Pa") = 101325 + solCol.per.dp_nominal)
+    "Inlet for water flow"                                                     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
