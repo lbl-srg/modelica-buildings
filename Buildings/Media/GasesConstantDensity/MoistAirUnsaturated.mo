@@ -409,6 +409,7 @@ algorithm
   der_h := der_enthalpyOfDryAir(T, der_T);
 end der_enthalpyOfNonCondensingGas;
   annotation (preferredView="info", Documentation(info="<html>
+<p>
 This is a medium model that is identical to 
 <a href=\"modelica://Buildings.Media.GasesConstantDensity.MoistAir\">
 Buildings.Media.GasesConstantDensity.MoistAir</a>,  but 

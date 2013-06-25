@@ -71,16 +71,18 @@ of the window.
 The figure below shows the parameters.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/Overhang.png\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/Overhang.png\" />
 </p>
+
 <p>
 The surface azimuth <code>azi</code> is as defined in 
 <a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
 Buildings.HeatTransfer.Types.Azimuth</a>.
 </p>
+
 <h4>Limitations</h4>
 <p>
-The model assumes that 
+The model assumes that</p>
 <ul>
 <li> 
 the overhang is at least as wide as the window, i.e., 
@@ -91,7 +93,7 @@ the overhang is at least as wide as the window, i.e.,
 the overhang is horizontal.
 </li>
 </ul>
-</p>
+
 <h4>Implementation</h4>
 <p>
 The implementation is explained in 

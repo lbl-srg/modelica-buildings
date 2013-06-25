@@ -2,7 +2,6 @@ within Buildings.Fluid.Sensors;
 model SpecificEnthalpyTwoPort "Ideal two port sensor for the specific enthalpy"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
-
   Modelica.Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
                                               final unit="J/kg",
                                               start=h_out_start)
@@ -11,14 +10,12 @@ model SpecificEnthalpyTwoPort "Ideal two port sensor for the specific enthalpy"
         origin={0,110},
         extent={{10,-10},{-10,10}},
         rotation=270)));
-
   parameter Modelica.SIunits.SpecificEnthalpy h_out_start=
     Medium.specificEnthalpy_pTX(Medium.p_default, Medium.T_default, Medium.X_default)
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
   Modelica.SIunits.SpecificEnthalpy hMed_out(start=h_out_start)
     "Medium enthalpy to which the sensor is exposed";
-
 initial equation
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
@@ -66,8 +63,6 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ", revisions="<html>
-<html>
-<p>
 <ul>
 <li>
 June 3, 2011 by Michael Wetter:<br/>

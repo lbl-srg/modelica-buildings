@@ -229,7 +229,7 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System1Temperatures.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System1Temperatures.png\" border=\"1\"/>
 </p>
 <p>
 To verify the correctness of the model, we can compare the simulated results to the
@@ -264,7 +264,7 @@ Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a>
 as shown below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System1PrescribedTemperature.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System1PrescribedTemperature.png\" border=\"1\"/>
 </p>
 <p>
 When plotting the heat flow rate <code>fixTemp.port.Q_flow</code>, one can see

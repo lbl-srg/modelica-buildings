@@ -173,7 +173,7 @@ defaultComponentName="lay",
     Documentation(info="<html>
 This is a model of a heat conductor for a single layer of homogeneous material
 that computes transient or steady-state heat conduction.
-</p>
+
 <h4>Transient heat conduction in materials without phase change</h4>
 <p>
 If the material is a record that extends
@@ -236,7 +236,7 @@ flow between its heat ports is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
    Q = A &nbsp; k &frasl; x &nbsp; (T<sub>a</sub>-T<sub>b</sub>),
-</p></p>
+</p>
 <p>
 where
 <i>A</i> is the cross sectional area,

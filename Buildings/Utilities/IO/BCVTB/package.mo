@@ -15,8 +15,7 @@ Ptolemy II is a software framework to study modeling, simulation, and design of 
 <a href=\"http://www.energyplus.gov\">EnergyPlus</a> and
 <a href=\"http://www.mathworks.com\">MATLAB/Simulink</a>
 for data exchange during the time step integration.
-</p>
-<p>
+<br/>
 To run the examples in 
 <a href=\"modelica://Buildings.Utilities.IO.BCVTB.Examples\">
 Buildings.Utilities.IO.BCVTB.Examples</a>

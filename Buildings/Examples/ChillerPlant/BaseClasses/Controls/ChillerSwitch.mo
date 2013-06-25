@@ -52,7 +52,7 @@ equation
         extent={{-100,-100},{100,100}},
         initialScale=0.01,
         grid={2,2})),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 The controls for enabling/disabling chiller are as follows:
 <ul>
 <li>
@@ -67,7 +67,7 @@ The chiller is disabled when
 </li>
 </ul>
 where <i>T<sub>Chi_CHWST</sub></i> is chiller chilled water supply temperature, <i>T<sub>ChiSet</sub></i> is set temperature for chilled water leaving chiller, and <i>T<sub>DeaBan</sub></i> is dead band to prevent short cycling. 
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>
@@ -78,7 +78,7 @@ Add comments, change variable names, and merge to library.
 January 18, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
-</ul></HTML>"),
+</ul></html>"),
     Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

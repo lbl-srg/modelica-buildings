@@ -74,9 +74,9 @@ package Examples "Examples for BaseClasses models"
         <ul>
         <li>
         Mar 27, 2013 by Peter Grant:<br/>
-        First implementation
-        </ul>
+        First implementation        
         </li>
+	</ul>
         </html>"));
   end IndirectTankHeatExchanger;
   annotation(Documentation(info="<html>

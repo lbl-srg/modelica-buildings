@@ -842,7 +842,7 @@ the enumeration
 Buildings.BoundaryConditions.Types.DataSource</a>
 is used as follows:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <!-- ============================================== -->
 <tr>
   <th>Parameter <code>*Sou</code>
@@ -886,7 +886,7 @@ It is set to a value of the enumeration
 Buildings.BoundaryConditions.Types.RadiationDataSource</a>,
 and allows the following configurations:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <!-- ============================================== -->
 <tr>
   <th>Parameter <code>HSou</code>
@@ -998,7 +998,7 @@ Thus, as the figure below shows, a more accurate interpolation is obtained if
 time is shifted by <i>30</i> minutes prior to reading the weather data.   
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\" border=\"1\" />
 </p>
 <h4>References</h4>
 <ul>

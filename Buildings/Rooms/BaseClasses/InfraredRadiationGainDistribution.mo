@@ -98,12 +98,10 @@ This model computes the distribution of the infrared radiant heat gain
 to the room surfaces. 
 The infrared radiant heat gain <i>Q</i> is an input to this model.
 It is distributed to the individual surfaces according to
-</p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q<sup>i</sup> = Q &nbsp; A<sup>i</sup> &nbsp; &epsilon;<sup>i</sup> &frasl; 
  &sum;<sub>k</sub> A<sup>k</sup> &nbsp; &epsilon;<sup>k</sup>.
 </p>
-<p>
 For opaque surfaces, the heat flow rate 
 <i>Q<sup>i</sup></i> 
 is set to be equal to the heat flow rate at the heat port.
@@ -111,7 +109,6 @@ For the glass of the windows, the heat flow rate
 <i>Q<sup>i</sup></i> is set to the radiosity
 <i>J<sup>i</sup></i>
 that will strike the glass or the window shade.
-<p/>
 </html>",
         revisions="<html>
 <ul>

@@ -146,7 +146,6 @@ equation
     tanLambda = 0;
     y2 = 0;
     x2 = 0;
-
     x1 = fill(0.0, 4);
     x3 = fill(0.0, 4);
     y1 = fill(0.0, 4);
@@ -156,7 +155,6 @@ equation
     minY2Y3 = fill(0.0, 4);
     minY = fill(0.0, 4);
     area = fill(0.0, 4);
-
     shdArea = 0;
     crShdArea1 = 0;
     crShdArea2 = 0;
@@ -179,9 +177,11 @@ These angles can be calculated using blocks from the package
 <a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses\">
 Buildings.BoundaryConditions.SolarGeometry.BaseClasses</a>. 
 </p>
+
 <h4>Limitations</h4>
 <p>
-The model assumes that 
+The model assumes that
+</p>
 <ul>
 <li>
 the side fins are placed symmetrically to the left and right of the window,
@@ -193,24 +193,24 @@ the top of the side fins must be at an equal or greater height than the window, 
 the bottom of the side fins must be at an equal or lower height than the 
 bottom of the window.
 </li>
-</ul> 
-</p>
-<h4>
-Implementation
-</h4>
+</ul>
+
+<h4>Implementation</h4>
 <p>
 The method of super position is used to calculate the shaded area of the window. 
 The area besides the side fin is divided as shown in the figure below. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFinsSuperPosition.png\">
+<img alt=\"imaghe\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFinsSuperPosition.png\" />
 </p>
+
 <p>
-Variables used in the code for the rectangle <i>AEGI, BEGH, DFGI</i> and <i>CFGH</i> are shown in figure below. 
+Variables used in the code for the rectangle <i>AEGI, BEGH, DFGI</i> and <i>CFGH</i> are shown in figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFinsVariables.png\">
+<img alt=\"imaghe\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFinsVariables.png\" />
 </p>
+
 <p>
 The rectangles <i>AEGI, BEGH, DFGI</i> and <i>CFGH</i>  have the same geometric configuration 
 with respect to the side fin.
@@ -221,7 +221,7 @@ conditions, considering the various shapes of the shaded portions.
 To find the shaded area in the window <i>ABCD</i>, the shaded portion of 
 <i>BEGH</i> and <i>DFGI</i> is subtracted from <i>AEGI</i> and <i>CFGH</i>.
 This shaded area of the window is then divided by the total window area 
-to calculate the shaded fraction of the window. 
+to calculate the shaded fraction of the window.
 </p>
 </html>",
 revisions="<html>
