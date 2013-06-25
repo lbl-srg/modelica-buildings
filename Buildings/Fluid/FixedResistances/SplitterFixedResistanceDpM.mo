@@ -7,34 +7,34 @@ model SplitterFixedResistanceDpM
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
          redeclare package Medium=Medium,
             final allowFlowReversal=true,
-            from_dp=from_dp, 
-            final m_flow_nominal=m_flow_nominal[1], 
+            from_dp=from_dp,
+            final m_flow_nominal=m_flow_nominal[1],
             final dp_nominal=dp_nominal[1],
-            final ReC=ReC[1], 
+            final ReC=ReC[1],
             final dh=dh[1],
-            linearized=linearized, 
+            linearized=linearized,
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
          redeclare package Medium=Medium,
             final allowFlowReversal=true,
-            from_dp=from_dp, 
-            final m_flow_nominal=m_flow_nominal[2], 
+            from_dp=from_dp,
+            final m_flow_nominal=m_flow_nominal[2],
             final dp_nominal=dp_nominal[2],
-            final ReC=ReC[2], 
+            final ReC=ReC[2],
             final dh=dh[2],
-            linearized=linearized, 
+            linearized=linearized,
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
          redeclare package Medium=Medium,
             final allowFlowReversal=true,
-            from_dp=from_dp, 
-            final m_flow_nominal=m_flow_nominal[3], 
+            from_dp=from_dp,
+            final m_flow_nominal=m_flow_nominal[3],
             final dp_nominal=dp_nominal[3],
-            final ReC=ReC[3], 
+            final ReC=ReC[3],
             final dh=dh[3],
-            linearized=linearized, 
+            linearized=linearized,
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM));
 
@@ -106,7 +106,7 @@ as shown in the figure below. Note that <code>port_3</code> is set to negative v
 The negative values indicate that at the nominal conditions, fluid is leaving the component.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png\"/>
 </p>
 <p>
 Optionally, at the fluid junction, a control volume can be modelled. 

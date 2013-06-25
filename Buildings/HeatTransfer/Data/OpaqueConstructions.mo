@@ -55,7 +55,7 @@ with one or more layers of material.
 By convention, <code>layer[1]</code> is facing the outside, and the last
 layer is facing the room-side.
 This is the same convention as is used in EnergyPlus and in Window 6.
-</p>
+
 <p>
 The parameters <code>absIR_a</code> and <code>absIR_b</code>
 are used to compute infrared heat radiation (in the infrared spectrum).

@@ -48,14 +48,14 @@ the external radius of a pipe and
 <i>x<sub>c</sub></i> is the shank spacing defined as half the center-to-center distance 
 between the two pipes, and
 <i>W = k<sub>fil</sub> - k<sub>soi</sub>/ (k<sub>soi</sub> + k<sub>fil</sub>)</i>.
-</p>
+<br/>
 <h4>References</h4>
-<p>
+
 Hellstrom, G (1991). <br/>
  <a href=\"http://intraweb.stockton.edu/eyos/energy_studies/content/docs/proceedings/HELLS.PDF\">
  Thermal Performance of Borehole Heat Exchangers</a>.<br/> 
 Department of Mathematical Physics, Lund Institute of Technology.
-</p>
+
 </html>", revisions="<html>
 <ul>
 <li>

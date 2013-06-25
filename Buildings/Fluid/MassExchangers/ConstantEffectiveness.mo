@@ -79,11 +79,12 @@ Documentation(info="<html>
 Model for a heat and moisture exchanger with constant effectiveness.
 </p>
 <p>
-This model transfers heat and moisture in the amount of 
+This model transfers heat and moisture in the amount of </p>
 <pre>
   Q = epsS * Q_max,
   m = epsL * mWat_max,
 </pre>
+<p>
 where <code>epsS</code> and <code>epsL</code> are constant effectiveness 
 for the sensible and latent heat transfer,  
 <code>Q_max</code> is the maximum heat that can be transferred and
@@ -93,8 +94,7 @@ for the sensible and latent heat transfer,
 In the region <code>mK_flow_small > abs(mK_flow) > mK_flow_small/2</code>, for <code>K = 1</code> or
 <code>2</code>, the effectivness <code>epsS</code> and <code>epsL</code> are transitioned from 
 their user-specified value to 0. This improves the numerical robustness near
-zero flow.
-</p>
+zero flow.</p>
 <p>
 For a sensible heat exchanger, use
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">

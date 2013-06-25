@@ -1,6 +1,8 @@
 within Buildings.Media;
 package Interfaces "Package with partial medium models"
   extends Modelica.Icons.InterfacesPackage;
+
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains partial medium models that are used

@@ -20,7 +20,8 @@ equation
       points={{100,-70},{70,-70},{70,-34}},
       color={191,0,0},
       smooth=Smooth.None));
-   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructions/OnlyConstructionBoundary.mos" "Simulate and plot"),
+   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructions/OnlyConstructionBoundary.mos"
+        "Simulate and plot"),
       Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             200,160}})),
     experiment(

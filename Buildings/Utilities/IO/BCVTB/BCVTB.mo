@@ -299,7 +299,7 @@ For each element in the input vector <code>uR[nDblWri]</code>,
 the value of the flag <code>flaDblWri[nDblWri]</code> determines whether
 the current value, the average over the sampling interval or the integral
 over the sampling interval is sent to the BCVTB. The following three options are allowed:
-<table border=\"1\">
+<table summary=\"summary\" border=\"1\">
 <tr>
 <td>
 flaDblWri[i]
@@ -333,7 +333,7 @@ Integral of uR[i] over the sampling interval
 </td>
 </tr>
 </table>
-</p>
+<br/>
 <p>
 For the first call to the BCVTB interface, the value of the parameter <code>uStart[nDblWri]</code>
 will be used instead of <code>uR[nDblWri]</code>. This avoids an algebraic loop when determining

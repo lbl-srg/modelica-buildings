@@ -50,7 +50,7 @@ The efficiency of the device is computed based
 on the efficiency curves that take as an argument
 the actual volume flow rate divided by the maximum possible volume flow rate, or
 based on the motor performance curves.
-</p>
+<br/>
 <p>
 See the 
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">

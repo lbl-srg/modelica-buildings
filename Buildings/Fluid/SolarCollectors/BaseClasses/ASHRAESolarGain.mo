@@ -114,6 +114,7 @@ The solar radiation absorbed by the panel is identified using Eq 559 from the En
 <p align=\"center\" style=\"font-style:italic;\">
 Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;) K<sub>(&tau;&alpha;)<sub>net</sub></sub> (G<sub>Dir</sub> (1-shaCoe)+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>))
 </p>
+<p>
 The solar radiation equation indicates that the collector is divided into multiple segments. The number of segments used in the simulation is specified
 by the user (parameter: <code>nSeg</code>). The area of an individual segment is identified by dividing the collector area by the total number of segments. The term
 <i>shaCoe</i> is used to define the percentage of the collector that is shaded.

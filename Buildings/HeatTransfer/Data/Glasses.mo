@@ -25,7 +25,6 @@ This record implements thermophysical properties for window glas.
 <p>
 The table below compares the data of this record with the variables used in the WINDOW 6 output file.
 </p>
-<p>
 Note that
 <ul>
 <li>the surface <code>a</code> is usually the outside-facing surface, and the surface
@@ -42,9 +41,8 @@ around room or ambient temperature.
 whereas the model in this library uses averages over the whole solar or infrared spectrum.
 </li>
 </ul>
-</p>
-<p>
-<table border=\"1\">
+
+<table summary=\"summary\" border=\"1\">
 <thead>
  <tr>
    <th>Buildings library variable name</th>
@@ -126,6 +124,7 @@ First implementation.
       absIR_b=0.84) "Generic Clear Glass 5.7mm. Manufacturer: Generic.";
   annotation(preferredView="info",
             Documentation(info="<html>
+<p>
 This package implements thermophysical properties for window glas.
 </p>
 <p>
@@ -134,6 +133,7 @@ it depends on the glass thickness, the glass thickness is a parameter
 that is set for all glass layers.
 This configuration is different from the records fo gas properties, 
 which do not yet set the value for the thickness of the gas gap.
+</p>
 </html>",
 revisions="<html>
 <ul>

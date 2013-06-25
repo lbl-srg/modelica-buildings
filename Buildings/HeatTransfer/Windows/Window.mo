@@ -336,6 +336,7 @@ equation
     defaultComponentName="win",
     Documentation(info="<html>
 <h4>Overview</h4>
+<p>
 This is a model for a window system. The equations are similar to the
 equations used in the Window 5 model and described in TARCOG 2006. 
 The model computes 
@@ -353,14 +354,16 @@ and
 <a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransfer\">
 Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>.
 </p>
-<p>
+
 <h4>Limitations</h4>
+<p>
 To calculate the angular transmittance, reflectance and absorptance of a glazing system, Window 5 model first calculates the value for each wave length, then calculate the weighted value over entire wave lengths.
 Current window model in Buildings library only uses the weighted value of each glass. 
 As a result, there are some differences in prediciton between the current Modelica window model and WINDOW 5. 
 The difference is small for single layer window or multi-layer window with the same glasses. 
 But it can be large for multi-layer window with different glasses.  
 </p>
+
 <h4>Parameters</h4>
 <p>
 This model takes as the parameter <code>glaSys</code> a data record 
@@ -377,6 +380,7 @@ Whether a shade is present or not is determined by the parameters
 <p>
 The parameter <code>linearize</code> can be used
 to linearize the model equations.
+</p>
 <h4>Ports</h4>
 <p>
 If a shade is present, then the input port <code>u</code> is used 
@@ -394,10 +398,11 @@ of the window.
 Each side has heat ports that connect to the glass, to the frame, and, optionally, to the 
 shade. If no shade is present, then the heat port to the shade will be removed.
 </p>
+
 <h4>Description of the Physics</h4>
 <p>
 The model has three main submodels that implement the relevant
-heat balances: 
+heat balances:</p>
 <ol>
 <li>
 The model <code>frame</code> computes heat conduction
@@ -416,6 +421,7 @@ If the parameter <code>glaSys</code> specifies that the window has no exterior
 and no interior shade, then the model <code>glaSha</code> will be removed.
 </li>
 </ol>
+
 <p>
 The models <code>glaUns</code> and <code>glaSha</code> 
 compute the solar radiation that is absorbed by each 
@@ -429,6 +435,7 @@ Heat conduction through the frame is computed using a heat flow path that is par
 glazing system, i.e., there is no heat exchange between the frame 
 and the glazing layer.
 </p>
+
 <h4>Validation</h4>
 <p>
 The window model has been validated by using measurement data at LBNL's Test Cell 71T and by using
@@ -437,12 +444,14 @@ The window model has also been validated as part of the BESTEST validations that
 <a href=\"modelica://Buildings.Rooms.Examples.BESTEST\">
 Buildings.Rooms.Examples.BESTEST</a>.
 </p>
+
 <h4>References</h4>
 <p>
 TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with or without
 shading devices, Technical Report, Oct. 17, 2006.
 </p>
+
 <p>
 Thierry Stephane Nouidui, Michael Wetter, and Wangda Zuo.
 <a href=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/2012-simBuild-windowValidation.pdf\">
