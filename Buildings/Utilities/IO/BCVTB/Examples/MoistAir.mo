@@ -305,8 +305,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{460,200}})),
     Documentation(info="<html>
-This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.
-</p>
+This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.<br/>
 <p>
 The model represents an air-based heating system with an ideal heater and an ideal humidifier
 in the supply duct. The heater and humidifier are controlled with a feedback loop that 

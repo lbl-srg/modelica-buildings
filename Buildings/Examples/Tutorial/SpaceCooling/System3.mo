@@ -199,7 +199,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.m_flow_in, mAir_flow.y) annotation (Line(
-      points={{45,-11.8},{45,10},{21,10}},
+      points={{49.8,-8},{49.8,10},{21,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hex.port_b1, senTemHXOut.port_a) annotation (Line(
@@ -278,7 +278,7 @@ whether the outside dry bulb temperature is used from the weather data file
 or set to a constant value. This can be accomplished in the GUI of the weather data reader
 as follows:
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TOutChange.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TOutChange.png\" border=\"1\"/>
 </p>
 </li>
 </ol>
@@ -286,7 +286,7 @@ as follows:
 If the model is now simulated, the following plot could be generated that shows that the
 room is cooled too much due to the open loop control:
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesOpenLoop.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesOpenLoop.png\" border=\"1\"/>
 </p>
 <p>
 To add closed loop control, we proceeded as follows.
@@ -345,9 +345,9 @@ This completes building the model shown in the figure on
 Buildings.Examples.Tutorial.SpaceCooling</a>. 
 When simulating the model, the response shown below should be seen.
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesClosedLoop.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesClosedLoop.png\" border=\"1\"/>
 <br/>
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3FlowRateClosedLoop.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3FlowRateClosedLoop.png\" border=\"1\"/>
 </p>
 <!-- Notes -->
 <h4>Notes</h4>

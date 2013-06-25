@@ -47,7 +47,7 @@ package BaseClasses "Base classes for package Data"
     annotation (preferredView="info",
     Documentation(info="<html>
 Base record for materials that declares the thermal properties. 
-</p>
+<br/>
 <p>
 The specific heat capacity can be zero, in which case the material
 will be modeled as a thermal resistor that does not store energy.
@@ -120,12 +120,10 @@ First implementation.
    annotation (preferredView="info",
     Documentation(info="<html>
 Base record for materials, used in circular geometry or other configurations, that only declares the thermal properties. 
-</p>
+<br/>
 <p>
 The specific heat capacity can be zero, in which case the material
 will be modeled as a thermal resistor that does not store energy.
-</p>
-<p>
 </p>
 </html>",
   revisions="<html>

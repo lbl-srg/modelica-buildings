@@ -173,7 +173,6 @@ equation
 This model illustrates the use of the room model
 <a href=\"modelica://Buildings.Rooms.MixedAir\">
 Buildings.Rooms.MixedAir</a>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

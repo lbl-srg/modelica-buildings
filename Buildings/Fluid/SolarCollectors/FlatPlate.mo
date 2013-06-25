@@ -185,7 +185,6 @@ Peformance data can be imported from the data library
 Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate</a>.
 </p>
  <h4>Notice</h4>
- <p>
  <ul>
  <li>
  As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier equation coefficients 
@@ -199,7 +198,6 @@ Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate</a>.
  on the dry mass and the specific heat capacity of copper.
  </li>
  </ul>
- </p>
  <h4>References</h4>
  <p>
  <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011. <br/>

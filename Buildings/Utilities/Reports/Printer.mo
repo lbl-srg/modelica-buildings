@@ -96,7 +96,7 @@ This model prints to a file or the terminal at a fixed sample interval.
 <p>
 The parameter <code>configuration</code> controls the printing as follows:
 </p>
-<table border=\"1\">
+<table summary=\"summary\" border=\"1\">
 <tr><td><code>configuration</code></td><td>configuration</td></tr>
 <tr><td><code>1</code></td> <td>print at sample times only</td></tr>
 <tr><td><code>2</code></td> <td>print at sample times and at end of simulation</td></tr>

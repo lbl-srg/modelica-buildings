@@ -143,12 +143,13 @@ equation
   annotation (
 defaultComponentName="vol",
 Documentation(info="<html>
+<p>
 This is a partial model of an instantaneously mixed volume.
 It is used as the base class for all fluid volumes of the package
 <a href=\"modelica://Buildings.Fluid.MixingVolumes\">
 Buildings.Fluid.MixingVolumes</a>.
 </p>
-</p>
+
 <h4>Implementation</h4>
 <p>
 If the model is operated in steady-state and has two fluid ports connected,

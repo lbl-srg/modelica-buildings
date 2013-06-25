@@ -10,16 +10,18 @@ package UsersGuide "User's Guide"
 This library follows the conventions of the 
 <a href=\"modelica://Modelica.UsersGuide.Conventions\">Modelica Standard Library</a>, which are as follows:
 </p>
+
 <p>
 Note, in the html documentation of any Modelica library,
 the headings \"h1, h2, h3\" should not be used,
 because they are utilized from the automatically generated documentation/headings.
 Additional headings in the html documentation should start with \"h4\".
 </p>
+
 <p>
 In the Modelica package the following conventions are used:
 </p>
-<p>
+
 <ol>
 <li> Class and instance names are written in upper and lower case
   letters, e.g., \"ElectricCurrent\". An underscore is only used
@@ -62,11 +64,12 @@ In the Modelica package the following conventions are used:
   </ul>
   </li>
 </ol>
-</p>
+
 <p>
 The <code>Buildings</code> library uses the following conventions
 in addition to the ones of the Modelica Standard Library:
 </p>
+
 <ol>
 <li>
 The nomenclature used in the package
@@ -113,7 +116,6 @@ To indicate that a class (i.e., a package, model, block etc.) has not been exten
 its class name ends with the string <code>Beta</code>.
 </li>
 </ol>
-</p>
 </html>
 "));
   end Conventions;
@@ -126,25 +128,25 @@ its class name ends with the string <code>Beta</code>.
         annotation (Documentation(info="<html>
 <p>
 Version X.Y build Z is ... xxx
-</p>
 <!-- New libraries -->
+</p>
+
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
 <tr><td valign=\"top\">xxx
     </td>
     <td valign=\"top\">xxx.
     </td>
     </tr>
 </table>
-</p>
 <!-- New components for existing libraries -->
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -154,14 +156,13 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td> 
     </tr>
 </table>
-</p>
 <!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -179,14 +180,13 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 </table>
-</p>
 <!-- Non-backward compatible changes to existing components -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
@@ -197,13 +197,12 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 </table>
-</p>
 <!-- Errors that have been fixed -->
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
@@ -215,14 +214,13 @@ that can lead to wrong simulation results):
     </td>
 </tr>
 </table>
-</p>
 <!-- Uncritical errors -->
 <p>
 The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings</b>
     </td>
 </tr>
@@ -264,14 +262,13 @@ units are wrong or errors in documentation):
     </td>
 </tr>
 </table>
-</p>
 <!-- Github issues -->
 <p>
 The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -289,7 +286,6 @@ Note:
 xxx
 </li>
 </ul>
-</p>
 </html>"));
     end Version_1_5_build1;
 
@@ -305,6 +301,7 @@ Buildings.HeatTransfer.Conduction.SingleLayer</a>
 a new model for heat conduction in phase change material. This model can be used as a layer
 of the room heat transfer model.
 </p>
+
 <p>
 Non-backward compatible changes had to be introduced
 in the valve models
@@ -316,14 +313,15 @@ Buildings.Utilities.Diagnostics</a>
 as they used the <code>cardinality</code> function which is deprecated in the Modelica
 Language Specification.
 </p>
+
 <p>
 See below for details.
-</p>
 <!-- New libraries -->
+</p>
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
 <tr><td valign=\"top\">Buildings.Utilities.IO.Python27
     </td>
     <td valign=\"top\">
@@ -335,13 +333,12 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </td>
     </tr>
 </table>
-</p>
 <!-- New components for existing libraries -->
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.WeatherData</b>
     </td>
 </tr>
@@ -353,14 +350,13 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td> 
     </tr>
 </table>
-</p>
 <!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -388,14 +384,14 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 </table>
-</p>
 <!-- Non-backward compatible changes to existing components -->
+
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
@@ -446,13 +442,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        or must be constants.
     </td>
 </tr></table>
-</p>
 <!-- Errors that have been fixed -->
+
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.Controls</b>
     </td>
@@ -491,14 +487,14 @@ that can lead to wrong simulation results):
     </td>
 </tr>
 </table>
-</p>
 <!-- Uncritical errors -->
+
 <p>
 The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -532,14 +528,13 @@ units are wrong or errors in documentation):
     </td>
 </tr>
 </table>
-</p>
 <!-- Github issues -->
 <p>
 The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Add explanation of nStaRef.</b>
     </td>
 </tr>
@@ -593,6 +588,7 @@ should be formulated as
     </td>
 </tr>
 </table>
+
 <p>
 Note:
 </p>
@@ -603,39 +599,36 @@ the syntax of the example models to be checked in the pedantic mode
 in Dymola 2014.
 </li>
 </ul>
-</p>
 </html>"));
   end Version_1_4_build1;
 
   class Version_1_3_build1 "Version 1.3 build 1"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (preferredView="info", Documentation(info=
-                   "<html>
+     annotation (preferredView="info", Documentation(info="<html>
 <p>
 In version 1.3 build 1, models for direct evaporative cooling coils with multiple stages or with
 a variable speed compressor have been added.
 This version also contains improvements to the fan and pump models to better treat zero mass flow rate.
 Various other improvements have been made to improve the numerics and to use consistent variable names.
 A detailed list of changes is shown below.
-</p>
 <!-- New libraries -->
+</p>
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils
     </td>
     <td valign=\"top\">Library with direct evaporative cooling coils.
     </td>
     </tr>
 </table>
-</p>
 <!-- New components for existing libraries -->
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
@@ -670,18 +663,13 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td> 
     </tr>
 </table>
-</p>
 <!-- Backward compatbile changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-
-
-
-
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
@@ -732,14 +720,13 @@ have been <b style=\"color:blue\">improved</b> in a
     </td> 
     </tr>
 </table>
-</p>
 <!-- Non-backward compatible changes to existing components -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
@@ -807,13 +794,12 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 </table>
-</p>
 <!-- Errors that have been fixed -->
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
@@ -825,14 +811,13 @@ that can lead to wrong simulation results):
     </td>
 </tr>
 </table>
-</p>
 <!-- Uncritical errors -->
 <p>
 The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
@@ -876,7 +861,6 @@ units are wrong or errors in documentation):
     </td>
 </tr>
 </table>
-</p>
 <!-- Github issues -->
 <!-- none -->
 </html>"));
@@ -884,18 +868,17 @@ units are wrong or errors in documentation):
 
   class Version_1_2_build1 "Version 1.2 build 1"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (preferredView="info", Documentation(info=
-                   "<html>
+     annotation (preferredView="info", Documentation(info="<html>
 <p>
 In version 1.2 build 1, models for radiant slabs and window overhangs and sidefins have been added.
 This version also contains various improvements to existing models.
 A detailed list of changes is shown below. 
-</p>
 <!-- New libraries -->
+</p>
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs
     </td>
     <td valign=\"top\">Package with models for radiant slabs
@@ -909,13 +892,13 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </td>
     </tr>
 </table>
-</p>
 <!-- New components for existing libraries -->
+
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
@@ -939,14 +922,13 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td> 
     </tr>
 </table>
-</p>
 <!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
@@ -1012,14 +994,13 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 </table>
-</p>
 <!-- Non-backward compatbile changes to existing components -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
 </tr>
@@ -1044,13 +1025,12 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 </table>
-</p>
 <!-- Errors that have been fixed -->
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Controls</b>
     </td>
 </tr>
@@ -1098,14 +1078,13 @@ that can lead to wrong simulation results):
     </td>
 </tr>
 </table>
-</p>
 <!-- Uncritical errors -->
 <p>
 The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
@@ -1139,14 +1118,13 @@ units are wrong or errors in documentation):
     </td>
 </tr>
 </table>
-</p>
 <!-- Github issues -->
 <p>
 The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Heat transfer in glass layer</b>
     </td>
 </tr>
@@ -1174,8 +1152,7 @@ have been fixed:
 
   class Version_1_1_build1 "Version 1.1 build 1"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (preferredView="info", Documentation(info=
-                   "<html>
+     annotation (preferredView="info", Documentation(info="<html>
 <p>
 Version 1.1 build 1 contains improvements to models that address numerical problems.
 In particular, flow machines and actuators now have an optional filter
@@ -1185,12 +1162,12 @@ Also, (<a href=\"modelica://Buildings.Examples.Tutorial\">
 Buildings.Examples.Tutorial</a>)
 has been added to provide step-by-step instruction for how to build
 system models.
-</p>
 <!-- New libraries -->
+</p>
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
 <tr><td valign=\"top\">Buildings.Examples.Tutorial
     </td>
     <td valign=\"top\">Tutorial with step by step instructions for how to
@@ -1198,13 +1175,12 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </td>
     </tr>
 </table>
-</p>
 <!-- New components for existing libraries -->
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -1232,14 +1208,14 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td> 
     </tr>
 </table>
-</p>
 <!-- Backward compatible changes -->
+
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -1327,14 +1303,14 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 </table>
-</p>
 <!-- Non-backward compatible changes to existing components -->
+
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
@@ -1389,13 +1365,13 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 </table>
-</p>
 <!-- Errors that have been fixed -->
+
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Controls</b>
     </td>
 </tr>
@@ -1418,14 +1394,14 @@ that can lead to wrong simulation results):
     </td>
 </tr>
 </table>
-</p>
 <!-- Uncritical errors -->
+
 <p>
 The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
@@ -1453,14 +1429,14 @@ units are wrong or errors in documentation):
     </td>
 </tr>
 </table>
-</p>
 <!-- Github issues -->
+
 <p>
 The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Exterior longwave radiation exchange in window model</b>
     </td>
 </tr>
@@ -1480,6 +1456,7 @@ have been fixed:
     </td>
 </tr>
 </table>
+
 <p>
 Note:
 </p>
@@ -1496,29 +1473,28 @@ Buildings.Fluid.Movers.UsersGuide</a> for recommended control
 gains and further details.
 </li>
 </ul>
-</p>
 </html>"));
   end Version_1_1_build1;
 
   class Version_1_0_build2 "Version 1.0 build 2"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (preferredView="info", Documentation(info=
-                   "<html>
+     annotation (preferredView="info", Documentation(info="<html>
 <p>
 Version 1.0 build 2 has been released to correct model errors that
 were present in version 1.0 build 1. Both versions are compatible.
 In addition, version 1.0 build 2 contains improved documentation
 of various example models.
-</p>
 <!-- New libraries -->
 <!-- New components for existing libraries -->
 <!-- Backward compatible changes -->
+</p>
+
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Controls</b>
     </td>
 </tr>
@@ -1555,14 +1531,14 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 </table>
-</p>
+
 <!-- Non-backward compatbile changes to existing components -->
 <!-- Errors that have been fixed -->
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
@@ -1598,15 +1574,15 @@ that can lead to wrong simulation results):
     </td>
 </tr>
 </table>
-</p>
 <!-- Uncritical errors -->
 <!-- Github issues -->
+
 <p>
 The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.Boreholes</b>
     </td>
 </tr>
@@ -1626,14 +1602,12 @@ have been fixed:
 </tr>
 
 </table>
-</p>
 </html>"));
   end Version_1_0_build2;
 
   class Version_1_0_build1 "Version 1.0 build 1"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (preferredView="info", Documentation(info=
-                   "<html>
+     annotation (preferredView="info", Documentation(info="<html>
 <p>
 Version 1.0 is the first official release of the <code>Buildings</code>
 library.
@@ -1653,18 +1627,17 @@ in converting old models to this version of the library.
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes</td>
     <td valign=\"top\">
     This is a library with a model for a borehole heat exchanger.
     </td></tr>
 </table>
-</p>
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b></td></tr>
 <tr><td valign=\"top\">Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise
                       </td>
@@ -1706,13 +1679,13 @@ to <b style=\"color:blue\">existing</b> libraries:
                        option for monotone increasing (or decreasing) spline.
     </td> </tr>
 </table>
-</p>
+
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b></td></tr>
 <tr><td valign=\"top\">Buildings.Airflow.Multizone.BaseClasses.powerLaw</td>
@@ -1735,7 +1708,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">
                       Buildings.Fluid.Actuators.BaseClasses.PartialActuator<br/>
                       Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential<br/>
-                      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</br>
+                      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve<br/>
                       Buildings.Fluid.BaseClasses.PartialResistance<br/>
                       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp<br/>
                       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow<br/>
@@ -1825,12 +1798,13 @@ are used as steady-state models, have been improved.</td>
 </tr>
 
 </table>
+
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b></td></tr>
 <tr><td valign=\"top\">Buildings.Airflow.Multizone.MediumColumnDynamic</td>
@@ -1946,11 +1920,12 @@ near zero flow if the components have exactly two fluid ports connected.</td>
 </tr>
 
 </table>
+
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
 
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b></td></tr>
@@ -1958,14 +1933,14 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Fixed error in <code>if-then</code> statement that led to
                        a selection of the wrong branch to compute the sky temperature.</td></tr>
 <tr><td colspan=\"2\"><b>Buildings.Media</b></td></tr>
-<tr><td valign=\"top\">Buildings.Media.PartialSimpleMedium</br>
+<tr><td valign=\"top\">Buildings.Media.PartialSimpleMedium<br/>
                        Buildings.Media.GasesConstantDensity.SimpleAir</td>
     <td valign=\"top\">Fixed error in assignment of <code>singleState</code> parameter. 
                        This change can lead to different initial conditions if the density of 
                        water is modeled as a function of pressure, or if the
                        medium model Buildings.Media.GasesConstantDensity.SimpleAir is used.</td></tr>
 
-<tr><td valign=\"top\">Buildings.Media.GasesConstantDensity</br>
+<tr><td valign=\"top\">Buildings.Media.GasesConstantDensity<br/>
                        Buildings.Media.GasesConstantDensity.MoistAir<br/>
                        Buildings.Media.GasesConstantDensity.MoistAirUnsaturated<br/>
                        Buildings.Media.GasesConstantDensity.SimpleAir</td>
@@ -1997,14 +1972,14 @@ that can lead to wrong simulation results):
 </td></tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
-<tr><td valign=\"top\">Buildings.Rooms.MixedAir</br>
+<tr><td valign=\"top\">Buildings.Rooms.MixedAir<br/>
                      Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions</td>
     <td valign=\"top\">Fixed bug (<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/35\">issue 35</a>) 
                      that leads to the wrong solar heat gain for
                      roofs and for floors. Prior to this bug fix, the outside facing surface
                      of a ceiling received solar irradiation as if it were a floor 
                      and vice versa.</td></tr>
-<tr><td valign=\"top\">Buildings.Rooms.MixedAir</br>
+<tr><td valign=\"top\">Buildings.Rooms.MixedAir<br/>
                      Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</td>
     <td valign=\"top\">Fixed bug (<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">issue 36</a>) 
                      that leads to too high a surface temperature of the window frame when
@@ -2013,24 +1988,26 @@ that can lead to wrong simulation results):
                      window frame and the sky.</td></tr>
 
 </table>
+
 <p>
 The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, but, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b></td></tr>
 <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation</td>
     <td>Corrected wrong unit label.
     </td>
 </tr>
 </table>
+
 <p>
 The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b></td></tr>
 <tr><td valign=\"top\">
     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/8\">&#35;8</a></td>
@@ -2093,8 +2070,8 @@ have been fixed:
          High window frame temperatures.
     </td>
 </tr>
-
 </table>
+
 <p>
 Note:
 </p>
@@ -2115,23 +2092,22 @@ generates the entry in the <code>Command</code> pull down menu has been changed 
 <code>__Dymola_Commands(file=...</code>
 </li>
 </ul>
-</p>
 </html>"));
   end Version_1_0_build1;
 
   class Version_0_12_0 "Version 0.12.0"
     extends Modelica.Icons.ReleaseNotes;
-  annotation (preferredView="info", Documentation(info=
-                   "<html>
+  annotation (preferredView="info", Documentation(info="<html>
 <p>
 <b>Note:</b> The packages whose name ends with <code>Beta</code>
 are still being validated.
 </p>
+<p>
 The following <b style=\"color:red\">critical error</b> has been fixed (i.e. error
 that can lead to wrong simulation results):
 </p>
-<p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
   <tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.BaseClasses.InfraredRadiationExchange\">
   Buildings.Rooms.BaseClasses.InfraredRadiationExchange</a></td>
@@ -2144,7 +2120,7 @@ that can lead to wrong simulation results):
       </td>
   </tr>
 </table>
-</p>
+
 <p>
 The following improvements and additions have been made:
 </p>
@@ -2182,19 +2158,18 @@ Buildings.Fluid.Sources.Outside</a>
 to allow use of the room model with media that do not contain water vapor.
 </li>
 </ul>
-</p>
 </html>
 "));
   end Version_0_12_0;
 
   class Version_0_11_0 "Version 0.11.0"
     extends Modelica.Icons.ReleaseNotes;
-  annotation (preferredView="info", Documentation(info=
-                   "<html>
+  annotation (preferredView="info", Documentation(info="<html>
 <p>
 <b>Note:</b> The packages whose name ends with <code>Beta</code>
 are still being validated.
 </p>
+
 <ul>
 <li>
 Added the package 
@@ -2288,7 +2263,6 @@ Fixed bug in efficiency curves in package
 Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </li>
 </ul>
-</p>
 </html>
 "));
   end Version_0_11_0;
@@ -2297,7 +2271,6 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
     extends Modelica.Icons.ReleaseNotes;
   annotation (preferredView="info", Documentation(info=
                    "<html>
-<p>
 <ul>
 <li>
 Added package 
@@ -2355,21 +2328,19 @@ The new version has exactly the same nominal power during the simulation as spec
 by the parameters. This also required a change in the parameters.
 </li>
 </ul>
-</p>
 </html>
 "));
   end Version_0_10_0;
 
   class Version_0_9_1 "Version 0.9.1"
     extends Modelica.Icons.ReleaseNotes;
-  annotation (preferredView="info", Documentation(info=
-                   "<html>
+  annotation (preferredView="info", Documentation(info="<html>
 <p>
 The following <b style=\"color:red\">critical error</b> has been fixed (i.e. error
 that can lead to wrong simulation results):
 </p>
-<p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.</b></td></tr>
   <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
   Buildings.Fluid.Storage.StratifiedEnhanced</a></td>
@@ -2391,7 +2362,6 @@ that can lead to wrong simulation results):
       </td>
   </tr>
 </table>
-</p>
 </html>
 "));
   end Version_0_9_1;
@@ -2400,7 +2370,6 @@ that can lead to wrong simulation results):
     extends Modelica.Icons.ReleaseNotes;
   annotation (preferredView="info", Documentation(info=
                    "<html>
-<p>
 <ul>
 <li>
 Added the following heat exchanger models
@@ -2510,7 +2479,6 @@ Buildings.Fluid.MixingVolumes</a> by removing the port velocity,
 pressure drop and height.
 </li>
 </ul>
-</p>
 </html>
 "));
   end Version_0_9_0;
@@ -2519,7 +2487,6 @@ pressure drop and height.
     extends Modelica.Icons.ReleaseNotes;
               annotation (preferredView="info", Documentation(info=
                    "<html>
-<p>
 <ul>
 <li>
 In 
@@ -2649,7 +2616,6 @@ Buildings.Fluid.BaseClasses.PartialThreeWayResistance</a>
 and hence to the flow splitter and to the three-way valves. This often breaks algebraic loops and provides a state for the temperature if the mass flow rate goes to zero.
 </li>
 </ul>
-</p>
 </html>
 "));
   end Version_0_8_0;
@@ -2658,7 +2624,6 @@ and hence to the flow splitter and to the three-way valves. This often breaks al
     extends Modelica.Icons.ReleaseNotes;
               annotation (preferredView="info", Documentation(info=
                    "<html>
-<p>
 <ul>
 <li>
 Updated library from Modelica_Fluid to Modelica.Fluid 1.0
@@ -2675,7 +2640,6 @@ systems that are modeled with Modelica with the Building Controls
 Virtual Test Bed.
 </li>
 </ul>
-</p>
 </html>
 "));
   end Version_0_7_0;
@@ -2684,7 +2648,6 @@ Virtual Test Bed.
     extends Modelica.Icons.ReleaseNotes;
       annotation (preferredView="info", Documentation(info=
                    "<html>
-<p>
 <ul>
 <li>
 Added the package
@@ -2786,7 +2749,6 @@ Changed various variable names to be consistent with naming
 convention used in Modelica.Fluid 1.0.
 </li>
 </ul>
-</p>
 </html>
 "));
   end Version_0_6_0;
@@ -2795,7 +2757,6 @@ convention used in Modelica.Fluid 1.0.
     extends Modelica.Icons.ReleaseNotes;
       annotation (preferredView="info", Documentation(info=
                    "<html>
-<p>
 <ul>
 <li>
 Updated library to Modelica.Fluid 1.0.
@@ -2827,7 +2788,6 @@ Buildings.Fluid.Actuators.Valves</a> so that <code>Kv</code> or <code>Cv</code> 
 be used as the flow coefficient (in [m3/h] or [USG/min]).
 </li>
 </ul>
-</p>
 </html>
 "));
   end Version_0_5_0;
@@ -2836,7 +2796,6 @@ be used as the flow coefficient (in [m3/h] or [USG/min]).
     extends Modelica.Icons.ReleaseNotes;
       annotation (preferredView="info", Documentation(info=
                    "<html>
-<p>
 <ul>
 <li>
 Added package <a href=\"modelica://Buildings.Fluid.Storage\">
@@ -2852,7 +2811,6 @@ Added package <a href=\"modelica://Buildings.Utilities.Reports\">Buildings.Utili
 The package contains models that facilitate reporting.
 </li>
 </ul>
-</p>
 </html>
 "));
   end Version_0_4_0;
@@ -2861,7 +2819,6 @@ The package contains models that facilitate reporting.
     extends Modelica.Icons.ReleaseNotes;
       annotation (preferredView="info", Documentation(info=
                    "<html>
-<p>
 <ul>
 <li>
 Added package <a href=\"modelica://Buildings.Fluid.Sources\">Buildings.Fluid.Sources</a>.
@@ -2916,7 +2873,6 @@ This model can be used to model a volume of moist air with water vapor condensat
 inside the volume. The condensate is removed from the volume in its liquid phase.
 </li>
 </ul>
-</p>
 </html>
 "));
   end Version_0_3_0;
@@ -2938,12 +2894,12 @@ where part of the <code>Actuator</code> package.
 
   class Version_0_1_0 "Version 0.1.0"
     extends Modelica.Icons.ReleaseNotes;
-      annotation (preferredView="info", Documentation(info=
-                   "<html>
+      annotation (preferredView="info", Documentation(info="<html>
 <p>
 First release of the library.
 </p>
-<p>This version contains basic models for modeling building HVAC systems.
+<p>
+This version contains basic models for modeling building HVAC systems.
 It also contains new medium models in the package
 <a href=\"modelica://Buildings.Media\">Buildings.Media</a>. These medium models
 have simpler property functions than the ones from
@@ -2953,6 +2909,7 @@ accurate for building HVAC simulation, in contrast to the more detailed models
 from <a href=\"modelica://Modelica.Media\">Modelica.Media</a> that are valid in 
 a larger temperature range, at the expense of introducing non-linearities due
 to the medium properties.
+</p>
 </html>
 "));
   end Version_0_1_0;
@@ -2963,60 +2920,57 @@ to the medium properties.
 This section summarizes the changes that have been performed
 on the Buildings library.
 </p>
-<p>
 <ul>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build1\">Version 1.5 build1</a>(xxx, 2013)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build1\">Version 1.5 build1</a>(xxx, 2013)
 </li>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_4_build1\">Version 1.4 build1</a>(May 15, 2013)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_4_build1\">Version 1.4 build1</a>(May 15, 2013)
 </li>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_3_build1\">Version 1.3 build1</a>(January 8, 2013)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_3_build1\">Version 1.3 build1</a>(January 8, 2013)
 </li>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_2_build1\">Version 1.2 build1</a>(July 26, 2012)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_2_build1\">Version 1.2 build1</a>(July 26, 2012)
 </li>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_1_build1\">Version 1.1 build1</a>(February 29, 2012)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_1_build1\">Version 1.1 build1</a>(February 29, 2012)
 </li>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">Version 1.0 build2</a>(December 8, 2011)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">Version 1.0 build2</a>(December 8, 2011)
 </li>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build1\">Version 1.0 build1</a>(November 4, 2011)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build1\">Version 1.0 build1</a>(November 4, 2011)
 </li>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">Version 0.12.0 </a>(May 6, 2011)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">Version 0.12.0 </a>(May 6, 2011)
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_0\">Version 0.11.0 </a>(March 17, 2011)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_0\">Version 0.11.0 </a>(March 17, 2011)
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">Version 0.10.0 </a>(July 30, 2010)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">Version 0.10.0 </a>(July 30, 2010)
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">Version 0.9.1 </a>(June 24, 2010)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">Version 0.9.1 </a>(June 24, 2010)
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">Version 0.9.0 </a>(June 11, 2010)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">Version 0.9.0 </a>(June 11, 2010)
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_8_0\">Version 0.8.0 </a>(February 6, 2010)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_8_0\">Version 0.8.0 </a>(February 6, 2010)
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_7_0\">Version 0.7.0 </a>(September 29, 2009)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_7_0\">Version 0.7.0 </a>(September 29, 2009)
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_6_0\">Version 0.6.0 </a>(May 15, 2009)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_6_0\">Version 0.6.0 </a>(May 15, 2009)
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_5_0\">Version 0.5.0 </a>(February 19, 2009)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_5_0\">Version 0.5.0 </a>(February 19, 2009)
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">Version 0.4.0 </a>(October 31, 2008)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">Version 0.4.0 </a>(October 31, 2008)
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_3_0\">Version 0.3.0 </a>(September 30, 2008)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_3_0\">Version 0.3.0 </a>(September 30, 2008)
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_2_0\">Version 0.2.0 </a>(June 17, 2008)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_2_0\">Version 0.2.0 </a>(June 17, 2008)
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_1_0\">Version 0.1.0 </a>(May 27, 2008)</a>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_1_0\">Version 0.1.0 </a>(May 27, 2008)
 </li>
 </ul>
-</p>
-<p>
-</p>
+
 </html>
 "));
   end ReleaseNotes;
@@ -3047,6 +3001,7 @@ The development of the Buildings library is organized by<br/>
 <h4><font color=\"#008000\" size=5>Acknowledgements</font></h4>
 <p>
  The development of this library was supported
+</p>
  <ul>
  <li>by the Assistant Secretary for
   Energy Efficiency and Renewable Energy, Office of Building
@@ -3057,7 +3012,6 @@ The development of the Buildings library is organized by<br/>
   by the California Energy Commission, Public Interest Energy Research Program, Buildings End Use Energy Efficiency Program, award number 500-10-052.
  </li>
  </ul>
-</p>
 <p>
   The <a href=\"modelica://Buildings.Airflow.Multizone\">package for multizone airflow modeling</a>
   and the <a href=\"modelica://Buildings.Utilities.Comfort.Fanger\">model for thermal comfort</a>
@@ -3071,6 +3025,7 @@ helped improve the organization and structure of the library.
 <p>
 The following people have directly contributed to the implementation of the Buildings library
 (many others have contributed by other means than model implementation):
+</p>
 <ul>
 <li>Marco Bonvini, Lawrence Berkeley National Laboratory, USA
 </li>
@@ -3109,7 +3064,6 @@ The following people have directly contributed to the implementation of the Buil
 <li>Wangda Zuo, Lawrence Berkeley National Laboratory, USA
 </li>
 </ul>
-</p>
 </html>
 "));
   end Acknowledgements;
@@ -3120,14 +3074,18 @@ The following people have directly contributed to the implementation of the Buil
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>The Modelica License 2</font></h4>
 <p>
-<strong>Preamble.</strong> The goal of this license is that Modelica related model libraries, software, images, documents, data files etc. can be used freely in the original or a modified form, in open source and in commercial environments (as long as the license conditions below are fulfilled, in particular sections 2c) and 2d). The Original Work is provided free of charge and the use is completely at your own risk. Developers of free Modelica packages are encouraged to utilize this license for their work. 
+<strong>Preamble.</strong> The goal of this license is that Modelica related model libraries, software, images, documents, data files etc. can be used freely in the original or a modified form, in open source and in commercial environments (as long as the license conditions below are fulfilled, in particular sections 2c) and 2d). The Original Work is provided free of charge and the use is completely at your own risk. Developers of free Modelica packages are encouraged to utilize this license for their work.
+</p>
 <p>
 The Modelica License applies to any Original Work that contains the following licensing notice adjacent to the copyright notice(s) for this Original Work: 
+</p>
 <p>
 <strong>Note.</strong> This is the standard Modelica License 2, except for the following changes: the parenthetical in paragraph 7., paragraph 5., and the addition of paragraph 15.d). 
+</p>
 <p>
 <strong>Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 </strong> 
- 
+</p>
+
 <h4>1. Definitions</h4>
 <ol type=\"a\"><li>
 \"License\" is this Modelica License.
@@ -3162,7 +3120,8 @@ Derivative Work shall include executables to simulate the models that are genera
  
 <h4>2. Grant of Copyright License</h4>
 <p>
-Licensor grants You a worldwide, royalty-free, non-exclusive, sublicensable license, for the duration of the copyright, to do the following: 
+Licensor grants You a worldwide, royalty-free, non-exclusive, sublicensable license, for the duration of the copyright, to do the following:
+</p>
 <ol type=\"a\">
 <li>
 To reproduce the Original Work in copies, either alone or as part of a collection. 
@@ -3180,56 +3139,71 @@ For the matter of clarity, no restrictions regarding fees, either as to a copyri
 To perform the Original Work publicly. 
 </li><li>
 To display the Original Work publicly. 
-</li></ol><p>
+</li></ol>
+
 <h4>3. Acceptance</h4>
 <p>
-Any use of the Original Work or a Derivative Work, or any action according to either Section 2a) to 2f) above constitutes Your acceptance of this License. 
-<p>
+Any use of the Original Work or a Derivative Work, or any action according to either Section 2a) to 2f) above constitutes Your acceptance of this License.
+</p>
+
 <h4>4. Designation of Derivative Works and of Modified Works</h4>
- 
 <p>
-The identifying designation of Derivative Work and of Modified Work must be different to the corresponding identifying designation of the Original Work. This means especially that the (root-level) name of a Modelica package under this license must be changed if the package is modified (besides fixing of errors, adding vendor specific Modelica annotations, using a subset of the classes of a Modelica package, or using another representation, e.g. a binary representation). <p>
- 
+The identifying designation of Derivative Work and of Modified Work must be different to the corresponding identifying designation of the Original Work. This means especially that the (root-level) name of a Modelica package under this license must be changed if the package is modified (besides fixing of errors, adding vendor specific Modelica annotations, using a subset of the classes of a Modelica package, or using another representation, e.g. a binary representation). 
+</p>
+
 <h4>5. [reserved]</h4>
-<p>
 <h4>6. Provision of Source Code</h4>
-<p>Licensor agrees to provide You with a copy of the Source Code of the Original Work but reserves the right to decide freely on the manner of how the Original Work is provided. For the matter of clarity, Licensor might provide only a binary representation of the Original Work. In that case, You may (a) either reproduce the Source Code from the binary representation if this is possible (e.g., by performing a copy of an encrypted Modelica package, if encryption allows the copy operation) or (b) request the Source Code from the Licensor who will provide it to You. 
 <p>
+Licensor agrees to provide You with a copy of the Source Code of the Original Work but reserves the right to decide freely on the manner of how the Original Work is provided. For the matter of clarity, Licensor might provide only a binary representation of the Original Work. In that case, You may (a) either reproduce the Source Code from the binary representation if this is possible (e.g., by performing a copy of an encrypted Modelica package, if encryption allows the copy operation) or (b) request the Source Code from the Licensor who will provide it to You.
+</p>
+
 <h4>7. Exclusions from License Grant</h4>
 <p>
 Neither the names of Licensor (including, but not limited to, University of California, Lawrence Berkeley National Laboratory, U.S. Dept. of Energy, UC, LBNL, LBL, and DOE), nor the names of any contributors to the Original Work, nor any of their trademarks or service marks, may be used to endorse or promote products derived from this Original Work without express prior permission of the Licensor. Except as otherwise expressly stated in this License and in particular in Sections 2 and 5, nothing in this License grants any license to Licensor's trademarks, copyrights, patents, trade secrets or any other intellectual property, and no patent license is granted to make, use, sell, offer for sale, have made, or import embodiments of any patent claims. 
-<p>
-No license is granted to the trademarks of Licensor even if such trademarks are included in the Original Work, except as expressly stated in this License. Nothing in this License shall be interpreted to prohibit Licensor from licensing under terms different from this License any Original Work that Licensor otherwise would have a right to license. 
-<p>
+No license is granted to the trademarks of Licensor even if such trademarks are included in the Original Work, except as expressly stated in this License. Nothing in this License shall be interpreted to prohibit Licensor from licensing under terms different from this License any Original Work that Licensor otherwise would have a right to license.
+</p>
+
 <h4>8. Attribution Rights</h4>
 <p>
-You must retain in the Source Code of the Original Work and of any Derivative Works that You create, all author, copyright, patent, or trademark notices, as well as any descriptive text identified therein as an \"Attribution Notice\". The same applies to the licensing notice of this License in the Original Work. For the matter of clarity, \"author notice\" means the notice that identifies the original author(s). 
+You must retain in the Source Code of the Original Work and of any Derivative Works that You create, all author, copyright, patent, or trademark notices, as well as any descriptive text identified therein as an \"Attribution Notice\". The same applies to the licensing notice of this License in the Original Work. For the matter of clarity, \"author notice\" means the notice that identifies the original author(s).
+</p>
 <p>
 You must cause the Source Code for any Derivative Works that You create to carry a prominent Attribution Notice reasonably calculated to inform recipients that You have modified the Original Work. 
-<p>In case the Original Work or Derivative Work is not provided in Source Code, the Attribution Notices shall be appropriately displayed, e.g., in the documentation of the Derivative Work. <p>
- 
+</p>
+<p>
+In case the Original Work or Derivative Work is not provided in Source Code, the Attribution Notices shall be appropriately displayed, e.g., in the documentation of the Derivative Work.
+</p>
+
 <h4>9. Disclaimer of Warranty</h4>
-<p><u><strong>The Original Work is provided under this License on an \"as is\" basis and without warranty, either express or implied, including, without limitation, the warranties of non-infringement, merchantability or fitness for a particular purpose. The entire risk as to the quality of the Original Work is with You.</strong></u> This disclaimer of warranty constitutes an essential part of this License. No license to the Original Work is granted by this License except under this disclaimer. 
 <p>
+<u><strong>The Original Work is provided under this License on an \"as is\" basis and without warranty, either express or implied, including, without limitation, the warranties of non-infringement, merchantability or fitness for a particular purpose. The entire risk as to the quality of the Original Work is with You.</strong></u> This disclaimer of warranty constitutes an essential part of this License. No license to the Original Work is granted by this License except under this disclaimer.
+</p>
+
 <h4>10. Limitation of Liability</h4>
-<p>Under no circumstances and under no legal theory, whether in tort (including negligence), contract, or otherwise, shall the Licensor, the owner or a licensee of the Original Work be liable to anyone for any direct, indirect, general, special, incidental, or consequential damages of any character arising as a result of this License or the use of the Original Work including, without limitation, damages for loss of goodwill, work stoppage, computer failure or malfunction, or any and all other commercial damages or losses. This limitation of liability shall not apply to the extent applicable law prohibits such limitation. 
 <p>
+Under no circumstances and under no legal theory, whether in tort (including negligence), contract, or otherwise, shall the Licensor, the owner or a licensee of the Original Work be liable to anyone for any direct, indirect, general, special, incidental, or consequential damages of any character arising as a result of this License or the use of the Original Work including, without limitation, damages for loss of goodwill, work stoppage, computer failure or malfunction, or any and all other commercial damages or losses. This limitation of liability shall not apply to the extent applicable law prohibits such limitation. 
+</p>
+
 <h4>11. Termination</h4>
 <p>
 This License conditions your rights to undertake the activities listed in Section 2 and 5, including your right to create Derivative Works based upon the Original Work, and doing so without observing these terms and conditions is prohibited by copyright law and international treaty. Nothing in this License is intended to affect copyright exceptions and limitations. This License shall terminate immediately and You may no longer exercise any of the rights granted to You by this License upon your failure to observe the conditions of this license. 
-<p>
+</p>
+
 <h4>12. Termination for Patent Action</h4>
 <p>
 This License shall terminate automatically and You may no longer exercise any of the rights granted to You by this License as of the date You commence an action, including a cross-claim or counterclaim, against Licensor, any owners of the Original Work or any licensee alleging that the Original Work infringes a patent. This termination provision shall not apply for an action alleging patent infringement through combinations of the Original Work under combination with other software or hardware.
-<p>
+</p>
+
 <h4>13. Jurisdiction</h4>
 <p>
 Any action or suit relating to this License may be brought only in the courts of a jurisdiction wherein the Licensor resides and under the laws of that jurisdiction excluding its conflict-of-law provisions. The application of the United Nations Convention on Contracts for the International Sale of Goods is expressly excluded. Any use of the Original Work outside the scope of this License or after its termination shall be subject to the requirements and penalties of copyright or patent law in the appropriate jurisdiction. This section shall survive the termination of this License. 
-<p>
+</p>
+
 <h4>14. Attorneys' Fees</h4>
 <p>
 In any action to enforce the terms of this License or seeking damages relating thereto, the prevailing party shall be entitled to recover its costs and expenses, including, without limitation, reasonable attorneys' fees and costs incurred in connection with such action, including any appeal of such action. This section shall survive the termination of this License. 
-<p>
+</p>
+
 <h4>15. Miscellaneous</h4>
 <ol type=\"a\">
 <li>If any provision of this License is held to be unenforceable, such provision shall be reformed only to the extent necessary to make it enforceable. 
@@ -3240,40 +3214,45 @@ You may use the Original Work in all ways not otherwise restricted or conditione
 </li><li>
 You are under no obligation whatsoever to provide any bug fixes, patches, or upgrades to the features, functionality or performance of the source code (\"Enhancements\") to anyone; however, if you choose to make your Enhancements available either publicly, or directly to Lawrence Berkeley National Laboratory, without imposing a separate written license agreement for such Enhancements, then you hereby grant the following license: a non-exclusive, royalty-free perpetual license to install, use, modify, prepare derivative works, incorporate into other computer software, distribute, and sublicense such enhancements or derivative works thereof, in binary and source code form. 
 </li></ol>
-<p>
+
 <h4>How to Apply the Modelica License 2</h4>
 <p>
-At the top level of your Modelica package and at every important subpackage, add the following notices in the info layer of the package: 
+At the top level of your Modelica package and at every important subpackage, add the following notices in the info layer of the package:
+</p>
 <ul><li style=\"list-style-type:none\">
 Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 Copyright (c) 2009-2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory. 
 </li>
 <li style=\"list-style-type:none\"><i>
 This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>. 
 </i></li></ul>
+
 <p>
 Include a copy of the Modelica License 2 under <strong>&lt;library&gt;.UsersGuide.ModelicaLicense2</strong> 
 (use <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.mo\">
 http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.mo</a>) 
 Furthermore, add the list of authors and contributors under 
 <strong>&lt;library&gt;.UsersGuide.Contributors</strong> or <strong>&lt;library&gt;.UsersGuide.Contact</strong> 
+</p>
 <p>
-For example, sublibrary Modelica.Blocks of the Modelica Standard Library may have the following notices: 
-<p>
+For example, sublibrary Modelica.Blocks of the Modelica Standard Library may have the following notices:</p>
 <ul><li style=\"list-style-type:none\">
 Licensed by Modelica Association under the Modelica License 2 Copyright (c) 1998-2008, Modelica Association. 
-<p>
 <li style=\"list-style-type:none\"><i>
 This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at 
 <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>. 
 </i>
 </li></ul>
-<p>For C-source code and documents, add similar notices in the corresponding file.
+
+<p>For C-source code and documents, add similar notices in the corresponding file.</p>
 <p>
 For images, add a \"readme.txt\" file to the directories where the images are stored and include a similar notice in this file. 
+</p>
+
 <p>
 In these cases, save a copy of the Modelica License 2 in one directory of the distribution, e.g., 
-<a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html</a> in directory <strong>&lt;library&gt;/help/documentation/ModelicaLicense2.html</strong>. 
+<a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html</a> in directory <strong>&lt;library&gt;/help/documentation/ModelicaLicense2.html</strong>.
 </p>
+
 </html>
 "));
   end License;
@@ -3285,10 +3264,12 @@ In these cases, save a copy of the Modelica License 2 in one directory of the di
 <h4><font color=\"#008000\" size=5>Copyright</font></h4>
 <p>
 Copyright (c) 2009-2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
-</p><p>
+</p>
+<p>
 If you have questions about your rights to use or distribute this software, please contact Berkeley Lab's Technology Transfer Department at 
 <A HREF=\"mailto:TTD@lbl.gov\">TTD@lbl.gov</A>
-</p><p>
+</p>
+<p>
 NOTICE. This software was developed under partial funding from the U.S. Department of Energy. As such, the U.S. Government has been granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, and perform publicly and display publicly. Beginning five (5) years after the date permission to assert copyright is obtained from the U.S. Department of Energy, and subject to any subsequent five (5) year renewals, the U.S. Government is granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, distribute copies to the public, perform publicly and display publicly, and to permit others to do so. 
 </p>
 </html>
@@ -3301,7 +3282,8 @@ The <code>Buildings</code> library is a free open-source library for modeling of
 Many models are based on models from the package
 <a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a> and use
 the same ports to ensure compatibility with models from that library.
-</p><p>
+</p>
+<p>
 The web page for this library is
 <a href=\"http://simulationresearch.lbl.gov/modelica\">http://simulationresearch.lbl.gov/modelica</a>. 
 We welcome contributions from different users to further advance this library, 
@@ -3314,7 +3296,6 @@ The library has the following <i>User's Guides</i>:
 </p>
 <ol>
 <li>
-<p>
 General information about the use of the <code>Buildings</code> library
 is available at
 <a href=\"http://simulationresearch.lbl.gov/modelica/userGuide\">
@@ -3323,18 +3304,14 @@ This web site covers general information that is not specific to the
 use of individual sublibraries or models.
 Discussed topics include 
 how to get started, best practices, how to post-process results using Python,
-work-around for problems and how to develop models.
-</p>
+work-around for problems and how to develop models.<br/>
 </li>
 <li>
-<p>
 Some of the main sublibraries have their own
 User's Guides that can be accessed by the links below.
 These User's Guides are discussing items that are specific to the
-individual libraries.
-</p>
-<p>
-<table border=1 cellspacing=0 cellpadding=2>
+individual libraries.<br/>
+<table summary=\"summary\" border=1 cellspacing=0 cellpadding=2>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Airflow.Multizone.UsersGuide\">Airflow.Multizone</a>
    </td>
    <td valign=\"top\">Package for multizone airflow and contaminant transport.</td>
@@ -3378,19 +3355,15 @@ individual libraries.
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
    </td>
    <td valign=\"top\">Package to call Python functions from Modelica.</td>
-</tr></table>
-</p>
+</tr></table><br/>
 </li>
 <li>
-<p>
 There is also a tutorial available at 
 <a href=\"modelica://Buildings.Examples.Tutorial\">
 Buildings.Examples.Tutorial</a>.
 The tutorial contains step by step instructions for how to build system models.
-</p>
 </li>
 </ol>
-</p>
 </html>"));
 end UsersGuide;
 
@@ -3432,7 +3405,7 @@ In the lower part of the figure, there is a dynamic model of a boiler, a pump an
 The heat distribution is done using a hydronic heating system with a three way valve and a pump with variable revolutions. The upper right hand corner shows a room model that is connected to a radiator whose flow is controlled by a thermostatic valve.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/UsersGuide/HydronicHeating.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/UsersGuide/HydronicHeating.png\" border=\"1\"/>
 </p>
 <p>
 The web page for this library is

@@ -10,7 +10,7 @@ This package contains models for direct evaporation cooling coils
 <p>
 The following three DX coil models are available:
 </p>
-  <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr>
       <th>DX coil model</th>
       <th>Properties</th>
@@ -128,7 +128,7 @@ Once the appartus dew point is known, the sensible to latent heat ratio can be
 determined as shown in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/DXCoils/BaseClasses/ApparatusDewPoint.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/DXCoils/BaseClasses/ApparatusDewPoint.png\" border=\"1\" />
 </p>
 <p>
 The method used is the bypass factor method, which assumes that of the leaving air, a fraction is at the

@@ -57,12 +57,10 @@ where
 <i>R<sub>fil</sub></i> is the resistance of the filling material.
 </p>
 <p>
-The convective resistance is obtained as
-</p>
-<p>
- <p align=\"center\" style=\"font-style:italic;\">
+The convective resistance is obtained as</p>
+<p align=\"center\" style=\"font-style:italic;\">
  R<sub>Con</sub> = 1 &frasl; (4 &pi; h<sub>seg</sub> r<sub>tub</sub> h<sub>in</sub>),
-</p> 
+</p>
 <p>
 where <i>h<sub>seg</sub></i> is the height of the segment and 
 <i>h<sub>in</sub></i> is the convective heat transfer coefficient. 
@@ -78,9 +76,9 @@ where <i>k<sub>med</sub></i> is the thermal conductivity of the fluid,
 <i>Re</i> is the Reynolds number and 
 <i>r<sub>tub</sub></i> is the inside radius of the pipe.
 </p>
+
 <p>
-The conductive resistance is determined using
-</p>
+The conductive resistance is determined using</p>
 <p align=\"center\" style=\"font-style:italic;\">
 R<sub>tub</sub>= ln[ ( r<sub>tub</sub>+e<sub>tub</sub> ) &frasl; r<sub>tub</sub> ] &frasl; 4 &pi; 
    k<sub>tub</sub> h<sub>seg</sub>,
@@ -89,9 +87,9 @@ R<sub>tub</sub>= ln[ ( r<sub>tub</sub>+e<sub>tub</sub> ) &frasl; r<sub>tub</sub>
 where <i>k<sub>tub</sub></i> the heat conductivity of the pipe and 
 <i>e<sub>tub</sub></i> is the thickness of the wall.
 </p>
+
 <p>
-The resistance of the filling material is determined using the correlation from Paul (1996) :
-</p>
+The resistance of the filling material is determined using the correlation from Paul (1996) :</p>
 <p align=\"center\" style=\"font-style:italic;\">
 R<sub>fil</sub> = k<sub>fil</sub> h<sub>seg</sub> &beta;<sub>0</sub> 
   (r<sub>Bor</sub> &frasl; (r<sub>tub</sub> + e<sub>tub</sub>)) <sup>&beta;<sub>1</sub></sup> ,
@@ -102,16 +100,15 @@ where <i>k<sub>fil</sub></i> is the thermal conductivity of the filling material
 (Paul 1996) based on U-tube shank spacing.
 Paul's shape factors are based on experimental and finite element analysis of typical borehole.
 The default values used for these coefficients are &beta;<sub>0</sub>= 20.100 and &beta;<sub>1</sub>=-0.94467.
-Values listed by Paul are given in the table below.
-</p>
-<p>
-  <table>
+Values listed by Paul are given in the table below.</p>
+
+  <table summary=\"summary\" >
   <tr><th>pipe spacing</th><th><i>&beta;<sub>0</sub></i></th><th><i>&beta;<sub>1</sub></i></th></tr>
   <tr><td> close  </td><td> 20.100377 </td><td> -0.94467 </td></tr>
   <tr><td> middle  </td><td> 17.44 </td><td> -0.6052  </td></tr>
   <tr><td> spaced </td><td> 21.91 </td><td> -0.3796 </td></tr>
   </table>
-</p>
+
 <h4>References</h4>
 <p>
 Hellstrom, G (1991). <br/>

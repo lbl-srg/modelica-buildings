@@ -3,6 +3,12 @@ package Boiler "Package with example for how to build a model for boiler with a 
   extends Modelica.Icons.ExamplesPackage;
 
 
+
+
+
+
+
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains examples with step-by-step instructions for how to build 
@@ -34,7 +40,7 @@ It shall be switched off if either the outdoor temperature is above
 <i>21</i>&deg;C.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/schematics.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/schematics.png\"/>
 </p>
 <p>
 The model consists of

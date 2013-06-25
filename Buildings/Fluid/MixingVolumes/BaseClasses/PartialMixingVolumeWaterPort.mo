@@ -29,7 +29,7 @@ It is used as the base class for all fluid volumes of the package
 <a href=\"modelica://Buildings.Fluid.MixingVolumes\">
 Buildings.Fluid.MixingVolumes</a>
 that add or remove humidity from the volume.
-</p>
+<br/>
 <h4>Implementation</h4>
 <p>
 The model is partial in order to allow a submodel that can be used with media

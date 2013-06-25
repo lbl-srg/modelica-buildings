@@ -124,7 +124,7 @@ the base class
 <a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
 Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
-<p>
+
 For models that extend this model, see for example
 <ul>
 <li>
@@ -143,7 +143,7 @@ the boiler
 Buildings.Fluid.Boilers.BoilerPolynomial</a>.
 </li>
 </ul>
-</p>
+
 <h4>Implementation</h4>
 <p>
 The variable names follow the conventions used in 

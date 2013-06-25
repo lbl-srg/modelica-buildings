@@ -942,7 +942,7 @@ reheat coil and an air damper in each of the five zone inlet branches.
 The figure below shows the schematic diagram of the HVAC system
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavSchematics.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavSchematics.png\" border=\"1\"/>
 </p>
 <p>
 The control is an implementation of the control sequence 

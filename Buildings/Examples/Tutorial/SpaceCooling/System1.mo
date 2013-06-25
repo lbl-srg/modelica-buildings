@@ -173,7 +173,7 @@ for <i>3</i> hours, or <i>10800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System1Temperatures.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System1Temperatures.png\" border=\"1\"/>
 </p>
 <p>
 To verify the correctness of the model, we can compare the simulated results to the

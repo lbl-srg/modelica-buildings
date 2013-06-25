@@ -21,8 +21,8 @@ wind-driven convective heat transfer coefficient in
 Buildings.HeatTransfer.Convection.Exterior</a>.
 The possible surface roughness are
 </p>
-<p>
-<table border=\"1\">
+
+<table summary=\"summary\" border=\"1\">
 <tr>
 <th>Roughness index</th>
 <th>Example material</th>
@@ -34,7 +34,6 @@ The possible surface roughness are
 <tr><td>Smooth</td>        <td>Smooth plaster</td></tr>
 <tr><td>VerySmooth</td>    <td>Glass</td></tr>
 </table>
-</p>
 </html>"));
 
   type ExteriorConvection = enumeration(
@@ -45,7 +44,8 @@ The possible surface roughness are
 <p>
 This enumeration is used to set the function
 that is used to compute the convective
-heat transfer coefficient for exterior (outside-side facing) surfaces.</p>
+heat transfer coefficient for exterior (outside-side facing) surfaces.
+</p>
 </html>"));
 
   type InteriorConvection = enumeration(
@@ -56,7 +56,8 @@ heat transfer coefficient for exterior (outside-side facing) surfaces.</p>
 <p>
 This enumeration is used to set the function
 that is used to compute the convective
-heat transfer coefficient for interior (room-side facing) surfaces.</p>
+heat transfer coefficient for interior (room-side facing) surfaces.
+</p>
 </html>"));
 
   package Tilt "Enumeration for surface tilt"
@@ -110,6 +111,8 @@ First implementation.
 </html>"));
   end Azimuth;
 annotation (preferredView="info", Documentation(info="<html>
+<p>
 This package contains type definitions.
+</p>
 </html>"));
 end Types;

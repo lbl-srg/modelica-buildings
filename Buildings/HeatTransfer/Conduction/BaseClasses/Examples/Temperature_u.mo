@@ -141,7 +141,7 @@ The curves <code>errNonMonotone</code> and
 represent the relative error between approximated and exact temperatures 
 obtained for different specific internal energy values (right hand side figure).
 </p>
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.png\"/>
+<p align=\"center\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

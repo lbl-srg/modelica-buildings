@@ -2,6 +2,9 @@ within Buildings.Examples.Tutorial;
 package SpaceCooling "Package with example for how to build a model for space cooling"
   extends Modelica.Icons.ExamplesPackage;
 
+
+
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains examples with step-by-step instructions for 
@@ -10,7 +13,7 @@ as shown in the figure below. The temperautures correspond to design conditions
 that will be used to size the components. The room heat capacity has been increased 
 by a factor of three to approximate the thermal storage effect of furniture and building constructions.
 </p>
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/schematics.png\"/>
+<p align=\"center\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/schematics.png\"/>
 </p>
 <p>
 The model consists of

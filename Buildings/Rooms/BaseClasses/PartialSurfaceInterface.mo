@@ -74,13 +74,12 @@ protected
   function checkSurfaceAreas
     input Integer n "Number of surfaces";
     input Modelica.SIunits.Area A[:] "Surface areas";
-    input String name
-      "Name of the surface data record, used in error message";
+    input String name "Name of the surface data record, used in error message";
   algorithm
     if n == 0 then
       assert(Modelica.Math.Vectors.norm(v=A, p=1) < 1E-10,
-      "Error in declaration of room model: Construction record '" + 
-      name + 
+      "Error in declaration of room model: Construction record '" +
+      name +
       "' has the following areas: " +
       Modelica.Math.Vectors.toString(A) +
       "However, the room model is declared as having zero surfaces.
@@ -141,6 +140,7 @@ initial algorithm
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid)}),
         Documentation(info="<html>
+<p>
 This partial model is used as a base class for models that need to exchange
 heat with room-facing surfaces. It defines parameters for the surface area,
 the absorptivity, and the products of area times absorptivity.
@@ -153,20 +153,21 @@ If this parameter were to be used to declare the size of vectors of
 component models, then there may be vectors with zero components.
 This can cause problems in Dymola 7.4. 
 We therefore also introduced the parameter
+</p>
 <pre>
   NConExt = max(1, nConExt)
 
 </pre>
-which can be used to set the size of the vector of component models.
-</p>
+<p>which can be used to set the size of the vector of component models.</p>
 <p>
 There are also parameters that can be used to conditionally remove components,
-such as <code>haveConExt</code>, which is set to 
+such as <code>haveConExt</code>, which is set to
+</p>
 <pre>
+  
   haveConExt = nConExt > 0;
 
 </pre>
-</p>
 </html>",
 revisions="<html>
 <ul>

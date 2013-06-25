@@ -177,13 +177,14 @@ to a value defined in
 <a href=\"modelica://Buildings.HeatTransfer.Types.Tilt\">
 Buildings.HeatTransfer.Types.Tilt</a>.
 </p>
-</p>
+<br/>
+
 <p>
 If the parameter <code>linearize</code> is set to <code>true</code>,
 then all equations are linearized.
 </p>
 <h4>References</h4>
-<p>
+
 TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.

@@ -211,7 +211,6 @@ equation
         Documentation(info="<html>
 This model computes the boundary conditions for the outside-facing surface of
 opaque constructions.
-</p>
 <p>
 The model computes the infrared, solar, and convective heat exchange
 between these surfaces and the exterior temperature and the sky temperature.

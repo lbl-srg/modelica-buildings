@@ -94,9 +94,9 @@ equation
       T4 = T03 * sha.T;
     else
       if homotopyInitialization then
-	T4 = homotopy(actual=(sha.T)^4, simplified=T03 * sha.T);
+ T4 = homotopy(actual=(sha.T)^4, simplified=T03 * sha.T);
       else
-	T4 = (sha.T)^4;
+ T4 = (sha.T)^4;
       end if;
     end if;
 
@@ -220,7 +220,7 @@ The convective heat balance is based on the model described by Wright (2008), wh
 be shown as a convective heat resistance model as follows:
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/convection.png\" border=\"1\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/convection.png\" border=\"1\"/>
 </p>
 <p>
 Wright (2008) reports that if the shading layer is far enough from the window,

@@ -1,6 +1,8 @@
 within Buildings.Media;
 package PerfectGases "Package with models for perfect gases"
   extends Modelica.Icons.MaterialPropertiesPackage;
+
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains models of <i>thermally perfect</i> gases.
@@ -32,5 +34,4 @@ Bower, William B. <i>A primer in fluid mechanics: Dynamics of flows in one
 space dimension</i>. CRC Press. 1998.
 </p>
 </html>"));
-
 end PerfectGases;
