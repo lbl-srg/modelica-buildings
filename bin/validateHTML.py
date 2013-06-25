@@ -11,9 +11,15 @@
 #####################################################################
 
 def validate():
+    import buildingspy.io.reporter as rep
     import buildingspy.development.validator as v
     val = v.Validator()
-    val.validateHTMLInPackage(".")
+    errMsg = val.validateHTMLInPackage(".")
+    for i in range(len(errMsg)):
+        if i == 0:
+            print "The following malformed html syntax has been found:\n%s" % errMsg[i]
+        else:
+            print errMsg[i]
 
 if __name__ == '__main__':
     import sys
