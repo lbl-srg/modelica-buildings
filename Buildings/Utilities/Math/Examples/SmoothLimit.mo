@@ -28,7 +28,7 @@ This model tests the implementation of smooth limit function.
 </html>", revisions="<html>
 <ul>
 <li>
-July 14, 2010, by Wangda Zuo, Michael Wetter:<br>
+July 14, 2010, by Wangda Zuo, Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

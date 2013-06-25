@@ -33,6 +33,7 @@ algorithm
   end if;
 
   annotation (Documentation(info="<html>
+<p>
 This function returns the absolute path of the uniform resource identifier
 by searching for a file with the name
 </p>
@@ -41,6 +42,7 @@ file://uri
 modelica://uri
 modelica://Buildings/uri
 </pre>
+<p>
 The function returns the absolute path of the first file that is found, using the above search order.
 If the file is not found, then this function terminates with an <code>assert</code>.
 </p>
@@ -53,7 +55,7 @@ the files.
 </html>", revisions="<html>
 <ul>
 <li>
-May 2, 2013, by Michael Wetter:<br>
+May 2, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

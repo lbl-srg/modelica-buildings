@@ -8,14 +8,14 @@ block WetBul_pTX
 
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     start=303,
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}},rotation=
             0)));
   Modelica.Blocks.Interfaces.RealInput XDryBul(
     start=0.01,
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="1",
     min=0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
@@ -30,7 +30,7 @@ block WetBul_pTX
            0)));
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
     annotation (Placement(transformation(extent={{100,70},{120,90}}, rotation=0)));
@@ -71,7 +71,7 @@ for a given dry bulb state.
 revisions="<html>
 <ul>
 <li>
-October 2, 2010 by Michael Wetter:<br>
+October 2, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

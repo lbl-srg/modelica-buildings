@@ -161,9 +161,7 @@ equation
           fillColor={175,175,175})}),
 defaultComponentName="lay",
     Documentation(info="<html>
-</p>
 Model for radial heat transfer in a hollow cylinder.
-</p>
 <p>
 If the heat capacity of the material is non-zero, then this model computes transient heat conduction, i.e., it
 computes a numerical approximation to the solution of the heat equation
@@ -190,7 +188,7 @@ If the heat capacity of the material is set to zero, then steady-state heat flow
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
    Q = 2 &pi; k (T<sub>a</sub>-T<sub>b</sub>)&frasl; ln(r<sub>a</sub> &frasl; r<sub>b</sub>),
-</p></p>
+</p>
 <p>
 where
 <i>r<sub>a</sub></i> is the internal radius,
@@ -208,16 +206,15 @@ between the surfaces and the outermost state variables. Thus, to obtain
 the surface temperature, use <code>port_a.T</code> (or <code>port_b.T</code>)
 and not the variable <code>T[1]</code>.
 </p>
-<p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-March 9, 2012, by Michael Wetter:<br>
+March 9, 2012, by Michael Wetter:<br/>
 Removed protected variable <code>der_T</code> as it is not required.
 </li>
 <li>
-April 14 2011, by Pierre Vigouroux:<br>
+April 14 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

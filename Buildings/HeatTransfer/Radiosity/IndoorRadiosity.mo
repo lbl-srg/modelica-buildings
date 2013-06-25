@@ -69,7 +69,7 @@ equation
     Documentation(info="<html>
 Model for the indoor emissive power that hits a window.
 The computation is according to TARCOG 2006.
-</p>
+
 <h4>References</h4>
 <p>
 TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
@@ -78,11 +78,11 @@ shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
-February 10, 2012, by Wangda Zuo:<br>
+February 10, 2012, by Wangda Zuo:<br/>
 Fixed a bug for temperature linearization.
 </li>
 <li>
-November 3, 2010, by Michael Wetter:<br>
+November 3, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

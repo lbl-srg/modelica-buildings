@@ -23,15 +23,16 @@ The parameter <code>timZon</code> represents the time zone of the facility  (rel
 east of GMT as positive. Fraction of hours are represented in decimals (e.g. for <i>6:30</i>, use <i>6.5</i>).
 </p>
 <p>
-The formula is based on Michael Wetter's thesis (A4.1):<pre>
+The formula is based on Michael Wetter's thesis (A4.1):
+</p>
+<pre>
   locTim = greTim + (lon*180/pi)*86400/360 = cloTim - timZon + lon*43200/pi 
 </pre>
-</p>
 </html>
 ", revisions="<html>
 <ul>
 <li>
-February 27, 2011, by Wangda Zuo:<br>
+February 27, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

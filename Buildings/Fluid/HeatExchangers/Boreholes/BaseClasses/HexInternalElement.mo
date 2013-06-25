@@ -202,6 +202,7 @@ The resistance between the fluid and the borehole wall are the sum of the
 convective resistance inside the tubes, the conductive resistance
 of the tube wall and the conductive resistance of the filling material. 
 They are obtained using
+</p>
  <p align=\"center\" style=\"font-style:italic;\">
  G<sub>Con</sub> = 2 &pi; h<sub>seg</sub> r<sub>tub</sub> h<sub>in</sub> , 
  </p>
@@ -210,7 +211,8 @@ G<sub>tub</sub> = 4 &pi; k<sub>tub</sub> h<sub>seg</sub> &frasl; ln( ( r<sub>tub
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 G<sub>fil</sub>= k<sub>fil</sub> h<sub>seg</sub> &beta;<sub>0</sub> ( r<sub>Bor</sub> &frasl; r<sub>tub</sub> ) <sup>&beta;<sub>1</sub></sup> ,
-</p> 
+</p>
+<p> 
 where <i>h<sub>seg</sub></i> is the height of the tube, 
 <i>h<sub>in</sub></i> is the convection coefficient,
 <i>k<sub>tub</sub></i> is the thermal conductivity of the tube, 
@@ -221,14 +223,12 @@ Paul's shape factors are based on experimental and finite element analysis of ty
 The default values used for these coefficients are &beta;<sub>0</sub>= 20.100 and &beta;<sub>1</sub>=-0.94467.
 Values listed by Paul are given in the table below.
 </p>
-<p>
-  <table>
+  <table summary=\"summary\">
   <tr><th>pipe spacing</th><th><i>&beta;<sub>0</sub></i></th><th><i>&beta;<sub>1</sub></i></th></tr>
   <tr><td> close  </td><td> 20.100377 </td><td> -0.94467 </td></tr>
   <tr><td> middle  </td><td> 17.44 </td><td> -0.6052  </td></tr>
   <tr><td> spaced </td><td> 21.91 </td><td> -0.3796 </td></tr>
   </table>
-</p>
 <h4>Implementation</h4>
 <p>
 The resistances between the fluid and the borehole wall are computed in
@@ -241,7 +241,7 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.InterferenceResistance</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-July 28 2011, by Pierre Vigouroux:<br>
+July 28 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

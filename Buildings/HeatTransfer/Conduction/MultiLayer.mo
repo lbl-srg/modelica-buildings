@@ -116,12 +116,14 @@ equation
           fillPattern=FillPattern.Forward)}),
     defaultComponentName="heaCon",
     Documentation(info="<html>
+<p>
 This is a model of a heat conductor with multiple material layers and energy storage.
 The construction has at least one material layer, and each layer has
 at least one temperature node. The layers are modeled using an instance of 
 <a href=\"Buildings.HeatTransfer.Conduction.SingleLayer\">
 Buildings.HeatTransfer.Conduction.SingleLayer</a>.
 </p>
+<p>
 The construction material is defined by a record of the package
 <a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueConstructions\">
 Buildings.HeatTransfer.Data.OpaqueConstructions</a>.
@@ -136,13 +138,13 @@ and the temperature state.
 </html>", revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Removed <code>initial equation</code> section and assigned the protected parameters
 <code>_T_a_start</code> and <code>_T_b_start</code> directly to avoid a warning during
 translation.
 </li>
 <li>
-March 6 2010, by Michael Wetter:<br>
+March 6 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

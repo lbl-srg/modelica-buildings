@@ -117,11 +117,12 @@ equation
           textString="dir")}),
     defaultComponentName="con",
     Documentation(info="<html>
+<p>
 This is a model for a convective heat transfer for exterior, outside-facing surfaces.
 The parameter <code>conMod</code> determines the model that is used to compute
 the heat transfer coefficient:
 </p>
-<p>
+
 <ol>
 <li><p>If <code>conMod=
 <a href=\"modelica://Buildings.HeatTransfer.Types.ExteriorConvection\">
@@ -176,8 +177,8 @@ which has to be set to a type of
 <a href=\"modelica://Buildings.HeatTransfer.Types.SurfaceRoughness\">
 Buildings.HeatTransfer.Types.SurfaceRoughness</a>.The coefficients for the surface roughness are
 </p>
-<p>
-<table border=\"1\">
+
+<table summary=\"summary\" border=\"1\">
 <tr>
 <th>Roughness index</th>
 <th><i>R</i></th>
@@ -190,7 +191,7 @@ Buildings.HeatTransfer.Types.SurfaceRoughness</a>.The coefficients for the surfa
 <tr><td>Smooth</td>       <td>1.11</td>  <td>Smooth plaster</td></tr>
 <tr><td>VerySmooth</td>  <td>1.00</td>  <td>Glass</td></tr>
 </table>
-</p>
+
 </li>
 </ol>
 <h4>References</h4>
@@ -207,13 +208,13 @@ Engineering Research Laboratory, Champaign, IL.
 </html>", revisions="<html>
 <ul>
 <li>
-November 29, 2011, by Michael Wetter:<br>
+November 29, 2011, by Michael Wetter:<br/>
 Fixed error in assignment of wind-based convection coefficient. 
 The old implementation did not take into account the surface roughness.
 Bug fix is due to feedback from Tobias Klingbeil (Fraunhofer ISE).
 </li>
 <li>
-March 10 2010, by Michael Wetter:<br>
+March 10 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

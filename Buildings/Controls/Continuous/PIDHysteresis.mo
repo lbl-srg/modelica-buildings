@@ -179,18 +179,18 @@ is small enough.
 </html>", revisions="<html>
 <ul>
 <li>
-February 24, 2010, by Michael Wetter:<br>
+February 24, 2010, by Michael Wetter:<br/>
 Changed PID controller from Modelica Standard Library to
 PID controller from Buildings library to allow reverse control action. 
 </li>
 <li>
-October 2, 2009, by Michael Wetter:<br>
+October 2, 2009, by Michael Wetter:<br/>
 Fixed error in default parameter <code>eOn</code>.
 Fixed error by introducing parameter <code>Td</code>, 
 which used to be hard-wired in the PID controller.
 </li>
 <li>
-February 14, 2009, by Michael Wetter:<br>
+February 14, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

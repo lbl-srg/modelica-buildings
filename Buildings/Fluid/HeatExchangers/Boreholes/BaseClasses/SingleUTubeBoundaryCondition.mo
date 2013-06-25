@@ -102,17 +102,17 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop</a>.
 revisions="<html>
 <ul>
 <li>
-November 3 2011, by Michael Wetter:<br>
+November 3 2011, by Michael Wetter:<br/>
 Moved <code>der(U) := Q_flow;</code> from the algorithm section to the equation section
 as this assignment does not conform to the Modelica specification.
 </li>
 <li>
-September 9 2011, by Michael Wetter:<br>
+September 9 2011, by Michael Wetter:<br/>
 Moved <code>equation</code> section into <code>algorithm</code> section to make sure that the equations
 in the <code>when</code> block are ordered correctly.
 </li>
 <li>
-July 28 2011, by Pierre Vigouroux:<br>
+July 28 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

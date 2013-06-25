@@ -241,7 +241,7 @@ Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-June 27, 2012, by Michael Wetter:<br>
+June 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

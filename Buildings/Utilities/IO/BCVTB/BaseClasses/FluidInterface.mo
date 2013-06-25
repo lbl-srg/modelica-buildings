@@ -132,11 +132,11 @@ interfacing fluid flow systems with the BCVTB interface.
 revisions="<html>
 <ul>
 <li>
-April 5, 2011, by Michael Wetter:<br>
+April 5, 2011, by Michael Wetter:<br/>
 Added nominal values that are needed by the sensor.
 </li>
 <li>
-September 11, 2009, by Michael Wetter:<br>
+September 11, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

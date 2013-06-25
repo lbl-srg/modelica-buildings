@@ -41,7 +41,7 @@ This block replicates the boolean input signal to an array of <code>nout</code> 
 </html>", revisions="<html>
 <ul>
 <li>
-July 27, 2012, by Kaustubh Phalak:<br>
+July 27, 2012, by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>

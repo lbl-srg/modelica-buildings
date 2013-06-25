@@ -72,16 +72,15 @@ algorithm
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={Bitmap(
             extent={{-88,82},{80,-78}}, fileName="modelica://Buildings/Resources/Images/Utilities/IO/Python27/python.png")}),
     Documentation(info="<html>
-Block that exchanges data with a Python function.
-</p>
+Block that exchanges data with a Python function.<br/>
 <p>
 For each element in the input vector <code>uR[nDblWri]</code>, 
 the value of the flag <code>flaDblWri[nDblWri]</code> determines whether
 the current value, the average over the sampling interval or the integral
 over the sampling interval is sent to Python. The following three options are allowed:
 </p>
-<p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<br/>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
 <td>
 flaDblWri[i]
@@ -115,11 +114,11 @@ Integral of uR[i] over the sampling interval
 </td>
 </tr>
 </table>
-</p>
+<br/>
 </html>", revisions="<html>
 <ul>
 <li>
-February 5, 2013, by Michael Wetter:<br>
+February 5, 2013, by Michael Wetter:<br/>
 First implementation, 
 based on
 <a href=\"modelica://Buildings.Utilities.IO.BCVTB.BCVTB\">

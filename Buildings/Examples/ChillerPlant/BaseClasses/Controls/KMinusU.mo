@@ -20,11 +20,11 @@ This component computes the value of
 ", revisions="<html>
 <ul>
 <li>
-July 20, 2011, by Wangda Zuo:<br>
+July 20, 2011, by Wangda Zuo:<br/>
 Add comments and merge to library. 
 </li>
 <li>
-May 19, 2010, by Wangda Zuo:<br>
+May 19, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
@@ -38,6 +38,5 @@ First implementation.
           lineColor={0,0,255}), Text(
           extent={{-50,24},{40,-12}},
           lineColor={0,0,255},
-          textString="y=k-u")}),
-    experiment(StopTime=3600));
+          textString="y=k-u")}));
 end KMinusU;

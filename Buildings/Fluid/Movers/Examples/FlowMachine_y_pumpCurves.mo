@@ -192,7 +192,7 @@ avoid a singularity at the origin.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>March 24 2010, by Michael Wetter:<br>
+<li>March 24 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -102,24 +102,24 @@ Buildings.Airflow.Multizone.Crack
 revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
-<li><i>December 6, 2011</i> by Michael Wetter:<br>
+<li><i>December 6, 2011</i> by Michael Wetter:<br/>
        Changed the computation of the discharge coefficient to use the 
        nominal density instead of the actual density. 
        Computing <code>sqrt(2/rho)</code> sometimes causes warnings from the solver,
        as it seems to try negative values for the density during iterative solutions.
 </li>
-<li><i>August 12, 2011</i> by Michael Wetter:<br>
+<li><i>August 12, 2011</i> by Michael Wetter:<br/>
        Changed model to use the new function 
        <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
        Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
 </li>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
+<li><i>July 20, 2010</i> by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>
-<li><i>February 10, 2005</i> by Michael Wetter:<br>
+<li><i>February 10, 2005</i> by Michael Wetter:<br/>
        Released first version.
 </ul>
 </html>"));

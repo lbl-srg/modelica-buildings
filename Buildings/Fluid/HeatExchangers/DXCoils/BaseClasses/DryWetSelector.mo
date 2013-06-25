@@ -26,7 +26,7 @@ block DryWetSelector "Selects results from dry or wet coil"
         rotation=270,
         origin={0,110})));
   Modelica.Blocks.Interfaces.RealInput TADPWet(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=273.15,
     max=373.15) "Dry bulb temperature of air at ADP"
@@ -49,7 +49,7 @@ block DryWetSelector "Selects results from dry or wet coil"
         rotation=90,
         origin={40,-110})));
   Modelica.Blocks.Interfaces.RealInput TADPDry(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=273.15,
     max=373.15) "Dry bulb temperature of air at ADP"
@@ -69,7 +69,7 @@ block DryWetSelector "Selects results from dry or wet coil"
     "Sensible Heat Ratio: Ratio of sensible heat load to total heat load"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealOutput TADP(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=273.15,
     max=373.15) "Dry bulb temperature of air at ADP"
@@ -113,11 +113,11 @@ and the coil inlet mass fraction.
 revisions="<html>
 <ul>
 <li>
-September 20, 2012 by Michael Wetter:<br>
+September 20, 2012 by Michael Wetter:<br/>
 Revised implementation. 
 </li>
 <li>
-August 9, 2012 by Kaustubh Phalak:<br>
+August 9, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

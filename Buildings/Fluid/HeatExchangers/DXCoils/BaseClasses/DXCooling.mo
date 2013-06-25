@@ -10,7 +10,7 @@ model DXCooling "DX cooling coil operation "
     "Flag, set to true for coil with variable speed";
 
   Modelica.Blocks.Interfaces.RealOutput TCoiSur(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=240,
     max=400) "Coil surface temperature"
@@ -179,15 +179,15 @@ may be from the dry coil, the wet coil, or a weighted average of the two.
 revisions="<html>
 <ul>
 <li>
-September 20, 2012 by Michael Wetter:<br>
+September 20, 2012 by Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-September 4, 2012 by Michael Wetter:<br>
+September 4, 2012 by Michael Wetter:<br/>
 Renamed connector to follow naming convention.
 </li>
 <li>
-April 12, 2012 by Kaustubh Phalak:<br>
+April 12, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

@@ -296,11 +296,11 @@ equation
 <p>
 This model computes the infrared radiative heat transfer between the interior
 surfaces of a room. Each opaque surface emits radiation according to
-<p/>
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   E<sup>i</sup> = &sigma; &nbsp; A<sup>i</sup> &nbsp; &epsilon;<sup>i</sup> &nbsp; 
 (T<sup>i</sup>)<sup>4</sup>,
-<p/>
+</p>
 <p>
 where
 <i>&sigma;</i>
@@ -318,10 +318,10 @@ where <i>T<sub>0</sub> = 20&deg;C</i> is a parameter.
 </p>
 <p>
 The incoming radiation at surface <i>i</i> is
-<p/>
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   G<sup>i</sup> = -&sum;<sub>j</sub> &nbsp; F<sup>j,i</sup> &nbsp; J<sup>j</sup>
-<p/>
+</p>
 <p>
 where 
 <i>F<sup>j,i</sup></i> 
@@ -334,20 +334,20 @@ For opaque surfaces, it follows from the first law
 that the radiosity
 <i>J<sup>i</sup></i> 
 is
-<p/>
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
  J<sup>i</sup> = -E<sup>i</sup>  - (1-&epsilon;<sup>i</sup>) &nbsp; G<sup>i</sup>.
-<p/>
+</p>
 <p>
 For windows, the outgoing radiosity is an input into this model
 because the window model computes this quantity directly.
 </p>
 <p>
 For each surface <i>i</i>, the heat balance is
-<p/>
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   0 = Q<sup>i</sup> + J<sup>i</sup> + G<sup>i</sup>.
-<p/>
+</p>
 <p>
 For opaque surfaces, the heat flow rate 
 <i>Q<sup>i</sup></i> 
@@ -356,7 +356,7 @@ For the glass of the windows, the radiosity outflow at the connector is
 set to the radiosity
 <i>G<sup>i</sup></i>
 that is leaving the surface.
-<p/>
+</p>
 <p>
 The view factor from surface <i>i</i> to <i>j</i> is approximated as
 <p align=\"center\" style=\"font-style:italic;\">
@@ -365,28 +365,28 @@ The view factor from surface <i>i</i> to <i>j</i> is approximated as
 </html>", revisions="<html>
 <ul>
 <li>
-April 18, 2013, by Michael Wetter:<br>
+April 18, 2013, by Michael Wetter:<br/>
 Removed <code>cardinality</code> function as this is 
 deprecated in the MSL specification and not correctly implemented in omc.
 </li>
 <li>
-February 10, 2012 by Wangda Zuo:<br>
+February 10, 2012 by Wangda Zuo:<br/>
 Fixed a bug for linearization of T4. 
 </li>
 <li>
-April 21, 2011 by Michael Wetter:<br>
+April 21, 2011 by Michael Wetter:<br/>
 Fixed a bug in the view factor calculation, and rewrote the model to reduce simulation time. The bug caused too much radiosity to flow from large to small surfaces because the law of reciprocity for view factors was not satisfied. This led to low surface temperatures if a surface had a large area compared to other surfaces.
 </li>
 <li>
-April 2, 2011 by Michael Wetter:<br>
+April 2, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-Feb. 3, 2011, by Michael Wetter:<br>
+Feb. 3, 2011, by Michael Wetter:<br/>
 Corrected bug in start value of radiosity, reformulated equations to get
 smaller system of coupled equations.
 <li>
-Dec. 1, 2010, by Michael Wetter:<br>
+Dec. 1, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

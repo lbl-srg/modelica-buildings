@@ -461,7 +461,7 @@ This is implemented by the instances <code>hysTOut</code> and
 to the block <code>and1</code> as shown in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System4PlantOnOff.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System4PlantOnOff.png\" border=\"1\"/>
 </p>
 </li>
 <li>
@@ -491,7 +491,7 @@ on when the pumps are on and the temperature is below
 Therefore, the boiler control sequence is as shown below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System4BoilerOnOff.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System4BoilerOnOff.png\" border=\"1\"/>
 </p>
 </li>
 </ol>
@@ -503,7 +503,7 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System4Temperatures.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System4Temperatures.png\" border=\"1\"/>
 </p>
 <p>
 The figure shows that the return water temperature
@@ -518,12 +518,12 @@ Buildings.Examples.Tutorial.Boiler.System5</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valves as
 this parameter no longer has a default value.
 </li>
 <li>
-January 27, 2012, by Michael Wetter:<br>
+January 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

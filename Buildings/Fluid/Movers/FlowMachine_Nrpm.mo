@@ -50,7 +50,7 @@ The efficiency of the device is computed based
 on the efficiency curves that take as an argument
 the actual volume flow rate divided by the maximum possible volume flow rate, or
 based on the motor performance curves.
-</p>
+<br/>
 <p>
 See the 
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
@@ -60,26 +60,26 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
-February 14, 2012, by Michael Wetter:<br>
+February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
 </li>
 <li>
-May 25, 2011, by Michael Wetter:<br>
+May 25, 2011, by Michael Wetter:<br/>
 Revised implementation of energy balance to avoid having to use conditionally removed models.
 </li>
 <li>
-July 27, 2010, by Michael Wetter:<br>
+July 27, 2010, by Michael Wetter:<br/>
 Redesigned model to fix bug in medium balance.
 </li>
-<li>March 24, 2010, by Michael Wetter:<br>
+<li>March 24, 2010, by Michael Wetter:<br/>
 Revised implementation to allow zero flow rate.
 </li>
 <li>October 1, 2009,
-    by Michael Wetter:<br>
+    by Michael Wetter:<br/>
        Model added to the Buildings library. 
 </li>
 <li><i>31 Oct 2005</i>
-    by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br>
+    by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br/>
        Model added to the Fluid library</li>
 </ul>
 </html>"));

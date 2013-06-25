@@ -179,7 +179,7 @@ example in which the pipes are embedded in the concrete slab, and
 the layers below the pipes are insulation and reinforced concrete.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/resistances.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/resistances.png\"/>
 </p>
 <p>
 The construction <code>con_a</code> computes transient heat conduction
@@ -212,11 +212,12 @@ The first layer of this material is the one at the heat port <code>surf_a</code>
 is at the heat port <code>surf_b</code>.
 The parameter <code>iLayPip</code> must be set to the number of the interface in which the pipes
 are located. For example, consider the following floor slab.
+</p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/construction.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/construction.png\"/>
 </p>
 Then, the construction definition is
-</p>
+<br/>
 <pre>
   Buildings.HeatTransfer.Data.OpaqueConstructions.Generic layers(
         nLay=3, 
@@ -295,8 +296,7 @@ The parameter <code>sysTyp</code> is used to select the equation that is used to
 the average temperature in the plane of the pipes.
 It needs to be set to the following values:
 </p>
-<p>
-  <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr>
       <th>sysTyp</th>
       <th>System type</th>
@@ -312,7 +312,6 @@ It needs to be set to the following values:
           construction surface.</td>
     </tr>
   </table>
-</p>
 <h4>Limitations</h4>
 <p>
 The analogy with a three-resistance network and the corresponding equation for
@@ -334,17 +333,17 @@ plane with the pipes and the construction surfaces, <code>con_a</code> and <code
 revisions="<html>
 <ul>
 <li>
-February 27, 2013, by Michael Wetter:<br>
+February 27, 2013, by Michael Wetter:<br/>
 Fixed bug in the assignment of the fictitious thermal resistance by replacing
 <code>RFic[nSeg](each G=A/Rx)</code> with
 <code>RFic[nSeg](each G=A/nSeg/Rx)</code>.
 </li>
 <li>
-April 5, 2012, by Michael Wetter:<br>
+April 5, 2012, by Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-April 3, 2012, by Xiufeng Pang:<br>
+April 3, 2012, by Xiufeng Pang:<br/>
 First implementation.
 </li>
 </ul>

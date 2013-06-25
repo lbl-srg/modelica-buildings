@@ -37,11 +37,11 @@ Parameters that are used for classes with two surfaces.
 revisions="<html>
 <ul>
 <li>
-March 20, 2012, by Wangda Zuo:<br>
+March 20, 2012, by Wangda Zuo:<br/>
 Added <code>T04</code> for temperature linearization.
 </li>
 <li>
-August 23, 2010, by Michael Wetter:<br>
+August 23, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

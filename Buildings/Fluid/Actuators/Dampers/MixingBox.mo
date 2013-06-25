@@ -319,20 +319,20 @@ defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
-February 14, 2012 by Michael Wetter:<br>
+February 14, 2012 by Michael Wetter:<br/>
 Added filter to approximate the travel time of the actuator.
 </li>
 <li>
-February 3, 2012, by Michael Wetter:<br>
+February 3, 2012, by Michael Wetter:<br/>
 Removed assignment of <code>m_flow_small</code> as it is no
 longer used in its base class.
 </li>
 <li>
-February 23, 2010 by Michael Wetter:<br>
+February 23, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

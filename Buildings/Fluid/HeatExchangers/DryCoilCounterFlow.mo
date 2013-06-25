@@ -232,18 +232,18 @@ this model computes only sensible heat transfer.
 </html>", revisions="<html>
 <ul>
 <li>
-February 2, 2012, by Michael Wetter:<br>
+February 2, 2012, by Michael Wetter:<br/>
 Corrected error in assignment of <code>dp2_nominal</code>.
 The previous assignment caused a pressure drop in all except one element,
 instead of the opposite. This caused too high a flow resistance
 of the heat exchanger.
 </li>
 <li>
-October 8, 2011, by Michael Wetter:<br>
+October 8, 2011, by Michael Wetter:<br/>
 Set <code>show_T=false</code> to avoid state events near zero flow.
 </li>
 <li>
-May 27, 2010, by Michael Wetter:<br>
+May 27, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

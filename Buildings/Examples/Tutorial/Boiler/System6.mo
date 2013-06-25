@@ -219,7 +219,7 @@ model System6
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-320},{140,-300}})));
 
-//-----------------------Step 3: Change in controller type-----------------------//			
+//-----------------------Step 3: Change in controller type-----------------------//
  Buildings.Controls.Continuous.LimPID conPIDBoi(
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -233,7 +233,7 @@ model System6
     "Setpoint for supply water temperature"
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
 
-//-----------------------Step 3: Change in controller type-----------------------//			
+//-----------------------Step 3: Change in controller type-----------------------//
  Buildings.Controls.Continuous.LimPID conPIDRad(
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -242,7 +242,7 @@ model System6
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
 //------------------------------------------------------------------------------//
 
-//-----------------------------Step 2: Weather data------------------------------//		
+//-----------------------------Step 2: Weather data------------------------------//
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data reader"
@@ -508,7 +508,7 @@ and called it
 Next, we added the weather data as shown in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System6Weather.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System6Weather.png\" border=\"1\"/>
 </p>
 <p>
 The weather data reader is implemented using
@@ -518,7 +518,6 @@ The weather data reader is implemented using
     filNam=\"Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos\") 
     \"Weather data reader\";
 </pre>
-</p>
 <p>
 The yellow icon in the middle of the figure is an instance of
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.Bus\">
@@ -544,8 +543,8 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System6Temperatures1.png\" border=\"1\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System6Temperatures2.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System6Temperatures1.png\" border=\"1\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System6Temperatures2.png\" border=\"1\"/>
 </p>
 <p>
 The figure shows that the boiler temperature is regulated between
@@ -560,12 +559,12 @@ maintained at their set point.
 </html>", revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valves as
 this parameter no longer has a default value.
 </li>
 <li>
-January 27, 2012, by Michael Wetter:<br>
+January 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -19,7 +19,7 @@ For example, in the schematics below, a valve and a fixed resistance
 are modeled in series. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/valvePressureDropSeries.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/valvePressureDropSeries.png\"/>
 </p>
 <p>
 This often introduces an additional nonlinear equation.
@@ -48,7 +48,7 @@ For three way valves, similar parameters exist for the controlled ports of the v
 consider the configuration below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/threeWayValvePressureDropSeries.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/threeWayValvePressureDropSeries.png\"/>
 </p>
 <p>
 Suppose the parameters are
@@ -65,9 +65,8 @@ An equivalent model could be created by deleting the two resistance models
 <pre>
   val(dpValve_nominal=6000, dpFixed={10000, 100}, m_flow_nominal=0.1);
 </pre>
-<p>
-</p>
 <h4>Transients of actuators</h4>
+<p>
 This section describes how valves and dampers can be configured
 to approximate the travel time of an actuator.
 Such an approximation can also lead to faster simulation because
@@ -130,14 +129,14 @@ The grey motor symbol above the control valve <code>val1</code>
 indicates that <code>filteredOpening=true</code>.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/valveSchematic.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/valveSchematic.png\"/>
 </p>
 <p>
 If these valves both have a step input signal at <i>10</i> seconds, then the
 actual opening of the valves are as follows:
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/valveResponse.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/valveResponse.png\"/>
 </p>
 <p>
 Thus, in the valve <code>val1</code>, the mass flow rate will slowly increase,

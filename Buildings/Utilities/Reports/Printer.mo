@@ -96,7 +96,7 @@ This model prints to a file or the terminal at a fixed sample interval.
 <p>
 The parameter <code>configuration</code> controls the printing as follows:
 </p>
-<table border=\"1\">
+<table summary=\"summary\" border=\"1\">
 <tr><td><code>configuration</code></td><td>configuration</td></tr>
 <tr><td><code>1</code></td> <td>print at sample times only</td></tr>
 <tr><td><code>2</code></td> <td>print at sample times and at end of simulation</td></tr>
@@ -105,17 +105,17 @@ The parameter <code>configuration</code> controls the printing as follows:
 </html>", revisions="<html>
 <ul>
 <li>
-May 27, 2011 by Michael Wetter:<br>
+May 27, 2011 by Michael Wetter:<br/>
 Changed parameter <code>precision</code> to <code>significantDigits</code>
 and <code>minimumWidth</code> to <code>minimumLength</code> to use the same 
 terminology as the Modelica Standard Library.
 </li>
 <li>
-October 1, 2008 by Michael Wetter:<br>
+October 1, 2008 by Michael Wetter:<br/>
 Revised implementation and moved to new package.
 </li>
 <li>
-July 20, 2007 by Michael Wetter:<br>
+July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

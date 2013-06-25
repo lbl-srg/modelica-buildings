@@ -91,7 +91,7 @@ for examples.
 </html>", revisions="<html>
 <ul>
 <li>
-May 2, 2013, by Michael Wetter:<br>
+May 2, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

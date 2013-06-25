@@ -654,7 +654,7 @@ and for the coil with variable compressor speed, as both of these coils
 switch off less frequent.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/DXCoils/Examples/SpaceCooling.png\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/DXCoils/Examples/SpaceCooling.png\" />
 </p>
 <h4>Implementation</h4>
 <p>
@@ -665,7 +665,7 @@ Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 11, 2012, by Michael Wetter:<br>
+January 11, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

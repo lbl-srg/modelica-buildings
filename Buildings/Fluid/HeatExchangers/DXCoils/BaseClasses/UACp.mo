@@ -108,11 +108,11 @@ and, hence,
 revisions="<html>
 <ul>
 <li>
-September 21, 2012 by Michael Wetter:<br>
+September 21, 2012 by Michael Wetter:<br/>
 Revised implementation and documentation.
 </li>
 <li>
-April 9, 2012 by Kaustubh Phalak:<br>
+April 9, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

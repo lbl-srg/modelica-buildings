@@ -170,7 +170,7 @@ If the results differ, then an assert is triggered.
 </html>", revisions="<html>
 <ul>
 <li>
-August 19, 2010, by Michael Wetter:<br>
+August 19, 2010, by Michael Wetter:<br/>
 First implementation based on a model from Giuliano Fontanella.
 </li>
 </ul>

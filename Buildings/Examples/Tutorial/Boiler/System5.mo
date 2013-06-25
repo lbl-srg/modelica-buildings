@@ -482,7 +482,7 @@ Next, we added closed loop control for the boiler valve as
 shown in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5BoilerValveControl.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5BoilerValveControl.png\" border=\"1\"/>
 </p>
 <p>
 This is implemented using the constant block
@@ -500,6 +500,7 @@ We configured the controller as
     Ti=120,    
     Td=1) \"Controller for valve in boiler loop\";
 </pre>
+<p>
 We set the proportional band to <i>10</i> Kelvin, hence <code>k=0.1</code>.
 We set the integral time constant to <i>120</i> seconds, which is 
 the same time as is required to open or close the valve.
@@ -522,7 +523,7 @@ This instance is called <code>TSetSup</code> in the
 control sequence shown in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5RadiatorValve.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5RadiatorValve.png\" border=\"1\"/>
 </p>
 <p>
 Its configuration is
@@ -542,7 +543,7 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5Temperatures.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5Temperatures.png\" border=\"1\"/>
 </p>
 <p>
 The figure shows that the return water temperature
@@ -556,12 +557,12 @@ Buildings.Examples.Tutorial.Boiler.System4</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valves as
 this parameter no longer has a default value.
 </li>
 <li>
-January 27, 2012, by Michael Wetter:<br>
+January 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

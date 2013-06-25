@@ -31,33 +31,37 @@ algorithm
 Documentation(info="<html>
 <p>
 Function that computes the pressure drop of flow elements as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   &Delta;p = sign(m) (m &frasl; k)<sup>2</sup> 
 </p>
+<p>
 with regularization near the origin.
 Therefore, the flow coefficient is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   k = m &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span> 
 </p>
+<p>
 The input <code>m_flow_turbulent</code> determines the location of the regularization.
 </p>
 </html>"),
 revisions="<html>
 <ul>
 <li>
-August 10, 2011, by Michael Wetter:<br>
+August 10, 2011, by Michael Wetter:<br/>
 Removed <code>if-then</code> optimization that set <code>dp=0</code> if <code>m_flow=0</code>,
 as this causes the derivative to be discontinuous at <code>m_flow=0</code>.
 </li>
 <li>
-August 4, 2011, by Michael Wetter:<br>
+August 4, 2011, by Michael Wetter:<br/>
 Removed option to use a linear function. The linear implementation is now done
 in models that call this function. With the previous implementation, 
 the symbolic processor may not rearrange the equations, which can lead 
 to coupled equations instead of an explicit solution.
 </li>
 <li>
-April 13, 2009, by Michael Wetter:<br>
+April 13, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

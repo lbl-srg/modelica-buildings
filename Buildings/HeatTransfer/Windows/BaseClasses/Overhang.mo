@@ -227,14 +227,14 @@ The method of super position is used to calculate the window shaded area.
 The area below the overhang is divided as shown in the figure. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangSuperPosition.png\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangSuperPosition.png\" />
 </p>
 <p>
 Dimensional variables used in code for the rectangle <i>DEGI, AEGH, CFGI</i> and <i>BFGH</i>
 are shown in the figure below:
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangVariables.png\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangVariables.png\" />
 </p>
 <p>
 The rectangles <i>DEGI, AEGH, CFGI</i> and <i>BFGH</i> have the same geometric configuration 
@@ -252,27 +252,27 @@ to calculate the shaded fraction of the window.
 revisions="<html>
 <ul>
 <li>
-July 5, 2012, by Michael Wetter:<br>
+July 5, 2012, by Michael Wetter:<br/>
 Changed definitions of <code>wL</code> and <code>wR</code> to be
 measured from the corner of the window instead of the centerline.
 This allows changing the window width without having to adjust the
 overhang parameters.
 </li>
 <li>
-July 5, 2012, by Michael Wetter:<br>
+July 5, 2012, by Michael Wetter:<br/>
 Revised implementation to avoid state events when horizontal projection
 of the sun beam is perpendicular to window.
 </li>
 <li>
-May 7, 2012, by Kaustubh Phalak:<br>
+May 7, 2012, by Kaustubh Phalak:<br/>
 Modified for use of asymmetrical overhang.
 </li>
 <li>
-Feb 23, 2012, by Michael Wetter:<br>
+Feb 23, 2012, by Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-Feb 01, 2012, by Kaustubh Phalak:<br>
+Feb 01, 2012, by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

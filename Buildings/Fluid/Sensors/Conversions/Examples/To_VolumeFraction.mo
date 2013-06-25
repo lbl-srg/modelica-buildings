@@ -178,14 +178,14 @@ the setpoint, which does not comply with ASHRAE regulations.
 </html>", revisions="<html>
 <ul>
 <li>
-March 27, 2013 by Michael Wetter:<br>
+March 27, 2013 by Michael Wetter:<br/>
 Added a flow resistance between the volume and the ambient to decouple the
 state of the volume from the boundary conditions. This is needed to allow
 a pedantic model check in Dymola 2014, as otherwise, the initial conditions of
 the volume could not be specified without introducing redundant equations.
 </li>
 <li>
-February 13, 2010 by Michael Wetter:<br>
+February 13, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

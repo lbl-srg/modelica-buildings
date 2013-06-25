@@ -229,9 +229,11 @@ and
 <a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">
 Buildings.HeatTransfer.Windows.SideFins</a>.
 </p>
+
 <h4>Limitations</h4>
 <p>
-For overhangs, the model assumes that 
+For overhangs, the model assumes that
+</p>
 <ul>
 <li> 
 the overhang is at least as wide as the window, i.e., 
@@ -242,9 +244,10 @@ the overhang is at least as wide as the window, i.e.,
 the overhang is horizontal.
 </li>
 </ul>
-</p>
+
 <p>
-For side fins, the model assumes that 
+For side fins, the model assumes that
+</p>
 <ul>
 <li>
 the side fins are placed symmetrically to the left and right of the window,
@@ -256,7 +259,7 @@ the top of the side fins must be at an equal or greater height than the window, 
 the side fins extends at least to the lower edge of the window.
 </li>
 </ul> 
-</p>
+
 <h4>Implementation</h4>
 <p>
 The detailed calculation method is explained in 
@@ -270,21 +273,21 @@ Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 revisions="<html>
 <ul>
 <li>
-July 7, 2012, by Michael Wetter:<br>
+July 7, 2012, by Michael Wetter:<br/>
 Renamed model from <code>Shade</code> to <code>FixedShade</code> because
 shade is already used for window interior and exterior shades.
 </li><li>
-July 5, 2012, by Michael Wetter:<br>
+July 5, 2012, by Michael Wetter:<br/>
 Moved model from package <code>Buildings.Rooms.BaseClasses</code> to 
 <code>Buildings.HeatTransfer.Windows</code>, because the overhang and side fin
 models are also in this package.
 </li>
 <li>
-May 21, 2012, by Kaustubh Phalak:<br>
+May 21, 2012, by Kaustubh Phalak:<br/>
 Enabled the model to use overhang and side at the same time. 
 </li>
 <li>
-March 5, 2012, by Michael Wetter:<br>
+March 5, 2012, by Michael Wetter:<br/>
 First implementation. 
 </li>
 

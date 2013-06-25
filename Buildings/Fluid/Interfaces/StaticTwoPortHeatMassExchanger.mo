@@ -114,7 +114,6 @@ If the parameter <code>linearizeFlowResistance</code> is set to true,
 then the whole pressure drop vs. flow resistance curve is linearized.
 </p>
 <h4>Implementation</h4>
-<p>
 This model uses inputs and constants that need to be set by models
 that extend or instantiate this model.
 The following inputs need to be assigned:
@@ -126,7 +125,7 @@ The following inputs need to be assigned:
 <code>mXi_flow</code>, which is the species mass flow rate added to the medium.
 </li>
 </ul>
-</p>
+
 <p>
 Set the constant <code>sensibleOnly=true</code> if the model that extends
 or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
@@ -134,16 +133,16 @@ or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-March 27, 2013 by Michael Wetter:<br>
+March 27, 2013 by Michael Wetter:<br/>
 Removed wrong unit attribute of <code>COut</code>,
 and added min and max attributes for <code>XiOut</code>.
 </li>
 <li>
-February 8, 2012 by Michael Wetter:<br>
+February 8, 2012 by Michael Wetter:<br/>
 Changed model to use graphical modeling.
 </li>
 <li>
-December 14, 2011 by Michael Wetter:<br>
+December 14, 2011 by Michael Wetter:<br/>
 Changed assignment of <code>hOut</code>, <code>XiOut</code> and
 <code>COut</code> to no longer declare that it is continuous. 
 The declaration of continuity, i.e, the 
@@ -152,27 +151,27 @@ was required for Dymola 2012 to simulate, but it is no longer needed
 for Dymola 2012 FD01.
 </li>
 <li>
-August 19, 2011, by Michael Wetter:<br>
+August 19, 2011, by Michael Wetter:<br/>
 Changed assignment of <code>hOut</code>, <code>XiOut</code> and
 <code>COut</code> to declare that it is not differentiable.
 </li>
 <li>
-August 4, 2011, by Michael Wetter:<br>
+August 4, 2011, by Michael Wetter:<br/>
 Moved linearized pressure drop equation from the function body to the equation
 section. With the previous implementation, 
 the symbolic processor may not rearrange the equations, which can lead 
 to coupled equations instead of an explicit solution.
 </li>
 <li>
-March 29, 2011, by Michael Wetter:<br>
+March 29, 2011, by Michael Wetter:<br/>
 Changed energy and mass balance to avoid a division by zero if <code>m_flow=0</code>.
 </li>
 <li>
-March 27, 2011, by Michael Wetter:<br>
+March 27, 2011, by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-August 19, 2010, by Michael Wetter:<br>
+August 19, 2010, by Michael Wetter:<br/>
 Fixed bug in energy and moisture balance that affected results if a component
 adds or removes moisture to the air stream. 
 In the old implementation, the enthalpy and species
@@ -184,20 +183,20 @@ Also, the results for forward flow and reverse flow differed by this amount.
 With the new implementation, the energy and moisture balance is exact.
 </li>
 <li>
-March 22, 2010, by Michael Wetter:<br>
+March 22, 2010, by Michael Wetter:<br/>
 Added constant <code>sensibleOnly</code> to 
 simplify species balance equation.
 </li>
 <li>
-April 10, 2009, by Michael Wetter:<br>
+April 10, 2009, by Michael Wetter:<br/>
 Added model to compute flow friction.
 </li>
 <li>
-April 22, 2008, by Michael Wetter:<br>
+April 22, 2008, by Michael Wetter:<br/>
 Revised to add mass balance.
 </li>
 <li>
-March 17, 2008, by Michael Wetter:<br>
+March 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

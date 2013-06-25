@@ -35,7 +35,7 @@ The sensor is ideal, i.e. it does not influence the fluid.
 revisions="<html>
 <ul>
 <li>
-September 29, 2009, by Michael Wetter:<br>
+September 29, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

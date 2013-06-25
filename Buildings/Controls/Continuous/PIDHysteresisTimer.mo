@@ -245,16 +245,16 @@ avoids the controller from switching on until <code>minOffTime</code> seconds el
 </html>", revisions="<html>
 <ul>
 <li>
-February 24, 2010, by Michael Wetter:<br>
+February 24, 2010, by Michael Wetter:<br/>
 Changed PID controller from Modelica Standard Library to
 PID controller from Buildings library to allow reverse control action. 
 </li>
 <li>
-October 2, 2009, by Michael Wetter:<br>
+October 2, 2009, by Michael Wetter:<br/>
 Fixed error in default parameter <code>eOn</code>.
 </li>
 <li>
-February 9, 2009, by Michael Wetter:<br>
+February 9, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

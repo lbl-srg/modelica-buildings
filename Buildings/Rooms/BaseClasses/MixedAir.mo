@@ -586,8 +586,8 @@ equation
       color={190,0,0},
       smooth=Smooth.None));
   connect(conExtWinFra, solRadExc.conExtWinFra) annotation (Line(
-      points={{242,5.55112e-16},{214,0},{160,0},{160,60},{-60,60},{-60,50},{
-          -79.9167,50}},
+      points={{242,5.55112e-16},{214,5.55112e-16},{160,5.55112e-16},{160,60},{
+          -60,60},{-60,50},{-79.9167,50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_a, solRadExc.conPar_a) annotation (Line(
@@ -741,6 +741,7 @@ equation
           lineColor={0,0,127},
           textString="TRad")}),
     Documentation(info="<html>
+<p>
 Model for the heat exchange inside a room.
 This model integrates various components that model
 heat exchange between the room-facing surfaces of constructions
@@ -749,6 +750,7 @@ can be used to connect models of HVAC systems to the room model.
 </p>
 <p>
 The main components that are used in this model are as follows:
+</p>
 <ol>
 <li>
 The model 
@@ -807,17 +809,14 @@ in proportion to the product of the receiving areas times their
 solar absorptivity.
 </li>
 </ol>
-</p>
-
-
 </html>", revisions="<html>
 <ul>
 <li>
-December 9, 2011, by Michael Wetter:<br>
+December 9, 2011, by Michael Wetter:<br/>
 Reconnected heat ports to clean-up model.
 </li>
 <li>
-November 29, 2011, by Michael Wetter:<br>
+November 29, 2011, by Michael Wetter:<br/>
 Added missing connect statement between window frame
 surface and window frame convection model. Prior to this bug fix,
 no convective heat transfer was computed between window frame and
@@ -825,7 +824,7 @@ room air.
 Bug fix is due to feedback from Tobias Klingbeil (Fraunhofer ISE).
 </li>
 <li>
-November 16 2010, by Michael Wetter:<br>
+November 16 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -208,7 +208,6 @@ at the top-level of the model by adding the lines
   replaceable package MediumW = 
       Buildings.Media.ConstantPropertyLiquidWater \"Medium model\";
 </pre>
-</p>
 </li>
 <li>
 <p>
@@ -236,7 +235,7 @@ Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor
 We connected the model as shown in the figure below. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System2Connections.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System2Connections.png\" border=\"1\"/>
 </p>
 <p>
 Note that there are two connections from the
@@ -269,8 +268,6 @@ Thus, we define the radiator mass flow rate as
     Q_flow_nominal/4200/(TRadSup_nominal-TRadRet_nominal)
     \"Radiator nominal mass flow rate\";
 </pre>
-<p>
-</p>
 </li>
 <li>
 <p>
@@ -287,6 +284,7 @@ We configured the parameters of the radiator model as
     T_a_nominal=TRadSup_nominal,
     T_b_nominal=TRadRet_nominal) \"Radiator\";
 </pre>
+<p>
 We configured the parameters of the pump model as
 </p>
 <pre>
@@ -296,6 +294,7 @@ We configured the parameters of the pump model as
 </pre>
 </li>
 <li>
+<p>
 To enable the pump when the room temperature is below 
 <i>19</i>&deg;C and to switch it off when the room temperature
 is below 
@@ -303,7 +302,7 @@ is below
 we implemented the control blocks as shown in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System2PumpControl.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System2PumpControl.png\" border=\"1\"/>
 </p>
 <p>
 In this control sequence, the first block is a hysteresis element,
@@ -350,6 +349,7 @@ This will approximate a continuous change in mass flow rate when the
 pump is switched on or off.
 Finally, we closed the control loop between the room temperature sensor and the
 pump input signal.
+</p>
 </li>
 </ol>
 <!-- ============================== -->
@@ -359,7 +359,7 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System2Temperatures.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System2Temperatures.png\" border=\"1\"/>
 </p>
 <p>
 The figure shows that the room temperature is maintained at
@@ -384,7 +384,7 @@ could have been used.
 </html>", revisions="<html>
 <ul>
 <li>
-January 27, 2012, by Michael Wetter:<br>
+January 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

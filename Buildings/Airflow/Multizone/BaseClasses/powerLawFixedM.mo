@@ -32,9 +32,11 @@ Documentation(info="<html>
 <p>
 This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   V = k sign(&Delta;p) |&Delta;p|<sup>m</sup>
 </p>
+<p>
 where 
 <i>V</i> is the volume flow rate,
 <i>k &gt; 0</i> is a flow coefficient
@@ -72,7 +74,7 @@ Buildings.Airflow.Multizone.BaseClasses.powerLaw</a>.
 revisions="<html>
 <ul>
 <li>
-<i>August 12, 2011</i> by Michael Wetter:<br>
+<i>August 12, 2011</i> by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

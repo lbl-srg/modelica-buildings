@@ -1,8 +1,7 @@
 within Buildings.Fluid.Sensors;
 model TemperatureTwoPort "Ideal two port temperature sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
-
-  Modelica.Blocks.Interfaces.RealOutput T(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
                                           final unit="K",
                                           displayUnit = "degC",
                                           min = 0,
@@ -12,7 +11,6 @@ model TemperatureTwoPort "Ideal two port temperature sensor"
         origin={0,110},
         extent={{10,-10},{-10,10}},
         rotation=270)));
-
   parameter Modelica.SIunits.Temperature T_start=Medium.T_default
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
@@ -47,7 +45,6 @@ equation
   else
     T = TMed;
   end if;
-
 annotation (defaultComponentName="senTem",
   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),
@@ -98,17 +95,15 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ", revisions="<html>
-<html>
-<p>
 <ul>
 <li>
-June 3, 2011 by Michael Wetter:<br>
+June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that 
 the time constant increases as the mass flow rate tends to zero.
 This significantly improves the numerics.
 </li>
 <li>
-February 26, 2010 by Michael Wetter:<br>
+February 26, 2010 by Michael Wetter:<br/>
 Set start attribute for temperature output. Prior to this change,
 the output was 0 at initial time, which caused the plot of the output to 
 use 0 Kelvin as the lower value of the ordinate.
@@ -118,7 +113,7 @@ use 0 Kelvin as the lower value of the ordinate.
 revisions="<html>
 <ul>
 <li>
-September 10, 2008, by Michael Wetter:<br>
+September 10, 2008, by Michael Wetter:<br/>
 First implementation.
 Implementation is based on 
 <a href=\"modelica://Buildings.Fluid.Sensors.Temperature\">Buildings.Fluid.Sensors.Temperature</a>.

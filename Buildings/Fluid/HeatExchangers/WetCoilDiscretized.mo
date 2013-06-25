@@ -40,11 +40,11 @@ Modelica.Media.Air.MoistAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-September 10, 2008 by Michael Wetter:<br>
+September 10, 2008 by Michael Wetter:<br/>
 Added values for <code>stateSelect</code> attributes.
 </li>
 <li>
-August 13, 2008 by Michael Wetter:<br>
+August 13, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

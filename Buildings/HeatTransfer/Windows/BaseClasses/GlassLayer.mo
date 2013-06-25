@@ -111,19 +111,19 @@ The model also computes the infrared radiative heat balance using an instance
 of the model
 <a href=\"Buildings.HeatTransfer.Radiosity.WindowPane\">
 Buildings.HeatTransfer.Radiosity.WindowPane</a>.
-</p>
+<br/>
 </html>", revisions="<html>
 <ul>
 <li>
-March 20, 2012 by Wangda Zuo:<br>
+March 20, 2012 by Wangda Zuo:<br/>
 Fixed bug for heat flow reported by Pierre Tittelein and fixed bug for temperature linearization.
 </li>
 <li>
-April 2, 2011 by Michael Wetter:<br>
+April 2, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-August 18 2010, by Michael Wetter:<br>
+August 18 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

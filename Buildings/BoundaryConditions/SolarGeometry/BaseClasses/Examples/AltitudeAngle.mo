@@ -57,7 +57,7 @@ equation
           1.27676e-15},{61.5,6.66134e-16},{66,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), 
+  annotation (Diagram(graphics),
 experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/AltitudeAngle.mos"
         "Simulate and plot"),
@@ -68,6 +68,7 @@ The altitude angle is the angle between the sun ray and the projection of the ra
 </p>
 <p>
 Components used in this model are:
+</p>
 <ul>
 <li>
 <a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination</a>
@@ -79,12 +80,12 @@ Components used in this model are:
 <a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle</a>
 </li>
 </ul>
-</p>
+<br/>
 </html>",
 revisions="<html>
 <ul>
 <li>
-Feb 01, 2012, by Kaustubh Phalak<br>
+Feb 01, 2012, by Kaustubh Phalak<br/>
 First implementation.
 </li>
 </ul>

@@ -73,7 +73,7 @@ Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the 
 </html>", revisions="<html>
 <ul>
 <li>
-August 24, 2010, by Wangda Zuo:<br>
+August 24, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

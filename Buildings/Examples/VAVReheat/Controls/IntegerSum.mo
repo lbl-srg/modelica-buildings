@@ -1,7 +1,6 @@
 within Buildings.Examples.VAVReheat.Controls;
 block IntegerSum "Sums all the integer signals"
   extends Modelica.Blocks.Interfaces.IntegerSO;
-
   parameter Integer nin "Number of inputs";
   Modelica.Blocks.Interfaces.IntegerInput u[nin] "Input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}},

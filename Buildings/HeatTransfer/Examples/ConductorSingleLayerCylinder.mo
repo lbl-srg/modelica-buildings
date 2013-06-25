@@ -51,7 +51,7 @@ This example tests a circular conductor with a constant temperature at his bound
 </html>", revisions="<html>
 <ul>
 <li>
-April 14 2011, by Pierre Vigouroux:<br>
+April 14 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>
