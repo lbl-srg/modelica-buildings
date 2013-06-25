@@ -7,15 +7,18 @@ package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
+<p>
 The package <code>Buildings.Fluid.Interface</code> consists of basic
 classes that can be used by developers to create new component models.
-<br/><br/>
+</p>
+<p>
 The classes whose name contains <code>TwoPort</code> or 
 <code>FourPort</code> can be used for components with 
 two or four fluid ports, respectively. If a class name contains
 <code>Static</code>, then it can only be used for a steady-state model.
 Otherwise, it may be used for a steady-state or a dynamic model.
-<br/><br/>
+</p>
+<p>
 The most basic classes are the records
 <a href=\"modelica://Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters\">
 Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters</a>,
@@ -24,11 +27,12 @@ Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters</a> and
 <a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 These define parameters that are needed by many fluid flow components.
-<br/><br/>
+</p>
 
+<p>
 Next, we describe the basic classes. For a more detailed description,
 see the <i>info</i> section of the class.
-
+</p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
 <!-- ============================================== -->

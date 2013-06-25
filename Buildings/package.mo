@@ -10,15 +10,18 @@ package UsersGuide "User's Guide"
 This library follows the conventions of the 
 <a href=\"modelica://Modelica.UsersGuide.Conventions\">Modelica Standard Library</a>, which are as follows:
 </p>
+
 <p>
 Note, in the html documentation of any Modelica library,
 the headings \"h1, h2, h3\" should not be used,
 because they are utilized from the automatically generated documentation/headings.
 Additional headings in the html documentation should start with \"h4\".
 </p>
+
 <p>
 In the Modelica package the following conventions are used:
 </p>
+
 <ol>
 <li> Class and instance names are written in upper and lower case
   letters, e.g., \"ElectricCurrent\". An underscore is only used
@@ -61,10 +64,12 @@ In the Modelica package the following conventions are used:
   </ul>
   </li>
 </ol>
+
 <p>
 The <code>Buildings</code> library uses the following conventions
 in addition to the ones of the Modelica Standard Library:
 </p>
+
 <ol>
 <li>
 The nomenclature used in the package
@@ -2911,7 +2916,9 @@ The development of the Buildings library is organized by<br/>
     annotation (preferredView="info",
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Acknowledgements</font></h4>
- The development of this library was supported<br/>
+<p>
+ The development of this library was supported
+</p>
  <ul>
  <li>by the Assistant Secretary for
   Energy Efficiency and Renewable Energy, Office of Building
@@ -2922,17 +2929,20 @@ The development of the Buildings library is organized by<br/>
   by the California Energy Commission, Public Interest Energy Research Program, Buildings End Use Energy Efficiency Program, award number 500-10-052.
  </li>
  </ul>
-<br/>
+<p>
   The <a href=\"modelica://Buildings.Airflow.Multizone\">package for multizone airflow modeling</a>
   and the <a href=\"modelica://Buildings.Utilities.Comfort.Fanger\">model for thermal comfort</a>
   was contributed by the United Technologies Research Center, which also contributed to the
   validation of the <a href=\"modelica://Buildings.Rooms.MixedAir\">room heat transfer model</a>.
-<br/><br/>
+</p>
+<p>
 We thank Dietmar Winkler from Telemark University College for the various feedback that 
 helped improve the organization and structure of the library.
-<br/><br/>
+</p>
+<p>
 The following people have directly contributed to the implementation of the Buildings library
-(many others have contributed by other means than model implementation):<br/>
+(many others have contributed by other means than model implementation):
+</p>
 <ul>
 <li>Marco Bonvini, Lawrence Berkeley National Laboratory, USA
 </li>
@@ -2980,14 +2990,19 @@ The following people have directly contributed to the implementation of the Buil
     annotation (preferredView="info",
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>The Modelica License 2</font></h4>
-<strong>Preamble.</strong> The goal of this license is that Modelica related model libraries, software, images, documents, data files etc. can be used freely in the original or a modified form, in open source and in commercial environments (as long as the license conditions below are fulfilled, in particular sections 2c) and 2d). The Original Work is provided free of charge and the use is completely at your own risk. Developers of free Modelica packages are encouraged to utilize this license for their work. 
-<br/><br/>
+<p>
+<strong>Preamble.</strong> The goal of this license is that Modelica related model libraries, software, images, documents, data files etc. can be used freely in the original or a modified form, in open source and in commercial environments (as long as the license conditions below are fulfilled, in particular sections 2c) and 2d). The Original Work is provided free of charge and the use is completely at your own risk. Developers of free Modelica packages are encouraged to utilize this license for their work.
+</p>
+<p>
 The Modelica License applies to any Original Work that contains the following licensing notice adjacent to the copyright notice(s) for this Original Work: 
-<br/><br/>
+</p>
+<p>
 <strong>Note.</strong> This is the standard Modelica License 2, except for the following changes: the parenthetical in paragraph 7., paragraph 5., and the addition of paragraph 15.d). 
-<br/><br/>
+</p>
+<p>
 <strong>Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 </strong> 
- 
+</p>
+
 <h4>1. Definitions</h4>
 <ol type=\"a\"><li>
 \"License\" is this Modelica License.
@@ -3021,7 +3036,9 @@ Derivative Work shall include executables to simulate the models that are genera
 </ol>
  
 <h4>2. Grant of Copyright License</h4>
-Licensor grants You a worldwide, royalty-free, non-exclusive, sublicensable license, for the duration of the copyright, to do the following: 
+<p>
+Licensor grants You a worldwide, royalty-free, non-exclusive, sublicensable license, for the duration of the copyright, to do the following:
+</p>
 <ol type=\"a\">
 <li>
 To reproduce the Original Work in copies, either alone or as part of a collection. 
@@ -3040,44 +3057,69 @@ To perform the Original Work publicly.
 </li><li>
 To display the Original Work publicly. 
 </li></ol>
-<h4>3. Acceptance</h4>
-Any use of the Original Work or a Derivative Work, or any action according to either Section 2a) to 2f) above constitutes Your acceptance of this License. 
-<h4>4. Designation of Derivative Works and of Modified Works</h4>
- 
 
+<h4>3. Acceptance</h4>
+<p>
+Any use of the Original Work or a Derivative Work, or any action according to either Section 2a) to 2f) above constitutes Your acceptance of this License.
+</p>
+
+<h4>4. Designation of Derivative Works and of Modified Works</h4>
+<p>
 The identifying designation of Derivative Work and of Modified Work must be different to the corresponding identifying designation of the Original Work. This means especially that the (root-level) name of a Modelica package under this license must be changed if the package is modified (besides fixing of errors, adding vendor specific Modelica annotations, using a subset of the classes of a Modelica package, or using another representation, e.g. a binary representation). 
- 
+</p>
+
 <h4>5. [reserved]</h4>
 <h4>6. Provision of Source Code</h4>
-Licensor agrees to provide You with a copy of the Source Code of the Original Work but reserves the right to decide freely on the manner of how the Original Work is provided. For the matter of clarity, Licensor might provide only a binary representation of the Original Work. In that case, You may (a) either reproduce the Source Code from the binary representation if this is possible (e.g., by performing a copy of an encrypted Modelica package, if encryption allows the copy operation) or (b) request the Source Code from the Licensor who will provide it to You. 
+<p>
+Licensor agrees to provide You with a copy of the Source Code of the Original Work but reserves the right to decide freely on the manner of how the Original Work is provided. For the matter of clarity, Licensor might provide only a binary representation of the Original Work. In that case, You may (a) either reproduce the Source Code from the binary representation if this is possible (e.g., by performing a copy of an encrypted Modelica package, if encryption allows the copy operation) or (b) request the Source Code from the Licensor who will provide it to You.
+</p>
+
 <h4>7. Exclusions from License Grant</h4>
+<p>
 Neither the names of Licensor (including, but not limited to, University of California, Lawrence Berkeley National Laboratory, U.S. Dept. of Energy, UC, LBNL, LBL, and DOE), nor the names of any contributors to the Original Work, nor any of their trademarks or service marks, may be used to endorse or promote products derived from this Original Work without express prior permission of the Licensor. Except as otherwise expressly stated in this License and in particular in Sections 2 and 5, nothing in this License grants any license to Licensor's trademarks, copyrights, patents, trade secrets or any other intellectual property, and no patent license is granted to make, use, sell, offer for sale, have made, or import embodiments of any patent claims. 
-No license is granted to the trademarks of Licensor even if such trademarks are included in the Original Work, except as expressly stated in this License. Nothing in this License shall be interpreted to prohibit Licensor from licensing under terms different from this License any Original Work that Licensor otherwise would have a right to license. 
+No license is granted to the trademarks of Licensor even if such trademarks are included in the Original Work, except as expressly stated in this License. Nothing in this License shall be interpreted to prohibit Licensor from licensing under terms different from this License any Original Work that Licensor otherwise would have a right to license.
+</p>
+
 <h4>8. Attribution Rights</h4>
-You must retain in the Source Code of the Original Work and of any Derivative Works that You create, all author, copyright, patent, or trademark notices, as well as any descriptive text identified therein as an \"Attribution Notice\". The same applies to the licensing notice of this License in the Original Work. For the matter of clarity, \"author notice\" means the notice that identifies the original author(s). 
-<br/><br/>
+<p>
+You must retain in the Source Code of the Original Work and of any Derivative Works that You create, all author, copyright, patent, or trademark notices, as well as any descriptive text identified therein as an \"Attribution Notice\". The same applies to the licensing notice of this License in the Original Work. For the matter of clarity, \"author notice\" means the notice that identifies the original author(s).
+</p>
+<p>
 You must cause the Source Code for any Derivative Works that You create to carry a prominent Attribution Notice reasonably calculated to inform recipients that You have modified the Original Work. 
-<br/><br/>In case the Original Work or Derivative Work is not provided in Source Code, the Attribution Notices shall be appropriately displayed, e.g., in the documentation of the Derivative Work. 
+</p>
+<p>
+In case the Original Work or Derivative Work is not provided in Source Code, the Attribution Notices shall be appropriately displayed, e.g., in the documentation of the Derivative Work.
+</p>
+
 <h4>9. Disclaimer of Warranty</h4>
-<u><strong>The Original Work is provided under this License on an \"as is\" basis and without warranty, either express or implied, including, without limitation, the warranties of non-infringement, merchantability or fitness for a particular purpose. The entire risk as to the quality of the Original Work is with You.</strong></u> This disclaimer of warranty constitutes an essential part of this License. No license to the Original Work is granted by this License except under this disclaimer. 
+<p>
+<u><strong>The Original Work is provided under this License on an \"as is\" basis and without warranty, either express or implied, including, without limitation, the warranties of non-infringement, merchantability or fitness for a particular purpose. The entire risk as to the quality of the Original Work is with You.</strong></u> This disclaimer of warranty constitutes an essential part of this License. No license to the Original Work is granted by this License except under this disclaimer.
+</p>
+
 <h4>10. Limitation of Liability</h4>
+<p>
 Under no circumstances and under no legal theory, whether in tort (including negligence), contract, or otherwise, shall the Licensor, the owner or a licensee of the Original Work be liable to anyone for any direct, indirect, general, special, incidental, or consequential damages of any character arising as a result of this License or the use of the Original Work including, without limitation, damages for loss of goodwill, work stoppage, computer failure or malfunction, or any and all other commercial damages or losses. This limitation of liability shall not apply to the extent applicable law prohibits such limitation. 
+</p>
 
 <h4>11. Termination</h4>
-
+<p>
 This License conditions your rights to undertake the activities listed in Section 2 and 5, including your right to create Derivative Works based upon the Original Work, and doing so without observing these terms and conditions is prohibited by copyright law and international treaty. Nothing in this License is intended to affect copyright exceptions and limitations. This License shall terminate immediately and You may no longer exercise any of the rights granted to You by this License upon your failure to observe the conditions of this license. 
+</p>
 
 <h4>12. Termination for Patent Action</h4>
-
+<p>
 This License shall terminate automatically and You may no longer exercise any of the rights granted to You by this License as of the date You commence an action, including a cross-claim or counterclaim, against Licensor, any owners of the Original Work or any licensee alleging that the Original Work infringes a patent. This termination provision shall not apply for an action alleging patent infringement through combinations of the Original Work under combination with other software or hardware.
+</p>
 
 <h4>13. Jurisdiction</h4>
-
+<p>
 Any action or suit relating to this License may be brought only in the courts of a jurisdiction wherein the Licensor resides and under the laws of that jurisdiction excluding its conflict-of-law provisions. The application of the United Nations Convention on Contracts for the International Sale of Goods is expressly excluded. Any use of the Original Work outside the scope of this License or after its termination shall be subject to the requirements and penalties of copyright or patent law in the appropriate jurisdiction. This section shall survive the termination of this License. 
+</p>
 
 <h4>14. Attorneys' Fees</h4>
-
+<p>
 In any action to enforce the terms of this License or seeking damages relating thereto, the prevailing party shall be entitled to recover its costs and expenses, including, without limitation, reasonable attorneys' fees and costs incurred in connection with such action, including any appeal of such action. This section shall survive the termination of this License. 
+</p>
 
 <h4>15. Miscellaneous</h4>
 <ol type=\"a\">
@@ -3091,8 +3133,9 @@ You are under no obligation whatsoever to provide any bug fixes, patches, or upg
 </li></ol>
 
 <h4>How to Apply the Modelica License 2</h4>
-
-At the top level of your Modelica package and at every important subpackage, add the following notices in the info layer of the package: <br/>
+<p>
+At the top level of your Modelica package and at every important subpackage, add the following notices in the info layer of the package:
+</p>
 <ul><li style=\"list-style-type:none\">
 Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 Copyright (c) 2009-2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory. 
 </li>
@@ -3114,12 +3157,17 @@ This Modelica package is <u>free</u> software and the use is completely at <u>yo
 <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>. 
 </i>
 </li></ul>
-<br/>For C-source code and documents, add similar notices in the corresponding file.
-<br/><br/>
+
+<p>For C-source code and documents, add similar notices in the corresponding file.</p>
+<p>
 For images, add a \"readme.txt\" file to the directories where the images are stored and include a similar notice in this file. 
-<br/><br/>
+</p>
+
+<p>
 In these cases, save a copy of the Modelica License 2 in one directory of the distribution, e.g., 
-<a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html</a> in directory <strong>&lt;library&gt;/help/documentation/ModelicaLicense2.html</strong>. 
+<a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html</a> in directory <strong>&lt;library&gt;/help/documentation/ModelicaLicense2.html</strong>.
+</p>
+
 </html>
 "));
   end License;
@@ -3129,11 +3177,14 @@ In these cases, save a copy of the Modelica License 2 in one directory of the di
     annotation (preferredView="info",
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Copyright</font></h4>
+<p>
 Copyright (c) 2009-2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
+</p>
 <p>
 If you have questions about your rights to use or distribute this software, please contact Berkeley Lab's Technology Transfer Department at 
 <A HREF=\"mailto:TTD@lbl.gov\">TTD@lbl.gov</A>
-</p><p>
+</p>
+<p>
 NOTICE. This software was developed under partial funding from the U.S. Department of Energy. As such, the U.S. Government has been granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, and perform publicly and display publicly. Beginning five (5) years after the date permission to assert copyright is obtained from the U.S. Department of Energy, and subject to any subsequent five (5) year renewals, the U.S. Government is granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, distribute copies to the public, perform publicly and display publicly, and to permit others to do so. 
 </p>
 </html>
@@ -3141,19 +3192,23 @@ NOTICE. This software was developed under partial funding from the U.S. Departme
   end Copyright;
   annotation (preferredView="info",
   Documentation(info="<html>
+<p>
 The <code>Buildings</code> library is a free open-source library for modeling of building energy and control systems. 
 Many models are based on models from the package
 <a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a> and use
 the same ports to ensure compatibility with models from that library.
-<br/><br/>
+</p>
+<p>
 The web page for this library is
 <a href=\"http://simulationresearch.lbl.gov/modelica\">http://simulationresearch.lbl.gov/modelica</a>. 
 We welcome contributions from different users to further advance this library, 
 whether it is through collaborative model development, through model use and testing
 or through requirements definition or by providing feedback regarding the model applicability
 to solve specific problems.
-<br/><br/>
-The library has the following <i>User's Guides</i>:<br/>
+</p>
+<p>
+The library has the following <i>User's Guides</i>:
+</p>
 <ol>
 <li>
 General information about the use of the <code>Buildings</code> library

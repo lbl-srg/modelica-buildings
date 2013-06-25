@@ -165,19 +165,23 @@ equation
             fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFins.png")}),
 defaultComponentName="fin",
 Documentation(info="<html>
+<p>
 For a window with side fins, this block outputs the fraction of 
 the area that is exposed to the sun.
 This models can also be used for doors with side fins. 
-<br/><br/>
-
+</p>
+<p>
 Input to this block are the 
 wall solar azimuth angle and the altitude angle of the sun. 
 These angles can be calculated using blocks from the package
 <a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses\">
 Buildings.BoundaryConditions.SolarGeometry.BaseClasses</a>. 
+</p>
 
 <h4>Limitations</h4>
-The model assumes that 
+<p>
+The model assumes that
+</p>
 <ul>
 <li>
 the side fins are placed symmetrically to the left and right of the window,
@@ -192,19 +196,22 @@ bottom of the window.
 </ul>
 
 <h4>Implementation</h4>
+<p>
 The method of super position is used to calculate the shaded area of the window. 
 The area besides the side fin is divided as shown in the figure below. 
-<br/>
+</p>
 <p align=\"center\">
 <img alt=\"imaghe\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFinsSuperPosition.png\" />
 </p>
-<br/><br/>
 
-Variables used in the code for the rectangle <i>AEGI, BEGH, DFGI</i> and <i>CFGH</i> are shown in figure below. 
+<p>
+Variables used in the code for the rectangle <i>AEGI, BEGH, DFGI</i> and <i>CFGH</i> are shown in figure below.
+</p>
 <p align=\"center\">
 <img alt=\"imaghe\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFinsVariables.png\" />
 </p>
 
+<p>
 The rectangles <i>AEGI, BEGH, DFGI</i> and <i>CFGH</i>  have the same geometric configuration 
 with respect to the side fin.
 Thus, the same algorithm is used to calculate the shaded portion in these areas. 
@@ -214,7 +221,8 @@ conditions, considering the various shapes of the shaded portions.
 To find the shaded area in the window <i>ABCD</i>, the shaded portion of 
 <i>BEGH</i> and <i>DFGI</i> is subtracted from <i>AEGI</i> and <i>CFGH</i>.
 This shaded area of the window is then divided by the total window area 
-to calculate the shaded fraction of the window. 
+to calculate the shaded fraction of the window.
+</p>
 </html>",
 revisions="<html>
 <ul>

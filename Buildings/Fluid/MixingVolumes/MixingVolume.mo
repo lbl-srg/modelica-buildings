@@ -29,20 +29,22 @@ equation
   annotation (
 defaultComponentName="vol",
 Documentation(info="<html>
+<p>
 This model represents an instantaneously mixed volume. 
 Potential and kinetic energy at the port are neglected,
 and there is no pressure drop at the ports.
 The volume can exchange heat through its <code>heatPort</code>.
-<br/><br/>
-
+</p>
+<p>
 The volume can be parameterized as a steady-state model or as
-dynamic model.<br/>
-
+dynamic model.</p>
+<p>
 To increase the numerical robustness of the model, the parameter
 <code>prescribedHeatFlowRate</code> can be set by the user. 
 This parameter only has an effect if the model has exactly two fluid ports connected,
 and if it is used as a steady-state model.
 Use the following settings:
+</p>
 <ul>
 <li>Set <code>prescribedHeatFlowRate=true</code> if there is a model connected to <code>heatPort</code>
 that computes the heat flow rate <i>not</i> as a function of the temperature difference
@@ -56,16 +58,17 @@ which may itself be a function of temperature or mass flow rate.
 </ul>
 
 <h4>Implementation</h4>
-
+<p>
 If the model is operated in steady-state and has two fluid ports connected,
 then the same energy and mass balance implementation is used as in
 steady-state component models, i.e., the use of <code>actualStream</code>
 is not used for the properties at the port.
-<br/><br/>
-
+</p>
+<p>
 The implementation of these balance equations is done in the instances
 <code>dynBal</code> for the dynamic balance and <code>steBal</code>
 for the steady-state balance. Both models use the same input variables:
+</p>
 <ul>
 <li>
 The variable <code>Q_flow</code> is used to add sensible <i>and</i> latent heat to the fluid.
@@ -78,13 +81,14 @@ where <code>m_flowInv</code> approximates the expression <code>1/m_flow</code>.
 The variable <code>mXi_flow</code> is used to add a species mass flow rate to the fluid.
 </li>
 </ul>
-<br/><br/>
 
+<p>
 For simple models that uses this model, see
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed\">
 Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</a> and
 <a href=\"modelica://Buildings.Fluid.MassExchangers.HumidifierPrescribed\">
 Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
+</p>
 
 </html>", revisions="<html>
 <ul>

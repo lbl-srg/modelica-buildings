@@ -66,20 +66,25 @@ equation
         extent={{-100,-100},{100,100}},
         grid={1,1})),
     Documentation(info="<html>
+<p>
 This component defines the interface for models that 
 transports a fluid between two ports. It is similar to 
 <a href=\"Modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
 Modelica.Fluid.Interfaces.PartialTwoPortTransport</a>, but it does not 
-include the species balance 
+include the species balance
+</p> 
 <pre>
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
 </pre>
+<p>
 Thus, it can be used as a base class for a heat <i>and</i> mass transfer component
-<br/><br/>
+</p>
+<p>
 The model is used by other models in this package that add heat transfer,
 mass transfer and pressure drop equations. See for example
 <a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
 Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

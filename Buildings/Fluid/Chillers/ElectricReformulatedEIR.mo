@@ -112,6 +112,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
+<p>
 Model of an electric chiller, based on the model by 
 Hydeman et al. (2002) that has been developed in the CoolTools project
 and that is implemented in EnergyPlus as the model 
@@ -122,9 +123,10 @@ Buildings.Fluid.Chillers.ElectricEIR</a>.
 The difference is that to compute the performance, this model
 uses the condenser leaving temperature instead of the entering temperature,
 and it uses a bicubic polynomial to compute the part load performance.
-<br/><br/>
+</p>
 
-This model uses three functions to predict capacity and power consumption:
+<p>
+This model uses three functions to predict capacity and power consumption:</p>
 <ul>
 <li>
 A biquadratic function is used to predict cooling capacity as a function of
@@ -139,8 +141,8 @@ A biquadratic functions is used to predict power input to cooling capacity ratio
 condenser leaving and evaporator leaving fluid temperature.
 </li>
 </ul>
-<br/><br/>
 
+<p>
 These curves are stored in the data record <code>per</code> and are available from
 <a href=\"Buildings.Fluid.Chillers.Data.ElectricReformulatedEIRChiller\">
 Buildings.Fluid.Chillers.Data.ElectricReformulatedEIRChiller</a>.
@@ -151,12 +153,13 @@ to employ standard least-square linear regression techniques. The second techniq
 Reference Curve Method and is used when insufficient performance data exist to apply linear
 regression techniques. A detailed description of both techniques can be found in 
 Hydeman and Gillespie (2002).
-<br/><br/>
+</p>
 
+<p>
 The model takes as an input the set point for the leaving chilled water temperature, 
 which is met if the chiller has sufficient capacity.
 Thus, the model has a built-in, ideal temperature control.
-The model has three tests on the part load ratio and the cycling ratio:
+The model has three tests on the part load ratio and the cycling ratio:</p>
 <ol>
 <li>
 The test<pre>
@@ -187,14 +190,17 @@ power draw does not change.
 </li>
 </ol>
 
-<br/>
+<p>
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
-<br/><br/>
+</p>
+<p>
 The model can be parametrized to compute a transient
 or steady-state response.
 The transient response of the boiler is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
 The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
+</p>
+
 <h4>References</h4>
 <ul>
 <li>

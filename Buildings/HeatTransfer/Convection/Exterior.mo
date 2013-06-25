@@ -117,10 +117,11 @@ equation
           textString="dir")}),
     defaultComponentName="con",
     Documentation(info="<html>
+<p>
 This is a model for a convective heat transfer for exterior, outside-facing surfaces.
 The parameter <code>conMod</code> determines the model that is used to compute
 the heat transfer coefficient:
-<br/><br/>
+</p>
 
 <ol>
 <li><p>If <code>conMod=

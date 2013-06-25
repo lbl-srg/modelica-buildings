@@ -7,11 +7,13 @@ package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
+<p>
 The package <code>Buildings.Fluid</code> consists of models
 for pressure driven mass flow rate and for heat and moisture
 exchange in fluid flow networks.
-<br/><br/>
+</p>
 
+<p>
 The models have the same interface as models of the package
 <a href=\"Modelica:Modelica.Fluid\">Modelica.Fluid</a>, 
 but have in general a simpler set of parameters that may be better 
@@ -22,8 +24,10 @@ this package also contains models for which a user has to specify
 the mass flow and pressure drop at a nominal flow rate, 
 which is typically more readily available prior to the detailed 
 HVAC system design.
+</p>
 
 <h4>Computation of flow resistance</h4>
+<p>
 Most component models compute pressure drop as a function of flow rate.
 If their pressure drop at the nominal conditions is set to zero, 
 for example by setting the parameter value <code>dp_nominal=0</code>, then the 
@@ -32,12 +36,14 @@ This allows, for example,
 to model a heating and a cooling coil in series, and lump their pressure drops
 into a single element, thereby reducing the dimension of the nonlinear system
 of equations.
-<br/><br/>
+</p>
 
-The flow resistance is computed as
+<p>
+The flow resistance is computed as</p>
 <p align=\"center\" style=\"font-style:italic;\">
   k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span> 
 </p>
+<p>
 where <i>m&#775;</i> is the mass flow rate and <i>&Delta;p</i> is the pressure drop.
 For <i>|m&#775;| &lt; &delta;<sub>m&#775;</sub> m&#775;<sub>0</sub></i>, 
 where <i>&delta;<sub>m&#775;</sub></i> is equal to the parameter <code>deltaM</code> and 
@@ -47,8 +53,9 @@ equation is linearized.
 The pressure drop is computed as a function of mass flow rate instead of
 volume flow rate as this often leads to fewer equations. Otherwise,
 the pressure drop would depend on the density and hence on temperature.
-<br/><br/>
+</p>
 
+<p>
 The flow coefficient <i>k</i> is typically computed based
 on nominal values for the mass flow rate and the pressure drop, i.e.,
 <i>k = m&#775;<sub>0</sub> &frasl; &radic;&nbsp;&Delta;p<sub>0</sub> &nbsp;
@@ -59,11 +66,14 @@ dimensions and the flow bends and junctions. This information is often not avail
 early design. However, if a more detailed pressure drop calculation is required, then models from
 <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a> can be used in conjuction with models from the <code>Buildings</code> library.
-<br/><br/>
+</p>
 
+<p>
 In actuators such as valves and air dampers, <i>k</i> is a function of the control signal.
+</p>
 
 <h4>Computation of mass and energy balance</h4>
+<p>
 Most models have parameters  
 <code>massDynamics</code> and <code>energyDynamics</code>
 that allow using a dynamic or a 
@@ -71,7 +81,7 @@ steady-state equation for the mass and energy balance.
 The table below shows the different settings and how they affect the 
 mass and energy balance equations.
 For the mass balance, the following configurations can be selected:
-<br/>
+</p>
 
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
@@ -107,14 +117,15 @@ For the mass balance, the following configurations can be selected:
   <td><i>0 = &sum; m&#775;(t)</i></td>
 </tr>
 </table>
-<br/><br/>
 
+<p>
 where <i>m(t)</i> is the mass of the control volume,
 <i>m&#775;(t)</i> is the mass flow rate,
 <i>p</i> is the pressure and
 <i>p<sub>0</sub></i> is the initial pressure, which is a parameter.
 <i>Unspecified</i> means that no equation is declared for 
 <i>p(0)</i>. In this situation, there can be two cases:
+</p>
 <ol>
 <li>
 If a system model sets the pressure, such as if the volume is connected
@@ -132,10 +143,10 @@ at the value set by
 where <code>Medium</code> is the medium model.
 </li>
 </ol>
-<br/>
 
-Similarly, for the energy balance, the following configurations can be selected:<br/>
-
+<p>
+Similarly, for the energy balance, the following configurations can be selected:
+</p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
 <th>Parameter</th>
@@ -163,13 +174,14 @@ Similarly, for the energy balance, the following configurations can be selected:
   <td><i>0 = &sum; m&#775;(t) &nbsp; h(t) + Q&#775;(t)</i></td>
 </tr>
 </table>
-<br/><br/>
 
+<p>
 where <i>U(t)</i> is the internal energy of the control volume,
 <i>h(t)</i> is the enthalpy carried by the medium and
 <i>Q&#775;(t)</i> is the heat flow rate that is added to the medium through the heat port.
 <i>Unspecified</i> means that no equation is declared for 
 <i>T(0)</i>. In this situation, there can be two cases:
+</p>
 <ol>
 <li>
 If a system model sets the temperature, such as if the heat port of the
@@ -183,8 +195,8 @@ at the value <code>T(start=Medium.T_default)</code>,
 where <code>Medium</code> is the medium model
 </li>
 </ol>
-<br/><br/>
 
+<p>
 In most models, the size of volume is configured using the parameter <code>tau</code>.
 This parameter is equal to the time constant that the volume has if the mass flow rate is 
 at its nominal value, as set by the parameter <code>m_flow_nominal</code>.
@@ -192,15 +204,19 @@ Using the time constant, as opposed to the actual fluid volume, allows in many c
 easier parametrization, since the volume is automatically enlarged if the nominal mass
 flow rate is increased. This allows an easy adjustment of the component size.
 The actual size of the control volume is then set as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   V = m&#775;<sub>0</sub> &tau;/&rho;<sub>0</sub>
 </p>
+<p>
 where
 <i>m&#775;<sub>0</sub></i> is the nominal mass flow rate,
 <i>&tau;</i> is the time constant, and
 <i>&rho;<sub>0</sub></i> is the mass density at the nominal condition.
+</p>
 
 <h4>Nominal values</h4>
+<p>
 Most components have a parameters for the nominal operating conditions.
 These parameters have names that end in <code>_nominal</code> and 
 they should be set to the values that the component typically 
@@ -208,7 +224,7 @@ have if they are run at full load or design conditions. Depending on the model, 
 parameters are used differently, and the respective model documentation or code
 should be consulted for details. However, the table below shows typical use of 
 parameters in various model to help the user understand how they are used.
-<br/>
+</p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
 <th>Parameter</th>

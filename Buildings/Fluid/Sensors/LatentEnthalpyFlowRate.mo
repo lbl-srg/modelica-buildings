@@ -96,16 +96,19 @@ annotation (defaultComponentName="senLatEnt",
         Line(points={{22.9,32.8},{40.2,57.3}}, color={0,0,0}),
         Line(points={{37.6,13.7},{65.8,23.9}}, color={0,0,0})}),
   Documentation(info="<html>
+<p>
 This component monitors the <i>latent</i> enthalphy flow rate of the medium in the flow
 between fluid ports. In particular, if the total enthalpy flow rate is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   H&#775;<sub>tot</sub> = H&#775;<sub>sen</sub> + H&#775;<sub>lat</sub>,
 </p>
+<p>
 where 
 <i>H&#775;<sub>sen</sub> = m&#775; (1-X<sub>w</sub>) c<sub>p,air</sub></i>, 
 then this sensor outputs <i>H&#775; = H&#775;<sub>lat</sub></i>. 
-<br/><br/>
-
+</p>
+<p>
 If the parameter <code>tau</code> is non-zero, then the measured
 specific latent enthalpy <i>h<sub>out</sub></i> that is used to 
 compute the latent enthalpy flow rate 
@@ -113,8 +116,8 @@ compute the latent enthalpy flow rate
 is computed using a first order differential equation. 
 See <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
-<br/><br/>
-
+</p>
+<p>
 For a sensor that measures 
 <i>H&#775;<sub>tot</sub></i>, use
 <a href=\"modelica://Buildings.Fluid.Sensors.EnthalpyFlowRate\">
@@ -123,11 +126,12 @@ For a sensor that measures
 <i>H&#775;<sub>sen</sub></i>, use
 <a href=\"modelica://Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate\">
 Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate</a>.
-<br/><br/>
-
+</p>
+<p>
 The sensor is ideal, i.e., it does not influence the fluid.
 The sensor can only be used with medium models that implement the function
 <code>enthalpyOfNonCondensingGas(state)</code>.
+</p>
 </html>
 ", revisions="<html>
 <ul>

@@ -77,30 +77,33 @@ equation
           lineColor={0,0,255})}),
 defaultComponentName="exp",
 Documentation(info="<html>
-
+<p>
 This is a model of a pressure expansion vessel. The vessel has a fixed total volume. 
 A fraction of the volume is occupied by a fixed mass of gas, and the other fraction is occupied 
 by the liquid that flows through the port.
-The pressure <code>p</code> in the vessel is<pre>
+The pressure <code>p</code> in the vessel is
+</p>
+<pre>
  VGas0 * p_start = (VTot-VLiquid) * p
 </pre>
+<p>
 where <code>VGas0</code> is the initial volume occupied by the gas, 
 <code>p_start</code> is the initial pressure,
 <code>VTot</code> is the total volume of the vessel and
 <code>VLiquid</code> is the amount of liquid in the vessel.
-<br/><br/>
-
+</p>
+<p>
 Optionally, a heat port can be activated by setting <code>use_HeatTransfer=true</code>.
 This heat port connects directly to the liquid. The gas does not participate in the energy 
 balance.
-<br/><br/>
-
+</p>
+<p>
 The expansion vessel needs to be used in closed loops that contain
 water to set a reference pressure and, for liquids where the
 density is modeled as a function of temperature, to allow for
 the thermal expansion of the liquid.
-<br/><br/>
-
+</p>
+<p>
 Note that alternatively, the model
 <a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
 Buildings.Fluid.Sources.FixedBoundary</a> may be used to set 
@@ -113,7 +116,7 @@ any mass flow rate that flows out of the model will be at a user-specified tempe
 Therefore, <a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
 Buildings.Fluid.Sources.FixedBoundary</a> leads to smaller systems
 of equations, which may result in faster simulation.
-
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

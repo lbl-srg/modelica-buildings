@@ -231,7 +231,9 @@ Buildings.HeatTransfer.Windows.SideFins</a>.
 </p>
 
 <h4>Limitations</h4>
-For overhangs, the model assumes that 
+<p>
+For overhangs, the model assumes that
+</p>
 <ul>
 <li> 
 the overhang is at least as wide as the window, i.e., 
@@ -242,9 +244,10 @@ the overhang is at least as wide as the window, i.e.,
 the overhang is horizontal.
 </li>
 </ul>
-<br/><br/>
 
-For side fins, the model assumes that 
+<p>
+For side fins, the model assumes that
+</p>
 <ul>
 <li>
 the side fins are placed symmetrically to the left and right of the window,
@@ -258,13 +261,14 @@ the side fins extends at least to the lower edge of the window.
 </ul> 
 
 <h4>Implementation</h4>
+<p>
 The detailed calculation method is explained in 
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.SideFins\">
 Buildings.HeatTransfer.Windows.BaseClasses.SideFins</a>
 and in
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Overhang\">
 Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
-
+</p>
 </html>",
 revisions="<html>
 <ul>

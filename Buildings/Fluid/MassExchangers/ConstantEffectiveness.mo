@@ -75,32 +75,37 @@ equation
           preferredView="info",
 defaultComponentName="masExc",
 Documentation(info="<html>
-
+<p>
 Model for a heat and moisture exchanger with constant effectiveness.
-<br/><br/>
-This model transfers heat and moisture in the amount of 
+</p>
+<p>
+This model transfers heat and moisture in the amount of </p>
 <pre>
   Q = epsS * Q_max,
   m = epsL * mWat_max,
 </pre>
+<p>
 where <code>epsS</code> and <code>epsL</code> are constant effectiveness 
 for the sensible and latent heat transfer,  
 <code>Q_max</code> is the maximum heat that can be transferred and
 <code>mWat_max</code> is the maximum moisture that can be transferred.
-<br/><br/>
+</p>
+<p>
 In the region <code>mK_flow_small > abs(mK_flow) > mK_flow_small/2</code>, for <code>K = 1</code> or
 <code>2</code>, the effectivness <code>epsS</code> and <code>epsL</code> are transitioned from 
 their user-specified value to 0. This improves the numerical robustness near
-zero flow.
-<br/><br/>
+zero flow.</p>
+<p>
 For a sensible heat exchanger, use
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
 Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>
 instead of this model.
-<br/><br/>
+</p>
+<p>
 This model can only be used with medium models that define the integer constant
 <code>Water</code> which needs to be equal to the index of the water mass fraction 
 in the species vector.
+</p>
 </html>",
 revisions="<html>
 <ul>

@@ -103,19 +103,22 @@ equation
   annotation (
     defaultComponentName="solHeaGai",
     Documentation(info="<html>
+<p>
 This component computes the solar heat gain of the solar thermal collector. It only calculates the solar heat gain without considering the heat loss
 to the environment. This model uses ratings data according to ASHRAE93. The solar heat gain is calculated using Equations 555 - 559 in the referenced
 EnergyPlus documentation.
-<br/><br/>
+</p>
+<p>
 The solar radiation absorbed by the panel is identified using Eq 559 from the EnergyPlus documentation. It is:
-
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;) K<sub>(&tau;&alpha;)<sub>net</sub></sub> (G<sub>Dir</sub> (1-shaCoe)+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>))
 </p>
+<p>
 The solar radiation equation indicates that the collector is divided into multiple segments. The number of segments used in the simulation is specified
 by the user (parameter: <code>nSeg</code>). The area of an individual segment is identified by dividing the collector area by the total number of segments. The term
 <i>shaCoe</i> is used to define the percentage of the collector that is shaded.
-<br/>
+</p>
 <p>
 The incidence angle modifier used in the solar radiation equation is found using Eq 556 from the EnergyPlus documentation. It is:
 </p>

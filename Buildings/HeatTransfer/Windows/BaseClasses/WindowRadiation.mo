@@ -129,10 +129,13 @@ equation
       smooth=Smooth.None));
   annotation (
     Documentation(info="<html>
+<p>
 The model calculates solar radiation through the window. 
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
-<br/><br/>
-The absorbed radiation by exterior shades includes:<br/>
+</p>
+<p>
+The absorbed radiation by exterior shades includes:
+</p>
 <ol>
 <li>
 the directly absorbed exterior radiation: <code>AWin*uSha*(HDir+HDif)*(1-tau-rho)</code>
@@ -147,10 +150,12 @@ the indirectly absorbed of exterior irradiantion from reflection (diffusive part
 the absorbed interior radiation is neglected.
 </li>
 </ol>
+<p>
 The output is <code>absRad[2, 1]</code>
-<br/><br/>
+</p>
 
-The absorbed radiation by interior shades includes:<br/>
+<p>
+The absorbed radiation by interior shades includes:</p>
 <ol>
 <li>
 the absorbed exterior radiation (angular part): <code>AWin*uSha*HDir*alpha(IncAng)</code>
@@ -162,10 +167,11 @@ the absorbed exterior radiation (diffusive part): <code>AWin*uSha*HDif*alpha(HEM
 the absorbed interior radiation (diffusive part): <code>AWin*uSha*HRoo*(1-tau-rho)</code>
 </li>
 </ol>
-The output is <code>absRad[2, N+2]</code>
-<br/><br/>
+<p>
+The output is <code>absRad[2, N+2]</code></p>
 
-The absorbed radiation by glass includes:<br/>
+<p>
+The absorbed radiation by glass includes:</p>
 <ol>
 <li>
 the absorbed radiation by unshaded part (diffusive part): <code>AWin*(1-uSha)*(HDif*alphaEx(HEM)+HRoo*alphaIn(HEM))</code>
@@ -180,10 +186,11 @@ the absorbed radiaiton by shaded part (diffusive part): <code>AWin*uSha*(HDif*al
 the absorbed radiation by shaded part (angular part from exterior source): <code>AWin*uSha*HDir*alphaExSha(IncAng)</code>
 </li>
 </ol>
-The output is <code>absRad[1, 2:N+1] = Part1 + Part2; absRad[2, 2:N+1] = Part3 + Part4</code>
-<br/><br/>
+<p>
+The output is <code>absRad[1, 2:N+1] = Part1 + Part2; absRad[2, 2:N+1] = Part3 + Part4</code></p>
 
-The transmitted exterior radiation for window system includes:<br/>
+<p>
+The transmitted exterior radiation for window system includes:</p>
 <ol>
 <li>
 the transmitted diffusive radiation on unshaded part: <code>AWin*(1-uSha)*HDif*tau(HEM)</code>
@@ -198,8 +205,7 @@ the transmitted diffusive radiation on shaded part: <code>AWin*uSha*HDif*tauSha(
 the transmitted direct radiation on shaded part: <code>AWin*uSha*HDir*tauSha(IncAng);</code>
 </li>
 </ol>
-The output is <code>QTra_flow = Part1 + Part2 + Part3 + Part4</code>
-<br/>
+<p>The output is <code>QTra_flow = Part1 + Part2 + Part3 + Part4</code></p>
 
 <h4>References</h4>
 <ul>

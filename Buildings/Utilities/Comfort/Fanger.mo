@@ -197,9 +197,11 @@ equation
   annotation (
 defaultComponentName="com",
     Documentation(info="<html>
+<p>
 Thermal comfort model according to Fanger, as described in
 the ASHRAE Fundamentals (1997).
-<br/><br/>
+</p>
+<p>
 The thermal sensation of a human being is mainly related to the thermal balance of its
 body as a whole. This balance is influenced by two groups of factors, personal and
 physical. The activity level and clothing thermal insulation of the subject form the
@@ -211,27 +213,32 @@ comfort) can be predicted by calculating the PMV index. The PPD index, obtained
 from the PMV index, provides information on thermal discomfort (thermal
 dissatisfaction) by predicting the percentage of people likely to feel too hot or too
 cold in the given thermal environment.
-<br/><br/>
+</p>
+<p>
 The Predicted Mean Vote (PMV) model combines four physical variables 
 (air temperature, air velocity, mean radiant temperature, and relative humidity), 
 and two personal variables (clothing insulation and activity level) 
 into an index that can be used to predict the average thermal sensation 
 of a large group of people. 
-<br/><br/>
+</p>
+<p>
 To determine appropriate thermal conditions, practitioners refer to standards such 
 as ASHRAE Standard 55 (ASHRAE, 1992) and ISO Standard 7730 (ISO, 1994). 
 These standards define temperature ranges that should result in thermal satisfaction 
 for at least 80% of occupants in a space.
-
+</p>
 <h4> PMV thermal sensation scale</h4>
+<p>
 The PMV index predicts the mean value of the votes of a large group of
 people on the following 7-point thermal sensation scale:
+</p>
 <table summary=\"summary\" border=\"1\">
 <TR><TD>Cold  </TD><TD>  Cool  </TD><TD>  Slightly cool  </TD><TD>  Neutral  </TD><TD>  Slightly warm  </TD><TD>  Warm   </TD><TD>  Hot </TD></TR> 
 <TR><TD>-3 </TD><TD> -2 </TD><TD> -1 </TD><TD> 0 </TD><TD> +1 </TD><TD> +2 </TD><TD> +3 </TD></TR> 
 </table>
 
 <h4>Operative temperature</h4>
+<p>
 For a given space there exists an optimum operative temperature corresponding to PMV=0 (neutral).
 The operative temperature is defined as: The uniform temperature of an imaginary black enclosure 
 in which an occupant would exchange the same amount of heat by radiation plus convection 
@@ -239,35 +246,45 @@ as in the actual nonuniform environment.
 The operative temperature is computed as the average of the air temperature 
 and the mean radiant temperature, weighted by their respective heat transfer coefficients
 (see ASHRAE Fundamentals, 1997, page 8.3, eq (8)).
+</p>
 
 <h4>Optimum operative temperatures</h4>
+<p>
 <B>Winter:</B>
 activity <i>1.2</i> met,<br/>
 clothing = <i>0.9</i> clo (sweater, long sleeve shirt, heavy pants),<br/>
 air flow = <i>30</i> fpm (<i>0.15</i> m/sec),<br/>
 mean radiant temperature equal to air temperature,<br/>
-Optimum Operative Temperature (top) = <i>22.7</i>&#176; C (<i>71</i>&#176; F)<P>
+Optimum Operative Temperature (top) = <i>22.7</i>&#176; C (<i>71</i>&#176; F)
+</p>
+<p>
 <B>Summer:</B>
 clothing = <i>0.5</i> clo,<br/>
 air flow = <i>50</i> fpm (<i>0.25</i> m/sec),<br/>
 Optimum Operative Temperature (top) = <i>24.4</i>&#176; C (<i>76</i>&#176; F).
-<br/>
+</p>
+<p>
 All equation numbers in the model refer to the ASHRAE Handbook Fundamentals,
-Chapter 8, Thermal Comfort, 1997.
+Chapter 8, Thermal Comfort, 1997.</p>
+
 <h4>Usual ranges of variables (ISO)</h4>
+<p>
 M = <i>46</i> to <i>232</i> W/m^2 (<i>0.8</i> to <i>4</i> met)<br/>
 ICl = <i>0</i> to <i>2</i> clo (<i>0</i> to <i>0.310</i> m^2*K/W)<br/>
 TAir_degC = <i>10</i> to <i>30</i>&#176; C<br/>
 TRad_degC = <i>10</i> to <i>40</i>&#176; C<br/>
 vAir = <i>0</i> to <i>1</i> m/s<br/>
 pSte = <i>0</i> to <i>2700</i> Pa
-<br/>
+</p>
 
 <h4>Insulation for clothing ensembles</h4>
+<p>
 Clothing is defined in terms of clo units.  Clo is a unit used to express the thermal insulation provided by garments and clothing ensembles, 
 where <i>1</i> clo = <i>0.155</i> (m^2*K/W) (ASHRAE 55-92).
-<br/>
-The following table is obtained from ASHRAE page 8.8 
+</p>
+<p>
+The following table is obtained from ASHRAE page 8.8
+</p>
 <TABLE  summary=\"summary\" border=\"1\">
 <TR><TH>Clothing ensemble</TH><TH>clo</TH></TR>
 <TR><TD>ASHRAE Standard 55 Winter</TD><TD>0.90</TD></TR>
@@ -287,10 +304,11 @@ The following table is obtained from ASHRAE page 8.8
 </TABLE>
 <br/>
 
-<h4> Metabolic rates</h4> 
+<h4> Metabolic rates</h4>
+<p>
 One met is defined as <i>58.2</i> Watts per square meter which is equal to the energy produced 
-per unit surface area of a seated person at rest.<br/>
-The following table is obtained from ASHRAE page 8.6.
+per unit surface area of a seated person at rest.</p>
+<p>The following table is obtained from ASHRAE page 8.6.</p>
 <TABLE summary=\"summary\" border=\"1\">
 <TR><TH>Activity</TH><TH>W/m2 body surface area</TH></TR>
 <TR><TD>ASHRAE Standard 55</TD><TD>58.2</TD></TR>

@@ -741,13 +741,16 @@ equation
           lineColor={0,0,127},
           textString="TRad")}),
     Documentation(info="<html>
+<p>
 Model for the heat exchange inside a room.
 This model integrates various components that model
 heat exchange between the room-facing surfaces of constructions
 and the room air, the internal heat gains, and the fluid port that
 can be used to connect models of HVAC systems to the room model.
-<br/><br/>
+</p>
+<p>
 The main components that are used in this model are as follows:
+</p>
 <ol>
 <li>
 The model 

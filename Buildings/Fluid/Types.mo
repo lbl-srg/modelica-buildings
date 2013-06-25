@@ -60,8 +60,9 @@ Users Guide</a>.
         "Cross flow, stream 1 unmixed, stream 2 mixed")
     "Enumeration for heat exchanger construction"
   annotation(Documentation(info="<html>
+<p>
  Enumeration that defines the heat exchanger construction.
-<br/><br/>
+</p>
 <p>
 The following heat exchanger configurations are available in this enumeration:
 </p>

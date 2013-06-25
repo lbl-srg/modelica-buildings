@@ -204,6 +204,7 @@ if stage > 0 then
           textString="f(T,m)")}),
           Documentation(info="<html>
 <h4>Cooling capacity modifiers</h4>
+<p>
 There are two cooling capacity modifier functions: The function
 <i>cap<sub>&theta;</sub></i> accounts for a performance change due to different
 air temperatures and the function
@@ -211,47 +212,51 @@ cap<sub>FF </sub> accounts for a performance change due to different air flow ra
 relative to the nominal condition.
 These cooling capacity modifiers are multiplied with nominal cooling capacity 
 to obtain the cooling capacity of the coil at given inlet temperatures and mass flow rate as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q&#775;(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>)
             cap<sub>FF</sub>(ff) Q&#775;<sub>nom</sub>,
 </p>
-
+<p>
 where
 <i>&theta;<sub>e,in</sub></i> is the evaporator inlet temperature and 
 <i>&theta;<sub>c,in</sub></i> is the condenser inlet temperature in degrees Celsius.
 <i>&theta;<sub>e,in</sub></i> is the dry-bulb temperature if the coil is dry, 
 or the wet-bulb temperature if the coil is wet.
-
-<br/><br/>
-The temperature dependent cooling capacity modifier function is
+</p>
+<p>
+The temperature dependent cooling capacity modifier function is</p>
 <p align=\"center\" style=\"font-style:italic;\" >
   cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = a<sub>1</sub> + a<sub>2</sub> &theta;<sub>e,in</sub> 
 + a<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + a<sub>4</sub> &theta;<sub>c,in</sub> + 
 a<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + a<sub>6</sub> &theta;<sub>e,in</sub> &theta;<sub>c,in</sub>,
 </p>
+<p>
 where the six coefficients are obtained from the coil performance data record.
-<br/><br/>
+</p>
+<p>
 The flow fraction dependent cooling capacity modifier function is a polynomial 
 with the normalized mass flow rate <i>ff</i> (flow fraction) as the time dependent variable.
 The normalized mass flow rate is defined as
-
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   ff = m&#775; &frasl;  m&#775;<sub>nom</sub>,
 </p>
-<br/><br/>
+<p>
 where 
 <i>m&#775;</i> is the mass flow rate and
 <i>m&#775;<sub>nom</sub></i> is the nominal mass flow rate.
 If the coil has multiple stages, then the nominal mass flow rate of the respective stage is used.
 Hence,
-
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   cap<sub>FF</sub>(ff) = b<sub>1</sub> + b<sub>2</sub> ff + b<sub>3</sub> ff<sup>2</sup> 
 + b<sub>4</sub>ff<sup>3</sup> + ...
 </p>
-<br/><br/>
+<p>
 The coefficients of the equation are obtained from the coil performance data record.
-<br/>
+</p>
+<p>
 It is important to specify limits of the flow fraction to ensure validity of the 
 <i>cap<sub>FF</sub>(&sdot;)</i> function 
 in performance record. A non-zero value of 
@@ -260,42 +265,44 @@ in performance record. A non-zero value of
 <i>m&#775; = 0</i>.
 Hence, when <i>m&#775; &ne; 0</i> is below the valid range of the flow modifier function,
 the coil capacity will be reduced and set to zero near <i>m&#775; = 0</i>.
+</p>
 
 <h4>Energy Input Ratio (EIR) modifiers</h4>
-
+<p>
 The Energy Input Ratio (<i>EIR</i>) is the inverse of the Coefficient of Performance (<i>COP</i>).
 Similar to the cooling rate, the EIR of the coil is the product of a function
 that takes into account changes in condenser and evaporator inlet temperatures,
 and changes in mass flow rate.
 The EIR is computed as
-
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   EIR(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = EIR<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>)
            EIR<sub>FF</sub>(ff) &frasl; COP<sub>nominal</sub>
 </p>
-
+<p>
 As for the cooling rate, 
 <i>EIR<sub>&theta;</sub>(&sdot;, &sdot;)</i> is
-<br/>
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   EIR<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = c<sub>1</sub> + c<sub>2</sub> &theta;<sub>e,in</sub> 
 + c<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + c<sub>4</sub> &theta;<sub>c,in</sub> + 
 c<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + c<sub>6</sub> &theta;<sub>e,in</sub> &theta;<sub>c,in</sub>.
 </p>
-
+<p>
 where the six coefficients are obtained from the coil performance data record, and
 <i>&theta;<sub>e,in</sub></i> is the dry-bulb temperature if the coil is dry, or
 the wet-bulb temperature otherwise.
-<br/><br/>
+</p>
+<p>
 Similar to the cooling ratio, the change in EIR due to a change in air mass flow rate
 is
-
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   EIR<sub>FF</sub>(ff) = d<sub>1</sub> + d<sub>2</sub> ff + d<sub>3</sub> ff<sup>2</sup> 
 + d<sub>4</sub>ff<sup>3</sup> + ...
 </p>
 <h4>Obtaining the polynomial coefficients</h4>
-
+<p>
 The package 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves\">
 Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves</a>
@@ -317,14 +324,14 @@ compressor speeds. For intermediate speeds, the performance data will be interpo
 by the model 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed\">
 Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a>.
-
-<br/>
+</p>
+<p>
 The table below shows the polynomials explained above,
 the name of the polynomial coefficients in 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves\">
 Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves</a>
 and the independent parameters against which the data need to be fitted.
-<br/>
+</p>
   <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr>
       <th>Modelica name of coefficient in data record</th>
