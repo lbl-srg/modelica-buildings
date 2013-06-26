@@ -128,6 +128,9 @@ its class name ends with the string <code>Beta</code>.
         annotation (Documentation(info="<html>
 <p>
 Version X.Y build Z is ... xxx
+It contains a major revision of all info sections to correct invalid html syntax.
+It also contains various small corrections that avoid warnings during translation 
+when used with Modelica 3.2.1.
 <!-- New libraries -->
 </p>
 
@@ -261,6 +264,26 @@ units are wrong or errors in documentation):
                      with <code>quantity=\"ThermodynamicTemperature\"</code>.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Data.Fuels.Generic
+    </td>
+    <td valign=\"top\">Corrected wrong type for <code>mCO2</code>.
+                       It was declared as <code>Modelica.SIunits.MassFraction</code>,
+                       which is incorrect.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BaseClasses.Bounds
+    </td>
+    <td valign=\"top\">Corrected wrong type for <code>FRWat_min</code>, <code>FRWat_max</code>
+                       and <code>liqGasRat_max</code>.
+                       They were declared as <code>Modelica.SIunits.MassFraction</code>,
+                       which is incorrect as, for example, <code>FRWat_max</code> can be larger than one.
+    </td>
+</tr>
+
 </table>
 <!-- Github issues -->
 <p>
