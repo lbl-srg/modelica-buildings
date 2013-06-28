@@ -1,5 +1,8 @@
 within ;
 package Buildings "Library with models for building energy and control systems"
+  extends Modelica.Icons.Package;
+
+
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   class Conventions "Conventions"
@@ -128,6 +131,10 @@ its class name ends with the string <code>Beta</code>.
         annotation (Documentation(info="<html>
 <p>
 Version X.Y build Z is ... xxx
+It contains a major revision of all info sections to correct invalid html syntax.
+The package <code>Buildings.HeatTransfer.Radiosity</code> has been revised
+It also contains various corrections that avoid warnings during translation 
+when used with Modelica 3.2.1.
 <!-- New libraries -->
 </p>
 
@@ -188,12 +195,44 @@ have been <b style=\"color:blue\">improved</b> in a
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer<br/>
+                         Buildings.Rooms</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.HeatTransfer.Interfaces.RadiosityInflow<br/>
+                       Buildings.HeatTransfer.Interfaces.RadiosityOutflow<br/>
+                       Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersTwoSurfaces<br/>
+                       Buildings.HeatTransfer.Radiosity.Constant<br/>
+                       Buildings.HeatTransfer.Radiosity.Examples.OpaqueSurface<br/>
+                       Buildings.HeatTransfer.Radiosity.Examples.OutdoorRadiosity<br/>
+                       Buildings.HeatTransfer.Radiosity.IndoorRadiosity<br/>
+                       Buildings.HeatTransfer.Radiosity.OpaqueSurface<br/>
+                       Buildings.HeatTransfer.Radiosity.OutdoorRadiosity<br/>
+                       Buildings.HeatTransfer.Radiosity.RadiositySplitter<br/>
+                       Buildings.HeatTransfer.Radiosity.package<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Examples.CenterOfGlass<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Examples.GlassLayer<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Examples.Shade<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Shade<br/>
+                       Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer<br/>
+                       Buildings.HeatTransfer.Windows.ExteriorHeatTransfer<br/>
+                       Buildings.HeatTransfer.Windows.InteriorHeatTransfer<br/>
+                       Buildings.Rooms.BaseClasses.InfraredRadiationExchange<br/>
+                       Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution<br/>
+                       Buildings.Rooms.BaseClasses.MixedAir<br/>
+                       Buildings.Rooms.BaseClasses.Overhang<br/>
+                       Buildings.Rooms.BaseClasses.SideFins<br/>
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed the connectors for the radiosity model.
+                       The previous implemenation declared the radiosity as a
+                       <code>flow</code> variables, but the implementation did not use
+                       a potential variable.<br/>
+                       Therefore, the radiosity was the only variable in the connector,
+                       which is not allowed for <code>flow</code> variables.
+                       This change required a reformulation of models because with the new formulation,
+                       the incoming and outcoming radiosity are both non-negative values.
+                       This addresses track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
     </td>
 </tr>
 </table>
@@ -261,6 +300,26 @@ units are wrong or errors in documentation):
                      with <code>quantity=\"ThermodynamicTemperature\"</code>.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Data.Fuels.Generic
+    </td>
+    <td valign=\"top\">Corrected wrong type for <code>mCO2</code>.
+                       It was declared as <code>Modelica.SIunits.MassFraction</code>,
+                       which is incorrect.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BaseClasses.Bounds
+    </td>
+    <td valign=\"top\">Corrected wrong type for <code>FRWat_min</code>, <code>FRWat_max</code>
+                       and <code>liqGasRat_max</code>.
+                       They were declared as <code>Modelica.SIunits.MassFraction</code>,
+                       which is incorrect as, for example, <code>FRWat_max</code> can be larger than one.
+    </td>
+</tr>
+
 </table>
 <!-- Github issues -->
 <p>
@@ -269,12 +328,14 @@ The following
 have been fixed:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Remove flow attribute from radiosity connectors</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">#xxx</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">This issue has been addressed by reformulating the radiosity models.
+                       With the new implementation, incoming and outgoing radiosity are non-negative
+                       quantities.
     </td>
 </tr>
 </table>
