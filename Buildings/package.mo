@@ -215,6 +215,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.HeatTransfer.Windows.BaseClasses.Examples.Shade<br/>
                        Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer<br/>
                        Buildings.HeatTransfer.Windows.BaseClasses.Shade<br/>
+                       Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer<br/>
                        Buildings.HeatTransfer.Windows.ExteriorHeatTransfer<br/>
                        Buildings.HeatTransfer.Windows.InteriorHeatTransfer<br/>
                        Buildings.Rooms.BaseClasses.InfraredRadiationExchange<br/>
