@@ -88,6 +88,9 @@ model CenterOfGlass "Test model for center of glas heat transfer"
   Modelica.Blocks.Sources.Constant QAbs[glaSys.nLay](each k=0)
     "Solar radiation absorbed by glass"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
+  Modelica.Blocks.Math.MultiSum sumJ(nu=2)
+    "Sum of radiosities from the two surfaces"
+    annotation (Placement(transformation(extent={{50,-140},{62,-128}})));
 equation
   connect(TOut.y, TAirOut.T) annotation (Line(
       points={{-139,-30},{-122,-30}},
@@ -178,14 +181,6 @@ equation
       points={{-29,-16},{-20,-16},{-20,-86},{-1,-86}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(sha.JOut_b, radIn.JIn) annotation (Line(
-      points={{21,44},{30,44},{30,-134},{79,-134}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(nonSha.JOut_b, radIn.JIn) annotation (Line(
-      points={{21,-86},{30,-86},{30,-134},{79,-134}},
-      color={0,127,0},
-      smooth=Smooth.None));
   connect(radShaInt.JOut_1, sha.JIn_b) annotation (Line(
       points={{39,-6},{26,-6},{26,36},{21,36}},
       color={0,127,0},
@@ -238,17 +233,35 @@ equation
       points={{-139,-30},{-132,-30},{-132,-138},{-92,-138}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(radIn.JIn, sumJ.y)     annotation (Line(
+      points={{79,-134},{63.02,-134}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(sha.JOut_b, sumJ.u[1])     annotation (Line(
+      points={{21,44},{32,44},{32,-131.9},{50,-131.9}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(nonSha.JOut_b, sumJ.u[2])     annotation (Line(
+      points={{21,-86},{28,-86},{28,-136.1},{50,-136.1}},
+      color={0,127,0},
+      smooth=Smooth.None));
     annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/CenterOfGlass.mos"
         "Simulate and plot"),
-              Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
-            -160},{160,160}}),
+              Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-160,-160},
+            {160,160}}),
                       graphics),
     Documentation(info="<html>
 This model tests the heat transfer for the center of the glass, with and without a shading device.
 </html>", revisions="<html>
 <ul>
+<li>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements

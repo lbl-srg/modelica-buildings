@@ -203,11 +203,9 @@ equation
   // and that leaves window.
   // J < 0 because it leaves the surface
   // G > 0 because it strikes the surface
-  // JIn > 0 because it enters the model
-  // JOut < 0 because it leaves the model
   for j in 1:nWin loop
     J[j + nOpa] = -JInConExtWin[j];
-    G[j + nOpa] = -JOutConExtWin[j];
+    G[j + nOpa] = +JOutConExtWin[j];
   end for;
   // Net heat exchange
   Q_flow = -J - G;
@@ -252,10 +250,10 @@ equation
   // Remove sumEBal and assert statement for final release
   sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
     sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
-    conExtWinFra.Q_flow) + (sum(JInConExtWin) + sum(JOutConExtWin));
+    conExtWinFra.Q_flow) + (sum(JInConExtWin) - sum(JOutConExtWin));
   assert(abs(sumEBal) < 1E-1,
-    "Program error: Energy is not conserved in InfraredRadiationExchange." +
-    "\n  Sum of all energy is " + String(sumEBal));
+    "Program error: Energy is not conserved in InfraredRadiationExchange.
+               Sum of all energy is " + String(sumEBal));
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,
@@ -364,6 +362,11 @@ The view factor from surface <i>i</i> to <i>j</i> is approximated as
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
 <li>
 April 18, 2013, by Michael Wetter:<br/>
 Removed <code>cardinality</code> function as this is 
