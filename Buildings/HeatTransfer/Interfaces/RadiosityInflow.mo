@@ -1,5 +1,5 @@
 within Buildings.HeatTransfer.Interfaces;
-connector RadiosityInflow = input Real(min=0, unit="W", nominal=419)
+connector RadiosityInflow = input Real(min=0, final unit="W", nominal=419)
   "Connector for inflowing radiosity"
   annotation(defaultComponentName = "JIn", Icon(graphics={Polygon(
         points={{-100,100},{100,0},{-100,-100},{-100,100}},

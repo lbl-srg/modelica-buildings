@@ -1,5 +1,5 @@
 within Buildings.HeatTransfer.Interfaces;
-connector RadiosityOutflow = output Real(max=0, unit="W", nominal=419)
+connector RadiosityOutflow = output Real(min=0, final unit="W", nominal=419)
   "Connector for outflowing radiosity"
   annotation(defaultComponentName = "JOut", Icon(graphics={Polygon(
         points={{-100,100},{100,0},{-100,-100},{-100,100}},
