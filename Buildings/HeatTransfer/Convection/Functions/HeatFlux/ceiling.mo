@@ -15,7 +15,7 @@ where
 <code>k=1.51</code> if the fluid is warmer than the ceiling,
 or <code>k=0.76</code> otherwise, and where
 <code>dT</code> is the solid temperature minus the fluid temperature.
-The convective convective heat flux is then
+The convective heat flux is then
 <code>q_flow = h * dT</code>.
 </html>",
 revisions="<html>
