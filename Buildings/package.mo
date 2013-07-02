@@ -170,12 +170,22 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed the annotation of the 
+                       instance <code>material</code> from
+                       <code>Evaluate=true</code> to <code>Evaluate=false</code>.
+                       This is required to allow changing the 
+                       material properties after compilation.
+                       Note, however, that the number of state variables in 
+                       <a href=\"modelica://Buildings.HeatTransfer.Data.BaseClasses.Material\">
+                       Buildings.HeatTransfer.Data.BaseClasses.Material</a>
+                       are only computed when the model is translated, because
+                       the number of state variables is fixed 
+                       at compilation time.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
