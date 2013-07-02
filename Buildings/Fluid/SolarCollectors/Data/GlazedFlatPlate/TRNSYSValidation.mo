@@ -5,7 +5,7 @@ record TRNSYSValidation =
     A=5,
     mDry=8.6,
     V=0.6/1000,
-    dp_nominal=1103*1000,
+    dp_nominal=1000,
     mperA_flow_nominal=0.0111,
     B0=-0.2,
     B1=-0,
@@ -18,5 +18,8 @@ record TRNSYSValidation =
     dT_nominal=10)
   "Default values in the TRNSYS Simulation Studio SDHW example"
     annotation(Documentation(info="<html>
-    Default values in the TRNSYS Simualtion Studio SDHW example.<br/>
+    <p>
+    Default values in the TRNSYS Simualtion Studio SDHW example.
+    No value for dp_nominal was provided in TRNSYS, so 1000 was used as a placeholder.<br/>
+    </p>
     </html>"));
