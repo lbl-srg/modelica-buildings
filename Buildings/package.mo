@@ -245,6 +245,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This addresses track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh
+    </td>
+    <td valign=\"top\">Renamed function from <code>raleigh</code> to <code>rayleigh</code>.
+    </td>
+</tr>
+
+
 </table>
 <!-- Errors that have been fixed -->
 <p>

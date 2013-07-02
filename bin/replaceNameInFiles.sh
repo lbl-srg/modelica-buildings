@@ -13,7 +13,7 @@
 #	"Districts.Electrical.Analog.Conversion.DCDCConverter" "Districts.Electrical.DC.Conversion.DCDCConverter" \
 #	"Districts.Electrical.Analog.Conversion.Examples.DCDCConverter" "Districts.Electrical.DC.Conversion.Examples.DCDCConverter")
 
-LIST=(  "<br>" "<br/>" )
+LIST=(  "raleigh" "rayleigh" )
 
 i=0
 while [ $i -le 1 ]; do
