@@ -246,7 +246,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
-<tr><td colspan=\"2\"><b>Buildings.HeatTransfer
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh
