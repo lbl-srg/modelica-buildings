@@ -103,18 +103,18 @@ The convective heat flux is computed using
 <ul>
 <li>
 for floors the function 
-<a href=\"modelica://Buildings.HeatTransfer.Convection.Functions.ConvectiveHeatFlux.floor\">
-Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.floor</a>
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor\">
+Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor</a>
 </li>
 <li>
 for ceilings the function
-<a href=\"modelica://Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.ceiling\">
-Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.ceiling</a>
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling\">
+Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling</a>
 </li>
 <li>
 for walls the function
-<a href=\"modelica://Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.wall\">
-Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.wall</a>
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall\">
+Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall</a>
 </li>
 </ul>
 </li>
