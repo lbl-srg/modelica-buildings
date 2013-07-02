@@ -1,8 +1,9 @@
 simulateModel("Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea", stopTime = 86400, method = "dassl", resultFile = "FlatPlateTotalArea");
 createPlot(id = 1,
  position = {0, 0, 1529, 781},
- y = {"solCol.vol[1].T", "solCol.vol[2].T", "solCol.vol[3].T"},
- range = {0.0, 88000.0, 8.0, 28.0},
+ y = {"solCol.vol[1].T", "solCol.vol[2].T", "solCol.vol[3].T", "solCol1.vol[33].T", 
+"solCol1.vol[66].T", "solCol1.vol[100].T"},
+ range = {0.0, 88000.0, 9.0, 21.0},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
@@ -13,11 +14,13 @@ createPlot(id = 1,
  filename = "FlatPlateTotalArea.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
- colors = {{0,0,255}, {255,0,0}, {0,128,0}});
+ colors = {{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}},
+ markers = {MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, 
+MarkerStyle.None, MarkerStyle.Cross});
 createPlot(id = 1,
  position = {0, 0, 1529, 387},
- y = {"solCol.m_flow"},
- range = {0.0, 88000.0, 0.092, 0.11599999999999999},
+ y = {"solCol.m_flow", "solCol.m_flow_nominal"},
+ range = {0.0, 88000.0, 0.31, 0.4},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
@@ -28,5 +31,5 @@ createPlot(id = 1,
  subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1,
- colors = {{0,0,255}});
+ colors = {{0,0,255}, {255,0,0}});
  
