@@ -58,8 +58,8 @@ model StratifiedEnhancedInternalHex
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
     redeclare package Medium =MediumHex) "Heat exchanger inlet"
-   annotation (Placement(transformation(extent={{-110,-50},{-90,-30}}),
-                   iconTransformation(extent={{-110,-50},{-90,-30}})));
+   annotation (Placement(transformation(extent={{-110,-48},{-90,-28}}),
+                   iconTransformation(extent={{-110,-48},{-90,-28}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
      redeclare package Medium = MediumHex) "Heat exchanger outlet"
    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}}),
@@ -136,11 +136,11 @@ equation
      end for;
    end for;
   connect(port_a1, indTanHex.port_a) annotation (Line(
-      points={{-100,-40},{-74,-40},{-74,32},{-77,32}},
+      points={{-100,-38},{-74,-38},{-74,32},{-77,32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(indTanHex.port_b, port_b1) annotation (Line(
-      points={{-97,32},{-97,26},{-98,26},{-98,20},{-76,20},{-76,-80},{-100,-80}},
+      points={{-97,32},{-100,32},{-100,20},{-76,20},{-76,-80},{-100,-80}},
       color={0,127,255},
       smooth=Smooth.None));
 
