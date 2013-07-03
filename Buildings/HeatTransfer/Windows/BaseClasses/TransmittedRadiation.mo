@@ -90,9 +90,9 @@ algorithm
     Documentation(info="<html>
 The model calculates solar radiation through the window. 
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
-</p>
-<p>
-The transmitted exterior radiation for window system includes:</p>
+<br/>
+
+The transmitted exterior radiation for window system includes:<br/>
 <ol>
 <li>
 the transmitted diffusive radiation on unshaded part: <code>AWin*(1-uSha)*HDif*tau(HEM)</code>
@@ -108,7 +108,6 @@ the transmitted direct radiation on shaded part: <code>AWin*uSha*HDir*tauSha(Inc
 </li>
 </ol>
 The output is <code>QTra_flow = Part1 + Part2 + Part3 + Part4</code>
-</p>
 
 <h4>References</h4>
 <ul>

@@ -577,7 +577,7 @@ The second row lists the name of the instance of the model that simulates the eq
 The third column provides a reference to the class definition that implements the equations.
 The forth column describes the main applicability of the model.
 </p>
-<table border=\"1\">
+<table summary=\"summary\" border=\"1\">
 <tr>
 <th>Record name</th>
 <th>Model instance name</th>
@@ -925,7 +925,7 @@ Michael Wetter, Wangda Zuo and Thierry Stephane Nouidui.<br/>
 <a href=\"modelica://Buildings/Resources/Images/Rooms/2011-ibpsa-BuildingsLib.pdf\">
 Modeling of Heat Transfer in Rooms in the Modelica \"Buildings\" Library.</a><br/>
 Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 2011. 
-</p>",    revisions="<html>
+</p></html>",   revisions="<html>
 <ul>
 <li>
 March 7 2012, by Michael Wetter:<br/>

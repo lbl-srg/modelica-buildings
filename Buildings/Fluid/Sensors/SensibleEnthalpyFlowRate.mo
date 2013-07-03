@@ -4,7 +4,6 @@ model SensibleEnthalpyFlowRate
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(tau=0);
   extends Buildings.Fluid.BaseClasses.IndexWater;
   extends Modelica.Icons.RotationalSensor;
-
   Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
     "Sensible enthalpy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
@@ -15,7 +14,7 @@ model SensibleEnthalpyFlowRate
     Medium.enthalpyOfNonCondensingGas(
       Medium.temperature(Medium.setState_phX(
         Medium.p_default, Medium.T_default, Medium.X_default)))
-    "<html>Initial or guess value of measured specific <b>sensible</b> enthalpy</html>"
+    "Initial or guess value of measured specific sensible enthalpy"
     annotation (Dialog(group="Initialization"));
   Modelica.SIunits.SpecificEnthalpy hMed_out(start=h_out_start)
     "Medium sensible enthalpy to which the sensor is exposed";
@@ -96,13 +95,16 @@ annotation (defaultComponentName="senEntFlo",
 <p>
 This component monitors the <i>sensible</i> enthalphy flow rate of the medium in the flow
 between fluid ports. In particular, if the total enthalpy flow rate is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   H&#775;<sub>tot</sub> = H&#775;<sub>sen</sub> + H&#775;<sub>lat</sub>,
 </p>
+<p>
 where 
 <i>H&#775;<sub>sen</sub> = m&#775; (1-X<sub>w</sub>) c<sub>p,air</sub></i>, 
 then this sensor outputs <i>H&#775; = H&#775;<sub>sen</sub></i>. 
 </p>
+
 <p>
 If the parameter <code>tau</code> is non-zero, then the measured
 specific sensible enthalpy <i>h<sub>out</sub></i> that is used to 
@@ -112,6 +114,7 @@ is computed using a first order differential equation.
 See <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
+
 <p>
 For a sensor that measures 
 <i>H&#775;<sub>tot</sub></i>, use
@@ -121,13 +124,14 @@ For a sensor that measures
 <i>H&#775;<sub>lat</sub></i>, use
 <a href=\"modelica://Buildings.Fluid.Sensors.LatentEnthalpyFlowRate\">
 Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
+</p>
+
 <p>
 The sensor is ideal, i.e., it does not influence the fluid.
 The sensor can only be used with medium models that implement the function
-<code>enthalpyOfNonCondensingGas(state)</code>.
-</p>
-</html>
-", revisions="<html>
+<code>enthalpyOfNonCondensingGas(state)</code>.</p>
+
+</html>",revisions="<html>
 <ul>
 <li>
 December 18, 2012, by Michael Wetter:<br/>

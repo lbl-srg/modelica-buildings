@@ -91,7 +91,7 @@ equation
   <h4>References</h4>
   <p>
   J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), 
-  John Wiley & Sons, Inc.<br/>
+  John Wiley &amp; Sons, Inc.<br/>
   </p>
   </html>",
   revisions = "<html>

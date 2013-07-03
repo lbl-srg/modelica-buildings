@@ -6,24 +6,24 @@ model IndoorRadiosity "Model for indoor radiosity"
     final tauIR=0,
     final rhoIR=0);
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port of this surface" annotation (Placement(transformation(extent={{-10,
+    "Heat port of the surface" annotation (Placement(transformation(extent={{-10,
             -108},{10,-88}}), iconTransformation(extent={{-2,-108},{18,-88}})));
 protected
   final parameter Real T03(
     min=0,
-    unit="K3") = T0^3 "3rd power of temperature T0" annotation (Evaluate=true);
+    final unit="K3") = T0^3 "3rd power of temperature T0" annotation (Evaluate=true);
   final parameter Real T04(
     min=0,
-    unit="K4") = T0^4 "4th power of temperature T0" annotation (Evaluate=true);
+    final unit="K4") = T0^4 "4th power of temperature T0" annotation (Evaluate=true);
   Real T4(
     min=1E8,
     start=293.15^4,
     nominal=1E10,
-    unit="K4") "4th power of temperature";
+    final unit="K4") "4th power of temperature";
 equation
   T4 = if linearize then 4*T03*heatPort.T - 3*T04 else heatPort.T^4;
-  JOut = -A*Modelica.Constants.sigma*T4;
-  0 = heatPort.Q_flow + JIn + JOut;
+  JOut = A*Modelica.Constants.sigma*T4;
+  0 = heatPort.Q_flow + JIn - JOut;
   annotation (
     Icon(graphics={
         Rectangle(
@@ -67,6 +67,7 @@ equation
           pattern=LinePattern.None)}),
     defaultComponentName="radInd",
     Documentation(info="<html>
+<p>
 Model for the indoor emissive power that hits a window.
 The computation is according to TARCOG 2006.
 </p>
@@ -75,11 +76,17 @@ The computation is according to TARCOG 2006.
 TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
+<li>
 February 10, 2012, by Wangda Zuo:<br/>
-Fixed a bug for temperature linearization.
+Fixed a bug in the temperature linearization.
 </li>
 <li>
 November 3, 2010, by Michael Wetter:<br/>

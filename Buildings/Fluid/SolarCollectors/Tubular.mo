@@ -80,7 +80,6 @@ equation
  Buildings.Fluid.SolarCollectors.Data.Tubular</a>.
  </p>
  <h4>Notice</h4>
- <p>
  <ul>
  <li>
  As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier 
@@ -94,7 +93,6 @@ equation
  on the dry mass and the specific heat capacity of copper.
  </li>
  </ul>
- </p>
  <h4>References</h4>
  <p>
  <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br/>

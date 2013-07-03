@@ -3,7 +3,7 @@ function convectionHorizontalCavity "Free convection in horizontal cavity"
   input Buildings.HeatTransfer.Data.Gases.Generic gas
     "Thermophysical properties of gas fill"
    annotation(choicesAllMatching=true);
-  input Real Ra(min=0) "Raleigh number";
+  input Real Ra(min=0) "Rayleigh number";
   input Modelica.SIunits.Temperature T_m
     "Temperature used for thermophysical properties";
   input Modelica.SIunits.TemperatureDifference dT
@@ -15,7 +15,7 @@ function convectionHorizontalCavity "Free convection in horizontal cavity"
   input Real deltaNu(min=0.01) = 0.1
     "Small value for Nusselt number, used for smoothing";
   input Real deltaRa(min=0.01) = 1E3
-    "Small value for Raleigh number, used for smoothing";
+    "Small value for Rayleigh number, used for smoothing";
   output Real Nu(min=0) "Nusselt number";
   output Modelica.SIunits.CoefficientOfHeatTransfer hCon(min=0)
     "Convective heat transfer coefficient";

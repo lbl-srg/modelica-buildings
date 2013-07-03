@@ -5,13 +5,15 @@ package ChillerPlant "Chiller plant with water side economizer for data center"
 extends Modelica.Icons.ExamplesPackage;
 
 
+
+
 annotation (Documentation(info="<html>
 <h4>System Configuration</h4>
 <p>This example demonstrates the implementation of a chiller plant with water-side economizer (WSE) to cool a data center.
 The system schematics is as shown below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/ChillerPlant/chillerSchematics.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/ChillerPlant/chillerSchematics.png\" border=\"1\"/>
 </p>
 <p>
 The system is a primary-only chiller plant with integrated WSE.

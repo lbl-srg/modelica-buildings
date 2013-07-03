@@ -8,6 +8,7 @@ extends Modelica.Icons.ExamplesPackage;
 
 
 
+<<<<<<< HEAD
 
 
 annotation (preferredView="info", Documentation(info="<html>
@@ -15,5 +16,10 @@ annotation (preferredView="info", Documentation(info="<html>
 This package contains examples demonstrating the use of models that can be found in 
 <a href=\"modelica://Buildings.Fluid.SolarCollectors\"> Buildings.Fluid.SolarCollectors</a>. 
 </p>
+=======
+annotation (preferredView="info", Documentation(info="<html>
+This package contains examples demonstrating the use of models that can be found in <a href=\"modelica://Buildings.Fluid.SolarCollector\"> Buildings.Fluid.SolarCollector. 
+</a>
+>>>>>>> master
 </html>"));
 end Examples;

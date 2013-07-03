@@ -81,9 +81,12 @@ Documentation(info="<html>
 This is a model of a pressure expansion vessel. The vessel has a fixed total volume. 
 A fraction of the volume is occupied by a fixed mass of gas, and the other fraction is occupied 
 by the liquid that flows through the port.
-The pressure <code>p</code> in the vessel is<pre>
+The pressure <code>p</code> in the vessel is
+</p>
+<pre>
  VGas0 * p_start = (VTot-VLiquid) * p
 </pre>
+<p>
 where <code>VGas0</code> is the initial volume occupied by the gas, 
 <code>p_start</code> is the initial pressure,
 <code>VTot</code> is the total volume of the vessel and

@@ -50,10 +50,8 @@ protected
 equation
   // Heat balance of surface node
   // These equations are from Window 6 Technical report, (2.1-14) to (2.1-17)
-  0 = port_a.Q_flow + port_b.Q_flow + QAbs_flow + JIn_a  + JIn_b + JOut_a + JOut_b;
-  //port_b.T-port_a.T = R/u * (2*port_b.Q_flow+QAbs_flow);
-  //   u * (port_b.T-port_a.T) = 2*R * (-port_a.Q_flow-QAbs_flow/2-(absIR_a*JIn_a-E_a));
-  u * (port_b.T-port_a.T) = 2*R * (-port_a.Q_flow-QAbs_flow/2-JIn_a-JOut_a); // Ticket 56
+  0 = port_a.Q_flow + port_b.Q_flow + QAbs_flow + JIn_a  + JIn_b - JOut_a - JOut_b;
+  u * (port_b.T-port_a.T) = 2*R * (-port_a.Q_flow-QAbs_flow/2-JIn_a+JOut_a);
   // Radiosity balance
   if linearize then
     T4_a = 4*T03*port_a.T - 3*T04;
@@ -74,8 +72,8 @@ equation
   // equal to the infrared absorptivity plus the reflected incoming
   // radiosity plus the radiosity that is transmitted from the
   // other surface.
-  -JOut_a = E_a + rhoIR_a * JIn_a + tauIR * JIn_b;
-  -JOut_b = E_b + rhoIR_b * JIn_b + tauIR * JIn_a;
+  JOut_a = E_a + rhoIR_a * JIn_a + tauIR * JIn_b;
+  JOut_b = E_b + rhoIR_b * JIn_b + tauIR * JIn_a;
   annotation (Diagram(graphics),
     Icon(graphics={
         Rectangle(
@@ -111,9 +109,14 @@ The model also computes the infrared radiative heat balance using an instance
 of the model
 <a href=\"Buildings.HeatTransfer.Radiosity.WindowPane\">
 Buildings.HeatTransfer.Radiosity.WindowPane</a>.
-</p>
+<br/>
 </html>", revisions="<html>
 <ul>
+<li>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
 <li>
 March 20, 2012 by Wangda Zuo:<br/>
 Fixed bug for heat flow reported by Pierre Tittelein and fixed bug for temperature linearization.

@@ -56,7 +56,7 @@ equation
       points={{-19,10},{0,10},{0,25.2},{18,25.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),  
+  annotation (Diagram(graphics),
 experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/SideFins.mos"
         "Simulate and plot"),
@@ -71,7 +71,7 @@ For a detail description of side fin model, see
 Buildings.HeatTransfer.Windows.BaseClasses.SideFins</a>.
 The required data for the solar angle calculations are obtained from the weather data.
 </p>
-<p>
+
 Solar angles used in this model are:
 <ul>
 <li>
@@ -91,9 +91,9 @@ Angle between Sun ray and horizontal surface
 Angle measured in horizontal plane between projection of sun's rays and normal to vertical surface 
 </li>
 </ul>
-</p>
+
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFins.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFins.png\" border=\"1\" />
 </p>
 </html>",
 revisions="<html>

@@ -108,7 +108,7 @@ equation
           extent={{232,246},{-88,338}},
           lineColor={0,0,255},
           textString="%name")}),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component decides if the WSE is set to on or off.
 The WSE is enabled when
@@ -136,7 +136,7 @@ The WSE is disabled when
 where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for the WSE, 
 <i>T<sub>WetBul</sub></i> is the wet bulb temperature, <i>T<sub>TowApp</sub></i> is the cooling tower approach, <i>T<sub>WSEApp</sub></i> is the approach for the WSE, <i>T<sub>WSE_CHWRT</sub></i> is the chilled water return temperature for the WSE, and <i>T<sub>WSE_CWST</sub></i> is the condenser water return temperature for the WSE.
 </p> 
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>
@@ -156,6 +156,6 @@ Added comments, redefined variables names, and merged to library.
 January 18, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
-</ul></HTML>"),
+</ul></html>"),
     Diagram(coordinateSystem(extent={{-20,-80},{180,240}},  preserveAspectRatio=false)));
 end WSEControl;

@@ -26,7 +26,7 @@ model GasConvection
     "Convective heat transfer coefficient";
   Modelica.SIunits.HeatFlux q_flow "Convective heat flux";
   Real Nu(min=0) "Nusselt number";
-  Real Ra(min=0) "Raleigh number";
+  Real Ra(min=0) "Rayleigh number";
 protected
   Modelica.SIunits.Temperature T_a
     "Temperature used for thermophysical properties at port_a";
@@ -38,7 +38,7 @@ protected
   Real deltaNu(min=0.01) = 0.1
     "Small value for Nusselt number, used for smoothing";
   Real deltaRa(min=0.01) = 100
-    "Small value for Raleigh number, used for smoothing";
+    "Small value for Rayleigh number, used for smoothing";
   final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt"
     annotation (Evaluate=true);
   final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt"
@@ -54,7 +54,7 @@ protected
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hCon0(fixed=false)
     "Convective heat transfer coefficient";
   parameter Real Nu0(fixed=false, min=0) "Nusselt number";
-  parameter Real Ra0(fixed=false, min=0) "Raleigh number";
+  parameter Real Ra0(fixed=false, min=0) "Rayleigh number";
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
@@ -62,7 +62,7 @@ initial equation
   assert(isVertical or isHorizontal, "Only vertical and horizontal windows are implemented.");
 initial equation
   // Computations that are used in the linearized model only
-  Ra0 = Buildings.HeatTransfer.Convection.Functions.HeatFlux.raleigh(
+  Ra0 = Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh(
     x=gas.x,
     rho=Buildings.HeatTransfer.Data.Gases.density(gas, T0),
     c_p=Buildings.HeatTransfer.Data.Gases.specificHeatCapacity(gas, T0),
@@ -84,7 +84,7 @@ equation
     hCon=hCon0;
     q_flow = hCon0 * dT;
   else
-    Ra = Buildings.HeatTransfer.Convection.Functions.HeatFlux.raleigh(
+    Ra = Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh(
       x=gas.x,
       rho=Buildings.HeatTransfer.Data.Gases.density(gas, T_m),
       c_p=Buildings.HeatTransfer.Data.Gases.specificHeatCapacity(gas, T_m),
@@ -177,13 +177,14 @@ to a value defined in
 <a href=\"modelica://Buildings.HeatTransfer.Types.Tilt\">
 Buildings.HeatTransfer.Types.Tilt</a>.
 </p>
-</p>
+<br/>
+
 <p>
 If the parameter <code>linearize</code> is set to <code>true</code>,
 then all equations are linearized.
 </p>
 <h4>References</h4>
-<p>
+
 TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.

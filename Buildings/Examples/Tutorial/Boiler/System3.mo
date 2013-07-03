@@ -560,7 +560,7 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System3Temperatures.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System3Temperatures.png\" border=\"1\"/>
 </p>
 <p>
 The figure shows that the room temperature is around

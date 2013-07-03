@@ -279,7 +279,6 @@ the unusual case that the floor contains a window, is
 &frasl; &sum;<sub>j=1</sub><sup>N<sup>f</sup></sup> &nbsp; A<sup>j</sup>.
 </p>
 The sum of the radiation that is reflected by the floor is therefore
-</p>
 <p align=\"center\" style=\"font-style:italic;\">
  J<sup>f</sup> = H &nbsp; 
 &sum;<sub>i=1</sub><sup>N<sup>f</sup></sup>
@@ -290,7 +289,6 @@ The sum of the radiation that is reflected by the floor is therefore
 This reflected radiosity is then distributed to all non-floor areas
 <i>i &isin; {1, &hellip;, N<sup>n</sup>}</i>
 using</p>
-</p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q<sup>i</sup> = J<sup>f</sup> &nbsp;
 A<sup>i</sup> &nbsp; (&epsilon;<sup>i</sup>+&tau;<sup>i</sup>)

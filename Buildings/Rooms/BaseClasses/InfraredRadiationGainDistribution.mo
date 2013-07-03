@@ -16,7 +16,7 @@ model InfraredRadiationGainDistribution
         origin={-260,0},
         extent={{20,-20},{-20,20}},
         rotation=180)));
-  HeatTransfer.Interfaces.RadiosityOutflow[NConExtWin] JOutConExtWin
+  Buildings.HeatTransfer.Interfaces.RadiosityOutflow[NConExtWin] JOutConExtWin
     "Outgoing radiosity that connects to shaded and unshaded part of glass"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
 protected
@@ -84,7 +84,7 @@ equation
   conSurBou.Q_flow    = -fraSurBou*Q_flow;
   // This model makes the simplification that the shade, the glass and the frame have
   // the same absorptivity in the infrared region
-  JOutConExtWin        = -fraConExtWinGla*Q_flow;
+  JOutConExtWin        = +fraConExtWinGla*Q_flow;
   conExtWinFra.Q_flow  = -fraConExtWinFra*Q_flow;
   // Check for conservation of energy
   assert(abs(1 - sum(fraConExt) - sum(fraConExtWinOpa)- sum(fraConExtWinGla) - sum(fraConExtWinFra)
@@ -98,12 +98,10 @@ This model computes the distribution of the infrared radiant heat gain
 to the room surfaces. 
 The infrared radiant heat gain <i>Q</i> is an input to this model.
 It is distributed to the individual surfaces according to
-</p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q<sup>i</sup> = Q &nbsp; A<sup>i</sup> &nbsp; &epsilon;<sup>i</sup> &frasl; 
  &sum;<sub>k</sub> A<sup>k</sup> &nbsp; &epsilon;<sup>k</sup>.
 </p>
-<p>
 For opaque surfaces, the heat flow rate 
 <i>Q<sup>i</sup></i> 
 is set to be equal to the heat flow rate at the heat port.
@@ -111,10 +109,14 @@ For the glass of the windows, the heat flow rate
 <i>Q<sup>i</sup></i> is set to the radiosity
 <i>J<sup>i</sup></i>
 that will strike the glass or the window shade.
-<p/>
 </html>",
         revisions="<html>
 <ul>
+<li>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
 <li>
 December 1, 2010, by Michael Wetter:<br/>
 First implementation.

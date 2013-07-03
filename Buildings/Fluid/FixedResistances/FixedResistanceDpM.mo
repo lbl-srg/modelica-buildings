@@ -127,7 +127,7 @@ The figure below shows the pressure drop for the parameters
 <code>deltaM=0.3</code>.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png\"/>
 </p>
 <p>
 If the parameters 

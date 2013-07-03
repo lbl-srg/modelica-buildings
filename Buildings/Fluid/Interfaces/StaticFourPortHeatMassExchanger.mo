@@ -81,14 +81,12 @@ If the parameter <code>linearizeFlowResistance<i>N</i></code> is set to true,
 then the whole pressure drop vs. flow resistance curve is linearized.
 </p>
 
-
-</p>
 <h4>Implementation</h4>
 <p>
 This model uses inputs and constants that need to be set by models
 that extend or instantiate this model.
 The following inputs need to be assigned, where <code><i>N</i></code> denotes <code>1</code> or
-<code>2</code>:
+<code>2</code>:</p>
 <ul>
 <li>
 <code>Q<i>N</i>_flow</code>, which is the heat flow rate added to the medium <i>N</i>.
@@ -97,7 +95,6 @@ The following inputs need to be assigned, where <code><i>N</i></code> denotes <c
 <code>mXi<i>N</i>_flow</code>, which is the species mass flow rate added to the medium <i>N</i>.
 </li>
 </ul>
-</p>
 <p>
 Set the constant <code>sensibleOnly<i>N</i>=true</code> if the model that extends
 or instantiates this model sets <code>mXi<i>N</i>_flow = zeros(Medium.nXi<i>N</i>)</code>.
@@ -107,7 +104,6 @@ or instantiates this model sets <code>mXi<i>N</i>_flow = zeros(Medium.nXi<i>N</i
      <code>0 = mXi1_flow + mXi2_flow</code>. If there is no heat or mass transfer
      with the environment, then a model that extends this model needs to provide these 
      equations.
-</p>
 </p>
 </html>", revisions="<html>
 <ul>

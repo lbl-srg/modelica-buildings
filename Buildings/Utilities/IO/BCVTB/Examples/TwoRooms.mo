@@ -138,8 +138,7 @@ equation
             -100},{240,100}})),
     experiment(StopTime=21600),
     Documentation(info="<html>
-This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.
-</p>
+This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.<br/>
 <p>
 Given a control signal for two heat flow rates, Modelica simulates the thermal response 
 of two first order systems. The two systems may represent a first order approximation of a room.

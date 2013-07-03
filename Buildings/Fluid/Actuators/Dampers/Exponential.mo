@@ -43,9 +43,9 @@ matches the damper resistance at <code>y=0</code> and <code>y=yL</code> or <code
 <code>y=1</code>, respectively. In addition, the polynomials are such that <code>k(y)</code> is
 differentiable in <code>y</code> and the derivative is continuous.
 </p>
-<p>
+
 ASHRAE 825-RP lists the following parameter values as typical:
-<table border=\"1\">
+<table summary=\"summary\" border=\"1\">
 <tr>
 <td></td><td>opposed blades</td><td>single blades</td>
 </tr>
@@ -68,7 +68,7 @@ ASHRAE 825-RP lists the following parameter values as typical:
 <td>b</td><td>0.105*90</td><td>0.0842*90</td>
 </tr>
 </table>
-</p>
+
 <h4>References</h4>
 <p>
 P. Haves, L. K. Norford, M. DeSimone and L. Mei,

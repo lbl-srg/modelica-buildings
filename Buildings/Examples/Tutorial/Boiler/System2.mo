@@ -235,7 +235,7 @@ Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor
 We connected the model as shown in the figure below. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System2Connections.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System2Connections.png\" border=\"1\"/>
 </p>
 <p>
 Note that there are two connections from the
@@ -302,7 +302,7 @@ is below
 we implemented the control blocks as shown in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System2PumpControl.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System2PumpControl.png\" border=\"1\"/>
 </p>
 <p>
 In this control sequence, the first block is a hysteresis element,
@@ -359,7 +359,7 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System2Temperatures.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System2Temperatures.png\" border=\"1\"/>
 </p>
 <p>
 The figure shows that the room temperature is maintained at

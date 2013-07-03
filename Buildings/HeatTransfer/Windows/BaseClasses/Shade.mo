@@ -77,9 +77,10 @@ model Shade
      annotation (Placement(transformation(extent={{-50,-110},{-30,-90}},
                        rotation=0), iconTransformation(extent={{-36,-108},{-16,-88}})));
 protected
- final parameter Real T03(min=0, unit="K3")=T0^3 "3rd power of temperature T0"
+ final parameter Real T03(min=0, final unit="K3")=T0^3
+    "3rd power of temperature T0"
  annotation(Evaluate=true);
- Real T4(min=1E8, start=293.15^4, nominal=1E10, unit="K4")
+ Real T4(min=1E8, start=293.15^4, nominal=1E10, final unit="K4")
     "4th power of temperature";
  Modelica.SIunits.RadiantPower E_air "Emissive power of surface that faces air";
  Modelica.SIunits.RadiantPower E_glass
@@ -94,17 +95,17 @@ equation
       T4 = T03 * sha.T;
     else
       if homotopyInitialization then
-	T4 = homotopy(actual=(sha.T)^4, simplified=T03 * sha.T);
+        T4 = homotopy(actual=(sha.T)^4, simplified=T03 * sha.T);
       else
-	T4 = (sha.T)^4;
+        T4 = (sha.T)^4;
       end if;
     end if;
 
     E_air   = u * A * absIR_air   * Modelica.Constants.sigma * T4;
     E_glass = u * A * absIR_glass * Modelica.Constants.sigma * T4;
     // Radiosity outgoing from shade towards air side and glass side
-    JOut_air   = - E_air   - tauIR_glass * JIn_glass - rhoIR_air*JIn_air;
-    JOut_glass = - E_glass - tauIR_air   * JIn_air   - rhoIR_glass*JIn_glass;
+    JOut_air   = E_air   + tauIR_glass * JIn_glass + rhoIR_air*JIn_air;
+    JOut_glass = E_glass + tauIR_air   * JIn_air   + rhoIR_glass*JIn_glass;
     // Heat balance of shade
     // The term 2*Gc is to combine the parallel convective heat transfer resistances,
     // see figure in info section.
@@ -121,8 +122,8 @@ equation
     T4 = T03 * T0;
     E_air = 0;
     E_glass = 0;
-    JOut_air = -JIn_glass;
-    JOut_glass = -JIn_air;
+    JOut_air = JIn_glass;
+    JOut_glass = JIn_air;
   end if;
 
   annotation (Diagram(graphics),
@@ -220,7 +221,7 @@ The convective heat balance is based on the model described by Wright (2008), wh
 be shown as a convective heat resistance model as follows:
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/convection.png\" border=\"1\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/convection.png\" border=\"1\"/>
 </p>
 <p>
 Wright (2008) reports that if the shading layer is far enough from the window,
@@ -243,6 +244,11 @@ of Glazing Systems with Shading Devices.<br/>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
 <li>
 April 2, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.

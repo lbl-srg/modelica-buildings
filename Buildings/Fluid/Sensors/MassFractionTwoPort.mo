@@ -3,7 +3,6 @@ model MassFractionTwoPort "Ideal two port mass fraction sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
   parameter String substanceName = "water" "Name of species substance";
-
   Modelica.Blocks.Interfaces.RealOutput X(min=0, max=1, start=X_start)
     "Mass fraction of the passing fluid"
     annotation (Placement(transformation(
@@ -21,7 +20,6 @@ protected
   Medium.MassFraction XiVec[Medium.nXi](
       quantity=Medium.extraPropertiesNames)
     "Trace substances vector, needed because indexed argument for the operator inStream is not supported";
-
 initial algorithm
   // Compute the index of the element in the substance vector
   ind:= -1;
@@ -45,7 +43,6 @@ initial equation
       X = X_start;
     end if;
   end if;
-
 equation
   if allowFlowReversal then
     XiVec = Modelica.Fluid.Utilities.regStep(port_a.m_flow,
@@ -60,7 +57,6 @@ equation
   else
     X = XMed;
   end if;
-
 annotation (defaultComponentName="senMasFra",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}},
@@ -87,8 +83,6 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ", revisions="<html>
-<html>
-<p>
 <ul>
 <li>
 November 3, 2011, by Michael Wetter:<br/>

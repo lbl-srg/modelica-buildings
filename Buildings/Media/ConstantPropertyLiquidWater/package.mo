@@ -28,11 +28,11 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
 
 
   annotation (preferredView="info", Documentation(info="<html>
-<p>
 This medium model is identical to 
 <a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
 Modelica.Media.Water.ConstantPropertyLiquidWater</a>, except for the following
-points:
+points:<br/>clear
+
 <ul>
 <li>
 It allows computing a compressibility of the medium.
@@ -51,7 +51,6 @@ Buildings.Media.Interfaces.PartialSimpleMedium</a>.
 It implements the function that computes the specific internal energy.
 </li>
 </ul>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

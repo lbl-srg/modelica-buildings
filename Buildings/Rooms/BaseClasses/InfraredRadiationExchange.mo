@@ -203,11 +203,9 @@ equation
   // and that leaves window.
   // J < 0 because it leaves the surface
   // G > 0 because it strikes the surface
-  // JIn > 0 because it enters the model
-  // JOut < 0 because it leaves the model
   for j in 1:nWin loop
     J[j + nOpa] = -JInConExtWin[j];
-    G[j + nOpa] = -JOutConExtWin[j];
+    G[j + nOpa] = +JOutConExtWin[j];
   end for;
   // Net heat exchange
   Q_flow = -J - G;
@@ -252,10 +250,10 @@ equation
   // Remove sumEBal and assert statement for final release
   sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
     sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
-    conExtWinFra.Q_flow) + (sum(JInConExtWin) + sum(JOutConExtWin));
+    conExtWinFra.Q_flow) + (sum(JInConExtWin) - sum(JOutConExtWin));
   assert(abs(sumEBal) < 1E-1,
-    "Program error: Energy is not conserved in InfraredRadiationExchange." +
-    "\n  Sum of all energy is " + String(sumEBal));
+    "Program error: Energy is not conserved in InfraredRadiationExchange.
+               Sum of all energy is " + String(sumEBal));
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,
@@ -296,11 +294,11 @@ equation
 <p>
 This model computes the infrared radiative heat transfer between the interior
 surfaces of a room. Each opaque surface emits radiation according to
-<p/>
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   E<sup>i</sup> = &sigma; &nbsp; A<sup>i</sup> &nbsp; &epsilon;<sup>i</sup> &nbsp; 
 (T<sup>i</sup>)<sup>4</sup>,
-<p/>
+</p>
 <p>
 where
 <i>&sigma;</i>
@@ -318,10 +316,10 @@ where <i>T<sub>0</sub> = 20&deg;C</i> is a parameter.
 </p>
 <p>
 The incoming radiation at surface <i>i</i> is
-<p/>
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   G<sup>i</sup> = -&sum;<sub>j</sub> &nbsp; F<sup>j,i</sup> &nbsp; J<sup>j</sup>
-<p/>
+</p>
 <p>
 where 
 <i>F<sup>j,i</sup></i> 
@@ -334,20 +332,20 @@ For opaque surfaces, it follows from the first law
 that the radiosity
 <i>J<sup>i</sup></i> 
 is
-<p/>
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
  J<sup>i</sup> = -E<sup>i</sup>  - (1-&epsilon;<sup>i</sup>) &nbsp; G<sup>i</sup>.
-<p/>
+</p>
 <p>
 For windows, the outgoing radiosity is an input into this model
 because the window model computes this quantity directly.
 </p>
 <p>
 For each surface <i>i</i>, the heat balance is
-<p/>
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   0 = Q<sup>i</sup> + J<sup>i</sup> + G<sup>i</sup>.
-<p/>
+</p>
 <p>
 For opaque surfaces, the heat flow rate 
 <i>Q<sup>i</sup></i> 
@@ -356,7 +354,7 @@ For the glass of the windows, the radiosity outflow at the connector is
 set to the radiosity
 <i>G<sup>i</sup></i>
 that is leaving the surface.
-<p/>
+</p>
 <p>
 The view factor from surface <i>i</i> to <i>j</i> is approximated as
 <p align=\"center\" style=\"font-style:italic;\">
@@ -364,6 +362,11 @@ The view factor from surface <i>i</i> to <i>j</i> is approximated as
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
 <li>
 April 18, 2013, by Michael Wetter:<br/>
 Removed <code>cardinality</code> function as this is 

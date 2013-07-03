@@ -15,7 +15,8 @@ equation
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics),
-                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/WaterVaporPressureDerivativeCheck.mos" "Simulate and plot"),
+                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/WaterVaporPressureDerivativeCheck.mos"
+        "Simulate and plot"),
       experiment(
         StartTime=0,
         StopTime=1),

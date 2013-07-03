@@ -190,7 +190,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.m_flow_in, mAir_flow.y) annotation (Line(
-      points={{45,-11.8},{45,10},{21,10}},
+      points={{49.8,-8},{49.8,10},{21,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWat_flow.y, souWat.m_flow_in) annotation (Line(
@@ -288,7 +288,7 @@ Note that we use an assignment for the nominal air mass flow rate
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System1\">
 Buildings.Examples.Tutorial.SpaceCooling.System1</a> because
 now, the air flow rate is a result of the sizing calculations.
-<p/>
+</p>
 <p>
 The calculations are as follows:
 </p>
@@ -486,7 +486,6 @@ as is used for the fan, but we chose to use the simpler model
 Buildings.Fluid.Sources.MassFlowSource_T</a>
 as this model allows the direct specification of the
 leaving fluid temperature.
-</p>
 </li>
 <li>
 <p>
@@ -503,7 +502,7 @@ its temperature.
 This completes the initial version of the model. When simulating the model, the
 response shown below should be seen.
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System2Temperatures.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System2Temperatures.png\" border=\"1\"/>
 </p>
 <!-- Notes -->
 <h4>Notes</h4>

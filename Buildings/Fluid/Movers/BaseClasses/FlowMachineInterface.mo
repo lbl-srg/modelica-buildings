@@ -495,7 +495,7 @@ A cubic hermite spline with linear extrapolation is used to compute the performa
 operating points.
 </p>
 <p>The fan or pump energy balance can be specified in two alternative ways: </p>
-<p>
+
 <ul>
 <li>
 If <code>use_powerCharacteristic = false</code>, then the data points for
@@ -509,7 +509,7 @@ is used to determine the power consumption, and then the efficiency
 is computed based on the actual power consumption and the flow work. 
 </li>
 </ul>
-</p>
+
 <h4>Implementation</h4>
 <p>
 For numerical reasons, the user-provided data points for volume flow rate 

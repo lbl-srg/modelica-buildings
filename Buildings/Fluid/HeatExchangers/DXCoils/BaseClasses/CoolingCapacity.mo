@@ -225,8 +225,7 @@ where
 or the wet-bulb temperature if the coil is wet.
 </p>
 <p>
-The temperature dependent cooling capacity modifier function is
-</p>
+The temperature dependent cooling capacity modifier function is</p>
 <p align=\"center\" style=\"font-style:italic;\" >
   cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = a<sub>1</sub> + a<sub>2</sub> &theta;<sub>e,in</sub> 
 + a<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + a<sub>4</sub> &theta;<sub>c,in</sub> + 
@@ -267,6 +266,7 @@ in performance record. A non-zero value of
 Hence, when <i>m&#775; &ne; 0</i> is below the valid range of the flow modifier function,
 the coil capacity will be reduced and set to zero near <i>m&#775; = 0</i>.
 </p>
+
 <h4>Energy Input Ratio (EIR) modifiers</h4>
 <p>
 The Energy Input Ratio (<i>EIR</i>) is the inverse of the Coefficient of Performance (<i>COP</i>).
@@ -332,8 +332,7 @@ the name of the polynomial coefficients in
 Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves</a>
 and the independent parameters against which the data need to be fitted.
 </p>
-<p>
-  <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr>
       <th>Modelica name of coefficient in data record</th>
       <th>Polynomial of the above info section</th>
@@ -382,7 +381,7 @@ a<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + a<sub>6</sub> &theta;<sub>e,
         </i></td>
     </tr>
   </table>
-</p>
+
 <p>
 Note that for the above polynomials, the units for temperature is degree Celsius and not Kelvins.
 </p>

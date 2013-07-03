@@ -482,7 +482,7 @@ Next, we added closed loop control for the boiler valve as
 shown in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5BoilerValveControl.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5BoilerValveControl.png\" border=\"1\"/>
 </p>
 <p>
 This is implemented using the constant block
@@ -523,7 +523,7 @@ This instance is called <code>TSetSup</code> in the
 control sequence shown in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5RadiatorValve.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5RadiatorValve.png\" border=\"1\"/>
 </p>
 <p>
 Its configuration is
@@ -543,7 +543,7 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5Temperatures.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5Temperatures.png\" border=\"1\"/>
 </p>
 <p>
 The figure shows that the return water temperature
