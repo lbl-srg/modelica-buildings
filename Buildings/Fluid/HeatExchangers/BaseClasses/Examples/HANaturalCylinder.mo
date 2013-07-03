@@ -13,13 +13,13 @@ model HANaturalCylinder "Test model for natural convection outside of a coil"
   Modelica.Blocks.Sources.Ramp TSur(
     duration=100,
     height=50,
-    offset=293.15) "Temperature of the pipe surface (K)"
+    offset=293.15) "Temperature of the pipe surface"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Ramp TFlu(
     duration=100,
     startTime=150,
     height=50,
-    offset=293.15) "Temperature of the surrounding fluid (K)"
+    offset=293.15) "Temperature of the surrounding fluid"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 equation
   connect(TSur.y, hANatCyl.TSur) annotation (Line(
