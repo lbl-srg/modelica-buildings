@@ -67,6 +67,7 @@ algorithm
   annotation(preferredView="info",
            smoothOrder=1,
            Documentation(info="<html>
+<p>
 This function computes the heat exchanger effectiveness,
 the Number of Transfer Units, and the capacity flow ratio
 for given capacity flow rates.
@@ -80,7 +81,7 @@ the Number of Transfer Units and the heat exchanger effectiveness go to zero.
 revisions="<html>
 <ul>
 <li>
-February 20, 2010, by Michael Wetter:<br>
+February 20, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

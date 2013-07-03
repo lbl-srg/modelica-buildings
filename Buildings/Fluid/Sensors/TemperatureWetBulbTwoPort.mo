@@ -1,10 +1,9 @@
 within Buildings.Fluid.Sensors;
 model TemperatureWetBulbTwoPort "Ideal wet bulb temperature sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
-
   Modelica.Blocks.Interfaces.RealOutput T(
     start=TWetBul_start,
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit = "degC") "Wet bulb temperature in port medium"
     annotation (Placement(transformation(
@@ -14,14 +13,11 @@ model TemperatureWetBulbTwoPort "Ideal wet bulb temperature sensor"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,110})));
-
   parameter Modelica.SIunits.Temperature TWetBul_start = Medium.T_default
-    "<html>Initial or guess value of <b>wet bulb</b> temperature (used to compute initial output signal))</html>"
+    "Initial or guess value of wet bulb temperature (used to compute initial output signal))"
     annotation (Dialog(group="Initialization"));
-
   Medium.Temperature TMedWetBul(start=TWetBul_start)
     "Medium wet bulb temperature to which the sensor is exposed";
-
 protected
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulMod(
     redeclare package Medium = Medium) "Block for wet bulb temperature";
@@ -57,7 +53,6 @@ equation
   else
     T = TMedWetBul;
   end if;
-
 annotation (defaultComponentName="senWetBul",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
@@ -108,25 +103,23 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ", revisions="<html>
-<html>
-<p>
 <ul>
 <li>
-June 3, 2011 by Michael Wetter:<br>
+June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that 
 the time constant increases as the mass flow rate tends to zero.
 This significantly improves the numerics.
 </li>
 <li>
-February 18, 2010, by Michael Wetter:<br>
+February 18, 2010, by Michael Wetter:<br/>
 Revised model to use new block for computing the wet bulb temperature.
 </li>
 <li>
-September 10, 2008, by Michael Wetter:<br>
+September 10, 2008, by Michael Wetter:<br/>
 Renamed output port to have the same interfaces as the dry bulb temperature sensor.
 </li>
 <li>
-May 5, 2008, by Michael Wetter:<br>
+May 5, 2008, by Michael Wetter:<br/>
 First implementation.
 Implementation is based on 
 <a href=\"modelica://Buildings.Fluid.Sensors.Temperature\">Buildings.Fluid.Sensors.Temperature</a>.

@@ -3,8 +3,8 @@ block X_pTphi
   "Return steam mass fraction as a function of relative humidity phi and temperature T"
   extends
     Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
- replaceable package Medium =
-      Modelica.Media.Interfaces.PartialCondensingGases "Medium model" annotation (choicesAllMatching = true);
+  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
+    "Medium model";
 
 public
   Modelica.Blocks.Interfaces.RealInput T(final unit="K",
@@ -14,7 +14,7 @@ public
   Modelica.Blocks.Interfaces.RealInput phi(min = 0, max=1)
     "Relative humidity (0...1)"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput X[Medium.nX](min = 0, max=1)
+  Modelica.Blocks.Interfaces.RealOutput X[Medium.nX](each min=0, each max=1)
     "Steam mass fraction"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
@@ -37,7 +37,7 @@ initial algorithm
   i_nw := if i_w == 1 then 2 else 1;
   assert(found, "Did not find medium species 'water' in the medium model. Change medium model.");
 algorithm
-  psat := Medium.saturationPressure(T);
+  psat := Buildings.Media.PerfectGases.MoistAirUnsaturated.saturationPressure(T);
   X[i_w] := Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
      pSat=psat, p=p_in_internal, phi=phi);
   //sum(X[:]) = 1; // The formulation with a sum in an equation section leads to a nonlinear equation system
@@ -55,19 +55,23 @@ and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>August 21, 2012 by Michael Wetter:<br>
+<li>April 26, 2013 by Michael Wetter:<br/>
+Set the medium model to <code>Buildings.Media.PerfectGases.MoistAirUnsaturated</code>.
+This was required to allow a pedantic model check in Dymola 2014.
+</li>
+<li>August 21, 2012 by Michael Wetter:<br/>
 Added function call to compute water vapor content.
 </li>
 <li>
-February 22, 2010 by Michael Wetter:<br>
+February 22, 2010 by Michael Wetter:<br/>
 Improved the code that searches for the index of 'water' in the medium model.
 </li>
 <li>
-February 17, 2010 by Michael Wetter:<br>
+February 17, 2010 by Michael Wetter:<br/>
 Renamed block from <code>MassFraction_pTphi</code> to <code>X_pTphi</code>
 </li>
 <li>
-February 4, 2009 by Michael Wetter:<br>
+February 4, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

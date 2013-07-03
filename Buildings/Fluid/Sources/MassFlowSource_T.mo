@@ -14,7 +14,7 @@ model MassFlowSource_T
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
     annotation(Evaluate=true, HideResult=true);
-  parameter Medium.MassFlowRate m_flow = 0
+  parameter Modelica.SIunits.MassFlowRate m_flow = 0
     "Fixed mass flow rate going out of the fluid port"
     annotation (Evaluate = true,
                 Dialog(enable = not use_m_flow_in));
@@ -181,7 +181,7 @@ with exception of boundary flow rate, do not have an effect.
 revisions="<html>
 <ul>
 <li>
-September 29, 2009, by Michael Wetter:<br>
+September 29, 2009, by Michael Wetter:<br/>
 First implementation. 
 </li>
 </ul>

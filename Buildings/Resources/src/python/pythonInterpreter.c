@@ -1,9 +1,10 @@
 #include "pythonInterpreter.h"
+#include <Python.h>
 void pythonExchangeValuesNoModelica(const char * moduleName,
                           const char * functionName,
-                          double * dblValWri, size_t nDblWri,
+                          const double * dblValWri, size_t nDblWri,
                           double * dblValRea, size_t nDblRea,
-                          int * intValWri, size_t nIntWri,
+                          const int * intValWri, size_t nIntWri,
                           int * intValRea, size_t nIntRea,
                           const char ** strValWri, size_t nStrWri,
 			  void (*ModelicaFormatError)(const char *string,...))

@@ -2,10 +2,18 @@ within Buildings.Fluid.SolarCollectors.Examples.BaseClasses;
 model FlatPlateValidation "Model of a flat plate solar thermal collector"
   import Buildings;
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(perPar=per);
-  parameter Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.Generic per
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
     "Performance data"  annotation (choicesAllMatching=true);
   parameter Modelica.SIunits.Temperature TIn_nominal
     "Inlet temperature at nominal condition";
+  parameter Boolean use_shaCoe_in = false
+    "Enables an input connector for shaCoe"
+    annotation(Dialog(group="Shading"));
+  parameter Real shaCoe(
+    min=0.0,
+    max=1.0) = 0 "Shading coefficient. 0.0: no shading, 1.0: full shading"
+    annotation(Dialog(enable = not use_shaCoe_in, group = "Shading"));
+
   Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain
     solHeaGai(
     B0=per.B0,
@@ -14,24 +22,41 @@ model FlatPlateValidation "Model of a flat plate solar thermal collector"
     til=til,
     nSeg=nSeg,
     y_intercept=per.y_intercept,
-    A_c=per.A) "Solar gain model calculated using standard ASHRAE calculations"
+    A_c=per.A,
+    use_shaCoe_in=use_shaCoe_in)
+    "Solar gain model calculated using standard ASHRAE calculations"
              annotation (Placement(transformation(extent={{12,60},{32,80}})));
 
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
-    Cp=Cp,
     nSeg=nSeg,
-    I_nominal=I_nominal,
+    G_nominal=G_nominal,
     TEnv_nominal=TEnv_nominal,
     A_c=per.A,
     y_intercept=per.y_intercept,
-    m_flow_nominal=rho*per.VperA_flow_nominal*per.A,
+    m_flow_nominal=per.mperA_flow_nominal*per.A,
     C1=3.611111,
     C2=0.07,
-    TMean_nominal=TIn_nominal)
+    TMean_nominal=TIn_nominal,
+    redeclare package Medium = Medium)
     "Heat loss model calculated using standard ASHRAE calculations"
         annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
+  Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
+    "Shading coefficient"
+  annotation(Placement(transformation(extent={{-140,60},{-100,20}},   rotation=0)));
+
+protected
+  Modelica.Blocks.Interfaces.RealInput shaCoe_internal
+    "Internally used shading coefficient";
+
 equation
+  connect(shaCoe_internal,shaCoe_in);
+  connect(shaCoe_internal,solHeaGai.shaCoe_in);
+
+  if not use_shaCoe_in then
+    shaCoe_internal=shaCoe;
+  end if;
+
   connect(solHeaGai.QSol_flow, heaGai.Q_flow) annotation (Line(
       points={{33,70},{38,70}},
       color={0,0,127},
@@ -153,7 +178,7 @@ equation
           thickness=1,
           origin={2,42},
           rotation=90)}),
-    defaultComponentName="solCol",
+    defaultComponentName="solColVal",
     Documentation(info="<html>
 <p>
 This component models the flat plate solar thermal collector. 
@@ -162,13 +187,12 @@ the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate\">
 Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate</a> data library.
 </p>
 <h4>Notice</h4>
-<p>
 <ul>
 <li>
 As mentioned in the reference, the SRCC incident angle modifier equation coefficients 
 are only valid for incident angles of 60 degrees or less. 
  Because these curves behave poorly for angles greater than 60 degrees 
- the model does not calculatue either direct or diffuse solar radiation gains
+ the model does not calculate either direct or diffuse solar radiation gains
  when the incidence angle is greater than 60 degrees.   
 </li>
 <li>
@@ -176,9 +200,7 @@ By default, the estimated heat capacity of the collector without fluid is calcul
 based on the dry mass and the specific heat capacity of copper.
 </li>
 </ul>
-</p>
 <h4>References</h4>
-<p>
 <ul>
 <li>
 <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.
@@ -187,7 +209,7 @@ based on the dry mass and the specific heat capacity of copper.
 </html>", revisions="<html>
 <ul>
 <li>
-January 4, 2013, by Peter Grant:<br>
+January 4, 2013, by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>

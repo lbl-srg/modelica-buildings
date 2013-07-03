@@ -6,8 +6,7 @@ function getHeaderElementTMY3
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
  input String start "Start of the string that contains the elements";
- input String name
-    "Name of data element, used in error reporting";
+ input String name "Name of data element, used in error reporting";
  input Integer position(min=1)
     "Position of the element on the line that contains 'start'";
  output String element
@@ -15,7 +14,7 @@ function getHeaderElementTMY3
 protected
  String lin "Line that is used in parser";
  Integer iLin "Line number";
- Integer index := 0 "Index of string #LOCATION";
+ Integer index =  0 "Index of string #LOCATION";
  Integer staInd "Start index used when parsing a real number";
  Integer nexInd "Next index used when parsing a real number";
  Boolean found "Flag, true if #LOCATION has been found";
@@ -27,7 +26,7 @@ algorithm
   EOF :=false;
   while (not EOF) and (index == 0) loop
     iLin:=iLin + 1;
-    (lin, EOF) :=Modelica.Utilities.Streams.readLine(fileName=filNam,
+    (lin, EOF) :=Modelica.Utilities.Streams.readLine(fileName=getAbsolutePath(filNam),
       lineNumber=iLin);
     index :=Modelica.Utilities.Strings.find(
       string=lin,
@@ -71,11 +70,15 @@ A comma is used as the delimiter of the elements.
 </html>", revisions="<html>
 <ul>
 <li>
-February 25, 2012, by Michael Wetter:<br>
+May 2, 2013, by Michael Wetter:<br/>
+Added function call to <code>getAbsolutePath</code>.
+</li>
+<li>
+February 25, 2012, by Michael Wetter:<br/>
 Removed default value for parameter <code>name</code>.
 </li>
 <li>
-March 5, 2011, by Michael Wetter:<br>
+March 5, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

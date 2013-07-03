@@ -23,10 +23,10 @@ by models that extend this class.
 </html>",
 revisions="<html>
 <ul>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
+<li><i>July 20, 2010</i> by Michael Wetter:<br/>
        Integrated model into the Buildings library.
 </li>
-<li><i>November 1, 2005</i> by Michael Wetter:<br>
+<li><i>November 1, 2005</i> by Michael Wetter:<br/>
        Released first version.
 </ul>
 </html>"));

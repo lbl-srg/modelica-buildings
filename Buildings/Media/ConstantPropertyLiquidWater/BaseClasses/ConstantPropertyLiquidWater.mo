@@ -18,14 +18,6 @@ package ConstantPropertyLiquidWater
     fluidConstants=Modelica.Media.Water.ConstantPropertyLiquidWater.simpleWaterConstants,
     ThermoStates=Buildings.Media.Interfaces.Choices.IndependentVariables.T);
 
-    redeclare replaceable function extends isobaricExpansionCoefficient
-    "Return specific internal energy"
-    algorithm
-        beta := (-0.0463*state.T^2+37.644*state.T-6867)*10^(-6);
-        //Equation is a second order polynomial fit to data from Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera & David DeWitt, John Wiley & Sons, 1996
-
-    end isobaricExpansionCoefficient;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Text(
           extent={{-90,88},{90,18}},

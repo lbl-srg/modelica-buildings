@@ -11,7 +11,7 @@ model MixingVolumeMoistAir
 
 protected
   parameter Integer i_w(min=1, fixed=false) "Index for water substance";
-  parameter Real s[Medium.nXi](fixed=false)
+  parameter Real s[Medium.nXi](each fixed=false)
     "Vector with zero everywhere except where species is";
 
 protected
@@ -95,27 +95,27 @@ Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-April 18, 2013 by Michael Wetter:<br>
+April 18, 2013 by Michael Wetter:<br/>
 Removed the use of the deprecated
 <code>cardinality</code> function.
 Therefore, all input signals must be connected.
 </li>
 <li>
-February 7, 2012 by Michael Wetter:<br>
+February 7, 2012 by Michael Wetter:<br/>
 Revised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.
 </li>
 <li>
-February 22, by Michael Wetter:<br>
+February 22, by Michael Wetter:<br/>
 Improved the code that searches for the index of 'water' in the medium model.
 </li>
 <li>
-May 29, 2010 by Michael Wetter:<br>
+May 29, 2010 by Michael Wetter:<br/>
 Rewrote computation of index of water substance.
 For the old formulation, Dymola 7.4 failed to differentiate the 
 model when trying to reduce the index of the DAE.
 </li>
 <li>
-August 7, 2008 by Michael Wetter:<br>
+August 7, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

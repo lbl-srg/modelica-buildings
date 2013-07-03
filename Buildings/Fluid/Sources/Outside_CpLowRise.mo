@@ -104,9 +104,8 @@ where
 <i>v</i> is the wind speed from the weather bus, and
 <i>&rho;</i> is the fluid density.
 </p>
-<p>
+
 <h4>References</h4>
-<p>
 <ul>
 <li>
 Muthusamy V. Swami and
@@ -130,12 +129,11 @@ January, 2001.
 Gaithersburg, MD.
 </li>
 </ul>
-</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-October 26, 2011 by Michael Wetter:<br>
+October 26, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

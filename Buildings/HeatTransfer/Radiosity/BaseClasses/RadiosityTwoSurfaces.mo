@@ -23,11 +23,11 @@ Partial model for a device with two surfaces.
 </html>", revisions="<html>
 <ul>
 <li>
-February 3, by Michael Wetter:<br>
+February 3, by Michael Wetter:<br/>
 Corrected bug in start value of radiosity port.
 </li>
 <li>
-August 19 2010, by Michael Wetter:<br>
+August 19 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

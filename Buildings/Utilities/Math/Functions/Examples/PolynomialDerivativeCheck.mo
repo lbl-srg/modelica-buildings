@@ -14,7 +14,8 @@ equation
  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                     graphics),
-                     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PolynomialDerivativeCheck.mos" "Simulate and plot"),
+experiment(StopTime=4),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PolynomialDerivativeCheck.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example checks whether the function derivative
@@ -24,7 +25,7 @@ is incorrect, the model will stop with an assert statement.
 </html>", revisions="<html>
 <ul>
 <li>
-October 29, 2008, by Michael Wetter:<br>
+October 29, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

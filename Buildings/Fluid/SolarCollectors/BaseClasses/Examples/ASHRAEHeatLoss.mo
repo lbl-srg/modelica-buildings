@@ -2,7 +2,7 @@ within Buildings.Fluid.SolarCollectors.BaseClasses.Examples;
 model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
   import Buildings;
   extends Modelica.Icons.Example;
-  parameter Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.Generic               per=
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector               per=
       Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B()
     "Performance data" annotation (choicesAllMatching=true);
   parameter Modelica.SIunits.Density rho = 1000 "Density of water";
@@ -30,14 +30,14 @@ model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss   heaLos(
     nSeg=3,
-    I_nominal=800,
-    Cp=4186,
+    G_nominal=800,
     A_c=per.A,
     y_intercept=per.y_intercept,
     slope=per.slope,
-    TIn_nominal=293.15,
+    m_flow_nominal=per.mperA_flow_nominal*per.A,
+    redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
     TEnv_nominal=283.15,
-    m_flow_nominal=rho*per.VperA_flow_nominal*per.A)
+    TIn_nominal=293.15)
     annotation (Placement(transformation(extent={{62,20},{82,40}})));
 equation
   connect(TEnv.y, heaLos.TEnv) annotation (Line(
@@ -67,13 +67,12 @@ Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a>. All of the input
 </html>", revisions="<html>
 <ul>
 <li>
-Mar 27, 2013 by Peter Grant:<br>
+Mar 27, 2013 by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/SolarCollector/BaseClasses/Examples/ASHRAEHeatLoss.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/ASHRAEHeatLoss.mos"
         "Simulate and Plot"),
     Icon(graphics));
 end ASHRAEHeatLoss;

@@ -31,7 +31,8 @@ equation
 
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/PerfectGases/Examples/MoistAirDerivativeCheck.mos"
+experiment(StartTime=273.15, StopTime=373.15),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/PerfectGases/Examples/MoistAirDerivativeCheck.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
@@ -42,7 +43,7 @@ is not correct, the model will stop with an assert statement.
 </html>",   revisions="<html>
 <ul>
 <li>
-May 12, 2008, by Michael Wetter:<br>
+May 12, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

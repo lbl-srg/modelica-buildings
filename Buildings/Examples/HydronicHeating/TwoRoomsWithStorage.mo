@@ -56,20 +56,20 @@ model TwoRoomsWithStorage
         rotation=90,
         origin={220,50})));
 
-  HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
+  parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
     "Construction material for exterior walls"
     annotation (Placement(transformation(extent={{460,560},{480,580}})));
-  HeatTransfer.Data.OpaqueConstructions.Brick120 matLayPar
+  parameter HeatTransfer.Data.OpaqueConstructions.Brick120 matLayPar
     "Construction material for partition walls"
     annotation (Placement(transformation(extent={{500,560},{520,580}})));
-  HeatTransfer.Data.OpaqueConstructions.Generic matLayFlo(
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic matLayFlo(
         material={
           HeatTransfer.Data.Solids.Concrete(x=0.2),
           HeatTransfer.Data.Solids.InsulationBoard(x=0.15),
           HeatTransfer.Data.Solids.Concrete(x=0.05)},
         final nLay=3) "Construction material for floor"
     annotation (Placement(transformation(extent={{540,560},{560,580}})));
-  HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+  parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveInteriorShade=false,
@@ -967,8 +967,6 @@ Documentation(info="<html>
 <p>
 This example demonstrates the implementation of a building that has the following properties:</p>
 <p>
-<ul>
-<li>
 There are two rooms. (For simplicity, we only modeled two rooms, but more could be added.)
 Each room is modeled using a dynamic model for the heat transfer through the opaque constructions.
 The room <code>roo1</code> has a south- and west-facing window, the room <code>roo2</code> has a south- and 
@@ -977,15 +975,15 @@ The rooms are modeled as if they were in an intermediate floor, with the same te
 the room. The rooms share one common wall. The north facing wall is modeled as a partition wall, i.e., both
 surfaces have the same boundary conditions.
 Weather data are used from Chicago.
-</li>
-<li>
+</p>
+<p>
 There is a hydronic heating system with a boiler, a storage tank and a radiator with
 a thermostatic valve in each room.
 The supply water temperature setpoint
 is reset based on the outside temperature. A three-way-valve mixes the water from the tank with
 the water from the radiator return. The pump has a variable frequency drive that controls the pump head.
-</li>
-<li>
+</p>
+<p>
 A finite state machine is used to switch the boiler and its pump on and off.
 The boiler and pump are switched on when the temperature
 at the top of the tank is less then 1 Kelvin above the setpoint temperature 
@@ -997,14 +995,14 @@ is such that first the pump of the boiler is switched on.
 Ten seconds later, the boiler will be switched on. 
 When the tank reaches its temperature, the boiler
 is switched off, and ten seconds later, the pump will be switched off.
-</li>
-<li>
+</p>
+<p>
 The building has a controlled fresh air supply. A heat recovery ventilator is used to preheat the
 outside air.
 Each room has a model for the leakage of the facade. If supply and exhaust air are unbalanced, then
 the difference in air supply will flow through this leakage model.
-</li>
-<li>
+</p>
+<p>
 The hydronic heating system is connected to an expansion vessel.
 Some medium models for water compute the density as a function of
 temperature, while others assume a constant density.
@@ -1015,28 +1013,24 @@ the expansion vessel into the hydronic heating system.
 If the medium model assumes the density to be constant, then the
 expansion vessel provides a reference pressure for the hydronic heating
 system.
-</li>
-</ul>
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Removed assignment of <code>Kv_SI</code> because this is now a protected parameter.
 </li>
 <li>
-December 6, 2011, by Michael Wetter:<br>
+December 6, 2011, by Michael Wetter:<br/>
 Added internal heat gains, which were set to zero in the previous version.
 </li>
 <li>
-January 30, 2009, by Michael Wetter:<br>
+January 30, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicHeating/TwoRoomsWithStorage.mos"
         "Simulate and plot"),
-    experiment(
-      StopTime=172800,
-      Tolerance=1e-006));
+    experiment(StopTime=604800, Tolerance=1e-06));
 end TwoRoomsWithStorage;

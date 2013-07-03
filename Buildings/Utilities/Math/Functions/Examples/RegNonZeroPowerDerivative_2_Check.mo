@@ -18,7 +18,8 @@ equation
  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                     graphics),
-                     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mos" "Simulate and plot"),
+experiment(StartTime=-1, StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example checks whether the function derivative
@@ -28,7 +29,7 @@ is not correct, the model will stop with an assert statement.
 </html>", revisions="<html>
 <ul>
 <li>
-April 14, 2008, by Michael Wetter:<br>
+April 14, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

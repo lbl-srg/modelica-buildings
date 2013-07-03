@@ -33,11 +33,11 @@ Record that defines basic parameters for the window radiation calculation.
 </html>", revisions="<html>
 <ul>
 <li>
-December 12, 2011, by Wangda Zuo:<br>
+December 12, 2011, by Wangda Zuo:<br/>
 Add glass thickness as a parameter. It is needed by the claculation of property for uncoated glass.
 </li>
 <li>
-December 16, 2010, by Wangda Zuo:<br>
+December 16, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

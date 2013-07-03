@@ -89,14 +89,15 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                         graphics),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/RelativeHumidity.mos"
+experiment(StopTime=10),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/RelativeHumidity.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This examples is a unit test for the relative humidity sensor.
 </html>", revisions="<html>
 <ul>
 <li>
-May 12, 2010 by Michael Wetter:<br>
+May 12, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

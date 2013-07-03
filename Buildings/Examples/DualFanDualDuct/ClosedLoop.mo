@@ -1164,7 +1164,7 @@ an economizer. The figure below shows the schematic diagram of the dual-fan,
 dual-duct system.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/dualFanDualDuctSchematics.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/dualFanDualDuctSchematics.png\" border=\"1\"/>
 </p>
 <p>
 Each thermal zone inlet branch has a flow mixer and an air damper
@@ -1172,7 +1172,7 @@ in the hot deck and the cold deck. The air damper control signals are
 as shown in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/hotColdDeckControl.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/hotColdDeckControl.png\" border=\"1\"/>
 </p>
 <p>
 Hence, at low room temperatures, the amount
@@ -1193,7 +1193,7 @@ maintain an air outlet temperature of 11&deg;C during day-time, and
 air outlet temperature shown in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/hotDeckTemperatureSetPoint.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/hotDeckTemperatureSetPoint.png\" border=\"1\"/>
 </p>
 <p>
 The cooling coil is controlled to maintain a constant outlet temperature 
@@ -1257,11 +1257,11 @@ shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
-December 6, 2011, by Michael Wetter:<br>
+December 6, 2011, by Michael Wetter:<br/>
 Improved control for minimum zone flow rate.
 </li>
 <li>
-July 18, 2011, by Michael Wetter:<br>
+July 18, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

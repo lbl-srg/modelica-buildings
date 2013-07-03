@@ -10,6 +10,7 @@ equation
   incAng=time*2*Modelica.Constants.pi;
   Cp = Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise(Cp0=Cp0, G=G, incAng=incAng);
   annotation (
+experiment(StartTime=-2, StopTime=2),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/windPressureLowRise.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
@@ -21,7 +22,7 @@ function.
 </html>", revisions="<html>
 <ul>
 <li>
-October 27, 2011, by Michael Wetter:<br>
+October 27, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

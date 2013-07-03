@@ -22,7 +22,7 @@ Block that converts humidity concentration from [kg/kg total air] to [kg/kg dry 
 </html>", revisions="<html>
 <ul>
 <li>
-September 10, 2009 by Michael Wetter:<br>
+September 10, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

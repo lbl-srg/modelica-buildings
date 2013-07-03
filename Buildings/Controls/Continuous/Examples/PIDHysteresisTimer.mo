@@ -93,8 +93,8 @@ The figure below shows the control error
 <code>con.feeBac.y</code> and the control signal
 <code>con.y</code>.
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerError.png\" border=\"1\"><br/>
-<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerOutput.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerError.png\" border=\"1\" alt=\"Control error.\"/><br/>
+<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerOutput.png\" border=\"1\" alt=\"Control signal.\"/>
 </p>
 </html>", revisions="<html>
 <ul>

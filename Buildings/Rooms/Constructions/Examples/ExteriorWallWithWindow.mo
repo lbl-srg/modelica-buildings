@@ -12,7 +12,7 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     "Fraction of window frame divided by total window area";
   parameter Boolean linearizeRadiation = false
     "Set to true to linearize emissive power";
-  HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+  parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveExteriorShade=false,
@@ -54,7 +54,7 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     annotation (Placement(transformation(extent={{110,60},{130,80}})));
   Modelica.Blocks.Sources.Constant TRoo(k=273.15 + 20) "Room air temperature"
     annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
-  HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
+  parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
     "Record for material layers"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
@@ -268,7 +268,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Constructions/Examples/ExteriorWallWithWindow.mos"
+experiment(StopTime=1209600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Constructions/Examples/ExteriorWallWithWindow.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-140},{200,
             100}})),
@@ -279,14 +280,19 @@ This model tests the exterior constructions with windows.
 </html>", revisions="<html>
 <ul>
 <li>
-March 7, 2012, by Michael Wetter:<br>
+May 1, 2013, by Michael Wetter:<br/>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
+<li>
+March 7, 2012, by Michael Wetter:<br/>
 Updated example to use new data model 
 <a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow\">
 Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow</a>
 in model for boundary conditions.
 </li>
 <li>
-December 6, 2010, by Michael Wetter:<br>
+December 6, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

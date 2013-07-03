@@ -2,7 +2,6 @@ within Buildings.Fluid.Sensors;
 model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
-
   Modelica.Blocks.Interfaces.RealOutput C(min=0,
                                           nominal=Medium.C_nominal,
                                           start=C_start)
@@ -12,16 +11,13 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
         extent={{10,-10},{-10,10}},
         rotation=270)));
   parameter String substanceName = "CO2" "Name of trace substance";
-
   parameter Real C_start(min=0) "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
   Real CMed(min=0, start=C_start, nominal=Medium.C_nominal)
     "Medium trace substance to which the sensor is exposed";
-
 protected
   parameter Real s[Medium.nC](fixed=false)
     "Vector with zero everywhere except where species is";
-
 initial algorithm
   for i in 1:Medium.nC loop
     if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
@@ -35,7 +31,6 @@ initial algorithm
   assert(abs(1-sum(s))<1E-4, "Trace substance '" + substanceName + "' is not present in medium '"
          + Medium.mediumName + "'.\n"
          + "Check sensor parameter and medium model.");
-
 initial equation
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
@@ -57,7 +52,6 @@ equation
   else
     C = CMed;
   end if;
-
 annotation (defaultComponentName="senTraSub",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}})),
@@ -82,27 +76,25 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ", revisions="<html>
-<html>
-<p>
 <ul>
 <li>
-November 3, 2011, by Michael Wetter:<br>
+November 3, 2011, by Michael Wetter:<br/>
 Moved <code>der(C) := 0;</code> from the initial algorithm section to 
 the initial equation section
 as this assignment does not conform to the Modelica specification.
 </li>
 <li>
-June 3, 2011 by Michael Wetter:<br>
+June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that 
 the time constant increases as the mass flow rate tends to zero.
 This significantly improves the numerics.
 </li>
 <li>
-February 22, by Michael Wetter:<br>
+February 22, by Michael Wetter:<br/>
 Improved code that searches for index of trace substance in medium model.
 </li>
 <li>
-September 29, 2009, by Michael Wetter:<br>
+September 29, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

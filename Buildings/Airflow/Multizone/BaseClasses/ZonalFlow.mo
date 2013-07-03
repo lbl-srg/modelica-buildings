@@ -61,11 +61,11 @@ Models that extend this model need to provide an equation for
 </html>",
 revisions="<html>
 <ul>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
+<li><i>July 20, 2010</i> by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>
 <li><i>January 4, 2006</i>
-       by Michael Wetter:<br>
+       by Michael Wetter:<br/>
        Implemented first version.
 </li>
 </ul>

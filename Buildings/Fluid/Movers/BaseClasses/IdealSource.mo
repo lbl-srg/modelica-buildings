@@ -86,20 +86,20 @@ adding heat to the volume, and flow work to this model.
 revisions="<html>
 <ul>
 <li>
-May 25, 2011 by Michael Wetter:<br>
+May 25, 2011 by Michael Wetter:<br/>
 Removed the option to add power to the medium, as this is dealt with in the volume
 that is used in the mover model.
 </li>
 <li>
-July 27, 2010 by Michael Wetter:<br>
+July 27, 2010 by Michael Wetter:<br/>
 Redesigned model to fix bug in medium balance.
 </li>
 <li>
-April 13, 2010 by Michael Wetter:<br>
+April 13, 2010 by Michael Wetter:<br/>
 Made heat connector optional.
 </li>
 <li>
-March 23, 2010 by Michael Wetter:<br>
+March 23, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

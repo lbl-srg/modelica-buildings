@@ -20,6 +20,10 @@ model InteriorHeatTransfer
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a sha if
       windowHasShade "Heat port to shade"
     annotation (Placement(transformation(extent={{-42,-110},{-22,-90}})));
+protected
+  Modelica.Blocks.Math.Sum sumJ(nin=if windowHasShade then 2 else 1)
+    "Sum of radiosity fom glass to outside"
+    annotation (Placement(transformation(extent={{20,20},{0,40}})));
 equation
   connect(conCoeFra.GCon, conFra.Gc) annotation (Line(
       points={{1,-70},{40,-70},{40,-78}},
@@ -39,20 +43,26 @@ equation
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(JInUns, JOutRoo) annotation (Line(
-      points={{110,60},{20,60},{20,4},{-76,4},{-76,-40},{-104,-40}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(shade.JOut_air, JOutRoo) annotation (Line(
-      points={{-1,-28},{-8,-28},{-8,-54},{-68,-54},{-68,-40},{-104,-40}},
-      color={0,127,0},
-      smooth=Smooth.None));
   connect(shade.sha, sha) annotation (Line(
       points={{7.4,-29.8},{7.4,-84},{-32,-84},{-32,-100}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
+  connect(JInUns, sumJ.u[1]) annotation (Line(
+      points={{110,60},{32,60},{32,30},{22,30}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(shade.JOut_air, sumJ.u[2]) annotation (Line(
+      points={{-1,-28},{-8,-28},{-8,14},{32,14},{32,30},{22,30}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(sumJ.y, JOutRoo) annotation (Line(
+      points={{-1,30},{-14,30},{-14,-8},{-86,-8},{-86,-40},{-104,-40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
 defaultComponentName="intHeaTra",
 Documentation(info="<html>
 <p>
@@ -69,7 +79,12 @@ This model adds the convective heat transfer coefficient to its base model.
 </html>", revisions="<html>
 <ul>
 <li>
-October 25 2010, by Michael Wetter:<br>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
+<li>
+October 25 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

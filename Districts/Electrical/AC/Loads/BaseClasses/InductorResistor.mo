@@ -17,7 +17,6 @@ equation
   phi = Districts.Electrical.AC.BaseClasses.powerFactor(pf=pf, lagging=lagging);
   S = Modelica.ComplexMath.fromPolar(max(100*Modelica.Constants.eps, P_nominal/pf), phi);
   S = v * Modelica.ComplexMath.conj(i);
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                          graphics={

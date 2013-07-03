@@ -4,67 +4,62 @@ model RayleighNumber
   extends Modelica.Blocks.Interfaces.BlockIcon;
    replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Fluid medium model";
-  parameter Modelica.SIunits.Diameter ChaLen = 0.01905 "Characteristic length";
+  parameter Modelica.SIunits.Diameter ChaLen "Characteristic length";
   Real Gr "Grashof number";
   Real B(unit="1/K") "isobaricExpansionCoefficient";
-   Real nu(unit = "m2/s") "Kinematic viscosity of the medium";
-   Modelica.SIunits.DynamicViscosity mu "Dynamic viscosity of the medium";
-   Modelica.SIunits.Density rho "Density of the medium";
-   Real g= Modelica.Constants.g_n "Acceleration due to gravity";
+  Real nu(unit = "m2/s") "Kinematic viscosity of the medium";
+  Modelica.SIunits.DynamicViscosity mu "Dynamic viscosity of the medium";
+  Modelica.SIunits.Density rho "Density of the medium";
+  constant Modelica.SIunits.Acceleration g= Modelica.Constants.g_n
+    "Acceleration due to gravity";
 
-   Modelica.Blocks.Interfaces.RealInput TSur "Surface temperature of the HX"
+   Modelica.Blocks.Interfaces.RealInput TSur(unit = "K")
+    "Surface temperature of the HX"
      annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-   Modelica.Blocks.Interfaces.RealInput TFlu "Fluid temperature"
-     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
-   Modelica.Blocks.Interfaces.RealOutput Ra
+   Modelica.Blocks.Interfaces.RealOutput Ra "Rayleigh number"
      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-   Modelica.Blocks.Interfaces.RealOutput Pr
+   Modelica.Blocks.Interfaces.RealOutput Pr "Prandlt number"
      annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+   Modelica.Blocks.Interfaces.RealInput TFlu(unit="K")
+    "Temperature of the surrounding fluid"
+     annotation (Placement(transformation(extent={{-140,-62},{-100,-22}})));
 equation
-    mu = Medium.dynamicViscosity(
-        Medium.setState_pTX(
-        p=  Medium.p_default,
-        T=  Medium.T_default,
-        X=  Medium.X_default));
+    mu = Buildings.Fluid.HeatExchangers.BaseClasses.dynamicViscosityWater(
+        T=  0.5 * (TSur+TFlu));
     rho = Medium.density(
         Medium.setState_pTX(
         p=  Medium.p_default,
-        T=  TFlu,
+        T=  0.5*(TSur+TFlu),
         X=  Medium.X_default));
-    Pr = Medium.prandtlNumber(
-        Medium.setState_pTX(
-          p=  Medium.p_default,
-          T=  TFlu,
-          X=  Medium.X_default));
+    Pr = Buildings.Fluid.HeatExchangers.BaseClasses.prandtlNumberWater(
+          T=  0.5*(TSur+TFlu));
 
-   B = Medium.isobaricExpansionCoefficient(
-        Medium.setState_pTX(
-          p=  Medium.p_default,
-          T=  TFlu,
-          X=  Medium.X_default));
+   B = Buildings.Fluid.HeatExchangers.BaseClasses.isobaricExpansionCoefficientWater(
+          T=  0.5*(TSur+TFlu));
     nu = mu/rho;
 
     Gr = Modelica.Constants.g_n * B * (TSur - TFlu)*ChaLen^3/nu^2;
     Ra = Gr*Pr;
 
-annotation (
+annotation (defaultComponentName="Ra",
 Documentation(info = "<html>
 <p>
-This model calculates the rayleigh number for a given fluid and characteristic length. It is calculated using Eq 9.25 in the referenced material. The equation is
+This model calculates the rayleigh number for a given fluid and characteristic length. It is calculated using Eq 9.25 in Incropera and DeWitt (1996). The equation is:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Ra<sub>L</sub> = Gr<sub>L</sub> * Pr * (g * B * (T<sub>S</sub> - T<sub>F</sub>)*L^3) /(&nu;*&alpha;)
+Ra<sub>L</sub> = Gr<sub>L</sub> Pr (g B (T<sub>S</sub> - T<sub>F</sub>) L<sup>3</sup>) /(&nu;*&alpha;)
 </p>
 <p>
-where:<br>
-  Ra<sub>L</sub> is the Rayleigh number, Gr<sub>L</sub> is the Grashof number, Pr is the Prandtl number, g is gravity, B is the isobaric expansion coefficient,
-  T<sub>S</sub> is the temperature of the surface, T<sub>F</sub> is the temperature of the fluid, L is the characteristic length, &nu; is the kinematic viscosity
-  and &alpha; is the thermal diffusivity.
+where:<br/>
+  <i>Ra<sub>L</sub></i> is the Rayleigh number, <i>Gr<sub>L</sub></i> is the Grashof number, <i>Pr</i> is the Prandtl number, <i>g</i> is gravity, <i>B</i> is the isobaric expansion coefficient,
+  <i>T<sub>S</sub></i> is the temperature of the surface, <i>T<sub>F</sub></i> is the temperature of the fluid, <i>L</i> is the characteristic length, <i>&nu;</i> is the kinematic viscosity
+  and <i>&alpha;</i> is the thermal diffusivity.
 </p>
 <p>
-The thermophysical properties are calculated using the functions of the medium specified by the user.
+This model is currently only used in natural convection calculations for water. As a result, the calculations reference functions to identify properties
+of water instead of a medium model. 
 </p>
 
 
@@ -77,9 +72,11 @@ revisions="<html>
 <h4>Revisions</h4>
 <ul>
 <li>
-February 26, 2013 by Peter Grant <br>
+February 26, 2013 by Peter Grant <br/>
 First implementation
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end RayleighNumber;

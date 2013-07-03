@@ -8,7 +8,7 @@ model PrescribedExtraPropertyFlowRate
     "Get the trace substance mass flow rate from the input connector"
     annotation(Evaluate=true, HideResult=true);
 
-  parameter Medium.MassFlowRate m_flow = 0
+  parameter Modelica.SIunits.MassFlowRate m_flow = 0
     "Fixed mass flow rate going out of the fluid port"
     annotation (Evaluate = true,
                 Dialog(enable = not use_m_flow_in));
@@ -55,7 +55,6 @@ Documentation(info="<html>
 This model can be used to inject trace substances into a system.
 The model adds a mass flow rate to its port with a
 trace substance concentration of <i>1</i>.
-</p>
 <p>
 A typical use of this model is to add carbon dioxide to room air, since the 
 carbon dioxide concentration is typically so small that it need not be 
@@ -65,15 +64,15 @@ component has a carbon dioxide concentration of <i>1</i>.
 </html>", revisions="<html>
 <ul>
 <li>
-March 27, 2013, by Michael Wetter:<br>
+March 27, 2013, by Michael Wetter:<br/>
 Removed binding for <code>C_in_internal</code> to allow pedantic check in Dymola 2014.
 </li>
 <li>
-February 22, by Michael Wetter:<br>
+February 22, by Michael Wetter:<br/>
 Improved code that searches for the index of the trace substance in the medium model.
 </li>
 <li>
-September 18, 2008 by Michael Wetter:<br>
+September 18, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

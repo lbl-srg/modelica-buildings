@@ -40,18 +40,19 @@ model BoundaryHeatTransfer
     "Room air temperature"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys2(
+  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys2(
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     UFra=2,
     haveInteriorShade=false,
     haveExteriorShade=false) "Parameters for glazing system"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3 glaSys1(UFra=2)
+  parameter Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3 glaSys1(UFra=2)
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear
+  parameter
+    Buildings.HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear
     glaSys3(UFra=1) "Parameters for glazing system"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     UFra=1.5,
     haveExteriorShade=true,
@@ -79,6 +80,9 @@ public
     annotation (Placement(transformation(extent={{60,-26},{80,-6}})));
   Modelica.Blocks.Sources.Constant QAbsSW_flow(k=0) "Absorbed solar radiation"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+  Modelica.Blocks.Math.MultiSum sumJ(nu=2)
+    "Sum of radiosity from construction to room model"
+    annotation (Placement(transformation(extent={{-20,0},{-8,12}})));
 equation
   connect(uSha.y, extCon.uSha) annotation (Line(
       points={{-81,30},{-62,30},{-62,-16},{-58,-16},{-58,-16},{-56.8,-16}},
@@ -124,14 +128,6 @@ equation
       points={{33.2,-29.8},{92,-29.8},{92,70},{80,70}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(extCon.JOutUns, radIn.JIn) annotation (Line(
-      points={{-35,-16},{-26,-16},{-26,-6},{28,-6},{28,-24},{23,-24}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(extCon.JOutSha, radIn.JIn) annotation (Line(
-      points={{-35,-30},{-28,-30},{-28,-6},{20,-6},{20,-24},{23,-24}},
-      color={0,127,0},
-      smooth=Smooth.None));
   connect(TRooAir.y, TRAir1.T)
                               annotation (Line(
       points={{41,72},{44.5,72},{44.5,40},{58,40}},
@@ -164,13 +160,44 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TOut.y, extCon.TBlaSky) annotation (Line(
-      points={{-79,90},{-70,90},{-70,-28.2},{-57.2,-28.2}},
+      points={{-79,90},{-70,90},{-70,-28},{-57,-28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TOut.y, extCon.TOut) annotation (Line(
-      points={{-79,90},{-70,90},{-70,-31.9},{-57.1,-31.9}},
+      points={{-79,90},{-70,90},{-70,-32.2},{-57,-32.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/BoundaryHeatTransfer.mos"
-        "Simulate and plot"), Diagram(graphics));
+  connect(extCon.JOutUns, sumJ.u[1]) annotation (Line(
+      points={{-35,-16},{-28,-16},{-28,8.1},{-20,8.1}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(extCon.JOutSha, sumJ.u[2]) annotation (Line(
+      points={{-35,-30},{-26,-30},{-26,3.9},{-20,3.9}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(radIn.JIn, sumJ.y) annotation (Line(
+      points={{23,-24},{18,-24},{18,6},{-6.98,6}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  annotation (
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/BoundaryHeatTransfer.mos"
+        "Simulate and plot"), Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}),
+                                      graphics),
+    Documentation(revisions="<html>
+<ul>
+<li>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
+<li>
+May 1, 2013, by Michael Wetter:<br/>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
+</ul>
+</html>"));
 end BoundaryHeatTransfer;

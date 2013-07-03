@@ -163,7 +163,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos"
+experiment(StopTime=36000),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},{200,100}})),
     Documentation(info="<html>
@@ -177,14 +178,14 @@ the setpoint, which does not comply with ASHRAE regulations.
 </html>", revisions="<html>
 <ul>
 <li>
-March 27, 2013 by Michael Wetter:<br>
+March 27, 2013 by Michael Wetter:<br/>
 Added a flow resistance between the volume and the ambient to decouple the
 state of the volume from the boundary conditions. This is needed to allow
 a pedantic model check in Dymola 2014, as otherwise, the initial conditions of
 the volume could not be specified without introducing redundant equations.
 </li>
 <li>
-February 13, 2010 by Michael Wetter:<br>
+February 13, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

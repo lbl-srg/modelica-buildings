@@ -68,7 +68,9 @@ equation
       points={{-74,-66},{-86,-66},{-86,-80},{-120,-80}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics), Icon(graphics={
         Text(
           extent={{-94,48},{-52,32}},
           lineColor={0,0,127},
@@ -101,7 +103,7 @@ This model adds the convective heat transfer coefficient to its base model.
 </html>", revisions="<html>
 <ul>
 <li>
-February 8 2012, by Michael Wetter:<br>
+February 8 2012, by Michael Wetter:<br/>
 Changed model to use new implementation of
 <a href=\"modelica://Buildings.HeatTransfer.Radiosity.OutdoorRadiosity\">
 Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
@@ -110,7 +112,7 @@ heat transfer between window and ambient as is used for
 the opaque constructions.
 </li>
 <li>
-October 25 2010, by Michael Wetter:<br>
+October 25 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

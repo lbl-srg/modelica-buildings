@@ -27,6 +27,7 @@ algorithm
 
 annotation (
     Documentation(info="<html>
+<p>
 This function checks if the numeric argument is outside of the
 interval <i>0.9</i> to <i>1.1</i>.
 If this is the case, the function writes a warning.
@@ -34,8 +35,7 @@ If this is the case, the function writes a warning.
 </html>", revisions="<html>
 <ul>
 <li>
-<li>
-September 12, 2010 by Michael Wetter:<br>
+September 12, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

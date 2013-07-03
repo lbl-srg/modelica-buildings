@@ -2,7 +2,6 @@ within Buildings.Fluid.Sensors;
 model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
-
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)",
                                           start=s_start)
@@ -11,14 +10,12 @@ model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
         origin={0,110},
         extent={{10,-10},{-10,10}},
         rotation=270)));
-
   parameter Modelica.SIunits.SpecificEntropy s_start=
     Medium.specificEntropy_pTX(Medium.p_default, Medium.T_default, Medium.X_default)
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
   Modelica.SIunits.SpecificEntropy sMed(start=s_start)
     "Medium entropy to which the sensor is exposed";
-
 protected
   Medium.SpecificEntropy s_a_inflow
     "Specific entropy of inflowing fluid at port_a";
@@ -73,17 +70,15 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ", revisions="<html>
-<html>
-<p>
 <ul>
 <li>
-June 3, 2011 by Michael Wetter:<br>
+June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that 
 the time constant increases as the mass flow rate tends to zero.
 This significantly improves the numerics.
 </li>
 <li>
-September 29, 2009, by Michael Wetter:<br>
+September 29, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

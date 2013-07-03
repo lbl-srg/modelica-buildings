@@ -18,7 +18,8 @@ equation
   assert(abs(x-y) < 1E-2, "Model has an error");
 
  annotation(Diagram(graphics),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Utilities/Examples/ExtendedPolynomialDerivativeCheck.mos" "Simulate and plot"),
+experiment(StopTime=4),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Utilities/Examples/ExtendedPolynomialDerivativeCheck.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example checks whether the function derivative
@@ -28,11 +29,11 @@ is not correct, the model will stop with an assert statement.
 </html>", revisions="<html>
 <ul>
 <li>
-March 23, 2011 by Michael Wetter:<br>
+March 23, 2011 by Michael Wetter:<br/>
 Changed order of argument list to make <code>x</code> the first argument.
 </li>
 <li>
-April 14, 2008, by Michael Wetter:<br>
+April 14, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

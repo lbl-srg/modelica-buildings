@@ -51,7 +51,7 @@ This model avoids this singularity by slightly changing the control signal.
 </html>", revisions="<html>
 <ul>
 <li>
-October 28 2010, by Michael Wetter:<br>
+October 28 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

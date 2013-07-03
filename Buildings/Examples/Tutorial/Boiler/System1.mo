@@ -116,6 +116,7 @@ Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
 </p>
 <p>
 We also defined the system-level parameters
+</p>
 <pre>
   parameter Modelica.SIunits.Volume V=6*10*3 \"Room volume\";
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
@@ -123,6 +124,7 @@ We also defined the system-level parameters
   parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 4000 
     \"Internal heat gains of the room\";
 </pre>
+<p>
 to declare that the room volume is <i>180</i> m<sup>3</sup>, that the room
 has a nominal mass flow rate of <i>6</i> air changes per hour and that 
 the internal heat gains of the room are <i>4000</i> Watts.
@@ -227,13 +229,12 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System1Temperatures.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System1Temperatures.png\" border=\"1\"/>
 </p>
 <p>
 To verify the correctness of the model, we can compare the simulated results to the
 following analytical solutions:
 </p>
-<p>
 <ol>
 <li>
 <p>
@@ -250,7 +251,6 @@ corresponds to a room temperature of <i>-4</i>&deg;C.
 </p>
 </li>
 </ol>
-</p>
 <p>
 Both analytical values agree with the simulation results shown in the above figure.
 </p>
@@ -262,8 +262,9 @@ This can be implemented by connecting an instance of
 <a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.FixedTemperature\">
 Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a>
 as shown below.
+</p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System1PrescribedTemperature.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System1PrescribedTemperature.png\" border=\"1\"/>
 </p>
 <p>
 When plotting the heat flow rate <code>fixTemp.port.Q_flow</code>, one can see
@@ -288,7 +289,7 @@ could have been used.
 </html>", revisions="<html>
 <ul>
 <li>
-January 27, 2012, by Michael Wetter:<br>
+January 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

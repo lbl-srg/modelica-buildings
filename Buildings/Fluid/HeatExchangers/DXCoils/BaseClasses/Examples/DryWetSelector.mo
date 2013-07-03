@@ -74,7 +74,9 @@ equation
       points={{1,-80},{18,-80},{18,-11}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/DryWetSelector.mos"
+  annotation (Diagram(graphics),
+experiment(StopTime=60),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/DryWetSelector.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
@@ -86,7 +88,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector</a>.
 revisions="<html>
 <ul>
 <li>
-August 29, 2012 by Kaustubh Phalak:<br>
+August 29, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

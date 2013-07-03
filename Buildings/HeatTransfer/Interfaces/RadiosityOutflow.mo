@@ -1,5 +1,5 @@
 within Buildings.HeatTransfer.Interfaces;
-connector RadiosityOutflow = flow output Real(max=0, unit="W", nominal=419)
+connector RadiosityOutflow = output Real(min=0, final unit="W", nominal=419)
   "Connector for outflowing radiosity"
   annotation(defaultComponentName = "JOut", Icon(graphics={Polygon(
         points={{-100,100},{100,0},{-100,-100},{-100,100}},
@@ -24,7 +24,12 @@ The nominal value is set to <i>&sigma; T<sup>4</sup> = &sigma; 293.15<sup>4</sup
 revisions="<html>
 <ul>
 <li>
-September 3, 2010, by Michael Wetter:<br>
+June 27, 2013, by Michael Wetter:<br/>
+Removed <code>flow</code> attribute as this violates the Modelica Language Standard.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
+<li>
+September 3, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

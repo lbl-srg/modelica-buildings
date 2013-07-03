@@ -22,22 +22,22 @@ Function that prints a real array to an output file.
 revisions="<html>
 <ul>
 <li>
-August 16, 2011 by Michael Wetter:<br>
+August 16, 2011 by Michael Wetter:<br/>
 Removed <code>number</code> attribute in <code>String</code>
 function as this is not according to the Modelica specification.
 </li>
 <li>
-May 27, 2011 by Michael Wetter:<br>
+May 27, 2011 by Michael Wetter:<br/>
 Changed parameter <code>precision</code> to <code>significantDigits</code>
 and <code>minimumWidth</code> to <code>minimumLength</code> to use the same 
 terminology as the Modelica Standard Library.
 </li>
 <li>
-October 1, 2008 by Michael Wetter:<br>
+October 1, 2008 by Michael Wetter:<br/>
 Revised implementation and moved to new package.
 </li>
 <li>
-September 20, 2007 by Michael Wetter:<br>
+September 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

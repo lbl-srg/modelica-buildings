@@ -80,13 +80,13 @@ which have been adapted from the valve implementation
 in <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>
 to specify the valve flow coefficient in fully open conditions:
+</p>
 <ul>
 <li><code>CvData = Buildings.Fluid.Types.CvTypes.Av</code>: the flow coefficient is given by the metric <code>Av</code> coefficient (m^2).
 <li><code>CvData = Buildings.Fluid.Types.CvTypes.Kv</code>: the flow coefficient is given by the metric <code>Kv</code> coefficient (m^3/h).
 <li><code>CvData = Buildings.Fluid.Types.CvTypes.Cv</code>: the flow coefficient is given by the US <code>Cv</code> coefficient (USG/min).
 <li><code>CvData = Buildings.Fluid.Types.CvTypes.OpPoint</code>: the flow is computed from the nominal operating point specified by <code>dp_nominal</code> and <code>m_flow_nominal</code>.
 </ul>
-</p>
 <p>
 The treatment of parameters <code>Kv</code> and <code>Cv</code> is
 explained in detail in the 
@@ -117,18 +117,18 @@ then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 </html>", revisions="<html>
 <ul>
 <li>
-March 25, 2013, by Michael Wetter:<br>
+March 25, 2013, by Michael Wetter:<br/>
 Removed stray backslash in write statement.
 </li>
 <li>
-February 28, 2013, by Michael Wetter:<br>
+February 28, 2013, by Michael Wetter:<br/>
 Reformulated assignment of parameters, and removed <code>Kv_SI</code> as
 a public parameter because it is always computed based on other parameters.
 This change avoids a translation error in Dymola 2014 beta1 in
 the pedantic mode, and a translation warning otherwise.
 </li>
 <li>
-February 18, 2009 by Michael Wetter:<br>
+February 18, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

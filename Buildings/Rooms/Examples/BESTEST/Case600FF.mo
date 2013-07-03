@@ -311,7 +311,9 @@ equation
       points={{-78,-24},{-72,-24},{-72,-36},{-68.8,-36}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case600FF.mos"
+  annotation (
+experiment(StopTime=3.1536e+07),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case600FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is used for the test case 600FF of the BESTEST validation suite.
@@ -321,13 +323,13 @@ The room temperature is free floating.
 </html>", revisions="<html>
 <ul>
 <li>
-July 15, 2012, by Michael Wetter:<br>
+July 15, 2012, by Michael Wetter:<br/>
 Added reference results.
 Changed implementation to make this model the base class
 for all BESTEST cases.
 Added computation of hourly and annual averaged room air temperature.
 <li>
-October 6, 2011, by Michael Wetter:<br>
+October 6, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

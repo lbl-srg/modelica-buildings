@@ -24,7 +24,9 @@ equation
       points={{-2,-30},{-19,-30}},
       color={255,0,255},
       smooth=Smooth.None));
- annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/OffTimer.mos"
+ annotation (
+experiment(StopTime=1),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/OffTimer.mos"
         "Simulate and plot"),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}})),
@@ -38,8 +40,8 @@ The input to the two timers are alternating boolean values.
 Whenever the input becomes <code>false(=0)</code>, the timer is reset.
 The figures below show the input and output of the blocks.
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/OffTimer1.png\" border=\"1\"><br/>
-<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/OffTimer2.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/OffTimer1.png\" border=\"1\" alt=\"Input and output of the OffTimer offTim1.\"/><br/>
+<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/OffTimer2.png\" border=\"1\" alt=\"Input and output of the OffTimer offTim1.\"/>
 </p>
 </html>",
 revisions="<html>

@@ -10,8 +10,8 @@ model OnlyExteriorWallWithWindowInteriorShade "Test model for room model"
    roo(
     datConExtWin(layers={matLayExt, matLayExt}, each A=10,
                  glaSys={glaSys, glaSys},
-                 each wWin=2, 
-                 each hWin=2, 
+                 each wWin=2,
+                 each hWin=2,
                  each fFra=0.1,
                  til={Buildings.HeatTransfer.Types.Tilt.Floor, Buildings.HeatTransfer.Types.Tilt.Ceiling},
                  each azi=Buildings.HeatTransfer.Types.Azimuth.W)),
@@ -30,10 +30,11 @@ equation
       points={{42,2.66454e-15},{20,2.66454e-15},{20,70},{1,70}},
       color={0,0,127},
       smooth=Smooth.None));
-   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructions/OnlyExteriorWallWithWindowInteriorShade.mos" "Simulate and plot"),
+   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructions/OnlyExteriorWallWithWindowInteriorShade.mos"
+        "Simulate and plot"),
    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             200,160}})),
     experiment(
-      StopTime=172800,
+      StopTime=86400,
       Tolerance=1e-05));
 end OnlyExteriorWallWithWindowInteriorShade;

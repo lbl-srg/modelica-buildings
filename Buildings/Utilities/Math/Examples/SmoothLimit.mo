@@ -18,7 +18,8 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),
                      graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothLimit.mos"
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothLimit.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -26,7 +27,8 @@ This model tests the implementation of smooth limit function.
 </p>
 </html>", revisions="<html>
 <ul>
-July 14, 2010, by Wangda Zuo, Michael Wetter:<br>
+<li>
+July 14, 2010, by Wangda Zuo, Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

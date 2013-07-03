@@ -76,7 +76,7 @@ This function computes the angular variation and the hemispherical integration o
 </html>", revisions="<html>
 <ul>
 <li>
-December 09, 2011, by Wangda Zuo:<br>
+December 09, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

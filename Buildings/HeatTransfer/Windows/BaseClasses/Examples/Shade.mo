@@ -74,6 +74,10 @@ model Shade "Test model for exterior shade heat transfer"
   Modelica.Blocks.Math.Gain GConUns(k=10*A, y(unit="W/K"))
     "Convection coefficient for unshade part of window"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
+  Modelica.Blocks.Math.MultiSum sumJRoo(nu=2) "Sum of room side radiosity"
+    annotation (Placement(transformation(extent={{44,-76},{56,-64}})));
+  Modelica.Blocks.Math.MultiSum sumJOut(nu=2) "Sum of outdoor side radiosity"
+    annotation (Placement(transformation(extent={{-46,-72},{-58,-60}})));
 equation
   connect(TRadOut.port, radOut.heatPort) annotation (Line(
       points={{-94,-90},{-78,-90},{-78,-71.8},{-93.2,-71.8}},
@@ -100,14 +104,6 @@ equation
       points={{81,-48},{72,-48},{72,-6},{61,-6}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(extSha.JOut_air, radOut.JIn) annotation (Line(
-      points={{-1,12},{-26,12},{-26,-86},{-76,-86},{-76,-66},{-83,-66}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(extNonSha.JOut_air, radOut.JIn) annotation (Line(
-      points={{1,-60},{-26,-60},{-26,-86},{-76,-86},{-76,-66},{-83,-66}},
-      color={0,127,0},
-      smooth=Smooth.None));
   connect(radShaOut.JOut_1, extSha.JIn_air) annotation (Line(
       points={{-39,-4},{-30,-4},{-30,16},{-1,16}},
       color={0,127,0},
@@ -126,14 +122,6 @@ equation
       smooth=Smooth.None));
   connect(radShaInt.JOut_2, extNonSha.JIn_glass) annotation (Line(
       points={{39,-18},{30,-18},{30,-60},{23,-60}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(extNonSha.JOut_glass, radIn.JIn) annotation (Line(
-      points={{23,-56},{81,-56}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(extSha.JOut_glass, radIn.JIn) annotation (Line(
-      points={{21,16},{34,16},{34,-56},{81,-56}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(TAirOut.port, extSha.air) annotation (Line(
@@ -200,8 +188,37 @@ equation
       points={{-89,80},{68,80},{68,-18},{62,-18}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/Shade.mos" "Simulate and plot"),
-              Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
+  connect(radIn.JIn, sumJRoo.y) annotation (Line(
+      points={{81,-56},{70,-56},{70,-70},{57.02,-70}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(extSha.JOut_glass, sumJRoo.u[1]) annotation (Line(
+      points={{21,16},{32,16},{32,-67.9},{44,-67.9}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(extNonSha.JOut_glass, sumJRoo.u[2]) annotation (Line(
+      points={{23,-56},{28,-56},{28,-72},{36,-72},{36,-72.1},{44,-72.1}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(radOut.JIn, sumJOut.y) annotation (Line(
+      points={{-83,-66},{-59.02,-66}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(extSha.JOut_air, sumJOut.u[1]) annotation (Line(
+      points={{-1,12},{-26,12},{-26,-63.9},{-46,-63.9}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(extNonSha.JOut_air, sumJOut.u[2]) annotation (Line(
+      points={{1,-60},{-24,-60},{-24,-68.1},{-46,-68.1}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  annotation (
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/Shade.mos"
+        "Simulate and plot"),
+              Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-160,
             -160},{160,160}}),
                       graphics),
     Documentation(info="<html>
@@ -209,5 +226,13 @@ This model tests the shading device. Note that the temperature of the shading de
 slightly as the shade control signal changes (i.e., as the shade is lowered). 
 This is because the shade has a different emissive power than the glass, which changes the 
 energy balance.
+</html>", revisions="<html>
+<ul>
+<li>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
+</ul>
 </html>"));
 end Shade;

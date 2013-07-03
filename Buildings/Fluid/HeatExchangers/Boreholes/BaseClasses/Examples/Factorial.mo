@@ -6,7 +6,9 @@ model Factorial "Test the function factorial"
 equation
   y = Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.factorial(x);
   assert(abs(120-y[5]) < 1E-10, "Error: Factorial function yields wrong result.");
-annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/BaseClasses/Examples/Factorial.mos"
+annotation(
+experiment(StopTime=1),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/BaseClasses/Examples/Factorial.mos"
         "Simulate and plot"),
         Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}})),
@@ -19,7 +21,7 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.factorial</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-August 2011, by Pierre Vigouroux:<br>
+August 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

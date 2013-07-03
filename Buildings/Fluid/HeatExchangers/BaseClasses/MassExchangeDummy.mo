@@ -7,7 +7,7 @@ model MassExchangeDummy
   Modelica.Blocks.Interfaces.RealInput XInf "Water mass fraction of medium"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
           rotation=0)));
-  Modelica.Blocks.Interfaces.RealInput TSur(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealInput TSur(final quantity="ThermodynamicTemperature",
                                             final unit = "K", displayUnit = "degC", min=0)
     "Surface temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}},
@@ -15,7 +15,7 @@ model MassExchangeDummy
   Modelica.Blocks.Interfaces.RealOutput mWat_flow(final unit = "kg/s")
     "Water flow rate"
     annotation (Placement(transformation(extent={{100,10},{120,30}}, rotation=0)));
-  Modelica.Blocks.Interfaces.RealOutput TLiq(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealOutput TLiq(final quantity="ThermodynamicTemperature",
                                              final unit = "K", displayUnit = "degC", min=0)
     "Temperature at which condensate drains from system"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}, rotation=
@@ -116,7 +116,7 @@ connector variables are not used.
 </html>", revisions="<html>
 <ul>
 <li>
-April 19, 2013 by Michael Wetter:<br>
+April 19, 2013 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

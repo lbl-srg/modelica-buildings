@@ -44,7 +44,7 @@ for an explanation of the model.
 revisions="<html>
 <ul>
 <li>
-April 12, 2012 by Kaustubh Phalak:<br>
+April 12, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

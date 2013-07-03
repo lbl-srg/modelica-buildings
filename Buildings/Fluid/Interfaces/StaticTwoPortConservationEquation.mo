@@ -3,11 +3,11 @@ model StaticTwoPortConservationEquation
   "Partial model for static energy and mass conservation equations"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
   showDesignFlowDirection = false);
-//  import Modelica.Constants;
+
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Heat transfered into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput mXi_flow[Medium.nXi](unit="kg/s")
+  Modelica.Blocks.Interfaces.RealInput mXi_flow[Medium.nXi](each unit="kg/s")
     "Mass flow rates of independent substances added to the medium"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
@@ -92,24 +92,19 @@ equation
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
       port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
       // Transport of species
-      for i in 1:Medium.nXi loop
-        port_b.Xi_outflow[i] = inStream(port_a.Xi_outflow[i]) + mXi_flow[i] * m_flowInv;
-        port_a.Xi_outflow[i] = inStream(port_b.Xi_outflow[i]) - mXi_flow[i] * m_flowInv;
-      end for;
+      port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
+      port_a.Xi_outflow = inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv;
      else
       port_a.m_flow * (port_b.h_outflow - inStream(port_a.h_outflow)) = Q_flow;
       port_a.m_flow * (port_a.h_outflow - inStream(port_b.h_outflow)) = -Q_flow;
       // Transport of species
-      for i in 1:Medium.nXi loop
-        port_a.m_flow * (port_b.Xi_outflow[i] - inStream(port_a.Xi_outflow[i])) = mXi_flow[i];
-        port_a.m_flow * (port_a.Xi_outflow[i] - inStream(port_b.Xi_outflow[i])) =- mXi_flow[i];
-      end for;
+      port_a.m_flow * (port_b.Xi_outflow - inStream(port_a.Xi_outflow)) = mXi_flow;
+      port_a.m_flow * (port_a.Xi_outflow - inStream(port_b.Xi_outflow)) =- mXi_flow;
      end if;
     // Transport of trace substances
-    for i in 1:Medium.nC loop
-      port_a.m_flow*port_a.C_outflow[i] = -port_b.m_flow*inStream(port_b.C_outflow[i]);
-      port_b.m_flow*port_b.C_outflow[i] = -port_a.m_flow*inStream(port_a.C_outflow[i]);
-    end for;
+   port_a.m_flow*port_a.C_outflow = -port_b.m_flow*inStream(port_b.C_outflow);
+   port_b.m_flow*port_b.C_outflow = -port_a.m_flow*inStream(port_a.C_outflow);
+
   end if; // sensibleOnly
   //////////////////////////////////////////////////////////////////////////////////////////
   // No pressure drop in this model
@@ -127,7 +122,6 @@ It implements a steady-state conservation equation for energy and mass fractions
 The model has zero pressure drop between its ports.
 </p>
 <h4>Implementation</h4>
-<p>
 Input connectors of the model are
 <ul>
 <li>
@@ -137,7 +131,7 @@ Input connectors of the model are
 <code>mXi_flow</code>, which is the species mass flow rate added to the medium.
 </li>
 </ul>
-</p>
+
 <p>
 The model can only be used as a steady-state model with two fluid ports.
 For a model with a dynamic balance, and more fluid ports, use
@@ -152,22 +146,28 @@ or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
 revisions="<html>
 <ul>
 <li>
-March 27, 2013 by Michael Wetter:<br>
+May 7, 2013 by Michael Wetter:<br/>
+Removed <code>for</code> loops for species balance and trace substance balance, 
+as they cause the error <code>Error: Operand port_a.Xi_outflow[1] to operator inStream is not a stream variable.</code>
+in OpenModelica.
+</li>
+<li>
+March 27, 2013 by Michael Wetter:<br/>
 Removed wrong unit attribute of <code>COut</code>,
 and added min and max attributes for <code>XiOut</code>.
 </li>
 <li>
-June 22, 2012 by Michael Wetter:<br>
+June 22, 2012 by Michael Wetter:<br/>
 Reformulated implementation with <code>m_flowInv</code> to use <code>port_a.m_flow * ...</code>
 if <code>use_safeDivision=false</code>. This avoids a division by zero if 
 <code>port_a.m_flow=0</code>.
 </li>
 <li>
-February 7, 2012 by Michael Wetter:<br>
+February 7, 2012 by Michael Wetter:<br/>
 Revised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.
 </li>
 <li>
-December 14, 2011 by Michael Wetter:<br>
+December 14, 2011 by Michael Wetter:<br/>
 Changed assignment of <code>hOut</code>, <code>XiOut</code> and
 <code>COut</code> to no longer declare that it is continuous. 
 The declaration of continuity, i.e, the 
@@ -176,27 +176,27 @@ was required for Dymola 2012 to simulate, but it is no longer needed
 for Dymola 2012 FD01.
 </li>
 <li>
-August 19, 2011, by Michael Wetter:<br>
+August 19, 2011, by Michael Wetter:<br/>
 Changed assignment of <code>hOut</code>, <code>XiOut</code> and
 <code>COut</code> to declare that it is not differentiable.
 </li>
 <li>
-August 4, 2011, by Michael Wetter:<br>
+August 4, 2011, by Michael Wetter:<br/>
 Moved linearized pressure drop equation from the function body to the equation
 section. With the previous implementation, 
 the symbolic processor may not rearrange the equations, which can lead 
 to coupled equations instead of an explicit solution.
 </li>
 <li>
-March 29, 2011, by Michael Wetter:<br>
+March 29, 2011, by Michael Wetter:<br/>
 Changed energy and mass balance to avoid a division by zero if <code>m_flow=0</code>.
 </li>
 <li>
-March 27, 2011, by Michael Wetter:<br>
+March 27, 2011, by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-August 19, 2010, by Michael Wetter:<br>
+August 19, 2010, by Michael Wetter:<br/>
 Fixed bug in energy and moisture balance that affected results if a component
 adds or removes moisture to the air stream. 
 In the old implementation, the enthalpy and species
@@ -208,20 +208,20 @@ Also, the results for forward flow and reverse flow differed by this amount.
 With the new implementation, the energy and moisture balance is exact.
 </li>
 <li>
-March 22, 2010, by Michael Wetter:<br>
+March 22, 2010, by Michael Wetter:<br/>
 Added constant <code>sensibleOnly</code> to 
 simplify species balance equation.
 </li>
 <li>
-April 10, 2009, by Michael Wetter:<br>
+April 10, 2009, by Michael Wetter:<br/>
 Added model to compute flow friction.
 </li>
 <li>
-April 22, 2008, by Michael Wetter:<br>
+April 22, 2008, by Michael Wetter:<br/>
 Revised to add mass balance.
 </li>
 <li>
-March 17, 2008, by Michael Wetter:<br>
+March 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

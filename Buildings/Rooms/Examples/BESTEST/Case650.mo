@@ -27,28 +27,27 @@ model Case650
     annotation (Placement(transformation(extent={{-88,-68},{-80,-60}})));
 equation
   connect(multiSum.u[2], vent.y[1]) annotation (Line(
-      points={{-72,-44},{-76,-44},{-76,-64},{-79.6,-64}},
+      points={{-78,-74},{-76,-74},{-76,-64},{-79.6,-64}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Placement(transformation(extent={{-76,82},{-56,102}})),
+    annotation (
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case650.mos"
         "Simulate and plot"),
         experiment(
-      StopTime=3.1536e+007,
+      StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-006),
 Diagram(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
-    experimentSetupOutput,
     Documentation(revisions="<html>
 <ul>
 <li>
-July 15, 2012, by Michael Wetter:<br>
+July 15, 2012, by Michael Wetter:<br/>
 Revised implementation to extend from base case to avoid duplicate code.
 Merged model into the Buildings library.
 </li>
 <li>
-June 5, 2012, by Vladimir Vukovic:<br>
+June 5, 2012, by Vladimir Vukovic:<br/>
 First implementation.
 </li>
 </ul>

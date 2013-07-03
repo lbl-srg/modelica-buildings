@@ -2,7 +2,7 @@ within Buildings.Fluid.SolarCollectors.BaseClasses.Examples;
 model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
   import Buildings;
   extends Modelica.Icons.Example;
-  parameter Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.Generic               per=
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector               per=
       Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B()
     "Performance data" annotation (choicesAllMatching=true);
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
@@ -64,13 +64,13 @@ Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain</a>. All of the inpu
 </html>", revisions="<html>
 <ul>
 <li>
-Mat 27, 2013 by Peter Grant:<br>
+Mat 27, 2013 by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/SolarCollector/BaseClasses/Examples/ASHRAESolarGain.mos"
+          "Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/ASHRAESolarGain.mos"
         "Simulate and Plot"),
     Icon(graphics));
 end ASHRAESolarGain;

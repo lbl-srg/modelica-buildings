@@ -113,14 +113,16 @@ equation
       points={{5.55112e-16,-70},{60,-70}},
       color={0,127,255},
       smooth=Smooth.None));
-    annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mos"
+    annotation (
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mos"
         "Simulate and plot"),
         Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(revisions="<html>
 <ul>
 <li>
-January 23 2013, by Michael Wetter:<br>
+January 23 2013, by Michael Wetter:<br/>
 Changed time constant of <code>senH</code> so that it has
 the same transient response model as <code>senH_flow</code>.
 </li>

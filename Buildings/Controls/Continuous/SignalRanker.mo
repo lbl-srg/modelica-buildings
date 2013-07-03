@@ -28,11 +28,11 @@ controller to access the position of the dampers that are most open.
 revisions="<html>
 <ul>
 <li>
-November 21, 2011, by Michael Wetter:<br>
+November 21, 2011, by Michael Wetter:<br/>
 Removed <code>assert</code> statement.
 </li>
 <li>
-November 25, 2008, by Michael Wetter:<br>
+November 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -27,12 +27,11 @@ model Case620 "Case 600, but with windows on East and West side walls"
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case620.mos"
         "Simulate and plot"),
         experiment(
-      StopTime=3.1536e+007,
+      StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-006),
 Diagram(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
-    experimentSetupOutput,
     Documentation(info="<html>
 <p>
 This model is the case 620 of the BESTEST validation suite.
@@ -43,18 +42,18 @@ have a window, but there is no window in the south facing wall.
 revisions="<html>
 <ul>
 <li>
-July 6, 2012, by Michael Wetter:<br>
+July 6, 2012, by Michael Wetter:<br/>
 Changed implementation to extend from Case 600, rather
 than copying Case 600.
 This better shows what is different relative to Case 600
 as it avoid duplicate code.
 </li>
 <li>
-May 12, 2012, by Kaustubh Phalak:<br>
+May 12, 2012, by Kaustubh Phalak:<br/>
 Modified the Case 600 for implementation of Case 620.
 </li>
 <li>
-October 6, 2011, by Michael Wetter:<br>
+October 6, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

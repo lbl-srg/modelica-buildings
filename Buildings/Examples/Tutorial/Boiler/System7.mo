@@ -224,7 +224,7 @@ model System7
     "Outside temperature"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
 
-//-------------------------Step 2: State machine implementation-------------------------//			
+//-------------------------Step 2: State machine implementation-------------------------//
   Modelica_StateGraph2.Step allOff(
     nOut=1,
     initialStep=true,
@@ -577,7 +577,7 @@ The state machine that is implemented in this model is shown in
 the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/stateMachine.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/stateMachine.png\" border=\"1\"/>
 </p>
 <p>
 In the figure above, the ovals depict states, and the arrows are transitions between the states.
@@ -617,7 +617,7 @@ If a delay is present, the input needs to be true during the entire duration of 
 for a transition to fire.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System7StateMachine.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System7StateMachine.png\" border=\"1\"/>
 </p>
 <p>
 In our implementation, the state <code>allOff</code> is the initial state,
@@ -644,22 +644,22 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System7Temperatures1.png\" border=\"1\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System7Temperatures2.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System7Temperatures1.png\" border=\"1\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System7Temperatures2.png\" border=\"1\"/>
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valves as
 this parameter no longer has a default value.
 </li>
 <li>
-April 13, 2012, by Michael Wetter:<br>
+April 13, 2012, by Michael Wetter:<br/>
 Removed first order filter at boiler pump input.
 </li>
 <li>
-January 27, 2012, by Michael Wetter:<br>
+January 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

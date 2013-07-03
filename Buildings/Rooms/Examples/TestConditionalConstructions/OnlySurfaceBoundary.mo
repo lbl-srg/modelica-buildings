@@ -27,9 +27,10 @@ equation
       points={{60.2,-30},{60,-30},{60,-70},{80,-70}},
       color={191,0,0},
       smooth=Smooth.None));
-   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructions/OnlySurfaceBoundary.mos" "Simulate and plot"),
+   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructions/OnlySurfaceBoundary.mos"
+        "Simulate and plot"),
       Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             200,160}})),
     experiment(
-      StopTime=172800));
+      StopTime=86400));
 end OnlySurfaceBoundary;

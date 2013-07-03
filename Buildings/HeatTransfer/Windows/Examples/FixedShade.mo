@@ -85,7 +85,8 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   annotation (Diagram(graphics),
-              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/FixedShade.mos"
+experiment(StopTime=86400),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/FixedShade.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -96,13 +97,13 @@ nor a side fin.
 </html>", revisions="<html>
 <ul>
 <li>
-July 5, 2012, by Michael Wetter:<br>
+July 5, 2012, by Michael Wetter:<br/>
 Changed values of <code>wL</code> and <code>wR</code> for overhang
 and <code>h</code> for window, to be
 measured from the corner of the window.
 </li>
 <li>
-March 6, 2012, by Michael Wetter:<br>
+March 6, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

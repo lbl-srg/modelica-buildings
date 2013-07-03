@@ -39,15 +39,15 @@ with exception of boundary pressure, do not have an effect.
 revisions="<html>
 <ul>
 <li>
-October 26, 2011 by Michael Wetter:<br>
+October 26, 2011 by Michael Wetter:<br/>
 Introduced new base class to allow implementation of wind pressure for natural ventilation.
 </li>
 <li>
-April 27, 2011 by Michael Wetter:<br>
+April 27, 2011 by Michael Wetter:<br/>
 Revised implementation to allow medium model that do not have water vapor.
 </li>
 <li>
-Feb. 9, 2011 by Michael Wetter:<br>
+Feb. 9, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -8,9 +8,10 @@ partial model PartialTwoPortInterface
     port_b(p(start=Medium.p_default,
            nominal=Medium.p_default)));
 
-  parameter Medium.MassFlowRate m_flow_nominal "Nominal mass flow rate"
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -28,9 +29,9 @@ partial model PartialTwoPortInterface
       m_flow/Medium.density(sta_a) if show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
 
-  Medium.MassFlowRate m_flow(start=0) = port_a.m_flow
+  Modelica.SIunits.MassFlowRate m_flow(start=0) = port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa") = port_a.p - port_b.p
+  Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa")
     "Pressure difference between port_a and port_b";
 
   Medium.ThermodynamicState sta_a=if homotopyInitialization then
@@ -56,7 +57,8 @@ partial model PartialTwoPortInterface
                           actualStream(port_b.h_outflow),
                           actualStream(port_b.Xi_outflow)) if
           show_T "Medium properties in port_b";
-
+equation
+  dp = port_a.p - port_b.p;
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(
@@ -69,10 +71,12 @@ This component defines the interface for models that
 transports a fluid between two ports. It is similar to 
 <a href=\"Modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
 Modelica.Fluid.Interfaces.PartialTwoPortTransport</a>, but it does not 
-include the species balance 
+include the species balance
+</p> 
 <pre>
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
 </pre>
+<p>
 Thus, it can be used as a base class for a heat <i>and</i> mass transfer component
 </p>
 <p>
@@ -84,7 +88,11 @@ Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-March 27, 2012 by Michael Wetter:<br>
+April 26, 2013 by Marco Bonvini:<br/>
+Moved the definition of <code>dp</code> because it causes some problem with PyFMI.
+</li>
+<li>
+March 27, 2012 by Michael Wetter:<br/>
 Changed condition to remove <code>sta_a</code> to also
 compute the state at the inlet port if <code>show_V_flow=true</code>. 
 The previous implementation resulted in a translation error
@@ -92,22 +100,22 @@ if <code>show_V_flow=true</code>, but worked correctly otherwise
 because the erroneous function call is removed if  <code>show_V_flow=false</code>.
 </li>
 <li>
-March 27, 2011 by Michael Wetter:<br>
+March 27, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-March 21, 2010 by Michael Wetter:<br>
+March 21, 2010 by Michael Wetter:<br/>
 Changed pressure start value from <code>system.p_start</code>
 to <code>Medium.p_default</code> since HVAC models may have water and 
 air, which are typically at different pressures.
 </li>
 <li>
-September 19, 2008 by Michael Wetter:<br>
+September 19, 2008 by Michael Wetter:<br/>
 Added equations for the mass balance of extra species flow,
 i.e., <code>C</code> and <code>mC_flow</code>.
 </li>
 <li>
-March 11, 2008, by Michael Wetter:<br>
+March 11, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

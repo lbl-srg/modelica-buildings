@@ -15,7 +15,8 @@ equation
 annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                     graphics),
-            __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/BooleanReplicator.mos"
+experiment(StopTime=600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/BooleanReplicator.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -26,11 +27,11 @@ Buildings.Utilities.Math.BooleanReplicator</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-August 31, 2012, by Michael Wetter:<br>
+August 31, 2012, by Michael Wetter:<br/>
 Revised documentation.
 </li>
 <li>
-July 27, 2012, by Kaustubh Phalak:<br>
+July 27, 2012, by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>

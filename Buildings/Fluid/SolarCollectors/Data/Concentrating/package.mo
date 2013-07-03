@@ -3,8 +3,7 @@ package Concentrating "Package with SRCC rating information for concentrating so
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 
-
     annotation(Documentation(info="<html>
-    Package containing data for concentrating solar collectors.<br>
+    Package containing data for concentrating solar collectors.<br/>
     </html>"));
 end Concentrating;

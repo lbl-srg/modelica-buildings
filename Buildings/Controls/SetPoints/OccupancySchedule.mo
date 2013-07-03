@@ -184,9 +184,11 @@ half an hour before occupancy starts in order to ventilate the room.
 </p>
 <p>
 The occupancy is defined by a time schedule of the form
+</p>
 <pre>
   occupancy = 3600*{7, 12, 14, 19}
 </pre>
+<p>
 This indicates that the occupancy is from <i>7:00</i> until <i>12:00</i>
 and from <i>14:00</i> to <i>19:00</i>. This will be repeated periodically.
 The parameter <code>periodicity</code> defines the periodicity.
@@ -195,16 +197,16 @@ The period always starts at <i>t=0</i> seconds.
 </html>", revisions="<html>
 <ul>
 <li>
-September 11, 2012, by Michael Wetter:<br>
+September 11, 2012, by Michael Wetter:<br/>
 Added <code>pre</code> operator in <code>when</code> clause and relaxed
 tolerance in <code>assert</code> statement.
 </li>
 <li>
-July 26, 2012, by Michael Wetter:<br>
+July 26, 2012, by Michael Wetter:<br/>
 Fixed a bug that caused an error in the schedule if the simulation start time was negative or equal to the first entry in the schedule.
 </li>
 <li>
-February 16, 2012, by Michael Wetter:<br>
+February 16, 2012, by Michael Wetter:<br/>
 Removed parameter <code>startTime</code>. It was removed because <code>startTime=0</code>
 would imply that the schedule should not start for one day if the the simulation were
 to be started at <i>t=-8760</i> seconds.
@@ -213,7 +215,7 @@ is higher than <code>endTime</code>.
 Renamed parameter <code>endTime</code> to <code>period</code>.
 </li>
 <li>
-April 2, 2009, by Michael Wetter:<br>
+April 2, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

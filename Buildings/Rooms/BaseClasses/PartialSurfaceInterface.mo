@@ -74,13 +74,12 @@ protected
   function checkSurfaceAreas
     input Integer n "Number of surfaces";
     input Modelica.SIunits.Area A[:] "Surface areas";
-    input String name
-      "Name of the surface data record, used in error message";
+    input String name "Name of the surface data record, used in error message";
   algorithm
     if n == 0 then
       assert(Modelica.Math.Vectors.norm(v=A, p=1) < 1E-10,
-      "Error in declaration of room model: Construction record '" + 
-      name + 
+      "Error in declaration of room model: Construction record '" +
+      name +
       "' has the following areas: " +
       Modelica.Math.Vectors.toString(A) +
       "However, the room model is declared as having zero surfaces.
@@ -141,6 +140,7 @@ initial algorithm
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid)}),
         Documentation(info="<html>
+<p>
 This partial model is used as a base class for models that need to exchange
 heat with room-facing surfaces. It defines parameters for the surface area,
 the absorptivity, and the products of area times absorptivity.
@@ -153,25 +153,26 @@ If this parameter were to be used to declare the size of vectors of
 component models, then there may be vectors with zero components.
 This can cause problems in Dymola 7.4. 
 We therefore also introduced the parameter
+</p>
 <pre>
   NConExt = max(1, nConExt)
 
 </pre>
-which can be used to set the size of the vector of component models.
-</p>
+<p>which can be used to set the size of the vector of component models.</p>
 <p>
 There are also parameters that can be used to conditionally remove components,
-such as <code>haveConExt</code>, which is set to 
+such as <code>haveConExt</code>, which is set to
+</p>
 <pre>
+  
   haveConExt = nConExt > 0;
 
 </pre>
-</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-July 17, 2012, by Michael Wetter:<br>
+July 17, 2012, by Michael Wetter:<br/>
 Added validity check of surface areas.
 This helped catching a bug in an early implementation of BESTEST Case960
 in which the extending class set <code>nConExtWin=0</code>, 
@@ -180,14 +181,14 @@ Because the radiation balance model computes exchange among
 <code>NConExtWin=max(nConExtWin, 1)</code> areas, its result was wrong.
 </li>
 <li>
-November 6, 2011, by Michael Wetter:<br>
+November 6, 2011, by Michael Wetter:<br/>
 Changed parameters that contain radiative properties from final to non-final, as
 they need to be overwritten by 
 <a href=\"modelica://Buildings.Rooms.BaseClasses.SolarRadiationExchange\">
 Buildings.Rooms.BaseClasses.SolarRadiationExchange</a>.
 </li>
 <li>
-November 16 2010, by Michael Wetter:<br>
+November 16 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -106,7 +106,8 @@ algorithm
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
-    __Dymola_Commands(file=
+experiment(StopTime=1.0),
+__Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -140,16 +141,16 @@ The curves <code>errNonMonotone</code> and
 represent the relative error between approximated and exact temperatures 
 obtained for different specific internal energy values (right hand side figure).
 </p>
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.png\"/>
+<p align=\"center\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 9, 2013, by Michael Wetter:<br>
+March 9, 2013, by Michael Wetter:<br/>
 Revised implementation to use new data record.
 </li>
 <li>
-January 22, 2013, by Armin Teskeredzic:<br>
+January 22, 2013, by Armin Teskeredzic:<br/>
 First implementations.
 </li>
 </ul>

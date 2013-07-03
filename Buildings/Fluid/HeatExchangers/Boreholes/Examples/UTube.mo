@@ -62,12 +62,12 @@ and
 </html>", revisions="<html>
 <ul>
 <li>
-August 2011, by Pierre Vigouroux:<br>
+August 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
     experiment(
-      StopTime=3.1536e+07,
+      StopTime=5*365*86400,
       Tolerance=1e-05));
 end UTube;

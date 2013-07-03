@@ -17,9 +17,11 @@ model ParametersTwoSurfaces
     "Temperature used to linearize radiative heat transfer"
     annotation (Dialog(enable=linearize), Evaluate=true);
 protected
- final parameter Real T03(min=0, unit="K3")=T0^3 "3rd power of temperature T0"
+ final parameter Real T03(min=0, final unit="K3")=T0^3
+    "3rd power of temperature T0"
  annotation(Evaluate=true);
- final parameter Real T04(min=0, unit="K4")=T0^4 "4th power of temperature T0"
+ final parameter Real T04(min=0, final unit="K4")=T0^4
+    "4th power of temperature T0"
  annotation(Evaluate=true);
 initial equation
     assert(abs(1-absIR_a-rhoIR_a-tauIR) < Modelica.Constants.eps,
@@ -37,11 +39,11 @@ Parameters that are used for classes with two surfaces.
 revisions="<html>
 <ul>
 <li>
-March 20, 2012, by Wangda Zuo:<br>
+March 20, 2012, by Wangda Zuo:<br/>
 Added <code>T04</code> for temperature linearization.
 </li>
 <li>
-August 23, 2010, by Michael Wetter:<br>
+August 23, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

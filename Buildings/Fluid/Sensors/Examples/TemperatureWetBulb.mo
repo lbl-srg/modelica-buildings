@@ -76,7 +76,8 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                         graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureWetBulb.mos"
+experiment(StopTime=120),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureWetBulb.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This examples is a unit test for the wet bulb sensor.
@@ -90,11 +91,11 @@ the medium model got broken (assuming that the inputs remained unchanged).
 </html>", revisions="<html>
 <ul>
 <li>
-June 4, 2011 by Michael Wetter:<br>
+June 4, 2011 by Michael Wetter:<br/>
 Adjusted parameters and simulation stop time since the sensor was changed to a dynamic sensor.
 </li>
 <li>
-May 6, 2008 by Michael Wetter:<br>
+May 6, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

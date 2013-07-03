@@ -141,7 +141,8 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}),
                         graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/ValveParameterization.mos"
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/ValveParameterization.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -156,18 +157,18 @@ will terminate the simulation with an error message.
 </html>", revisions="<html>
 <ul>
 <li>
-April 1, 2013, by Michael Wetter:<br>
+April 1, 2013, by Michael Wetter:<br/>
 Removed the valve from <code>Modelica.Fluid</code> to allow a successful check
 of the model in the pedantic mode in Dymola 2014.
 </li>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Removed assignment of <code>dpValve_nominal</code> if
 <code>CvData &lt;&gt; Buildings.Fluid.Types.CvTypes.OpPoint</code>,
 as in this case, it is computed by the model.
 </li>
 <li>
-February 18, 2009 by Michael Wetter:<br>
+February 18, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

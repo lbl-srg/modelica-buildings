@@ -80,7 +80,8 @@ This model demonstrates the use of the mixing volume with heat conduction to the
 The mixing volume is configured as a steady-state model.
 </p>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeHeatConduction.mos"
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeHeatConduction.mos"
         "Simulate and plot"),
     Diagram(graphics));
 end MixingVolumeHeatConduction;
