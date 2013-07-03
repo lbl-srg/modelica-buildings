@@ -10,22 +10,22 @@ model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
   Modelica.Blocks.Sources.Sine     TEnv(
     freqHz=0.01,
     amplitude=7.5,
-    offset=273.15 + 10) "Temperature of the surrounding environment (K)"
+    offset=273.15 + 10) "Temperature of the surrounding environment"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Sine     T1(
     amplitude=5,
     freqHz=0.1,
-    offset=273.15 + 20) "Temperature in the first segment (K)"
+    offset=273.15 + 20) "Temperature in the first segment"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Blocks.Sources.Sine     T2(
     amplitude=5,
     freqHz=0.1,
-    offset=273.15 + 25) "Temperature in the second segment (K)"
+    offset=273.15 + 25) "Temperature in the second segment"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.Sine     T3(
     amplitude=5,
     freqHz=0.1,
-    offset=273.15 + 30) "Temperature in the third segment (K)"
+    offset=273.15 + 30) "Temperature in the third segment"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss   heaLos(
     nSeg=3,
