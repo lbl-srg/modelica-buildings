@@ -95,7 +95,8 @@ initial equation
           T=  0.5*(TSur_nominal+TFlu_nominal));
   nu_nominal = mu_nominal/rho_nominal;
 
-  Gr_nominal = Modelica.Constants.g_n * B_nominal * (TSur_nominal - TFlu_nominal)*ChaLen^3/nu_nominal^2;
+  Gr_nominal = Modelica.Constants.g_n * B_nominal * (TSur_nominal -
+  TFlu_nominal)*ChaLen^3/nu_nominal^2;
   Ra_nominal = Gr_nominal*Pr_nominal;
   // Convection coefficient
   k_nominal = Medium.thermalConductivity(
@@ -139,17 +140,20 @@ equation
             Documentation(info="<html>
             <p>
             This model calculates the convection coefficient <i>h</i> for natural convection
-            from a cylinder submerged in fluid. <i>h</i> is calcualted using Eq 9.34 from Incropera and DeWitt (1996).
+            from a cylinder submerged in fluid. <i>h</i> is calcualted using Eq 9.34 from 
+            Incropera and DeWitt (1996).
             Output of the block is the <i>hA</i> value.
             </p>
             <p>
             The Nusselt number is computed as
             </p>
             <p align=\"center\" style=\"font-style:italic;\">
-            Nu<sub>D</sub> = (0.6 + (0.387 Ra<sub>D</sub><sup>(1/6)</sup>)/(1+(0.559 Pr)<sup>(9/16)</sup>)<sup>(8/27)</sup>)<sup>2</sup>);
+            Nu<sub>D</sub> = (0.6 + (0.387 Ra<sub>D</sub><sup>(1/6)</sup>)/(1+(0.559 Pr)<sup>
+            (9/16)</sup>)<sup>(8/27)</sup>)<sup>2</sup>);
             </p>
             <p>
-            where <i>Nu<sub>D</sub></i> is the Nusselt number, <i>Ra<sub>D</sub></i> is the Rayleigh number and 
+            where <i>Nu<sub>D</sub></i> is the Nusselt number, <i>Ra<sub>D</sub></i> is the 
+            Rayleigh number and 
             <i>Pr</i> is the Prandtl number.<br/>
             This correclation is accurate for <i>Ra<sub>D</sub></i> less than 10<sup>12</sup>.
             </p>
@@ -160,11 +164,13 @@ equation
             h = Nu<sub>D</sub> k/D
             </p>
             <p>
-            where <i>k</i> is the thermal conductivity of the fluid and <i>D</i> is the diameter of the submerged cylinder.
+            where <i>k</i> is the thermal conductivity of the fluid and <i>D</i> is the diameter
+            of the submerged cylinder.
             </p>
             <h4>References</h4>
             <p>
-            Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David DeWitt, John Wiley and Sons, 1996
+            Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David 
+            DeWitt, John Wiley and Sons, 1996
             </p>  
             <h4>Revisions</h4>
             <ul>
