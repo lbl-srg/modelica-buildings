@@ -124,6 +124,7 @@ Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;)
 K<sub>(&tau;&alpha;)<sub>net</sub></sub> (G<sub>Dir</sub> 
 (1-shaCoe)+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>))
 </p>
+<p>
 The solar radiation equation indicates that the collector is divided into multiple 
 segments. The number of segments used in the simulation is specified by the user 
 (parameter: <code>nSeg</code>). The area of an individual segment is identified by 

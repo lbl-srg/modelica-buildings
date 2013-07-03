@@ -19,12 +19,13 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   <p>
   A model of a solar thermal collector mainly consists of the three following
   items:
+  </p>
   <ul>
   <li>A package containing ratings data.</li>
   <li>Models for solar gain and heat loss corresponding to the format of the
   referenced ratings data.</li>
   <li>Parameters describing the installation of the system.</li>
-  </p>
+  </ul>
   <p>
   Ratings data describing the parameters of individual collectors are 
   available in <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data\"> 
@@ -58,6 +59,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   <p>
   Finally, the parameters of the system must be defined. Most of the parameters
   are very straightforward. The complex parameters are used as follows:
+  </p>
   <ol>
   <li><code>nSeg</code>: This parameter refers to the number of segments between 
   the inlet and outlet of the system, not the number of segments in each solar 
@@ -65,7 +67,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   <li><code>nColType</code>: This parameter allows the user to specify how the 
   number of collectors in the system is defined. Options are <code>Number</code>, 
   allowing the user to enter a number of panels, or <code>TotalArea</code>, 
-  allowing the user to enter a system area.</li>
+  allowing the user to enter a system area.
   <ol>
   <li><code>Number</code>: If <code>Number</code> is selected for <code>nColType</code>
   the user enters a number of panels. The simulation then identifies the area of the 
@@ -78,7 +80,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   </ol>
   <li><code>SysConfig</code>: This parameter allows the user to specify the installation
   configuration of the system. Options are <code>Series</code> and <code>Parallel</code>.
-  The handling of <code>dp_nominal</code> is changed depending on the selection.</li>
+  The handling of <code>dp_nominal</code> is changed depending on the selection.
   <ol>
   <li><code>Series</code>: If <code>Series</code> is selected it is assumed that 
   all panels in the system are connected in series. As a result there is a pressure 
@@ -91,7 +93,6 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   is <code>dp_nominal</code> specified in the collector data package.</li>
   </ol>
   </ol>
-  </p>
   <h4>References</h4>
   <ul>
   <li>ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance 

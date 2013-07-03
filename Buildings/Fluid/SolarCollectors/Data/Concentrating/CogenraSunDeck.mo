@@ -19,6 +19,7 @@ record CogenraSunDeck =
     is not provided in the EN12975 test data. All are left blank.
     </p>    
     <h4>References</h4>
+    <p>
     Ratings data taken from the <a href=\"http://www.solar-rating.org\">
     Solar Rating and Certification Corporation website</a>. SRCC# = 2011127A.<br/>
     </p>

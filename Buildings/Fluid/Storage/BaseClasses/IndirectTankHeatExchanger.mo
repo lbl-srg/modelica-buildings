@@ -255,18 +255,22 @@ equation
           <p>
           This model is a heat exchanger with a moving fluid on one side and a stagnant fluid on the other.
           It is intended for use when a heat exchanger is submerged in a stagnant fluid.
-          For example, the heat exchanger in a storage tank which is part of a solar thermal system.</p>
+          For example, the heat exchanger in a storage tank which is part of a solar thermal system.
+          </p>
           <p>
           This component models the fluid in the heat exchanger, convection between the fluid and 
-          the heat exchanger, and convection from the heat exchanger to the surrounding fluid.</p>
+          the heat exchanger, and convection from the heat exchanger to the surrounding fluid.
+          </p>
           <p>
           The model is based on <a href=\"Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside\">
           Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside</a> and
           <a href=\"Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder\">
-          Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder</a>.<p>
+          Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder</a>.
+          </p>
           <p>
           The fluid ports are intended to be connected to a circulated heat transfer fluid 
-          while the heat port is intended to be connected to a stagnant fluid.</p>          
+          while the heat port is intended to be connected to a stagnant fluid.
+          </p>          
           </html>",
           revisions = "<html>
           <ul>

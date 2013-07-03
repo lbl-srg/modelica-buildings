@@ -74,7 +74,7 @@ The actual heat loss from the collector is calculated using
 <h4>References</h4>
 <p>
 J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), 
-John Wiley & Sons, Inc. <br/>
+John Wiley &amp; Sons, Inc. <br/>
 ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of Solar 
 Collectors (ANSI approved)
 </p>
