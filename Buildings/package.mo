@@ -170,6 +170,19 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier
+    </td>
+    <td valign=\"top\">Changed one instance of <code>Modelica.Fluid.Sources.MassFlowSource_T</code>,
+                       that was connected to the two fluid streams,
+                       to two instances, each having half the mass flow rate.
+                       This is required for the model to work with Modelica 3.2.1 due to the 
+                       change introduced in 
+                       ticket <a href=\"https://trac.modelica.org/Modelica/ticket/739\">#739</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
@@ -186,14 +199,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        are only computed when the model is translated, because
                        the number of state variables is fixed 
                        at compilation time.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
     </td>
 </tr>
 </table>
@@ -3459,7 +3464,8 @@ dateModified = "2013-05-15",
 uses(Modelica(version="3.2")),
 uses(Modelica_StateGraph2(version="2.0.1")),
 conversion(
- noneFromVersion="1.4",
+ from(version="1.4",
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.4_to_1.5.mos"),
  noneFromVersion="1.3",
  noneFromVersion="1.2",
  from(version="1.1",
