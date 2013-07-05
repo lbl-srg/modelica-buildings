@@ -41,8 +41,7 @@ protected
     "Incident angle modifier for diffuse solar radiation from the sky";
   final parameter Real iamGro( fixed = false)
     "Incident angle modifier for diffuse solar radiation from the ground";
-  Real iamBea "Incident angle modifier for director solar radiation";
-  Real iam "Weighted incident angle modifier";
+
   final parameter Modelica.SIunits.Angle incAngSky( fixed = false)
     "Incident angle of diffuse radiation from the sky";
   final parameter Modelica.SIunits.Angle incAngGro( fixed = false)
@@ -54,6 +53,9 @@ protected
     "Minimum HTot to avoid div/0";
   final parameter Real HMinDel = 0.001
     "Delta of the smoothing function for HTot";
+
+  Real iamBea "Incident angle modifier for director solar radiation";
+  Real iam "Weighted incident angle modifier";
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_internal
     "Internally used shading coefficient";
@@ -75,6 +77,7 @@ initial equation
     incAngGro,
     B0,
     B1);
+
 equation
 
   connect(shaCoe_internal, shaCoe_in);
