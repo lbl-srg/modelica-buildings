@@ -25,8 +25,7 @@ block ASHRAESolarGain
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   parameter Real B0 "1st incident angle modifer coefficient";
   parameter Real B1 "2nd incident angle modifer coefficient";
-  parameter Boolean use_shaCoe_in = false
-    "Enables an input connector for shaCoe"
+  parameter Boolean use_shaCoe_in = false "Enable input connector for shaCoe"
     annotation(Dialog(group="Shading"));
 
   parameter Real shaCoe(
@@ -43,7 +42,7 @@ protected
   final parameter Real iamGro( fixed = false)
     "Incident angle modifier for diffuse solar radiation from the ground";
   Real iamBea "Incident angle modifier for director solar radiation";
-  Real iam "weighted incident angle modifier";
+  Real iam "Weighted incident angle modifier";
   final parameter Modelica.SIunits.Angle incAngSky( fixed = false)
     "Incident angle of diffuse radiation from the sky";
   final parameter Modelica.SIunits.Angle incAngGro( fixed = false)
@@ -57,7 +56,7 @@ protected
     "Delta of the smoothing function for HTot";
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_internal
-    "Inernally used shading coefficient";
+    "Internally used shading coefficient";
 
 initial equation
   // E+ Equ (557)
@@ -181,8 +180,5 @@ First implementation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
             graphics),
-    Icon(graphics={Text(
-          extent={{-48,-32},{36,-66}},
-          lineColor={0,0,255},
-          textString="%name")}));
+    Icon(graphics));
 end ASHRAESolarGain;

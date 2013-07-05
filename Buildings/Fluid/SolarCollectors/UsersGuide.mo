@@ -41,8 +41,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   of the data necessary for accurate use in the models available in 
   <code>Buildings.Fluid.SolarCollectors</code>. Namely, they lack data for 
   <code>dp_nominal</code>, <code>dT_nominal</code> and <code>G_nominal</code>. 
-  This data must be obtained from other sources to use all capabilities of 
-  these models.
+  This data must be obtained from other sources.
   </p>
   <p>
   There are two test methods for solar thermal collectors. The 
@@ -58,7 +57,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   </p>
   <p>
   Finally, the parameters of the system must be defined. Most of the parameters
-  are very straightforward. The complex parameters are used as follows:
+  are self-explanatory. The complex parameters are used as follows:
   </p>
   <ol>
   <li><code>nSeg</code>: This parameter refers to the number of segments between 
@@ -90,7 +89,9 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   <li><code>Parallel</code>: If <code>Parallel</code> is selected it is assumed 
   that all panels in the system are connected in parallel. As a result the fluid 
   flows through only a single panel and the <code>dp_nominal</code> for the system 
-  is <code>dp_nominal</code> specified in the collector data package.</li>
+  is <code>dp_nominal</code> specified in the collector data package if the collector
+  field has a mass flow rate equal to <code>per.m_flow_nominal</code> fixme: verify if 
+  this is correct.</li>
   </ol>
   </ol>
   <h4>References</h4>

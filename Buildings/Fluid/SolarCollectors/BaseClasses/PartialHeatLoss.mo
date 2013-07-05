@@ -79,8 +79,5 @@ First implementation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
             graphics),
-    Icon(graphics={Text(
-          extent={{-48,-32},{36,-66}},
-          lineColor={0,0,255},
-          textString="%name")}));
+    Icon(graphics));
 end PartialHeatLoss;

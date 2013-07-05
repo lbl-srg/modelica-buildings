@@ -5,7 +5,7 @@ block ASHRAEHeatLoss
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss;
 
   parameter Modelica.SIunits.CoefficientOfHeatTransfer slope
-    "slope from ratings data";
+    "Slope from ratings data";
 
 protected
   final parameter Modelica.SIunits.ThermalConductance UA(start = -slope*A_c, fixed = false)
@@ -39,12 +39,12 @@ equation
 <p>
 
 This component computes the heat loss from the solar thermal collector to the environment. 
-It is designed anticipating ratings data collected in accordance with ASHRAE Standard 93.
+It is designed for use with ratings data collected in accordance with ASHRAE Standard 93.
 A negative <code>QLos[i]</code> indicates that heat is being lost to the environment.
 </p>
 <p>
 This model calculates the heat lost from a multiple-segment model using ratings data based 
-solely on the inlet temperature. As a result, the slope from the ratings data must be converted 
+solely on the inlet temperature. As a result, the slope from the ratings data is converted 
 to a <i>UA</i> value which,
 for a given number of segments, yields the same heat loss as the ratings data 
 would at nominal conditions. The first three equations, which perform calculations at 
@@ -89,8 +89,5 @@ First implementation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
             graphics),
-    Icon(graphics={Text(
-          extent={{-48,-32},{36,-66}},
-          lineColor={0,0,255},
-          textString="%name")}));
+    Icon(graphics));
 end ASHRAEHeatLoss;

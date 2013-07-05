@@ -72,14 +72,14 @@ coefficients from EN12975.
 </p>
 <p>
 The equation used to calculate solar gain is a modified version of Eq 559 from the EnergyPlus 
-documentation. It is:
+documentation. It is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q<sub>flow</sub>[i] = A<sub>c</sub>/nSeg F<sub>R</sub>(&tau;&alpha;) (K<sub>(&tau;&alpha;),
-Beam</sub> G<sub>bea</sub> (1-shaCoe)+K<sub>Diff</sub> G<sub>Diff</sub>)
+Beam</sub> G<sub>bea</sub> (1-shaCoe)+K<sub>Diff</sub> G<sub>Diff</sub>),
 </p>
 <p>
-<i>Q<sub>flow[i]</sub></i> is the heat gained in each segment, <i>A<sub>c</sub></i> is the area
+where <i>Q<sub>flow[i]</sub></i> is the heat gained in each segment, <i>A<sub>c</sub></i> is the area
 of the collector, <code>nSeg</code> is the number of segments in the collector, <i>F<sub>R</sub>
 (&tau;&alpha;)</i> is the maximum efficiency of the collector, <i>K<sub>(&tau;&alpha;),Beam</sub> 
 </i>is the incidence angle modifier for beam radiation, <i>G<sub>beam</sub></i> is the current beam
@@ -98,13 +98,14 @@ while this model uses a coefficient from test data for diffuse radiation.
 </p>
 <p>
 The incidence angle modifier for beam radiation is calculated using Eq 555 from the EnergyPlus 
-documentation.
+documentation, as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   K<sub>(&tau;&alpha;),Beam</sub>=1+b<sub>0</sub> (1/cos(&theta;)-1)+b<sub>1</sub> 
-  (1/cos(&theta;)-1)<sup>2</sup>
+  (1/cos(&theta;)-1)<sup>2</sup>,
 </p>
 <p>
+where
 <i>K<sub>(&tau;&alpha;),Beam</sub></i> is the incidence angle modifier for beam radiation, <i>b
 <sub>0</sub></i> is the first incidence angle modifier coefficient, <i>&theta;</i> is the 
 incidence angle and <i>b<sub>1</sub></i> is the second incidence angle modifier coefficient.
@@ -125,8 +126,5 @@ First implementation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
             graphics),
-    Icon(graphics={Text(
-          extent={{-48,-32},{36,-66}},
-          lineColor={0,0,255},
-          textString="%name")}));
+    Icon(graphics));
 end EN12975SolarGain;

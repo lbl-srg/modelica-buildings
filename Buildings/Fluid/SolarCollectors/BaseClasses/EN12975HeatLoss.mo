@@ -72,10 +72,10 @@ sum(Q<sub>Loss,UA</sub>[1:nSeg])=Q<sub>Loss,nom</sub>
 <p>
 The effective <i>UA</i> value is calculated at the beginning of the simulation and used as 
 a constant through the rest of the simulation. The actual heat 
-loss from the collector is calculated using:
+loss from the collector is calculated using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q<sub>Loss</sub>[i] = UA/nSeg (T<sub>Fluid</sub>[i] - T<sub>Env</sub>)
+Q<sub>Loss</sub>[i] = UA/nSeg (T<sub>Fluid</sub>[i] - T<sub>Env</sub>).
 </p>
 
 <h4>References</h4>
@@ -91,8 +91,5 @@ First implementation
 </ul>
 </html>"),
     Diagram(graphics),
-    Icon(graphics={Text(
-          extent={{-48,-32},{36,-66}},
-          lineColor={0,0,255},
-          textString="%name")}));
+    Icon(graphics));
 end EN12975HeatLoss;
