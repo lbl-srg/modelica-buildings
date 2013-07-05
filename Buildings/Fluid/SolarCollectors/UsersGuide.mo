@@ -51,9 +51,9 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses\">
   Buildings.Fluid.SolarCollectors.BaseClasses</a>. Users should be careful 
   to ensure that the solar gain and heat loss models used in their simulation 
-  match the ratings data entered into the data package. By default the 
-  concentrating model uses EN12975 models while flat plate and tubular models 
-  use ASHRAE93 models.
+  match the ratings data entered into the data package.
+  The concentrating model requires EN12975 data, while the flat plate and tubular models 
+  require ASHRAE93 data.
   </p>
   <p>
   Finally, the parameters of the system must be defined. Most of the parameters

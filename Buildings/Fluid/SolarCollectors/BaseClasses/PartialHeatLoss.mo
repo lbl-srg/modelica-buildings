@@ -36,8 +36,6 @@ public
     annotation(Dialog(group="Nominal condition"));
 
 protected
-  Modelica.SIunits.Temperature TEnvVector[nSeg] = fill(TEnv,nSeg)
-    "Vector of nSeg entries of TEnv";
   final parameter Modelica.SIunits.HeatFlowRate QUse_nominal(fixed = false)
     "Useful heat gain at nominal conditions";
   final parameter Modelica.SIunits.HeatFlowRate QLos_nominal(fixed = false)
@@ -47,14 +45,12 @@ protected
   final parameter Modelica.SIunits.Temperature dT_nominal_fluid[nSeg](each
   start = 293.15, fixed = false)
     "Temperature of each semgent in the collector at nominal conditions";
-  Medium.ThermodynamicState sta[nSeg]=Medium.setState_pTX(
-      T=dT_nominal_fluid+TEnvVector,
+  Medium.ThermodynamicState sta_default=Medium.setState_pTX(
+      T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default);
-  Modelica.SIunits.SpecificHeatCapacity Cp[nSeg] = Medium.specificHeatCapacityCp(sta)
+  Modelica.SIunits.SpecificHeatCapacity Cp_default = Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
- Modelica.SIunits.SpecificHeatCapacity Cp_avg = sum(Cp[1:nSeg])/nSeg
-    "Average specific heat across the solar collector";
 
   annotation (
     defaultComponentName="heaLos",

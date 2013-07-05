@@ -63,6 +63,10 @@ equation
       points={{-59,56},{-54,56},{-54,72.6},{-2,72.6}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(shaCoe_in, solGai.shaCoe_in) annotation (Line(
+      points={{-120,40},{-46,40},{-46,62},{-2,62}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics),
