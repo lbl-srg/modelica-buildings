@@ -170,6 +170,19 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier
+    </td>
+    <td valign=\"top\">Changed one instance of <code>Modelica.Fluid.Sources.MassFlowSource_T</code>,
+                       that was connected to the two fluid streams,
+                       to two instances, each having half the mass flow rate.
+                       This is required for the model to work with Modelica 3.2.1 due to the 
+                       change introduced in 
+                       ticket <a href=\"https://trac.modelica.org/Modelica/ticket/739\">#739</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
@@ -186,14 +199,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        are only computed when the model is translated, because
                        the number of state variables is fixed 
                        at compilation time.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
     </td>
 </tr>
 </table>
