@@ -3,7 +3,19 @@ package Data "Data for solar thermal collectors"
 extends Modelica.Icons.MaterialPropertiesPackage;
 
 
+
+
+
 annotation (Documentation(info="<html>
-Package with performance data for solar thermal collectors.<br/>
+<p>
+Package with performance data for solar thermal collectors. All solar collector data package 
+names begin with an abbreviation of the type of collector it is.  The abbreviations are as 
+follows:
+<ul>
+<li>C: Concentrating</li>
+<li>FP: Flat Plate</li>
+<li>T: Tubular</li>
+</ul>
+</p>
 </html>"));
 end Data;
