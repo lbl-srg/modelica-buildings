@@ -10,7 +10,7 @@ model FlatPlate "Test model for FlatPlate"
     shaCoe=0,
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.ThermaLiteHS20(),
+    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FPThermaLiteHS20(),
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,

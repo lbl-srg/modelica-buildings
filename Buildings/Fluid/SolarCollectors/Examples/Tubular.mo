@@ -10,7 +10,7 @@ model Tubular "Example showing the use of Tubular"
     shaCoe=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_shaCoe_in=false,
-    per=Buildings.Fluid.SolarCollectors.Data.Tubular.AMKCollectraAGOWR20(),
+    per=Buildings.Fluid.SolarCollectors.Data.Tubular.TAMKCollectraAGOWR20(),
     nPanels=10,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
