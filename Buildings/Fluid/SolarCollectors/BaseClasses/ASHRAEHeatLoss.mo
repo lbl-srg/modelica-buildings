@@ -54,8 +54,8 @@ system of equations below:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q<sub>Use,nom</sub> = G<sub>nom</sub> A<sub>c</sub> F<sub>R</sub>(&tau;&alpha;) + 
-F<sub>R</sub>U<sub>L</sub> A<sub>c</sub> (T<sub>In,nom</sub> - T<sub>Amb,nom</sub>)<br/>
-T<sub>Fluid,nom</sub>[nSeg]=T<sub>In,nom</sub>+Q<sub>Use,nom</sub>/(m<sub>flow,nom</sub> 
+F<sub>R</sub>U<sub>L</sub> A<sub>c</sub> (T<sub>In,nom</sub> - T<sub>Env,nom</sub>)<br/>
+T<sub>Fluid,nom</sub>[nSeg]=T<sub>In,nom</sub>+Q<sub>Use,nom</sub>/(m<sub>Flow,nom</sub> 
 C<sub>p</sub>)<br/>
 Q<sub>Los,nom</sub>=-F<sub>R</sub>U<sub>L</sub> A<sub>c</sub> (T<sub>In,nom</sub>-T<sub>
 Env,nom</sub>)<br/>
@@ -65,11 +65,31 @@ T<sub>Fluid,nom</sub>[i] = T<sub>Fluid,nom</sub>[i-1] + (G<sub>nom</sub> F<sub>R
 Q<sub>Loss,UA</sub>=UA/nSeg (T<sub>Fluid,nom</sub>[i]-T<sub>Env,nom</sub>)<br/>
 sum(Q<sub>Loss,UA</sub>[1:nSeg])=Q<sub>Loss,nom</sub>
 </p>
+<p>
+In the above equations <i>Q<sub>Use,nom</sub></i> is the useful heat gain at nominal conditions,
+<i>G<sub>nom</sub></i> is the nominal solar irradiance, <i>A<sub>c</sub></i> is the area of the
+collector, <i>F<sub>R</sub>(&tau;&alpha;)</i> is the collector maximum efficiency, <i>F<sub>R</sub>
+U<sub>L</sub></i> is the collector heat loss coefficient,<i>T<sub>In,nom</sub></i> is the nominal 
+inlet temperature, <i>T<sub>Env,nom</sub></i> is the ambient temperature at nominal conditions, 
+<i>T<sub>Fluid,nom</sub>[i]</i> is the temperature of fluid in a given segment of the collector,
+<i>m<sub>Flow,nom</sub></i> is the fluid flow at nominal conditions, <i>C<sub>p</sub></i> is the 
+specific heat of the heated fluid, <i>Q<sub>Loss,nom</sub></i> is the heat loss identified using 
+the default value <i>UA</i> is the identified heat loss coefficient for a multiple-segment 
+equivalent solar collector, <i>nSeg</i> is the number of segments in the simulation, and <i>Q
+<sub>Loss,UA</sub></i> is the heat loss identified using the <i>UA</i> value.
+</p>
+<p>
 The effective <i>UA</i> value is calculated at the 
 beginning of the simulation and used as a constant through the rest of the simulation.
 The actual heat loss from the collector is calculated using
 <p align=\"center\" style=\"font-style:italic;\">
 -Q<sub>Loss</sub>[i] = UA/nSeg (T<sub>Fluid</sub>[i] - T<sub>Env</sub>)
+</p>
+<p>
+where <i>Q<sub>Loss</sub>[i]</i> is the heat loss from a given segment, <i>UA</i> is the heat loss
+coefficient for a multiple segments model, <i>nSeg</i> is the number of segments in the simulation,
+<i>T<sub>Fluid</sub>[i]</i> is the temperature of the fluid in a given segment, and <i>T<sub>Env
+</sub></i> is the temperature of the surrounding air.
 </p>
 <h4>References</h4>
 <p>

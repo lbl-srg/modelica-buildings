@@ -119,12 +119,21 @@ EnergyPlus documentation.
 </p>
 <p>
 The solar radiation absorbed by the panel is identified using Eq 559 from 
-the EnergyPlus documentation.
+the EnergyPlus documentation. It is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;) 
 K<sub>(&tau;&alpha;)<sub>net</sub></sub> (G<sub>Dir</sub> 
 (1-shaCoe)+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>))
+</p>
+<p>
+where <i>Q<sub>Flow</sub>[i]</i> is the heat gain in each segment, <i>A<sub>c</sub></i>
+is the area of the collector, <i>nSeg</i> is the user-specified number of segments in the
+simulation, <i>F<sub>R</sub>(&tau;&alpha;)</i> is the maximum collector efficiency,
+<i>K<sub>(&tau;&alpha;)<sub>net></sub></sub></i> is the incidence angle modifier,
+<i>G<sub>Dir</sub></i> is the direct solar radiation, <i>shaCoe</i> is the user-specified
+shading coefficient, <i>G<sub>Dif,Sky</sub></i> is the diffuse solar radiation from the sky,
+and <i>G<sub>Dif,Gnd</sub></i> is the diffuse radiation from the ground.
 </p>
 <p>
 The solar radiation equation indicates that the collector is divided into multiple 
@@ -135,12 +144,20 @@ dividing the collector area by the total number of segments. The term
 </p>
 <p>
 The incidence angle modifier used in the solar radiation equation is found using 
-Eq 556 from the EnergyPlus documentation.
+Eq 556 from the EnergyPlus documentation. It is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-K<sub>(&tau;&alpha;),net</sub>=(G<sub>beam</sub> K<sub>(&tau;&alpha;),
-beam</sub>+G<sub>sky</sub> K<sub>(&tau;&alpha;),sky</sub>+G<sub>gnd</sub> K<sub>
-(&tau;&alpha;),gnd</sub>) / (G<sub>beam</sub>+G<sub>sky</sub>+G<sub>gnd</sub>)
+K<sub>(&tau;&alpha;),net</sub>=(G<sub>Beam</sub> K<sub>(&tau;&alpha;),
+Beam</sub>+G<sub>Dif,Sky</sub> K<sub>(&tau;&alpha;),Sky</sub>+G<sub>Dif,Gnd</sub> K<sub>
+(&tau;&alpha;),Gnd</sub>) / (G<sub>beam</sub>+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>)
+</p>
+<p>
+where <i>K<sub>(&tau;&alpha;),net</sub></i> is the net incidence angle modified, <i>G<sub>
+Beam</sub></i> is the beam radiation, <i>K<sub>(&tau;&alpha;),Beam</sub></i> is the 
+incidence angle modifier for beam radiation, <i>G<sub>Dif,Sky</sub></i> is the diffuse radiation
+from the sky, <i>K<sub>(&tau;&alpha;),Sky</sub></i> is the incidence angle modifier for radiation
+from the sky, <i>G<sub>Dif, Gnd</sub></i> is the diffuse radiation from the ground, and <i>K<sub>
+(&tau;&alpha;),Gnd</sub></i> is the incidence angle modifier for diffuse radiation from the ground.
 </p>
 <p>
 Each incidence angle modifier is calculated using Eq 555 from the EnergyPlus 

@@ -78,8 +78,7 @@ equation
   greater than the critical radiation.
   </p>
   <p>
-  The critical radiation is defined per Duffie and Beckman (2006). It is calculated using 
-  Equation 6.8.2.
+  The critical radiation is defined per Equation 6.8.2 in Duffie and Beckman (2006). It is 
   </p>
   <p align=\"center\" style=\"font-style:italic;\">
   G<sub>TC</sub>=(F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>))/(F<sub>R</sub>(&tau;&alpha;))

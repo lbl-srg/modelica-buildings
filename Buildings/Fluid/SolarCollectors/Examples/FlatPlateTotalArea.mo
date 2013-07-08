@@ -10,15 +10,15 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     shaCoe=0,
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FPThermaLiteHS20(),
     nSeg=3,
     rho=0.2,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area,
+    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FPSolahartKf(),
     lat=0.73097781993588,
     azi=0.3,
     til=0.5,
-    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area,
-    totalArea=25) "Flat plate solar collector model"
+    totalArea=30) "Flat plate solar collector model"
              annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -57,15 +57,15 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     shaCoe=0,
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FPThermaLiteHS20(),
     rho=0.2,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area,
-    totalArea=25,
     nSeg=30,
+    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FPSolahartKf(),
     lat=0.73097781993588,
     azi=0.3,
-    til=0.5) "Flat plate solar collector model"
+    til=0.5,
+    totalArea=30) "Flat plate solar collector model"
              annotation (Placement(transformation(extent={{-20,-62},{0,-42}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut1(
     redeclare package Medium = Medium,
