@@ -8,8 +8,8 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   The package <a href=\"modelica:Buildings.Fluid.SolarCollectors\">
   Buildings.Fluid.SolarCollectors</a> contains models used for 
   simulation of solar thermal systems. Top-level models are 
-  available for concentrating, flat plate, and   tubular solar collectors. 
-  The three models use different models for solar gain, heat loss and data 
+  available for solar collectors based on the ASHRAE93 and EN12975 test protocols. 
+  The two models use different models for solar gain, heat loss and data 
   packages. Solar gain and heat loss models are available for use with data 
   obtained from ASHRAE93 and EN12975 test procedures. Data packages 
   containing default values for several collectors are available in packages 
@@ -58,8 +58,6 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   Buildings.Fluid.SolarCollectors.BaseClasses</a>. Users should be careful 
   to ensure that the solar gain and heat loss models used in their simulation 
   match the ratings data entered into the data package.
-  The concentrating model requires EN12975 data, while the flat plate and tubular models 
-  require ASHRAE93 data.
   </p>
   <p>
   Finally, the parameters of the system must be defined. Most of the parameters

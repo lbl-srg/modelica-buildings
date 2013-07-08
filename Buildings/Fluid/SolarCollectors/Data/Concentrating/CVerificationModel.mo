@@ -21,8 +21,9 @@ record CVerificationModel =
     <p>
     No model on the <a href=\"http://www.solar-rating.org\"> Solar Rating and 
     Certification Corporation </a> website tested to EN12975 standards provides all 
-    of the necessary information for modeling. Specific limitations are dp_nominal, 
-    G_nominal and dT_nominal. This data record was created to allow verification of 
-    EN12975 base classes despite the limitations in available data.
+    of the necessary information for modeling. Specific limitations are 
+    <code>dp_nominal</code>, <code>G_nominal</code> and <code>dT_nominal</code>. 
+    This data record was created to allow verification of EN12975 base classes 
+    despite the limitations in available data.
     </p>
     </html>"));

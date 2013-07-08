@@ -15,8 +15,9 @@ record CCogenraSunDeck =
     final slope=0) "C - Cogenra Solar, Inc., SunDeck 1.0"
     annotation(Documentation(info = "<html>
     <p>
-    Necessary data for calculating dp_nominal, G_nominal and dT_nominal 
-    is not provided in the EN12975 test data. All are left blank.
+    Necessary data for calculating <code>dp_nominal</code>, <code>G_nominal
+    </code> and <code>dT_nominal</code> is not provided in the EN12975 test 
+    data. All are left blank.
     </p>    
     <h4>References</h4>
     <p>

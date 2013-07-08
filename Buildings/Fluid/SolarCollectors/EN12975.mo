@@ -74,11 +74,8 @@ equation
      Documentation(info="<html>
  <h4>Overview</h4>
  <p>
- This component models a concentrating solar thermal collector. 
- The concentrating model uses ratings data based on EN12975.
- Peformance data can be imported from the data library
- <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.Concentrating\"> 
- Buildings.Fluid.SolarCollectors.Data.Concentrating</a>.
+ This component models a solar thermal collector according to the EN12975
+ test standard.
  </p>
  <h4>Notice</h4>
  <ul>
@@ -121,9 +118,9 @@ equation
           fillColor={26,0,55},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-100,0},{-76,0},{-76,-90},{66,-90},{66,-60},{-64,-60},{-64,
-              -30},{66,-30},{66,0},{-64,0},{-64,28},{66,28},{66,60},{-64,60},{
-              -64,86},{78,86},{78,0},{98,0},{100,0}},
+          points={{-100,0},{-76,0},{-76,-90},{66,-90},{66,-60},{-64,-60},{-64,-30},
+              {66,-30},{66,0},{-64,0},{-64,28},{66,28},{66,60},{-64,60},{-64,86},
+              {78,86},{78,0},{98,0},{100,0}},
           color={0,128,255},
           thickness=1,
           smooth=Smooth.None),

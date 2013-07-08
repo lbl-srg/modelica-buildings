@@ -149,11 +149,8 @@ equation
     Documentation(info="<html>
 <h4>Overview</h4>
 <p>
-This component models the flat plate solar thermal collector. 
-By default this model uses ASHRAE 93 ratings data.
-Peformance data can be imported from the data library
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate\"> 
-Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate</a>.
+This component models the solar thermal collector according to the ASHRAE93
+test standard.
 </p>
  <h4>Notice</h4>
  <ul>
