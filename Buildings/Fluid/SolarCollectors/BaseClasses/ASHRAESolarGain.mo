@@ -161,25 +161,30 @@ from the sky, <i>G<sub>Dif, Gnd</sub></i> is the diffuse radiation from the grou
 </p>
 <p>
 Each incidence angle modifier is calculated using Eq 555 from the EnergyPlus 
-documentation.
+documentation. It is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   K<sub>(&tau;&alpha;),x</sub>=1+b<sub>0</sub> (1/cos(&theta;)-1)+b<sub>1</sub> 
   (1/cos(&theta;)-1)<sup>2</sup>
 </p>
 <p>
-In the above equation x can refer to beam, sky or ground. <i>&theta;</i> is 
+where x can refer to beam, sky or ground. <i>&theta;</i> is 
 the incidence angle. For beam radiation <i>&theta;</i> is found via standard 
 geometry. The incidence angle for sky and ground diffuse radiation are found
-using, respectively, Eq 557 and 558 from the EnergyPlus documentation.
+using, respectively, Eq 557 and 558 from the EnergyPlus documentation. They are
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 &theta;<sub>sky</sub>=59.68-0.1388 til+0.001497 til<sup>2</sup><br/>
 &theta;<sub>gnd</sub>=90.0-0.5788 til+0.002693 til<sup>2</sup>
 </p>
 <p>
+where <i>&theta;<sub>sky</sub></i> is the incidence angle for diffuse radiation from the
+sky, <i>til</i> is the tilt of the solar thermal collector, and <i>&theta;<sub>gnd</sub></i>
+is the incidence angle for diffuse radiation from the ground.
+</p>
+<p>
 These two equations must be evaluated in degrees. The necessary unit conversions are made 
-internally. <i>Til</i> is the surface tilt of the collector.
+internally.
 </p>
 
 <h4>References</h4>

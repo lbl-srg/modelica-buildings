@@ -66,7 +66,7 @@ Q<sub>Loss,UA</sub>=UA/nSeg (T<sub>Fluid,nom</sub>[i]-T<sub>Env,nom</sub>)<br/>
 sum(Q<sub>Loss,UA</sub>[1:nSeg])=Q<sub>Loss,nom</sub>
 </p>
 <p>
-In the above equations <i>Q<sub>Use,nom</sub></i> is the useful heat gain at nominal conditions,
+where <i>Q<sub>Use,nom</sub></i> is the useful heat gain at nominal conditions,
 <i>G<sub>nom</sub></i> is the nominal solar irradiance, <i>A<sub>c</sub></i> is the area of the
 collector, <i>F<sub>R</sub>(&tau;&alpha;)</i> is the collector maximum efficiency, <i>F<sub>R</sub>
 U<sub>L</sub></i> is the collector heat loss coefficient,<i>T<sub>In,nom</sub></i> is the nominal 
