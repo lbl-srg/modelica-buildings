@@ -1,21 +1,22 @@
 within Buildings.Fluid.SolarCollectors.Data.Concentrating;
-record VerificationModel =
+record CVerificationModel =
   SolarCollectors.Data.GenericSolarCollector (
-    ATyp=Types.Area.Aperture,
-    A=4.302,
-    V=4.4/1000,
-    dp_nominal = 1000,
-    mperA_flow_nominal=0.0241,
-    y_intercept=0.720,
-    IAMDiff=0.133,
-    C1=2.8312,
-    C2=0.00119,
-    B0=0,
-    B1=0,
-    mDry=484,
-    slope=0,
-    G_nominal = 1000,
-    dT_nominal = 20) "All inputs necessary for verification of EN12975 models"
+    final ATyp=Types.Area.Aperture,
+    final A=4.302,
+    final V=4.4/1000,
+    final dp_nominal = 1000,
+    final mperA_flow_nominal=0.0241,
+    final y_intercept=0.720,
+    final IAMDiff=0.133,
+    final C1=2.8312,
+    final C2=0.00119,
+    final B0=0,
+    final B1=0,
+    final mDry=484,
+    final slope=0,
+    final G_nominal = 1000,
+    final dT_nominal = 20)
+  "All inputs necessary for verification of EN12975 models"
     annotation(Documentation(info = "<html>
     <p>
     No model on the <a href=\"http://www.solar-rating.org\"> Solar Rating and 
