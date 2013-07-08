@@ -3,7 +3,7 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
   import Buildings;
   extends Modelica.Icons.Example;
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per=
-      Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.ThermaLiteHS20()
+      Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FPThermaLiteHS20()
     "Performance data" annotation (choicesAllMatching=true);
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
         transformation(extent={{60,60},{80,80}}, rotation=0)));

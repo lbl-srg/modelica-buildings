@@ -3,7 +3,7 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
   import Buildings;
   extends Modelica.Icons.Example;
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per=
-    Buildings.Fluid.SolarCollectors.Data.Concentrating.VerificationModel()
+    Buildings.Fluid.SolarCollectors.Data.Concentrating.CVerificationModel()
     "Performance data" annotation (choicesAllMatching=true);
   Modelica.Blocks.Sources.Sine     TEnv(
     freqHz=0.01,
