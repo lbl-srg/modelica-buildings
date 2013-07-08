@@ -33,7 +33,13 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   the <a href=\"http://www.solar-rating.org\"> Solar Rating and Certification 
   Corporation</a> (SRCC) website. Data for concentrating, flat plate and 
   tubular collectors are currently presented in separate data packages to 
-  improve ease of use.
+  improve ease of use. The name of any given collector data package begins
+  with a code stating what type of collector it is. The codes are as follows:
+  <ul>
+  <li>C: Concentrating</li>
+  <li>FP: Flat Place</li>
+  <li>T: Tubular</li>
+  </ul>
   </p>
   <p>
   Currently there are no concentrating models on the 
