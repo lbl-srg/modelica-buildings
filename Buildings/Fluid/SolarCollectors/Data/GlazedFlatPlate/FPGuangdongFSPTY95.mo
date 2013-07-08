@@ -15,7 +15,8 @@ record FPGuangdongFSPTY95 =
     final C1=0,
     final C2=0,
     final G_nominal = 1000,
-    final dT_nominal = 10) "Guandong Fivestar Solar Energy Co, FS-PTY95-2.0"
+    final dT_nominal = 10)
+  "FP - Guandong Fivestar Solar Energy Co, FS-PTY95-2.0"
     annotation(Documentation(info = "<html>
     <h4>References</h4>
     <p>

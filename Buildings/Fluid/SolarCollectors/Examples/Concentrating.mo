@@ -4,7 +4,7 @@ model Concentrating "Example showing the use of Concentrating"
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
     "Medium in the system";
-  Buildings.Fluid.SolarCollectors.Concentrating     solCol(
+  Buildings.Fluid.SolarCollectors.EN12975           solCol(
     redeclare package Medium = Medium,
     nSeg=3,
     shaCoe=0,

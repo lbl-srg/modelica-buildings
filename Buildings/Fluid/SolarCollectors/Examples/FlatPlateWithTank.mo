@@ -9,7 +9,7 @@ model FlatPlateWithTank
       Buildings.Media.ConstantPropertyLiquidWater
     "Fluid flowing through the collector";
 
-  Buildings.Fluid.SolarCollectors.FlatPlate solCol(
+  Buildings.Fluid.SolarCollectors.ASHRAE93  solCol(
     nSeg=3,
     shaCoe=0,
     redeclare package Medium = Medium_2,

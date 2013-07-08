@@ -5,7 +5,7 @@ model FlatPlate "Test model for FlatPlate"
   replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
     "Medium in the system";
 
-  Buildings.Fluid.SolarCollectors.FlatPlate         solCol(
+  Buildings.Fluid.SolarCollectors.ASHRAE93          solCol(
     redeclare package Medium = Medium,
     shaCoe=0,
     from_dp=true,

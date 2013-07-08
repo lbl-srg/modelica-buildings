@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors;
-model Concentrating "Model of a concentrating solar collector"
+model EN12975 "Model of a concentrating solar collector"
 extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
     "Performance data"  annotation (choicesAllMatching=true);
@@ -108,49 +108,30 @@ equation
  </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
+        Polygon(
+          points={{20,-75},{50,-85},{20,-95},{20,-75}},
+          lineColor={255,255,255},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=allowFlowReversal),
         Rectangle(
-          extent={{-50,50},{50,-50}},
+          extent={{-84,100},{84,-100}},
           lineColor={27,0,55},
           fillColor={26,0,55},
           fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-50,50},{-70,70},{-70,-72},{-50,-50},{-50,-50},{-50,50}},
-          lineColor={0,0,0},
-          lineThickness=1,
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-50,50},{50,50},{70,70},{-70,70},{-70,70},{-50,50}},
-          lineColor={0,0,0},
-          lineThickness=1,
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-70,-72},{70,-72},{50,-50},{-50,-50},{-50,-50},{-70,-72}},
-          lineColor={0,0,0},
-          lineThickness=1,
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{70,-72},{70,70},{50,50},{50,-50},{50,-50},{70,-72}},
-          lineColor={0,0,0},
-          lineThickness=1,
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-100,0},{-76,0},{-76,-90},{66,-90},{66,-60},{-64,-60},{-64,
+              -30},{66,-30},{66,0},{-64,0},{-64,28},{66,28},{66,60},{-64,60},{
+              -64,86},{78,86},{78,0},{98,0},{100,0}},
+          color={0,128,255},
+          thickness=1,
+          smooth=Smooth.None),
         Ellipse(
           extent={{-24,26},{28,-26}},
           lineColor={255,255,0},
           fillColor={255,255,0},
           fillPattern=FillPattern.Solid),
-        Line(
-          points={{-52,0},{-30,0}},
-          color={255,255,0},
-          smooth=Smooth.None,
-          thickness=1),
         Line(
           points={{-6,-6},{8,8}},
           color={255,255,0},
@@ -159,19 +140,29 @@ equation
           origin={-24,30},
           rotation=90),
         Line(
+          points={{-50,0},{-30,0}},
+          color={255,255,0},
+          smooth=Smooth.None,
+          thickness=1),
+        Line(
+          points={{-36,-40},{-20,-24}},
+          color={255,255,0},
+          smooth=Smooth.None,
+          thickness=1),
+        Line(
           points={{-10,0},{10,0}},
           color={255,255,0},
           smooth=Smooth.None,
           thickness=1,
-          origin={0,40},
+          origin={2,-40},
           rotation=90),
         Line(
           points={{-8,-8},{6,6}},
           color={255,255,0},
           smooth=Smooth.None,
           thickness=1,
-          origin={28,32},
-          rotation=180),
+          origin={30,-30},
+          rotation=90),
         Line(
           points={{32,0},{52,0}},
           color={255,255,0},
@@ -182,18 +173,13 @@ equation
           color={255,255,0},
           smooth=Smooth.None,
           thickness=1,
-          origin={30,-30},
-          rotation=90),
+          origin={28,32},
+          rotation=180),
         Line(
           points={{-10,0},{10,0}},
           color={255,255,0},
           smooth=Smooth.None,
           thickness=1,
-          origin={2,-40},
-          rotation=90),
-        Line(
-          points={{-36,-40},{-20,-24}},
-          color={255,255,0},
-          smooth=Smooth.None,
-          thickness=1)}));
-end Concentrating;
+          origin={0,40},
+          rotation=90)}));
+end EN12975;

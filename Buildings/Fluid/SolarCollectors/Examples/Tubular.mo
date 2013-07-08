@@ -4,7 +4,7 @@ model Tubular "Example showing the use of Tubular"
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
     "Medium in the system";
-  Buildings.Fluid.SolarCollectors.Tubular           solCol(
+  Buildings.Fluid.SolarCollectors.ASHRAE93          solCol(
     redeclare package Medium = Medium,
     nSeg=3,
     shaCoe=0,

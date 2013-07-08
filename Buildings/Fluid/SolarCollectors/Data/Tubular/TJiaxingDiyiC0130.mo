@@ -15,7 +15,7 @@ record TJiaxingDiyiC0130 =
     final C1=0,
     final C2=0,
     final G_nominal=1000,
-    final dT_nominal=10) "Jiaxing Diyi New Energy Co., Ltd., DIYI-C01-30"
+    final dT_nominal=10) "T - Jiaxing Diyi New Energy Co., Ltd., DIYI-C01-30"
     annotation(Documentation(info = "<html>
     <h4>References</h4>
     <p>

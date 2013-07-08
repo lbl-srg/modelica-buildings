@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors;
-model FlatPlate "Model of a flat plate solar thermal collector"
+model ASHRAE93 "Model of a flat plate solar thermal collector"
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
     annotation(choicesAllMatching=true);
@@ -181,4 +181,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FlatPlate;
+end ASHRAE93;

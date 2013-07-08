@@ -4,7 +4,7 @@ model FlatPlateValidation "Validation model for FlatPlate"
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
     "Medium in the system";
-  Buildings.Fluid.SolarCollectors.FlatPlate
+  Buildings.Fluid.SolarCollectors.ASHRAE93
    solCol(
     redeclare package Medium = Medium,
     shaCoe=0,

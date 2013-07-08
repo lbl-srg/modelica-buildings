@@ -1,18 +1,18 @@
 within Buildings.Fluid.SolarCollectors.Data.Concentrating;
-record CCogenraSunDeck =
+record CogenraSunDeck =
   SolarCollectors.Data.GenericSolarCollector (
-    final ATyp=Types.Area.Aperture,
-    final A=4.302,
-    final V=4.4/1000,
-    final mperA_flow_nominal=0.0241,
-    final y_intercept=0.720,
-    final IAMDiff=0.133,
-    final C1=2.8312,
-    final C2=0.00119,
-    final B0=0,
-    final B1=0,
-    final mDry=484,
-    final slope=0) "C - Cogenra Solar, Inc., SunDeck 1.0"
+    ATyp=Types.Area.Aperture,
+    A=4.302,
+    V=4.4/1000,
+    mperA_flow_nominal=0.0241,
+    y_intercept=0.720,
+    IAMDiff=0.133,
+    C1=2.8312,
+    C2=0.00119,
+    B0=0,
+    B1=0,
+    mDry=484,
+    slope=0) "Cogenra Solar, Inc., SunDeck 1.0"
     annotation(Documentation(info = "<html>
     <p>
     Necessary data for calculating dp_nominal, G_nominal and dT_nominal 

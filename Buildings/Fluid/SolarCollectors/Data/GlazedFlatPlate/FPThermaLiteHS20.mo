@@ -15,7 +15,7 @@ record FPThermaLiteHS20 =
     final C1=0,
     final C2=0,
     final G_nominal = 1000,
-    final dT_nominal = 10) "Therma-Lite, HS-20"
+    final dT_nominal = 10) "FP - Therma-Lite, HS-20"
     annotation(Documentation(info = "<html>  
     <h4>References</h4>
     <p>

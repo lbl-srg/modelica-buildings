@@ -15,7 +15,7 @@ record FPYourHomeTechHP2014 =
     final C1=0,
     final C2=0,
     final G_nominal = 1000,
-    final dT_nominal = 10) "Your Home Tech., Ltd., HP-2014"
+    final dT_nominal = 10) "FP - Your Home Tech., Ltd., HP-2014"
     annotation(Documentation(info = "<html>
     <h4>References</h4>
     <p>

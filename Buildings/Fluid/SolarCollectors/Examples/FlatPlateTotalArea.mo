@@ -5,7 +5,7 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
   replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
     "Medium in the system";
 
-  Buildings.Fluid.SolarCollectors.FlatPlate         solCol(
+  Buildings.Fluid.SolarCollectors.ASHRAE93          solCol(
     redeclare package Medium = Medium,
     shaCoe=0,
     from_dp=true,
@@ -52,7 +52,7 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-90,-30})));
-  Buildings.Fluid.SolarCollectors.FlatPlate         solCol1(
+  Buildings.Fluid.SolarCollectors.ASHRAE93          solCol1(
     redeclare package Medium = Medium,
     shaCoe=0,
     from_dp=true,
