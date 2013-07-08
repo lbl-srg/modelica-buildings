@@ -75,14 +75,14 @@ The equation used to calculate solar gain is a modified version of Eq 559 from t
 documentation. It is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q<sub>flow</sub>[i] = A<sub>c</sub>/nSeg F<sub>R</sub>(&tau;&alpha;) (K<sub>(&tau;&alpha;),
-Beam</sub> G<sub>bea</sub> (1-shaCoe)+K<sub>Diff</sub> G<sub>Diff</sub>),
+Q<sub>Flow</sub>[i] = A<sub>c</sub>/nSeg F<sub>R</sub>(&tau;&alpha;) (K<sub>(&tau;&alpha;),
+Beam</sub> G<sub>Beam</sub> (1-shaCoe)+K<sub>Diff</sub> G<sub>Diff</sub>),
 </p>
 <p>
-where <i>Q<sub>flow[i]</sub></i> is the heat gained in each segment, <i>A<sub>c</sub></i> is the area
+where <i>Q<sub>Flow</sub>[i]</i> is the heat gained in each segment, <i>A<sub>c</sub></i> is the area
 of the collector, <code>nSeg</code> is the number of segments in the collector, <i>F<sub>R</sub>
 (&tau;&alpha;)</i> is the maximum efficiency of the collector, <i>K<sub>(&tau;&alpha;),Beam</sub> 
-</i>is the incidence angle modifier for beam radiation, <i>G<sub>beam</sub></i> is the current beam
+</i>is the incidence angle modifier for beam radiation, <i>G<sub>Beam</sub></i> is the current beam
 radiation on the collector, <code>shaCoe</code> is the shading coefficient, <i>K<sub>Diff</sub></i>
 is the incidence angle modifier for diffuse radiation and <i>G<sub>Diff</sub></i> is the diffuse
 radiation striking the surface.
