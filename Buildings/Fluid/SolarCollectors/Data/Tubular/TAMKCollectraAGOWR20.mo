@@ -5,7 +5,7 @@ record TAMKCollectraAGOWR20 =
     final A=3.457,
     final mDry=73,
     final V=3.5/1000,
-    final dp_nominal=2.02,
+    final dp_nominal=100,
     final mperA_flow_nominal=0.0201,
     final B0=0.5722,
     final B1=-0.0052,
@@ -21,6 +21,10 @@ record TAMKCollectraAGOWR20 =
     <p>
     Ratings data taken from the <a href=\"http://www.solar-rating.org\">
     Solar Rating and Certification Corporation website</a>.
-    SRCC# = 2012018A.<br/>
+    SRCC# = 2012018A.
+    </p>
+    <p>
+    The ratings provided for <code>dp_nominal</code> were suspicious
+    so 100 Pa is used instead.<br/>
     </p>
     </html>"));

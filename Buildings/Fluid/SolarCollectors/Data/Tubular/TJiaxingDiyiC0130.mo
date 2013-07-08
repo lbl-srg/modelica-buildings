@@ -5,7 +5,7 @@ record TJiaxingDiyiC0130 =
     final A=4.650,
     final mDry=95,
     final V=1.7/1000,
-    final dp_nominal=0.91,
+    final dp_nominal=100,
     final mperA_flow_nominal=0.0142,
     final B0=1.4564,
     final B1=-0.9136,
@@ -21,6 +21,10 @@ record TJiaxingDiyiC0130 =
     <p>
     Ratings data taken from the <a href=\"http://www.solar-rating.org\">
     Solar Rating and Certification Corporation website</a>.
-    SRCC# = 2012036A.<br/>
+    SRCC# = 2012036A.
     </p>
+    <p>
+    The ratings provided for <code>dp_nominal</code> were suspicious
+    so 100 Pa is used instead.<br/>
+    </p>    
     </html>"));
