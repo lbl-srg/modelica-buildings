@@ -698,7 +698,7 @@ equation
         Rectangle(
           extent={{-200,200},{200,-200}},
           lineColor={124,142,255},
-          fillColor={50,50,255},
+          fillColor={124,142,255},
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-162,270},{138,230}},
