@@ -5,14 +5,14 @@
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
-BUILDDIR      = build
+BUILDDIR      = ../Buildings/Resources/Documentation/userGuide
 
 #PYTHONPATH=`pwd`/..
 
 # Internal variables.
 PAPEROPT_a4     = -D latex_paper_size=a4
 PAPEROPT_letter = -D latex_paper_size=letter
-ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
+ALLSPHINXOPTS   = -d ./doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
 
 .PHONY: help clean html dirhtml pickle json htmlhelp qthelp latex changes linkcheck doctest
 
@@ -30,7 +30,7 @@ help:
 	@echo "  doctest   to run all doctests embedded in the documentation (if enabled)"
 
 clean:
-	-rm -rf $(BUILDDIR)/*
+	-rm -rf $(BUILDDIR)/* ./doctrees
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
@@ -108,4 +108,4 @@ doctest:
 dist:	html, linkcheck, copytowww
 
 copytowww:
-	scp -r build/html/* simulationresearch.lbl.gov:/usr/local/www/simulationresearch/modelica/userGuide/
+	scp -r $(BUILDDIR)/html/* simulationresearch.lbl.gov:/usr/local/www/simulationresearch/modelica/userGuide/
