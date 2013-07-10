@@ -49,8 +49,8 @@ model FlatPlateWithTank
     redeclare package MediumHex = Medium_2,
     CHex=200,
     dExtHex=0.01905,
-    HexTopHeight=0.9,
-    HexBotHeight=0.65,
+    hexTopHeight=0.9,
+    hexBotHeight=0.65,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=3000,
     mHex_flow_nominal=3000/20/4200,
@@ -67,7 +67,7 @@ model FlatPlateWithTank
     "Pump controller"                                                                                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-88,50})));
+        origin={-80,50})));
   Buildings.HeatTransfer.Sources.FixedTemperature      rooT(T=293.15)
     "Room temperature"
     annotation (Placement(transformation(extent={{-40,-92},{-20,-72}})));
@@ -75,23 +75,23 @@ model FlatPlateWithTank
                                  annotation (Placement(transformation(
         extent={{-8,-8},{8,8}},
         rotation=270,
-        origin={-88,10})));
-  Buildings.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
-        Medium) "Outlet for hot water draw"
+        origin={-80,12})));
+  Buildings.Fluid.Sources.Boundary_pT bou(          redeclare package Medium =
+        Medium, nPorts=1) "Outlet for hot water draw"
                                            annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={72,-32})));
+        origin={-12,-30})));
   Buildings.Fluid.Sources.MassFlowSource_T bou1(
-    nPorts=1,
     redeclare package Medium = Medium,
     use_m_flow_in=false,
-    m_flow=0.01,
+    nPorts=1,
+    m_flow=0.001,
     T=288.15) "Inlet and flow rate for hot water draw"
                                                       annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-14,-32})));
+        origin={70,-32})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pum(redeclare package Medium =
         Medium_2, m_flow_nominal=0.1)
     "Pump forcing circulation through the system"                                  annotation (Placement(transformation(
@@ -106,6 +106,9 @@ model FlatPlateWithTank
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,-48})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TTan
+    "Temperature in the tank water that surrounds the heat exchanger"
+    annotation (Placement(transformation(extent={{0,0},{-20,20}})));
 equation
   connect(solCol.port_b,TOut. port_a) annotation (Line(
       points={{18,56},{30,56}},
@@ -120,12 +123,8 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(TIn.T, pumCon.TIn) annotation (Line(
-      points={{-24,67},{-24,78},{-92,78},{-92,62}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(weaDat.weaBus, pumCon.weaBus) annotation (Line(
-      points={{-10,90},{-2,90},{-2,72},{-82,72},{-82,60.2}},
+      points={{-10,90},{-2,90},{-2,72},{-74,72},{-74,60.2}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -138,19 +137,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(pumCon.y, gain.u) annotation (Line(
-      points={{-88,38.2},{-88,19.6}},
+      points={{-80,38.2},{-80,21.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(bou.ports[1], tan.port_b) annotation (Line(
-      points={{62,-32},{56,-32},{56,-33},{42,-33}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(bou1.ports[1], tan.port_a) annotation (Line(
-      points={{-4,-32},{2,-32},{2,-33},{12,-33}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(gain.y, pum.m_flow_in) annotation (Line(
-      points={{-88,1.2},{-88,-6.2},{-62,-6.2}},
+      points={{-80,3.2},{-80,-6.2},{-62,-6.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pum.port_b, TIn.port_a) annotation (Line(
@@ -169,8 +160,24 @@ equation
       points={{50,56},{60,56},{60,-16},{8,-16},{8,-38.7},{12,-38.7}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(bou.ports[1], tan.port_a) annotation (Line(
+      points={{-2,-30},{6,-30},{6,-33},{12,-33}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(bou1.ports[1], tan.port_b) annotation (Line(
+      points={{60,-32},{52,-32},{52,-33},{42,-33}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(tan.heaPorVol[3], TTan.port) annotation (Line(
+      points={{27,-32.775},{18,-32.775},{18,10},{0,10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(TTan.T, pumCon.TIn) annotation (Line(
+      points={{-20,10},{-44,10},{-44,68},{-84,68},{-84,62}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
+            -100},{100,100}}), graphics),
                       __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
         "Simulate and Plot"),
         Documentation(info="<html>
