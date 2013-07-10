@@ -26,7 +26,7 @@ sys.path.append(os.path.abspath('.'))
 #extensions = ['sphinx.ext.autodoc', 'sphinx.ext.pngmath']
 extensions = ['sphinx.ext.autodoc', 'mathjax']
 # mathjax_path is based on http://www.mathjax.org/docs/2.0/start.html
-mathjax_path = "https://d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+mathjax_path = "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
