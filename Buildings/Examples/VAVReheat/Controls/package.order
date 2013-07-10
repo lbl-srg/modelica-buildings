@@ -1,6 +1,5 @@
 ControlBus
 Economizer
-Examples
 FanVFD
 IntegerSum
 ModeSelector
@@ -14,3 +13,4 @@ DuctStaticPressureSetpoint
 CoolingCoilTemperatureSetpoint
 MixedAirTemperatureSetpoint
 EconomizerTemperatureControl
+Examples
