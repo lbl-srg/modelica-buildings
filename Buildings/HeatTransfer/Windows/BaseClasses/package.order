@@ -6,7 +6,8 @@ GasConvection
 GlassLayer
 Overhang
 ThermalConductor
-Shade
+ShadeConvection
+ShadeRadiation
 ShadeInterface_weatherBus
 ShadingSignal
 SideFins

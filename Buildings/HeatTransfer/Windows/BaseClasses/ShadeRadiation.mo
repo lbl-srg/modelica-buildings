@@ -1,5 +1,5 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
-model Shade
+model ShadeRadiation
   "Model for infrared radiative heat balance of a layer that may or may not have a shade"
 
   parameter Modelica.SIunits.Area A "Heat transfer area";
@@ -26,20 +26,11 @@ model Shade
     "Temperature used to linearize radiative heat transfer"
     annotation (Dialog(enable=linearize), Evaluate=true);
 
-  parameter Real k(min=0, max=1)=1
-    "Coefficient used to scale convection between shade and glass";
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
 
-  Modelica.Blocks.Interfaces.RealInput Gc
-    "Signal representing the convective thermal conductance in [W/K]"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,30}), iconTransformation(extent={{-10,-10},{10,10}},
-          origin={-110,40})));
   Modelica.Blocks.Interfaces.RealInput QAbs_flow(unit="W", quantity="Power")
     "Solar radiation absorbed by shade"
     annotation (Placement(transformation(
@@ -63,19 +54,25 @@ model Shade
     "Outgoing radiosity at the glass-side surface of the shade"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a air
-    "Port that connects to the air (room or outside)"        annotation (Placement(transformation(extent={{-110,
-            -10},{-90,10}},
-                       rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glass
-    "Heat port that connects to shaded part of glass"
-    annotation (Placement(transformation(extent={{84,-10},{104,10}},
-                                                                   rotation=0),
-        iconTransformation(extent={{84,-10},{104,10}})));
- Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a sha(T(start=293.15))
-    "Heat port to shade"
-     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}},
-                       rotation=0), iconTransformation(extent={{-36,-108},{-16,-88}})));
+ Modelica.Blocks.Interfaces.RealOutput QRadAbs_flow(unit="W")
+    "Total net radiation that is absorbed by the shade (positive if absorbed)"
+     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+                       rotation=270,
+        origin={-50,-110}),         iconTransformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-50,-110})));
+
+  Modelica.Blocks.Interfaces.RealInput TSha(quantity="ThermodynamicTemperature",
+      unit="K",
+      start=293.15) "Shade temperature"
+    annotation (Placement(transformation(
+        origin={60,-120},
+        extent={{-20,-20},{20,20}},
+        rotation=90), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={50,-110})));
+
 protected
  final parameter Real T03(min=0, final unit="K3")=T0^3
     "3rd power of temperature T0"
@@ -92,12 +89,12 @@ equation
   // radiosity plus the radiosity that is transmitted from the
   // other surface.
     if linearize then
-      T4 = T03 * sha.T;
+      T4 = T03 * TSha;
     else
       if homotopyInitialization then
-        T4 = homotopy(actual=(sha.T)^4, simplified=T03 * sha.T);
+        T4 = homotopy(actual=(TSha)^4, simplified=T03 * TSha);
       else
-        T4 = (sha.T)^4;
+        T4 = TSha^4;
       end if;
     end if;
 
@@ -106,19 +103,11 @@ equation
     // Radiosity outgoing from shade towards air side and glass side
     JOut_air   = E_air   + tauIR_glass * JIn_glass + rhoIR_air*JIn_air;
     JOut_glass = E_glass + tauIR_air   * JIn_air   + rhoIR_glass*JIn_glass;
-    // Heat balance of shade
-    // The term 2*Gc is to combine the parallel convective heat transfer resistances,
-    // see figure in info section.
+    // Radiative heat balance of shade.
     QAbs_flow + absIR_air*JIn_air + absIR_glass*JIn_glass
-      = -Gc*(2*(air.T-sha.T)+k*(glass.T-sha.T))+E_air+E_glass;
-    // Convective heat flow at air node
-    air.Q_flow   = Gc*(2*(air.T-sha.T) + (air.T-glass.T));
-    // Convective heat flow at glass node
-    glass.Q_flow = Gc*((glass.T-air.T)+k*(glass.T-sha.T));
+      = E_air+E_glass+QRadAbs_flow;
   else
-    air.Q_flow   = Gc*(air.T-glass.T);
-    glass.Q_flow = -air.Q_flow;
-    sha.T = (air.T+glass.T)/2;
+    QRadAbs_flow = 0;
     T4 = T03 * T0;
     E_air = 0;
     E_glass = 0;
@@ -126,8 +115,11 @@ equation
     JOut_glass = JIn_air;
   end if;
 
-  annotation (Diagram(graphics),
-    Icon(graphics={
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+         graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -180,7 +172,7 @@ equation
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{14,-82},{48,-100}},
+          extent={{-18,-82},{16,-100}},
           lineColor={0,0,127},
           textString="QAbs"),
         Rectangle(
@@ -198,52 +190,36 @@ equation
           extent={{-102,90},{-68,72}},
           lineColor={0,0,127},
           textString="u"),
-        Text(
-          extent={{-100,52},{-66,34}},
-          lineColor={0,0,127},
-          textString="Gc"),
         Rectangle(
           extent={{88,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{42,-82},{76,-100}},
+          lineColor={0,0,127},
+          textString="T"),
+        Text(
+          extent={{-68,-80},{-34,-98}},
+          lineColor={0,0,127},
+          textString="QAbsNet")}),
     Documentation(info="<html>
 <p>
-Model for the convective and the infrared radiative heat balance 
-of a shade that is in the outside or the room-side of a window.
+Model for the infrared radiative heat balance 
+of a shade that is at the outside or the room-side of a window.
+The model also includes the absorbed solar radiation.
 </p>
 <p>
 The input port <code>QAbs_flow</code> needs to be connected to the solar radiation 
 that is absorbed by the shade.
 </p>
-<p>
-The convective heat balance is based on the model described by Wright (2008), which can
-be shown as a convective heat resistance model as follows:
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/convection.png\" border=\"1\"/>
-</p>
-<p>
-Wright (2008) reports that if the shading layer is far enough from the window,
-the boundary layers associated with each surface will not interfere with
-each other. In this case, it is reasonable to consider each surface on an 
-individual basis by setting the convective heat transfer coefficient shown in grey to zero,
-and setting the black depicted convective heat transfer coefficients
-to <i>h=4 W/m<sup>2</sup> K</i>.
-In the here implemented model, the grey depicted convective heat transfer coefficient
-is set set to <i>h' = k &nbsp; h</i>, where <i>0 &le; k &le; 1</i> is a parameter.
-</p>
-<h4>References</h4>
-<ul>
-<li>
-Jon L. Wright.<br/>
-Calculating Center-Glass Performance Indices
-of Glazing Systems with Shading Devices.<br/>
-<i>ASHRAE Transactions</i>, SL-08-020. 2008.
-</li>
-</ul>
 </html>", revisions="<html>
 <ul>
+<li>
+June 11, 2013, by Michael Wetter:<br/>
+Redesigned model to separate convection from radiation, which is
+required for the implementation of a CFD model.
+</li>
 <li>
 June 27, 2013, by Michael Wetter:<br/>
 Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
@@ -267,4 +243,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Shade;
+end ShadeRadiation;

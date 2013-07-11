@@ -1,6 +1,6 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 partial model PartialConvection
-  "Partial model for heat convection between a possibly shaded window that can be outside or inside the room"
+  "fixme: this model may not be needed anymore. Partial model for heat convection between a possibly shaded window that can be outside or inside the room"
   parameter Modelica.SIunits.Area A "Heat transfer area of frame and window";
   parameter Real fFra "Fraction of window frame divided by total window area";
   final parameter Modelica.SIunits.Area AFra = fFra * A "Frame area";
