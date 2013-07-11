@@ -1,5 +1,8 @@
 within ;
 package Buildings "Library with models for building energy and control systems"
+  extends Modelica.Icons.Package;
+
+
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   class Conventions "Conventions"
@@ -128,6 +131,10 @@ its class name ends with the string <code>Beta</code>.
         annotation (Documentation(info="<html>
 <p>
 Version X.Y build Z is ... xxx
+It contains a major revision of all info sections to correct invalid html syntax.
+The package <code>Buildings.HeatTransfer.Radiosity</code> has been revised
+It also contains various corrections that avoid warnings during translation 
+when used with Modelica 3.2.1.
 <!-- New libraries -->
 </p>
 
@@ -163,20 +170,35 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed one instance of <code>Modelica.Fluid.Sources.MassFlowSource_T</code>,
+                       that was connected to the two fluid streams,
+                       to two instances, each having half the mass flow rate.
+                       This is required for the model to work with Modelica 3.2.1 due to the 
+                       change introduced in 
+                       ticket <a href=\"https://trac.modelica.org/Modelica/ticket/739\">#739</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed the annotation of the 
+                       instance <code>material</code> from
+                       <code>Evaluate=true</code> to <code>Evaluate=false</code>.
+                       This is required to allow changing the 
+                       material properties after compilation.
+                       Note, however, that the number of state variables in 
+                       <a href=\"modelica://Buildings.HeatTransfer.Data.BaseClasses.Material\">
+                       Buildings.HeatTransfer.Data.BaseClasses.Material</a>
+                       are only computed when the model is translated, because
+                       the number of state variables is fixed 
+                       at compilation time.
     </td>
 </tr>
 </table>
@@ -188,14 +210,57 @@ have been <b style=\"color:blue\">improved</b> in a
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer<br/>
+                         Buildings.Rooms</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.HeatTransfer.Interfaces.RadiosityInflow<br/>
+                       Buildings.HeatTransfer.Interfaces.RadiosityOutflow<br/>
+                       Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersTwoSurfaces<br/>
+                       Buildings.HeatTransfer.Radiosity.Constant<br/>
+                       Buildings.HeatTransfer.Radiosity.Examples.OpaqueSurface<br/>
+                       Buildings.HeatTransfer.Radiosity.Examples.OutdoorRadiosity<br/>
+                       Buildings.HeatTransfer.Radiosity.IndoorRadiosity<br/>
+                       Buildings.HeatTransfer.Radiosity.OpaqueSurface<br/>
+                       Buildings.HeatTransfer.Radiosity.OutdoorRadiosity<br/>
+                       Buildings.HeatTransfer.Radiosity.RadiositySplitter<br/>
+                       Buildings.HeatTransfer.Radiosity.package<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Examples.CenterOfGlass<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Examples.GlassLayer<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Examples.Shade<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Shade<br/>
+                       Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer<br/>
+                       Buildings.HeatTransfer.Windows.ExteriorHeatTransfer<br/>
+                       Buildings.HeatTransfer.Windows.InteriorHeatTransfer<br/>
+                       Buildings.Rooms.BaseClasses.InfraredRadiationExchange<br/>
+                       Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution<br/>
+                       Buildings.Rooms.BaseClasses.MixedAir<br/>
+                       Buildings.Rooms.BaseClasses.Overhang<br/>
+                       Buildings.Rooms.BaseClasses.SideFins<br/>
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed the connectors for the radiosity model.
+                       The previous implemenation declared the radiosity as a
+                       <code>flow</code> variables, but the implementation did not use
+                       a potential variable.<br/>
+                       Therefore, the radiosity was the only variable in the connector,
+                       which is not allowed for <code>flow</code> variables.
+                       This change required a reformulation of models because with the new formulation,
+                       the incoming and outcoming radiosity are both non-negative values.
+                       This addresses track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh
+    </td>
+    <td valign=\"top\">Renamed function from <code>raleigh</code> to <code>rayleigh</code>.
+    </td>
+</tr>
+
+
 </table>
 <!-- Errors that have been fixed -->
 <p>
@@ -261,6 +326,26 @@ units are wrong or errors in documentation):
                      with <code>quantity=\"ThermodynamicTemperature\"</code>.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Data.Fuels.Generic
+    </td>
+    <td valign=\"top\">Corrected wrong type for <code>mCO2</code>.
+                       It was declared as <code>Modelica.SIunits.MassFraction</code>,
+                       which is incorrect.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BaseClasses.Bounds
+    </td>
+    <td valign=\"top\">Corrected wrong type for <code>FRWat_min</code>, <code>FRWat_max</code>
+                       and <code>liqGasRat_max</code>.
+                       They were declared as <code>Modelica.SIunits.MassFraction</code>,
+                       which is incorrect as, for example, <code>FRWat_max</code> can be larger than one.
+    </td>
+</tr>
+
 </table>
 <!-- Github issues -->
 <p>
@@ -269,12 +354,14 @@ The following
 have been fixed:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Remove flow attribute from radiosity connectors</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">#xxx</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">This issue has been addressed by reformulating the radiosity models.
+                       With the new implementation, incoming and outgoing radiosity are non-negative
+                       quantities.
     </td>
 </tr>
 </table>
@@ -3377,7 +3464,8 @@ dateModified = "2013-05-15",
 uses(Modelica(version="3.2")),
 uses(Modelica_StateGraph2(version="2.0.1")),
 conversion(
- noneFromVersion="1.4",
+ from(version="1.4",
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.4_to_1.5.mos"),
  noneFromVersion="1.3",
  noneFromVersion="1.2",
  from(version="1.1",

@@ -334,6 +334,11 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorRad
     "Heat port for radiative heat gain and radiative temperature"
     annotation (Placement(transformation(extent={{-250,-50},{-230,-30}})));
+protected
+  Modelica.Blocks.Math.Add sumJ[NConExtWin](
+    each final k1=1,
+    each final k2=1) "Sum of radiosity flows from to room toward the window"
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 equation
   connect(convConExt.solid, conExt)
                                    annotation (Line(
@@ -472,19 +477,9 @@ equation
           0.833333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(irRadExc.JOutConExtWin, convConWin.JInRoo)    annotation (Line(
-      points={{-79.5833,15},{-60,15},{-60,16},{-40,16},{-40,100},{80,100},{80,
-          110},{98,110}},
-      color={0,127,0},
-      smooth=Smooth.None));
   connect(convConWin.JOutRoo, irRadExc.JInConExtWin)    annotation (Line(
       points={{97.6,114},{80,114},{80,100},{-40,100},{-40,16},{-40,16},{-40,
           13.3333},{-79.5833,13.3333}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(irRadGai.JOutConExtWin, convConWin.JInRoo)    annotation (Line(
-      points={{-79.5833,-25},{-60,-25},{-60,-26},{-40,-26},{-40,100},{80,100},{
-          80,110},{98,110}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(irRadGai.conExt, conExt) annotation (Line(
@@ -710,7 +705,20 @@ equation
       points={{242,5.55112e-16},{160,5.55112e-16},{160,100},{115,100},{115,108}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
+  connect(convConWin.JInRoo, sumJ.y) annotation (Line(
+      points={{98,110},{86,110},{86,30},{1,30}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(irRadExc.JOutConExtWin, sumJ.u1) annotation (Line(
+      points={{-79.5833,15},{-36,15},{-36,36},{-22,36}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(irRadGai.JOutConExtWin, sumJ.u2) annotation (Line(
+      points={{-79.5833,-25},{-32,-25},{-32,24},{-22,24}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
            extent={{-240,-240},{240,240}}),
         graphics), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-300,-300},{300,300}}), graphics={
@@ -811,6 +819,11 @@ solar absorptivity.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
 <li>
 December 9, 2011, by Michael Wetter:<br/>
 Reconnected heat ports to clean-up model.

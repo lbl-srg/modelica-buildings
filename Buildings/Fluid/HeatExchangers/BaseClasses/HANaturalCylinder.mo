@@ -67,7 +67,7 @@ protected
 function nusselt
   input Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
   input Real Pr "Prandlt number";
-  input Real Ra "Raleigh number";
+  input Real Ra "Rayleigh number";
   output Real Nu(min=0) "Nusselt number";
   protected
   Real num "Numberator";

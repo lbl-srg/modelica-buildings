@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Radiosity;
 model OutdoorRadiosity
   "Model for the outdoor radiosity that strikes the window"
   parameter Modelica.SIunits.Area A "Area of receiving surface";
-  parameter Real vieFacSky(min=0, max=1)
+  parameter Real vieFacSky(final min=0, final max=1)
     "View factor from receiving surface to sky (=1 for roofs)";
   parameter Boolean linearize=false "Set to true to linearize emissive power"
     annotation (Evaluate=true);
@@ -31,13 +31,13 @@ model OutdoorRadiosity
 protected
   final parameter Real T03(
     min=0,
-    unit="K3") = T0^3 "3rd power of temperature T0" annotation (Evaluate=true);
+    final unit="K3") = T0^3 "3rd power of temperature T0" annotation (Evaluate=true);
   final parameter Real T04(
     min=0,
-    unit="K4") = T0^4 "4th power of temperature T0" annotation (Evaluate=true);
+    final unit="K4") = T0^4 "4th power of temperature T0" annotation (Evaluate=true);
 equation
   TRad4 = (vieFacSky*TBlaSky^4 + (1 - vieFacSky)*TOut^4);
-  JOut = -A*Modelica.Constants.sigma*TRad4;
+  JOut = A*Modelica.Constants.sigma*TRad4;
   TRad = if linearize then (TRad4 + 3*T04)/(4*T03) else TRad4^(1/4);
 
   annotation (
@@ -97,8 +97,13 @@ Model for the infrared radiosity balance of the outdoor environment.
 </html>", revisions="<html>
 <ul>
 <li>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
+<li>
 February 10, 2012, by Wangda Zuo:<br/>
-Fixed a bug for temperature linearization.
+Fixed a bug in the temperature linearization.
 </li>
 <li>
 February 8, 2012 by Michael Wetter:<br/>

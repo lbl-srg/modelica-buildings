@@ -4,7 +4,7 @@ function nusseltHorizontalCavityEnhanced
   input Buildings.HeatTransfer.Data.Gases.Generic gas
     "Thermophysical properties of gas fill"
    annotation(choicesAllMatching=true);
-  input Real Ra(min=0) "Raleigh number";
+  input Real Ra(min=0) "Rayleigh number";
   input Modelica.SIunits.Temperature T_m
     "Temperature used for thermophysical properties";
   input Modelica.SIunits.TemperatureDifference dT
