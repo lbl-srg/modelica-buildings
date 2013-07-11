@@ -85,7 +85,7 @@ public
     annotation (Placement(transformation(extent={{-20,0},{-8,12}})));
 equation
   connect(uSha.y, extCon.uSha) annotation (Line(
-      points={{-81,30},{-62,30},{-62,-16},{-58,-16},{-58,-16},{-56.8,-16}},
+      points={{-81,30},{-62,30},{-62,-16},{-56.8,-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TOuts.port, extCon.air) annotation (Line(
@@ -167,18 +167,18 @@ equation
       points={{-79,90},{-70,90},{-70,-32.2},{-57,-32.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(extCon.JOutUns, sumJ.u[1]) annotation (Line(
-      points={{-35,-16},{-28,-16},{-28,8.1},{-20,8.1}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(extCon.JOutSha, sumJ.u[2]) annotation (Line(
-      points={{-35,-30},{-26,-30},{-26,3.9},{-20,3.9}},
-      color={0,127,0},
-      smooth=Smooth.None));
   connect(radIn.JIn, sumJ.y) annotation (Line(
       points={{23,-24},{18,-24},{18,6},{-6.98,6}},
       color={0,0,0},
       pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(extCon.JOutUns, sumJ.u[1]) annotation (Line(
+      points={{-35,-16},{-30,-16},{-30,8.1},{-20,8.1}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(extCon.JOutSha, sumJ.u[2]) annotation (Line(
+      points={{-35,-30},{-28,-30},{-28,3.9},{-20,3.9}},
+      color={0,127,0},
       smooth=Smooth.None));
   annotation (
 experiment(StopTime=1.0),

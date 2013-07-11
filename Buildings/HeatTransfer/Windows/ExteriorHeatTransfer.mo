@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Windows;
 model ExteriorHeatTransfer
   "Model for heat convection at the exterior surface of a window that may have a shading device"
-  extends BaseClasses.PartialConvection(final thisSideHasShade=haveExteriorShade);
+  extends BaseClasses.PartialWindowBoundaryCondition(final thisSideHasShade=haveExteriorShade);
   Modelica.Blocks.Interfaces.RealInput vWin "Wind speed"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-116,32},{-100,48}})));
@@ -30,6 +30,24 @@ model ExteriorHeatTransfer
     "Outside temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-120,-92},{-100,-72}})));
+  BaseClasses.ShadeRadiation shaRad(
+    final thisSideHasShade=thisSideHasShade,
+    final A=AGla,
+    final linearize=linearizeRadiation,
+    final absIR_air=if thisSideHasShade then absIRSha_air else 0,
+    final absIR_glass=if thisSideHasShade then absIRSha_glass else 0,
+    final tauIR_air=if thisSideHasShade then tauIRSha_air else 1,
+    final tauIR_glass=if thisSideHasShade then tauIRSha_glass else 1) if
+       windowHasShade "Radiative heat balance of shade"
+    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+protected
+  Radiosity.RadiositySplitter radShaOut "Radiosity that strikes shading device"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+public
+  BaseClasses.ShadeConvection shaCon(final thisSideHasShade=thisSideHasShade,
+      final A=AGla) if
+       windowHasShade "Convective heat balance of shade"
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
 equation
   assert(-1E-10<vieFacSky and 1.00001 > vieFacSky,
          "View factor to sky is out of range. vieFacSky = " + String(vieFacSky)
@@ -57,7 +75,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(radOut.JOut, radShaOut.JIn) annotation (Line(
-      points={{-51,-62},{-46,-62},{-46,-34},{-41,-34}},
+      points={{-51,-62},{-46,-62},{-46,-24},{-41,-24}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(radOut.TBlaSky, TBlaSky) annotation (Line(
@@ -66,6 +84,65 @@ equation
       smooth=Smooth.None));
   connect(radOut.TOut, TOut) annotation (Line(
       points={{-74,-66},{-86,-66},{-86,-80},{-120,-80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radShaOut.JOut_2,JOutUns)  annotation (Line(
+      points={{-19,-36},{90,-36},{90,80},{110,80}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(shaRad.JOut_glass, JOutSha)
+                                     annotation (Line(
+      points={{21,-14},{80,-14},{80,-60},{110,-60}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(shaRad.JIn_glass, JInSha)
+                                   annotation (Line(
+      points={{21,-18},{70,-18},{70,-80},{110,-80}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(radShaOut.JOut_1, shaRad.JIn_air)
+                                           annotation (Line(
+      points={{-19,-24},{-12,-24},{-12,-14},{-1,-14}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(shaRad.u, shaSig.y)
+                             annotation (Line(
+      points={{-1,-2},{-60,-2},{-60,80},{-69,80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(shaRad.QAbs_flow, QAbs_flow)
+                                      annotation (Line(
+      points={{10,-21},{10,-84},{0,-84},{0,-120},{1.11022e-15,-120}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(glaSha, shaCon.glass) annotation (Line(
+      points={{100,-20},{30,-20},{30,30},{19.4,30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(shaCon.air, air) annotation (Line(
+      points={{0,30},{-20,30},{-20,10},{-80,10},{-80,5.55112e-16},{-100,
+          5.55112e-16},{-100,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(shaCon.u, shaSig.y) annotation (Line(
+      points={{-1,38},{-12,38},{-12,80},{-69,80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(shaCon.Gc, proSha.y) annotation (Line(
+      points={{-1,34},{-24,34},{-24,30},{-29,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(shaCon.TSha, shaRad.TSha) annotation (Line(
+      points={{16,19},{16,6},{26,6},{26,-26},{15,-26},{15,-21}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(shaRad.QRadAbs_flow, shaCon.QRadAbs_flow) annotation (Line(
+      points={{5,-21},{5,-26},{-6,-26},{-6,12},{4,12},{4,19}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radShaOut.u, shaSig.y) annotation (Line(
+      points={{-42,-36},{-60,-36},{-60,80},{-69,80}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

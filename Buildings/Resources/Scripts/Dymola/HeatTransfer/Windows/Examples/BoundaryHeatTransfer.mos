@@ -1,7 +1,7 @@
 simulateModel("Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer", method="dassl", resultFile="BoundaryHeatTransfer");
 createPlot(id = 1,
  position = {15, 10, 400, 280},
- y = {"extCon.air.T", "extCon.glaUns.T", "extCon.conWinUns.solid.T", "extCon.conWinUns.fluid.T", "extCon.frame.T", "extCon.radOut.TRad", "extCon.glaSha.T", "extCon.shade.glass.T", "extCon.shade.sha.T"},
+ y = {"extCon.air.T", "extCon.glaUns.T", "extCon.conWinUns.solid.T", "extCon.conWinUns.fluid.T", "extCon.frame.T", "extCon.radOut.TRad", "extCon.shaRad.TSha", "extCon.shade.glass.T", "extCon.shade.sha.T"},
  range = {0.0, 1.0, 25.0, -5.0},
  autoscale = true,
  autoerase = true,

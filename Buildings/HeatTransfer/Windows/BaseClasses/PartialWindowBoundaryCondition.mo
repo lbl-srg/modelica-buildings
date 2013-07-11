@@ -1,6 +1,6 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
-partial model PartialConvection
-  "fixme: this model may not be needed anymore. Partial model for heat convection between a possibly shaded window that can be outside or inside the room"
+partial model PartialWindowBoundaryCondition
+  "Partial model for heat convection or radiation between a possibly shaded window that can be outside or inside the room"
   parameter Modelica.SIunits.Area A "Heat transfer area of frame and window";
   parameter Real fFra "Fraction of window frame divided by total window area";
   final parameter Modelica.SIunits.Area AFra = fFra * A "Frame area";
@@ -76,16 +76,6 @@ public
   ShadingSignal shaSig(haveShade=windowHasShade)
     "Conversion for shading signal"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Shade shade(
-    final thisSideHasShade = thisSideHasShade,
-    final A=AGla,
-    final linearize=linearizeRadiation,
-    final absIR_air=if thisSideHasShade then absIRSha_air else 0,
-    final absIR_glass=if thisSideHasShade then absIRSha_glass else 0,
-    final tauIR_air=if thisSideHasShade then tauIRSha_air else 1,
-    final tauIR_glass=if thisSideHasShade then tauIRSha_glass else 1) if
-       windowHasShade "Heat balance of shade"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Interfaces.RadiosityOutflow JOutUns
     "Outgoing radiosity that connects to unshaded part of glass"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
@@ -99,9 +89,6 @@ public
   Interfaces.RadiosityInflow JInSha if windowHasShade
     "Incoming radiosity that connects to shaded part of glass"
     annotation (Placement(transformation(extent={{120,-90},{100,-70}})));
-protected
-  Radiosity.RadiositySplitter radShaOut "Radiosity that strikes shading device"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
 public
   Modelica.Blocks.Interfaces.RealInput QAbs_flow(unit="W", quantity="Power") if windowHasShade
@@ -154,51 +141,7 @@ equation
       points={{-69,74},{-50,74},{-50,86},{18,86}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(shade.Gc, proSha.y) annotation (Line(
-      points={{-1,-16},{-20,-16},{-20,30},{-29,30}},
-      color={0,0,127},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(shade.air, air) annotation (Line(
-      points={{-5.55112e-16,-20},{-70,-20},{-70,5.55112e-16},{-100,5.55112e-16}},
-      color={191,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(shade.glass, glaSha) annotation (Line(
-      points={{19.4,-20},{100,-20}},
-      color={191,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(radShaOut.JOut_2,JOutUns)  annotation (Line(
-      points={{-19,-46},{90,-46},{90,80},{110,80}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(shade.JOut_glass,JOutSha)  annotation (Line(
-      points={{21,-24},{80,-24},{80,-60},{110,-60}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(shade.JIn_glass,JInSha)  annotation (Line(
-      points={{21,-28},{70,-28},{70,-80},{110,-80}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(shaSig.y,radShaOut. u) annotation (Line(
-      points={{-69,80},{-60,80},{-60,-46},{-42,-46}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radShaOut.JOut_1, shade.JIn_air) annotation (Line(
-      points={{-19,-34},{-12,-34},{-12,-24},{-1,-24}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(shade.u, shaSig.y) annotation (Line(
-      points={{-1,-12},{-60,-12},{-60,80},{-69,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
-  connect(shade.QAbs_flow, QAbs_flow) annotation (Line(
-      points={{10,-31},{10,-94},{0,-94},{0,-120},{1.11022e-15,-120}},
-      color={0,0,127},
-      smooth=Smooth.None));
     annotation (Dialog(group="Shading"),
     Icon(graphics={
         Rectangle(
@@ -309,4 +252,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PartialConvection;
+end PartialWindowBoundaryCondition;
