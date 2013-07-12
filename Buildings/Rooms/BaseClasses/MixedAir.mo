@@ -297,13 +297,13 @@ public
     annotation (Placement(transformation(extent={{-250,-50},{-230,-30}})));
 
   HeatTransfer.Windows.BaseClasses.ShadeRadiation shaRad[NConExtWin](
-    final A=AConExtWinGla
-    each final linearize = linearizeRadiation,
+    final A=AConExtWinGla,
     final thisSideHasShade=haveInteriorShade,
     final absIR_air=epsConExtWinSha,
     final absIR_glass=epsConExtWinUns,
     final tauIR_air=tauIRSha_air,
-    final tauIR_glass=tauIRSha_glass) if
+    final tauIR_glass=tauIRSha_glass,
+    each final linearize = linearizeRadiation) if
        haveShade "Radiation model for room-side window shade"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
