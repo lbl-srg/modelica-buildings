@@ -297,7 +297,7 @@ public
     annotation (Placement(transformation(extent={{-250,-50},{-230,-30}})));
 
   HeatTransfer.Windows.BaseClasses.ShadeRadiation shaRad[NConExtWin](
-    final A=AConExtWinGla + AConExtWinFra,
+    final A=AConExtWinGla
     each final linearize = linearizeRadiation,
     final thisSideHasShade=haveInteriorShade,
     final absIR_air=epsConExtWinSha,
