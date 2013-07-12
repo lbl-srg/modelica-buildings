@@ -210,10 +210,6 @@ equation
       points={{42,64},{72,64},{72,90},{199,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conExtWin.QAbs_flow, QAbsSolSha_flow) annotation (Line(
-      points={{-10,-123},{-10,-140},{-160,-140},{-160,60},{-320,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(skyRadExcWin.TOut, weaBus.TDryBul)
                                           annotation (Line(
       points={{-136,-268},{244,-268},{244,42}},
@@ -275,6 +271,10 @@ equation
       points={{199,126},{168,126},{168,104},{142,104}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(QAbsSolSha_flow, conExtWin.QSolAbs_flow) annotation (Line(
+      points={{-320,60},{-160,60},{-160,-140},{-10,-140},{-10,-123}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-220,180},{-160,-102}},
@@ -293,8 +293,8 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.Dash)}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},{300,
-            300}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-300,-300},{300,
+            300}}), graphics),
     Documentation(info="<html>
 This model computes the boundary conditions for the outside-facing surface of
 opaque constructions and of windows.

@@ -59,12 +59,13 @@ model ExteriorWallTwoWindows
     conPar=conPar)
     "Exterior boundary conditions for constructions with a window"
     annotation (Placement(transformation(extent={{82,-14},{122,26}})));
-  Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
+  Buildings.HeatTransfer.Sources.FixedTemperature TRoo(T=293.15)
+    "Room temperature"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
   Buildings.HeatTransfer.Convection.Interior con[nCon](A=A - AWin,
     til={Buildings.HeatTransfer.Types.Tilt.Wall,
          Buildings.HeatTransfer.Types.Tilt.Wall}) "Model for heat convection"
-    annotation (Placement(transformation(extent={{-20,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-40,10},{-60,30}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=2)
     "Thermal collector to link a vector of models to a single model"
     annotation (Placement(transformation(
@@ -74,79 +75,72 @@ model ExteriorWallTwoWindows
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
-  Modelica.Blocks.Sources.Constant TRoo(k=273.15 + 20) "Room air temperature"
-    annotation (Placement(transformation(extent={{-190,10},{-170,30}})));
   HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
     "Record for material layers"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
-  HeatTransfer.Windows.InteriorHeatTransfer intCon[nCon](
-    A=AWin,
-    fFra=fFra,
-    absIRSha_air={glaSys1.shade.absIR_a, glaSys2.shade.absIR_a},
-    absIRSha_glass={glaSys1.shade.absIR_b, glaSys2.shade.absIR_b},
-    tauIRSha_air={glaSys1.shade.tauIR_a, glaSys2.shade.tauIR_a},
-    tauIRSha_glass={glaSys1.shade.tauIR_b, glaSys2.shade.tauIR_b},
-    haveExteriorShade={glaSys1.haveExteriorShade, glaSys2.haveExteriorShade},
-    haveInteriorShade={glaSys1.haveInteriorShade, glaSys2.haveInteriorShade},
-    each linearizeRadiation = linearizeRadiation)
-    "Model for interior convection"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Modelica.Blocks.Sources.Constant uSha(k=0) "Shading control signal"
-    annotation (Placement(transformation(extent={{-192,-44},{-172,-24}})));
+    annotation (Placement(transformation(extent={{-190,-42},{-170,-22}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol1(m=2)
     "Thermal collector to link a vector of models to a single model"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-110,-20})));
+        origin={-112,-160})));
   HeatTransfer.Radiosity.IndoorRadiosity indRad[nCon](each linearize = linearizeRadiation,
     A=AWin) "Model for indoor radiosity"
-    annotation (Placement(transformation(extent={{-96,-80},{-76,-60}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol2(
-                                                                   m=2)
-    "Thermal collector to link a vector of models to a single model"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-22,-68})));
+    annotation (Placement(transformation(extent={{-122,-58},{-102,-38}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=nCon)
-    annotation (Placement(transformation(extent={{-160,-44},{-140,-24}})));
+    annotation (Placement(transformation(extent={{-160,-42},{-140,-22}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol3(
                                                                    m=2)
     "Thermal collector to link a vector of models to a single model"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-110,-80})));
+        origin={-112,-110})));
   Modelica.Blocks.Sources.Constant QAbsSha[nCon](each k=0)
     "Solar radiation absorbed by interior shade"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-90,-120},{-70,-100}})));
   Modelica.Blocks.Sources.Constant QAbs[nCon,glaSys1.nLay](each k=0)
     "Solar radiation absorbed by glass"
-    annotation (Placement(transformation(extent={{-6,-90},{14,-70}})));
+    annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
   Modelica.Blocks.Sources.Constant QTra[nCon](each k=0)
     "Solar radiation absorbed by exterior shade"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.HeatTransfer.Convection.Interior con1[nCon](A=A - AWin,
-     each til=Buildings.HeatTransfer.Types.Tilt.Wall)
-    "Model for heat convection"
-    annotation (Placement(transformation(extent={{-38,-130},{-58,-110}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol4(
-                                                                   m=nCon)
-    "Thermal collector to link a vector of models to a single model"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-88,-120})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
+  Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation intShaRad[nCon](
+    thisSideHasShade={glaSys1.haveInteriorShade, glaSys2.haveInteriorShade},
+    each linearize=linearize,
+    absIR_air={glaSys1.shade.absIR_a, glaSys2.shade.absIR_a},
+    absIR_glass={glaSys1.shade.absIR_b, glaSys2.shade.absIR_b},
+    tauIR_air={glaSys1.shade.tauIR_a, glaSys2.shade.tauIR_a},
+    tauIR_glass={glaSys1.shade.tauIR_b, glaSys2.shade.tauIR_b},
+    A=AGla) if
+     glaSys1.windowHasShade or glaSys2.windowHasShade
+    "Interior shade radiation model"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+  Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective intShaCon[nCon](
+    A=A,
+    fFra=fFra,
+    haveExteriorShade={glaSys1.haveExteriorShade, glaSys2.haveExteriorShade},
+    haveInteriorShade={glaSys1.haveInteriorShade, glaSys2.haveInteriorShade})
+    "Model for interior shade heat transfer"
+    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
+protected
+  Modelica.Blocks.Math.Sum sumJ[nCon](each nin=if glaSys1.windowHasShade or glaSys2.windowHasShade
+         then 2 else 1) "Sum of radiosity fom glass to outside"
+    annotation (Placement(transformation(extent={{-68,-80},{-88,-60}})));
+  Buildings.HeatTransfer.Radiosity.RadiositySplitter radShaOut[nCon]
+    "Radiosity that strikes shading device"
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 equation
-  connect(prescribedTemperature.port, theCol.port_b) annotation (Line(
-      points={{-140,20},{-130,20},{-130,20},{-120,20}},
+  connect(TRoo.port, theCol.port_b)                  annotation (Line(
+      points={{-140,20},{-120,20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(theCol.port_a, con.fluid) annotation (Line(
-      points={{-100,20},{-70,20},{-70,20},{-40,20}},
+      points={{-100,20},{-60,20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaDat.weaBus, bouConExt.weaBus) annotation (Line(
@@ -154,103 +148,42 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(TRoo.y, prescribedTemperature.T) annotation (Line(
-      points={{-169,20},{-162,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(theCol1.port_b, prescribedTemperature.port) annotation (Line(
-      points={{-120,-20},{-130,-20},{-130,20},{-140,20}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(theCol1.port_a, intCon.air) annotation (Line(
-      points={{-100,-20},{-70,-20},{-70,-20},{-40,-20}},
-      color={191,0,0},
-      smooth=Smooth.None));
-
-  connect(intCon.frame, theCol2.port_a) annotation (Line(
-      points={{-23,-30},{-22,-30},{-22,-58}},
+  connect(theCol1.port_b, TRoo.port)                  annotation (Line(
+      points={{-122,-160},{-130,-160},{-130,20},{-140,20}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(uSha.y, replicator.u) annotation (Line(
-      points={{-171,-34},{-162,-34}},
+      points={{-169,-32},{-162,-32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(replicator.y, intCon.uSha) annotation (Line(
-      points={{-139,-34},{-52,-34},{-52,-12},{-40.8,-12}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(indRad.JOut, intCon.JInRoo) annotation (Line(
-      points={{-75,-66},{-50,-66},{-50,-28},{-40,-28}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(indRad.JIn, intCon.JOutRoo) annotation (Line(
-      points={{-75,-74},{-46,-74},{-46,-24},{-40.4,-24}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(theCol3.port_a, indRad.heatPort) annotation (Line(
-      points={{-100,-80},{-86.6,-80},{-86.6,-79.8},{-85.2,-79.8}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(theCol2.port_b, prescribedTemperature.port) annotation (Line(
-      points={{-22,-78},{-22,-96},{-130,-96},{-130,20},{-140,20}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(theCol3.port_b, prescribedTemperature.port) annotation (Line(
-      points={{-120,-80},{-130,-80},{-130,20},{-140,20}},
+  connect(theCol3.port_b, TRoo.port)                  annotation (Line(
+      points={{-122,-110},{-130,-110},{-130,20},{-140,20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(bouConExt.uSha, replicator.y) annotation (Line(
-      points={{80.6667,12.6667},{-52,12.6667},{-52,-34},{-139,-34}},
+      points={{80.6667,12.6667},{66,12.6667},{66,40},{-20,40},{-20,-32},{-139,
+          -32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(QAbs.y, conExt.QAbsUns_flow) annotation (Line(
-      points={{15,-80},{38,-80},{38,-32}},
+      points={{1,-170},{38,-170},{38,-32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(QAbs.y, conExt.QAbsSha_flow) annotation (Line(
-      points={{15,-80},{22,-80},{22,-32}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(QAbsSha.y, intCon.QAbs_flow) annotation (Line(
-      points={{-59,-50},{-30,-50},{-30,-31}},
+      points={{1,-170},{22,-170},{22,-32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(QTra.y, bouConExt.QAbsSolSha_flow) annotation (Line(
-      points={{41,50},{48,50},{48,10},{80.6667,10}},
+      points={{41,70},{48,70},{48,10},{80.6667,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(con.solid, conExt.opa_b) annotation (Line(
-      points={{-20,20},{-10.1,20},{-10.1,20},{-0.2,20}},
+      points={{-40,20},{-0.2,20}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(conExt.JOutUns_b, intCon.JInUns) annotation (Line(
-      points={{-1,2},{-14,2},{-14,-14},{-19,-14}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(intCon.JOutUns, conExt.JInUns_b) annotation (Line(
-      points={{-19,-12},{-16,-12},{-16,-2},{-1,-2}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(conExt.glaUns_b, intCon.glaUns) annotation (Line(
-      points={{-1.66533e-15,-8},{-12,-8},{-12,-18},{-20,-18}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(conExt.glaSha_b, intCon.glaSha) annotation (Line(
-      points={{-1.66533e-15,-12},{-10,-12},{-10,-22},{-20,-22}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(conExt.JOutSha_b, intCon.JInSha) annotation (Line(
-      points={{-1,-16},{-6,-16},{-6,-28},{-19,-28}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(intCon.JOutSha, conExt.JInSha_b) annotation (Line(
-      points={{-19,-26},{-8,-26},{-8,-20},{-1,-20}},
-      color={0,127,0},
       smooth=Smooth.None));
   connect(replicator.y, conExt.uSha) annotation (Line(
-      points={{-139,-34},{-52,-34},{-52,-40},{66,-40},{66,6},{62,6}},
+      points={{-139,-32},{-20,-32},{-20,40},{66,40},{66,6},{62,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExt.opa_a, bouConExt.opa_a) annotation (Line(
@@ -286,30 +219,94 @@ equation
       points={{82,-11.3333},{78,-11.3333},{78,-26},{60,-26}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(con1.solid, conExt.fra_b) annotation (Line(
-      points={{-38,-120},{-12,-120},{-12,-60},{-0.2,-60},{-0.2,-26}},
+  connect(intShaCon.TSha,intShaRad. TSha) annotation (Line(
+      points={{-30,-141},{-30,-148},{-46,-148},{-46,-100},{-25,-100},{-25,-61}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QAbsSha.y,intShaRad [1].QSolAbs_flow) annotation (Line(
+      points={{-69,-110},{-30,-110},{-30,-61}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(intShaCon.QRadAbs_flow,intShaRad. QRadAbs_flow) annotation (Line(
+      points={{-36,-141},{-36,-146},{-50,-146},{-50,-98},{-35,-98},{-35,-61}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(theCol1.port_a,intShaCon. air) annotation (Line(
+      points={{-102,-160},{-80,-160},{-80,-130},{-40,-130}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(con1.fluid,theCol4. port_a) annotation (Line(
-      points={{-58,-120},{-78,-120}},
+  connect(intShaRad.JOut_air,sumJ. u[2]) annotation (Line(
+      points={{-41,-58},{-54,-58},{-54,-70},{-66,-70}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(radShaOut.JOut_1,intShaRad. JIn_air) annotation (Line(
+      points={{-59,-14},{-50,-14},{-50,-54},{-41,-54}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(radShaOut.JOut_2, conExt.JInUns_b) annotation (Line(
+      points={{-59,-26},{-40,-26},{-40,-2},{-1,-2}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(conExt.JOutUns_b,sumJ. u[1]) annotation (Line(
+      points={{-1,2},{-54,2},{-54,-70},{-66,-70}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(intShaRad.JOut_glass, conExt.JInSha_b) annotation (Line(
+      points={{-19,-54},{-12,-54},{-12,-20},{-1,-20}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(intShaRad.JIn_glass, conExt.JOutSha_b) annotation (Line(
+      points={{-19,-58},{-10,-58},{-10,-16},{-1,-16}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(conExt.glaUns_b, intShaCon.glaUns) annotation (Line(
+      points={{0,-8},{-8,-8},{-8,-128},{-20,-128}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(theCol4.port_b, prescribedTemperature.port) annotation (Line(
-      points={{-98,-120},{-130,-120},{-130,20},{-140,20}},
+  connect(intShaCon.glaSha, conExt.glaSha_b) annotation (Line(
+      points={{-20,-132},{-6,-132},{-6,-12},{-1.77636e-15,-12}},
       color={191,0,0},
+      smooth=Smooth.None));
+  connect(conExt.fra_b, intShaCon.frame) annotation (Line(
+      points={{-0.2,-26},{-4,-26},{-4,-146},{-23,-146},{-23,-140}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sumJ.y, indRad.JIn) annotation (Line(
+      points={{-89,-70},{-96,-70},{-96,-52},{-101,-52}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(theCol3.port_a, indRad.heatPort) annotation (Line(
+      points={{-102,-110},{-98,-110},{-98,-84},{-111.2,-84},{-111.2,-57.8}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(replicator.y, radShaOut.u) annotation (Line(
+      points={{-139,-32},{-92,-32},{-92,-26},{-82,-26}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(indRad.JOut, radShaOut.JIn) annotation (Line(
+      points={{-101,-44},{-98,-44},{-98,-14},{-81,-14}},
+      color={0,127,0},
       smooth=Smooth.None));
   annotation (
 experiment(StopTime=1209600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Constructions/Examples/ExteriorWallTwoWindows.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-140},{200,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-200},{200,
+            100}}), graphics),
     Documentation(info="<html>
 <p>
 This model tests the exterior construction with two windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 12, 2013, by Michael Wetter:<br/>
+Redesigned model to separate convection from radiation, which is
+required for the implementation of a CFD model.
+Corrected wrong connection to frame heat transfer. The previous implementation accounted 
+twice for the convective resistance of the frame on the room-side.
+</li>
 <li>
 March 7, 2012, by Michael Wetter:<br/>
 Updated example to use new data model 
