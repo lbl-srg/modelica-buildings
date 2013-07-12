@@ -25,9 +25,6 @@ model BoundaryHeatTransfer
   Modelica.Blocks.Sources.Constant TRooAir(k=293.15, y(unit="K"))
     "Room air temperature"
     annotation (Placement(transformation(extent={{20,62},{40,82}})));
-  Modelica.Blocks.Sources.Constant TRooRad(k=293.15, y(unit="K"))
-    "Room radiative temperature"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Sources.Ramp uSha(duration=1, startTime=0)
     "Shading control signal"
     annotation (Placement(transformation(extent={{-102,20},{-82,40}})));
@@ -155,10 +152,6 @@ equation
       points={{80,-16},{82,-16},{82,-44},{-39,-44},{-39,-34}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(extCon.QAbs_flow, QAbsSW_flow.y) annotation (Line(
-      points={{-46,-35},{-46,-90},{-79,-90}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TOut.y, extCon.TBlaSky) annotation (Line(
       points={{-79,90},{-70,90},{-70,-28},{-57,-28}},
       color={0,0,127},
@@ -179,6 +172,10 @@ equation
   connect(extCon.JOutSha, sumJ.u[2]) annotation (Line(
       points={{-35,-30},{-28,-30},{-28,3.9},{-20,3.9}},
       color={0,127,0},
+      smooth=Smooth.None));
+  connect(QAbsSW_flow.y, extCon.QSolAbs_flow) annotation (Line(
+      points={{-79,-90},{-46,-90},{-46,-35}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
 experiment(StopTime=1.0),

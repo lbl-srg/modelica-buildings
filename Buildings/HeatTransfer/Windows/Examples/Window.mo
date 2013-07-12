@@ -30,18 +30,15 @@ model Window "Test model for the window"
     haveInteriorShade=glaSys.haveInteriorShade,
     vieFacSky=0.5) "Exterior convective heat transfer"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Modelica.Blocks.Sources.Constant TRooAir(k=293.15, y(unit="K"))
-    "Room air temperature"
-    annotation (Placement(transformation(extent={{320,-10},{300,10}})));
   Modelica.Blocks.Sources.Ramp uSha(duration=0.5, startTime=0.25)
     "Shading control signal"
     annotation (Placement(transformation(extent={{-90,120},{-70,140}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TOuts
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.HeatTransfer.Sources.PrescribedTemperature TRAir
+  Buildings.HeatTransfer.Sources.FixedTemperature      TRAir(T=293.15)
     "Room air temperature"
-    annotation (Placement(transformation(extent={{288,-10},{268,10}})));
+    annotation (Placement(transformation(extent={{300,20},{280,40}})));
   Buildings.HeatTransfer.Radiosity.IndoorRadiosity indRad(A=A)
     "Model for indoor radiosity"
     annotation (Placement(transformation(extent={{322,100},{302,120}})));
@@ -84,23 +81,11 @@ model Window "Test model for the window"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{10,-20},{30,0}})));
-  Buildings.HeatTransfer.Windows.BaseClasses.InteriorConvectionCoefficient
-    conCoeGla(                                          final A=AGla)
-    "Model for the inside convective heat transfer coefficient of the glass"
-    annotation (Placement(transformation(extent={{150,30},{170,50}})));
-  Buildings.HeatTransfer.Windows.BaseClasses.InteriorConvectionCoefficient
-    conCoeFra(                                          final A=AFra)
-    "Model for the inside convective heat transfer coefficient of the frame"
-    annotation (Placement(transformation(extent={{150,-4},{170,16}})));
 protected
   Modelica.Blocks.Math.Sum sumJ(nin=if glaSys.haveInteriorShade then 2 else 1)
     "Sum of radiosity fom glass to outside"
     annotation (Placement(transformation(extent={{260,60},{280,80}})));
 public
-  Buildings.HeatTransfer.Windows.BaseClasses.ShadeConvection intShaCon(
-      thisSideHasShade=glaSys.haveInteriorShade, A=AGla) if
-         glaSys.haveInteriorShade "Interior shade convection model"
-    annotation (Placement(transformation(extent={{240,60},{220,80}})));
   Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation intShaRad(
     thisSideHasShade=glaSys.haveInteriorShade,
     linearize=linearize,
@@ -109,7 +94,7 @@ public
     tauIR_air=glaSys.shade.tauIR_a,
     tauIR_glass=glaSys.shade.tauIR_b,
     A=AGla) if
-     glaSys.haveInteriorShade "Interior shade radiation model"
+     glaSys.windowHasShade "Interior shade radiation model"
     annotation (Placement(transformation(extent={{240,106},{220,126}})));
 public
   Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal
@@ -121,16 +106,13 @@ protected
                               radShaOut "Radiosity that strikes shading device"
     annotation (Placement(transformation(extent={{280,100},{260,120}})));
 public
-  Modelica.Thermal.HeatTransfer.Components.Convection conFra
-    "Convective heat transfer between air and frame"
-    annotation (Placement(transformation(extent={{218,-20},{238,0}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection conWinUns
-    "Convective heat transfer between air and unshaded part of glass"
-    annotation (Placement(transformation(extent={{218,14},{238,34}})));
-  Modelica.Blocks.Math.Product product1
-    annotation (Placement(transformation(extent={{192,30},{212,50}})));
-  Modelica.Blocks.Math.Product product2
-    annotation (Placement(transformation(extent={{190,80},{210,100}})));
+  Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective intShaCon(
+    A=A,
+    fFra=fFra,
+    haveExteriorShade=glaSys.haveExteriorShade,
+    haveInteriorShade=glaSys.haveInteriorShade)
+    "Model for interior shade heat transfer"
+    annotation (Placement(transformation(extent={{248,20},{228,40}})));
 equation
   connect(uSha.y, extCon.uSha) annotation (Line(
       points={{-69,130},{20,130},{20,98},{39.2,98}},
@@ -143,11 +125,6 @@ equation
   connect(TOuts.port, extCon.air) annotation (Line(
       points={{5.55112e-16,50},{28,50},{28,90},{40,90}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(TRooAir.y, TRAir.T) annotation (Line(
-      points={{299,4.44089e-16},{298,4.44089e-16},{298,0},{294,0},{294,
-          8.88178e-16},{290,8.88178e-16}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(window.glaUns_a, extCon.glaUns) annotation (Line(
       points={{82,92},{60,92}},
@@ -201,10 +178,6 @@ equation
       smooth=Smooth.None));
   connect(HDirTil.inc, winRad.incAng) annotation (Line(
       points={{81,-14},{90,-14},{90,-11},{98.5,-11}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(winRad.QAbsExtSha_flow, extCon.QAbs_flow) annotation (Line(
-      points={{121,-1},{128,-1},{128,52},{50,52},{50,79}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(winRad.QAbsGlaUns_flow, window.QAbsUns_flow) annotation (Line(
@@ -275,10 +248,6 @@ equation
       points={{-69,130},{20,130},{20,170},{118,170}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(shaSig.y, intShaCon.u) annotation (Line(
-      points={{141,170},{246,170},{246,78},{241,78}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(intShaRad.u, shaSig.y) annotation (Line(
       points={{241,124},{246,124},{246,170},{141,170}},
       color={0,0,127},
@@ -313,70 +282,6 @@ equation
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(window.glaSha_b, intShaCon.glass) annotation (Line(
-      points={{122,88},{144,88},{144,70},{220.6,70}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(intShaCon.air, TRAir.port) annotation (Line(
-      points={{240,70},{248,70},{248,4.44089e-16},{268,4.44089e-16}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(conFra.fluid, TRAir.port) annotation (Line(
-      points={{238,-10},{248,-10},{248,4.44089e-16},{268,4.44089e-16}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(conFra.solid, window.fra_b) annotation (Line(
-      points={{218,-10},{142,-10},{142,74},{122.2,74}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(conCoeFra.GCon, conFra.Gc) annotation (Line(
-      points={{171,6},{228,6},{228,4.44089e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conCoeGla.GCon, product1.u2) annotation (Line(
-      points={{171,40},{184,40},{184,34},{190,34}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(product1.u1, shaSig.yCom) annotation (Line(
-      points={{190,46},{180,46},{180,176},{141,176}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(product1.y, conWinUns.Gc)
-                                 annotation (Line(
-      points={{213,40},{228,40},{228,34}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conWinUns.fluid, TRAir.port)
-                                    annotation (Line(
-      points={{238,24},{248,24},{248,0},{248,0},{248,0},{248,4.44089e-16},{258,
-          4.44089e-16},{268,4.44089e-16}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(conWinUns.solid, window.glaUns_b)
-                                         annotation (Line(
-      points={{218,24},{146,24},{146,92},{122,92}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(conCoeGla.GCon,product2. u2) annotation (Line(
-      points={{171,40},{184,40},{184,84},{188,84}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(product2.y, intShaCon.Gc) annotation (Line(
-      points={{211,90},{244,90},{244,74},{241,74}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(winRad.QAbsIntSha_flow, intShaRad.QAbs_flow) annotation (Line(
-      points={{121,-13},{214,-13},{214,94},{230,94},{230,105}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(intShaRad.QRadAbs_flow, intShaCon.QRadAbs_flow) annotation (Line(
-      points={{235,105},{235,86},{218,86},{218,54},{236,54},{236,59}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(intShaRad.TSha, intShaCon.TSha) annotation (Line(
-      points={{225,105},{225,96},{216,96},{216,56},{224,56},{224,59}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(radShaOut.u, shaSig.y) annotation (Line(
       points={{282,104},{286,104},{286,170},{141,170}},
       color={0,0,127},
@@ -386,12 +291,45 @@ equation
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(product2.u1, shaSig.y) annotation (Line(
-      points={{188,96},{186,96},{186,170},{141,170}},
+  connect(TRAir.port, intShaCon.air) annotation (Line(
+      points={{280,30},{248,30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(uSha.y, intShaCon.uSha) annotation (Line(
+      points={{-69,130},{-60,130},{-60,-28},{262,-28},{262,38},{248.8,38}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-            {340,200}})),
+  connect(intShaCon.TSha, intShaRad.TSha) annotation (Line(
+      points={{238,19},{238,8},{220,8},{220,100},{225,100},{225,105}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(window.fra_b, intShaCon.frame) annotation (Line(
+      points={{122.2,74},{152,74},{152,16},{231,16},{231,20}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(window.glaUns_b, intShaCon.glaUns) annotation (Line(
+      points={{122,92},{160,92},{160,32},{228,32}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(intShaCon.glaSha, window.glaSha_b) annotation (Line(
+      points={{228,28},{156,28},{156,88},{122,88}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(intShaCon.QRadAbs_flow, intShaRad.QRadAbs_flow) annotation (Line(
+      points={{244,19},{244,6},{222,6},{222,94},{235,94},{235,105}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(winRad.QAbsIntSha_flow, intShaRad.QSolAbs_flow) annotation (Line(
+      points={{121,-13},{216,-13},{216,98},{230,98},{230,105}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(winRad.QAbsExtSha_flow, extCon.QSolAbs_flow) annotation (Line(
+      points={{121,-1},{128,-1},{128,56},{50,56},{50,79}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+            -100},{340,200}}),
+                         graphics),
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/Window.mos"
         "Simulate and plot"),

@@ -1,8 +1,27 @@
 within Buildings.HeatTransfer.Windows;
 model ExteriorHeatTransfer
-  "Model for heat convection at the exterior surface of a window that may have a shading device"
+  "Model for heat convection and radiation at the exterior surface of a window that may have a shading device"
   extends BaseClasses.PartialWindowBoundaryCondition(final thisSideHasShade=haveExteriorShade);
-  Modelica.Blocks.Interfaces.RealInput vWin "Wind speed"
+  parameter Modelica.SIunits.Emissivity absIRSha_air
+    "Infrared absorptivity of shade surface that faces air"
+        annotation (Dialog(group="Shading"));
+  parameter Modelica.SIunits.Emissivity absIRSha_glass
+    "Infrared absorptivity of shade surface that faces glass"
+    annotation (Dialog(group="Shading"));
+
+  parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_air
+    "Infrared transmissivity of shade for radiation coming from the exterior or the room"
+    annotation (Dialog(group="Shading"));
+  parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_glass
+    "Infrared transmissivity of shade for radiation coming from the glass"
+    annotation (Dialog(group="Shading"));
+
+  parameter Boolean linearizeRadiation
+    "Set to true to linearize emissive power";
+  parameter Real vieFacSky(final min=0, final max=1, final unit="1")
+    "View factor from receiving surface to sky";
+
+  Modelica.Blocks.Interfaces.RealInput vWin(final unit="m/s") "Wind speed"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-116,32},{-100,48}})));
   Buildings.HeatTransfer.Windows.BaseClasses.ExteriorConvectionCoefficient
@@ -17,8 +36,7 @@ model ExteriorHeatTransfer
    final A=AGla, vieFacSky=vieFacSky,
     linearize=linearizeRadiation) "Outdoor radiosity"
     annotation (Placement(transformation(extent={{-72,-72},{-52,-52}})));
-  parameter Real vieFacSky(min=0, max=1)
-    "View factor from receiving surface to sky";
+
   Modelica.Blocks.Interfaces.RealInput TBlaSky(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -30,6 +48,28 @@ model ExteriorHeatTransfer
     "Outside temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-120,-92},{-100,-72}})));
+  Interfaces.RadiosityOutflow JOutUns
+    "Outgoing radiosity that connects to unshaded part of glass"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+  Interfaces.RadiosityInflow JInUns
+    "Incoming radiosity that connects to unshaded part of glass"
+    annotation (Placement(transformation(extent={{120,50},{100,70}})));
+  Interfaces.RadiosityOutflow JOutSha if windowHasShade
+    "Outgoing radiosity that connects to shaded part of glass"
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+  Interfaces.RadiosityInflow JInSha if windowHasShade
+    "Incoming radiosity that connects to shaded part of glass"
+    annotation (Placement(transformation(extent={{120,-90},{100,-70}})));
+  Modelica.Blocks.Interfaces.RealInput QSolAbs_flow(unit="W", quantity="Power") if
+       windowHasShade "Solar radiation absorbed by shade"
+    annotation (Placement(transformation(
+        origin={0,-120},
+        extent={{-20,-20},{20,20}},
+        rotation=90), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,-110})));
+
   BaseClasses.ShadeRadiation shaRad(
     final thisSideHasShade=thisSideHasShade,
     final A=AGla,
@@ -43,7 +83,6 @@ model ExteriorHeatTransfer
 protected
   Radiosity.RadiositySplitter radShaOut "Radiosity that strikes shading device"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-public
   BaseClasses.ShadeConvection shaCon(final thisSideHasShade=thisSideHasShade,
       final A=AGla) if
        windowHasShade "Convective heat balance of shade"
@@ -71,7 +110,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conCoeGla.GCon, proUns.u2) annotation (Line(
-      points={{-63,50},{8,50},{8,74},{18,74}},
+      points={{-63,50},{-40,50},{-40,74},{18,74}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radOut.JOut, radShaOut.JIn) annotation (Line(
@@ -111,11 +150,6 @@ equation
       points={{-1,-2},{-60,-2},{-60,80},{-69,80}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(shaRad.QAbs_flow, QAbs_flow)
-                                      annotation (Line(
-      points={{10,-21},{10,-84},{0,-84},{0,-120},{1.11022e-15,-120}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(glaSha, shaCon.glass) annotation (Line(
       points={{100,-20},{30,-20},{30,30},{19.4,30}},
       color={191,0,0},
@@ -124,10 +158,6 @@ equation
       points={{0,30},{-20,30},{-20,10},{-80,10},{-80,5.55112e-16},{-100,
           5.55112e-16},{-100,0}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(shaCon.u, shaSig.y) annotation (Line(
-      points={{-1,38},{-12,38},{-12,80},{-69,80}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(shaCon.Gc, proSha.y) annotation (Line(
       points={{-1,34},{-24,34},{-24,30},{-29,30}},
@@ -145,6 +175,10 @@ equation
       points={{-42,-36},{-60,-36},{-60,80},{-69,80}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(shaRad.QSolAbs_flow, QSolAbs_flow) annotation (Line(
+      points={{10,-21},{10,-84},{8.88178e-16,-84},{8.88178e-16,-120}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics), Icon(graphics={
@@ -157,13 +191,17 @@ equation
           fillColor={255,213,170},
           fillPattern=FillPattern.Sphere),
         Text(
-          extent={{-96,-70},{-66,-82}},
+          extent={{-96,-76},{-66,-88}},
           lineColor={0,0,127},
           textString="TOut"),
         Text(
           extent={{-94,-34},{-54,-46}},
           lineColor={0,0,127},
-          textString="TBlaSky")}),
+          textString="TBlaSky"),
+        Text(
+          extent={{-38,-84},{28,-102}},
+          lineColor={0,0,127},
+          textString="QSolAbs")}),
 defaultComponentName="extHeaTra",
            Documentation(info="<html>
 <p>

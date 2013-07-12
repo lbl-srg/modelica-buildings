@@ -121,11 +121,6 @@ equation
       points={{-39,-16},{-30,-16},{-30,-56},{1,-56}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(QSol_shade.y, extShaRad.QAbs_flow)
-                                          annotation (Line(
-      points={{-19,110},{-10,110},{-10,0},{10,0},{10,9}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(radShaInt.JOut_1, extShaRad.JIn_glass)
                                               annotation (Line(
       points={{39,-6},{30,-6},{30,12},{21,12}},
@@ -142,11 +137,6 @@ equation
       smooth=Smooth.None));
   connect(TAirRoo.T, TRoo.y) annotation (Line(
       points={{122,20},{132,20},{132,-70},{139,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(QSol_shade.y, extNonShaRad.QAbs_flow)
-                                             annotation (Line(
-      points={{-19,110},{-10,110},{-10,-70},{12,-70},{12,-63}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaCon.y, extShaRad.u)
@@ -205,14 +195,6 @@ equation
       points={{-4.44089e-16,-90},{-12,-90},{-12,20},{-100,20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(shaCon.y, extShaCon.u) annotation (Line(
-      points={{-89,80},{-12,80},{-12,58},{-1,58}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(shaCon.yCom, extNonShaCon.u) annotation (Line(
-      points={{-89,74},{-72,74},{-72,-44},{-8,-44},{-8,-82},{-1,-82}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(GConUns.y, extNonShaCon.Gc) annotation (Line(
       points={{-39,-120},{-20,-120},{-20,-86},{-1,-86}},
       color={0,0,127},
@@ -253,6 +235,14 @@ equation
   connect(extNonShaRad.JOut_glass, sumJRoo.u[2]) annotation (Line(
       points={{23,-56},{32,-56},{32,-72.1},{44,-72.1}},
       color={0,127,0},
+      smooth=Smooth.None));
+  connect(extShaRad.QSolAbs_flow, QSol_shade.y) annotation (Line(
+      points={{10,9},{10,0},{-10,0},{-10,110},{-19,110}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(extNonShaRad.QSolAbs_flow, QSol_shade.y) annotation (Line(
+      points={{12,-63},{12,-70},{-10,-70},{-10,110},{-19,110}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
 experiment(StopTime=1.0),

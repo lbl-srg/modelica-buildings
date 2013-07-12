@@ -8,10 +8,6 @@ model ShadeConvection
 
   parameter Real k(min=0, max=1)=1
     "Coefficient used to scale convection between shade and glass";
-  Modelica.Blocks.Interfaces.RealInput u
-    "Input connector, used to scale the surface area to take into account an operable shading device"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
 
   Modelica.Blocks.Interfaces.RealInput Gc(unit="W/K")
     "Signal representing the convective thermal conductance"
@@ -132,10 +128,6 @@ equation
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-102,90},{-68,72}},
-          lineColor={0,0,127},
-          textString="u"),
         Text(
           extent={{-100,52},{-66,34}},
           lineColor={0,0,127},

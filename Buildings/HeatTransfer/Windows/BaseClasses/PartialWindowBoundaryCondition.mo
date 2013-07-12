@@ -6,23 +6,6 @@ partial model PartialWindowBoundaryCondition
   final parameter Modelica.SIunits.Area AFra = fFra * A "Frame area";
   final parameter Modelica.SIunits.Area AGla = A-AFra "Glass area";
 
-  parameter Modelica.SIunits.Emissivity absIRSha_air
-    "Infrared absorptivity of shade surface that faces air"
-        annotation (Dialog(group="Shading"));
-  parameter Modelica.SIunits.Emissivity absIRSha_glass
-    "Infrared absorptivity of shade surface that faces glass"
-    annotation (Dialog(group="Shading"));
-
-  parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_air
-    "Infrared transmissivity of shade for radiation coming from the exterior or the room"
-    annotation (Dialog(group="Shading"));
-  parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_glass
-    "Infrared transmissivity of shade for radiation coming from the glass"
-    annotation (Dialog(group="Shading"));
-
-  parameter Boolean linearizeRadiation
-    "Set to true to linearize emissive power";
-
   parameter Boolean haveExteriorShade
     "Set to true if window has exterior shade (at surface a)"
     annotation (Dialog(group="Shading"));
@@ -72,34 +55,9 @@ protected
     "Product for shaded part of window"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
 
-public
   ShadingSignal shaSig(haveShade=windowHasShade)
     "Conversion for shading signal"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Interfaces.RadiosityOutflow JOutUns
-    "Outgoing radiosity that connects to unshaded part of glass"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  Interfaces.RadiosityInflow JInUns
-    "Incoming radiosity that connects to unshaded part of glass"
-    annotation (Placement(transformation(extent={{120,50},{100,70}})));
-public
-  Interfaces.RadiosityOutflow JOutSha if windowHasShade
-    "Outgoing radiosity that connects to shaded part of glass"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Interfaces.RadiosityInflow JInSha if windowHasShade
-    "Incoming radiosity that connects to shaded part of glass"
-    annotation (Placement(transformation(extent={{120,-90},{100,-70}})));
-
-public
-  Modelica.Blocks.Interfaces.RealInput QAbs_flow(unit="W", quantity="Power") if windowHasShade
-    "Solar radiation absorbed by shade"
-    annotation (Placement(transformation(
-        origin={0,-120},
-        extent={{-20,-20},{20,20}},
-        rotation=90), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-110})));
 initial equation
   assert(( thisSideHasShade and windowHasShade)  or (not thisSideHasShade),
     "Parameters \"thisSideHasShade\" and \"windowHasShade\" are not consistent. Check parameters");
@@ -224,11 +182,7 @@ equation
           extent={{-20,86},{84,72}},
           lineColor={0,0,0},
           fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-72,-82},{-6,-100}},
-          lineColor={0,0,127},
-          textString="QAbsSha")}),
+          fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
 Partial model for heat convection of a window surface with or without shade,
@@ -251,5 +205,7 @@ August 25 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end PartialWindowBoundaryCondition;
