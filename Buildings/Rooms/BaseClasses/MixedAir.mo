@@ -82,18 +82,14 @@ model MixedAir "Model for room air that is completely mixed"
     each hFixed=hFixed) if
        haveConExtWin "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,170},{100,190}})));
-  HeatTransfer.Windows.InteriorHeatTransfer convConWin[NConExtWin](
+  HeatTransfer.Windows.InteriorHeatTransferConvective
+                                            convConWin[NConExtWin](
     final fFra=fFra,
-    each final linearizeRadiation = linearizeRadiation,
     final haveExteriorShade=haveExteriorShade,
     final haveInteriorShade=haveInteriorShade,
-    final A=AConExtWinGla + AConExtWinFra,
-    final absIRSha_air=epsConExtWinSha,
-    final absIRSha_glass=epsConExtWinUns,
-    final tauIRSha_air=tauIRSha_air,
-    final tauIRSha_glass=tauIRSha_glass) if
+    final A=AConExtWinGla + AConExtWinFra) if
        haveConExtWin "Model for convective heat transfer at window"
-    annotation (Placement(transformation(extent={{98,108},{118,128}})));
+    annotation (Placement(transformation(extent={{98,110},{118,130}})));
   // For conPar_a, we use for the tilt pi-tilt since it is the
   // surface that is on the other side of the construction
   Buildings.HeatTransfer.Convection.Interior convConPar_a[
@@ -283,6 +279,34 @@ public
     "Infrared radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
+  RadiationTemperature radTem(
+    final nConExt=nConExt,
+    final nConExtWin=nConExtWin,
+    final nConPar=nConPar,
+    final nConBou=nConBou,
+    final nSurBou=nSurBou,
+    final datConExt=datConExt,
+    final datConExtWin=datConExtWin,
+    final datConPar=datConPar,
+    final datConBou=datConBou,
+    final surBou=surBou,
+    final haveShade=haveShade) "Radiative temperature of the room"
+    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorRad
+    "Heat port for radiative heat gain and radiative temperature"
+    annotation (Placement(transformation(extent={{-250,-50},{-230,-30}})));
+
+  HeatTransfer.Windows.BaseClasses.ShadeRadiation shaRad[NConExtWin](
+    final A=AConExtWinGla + AConExtWinFra,
+    each final linearize = linearizeRadiation,
+    final thisSideHasShade=haveInteriorShade,
+    final absIR_air=epsConExtWinSha,
+    final absIR_glass=epsConExtWinUns,
+    final tauIR_air=tauIRSha_air,
+    final tauIR_glass=tauIRSha_glass) if
+       haveShade "Radiation model for room-side window shade"
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3]
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-280,80},{-240,120}})));
@@ -317,28 +341,30 @@ protected
     annotation (Placement(transformation(extent={{-220,120},{-200,140}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
-public
-  RadiationTemperature radTem(
-    final nConExt=nConExt,
-    final nConExtWin=nConExtWin,
-    final nConPar=nConPar,
-    final nConBou=nConBou,
-    final nSurBou=nSurBou,
-    final datConExt=datConExt,
-    final datConExtWin=datConExtWin,
-    final datConPar=datConPar,
-    final datConBou=datConBou,
-    final surBou=surBou,
-    final haveShade=haveShade) "Radiative temperature of the room"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorRad
-    "Heat port for radiative heat gain and radiative temperature"
-    annotation (Placement(transformation(extent={{-250,-50},{-230,-30}})));
-protected
-  Modelica.Blocks.Math.Add sumJ[NConExtWin](
+
+  Modelica.Blocks.Math.Add sumJToWin[NConExtWin](
     each final k1=1,
-    each final k2=1) "Sum of radiosity flows from to room toward the window"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+    each final k2=1) if
+       haveConExtWin
+    "Sum of radiosity flows from room surfaces toward the window"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+
+  HeatTransfer.Radiosity.RadiositySplitter radShaOut[NConExtWin] if
+     haveConExtWin
+    "Splitter for radiosity that strikes shading device or unshaded part of window"
+    annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
+  HeatTransfer.Windows.BaseClasses.ShadingSignal shaSig[NConExtWin](
+    each final haveShade=haveShade) if
+       haveConExtWin "Conversion for shading signal"
+    annotation (Placement(transformation(extent={{-200,170},{-180,190}})));
+
+  Modelica.Blocks.Math.Sum sumJFroWin[NConExtWin](each nin=if haveShade then 2 else 1) if
+       haveConExtWin "Sum of radiosity fom window to room surfaces"
+    annotation (Placement(transformation(extent={{-20,4},{-40,24}})));
+
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TSha[NConExtWin] if
+       haveShade "Temperature of shading device"
+    annotation (Placement(transformation(extent={{-20,-80},{-40,-60}})));
 equation
   connect(convConExt.solid, conExt)
                                    annotation (Line(
@@ -418,31 +444,9 @@ equation
           5.55112e-16},{-240,5.55112e-16}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConWin.JOutUns, JOutUns)
-                                      annotation (Line(
-      points={{119,126},{196,126},{196,160},{250,160}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(JInUns, convConWin.JInUns)
-                                    annotation (Line(
-      points={{248,144},{200,144},{200,124},{119,124}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(convConWin.JOutSha, JOutSha)
-                                      annotation (Line(
-      points={{119,112},{200,112},{200,60},{250,60}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(convConWin.JInSha, JInSha)
-                                    annotation (Line(
-      points={{119,110},{196,110},{196,40},{250,40}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
   connect(uSha, convConWin.uSha)
                           annotation (Line(
-      points={{-260,180},{-220,180},{-220,148},{90,148},{90,126},{97.2,126}},
+      points={{-260,180},{-220,180},{-220,154},{90,154},{90,128},{97.2,128}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExt, irRadExc.conExt) annotation (Line(
@@ -456,8 +460,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_a, irRadExc.conPar_a) annotation (Line(
-      points={{242,-60},{160,-60},{160,60},{-60,60},{-60,8},{-80,8},{-80,8},{
-          -80,7.5},{-79.9167,7.5}},
+      points={{242,-60},{160,-60},{160,60},{-60,60},{-60,8},{-80,8},{-80,7.5},{
+          -79.9167,7.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_b, irRadExc.conPar_b) annotation (Line(
@@ -476,11 +480,6 @@ equation
       points={{241,-220},{160,-220},{160,60},{-60,60},{-60,0.833333},{-79.9583,
           0.833333}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(convConWin.JOutRoo, irRadExc.JInConExtWin)    annotation (Line(
-      points={{97.6,114},{80,114},{80,100},{-40,100},{-40,16},{-40,16},{-40,
-          13.3333},{-79.5833,13.3333}},
-      color={0,127,0},
       smooth=Smooth.None));
   connect(irRadGai.conExt, conExt) annotation (Line(
       points={{-80,-20.8333},{-80,-20},{-60,-20},{-60,60},{160,60},{160,220},{
@@ -502,8 +501,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(irRadGai.conBou, conBou) annotation (Line(
-      points={{-79.9167,-36.6667},{-60,-36.6667},{-60,-36},{-60,-36},{-60,60},{
-          160,60},{160,-160},{242,-160}},
+      points={{-79.9167,-36.6667},{-60,-36.6667},{-60,60},{160,60},{160,-160},{
+          242,-160}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(irRadGai.conSurBou, conSurBou) annotation (Line(
@@ -514,7 +513,7 @@ equation
 
   connect(irRadGai.uSha, uSha)
                              annotation (Line(
-      points={{-100.833,-22.5},{-120,-22.5},{-120,148},{-220,148},{-220,180},{
+      points={{-100.833,-22.5},{-120,-22.5},{-120,154},{-220,154},{-220,180},{
           -260,180}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -558,7 +557,7 @@ equation
   end for;
   connect(convConWin.air, theConConWin.port_a)
                                               annotation (Line(
-      points={{98,118},{80,118},{80,120},{60,120}},
+      points={{98,120},{60,120}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(theConConWin.port_b,vol. heatPort) annotation (Line(
@@ -567,12 +566,12 @@ equation
       smooth=Smooth.None));
   connect(glaUns, convConWin.glaUns)
                                     annotation (Line(
-      points={{242,120},{118,120}},
+      points={{242,120},{160,120},{160,122},{118,122}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(convConWin.glaSha, glaSha)
                                     annotation (Line(
-      points={{118,116},{160,116},{160,80},{242,80}},
+      points={{118,118},{160,118},{160,80},{242,80}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -609,11 +608,6 @@ equation
       points={{240,180},{160,180},{160,60},{-60,60},{-60,57.5},{-80,57.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(QAbsSolSha_flow, convConWin.QAbs_flow)
-                                               annotation (Line(
-      points={{-260,-200},{-210,-200},{-210,80},{108,80},{108,107}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(solRadExc.JInConExtWin, JInConExtWin) annotation (Line(
       points={{-79.5833,53.3333},{-74,53.3333},{-74,70},{-220,70},{-220,-100},{
           -260,-100}},
@@ -624,7 +618,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(uSha, radTem.uSha) annotation (Line(
-      points={{-260,180},{-220,180},{-220,148},{-120,148},{-120,-62.5},{
+      points={{-260,180},{-220,180},{-220,154},{-120,154},{-120,-62.5},{
           -100.833,-62.5}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -673,11 +667,6 @@ equation
       points={{-80,-66.6667},{-60,-66.6667},{-60,60},{160,60},{160,80},{242,80}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConWin.sha, radTem.sha) annotation (Line(
-      points={{104.8,108},{104,108},{104,60},{-60,60},{-60,-68},{-80,-68},{-80,
-          -68.4167}},
-      color={191,0,0},
-      smooth=Smooth.None));
 
   connect(radTem.TRad, radiationAdapter.TRad) annotation (Line(
       points={{-100.417,-77.6667},{-232,-77.6667},{-232,130},{-222,130}},
@@ -702,21 +691,90 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExtWinFra, convConWin.frame) annotation (Line(
-      points={{242,5.55112e-16},{160,5.55112e-16},{160,100},{115,100},{115,108}},
+      points={{242,5.55112e-16},{160,5.55112e-16},{160,100},{115,100},{115,110}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConWin.JInRoo, sumJ.y) annotation (Line(
-      points={{98,110},{86,110},{86,30},{1,30}},
-      color={0,0,0},
+  connect(irRadExc.JOutConExtWin, sumJToWin.u1)
+                                           annotation (Line(
+      points={{-79.5833,15},{-50,15},{-50,-14},{-42,-14}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(irRadGai.JOutConExtWin, sumJToWin.u2)
+                                           annotation (Line(
+      points={{-79.5833,-25},{-46,-25},{-46,-26},{-42,-26}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(uSha, shaSig.u) annotation (Line(
+      points={{-260,180},{-202,180}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(shaSig.y, radShaOut.u) annotation (Line(
+      points={{-179,180},{-150,180},{-150,124},{-102,124}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(sumJToWin.y, radShaOut.JIn)
+                                 annotation (Line(
+      points={{-19,-20},{0,-20},{0,148},{-110,148},{-110,136},{-101,136}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(radShaOut.JOut_1, shaRad.JIn_air) annotation (Line(
+      points={{-79,136},{-70,136},{-70,96},{-61,96}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(radShaOut.JOut_2, JOutUns) annotation (Line(
+      points={{-79,124},{-20,124},{-20,160},{250,160}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(shaRad.JOut_glass, JOutSha) annotation (Line(
+      points={{-39,96},{-20,96},{-20,72},{220,72},{220,60},{250,60}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(JInSha, shaRad.JIn_glass) annotation (Line(
+      points={{250,40},{214,40},{214,70},{-24,70},{-24,92},{-39,92}},
+      color={0,127,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(irRadExc.JOutConExtWin, sumJ.u1) annotation (Line(
-      points={{-79.5833,15},{-36,15},{-36,36},{-22,36}},
+
+  connect(irRadExc.JInConExtWin, sumJFroWin.y) annotation (Line(
+      points={{-79.5833,13.3333},{-46,13.3333},{-46,14},{-41,14}},
+      color={0,127,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(shaSig.y, shaRad.u) annotation (Line(
+      points={{-179,180},{-150,180},{-150,124},{-110,124},{-110,108},{-61,108}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(irRadGai.JOutConExtWin, sumJ.u2) annotation (Line(
-      points={{-79.5833,-25},{-32,-25},{-32,24},{-22,24}},
+
+  connect(shaRad.QRadAbs_flow, convConWin.QRadAbs_flow) annotation (Line(
+      points={{-55,89},{-55,84},{102,84},{102,109}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(convConWin.TSha, shaRad.TSha) annotation (Line(
+      points={{108,109},{108,82},{-45,82},{-45,89}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(shaRad.QSolAbs_flow, QAbsSolSha_flow) annotation (Line(
+      points={{-50,89},{-50,86},{-160,86},{-160,-200},{-260,-200}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sumJFroWin.u[1], JInUns) annotation (Line(
+      points={{-18,14},{200,14},{200,144},{248,144}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(shaRad.JOut_air, sumJFroWin.u[2]) annotation (Line(
+      points={{-61,92},{-68,92},{-68,70},{-30,70},{-30,40},{-10,40},{-10,14},{-18,
+          14}},
       color={0,127,0},
+      smooth=Smooth.None));
+  connect(radTem.sha, TSha.port) annotation (Line(
+      points={{-80,-68.4167},{-64,-68.4167},{-64,-68},{-50,-68},{-50,-70},{-40,
+          -70}},
+      color={191,0,0},
+      smooth=Smooth.None));
+
+  connect(convConWin.TSha, TSha.T) annotation (Line(
+      points={{108,109},{108,-20},{10,-20},{10,-70},{-18,-70}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
            extent={{-240,-240},{240,240}}),
@@ -819,6 +877,11 @@ solar absorptivity.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+June 12, 2013, by Michael Wetter:<br/>
+Redesigned model to separate convection from radiation, which is
+required for the implementation of a CFD model.
+</li>
 <li>
 June 27, 2013, by Michael Wetter:<br/>
 Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
