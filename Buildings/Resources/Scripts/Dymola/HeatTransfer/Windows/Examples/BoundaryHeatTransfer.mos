@@ -1,7 +1,7 @@
 simulateModel("Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer", method="dassl", resultFile="BoundaryHeatTransfer");
 createPlot(id = 1,
  position = {15, 10, 400, 280},
- y = {"extCon.air.T", "extCon.glaUns.T", "extCon.conWinUns.solid.T", "extCon.conWinUns.fluid.T", "extCon.frame.T", "extCon.radOut.TRad", "extCon.shaRad.TSha", "extCon.glaSha.T", "extCon.shaCon.TSha"},
+ y = {"extCon.air.T", "extCon.glaUns.T", "extCon.conWinUns.solid.T", "extCon.conWinUns.fluid.T", "extCon.frame.T", "extCon.radOut.TRad", "extCon.shaRad.TSha", "extCon.glaSha.T"},
  range = {0.0, 1.0, 25.0, -5.0},
  autoscale = true,
  autoerase = true,
@@ -13,6 +13,5 @@ createPlot(id = 1,
  filename = "BoundaryHeatTransfer.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
- colors = {{0, 0, 255}, {255, 0, 0}, {0, 128, 0}, {255, 0, 255}, {0, 0, 0}, {0, 0, 255}, {255, 0, 0}, {0, 128, 0}, {255, 0, 255}},
- markers = {MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.Cross, MarkerStyle.Cross, MarkerStyle.Cross, 
-MarkerStyle.Cross});
+ colors = {{0, 0, 255}, {255, 0, 0}, {0, 128, 0}, {255, 0, 255}, {0, 0, 0}, {0, 0, 255}, {255, 0, 0}, {0, 128, 0}},
+ markers = {MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.Cross, MarkerStyle.Cross, MarkerStyle.Cross});
