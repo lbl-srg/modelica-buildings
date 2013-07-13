@@ -20,7 +20,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final surBou=surBou,
     redeclare final package Medium = Medium,
     final V=V,
-    nPorts=nPorts,
+    final nPorts=nPorts,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p_start=p_start,
@@ -33,6 +33,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final conMod=intConMod,
     final hFixed=hIntFixed,
     final m_flow_nominal=m_flow_nominal,
+    final homotopyInitialization=homotopyInitialization,
     tauGlaSol={0.6 for i in 1:NConExtWin}) "Air volume"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
@@ -116,6 +117,8 @@ model MixedAir "Model of a room in which the air is completely mixed"
           Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0) = V*1.2/3600
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Boolean homotopyInitialization "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   ////////////////////////////////////////////////////////////////////////
   // Models for boundary conditions
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_conBou[nConBou] if

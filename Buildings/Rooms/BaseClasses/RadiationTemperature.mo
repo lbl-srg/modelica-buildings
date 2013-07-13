@@ -1,6 +1,6 @@
 within Buildings.Rooms.BaseClasses;
 model RadiationTemperature "Radiative temperature of the room"
-  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterface;
+  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterfaceRadiative;
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin] if
      haveConExtWin

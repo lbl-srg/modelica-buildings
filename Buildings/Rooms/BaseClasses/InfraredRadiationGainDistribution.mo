@@ -1,7 +1,7 @@
 within Buildings.Rooms.BaseClasses;
 model InfraredRadiationGainDistribution
   "Infrared radiative heat gain distribution between the room facing surfaces"
-  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterface;
+  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterfaceRadiative;
   parameter Boolean haveShade "Set to true if a shade is present";
 
   Modelica.Blocks.Interfaces.RealInput uSha[NConExtWin](each min=0, each max=1) if

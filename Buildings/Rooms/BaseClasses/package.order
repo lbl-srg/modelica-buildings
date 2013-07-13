@@ -1,3 +1,4 @@
+AirHeatMassBalanceMixed
 ExteriorBoundaryConditions
 ExteriorBoundaryConditionsWithWindow
 HeatGain
@@ -8,6 +9,7 @@ RadiationAdapter
 RadiationTemperature
 SolarRadiationExchange
 PartialSurfaceInterface
+PartialSurfaceInterfaceRadiative
 SkyRadiationExchange
 ConstructionNumbers
 ConstructionRecords

@@ -1,7 +1,7 @@
 within Buildings.Rooms.BaseClasses;
 model SolarRadiationExchange
   "Solar radiation heat exchange between the room facing surfaces"
-  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterface(
+  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterfaceRadiative(
   final epsConExt = datConExt.layers.absSol_b,
   final epsConExtWinOpa = datConExtWin.layers.absSol_b,
   final epsConExtWinUns={(1-datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol

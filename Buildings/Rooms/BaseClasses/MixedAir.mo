@@ -6,7 +6,7 @@ model MixedAir "Model for room air that is completely mixed"
   parameter Modelica.SIunits.Volume V "Volume";
 
   // Port definitions
-  parameter Integer nPorts=0 "Number of fluid ports of this model"
+  parameter Integer nPorts=1 "Number of fluid ports of this model"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Modelica.SIunits.Area AFlo "Floor area";
   parameter Modelica.SIunits.Length hRoo "Average room height";
@@ -38,19 +38,9 @@ model MixedAir "Model for room air that is completely mixed"
   parameter Modelica.SIunits.Emissivity tauGlaSol[NConExtWin]
     "Transmissivity of window";
 
-  Buildings.Fluid.MixingVolumes.MixingVolume vol(V=AFlo*hRoo,
-    redeclare package Medium = Medium,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    final p_start=p_start,
-    final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start,
-    final C_nominal=C_nominal,
-    final m_flow_nominal = m_flow_nominal,
-    final prescribedHeatFlowRate = true,
-    final nPorts=nPorts+1) "Room air volume"
-    annotation (Placement(transformation(extent={{10,-210},{-10,-190}})));
+  parameter Boolean homotopyInitialization "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   // Heat ports that are needed to connect to the window glass
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin] if
      haveConExtWin
@@ -66,121 +56,8 @@ model MixedAir "Model for room air that is completely mixed"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-238})));
 
-  Buildings.HeatTransfer.Convection.Interior convConExt[
-                                     NConExt](
-    final A=AConExt,
-    final til =  datConExt.til,
-    each conMod=conMod,
-    each hFixed=hFixed) if
-       haveConExt "Convective heat transfer"
-    annotation (Placement(transformation(extent={{120,210},{100,230}})));
-  Buildings.HeatTransfer.Convection.Interior convConExtWin[
-                                        NConExtWin](
-    final A=AConExtWinOpa,
-    final til =  datConExtWin.til,
-    each conMod=conMod,
-    each hFixed=hFixed) if
-       haveConExtWin "Convective heat transfer"
-    annotation (Placement(transformation(extent={{120,170},{100,190}})));
-  HeatTransfer.Windows.InteriorHeatTransferConvective
-                                            convConWin[NConExtWin](
-    final fFra=fFra,
-    final haveExteriorShade=haveExteriorShade,
-    final haveInteriorShade=haveInteriorShade,
-    final A=AConExtWinGla + AConExtWinFra) if
-       haveConExtWin "Model for convective heat transfer at window"
-    annotation (Placement(transformation(extent={{98,110},{118,130}})));
   // For conPar_a, we use for the tilt pi-tilt since it is the
   // surface that is on the other side of the construction
-  Buildings.HeatTransfer.Convection.Interior convConPar_a[
-                                       nConPar](
-    final A=AConPar,
-    final til=Modelica.Constants.pi .- datConPar.til,
-    each conMod=conMod,
-    each hFixed=hFixed) if
-       haveConPar "Convective heat transfer"
-    annotation (Placement(transformation(extent={{120,-70},{100,-50}})));
-  Buildings.HeatTransfer.Convection.Interior convConPar_b[
-                                       nConPar](
-    final A=AConPar,
-    final til =  datConPar.til,
-    each conMod=conMod,
-    each hFixed=hFixed) if
-       haveConPar "Convective heat transfer"
-    annotation (Placement(transformation(extent={{120,-110},{100,-90}})));
-  Buildings.HeatTransfer.Convection.Interior convConBou[
-                                     nConBou](
-    final A=AConBou,
-    final til =  datConBou.til,
-    each conMod=conMod,
-    each hFixed=hFixed) if
-       haveConBou "Convective heat transfer"
-    annotation (Placement(transformation(extent={{120,-170},{100,-150}})));
-  Buildings.HeatTransfer.Convection.Interior convSurBou[
-                                     nSurBou](
-    final A=ASurBou,
-    final til =  surBou.til,
-    each conMod=conMod,
-    each hFixed=hFixed) if
-       haveSurBou "Convective heat transfer"
-    annotation (Placement(transformation(extent={{122,-230},{102,-210}})));
-protected
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExt(final m=
-        nConExt) if
-       haveConExt
-    "Thermal collector to convert from vector to scalar connector"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={48,220})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExtWin(
-      final m=nConExtWin) if
-       haveConExtWin
-    "Thermal collector to convert from vector to scalar connector"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={48,180})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConWin(final m=
-        nConExtWin) if
-       haveConExtWin
-    "Thermal collector to convert from vector to scalar connector"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={50,120})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConPar_a(final m=
-        nConPar) if
-       haveConPar
-    "Thermal collector to convert from vector to scalar connector"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={52,-60})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConPar_b(final m=
-        nConPar) if
-       haveConPar
-    "Thermal collector to convert from vector to scalar connector"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={50,-100})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConBou(final m=
-        nConBou) if
-       haveConBou
-    "Thermal collector to convert from vector to scalar connector"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={50,-160})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConSurBou(final m=
-        nSurBou) if
-       haveSurBou
-    "Thermal collector to convert from vector to scalar connector"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={52,-220})));
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port to air volume"
@@ -206,8 +83,8 @@ public
     annotation (Dialog(group="Shading"));
   final parameter Boolean haveShade = haveExteriorShade[1] or haveInteriorShade[1]
     "Set to true if the windows have a shade";
-  final parameter Real fFra[NConExtWin](each min=0, each max=1) = datConExtWin.fFra
-    "Fraction of window frame divided by total window area";
+//  final parameter Real fFra[NConExtWin](each min=0, each max=1) = datConExtWin.fFra
+//    "Fraction of window frame divided by total window area";
   parameter Boolean linearizeRadiation
     "Set to true to linearize emissive power";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
@@ -228,6 +105,34 @@ public
   HeatTransfer.Interfaces.RadiosityOutflow JOutUns[NConExtWin] if
      haveConExtWin "Outgoing radiosity that connects to unshaded part of glass"
     annotation (Placement(transformation(extent={{240,150},{260,170}})));
+
+  AirHeatMassBalanceMixed con(
+    redeclare final package Medium=Medium,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    nPorts=nPorts+1,
+    final V=V,
+    final nConExt=nConExt,
+    final nConExtWin=nConExtWin,
+    final nConPar=nConPar,
+    final nConBou=nConBou,
+    final nSurBou=nSurBou,
+    final datConExt=datConExt,
+    final datConExtWin=datConExtWin,
+    final datConPar=datConPar,
+    final datConBou=datConBou,
+    final surBou=surBou,
+    final homotopyInitialization=homotopyInitialization,
+    p_start=p_start,
+    T_start=T_start,
+    X_start=X_start,
+    C_start=C_start,
+    C_nominal=C_nominal,
+    m_flow_nominal=m_flow_nominal,
+    conMod=conMod,
+    hFixed=hFixed,
+    haveShade=haveShade) "Air heat and mass balance"
+    annotation (Placement(transformation(extent={{-12,-142},{12,-118}})));
 
   SolarRadiationExchange solRadExc(
     final nConExt=nConExt,
@@ -366,89 +271,6 @@ protected
        haveShade "Temperature of shading device"
     annotation (Placement(transformation(extent={{-20,-80},{-40,-60}})));
 equation
-  connect(convConExt.solid, conExt)
-                                   annotation (Line(
-      points={{120,220},{240,220}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(convConPar_a.solid, conPar_a)
-                                       annotation (Line(
-      points={{120,-60},{242,-60}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(convConPar_b.solid, conPar_b)
-                                       annotation (Line(
-      points={{120,-100},{242,-100}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(convConBou.solid, conBou)
-                                   annotation (Line(
-      points={{120,-160},{242,-160}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(convSurBou.solid, conSurBou) annotation (Line(
-      points={{122,-220},{241,-220}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(convConExt.fluid, theConConExt.port_a)
-                                                annotation (Line(
-      points={{100,220},{58,220}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(convConPar_a.fluid, theConConPar_a.port_a)
-                                                    annotation (Line(
-      points={{100,-60},{62,-60}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(convConPar_b.fluid, theConConPar_b.port_a)
-                                                    annotation (Line(
-      points={{100,-100},{60,-100}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(convConBou.fluid, theConConBou.port_a)
-                                                annotation (Line(
-      points={{100,-160},{60,-160}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(convSurBou.fluid, theConSurBou.port_a) annotation (Line(
-      points={{102,-220},{62,-220}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(theConConExt.port_b,vol. heatPort) annotation (Line(
-      points={{38,220},{20,220},{20,-200},{10,-200}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(theConConExtWin.port_b,vol. heatPort) annotation (Line(
-      points={{38,180},{20,180},{20,-200},{10,-200}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(theConConPar_a.port_b,vol. heatPort) annotation (Line(
-      points={{42,-60},{20,-60},{20,-200},{10,-200}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(theConConPar_b.port_b,vol. heatPort) annotation (Line(
-      points={{40,-100},{20,-100},{20,-200},{10,-200}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(theConConBou.port_b,vol. heatPort) annotation (Line(
-      points={{40,-160},{20,-160},{20,-200},{10,-200}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(theConSurBou.port_b,vol. heatPort) annotation (Line(
-      points={{42,-220},{20,-220},{20,-200},{10,-200}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(vol.heatPort, heaPorAir)
-                                  annotation (Line(
-      points={{10,-200},{20,-200},{20,-90},{-150,-90},{-150,0},{-200,0},{-200,
-          5.55112e-16},{-240,5.55112e-16}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(uSha, convConWin.uSha)
-                          annotation (Line(
-      points={{-260,180},{-220,180},{-220,154},{90,154},{90,128},{97.2,128}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(conExt, irRadExc.conExt) annotation (Line(
       points={{240,220},{160,220},{160,60},{-60,60},{-60,20},{-80,20},{-80,
           19.1667}},
@@ -517,23 +339,9 @@ equation
           -260,180}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heaGai.QCon_flow,vol. heatPort) annotation (Line(
-      points={{-200,100},{-150,100},{-150,-90},{20,-90},{20,-200},{10,-200}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(heaGai.qGai_flow, qGai_flow) annotation (Line(
       points={{-222,100},{-260,100}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(convConExtWin.fluid, theConConExtWin.port_a)
-                                                annotation (Line(
-      points={{100,180},{58,180}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(convConExtWin.solid, conExtWin)
-                                         annotation (Line(
-      points={{120,180},{240,180}},
-      color={191,0,0},
       smooth=Smooth.None));
   connect(conExtWin, irRadExc.conExtWin) annotation (Line(
       points={{240,180},{160,180},{160,60},{-60,60},{-60,16},{-80,16},{-80,17.5}},
@@ -544,44 +352,14 @@ equation
           -22.5},{-80,-22.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(heaGai.QLat_flow,vol. ports[nPorts+1]) annotation (Line(
-      points={{-200,94},{-180,94},{-180,-220},{-2,-220},{-2,-210},{-7.77156e-16,
-          -210}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  for i in 1:nPorts loop
-    connect(ports[i],vol. ports[i]) annotation (Line(
-      points={{2.22045e-15,-238},{0,-238},{0,-220},{0,-210},{-7.77156e-16,-210}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  end for;
-  connect(convConWin.air, theConConWin.port_a)
-                                              annotation (Line(
-      points={{98,120},{60,120}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(theConConWin.port_b,vol. heatPort) annotation (Line(
-      points={{40,120},{20,120},{20,-200},{10,-200}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(glaUns, convConWin.glaUns)
-                                    annotation (Line(
-      points={{242,120},{160,120},{160,122},{118,122}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(convConWin.glaSha, glaSha)
-                                    annotation (Line(
-      points={{118,118},{160,118},{160,80},{242,80}},
-      color={191,0,0},
-      smooth=Smooth.None));
 
   connect(conExt, solRadExc.conExt) annotation (Line(
-      points={{240,220},{160,220},{160,60},{160,60},{-80,60},{-80,59.1667}},
+      points={{240,220},{160,220},{160,60},{-80,60},{-80,59.1667}},
       color={190,0,0},
       smooth=Smooth.None));
   connect(conExtWinFra, solRadExc.conExtWinFra) annotation (Line(
-      points={{242,5.55112e-16},{214,5.55112e-16},{160,5.55112e-16},{160,60},{
-          -60,60},{-60,50},{-79.9167,50}},
+      points={{242,5.55112e-16},{160,5.55112e-16},{160,60},{-60,60},{-60,50},{
+          -79.9167,50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_a, solRadExc.conPar_a) annotation (Line(
@@ -628,13 +406,12 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(conExtWin, radTem.conExtWin) annotation (Line(
-      points={{240,180},{130,180},{130,180},{160,180},{160,60},{-60,60},{-60,
-          -62.5},{-80,-62.5}},
+      points={{240,180},{160,180},{160,60},{-60,60},{-60,-62.5},{-80,-62.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conExtWinFra, radTem.conExtWinFra) annotation (Line(
-      points={{242,5.55112e-16},{202,5.55112e-16},{202,0},{160,0},{160,60},{-42,
-          60},{-42,60},{-60,60},{-60,-70},{-79.9167,-70}},
+      points={{242,5.55112e-16},{202,5.55112e-16},{202,0},{160,0},{160,60},{-60,
+          60},{-60,-70},{-79.9167,-70}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_a, radTem.conPar_a) annotation (Line(
@@ -690,10 +467,6 @@ equation
       points={{-159,120},{-130,120},{-130,-30},{-100.833,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conExtWinFra, convConWin.frame) annotation (Line(
-      points={{242,5.55112e-16},{160,5.55112e-16},{160,100},{115,100},{115,110}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(irRadExc.JOutConExtWin, sumJToWin.u1)
                                            annotation (Line(
       points={{-79.5833,15},{-50,15},{-50,-14},{-42,-14}},
@@ -726,11 +499,11 @@ equation
       color={0,127,0},
       smooth=Smooth.None));
   connect(shaRad.JOut_glass, JOutSha) annotation (Line(
-      points={{-39,96},{-20,96},{-20,72},{220,72},{220,60},{250,60}},
+      points={{-39,96},{20,96},{20,72},{220,72},{220,60},{250,60}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(JInSha, shaRad.JIn_glass) annotation (Line(
-      points={{250,40},{214,40},{214,70},{-24,70},{-24,92},{-39,92}},
+      points={{250,40},{214,40},{214,70},{16,70},{16,92},{-39,92}},
       color={0,127,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
@@ -745,14 +518,6 @@ equation
       color={0,127,0},
       smooth=Smooth.None));
 
-  connect(shaRad.QRadAbs_flow, convConWin.QRadAbs_flow) annotation (Line(
-      points={{-55,89},{-55,84},{102,84},{102,109}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(convConWin.TSha, shaRad.TSha) annotation (Line(
-      points={{108,109},{108,82},{-45,82},{-45,89}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(shaRad.QSolAbs_flow, QAbsSolSha_flow) annotation (Line(
       points={{-50,89},{-50,86},{-160,86},{-160,-200},{-260,-200}},
       color={0,0,127},
@@ -762,7 +527,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaRad.JOut_air, sumJFroWin.u[2]) annotation (Line(
-      points={{-61,92},{-68,92},{-68,70},{-30,70},{-30,40},{-10,40},{-10,14},{-18,
+      points={{-61,92},{-68,92},{-68,62},{-30,62},{-30,40},{-10,40},{-10,14},{-18,
           14}},
       color={0,127,0},
       smooth=Smooth.None));
@@ -772,11 +537,73 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(convConWin.TSha, TSha.T) annotation (Line(
-      points={{108,109},{108,-20},{10,-20},{10,-70},{-18,-70}},
+  for i in 1:nPorts loop
+  connect(ports[i],con. ports[i]) annotation (Line(
+      points={{2.22045e-15,-238},{2.22045e-15,-198},{8.88178e-16,-198},{8.88178e-16,
+            -141.9}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  end for;
+  connect(con.heaPorAir, heaGai.QCon_flow) annotation (Line(
+      points={{-12,-130},{-180,-130},{-180,100},{-200,100}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heaGai.QLat_flow,con. ports[nPorts+1]) annotation (Line(
+      points={{-200,94},{-186,94},{-186,-170},{8.88178e-16,-170},{8.88178e-16,-141.9}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(con.conExt, conExt) annotation (Line(
+      points={{12,-119},{26,-119},{26,-120},{160,-120},{160,220},{240,220}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con.conExtWin, conExtWin) annotation (Line(
+      points={{12,-121},{86,-121},{86,-122},{160,-122},{160,180},{240,180}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con.glaUns, glaUns) annotation (Line(
+      points={{12,-124},{160,-124},{160,120},{242,120}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con.glaSha, glaSha) annotation (Line(
+      points={{12,-126},{160,-126},{160,80},{242,80}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con.conExtWinFra, conExtWinFra) annotation (Line(
+      points={{12.1,-130},{160,-130},{160,4.44089e-16},{242,4.44089e-16}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con.conPar_a, conPar_a) annotation (Line(
+      points={{12.1,-133},{86,-133},{86,-132},{160,-132},{160,-60},{242,-60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con.conPar_b, conPar_b) annotation (Line(
+      points={{12.1,-135},{86,-135},{86,-134},{160,-134},{160,-100},{242,-100}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con.conBou, conBou) annotation (Line(
+      points={{12.1,-138},{160,-138},{160,-160},{242,-160}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con.conSurBou, conSurBou) annotation (Line(
+      points={{12.05,-141},{86,-141},{86,-142},{160,-142},{160,-220},{241,-220}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con.uSha, uSha) annotation (Line(
+      points={{-12.4,-120},{-16,-120},{-16,-112},{6,-112},{6,154},{-220,154},{-220,
+          180},{-260,180}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
+  connect(shaRad.QRadAbs_flow,con. QRadAbs_flow) annotation (Line(
+      points={{-55,89},{-55,72},{4,72},{4,-110},{-20,-110},{-20,-125},{-12.5,-125}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  connect(con.TSha, shaRad.TSha) annotation (Line(
+      points={{-12.5,-127},{-22,-127},{-22,-108},{2,-108},{2,70},{-45,70},{-45,89}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+                           annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
            extent={{-240,-240},{240,240}}),
         graphics), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-300,-300},{300,300}}), graphics={

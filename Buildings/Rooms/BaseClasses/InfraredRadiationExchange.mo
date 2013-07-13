@@ -1,7 +1,7 @@
 within Buildings.Rooms.BaseClasses;
 model InfraredRadiationExchange
   "Infrared radiation heat exchange between the room facing surfaces"
-  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterface;
+  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterfaceRadiative;
   parameter Boolean linearizeRadiation
     "Set to true to linearize emissive power";
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
