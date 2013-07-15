@@ -88,8 +88,8 @@ protected
  Modelica.SIunits.RadiantPower E_glass
     "Emissive power of surface that faces glass";
 equation
+  connect(TSha_internal, TSha);
   if thisSideHasShade then
-    connect(TSha_internal, TSha);
   // Radiosities that are outgoing from the surface, which are
   // equal to the infrared absorptivity plus the reflected incoming
   // radiosity plus the radiosity that is transmitted from the
