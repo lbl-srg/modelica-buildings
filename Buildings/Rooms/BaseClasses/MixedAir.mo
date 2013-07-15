@@ -42,8 +42,7 @@ model MixedAir "Model for room air that is completely mixed"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Heat ports that are needed to connect to the window glass
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin] if
-     haveConExtWin
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin]
     "Heat port that connects to room-side surface of unshaded glass"
                               annotation (Placement(transformation(extent={{232,110},
             {252,130}},          rotation=0)));
