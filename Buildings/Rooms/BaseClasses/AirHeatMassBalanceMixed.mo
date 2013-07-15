@@ -29,8 +29,7 @@ model AirHeatMassBalanceMixed
       redeclare each final package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-238})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin] if
-     haveConExtWin
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin]
     "Heat port that connects to room-side surface of unshaded glass"
                               annotation (Placement(transformation(extent={{230,110},
             {250,130}},          rotation=0)));
