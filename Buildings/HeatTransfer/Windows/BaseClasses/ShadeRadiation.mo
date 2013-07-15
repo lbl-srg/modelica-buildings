@@ -64,7 +64,8 @@ model ShadeRadiation
 
   Modelica.Blocks.Interfaces.RealInput TSha(quantity="ThermodynamicTemperature",
       unit="K",
-      start=293.15) "Shade temperature"
+      start=293.15) if
+         thisSideHasShade "Shade temperature"
     annotation (Placement(transformation(
         origin={60,-120},
         extent={{-20,-20},{20,20}},
@@ -74,6 +75,10 @@ model ShadeRadiation
         origin={50,-110})));
 
 protected
+   Modelica.Blocks.Interfaces.RealInput TSha_internal(quantity="ThermodynamicTemperature",
+      unit="K",
+      start=293.15) "Internal connector for shade temperature";
+
  final parameter Real T03(min=0, final unit="K3")=T0^3
     "3rd power of temperature T0"
  annotation(Evaluate=true);
@@ -84,17 +89,18 @@ protected
     "Emissive power of surface that faces glass";
 equation
   if thisSideHasShade then
+    connect(TSha_internal, TSha);
   // Radiosities that are outgoing from the surface, which are
   // equal to the infrared absorptivity plus the reflected incoming
   // radiosity plus the radiosity that is transmitted from the
   // other surface.
     if linearize then
-      T4 = T03 * TSha;
+      T4 = T03 * TSha_internal;
     else
       if homotopyInitialization then
-        T4 = homotopy(actual=(TSha)^4, simplified=T03 * TSha);
+        T4 = homotopy(actual=(TSha_internal)^4, simplified=T03 * TSha_internal);
       else
-        T4 = TSha^4;
+        T4 = TSha_internal^4;
       end if;
     end if;
 
@@ -113,6 +119,7 @@ equation
     E_glass = 0;
     JOut_air = JIn_glass;
     JOut_glass = JIn_air;
+    TSha_internal = T0;
   end if;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
