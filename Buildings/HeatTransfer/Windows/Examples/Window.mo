@@ -82,7 +82,7 @@ model Window "Test model for the window"
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{10,-20},{30,0}})));
 protected
-  Modelica.Blocks.Math.Sum sumJ(nin=if glaSys.haveInteriorShade then 2 else 1)
+  Modelica.Blocks.Math.Sum sumJ(nin=if glaSys.haveShade then 2 else 1)
     "Sum of radiosity fom glass to outside"
     annotation (Placement(transformation(extent={{260,60},{280,80}})));
 public
