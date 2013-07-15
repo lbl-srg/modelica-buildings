@@ -12,8 +12,6 @@ package GlazingSystems
     parameter Boolean haveInteriorShade = false
       "Set to true if window has an interior shade (at surface b)"
       annotation (Evaluate=true);
-    final parameter Boolean windowHasShade = haveExteriorShade or haveInteriorShade
-      "Set to true if the window has an exterior or an interior shade";
 
     parameter Glasses.Generic glass[nLay]
       "Layer by layer declaration of glass layers, starting from outside to room-side"
@@ -40,6 +38,10 @@ Generic record that implements thermophysical properties for glazing systems.
 </html>",
   revisions="<html>
 <ul>
+<li>
+July 15, 2013, by Michael Wetter:<br/>
+Removed parameter <code>windowHasShade</code> which is redundant with <code>haveShade</code>.
+</li>
 <li>
 Sep. 3 2010, by Michael Wetter:<br/>
 First implementation.

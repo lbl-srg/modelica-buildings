@@ -117,8 +117,7 @@ model ExteriorWallTwoWindows
     tauIR_air={glaSys1.shade.tauIR_a, glaSys2.shade.tauIR_a},
     tauIR_glass={glaSys1.shade.tauIR_b, glaSys2.shade.tauIR_b},
     A=AGla) if
-     glaSys1.windowHasShade or glaSys2.windowHasShade
-    "Interior shade radiation model"
+     glaSys1.haveShade or glaSys2.haveShade "Interior shade radiation model"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective intShaCon[nCon](
     A=A,
@@ -128,7 +127,7 @@ model ExteriorWallTwoWindows
     "Model for interior shade heat transfer"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
 protected
-  Modelica.Blocks.Math.Sum sumJ[nCon](each nin=if glaSys1.windowHasShade or glaSys2.windowHasShade
+  Modelica.Blocks.Math.Sum sumJ[nCon](each nin=if glaSys1.haveShade or glaSys2.haveShade
          then 2 else 1) "Sum of radiosity fom glass to outside"
     annotation (Placement(transformation(extent={{-68,-80},{-88,-60}})));
   Buildings.HeatTransfer.Radiosity.RadiositySplitter radShaOut[nCon]

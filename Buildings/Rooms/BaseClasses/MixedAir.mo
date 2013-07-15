@@ -81,7 +81,9 @@ public
     {datConExtWin[i].glaSys.haveInteriorShade for i in 1:NConExtWin}
     "Set to true if window has interior shade (at surface b)"
     annotation (Dialog(group="Shading"));
-  final parameter Boolean haveShade = haveExteriorShade[1] or haveInteriorShade[1]
+  final parameter Boolean haveShade=
+  Modelica.Math.BooleanVectors.anyTrue(haveExteriorShade[:]) or
+  Modelica.Math.BooleanVectors.anyTrue(haveInteriorShade[:])
     "Set to true if the windows have a shade";
 //  final parameter Real fFra[NConExtWin](each min=0, each max=1) = datConExtWin.fFra
 //    "Fraction of window frame divided by total window area";
@@ -107,10 +109,10 @@ public
     annotation (Placement(transformation(extent={{240,150},{260,170}})));
 
   AirHeatMassBalanceMixed con(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
-    nPorts=nPorts+1,
+    nPorts=nPorts + 1,
     final V=V,
     final nConExt=nConExt,
     final nConExtWin=nConExtWin,
@@ -123,15 +125,15 @@ public
     final datConBou=datConBou,
     final surBou=surBou,
     final homotopyInitialization=homotopyInitialization,
-    p_start=p_start,
-    T_start=T_start,
-    X_start=X_start,
-    C_start=C_start,
-    C_nominal=C_nominal,
-    m_flow_nominal=m_flow_nominal,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
+    final C_nominal=C_nominal,
+    final m_flow_nominal=m_flow_nominal,
     conMod=conMod,
     hFixed=hFixed,
-    haveShade=haveShade) "Air heat and mass balance"
+    final haveShade=haveShade) "Convective heat and mass balance of air"
     annotation (Placement(transformation(extent={{-12,-142},{12,-118}})));
 
   SolarRadiationExchange solRadExc(
@@ -204,8 +206,8 @@ public
   HeatTransfer.Windows.BaseClasses.ShadeRadiation shaRad[NConExtWin](
     final A=AConExtWinGla,
     final thisSideHasShade=haveInteriorShade,
-    final absIR_air=epsConExtWinSha,
-    final absIR_glass=epsConExtWinUns,
+    final absIR_air=datConExtWin.glaSys.shade.absIR_a,
+    final absIR_glass={(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b) for i in 1:NConExtWin},
     final tauIR_air=tauIRSha_air,
     final tauIR_glass=tauIRSha_glass,
     each final linearize = linearizeRadiation) if
@@ -263,7 +265,8 @@ protected
        haveConExtWin "Conversion for shading signal"
     annotation (Placement(transformation(extent={{-200,170},{-180,190}})));
 
-  Modelica.Blocks.Math.Sum sumJFroWin[NConExtWin](each nin=if haveShade then 2 else 1) if
+  Modelica.Blocks.Math.Sum sumJFroWin[NConExtWin](each nin=if haveShade then 2
+         else 1) if
        haveConExtWin "Sum of radiosity fom window to room surfaces"
     annotation (Placement(transformation(extent={{-20,4},{-40,24}})));
 
@@ -526,9 +529,9 @@ equation
       points={{-18,14},{200,14},{200,144},{248,144}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(shaRad.JOut_air, sumJFroWin.u[2]) annotation (Line(
-      points={{-61,92},{-68,92},{-68,62},{-30,62},{-30,40},{-10,40},{-10,14},{-18,
-          14}},
+  connect(sumJFroWin.u[2], shaRad.JOut_air) annotation (Line(
+      points={{-18,14},{-10,14},{-10,40},{-40,40},{-40,64},{-66,64},{-66,92},{
+          -61,92}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(radTem.sha, TSha.port) annotation (Line(
@@ -538,7 +541,8 @@ equation
       smooth=Smooth.None));
 
   for i in 1:nPorts loop
-  connect(ports[i],con. ports[i]) annotation (Line(
+    connect(ports[i], con.ports[i])
+                                  annotation (Line(
       points={{2.22045e-15,-238},{2.22045e-15,-198},{8.88178e-16,-198},{8.88178e-16,
             -141.9}},
       color={0,127,255},
@@ -548,7 +552,8 @@ equation
       points={{-12,-130},{-180,-130},{-180,100},{-200,100}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(heaGai.QLat_flow,con. ports[nPorts+1]) annotation (Line(
+  connect(heaGai.QLat_flow, con.ports[nPorts + 1])
+                                                 annotation (Line(
       points={{-200,94},{-186,94},{-186,-170},{8.88178e-16,-170},{8.88178e-16,-141.9}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -593,7 +598,7 @@ equation
           180},{-260,180}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(shaRad.QRadAbs_flow,con. QRadAbs_flow) annotation (Line(
+  connect(shaRad.QRadAbs_flow, con.QRadAbs_flow) annotation (Line(
       points={{-55,89},{-55,72},{4,72},{4,-110},{-20,-110},{-20,-125},{-12.5,-125}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -603,6 +608,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
+  connect(con.heaPorAir, heaPorAir) annotation (Line(
+      points={{-12,-130},{-180,-130},{-180,0},{-240,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con.TSha, TSha.T) annotation (Line(
+      points={{-12.5,-127},{-22,-127},{-22,-108},{0,-108},{0,-70},{-18,-70}},
+      color={0,0,127},
+      smooth=Smooth.None));
                            annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
            extent={{-240,-240},{240,240}}),
         graphics), Icon(coordinateSystem(

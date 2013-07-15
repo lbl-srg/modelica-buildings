@@ -22,7 +22,8 @@ model AirHeatMassBalanceMixed
     annotation (Dialog(group="Convective heat transfer",
                        enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
 
-  parameter Boolean haveShade "Set to true if the windows have a shade";
+  parameter Boolean haveShade
+    "Set to true if at least one window has an interior or exterior shade";
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each final package Medium = Medium) "Fluid inlets and outlets"
@@ -44,14 +45,14 @@ model AirHeatMassBalanceMixed
         iconTransformation(extent={{-256,192},{-240,208}})));
   Modelica.Blocks.Interfaces.RealInput QRadAbs_flow[NConExtWin](
   final unit="W") if
-     haveConExtWin
+     haveShade
     "Total net radiation that is absorbed by the shade (positive if absorbed)"
     annotation (Placement(transformation(extent={{-280,70},{-240,110}}),
         iconTransformation(extent={{-260,90},{-240,110}})));
   Modelica.Blocks.Interfaces.RealOutput TSha[NConExtWin](
    final unit="K",
    final quantity="ThermodynamicTemperature") if
-      haveConExtWin "Shade temperature"
+      haveShade "Shade temperature"
     annotation (Placement(transformation(extent={{-240,50},{-260,70}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir

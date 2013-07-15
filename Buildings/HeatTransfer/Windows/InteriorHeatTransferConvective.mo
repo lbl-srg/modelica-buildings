@@ -14,10 +14,10 @@ model InteriorHeatTransferConvective
   BaseClasses.ShadeConvection conSha(
     final A=AGla,
     final thisSideHasShade=thisSideHasShade) if
-       windowHasShade "Convection model for shade"
+       haveShade "Convection model for shade"
     annotation (Placement(transformation(extent={{-8,-20},{12,0}})));
  Modelica.Blocks.Interfaces.RealInput QRadAbs_flow(final unit="W") if
-       windowHasShade
+       haveShade
     "Total net radiation that is absorbed by the shade (positive if absorbed)"
      annotation (Placement(transformation(extent={{10,-10},{-10,10}},
                        rotation=270,
@@ -27,7 +27,7 @@ model InteriorHeatTransferConvective
   Modelica.Blocks.Interfaces.RealOutput TSha(
    final unit="K",
    final quantity="ThermodynamicTemperature") if
-      windowHasShade "Shade temperature"
+      haveShade "Shade temperature"
                        annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -63,7 +63,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(QRadAbs_flow, conSha.QRadAbs_flow) annotation (Line(
-      points={{-60,-110},{-60,-110},{-60,-40},{-4,-40},{-4,-21}},
+      points={{-60,-110},{-60,-40},{-4,-40},{-4,-21}},
       color={0,0,127},
       smooth=Smooth.None));
 

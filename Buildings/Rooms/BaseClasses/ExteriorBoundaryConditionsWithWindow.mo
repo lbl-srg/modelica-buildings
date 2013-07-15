@@ -16,7 +16,7 @@ model ExteriorBoundaryConditionsWithWindow
     "Set to true if window has interior shade (at surface b)"
     annotation (Dialog(group="Shading"));
 
-  final parameter Boolean windowHasShade=
+  final parameter Boolean haveShade=
     haveExteriorShade[1] or haveInteriorShade[1]
     "Set to true if window system has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
@@ -27,7 +27,7 @@ model ExteriorBoundaryConditionsWithWindow
     annotation (Placement(transformation(extent={{140,100},{120,120}})));
 
   Modelica.Blocks.Interfaces.RealInput uSha[nCon](min=0, max=1) if
-       windowHasShade
+       haveShade
     "Control signal for the shading device, 0: unshaded; 1: fully shaded"
     annotation (Placement(transformation(extent={{-340,80},{-300,120}}),
         iconTransformation(extent={{-340,80},{-300,120}})));
@@ -67,12 +67,12 @@ model ExteriorBoundaryConditionsWithWindow
     annotation (Placement(transformation(extent={{-320,10},{-300,30}}),
         iconTransformation(extent={{-320,10},{-300,30}})));
   HeatTransfer.Interfaces.RadiosityOutflow JOutSha[nCon] if
-       windowHasShade
+       haveShade
     "Outgoing radiosity that connects to shaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-300,-210},{-320,-190}}),
         iconTransformation(extent={{-300,-210},{-320,-190}})));
   HeatTransfer.Interfaces.RadiosityInflow JInSha[nCon] if
-       windowHasShade
+       haveShade
     "Incoming radiosity that connects to shaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-320,-170},{-300,-150}}),
         iconTransformation(extent={{-320,-170},{-300,-150}})));
@@ -83,7 +83,7 @@ model ExteriorBoundaryConditionsWithWindow
                        rotation=0), iconTransformation(extent={{-310,-90},{-290,
             -70}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[nCon] if
-       windowHasShade "Heat port at shaded glass of exterior-facing surface"
+       haveShade "Heat port at shaded glass of exterior-facing surface"
     annotation (Placement(transformation(extent={{-310,-130},{-290,-110}}, rotation=0),
         iconTransformation(extent={{-310,-130},{-290,-110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra[nCon](T(each nominal=

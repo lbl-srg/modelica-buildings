@@ -94,7 +94,7 @@ public
     tauIR_air=glaSys.shade.tauIR_a,
     tauIR_glass=glaSys.shade.tauIR_b,
     A=AGla) if
-     glaSys.windowHasShade "Interior shade radiation model"
+     glaSys.haveShade "Interior shade radiation model"
     annotation (Placement(transformation(extent={{240,106},{220,126}})));
 public
   Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal

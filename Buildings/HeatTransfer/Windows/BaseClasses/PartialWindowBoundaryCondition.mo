@@ -13,14 +13,14 @@ partial model PartialWindowBoundaryCondition
     "Set to true if window has interior shade (at surface b)"
     annotation (Dialog(group="Shading"));
 
-  final parameter Boolean windowHasShade = haveExteriorShade or haveInteriorShade
+  final parameter Boolean haveShade = haveExteriorShade or haveInteriorShade
     "Set to true if window system has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
   parameter Boolean thisSideHasShade
     "Set to true if this side of the model has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
 
-  Modelica.Blocks.Interfaces.RealInput uSha if windowHasShade
+  Modelica.Blocks.Interfaces.RealInput uSha if haveShade
     "Input connector, used to scale the surface area to take into account an operable shading device, 0: unshaded; 1: fully shaded"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-116,72},{-100,88}})));
@@ -32,7 +32,7 @@ partial model PartialWindowBoundaryCondition
     "Heat port that connects to unshaded part of glass"
       annotation (Placement(transformation(extent={{90,10},{110,30}},  rotation=0)));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaSha if windowHasShade
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaSha if haveShade
     "Heat port that connects to shaded part of glass"
     annotation (Placement(transformation(extent={{90,-30},{110,-10}},      rotation=0)));
 
@@ -51,16 +51,16 @@ protected
   Modelica.Blocks.Math.Product proUns "Product for unshaded part of window"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
-  Modelica.Blocks.Math.Product proSha if windowHasShade
+  Modelica.Blocks.Math.Product proSha if haveShade
     "Product for shaded part of window"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
 
-  ShadingSignal shaSig(haveShade=windowHasShade)
+  ShadingSignal shaSig(final haveShade=haveShade)
     "Conversion for shading signal"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
 initial equation
-  assert(( thisSideHasShade and windowHasShade)  or (not thisSideHasShade),
-    "Parameters \"thisSideHasShade\" and \"windowHasShade\" are not consistent. Check parameters");
+  assert(( thisSideHasShade and haveShade)  or (not thisSideHasShade),
+    "Parameters \"thisSideHasShade\" and \"haveShade\" are not consistent. Check parameters");
 
 equation
   connect(conWinUns.fluid, air)
@@ -185,19 +185,12 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-Partial model for heat convection of a window surface with or without shade,
+Partial model for boundary conditions for convection and radiation for a window surface with or without shade,
 that is outside or inside the room. 
 </p>
 <p>
-Convective heat transfer is modeled between the heat port <code>air</code> 
-and the shade, if present, the glass and the frame.
-If the parameter <code>haveShade</code> is set to <code>true</code>, then a shade 
-is present and the input port <code>QAbs_flow</code> needs to be connected to 
-a model that computes the solar radiation that is absorbed by the shade.
-If <code>haveShade=true</code>, then the model <code>shade</code> and the 
-connectors <code>QAbs_flow</code>, <code>glaSha</code>, 
-<code>JInSha</code> and <code>JOutSha</code> are removed.
-This allows using the model as a base class for windows with inside shade, outside shade, or no shade.</p>
+This allows using the model as a base class for windows with inside shade, outside shade, or no shade.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

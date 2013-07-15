@@ -105,10 +105,10 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     each tauIR_air=glaSys.shade.tauIR_a,
     each tauIR_glass=glaSys.shade.tauIR_b,
     each A=AGla) if
-     glaSys.windowHasShade "Interior shade radiation model"
+     glaSys.haveShade "Interior shade radiation model"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 protected
-  Modelica.Blocks.Math.Sum sumJ[1](each nin=if glaSys.windowHasShade then 2 else 1)
+  Modelica.Blocks.Math.Sum sumJ[1](each nin=if glaSys.haveShade then 2 else 1)
     "Sum of radiosity fom glass to outside"
     annotation (Placement(transformation(extent={{-72,-80},{-92,-60}})));
 
