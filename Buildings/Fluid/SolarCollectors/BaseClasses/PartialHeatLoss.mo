@@ -20,10 +20,9 @@ public
     displayUnit="degC") "Temperature of the heat transfer fluid"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealOutput QLos[nSeg](
-    quantity = "HeatFlowRate",
-    unit = "W",
-    displayUnit="W")
-    "Rate at which heat is lost to ambient from a given segment at current conditions"
+    quantity="HeatFlowRate",
+    unit="W",
+    displayUnit="W") "Limited heat loss rate at current conditions"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   parameter Modelica.SIunits.Irradiance G_nominal
     "Irradiance at nominal conditions"
@@ -51,6 +50,14 @@ protected
       X=Medium.X_default);
   Modelica.SIunits.SpecificHeatCapacity Cp_default = Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
+  Modelica.SIunits.HeatFlowRate QLosInt[nSeg]
+    "Heat loss rate at current conditions";
+
+equation
+  for i in 1:nSeg loop
+    QLos[i] = QLosInt[i] * Buildings.Utilities.Math.Functions.smoothHeaviside(
+     TFlu[i]-(Medium.T_min+1), 1);
+  end for;
 
   annotation (
     defaultComponentName="heaLos",

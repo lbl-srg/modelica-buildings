@@ -1,5 +1,6 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 model PartialSolarCollector "Partial model for solar collectors"
+  import Buildings;
  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(final dp_nominal = dp_nominal_final);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
@@ -41,14 +42,14 @@ model PartialSolarCollector "Partial model for solar collectors"
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Shading coefficient"
-  annotation(Placement(transformation(extent={{-140,60},{-100,20}},   rotation=0)));
+  annotation(Placement(transformation(extent={{-140,46},{-100,6}},    rotation=0)));
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nSeg](
     each C=C/nSeg,
     T(each start =   T_start)) if
        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Heat capacity for one segment of the the solar collector"
-    annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
+    annotation (Placement(transformation(extent={{-82,-96},{-62,-76}})));
 
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
                                                                annotation (Placement(
@@ -60,17 +61,19 @@ model PartialSolarCollector "Partial model for solar collectors"
     final lat=lat,
     final azi=azi,
     final rho=rho) "Diffuse solar irradiation on a tilted surface"
-                         annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
+                         annotation (Placement(transformation(extent={{-80,48},
+            {-60,68}})));
 
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     final til=til,
     final lat=lat,
     final azi=azi) "Direct solar irradiation on a tilted surface"
-                   annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
+                   annotation (Placement(transformation(extent={{-80,20},{-60,
+            40}})));
 
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Medium, allowFlowReversal=allowFlowReversal) "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{-80,-11},{-60,11}})));
+    annotation (Placement(transformation(extent={{-86,-63},{-66,-41}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare final package Medium = Medium,
     final from_dp=from_dp,
@@ -83,8 +86,8 @@ model PartialSolarCollector "Partial model for solar collectors"
     use_dh=false,
     deltaM=deltaM,
     final dp_nominal=dp_nominal_final) "Flow resistance"
-    annotation (Placement(transformation(extent={{-50,-10},
-            {-30,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,-62},{-40,-42}},
+                       rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](
     each nPorts=2,
     redeclare package Medium = Medium,
@@ -99,20 +102,20 @@ model PartialSolarCollector "Partial model for solar collectors"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={48,-16})));
+        origin={48,-68})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen[nSeg]
     "Temperature sensor"
           annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
-        origin={6,-16})));
+        origin={2,-68})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow QLos[nSeg]
     "Rate of heat loss to the surrounding environment"
-    annotation (Placement(transformation(extent={{38,20},{58,40}})));
+    annotation (Placement(transformation(extent={{68,-30},{88,-10}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaGai[nSeg]
     "Rate of solar heat gain"
-    annotation (Placement(transformation(extent={{38,60},{58,80}})));
+    annotation (Placement(transformation(extent={{68,20},{88,40}})));
 
 protected
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector perPar
@@ -145,48 +148,48 @@ equation
   end if;
 
   connect(weaBus, HDifTilIso.weaBus) annotation (Line(
-      points={{-100,96},{-88,96},{-88,82},{-80,82}},
+      points={{-100,96},{-88,96},{-88,58},{-80,58}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus, HDirTil.weaBus) annotation (Line(
-      points={{-100,96},{-88,96},{-88,56},{-80,56}},
+      points={{-100,96},{-88,96},{-88,30},{-80,30}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(port_a, senMasFlo.port_a) annotation (Line(
-      points={{-100,0},{-80,0}},
+      points={{-100,4.44089e-16},{-90,4.44089e-16},{-90,-52},{-86,-52}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senMasFlo.port_b, res.port_a) annotation (Line(
-      points={{-60,0},{-50,0}},
+      points={{-66,-52},{-60,-52}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(heaCap.port, vol.heatPort) annotation (Line(
-      points={{-30,-44},{30,-44},{30,-16},{38,-16}},
+      points={{-72,-96},{30,-96},{30,-68},{38,-68}},
       color={191,0,0},
       smooth=Smooth.None));
       connect(vol[nSeg].ports[2], port_b) annotation (Line(
-      points={{50,-6},{50,0},{100,0}},
+      points={{50,-58},{50,-52},{94,-52},{94,4.44089e-16},{100,4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol[1].ports[1], res.port_b) annotation (Line(
-      points={{46,-6},{46,0},{-30,0}},
+      points={{46,-58},{46,-52},{-40,-52}},
       color={0,127,255},
       smooth=Smooth.None));
       for i in 1:(nSeg - 1) loop
     connect(vol[i].ports[2], vol[i + 1].ports[1]);
   end for;
   connect(vol.heatPort, temSen.port)            annotation (Line(
-      points={{38,-16},{16,-16}},
+      points={{38,-68},{12,-68}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(QLos.port, vol.heatPort)    annotation (Line(
-      points={{58,30},{76,30},{76,-44},{30,-44},{30,-16},{38,-16}},
+      points={{88,-20},{92,-20},{92,-96},{30,-96},{30,-68},{38,-68}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaGai.port, vol.heatPort)   annotation (Line(
-      points={{58,70},{76,70},{76,-44},{30,-44},{30,-16},{38,-16}},
+      points={{88,30},{92,30},{92,-96},{30,-96},{30,-68},{38,-68}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (

@@ -2,6 +2,24 @@ within Buildings.Fluid.SolarCollectors.BaseClasses;
 model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   extends SolarCollectors.BaseClasses.PartialParameters;
+
+  parameter Real B0 "1st incident angle modifer coefficient";
+  parameter Real B1 "2nd incident angle modifer coefficient";
+  parameter Boolean use_shaCoe_in = false
+    "Enables an input connector for shaCoe"
+    annotation(Dialog(group="Shading"));
+  parameter Real shaCoe(
+    min=0.0,
+    max=1.0) = 0 "Shading coefficient 0.0: no shading, 1.0: full shading"
+         annotation(Dialog(enable = not use_shaCoe_in,group="Shading"));
+  parameter Real iamDiff "Incidence angle modifier for diffuse radiation";
+
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the system";
+  Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
+    "Time varying input for the shading coefficient"
+    annotation(Placement(transformation(extent={{-140,-60},{-100,-20}}, rotation=0)));
+
   Modelica.Blocks.Interfaces.RealInput HSkyDifTil(
                                     unit="W/m2", quantity="RadiantEnergyFluenceRate")
     "Diffuse solar irradiation on a tilted surfce from the sky"
@@ -10,36 +28,25 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
     quantity="Angle",
     unit="rad",
     displayUnit="degree") "Incidence angle of the sun beam on a tilted surface"
-    annotation (Placement(transformation(extent={{-140,-46},{-100,-6}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput HDirTil(
                                     unit="W/m2", quantity="RadiantEnergyFluenceRate")
     "Direct solar irradiation on a tilted surfce"
-    annotation (Placement(transformation(extent={{-140,6},{-100,46}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealOutput QSol_flow[nSeg](final unit="W")
     "Solar heat gain"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  parameter Real B0 "1st incident angle modifer coefficient";
-  parameter Real B1 "2nd incident angle modifer coefficient";
-  parameter Boolean use_shaCoe_in = false
-    "Enables an input connector for shaCoe"
-    annotation(Dialog(group="Shading"));
-
-  parameter Real shaCoe(
-    min=0.0,
-    max=1.0) = 0 "Shading coefficient 0.0: no shading, 1.0: full shading"
-         annotation(Dialog(enable = not use_shaCoe_in,group="Shading"));
-
-  parameter Real iamDiff "Incidence angle modifier for diffuse radiation";
-
-  Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
-    "Time varying input for the shading coefficient"
-    annotation(Placement(transformation(extent={{-140,-60},{-100,-100}},rotation=0)));
+  Modelica.Blocks.Interfaces.RealInput TFlu[nSeg](
+     unit="K",
+     displayUnit="degC",
+     quantity="Temperature")
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
 protected
   Real iamBea "Incidence angle modifier for director solar radiation";
   Modelica.Blocks.Interfaces.RealInput shaCoe_internal "Internally used shaCoe";
-equation
 
+equation
   connect(shaCoe_internal, shaCoe_in);
 
   // E+ Equ (555)
@@ -58,7 +65,7 @@ equation
 
   for i in 1 : nSeg loop
   QSol_flow[i] = A_c/nSeg*(y_intercept*(iamBea*HDirTil*(1.0 - shaCoe_internal) + iamDiff *
-  HSkyDifTil));
+  HSkyDifTil))*Buildings.Utilities.Math.Functions.smoothHeaviside((Medium.T_max+1)-TFlu[i],1);
   end for;
   annotation (
     defaultComponentName="solGai",
@@ -109,6 +116,12 @@ where
 <i>K<sub>(&tau;&alpha;),Beam</sub></i> is the incidence angle modifier for beam radiation, <i>b
 <sub>0</sub></i> is the first incidence angle modifier coefficient, <i>&theta;</i> is the 
 incidence angle and <i>b<sub>1</sub></i> is the second incidence angle modifier coefficient.
+</p>
+<p>
+This model reduces the heat gain rate to 0 W when the fluid temperature is within 1 degree C of the
+maximum temperature of the medium model. The calucation is performed using the 
+<a href=\"modelica://Buildings.Utilities.Math.Functions.SmoothHeaviside\">
+Buildings.Utilities.Math.Functions.SmoothHeaviside</a> function. 
 </p>
 <h4>References</h4>
 <p>

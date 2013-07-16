@@ -31,7 +31,7 @@ initial equation
    sum(QLosUA[1:nSeg]) = QLos_nominal;
 equation
    for i in 1:nSeg loop
-     -QLos[i] * nSeg = UA * (TFlu[i] - TEnv);
+     -QLosInt[i] * nSeg = UA * (TFlu[i] - TEnv);
    end for;
   annotation (
     defaultComponentName="heaLos",
@@ -90,6 +90,12 @@ where <i>Q<sub>Loss</sub>[i]</i> is the heat loss from a given segment, <i>UA</i
 coefficient for a multiple segments model, <i>nSeg</i> is the number of segments in the simulation,
 <i>T<sub>Fluid</sub>[i]</i> is the temperature of the fluid in a given segment, and <i>T<sub>Env
 </sub></i> is the temperature of the surrounding air.
+</p>
+<p>
+This model reduces the heat loss rate to 0 W when the fluid temperature is within 1 degree C of the
+minimum temperature of the medium model. The calucation is performed using the 
+<a href=\"modelica://Buildings.Utilities.Math.Functions.SmoothHeaviside\">
+Buildings.Utilities.Math.Functions.SmoothHeaviside</a> function. 
 </p>
 <h4>References</h4>
 <p>

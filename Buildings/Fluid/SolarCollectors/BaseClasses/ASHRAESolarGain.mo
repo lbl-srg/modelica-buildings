@@ -3,7 +3,31 @@ block ASHRAESolarGain
   "Calculate the solar heat gain of a solar collector per ASHRAE Standard 93"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   extends SolarCollectors.BaseClasses.PartialParameters;
-  Modelica.Blocks.Interfaces.RealInput HSkyDifTil(
+
+  parameter Real B0 "1st incident angle modifer coefficient";
+  parameter Real B1 "2nd incident angle modifer coefficient";
+  parameter Boolean use_shaCoe_in = false "Enable input connector for shaCoe"
+    annotation(Dialog(group="Shading"));
+
+  parameter Real shaCoe(
+    min=0.0,
+    max=1.0) = 0 "Shading coefficient 0.0: no shading, 1.0: full shading"
+    annotation(Dialog(enable = not use_shaCoe_in, group = "Shading"));
+
+  parameter Modelica.SIunits.Angle til "Surface tilt";
+
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the system";
+
+  Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
+    "Shading coefficient"
+  annotation(Placement(transformation(extent={{-140,-70},{-100,-30}}, rotation=0)));
+   Modelica.Blocks.Interfaces.RealInput TFlu[nSeg](
+   unit = "K",
+   displayUnit="degC",
+   quantity="Temperature")
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+   Modelica.Blocks.Interfaces.RealInput HSkyDifTil(
                       unit="W/m2", quantity="RadiantEnergyFluenceRate")
     "Diffuse solar irradiation on a tilted surfce from the sky"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
@@ -15,7 +39,7 @@ block ASHRAESolarGain
     quantity="Angle",
     unit="rad",
     displayUnit="degree") "Incidence angle of the sun beam on a tilted surface"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
   Modelica.Blocks.Interfaces.RealInput HDirTil(
                       unit="W/m2", quantity="RadiantEnergyFluenceRate")
     "Direct solar irradiation on a tilted surfce"
@@ -23,19 +47,7 @@ block ASHRAESolarGain
   Modelica.Blocks.Interfaces.RealOutput QSol_flow[nSeg](final unit="W")
     "Solar heat gain"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  parameter Real B0 "1st incident angle modifer coefficient";
-  parameter Real B1 "2nd incident angle modifer coefficient";
-  parameter Boolean use_shaCoe_in = false "Enable input connector for shaCoe"
-    annotation(Dialog(group="Shading"));
 
-  parameter Real shaCoe(
-    min=0.0,
-    max=1.0) = 0 "Shading coefficient 0.0: no shading, 1.0: full shading"
-    annotation(Dialog(enable = not use_shaCoe_in, group = "Shading"));
-  Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
-    "Shading coefficient"
-  annotation(Placement(transformation(extent={{-140,-60},{-100,-100}},rotation=0)));
-  parameter Modelica.SIunits.Angle til "Surface tilt";
 protected
   final parameter Real iamSky( fixed = false)
     "Incident angle modifier for diffuse solar radiation from the sky";
@@ -104,7 +116,9 @@ equation
   // Only solar heat gain is considered here
   for i in 1 : nSeg loop
     QSol_flow[i] = A_c/nSeg*(y_intercept*iam*(HDirTil*(1.0 -
-    shaCoe_internal) + HSkyDifTil + HGroDifTil));
+    shaCoe_internal) + HSkyDifTil + HGroDifTil))*
+    Buildings.Utilities.Math.Functions.smoothHeaviside(
+     (Medium.T_max+1)-TFlu[i],1);
   end for;
 
   annotation (
@@ -186,7 +200,12 @@ is the incidence angle for diffuse radiation from the ground.
 These two equations must be evaluated in degrees. The necessary unit conversions are made 
 internally.
 </p>
-
+<p>
+This model reduces the heat gain rate to 0 W when the fluid temperature is within 1 degree C of the
+maximum temperature of the medium model. The calucation is performed using the 
+<a href=\"modelica://Buildings.Utilities.Math.Functions.SmoothHeaviside\">
+Buildings.Utilities.Math.Functions.SmoothHeaviside</a> function. 
+</p>
 <h4>References</h4>
 <p>
 <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, 
