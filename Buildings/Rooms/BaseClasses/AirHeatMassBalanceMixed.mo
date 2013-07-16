@@ -25,20 +25,7 @@ model AirHeatMassBalanceMixed
   parameter Boolean haveShade
     "Set to true if at least one window has an interior or exterior shade";
 
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-      redeclare each final package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{-40,-10},{40,10}},
-      origin={0,-238})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin] if
-     haveConExtWin
-    "Heat port that connects to room-side surface of unshaded glass"
-                              annotation (Placement(transformation(extent={{230,110},
-            {250,130}},          rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[NConExtWin] if
-       haveShade "Heat port that connects to room-side surface of shaded glass"
-                              annotation (Placement(transformation(extent={{230,70},
-            {250,90}},           rotation=0), iconTransformation(extent={{230,70},
-            {250,90}})));
+  // Input/output signals
   Modelica.Blocks.Interfaces.RealInput uSha[NConExtWin] if haveShade
     "Input connector, used to scale the surface area to take into account an operable shading device, 0: unshaded; 1: fully shaded"
     annotation (Placement(transformation(extent={{-280,180},{-240,220}}),
@@ -55,79 +42,70 @@ model AirHeatMassBalanceMixed
       haveShade "Shade temperature"
     annotation (Placement(transformation(extent={{-240,50},{-260,70}})));
 
+  // Fluid port
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
+      redeclare each final package Medium = Medium) "Fluid inlets and outlets"
+    annotation (Placement(transformation(extent={{-40,-10},{40,10}},
+      origin={0,-238})));
+
+
+  // Heat ports
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port to air volume"
     annotation (Placement(transformation(extent={{-250,-10},{-230,10}})));
-  HeatTransfer.Convection.Interior convConPar_a[
-                                       nConPar](
-    final A=AConPar,
-    final til=Modelica.Constants.pi .- datConPar.til,
-    each conMod=conMod,
-    each hFixed=hFixed,
-    each final homotopyInitialization=homotopyInitialization) if
-       haveConPar "Convective heat transfer"
-    annotation (Placement(transformation(extent={{120,-70},{100,-50}})));
-  HeatTransfer.Convection.Interior           convConPar_b[
-                                       nConPar](
-    final A=AConPar,
-    final til =  datConPar.til,
-    each conMod=conMod,
-    each hFixed=hFixed,
-    each final homotopyInitialization=homotopyInitialization) if
-       haveConPar "Convective heat transfer"
-    annotation (Placement(transformation(extent={{120,-110},{100,-90}})));
-  HeatTransfer.Convection.Interior           convConBou[
-                                     nConBou](
-    final A=AConBou,
-    final til =  datConBou.til,
-    each conMod=conMod,
-    each hFixed=hFixed,
-    each final homotopyInitialization=homotopyInitialization) if
-       haveConBou "Convective heat transfer"
-    annotation (Placement(transformation(extent={{120,-170},{100,-150}})));
-  HeatTransfer.Convection.Interior           convSurBou[
-                                     nSurBou](
-    final A=ASurBou,
-    final til =  surBou.til,
-    each conMod=conMod,
-    each hFixed=hFixed,
-    each final homotopyInitialization=homotopyInitialization) if
-       haveSurBou "Convective heat transfer"
-    annotation (Placement(transformation(extent={{122,-230},{102,-210}})));
-protected
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConPar_a(final m=
-        nConPar) if
-       haveConPar
-    "Thermal collector to convert from vector to scalar connector"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={52,-60})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConPar_b(final m=
-        nConPar) if
-       haveConPar
-    "Thermal collector to convert from vector to scalar connector"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={50,-100})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConBou(final m=
-        nConBou) if
-       haveConBou
-    "Thermal collector to convert from vector to scalar connector"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={50,-160})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConSurBou(final m=
-        nSurBou) if
-       haveSurBou
-    "Thermal collector to convert from vector to scalar connector"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={52,-220})));
-public
+
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExt[NConExt] if
+     haveConExt
+    "Heat port that connects to room-side surface of exterior constructions"
+                              annotation (Placement(transformation(extent={{230,210},
+            {250,230}}, rotation=0)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWin[NConExtWin] if
+     haveConExtWin
+    "Heat port that connects to room-side surface of exterior constructions that contain a window"
+                              annotation (Placement(transformation(extent={{230,170},
+            {250,190}}, rotation=0)));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin] if
+     haveConExtWin
+    "Heat port that connects to room-side surface of unshaded glass"
+                              annotation (Placement(transformation(extent={{230,110},
+            {250,130}}, rotation=0)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[NConExtWin] if
+       haveShade "Heat port that connects to room-side surface of shaded glass"
+                              annotation (Placement(transformation(extent={{230,70},
+            {250,90}},  rotation=0), iconTransformation(extent={{230,70},
+            {250,90}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWinFra[NConExtWin] if
+     haveConExtWin
+    "Heat port that connects to room-side surface of window frame"
+                              annotation (Placement(transformation(extent={{232,-10},
+            {252,10}},  rotation=0)));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_a[NConPar] if
+     haveConPar
+    "Heat port that connects to room-side surface a of partition constructions"
+                              annotation (Placement(transformation(extent={{232,-70},
+            {252,-50}}, rotation=0)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_b[NConPar] if
+     haveConPar
+    "Heat port that connects to room-side surface b of partition constructions"
+                              annotation (Placement(transformation(extent={{232,
+            -110},{252,-90}},    rotation=0)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conBou[NConBou] if
+     haveConBou
+    "Heat port that connects to room-side surface of constructions that expose their other surface to the outside"
+                              annotation (Placement(transformation(extent={{232,
+            -170},{252,-150}},   rotation=0)));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conSurBou[NSurBou] if
+     haveSurBou
+    "Heat port to surfaces of models that compute the heat conduction outside of this room"
+                              annotation (Placement(transformation(extent={{231,
+            -230},{251,-210}},   rotation=0)));
+
+  // Mixing volume
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     final energyDynamics=energyDynamics,
@@ -145,51 +123,26 @@ public
     homotopyInitialization=homotopyInitialization,
     allowFlowReversal=true) "Room air volume"
     annotation (Placement(transformation(extent={{10,-210},{-10,-190}})));
-  HeatTransfer.Convection.Interior           convConExt[
-                                     NConExt](
+
+  // Convection models
+  HeatTransfer.Convection.Interior convConExt[NConExt](
     final A=AConExt,
-    final til =  datConExt.til,
+    final til = datConExt.til,
     each conMod=conMod,
     each hFixed=hFixed,
     each final homotopyInitialization=homotopyInitialization) if
        haveConExt "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,210},{100,230}})));
-  HeatTransfer.Convection.Interior           convConExtWin[
-                                        NConExtWin](
+
+  HeatTransfer.Convection.Interior convConExtWin[NConExtWin](
     final A=AConExtWinOpa,
-    final til =  datConExtWin.til,
+    final til = datConExtWin.til,
     each conMod=conMod,
     each hFixed=hFixed,
     each final homotopyInitialization=homotopyInitialization) if
        haveConExtWin "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,170},{100,190}})));
-protected
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExt(final m=
-        nConExt) if
-       haveConExt
-    "Thermal collector to convert from vector to scalar connector"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={48,220})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExtWin(
-      final m=nConExtWin) if
-       haveConExtWin
-    "Thermal collector to convert from vector to scalar connector"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={48,180})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConWin(final m=
-        nConExtWin) if
-       haveConExtWin
-    "Thermal collector to convert from vector to scalar connector"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={50,120})));
 
-public
   HeatTransfer.Windows.InteriorHeatTransferConvective convConWin[NConExtWin](
     final fFra=datConExtWin.fFra,
     final haveExteriorShade={datConExtWin[i].glaSys.haveExteriorShade for i in 1:NConExtWin},
@@ -197,43 +150,45 @@ public
     final A=AConExtWinGla + AConExtWinFra) if
        haveConExtWin "Model for convective heat transfer at window"
     annotation (Placement(transformation(extent={{98,110},{118,130}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conSurBou[NSurBou] if
-     haveSurBou
-    "Heat port to surfaces of models that compute the heat conduction outside of this room"
-                              annotation (Placement(transformation(extent={{231,
-            -230},{251,-210}},   rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conBou[NConBou] if
-     haveConBou
-    "Heat port that connects to room-side surface of constructions that expose their other surface to the outside"
-                              annotation (Placement(transformation(extent={{232,
-            -170},{252,-150}},   rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_b[NConPar] if
-     haveConPar
-    "Heat port that connects to room-side surface b of partition constructions"
-                              annotation (Placement(transformation(extent={{232,
-            -110},{252,-90}},    rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_a[NConPar] if
-     haveConPar
-    "Heat port that connects to room-side surface a of partition constructions"
-                              annotation (Placement(transformation(extent={{232,-70},
-            {252,-50}},          rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWinFra[NConExtWin] if
-     haveConExtWin
-    "Heat port that connects to room-side surface of window frame"
-                              annotation (Placement(transformation(extent={{232,-10},
-            {252,10}},           rotation=0)));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWin[NConExtWin] if
-     haveConExtWin
-    "Heat port that connects to room-side surface of exterior constructions that contain a window"
-                              annotation (Placement(transformation(extent={{230,170},
-            {250,190}},          rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExt[NConExt] if
-     haveConExt
-    "Heat port that connects to room-side surface of exterior constructions"
-                              annotation (Placement(transformation(extent={{230,210},
-            {250,230}},          rotation=0)));
+  HeatTransfer.Convection.Interior convConPar_a[nConPar](
+    final A=AConPar,
+    final til=Modelica.Constants.pi .- datConPar.til,
+    each conMod=conMod,
+    each hFixed=hFixed,
+    each final homotopyInitialization=homotopyInitialization) if
+       haveConPar "Convective heat transfer"
+    annotation (Placement(transformation(extent={{120,-70},{100,-50}})));
+
+  HeatTransfer.Convection.Interior convConPar_b[nConPar](
+    final A=AConPar,
+    final til = datConPar.til,
+    each conMod=conMod,
+    each hFixed=hFixed,
+    each final homotopyInitialization=homotopyInitialization) if
+       haveConPar "Convective heat transfer"
+    annotation (Placement(transformation(extent={{120,-110},{100,-90}})));
+
+  HeatTransfer.Convection.Interior convConBou[nConBou](
+    final A=AConBou,
+    final til = datConBou.til,
+    each conMod=conMod,
+    each hFixed=hFixed,
+    each final homotopyInitialization=homotopyInitialization) if
+       haveConBou "Convective heat transfer"
+    annotation (Placement(transformation(extent={{120,-170},{100,-150}})));
+
+  HeatTransfer.Convection.Interior convSurBou[nSurBou](
+    final A=ASurBou,
+    final til = surBou.til,
+    each conMod=conMod,
+    each hFixed=hFixed,
+    each final homotopyInitialization=homotopyInitialization) if
+       haveSurBou "Convective heat transfer"
+    annotation (Placement(transformation(extent={{122,-230},{102,-210}})));
+
 protected
+  // Surface areas
   final parameter Modelica.SIunits.Area AConExt[NConExt] = datConExt.A
     "Areas of exterior constructions";
   final parameter Modelica.SIunits.Area AConExtWinOpa[NConExtWin] = datConExtWin.AOpa
@@ -249,19 +204,68 @@ protected
   final parameter Modelica.SIunits.Area ASurBou[NSurBou] = surBou.A
     "Area of surface models of constructions that are modeled outside of this room";
 
+  // Thermal collectors
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExt(final m=nConExt) if
+       haveConExt
+    "Thermal collector to convert from vector to scalar connector"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={48,220})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExtWin(final m=nConExtWin) if
+       haveConExtWin
+    "Thermal collector to convert from vector to scalar connector"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={48,180})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConWin(final m=nConExtWin) if
+       haveConExtWin
+    "Thermal collector to convert from vector to scalar connector"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={50,120})));
+
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConPar_a(final m=nConPar) if
+       haveConPar
+    "Thermal collector to convert from vector to scalar connector"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={52,-60})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConPar_b(final m=nConPar) if
+       haveConPar
+    "Thermal collector to convert from vector to scalar connector"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={50,-100})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConBou(final m=nConBou) if
+       haveConBou
+    "Thermal collector to convert from vector to scalar connector"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={50,-160})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConSurBou(final m=nSurBou) if
+       haveSurBou
+    "Thermal collector to convert from vector to scalar connector"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={52,-220})));
+
 equation
-  connect(convConPar_a.fluid,theConConPar_a. port_a)
-                                                    annotation (Line(
+  connect(convConPar_a.fluid,theConConPar_a. port_a) annotation (Line(
       points={{100,-60},{62,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConPar_b.fluid,theConConPar_b. port_a)
-                                                    annotation (Line(
+  connect(convConPar_b.fluid,theConConPar_b. port_a) annotation (Line(
       points={{100,-100},{60,-100}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConBou.fluid,theConConBou. port_a)
-                                                annotation (Line(
+  connect(convConBou.fluid,theConConBou. port_a) annotation (Line(
       points={{100,-160},{60,-160}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -289,13 +293,11 @@ equation
       points={{242,4.44089e-16},{160,4.44089e-16},{160,100},{115,100},{115,110}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConExt.solid, conExt)
-                                   annotation (Line(
+  connect(convConExt.solid, conExt) annotation (Line(
       points={{120,220},{240,220}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConExt.fluid,theConConExt. port_a)
-                                                annotation (Line(
+  connect(convConExt.fluid,theConConExt. port_a) annotation (Line(
       points={{100,220},{58,220}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -307,13 +309,11 @@ equation
       points={{38,180},{20,180},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConExtWin.fluid,theConConExtWin. port_a)
-                                                annotation (Line(
+  connect(convConExtWin.fluid,theConConExtWin. port_a) annotation (Line(
       points={{100,180},{58,180}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConExtWin.solid, conExtWin)
-                                         annotation (Line(
+  connect(convConExtWin.solid, conExtWin) annotation (Line(
       points={{120,180},{240,180}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -321,13 +321,11 @@ equation
       points={{40,120},{20,120},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConWin.air,theConConWin. port_a)
-                                              annotation (Line(
+  connect(convConWin.air,theConConWin. port_a) annotation (Line(
       points={{98,120},{60,120}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConWin.glaSha, glaSha)
-                                    annotation (Line(
+  connect(convConWin.glaSha, glaSha) annotation (Line(
       points={{118,118},{166,118},{166,80},{240,80}},
       color={191,0,0},
       smooth=Smooth.None));
