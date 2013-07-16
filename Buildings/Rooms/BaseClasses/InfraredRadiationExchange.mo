@@ -142,14 +142,6 @@ initial equation
   end for;
   ////////////////////////////////////////////////////////////////////
 equation
-  // If the room has no window, then the incoming radiosity from the window
-  // is not connected. In this situation, we set it to zero.
-  // This approach is easier than using a conditional connector, since
-  // this port carries a flow variable, and hence the sign of the radiosity
-  // would change in a connect statement.
-  if (nWin == 0) then
-    JInConExtWin = zeros(NConExtWin);
-  end if;
   // Assign temperature of opaque surfaces
   for i in 1:nConExt loop
     TOpa[i] = conExt[i].T;
