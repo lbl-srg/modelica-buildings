@@ -33,7 +33,7 @@ model Concentrating "Example showing the use of Concentrating"
             {72,0}},
           rotation=0)));
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
-        transformation(extent={{66,60},{86,80}}, rotation=0)));
+        transformation(extent={{60,60},{80,80}}, rotation=0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),

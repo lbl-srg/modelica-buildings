@@ -20,6 +20,6 @@ record FPThermaLiteHS20 =
     <h4>References</h4>
     <p>
     Ratings data taken from the <a href=\"http://www.solar-rating.org\">
-    Solar Rating and Certification Corporation website</a>. SRCC# = 2012047A.<br/>
+    Solar Rating and Certification Corporation website</a>. SRCC# = 2012047A.
     </p>
     </html>"));
