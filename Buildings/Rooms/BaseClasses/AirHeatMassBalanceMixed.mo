@@ -48,12 +48,10 @@ model AirHeatMassBalanceMixed
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-238})));
 
-
   // Heat ports
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port to air volume"
     annotation (Placement(transformation(extent={{-250,-10},{-230,10}})));
-
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExt[NConExt] if
      haveConExt
@@ -187,8 +185,8 @@ model AirHeatMassBalanceMixed
        haveSurBou "Convective heat transfer"
     annotation (Placement(transformation(extent={{122,-230},{102,-210}})));
 
-protected
   // Surface areas
+protected
   final parameter Modelica.SIunits.Area AConExt[NConExt] = datConExt.A
     "Areas of exterior constructions";
   final parameter Modelica.SIunits.Area AConExtWinOpa[NConExtWin] = datConExtWin.AOpa
@@ -398,7 +396,13 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,0},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Sphere)}),
+          fillPattern=FillPattern.Sphere),
+        Text(
+          extent={{-84,232},{94,282}},
+          lineColor={0,0,127},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          textString="%name")}),
     Documentation(info="<html>
 <p>
 This model computes the heat and mass balance of the air.
