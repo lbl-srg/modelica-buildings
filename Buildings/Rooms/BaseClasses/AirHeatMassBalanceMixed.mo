@@ -1,7 +1,7 @@
 within Buildings.Rooms.BaseClasses;
 model AirHeatMassBalanceMixed
   "Heat and mass balance of the air, assuming completely mixed air"
-  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterface;
+  extends Buildings.Rooms.BaseClasses.ConstructionRecords;
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
@@ -29,7 +29,8 @@ model AirHeatMassBalanceMixed
       redeclare each final package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-238})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin]
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin] if
+     haveConExtWin
     "Heat port that connects to room-side surface of unshaded glass"
                               annotation (Placement(transformation(extent={{230,110},
             {250,130}},          rotation=0)));
@@ -57,7 +58,7 @@ model AirHeatMassBalanceMixed
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port to air volume"
     annotation (Placement(transformation(extent={{-250,-10},{-230,10}})));
-  HeatTransfer.Convection.Interior           convConPar_a[
+  HeatTransfer.Convection.Interior convConPar_a[
                                        nConPar](
     final A=AConPar,
     final til=Modelica.Constants.pi .- datConPar.til,
@@ -196,6 +197,58 @@ public
     final A=AConExtWinGla + AConExtWinFra) if
        haveConExtWin "Model for convective heat transfer at window"
     annotation (Placement(transformation(extent={{98,110},{118,130}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conSurBou[NSurBou] if
+     haveSurBou
+    "Heat port to surfaces of models that compute the heat conduction outside of this room"
+                              annotation (Placement(transformation(extent={{231,
+            -230},{251,-210}},   rotation=0)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conBou[NConBou] if
+     haveConBou
+    "Heat port that connects to room-side surface of constructions that expose their other surface to the outside"
+                              annotation (Placement(transformation(extent={{232,
+            -170},{252,-150}},   rotation=0)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_b[NConPar] if
+     haveConPar
+    "Heat port that connects to room-side surface b of partition constructions"
+                              annotation (Placement(transformation(extent={{232,
+            -110},{252,-90}},    rotation=0)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_a[NConPar] if
+     haveConPar
+    "Heat port that connects to room-side surface a of partition constructions"
+                              annotation (Placement(transformation(extent={{232,-70},
+            {252,-50}},          rotation=0)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWinFra[NConExtWin] if
+     haveConExtWin
+    "Heat port that connects to room-side surface of window frame"
+                              annotation (Placement(transformation(extent={{232,-10},
+            {252,10}},           rotation=0)));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWin[NConExtWin] if
+     haveConExtWin
+    "Heat port that connects to room-side surface of exterior constructions that contain a window"
+                              annotation (Placement(transformation(extent={{230,170},
+            {250,190}},          rotation=0)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExt[NConExt] if
+     haveConExt
+    "Heat port that connects to room-side surface of exterior constructions"
+                              annotation (Placement(transformation(extent={{230,210},
+            {250,230}},          rotation=0)));
+protected
+  final parameter Modelica.SIunits.Area AConExt[NConExt] = datConExt.A
+    "Areas of exterior constructions";
+  final parameter Modelica.SIunits.Area AConExtWinOpa[NConExtWin] = datConExtWin.AOpa
+    "Opaque areas of exterior construction that have a window";
+  final parameter Modelica.SIunits.Area AConExtWinGla[NConExtWin] = (1 .- datConExtWin.fFra) .* datConExtWin.AWin
+    "Glass areas of exterior construction that have a window";
+  final parameter Modelica.SIunits.Area AConExtWinFra[NConExtWin] = datConExtWin.fFra .* datConExtWin.AWin
+    "Frame areas of exterior construction that have a window";
+  final parameter Modelica.SIunits.Area AConPar[NConPar] = datConPar.A
+    "Areas of partition constructions";
+  final parameter Modelica.SIunits.Area AConBou[NConBou] = datConBou.A
+    "Areas of constructions with exterior boundary conditions exposed to outside of room model";
+  final parameter Modelica.SIunits.Area ASurBou[NSurBou] = surBou.A
+    "Area of surface models of constructions that are modeled outside of this room";
+
 equation
   connect(convConPar_a.fluid,theConConPar_a. port_a)
                                                     annotation (Line(

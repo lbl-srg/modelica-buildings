@@ -80,10 +80,12 @@ public
     {datConExtWin[i].glaSys.haveInteriorShade for i in 1:NConExtWin}
     "Set to true if window has interior shade (at surface b)"
     annotation (Dialog(group="Shading"));
-  final parameter Boolean haveShade=
-  Modelica.Math.BooleanVectors.anyTrue(haveExteriorShade[:]) or
-  Modelica.Math.BooleanVectors.anyTrue(haveInteriorShade[:])
-    "Set to true if the windows have a shade";
+
+  final parameter Boolean haveShade=haveExteriorShade[1] or haveInteriorShade[1];
+// fixme  final parameter Boolean haveShade=
+// fixme  Modelica.Math.BooleanVectors.anyTrue(haveExteriorShade[:]) or
+// fixme  Modelica.Math.BooleanVectors.anyTrue(haveInteriorShade[:])
+// fixme    "Set to true if the windows have a shade";
 //  final parameter Real fFra[NConExtWin](each min=0, each max=1) = datConExtWin.fFra
 //    "Fraction of window frame divided by total window area";
   parameter Boolean linearizeRadiation
