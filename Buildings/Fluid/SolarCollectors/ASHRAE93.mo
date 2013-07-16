@@ -12,9 +12,10 @@ model ASHRAE93 "Model of a flat plate solar thermal collector"
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
     use_shaCoe_in=use_shaCoe_in,
-    final A_c=TotalArea_internal)
+    final A_c=TotalArea_internal,
+    redeclare package Medium = Medium)
     "Identifies heat gained from the sun using standard ASHRAE93 calculations"
-             annotation (Placement(transformation(extent={{-20,14},{0,34}})));
+             annotation (Placement(transformation(extent={{-20,38},{0,58}})));
 
   BaseClasses.ASHRAEHeatLoss                 heaLos(
     final nSeg=nSeg,
@@ -26,17 +27,13 @@ model ASHRAE93 "Model of a flat plate solar thermal collector"
     final A_c=TotalArea_internal,
     m_flow_nominal=per.mperA_flow_nominal*per.A)
     "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
-        annotation (Placement(transformation(extent={{-20,-24},{0,-4}})));
+        annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 
 equation
   connect(shaCoe_internal, solGai.shaCoe_in);
 
-  connect(temSen.T, heaLos.TFlu) annotation (Line(
-      points={{-8,-68},{-30,-68},{-30,-20},{-22,-20}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-100,96},{-88,96},{-88,-8},{-22,-8}},
+      points={{-100,96},{-88,96},{-88,22},{-22,22}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -44,31 +41,39 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(HDirTil.inc, solGai.incAng)    annotation (Line(
-      points={{-59,26},{-54,26},{-54,20},{-22,20}},
+      points={{-59,48},{-54,48},{-54,46},{-22,46}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDirTil.H, solGai.HDirTil)    annotation (Line(
-      points={{-59,30},{-52,30},{-52,26},{-22,26}},
+      points={{-59,52},{-52,52},{-52,50},{-22,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDifTilIso.HGroDifTil, solGai.HGroDifTil) annotation (Line(
-      points={{-59,52},{-50,52},{-50,28.8},{-22,28.8}},
+      points={{-59,74},{-50,74},{-50,52.8},{-22,52.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDifTilIso.HSkyDifTil, solGai.HSkyDifTil) annotation (Line(
-      points={{-59,64},{-48,64},{-48,32},{-22,32}},
+      points={{-59,86},{-48,86},{-48,56},{-22,56}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaCoe_in, solGai.shaCoe_in) annotation (Line(
-      points={{-120,26},{-94,26},{-94,16},{-22,16}},
+      points={{-120,26},{-54,26},{-54,43},{-22,43}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heaLos.QLos, product2.u1) annotation (Line(
-      points={{1,-14},{38,-14}},
+  connect(solGai.QSol_flow, heaGai.Q_flow) annotation (Line(
+      points={{1,48},{50,48}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(solGai.QSol_flow, product1.u2) annotation (Line(
-      points={{1,24},{38,24}},
+  connect(temSen.T, heaLos.TFlu) annotation (Line(
+      points={{-8,-16},{-32,-16},{-32,10},{-22,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
+      points={{1,16},{50,16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(temSen.T, solGai.TFlu) annotation (Line(
+      points={{-8,-16},{-32,-16},{-32,40},{-22,40}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

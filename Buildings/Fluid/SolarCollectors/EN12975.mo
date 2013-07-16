@@ -12,9 +12,10 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
     final B1=per.B1,
     final shaCoe=shaCoe,
     final iamDiff=per.IAMDiff,
-    final use_shaCoe_in=use_shaCoe_in)
+    final use_shaCoe_in=use_shaCoe_in,
+    redeclare package Medium = Medium)
     "Identifies heat gained from the sun using standard EN12975 calculations"
-    annotation (Placement(transformation(extent={{-20,14},{0,34}})));
+    annotation (Placement(transformation(extent={{-20,38},{0,58}})));
   BaseClasses.EN12975HeatLoss heaLos(
     final A_c=TotalArea_internal,
     final nSeg=nSeg,
@@ -26,17 +27,13 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
     final dT_nominal=per.dT_nominal,
     final m_flow_nominal=per.mperA_flow_nominal*per.A)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
-           annotation (Placement(transformation(extent={{-20,-24},{0,-4}})));
+           annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 
 equation
   connect(shaCoe_internal, solGai.shaCoe_in);
 
-  connect(temSen.T, heaLos.TFlu) annotation (Line(
-      points={{-8,-68},{-30,-68},{-30,-20},{-22,-20}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-100,96},{-88,96},{-88,-8},{-22,-8}},
+      points={{-100,96},{-88,96},{-88,22},{-22,22}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -44,27 +41,35 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(HDirTil.inc, solGai.incAng)    annotation (Line(
-      points={{-59,26},{-54,26},{-54,21.4},{-22,21.4}},
+      points={{-59,48},{-22,48}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDifTilIso.H, solGai.HSkyDifTil) annotation (Line(
-      points={{-59,58},{-50,58},{-50,32},{-22,32}},
+      points={{-59,80},{-50,80},{-50,56},{-22,56}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDirTil.H, solGai.HDirTil) annotation (Line(
-      points={{-59,30},{-52,30},{-52,26.6},{-22,26.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(heaLos.QLos, product2.u1) annotation (Line(
-      points={{1,-14},{38,-14}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solGai.QSol_flow, product1.u2) annotation (Line(
-      points={{1,24},{20,24},{20,26},{38,26}},
+      points={{-59,52},{-22,52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaCoe_in, solGai.shaCoe_in) annotation (Line(
-      points={{-120,26},{-94,26},{-94,16},{-22,16}},
+      points={{-120,26},{-50,26},{-50,44},{-22,44}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(heaLos.TFlu, temSen.T) annotation (Line(
+      points={{-22,10},{-28,10},{-28,-16},{-8,-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
+      points={{1,16},{50,16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(solGai.QSol_flow, heaGai.Q_flow) annotation (Line(
+      points={{1,48},{50,48}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(temSen.T, solGai.TFlu) annotation (Line(
+      points={{-8,-16},{-28,-16},{-28,40},{-22,40}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
