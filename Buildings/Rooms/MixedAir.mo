@@ -274,11 +274,10 @@ protected
     "Set to true if window has interior shade (at surface b)"
     annotation (Dialog(group="Shading"));
 
-  final parameter Boolean haveShade=haveExteriorShade[1] or haveInteriorShade[1];
-// fixme  final parameter Boolean haveShade=
-// fixme  Modelica.Math.BooleanVectors.anyTrue(haveExteriorShade[:]) or
-// fixme  Modelica.Math.BooleanVectors.anyTrue(haveInteriorShade[:])
-// fixme    "Set to true if the windows have a shade";
+  final parameter Boolean haveShade=
+    Modelica.Math.BooleanVectors.anyTrue(haveExteriorShade[:]) or
+    Modelica.Math.BooleanVectors.anyTrue(haveInteriorShade[:])
+    "Set to true if the windows have a shade";
 
   final parameter Boolean isFloorConExt[NConExt]=
     datConExt.isFloor "Flag to indicate if floor for exterior constructions";
@@ -1393,7 +1392,11 @@ Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 20
 July 16, 2013, by Michael Wetter:<br/>
 Redesigned implementation to remove one level of model hierarchy on the room-side heat and mass balance.
 This change was done to facilitate the implementation of non-uniform room air heat and mass balance,
-which required separating the convection and long-wave radiation models.
+which required separating the convection and long-wave radiation models.<br/>
+Changed assignment 
+<code>solRadExc(tauGla={0.6 for i in 1:NConExtWin})</code> to
+<code>solRadExc(tauGla={datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol for i in 1:NConExtWin})</code> to
+better take into account the solar properties of the glass.
 </li>
 <li>
 March 7 2012, by Michael Wetter:<br/>
