@@ -4,7 +4,6 @@ ExteriorBoundaryConditionsWithWindow
 HeatGain
 InfraredRadiationExchange
 InfraredRadiationGainDistribution
-MixedAir
 RadiationAdapter
 RadiationTemperature
 SolarRadiationExchange
