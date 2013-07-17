@@ -2,29 +2,25 @@ within Districts.Electrical.DC.Conversion.Examples;
 model DCDCConverter "Test model DC to DC converter"
   import Districts;
   extends Modelica.Icons.Example;
-
-  Districts.Electrical.DC.Conversion.DCDCConverter     conDCDC(eta=0.9,
-      conversionFactor=0.5,
-    ground_1=true)
-    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+  Districts.Electrical.DC.Loads.Resistor resistor(R=0.5, useHeatPort=false)
+    annotation (Placement(transformation(extent={{20,22},{40,42}})));
   Districts.Electrical.DC.Sources.ConstantVoltage    sou(V=120)
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-70,10})));
-  Districts.Electrical.DC.Loads.Resistor resistor
-    annotation (Placement(transformation(extent={{56,0},{76,20}})));
+    "Voltage source"
+    annotation (Placement(transformation(extent={{-100,22},{-80,42}})));
+  Districts.Electrical.DC.Conversion.DCDCConverter conDCDC(conversionFactor=0.5,
+      eta=0.9)
+    annotation (Placement(transformation(extent={{-46,22},{-26,42}})));
 equation
-  connect(sou.term, conDCDC.term_n) annotation (Line(
-      points={{-60,10},{-10,10}},
+  connect(sou.terminal, conDCDC.terminal_n) annotation (Line(
+      points={{-80,32},{-46,32}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(conDCDC.term_p, resistor.term) annotation (Line(
-      points={{10,10},{56,10}},
+  connect(conDCDC.terminal_p, resistor.terminal) annotation (Line(
+      points={{-26,32},{20,32}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), experiment(StopTime=3600, Tolerance=1e-05),
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
+            -100},{100,140}}),      graphics), experiment(StopTime=3600, Tolerance=1e-05),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
@@ -41,5 +37,6 @@ First implementation.
 </html>"),
     Commands(file=
           "Resources/Scripts/Dymola/Electrical/DC/Conversion/Examples/DCDCConverter.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Icon(coordinateSystem(extent={{-140,-100},{100,140}})));
 end DCDCConverter;

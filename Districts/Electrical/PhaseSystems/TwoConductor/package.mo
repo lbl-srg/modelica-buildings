@@ -12,6 +12,17 @@ package TwoConductor "Two conductors for Spot DC_AC1ph components"
   end j;
 
 
+  redeclare function rotate
+  "Rotate a vector of an angle Theta (anti-counterclock)"
+    extends Modelica.Icons.Function;
+    input Real x[n];
+    input Modelica.SIunits.Angle theta;
+    output Real y[n];
+  algorithm
+    y[n] := x[n];
+  end rotate;
+
+
   redeclare function thetaRel
   "Return absolute angle of rotating system as offset to thetaRef"
     input SI.Angle theta[m];

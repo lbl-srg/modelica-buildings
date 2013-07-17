@@ -1,13 +1,15 @@
 within Districts.Electrical.DC.Loads;
 model Conductor "Model of a constant conductive load"
-    extends Districts.Electrical.DC.Interfaces.OnePort_n;
- parameter Modelica.SIunits.Power P_nominal(min=0)
-    "Nominal power (P_nominal >= 0)";
-protected
-    Modelica.SIunits.Conductance G(start=1) "Conductance";
+    extends Districts.Electrical.Interfaces.PartialLoad(redeclare package
+      PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor, redeclare
+      Districts.Electrical.DC.Interfaces.Terminal_n
+                                                 terminal);
+  //Modelica.SIunits.Conductance G(start=1);
 equation
-  P_nominal = v*i;
-  i = G*v;
+  //PhaseSystem.systemVoltage(terminal.v)*G = PhaseSystem.systemCurrent(terminal.i);
+  //G = P/PhaseSystem.systemVoltage(terminal.v)^2;
+  PhaseSystem.activePower(terminal.v, terminal.i) = P;
+  sum(i) = 0;
   annotation (
     Documentation(info="<html>
 <p>
@@ -37,12 +39,6 @@ First implementation.
             lineColor={0,0,255}),
           Rectangle(extent={{-70,30},{70,-30}}, lineColor={0,0,255}),
           Line(points={{-90,0},{-70,0}}, color={0,0,255}),
-          Line(
-            visible=useHeatPort,
-            points={{0,-100},{0,-30}},
-            color={127,0,0},
-            smooth=Smooth.None,
-            pattern=LinePattern.Dot),
           Text(
             extent={{-152,87},{148,47}},
             textString="%name",

@@ -1,7 +1,7 @@
 within Districts.Electrical.DC.Sources;
 model WindTurbine
   "Wind turbine with power output based on table as a function of wind speed"
-  extends Districts.Electrical.DC.Interfaces.TwoPinComponent_p;
+  import Districts;
   final parameter Modelica.SIunits.Velocity vIn = table[1,1]
     "Cut-in steady wind speed";
   final parameter Modelica.SIunits.Velocity vOut = table[size(table,1), 1]
@@ -53,7 +53,7 @@ protected
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     "Performance table that maps wind speed to electrical power output"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Loads.VariableConductor               con
+  Loads.Conductor                       con(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
     "Conductor, used to interface power with electrical circuit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
@@ -69,6 +69,12 @@ protected
         rotation=0,
         origin={-60,20})));
 
+public
+  Districts.Electrical.DC.Interfaces.Terminal_p
+                                             terminal(redeclare package
+      PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor)
+    "Generalised terminal"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 initial equation
 assert(abs(table[1,2]) == 0,
   "First data point of performance table must be at cut-in wind speed,
@@ -78,10 +84,6 @@ assert(abs(table[1,2]) == 0,
 equation
   connect(per.y[1], gain.u) annotation (Line(
       points={{-19,20},{-10,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.y, con.P) annotation (Line(
-      points={{13,20},{24,20},{24,8},{58,8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, P)     annotation (Line(
@@ -96,8 +98,12 @@ equation
       points={{-49,20},{-42,20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(term, con.term) annotation (Line(
-      points={{-104,4.44089e-16},{-22,4.44089e-16},{-22,0},{60,0}},
+  connect(gain.y, con.Pow) annotation (Line(
+      points={{13,20},{90,20},{90,0},{80,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(con.terminal, terminal) annotation (Line(
+      points={{60,0},{-100,0}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

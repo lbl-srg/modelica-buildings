@@ -1,1 +1,7 @@
 Terminal
+PartialLoad
+PartialInductiveLoad
+PartialCapacitiveLoad
+PartialSource
+PartialTwoPort
+PartialConversion

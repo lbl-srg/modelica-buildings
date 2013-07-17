@@ -1,6 +1,5 @@
 within Districts.Electrical.DC.Sources;
 model PVSimple "Simple PV model"
-  extends Districts.Electrical.DC.Interfaces.OnePort_p;
   parameter Modelica.SIunits.Area A "Net surface area";
   parameter Real fAct(min=0, max=1, unit="1") = 0.9
     "Fraction of surface area with active solar cells";
@@ -15,11 +14,25 @@ model PVSimple "Simple PV model"
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
-
-  Modelica.SIunits.Power P "Generated electrical power";
+  Modelica.Blocks.Sources.RealExpression solarPower(y=-A*fAct*eta*G)
+    annotation (Placement(transformation(extent={{60,-10},{40,10}})));
+  Districts.Electrical.DC.Interfaces.Terminal_p
+                                             terminal(redeclare package
+      PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor)
+    "Generalised terminal"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+  Loads.Conductor con(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
+    "Conductor, used to interface power with electrical circuit"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
-  P = A*fAct*eta*G;
-  P = -v*i;
+  connect(solarPower.y, con.Pow)     annotation (Line(
+      points={{39,0},{10,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(con.terminal, terminal)  annotation (Line(
+      points={{-10,0},{-100,0}},
+      color={0,0,255},
+      smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -106,13 +119,7 @@ equation
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics={
-        Ellipse(
-          extent={{-30,30},{30,-30}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(points={{-50,0},{50,0}}, color={0,0,0})}),
+        grid={1,1}), graphics),
     Documentation(revisions="<html>
 <ul>
 <li>

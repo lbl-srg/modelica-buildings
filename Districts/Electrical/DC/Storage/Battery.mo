@@ -1,6 +1,6 @@
 within Districts.Electrical.DC.Storage;
 model Battery "Simple model of a battery"
- extends Districts.Electrical.DC.Interfaces.TwoPinComponent_p;
+  import Districts;
  parameter Real etaCha(min=0, max=1, unit="1") = 0.9
     "Efficiency during charging";
  parameter Real etaDis(min=0, max=1, unit="1") = 0.9
@@ -20,6 +20,11 @@ model Battery "Simple model of a battery"
         origin={0,100})));
   Modelica.Blocks.Interfaces.RealOutput SOC "State of charge"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  Districts.Electrical.DC.Interfaces.Terminal_p
+                                             terminal(redeclare package
+      PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor)
+    "Generalised terminal"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
   Districts.Electrical.DC.Storage.BaseClasses.Charge cha(
     EMax=EMax,
@@ -27,7 +32,9 @@ protected
     etaCha=etaCha,
     etaDis=etaDis) "Charge model"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Districts.Electrical.DC.Loads.VariableConductor       bat
+  Loads.Conductor                                       bat(
+    P_nominal=0,
+    mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
     "Power exchanged with battery pack"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
@@ -35,16 +42,17 @@ equation
       points={{61,60},{110,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(bat.P, P) annotation (Line(
-      points={{38,8},{0,8},{0,108},{8.88178e-16,108}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(cha.P, P)    annotation (Line(
       points={{38,60},{0,60},{0,108},{8.88178e-16,108}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(term, bat.term) annotation (Line(
-      points={{-104,4.44089e-16},{-32,4.44089e-16},{-32,0},{40,0}},
+  connect(P, bat.Pow) annotation (Line(
+      points={{8.88178e-16,108},{8.88178e-16,20},{68,20},{68,8.88178e-16},{60,8.88178e-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  connect(bat.terminal, terminal) annotation (Line(
+      points={{40,0},{-100,0}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

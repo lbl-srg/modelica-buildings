@@ -1,6 +1,6 @@
 within Districts.Electrical.DC.Sensors;
 model GeneralizedSensor
-  extends Districts.Electrical.DC.Interfaces.TwoPort;
+  extends Districts.Electrical.Interfaces.PartialTwoPort;
   Modelica.Blocks.Interfaces.RealOutput V "Voltage"           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -18,10 +18,10 @@ model GeneralizedSensor
         rotation=270,
         origin={-60,-90})));
 equation
-  V = term_n.PhaseSystem.systemVoltage(term_n.v);
-  I = term_n.PhaseSystem.systemCurrent(term_n.i);
-  connect(term_n, term_p) annotation (Line(
-      points={{-110,-10},{90,-10}},
+  V = terminal_n.PhaseSystem.systemVoltage(terminal_n.v);
+  I = terminal_n.PhaseSystem.systemCurrent(terminal_n.i);
+  connect(terminal_n, terminal_p) annotation (Line(
+      points={{-100,0},{100,0}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

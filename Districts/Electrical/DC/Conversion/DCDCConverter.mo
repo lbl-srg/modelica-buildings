@@ -1,17 +1,27 @@
 within Districts.Electrical.DC.Conversion;
 model DCDCConverter "DC DC converter"
-  extends Districts.Electrical.DC.Interfaces.TwoPortConv;
+  extends Districts.Electrical.Interfaces.PartialConversion(
+      redeclare package PhaseSystem_p =
+        Districts.Electrical.PhaseSystems.TwoConductor,
+      redeclare package PhaseSystem_n =
+        Districts.Electrical.PhaseSystems.TwoConductor,
+      redeclare Districts.Electrical.DC.Interfaces.Terminal_n
+                                                           terminal_n,
+      redeclare Districts.Electrical.DC.Interfaces.Terminal_p
+                                                           terminal_p);
   // fixme: add example. Consider adding a constant loss therm for
 
   parameter Real conversionFactor
     "Ratio of DC voltage on side 2 / DC voltage on side 1";
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * pDC2";
-  parameter Boolean ground_1 = true "Connect side 1 of converter to ground"  annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
+  parameter Boolean ground_1 = true "Connect side 1 of converter to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
   Modelica.SIunits.Power LossPower "Loss power";
 protected
   Real i1,i2,v1,v2;
+  Modelica.SIunits.Power Pow_p;
+  Modelica.SIunits.Power Pow_n;
 equation
 
   if not ground_1 then
@@ -25,10 +35,13 @@ equation
     v2 = 0;
   end if;
 
-  v1 = term_n.v[2];
-  v2 = term_p.v[2];
-  sum(term_n.i) + i1 = 0;
-  sum(term_p.i) + i2 = 0;
+  Pow_p = PhaseSystem_p.activePower(terminal_p.v, terminal_p.i);
+  Pow_n = PhaseSystem_n.activePower(terminal_n.v, terminal_n.i);
+
+  v1 = terminal_n.v[2];
+  v2 = terminal_p.v[2];
+  sum(terminal_n.i) + i1 = 0;
+  sum(terminal_p.i) + i2 = 0;
 
   //voltage relation
   v_p = v_n*conversionFactor;
@@ -95,29 +108,29 @@ equation
               255}),
           smooth=Smooth.None),
         Line(
-          points={{-100,-100},{-100,-24}},
+          points={{-100,-100},{-100,-12}},
           color=DynamicSelect({0,0,255}, if ground_1 then {0,0,255} else {255,255,
               255}),
           smooth=Smooth.None),
         Line(
-          points={{100,-100},{100,-24}},
-          color=DynamicSelect({0,0,255}, if ground_2 then {0,0,255} else {255,
-              255,255}),
+          points={{100,-100},{100,-12}},
+          color=DynamicSelect({0,0,255}, if ground_2 then {0,0,255} else {255,255,
+              255}),
           smooth=Smooth.None),
         Line(
           points={{80,-100},{120,-100}},
-          color=DynamicSelect({0,0,255}, if ground_2 then {0,0,255} else {255,
-              255,255}),
+          color=DynamicSelect({0,0,255}, if ground_2 then {0,0,255} else {255,255,
+              255}),
           smooth=Smooth.None),
         Line(
           points={{88,-106},{112,-106}},
-          color=DynamicSelect({0,0,255}, if ground_2 then {0,0,255} else {255,
-              255,255}),
+          color=DynamicSelect({0,0,255}, if ground_2 then {0,0,255} else {255,255,
+              255}),
           smooth=Smooth.None),
         Line(
           points={{94,-112},{108,-112}},
-          color=DynamicSelect({0,0,255}, if ground_2 then {0,0,255} else {255,
-              255,255}),
+          color=DynamicSelect({0,0,255}, if ground_2 then {0,0,255} else {255,255,
+              255}),
           smooth=Smooth.None)}),
     Documentation(info="<html>
 <p>

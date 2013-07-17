@@ -13,6 +13,19 @@ package ThreePhase_dqo "AC system in dqo representation"
   end j;
 
 
+  redeclare function rotate
+  "Rotate a vector of an angle Theta (anti-counterclock)"
+    extends Modelica.Icons.Function;
+    input Real x[n];
+    input Modelica.SIunits.Angle theta;
+    output Real y[n];
+  algorithm
+    y[1] := cos(theta)*x[1] - sin(theta)*x[2];
+    y[2] := sin(theta)*x[1] + cos(theta)*x[2];
+    y[3] := x[3];
+  end rotate;
+
+
   redeclare function jj "Vectorized version of j"
     input Real[:,:] xx "array of voltage or current vectors";
     output Real[size(xx,1),size(xx,2)] yy "array of rotated vectors";

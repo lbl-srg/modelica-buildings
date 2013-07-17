@@ -12,6 +12,18 @@ package OnePhase "Single phase two connectors AC system"
   end j;
 
 
+  redeclare function rotate
+  "Rotate a vector of an angle Theta (anti-counterclock)"
+    extends Modelica.Icons.Function;
+    input Real x[n];
+    input Modelica.SIunits.Angle theta;
+    output Real y[n];
+  algorithm
+    y[1] := cos(theta)*x[1] - sin(theta)*x[2];
+    y[2] := sin(theta)*x[1] + cos(theta)*x[2];
+  end rotate;
+
+
   redeclare function thetaRel
   "Return absolute angle of rotating system as offset to thetaRef"
     input SI.Angle theta[m];
@@ -110,6 +122,7 @@ package OnePhase "Single phase two connectors AC system"
     // P = v[1]*i[1] + v[2]*i[2]
     P := v*i;
   end activePower;
+
 
   annotation (Icon(graphics={
         Line(
