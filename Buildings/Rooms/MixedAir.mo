@@ -244,7 +244,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
   HeatTransfer.Windows.BaseClasses.ShadeRadiation shaRad[NConExtWin](
-    final A=AConExtWinGla,
+    final A=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
     final thisSideHasShade=haveInteriorShade,
     final absIR_air=datConExtWin.glaSys.shade.absIR_a,
     final absIR_glass={(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b) for i in 1:NConExtWin},
