@@ -163,31 +163,49 @@ equation
   end if;
 
   // Assign heat exchange to connectors
-  for i in 1:NConExt loop
-    0 = conExt[i].Q_flow;
-  end for;
-  for i in 1:NConPar loop
-    0 = conPar_a[i].Q_flow;
-    0 = conPar_b[i].Q_flow;
-  end for;
-  for i in 1:NConBou loop
-    0 = conBou[i].Q_flow;
-  end for;
-  for i in 1:NSurBou loop
-    0 = conSurBou[i].Q_flow;
-  end for;
-  for i in 1:NConExtWin loop
-    0 = conExtWin[i].Q_flow;
-    0 = conExtWinFra[i].Q_flow;
-  end for;
+  if haveConExt then
+    for i in 1:NConExt loop
+      0 = conExt[i].Q_flow;
+    end for;
+  else
+      conExt[1].T = 293.15;
+  end if;
 
- /*
-  for i in 1:NConExtWin loop
-    0 = glaUns_internal[i].Q_flow;
-    0 = glaSha_internal[i].Q_flow;
-    0 = sha_internal[i].Q_flow;
-  end for;
-*/
+  if haveConPar then
+    for i in 1:NConPar loop
+      0 = conPar_a[i].Q_flow;
+      0 = conPar_b[i].Q_flow;
+    end for;
+  else
+      conPar_a[1].T = 293.15;
+      conPar_b[1].T = 293.15;
+  end if;
+
+  if haveConBou then
+    for i in 1:NConBou loop
+      0 = conBou[i].Q_flow;
+    end for;
+  else
+     conBou[1].T = 293.15;
+  end if;
+
+  if haveSurBou then
+    for i in 1:NSurBou loop
+      0 = conSurBou[i].Q_flow;
+    end for;
+  else
+      conSurBou[1].T = 293.15;
+  end if;
+  
+  if haveConExtWin then
+    for i in 1:NConExtWin loop
+      0 = conExtWin[i].Q_flow;
+      0 = conExtWinFra[i].Q_flow;
+    end for;
+  else
+      conExtWin[1].T    = 293.15;
+      conExtWinFra[1].T = 293.15;
+  end if;
 
   annotation (
 preferredView="info",
