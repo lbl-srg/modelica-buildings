@@ -335,6 +335,12 @@ radiation.
         revisions="<html>
 <ul>
 <li>
+July 16, 2013, by Michael Wetter:<br/>
+Added assignment of heat port temperature instead of heat flow rate
+for the cases where a construction has been conditionally removed.
+This is required to avoid a singularity.
+</li>
+<li>
 November 6, 2011, by Michael Wetter:<br/>
 Fixed bug as in the old version, the absorbtance and reflectance
 of the infrared spectrum has been used instead of the solar spectrum.

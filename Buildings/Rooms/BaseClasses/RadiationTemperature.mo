@@ -273,6 +273,12 @@ For the unshaded part of the window, the radiative power is
 revisions="<html>
 <ul>
 <li>
+July 16, 2013, by Michael Wetter:<br/>
+Added assignment of heat port temperature instead of heat flow rate
+for the cases where a construction has been conditionally removed.
+This is required to avoid a singularity.
+</li>
+<li>
 March 29 2011, by Michael Wetter:<br/>
 Rewrote sum for the radiation temperature.
 </li>

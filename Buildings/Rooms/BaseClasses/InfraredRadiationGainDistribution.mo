@@ -145,6 +145,12 @@ that will strike the glass or the window shade.
         revisions="<html>
 <ul>
 <li>
+July 16, 2013, by Michael Wetter:<br/>
+Added assignment of heat port temperature instead of heat flow rate
+for the cases where a construction has been conditionally removed.
+This is required to avoid a singularity.
+</li>
+<li>
 June 27, 2013, by Michael Wetter:<br/>
 Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
 See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.

@@ -430,10 +430,6 @@ equation
       points={{299,-9},{284,-9},{284,-10},{268,-10},{268,36},{269,36},{269,43}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(bouConExtWin.uSha, bouConExtWin.QAbsSolSha_flow) annotation (Line(
-      points={{351,64},{313,64},{313,62},{351,62}},
-      color={0,0,127},
-      smooth=Smooth.None));
  // Connect statements from the model BaseClasses.MixedAir
   connect(conExt.opa_b, irRadExc.conExt) annotation (Line(
       points={{241.847,138.333},{160,138.333},{160,60},{-60,60},{-60,20},{-80,
@@ -857,6 +853,10 @@ heat exchange through convection, conduction, infrared radiation and solar radia
 <p>
 A description of the model assumptions and the implemention and validation of this room model can be found in 
 <a href=\"#WetterEtAl2011\">Wetter et al. (2011)</a>.
+Note that this paper describes a previous version of the room model. 
+The equations have not changed. However, what is shown in Figure 2 in the paper has in this version
+of the model been integrated directly into what is shown in Figure 1.</p>
+<p>
 The room models the following physical processes:
 </p>
 <ol>
@@ -892,13 +892,6 @@ These models compute the reduction in direct solar irradiation
 due to the external shading device.
 </li>
 <li>
-Convective heat transfer between the room air and room-facing surfaces using
-either a temperature-dependent heat transfer coefficient,
-or using a constant heat transfer coefficient, as described in
-<a href=\"modelica://Buildings.HeatTransfer.Convection.Interior\">
-Buildings.HeatTransfer.Convection.Interior</a>.
-</li>
-<li>
 Convective heat transfer between the outside air and outside-facing surfaces using
 either a wind-speed, wind-direction and temperature-dependent heat transfer coefficient,
 or using a constant heat transfer coefficient, as described in
@@ -907,11 +900,68 @@ Buildings.HeatTransfer.Convection.Exterior</a>.
 </li>
 <li>
 Solar and infrared heat transfer between the room enclosing surfaces,
-and temperature, pressure and species changes inside the room volume.
-These effects are modeled and described in 
-<a href=\"modelica://Buildings.Rooms.BaseClasses.MixedAir\">
-Buildings.Rooms.BaseClasses.MixedAir</a>
-which consists of several sub-models.
+convective heat transfer between the room enclosing surfaces and the room air,
+and temperature, pressure and species balance inside the room volume.
+These effects are modeled as follows:
+<ol>
+<li>
+The model 
+<a href=\"modelica://Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed\">
+Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed</a>
+is used to compute heat convection between the room air
+and the surface of opaque constructions. It is also used to compute the
+heat and mass balance of the room air.
+This model is a composite model that contains 
+<a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective\">
+Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective</a> to compute the convective
+heat balance of the window and a shade, if present.
+The convective heat transfer coefficient can be selected to be
+either temperature-dependent or constant.
+The convective heat transfer is computed using
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Interior\">
+Buildings.HeatTransfer.Convection.Interior</a>.
+The heat and mass balance of the room air is computed using
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
+Buildings.Fluid.MixingVolumes.MixingVolume</a>,
+which assumes the room air to be completely mixed.
+Depending on the medium model, moisture and species concentrations,
+such as CO<sub>2</sub>, can be modeled transiently.
+</li>
+<li>
+The latent heat gain of the room, which is a user-input,
+is converted to a moisture source using
+the model
+<a href=\"modelica://Buildings.Rooms.BaseClasses.HeatGain\">
+Buildings.Rooms.BaseClasses.HeatGain</a>.
+</li>
+<li>
+The radiant heat gains in the infrared spectrum are also a user
+input. They are distributed to the room enclosing surfaces using
+the model
+<a href=\"modelica://Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution\">
+Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution</a>.
+</li>
+<li>
+The infrared radiative heat exchange between the room enclosing
+surfaces is modeled in
+<a href=\"modelica://Buildings.Rooms.BaseClasses.InfraredRadiationExchange\">
+Buildings.Rooms.BaseClasses.InfraredRadiationExchange</a>.
+This model takes into account the absorptivity of the surfaces and
+the surface area. However, the view factors are assumed to be 
+proportional to the area of the receiving surface, without taking
+into account the location of the surfaces.
+</li>
+<li>
+The solar radiation exchange is modeled in
+<a href=\"modelica://Buildings.Rooms.BaseClasses.SolarRadiationExchange\">
+Buildings.Rooms.BaseClasses.SolarRadiationExchange</a>.
+The assumptions in this model is that all solar radiation
+first hits the floor, and is then partially absorbed and partially reflected by the floor.
+The reflectance are diffuse, and the reflected radiation is distributed
+in proportion to the product of the receiving areas times their
+solar absorptivity.
+</li>
+</ol>
 </li>
 </ol>
 <h4>Model instantiation</h4>
@@ -1339,6 +1389,12 @@ Modeling of Heat Transfer in Rooms in the Modelica \"Buildings\" Library.</a><br
 Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 2011. 
 </p></html>",   revisions="<html>
 <ul>
+<li>
+July 16, 2013, by Michael Wetter:<br/>
+Redesigned implementation to remove one level of model hierarchy on the room-side heat and mass balance.
+This change was done to facilitate the implementation of non-uniform room air heat and mass balance,
+which required separating the convection and long-wave radiation models.
+</li>
 <li>
 March 7 2012, by Michael Wetter:<br/>
 Added optional parameters <code>ove</code> and <code>sidFin</code> to
