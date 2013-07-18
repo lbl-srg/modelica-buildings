@@ -3,9 +3,6 @@ package Python27 "Package to call Python functions"
   extends Modelica.Icons.VariantsPackage;
 
 
-
-
-
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains blocks and functions that embed Python 2.7 in Modelica.
