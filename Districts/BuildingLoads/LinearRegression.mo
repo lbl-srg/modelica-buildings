@@ -31,6 +31,9 @@ public
   Electrical.AC.Interfaces.ThreePhasePlug threePhasePlug
     "Electricity connection of building"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Modelica.Blocks.Sources.Constant fixme[3](each k=0)
+    "Placeholder until the new electrical system is implemented"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 equation
   connect(regLoa.TOut, weaBus.TDryBul)           annotation (Line(
       points={{-62,8},{-80,8},{-80,0},{-100,0}},
@@ -68,8 +71,8 @@ equation
       points={{78,0},{100,0}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(replicator.y, totEleLoa.y) annotation (Line(
-      points={{11,4.44089e-16},{15.5,4.44089e-16},{15.5,0},{20,0}},
+  connect(fixme.y, totEleLoa.y) annotation (Line(
+      points={{1,50},{16,50},{16,0},{20,0},{20,8.88178e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

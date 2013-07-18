@@ -128,12 +128,16 @@ its class name ends with the string <code>Beta</code>.
 
     class Version_1_5_build1 "Version 1.5 build 1"
       extends Modelica.Icons.ReleaseNotes;
-        annotation (Documentation(info="<html>
+        annotation (preferredView="info",
+        Documentation(info="<html>
 <p>
 Version X.Y build Z is ... xxx
 It contains a major revision of all info sections to correct invalid html syntax.
-The package <code>Buildings.HeatTransfer.Radiosity</code> has been revised
-It also contains various corrections that avoid warnings during translation 
+The package <code>Buildings.HeatTransfer.Radiosity</code> has been revised to comply
+with the Modelica language specification.
+The package <code>Buildings.Rooms</code> has been revised to aid implementation of
+non-uniformly mixed room air models.
+This version also contains various corrections that avoid warnings during translation 
 when used with Modelica 3.2.1.
 <!-- New libraries -->
 </p>
@@ -237,7 +241,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution<br/>
                        Buildings.Rooms.BaseClasses.MixedAir<br/>
                        Buildings.Rooms.BaseClasses.Overhang<br/>
-                       Buildings.Rooms.BaseClasses.SideFins<br/>
+                       Buildings.Rooms.BaseClasses.SideFins
     </td>
     <td valign=\"top\">Changed the connectors for the radiosity model.
                        The previous implemenation declared the radiosity as a
@@ -250,7 +254,32 @@ have been <b style=\"color:blue\">improved</b> in a
                        This addresses track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
     </td>
 </tr>
-
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer<br/>
+                         Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.PartialConvection<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.PartialWindowBoundaryCondition<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Shade<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.ShadeConvection<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation<br/>
+                       Buildings.HeatTransfer.Windows.InteriorHeatTransfer<br/>
+                       Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective<br/>
+                       Buildings.Rooms.ExteriorBoundaryConditionsWithWindow<br/>
+                       Buildings.Rooms.PartialSurfaceInterface<br/>
+                       Buildings.Rooms.InfraredRadiationExchange<br/>
+                       Buildings.Rooms.AirHeatMassBalanceMixed<br/>
+                       Buildings.Rooms.SolarRadiationExchange<br/>
+                       Buildings.Rooms.RadiationTemperature<br/>
+                       Buildings.Rooms.InfraredRadiationGainDistribution
+    </td>
+    <td valign=\"top\">Redesigned the implementation of the room model and its base classes.
+                       This redesign separates convection from radiation, and it provides
+                       one composite model for the convection and the heat and mass balance in
+                       the room. This change was done to allow an implementation of the room air
+                       heat and mass balance that does not assume uniformly mixed room air.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
