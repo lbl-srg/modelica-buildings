@@ -14,10 +14,11 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
       datConExt(
         layers={R16p8Wal,
         R52Wal,
+        R52Wal,
         R20Wal},
-        A={3.6576*4.42,3.6576*1.472, 6.645*9.144},
-        til={Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Ceiling},
-        azi={Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N,Buildings.HeatTransfer.Types.Azimuth.S}),
+        A={3.6576*3.9243,3.6576*2.7432, 3.6576*1.524, 6.645*9.144},
+        til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Ceiling},
+        azi={Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.S}),
       datConExtWin(
         layers={R16p8Wal},
         A={6.645*3.6576},
