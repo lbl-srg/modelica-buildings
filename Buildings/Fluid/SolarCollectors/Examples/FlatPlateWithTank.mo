@@ -21,7 +21,7 @@ model FlatPlateWithTank
     lat=0.73097781993588,
     azi=0.3,
     til=0.78539816339745,
-    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FPYourHomeTechHP2014())
+    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf())
     "Flat plate solar collector model"
              annotation (Placement(transformation(extent={{-2,46},{18,66}})));
 
@@ -63,7 +63,7 @@ model FlatPlateWithTank
         origin={27,-33})));
   Buildings.Fluid.SolarCollectors.Controls.SolarPumpController
                                                      pumCon(per=
-        Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FPYourHomeTechHP2014())
+        Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20())
     "Pump controller"                                                                                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

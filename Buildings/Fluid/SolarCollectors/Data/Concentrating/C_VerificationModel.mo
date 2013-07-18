@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors.Data.Concentrating;
-record CVerificationModel =
+record C_VerificationModel =
   SolarCollectors.Data.GenericSolarCollector (
     final ATyp=Types.Area.Aperture,
     final A=4.302,

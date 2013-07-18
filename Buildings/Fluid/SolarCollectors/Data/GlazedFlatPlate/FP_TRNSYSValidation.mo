@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate;
-record TRNSYSValidation =
+record FP_TRNSYSValidation =
     SolarCollectors.Data.GenericSolarCollector (
     ATyp=Types.Area.Gross,
     A=5,

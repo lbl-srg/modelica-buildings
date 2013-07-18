@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate;
-record FPThermaLiteHS20 =
+record FP_ThermaLiteHS20 =
     SolarCollectors.Data.GenericSolarCollector (
     final ATyp=Types.Area.Gross,
     final A=1.97,

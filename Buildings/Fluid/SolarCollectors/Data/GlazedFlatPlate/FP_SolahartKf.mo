@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate;
-record FPSolahartKf =
+record FP_SolahartKf =
     SolarCollectors.Data.GenericSolarCollector (
     final ATyp=Types.Area.Gross,
     final A=2.003,

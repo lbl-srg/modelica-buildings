@@ -9,7 +9,7 @@ model FlatPlateValidation "Validation model for FlatPlate"
     redeclare package Medium = Medium,
     shaCoe=0,
     azi=0,
-    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.TRNSYSValidation(),
+    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,

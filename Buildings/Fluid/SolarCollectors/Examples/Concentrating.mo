@@ -10,7 +10,7 @@ model Concentrating "Example showing the use of Concentrating"
     shaCoe=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_shaCoe_in=false,
-    per=Buildings.Fluid.SolarCollectors.Data.Concentrating.CVerificationModel(),
+    per=Buildings.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel(),
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,

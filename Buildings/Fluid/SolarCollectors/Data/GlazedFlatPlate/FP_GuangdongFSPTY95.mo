@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate;
-record FPGuangdongFSPTY95 =
+record FP_GuangdongFSPTY95 =
     SolarCollectors.Data.GenericSolarCollector (
     final ATyp=Types.Area.Gross,
     final A=2,

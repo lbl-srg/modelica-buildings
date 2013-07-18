@@ -3,7 +3,7 @@ model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
   import Buildings;
   extends Modelica.Icons.Example;
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector               per=
-      Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FPSolahartKf()
+      Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf()
     "Performance data" annotation (choicesAllMatching=true);
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
         transformation(extent={{60,60},{80,80}}, rotation=0)));

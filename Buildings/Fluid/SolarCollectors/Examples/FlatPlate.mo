@@ -14,8 +14,7 @@ model FlatPlate "Test model for FlatPlate"
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
     nSeg=3,
-    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FPGuangdongFSPTY95
-        (),
+    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_GuangdongFSPTY95(),
     lat=0.73097781993588,
     azi=0.3,
     til=0.5,
