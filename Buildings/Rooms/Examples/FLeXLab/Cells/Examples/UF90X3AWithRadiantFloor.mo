@@ -259,6 +259,6 @@ equation
           </ul>
           </html>"),
     Commands(file=
-          "Resources/Scripts/Dymola/Rooms/Examples/FLeXLab/Cells/Examples/UF90X3A.mos"
+          "Resources/Scripts/Dymola/Rooms/Examples/FLeXLab/Cells/Examples/UF90X3AWithRadiantFloor.mos"
         "Simulate and Plot"));
 end UF90X3AWithRadiantFloor;

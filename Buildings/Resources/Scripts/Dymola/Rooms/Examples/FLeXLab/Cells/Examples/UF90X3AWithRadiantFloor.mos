@@ -1,6 +1,6 @@
 removePlots();
 
-simulateModel("Buildings.Rooms.Examples.FLeXLab.Cells.Examples.UF90X3AWithARadiantFloor", stopTime=86400, method="dassl", resultFile="UF90X3A");
+simulateModel("Buildings.Rooms.Examples.FLeXLab.Cells.Examples.UF90X3AWithRadiantFloor", stopTime=864000, method="dassl", resultFile="UF90X3AWithRadiantFloor");
 
 createPlot(id = 1,
  position = {0, 0, 1529, 781},
