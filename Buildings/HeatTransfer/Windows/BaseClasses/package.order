@@ -6,11 +6,12 @@ GasConvection
 GlassLayer
 Overhang
 ThermalConductor
-Shade
+ShadeConvection
+ShadeRadiation
 ShadeInterface_weatherBus
 ShadingSignal
 SideFins
-PartialConvection
+PartialWindowBoundaryCondition
 PartialRadiation
 PartialShade_weatherBus
 TransmittedRadiation
@@ -23,4 +24,3 @@ nusseltHorizontalCavityEnhanced
 nusseltHorizontalCavityReduced
 smoothInterpolation
 Examples
-

@@ -1,27 +1,10 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
-partial model PartialConvection
-  "Partial model for heat convection between a possibly shaded window that can be outside or inside the room"
+partial model PartialWindowBoundaryCondition
+  "Partial model for heat convection or radiation between a possibly shaded window that can be outside or inside the room"
   parameter Modelica.SIunits.Area A "Heat transfer area of frame and window";
   parameter Real fFra "Fraction of window frame divided by total window area";
   final parameter Modelica.SIunits.Area AFra = fFra * A "Frame area";
   final parameter Modelica.SIunits.Area AGla = A-AFra "Glass area";
-
-  parameter Modelica.SIunits.Emissivity absIRSha_air
-    "Infrared absorptivity of shade surface that faces air"
-        annotation (Dialog(group="Shading"));
-  parameter Modelica.SIunits.Emissivity absIRSha_glass
-    "Infrared absorptivity of shade surface that faces glass"
-    annotation (Dialog(group="Shading"));
-
-  parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_air
-    "Infrared transmissivity of shade for radiation coming from the exterior or the room"
-    annotation (Dialog(group="Shading"));
-  parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_glass
-    "Infrared transmissivity of shade for radiation coming from the glass"
-    annotation (Dialog(group="Shading"));
-
-  parameter Boolean linearizeRadiation
-    "Set to true to linearize emissive power";
 
   parameter Boolean haveExteriorShade
     "Set to true if window has exterior shade (at surface a)"
@@ -30,14 +13,14 @@ partial model PartialConvection
     "Set to true if window has interior shade (at surface b)"
     annotation (Dialog(group="Shading"));
 
-  final parameter Boolean windowHasShade = haveExteriorShade or haveInteriorShade
+  final parameter Boolean haveShade = haveExteriorShade or haveInteriorShade
     "Set to true if window system has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
   parameter Boolean thisSideHasShade
     "Set to true if this side of the model has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
 
-  Modelica.Blocks.Interfaces.RealInput uSha if windowHasShade
+  Modelica.Blocks.Interfaces.RealInput uSha if haveShade
     "Input connector, used to scale the surface area to take into account an operable shading device, 0: unshaded; 1: fully shaded"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-116,72},{-100,88}})));
@@ -49,7 +32,7 @@ partial model PartialConvection
     "Heat port that connects to unshaded part of glass"
       annotation (Placement(transformation(extent={{90,10},{110,30}},  rotation=0)));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaSha if windowHasShade
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaSha if haveShade
     "Heat port that connects to shaded part of glass"
     annotation (Placement(transformation(extent={{90,-30},{110,-10}},      rotation=0)));
 
@@ -68,54 +51,16 @@ protected
   Modelica.Blocks.Math.Product proUns "Product for unshaded part of window"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
-  Modelica.Blocks.Math.Product proSha if windowHasShade
+  Modelica.Blocks.Math.Product proSha if haveShade
     "Product for shaded part of window"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
 
-public
-  ShadingSignal shaSig(haveShade=windowHasShade)
+  ShadingSignal shaSig(final haveShade=haveShade)
     "Conversion for shading signal"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Shade shade(
-    final thisSideHasShade = thisSideHasShade,
-    final A=AGla,
-    final linearize=linearizeRadiation,
-    final absIR_air=if thisSideHasShade then absIRSha_air else 0,
-    final absIR_glass=if thisSideHasShade then absIRSha_glass else 0,
-    final tauIR_air=if thisSideHasShade then tauIRSha_air else 1,
-    final tauIR_glass=if thisSideHasShade then tauIRSha_glass else 1) if
-       windowHasShade "Heat balance of shade"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Interfaces.RadiosityOutflow JOutUns
-    "Outgoing radiosity that connects to unshaded part of glass"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  Interfaces.RadiosityInflow JInUns
-    "Incoming radiosity that connects to unshaded part of glass"
-    annotation (Placement(transformation(extent={{120,50},{100,70}})));
-public
-  Interfaces.RadiosityOutflow JOutSha if windowHasShade
-    "Outgoing radiosity that connects to shaded part of glass"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Interfaces.RadiosityInflow JInSha if windowHasShade
-    "Incoming radiosity that connects to shaded part of glass"
-    annotation (Placement(transformation(extent={{120,-90},{100,-70}})));
-protected
-  Radiosity.RadiositySplitter radShaOut "Radiosity that strikes shading device"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-
-public
-  Modelica.Blocks.Interfaces.RealInput QAbs_flow(unit="W", quantity="Power") if windowHasShade
-    "Solar radiation absorbed by shade"
-    annotation (Placement(transformation(
-        origin={0,-120},
-        extent={{-20,-20},{20,20}},
-        rotation=90), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-110})));
 initial equation
-  assert(( thisSideHasShade and windowHasShade)  or (not thisSideHasShade),
-    "Parameters \"thisSideHasShade\" and \"windowHasShade\" are not consistent. Check parameters");
+  assert(( thisSideHasShade and haveShade)  or (not thisSideHasShade),
+    "Parameters \"thisSideHasShade\" and \"haveShade\" are not consistent. Check parameters");
 
 equation
   connect(conWinUns.fluid, air)
@@ -154,51 +99,7 @@ equation
       points={{-69,74},{-50,74},{-50,86},{18,86}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(shade.Gc, proSha.y) annotation (Line(
-      points={{-1,-16},{-20,-16},{-20,30},{-29,30}},
-      color={0,0,127},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(shade.air, air) annotation (Line(
-      points={{-5.55112e-16,-20},{-70,-20},{-70,5.55112e-16},{-100,5.55112e-16}},
-      color={191,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(shade.glass, glaSha) annotation (Line(
-      points={{19.4,-20},{100,-20}},
-      color={191,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(radShaOut.JOut_2,JOutUns)  annotation (Line(
-      points={{-19,-46},{90,-46},{90,80},{110,80}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(shade.JOut_glass,JOutSha)  annotation (Line(
-      points={{21,-24},{80,-24},{80,-60},{110,-60}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(shade.JIn_glass,JInSha)  annotation (Line(
-      points={{21,-28},{70,-28},{70,-80},{110,-80}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(shaSig.y,radShaOut. u) annotation (Line(
-      points={{-69,80},{-60,80},{-60,-46},{-42,-46}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radShaOut.JOut_1, shade.JIn_air) annotation (Line(
-      points={{-19,-34},{-12,-34},{-12,-24},{-1,-24}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(shade.u, shaSig.y) annotation (Line(
-      points={{-1,-12},{-60,-12},{-60,80},{-69,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
-  connect(shade.QAbs_flow, QAbs_flow) annotation (Line(
-      points={{10,-31},{10,-94},{0,-94},{0,-120},{1.11022e-15,-120}},
-      color={0,0,127},
-      smooth=Smooth.None));
     annotation (Dialog(group="Shading"),
     Icon(graphics={
         Rectangle(
@@ -281,26 +182,15 @@ equation
           extent={{-20,86},{84,72}},
           lineColor={0,0,0},
           fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-72,-82},{-6,-100}},
-          lineColor={0,0,127},
-          textString="QAbsSha")}),
+          fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-Partial model for heat convection of a window surface with or without shade,
+Partial model for boundary conditions for convection and radiation for a window surface with or without shade,
 that is outside or inside the room. 
 </p>
 <p>
-Convective heat transfer is modeled between the heat port <code>air</code> 
-and the shade, if present, the glass and the frame.
-If the parameter <code>haveShade</code> is set to <code>true</code>, then a shade 
-is present and the input port <code>QAbs_flow</code> needs to be connected to 
-a model that computes the solar radiation that is absorbed by the shade.
-If <code>haveShade=true</code>, then the model <code>shade</code> and the 
-connectors <code>QAbs_flow</code>, <code>glaSha</code>, 
-<code>JInSha</code> and <code>JOutSha</code> are removed.
-This allows using the model as a base class for windows with inside shade, outside shade, or no shade.</p>
+This allows using the model as a base class for windows with inside shade, outside shade, or no shade.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -308,5 +198,7 @@ August 25 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
-end PartialConvection;
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
+end PartialWindowBoundaryCondition;

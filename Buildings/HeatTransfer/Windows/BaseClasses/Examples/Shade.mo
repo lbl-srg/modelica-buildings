@@ -5,14 +5,14 @@ model Shade "Test model for exterior shade heat transfer"
   parameter Modelica.SIunits.Area A=1 "Window surface area";
   parameter Boolean linearize = true "Set to true to linearize emissive power";
 
-  Buildings.HeatTransfer.Windows.BaseClasses.Shade extSha(
+  Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation extShaRad(
     A=A,
     linearize=false,
     absIR_air=0.3,
     absIR_glass=0.3,
     tauIR_air=0.3,
     tauIR_glass=0.3,
-    thisSideHasShade=true) "Model of exterior shade"
+    thisSideHasShade=true) "Radiation model of exterior shade"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Modelica.Blocks.Sources.Ramp uSha(
     height=0.9,
@@ -45,14 +45,14 @@ model Shade "Test model for exterior shade heat transfer"
     "Radiosity that strikes shading device"
     annotation (Placement(transformation(extent={{60,-22},{40,-2}})));
 
-  Buildings.HeatTransfer.Windows.BaseClasses.Shade extNonSha(
+  Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation extNonShaRad(
     A=A,
     linearize=false,
     thisSideHasShade=false,
     absIR_air=0,
     absIR_glass=0,
     tauIR_air=0.3,
-    tauIR_glass=0.3) "Model for fraction of window that has no shade"
+    tauIR_glass=0.3) "Radiation model for fraction of window that has no shade"
     annotation (Placement(transformation(extent={{2,-62},{22,-42}})));
   Buildings.HeatTransfer.Radiosity.RadiositySplitter radShaOut
     "Radiosity that strikes shading device"
@@ -78,6 +78,13 @@ model Shade "Test model for exterior shade heat transfer"
     annotation (Placement(transformation(extent={{44,-76},{56,-64}})));
   Modelica.Blocks.Math.MultiSum sumJOut(nu=2) "Sum of outdoor side radiosity"
     annotation (Placement(transformation(extent={{-46,-72},{-58,-60}})));
+  Buildings.HeatTransfer.Windows.BaseClasses.ShadeConvection extShaCon(A=A,
+      thisSideHasShade=true) "Convection model of exterior shade"
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+  Buildings.HeatTransfer.Windows.BaseClasses.ShadeConvection extNonShaCon(A=A,
+      thisSideHasShade=false)
+    "Convection model for fraction of window that has no shade"
+    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 equation
   connect(TRadOut.port, radOut.heatPort) annotation (Line(
       points={{-94,-90},{-78,-90},{-78,-71.8},{-93.2,-71.8}},
@@ -104,55 +111,36 @@ equation
       points={{81,-48},{72,-48},{72,-6},{61,-6}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(radShaOut.JOut_1, extSha.JIn_air) annotation (Line(
+  connect(radShaOut.JOut_1, extShaRad.JIn_air)
+                                            annotation (Line(
       points={{-39,-4},{-30,-4},{-30,16},{-1,16}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(radShaOut.JOut_2, extNonSha.JIn_air) annotation (Line(
+  connect(radShaOut.JOut_2, extNonShaRad.JIn_air)
+                                               annotation (Line(
       points={{-39,-16},{-30,-16},{-30,-56},{1,-56}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(QSol_shade.y, extSha.QAbs_flow) annotation (Line(
-      points={{-19,110},{-10,110},{-10,0},{10,0},{10,9}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radShaInt.JOut_1, extSha.JIn_glass) annotation (Line(
+  connect(radShaInt.JOut_1, extShaRad.JIn_glass)
+                                              annotation (Line(
       points={{39,-6},{30,-6},{30,12},{21,12}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(radShaInt.JOut_2, extNonSha.JIn_glass) annotation (Line(
+  connect(radShaInt.JOut_2, extNonShaRad.JIn_glass)
+                                                 annotation (Line(
       points={{39,-18},{30,-18},{30,-60},{23,-60}},
       color={0,127,0},
-      smooth=Smooth.None));
-  connect(TAirOut.port, extSha.air) annotation (Line(
-      points={{-100,20},{-5.55112e-16,20}},
-      color={191,0,0},
       smooth=Smooth.None));
   connect(TAirOut.T, TOut.y) annotation (Line(
       points={{-122,20},{-130,20},{-130,-90},{-139,-90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TAirRoo.port, extSha.glass) annotation (Line(
-      points={{100,20},{19.4,20}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(TAirRoo.port, extNonSha.glass) annotation (Line(
-      points={{100,20},{80,20},{80,-52},{21.4,-52}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(TAirOut.port, extNonSha.air) annotation (Line(
-      points={{-100,20},{-20,20},{-20,-52},{2,-52}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(TAirRoo.T, TRoo.y) annotation (Line(
       points={{122,20},{132,20},{132,-70},{139,-70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(QSol_shade.y, extNonSha.QAbs_flow) annotation (Line(
-      points={{-19,110},{-10,110},{-10,-70},{12,-70},{12,-63}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(shaCon.y, extSha.u) annotation (Line(
+  connect(shaCon.y, extShaRad.u)
+                              annotation (Line(
       points={{-89,80},{-54,80},{-54,28},{-1,28}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -164,16 +152,9 @@ equation
       points={{-139,80},{-112,80}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(shaCon.yCom, extNonSha.u) annotation (Line(
+  connect(shaCon.yCom, extNonShaRad.u)
+                                    annotation (Line(
       points={{-89,74},{-72,74},{-72,-44},{1,-44}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(GConSha.y, extSha.Gc) annotation (Line(
-      points={{-25,50},{-14,50},{-14,24},{-1,24}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(GConUns.y, extNonSha.Gc) annotation (Line(
-      points={{-39,-120},{-18,-120},{-18,-48},{1,-48}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(GConSha.u, shaCon.y) annotation (Line(
@@ -193,26 +174,75 @@ equation
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(extSha.JOut_glass, sumJRoo.u[1]) annotation (Line(
-      points={{21,16},{32,16},{32,-67.9},{44,-67.9}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(extNonSha.JOut_glass, sumJRoo.u[2]) annotation (Line(
-      points={{23,-56},{28,-56},{28,-72},{36,-72},{36,-72.1},{44,-72.1}},
-      color={0,127,0},
-      smooth=Smooth.None));
   connect(radOut.JIn, sumJOut.y) annotation (Line(
       points={{-83,-66},{-59.02,-66}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(extSha.JOut_air, sumJOut.u[1]) annotation (Line(
-      points={{-1,12},{-26,12},{-26,-63.9},{-46,-63.9}},
+  connect(TAirRoo.port, extShaCon.glass) annotation (Line(
+      points={{100,20},{74,20},{74,50},{19.4,50}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(TAirRoo.port, extNonShaCon.glass) annotation (Line(
+      points={{100,20},{74,20},{74,-90},{19.4,-90}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(extShaCon.air, TAirOut.port) annotation (Line(
+      points={{-4.44089e-16,50},{-12,50},{-12,20},{-100,20}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(extNonShaCon.air, TAirOut.port) annotation (Line(
+      points={{-4.44089e-16,-90},{-12,-90},{-12,20},{-100,20}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(GConUns.y, extNonShaCon.Gc) annotation (Line(
+      points={{-39,-120},{-20,-120},{-20,-86},{-1,-86}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(GConSha.y, extShaCon.Gc) annotation (Line(
+      points={{-25,50},{-14,50},{-14,54},{-1,54}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(extShaCon.TSha, extShaRad.TSha) annotation (Line(
+      points={{16,39},{16,39},{16,36},{24,36},{24,4},{15,4},{15,9}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(extShaCon.QRadAbs_flow, extShaRad.QRadAbs_flow) annotation (Line(
+      points={{4,39},{4,34},{26,34},{26,2},{5,2},{5,9}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(extNonShaRad.TSha, extNonShaCon.TSha) annotation (Line(
+      points={{17,-63},{17,-74},{26,-74},{26,-106},{16,-106},{16,-101}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(extNonShaRad.QRadAbs_flow, extNonShaCon.QRadAbs_flow) annotation (
+      Line(
+      points={{7,-63},{7,-76},{24,-76},{24,-108},{4,-108},{4,-101}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(extShaRad.JOut_air, sumJOut.u[1]) annotation (Line(
+      points={{-1,12},{-28,12},{-28,-63.9},{-46,-63.9}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(extNonSha.JOut_air, sumJOut.u[2]) annotation (Line(
-      points={{1,-60},{-24,-60},{-24,-68.1},{-46,-68.1}},
+  connect(extNonShaRad.JOut_air, sumJOut.u[2]) annotation (Line(
+      points={{1,-60},{-26,-60},{-26,-68.1},{-46,-68.1}},
       color={0,127,0},
+      smooth=Smooth.None));
+  connect(extShaRad.JOut_glass, sumJRoo.u[1]) annotation (Line(
+      points={{21,16},{34,16},{34,-67.9},{44,-67.9}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(extNonShaRad.JOut_glass, sumJRoo.u[2]) annotation (Line(
+      points={{23,-56},{32,-56},{32,-72.1},{44,-72.1}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(extShaRad.QSolAbs_flow, QSol_shade.y) annotation (Line(
+      points={{10,9},{10,0},{-10,0},{-10,110},{-19,110}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(extNonShaRad.QSolAbs_flow, QSol_shade.y) annotation (Line(
+      points={{12,-63},{12,-70},{-10,-70},{-10,110},{-19,110}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
 experiment(StopTime=1.0),

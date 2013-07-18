@@ -183,5 +183,15 @@ equation
       extent={{6,3},{6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
             -200},{200,200}},
-        initialScale=0.1),     graphics));
+        initialScale=0.1)),
+        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Controls/Examples/OperationModes.mos"
+        "Simulate and plot"),
+    experiment(
+      StopTime=172800,
+      Tolerance=1e-006),
+    Documentation(info="<html>
+<p>
+This model tests the transition between the different modes of operation of the HVAC system.
+</p>
+</html>"));
 end OperationModes;

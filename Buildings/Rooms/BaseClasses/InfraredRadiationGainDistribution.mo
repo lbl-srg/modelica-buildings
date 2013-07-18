@@ -1,7 +1,7 @@
 within Buildings.Rooms.BaseClasses;
 model InfraredRadiationGainDistribution
   "Infrared radiative heat gain distribution between the room facing surfaces"
-  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterface;
+  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterfaceRadiative;
   parameter Boolean haveShade "Set to true if a shade is present";
 
   Modelica.Blocks.Interfaces.RealInput uSha[NConExtWin](each min=0, each max=1) if
@@ -76,16 +76,48 @@ equation
   sumAEps      = sumAEpsNoWin + sum(AEpsConExtWinUns) + sum(AEpsConExtWinSha);
 
   // Infrared radiative heat flow
-  conExt.Q_flow    = -fraConExt*Q_flow;
-  conExtWin.Q_flow = -fraConExtWinOpa*Q_flow;
-  conPar_a.Q_flow  = -fraConPar_a*Q_flow;
-  conPar_b.Q_flow  = -fraConPar_b*Q_flow;
-  conBou.Q_flow    = -fraConBou*Q_flow;
-  conSurBou.Q_flow    = -fraSurBou*Q_flow;
+  // If a construction is not present, we assign the temperature of the connector to 20 degC.
+  if haveConExt then
+    conExt.Q_flow    = -fraConExt*Q_flow;
+  else
+    conExt[1].T = 293.15;
+  end if;
+
+  if haveConExtWin then
+    conExtWin.Q_flow = -fraConExtWinOpa*Q_flow;
+  else
+    conExtWin[1].T = 293.15;
+  end if;
+
+  if haveConPar then
+    conPar_a.Q_flow  = -fraConPar_a*Q_flow;
+    conPar_b.Q_flow  = -fraConPar_b*Q_flow;
+  else
+    conPar_a[1].T = 293.15;
+    conPar_b[1].T = 293.15;
+  end if;
+
+  if haveConBou then
+    conBou.Q_flow    = -fraConBou*Q_flow;
+  else
+    conBou[1].T = 293.15;
+  end if;
+
+  if haveSurBou then
+    conSurBou.Q_flow    = -fraSurBou*Q_flow;
+  else
+    conSurBou[1].T = 293.15;
+  end if;
+
   // This model makes the simplification that the shade, the glass and the frame have
   // the same absorptivity in the infrared region
   JOutConExtWin        = +fraConExtWinGla*Q_flow;
-  conExtWinFra.Q_flow  = -fraConExtWinFra*Q_flow;
+  if haveConExtWin then
+     conExtWinFra.Q_flow  = -fraConExtWinFra*Q_flow;
+  else
+     conExtWinFra[1].T = 293.15;
+  end if;
+
   // Check for conservation of energy
   assert(abs(1 - sum(fraConExt) - sum(fraConExtWinOpa)- sum(fraConExtWinGla) - sum(fraConExtWinFra)
            - sum(fraConPar_a) - sum(fraConPar_b)
@@ -112,6 +144,12 @@ that will strike the glass or the window shade.
 </html>",
         revisions="<html>
 <ul>
+<li>
+July 16, 2013, by Michael Wetter:<br/>
+Added assignment of heat port temperature instead of heat flow rate
+for the cases where a construction has been conditionally removed.
+This is required to avoid a singularity.
+</li>
 <li>
 June 27, 2013, by Michael Wetter:<br/>
 Changed model because the outflowing radiosity has been changed to be a non-negative quantity.

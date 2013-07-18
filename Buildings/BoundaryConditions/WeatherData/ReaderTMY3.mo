@@ -692,72 +692,18 @@ equation
   annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(
-        preserveAspectRatio=true,
+        preserveAspectRatio=false,
         extent={{-200,-200},{200,200}},
         initialScale=0.05), graphics={
         Rectangle(
-          extent={{-200,-198},{200,202}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
+          extent={{-200,200},{200,-200}},
+          lineColor={124,142,255},
+          fillColor={124,142,255},
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-162,270},{138,230}},
           textString="%name",
           lineColor={0,0,255}),
-        Ellipse(
-          extent={{-64,72},{80,-66}},
-          lineColor={255,0,0},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
-          lineThickness=1),
-        Line(
-          points={{6,116},{6,78}},
-          color={255,0,0},
-          smooth=Smooth.None,
-          thickness=1),
-        Line(
-          points={{10,-78},{10,-116}},
-          color={255,0,0},
-          smooth=Smooth.None,
-          thickness=1),
-        Line(
-          points={{0,19},{0,-19}},
-          color={255,0,0},
-          smooth=Smooth.None,
-          thickness=1,
-          origin={110,1},
-          rotation=90),
-        Line(
-          points={{0,19},{0,-19}},
-          color={255,0,0},
-          smooth=Smooth.None,
-          thickness=1,
-          origin={-96,-1},
-          rotation=90),
-        Line(
-          points={{25,10},{0,-19}},
-          color={255,0,0},
-          smooth=Smooth.None,
-          thickness=1,
-          origin={-76,55},
-          rotation=90),
-        Line(
-          points={{25,10},{0,-19}},
-          color={255,0,0},
-          smooth=Smooth.None,
-          thickness=1,
-          origin={80,-83},
-          rotation=90),
-        Line(
-          points={{102,82},{72,56}},
-          color={255,0,0},
-          smooth=Smooth.None,
-          thickness=1),
-        Line(
-          points={{-58,-62},{-88,-88}},
-          color={255,0,0},
-          smooth=Smooth.None,
-          thickness=1),
         Text(
           visible=(pAtmSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-190,216},{-164,184}},
@@ -796,7 +742,23 @@ equation
         visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor),
         extent={{-200,-186},{-126,-214}},
           lineColor={0,0,127},
-          textString="HDirNor")}),
+          textString="HDirNor"),
+        Ellipse(
+          extent={{-146,154},{28,-20}},
+          lineColor={255,220,220},
+          lineThickness=1,
+          fillPattern=FillPattern.Sphere,
+          fillColor={255,255,0}),
+        Polygon(
+          points={{104,76},{87.9727,12.9844},{88,12},{120,22},{148,20},{174,8},
+              {192,-58},{148,-132},{20,-140},{-130,-136},{-156,-60},{-140,-6},{
+              -92,-4},{-68.2109,-21.8418},{-68,-22},{-82,40},{-48,90},{44,110},
+              {104,76}},
+          lineColor={220,220,220},
+          lineThickness=0.1,
+          fillPattern=FillPattern.Sphere,
+          smooth=Smooth.Bezier,
+          fillColor={230,230,230})}),
     Documentation(info="<html>
 <p>
 This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data. 
