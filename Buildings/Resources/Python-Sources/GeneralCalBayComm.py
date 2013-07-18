@@ -136,11 +136,13 @@ if __name__ == '__main__':
     #Command=raw_input("Command:")
 #    results = []
 
-    def CalBayComm():
+    Login = 'P Grant'
+    Password = 'pgrant213'
+    Command = 'GetDAQ:WattStopper.HS1--4126F--Light Level-1'
 
-        Login = 'P Grant'
-        Password = 'pgrant213'
-        Command = 'GetDAQ:WattStopper.HS1--4126F--Light Level-1'
+    def CalBayComm(Login, Password, Command):
+
+
 
         conn = FlexlabExtInterface()
         print "Opening connection.\n"

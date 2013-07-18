@@ -103,6 +103,17 @@ model UF90X3AWithRadiantFloor
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{28,116},{48,136}})));
+  Modelica.Blocks.Sources.Constant TNei[2](k=273.15 + 20)
+    "Temperature of the neighboring test cells" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={120,-4})));
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem[2] annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={80,-4})));
 equation
   connect(mul.y[1], UF90X3A.qGai_flow[1]) annotation (Line(
       points={{-37,55.3333},{0,55.3333},{0,34.6667},{6,34.6667}},
@@ -179,6 +190,14 @@ equation
       smooth=Smooth.None));
   connect(shaPos.y, UF90X3A.uSha) annotation (Line(
       points={{-85,112},{4,112},{4,42},{12,42}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(preTem.port, UF90X3A.surf_conBou) annotation (Line(
+      points={{70,-4},{40,-4},{40,10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(TNei.y, preTem.T) annotation (Line(
+      points={{109,-4},{100,-4},{100,-4},{92,-4}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-150,

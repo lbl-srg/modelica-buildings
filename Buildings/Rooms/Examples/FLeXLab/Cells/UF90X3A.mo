@@ -1,9 +1,9 @@
 within Buildings.Rooms.Examples.FLeXLab.Cells;
 model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
-  extends MixedAir(AFlo=60.97,
+  extends Buildings.Rooms.MixedAir(AFlo=60.97,
       nSurBou=1,
-      nConPar=1,
-      nConBou = 0,
+      nConPar=0,
+      nConBou=4,
       nConExt=4,
       nConExtWin=1,
       hRoo=3.6576,
@@ -14,12 +14,18 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
         each til=Buildings.HeatTransfer.Types.Tilt.Floor),
       datConExt(
         layers={R16p8Wal,
+        extDoo,
         R52Wal,
         R52Wal,
         R20Wal},
-        A={3.6576*3.9243,3.6576*2.7432, 3.6576*1.524, 6.645*9.144},
+        A={3.6576*3.9243, 2.39 * 1.3716, 3.6576*2.7432, 3.6576*1.524, 6.645*9.144},
         til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Ceiling},
         azi={Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.S}),
+      datConBou(
+         layers = {bedDiv,celDiv,parCon, parDoo},
+         A = {3.6576 * 9.144, 3.6576 * 10.668, 7.1142, 2.39*1.22},
+         til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall},
+         azi = {Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.E, Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N}),
       datConExtWin(
         layers={R16p8Wal},
         A={6.645*3.6576},
@@ -28,26 +34,33 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
         wWin={5.86},
         til={Buildings.HeatTransfer.Types.Tilt.Wall},
         azi={Buildings.HeatTransfer.Types.Azimuth.S}),
-      datConPar(
-        layers={parCon},
-        A={3.6576*1.472},
-        til={Buildings.HeatTransfer.Types.Tilt.Wall},
-        azi={Buildings.HeatTransfer.Types.Azimuth.S}),
       intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
       extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
       lat=0.66098585832754);
   Data.Constructions.OpaqueConstructions.ModInsulExtWall          R16p8Wal
-    annotation (Placement(transformation(extent={{-180,-94},{-160,-74}})));
+    annotation (Placement(transformation(extent={{410,-168},{430,-148}})));
   Data.Constructions.OpaqueConstructions.HighInsulExtWall                R52Wal
-    annotation (Placement(transformation(extent={{-180,-120},{-160,-100}})));
+    annotation (Placement(transformation(extent={{410,-192},{430,-172}})));
   Data.Constructions.OpaqueConstructions.ASHRAE901Roof      R20Wal
-    annotation (Placement(transformation(extent={{-180,-144},{-160,-124}})));
+    annotation (Placement(transformation(extent={{410,-216},{430,-196}})));
   Data.Constructions.GlazingSystems.ASHRAE901Gla               glaSys
-    annotation (Placement(transformation(extent={{-180,-168},{-160,-148}})));
+    annotation (Placement(transformation(extent={{436,-192},{456,-172}})));
   Data.Constructions.OpaqueConstructions.PartitionWall
                                                     parCon
-    annotation (Placement(transformation(extent={{-180,-192},{-160,-172}})));
+    annotation (Placement(transformation(extent={{436,-216},{456,-196}})));
 
+  Data.Constructions.OpaqueConstructions.TestCellDividngWall celDiv
+    "Construction of wall connecting to cell UF90X3B"
+    annotation (Placement(transformation(extent={{410,-144},{430,-124}})));
+  Data.Constructions.OpaqueConstructions.TestBedDividingWall bedDiv
+    "Construction of wall connecting to cell UF90X2B"
+    annotation (Placement(transformation(extent={{410,-120},{430,-100}})));
+  Data.Constructions.OpaqueConstructions.PartitionDoor parDoo
+    "Door used in partition walls in FLeXLab test cells"
+    annotation (Placement(transformation(extent={{410,-96},{430,-76}})));
+  Data.Constructions.OpaqueConstructions.ExteriorDoor extDoo
+    "Construction of an exterior door"
+    annotation (Placement(transformation(extent={{410,-72},{430,-52}})));
   annotation(Documentation(info="<html>
   <p>
   This is a model for test cell 3A in the LBNL User Facility. The model is based on 

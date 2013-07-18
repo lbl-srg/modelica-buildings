@@ -1,6 +1,8 @@
-PartitionWall
 ASHRAE901Roof
-TestCellDividngWall
-TestBedDividingWall
+ExteriorDoor
 HighInsulExtWall
 ModInsulExtWall
+PartitionDoor
+PartitionWall
+TestCellDividngWall
+TestBedDividingWall
