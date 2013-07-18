@@ -4,8 +4,9 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
       nSurBou=1,
       nConPar=1,
       nConBou = 0,
-      hRoo=3.6576,
+      nConExt=4,
       nConExtWin=1,
+      hRoo=3.6576,
       surBou(
         each A=6.645*9.144,
         each absIR=0.9,
@@ -32,7 +33,6 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
         A={3.6576*1.472},
         til={Buildings.HeatTransfer.Types.Tilt.Wall},
         azi={Buildings.HeatTransfer.Types.Azimuth.S}),
-      nConExt=3,
       intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
       extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
       lat=0.66098585832754);

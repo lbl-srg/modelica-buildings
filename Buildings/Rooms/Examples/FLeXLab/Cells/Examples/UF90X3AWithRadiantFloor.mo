@@ -4,21 +4,16 @@ model UF90X3AWithRadiantFloor
   import Buildings;
   extends Modelica.Icons.Example;
 
-  parameter Integer nConExtWin = 1
-    "Number of external constructions with windows";
-
   package Air = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
     "Air model used in the example model";
   package Water = Buildings.Media.ConstantPropertyLiquidWater
     "Water model used in the radiant slab loop";
 
-  Buildings.Rooms.Examples.FLeXLab.Cells.UF90X3A UF90X3A(nConExtWin=nConExtWin,
+  Buildings.Rooms.Examples.FLeXLab.Cells.UF90X3A UF90X3A(
       nPorts=2,
     redeclare package Medium = Air,
     linearizeRadiation=false)
               annotation (Placement(transformation(extent={{14,6},{54,46}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="/home/peter/FLeXLab/FLeXLab/bie/modelica/Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
-    annotation (Placement(transformation(extent={{20,120},{40,140}})));
   Modelica.Blocks.Routing.Multiplex3 mul "Combines intGai signal for roo model"
     annotation (Placement(transformation(extent={{-58,46},{-38,66}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0])
@@ -27,8 +22,6 @@ model UF90X3AWithRadiantFloor
   Modelica.Blocks.Sources.CombiTimeTable shaPos(table=[0,1; 86400,1])
     "Position of the shade"
     annotation (Placement(transformation(extent={{-106,102},{-86,122}})));
-  Modelica.Blocks.Routing.Replicator replicator(nout=max(1, nConExtWin))
-    annotation (Placement(transformation(extent={{-52,102},{-32,122}})));
   Modelica.Blocks.Sources.CombiTimeTable airCon(table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
     tableName="airCon",
@@ -107,30 +100,20 @@ model UF90X3AWithRadiantFloor
                                pipe
     annotation (Placement(transformation(extent={{-102,-120},{-82,-100}})));
 
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        "/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    annotation (Placement(transformation(extent={{28,116},{48,136}})));
 equation
-  connect(weaDat.weaBus, UF90X3A.weaBus) annotation (Line(
-      points={{40,130},{51.9,130},{51.9,43.9}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
   connect(mul.y[1], UF90X3A.qGai_flow[1]) annotation (Line(
-      points={{-37,55.3333},{0,55.3333},{0,34.6667},{12,34.6667}},
+      points={{-37,55.3333},{0,55.3333},{0,34.6667},{6,34.6667}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mul.y[2], UF90X3A.qGai_flow[2]) annotation (Line(
-      points={{-37,56},{0,56},{0,36},{12,36}},
+      points={{-37,56},{0,56},{0,36},{6,36}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mul.y[3], UF90X3A.qGai_flow[3]) annotation (Line(
-      points={{-37,56.6667},{0,56.6667},{0,37.3333},{12,37.3333}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(shaPos.y[1],replicator. u) annotation (Line(
-      points={{-85,112},{-54,112}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(replicator.y, UF90X3A.uSha) annotation (Line(
-      points={{-31,112},{6,112},{6,42},{12,42}},
+      points={{-37,56.6667},{0,56.6667},{0,37.3333},{6,37.3333}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(airCon.y[1],airIn. m_flow_in) annotation (Line(
@@ -187,6 +170,15 @@ equation
       smooth=Smooth.None));
   connect(intGai.y[3], mul.u3[1]) annotation (Line(
       points={{-85,56},{-76,56},{-76,49},{-60,49}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, UF90X3A.weaBus) annotation (Line(
+      points={{48,126},{51.9,126},{51.9,43.9}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(shaPos.y, UF90X3A.uSha) annotation (Line(
+      points={{-85,112},{4,112},{4,42},{12,42}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-150,
@@ -265,5 +257,8 @@ equation
           <li>Jun 10, 2013 by Peter Grant:<br>
           First implementation.</li>
           </ul>
-          </html>"));
+          </html>"),
+    Commands(file=
+          "Resources/Scripts/Dymola/Rooms/Examples/FLeXLab/Cells/Examples/UF90X3A.mos"
+        "Simulate and Plot"));
 end UF90X3AWithRadiantFloor;
