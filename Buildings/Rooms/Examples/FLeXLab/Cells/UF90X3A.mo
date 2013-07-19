@@ -3,7 +3,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   extends Buildings.Rooms.MixedAir(AFlo=60.97,
       nSurBou=1,
       nConPar=0,
-      nConBou=4,
+      nConBou=5,
       nConExt=4,
       nConExtWin=1,
       hRoo=3.6576,
@@ -13,30 +13,30 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
         each absSol=0.9,
         each til=Buildings.HeatTransfer.Types.Tilt.Floor),
       datConExt(
-        layers={R16p8Wal,
-        extDoo,
-        R52Wal,
-        R52Wal,
-        R20Wal},
-        A={3.6576*3.9243, 2.39 * 1.3716, 3.6576*2.7432, 3.6576*1.524, 6.645*9.144},
-        til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Ceiling},
-        azi={Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.S}),
+         layers={extDoo,
+         R16p8Wal,
+         R20Wal,
+         bedDiv},
+         A={1.3716 * 2.39, 3.6576*2.52-2.39*1.3716, 6.6675*9.144, 3.6576 * 1.524},
+         til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Ceiling, Buildings.HeatTransfer.Types.Tilt.Wall},
+         azi={Buildings.HeatTransfer.Types.Azimuth.N,Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.S, Buildings.HeatTransfer.Types.Azimuth.W}),
       datConBou(
-         layers = {bedDiv,celDiv,parCon, parDoo},
-         A = {3.6576 * 9.144, 3.6576 * 10.668, 7.1142, 2.39*1.22},
-         til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall},
-         azi = {Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.E, Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N}),
+         layers = {bedDiv,celDiv,parCon, parDoo, R52Wal},
+         A = {3.6576 * 7.62, 3.6576 * 9.144, 3.6576*2.886075-2.39*1.22, 2.39*1.22, 3.6576*1.2614},
+         til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall},
+         azi = {Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.E, Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N}),
       datConExtWin(
         layers={R16p8Wal},
-        A={6.645*3.6576},
+        A={6.6675*3.6576},
         glaSys={glaSys},
         hWin={1.8288},
-        wWin={5.86},
+        wWin={5.88},
         til={Buildings.HeatTransfer.Types.Tilt.Wall},
         azi={Buildings.HeatTransfer.Types.Azimuth.S}),
       intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
       extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
       lat=0.66098585832754);
+
   Data.Constructions.OpaqueConstructions.ModInsulExtWall          R16p8Wal
     annotation (Placement(transformation(extent={{410,-168},{430,-148}})));
   Data.Constructions.OpaqueConstructions.HighInsulExtWall                R52Wal
