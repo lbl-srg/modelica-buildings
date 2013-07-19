@@ -1,6 +1,9 @@
+AirHeatMassBalanceFFD
 AirHeatMassBalanceMixed
 ExteriorBoundaryConditions
 ExteriorBoundaryConditionsWithWindow
+FFDExchange
+FFDSurfaceInterface
 HeatGain
 InfraredRadiationExchange
 InfraredRadiationGainDistribution
@@ -16,5 +19,6 @@ Overhang
 ParameterConstructionWithWindow
 ParameterConstruction
 PartialParameterConstruction
+PartialAirHeatMassBalance
 SideFins
 Examples
