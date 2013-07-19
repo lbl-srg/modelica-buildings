@@ -1,17 +1,19 @@
 within Buildings.Utilities.IO.Python27;
 model CalBayComm "Block calling a Python script to communicate with CalBay"
-//  extends Modelica.Blocks.Interfaces.DiscreteBlock(startTime=0);
-   extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Interfaces.DiscreteBlock(startTime=0);
 
   parameter String moduleName
     "Name of the python module that contains the function";
   parameter String functionName=moduleName "Name of the python function";
-//  parameter String Login "Login used in the CalBay system";
-//  parameter String Password "Password used in the CalBay system";
-//  parameter String Command "Command to send to CalBay";
+  parameter String Login "Login used in the CalBay system";
+  parameter String Password "Password used in the CalBay system";
+  parameter String Command "Command to send to CalBay";
 
   parameter Integer nDblRea
     "Number of real variables to be read from the Python script";
+
+  String SendString = Command + ":" + Login + ":" + Password
+    "Concatenate the three inputs to the string needed in Python";
 
   Modelica.Blocks.Interfaces.RealOutput yR[nDblRea]
     "Real outputs received from Python"
@@ -28,8 +30,8 @@ algorithm
       nDblRea=nDblRea,
       nIntWri=0,
       nIntRea=0,
-      nStrWri=0,
-      strWri={""});
+      nStrWri=1,
+      strWri={SendString});
 
 //
 

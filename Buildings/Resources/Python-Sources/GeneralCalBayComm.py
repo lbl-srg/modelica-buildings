@@ -127,7 +127,7 @@ class FlexlabExtInterface(SocketClient):
 #===============================================================================
 # Testing code
 #===============================================================================
-if __name__ == '__main__':
+#if __name__ == '__main__':
     
 
 
@@ -136,11 +136,15 @@ if __name__ == '__main__':
     #Command=raw_input("Command:")
 #    results = []
 
-    Login = 'P Grant'
-    Password = 'pgrant213'
-    Command = 'GetDAQ:WattStopper.HS1--4126F--Light Level-1'
+Login = 'P Grant'
+Password = 'pgrant213'
+Command = 'GetDAQ:WattStopper.HS1--4126F--Light Level-1'
+SendString = ":".join([Command,Login,Password])
 
-    def CalBayComm(Login, Password, Command):
+
+for i in range(0,3):
+
+    def CalBayComm(SendString):
 
 
 
@@ -148,19 +152,28 @@ if __name__ == '__main__':
         print "Opening connection.\n"
         print "Sending command 'LOGIN:Philips 1:Philips 1':\n" + conn.open("128.3.20.130",3500,Login,Password)
     
-        SendString = ":".join([Command,Login,Password])
+
         print "Checking light levels in office 4126F"
         print "Sending command to read WattStopper.HS1--4126F--Light Level-1:\n'GETDAQ:WattStopper.HS1--4126F--Relay-3:P Grant:pgrant213':\n"
-        res = conn.cmd(SendString)
-	print "Result: "+str(res)
+        res = float(conn.cmd(SendString))
+#    print "Result: "+str(res)
         conn.close()
         return res
     #Output = 
 #    results.append(CalBayComm(Login, Password, Command))
 
-    Output = CalBayComm(Login, Password, Command)
+    Output = CalBayComm(SendString)
 
     print Output
+    print i
+
+    import time
+
+    time.sleep(5)
+
+
+
+#print Output
 
     #Output = subprocess.check_output([CalBayComm(Login,Password,Command)]) 
     #, "Login", "Password", "Command"])
