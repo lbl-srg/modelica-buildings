@@ -421,15 +421,19 @@ then no variables are exchanged for this quantity with the block <code>ffd</code
 The variables of the connector <code>ports</code> are exchanged with the FFD block as follows:
 <li>
 Input to the FFD block is a vector <code>[m_flow[nPorts], T_inflow[nPorts], X_inflow[nPorts], C_inflow[nPorts]]</code>.
-</li>
-<li>
-Output from the FFD block is a vector <code>[m_flow[nPorts], T_outflow[nPorts], X_outflow[nPorts], C_outflow[nPorts]]</code>.
-</li>
-</ul>
 The quantities <code>X_inflow</code> and <code>C_inflow</code> (or <code>X_inflow</code> and <code>C_inflow</code>)
 are vectors with components <code>X_inflow[1:Medium.nXi]</code> and <code>C_inflow[1:Medium.nC]</code>.
 For example, for moist air, <code>X_inflow</code> has one element which is equal to the mass fraction of air,
 relative to the total air mass and not the dry air.
+</li>
+<li>
+Output from the FFD block is a vector <code>[dp[nPorts-1], T_outflow[nPorts], X_outflow[nPorts], C_outflow[nPorts]]</code>.
+The quantities <code>dp[nPorts-1]</code> are defined as
+<code>dp[i] = ports.p[1]-ports.p[i]</code>.
+The quantities <code>*_outflow</code> are the fluid properties of the cell to which the port is
+connected. 
+</li>
+</ul>
 <li>
 If <code>Medium.nXi=0</code> (e.g., for dry air) or <code>Medium.nC=0</code>, then these signals are not present 
 as input/output signals of the FFD block.
