@@ -3,6 +3,7 @@ AirHeatMassBalanceMixed
 ExteriorBoundaryConditions
 ExteriorBoundaryConditionsWithWindow
 FFDExchange
+FFDFluidInterface
 FFDSurfaceInterface
 HeatGain
 InfraredRadiationExchange
