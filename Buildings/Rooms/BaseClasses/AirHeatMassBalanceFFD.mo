@@ -110,6 +110,11 @@ protected
     "Interface to heat port of air node"
     annotation (Placement(transformation(extent={{-182,-10},{-202,10}})));
 
+  FFDFluidInterface fluInt(
+    nPorts=nPorts,
+    redeclare final package Medium = Medium) "Fluid interface"
+    annotation (Placement(transformation(extent={{-10,-198},{10,-178}})));
+
   // The following list declares the first index of the input and output signals
   // to the FFD block
   final parameter Integer kConExt = 1
@@ -213,7 +218,7 @@ equation
         color={0,0,127},
         smooth=Smooth.None));
     connect(ffd.y[kConExt:kConExtWin-1], ffdConExt.Q_flow) annotation (Line(
-        points={{-19,190},{20,190},{20,226},{178,226}},
+        points={{-19,190},{60,190},{60,226},{178,226}},
         color={0,0,127},
         smooth=Smooth.None));
   end if;
@@ -226,7 +231,7 @@ equation
         smooth=Smooth.None));
     connect(ffd.y[kConExtWin:kGlaUns-1], ffdConExtWin.Q_flow)
         annotation (Line(
-        points={{-19,190},{20,190},{20,186},{178,186}},
+        points={{-19,190},{60,190},{60,186},{178,186}},
         color={0,0,127},
         smooth=Smooth.None));
 
@@ -237,7 +242,7 @@ equation
         smooth=Smooth.None));
     connect(ffd.y[kGlaUns:kGlaSha-1], ffdGlaUns.Q_flow)
         annotation (Line(
-        points={{-19,190},{20,190},{20,126},{178,126}},
+        points={{-19,190},{60,190},{60,126},{178,126}},
         color={0,0,127},
         smooth=Smooth.None));
 
@@ -248,7 +253,7 @@ equation
         smooth=Smooth.None));
     connect(ffd.y[kConExtWinFra:kConPar_a-1], ffdConExtWinFra.Q_flow)
         annotation (Line(
-        points={{-19,190},{20,190},{20,6},{178,6}},
+        points={{-19,190},{60,190},{60,6},{178,6}},
         color={0,0,127},
         smooth=Smooth.None));
   end if;
@@ -260,7 +265,7 @@ equation
         smooth=Smooth.None));
     connect(ffd.y[kGlaSha:kConExtWinFra-1], ffdGlaSha.Q_flow)
         annotation (Line(
-        points={{-19,190},{20,190},{20,86},{178,86}},
+        points={{-19,190},{60,190},{60,86},{178,86}},
         color={0,0,127},
         smooth=Smooth.None));
   end if;
@@ -273,7 +278,7 @@ equation
         smooth=Smooth.None));
     connect(ffd.y[kConPar_a:kConPar_b-1], ffdConPar_a.Q_flow)
         annotation (Line(
-        points={{-19,190},{20,190},{20,-54},{178,-54}},
+        points={{-19,190},{60,190},{60,-54},{178,-54}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(ffd.u[kConPar_b:kConBou-1], ffdConPar_b.T)
@@ -283,7 +288,7 @@ equation
         smooth=Smooth.None));
     connect(ffd.y[kConPar_b:kConBou-1], ffdConPar_b.Q_flow)
         annotation (Line(
-        points={{-19,190},{20,190},{20,-94},{178,-94}},
+        points={{-19,190},{60,190},{60,-94},{178,-94}},
         color={0,0,127},
         smooth=Smooth.None));
   end if;
@@ -296,7 +301,7 @@ equation
         smooth=Smooth.None));
     connect(ffd.y[kConBou:kSurBou-1], ffdConBou.Q_flow)
         annotation (Line(
-        points={{-19,190},{20,190},{20,-154},{178,-154}},
+        points={{-19,190},{60,190},{60,-154},{178,-154}},
         color={0,0,127},
         smooth=Smooth.None));
   end if;
@@ -309,7 +314,7 @@ equation
         smooth=Smooth.None));
     connect(ffd.y[kSurBou:kHeaPorAir-1], ffdSurBou.Q_flow)
         annotation (Line(
-        points={{-19,190},{20,190},{20,-214},{178,-214}},
+        points={{-19,190},{60,190},{60,-214},{178,-214}},
         color={0,0,127},
         smooth=Smooth.None));
   end if;
@@ -355,7 +360,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(ffd.y[kHeaPorAir:kHeaPorAir], ffdHeaPorAir.Q_flow) annotation (Line(
-      points={{-19,190},{20,190},{20,6},{-180,6}},
+      points={{-19,190},{60,190},{60,6},{-180,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ffdHeaPorAir.port[1], heaPorAir) annotation (Line(
@@ -371,13 +376,20 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(ffd.y[kTSha:kPortsY], TSha) annotation (Line(
-      points={{-19,190},{20,190},{20,60},{-250,60}},
+      points={{-19,190},{60,190},{60,60},{-250,60}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(ports, fluInt.ports) annotation (Line(
+      points={{2.22045e-15,-238},{2.22045e-15,-219},{0,-219},{0,-198}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,
-            240}}), graphics),
+            240}}), graphics={Text(
+          extent={{-34,-120},{52,-152}},
+          lineColor={0,0,255},
+          textString="fixme: connect fluInt")}),
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,240}}),
                     graphics={
           Rectangle(
@@ -420,16 +432,20 @@ then no variables are exchanged for this quantity with the block <code>ffd</code
 <li>
 The variables of the connector <code>ports</code> are exchanged with the FFD block as follows:
 <li>
-Input to the FFD block is a vector <code>[m_flow[nPorts], T_inflow[nPorts], X_inflow[nPorts], C_inflow[nPorts]]</code>.
+Input to the FFD block is a vector <code>[p[1], m_flow[nPorts], T_inflow[nPorts], 
+X_inflow[nPorts*Medium.nXi], C_inflow[nPorts*Medium.nC]]</code>.
+The quantity <code>p</code> is the total pressure at the first fluid port. 
+The flow resistance of the diffusor must be computed inside the FDD code.
 The quantities <code>X_inflow</code> and <code>C_inflow</code> (or <code>X_inflow</code> and <code>C_inflow</code>)
 are vectors with components <code>X_inflow[1:Medium.nXi]</code> and <code>C_inflow[1:Medium.nC]</code>.
 For example, for moist air, <code>X_inflow</code> has one element which is equal to the mass fraction of air,
 relative to the total air mass and not the dry air.
 </li>
 <li>
-Output from the FFD block is a vector <code>[dp[nPorts-1], T_outflow[nPorts], X_outflow[nPorts], C_outflow[nPorts]]</code>.
-The quantities <code>dp[nPorts-1]</code> are defined as
-<code>dp[i] = ports.p[1]-ports.p[i]</code>.
+Output from the FFD block is a vector <code>[p[2:nPorts], T_outflow[nPorts], 
+X_outflow[nPorts*Medium.nXi], C_outflow[nPorts*Medium.nC]]</code>.
+The quantities <code>p[2:nPorts]</code> are the total pressure at the port. Any flow resistance
+of a diffusor or exhaust grill has to be computed inside the FFD code.
 The quantities <code>*_outflow</code> are the fluid properties of the cell to which the port is
 connected. 
 </li>
