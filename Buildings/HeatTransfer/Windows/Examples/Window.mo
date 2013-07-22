@@ -319,11 +319,11 @@ equation
       points={{244,19},{244,6},{222,6},{222,94},{235,94},{235,105}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(winRad.QAbsIntSha_flow, intShaRad.QSolAbs_flow) annotation (Line(
+  connect(winRad.QAbsIntSha_flow, intShaRad.QAbsSol_flow) annotation (Line(
       points={{121,-13},{216,-13},{216,98},{230,98},{230,105}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(winRad.QAbsExtSha_flow, extCon.QSolAbs_flow) annotation (Line(
+  connect(winRad.QAbsExtSha_flow, extCon.QAbsSol_flow) annotation (Line(
       points={{121,-1},{128,-1},{128,56},{50,56},{50,79}},
       color={0,0,127},
       smooth=Smooth.None));

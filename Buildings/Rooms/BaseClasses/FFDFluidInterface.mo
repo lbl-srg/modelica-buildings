@@ -6,7 +6,7 @@ model FFDFluidInterface
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
-  parameter Integer nPorts(min=2)=0 "Number of ports"
+  parameter Integer nPorts(final min=2)=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
 
   Modelica.Blocks.Interfaces.RealInput p[nPorts-1](

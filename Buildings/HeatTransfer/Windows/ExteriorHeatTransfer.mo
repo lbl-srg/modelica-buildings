@@ -60,7 +60,7 @@ model ExteriorHeatTransfer
   Interfaces.RadiosityInflow JInSha if haveShade
     "Incoming radiosity that connects to shaded part of glass"
     annotation (Placement(transformation(extent={{120,-90},{100,-70}})));
-  Modelica.Blocks.Interfaces.RealInput QSolAbs_flow(unit="W", quantity="Power") if
+  Modelica.Blocks.Interfaces.RealInput QAbsSol_flow(unit="W", quantity="Power") if
        haveShade "Solar radiation absorbed by shade"
     annotation (Placement(transformation(
         origin={0,-120},
@@ -175,7 +175,7 @@ equation
       points={{-42,-36},{-60,-36},{-60,80},{-69,80}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(shaRad.QSolAbs_flow, QSolAbs_flow) annotation (Line(
+  connect(shaRad.QAbsSol_flow, QAbsSol_flow) annotation (Line(
       points={{10,-21},{10,-84},{8.88178e-16,-84},{8.88178e-16,-120}},
       color={0,0,127},
       smooth=Smooth.None));

@@ -31,7 +31,7 @@ model ShadeRadiation
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
 
-  Modelica.Blocks.Interfaces.RealInput QSolAbs_flow(unit="W", quantity="Power")
+  Modelica.Blocks.Interfaces.RealInput QAbsSol_flow(unit="W", quantity="Power")
     "Solar radiation absorbed by shade"
     annotation (Placement(transformation(
         origin={0,-120},
@@ -110,7 +110,7 @@ equation
     JOut_air   = E_air   + tauIR_glass * JIn_glass + rhoIR_air*JIn_air;
     JOut_glass = E_glass + tauIR_air   * JIn_air   + rhoIR_glass*JIn_glass;
     // Radiative heat balance of shade.
-    QSolAbs_flow + absIR_air*JIn_air + absIR_glass*JIn_glass
+    QAbsSol_flow + absIR_air*JIn_air + absIR_glass*JIn_glass
       = E_air+E_glass+QRadAbs_flow;
   else
     QRadAbs_flow = 0;

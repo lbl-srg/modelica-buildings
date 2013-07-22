@@ -271,7 +271,7 @@ equation
       points={{199,126},{168,126},{168,104},{142,104}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(QAbsSolSha_flow, conExtWin.QSolAbs_flow) annotation (Line(
+  connect(QAbsSolSha_flow, conExtWin.QAbsSol_flow) annotation (Line(
       points={{-320,60},{-160,60},{-160,-140},{-10,-140},{-10,-123}},
       color={0,0,127},
       smooth=Smooth.None));

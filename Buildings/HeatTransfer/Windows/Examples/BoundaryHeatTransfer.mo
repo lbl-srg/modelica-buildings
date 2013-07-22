@@ -173,7 +173,7 @@ equation
       points={{-35,-30},{-28,-30},{-28,3.9},{-20,3.9}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(QAbsSW_flow.y, extCon.QSolAbs_flow) annotation (Line(
+  connect(QAbsSW_flow.y, extCon.QAbsSol_flow) annotation (Line(
       points={{-79,-90},{-46,-90},{-46,-35}},
       color={0,0,127},
       smooth=Smooth.None));

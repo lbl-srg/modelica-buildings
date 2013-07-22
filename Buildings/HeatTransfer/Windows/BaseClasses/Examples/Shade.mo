@@ -236,11 +236,11 @@ equation
       points={{23,-56},{32,-56},{32,-72.1},{44,-72.1}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(extShaRad.QSolAbs_flow, QSol_shade.y) annotation (Line(
+  connect(extShaRad.QAbsSol_flow, QSol_shade.y) annotation (Line(
       points={{10,9},{10,0},{-10,0},{-10,110},{-19,110}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(extNonShaRad.QSolAbs_flow, QSol_shade.y) annotation (Line(
+  connect(extNonShaRad.QAbsSol_flow, QSol_shade.y) annotation (Line(
       points={{12,-63},{12,-70},{-10,-70},{-10,110},{-19,110}},
       color={0,0,127},
       smooth=Smooth.None));

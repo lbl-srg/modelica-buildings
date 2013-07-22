@@ -254,7 +254,7 @@ equation
       points={{-59,-36},{-40,-36},{-40,-2},{-1,-2}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(QAbsSha.y, intShaRad[1].QSolAbs_flow) annotation (Line(
+  connect(QAbsSha.y, intShaRad[1].QAbsSol_flow) annotation (Line(
       points={{-159,-110},{-30,-110},{-30,-61}},
       color={0,0,127},
       smooth=Smooth.None));

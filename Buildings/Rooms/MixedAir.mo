@@ -678,7 +678,7 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
 
-  connect(shaRad.QSolAbs_flow, conExtWinRad.QAbsIntSha_flow) annotation (Line(
+  connect(shaRad.QAbsSol_flow, conExtWinRad.QAbsIntSha_flow) annotation (Line(
       points={{-50,89},{-50,86},{148,86},{148,-17},{299,-17}},
       color={0,0,127},
       smooth=Smooth.None));

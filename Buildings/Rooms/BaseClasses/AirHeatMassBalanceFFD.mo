@@ -20,9 +20,9 @@ model AirHeatMassBalanceFFD
     final startTime=startTime,
     final activateInterface=activateInterface,
     final samplePeriod = if activateInterface then samplePeriod else Modelica.Constants.inf,
-    uStart=fill(T0, if haveShade then kPortsU else kPortsU-1),
-    nWri=if haveShade then kPortsU else kPortsU-1,
-    nRea=if haveShade then kPortsY else kPortsY-1)
+    uStart=fill(T0, kFluIntC_inflow+Medium.nC*nPorts),
+    nWri=kFluIntC_inflow+Medium.nC*nPorts,
+    nRea=kFluIntC_outflow+Medium.nC*nPorts)
     "Block that exchanges data with the FFD simulation"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
 
@@ -113,7 +113,7 @@ protected
   FFDFluidInterface fluInt(
     nPorts=nPorts,
     redeclare final package Medium = Medium) "Fluid interface"
-    annotation (Placement(transformation(extent={{-10,-198},{10,-178}})));
+    annotation (Placement(transformation(extent={{10,-198},{-10,-178}})));
 
   // The following list declares the first index of the input and output signals
   // to the FFD block
@@ -144,10 +144,28 @@ protected
   final parameter Integer kTSha = kUSha
     "Offset used to connect FFD signals to output signal that contains the shade temperature";
 
-  final parameter Integer kPortsU = if haveShade then kQRadAbs_flow + NConExtWin else kQRadAbs_flow
-    "Offset used to connect FFD signals to input signals from the fluid ports";
-  final parameter Integer kPortsY = if haveShade then kTSha + NConExtWin else kTSha
-    "Offset used to connect FFD signals to input signals from the fluid ports";
+  final parameter Integer kFluIntP1 = if haveShade then kQRadAbs_flow + NConExtWin else kQRadAbs_flow
+    "Offset used to connect FFD signals to input signal for pressure from the fluid ports";
+
+  final parameter Integer kFluIntM_flow = kFluIntP1 + 1
+    "Offset used to connect FFD signals to input signals for mass flow rate from the fluid ports";
+  final parameter Integer kFluIntT_inflow = kFluIntM_flow + nPorts
+    "Offset used to connect FFD signals to input signals for inflowing temperature from the fluid ports";
+  final parameter Integer kFluIntXi_inflow = kFluIntT_inflow + nPorts
+    "Offset used to connect FFD signals to input signals for inflowing species concentration from the fluid ports";
+
+  final parameter Integer kFluIntC_inflow = kFluIntXi_inflow + nPorts*Medium.nXi
+    "Offset used to connect FFD signals to input signals for inflowing trace substances from the fluid ports";
+
+  // Input signals to fluInt block
+  final parameter Integer kFluIntP2nPorts = if haveShade then kTSha + NConExtWin else kTSha
+    "Offset used to connect FFD signals to output signals for the fluid ports";
+  final parameter Integer kFluIntT_outflow = kFluIntP2nPorts+(nPorts-1)
+    "Offset used to connect FFD signals to outgoing temperature for the fluid ports";
+  final parameter Integer kFluIntXi_outflow = kFluIntT_outflow+nPorts
+    "Offset used to connect FFD signals to outgoing species concentration for the fluid ports";
+  final parameter Integer kFluIntC_outflow = kFluIntXi_outflow+nPorts*Medium.nXi
+    "Offset used to connect FFD signals to outgoing trace substances for the fluid ports";
 
 equation
   connect(conExt, conExt_internal);
@@ -371,25 +389,61 @@ equation
       points={{-42,190},{-60,190},{-60,200},{-260,200}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ffd.u[kQRadAbs_flow:kPortsU-1], QRadAbs_flow) annotation (Line(
+  connect(ffd.u[kQRadAbs_flow:kFluIntP1-1], QRadAbs_flow) annotation (Line(
       points={{-42,190},{-60,190},{-60,90},{-260,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ffd.y[kTSha:kPortsY], TSha) annotation (Line(
+  connect(ffd.y[kTSha:kFluIntP2nPorts-1], TSha) annotation (Line(
       points={{-19,190},{60,190},{60,60},{-250,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ports, fluInt.ports) annotation (Line(
-      points={{2.22045e-15,-238},{2.22045e-15,-219},{0,-219},{0,-198}},
+      points={{0,-238},{0,-198}},
       color={0,127,255},
       smooth=Smooth.None));
+  // Output signals from fluInt block
+  connect(ffd.u[kFluIntP1], fluInt.p1) annotation (Line(
+      points={{-42,190},{-60,190},{-60,-180},{-11,-180}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(ffd.u[kFluIntM_flow:kFluIntT_inflow-1], fluInt.m_flow) annotation (Line(
+      points={{-42,190},{-60,190},{-60,-184},{-11,-184}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(ffd.u[kFluIntT_inflow:kFluIntXi_inflow-1], fluInt.T_inflow) annotation (Line(
+      points={{-42,190},{-60,190},{-60,-188},{-11,-188}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(ffd.u[kFluIntXi_inflow:kFluIntC_inflow-1], fluInt.Xi_inflow) annotation (Line(
+      points={{-42,190},{-60,190},{-60,-192},{-11,-192}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(ffd.u[kFluIntC_inflow:kFluIntC_inflow+nPorts*Medium.nC-1], fluInt.C_inflow) annotation (Line(
+      points={{-42,190},{-60,190},{-60,-196},{-11,-196}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  // Input signals to fluInt block
+  connect(ffd.y[kFluIntP2nPorts:kFluIntT_outflow-1], fluInt.p) annotation (Line(
+      points={{-19,190},{60,190},{60,-180},{12,-180}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(ffd.y[kFluIntT_outflow:kFluIntXi_outflow-1], fluInt.T_outflow) annotation (Line(
+      points={{-19,190},{60,190},{60,-188},{12,-188}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(ffd.y[kFluIntXi_outflow:kFluIntC_outflow-1], fluInt.Xi_outflow) annotation (Line(
+      points={{-19,190},{60,190},{60,-192},{12,-192}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(ffd.y[kFluIntC_outflow:kFluIntC_outflow+Medium.nC*nPorts-1], fluInt.C_outflow) annotation (Line(
+      points={{-19,190},{60,190},{60,-196},{12,-196}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,
-            240}}), graphics={Text(
-          extent={{-34,-120},{52,-152}},
-          lineColor={0,0,255},
-          textString="fixme: connect fluInt")}),
+            240}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,240}}),
                     graphics={
           Rectangle(
@@ -405,6 +459,7 @@ This model computes the heat and mass balance of the air using Fast Fluid Dynami
 <h4>Conventions</h4>
 <p>
 The following conventions are made:
+</p>
 <ol>
 <li>
 <p>
@@ -428,9 +483,10 @@ proportional to its volume.
 If a construction is not present, or if no shade is present, or if no air stream is connected to <code>ports</code>,
 then no variables are exchanged for this quantity with the block <code>ffd</code>.
 </li>
-<ul>
 <li>
-The variables of the connector <code>ports</code> are exchanged with the FFD block as follows:
+The variables of the connector <code>ports</code> are exchanged with the FFD block
+through the instance <code>intFlu</code>. Its output and input signals are as follows:
+<ul>
 <li>
 Input to the FFD block is a vector <code>[p[1], m_flow[nPorts], T_inflow[nPorts], 
 X_inflow[nPorts*Medium.nXi], C_inflow[nPorts*Medium.nC]]</code>.
@@ -449,14 +505,13 @@ of a diffusor or exhaust grill has to be computed inside the FFD code.
 The quantities <code>*_outflow</code> are the fluid properties of the cell to which the port is
 connected. 
 </li>
-</ul>
 <li>
 If <code>Medium.nXi=0</code> (e.g., for dry air) or <code>Medium.nC=0</code>, then these signals are not present 
 as input/output signals of the FFD block.
 </li>
+</ul>
 </li>
 </ol>
-</p>
 </html>",
 revisions="<html>
 <ul>
