@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.TestConditionalConstructions;
+within Buildings.Rooms.Examples.TestConditionalConstructionsMixedAir;
 model OnlySurfaceBoundary "Test model for room model"
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialTestModel(
@@ -27,7 +27,7 @@ equation
       points={{60.2,-30},{60,-30},{60,-70},{80,-70}},
       color={191,0,0},
       smooth=Smooth.None));
-   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructions/OnlySurfaceBoundary.mos"
+   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructionsMixedAir/OnlySurfaceBoundary.mos"
         "Simulate and plot"),
       Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             200,160}})),

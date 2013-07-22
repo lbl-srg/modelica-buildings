@@ -1,4 +1,4 @@
-simulateModel("Buildings.Rooms.Examples.TestConditionalConstructions.OnlyConstructionBoundary", stopTime=86400, method="radau", tolerance=1e-06, resultFile="OnlyConstructionBoundary");
+simulateModel("Buildings.Rooms.Examples.TestConditionalConstructionsFFD.OnlySurfaceBoundary", stopTime=86400, method="radau", tolerance=1e-06, resultFile="OnlySurfaceBoundaryFFD");
 removePlots();
 createPlot(id = 1,
  position = {15, 10, 400, 280},
@@ -8,7 +8,7 @@ createPlot(id = 1,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "OnlyConstructionBoundary.mat",
+ filename = "OnlySurfaceBoundaryFFD",
  leftTitleType = 1,
  bottomTitleType = 1);
 

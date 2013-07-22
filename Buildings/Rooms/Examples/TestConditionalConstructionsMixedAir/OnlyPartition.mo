@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.TestConditionalConstructions;
+within Buildings.Rooms.Examples.TestConditionalConstructionsMixedAir;
 model OnlyPartition "Test model for room model"
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialTestModel(
@@ -12,7 +12,7 @@ model OnlyPartition "Test model for room model"
     each til=Buildings.HeatTransfer.Types.Tilt.Floor,
     each azi=Buildings.HeatTransfer.Types.Azimuth.W)));
 
-   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructions/OnlyPartition.mos"
+   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructionsMixedAir/OnlyPartition.mos"
         "Simulate and plot"),
    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             200,160}})),

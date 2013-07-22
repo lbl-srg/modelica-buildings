@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.TestConditionalConstructions;
+within Buildings.Rooms.Examples.TestConditionalConstructionsMixedAir;
 model OnlyExteriorWallWithWindowExteriorShade "Test model for room model"
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialTestModel(
@@ -30,7 +30,7 @@ equation
       points={{42,2.66454e-15},{20,2.66454e-15},{20,70},{1,70}},
       color={0,0,127},
       smooth=Smooth.None));
-   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructions/OnlyExteriorWallWithWindowExteriorShade.mos"
+   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructionsMixedAir/OnlyExteriorWallWithWindowExteriorShade.mos"
         "Simulate and plot"),
    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             200,160}})),
