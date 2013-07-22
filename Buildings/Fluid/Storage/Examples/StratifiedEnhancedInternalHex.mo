@@ -42,19 +42,19 @@ model StratifiedEnhancedInternalHex
     redeclare package Medium = Medium,
     m_flow_nominal=0.001,
     VTan=0.151416,
-    hTan=1,
     dIns=0.0762,
     redeclare package MediumHex = Medium,
-    HexTopHeight=0.75,
-    HexBotHeight=0.25,
     CHex=40,
-    HexSegMult=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=0.278*4200*20,
     mHex_flow_nominal=0.278,
+    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState,
+    hexTopHeight=0.995,
+    hexBotHeight=0.1,
+    hexSegMult=1,
+    hTan=1.746,
     TTan_nominal=293.15,
-    THex_nominal=323.15,
-    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState)
+    THex_nominal=323.15)
     annotation (Placement(transformation(extent={{-22,-6},{12,26}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));

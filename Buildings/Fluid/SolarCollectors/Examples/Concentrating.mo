@@ -103,7 +103,7 @@ equation
         </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics),
-    Commands(file=
+    __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/Concentrating.mos"
         "Simulate and Plot"));
 end Concentrating;
