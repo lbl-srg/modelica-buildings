@@ -151,32 +151,33 @@ model MixedAir "Model of a room in which the air is completely mixed"
         transformation(extent={{170,150},{190,170}}), iconTransformation(extent=
            {{166,166},{192,192}})));
 
-  Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed air(
-    redeclare final package Medium = Medium,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    nPorts=nPorts + 1,
+  replaceable Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed air(
     final V=V,
-    final nConExt=nConExt,
-    final nConExtWin=nConExtWin,
-    final nConPar=nConPar,
-    final nConBou=nConBou,
-    final nSurBou=nSurBou,
-    final datConExt=datConExt,
-    final datConExtWin=datConExtWin,
-    final datConPar=datConPar,
-    final datConBou=datConBou,
-    final surBou=surBou,
-    final homotopyInitialization=homotopyInitialization,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
     final m_flow_nominal=m_flow_nominal,
-    final haveShade=haveShade,
+    final homotopyInitialization=homotopyInitialization,
     final conMod=intConMod,
-    final hFixed=hIntFixed) "Convective heat and mass balance of air"
+    final hFixed=hIntFixed)
+      constrainedby BaseClasses.PartialAirHeatMassBalance(
+        redeclare final package Medium = Medium,
+        final energyDynamics=energyDynamics,
+        final massDynamics=massDynamics,
+        nPorts=nPorts + 1,
+        final nConExt=nConExt,
+        final nConExtWin=nConExtWin,
+        final nConPar=nConPar,
+        final nConBou=nConBou,
+        final nSurBou=nSurBou,
+        final datConExt=datConExt,
+        final datConExtWin=datConExtWin,
+        final datConPar=datConPar,
+        final datConBou=datConBou,
+        final surBou=surBou,
+        final haveShade=haveShade) "Convective heat and mass balance of air"
     annotation (Placement(transformation(extent={{40,-142},{64,-118}})));
 
   Buildings.Rooms.BaseClasses.SolarRadiationExchange solRadExc(

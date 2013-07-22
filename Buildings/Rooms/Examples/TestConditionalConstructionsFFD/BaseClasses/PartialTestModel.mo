@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.TestConditionalConstructionsMixedAir.BaseClasses;
+within Buildings.Rooms.Examples.TestConditionalConstructionsFFD.BaseClasses;
 partial model PartialTestModel
   "Partial model that is used to build the test cases"
   package MediumA = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated
@@ -12,7 +12,7 @@ partial model PartialTestModel
     "Number of surface that are connected to constructions that are modeled inside the room";
   parameter Integer nSurBou
     "Number of surface that are connected to the room air volume";
-  MixedAir roo(
+  FFD roo(
     redeclare package Medium = MediumA,
     final nConExt=nConExt,
     final nConExtWin=nConExtWin,
@@ -22,7 +22,11 @@ partial model PartialTestModel
     AFlo=20,
     hRoo=2.7,
     linearizeRadiation = true,
-    lat=0.73268921998722) "Room model"
+    nPorts=2,
+    lat=0.73268921998722,
+    useFFD=false,
+    samplePeriod=60,
+    startTime=0) "Room model"
     annotation (Placement(transformation(extent={{44,-36},{84,4}})));
 
   inner Modelica.Fluid.System system
@@ -48,6 +52,17 @@ partial model PartialTestModel
     haveExteriorShade=false,
     haveInteriorShade=false) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
+  Fluid.Sources.FixedBoundary exh(
+    nPorts=1,
+    redeclare package Medium = MediumA,
+    T=293.15) "Boundary condition for exhaust air"
+    annotation (Placement(transformation(extent={{-2,-82},{18,-62}})));
+  Fluid.Sources.MassFlowSource_T sup(
+    redeclare package Medium = MediumA,
+    m_flow=20*2.7*1.2*3/3600,
+    T=293.15,
+    nPorts=1) "Boundary condition for supply air"
+    annotation (Placement(transformation(extent={{-2,-52},{18,-32}})));
 equation
   connect(qRadGai_flow.y, multiplex3_1.u1[1])  annotation (Line(
       points={{-59,30},{-40,30},{-40,1},{-22,1}},
@@ -63,7 +78,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,-6},{11.25,-6},{11.25,-6},{21.5,-6},{21.5,-6},{42,-6}},
+      points={{1,-6},{36,-6}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -72,7 +87,15 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+  connect(sup.ports[1], roo.ports[1]) annotation (Line(
+      points={{18,-42},{34,-42},{34,-26},{47,-26}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(exh.ports[1], roo.ports[2]) annotation (Line(
+      points={{18,-72},{34,-72},{34,-26},{51,-26}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{200,160}}),
                       graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,160}})),

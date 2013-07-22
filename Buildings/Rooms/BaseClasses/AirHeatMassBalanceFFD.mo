@@ -3,8 +3,8 @@ model AirHeatMassBalanceFFD
   "Heat and mass balance of the air based on fast fluid flow dynamics"
   extends Buildings.Rooms.BaseClasses.PartialAirHeatMassBalance;
 
-  parameter Boolean activateInterface = true
-    "Set to false to deactivate interface and use instead yFixed as output"
+  parameter Boolean useFFD = true
+    "Set to false to deactivate the FFD interface and use instead yFixed as output"
     annotation(Evaluate = true);
 
   parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
@@ -18,8 +18,8 @@ model AirHeatMassBalanceFFD
   //        and need to connect the fluid port variables to it.
   FFDExchange ffd(
     final startTime=startTime,
-    final activateInterface=activateInterface,
-    final samplePeriod = if activateInterface then samplePeriod else Modelica.Constants.inf,
+    final activateInterface=useFFD,
+    final samplePeriod = if useFFD then samplePeriod else Modelica.Constants.inf,
     uStart=fill(T0, kFluIntC_inflow+Medium.nC*nPorts),
     nWri=kFluIntC_inflow+Medium.nC*nPorts,
     nRea=kFluIntC_outflow+Medium.nC*nPorts)
@@ -231,11 +231,11 @@ equation
   heaPorAir.T = TRooAve;
   // Data exchange with FFD block
   if haveConExt then
-  connect(ffd.u[kConExt:kConExtWin-1], ffdConExt.T) annotation (Line(
+    connect(ffd.u[kConExt:kConExtWin-1], ffdConExt.T[1:nConExt]) annotation (Line(
         points={{-42,190},{-60,190},{-60,216},{179,216}},
         color={0,0,127},
         smooth=Smooth.None));
-    connect(ffd.y[kConExt:kConExtWin-1], ffdConExt.Q_flow) annotation (Line(
+    connect(ffd.y[kConExt:kConExtWin-1], ffdConExt.Q_flow[1:nConExt]) annotation (Line(
         points={{-19,190},{60,190},{60,226},{178,226}},
         color={0,0,127},
         smooth=Smooth.None));
