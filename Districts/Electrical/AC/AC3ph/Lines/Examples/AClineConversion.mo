@@ -7,7 +7,7 @@ model AClineConversion
     V=15000)
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Line line(
-    Length=2000,
+    l=2000,
     P_nominal=15000,
     V_nominal=15000)
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
@@ -15,7 +15,7 @@ model AClineConversion
         0.9)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Line line1(
-    Length=2000,
+    l=2000,
     P_nominal=10000,
     V_nominal=380)
     annotation (Placement(transformation(extent={{-6,0},{14,20}})));
@@ -25,7 +25,7 @@ model AClineConversion
     V_nominal=380)
     annotation (Placement(transformation(extent={{36,20},{56,40}})));
   Line line2(
-    Length=2000,
+    l=2000,
     P_nominal=10000,
     V_nominal=380)
     annotation (Placement(transformation(extent={{24,0},{44,20}})));

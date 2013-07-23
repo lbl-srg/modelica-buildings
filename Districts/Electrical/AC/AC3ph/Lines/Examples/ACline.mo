@@ -9,7 +9,7 @@ model ACline
   Line line(
     P_nominal=5000,
     V_nominal=380,
-    Length=2000)
+    l=2000)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Loads.LoadRL loadRL(P_nominal=2500) annotation (Placement(
         transformation(

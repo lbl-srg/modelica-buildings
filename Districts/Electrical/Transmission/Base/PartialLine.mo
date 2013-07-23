@@ -1,7 +1,7 @@
 within Districts.Electrical.Transmission.Base;
 partial model PartialLine "Cable line dispersion model"
   extends Districts.Electrical.Interfaces.PartialTwoPort;
-  parameter Modelica.SIunits.Distance Length(min=0) "Length of the line";
+  parameter Modelica.SIunits.Distance l(min=0) "Length of the line";
   parameter Modelica.SIunits.Power P_nominal(min=0) "Nominal power of the line";
   parameter Modelica.SIunits.Voltage V_nominal "Nominal voltage of the line";
 
@@ -21,9 +21,9 @@ partial model PartialLine "Cable line dispersion model"
     "Reference temperature of the line" annotation(Evaluate=True);
   final parameter Modelica.SIunits.LinearTemperatureCoefficient alpha=wireMaterial.alphaT0
     "Linear temperature coefficient of the material"                                                                                         annotation(Evaluate=True);
-  final parameter Modelica.SIunits.Resistance R = wireMaterial.r0*Length/(cable.S*1e6)
+  final parameter Modelica.SIunits.Resistance R = wireMaterial.r0*l/(cable.S*1e6)
     "Resistance of the cable" annotation(Evaluate=True);
-  final parameter Modelica.SIunits.Inductance L = Length*(0.055 - 0.4606*log(cable.d/2) + 0.4606*log(2*cable.i))*1e-3/1e3
+  final parameter Modelica.SIunits.Inductance L = l*(0.055 - 0.4606*log(cable.d/2) + 0.4606*log(2*cable.i))*1e-3/1e3
     "Inductance of the cable due to mutual and self inductance" annotation(Evaluate = True);
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature cableTemp
     "Temperature of the cable"
