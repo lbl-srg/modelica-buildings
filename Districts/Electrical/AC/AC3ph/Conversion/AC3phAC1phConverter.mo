@@ -7,24 +7,27 @@ model AC3phAC1phConverter "AC AC converter"
     "Ratio of QS rms voltage on side 2 / QS rms voltage on side 1";
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * 'abs'(v2QS)";
-  Modelica.SIunits.Power LossPower[2] "Loss power";
   parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
+  Modelica.SIunits.Power LossPower "Loss power";
 protected
   Modelica.SIunits.Power Pow_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
   Modelica.SIunits.Power Pow_a[2] = PhaseSystem_n.phasePowers_vi(terminal_a.v, terminal_a.i);
   Modelica.SIunits.Power Pow_b[2] = PhaseSystem_n.phasePowers_vi(terminal_b.v, terminal_b.i);
   Modelica.SIunits.Power Pow_c[2] = PhaseSystem_n.phasePowers_vi(terminal_c.v, terminal_c.i);
+  Modelica.SIunits.Power LossPower_n "Loss power on side n";
+  Modelica.SIunits.Power LossPower_p "Loss power on side p";
 equation
 
   PhaseSystem_p.rotate(terminal_p.v,0) = conversionFactor*terminal_a.v;
   PhaseSystem_p.rotate(terminal_p.v,2*Modelica.Constants.pi/3) = conversionFactor*terminal_b.v;
   PhaseSystem_p.rotate(terminal_p.v,4*Modelica.Constants.pi/3) = conversionFactor*terminal_c.v;
 
-  Pow_p + Pow_a + Pow_b + Pow_c = LossPower;
+  Pow_p + Pow_a + Pow_b + Pow_c = {LossPower_n, LossPower_p};
 
-  LossPower[1] = (1-eta) * abs(Pow_p[1]);
-  LossPower[2] = (1-eta) * abs(Pow_p[2]);
+  LossPower_n = (1-eta) * abs(Pow_p[1]);
+  LossPower_p = (1-eta) * abs(Pow_p[2]); // fixme: shouldn't this be Pow_n[1] instead of Pow_p[2]?
+  LossPower = LossPower_n + LossPower_p;
 
   //fixme: do we need to do anything for the phase or should we assume the phase remains the same?
   terminal_p.theta[1] = terminal_a.theta[1];

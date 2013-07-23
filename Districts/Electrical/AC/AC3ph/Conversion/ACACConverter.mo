@@ -13,19 +13,22 @@ model ACACConverter "AC AC converter"
     "Ratio of QS rms voltage on side 2 / QS rms voltage on side 1";
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * 'abs'(v2QS)";
-  Modelica.SIunits.Power LossPower[2] "Loss power";
   parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
+  Modelica.SIunits.Power LossPower "Loss power";
 protected
   Modelica.SIunits.Power Pow_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
   Modelica.SIunits.Power Pow_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
+  Modelica.SIunits.Power LossPower_n "Loss power on side n";
+  Modelica.SIunits.Power LossPower_p "Loss power on side p";
+
 equation
-
   terminal_p.v = conversionFactor*terminal_n.v;
-  Pow_n + Pow_p = LossPower;
+  Pow_n + Pow_p = {LossPower_n, LossPower_p};
 
-  LossPower[1] = (1-eta) * abs(Pow_p[1]);
-  LossPower[2] = (1-eta) * abs(Pow_p[2]);
+  LossPower_n = (1-eta) * abs(Pow_p[1]);
+  LossPower_p = (1-eta) * abs(Pow_p[2]); // fixme: shouldn't this be Pow_n[1] instead of Pow_p[2]?
+  LossPower = LossPower_n + LossPower_p;
 
   //fixme: do we need to do anything for the phase or should we assume the phase remains the same?
   terminal_p.theta = terminal_n.theta;
