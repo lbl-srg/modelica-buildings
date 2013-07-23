@@ -14,26 +14,12 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
   BaseClasses.LinearRegression regLoa(final fileName=fileName)
     "Building load based on a piecewise linear regression"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Electrical.AC.Loads.VariableCapacitorResistor totEleLoa[3](
-    each P_nominal=1/3.,
-    each pf=pf) "Total building electrical load"
-    annotation (Placement(transformation(extent={{40,-10},{20,10}})));
-protected
-  Electrical.AC.Interfaces.Adaptor adaptor annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={70,0})));
 
-  Modelica.Blocks.Routing.Replicator replicator(nout=3)
-    "Replicator for the 3 phases"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-public
-  Electrical.AC.Interfaces.ThreePhasePlug threePhasePlug
-    "Electricity connection of building"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.Blocks.Sources.Constant fixme[3](each k=0)
-    "Placeholder until the new electrical system is implemented"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  Electrical.AC.AC3ph.Loads.LoadRC loadRC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
+    "Resistive and capacitive building load"
+    annotation (Placement(transformation(extent={{60,-10},{40,10}})));
+  Electrical.AC.AC3ph.Interfaces.Terminal_n terminal "Electrical connector"
+    annotation (Placement(transformation(extent={{94,-10},{114,10}})));
 equation
   connect(regLoa.TOut, weaBus.TDryBul)           annotation (Line(
       points={{-62,8},{-80,8},{-80,0},{-100,0}},
@@ -51,29 +37,13 @@ equation
       points={{-62,-8},{-80,-8},{-80,4.44089e-16},{-100,4.44089e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(totEleLoa[1].sPhasePlug, adaptor.phase3) annotation (Line(
-      points={{40,0},{50,0},{50,6},{60,6}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(totEleLoa[2].sPhasePlug, adaptor.phase2) annotation (Line(
-      points={{40,0},{60,0}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(totEleLoa[3].sPhasePlug, adaptor.phase1) annotation (Line(
-      points={{40,0},{50,0},{50,-6},{60,-6}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(regLoa.PTot, replicator.u) annotation (Line(
-      points={{-39,-5},{-20,-5},{-20,0},{-12,0}},
+  connect(regLoa.PTot, loadRC.Pow) annotation (Line(
+      points={{-39,-5},{-10,-5},{-10,0},{40,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(adaptor.threePhasePlug, threePhasePlug) annotation (Line(
-      points={{78,0},{100,0}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(fixme.y, totEleLoa.y) annotation (Line(
-      points={{1,50},{16,50},{16,0},{20,0},{20,8.88178e-16}},
-      color={0,0,127},
+  connect(terminal, loadRC.terminal) annotation (Line(
+      points={{104,4.44089e-16},{64,4.44089e-16},{64,0},{60,0}},
+      color={0,120,120},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
