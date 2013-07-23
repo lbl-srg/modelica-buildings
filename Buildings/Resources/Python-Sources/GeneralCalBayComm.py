@@ -127,49 +127,41 @@ class FlexlabExtInterface(SocketClient):
 #===============================================================================
 # Testing code
 #===============================================================================
-#if __name__ == '__main__':
     
 
-
-    #Login=raw_input("Login:")
-    #Password=raw_input("Password:")
-    #Command=raw_input("Command:")
-#    results = []
-
-Login = 'P Grant'
-Password = 'pgrant213'
-Command = 'GetDAQ:WattStopper.HS1--4126F--Light Level-1'
-SendString = ":".join([Command,Login,Password])
+#Login = 'P Grant'
+#Password = 'pgrant213'
+#Command = 'GetDAQ:WattStopper.HS1--4126F--Light Level-1'
+#SendString = ":".join([Command,Login,Password])
 
 
-for i in range(0,3):
+#for i in range(0,3):
 
-    def CalBayComm(SendString):
+#def CalBayComm(Login, Password, Command):
+def CalBayComm(SendString):
 
-
-
-        conn = FlexlabExtInterface()
-        print "Opening connection.\n"
-        print "Sending command 'LOGIN:Philips 1:Philips 1':\n" + conn.open("128.3.20.130",3500,Login,Password)
+    conn = FlexlabExtInterface()
+    print "Opening connection.\n"
+    print "Sending command 'LOGIN:Philips 1:Philips 1':\n" + conn.open("128.3.20.130",3500,"P Grant","pgrant213")
     
 
-        print "Checking light levels in office 4126F"
-        print "Sending command to read WattStopper.HS1--4126F--Light Level-1:\n'GETDAQ:WattStopper.HS1--4126F--Relay-3:P Grant:pgrant213':\n"
-        res = float(conn.cmd(SendString))
+    print "Checking light levels in office 4126F"
+    print "Sending command to read WattStopper.HS1--4126F--Light Level-1:\n'GETDAQ:WattStopper.HS1--4126F--Relay-3:P Grant:pgrant213':\n"
+    res = float(conn.cmd(SendString))
 #    print "Result: "+str(res)
-        conn.close()
-        return res
+    conn.close()
+    return res
     #Output = 
 #    results.append(CalBayComm(Login, Password, Command))
 
-    Output = CalBayComm(SendString)
+#    CalBayComm(SendString)
 
-    print Output
-    print i
+#    print Output
+#    print i
 
-    import time
+#    import time
 
-    time.sleep(5)
+#    time.sleep(5)
 
 
 
