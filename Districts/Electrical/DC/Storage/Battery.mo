@@ -1,6 +1,6 @@
 within Districts.Electrical.DC.Storage;
 model Battery "Simple model of a battery"
- extends Districts.Electrical.DC.Interfaces.TwoPin;
+  import Districts;
  parameter Real etaCha(min=0, max=1, unit="1") = 0.9
     "Efficiency during charging";
  parameter Real etaDis(min=0, max=1, unit="1") = 0.9
@@ -10,7 +10,6 @@ model Battery "Simple model of a battery"
     "Maximum available charge";
  parameter Modelica.SIunits.Energy E_start(min=0, displayUnit="kWh")=0
     "Initial charge";
-
   Modelica.Blocks.Interfaces.RealInput P(unit="W")
     "Power stored in battery (if positive), or extracted from battery (if negative)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
@@ -19,9 +18,13 @@ model Battery "Simple model of a battery"
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,100})));
-
   Modelica.Blocks.Interfaces.RealOutput SOC "State of charge"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  Districts.Electrical.DC.Interfaces.Terminal_p
+                                             terminal(redeclare package
+      PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor)
+    "Generalised terminal"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
   Districts.Electrical.DC.Storage.BaseClasses.Charge cha(
     EMax=EMax,
@@ -29,33 +32,27 @@ protected
     etaCha=etaCha,
     etaDis=etaDis) "Charge model"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Districts.Electrical.DC.Loads.VariableConductor       bat
+  Loads.Conductor                                       bat(
+    P_nominal=0,
+    mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
     "Power exchanged with battery pack"
-    annotation (Placement(transformation(extent={{40,-12},{60,8}})));
-  Interfaces.DCplug dcPlug1;
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
   connect(cha.SOC, SOC)    annotation (Line(
       points={{61,60},{110,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(bat.P, P) annotation (Line(
-      points={{38,6},{0,6},{0,108},{8.88178e-16,108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(cha.P, P)    annotation (Line(
       points={{38,60},{0,60},{0,108},{8.88178e-16,108}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(bat.dcPlug, dcPlug1) annotation (Line(
-      points={{40,-2},{-8,-2}},
-      color={0,0,255},
+  connect(P, bat.Pow) annotation (Line(
+      points={{8.88178e-16,108},{8.88178e-16,20},{68,20},{68,8.88178e-16},{60,8.88178e-16}},
+      color={0,0,127},
       smooth=Smooth.None));
-  connect(dcPlug1.p, dcPlug.p) annotation (Line(
-      points={{-8,-2},{-100,-2}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(dcPlug1.n, dcPlug.n) annotation (Line(
-      points={{-8,-2},{-100,-2}},
+
+  connect(bat.terminal, terminal) annotation (Line(
+      points={{40,0},{-100,0}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -112,7 +109,7 @@ equation
           lineColor={0,0,255},
           textString="+"),
         Text(
-          extent={{40,68},{140,18}},
+          extent={{-150,-12},{-50,-62}},
           lineColor={0,0,255},
           textString="-"),
         Text(
