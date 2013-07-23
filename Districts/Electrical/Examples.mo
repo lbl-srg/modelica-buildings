@@ -15,12 +15,10 @@ package Examples "Package with example models"
           extent={{10,-10},{-10,10}},
           rotation=0,
           origin={-52,0})));
-    Modelica.Electrical.Analog.Basic.Ground groDC "Ground for DC grid"
-      annotation (Placement(transformation(extent={{-22,-32},{-2,-12}})));
-    Districts.Electrical.AC.Sources.Grid
-      grid(V=380, f=60, phi=0)
+    Districts.Electrical.AC.AC1ph.Sources.Grid
+      grid(V=380, f=60, Phi=0)
       annotation (Placement(transformation(extent={{30,28},{50,48}})));
-    Districts.Electrical.AC.Conversion.ACDCConverter
+    Districts.Electrical.AC.AC1ph.Conversion.ACDCConverter
       conACDC(       conversionFactor=240/380, eta=0.9) "AC/DC converter"
       annotation (Placement(transformation(extent={{24,-10},{4,10}})));
     Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -28,8 +26,6 @@ package Examples "Package with example models"
       annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
     Districts.BoundaryConditions.WeatherData.Bus weaBus
       annotation (Placement(transformation(extent={{-62,60},{-42,80}})));
-    Districts.Electrical.DC.Interfaces.DCplug dCplug1
-      annotation (Placement(transformation(extent={{-22,-10},{-2,10}})));
   equation
     connect(weaDat.weaBus, weaBus) annotation (Line(
         points={{-70,70},{-52,70}},
@@ -41,21 +37,13 @@ package Examples "Package with example models"
         color={255,204,51},
         thickness=0.5,
         smooth=Smooth.None));
-    connect(conACDC.plug1, grid.sPhasePlug) annotation (Line(
-        points={{24,8.88178e-16},{39.9,8.88178e-16},{39.9,28}},
-        color={0,0,0},
-        smooth=Smooth.None));
-    connect(tur.dcPlug, conACDC.dCplug) annotation (Line(
-        points={{-42,0},{-20,0},{-20,8.88178e-16},{4,8.88178e-16}},
+    connect(tur.terminal, conACDC.terminal_p) annotation (Line(
+        points={{-42,0},{4,0}},
         color={0,0,255},
         smooth=Smooth.None));
-    connect(conACDC.dCplug, dCplug1) annotation (Line(
-        points={{4,0},{-12,0}},
-        color={0,0,255},
-        smooth=Smooth.None));
-    connect(groDC.p, dCplug1.n) annotation (Line(
-        points={{-12,-12},{-12,8.88178e-16}},
-        color={0,0,255},
+    connect(conACDC.terminal_n, grid.terminal) annotation (Line(
+        points={{24,4.44089e-16},{40,4.44089e-16},{40,28}},
+        color={0,120,120},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics), Documentation(info="<html>
@@ -92,17 +80,15 @@ First implementation.
           extent={{10,-10},{-10,10}},
           rotation=0,
           origin={-10,40})));
-    Modelica.Electrical.Analog.Basic.Ground groDC "Ground for DC grid"
-      annotation (Placement(transformation(extent={{22,-36},{42,-16}})));
     Districts.Electrical.DC.Loads.Resistor    res(R=0.5)
       annotation (Placement(transformation(extent={{2,-10},{-18,10}})));
-    Districts.Electrical.AC.Sources.Grid
+    Districts.Electrical.AC.AC1ph.Sources.Grid
                  grid(
       V=380,
       f=60,
-      phi=0)
+      Phi=0)
       annotation (Placement(transformation(extent={{70,20},{90,40}})));
-    Districts.Electrical.AC.Conversion.ACDCConverter
+    Districts.Electrical.AC.AC1ph.Conversion.ACDCConverter
       conACDC(conversionFactor=12/380, eta=0.9) "AC/DC converter"
       annotation (Placement(transformation(extent={{64,-10},{44,10}})));
     Districts.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
@@ -120,8 +106,6 @@ First implementation.
       annotation (Placement(transformation(extent={{-128,100},{-108,120}})));
     Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
       annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-    Districts.Electrical.DC.Interfaces.DCplug dCplug1
-      annotation (Placement(transformation(extent={{22,-10},{42,10}})));
   equation
     connect(weaDat.weaBus,HDifTil. weaBus) annotation (Line(
         points={{-108,110},{-80,110}},
@@ -145,26 +129,17 @@ First implementation.
         points={{-19,90},{-10,90},{-10,52}},
         color={0,0,127},
         smooth=Smooth.None));
-    connect(conACDC.plug1, grid.sPhasePlug) annotation (Line(
-        points={{64,8.88178e-16},{79.9,8.88178e-16},{79.9,20}},
-        color={0,0,0},
-        smooth=Smooth.None));
-    connect(res.dcPlug, conACDC.dCplug) annotation (Line(
-        points={{2,0},{44,0}},
+    connect(pv.terminal, conACDC.terminal_p) annotation (Line(
+        points={{0,40},{22,40},{22,0},{44,0}},
         color={0,0,255},
         smooth=Smooth.None));
-    connect(conACDC.dCplug, pv.dcPlug) annotation (Line(
-        points={{44,8.88178e-16},{30,8.88178e-16},{30,0},{20,0},{20,40},{
-            4.44089e-16,40}},
+    connect(res.terminal, conACDC.terminal_p) annotation (Line(
+        points={{2,0},{44,0},{44,5.55112e-16}},
         color={0,0,255},
         smooth=Smooth.None));
-    connect(conACDC.dCplug, dCplug1) annotation (Line(
-        points={{44,0},{32,0}},
-        color={0,0,255},
-        smooth=Smooth.None));
-    connect(dCplug1.n, groDC.p) annotation (Line(
-        points={{32,8.88178e-16},{32,-16}},
-        color={0,0,255},
+    connect(conACDC.terminal_n, grid.terminal) annotation (Line(
+        points={{64,4.44089e-16},{80,4.44089e-16},{80,20}},
+        color={0,120,120},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
               -100},{100,140}}),      graphics),

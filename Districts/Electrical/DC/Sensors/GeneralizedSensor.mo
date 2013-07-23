@@ -1,8 +1,6 @@
 within Districts.Electrical.DC.Sensors;
 model GeneralizedSensor
-  extends Districts.Electrical.DC.Interfaces.TwoPin;
-  Districts.Electrical.DC.Interfaces.DCplug plug   annotation (Placement(transformation(extent={{90,-12},
-            {110,8}}), iconTransformation(extent={{80,-20},{120,20}})));
+  extends Districts.Electrical.Interfaces.PartialTwoPort;
   Modelica.Blocks.Interfaces.RealOutput V "Voltage"           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -10,7 +8,7 @@ model GeneralizedSensor
         origin={-10,-50}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={60,-40})));
+        origin={60,-90})));
   Modelica.Blocks.Interfaces.RealOutput I "Current"           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -18,16 +16,12 @@ model GeneralizedSensor
         origin={30,-50}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={0,-70})));
+        origin={-60,-90})));
 equation
-  V = v;
-  I = dcPlug.p.i;
-  connect(dcPlug.p, plug.p) annotation (Line(
-      points={{-100,-2},{100,-2}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(dcPlug.n, plug.n) annotation (Line(
-      points={{-100,-2},{100,-2}},
+  V = terminal_n.PhaseSystem.systemVoltage(terminal_n.v);
+  I = terminal_n.PhaseSystem.systemCurrent(terminal_n.i);
+  connect(terminal_n, terminal_p) annotation (Line(
+      points={{-100,0},{100,0}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
