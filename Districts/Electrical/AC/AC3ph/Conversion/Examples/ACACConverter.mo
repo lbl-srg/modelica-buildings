@@ -2,8 +2,8 @@ within Districts.Electrical.AC.AC3ph.Conversion.Examples;
 model ACACConverter
   import Districts;
   extends Modelica.Icons.Example;
-  Districts.Electrical.AC.AC3ph.Conversion.ACACConverter trasformer(
-      conversionFactor=380/15000, eta=0.9)
+  Districts.Electrical.AC.AC3ph.Conversion.ACACConverter tra(conversionFactor=
+        380/15000, eta=0.9) "Transformer"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Districts.Electrical.AC.AC3ph.Sources.FixedVoltage V(
     f=50,
@@ -19,11 +19,11 @@ model ACACConverter
       P_nominal=12000)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 equation
-  connect(V.terminal, trasformer.terminal_n) annotation (Line(
+  connect(V.terminal, tra.terminal_n)        annotation (Line(
       points={{-60,10},{-10,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(trasformer.terminal_p, loadRL.terminal) annotation (Line(
+  connect(tra.terminal_p, loadRL.terminal)        annotation (Line(
       points={{10,10},{20,10}},
       color={0,120,120},
       smooth=Smooth.None));
