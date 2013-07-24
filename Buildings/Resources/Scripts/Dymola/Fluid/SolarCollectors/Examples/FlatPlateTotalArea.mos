@@ -1,7 +1,7 @@
 simulateModel("Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea", stopTime = 86400, method = "dassl", resultFile = "FlatPlateTotalArea");
 createPlot(id = 1,
  position = {0, 0, 1529, 781},
- y = {"solCol.vol[1].T", "solCol.vol[2].T", "solCol.vol[3].T", "solCol1.vol[33].T","solCol1.vol[66].T", "solCol1.vol[100].T"},
+ y = {"solCol.vol[1].T", "solCol.vol[2].T", "solCol.vol[3].T", "solCol1.vol[10].T","solCol1.vol[20].T", "solCol1.vol[30].T"},
  range = {0.0, 88000.0, 9.0, 21.0},
  autoscale = true,
  autoerase = true,

@@ -45,8 +45,7 @@ model PartialSolarCollector "Partial model for solar collectors"
   annotation(Placement(transformation(extent={{-140,46},{-100,6}},    rotation=0)));
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nSeg](
-    each C=C/nSeg,
-    T(each start =   T_start)) if
+    T(each start =   T_start), each C=C/nSeg) if
        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Heat capacity for one segment of the the solar collector"
     annotation (Placement(transformation(extent={{-82,-44},{-62,-24}})));
@@ -95,9 +94,9 @@ model PartialSolarCollector "Partial model for solar collectors"
     each final energyDynamics=energyDynamics,
     each final p_start=p_start,
     each final T_start=T_start,
-    each final V=perPar.V/nSeg*nPanels_internal,
     each m_flow_small=m_flow_small,
-    each homotopyInitialization=homotopyInitialization)
+    each homotopyInitialization=homotopyInitialization,
+    each final V=perPar.V/nSeg*nPanels_internal)
     "Volume of fluid in one segment of the solar collector"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},

@@ -62,10 +62,10 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area,
     nSeg=30,
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf(),
+    totalArea=30,
     lat=0.73097781993588,
     azi=0.3,
-    til=0.5,
-    totalArea=30) "Flat plate solar collector model"
+    til=0.5) "Flat plate solar collector model"
              annotation (Placement(transformation(extent={{-20,-62},{0,-42}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut1(
     redeclare package Medium = Medium,
