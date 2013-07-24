@@ -15,7 +15,7 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
     "Building load based on a piecewise linear regression"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Electrical.AC.AC3ph.Loads.LoadRC loadRC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
+  Electrical.AC.AC3ph.Loads.CapacitiveLoadP loadRC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
     "Resistive and capacitive building load"
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
   Electrical.AC.AC3ph.Interfaces.Terminal_n terminal "Electrical connector"
