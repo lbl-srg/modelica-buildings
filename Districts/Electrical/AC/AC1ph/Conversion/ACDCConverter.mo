@@ -24,16 +24,6 @@ protected
   Modelica.SIunits.Power LossPower_n "Loss power on side n";
   Modelica.SIunits.Power LossPower_p "Loss power on side p";
 equation
-
-  if not ground_DC then
-    i_dc = 0;
-  else
-    v_dc = 0;
-  end if;
-
-  v_dc = terminal_p.v[2];
-  sum(terminal_p.i) + i_dc = 0;
-
   //voltage relation
   v_p = v_n*conversionFactor;
 
@@ -45,6 +35,14 @@ equation
   if ground_AC then
     Connections.potentialRoot(terminal_n.theta);
   end if;
+
+  if ground_DC then
+    v_dc = 0;
+  else
+    i_dc = 0;
+  end if;
+  v_dc = terminal_p.v[2];
+  sum(terminal_p.i) + i_dc = 0;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
