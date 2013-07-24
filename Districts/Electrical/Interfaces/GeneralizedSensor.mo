@@ -2,9 +2,9 @@ within Districts.Electrical.Interfaces;
 model GeneralizedSensor
   extends Districts.Electrical.Interfaces.PartialTwoPort(
   redeclare final package PhaseSystem_p = PhaseSystem_n,
-  redeclare final Districts.Electrical.Interfaces.Terminal
+  redeclare Districts.Electrical.Interfaces.Terminal
     terminal_n(redeclare final package PhaseSystem = PhaseSystem_n),
-  redeclare final Districts.Electrical.Interfaces.Terminal
+  redeclare Districts.Electrical.Interfaces.Terminal
     terminal_p(redeclare final package PhaseSystem = PhaseSystem_p));
   Modelica.Blocks.Interfaces.RealOutput V "Voltage"           annotation (Placement(
         transformation(

@@ -1,4 +1,4 @@
-simulateModel("Districts.Electrical.DC.Sensors.Examples.GeneralizedSensor", method="dassl", resultFile="GeneralizedSensorDC");
+simulateModel("Districts.Electrical.AC.AC1ph.Sensors.Examples.GeneralizedSensor", method="dassl", resultFile="GeneralizedSensorAC1ph");
 createPlot(id = 1,
  position = {15, 10, 441, 491},
  y = {"sen.V"},
@@ -10,7 +10,7 @@ createPlot(id = 1,
  grid = true,
  color = true,
  online = false,
- filename = "GeneralizedSensorDC.mat",
+ filename = "GeneralizedSensorAC1ph.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}});
