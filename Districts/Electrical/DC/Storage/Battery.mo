@@ -5,11 +5,9 @@ model Battery "Simple model of a battery"
     "Efficiency during charging";
  parameter Real etaDis(min=0, max=1, unit="1") = 0.9
     "Efficiency during discharging";
- parameter Real SOC_start=0 "Initial charge";
+ parameter Real SOC_start=0.1 "Initial charge";
  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
     "Maximum available charge";
- parameter Modelica.SIunits.Energy E_start(min=0, displayUnit="kWh")=0
-    "Initial charge";
   Modelica.Blocks.Interfaces.RealInput P(unit="W")
     "Power stored in battery (if positive), or extracted from battery (if negative)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
