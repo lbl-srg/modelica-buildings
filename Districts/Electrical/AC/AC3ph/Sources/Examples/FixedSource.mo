@@ -7,16 +7,19 @@ model FixedSource
     V=380,
     Phi=0)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Loads.LoadRL dynRL(
+  Loads.InductiveLoadP
+               dynRL(
     mode=Districts.Electrical.Types.Assumption.FixedZ_dynamic,
     P_nominal=2500,
     V_nominal=380,
     pf=0.8)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Loads.LoadRC RC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input,
+  Loads.CapacitiveLoadP
+               RC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input,
       pf=0.8)
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Loads.LoadRL RL(P_nominal=2000, pf=0.75)
+  Loads.InductiveLoadP
+               RL(P_nominal=2000, pf=0.75)
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Sources.Ramp load_Power(
     duration=0.5,

@@ -14,8 +14,8 @@ model ACDCConverter "AC DC converter"
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * pDC";
   Modelica.SIunits.Power LossPower[2] "Loss power";
-  parameter Boolean ground_AC = true "Connect AC side of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="AC side"));
-  parameter Boolean ground_DC = true "Connect DC side of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="DC side"));
+  parameter Boolean ground_AC = true "Connect AC side of converter to ground" annotation(evaluate=true, Dialog(group="Ground"));
+  parameter Boolean ground_DC = true "Connect DC side of converter to ground" annotation(evaluate=true, Dialog(group="Ground"));
 protected
   Real i_dc,v_dc;
   Modelica.SIunits.Power Pow_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
@@ -97,25 +97,22 @@ equation
               255,255,255}),
           smooth=Smooth.None),
         Line(
-          points={{-100,-100},{-100,-12}},
-          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
+          points={{-80,-40},{-120,-40}},
+          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {
+              255,255,255}),
+          smooth=Smooth.None,
+          thickness=0.5),
         Line(
-          points={{-120,-100},{-80,-100}},
-          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
+          points={{-80,-40},{-106,-14}},
+          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {
+              255,255,255}),
+          smooth=Smooth.None,
+          thickness=0.5),
         Line(
-          points={{-112,-106},{-88,-106}},
-          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
-        Line(
-          points={{-106,-112},{-92,-112}},
-          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None)}),
+          points={{-102,-16},{-114,-24},{-118,-42}},
+          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {
+              255,255,255}),
+          smooth=Smooth.Bezier)}),
     Documentation(info="<html>
 <p>
 This is an AC DC converter, based on a power balance between QS circuit and DC side.

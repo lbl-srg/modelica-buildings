@@ -3,7 +3,7 @@ model ACACConverter
   import Districts;
   extends Modelica.Icons.Example;
   Districts.Electrical.AC.AC3ph.Conversion.ACACConverter trasformer(
-      conversionFactor=380/15000, eta=0.9)
+                                  eta=0.9, conversionFactor=380/15000)
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Districts.Electrical.AC.AC3ph.Sources.FixedVoltage V(
     f=50,
@@ -15,7 +15,8 @@ model ACACConverter
     duration=0.5,
     startTime=0.3)
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
-  Districts.Electrical.AC.AC3ph.Loads.LoadRL loadRL(mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
+  Districts.Electrical.AC.AC3ph.Loads.InductiveLoadP
+                                             loadRL(mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
       P_nominal=12000)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 equation

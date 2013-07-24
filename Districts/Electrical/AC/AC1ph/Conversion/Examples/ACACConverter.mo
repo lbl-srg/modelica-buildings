@@ -16,7 +16,8 @@ model ACACConverter "Test model AC to AC converter"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-60,10})));
-  Districts.Electrical.AC.AC1ph.Loads.LoadRL load(mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
+  Districts.Electrical.AC.AC1ph.Loads.InductiveLoadP
+                                             load(mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
       P_nominal=1000)
     annotation (Placement(transformation(extent={{24,0},{44,20}})));
   Modelica.Blocks.Sources.Ramp ramp(

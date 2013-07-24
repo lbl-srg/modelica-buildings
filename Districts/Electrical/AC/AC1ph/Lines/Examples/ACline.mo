@@ -8,14 +8,18 @@ model ACline
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Line line2(
     Length=2000,
-    P_nominal=500,
-    V_nominal=220)
+    V_nominal=220,
+    P_nominal=1500,
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu25())
     annotation (Placement(transformation(extent={{-54,-10},{-34,10}})));
-  Loads.LoadRL   load2(P_nominal=50,
+  Loads.InductiveLoadP
+                 load2(P_nominal=50,
     mode=Districts.Electrical.Types.Assumption.FixedZ_dynamic,
     V_nominal=220)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Loads.LoadRL   load1(
+  Loads.InductiveLoadP
+                 load1(
     V_nominal=220,
     mode=Districts.Electrical.Types.Assumption.FixedZ_steady_state,
     P_nominal=150)
@@ -23,19 +27,25 @@ model ACline
   Line line1(
     V_nominal=220,
     P_nominal=5000,
-    Length=2000)
+    Length=2000,
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu25())
     annotation (Placement(transformation(extent={{-54,10},{-34,30}})));
-  Loads.LoadRL   load3(
+  Loads.InductiveLoadP
+                 load3(
     V_nominal=220,
     mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
     P_nominal=450)
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Line line3(
     Length=2000,
-    P_nominal=500,
-    V_nominal=220)
+    V_nominal=220,
+    P_nominal=1500,
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu25())
     annotation (Placement(transformation(extent={{-54,-30},{-34,-10}})));
-  Loads.LoadRL   load4(
+  Loads.InductiveLoadP
+                 load4(
     V_nominal=220,
     mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
     P_nominal=250)
@@ -52,9 +62,12 @@ model ACline
   Line line4(
     Length=2000,
     V_nominal=220,
-    P_nominal=500)
+    P_nominal=1500,
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu25())
     annotation (Placement(transformation(extent={{-4,40},{16,60}})));
-  Loads.LoadRL   load5(
+  Loads.InductiveLoadP
+                 load5(
     V_nominal=220,
     mode=Districts.Electrical.Types.Assumption.FixedZ_steady_state,
     P_nominal=150)

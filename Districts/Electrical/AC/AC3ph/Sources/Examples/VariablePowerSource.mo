@@ -23,7 +23,8 @@ model VariablePowerSource
     amplitude=0.8,
     offset=0.2)
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  Loads.LoadRL RL(mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
+  Loads.InductiveLoadP
+               RL(mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
       P_nominal=3000)
     annotation (Placement(transformation(extent={{24,-10},{44,10}})));
 equation

@@ -3,8 +3,6 @@ package Lines
   extends Modelica.Icons.Package;
 
 
-
-
   annotation (Icon(graphics={
       Ellipse(
         extent={{44,6},{20,-30}},

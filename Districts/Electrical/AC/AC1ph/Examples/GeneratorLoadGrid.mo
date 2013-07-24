@@ -15,7 +15,7 @@ model GeneratorLoadGrid "Generator with a load and grid connection"
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-30,-10})));
-  Districts.Electrical.AC.AC1ph.Loads.LoadRL         res(P_nominal=5e3)
+  Districts.Electrical.AC.AC1ph.Loads.InductiveLoadP res(P_nominal=5e3)
     "Resistance"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=270,

@@ -10,7 +10,8 @@ model LinearRegression "Example model for the linear regression building load"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Districts.Electrical.AC.Interfaces.Adaptor adaptor
     annotation (Placement(transformation(extent={{8,40},{28,60}})));
-  Districts.Electrical.AC.Sources.Grid gri(
+  Districts.Electrical.AC.AC1ph.Sources.Grid
+                                       gri(
     f=60,
     V=480,
     phi=0)
@@ -27,12 +28,14 @@ model LinearRegression "Example model for the linear regression building load"
     Length=50,
     P=200e3,
     V=480) annotation (Placement(transformation(extent={{40,34},{60,54}})));
-  Districts.Electrical.AC.Sources.Grid gri1(
+  Districts.Electrical.AC.AC1ph.Sources.Grid
+                                       gri1(
     f=60,
     V=480,
     phi=0)
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
-  Districts.Electrical.AC.Sources.Grid gri2(
+  Districts.Electrical.AC.AC1ph.Sources.Grid
+                                       gri2(
     f=60,
     V=480,
     phi=0)

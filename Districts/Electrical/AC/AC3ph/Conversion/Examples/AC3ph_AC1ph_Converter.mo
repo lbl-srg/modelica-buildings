@@ -3,7 +3,7 @@ model AC3ph_AC1ph_Converter
   import Districts;
   extends Modelica.Icons.Example;
   Districts.Electrical.AC.AC3ph.Conversion.AC3phAC1phConverter trasformer(
-      eta=0.9, conversionFactor=380/220)
+      eta=0.9, conversionFactor=220/380)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Districts.Electrical.AC.AC3ph.Sources.FixedVoltage V(
     f=50,
@@ -15,13 +15,16 @@ model AC3ph_AC1ph_Converter
     duration=0.5,
     startTime=0.3)
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
-  Districts.Electrical.AC.AC1ph.Loads.LoadRL RL_1(mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
+  Districts.Electrical.AC.AC1ph.Loads.InductiveLoadP
+                                             RL_1(mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
       P_nominal=4000)
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Districts.Electrical.AC.AC1ph.Loads.LoadRL RL_2(mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
+  Districts.Electrical.AC.AC1ph.Loads.InductiveLoadP
+                                             RL_2(mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
       P_nominal=4000)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Districts.Electrical.AC.AC1ph.Loads.LoadRL RL_3(mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
+  Districts.Electrical.AC.AC1ph.Loads.InductiveLoadP
+                                             RL_3(mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
       P_nominal=4000)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 equation

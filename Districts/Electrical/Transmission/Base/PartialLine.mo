@@ -9,21 +9,26 @@ partial model PartialLine "Cable line dispersion model"
     "If =true, enables the input for the temperature of the cable" annotation(Dialog(tab="Model"));
   parameter Modelica.SIunits.Temperature Tcable = T_ref
     "Fixed temperature of the cable" annotation(Dialog(tab="Model", enable = not useExtTemp));
+  parameter Districts.Electrical.Types.CableMode mode = Districts.Electrical.Types.CableMode.automatic
+    "If =true the size of the cable is defined as a continuous variable" annotation(Dialog(tab="Tech. specification"), choicesAllMatching=true);
+  parameter Districts.Electrical.Transmission.CommercialCables.Cable commercialCable = Districts.Electrical.Transmission.CommercialCables.Cable(RCha=0, XCha=0, In=0)
+    "List of various commercial cables" annotation(Dialog(tab="Tech. specification", enable = mode == Districts.Electrical.Types.CableMode.commercial),  choicesAllMatching = true);
   parameter Districts.Electrical.Transmission.Cables.Cable cable=
-      Functions.selectCable(P_nominal, V_nominal) "Type of cable"
-  annotation (choicesAllMatching=true,Dialog(tab="Tech. specification"), Placement(transformation(extent={{20,60},
+      Functions.selectCable(P_nominal, V_nominal, mode == Districts.Electrical.Types.CableMode.automatic)
+    "Type of cable"
+  annotation (choicesAllMatching=true,Dialog(tab="Tech. specification", enable = mode==Districts.Electrical.Types.CableMode.normative), Placement(transformation(extent={{20,60},
             {40,80}})));
   parameter Districts.Electrical.Transmission.Materials.Material wireMaterial=
       Functions.selectMaterial(0.0) "Material of the cable"
-    annotation (choicesAllMatching=true,Dialog(tab="Tech. specification"), Placement(transformation(extent={{60,60},
+    annotation (choicesAllMatching=true,Dialog(tab="Tech. specification", enable=mode==Districts.Electrical.Types.CableMode.normative), Placement(transformation(extent={{60,60},
             {80,80}})));
   final parameter Modelica.SIunits.Temperature T_ref=wireMaterial.T0
     "Reference temperature of the line" annotation(Evaluate=True);
   final parameter Modelica.SIunits.LinearTemperatureCoefficient alpha=wireMaterial.alphaT0
     "Linear temperature coefficient of the material"                                                                                         annotation(Evaluate=True);
-  final parameter Modelica.SIunits.Resistance R = wireMaterial.r0*Length/(cable.S*1e6)
+  final parameter Modelica.SIunits.Resistance R = Districts.Electrical.Transmission.Functions.lineResistance(Length, cable, wireMaterial, commercialCable, mode)
     "Resistance of the cable" annotation(Evaluate=True);
-  final parameter Modelica.SIunits.Inductance L = Length*(0.055 - 0.4606*log(cable.d/2) + 0.4606*log(2*cable.i))*1e-3/1e3
+  final parameter Modelica.SIunits.Inductance L = Districts.Electrical.Transmission.Functions.lineInductance(Length, cable, commercialCable, mode)
     "Inductance of the cable due to mutual and self inductance" annotation(Evaluate = True);
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature cableTemp
     "Temperature of the cable"
@@ -40,7 +45,7 @@ public
   Modelica.Blocks.Sources.RealExpression cableTemperature(y=T_in)
     annotation (Placement(transformation(extent={{-92,12},{-72,32}})));
 equation
-
+  assert(L>=0, "The inductance of the cable is negative, check cable properties and size");
   connect(T_in, T);
 
   if not useExtTemp then

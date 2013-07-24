@@ -10,7 +10,7 @@ model ParallelResistors
         origin={-70,10})));
   Modelica.Blocks.Sources.Ramp load(duration=0.5, startTime=0.2)
     annotation (Placement(transformation(extent={{40,0},{20,20}})));
-  Districts.Electrical.AC.AC1ph.Loads.LoadR
+  Districts.Electrical.AC.AC1ph.Loads.ResistiveLoadP
                        R(
     P_nominal=1e3,
     mode=Districts.Electrical.Types.Assumption.VariableZ_y_input)

@@ -8,13 +8,15 @@ model ParallelInductor
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,10})));
-  Districts.Electrical.AC.AC1ph.Loads.LoadRL dynRL(
+  Districts.Electrical.AC.AC1ph.Loads.InductiveLoadP
+                                             dynRL(
     P_nominal=2000,
     pf=0.8,
     V_nominal=220,
-    mode=Districts.Electrical.Types.Assumption.FixedZ_dynamic)
+    mode=Districts.Electrical.Types.Assumption.FixedZ_steady_state)
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
-  Districts.Electrical.AC.AC1ph.Loads.LoadRC dynRC(
+  Districts.Electrical.AC.AC1ph.Loads.CapacitiveLoadP
+                                             dynRC(
     P_nominal=2000,
     pf=0.8,
     V_nominal=220,

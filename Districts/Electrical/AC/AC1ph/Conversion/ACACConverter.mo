@@ -14,8 +14,8 @@ model ACACConverter "AC AC converter"
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * 'abs'(v2QS)";
   Modelica.SIunits.Power LossPower[2] "Loss power";
-  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
-  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
+  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(evaluate=true,Dialog(group="Ground"));
+  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(group="Ground"));
 protected
   Modelica.SIunits.Power Pow_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
   Modelica.SIunits.Power Pow_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
@@ -81,45 +81,39 @@ equation
           lineColor={0,120,120},
           textString="2"),
         Line(
-          points={{-120,-100},{-80,-100}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
+          points={{-80,-40},{-120,-40}},
+          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {
+              255,255,255}),
+          smooth=Smooth.None,
+          thickness=0.5),
         Line(
-          points={{-112,-106},{-88,-106}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
+          points={{-80,-40},{-106,-14}},
+          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {
+              255,255,255}),
+          smooth=Smooth.None,
+          thickness=0.5),
         Line(
-          points={{-106,-112},{-92,-112}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
+          points={{-102,-16},{-114,-24},{-118,-42}},
+          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {
+              255,255,255}),
+          smooth=Smooth.Bezier),
         Line(
-          points={{100,-100},{100,-12}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
+          points={{80,-40},{120,-40}},
+          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
+              255,255,255}),
+          smooth=Smooth.None,
+          thickness=0.5),
         Line(
-          points={{80,-100},{120,-100}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
+          points={{80,-40},{106,-14}},
+          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
+              255,255,255}),
+          smooth=Smooth.None,
+          thickness=0.5),
         Line(
-          points={{88,-106},{112,-106}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
-        Line(
-          points={{94,-112},{108,-112}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
-        Line(
-          points={{-100,-100},{-100,-12}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None)}),
+          points={{102,-16},{114,-24},{118,-42}},
+          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
+              255,255,255}),
+          smooth=Smooth.Bezier)}),
     Documentation(info="<html>
 <p>
 This is an AC AC converter, based on a power balance between both QS circuit sides.

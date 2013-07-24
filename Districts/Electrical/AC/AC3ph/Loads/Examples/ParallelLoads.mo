@@ -6,26 +6,31 @@ model ParallelLoads
     V=380,
     Phi=0)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  LoadR R(P_nominal=6000)
+  ResistiveLoadP
+        R(P_nominal=6000)
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  LoadRL RL(
+  InductiveLoadP
+         RL(
     mode=Districts.Electrical.Types.Assumption.FixedZ_steady_state,
     P_nominal=5000,
     pf=0.8)
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Sources.Ramp load(duration=0.5, startTime=0.2)
     annotation (Placement(transformation(extent={{60,-24},{40,-4}})));
-  LoadRL varRL(
+  InductiveLoadP
+         varRL(
     mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
     P_nominal=8000,
     pf=0.9)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  LoadRC varRC(
+  CapacitiveLoadP
+         varRC(
     mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
     P_nominal=10000,
     pf=0.8)
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  LoadRL dynRL(
+  InductiveLoadP
+         dynRL(
     mode=Districts.Electrical.Types.Assumption.FixedZ_dynamic,
     P_nominal=2000,
     V_nominal=380)

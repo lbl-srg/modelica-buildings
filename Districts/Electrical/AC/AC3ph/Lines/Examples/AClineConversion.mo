@@ -9,7 +9,9 @@ model AClineConversion
   Line line(
     Length=2000,
     P_nominal=15000,
-    V_nominal=15000)
+    V_nominal=15000,
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35())
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
   Conversion.ACACConverter aCACConverter(conversionFactor=15000/380, eta=
         0.9)
@@ -17,9 +19,12 @@ model AClineConversion
   Line line1(
     Length=2000,
     P_nominal=10000,
-    V_nominal=380)
+    V_nominal=380,
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35())
     annotation (Placement(transformation(extent={{-6,0},{14,20}})));
-  Loads.LoadRL loadRL(
+  Loads.InductiveLoadP
+               loadRL(
     P_nominal=5000,
     mode=Districts.Electrical.Types.Assumption.FixedZ_dynamic,
     V_nominal=380)
@@ -27,14 +32,18 @@ model AClineConversion
   Line line2(
     Length=2000,
     P_nominal=10000,
-    V_nominal=380)
+    V_nominal=380,
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35())
     annotation (Placement(transformation(extent={{24,0},{44,20}})));
-  Loads.LoadRL loadRL1(
+  Loads.InductiveLoadP
+               loadRL1(
     P_nominal=5000,
     mode=Districts.Electrical.Types.Assumption.FixedZ_dynamic,
     V_nominal=380)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Loads.LoadRC loadRC(
+  Loads.CapacitiveLoadP
+               loadRC(
     P_nominal=5000,
     mode=Districts.Electrical.Types.Assumption.FixedZ_dynamic,
     V_nominal=380)
