@@ -13,34 +13,36 @@ model ACDCConverter "AC DC converter"
   parameter Real conversionFactor "Ratio of DC voltage / QS rms voltage";
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * pDC";
-  Modelica.SIunits.Power LossPower[2] "Loss power";
-  parameter Boolean ground_AC = true "Connect AC side of converter to ground" annotation(evaluate=true, Dialog(group="Ground"));
-  parameter Boolean ground_DC = true "Connect DC side of converter to ground" annotation(evaluate=true, Dialog(group="Ground"));
+  Modelica.SIunits.Power LossPower "Loss power";
+  parameter Boolean ground_AC = true "Connect AC side of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="AC side"));
+  parameter Boolean ground_DC = true "Connect DC side of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="DC side"));
 protected
-  Real i_dc,v_dc;
+  PhaseSystem_p.Current i_dc "DC current";
+  PhaseSystem_p.Voltage v_dc "DC voltage";
   Modelica.SIunits.Power Pow_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
   Modelica.SIunits.Power Pow_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
+  Modelica.SIunits.Power LossPower_n "Loss power on side n";
+  Modelica.SIunits.Power LossPower_p "Loss power on side p";
 equation
-
-  if not ground_DC then
-    i_dc = 0;
-  else
-    v_dc = 0;
-  end if;
-
-  v_dc = terminal_p.v[2];
-  sum(terminal_p.i) + i_dc = 0;
-
   //voltage relation
   v_p = v_n*conversionFactor;
 
   //power balance
-  LossPower = (1-eta) * abs(Pow_p);
-  Pow_n + Pow_p = LossPower;
+  {LossPower_n, LossPower_p} = (1-eta) * abs(Pow_p);
+  Pow_n + Pow_p = {LossPower_n, LossPower_p};
+  LossPower = LossPower_n + LossPower_p;
 
   if ground_AC then
     Connections.potentialRoot(terminal_n.theta);
   end if;
+
+  if ground_DC then
+    v_dc = 0;
+  else
+    i_dc = 0;
+  end if;
+  v_dc = terminal_p.v[2];
+  sum(terminal_p.i) + i_dc = 0;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),

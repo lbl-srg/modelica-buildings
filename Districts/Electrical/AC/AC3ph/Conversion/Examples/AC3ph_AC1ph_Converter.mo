@@ -2,8 +2,8 @@ within Districts.Electrical.AC.AC3ph.Conversion.Examples;
 model AC3ph_AC1ph_Converter
   import Districts;
   extends Modelica.Icons.Example;
-  Districts.Electrical.AC.AC3ph.Conversion.AC3phAC1phConverter trasformer(
-      eta=0.9, conversionFactor=220/380)
+  Districts.Electrical.AC.AC3ph.Conversion.AC3phAC1phConverter tra(
+      eta=0.9, conversionFactor=220/380) "Transformer"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Districts.Electrical.AC.AC3ph.Sources.FixedVoltage V(
     f=50,
@@ -28,19 +28,19 @@ model AC3ph_AC1ph_Converter
       P_nominal=4000)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 equation
-  connect(V.terminal, trasformer.terminal_p) annotation (Line(
+  connect(V.terminal, tra.terminal_p) annotation (Line(
       points={{-60,10},{-40,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(trasformer.terminal_a, RL_1.terminal) annotation (Line(
+  connect(tra.terminal_a, RL_1.terminal) annotation (Line(
       points={{-20,16},{0,16},{0,30},{20,30}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(trasformer.terminal_b, RL_2.terminal) annotation (Line(
+  connect(tra.terminal_b, RL_2.terminal) annotation (Line(
       points={{-20,10},{20,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(trasformer.terminal_c, RL_3.terminal) annotation (Line(
+  connect(tra.terminal_c, RL_3.terminal) annotation (Line(
       points={{-20,4},{0,4},{0,-10},{20,-10}},
       color={0,120,120},
       smooth=Smooth.None));
