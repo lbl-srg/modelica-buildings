@@ -17,7 +17,8 @@ model ACDCConverter "AC DC converter"
   parameter Boolean ground_AC = true "Connect AC side of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="AC side"));
   parameter Boolean ground_DC = true "Connect DC side of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="DC side"));
 protected
-  Real i_dc,v_dc;
+  PhaseSystem_p.Current i_dc "DC current";
+  PhaseSystem_p.Voltage v_dc "DC voltage";
   Modelica.SIunits.Power Pow_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
   Modelica.SIunits.Power Pow_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
   Modelica.SIunits.Power LossPower_n "Loss power on side n";
