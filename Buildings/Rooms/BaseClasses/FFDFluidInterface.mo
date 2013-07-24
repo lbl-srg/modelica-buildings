@@ -75,7 +75,7 @@ equation
     ports[i].h_outflow = Medium.specificEnthalpy_pTX(
        p=ports[i].p,
        T=T_outflow[i],
-       X=Xi_outflow[(i-1)*Medium.nX+1:i*Medium.nX]);
+       X=Xi_outflow[(i-1)*Medium.nXi+1:i*Medium.nXi]);
     ports[i].Xi_outflow = Xi_outflow[(i-1)*Medium.nXi+1:i*Medium.nXi];
     ports[i].C_outflow  = C_outflow[ (i-1)*Medium.nC +1:i*Medium.nC];
   end for;
@@ -88,8 +88,16 @@ equation
        p=  ports[i].p,
        h=  inStream(ports[i].h_outflow),
        X=  inStream(ports[i].Xi_outflow)));
-     Xi_inflow[(i-1)*Medium.nXi+1:i*Medium.nXi] = inStream(ports[i].Xi_outflow);
-     C_inflow[(i-1)*Medium.nC+1:i*Medium.nC]    = inStream(ports[i].C_outflow);
+   end for;
+   for i in 1:nPorts loop
+     for j in 1:Medium.nXi loop
+       Xi_inflow[(i-1)*Medium.nXi+j] = inStream(ports[i].Xi_outflow[j]);
+     end for;
+   end for;
+   for i in 1:nPorts loop
+     for j in 1:Medium.nC loop
+       C_inflow[(i-1)*Medium.nC+j]    = inStream(ports[i].C_outflow[j]);
+     end for;
    end for;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
