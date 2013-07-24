@@ -51,7 +51,6 @@ equation
                                       graphics={
         Line(
           points={{2,60},{2,60},{82,60},{2,60},{82,-60},{2,-60},{2,60},{2,-60}},
-
           color={0,0,225},
           smooth=Smooth.None),
         Line(
