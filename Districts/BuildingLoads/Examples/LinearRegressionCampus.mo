@@ -6,6 +6,7 @@ model LinearRegressionCampus
   parameter Modelica.SIunits.Voltage VTra = 50e3 "Voltage of transmission grid";
   parameter Modelica.SIunits.Voltage VDis = 480
     "Voltage of the distribution grid";
+  parameter Modelica.SIunits.Voltage VDC = 240 "Voltage of DC grid";
 
   // Rated power that is used to size cables
   parameter Modelica.SIunits.Power P_a = 1e5 "Rated power for sizing";
@@ -170,9 +171,12 @@ equation
             color={0,0,0},
             smooth=Smooth.None)}));
 end DummyLine;
-  Districts.Electrical.AC.AC3ph.Sensors.Power senPow
-    "Power after the transformer"
+  Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senAC
+    "Sensor in AC line after the transformer"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+  Districts.Electrical.AC.AC3ph.Conversion.ACDCConverter acdc(conversionFactor=
+        VDC/VDis, eta=0.9) "AC/DC converter"
+    annotation (Placement(transformation(extent={{-10,-176},{10,-156}})));
 equation
   connect(weaDat.weaBus,buiA. weaBus)             annotation (Line(
       points={{-200,70},{220,70},{220,40},{230,40}},
@@ -255,12 +259,36 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(acac.terminal_p, senPow.terminal_n) annotation (Line(
+  connect(acac.terminal_p, senAC.terminal_n)  annotation (Line(
       points={{-100,-20},{-80,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(senPow.terminal_p, dt.terminal_n) annotation (Line(
+  connect(senAC.terminal_p, dt.terminal_n)  annotation (Line(
       points={{-60,-20},{-22,-20}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(buiD.terminal_dc, acdc.terminal_p)          annotation (Line(
+      points={{10,-86},{10,-166}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(acdc.terminal_p, buiE.terminal_dc)          annotation (Line(
+      points={{10,-166},{48,-166},{48,-160},{70,-160},{70,-86}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(buiE.terminal_dc, buiC.terminal_dc) annotation (Line(
+      points={{70,-86},{100,-86},{100,34},{128,34}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(buiE.terminal_dc, buiB.terminal_dc) annotation (Line(
+      points={{70,-86},{132,-86},{132,34},{190,34}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(buiE.terminal_dc, buiA.terminal_dc) annotation (Line(
+      points={{70,-86},{162,-86},{162,34},{250,34}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(acdc.terminal_n, senAC.terminal_p)           annotation (Line(
+      points={{-10,-166},{-40,-166},{-40,-20},{-60,-20}},
       color={0,120,120},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
