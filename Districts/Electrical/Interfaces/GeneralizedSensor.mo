@@ -6,7 +6,8 @@ model GeneralizedSensor
     terminal_n(redeclare final package PhaseSystem = PhaseSystem_n),
   redeclare Districts.Electrical.Interfaces.Terminal
     terminal_p(redeclare final package PhaseSystem = PhaseSystem_p));
-  Modelica.Blocks.Interfaces.RealOutput V "Voltage"           annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput V(final quantity="ElectricPotential",
+                                          final unit="V") "Voltage"           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -14,7 +15,8 @@ model GeneralizedSensor
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-90})));
-  Modelica.Blocks.Interfaces.RealOutput I "Current"           annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput I(final quantity="ElectricCurrent",
+                                          final unit="A") "Current"           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -22,8 +24,9 @@ model GeneralizedSensor
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-90})));
-  Modelica.Blocks.Interfaces.RealOutput P[terminal_n.PhaseSystem.n]
-    "Phase powers"                                                                   annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput S[terminal_n.PhaseSystem.n](
+                                          final quantity="Power",
+                                          final unit="W") "Phase powers"             annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -35,7 +38,7 @@ model GeneralizedSensor
 equation
   V = terminal_n.PhaseSystem.systemVoltage(terminal_n.v);
   I = terminal_n.PhaseSystem.systemCurrent(terminal_n.i);
-  P = terminal_n.PhaseSystem.phasePowers_vi(v=terminal_n.v, i=terminal_n.i);
+  S = terminal_n.PhaseSystem.phasePowers_vi(v=terminal_n.v, i=terminal_n.i);
   connect(terminal_n, terminal_p) annotation (Line(
       points={{-100,0},{100,0}},
       color={0,0,255},
@@ -57,12 +60,12 @@ equation
           color={0,0,0},
           smooth=Smooth.None),
         Text(
-          extent={{-114,-42},{6,-82}},
+          extent={{-120,-42},{0,-82}},
           lineColor={0,0,0},
           lineThickness=1,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="P"),
+          textString="S"),
         Polygon(
           points={{-0.48,33.6},{18,28},{18,59.2},{-0.48,33.6}},
           lineColor={0,0,0},
@@ -97,5 +100,18 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="I")}),     Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics));
+          extent={{-100,-100},{100,100}}), graphics),
+    Documentation(info="<html>
+<p>
+This is the base class for ideal sensors that measure power, voltage and current.
+The two components of the power <i>S</i> are the active and reactive power.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 24, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end GeneralizedSensor;

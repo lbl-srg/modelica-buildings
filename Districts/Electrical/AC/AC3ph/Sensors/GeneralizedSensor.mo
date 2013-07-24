@@ -9,6 +9,7 @@ model GeneralizedSensor "Sensor for power, voltage and current"
   Documentation(info="<html>
 <p>
 Ideal sensor that measures power, voltage and current.
+The two components of the power <i>S</i> are the active and reactive power.
 </p>
 </html>", revisions="<html>
 <ul>
