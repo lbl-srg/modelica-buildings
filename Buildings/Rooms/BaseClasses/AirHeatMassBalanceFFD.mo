@@ -70,44 +70,44 @@ protected
    final quantity="ThermodynamicTemperature") "Shade temperature";
 
   // Interfaces between the FFD block and the heat ports of this model
-  FFDSurfaceInterface ffdConExt(final n=nConExt)
+  FFDSurfaceInterface ffdConExt(final n=NConExt) if haveConExt
     "Interface to heat port of exterior constructions"
     annotation (Placement(transformation(extent={{180,210},{200,230}})));
 
-  FFDSurfaceInterface ffdConExtWin(final n=nConExtWin)
+  FFDSurfaceInterface ffdConExtWin(final n=NConExtWin) if haveConExtWin
     "Interface to heat port of opaque part of exterior constructions with window"
     annotation (Placement(transformation(extent={{180,170},{200,190}})));
 
-  FFDSurfaceInterface ffdGlaUns(final n=nConExtWin)
+  FFDSurfaceInterface ffdGlaUns(final n=NConExtWin) if haveConExtWin
     "Interface to heat port of unshaded part of glass"
     annotation (Placement(transformation(extent={{180,110},{200,130}})));
 
-  FFDSurfaceInterface ffdGlaSha(final n=nConExtWin)
+  FFDSurfaceInterface ffdGlaSha(final n=NConExtWin) if haveShade
     "Interface to heat port of shaded part of glass"
     annotation (Placement(transformation(extent={{180,70},{200,90}})));
 
-  FFDSurfaceInterface ffdConExtWinFra(final n=nConExtWin)
+  FFDSurfaceInterface ffdConExtWinFra(final n=NConExtWin) if haveConExtWin
     "Interface to heat port of window frame"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
 
-  FFDSurfaceInterface ffdConPar_a(final n=nConPar)
+  FFDSurfaceInterface ffdConPar_a(final n=NConPar) if haveConPar
     "Interface to heat port of surface a of partition constructions"
     annotation (Placement(transformation(extent={{180,-70},{200,-50}})));
 
-  FFDSurfaceInterface ffdConPar_b(final n=nConPar)
+  FFDSurfaceInterface ffdConPar_b(final n=NConPar) if haveConPar
     "Interface to heat port of surface b of partition constructions"
     annotation (Placement(transformation(extent={{180,-110},{200,-90}})));
 
-  FFDSurfaceInterface ffdConBou(final n=nConBou)
+  FFDSurfaceInterface ffdConBou(final n=NConBou) if haveConBou
     "Interface to heat port that connects to room-side surface of constructions that expose their other surface to the outside"
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
 
-  FFDSurfaceInterface ffdSurBou(final n=nSurBou)
+  FFDSurfaceInterface ffdSurBou(final n=NSurBou) if haveSurBou
     "Interface to heat port of surfaces of models that compute the heat conduction outside of this room"
     annotation (Placement(transformation(extent={{180,-230},{200,-210}})));
 
-  FFDSurfaceInterface ffdHeaPorAir(final n=1)
-    "Interface to heat port of air node"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
+                      ffdHeaPorAir "Interface to heat port of air node"
     annotation (Placement(transformation(extent={{-182,-10},{-202,10}})));
 
   FFDFluidInterface fluInt(
@@ -117,7 +117,7 @@ protected
 
   // The following list declares the first index of the input and output signals
   // to the FFD block
-  final parameter Integer kConExt = 1
+  final parameter Integer kConExt = 0
     "Offset used to connect FFD signals to conExt";
   final parameter Integer kConExtWin = kConExt + nConExt
     "Offset used to connect FFD signals to conExtWin";
@@ -136,15 +136,15 @@ protected
   final parameter Integer kSurBou = kConBou + nConBou
     "Offset used to connect FFD signals to surBou";
   final parameter Integer kHeaPorAir = kSurBou + nSurBou
-    "Offset used to connect FFD signals to air heat port";
+    "Offset used to connect FFD output signal to air heat port (for temperature)";
   final parameter Integer kUSha = kHeaPorAir + 1
     "Offset used to connect FFD signals to input signal of shade";
-  final parameter Integer kQRadAbs_flow = if haveShade then kUSha + NConExtWin else kUSha
+  final parameter Integer kQRadAbs_flow = if haveShade then kUSha + nConExtWin else kUSha
     "Offset used to connect FFD signals to input signal that contains the radiation absorbed by the shade";
-  final parameter Integer kTSha = kUSha
+  final parameter Integer kTSha = kHeaPorAir
     "Offset used to connect FFD signals to output signal that contains the shade temperature";
 
-  final parameter Integer kFluIntP1 = if haveShade then kQRadAbs_flow + NConExtWin else kQRadAbs_flow
+  final parameter Integer kFluIntP1 = if haveShade then kQRadAbs_flow + nConExtWin else kQRadAbs_flow
     "Offset used to connect FFD signals to input signal for pressure from the fluid ports";
 
   final parameter Integer kFluIntM_flow = kFluIntP1 + 1
@@ -158,7 +158,7 @@ protected
     "Offset used to connect FFD signals to input signals for inflowing trace substances from the fluid ports";
 
   // Input signals to fluInt block
-  final parameter Integer kFluIntP2nPorts = if haveShade then kTSha + NConExtWin else kTSha
+  final parameter Integer kFluIntP2nPorts = if haveShade then kTSha + nConExtWin else kTSha
     "Offset used to connect FFD signals to output signals for the fluid ports";
   final parameter Integer kFluIntT_outflow = kFluIntP2nPorts+(nPorts-1)
     "Offset used to connect FFD signals to outgoing temperature for the fluid ports";
@@ -229,19 +229,24 @@ equation
   end if;
 
   heaPorAir.T = TRooAve;
+
+  //////////////////////////////////////////////////////////////////////
   // Data exchange with FFD block
   if haveConExt then
-    connect(ffd.u[kConExt:kConExtWin-1], ffdConExt.T[1:nConExt]) annotation (Line(
+    for i in 1:nConExt loop
+      connect(ffd.u[kConExt+i], ffdConExt.T[i]) annotation (Line(
         points={{-42,190},{-60,190},{-60,216},{179,216}},
         color={0,0,127},
         smooth=Smooth.None));
-    connect(ffd.y[kConExt:kConExtWin-1], ffdConExt.Q_flow[1:nConExt]) annotation (Line(
+      connect(ffd.y[kConExt+i], ffdConExt.Q_flow[i]) annotation (Line(
         points={{-19,190},{60,190},{60,226},{178,226}},
         color={0,0,127},
         smooth=Smooth.None));
+    end for;
   end if;
 
   if haveConExtWin then
+    // fixme: expand this loop as is done for ffdConExt
     connect(ffd.u[kConExtWin:kGlaUns-1], ffdConExtWin.T)
         annotation (Line(
         points={{-42,190},{-60,190},{-60,176},{179,176}},
@@ -373,18 +378,16 @@ equation
       points={{200,-220},{241,-220}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(ffd.u[kHeaPorAir:kHeaPorAir], ffdHeaPorAir.T) annotation (Line(
-      points={{-42,190},{-60,190},{-60,-4},{-181,-4}},
+  // Connections to heat port of air volume
+  connect(ffd.y[kHeaPorAir], ffdHeaPorAir.T) annotation (Line(
+      points={{-19,190},{60,190},{60,8.88178e-16},{-180,8.88178e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ffd.y[kHeaPorAir:kHeaPorAir], ffdHeaPorAir.Q_flow) annotation (Line(
-      points={{-19,190},{60,190},{60,6},{-180,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(ffdHeaPorAir.port[1], heaPorAir) annotation (Line(
+  connect(ffdHeaPorAir.port, heaPorAir) annotation (Line(
       points={{-202,0},{-240,0}},
       color={191,0,0},
       smooth=Smooth.None));
+  // Connections to shade
   connect(ffd.u[kUSha:kQRadAbs_flow-1], uSha) annotation (Line(
       points={{-42,190},{-60,190},{-60,200},{-260,200}},
       color={0,0,127},
