@@ -4,7 +4,7 @@ model GeneralizedSensor "Example model for generalized sensor"
   extends Modelica.Icons.Example;
   Districts.Electrical.AC.AC1ph.Sensors.GeneralizedSensor sen
     annotation (Placement(transformation(extent={{-20,2},{0,22}})));
-  Districts.Electrical.AC.AC1ph.Loads.LoadRC    loa(P_nominal=100)
+  Districts.Electrical.AC.AC1ph.Loads.CapacitiveLoadP    loa(P_nominal=100)
     "Constant load"
     annotation (Placement(transformation(extent={{40,2},{60,22}})));
   Districts.Electrical.AC.AC1ph.Sources.FixedVoltage    sou(V=120)

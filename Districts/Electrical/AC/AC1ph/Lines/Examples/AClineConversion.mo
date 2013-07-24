@@ -13,7 +13,7 @@ model AClineConversion
     mode=Districts.Electrical.Types.Assumption.FixedZ_dynamic)
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Line line1(
-    Length=2000,
+    l=2000,
     V_nominal=380,
     P_nominal=3500,
     mode=Districts.Electrical.Types.CableMode.commercial,
@@ -27,7 +27,7 @@ model AClineConversion
   Line line2(
     V_nominal=220,
     P_nominal=3500,
-    Length=500,
+    l=500,
     mode=Districts.Electrical.Types.CableMode.commercial,
     commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu25())
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));

@@ -7,7 +7,7 @@ model ACline
     V=220)
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Line line2(
-    Length=2000,
+    l=2000,
     V_nominal=220,
     P_nominal=1500,
     mode=Districts.Electrical.Types.CableMode.commercial,
@@ -27,7 +27,7 @@ model ACline
   Line line1(
     V_nominal=220,
     P_nominal=5000,
-    Length=2000,
+    l=2000,
     mode=Districts.Electrical.Types.CableMode.commercial,
     commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu25())
     annotation (Placement(transformation(extent={{-54,10},{-34,30}})));
@@ -38,7 +38,7 @@ model ACline
     P_nominal=450)
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Line line3(
-    Length=2000,
+    l=2000,
     V_nominal=220,
     P_nominal=1500,
     mode=Districts.Electrical.Types.CableMode.commercial,
@@ -60,7 +60,7 @@ model ACline
   Modelica.Blocks.Sources.Constant const(k=1)
     annotation (Placement(transformation(extent={{80,-18},{60,2}})));
   Line line4(
-    Length=2000,
+    l=2000,
     V_nominal=220,
     P_nominal=1500,
     mode=Districts.Electrical.Types.CableMode.commercial,

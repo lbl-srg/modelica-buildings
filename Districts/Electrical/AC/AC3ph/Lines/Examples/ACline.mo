@@ -8,7 +8,7 @@ model ACline
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Line line(
     V_nominal=380,
-    Length=2000,
+    l=2000,
     P_nominal=5000,
     mode=Districts.Electrical.Types.CableMode.commercial,
     commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35())
