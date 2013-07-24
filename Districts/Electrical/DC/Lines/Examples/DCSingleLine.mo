@@ -4,7 +4,10 @@ model DCSingleLine
   Line line(
     P_nominal=500,
     V_nominal=50,
-    Length=1000)
+    l=1000,
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=
+        Districts.Electrical.Transmission.CommercialCables.PvcAl16_ECM())
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Sources.ConstantVoltage E(V=50)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
