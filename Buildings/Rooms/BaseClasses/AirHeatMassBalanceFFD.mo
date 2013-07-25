@@ -141,13 +141,14 @@ protected
     "Offset used to connect FFD signals to surBou";
   final parameter Integer kHeaPorAir = kSurBou + nSurBou
     "Offset used to connect FFD output signal to air heat port (to send average temperature from FFD to Modelica)";
-  final parameter Integer kUSha = kHeaPorAir + 1
+//  final parameter Integer kUSha = kHeaPorAir + 1
+  final parameter Integer kUSha = kSurBou + nSurBou
     "Offset used to connect FFD signals to input signal of shade";
   final parameter Integer kQRadAbs_flow = if haveShade then kUSha + nConExtWin else kUSha
     "Offset used to connect FFD signals to input signal that contains the radiation absorbed by the shade";
   // Because heaPorAir is only receiving T from FFD, but does not send Q_flow to FFD, there is no '+1' increment
   // for kTSha
-  final parameter Integer kTSha = kHeaPorAir
+  final parameter Integer kTSha = kHeaPorAir + 1
     "Offset used to connect FFD signals to output signal that contains the shade temperature";
 
   final parameter Integer kFluIntP1 = if haveShade then kQRadAbs_flow + nConExtWin else kQRadAbs_flow
@@ -178,7 +179,7 @@ equation
   if haveConExt then
     conExt_internal.Q_flow = zeros(NConExt);
   else
-    conExt_internal.T = {T0};
+    conExt_internal.T = fill(T0, NConExt);
   end if;
 
   connect(conExtWin, conExtWin_internal);
@@ -394,7 +395,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   // Connections to heat port of air volume
-  connect(ffd.y[kHeaPorAir], ffdHeaPorAir.T) annotation (Line(
+  connect(ffd.y[kHeaPorAir+1], ffdHeaPorAir.T) annotation (Line(
       points={{-19,190},{60,190},{60,0},{-180,0}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -428,7 +429,7 @@ equation
   // Output signals from fluInt block
 
   // The pressure of ports[1] will be sent from Modelica to FFD
-  connect(ffd.u[kFluIntP1], fluInt.p1) annotation (Line(
+  connect(ffd.u[kFluIntP1+1], fluInt.p1) annotation (Line(
       points={{-42,190},{-60,190},{-60,-180},{-11,-180}},
       color={0,0,127},
       smooth=Smooth.None));
