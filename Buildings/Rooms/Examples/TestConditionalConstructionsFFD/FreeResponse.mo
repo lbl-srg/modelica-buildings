@@ -78,7 +78,8 @@ model FreeResponse "Free response of a room model that has components for each c
     linearizeRadiation = false,
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    lat=0.73268921998722) "Room model"
+    lat=0.73268921998722,
+    useFFD=false) "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
