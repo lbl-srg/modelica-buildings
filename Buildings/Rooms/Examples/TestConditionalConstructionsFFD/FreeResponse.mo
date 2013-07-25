@@ -1,5 +1,6 @@
 within Buildings.Rooms.Examples.TestConditionalConstructionsFFD;
-model FreeResponse "Free response of a room model that has components for each construction elements"
+model FreeResponse
+  "Free response of a room model that has components for each construction elements"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
     "Medium model";
@@ -67,10 +68,10 @@ model FreeResponse "Free response of a room model that has components for each c
     nConPar=1,
     datConPar(layers={matLayPar}, each A=10,
            each til=Buildings.HeatTransfer.Types.Tilt.Wall),
-    nConBou=1,
+    nConBou=nConBou,
     datConBou(layers={matLayFlo}, each A=6*4,
            each til=Buildings.HeatTransfer.Types.Tilt.Floor),
-    nSurBou=1,
+    nSurBou=nSurBou,
     surBou(each A=6*3,
            each absIR=0.9,
            each absSol=0.9,
@@ -78,8 +79,10 @@ model FreeResponse "Free response of a room model that has components for each c
     linearizeRadiation = false,
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    useFFD=false,
     lat=0.73268921998722,
-    useFFD=false) "Room model"
+    samplePeriod=60,
+    startTime=0) "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
@@ -133,7 +136,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,50},{44,50}},
+      points={{1,50},{38,50}},
       color={0,0,127},
       smooth=Smooth.None));
 
