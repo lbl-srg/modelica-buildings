@@ -19,8 +19,8 @@ model LinearRegressionCampus
   parameter Modelica.SIunits.Power P_de = P_ce + P_e "Rated power for sizing";
   parameter Modelica.SIunits.Power P_dt = P_de + P_d "Rated power for sizing";
   // Declaration of the line model
-  // Set it either to DummyLine or to Districts.Electrical.AC.AC3ph.Lines.Line
-  model line = DummyLine "Line model";
+  // Set the instance 'line' either to 'DummyLine' or to 'Districts.Electrical.AC.AC3ph.Lines.Line'
+  model line = Districts.Electrical.AC.AC3ph.Lines.Line "Line model";
 
   Districts.BuildingLoads.LinearRegression buiA(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt")
     "Building A"
