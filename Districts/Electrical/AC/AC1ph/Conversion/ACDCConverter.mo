@@ -99,25 +99,22 @@ equation
               255,255,255}),
           smooth=Smooth.None),
         Line(
-          points={{-100,-100},{-100,-12}},
-          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
+          points={{-80,-40},{-120,-40}},
+          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {
+              255,255,255}),
+          smooth=Smooth.None,
+          thickness=0.5),
         Line(
-          points={{-120,-100},{-80,-100}},
-          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
+          points={{-80,-40},{-106,-14}},
+          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {
+              255,255,255}),
+          smooth=Smooth.None,
+          thickness=0.5),
         Line(
-          points={{-112,-106},{-88,-106}},
-          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
-        Line(
-          points={{-106,-112},{-92,-112}},
-          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None)}),
+          points={{-102,-16},{-114,-24},{-118,-42}},
+          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {
+              255,255,255}),
+          smooth=Smooth.Bezier)}),
     Documentation(info="<html>
 <p>
 This is an AC DC converter, based on a power balance between QS circuit and DC side.

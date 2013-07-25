@@ -1,5 +1,9 @@
 within Districts.Electrical.Transmission;
 package Cables 
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.MaterialPropertiesPackage;
+
+
+
+
 
 end Cables;

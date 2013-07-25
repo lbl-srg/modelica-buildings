@@ -1,5 +1,5 @@
 within Districts.Electrical.AC.AC3ph.Loads;
-model LoadRC "Model of a capacitive and resistive load"
+model CapacitiveLoadP "Model of a capacitive and resistive load"
   extends Districts.Electrical.Interfaces.PartialCapacitiveLoad(redeclare
       package PhaseSystem = Districts.Electrical.PhaseSystems.ThreePhase_dq, redeclare
       Interfaces.Terminal_n terminal);
@@ -158,4 +158,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end LoadRC;
+end CapacitiveLoadP;

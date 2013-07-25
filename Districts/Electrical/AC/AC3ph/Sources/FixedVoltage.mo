@@ -33,32 +33,29 @@ equation
         Line(
           points={{60,0},{90,0}},
           color={0,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{-20,-100},{20,-100}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
-        Line(
-          points={{0,-100},{0,-60}},
-          color=DynamicSelect({0,0,120}, if definiteReference then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
-        Line(
-          points={{-12,-106},{12,-106}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
-        Line(
-          points={{-6,-112},{8,-112}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120} else {255,255,
-              255}),
           smooth=Smooth.None),            Line(
           points={{-40,0},{-20,40},{0,0},{20,-40},{40,0}},
           color={120,120,120},
           smooth=Smooth.Bezier),          Line(
           points={{-24,0},{-4,40},{16,0},{36,-40},{56,0}},
           color={215,215,215},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{-24,-92},{16,-92}},
+          color=DynamicSelect({0,0,120}, if definiteReference then {0,120,120}
+               else {255,255,255}),
+          smooth=Smooth.None,
+          thickness=0.5),
+        Line(
+          points={{-24,-92},{2,-66}},
+          color=DynamicSelect({0,0,120}, if definiteReference then {0,120,120}
+               else {255,255,255}),
+          smooth=Smooth.None,
+          thickness=0.5),
+        Line(
+          points={{-2,-68},{10,-76},{14,-94}},
+          color=DynamicSelect({0,0,120}, if definiteReference then {0,120,120}
+               else {255,255,255}),
           smooth=Smooth.Bezier)}),
       Documentation(info="<html>
 

@@ -47,25 +47,23 @@ equation
           lineColor={0,120,120},
           textString="%name"),
         Line(
-          points={{0,-120},{0,-100}},
-          color=DynamicSelect({0,0,120}, if definiteReference then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
+          points={{-20,-130},{20,-130}},
+          color=DynamicSelect({0,0,120}, if definiteReference then {0,120,120}
+               else {255,255,255}),
+          smooth=Smooth.None,
+          thickness=0.5),
         Line(
-          points={{-20,-120},{20,-120}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
+          points={{-20,-130},{6,-104}},
+          color=DynamicSelect({0,0,120}, if definiteReference then {0,120,120}
+               else {255,255,255}),
+          smooth=Smooth.None,
+          thickness=0.5),
         Line(
-          points={{-12,-126},{12,-126}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
-        Line(
-          points={{-6,-132},{8,-132}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=false,
+          points={{2,-106},{14,-114},{18,-132}},
+          color=DynamicSelect({0,0,120}, if definiteReference then {0,120,120}
+               else {255,255,255}),
+          smooth=Smooth.Bezier)}),
+                                 Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics),
     Documentation(info="<html>
 <p>

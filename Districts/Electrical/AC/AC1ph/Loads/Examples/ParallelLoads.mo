@@ -3,7 +3,7 @@ model ParallelLoads
   "Example that illustrates the use of the load models at constant voltage"
   import Districts;
   extends Modelica.Icons.Example;
-  Districts.Electrical.AC.AC1ph.Loads.LoadRL           varRL(P_nominal=1e3, mode=
+  Districts.Electrical.AC.AC1ph.Loads.InductiveLoadP   varRL(P_nominal=1e3, mode=
         Districts.Electrical.Types.Assumption.VariableZ_y_input)
     "Variable inductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -16,25 +16,25 @@ model ParallelLoads
         origin={-70,10})));
   Modelica.Blocks.Sources.Ramp load(duration=0.5, startTime=0.2)
     annotation (Placement(transformation(extent={{80,40},{60,60}})));
-  Districts.Electrical.AC.AC1ph.Loads.LoadRL
+  Districts.Electrical.AC.AC1ph.Loads.InductiveLoadP
                                RL(P_nominal=1e3)
     "Constant inductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,30})));
-  Districts.Electrical.AC.AC1ph.Loads.LoadRC            varRC(P_nominal=1e3, mode=
+  Districts.Electrical.AC.AC1ph.Loads.CapacitiveLoadP   varRC(P_nominal=1e3, mode=
         Districts.Electrical.Types.Assumption.VariableZ_y_input)
     "Variable conductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,10})));
-  Districts.Electrical.AC.AC1ph.Loads.LoadRC
-                                RC(P_nominal=1e3)
+  Districts.Electrical.AC.AC1ph.Loads.CapacitiveLoadP
+                                RC(P_nominal=1e3, mode=Districts.Electrical.Types.Assumption.FixedZ_steady_state)
     "Constant conductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-10})));
-  Districts.Electrical.AC.AC1ph.Loads.LoadR
+  Districts.Electrical.AC.AC1ph.Loads.ResistiveLoadP
                        R(P_nominal=1e3) "Resistive load"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,

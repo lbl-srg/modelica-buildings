@@ -1,8 +1,7 @@
 within Districts.Electrical.AC.AC1ph.Sources.Examples;
 model VariablePowerSource
   extends Modelica.Icons.Example;
-  Generator generator(f=50, Phi(displayUnit="deg") = 0.26179938779915,
-    definiteReference=false)
+  Generator generator(f=50, Phi(displayUnit="deg") = 0.26179938779915)
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Modelica.Blocks.Sources.Sine generation(
     amplitude=50,
@@ -10,7 +9,7 @@ model VariablePowerSource
     startTime=1,
     freqHz=0.1)
     annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));
-  Loads.LoadRL           R(P_nominal=300, mode=Districts.Electrical.Types.Assumption.VariableZ_y_input)
+  Loads.InductiveLoadP   R(P_nominal=300, mode=Districts.Electrical.Types.Assumption.VariableZ_y_input)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Grid grid(
     f=50,

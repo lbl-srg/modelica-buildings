@@ -6,15 +6,18 @@ model AClineConversion
     Phi=0,
     V=380)
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Loads.LoadRL   load1(
+  Loads.InductiveLoadP
+                 load1(
     V_nominal=220,
     P_nominal=150,
     mode=Districts.Electrical.Types.Assumption.FixedZ_dynamic)
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Line line1(
-    Length=2000,
+    l=2000,
     V_nominal=380,
-    P_nominal=3500)
+    P_nominal=3500,
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu25())
     annotation (Placement(transformation(extent={{-52,-10},{-32,10}})));
   Conversion.ACACConverter aCACConverter(
     conversionFactor=220/380,
@@ -24,7 +27,9 @@ model AClineConversion
   Line line2(
     V_nominal=220,
     P_nominal=3500,
-    Length=500)
+    l=500,
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu25())
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 equation
   connect(E.terminal, line1.terminal_n) annotation (Line(

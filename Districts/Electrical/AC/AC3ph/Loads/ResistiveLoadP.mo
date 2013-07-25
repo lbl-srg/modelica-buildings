@@ -1,5 +1,5 @@
 within Districts.Electrical.AC.AC3ph.Loads;
-model LoadR "Model of a resistive load"
+model ResistiveLoadP "Model of a resistive load"
   extends Districts.Electrical.Interfaces.PartialLoad(redeclare package
       PhaseSystem = Districts.Electrical.PhaseSystems.ThreePhase_dq, redeclare
       Interfaces.Terminal_n terminal);
@@ -91,4 +91,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end LoadR;
+end ResistiveLoadP;

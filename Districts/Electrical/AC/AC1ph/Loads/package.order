@@ -1,5 +1,5 @@
-LoadR
-LoadRL
-LoadRC
+ResistiveLoadP
+InductiveLoadP
+CapacitiveLoadP
 Impedance
 Examples

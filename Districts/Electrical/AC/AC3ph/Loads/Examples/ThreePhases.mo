@@ -10,8 +10,7 @@ model ThreePhases
   Impedance Z(
     R=10,
     L=1/(2*Modelica.Constants.pi*50),
-    inductive=false,
-    star=true)
+    inductive=false)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 equation
   connect(V.terminal, Z.terminal) annotation (Line(

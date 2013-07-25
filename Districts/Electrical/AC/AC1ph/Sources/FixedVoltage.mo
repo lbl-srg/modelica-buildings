@@ -14,8 +14,8 @@ equation
   thetaRel = PhaseSystem.thetaRel(terminal.theta);
   terminal.v = PhaseSystem.phaseVoltages(V, thetaRel + Phi);
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
                    graphics={
         Ellipse(
           extent={{-60,60},{60,-60}},
@@ -34,25 +34,22 @@ equation
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-20,-100},{20,-100}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
+          points={{-20,-90},{20,-90}},
+          color=DynamicSelect({0,0,120}, if definiteReference then {0,120,120}
+               else {255,255,255}),
+          smooth=Smooth.None,
+          thickness=0.5),
         Line(
-          points={{0,-100},{0,-60}},
-          color=DynamicSelect({0,0,120}, if definiteReference then {0,120,
-              120} else {255,255,255}),
-          smooth=Smooth.None),
+          points={{-20,-90},{6,-64}},
+          color=DynamicSelect({0,0,120}, if definiteReference then {0,120,120}
+               else {255,255,255}),
+          smooth=Smooth.None,
+          thickness=0.5),
         Line(
-          points={{-12,-106},{12,-106}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None),
-        Line(
-          points={{-6,-112},{8,-112}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120} else {255,255,
-              255}),
-          smooth=Smooth.None)}),
+          points={{2,-66},{14,-74},{18,-92}},
+          color=DynamicSelect({0,0,120}, if definiteReference then {0,120,120}
+               else {255,255,255}),
+          smooth=Smooth.Bezier)}),
       Documentation(info="<html>
 
 <p>

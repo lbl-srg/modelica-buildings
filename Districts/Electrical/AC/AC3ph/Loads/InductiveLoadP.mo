@@ -1,5 +1,5 @@
 within Districts.Electrical.AC.AC3ph.Loads;
-model LoadRL "Model of an inductive and resistive load"
+model InductiveLoadP "Model of an inductive and resistive load"
   extends Districts.Electrical.Interfaces.PartialInductiveLoad(redeclare
       package PhaseSystem = Districts.Electrical.PhaseSystems.ThreePhase_dq, redeclare
       Interfaces.Terminal_n terminal);
@@ -166,4 +166,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end LoadRL;
+end InductiveLoadP;
