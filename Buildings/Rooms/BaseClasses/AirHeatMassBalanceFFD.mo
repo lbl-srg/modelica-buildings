@@ -14,8 +14,7 @@ model AirHeatMassBalanceFFD
     "First sample time instant. fixme: this should be at first step."
     annotation(Dialog(group = "Sampling"));
 
-  // fixme: for the ffd instance, need to correctly assign uStart, flaWri and yFixed,
-  //        and need to connect the fluid port variables to it.
+  // fixme: for the ffd instance, need to correctly assign uStart, flaWri and yFixed
   FFDExchange ffd(
     final startTime=startTime,
     final activateInterface=useFFD,
@@ -115,8 +114,13 @@ protected
     redeclare final package Medium = Medium) "Fluid interface"
     annotation (Placement(transformation(extent={{10,-198},{-10,-178}})));
 
-  // The following list declares the first index of the input and output signals
-  // to the FFD block
+  // The following list declares the first index minus 1
+  // of the input and output signals to the FFD block.
+  // These parameters are then used to loop over the connectors, such
+  // as
+  //    for i in kConExt+1:kConExt+nConExt loop
+  //      ...
+  //    end for;
   final parameter Integer kConExt = 0
     "Offset used to connect FFD signals to conExt";
   final parameter Integer kConExtWin = kConExt + nConExt
@@ -136,11 +140,13 @@ protected
   final parameter Integer kSurBou = kConBou + nConBou
     "Offset used to connect FFD signals to surBou";
   final parameter Integer kHeaPorAir = kSurBou + nSurBou
-    "Offset used to connect FFD output signal to air heat port (for temperature)";
+    "Offset used to connect FFD output signal to air heat port (to send average temperature from FFD to Modelica)";
   final parameter Integer kUSha = kHeaPorAir + 1
     "Offset used to connect FFD signals to input signal of shade";
   final parameter Integer kQRadAbs_flow = if haveShade then kUSha + nConExtWin else kUSha
     "Offset used to connect FFD signals to input signal that contains the radiation absorbed by the shade";
+  // Because heaPorAir is only receiving T from FFD, but does not send Q_flow to FFD, there is no '+1' increment
+  // for kTSha
   final parameter Integer kTSha = kHeaPorAir
     "Offset used to connect FFD signals to output signal that contains the shade temperature";
 
@@ -246,100 +252,109 @@ equation
   end if;
 
   if haveConExtWin then
-    // fixme: expand this loop as is done for ffdConExt
-    connect(ffd.u[kConExtWin:kGlaUns-1], ffdConExtWin.T)
-        annotation (Line(
-        points={{-42,190},{-60,190},{-60,176},{179,176}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(ffd.y[kConExtWin:kGlaUns-1], ffdConExtWin.Q_flow)
-        annotation (Line(
-        points={{-19,190},{60,190},{60,186},{178,186}},
-        color={0,0,127},
-        smooth=Smooth.None));
+    for i in 1:nConExtWin loop
+      connect(ffd.u[kConExtWin+i], ffdConExtWin.T[i])
+          annotation (Line(
+          points={{-42,190},{-60,190},{-60,176},{179,176}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(ffd.y[kConExtWin+i], ffdConExtWin.Q_flow[i])
+          annotation (Line(
+          points={{-19,190},{60,190},{60,186},{178,186}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(ffd.u[kGlaUns+i], ffdGlaUns.T[i])
+          annotation (Line(
+          points={{-42,190},{-60,190},{-60,116},{179,116}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(ffd.y[kGlaUns+i], ffdGlaUns.Q_flow[i])
+          annotation (Line(
+          points={{-19,190},{60,190},{60,126},{178,126}},
+          color={0,0,127},
+          smooth=Smooth.None));
 
-    connect(ffd.u[kGlaUns:kGlaSha-1], ffdGlaUns.T)
-        annotation (Line(
-        points={{-42,190},{-60,190},{-60,116},{179,116}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(ffd.y[kGlaUns:kGlaSha-1], ffdGlaUns.Q_flow)
-        annotation (Line(
-        points={{-19,190},{60,190},{60,126},{178,126}},
-        color={0,0,127},
-        smooth=Smooth.None));
-
-    connect(ffd.u[kConExtWinFra:kConPar_a-1], ffdConExtWinFra.T)
-        annotation (Line(
-        points={{-42,190},{-60,190},{-60,-4},{179,-4}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(ffd.y[kConExtWinFra:kConPar_a-1], ffdConExtWinFra.Q_flow)
-        annotation (Line(
-        points={{-19,190},{60,190},{60,6},{178,6}},
-        color={0,0,127},
-        smooth=Smooth.None));
+      connect(ffd.u[kConExtWinFra+i], ffdConExtWinFra.T[i])
+          annotation (Line(
+          points={{-42,190},{-60,190},{-60,-4},{179,-4}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(ffd.y[kConExtWinFra+i], ffdConExtWinFra.Q_flow[i])
+          annotation (Line(
+          points={{-19,190},{60,190},{60,6},{178,6}},
+          color={0,0,127},
+          smooth=Smooth.None));
+    end for;
   end if;
+
   if haveShade then
-    connect(ffd.u[kGlaSha:kConExtWinFra-1], ffdGlaSha.T)
-        annotation (Line(
-        points={{-42,190},{-60,190},{-60,76},{179,76}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(ffd.y[kGlaSha:kConExtWinFra-1], ffdGlaSha.Q_flow)
-        annotation (Line(
-        points={{-19,190},{60,190},{60,86},{178,86}},
-        color={0,0,127},
-        smooth=Smooth.None));
+    for i in 1:nConExtWin loop
+      connect(ffd.u[kGlaSha+i], ffdGlaSha.T[i])
+          annotation (Line(
+          points={{-42,190},{-60,190},{-60,76},{179,76}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(ffd.y[kGlaSha+i], ffdGlaSha.Q_flow[i])
+          annotation (Line(
+          points={{-19,190},{60,190},{60,86},{178,86}},
+          color={0,0,127},
+          smooth=Smooth.None));
+    end for;
   end if;
 
   if haveConPar then
-    connect(ffd.u[kConPar_a:kConPar_b-1], ffdConPar_a.T)
-        annotation (Line(
-        points={{-42,190},{-60,190},{-60,-64},{179,-64}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(ffd.y[kConPar_a:kConPar_b-1], ffdConPar_a.Q_flow)
-        annotation (Line(
-        points={{-19,190},{60,190},{60,-54},{178,-54}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(ffd.u[kConPar_b:kConBou-1], ffdConPar_b.T)
-        annotation (Line(
-        points={{-42,190},{-60,190},{-60,-104},{179,-104}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(ffd.y[kConPar_b:kConBou-1], ffdConPar_b.Q_flow)
-        annotation (Line(
-        points={{-19,190},{60,190},{60,-94},{178,-94}},
-        color={0,0,127},
-        smooth=Smooth.None));
+    for i in 1:nConPar loop
+      connect(ffd.u[kConPar_a+i], ffdConPar_a.T[i])
+          annotation (Line(
+          points={{-42,190},{-60,190},{-60,-64},{179,-64}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(ffd.y[kConPar_a+i], ffdConPar_a.Q_flow[i])
+          annotation (Line(
+          points={{-19,190},{60,190},{60,-54},{178,-54}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(ffd.u[kConPar_b+i], ffdConPar_b.T[i])
+          annotation (Line(
+          points={{-42,190},{-60,190},{-60,-104},{179,-104}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(ffd.y[kConPar_b+i], ffdConPar_b.Q_flow[i])
+          annotation (Line(
+          points={{-19,190},{60,190},{60,-94},{178,-94}},
+          color={0,0,127},
+          smooth=Smooth.None));
+    end for;
   end if;
 
   if haveConBou then
-    connect(ffd.u[kConBou:kSurBou-1], ffdConBou.T)
-        annotation (Line(
-        points={{-42,190},{-60,190},{-60,-164},{179,-164}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(ffd.y[kConBou:kSurBou-1], ffdConBou.Q_flow)
-        annotation (Line(
-        points={{-19,190},{60,190},{60,-154},{178,-154}},
-        color={0,0,127},
-        smooth=Smooth.None));
+    for i in 1:nConBou loop
+      connect(ffd.u[kConBou+i], ffdConBou.T[i])
+          annotation (Line(
+          points={{-42,190},{-60,190},{-60,-164},{179,-164}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(ffd.y[kConBou+i], ffdConBou.Q_flow[i])
+          annotation (Line(
+          points={{-19,190},{60,190},{60,-154},{178,-154}},
+          color={0,0,127},
+          smooth=Smooth.None));
+    end for;
   end if;
 
   if haveSurBou then
-    connect(ffd.u[kSurBou:kHeaPorAir-1], ffdSurBou.T)
-        annotation (Line(
-        points={{-42,190},{-60,190},{-60,-224},{179,-224}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(ffd.y[kSurBou:kHeaPorAir-1], ffdSurBou.Q_flow)
-        annotation (Line(
-        points={{-19,190},{60,190},{60,-214},{178,-214}},
-        color={0,0,127},
-        smooth=Smooth.None));
+    for i in 1:nSurBou loop
+      connect(ffd.u[kSurBou+i], ffdSurBou.T[i])
+          annotation (Line(
+          points={{-42,190},{-60,190},{-60,-224},{179,-224}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(ffd.y[kSurBou+i], ffdSurBou.Q_flow[i])
+          annotation (Line(
+          points={{-19,190},{60,190},{60,-214},{178,-214}},
+          color={0,0,127},
+          smooth=Smooth.None));
+    end for;
   end if;
 
   connect(ffdConExt.port, conExt) annotation (Line(
@@ -347,7 +362,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(ffdConExtWin.port, conExtWin) annotation (Line(
-      points={{200,180},{220,180},{220,180},{240,180}},
+      points={{200,180},{240,180}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(ffdGlaUns.port, glaUns) annotation (Line(
@@ -380,7 +395,7 @@ equation
       smooth=Smooth.None));
   // Connections to heat port of air volume
   connect(ffd.y[kHeaPorAir], ffdHeaPorAir.T) annotation (Line(
-      points={{-19,190},{60,190},{60,8.88178e-16},{-180,8.88178e-16}},
+      points={{-19,190},{60,190},{60,0},{-180,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ffdHeaPorAir.port, heaPorAir) annotation (Line(
@@ -388,61 +403,83 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   // Connections to shade
-  connect(ffd.u[kUSha:kQRadAbs_flow-1], uSha) annotation (Line(
-      points={{-42,190},{-60,190},{-60,200},{-260,200}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(ffd.u[kQRadAbs_flow:kFluIntP1-1], QRadAbs_flow) annotation (Line(
-      points={{-42,190},{-60,190},{-60,90},{-260,90}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(ffd.y[kTSha:kFluIntP2nPorts-1], TSha) annotation (Line(
-      points={{-19,190},{60,190},{60,60},{-250,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  if haveShade then
+    for i in 1:nConExtWin loop
+      connect(ffd.u[kUSha+i], uSha[i]) annotation (Line(
+          points={{-42,190},{-60,190},{-60,200},{-260,200}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(ffd.u[kQRadAbs_flow+i], QRadAbs_flow_internal[i]) annotation (Line(
+          points={{-42,190},{-60,190},{-60,90},{-260,90}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(ffd.y[kTSha+i], TSha_internal[i]) annotation (Line(
+          points={{-19,190},{60,190},{60,60},{-250,60}},
+          color={0,0,127},
+          smooth=Smooth.None));
+    end for;
+  end if;
+  // Connections to fluid port
   connect(ports, fluInt.ports) annotation (Line(
       points={{0,-238},{0,-198}},
       color={0,127,255},
       smooth=Smooth.None));
+
   // Output signals from fluInt block
+
+  // The pressure of ports[1] will be sent from Modelica to FFD
   connect(ffd.u[kFluIntP1], fluInt.p1) annotation (Line(
       points={{-42,190},{-60,190},{-60,-180},{-11,-180}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ffd.u[kFluIntM_flow:kFluIntT_inflow-1], fluInt.m_flow) annotation (Line(
-      points={{-42,190},{-60,190},{-60,-184},{-11,-184}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(ffd.u[kFluIntT_inflow:kFluIntXi_inflow-1], fluInt.T_inflow) annotation (Line(
-      points={{-42,190},{-60,190},{-60,-188},{-11,-188}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(ffd.u[kFluIntXi_inflow:kFluIntC_inflow-1], fluInt.Xi_inflow) annotation (Line(
-      points={{-42,190},{-60,190},{-60,-192},{-11,-192}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(ffd.u[kFluIntC_inflow:kFluIntC_inflow+nPorts*Medium.nC-1], fluInt.C_inflow) annotation (Line(
-      points={{-42,190},{-60,190},{-60,-196},{-11,-196}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  for i in 1:nPorts loop
+    connect(ffd.u[kFluIntM_flow+i], fluInt.m_flow[i]) annotation (Line(
+        points={{-42,190},{-60,190},{-60,-184},{-11,-184}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(ffd.u[kFluIntT_inflow+i], fluInt.T_inflow[i]) annotation (Line(
+        points={{-42,190},{-60,190},{-60,-188},{-11,-188}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    for j in 1:Medium.nXi loop
+      connect(ffd.u[kFluIntXi_inflow+(i-1)*Medium.nXi+j], fluInt.Xi_inflow[(i-1)*Medium.nXi+j]) annotation (Line(
+          points={{-42,190},{-60,190},{-60,-192},{-11,-192}},
+          color={0,0,127},
+          smooth=Smooth.None));
+    end for;
+    for j in 1:Medium.nC loop
+      connect(ffd.u[kFluIntC_inflow+(i-1)*Medium.nC+j], fluInt.C_inflow[(i-1)*Medium.nC+j]) annotation (Line(
+          points={{-42,190},{-60,190},{-60,-196},{-11,-196}},
+          color={0,0,127},
+          smooth=Smooth.None));
+    end for;
+  end for;
   // Input signals to fluInt block
-  connect(ffd.y[kFluIntP2nPorts:kFluIntT_outflow-1], fluInt.p) annotation (Line(
-      points={{-19,190},{60,190},{60,-180},{12,-180}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(ffd.y[kFluIntT_outflow:kFluIntXi_outflow-1], fluInt.T_outflow) annotation (Line(
-      points={{-19,190},{60,190},{60,-188},{12,-188}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(ffd.y[kFluIntXi_outflow:kFluIntC_outflow-1], fluInt.Xi_outflow) annotation (Line(
-      points={{-19,190},{60,190},{60,-192},{12,-192}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(ffd.y[kFluIntC_outflow:kFluIntC_outflow+Medium.nC*nPorts-1], fluInt.C_outflow) annotation (Line(
-      points={{-19,190},{60,190},{60,-196},{12,-196}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
+  // The pressures of ports[2:nPorts] will be sent from FFD to Modelica
+  for i in 1:nPorts-1 loop
+    connect(ffd.y[kFluIntP2nPorts+i], fluInt.p[i]) annotation (Line(
+        points={{-19,190},{60,190},{60,-180},{12,-180}},
+        color={0,0,127},
+        smooth=Smooth.None));
+  end for;
+  for i in 1:nPorts loop
+    connect(ffd.y[kFluIntT_outflow+i], fluInt.T_outflow[i]) annotation (Line(
+        points={{-19,190},{60,190},{60,-188},{12,-188}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    for j in 1:Medium.nXi loop
+      connect(ffd.y[kFluIntXi_outflow+(i-1)*Medium.nXi+j], fluInt.Xi_outflow[(i-1)*Medium.nXi+j]) annotation (Line(
+          points={{-19,190},{60,190},{60,-192},{12,-192}},
+          color={0,0,127},
+          smooth=Smooth.None));
+    end for;
+    for j in 1:Medium.nC loop
+      connect(ffd.y[kFluIntC_outflow+(i-1)*Medium.nC+j], fluInt.C_outflow[(i-1)*Medium.nC+j]) annotation (Line(
+          points={{-19,190},{60,190},{60,-196},{12,-196}},
+          color={0,0,127},
+          smooth=Smooth.None));
+    end for;
+  end for;
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,
