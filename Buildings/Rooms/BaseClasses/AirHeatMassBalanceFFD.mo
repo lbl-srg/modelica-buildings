@@ -112,10 +112,10 @@ protected
   final parameter Integer kTSha = kHeaPorAir + 1
     "Offset used to connect FFD signals to output signal that contains the shade temperature";
 
-  final parameter Integer kFluIntP1 = if haveShade then kQRadAbs_flow + nConExtWin else kQRadAbs_flow
+  final parameter Integer kFluIntP = if haveShade then kQRadAbs_flow + nConExtWin else kQRadAbs_flow
     "Offset used to connect FFD signals to input signal for pressure from the fluid ports";
 
-  final parameter Integer kFluIntM_flow = kFluIntP1 + 1
+  final parameter Integer kFluIntM_flow = kFluIntP + 1
     "Offset used to connect FFD signals to input signals for mass flow rate from the fluid ports";
   final parameter Integer kFluIntT_inflow = kFluIntM_flow + nPorts
     "Offset used to connect FFD signals to input signals for inflowing temperature from the fluid ports";
@@ -126,9 +126,9 @@ protected
     "Offset used to connect FFD signals to input signals for inflowing trace substances from the fluid ports";
 
   // Input signals to fluInt block
-  final parameter Integer kFluIntP2nPorts = if haveShade then kTSha + nConExtWin else kTSha
-    "Offset used to connect FFD signals to output signals for the fluid ports";
-  final parameter Integer kFluIntT_outflow = kFluIntP2nPorts+(nPorts-1)
+//  final parameter Integer kFluIntP2nPorts = if haveShade then kTSha + nConExtWin else kTSha
+//    "Offset used to connect FFD signals to output signals for the fluid ports";
+  final parameter Integer kFluIntT_outflow = if haveShade then kTSha + nConExtWin else kTSha
     "Offset used to connect FFD signals to outgoing temperature for the fluid ports";
   final parameter Integer kFluIntXi_outflow = kFluIntT_outflow+nPorts
     "Offset used to connect FFD signals to outgoing species concentration for the fluid ports";
@@ -327,8 +327,8 @@ equation
 
   // Output signals from fluInt block
 
-  // The pressure of ports[1] will be sent from Modelica to FFD
-  connect(ffd.u[kFluIntP1+1], fluInt.p1) annotation (Line(
+  // The pressure the air volume will be sent from Modelica to FFD
+  connect(ffd.u[kFluIntP+1], fluInt.p) annotation (Line(
       points={{-42,190},{-60,190},{-60,-180},{-11,-180}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -357,10 +357,6 @@ equation
   // Input signals to fluInt block
   // The pressures of ports[2:nPorts] will be sent from FFD to Modelica
   for i in 1:nPorts-1 loop
-    connect(ffd.y[kFluIntP2nPorts+i], fluInt.p[i]) annotation (Line(
-        points={{-19,190},{60,190},{60,-180},{12,-180}},
-        color={0,0,127},
-        smooth=Smooth.None));
   end for;
   for i in 1:nPorts loop
     connect(ffd.y[kFluIntT_outflow+i], fluInt.T_outflow[i]) annotation (Line(
