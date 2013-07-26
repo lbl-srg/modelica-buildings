@@ -1,0 +1,19 @@
+simulateModel("Buildings.Rooms.BaseClasses.Examples.FFDExchange", stopTime=10, method="dassl", resultFile="FFDExchange");
+createPlot(id = 1,
+ position = {15, 10, 847, 513},
+ y = {"ffd.y[1]", "ffd.y[2]", "ffd.y[3]", "ffd.uWri[1]", "ffd.uWri[2]", "ffd.uWri[3]"},
+ range = {0.0, 10.0, -2.0, 20.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "FFDExchange.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}},
+ markers = {MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, 
+MarkerStyle.None, MarkerStyle.Cross});
+

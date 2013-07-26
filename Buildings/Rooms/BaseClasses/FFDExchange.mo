@@ -53,7 +53,10 @@ protected
       "The exit value, which is negative if an error occured";
 
   algorithm
-      Q_flow :=zeros(nQ_flow);
+      flaRea    := 0;
+      simTimRea := t+dt;
+      Q_flow    :=zeros(nQ_flow);
+      retVal    := 0;
   end exchangeFFD;
 
 initial algorithm
@@ -79,23 +82,28 @@ initial algorithm
       simTimRea := time;
       y := yFixed;
       retVal := 0;
-      end if;
+    end if;
+equation
+   for i in 1:nWri loop
+      der(uInt[i]) = if (flaWri[i] > 0) then u[i] else 0;
+   end for;
 algorithm
   when sampleTrigger then
      // Compute value that will be sent to the FFD interface
      for i in 1:nWri loop
        if (flaWri[i] == 0) then
          uWri[i] :=pre(u[i]);  // Send the current value.
-                                 // Without the pre(), Dymola 7.2 crashes during translation of Examples.MoistAir
+                               // Without the pre(), Dymola 7.2 crashes during translation of Examples.MoistAir
        else
-         uWri[i] :=uInt[i] - uIntPre[i]; // Integral over the sampling interval
          if (flaWri[i] == 1) then
-            uWri[i] := uWri[i]/samplePeriod;   // Average value over the sampling interval
+            uWri[i] := (uInt[i] - uIntPre[i])/samplePeriod;   // Average value over the sampling interval
+         else
+            uWri[i] :=uInt[i] - uIntPre[i]; // Integral over the sampling interval
          end if;
        end if;
       end for;
      // Exchange data
-if activateInterface then
+    if activateInterface then
       (flaRea, simTimRea, y, retVal) :=exchangeFFD(
         flag=0,
         t=time,
@@ -104,10 +112,10 @@ if activateInterface then
         nT=size(u, 1),
         nQ_flow=size(y, 1));
     else
-      flaRea :=0;
-      simTimRea :=time;
-      y :=yFixed;
-      retVal :=0;
+      flaRea    := 0;
+      simTimRea := time;
+      y         := yFixed;
+      retVal    := 0;
       end if;
     // Check for valid return flags
     assert(flaRea >= 0, "FFD sent a negative flag to Modelica during data transfer.\n" +
@@ -118,7 +126,7 @@ if activateInterface then
                         "   Received: retVal = " + String(retVal));
 
     // Store current value of integral
-  uIntPre:=uInt;
+    uIntPre:=uInt;
   end when;
 
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})),
