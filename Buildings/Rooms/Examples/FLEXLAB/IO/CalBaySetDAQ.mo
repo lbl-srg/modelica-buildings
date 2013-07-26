@@ -7,6 +7,13 @@ model CalBaySetDAQ "Block calling a Python script to send signals to CalBay"
   parameter String functionName=moduleName "Name of the python function";
   parameter String Login "Login used in the CalBay system";
   parameter String Password "Password used in the CalBay system";
+  parameter Buildings.Rooms.Examples.FLEXLAB.Types.Signal Signal
+    "Type of signal used in communication with CalBay"
+    annotation(choicesAllMatching=true);
+  parameter Buildings.Rooms.Examples.FLEXLAB.Types.Server Server
+    "CalBay server used in the current communication"
+    annotation(choicesAllMatching=true);
+  parameter String Channel "Channel on the server used for communication";
 
   parameter Integer nDblRea
     "Number of real variables to be read from the Python script";
@@ -15,6 +22,8 @@ model CalBaySetDAQ "Block calling a Python script to send signals to CalBay"
     "Concatenate the three inputs to the string needed in Python";
 
   String Command "Command being sent to CalBay";
+  String SignalType "Type of signal to send to CalBay";
+  String Receiver "Server receiving the command";
 
   Modelica.Blocks.Interfaces.RealOutput yR[nDblRea]
     "Real outputs received from Python"
@@ -22,14 +31,28 @@ model CalBaySetDAQ "Block calling a Python script to send signals to CalBay"
   Modelica.Blocks.Interfaces.BooleanInput u
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 algorithm
+//initial equation, python function to get current time. Use current time in this model
+//include   when {sampleTrigger} then for real-time use
 
-    if u == true then
-      Command :="SetDAQ:WattStopper.HS1--4126F--Light Level-1:1";
+    if Signal == Buildings.Rooms.Examples.FLEXLAB.Types.Signal.GetDAQ then
+      SignalType :="GetDAQ";
     else
-      Command :="SetDAQ:WattStopper.HS1--4126F--Light Level-1:0";
+      SignalType :="SetDAQ";
     end if;
 
-    SendString :=Command + ":" + Login + ":" + Password;
+    if Server == Buildings.Rooms.Examples.FLEXLAB.Types.Server.FourthFloor then
+      Receiver :="4th Floor";
+    else
+      Receiver :="WattStopper.HS1";
+    end if;
+
+    if u == true then
+      Command :="1";
+    else
+      Command :="0";
+    end if;
+
+    SendString :=SignalType + ":" + Receiver + Channel + ":" + Command + ":" + Login + ":" + Password;
 
     // Exchange data
     yR :=Buildings.Utilities.IO.Python27.Functions.exchange(

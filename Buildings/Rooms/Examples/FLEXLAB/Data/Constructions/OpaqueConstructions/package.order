@@ -1,5 +1,7 @@
 ASHRAE901Roof
-ExteriorDoor
+ElectricalRoomExteriorWall
+ExteriorDoorUninsulated
+ExteriorDoorInsulated
 HighInsulExtWall
 ModInsulExtWall
 PartitionDoor
