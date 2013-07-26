@@ -1,7 +1,9 @@
 within Buildings.Rooms.BaseClasses;
 model AirHeatMassBalanceFFD
   "Heat and mass balance of the air based on fast fluid flow dynamics"
-  extends Buildings.Rooms.BaseClasses.PartialAirHeatMassBalance;
+  extends Buildings.Rooms.BaseClasses.PartialAirHeatMassBalance(
+   energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
+   massDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial);
 
   parameter Boolean useFFD = true
     "Set to false to deactivate the FFD interface and use instead yFixed as output"
@@ -71,8 +73,14 @@ protected
     annotation (Placement(transformation(extent={{-182,-10},{-202,10}})));
 
   FFDFluidInterface fluInt(
-    nPorts=nPorts,
-    redeclare final package Medium = Medium) "Fluid interface"
+    redeclare final package Medium = Medium,
+    final nPorts=nPorts,
+    final V=V,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
+    final C_nominal=C_nominal) "Fluid interface"
     annotation (Placement(transformation(extent={{10,-198},{-10,-178}})));
 
   // The following list declares the first index minus 1

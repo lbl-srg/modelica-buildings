@@ -1,22 +1,20 @@
 within Buildings.Rooms.BaseClasses;
 model FFDFluidInterface
  extends Buildings.BaseClasses.BaseIcon;
-
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
+ // fixme: check if C_start and similar variables are used in FFD
+ extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+   final energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
+   massDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial);
 
   parameter Integer nPorts(final min=2)=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
 
-  // Initialization
-  parameter Medium.AbsolutePressure p_start = Medium.p_default
-    "Start value of pressure"
-    annotation(Dialog(tab = "Initialization"));
-  parameter Modelica.SIunits.Volume V = 1 "Volume. Fixme: propagate V";
-  final parameter Modelica.SIunits.Mass m_start = 1.2 * V
+  parameter Modelica.SIunits.Volume V "Volume";
+  final parameter Modelica.SIunits.Mass m_start = rho_start * V
     "Initial mass of air inside the room. Fixme: use actual density.";
+
   Modelica.Blocks.Interfaces.RealInput T_outflow[nPorts](
+  each start=T_start,
   each min=200,
   each nominal=300,
   each unit="K",
@@ -34,6 +32,7 @@ model FFDFluidInterface
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
   Modelica.Blocks.Interfaces.RealOutput p(
+    start=p_start,
     min=80000,
     nominal=100000,
     max=120000,
@@ -44,6 +43,7 @@ model FFDFluidInterface
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
   Modelica.Blocks.Interfaces.RealOutput T_inflow[nPorts](
+  each start=T_start,
   each min=200,
   each nominal=300,
   each unit="K",
@@ -69,6 +69,13 @@ model FFDFluidInterface
       origin={0,-100})));
 
 protected
+  parameter Modelica.SIunits.Density rho_start=Medium.density(
+   Medium.setState_pTX(
+     T=T_start,
+     p=p_start,
+     X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass"
+    annotation (Evaluate=true);
+
   Modelica.Blocks.Interfaces.RealOutput Xi_inflow_internal[max(nPorts, nPorts*Medium.nXi)](
   min=0,
   max=1,
@@ -85,9 +92,27 @@ protected
   Modelica.Blocks.Interfaces.RealInput C_outflow_internal[max(nPorts, nPorts*Medium.nC)](
   each min=0) "Trace substances if m_flow < 0";
 
+  parameter Boolean initialize_p = not Medium.singleState
+    "= true to set up initial equations for pressure";
+  Modelica.SIunits.MassFlowRate[Medium.nXi] mbXi_flow
+    "Substance mass flows across boundaries";
+  Modelica.SIunits.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
+
 initial equation
   assert(nPorts >= 2, "The FFD model requires at least two fluid connections.");
-  p = 101325; //fixme
+
+  if massDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
+    if initialize_p then
+      p = p_start;
+    end if;
+  else
+    if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
+      if initialize_p then
+        der(p) = 0;
+      end if;
+    end if;
+  end if;
+
 equation
   // Internal connectors
   if Medium.nXi > 0 then
@@ -105,21 +130,21 @@ equation
     C_outflow_internal = fill(0, nPorts);
   end if;
 
-///////////// fixme
-///  connect(vol.ports, ports) annotation (Line(
-///      points={{2,-34},{2,-100},{0,-100}},
-///      color={0,127,255},
-///      smooth=Smooth.None));
-  //// fixme: outputs of this model
-/*  p1=1;
-  m_flow = fill(1, nPorts);
-  T_inflow = fill(1, nPorts);
-  Xi_inflow_internal = fill(0, max(nPorts, nPorts*Medium.nXi));
-  */
- // C_inflow_internal = fill(0, max(nPorts, nPorts*Medium.nC));
+  // Mass and pressure balance of bulk volume.
+  // The assumption is that change in temperature does not change the pressure.
+  // Otherwise, we would need to use the BaseProperties of the medium model.
+  for i in 1:nPorts loop
+    ports_mXi_flow[i,:] = ports[i].m_flow * actualStream(ports[i].Xi_outflow);
+  end for;
+  for i in 1:Medium.nXi loop
+    mbXi_flow[i] = sum(ports_mXi_flow[:,i]);
+  end for;
+  if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
+    0 = sum(ports.m_flow) + sum(mbXi_flow);
+  else
+    der(p) = p_start*(sum(ports.m_flow) + sum(mbXi_flow))/m_start;
+  end if;
 
-  // Pressure balance of bulk volume
-  der(p) = p_start/m_start * sum(ports.m_flow);
   // Connection of input signals to ports
   for i in 1:nPorts-1 loop
     ports[i].p = p;

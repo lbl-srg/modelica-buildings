@@ -10,6 +10,8 @@ partial model PartialAirHeatMassBalance
   parameter Boolean haveShade
     "Set to true if at least one window has an interior or exterior shade";
 
+  parameter Modelica.SIunits.Volume V "Volume";
+
   // Input/output signals
   Modelica.Blocks.Interfaces.RealInput uSha[NConExtWin] if haveShade
     "Input connector, used to scale the surface area to take into account an operable shading device, 0: unshaded; 1: fully shaded"
@@ -88,8 +90,8 @@ partial model PartialAirHeatMassBalance
                               annotation (Placement(transformation(extent={{231,
             -230},{251,-210}},   rotation=0)));
 
-protected
   // Surface areas
+protected
   final parameter Modelica.SIunits.Area AConExt[NConExt] = datConExt.A
     "Areas of exterior constructions";
   final parameter Modelica.SIunits.Area AConExtWinOpa[NConExtWin] = datConExtWin.AOpa
@@ -105,8 +107,6 @@ protected
   final parameter Modelica.SIunits.Area ASurBou[NSurBou] = surBou.A
     "Area of surface models of constructions that are modeled outside of this room";
 
-
-equation
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,

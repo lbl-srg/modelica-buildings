@@ -152,12 +152,6 @@ model MixedAir "Model of a room in which the air is completely mixed"
            {{166,166},{192,192}})));
 
   replaceable Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed air(
-    final V=V,
-    final p_start=p_start,
-    final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start,
-    final C_nominal=C_nominal,
     final m_flow_nominal=m_flow_nominal,
     final homotopyInitialization=homotopyInitialization,
     final conMod=intConMod,
@@ -177,7 +171,13 @@ model MixedAir "Model of a room in which the air is completely mixed"
         final datConPar=datConPar,
         final datConBou=datConBou,
         final surBou=surBou,
-        final haveShade=haveShade) "Convective heat and mass balance of air"
+        final haveShade=haveShade,
+        final V=V,
+        final p_start=p_start,
+        final T_start=T_start,
+        final X_start=X_start,
+        final C_start=C_start,
+        final C_nominal=C_nominal) "Convective heat and mass balance of air"
     annotation (Placement(transformation(extent={{40,-142},{64,-118}})));
 
   Buildings.Rooms.BaseClasses.SolarRadiationExchange solRadExc(

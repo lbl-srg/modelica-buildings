@@ -78,7 +78,6 @@ model FreeResponse
            each til=Buildings.HeatTransfer.Types.Tilt.Wall),
     linearizeRadiation = false,
     nPorts=1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     useFFD=false,
     lat=0.73268921998722,
     samplePeriod=60,

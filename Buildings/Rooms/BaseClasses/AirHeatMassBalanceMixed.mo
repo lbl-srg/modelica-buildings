@@ -9,8 +9,6 @@ model AirHeatMassBalanceMixed
   parameter Boolean homotopyInitialization "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Volume V "Volume";
-
   parameter Buildings.HeatTransfer.Types.InteriorConvection conMod
     "Convective heat transfer model for opaque constructions"
     annotation (Dialog(group="Convective heat transfer"));
@@ -101,9 +99,8 @@ model AirHeatMassBalanceMixed
        haveSurBou "Convective heat transfer"
     annotation (Placement(transformation(extent={{122,-230},{102,-210}})));
 
-protected
-
   // Thermal collectors
+protected
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExt(final m=nConExt) if
        haveConExt
     "Thermal collector to convert from vector to scalar connector"

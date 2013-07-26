@@ -5,7 +5,9 @@ model FFD
   redeclare BaseClasses.AirHeatMassBalanceFFD air(
     final useFFD=useFFD,
     final samplePeriod=samplePeriod,
-    final startTime=startTime));
+    final startTime=startTime),
+    final energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial);
 
   parameter Boolean useFFD = true
     "Set to false to deactivate the FFD computation and use instead yFixed as output"
