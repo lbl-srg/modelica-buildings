@@ -28,9 +28,6 @@ model AirHeatMassBalanceFFD
 protected
   constant Modelica.SIunits.Temperature T0 = 293.15
     "Temperature used for conditionally removed constructions";
-  Modelica.SIunits.Temperature TRooAve = T0
-    "fixme: average room air temperature";
-
   // Internal connectors
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExt_internal[NConExt]
     "Heat port that connects to room-side surface of exterior constructions";
@@ -234,8 +231,6 @@ equation
   else
     conSurBou_internal.T = {T0};
   end if;
-
-  heaPorAir.T = TRooAve;
 
   //////////////////////////////////////////////////////////////////////
   // Data exchange with FFD block
