@@ -28,42 +28,6 @@ model AirHeatMassBalanceFFD
 protected
   constant Modelica.SIunits.Temperature T0 = 293.15
     "Temperature used for conditionally removed constructions";
-  // Internal connectors
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExt_internal[NConExt]
-    "Heat port that connects to room-side surface of exterior constructions";
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWin_internal[NConExtWin]
-    "Heat port that connects to room-side surface of exterior constructions that contain a window";
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns_internal[NConExtWin]
-    "Heat port that connects to room-side surface of unshaded part of the window glass";
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha_internal[NConExtWin]
-    "Heat port that connects to room-side surface of shaded part of the window glass";
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWinFra_internal[NConExtWin]
-    "Heat port that connects to room-side surface of window frame";
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_a_internal[NConPar]
-    "Heat port that connects to room-side surface a of partition constructions";
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_b_internal[NConPar]
-    "Heat port that connects to room-side surface b of partition constructions";
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conBou_internal[NConBou]
-    "Heat port that connects to room-side surface of constructions that expose their other surface to the outside";
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conSurBou_internal[NSurBou]
-    "Heat port to surfaces of models that compute the heat conduction outside of this room";
-
-  Modelica.Blocks.Interfaces.RealInput uSha_internal[NConExtWin]
-    "Input connector, used to scale the surface area to take into account an operable shading device, 0: unshaded; 1: fully shaded";
-
-  Modelica.Blocks.Interfaces.RealInput QRadAbs_flow_internal[NConExtWin](
-  final unit="W")
-    "Total net radiation that is absorbed by the shade (positive if absorbed)";
-
-  Modelica.Blocks.Interfaces.RealOutput TSha_internal[NConExtWin](
-   final unit="K",
-   final quantity="ThermodynamicTemperature") "Shade temperature";
 
   // Interfaces between the FFD block and the heat ports of this model
   FFDSurfaceInterface ffdConExt(final n=NConExt) if haveConExt
@@ -172,66 +136,6 @@ protected
     "Offset used to connect FFD signals to outgoing trace substances for the fluid ports";
 
 equation
-  connect(conExt, conExt_internal);
-  if haveConExt then
-    conExt_internal.Q_flow = zeros(NConExt);
-  else
-    conExt_internal.T = fill(T0, NConExt);
-  end if;
-
-  connect(conExtWin, conExtWin_internal);
-  connect(glaUns, glaUns_internal);
-  connect(conExtWinFra, conExtWinFra_internal);
-
-  if haveConExtWin then
-    conExtWin_internal.Q_flow = zeros(NConExtWin);
-    glaUns_internal.Q_flow = zeros(NConExtWin);
-    conExtWinFra_internal.Q_flow = zeros(NConExtWin);
-  else
-    conExtWin_internal.T = {T0};
-    glaUns_internal.T = {T0};
-    conExtWinFra_internal.T = {T0};
-  end if;
-
-  connect(glaSha, glaSha_internal);
-  connect(uSha, uSha_internal);
-  connect(QRadAbs_flow, QRadAbs_flow_internal);
-  connect(TSha, TSha_internal);
-
-  if haveShade then
-    glaSha_internal.Q_flow = zeros(NConExtWin);
-    TSha_internal = fill(T0, NConExtWin); // fixme: connect to shade temperature from FFD
-  else
-    glaSha_internal.T = {T0};
-    uSha_internal = {0};
-    QRadAbs_flow_internal = {0};
-    TSha_internal = {T0};
-  end if;
-
-  connect(conPar_a, conPar_a_internal);
-  connect(conPar_b, conPar_b_internal);
-  if haveConPar then
-    conPar_a_internal.Q_flow = zeros(NConPar);
-    conPar_b_internal.Q_flow = zeros(NConPar);
-  else
-    conPar_a_internal.T = {T0};
-    conPar_b_internal.T = {T0};
-  end if;
-
-  connect(conBou, conBou_internal);
-  if haveConBou then
-    conBou_internal.Q_flow = zeros(NConBou);
-  else
-    conBou_internal.T = {T0};
-  end if;
-
-  connect(conSurBou, conSurBou_internal);
-  if haveSurBou then
-    conSurBou_internal.Q_flow = zeros(NSurBou);
-  else
-    conSurBou_internal.T = {T0};
-  end if;
-
   //////////////////////////////////////////////////////////////////////
   // Data exchange with FFD block
   if haveConExt then
@@ -405,11 +309,11 @@ equation
           points={{-42,190},{-60,190},{-60,200},{-260,200}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(ffd.u[kQRadAbs_flow+i], QRadAbs_flow_internal[i]) annotation (Line(
+      connect(ffd.u[kQRadAbs_flow+i], QRadAbs_flow[i]) annotation (Line(
           points={{-42,190},{-60,190},{-60,90},{-260,90}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(ffd.y[kTSha+i], TSha_internal[i]) annotation (Line(
+      connect(ffd.y[kTSha+i], TSha[i]) annotation (Line(
           points={{-19,190},{60,190},{60,60},{-250,60}},
           color={0,0,127},
           smooth=Smooth.None));
