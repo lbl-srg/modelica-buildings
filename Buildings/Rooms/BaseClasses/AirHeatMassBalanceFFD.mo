@@ -424,26 +424,25 @@ The variables of the connector <code>ports</code> are exchanged with the FFD blo
 through the instance <code>intFlu</code>. Its output and input signals are as follows:
 <ul>
 <li>
-Input to the FFD block is a vector <code>[p[1], m_flow[nPorts], T_inflow[nPorts], 
+Input to the FFD block is a vector <code>[p, m_flow[nPorts], T_inflow[nPorts], 
 X_inflow[nPorts*Medium.nXi], C_inflow[nPorts*Medium.nC]]</code>.
-The quantity <code>p</code> is the total pressure at the first fluid port. 
-The flow resistance of the diffusor must be computed inside the FDD code.
+The quantity <code>p</code> is the total pressure of the fluid ports (all fluid ports have the same
+total pressure). 
+Therefore, the flow resistance of the diffusor or exhaust grill must be computed in the 
+Modelica HVAC system that is connected to the room model.
 The quantities <code>X_inflow</code> and <code>C_inflow</code> (or <code>X_inflow</code> and <code>C_inflow</code>)
 are vectors with components <code>X_inflow[1:Medium.nXi]</code> and <code>C_inflow[1:Medium.nC]</code>.
 For example, for moist air, <code>X_inflow</code> has one element which is equal to the mass fraction of air,
 relative to the total air mass and not the dry air.
 </li>
 <li>
-Output from the FFD block is a vector <code>[p[2:nPorts], T_outflow[nPorts], 
-X_outflow[nPorts*Medium.nXi], C_outflow[nPorts*Medium.nC]]</code>.
-The quantities <code>p[2:nPorts]</code> are the total pressure at the port. Any flow resistance
-of a diffusor or exhaust grill has to be computed inside the FFD code.
+Output from the FFD block is a vector 
+<code>[T_outflow[nPorts], X_outflow[nPorts*Medium.nXi], C_outflow[nPorts*Medium.nC]]</code>.
 The quantities <code>*_outflow</code> are the fluid properties of the cell to which the port is
 connected. 
 </li>
 <li>
-If <code>Medium.nXi=0</code> (e.g., for dry air) or <code>Medium.nC=0</code>, then these signals are not present 
-as input/output signals of the FFD block.
+If <code>Medium.nXi=0</code> (e.g., for dry air) or <code>Medium.nC=0</code>, then these signals are not present as input/output signals of the FFD block.
 </li>
 </ul>
 </li>
