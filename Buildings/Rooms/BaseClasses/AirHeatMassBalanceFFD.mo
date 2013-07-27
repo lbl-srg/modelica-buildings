@@ -16,12 +16,12 @@ model AirHeatMassBalanceFFD
     "First sample time instant. fixme: this should be at first step."
     annotation(Dialog(group = "Sampling"));
 
-  // fixme: for the ffd instance, need to correctly assign uStart, flaWri and yFixed
+  // fixme: for the ffd instance, need to correctly assign flaWri
   FFDExchange ffd(
     final startTime=startTime,
     final activateInterface=useFFD,
     final samplePeriod = if useFFD then samplePeriod else Modelica.Constants.inf,
-    uStart=fill(T0, kFluIntC_inflow+Medium.nC*nPorts),
+    uStart=uStart,
     nWri=kFluIntC_inflow+Medium.nC*nPorts,
     nRea=kFluIntC_outflow+Medium.nC*nPorts,
     final yFixed=yFixed) "Block that exchanges data with the FFD simulation"
@@ -31,6 +31,10 @@ protected
   constant Modelica.SIunits.Temperature T0 = 293.15
     "Temperature used for conditionally removed constructions";
 
+  // Values that are used for uStart
+  parameter Real uStart[kFluIntC_inflow+Medium.nC*nPorts](fixed=false)
+    "Values used for uStart in FFDExchange";
+
   // Values that are used for yFixed
   parameter Real yFixed[kFluIntC_outflow+Medium.nC*nPorts](fixed=false)
     "Values used for yFixed in FFDExchange";
@@ -38,7 +42,7 @@ protected
   parameter Modelica.SIunits.HeatFlowRate Q_flow_fixed[kSurBou]=fill(0, kSurBou)
     "Surface heat flow rate used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
-  parameter Modelica.SIunits.Temperature TRooAve_fixed[1] = {T_start}
+  parameter Modelica.SIunits.Temperature TRooAve_fixed = T0
     "Average room air temperature used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
   parameter Modelica.SIunits.Temperature TSha_fixed[NConExtWin] = fill(T_start, NConExtWin)
@@ -158,8 +162,6 @@ protected
     "Offset used to connect FFD signals to input signals for inflowing trace substances from the fluid ports";
 
   // Input signals to fluInt block
-//  final parameter Integer kFluIntP2nPorts = if haveShade then kTSha + nConExtWin else kTSha
-//    "Offset used to connect FFD signals to output signals for the fluid ports";
   final parameter Integer kFluIntT_outflow = if haveShade then kTSha + nConExtWin else kTSha
     "Offset used to connect FFD signals to outgoing temperature for the fluid ports";
   final parameter Integer kFluIntXi_outflow = kFluIntT_outflow+nPorts
@@ -174,10 +176,33 @@ initial equation
      end for;
    end for;
 
+  // Assignment of uStart
+  for i in 1:kUSha loop
+    uStart[i] = T_start;
+  end for;
+  if haveShade then
+    for i in 1:nConExtWin loop
+      uStart[kUSha+i] = 0;
+      uStart[kQRadAbs_flow+i] = 0;
+    end for;
+  end if;
+  uStart[kFluIntP+1] = p_start;
+  for i in 1:nPorts loop
+    uStart[kFluIntM_flow+i] = 0;
+    uStart[kFluIntT_inflow+i] = T_start;
+    for j in 1:Medium.nXi loop
+      uStart[kFluIntXi_inflow+(i-1)*Medium.nXi+j] =  X_start[j];
+    end for;
+    for j in 1:Medium.nC loop
+      uStart[kFluIntC_inflow+(i-1)*Medium.nC+j] = C_start[j];
+    end for;
+  end for;
+
+  // Assignment of yFixed
   for i in 1:kSurBou loop
     yFixed[i] = Q_flow_fixed[i];
   end for;
-  yFixed[kSurBou+1] = TRooAve_fixed[1];
+  yFixed[kHeaPorAir+1] = TRooAve_fixed;
   if haveShade then
     for i in 1:nConExtWin loop
       yFixed[kTSha+i] = TSha_fixed[i];
