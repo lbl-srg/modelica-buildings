@@ -2,7 +2,7 @@ simulateModel("Buildings.Rooms.Examples.TestConditionalConstructionsFFD.OnlyPart
 removePlots();
 createPlot(id = 1,
  position = {15, 10, 400, 280},
- y = {"roo.weaBus.TDryBul", "roo.air.vol.T"},
+ y = {"roo.weaBus.TDryBul", "roo.heaPorAir.T"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
