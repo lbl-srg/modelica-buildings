@@ -146,7 +146,7 @@ equation
   end if;
 
   // Connection of input signals to ports
-  for i in 1:nPorts-1 loop
+  for i in 1:nPorts loop
     ports[i].p = p;
   end for;
 
