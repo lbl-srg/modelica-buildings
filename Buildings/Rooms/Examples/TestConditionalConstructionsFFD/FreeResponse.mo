@@ -173,6 +173,7 @@ equation
                       graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructionsFFD/FreeResponse.mos"
         "Simulate and plot"),
     Documentation(info="<html>
+<p>
 This model tests whether 
 <a href=\"modelica://Buildings.Rooms.FFD\">
 Buildings.Rooms.FFD</a>
