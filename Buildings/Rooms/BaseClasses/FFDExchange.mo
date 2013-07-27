@@ -14,14 +14,14 @@ block FFDExchange
     "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)";
   parameter Real uStart[nWri]
     "Initial input signal, used during first data transfer with FFD simulation";
-  parameter Real yFixed[nRea] = zeros(nRea)
-    "Fixed output, used if activateInterface=false"
+  parameter Real yFixed[nRea] "Fixed output, used if activateInterface=false"
     annotation(Evaluate = true,
                 Dialog(enable = not activateInterface));
 
   Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to FFD"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput y[nRea] "Outputs received from FFD"
+  Modelica.Blocks.Interfaces.RealOutput y[nRea](start=yFixed)
+    "Outputs received from FFD"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   output Real uInt[nWri] "Value of integral";
