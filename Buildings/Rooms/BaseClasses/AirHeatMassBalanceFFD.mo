@@ -23,13 +23,37 @@ model AirHeatMassBalanceFFD
     final samplePeriod = if useFFD then samplePeriod else Modelica.Constants.inf,
     uStart=fill(T0, kFluIntC_inflow+Medium.nC*nPorts),
     nWri=kFluIntC_inflow+Medium.nC*nPorts,
-    nRea=kFluIntC_outflow+Medium.nC*nPorts)
-    "Block that exchanges data with the FFD simulation"
+    nRea=kFluIntC_outflow+Medium.nC*nPorts,
+    final yFixed=yFixed) "Block that exchanges data with the FFD simulation"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
 
 protected
   constant Modelica.SIunits.Temperature T0 = 293.15
     "Temperature used for conditionally removed constructions";
+
+  // Values that are used for yFixed
+  parameter Real yFixed[kFluIntC_outflow+Medium.nC*nPorts](fixed=false)
+    "Values used for yFixed in FFDExchange";
+
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_fixed[kSurBou]=fill(0, kSurBou)
+    "Surface heat flow rate used for yFixed"
+    annotation (Dialog(group="Outputs if activateInterface=false"));
+  parameter Modelica.SIunits.Temperature TRooAve_fixed[1] = {T_start}
+    "Average room air temperature used for yFixed"
+    annotation (Dialog(group="Outputs if activateInterface=false"));
+  parameter Modelica.SIunits.Temperature TSha_fixed[NConExtWin] = fill(T_start, NConExtWin)
+    "Shade temperature used for yFixed"
+    annotation (Dialog(group="Outputs if activateInterface=false"));
+  parameter Modelica.SIunits.Temperature T_outflow_fixed[nPorts] = fill(T_start, nPorts)
+    "Temperature of the fluid that flows into the HVAC system used for yFixed"
+    annotation (Dialog(group="Outputs if activateInterface=false"));
+  parameter Real Xi_outflow_fixed[nPorts*Medium.nXi](fixed=false)
+    "Species concentration of the fluid that flows into the HVAC system used for yFixed"
+    annotation (Dialog(group="Outputs if activateInterface=false"));
+  parameter Real C_outflow_fixed[nPorts*max(1, Medium.nC)]=
+    if Medium.nC == 0 then fill(0, nPorts) else cat(1, C_start[i] for i in 1:Medium.nC)
+    "Trace substances of the fluid that flows into the HVAC system used for yFixed"
+    annotation (Dialog(group="Outputs if activateInterface=false"));
 
   // Interfaces between the FFD block and the heat ports of this model
   FFDSurfaceInterface ffdConExt(final n=NConExt) if haveConExt
@@ -143,6 +167,31 @@ protected
   final parameter Integer kFluIntC_outflow = kFluIntXi_outflow+nPorts*Medium.nXi
     "Offset used to connect FFD signals to outgoing trace substances for the fluid ports";
 
+initial equation
+   for i in 1:nPorts loop
+     for j in 1:Medium.nXi loop
+      Xi_outflow_fixed[(i-1)*Medium.nXi+j] = X_start[j];
+     end for;
+   end for;
+
+  for i in 1:kSurBou loop
+    yFixed[i] = Q_flow_fixed[i];
+  end for;
+  yFixed[kSurBou+1] = TRooAve_fixed[1];
+  if haveShade then
+    for i in 1:nConExtWin loop
+      yFixed[kTSha+i] = TSha_fixed[i];
+    end for;
+  end if;
+  for i in 1:nPorts loop
+    yFixed[kFluIntT_outflow+i] = T_outflow_fixed[i];
+    for j in 1:Medium.nXi loop
+      yFixed[kFluIntXi_outflow+(i-1)*Medium.nXi+j] = Xi_outflow_fixed[(i-1)*Medium.nXi+j];
+    end for;
+    for j in 1:Medium.nC loop
+      yFixed[kFluIntC_outflow+(i-1)*Medium.nC+j] = C_outflow_fixed[(i-1)*Medium.nC+j];
+    end for;
+  end for;
 equation
   //////////////////////////////////////////////////////////////////////
   // Data exchange with FFD block
