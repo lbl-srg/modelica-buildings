@@ -39,7 +39,7 @@ protected
   parameter Real yFixed[kFluIntC_outflow+Medium.nC*nPorts](fixed=false)
     "Values used for yFixed in FFDExchange";
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_fixed[kSurBou]=fill(0, kSurBou)
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_fixed[kSurBou+nSurBou]=fill(0, kSurBou+nSurBou)
     "Surface heat flow rate used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
   parameter Modelica.SIunits.Temperature TRooAve_fixed = T0
@@ -199,7 +199,7 @@ initial equation
   end for;
 
   // Assignment of yFixed
-  for i in 1:kSurBou loop
+  for i in 1:kSurBou+nSurBou loop
     yFixed[i] = Q_flow_fixed[i];
   end for;
   yFixed[kHeaPorAir+1] = TRooAve_fixed;
