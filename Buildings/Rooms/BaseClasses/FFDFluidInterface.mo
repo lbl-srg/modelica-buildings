@@ -73,8 +73,7 @@ protected
    Medium.setState_pTX(
      T=T_start,
      p=p_start,
-     X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass"
-    annotation (Evaluate=true);
+     X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass";
 
   Modelica.Blocks.Interfaces.RealOutput Xi_inflow_internal[max(nPorts, nPorts*Medium.nXi)](
   min=0,
@@ -142,7 +141,11 @@ equation
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     0 = sum(ports.m_flow) + sum(mbXi_flow);
   else
-    der(p) = p_start*(sum(ports.m_flow) + sum(mbXi_flow))/m_start;
+    // For the change in pressure, we neglect the term sum(mbXi_flow)
+    // as this term is small compared to sum(ports.m_flow) but it
+    // introduces a nonlinear equation
+    //    der(p) = p_start*(sum(ports.m_flow) + sum(mbXi_flow))/m_start;
+    der(p) = p_start*(sum(ports.m_flow))/m_start;
   end if;
 
   // Connection of input signals to ports
