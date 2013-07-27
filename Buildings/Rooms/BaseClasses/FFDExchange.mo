@@ -29,7 +29,8 @@ block FFDExchange
   output Real uWri[nWri] "Value to be sent to the FFD interface";
 
 protected
-  final parameter Real _uStart[nWri] = {if (flaWri[i] <= 1) then uStart[i] else uStart[i]*samplePeriod for i in 1:nWri}
+  final parameter Real _uStart[nWri]=
+     {if (flaWri[i] <= 1) then uStart[i] else uStart[i]*samplePeriod for i in 1:nWri}
     "Initial input signal, used during first data transfer with FFD";
   output Integer flaRea "Flag received from FFD";
   output Modelica.SIunits.Time simTimRea
@@ -42,20 +43,20 @@ protected
     input Modelica.SIunits.Time t "Current simulation time in seconds to write";
     input Modelica.SIunits.Time dt(min=100*Modelica.Constants.eps)
       "Requested time step length";
-    input Real[nT] T "Surface temperatures to write to FFD";
-    input Integer nT "Number of surface temperatures to write to FFD";
-    input Integer nQ_flow "Number of heat flow rates to read";
+    input Real[nU] u "Input for FFD";
+    input Integer nU "Number of inputs for FFD";
+    input Integer nY "Number of outputs from FFD";
     output Integer flaRea "Communication flag read from FFD";
     output Modelica.SIunits.Time simTimRea
       "Current simulation time in seconds read from FFD";
-    output Real[nQ_flow] Q_flow "Surface heat flow rates computed by FFD";
+    output Real[nY] y "Output computed by FFD";
     output Integer retVal
       "The exit value, which is negative if an error occured";
 
   algorithm
       flaRea    := 0;
       simTimRea := t+dt;
-      Q_flow    :=zeros(nQ_flow);
+      y         :=zeros(nY);
       retVal    := 0;
   end exchangeFFD;
 
@@ -74,14 +75,14 @@ initial algorithm
         flag=0,
         t=time,
         dt=samplePeriod,
-        T=_uStart,
-        nT=size(u, 1),
-        nQ_flow=size(y, 1));
+        u=_uStart,
+        nU=size(u, 1),
+        nY=size(y, 1));
     else
-      flaRea := 0;
+      flaRea    := 0;
       simTimRea := time;
-      y := yFixed;
-      retVal := 0;
+      y         := yFixed;
+      retVal    := 0;
     end if;
 equation
    for i in 1:nWri loop
@@ -108,9 +109,9 @@ algorithm
         flag=0,
         t=time,
         dt=samplePeriod,
-        T=u,
-        nT=size(u, 1),
-        nQ_flow=size(y, 1));
+        u=u,
+        nU=size(u, 1),
+        nY=size(y, 1));
     else
       flaRea    := 0;
       simTimRea := time;
