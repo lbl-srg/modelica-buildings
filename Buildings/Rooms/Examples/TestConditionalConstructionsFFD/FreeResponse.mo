@@ -115,7 +115,7 @@ model FreeResponse
     each A=6*4) "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
-  Fluid.Sources.FixedBoundary boundary(
+  Fluid.Sources.MassFlowSource_T boundary(
     nPorts=1,
     redeclare package Medium = MediumA,
     T=293.15) "Boundary condition"
