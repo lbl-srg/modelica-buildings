@@ -28,9 +28,6 @@ model AirHeatMassBalanceFFD
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
 
 protected
-  constant Modelica.SIunits.Temperature T0 = 293.15
-    "Temperature used for conditionally removed constructions";
-
   // Values that are used for uStart
   parameter Real uStart[kFluIntC_inflow+Medium.nC*nPorts](fixed=false)
     "Values used for uStart in FFDExchange";
@@ -42,7 +39,7 @@ protected
   parameter Modelica.SIunits.HeatFlowRate Q_flow_fixed[kSurBou+nSurBou]=fill(0, kSurBou+nSurBou)
     "Surface heat flow rate used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
-  parameter Modelica.SIunits.Temperature TRooAve_fixed = T0
+  parameter Modelica.SIunits.Temperature TRooAve_fixed = Medium.T_default
     "Average room air temperature used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
   parameter Modelica.SIunits.Temperature TSha_fixed[NConExtWin] = fill(T_start, NConExtWin)
