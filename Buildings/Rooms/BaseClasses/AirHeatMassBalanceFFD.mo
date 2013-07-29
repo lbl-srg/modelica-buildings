@@ -27,8 +27,8 @@ model AirHeatMassBalanceFFD
     final yFixed=yFixed) "Block that exchanges data with the FFD simulation"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
 
-protected
   // Values that are used for uStart
+protected
   parameter Real uStart[kFluIntC_inflow+Medium.nC*nPorts](fixed=false)
     "Values used for uStart in FFDExchange";
 
@@ -522,6 +522,29 @@ connected.
 </li>
 <li>
 If <code>Medium.nXi=0</code> (e.g., for dry air) or <code>Medium.nC=0</code>, then these signals are not present as input/output signals of the FFD block.
+</li>
+</ul>
+The quantities that are exchanged between the programs are defined as follows:
+<ul>
+<li>
+For the mass flow rate of the fluid port, 
+we exchange <i>m<sub>e</sub> = 1 &frasl; &Delta; t &int;<sub>&Delta; t</sub> m(s) dt</i>.
+</li>
+<li>
+For the temperature, species concentration and trace substances of the fluid port, we exchange 
+<i>X = 1 &frasl; (m<sub>e</sub> &nbsp; &Delta; t) &int;<sub>&Delta; t</sub> m(s) &nbsp; X(s) dt</i>.
+Note that for the first implementation, FFD does only compute a bulk mass balance for <code>Xi</code>.
+It does not do a moisture balance for each cell.
+However, for trace substances <code>C</code>, FFD does a contaminant balance for each cell
+and return <code>C_outflow</code> to be the contaminant concentration of that cell.
+</li>
+<li>
+For the surface temperatures, 
+we exchange <i>T<sub>e</sub> = 1 &frasl; &Delta; t &int;<sub>&Delta; t</sub> T(s) dt</i>.
+</li>
+<li>
+For the surface heat flow rates, 
+we exchange <i>Q<sub>e</sub> = 1 &frasl; &Delta; t &int;<sub>&Delta; t</sub> Q(s) dt</i>.
 </li>
 </ul>
 </li>
