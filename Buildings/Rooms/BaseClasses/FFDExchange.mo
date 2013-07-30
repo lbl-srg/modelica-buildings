@@ -18,6 +18,10 @@ block FFDExchange
     annotation(Evaluate = true,
                 Dialog(enable = not activateInterface));
 
+  parameter Integer nSur(min=1) "Number of surfaces";
+  parameter FFDSurfaceIdentifier surIde[nSur] "Surface identifiers";
+  parameter Boolean verbose = true "Set to true for verbose output";
+
   Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to FFD"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput y[nRea](start=yFixed)
@@ -61,33 +65,52 @@ protected
   end exchangeFFD;
 
 initial algorithm
-   flaRea   := 0;
-   uInt    := zeros(nWri);
-   uIntPre := zeros(nWri);
-   for i in 1:nWri loop
-     assert(flaWri[i]>=0 and flaWri[i]<=2,
-        "Parameter flaWri out of range for " + String(i) + "-th component.");
-   end for;
-   // Exchange initial values
-    if activateInterface then
-      (flaRea, simTimRea, y, retVal) :=
-        exchangeFFD(
-        flag=0,
-        t=time,
-        dt=samplePeriod,
-        u=_uStart,
-        nU=size(u, 1),
-        nY=size(y, 1));
-    else
-      flaRea    := 0;
-      simTimRea := time;
-      y         := yFixed;
-      retVal    := 0;
-    end if;
+  // Diagnostics output
+  if verbose then
+    Modelica.Utilities.Streams.print(string="FFDExchange has the following surfaces:\n");
+    for i in 1:nSur loop
+      Modelica.Utilities.Streams.print(string=  String(i) + ":
+  A    = " + String(surIde[i].A)   + " [m2]
+  tilt = " + String(surIde[i].til*180/Modelica.Constants.pi) + " [deg]");
+    end for;
+  end if;
+
+  for i in 1:nSur loop
+    assert(Modelica.Utilities.Strings.length(surIde[i].name) > 0,
+    "The surface number + " + String(i) + " has no name.//
+ To use the FFD interface, all surfaces must have a name.");
+  end for;
+
+  // Assignment of parameters and start values
+  flaRea   := 0;
+  uInt    := zeros(nWri);
+  uIntPre := zeros(nWri);
+  for i in 1:nWri loop
+    assert(flaWri[i]>=0 and flaWri[i]<=2,
+       "Parameter flaWri out of range for " + String(i) + "-th component.");
+  end for;
+  // Exchange initial values
+   if activateInterface then
+     (flaRea, simTimRea, y, retVal) :=
+       exchangeFFD(
+       flag=0,
+       t=time,
+       dt=samplePeriod,
+       u=_uStart,
+       nU=size(u, 1),
+       nY=size(y, 1));
+   else
+     flaRea    := 0;
+     simTimRea := time;
+     y         := yFixed;
+     retVal    := 0;
+   end if;
+
 equation
    for i in 1:nWri loop
       der(uInt[i]) = if (flaWri[i] > 0) then u[i] else 0;
    end for;
+
 algorithm
   when sampleTrigger then
      // Compute value that will be sent to the FFD interface

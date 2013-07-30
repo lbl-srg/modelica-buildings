@@ -8,6 +8,7 @@ FFDSurfaceInterface
 HeatGain
 InfraredRadiationExchange
 InfraredRadiationGainDistribution
+PartialAirHeatMassBalance
 RadiationAdapter
 RadiationTemperature
 SolarRadiationExchange
@@ -16,11 +17,11 @@ PartialSurfaceInterfaceRadiative
 SkyRadiationExchange
 ConstructionNumbers
 ConstructionRecords
+FFDSurfaceIdentifier
 OpaqueSurface
 Overhang
 ParameterConstructionWithWindow
 ParameterConstruction
 PartialParameterConstruction
-PartialAirHeatMassBalance
 SideFins
 Examples

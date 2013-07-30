@@ -9,11 +9,18 @@ model FFDExchange "Test model for FFDExchange block"
     nWri=nWri,
     uStart=fill(0, nWri),
     nRea=3,
+    surIde=surIde,
+    nSur=nWri,
     samplePeriod=2,
     flaWri={0,1,2}) "Block for data exchange with FFD"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica.Blocks.Sources.Clock    u[nWri] "Input to FFD"
+  Modelica.Blocks.Sources.Clock u[nWri] "Input to FFD"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  parameter Buildings.Rooms.BaseClasses.FFDSurfaceIdentifier surIde[nWri](
+    name={"a","b","c"},
+    A={1,2,4},
+    til={0,1.5707963267949,3.1415926535898}) "Surface identifier"
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 equation
   connect(u.y, ffd.u) annotation (Line(
       points={{-39,10},{-2,10}},
