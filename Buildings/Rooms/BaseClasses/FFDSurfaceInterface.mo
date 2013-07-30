@@ -2,6 +2,8 @@ within Buildings.Rooms.BaseClasses;
 model FFDSurfaceInterface
  extends Buildings.BaseClasses.BaseIcon;
   parameter Integer n(min=0) "Number of surfaces";
+  parameter Buildings.Rooms.Types.CFDBoundaryConditions bouCon[n]
+   "Boundary condition used in the CFD simulation";
 
   Modelica.Blocks.Interfaces.RealInput Q_flow[n]
     "Surface temperaturesHeat flow rate"
@@ -11,6 +13,8 @@ model FFDSurfaceInterface
     annotation (Placement(transformation(extent={{-100,-50},{-120,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port[n] "Heat ports"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+
+
 
 equation
   T = port.T;

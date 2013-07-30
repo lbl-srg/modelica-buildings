@@ -1,9 +1,13 @@
 within Buildings.Rooms.BaseClasses;
-record OpaqueSurface
-  "Record for exterior constructions that have no window"
+record OpaqueSurface "Record for exterior constructions that have no window"
   extends Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic;
-  parameter String name = "" 
-    "Surface name. Optional for MixedAir, required for FFD.";
+  parameter String name = ""
+    "Surface name. Optional for MixedAir, required for CFD.";
+
+  parameter Buildings.Rooms.Types.CFDBoundaryConditions boundaryCondition=
+    Buildings.Rooms.Types.CFDBoundaryConditions.Temperature
+    "Boundary condition used in the CFD simulation"
+    annotation(Dialog(group="Boundary condition"));
 
   annotation (
 Documentation(info="<html>
