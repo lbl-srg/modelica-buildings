@@ -7,6 +7,9 @@ model UF90X3AElectrical
   lat = 0.66098585832754,
   nSurBou = 2,
   nConExt=4,
+  nConExtWin=0,
+  nConPar=0,
+  nConBou=0,
   surBou(
     A = {3.6576 * 1.2641, 3.6576 * 1.524},
     each absIR = 0.9,

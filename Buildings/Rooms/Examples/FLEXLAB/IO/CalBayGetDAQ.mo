@@ -19,7 +19,7 @@ model CalBayGetDAQ "Block calling a Python script to communicate with CalBay"
     "Real outputs received from Python"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 algorithm
-
+  when {sampleTrigger} then
     // Exchange data
     yR :=Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName=moduleName,
@@ -32,7 +32,7 @@ algorithm
       nIntRea=0,
       nStrWri=1,
       strWri={SendString});
-
+  end when;
   annotation (defaultComponentName="pyt",
    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
                                graphics), Icon(coordinateSystem(

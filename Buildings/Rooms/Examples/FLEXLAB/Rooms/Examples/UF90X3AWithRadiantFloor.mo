@@ -14,9 +14,6 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
     redeclare package Medium = Air,
     linearizeRadiation=false)
               annotation (Placement(transformation(extent={{-110,38},{-70,78}})));
-  Modelica.Blocks.Routing.Multiplex3 mul
-    "Multiplexer for internal gains in UF90X3A model"
-    annotation (Placement(transformation(extent={{-156,92},{-136,112}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0])
     "Internal gain heat flow (Radiant = 1, Convective = 2, Latent = 3)"
     annotation (Placement(transformation(extent={{-196,92},{-176,112}})));
@@ -129,18 +126,9 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
         293.15,293.15])
     "Temperature of the neighboring test cells (y[1] = UF90X2B, y[2] = UF90X3B)"
     annotation (Placement(transformation(extent={{110,-118},{90,-98}})));
-  Modelica.Blocks.Sources.CombiTimeTable intGaiCon(table=[0,0,0,0,0,0,0; 86400,0,
-        0,0,0,0,0]) "Internal gain heat flow for the connected rooms"
-    annotation (Placement(transformation(extent={{-68,152},{-48,172}})));
-  Modelica.Blocks.Routing.Multiplex3 mulClo
-    "Multiplexer for internal gains in the connected closet"
-    annotation (Placement(transformation(extent={{-20,138},{0,158}})));
-  Modelica.Blocks.Routing.Multiplex3 mulEle
-    "Multiplexer for internal gains in the connected electrical room"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-40,62})));
+  Modelica.Blocks.Sources.CombiTimeTable intGaiEle(table=[0,0,0,0,0,0,0; 86400,0,
+        0,0,0,0,0]) "Internal gain heat flow for the electrical room"
+    annotation (Placement(transformation(extent={{-68,-16},{-48,4}})));
   Modelica.Blocks.Sources.CombiTimeTable airConEle(table=[0,0.1,293.15; 86400,0.1,
         293.15], tableOnFile=false)
     "Inlet air conditions for the connected electrical room (y[1] = m_flow, y[2] = T)"
@@ -177,19 +165,10 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,80})));
+  Modelica.Blocks.Sources.CombiTimeTable intGaiClo(table=[0,0,0,0; 86400,0,0,0])
+    "Internal gain heat flow for the closet"
+    annotation (Placement(transformation(extent={{-12,132},{8,152}})));
 equation
-  connect(mul.y[1], UF90X3A.qGai_flow[1]) annotation (Line(
-      points={{-135,101.333},{-130,101.333},{-130,66.6667},{-118,66.6667}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(mul.y[2], UF90X3A.qGai_flow[2]) annotation (Line(
-      points={{-135,102},{-128,102},{-128,68},{-118,68}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(mul.y[3], UF90X3A.qGai_flow[3]) annotation (Line(
-      points={{-135,102.667},{-126,102.667},{-126,69.3333},{-118,69.3333}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(airCon.y[1],airIn. m_flow_in) annotation (Line(
       points={{-175,64},{-168,64},{-168,68},{-160,68}},
       color={0,0,127},
@@ -234,18 +213,6 @@ equation
       points={{-94,-112},{-94,0},{-93.8,0},{-93.8,44}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(intGai.y[1], mul.u1[1]) annotation (Line(
-      points={{-175,102},{-166,102},{-166,109},{-158,109}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(intGai.y[2], mul.u2[1]) annotation (Line(
-      points={{-175,102},{-158,102}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(intGai.y[3], mul.u3[1]) annotation (Line(
-      points={{-175,102},{-166,102},{-166,95},{-158,95}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(weaDat.weaBus, UF90X3A.weaBus) annotation (Line(
       points={{-100,180},{-72.1,180},{-72.1,75.9}},
       color={255,204,51},
@@ -276,34 +243,6 @@ equation
   connect(clo.surf_surBou[1], UF90X3A.surf_conBou[4]) annotation (Line(
       points={{172.2,97.5},{172,97.5},{172,-86},{-84,-86},{-84,42.4}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(intGaiCon.y[1], mulClo.u1[1]) annotation (Line(
-      points={{-47,162},{-40,162},{-40,155},{-22,155}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(intGaiCon.y[2], mulClo.u2[1]) annotation (Line(
-      points={{-47,162},{-40,162},{-40,148},{-22,148}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(intGaiCon.y[3], mulClo.u3[1]) annotation (Line(
-      points={{-47,162},{-40,162},{-40,141},{-22,141}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(intGaiCon.y[4], mulEle.u1[1]) annotation (Line(
-      points={{-47,162},{-40,162},{-40,84},{-33,84},{-33,74}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(intGaiCon.y[5], mulEle.u2[1]) annotation (Line(
-      points={{-47,162},{-40,162},{-40,74}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(intGaiCon.y[6], mulEle.u3[1]) annotation (Line(
-      points={{-47,162},{-40,162},{-40,84},{-47,84},{-47,74}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(mulClo.y, clo.qGai_flow) annotation (Line(
-      points={{1,148},{74,148},{74,122},{148,122}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(airConEle.y[2], airInEle.T_in) annotation (Line(
       points={{-47,-38},{-18,-38}},
@@ -349,10 +288,6 @@ equation
       points={{-47,-38},{-36,-38},{-36,-34},{-16,-34}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(mulEle.y, eleRoo.qGai_flow) annotation (Line(
-      points={{-40,51},{-40,6},{18,6},{18,-50},{46,-50}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(airConClo.y[1], airInClo.m_flow_in) annotation (Line(
       points={{9,112},{20,112},{20,108},{40,108}},
       color={0,0,127},
@@ -360,6 +295,18 @@ equation
   connect(airOutClo.ports[1], clo.ports[2]) annotation (Line(
       points={{60,80},{110,80},{110,102},{163,102}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(intGai.y, UF90X3A.qGai_flow) annotation (Line(
+      points={{-175,102},{-140,102},{-140,68},{-118,68}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(intGaiEle.y, eleRoo.qGai_flow) annotation (Line(
+      points={{-47,-6},{20,-6},{20,-50},{46,-50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(intGaiClo.y, clo.qGai_flow) annotation (Line(
+      points={{9,142},{120,142},{120,122},{148,122}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics), Icon(coordinateSystem(
@@ -420,9 +367,141 @@ equation
           <td>sla</td>
           <td>Radiant slab</td>
           <td>sla.surf_a</td>
-          <td>UF90X3A.surf_surbou[1]</td>
+          <td>UF90X3A.surf_surBou[1]</td>
           </tr>
-          </table>          
+          <tr>
+          <td>shaPos</td>
+          <td>Table describing the position of the window shade</td>
+          <td>shaPos.y[1]</td>
+          <td>UF90X3A.uSha</td>
+          </tr>
+          <tr>
+          <td>intGai</td>
+          <td>Table specifying the internal gains in the space</td>
+          <td>intGai[1,2,3]</td>
+          <td>UF90X3A.qGai_flow[1,2,3]</td>
+          </tr>
+          <tr>
+          <td>airIn</td>
+          <td>Prescribed airflow describing service air from the AHU</td>
+          <td>airIn.ports[1]</td>
+          <td>UF90X3A.ports[1]</td>
+          </tr>
+          <tr>
+          <td>airOut</td>
+          <td>Outlet for ventilation air flow</td>
+          <td>airOut.ports[1]</td>
+          <td>UF90X3A.ports[1]</td>
+          </tr>
+          </table>  
+          <p>
+          The radiant slab is modeled using an instance of 
+          <a href=\"modelica:Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
+          Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>. All of the inputs
+          used to define the radiant slab are taken from the architectural drawings. The following
+          table describes the connections between models used in the radiant slab. Being previously
+          described, the connection to UF90X3A is not included.
+          </p>
+          <table border \"1\">
+          <tr>
+          <th>Physical significance of connector</th>
+          <th>Radiant slab port</th>
+          <th>External model port</th>
+          </tr>
+          <tr>
+          <td>Inlet for service fluid flow. Currently connects to a prescribed flow described
+          in a table</td>
+          <td>sla.port_a</td>
+          <td>watIn.ports[1]</td>
+          </tr>
+          <tr>
+          <td>Ground temperature beneath the radiant slab construction. Currently connects to
+          a prescribed temperature defined in a table</td>
+          <td>sla.surf_b</td>
+          <td>preT.port</td>
+          </tr>
+          <tr>
+          <td>Outlet for service fluid flow</td>
+          <td>sla.port_b</td>
+          <td>watOut.ports[1]</td>
+          </tr>
+          </table>
+          <p>
+          The electrical room connected to test cell UF90X3A is modeled using
+          <a href=\"modelica:Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical\">
+          Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical</a>. The necessary 
+          connections are described in the following table. Connections previously described
+          are not included here.
+          </p>
+          <table border=\"1\">
+          <tr>
+          <th>External model name</th>
+          <th>External model significance</th>
+          <th>External model port</th>
+          <th>eleRoo port</th>
+          </tr>
+          <tr>
+          <td>intGaiEle</td>
+          <td>Table specifying internal gains in the space</td>
+          <td>intGaiEle[1,2,3]</td>
+          <td>eleRoo.qGai_flow[1,2,3]</td>
+          </tr>
+          <tr>
+          <td>airInEle</td>
+          <td>Prescribed airflow describing service from AHU</td>
+          <td>airIn.ports[1]</td>
+          <td>eleRoo.ports[1]</td>
+          </tr>
+          <tr>
+          <td>airOut</td>
+          <td>Outlet for ventilation air flow</td>
+          <td>airOut.ports[1]</td>
+          <td>eleRoo.ports[2]</td>
+          </tr>
+          <tr>
+          <td>clo</td>
+          <td>Heat transfer through the wall shared by the closet and the electrical room</td>
+          <td>clo.surf_conBou[1]</td>
+          <td>eleRoo.surf_surBou[2]</td>
+          </tr>
+          </table>
+          
+          
+          
+          
+          
+          <p>
+          The previous table detailed all of the connections between UF90X3A and the other
+          models in the simulation. Additionally, some of the other models must be connected
+          to each other. These connections are described in the following table.
+          </p>        
+          <table border =\"1\">
+          <tr>
+          <th>Description of the connection</th>
+          <th>Port 1</th>
+          <th>Port 2</th>
+          </tr>
+          <tr>
+          <td>Heat transfer between UF90XA Closet and UF90X3B Closet</td>
+          <td>preTem2[2]</td>
+          <td>clos.surf_conBou[2]</td>
+          </tr>
+          <tr>
+          <td>Heat transfer through the wall separating the electrical room and the closet</td>
+          <td>eleRoo.surf_surBou[2]</td>
+          <td>clo.surf_conBou[1]</td>
+          </tr>
+          <tr>
+          <td>Weather data connection to closet</td>
+          <td>weaDat.weaBus</td>
+          <td>clo.weaBus</td>
+          </tr>
+          <tr>
+          <td>Weather data connection to electrical room</td>
+          <td>weaDat.weaBus</td>
+          <td>eleRoo.weaBus</td>
+          </tr>
+          </table>
           <p>
           The model only simulates the space conditions, the effects of the radiant slab, and the 
           heat transfer between the rooms. The air handling unit, chilled water plant, shade control, 

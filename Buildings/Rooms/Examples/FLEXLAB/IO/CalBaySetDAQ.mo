@@ -32,8 +32,9 @@ model CalBaySetDAQ "Block calling a Python script to send signals to CalBay"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 algorithm
 //initial equation, python function to get current time. Use current time in this model
-//include   when {sampleTrigger} then for real-time use
+//How to set sample trigger to happen at current time + every 5-10s? How does sample trigger work?
 
+  when {sampleTrigger} then
     if Signal == Buildings.Rooms.Examples.FLEXLAB.Types.Signal.GetDAQ then
       SignalType :="GetDAQ";
     else
@@ -66,7 +67,7 @@ algorithm
       nIntRea=0,
       nStrWri=1,
       strWri={SendString});
-
+  end when;
   annotation (defaultComponentName="pyt",
    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
                                graphics), Icon(coordinateSystem(
