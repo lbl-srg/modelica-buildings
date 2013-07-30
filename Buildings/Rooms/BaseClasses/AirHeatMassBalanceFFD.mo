@@ -56,6 +56,30 @@ protected
     "Trace substances of the fluid that flows into the HVAC system used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
 
+  parameter String surNam[kSurBou+nSurBou] = assignSurfaceNames(
+    nConExt = nConExt,
+    nConExtWin = nConExtWin,
+    nConPar = nConPar,
+    nConBou = nConBou,
+    nSurBou = nSurBou,
+    nSur = kSurBou+nSurBou,
+    haveShade = haveShade,
+    kConExt = kConExt,
+    kConExtWin = kConExtWin,
+    kGlaUns = kGlaUns,
+    kGlaSha = kGlaSha,
+    kConExtWinFra = kConExtWinFra,
+    kConPar_a = kConPar_a,
+    kConPar_b = kConPar_b,
+    kConBou = kConBou,
+    kSurBou = kSurBou,
+    datConExt = datConExt,
+    datConExtWin = datConExtWin,
+    datConPar = datConPar,
+    datConBou = datConBou,
+    surBou = surBou)
+    "Name of all surfaces";
+
   // Interfaces between the FFD block and the heat ports of this model
   FFDSurfaceInterface ffdConExt(final n=NConExt) if haveConExt
     "Interface to heat port of exterior constructions"
@@ -166,6 +190,80 @@ protected
   final parameter Integer kFluIntC_outflow = kFluIntXi_outflow+nPorts*Medium.nXi
     "Offset used to connect FFD signals to outgoing trace substances for the fluid ports";
 
+protected
+  function assignSurfaceNames
+
+    input Integer nConExt(min=0) 
+      "Number of exterior constructions";
+    input Integer nConExtWin(min=0) 
+      "Number of window constructions";
+    input Integer nConPar(min=0) 
+      "Number of partition constructions";
+    input Integer nConBou(min=0) 
+     "Number of constructions that have their outside surface exposed to the boundary of this room";
+    input Integer nSurBou(min=0) 
+     "Number of surface heat transfer models that connect to constructions that are modeled outside of this room";
+    input Integer nSur(min=1) "Total number of surfaces";
+    
+    input Boolean haveShade "Flag, set to true if any of the window in this room has a shade";
+
+    // Declaration of counters used in the loop.
+    // This could be computed (again) in this function, but using it
+    // as a function arguments avoids code duplication.
+    input Integer kConExt "Offset used to connect FFD signals to conExt";
+    input Integer kConExtWin "Offset used to connect FFD signals to conExtWin";
+    input Integer kGlaUns "Offset used to connect FFD signals to glaUns";
+    input Integer kGlaSha "Offset used to connect FFD signals to glaSha";
+    input Integer kConExtWinFra "Offset used to connect FFD signals to glaSha";
+    input Integer kConPar_a "Offset used to connect FFD signals to conPar_a";
+    input Integer kConPar_b "Offset used to connect FFD signals to conPar_b";
+    input Integer kConBou "Offset used to connect FFD signals to conBou";
+    input Integer kSurBou "Offset used to connect FFD signals to surBou";
+
+    // Declaration of construction data
+    input ParameterConstruction datConExt[:] 
+      "Data for exterior construction";
+    input Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow datConExtWin[:]
+     "Data for exterior construction with window";
+    input Buildings.Rooms.BaseClasses.ParameterConstruction datConPar[:] 
+     "Data for partition construction";
+    input Buildings.Rooms.BaseClasses.ParameterConstruction datConBou[:]
+     "Data for construction boundary";
+    input Buildings.Rooms.BaseClasses.OpaqueSurface surBou[:]
+     "Record for data of surfaces whose heat conduction is modeled outside of this room";
+
+    output String surNam[nSur] "Name of all surfaces";
+
+  algorithm
+    for i in 1:nConExt loop
+      surNam[i+kConExt] :=datConExt.name[i];
+    end for;
+    for i in 1:nConExtWin loop
+      surNam[i+kConExtWin] :=datConExtWin.name[i];
+    end for;
+    for i in 1:nConExtWin loop
+      surNam[i+kGlaUns] :=datConExtWin.name[i] + " (glass, unshaded)";
+    end for;
+    if haveShade then
+      for i in 1:nConExtWin loop
+        surNam[i+kGlaSha] :=datConExtWin.name[i] + " (glass, shaded)";
+      end for;
+    end if;
+    for i in 1:nConExtWin loop
+      surNam[i+kConExtWinFra] :=datConExtWin.name[i] + " (frame)";
+    end for;
+    for i in 1:nConPar loop
+      surNam[i+kConPar_a] :=datConPar.name[i] + " (surface a)";
+      surNam[i+kConPar_b] :=datConPar.name[i] + " (surface b)";
+    end for;
+    for i in 1:nConBou loop
+      surNam[i+kConBou] :=datConBou.name[i];
+    end for;
+    for i in 1:nSurBou loop
+      surNam[i+kSurBou] :=surBou.name[i];
+    end for;
+  end assignSurfaceNames;
+
 initial equation
    for i in 1:nPorts loop
      for j in 1:Medium.nXi loop
@@ -195,6 +293,36 @@ initial equation
     end for;
   end for;
 
+/*
+  // Assignment of surface names
+  for i in 1:nConExt loop
+    surNam[i+kConExt] = datConExt.name[i];
+  end for;
+  for i in 1:nConExtWin loop
+    surNam[i+kConExtWin] = datConExtWin.name[i];
+  end for;
+  for i in 1:nConExtWin loop
+    surNam[i+kGlaUns] = datConExtWin.name[i] + " (glass, unshaded)";
+  end for;
+  if haveShade then
+    for i in 1:nConExtWin loop
+      surNam[i+kGlaSha] = datConExtWin.name[i] + " (glass, shaded)";
+    end for;
+  end if;
+  for i in 1:nConExtWin loop
+    surNam[i+kConExtWinFra] = datConExtWin.name[i] + " (frame)";
+  end for;
+  for i in 1:nConPar loop
+    surNam[i+kConPar_a] = datConPar.name[i] + " (surface a)";
+    surNam[i+kConPar_b] = datConPar.name[i] + " (surface b)";
+  end for;
+  for i in 1:nConBou loop
+    surNam[i+kConBou] = datConBou.name[i];
+  end for;
+  for i in 1:nSurBou loop
+    surNam[i+kSurBou] = surBou.name[i];
+  end for;
+*/
   // Assignment of yFixed
   for i in 1:kSurBou+nSurBou loop
     yFixed[i] = Q_flow_fixed[i];

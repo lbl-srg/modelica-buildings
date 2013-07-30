@@ -16,6 +16,7 @@ PartialSurfaceInterfaceRadiative
 SkyRadiationExchange
 ConstructionNumbers
 ConstructionRecords
+OpaqueSurface
 Overhang
 ParameterConstructionWithWindow
 ParameterConstruction

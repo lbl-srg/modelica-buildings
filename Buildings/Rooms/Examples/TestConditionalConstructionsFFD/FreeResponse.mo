@@ -50,12 +50,15 @@ model FreeResponse
     AFlo=6*4,
     hRoo=2.7,
     nConExt=2,
-    datConExt(layers={matLayRoo, matLayExt},
+    datConExt(
+           name = {"Ceiling", "West wall"},
+           layers={matLayRoo, matLayExt},
            A={6*4, 6*3},
            til={Buildings.HeatTransfer.Types.Tilt.Ceiling, Buildings.HeatTransfer.Types.Tilt.Wall},
            azi={Buildings.HeatTransfer.Types.Azimuth.S, Buildings.HeatTransfer.Types.Azimuth.W}),
     nConExtWin=nConExtWin,
     datConExtWin(
+              name = {"South wall with window"},
               layers={matLayExt},
               each A=4*3,
               glaSys={glaSys},

@@ -1,6 +1,8 @@
 within Buildings.Rooms.BaseClasses;
 record PartialParameterConstruction "Partial record for constructions"
   extends Modelica.Icons.Record;
+  parameter String name = ""
+    "Surface name. Optional for MixedAir, required for FFD.";
   replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Material properties of opaque construction"
     annotation(Dialog(group="Opaque construction"),
