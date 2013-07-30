@@ -17,10 +17,6 @@ partial model PartialMixingVolumeWaterPort
   Modelica.Blocks.Interfaces.RealOutput X_w "Species composition of medium"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}, rotation=
            0)));
-  Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
-    "Mass flow rates of independent substances added to the medium";
-  Modelica.SIunits.HeatFlowRate HWat_flow
-    "Enthalpy flow rate of extracted water";
 
   annotation (
     Documentation(info="<html>
@@ -41,6 +37,17 @@ is used that does not implement this function.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 30, 2013 by Michael Wetter:<br/>
+Changed connector <code>mXi_flow[Medium.nXi]</code>
+to a scalar input connector <code>mWat_flow</code>
+in the conservation equation model.
+The reason is that <code>mXi_flow</code> does not allow
+to compute the other components in <code>mX_flow</code> and
+therefore leads to an ambiguous use of the model.
+By only requesting <code>mWat_flow</code>, the mass balance
+and species balance can be implemented correctly.
+</li>
 <li>
 February 7, 2012 by Michael Wetter:<br/>
 Revised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.

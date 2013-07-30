@@ -5,8 +5,8 @@ model ConstantEffectiveness "Heat exchanger with constant effectiveness"
     sensibleOnly2 = true,
     Q1_flow = eps * QMax_flow,
     Q2_flow = -Q1_flow,
-    mXi1_flow = zeros(Medium1.nXi),
-    mXi2_flow = zeros(Medium2.nXi));
+    mWat1_flow = 0,
+    mWat2_flow = 0);
 
   parameter Real eps(min=0, max=1, unit="1") = 0.8
     "Heat exchanger effectiveness";
@@ -53,6 +53,11 @@ instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 30, 2013 by Michael Wetter:<br/>
+Updated model to use new variable <code>mWat_flow</code>
+in the base class.
+</li>
 <li>
 January 28, 2010, by Michael Wetter:<br/>
 Added regularization near zero flow.

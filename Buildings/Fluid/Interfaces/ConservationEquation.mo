@@ -53,8 +53,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Heat transfered into the medium"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealInput mXi_flow[Medium.nXi](each unit="kg/s")
-    "Mass flow rates of independent substances added to the medium"
+  Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
+    "Moisture mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
 
   // Outputs that are needed in models that extend this model
@@ -89,6 +89,14 @@ protected
      p=p_start,
      X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass"
   annotation (Evaluate=true);
+
+  // Parameters that are used to construct the vector mXi_flow
+  parameter Integer i_w(min=1, fixed=false) "Index for water substance";
+  final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                            string2="Water",
+                                            caseSensitive=false)
+                                            then 1 else 0 for i in 1:Medium.nXi}
+    "Vector with zero everywhere except where species is";
 equation
   // Total quantities
   m = fluidVolume*medium.d;
@@ -128,15 +136,15 @@ equation
   end if;
 
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    0 = mb_flow + sum(mXi_flow);
+    0 = mb_flow + sum(mWat_flow);
   else
-    der(m) = mb_flow + sum(mXi_flow);
+    der(m) = mb_flow + sum(mWat_flow);
   end if;
 
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    zeros(Medium.nXi) = mbXi_flow + mXi_flow;
+    zeros(Medium.nXi) = mbXi_flow + mWat_flow * s;
   else
-    der(mXi) = mbXi_flow + mXi_flow;
+    der(mXi) = mbXi_flow + mWat_flow * s;
   end if;
 
   if traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
@@ -152,6 +160,21 @@ equation
       ports[i].Xi_outflow = medium.Xi;
       ports[i].C_outflow  = C;
   end for;
+
+initial algorithm
+  i_w:= -1;
+  for i in 1:Medium.nXi loop
+      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                            string2="Water",
+                                            caseSensitive=false) then
+      i_w := i;
+      end if;
+   end for;
+    assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
+      "If Medium.nXi > 1, then substance 'water' must be present for one component.'"
+         + Medium.mediumName + "'.\n"
+         + "Check medium model.");
+
 initial equation
   // Make sure that if energyDynamics is SteadyState, then
   // massDynamics is also SteadyState.
@@ -222,7 +245,7 @@ Input connectors of the model are
 <code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
 </li>
 <li>
-<code>mXi_flow</code>, which is the species mass flow rate added to the medium.
+<code>mWat_flow</code>, which is the species mass flow rate added to the medium.
 </li>
 </ul>
 <p>
@@ -242,6 +265,16 @@ Buildings.Fluid.Storage.ExpansionVessel</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 30, 2013 by Michael Wetter:<br/>
+Changed connector <code>mXi_flow[Medium.nXi]</code>
+to a scalar input connector <code>mWat_flow</code>.
+The reason is that <code>mXi_flow</code> does not allow
+to compute the other components in <code>mX_flow</code> and
+therefore leads to an ambiguous use of the model.
+By only requesting <code>mWat_flow</code>, the mass balance
+and species balance can be implemented correctly.
+</li>
 <li>
 March 27, 2013 by Michael Wetter:<br/>
 Removed wrong unit attribute of <code>COut</code>,
@@ -312,7 +345,7 @@ Implemented first version in <code>Buildings</code> library, based on model from
         Text(
           extent={{-89,17},{-54,34}},
           lineColor={0,0,127},
-          textString="mXi_flow"),
+          textString="mWat_flow"),
         Text(
           extent={{-89,52},{-54,69}},
           lineColor={0,0,127},

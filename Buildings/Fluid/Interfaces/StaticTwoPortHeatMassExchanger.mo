@@ -9,8 +9,8 @@ model StaticTwoPortHeatMassExchanger
 
   // Model inputs
   input Modelica.SIunits.HeatFlowRate Q_flow "Heat transfered into the medium";
-  input Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
-    "Mass flow rates of independent substances added to the medium";
+  input Modelica.SIunits.MassFlowRate mWat_flow
+    "Moisture mass flow rate added to the medium";
 
   // Models for conservation equations and pressure drop
   Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation vol(
@@ -56,8 +56,7 @@ protected
     "Block to set heat input into volume"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Sources.RealExpression
-    masExc[Medium.nXi](y=mXi_flow) if
-       Medium.nXi > 0 "Block to set mass exchange in volume"
+    masExc(final y=mWat_flow) "Block to set moisture exchange in volume"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 equation
   connect(vol.hOut, hOut);
@@ -84,7 +83,7 @@ equation
       points={{1,50},{6,50},{6,8},{13,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(masExc.y, vol.mXi_flow) annotation (Line(
+  connect(masExc.y, vol.mWat_flow) annotation (Line(
       points={{1,30},{4,30},{4,4},{13,4}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -122,16 +121,26 @@ The following inputs need to be assigned:
 <code>Q_flow</code>, which is the heat flow rate added to the medium.
 </li>
 <li>
-<code>mXi_flow</code>, which is the species mass flow rate added to the medium.
+<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium.
 </li>
 </ul>
 
 <p>
 Set the constant <code>sensibleOnly=true</code> if the model that extends
-or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
+or instantiates this model sets <code>mWat_flow = 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 30, 2013 by Michael Wetter:<br/>
+Changed connector <code>mXi_flow[Medium.nXi]</code>
+to a scalar input connector <code>mWat_flow</code>.
+The reason is that <code>mXi_flow</code> does not allow
+to compute the other components in <code>mX_flow</code> and
+therefore leads to an ambiguous use of the model.
+By only requesting <code>mWat_flow</code>, the mass balance
+and species balance can be implemented correctly.
+</li>
 <li>
 March 27, 2013 by Michael Wetter:<br/>
 Removed wrong unit attribute of <code>COut</code>,
