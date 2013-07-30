@@ -74,13 +74,13 @@ initial algorithm
   tilt = " + String(surIde[i].til*180/Modelica.Constants.pi) + " [deg]");
     end for;
   end if;
-
+/*
   for i in 1:nSur loop
     assert(Modelica.Utilities.Strings.length(surIde[i].name) > 0,
     "The surface number + " + String(i) + " has no name.//
  To use the FFD interface, all surfaces must have a name.");
   end for;
-
+*/
   // Assignment of parameters and start values
   flaRea   := 0;
   uInt    := zeros(nWri);
