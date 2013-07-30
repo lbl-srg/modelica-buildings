@@ -3468,6 +3468,10 @@ individual libraries.<br/>
    </td>
    <td valign=\"top\">Package for heat transfer in building constructions.</td>
 </tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.UsersGuide\">Rooms</a>
+   </td>
+   <td valign=\"top\">Package for heat transfer in rooms and through the building envelope.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
    </td>
    <td valign=\"top\">Package to call Python functions from Modelica.</td>
