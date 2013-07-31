@@ -98,69 +98,51 @@ protected
   // and then refuses to use this parameter to conditionally remove connectors
   // in FFDSurfaceInterface.
   FFDSurfaceInterface ffdConExt[NConExt](
-    final useTemperatureBoundaryCondition={
-      Buildings.Rooms.Types.CFDBoundaryConditions.Temperature == datConExt[i].boundaryCondition
-      for i in 1:NConExt}) if
+    final bouCon={datConExt[i].boundaryCondition for i in 1:NConExt}) if
        haveConExt "Interface to heat port of exterior constructions"
     annotation (Placement(transformation(extent={{180,210},{200,230}})));
 
   FFDSurfaceInterface ffdConExtWin[NConExtWin](
-    final useTemperatureBoundaryCondition={
-      Buildings.Rooms.Types.CFDBoundaryConditions.Temperature == datConExtWin[i].boundaryCondition
-      for i in 1:NConExtWin}) if
+    final bouCon={datConExtWin[i].boundaryCondition for i in 1:NConExtWin}) if
         haveConExtWin
     "Interface to heat port of opaque part of exterior constructions with window"
     annotation (Placement(transformation(extent={{180,170},{200,190}})));
 
   FFDSurfaceInterface ffdGlaUns[NConExtWin](
-    final useTemperatureBoundaryCondition={
-      Buildings.Rooms.Types.CFDBoundaryConditions.Temperature == datConExtWin[i].boundaryCondition
-      for i in 1:NConExtWin}) if
+    final bouCon={datConExtWin[i].boundaryCondition for i in 1:NConExtWin}) if
        haveConExtWin "Interface to heat port of unshaded part of glass"
     annotation (Placement(transformation(extent={{180,110},{200,130}})));
 
   FFDSurfaceInterface ffdGlaSha[NConExtWin](
-    final useTemperatureBoundaryCondition={
-      Buildings.Rooms.Types.CFDBoundaryConditions.Temperature == datConExtWin[i].boundaryCondition
-      for i in 1:NConExtWin}) if
+    final bouCon={datConExtWin[i].boundaryCondition for i in 1:NConExtWin}) if
        haveShade "Interface to heat port of shaded part of glass"
     annotation (Placement(transformation(extent={{180,70},{200,90}})));
 
   FFDSurfaceInterface ffdConExtWinFra[NConExtWin](
-    final useTemperatureBoundaryCondition={
-      Buildings.Rooms.Types.CFDBoundaryConditions.Temperature == datConExtWin[i].boundaryCondition
-      for i in 1:NConExtWin}) if
+    final bouCon={datConExtWin[i].boundaryCondition for i in 1:NConExtWin}) if
        haveConExtWin "Interface to heat port of window frame"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
 
   FFDSurfaceInterface ffdConPar_a[NConPar](
-    final useTemperatureBoundaryCondition={
-      Buildings.Rooms.Types.CFDBoundaryConditions.Temperature == datConPar[i].boundaryCondition
-      for i in 1:NConPar}) if
+    final bouCon={datConPar[i].boundaryCondition for i in 1:NConPar}) if
        haveConPar
     "Interface to heat port of surface a of partition constructions"
     annotation (Placement(transformation(extent={{180,-70},{200,-50}})));
 
   FFDSurfaceInterface ffdConPar_b[NConPar](
-    final useTemperatureBoundaryCondition={
-      Buildings.Rooms.Types.CFDBoundaryConditions.Temperature == datConPar[i].boundaryCondition
-      for i in 1:NConPar}) if
+    final bouCon={datConPar[i].boundaryCondition for i in 1:NConPar}) if
        haveConPar
     "Interface to heat port of surface b of partition constructions"
     annotation (Placement(transformation(extent={{180,-110},{200,-90}})));
 
   FFDSurfaceInterface ffdConBou[NConBou](
-    final useTemperatureBoundaryCondition={
-      Buildings.Rooms.Types.CFDBoundaryConditions.Temperature == datConBou[i].boundaryCondition
-      for i in 1:NConBou}) if
+    final bouCon={datConBou[i].boundaryCondition for i in 1:NConBou}) if
        haveConBou
     "Interface to heat port that connects to room-side surface of constructions that expose their other surface to the outside"
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
 
   FFDSurfaceInterface ffdSurBou[NSurBou](
-    final useTemperatureBoundaryCondition={
-      Buildings.Rooms.Types.CFDBoundaryConditions.Temperature == surBou[i].boundaryCondition
-      for i in 1:NSurBou}) if
+    final bouCon={surBou[i].boundaryCondition for i in 1:NSurBou}) if
        haveSurBou
     "Interface to heat port of surfaces of models that compute the heat conduction outside of this room"
     annotation (Placement(transformation(extent={{180,-230},{200,-210}})));
