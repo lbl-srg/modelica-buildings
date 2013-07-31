@@ -838,6 +838,115 @@ we exchange <i>Q<sub>e</sub> = 1 &frasl; &Delta; t &int;<sub>&Delta; t</sub> Q(s
 </ul>
 </li>
 </ol>
+<p>
+The data exchange with the CFD interface is implemented in the instance
+<code>ffd</code>, and implemented in
+<a href=\"modelica://Buildings.Rooms.BaseClasses.FFDExchange\">
+Buildings.Rooms.BaseClasses.FFDExchange</a>.
+This block exchanges the following data with the CFD simulation:
+</p>
+<ul>
+<li>
+During the initialzation, the following data are sent from Modelica to CFD:
+<ul>
+<li>
+An array of strings where each element is the name of the surface, as declared by
+the user when instantiating the model
+<a href=\"Buildings.Rooms.FFD\">Buildings.Rooms.FFD</a>.
+Let us call this array <code>name</code>.
+The orders of elements in this array are as follows:
+<ol>
+<li>
+<code>nConExt</code> elements are the names of the exterior constructions 
+declared as <code>datConExt</code>.
+</li>
+<li>
+<code>nConExtWin</code> elements are the names of the exterior constructions 
+declared as <code>datConExtWin</code>. As these embed windows and a frame, what follows are
+<code>nConExtWin</code> elements where each string is the same as above, 
+but <code>' (glass, unshaded)'</code> has been appended, then -- if the window has a shade --
+<code>nConExtWin</code> elements with <code>' (glass, shaded)'</code> appended, and
+finally
+<code>nConExtWin</code> elements with <code>' (frame)'</code> appended.
+</li>
+<li>
+<code>nConPar</code> elements for the surface <code>a</code> of <code>datConPar</code>.
+To these names, the string <code>' (surface a)'</code> is appended.
+Next, there are <code>nConPar</code> elements with  <code>' (surface b)'</code> appended.
+</li>
+<li>
+<code>nConBou</code> elements for the surfaces of <code>datConBou</code>.
+</li>
+<li>
+<code>nSurBou</code> elements for the surfaces of <code>nSurBou</code>.
+</li>
+</ol>
+</li>
+<li>
+Using the same order, there is also an array for the areas of the surfaces <code>A</code>,
+an array for the surface tilt <code>til</code>
+and the type of the boundary conditions <code>bouCon</code> for each of these surfaces.
+In <code>bouCon</code>, <i>1</i> means temperature specified and <i>2</i> means
+heat flow rate specified.
+</li>
+</ul>
+</li>
+<li>
+During the time integration, and array <code>u</code> is sent from Modelica to CFD, and Modelica
+receives an array <code>y</code> from CFD.
+The elements of the array <code>u</code> are as follows:
+<ol>
+<li>
+Either temperature or boundary conditions, in the same order as the array <code>name</code>.
+The array <code>bouCon</code> that is sent during the initialization declares the type of boundary
+condition.
+There are <code>nSur</code> elements for surfaces.
+</li>
+<li>
+The convective heat input into the room, which is a scalar.
+</li>
+<li>
+If at least one window in the room has a shade, then the next <code>nConExtWin</code>
+elements are the shading control signals. <code>u=0</code> means that the shade is not deployed,
+and <code>u=1</code> means that the shade is completely deployed (blocking solar radiation).
+If there is no window in the room, then these elements are not present.
+</li>
+<li>
+If at least one window in the room has a shade, then the next <code>nConExtWin</code>
+elements are the radiation that is absorbed by the shade.
+If there is no window in the room, then these elements are not present.
+</li>
+<li>
+The next element is the room average static pressure.
+</li>
+<li>
+The next <code>nPorts</code> elements are the mass flow rate into the room. 
+Positive means that air flows into the room.
+The first element is connected to <code>ports[1]</code>, the second to
+<code>ports[2]</code> etc.
+</li>
+<li>
+The next <code>nPorts</code> elements are the air temperature that the medium has
+<i>if it were flowing into the room</i>, e.g., the \"inflowing medium\" 
+computed based on <code>inStream(h_outflow)</code>.
+</li>
+<li>
+The next <code>nPorts*Medium.nXi</code> elements are the species concentration of the inflowing
+medium. The first <code>Medium.nXi</code> elements are for port <i>1</i>, then for 
+port <i>2</i> etc.
+The units are in <i>kg/kg</i> total mass, and not in  <i>kg/kg</i> dry air.
+</li>
+<li>
+The next <code>nPorts*Medium.nC</code> elements are the trace substances of the inflowing
+medium. The first <code>Medium.nC</code> elements are for port <i>1</i>, then for 
+port <i>2</i> etc.
+</li>
+</ol>
+</li>
+<li>
+The elements of the array <code>y</code> that is sent from CFD to Modelica are as follows: fixme
+</li>
+</ul>
 </html>",
 revisions="<html>
 <ul>

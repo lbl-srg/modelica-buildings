@@ -77,6 +77,22 @@ protected
     end for;
   end returnNonUniqueStrings;
 
+  function sendSurfaceIdentifiers
+    input String[nSur] name "Surface names";
+    input Modelica.SIunits.Area[nSur] A "Surface areas";
+    input Modelica.SIunits.Angle[nSur] til "Surface tilt";
+    input Buildings.Rooms.Types.CFDBoundaryConditions bouCon
+      "Type of boundary condition";
+    input Boolean haveShade "Flag, true if the windows have a shade";
+    input Integer nSur "Number of surfaces";
+
+  algorithm
+    for i in 1:nSur loop
+      assert(A[i] > 0, "Surface must be bigger than zero.");
+    end for;
+    // fixme: Send from here the input arguments of this function to the CFD interface
+  end sendSurfaceIdentifiers;
+
 initial equation
   // Diagnostics output
   if verbose then
@@ -105,6 +121,14 @@ initial equation
   "For the CFD interface, all surfaces must have a name that is unique within each room.
   The following surface names are used in the room model:" +
   returnNonUniqueStrings(nSur, ideNam, surIde));
+
+  // Send parameters to the CFD interface
+  sendSurfaceIdentifiers(name=    {surIde[i].name for i in 1:nSur},
+                         A=       {surIde[i].A for i in 1:nSur},
+                         til=     {surIde[i].til for i in 1:nSur},
+                         bouCon=  {surIde[i].bouCon for i in 1:nSur},
+                         haveShade=  haveShade,
+                         nSur);
 
 initial algorithm
   // Assignment of parameters and start values
