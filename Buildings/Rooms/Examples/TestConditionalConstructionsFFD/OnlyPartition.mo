@@ -8,7 +8,7 @@ model OnlyPartition "Test model for room model"
    nConBou=0,
    nSurBou=0,
    roo(
-    datConPar(layers={matLayPar}, each A=10,
+    datConPar(name={"Interior wall"}, layers={matLayPar}, each A=10,
     each til=Buildings.HeatTransfer.Types.Tilt.Floor,
     each azi=Buildings.HeatTransfer.Types.Azimuth.W)));
 

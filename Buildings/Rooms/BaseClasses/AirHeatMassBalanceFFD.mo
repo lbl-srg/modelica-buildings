@@ -58,7 +58,8 @@ protected
     "Trace substances of the fluid that flows into the HVAC system used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
 
-  parameter FFDSurfaceIdentifier surIde[kSurBou+nSurBou] = assignSurfaceIdentifier(
+  parameter FFDSurfaceIdentifier surIde[kSurBou+nSurBou]=
+   assignSurfaceIdentifier(
     nConExt=  nConExt,
     nConExtWin=  nConExtWin,
     nConPar=  nConPar,
@@ -66,56 +67,60 @@ protected
     nSurBou=  nSurBou,
     nSur=  nSur,
     haveShade=  haveShade,
-    kConExt=  kConExt,
-    kConExtWin=  kConExtWin,
-    kGlaUns=  kGlaUns,
-    kGlaSha=  kGlaSha,
-    kConExtWinFra=  kConExtWinFra,
-    kConPar_a=  kConPar_a,
-    kConPar_b=  kConPar_b,
-    kConBou=  kConBou,
-    kSurBou=  kSurBou,
-    datConExt=  datConExt,
-    datConExtWin=  datConExtWin,
-    datConPar=  datConPar,
-    datConBou=  datConBou,
-    surBou=  surBou)
+    nameConExt=    datConExt.name,
+    AConExt=       datConExt.A,
+    tilConExt=     datConExt.til,
+    bouConConExt=  datConExt.boundaryCondition,
+    nameConExtWin=    datConExtWin.name,
+    AConExtWin=       datConExtWin.AOpa,
+    tilConExtWin=     datConExtWin.til,
+    bouConConExtWin=  datConExtWin.boundaryCondition,
+    AGla=       datConExtWin.AGla,
+    AFra=       datConExtWin.AFra,
+    nameConPar=    datConPar.name,
+    AConPar=       datConPar.A,
+    tilConPar=     datConPar.til,
+    bouConConPar=  datConPar.boundaryCondition,
+    nameConBou=    datConBou.name,
+    AConBou=       datConBou.A,
+    tilConBou=     datConBou.til,
+    bouConConBou=  datConBou.boundaryCondition,
+    nameSurBou=    surBou.name,
+    ASurBou=       surBou.A,
+    tilSurBou=     surBou.til,
+    bouConSurBou=  surBou.boundaryCondition)
     "Names of all surfaces in the order in which their properties are sent to FFD";
 
   // Interfaces between the FFD block and the heat ports of this model
   FFDSurfaceInterface ffdConExt(
-   final n=NConExt,
-   final bouCon={surIde[i+kConExt].bouCon for i in 1:NConExt})
-   if haveConExt
-    "Interface to heat port of exterior constructions"
+    final n=NConExt,
+    final bouCon={surIde[i+kConExt].bouCon for i in 1:NConExt}) 
+    if haveConExt "Interface to heat port of exterior constructions"
     annotation (Placement(transformation(extent={{180,210},{200,230}})));
 
   FFDSurfaceInterface ffdConExtWin(
     final n=NConExtWin,
-    final bouCon={surIde[i+kConExtWin].bouCon for i in 1:NConExtWin}) 
-    if haveConExtWin
+    final bouCon={surIde[i+kConExtWin].bouCon for i in 1:NConExtWin})
+    if  haveConExtWin
     "Interface to heat port of opaque part of exterior constructions with window"
     annotation (Placement(transformation(extent={{180,170},{200,190}})));
 
   FFDSurfaceInterface ffdGlaUns(
     final n=NConExtWin,
-    final bouCon={surIde[i+kGlaUns].bouCon for i in 1:NConExtWin}) 
-    if haveConExtWin
-    "Interface to heat port of unshaded part of glass"
+    final bouCon={surIde[i+kGlaUns].bouCon for i in 1:NConExtWin})
+    if haveConExtWin "Interface to heat port of unshaded part of glass"
     annotation (Placement(transformation(extent={{180,110},{200,130}})));
 
   FFDSurfaceInterface ffdGlaSha(
     final n=NConExtWin,
     final bouCon={surIde[i+kGlaSha].bouCon for i in 1:NConExtWin}) 
-    if haveShade
-    "Interface to heat port of shaded part of glass"
+    if haveShade "Interface to heat port of shaded part of glass"
     annotation (Placement(transformation(extent={{180,70},{200,90}})));
 
   FFDSurfaceInterface ffdConExtWinFra(
     final n=NConExtWin,
     final bouCon={surIde[i+kConExtWinFra].bouCon for i in 1:NConExtWin}) 
-    if haveConExtWin
-    "Interface to heat port of window frame"
+    if haveConExtWin "Interface to heat port of window frame"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
 
   FFDSurfaceInterface ffdConPar_a(
@@ -134,20 +139,20 @@ protected
 
   FFDSurfaceInterface ffdConBou(
     final n=NConBou,
-    final bouCon={surIde[i+kConBou].bouCon for i in 1:NConBou}) 
+    final bouCon={surIde[i+kConBou].bouCon for i in 1:NConBou})
     if haveConBou
     "Interface to heat port that connects to room-side surface of constructions that expose their other surface to the outside"
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
 
   FFDSurfaceInterface ffdSurBou(
     final n=NSurBou,
-    final bouCon={surIde[i+kSurBou].bouCon for i in 1:NSurBou}) 
+    final bouCon={surIde[i+kSurBou].bouCon for i in 1:NSurBou})
     if haveSurBou
     "Interface to heat port of surfaces of models that compute the heat conduction outside of this room"
     annotation (Placement(transformation(extent={{180,-230},{200,-210}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-                      ffdHeaPorAir "Interface to heat port of air node"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature ffdHeaPorAir 
+    "Interface to heat port of air node"
     annotation (Placement(transformation(extent={{-182,-10},{-202,10}})));
 
   FFDFluidInterface fluInt(
@@ -234,7 +239,7 @@ protected
 
     input Boolean haveShade
       "Flag, set to true if any of the window in this room has a shade";
-
+    /*
     // Declaration of counters used in the loop.
     // This could be computed (again) in this function, but using it
     // as a function arguments avoids code duplication.
@@ -247,75 +252,88 @@ protected
     input Integer kConPar_b "Offset used to connect FFD signals to conPar_b";
     input Integer kConBou "Offset used to connect FFD signals to conBou";
     input Integer kSurBou "Offset used to connect FFD signals to surBou";
-
+*/
     // Declaration of construction data
-    input ParameterConstruction datConExt[:] "Data for exterior construction";
-    input Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow datConExtWin[:]
-      "Data for exterior construction with window";
-    input Buildings.Rooms.BaseClasses.ParameterConstruction datConPar[:]
-      "Data for partition construction";
-    input Buildings.Rooms.BaseClasses.ParameterConstruction datConBou[:]
-      "Data for construction boundary";
-    input Buildings.Rooms.BaseClasses.OpaqueSurface surBou[:]
-      "Record for data of surfaces whose heat conduction is modeled outside of this room";
+    input String nameConExt[nConExt] "Surface name";
+    input Modelica.SIunits.Area AConExt[nConExt] "Surface area";
+    input Modelica.SIunits.Angle tilConExt[nConExt] "Surface tilt";
+    input Buildings.Rooms.Types.CFDBoundaryConditions bouConConExt[nConExt]
+      "Boundary condition";
+
+    input String nameConExtWin[nConExtWin] "Surface name";
+    input Modelica.SIunits.Area AConExtWin[nConExtWin] "Surface area";
+    input Modelica.SIunits.Angle tilConExtWin[nConExtWin] "Surface tilt";
+    input Buildings.Rooms.Types.CFDBoundaryConditions bouConConExtWin[nConExtWin]
+      "Boundary condition";
+    input Modelica.SIunits.Area AGla[nConExtWin] "Surface area";
+    input Modelica.SIunits.Area AFra[nConExtWin] "Surface area";
+
+    input String nameConPar[nConPar] "Surface name";
+    input Modelica.SIunits.Area AConPar[nConPar] "Surface area";
+    input Modelica.SIunits.Angle tilConPar[nConPar] "Surface tilt";
+    input Buildings.Rooms.Types.CFDBoundaryConditions bouConConPar[nConPar]
+      "Boundary condition";
+
+    input String nameConBou[nConBou] "Surface name";
+    input Modelica.SIunits.Area AConBou[nConBou] "Surface area";
+    input Modelica.SIunits.Angle tilConBou[nConBou] "Surface tilt";
+    input Buildings.Rooms.Types.CFDBoundaryConditions bouConConBou[nConBou]
+      "Boundary condition";
+
+    input String nameSurBou[nSurBou] "Surface name";
+    input Modelica.SIunits.Area ASurBou[nSurBou] "Surface area";
+    input Modelica.SIunits.Angle tilSurBou[nSurBou] "Surface tilt";
+    input Buildings.Rooms.Types.CFDBoundaryConditions bouConSurBou[nSurBou]
+      "Boundary condition";
 
     output FFDSurfaceIdentifier id[nSur] "Name of all surfaces";
 
   algorithm
-    for i in 1:nConExt loop
-      id[i+kConExt].name   :=datConExt.name[i];
-      id[i+kConExt].A      :=datConExt.A[i];
-      id[i+kConExt].til    :=datConExt.til[i];
-      id[i+kConExt].bouCon :=datConExt.boundaryCondition[i];
-    end for;
-    for i in 1:nConExtWin loop
-      id[i+kConExtWin].name   :=datConExtWin.name[i];
-      id[i+kConExtWin].A      :=datConExtWin.A[i];
-      id[i+kConExtWin].til    :=datConExtWin.til[i];
-      id[i+kConExtWin].bouCon :=datConExtWin.boundaryCondition[i];
-    end for;
-    for i in 1:nConExtWin loop
-      id[i+kGlaUns].name   :=datConExtWin.name[i] + " (glass, unshaded)";
-      id[i+kGlaUns].A      :=datConExtWin.AGla[i];
-      id[i+kGlaUns].til    :=datConExtWin.til[i];
-      id[i+kGlaUns].bouCon :=datConExtWin.boundaryCondition[i];
-    end for;
-    if haveShade then
-      for i in 1:nConExtWin loop
-        id[i+kGlaSha].name   :=datConExtWin.name[i] + " (glass, shaded)";
-        id[i+kGlaSha].A      :=datConExtWin.AGla[i];
-        id[i+kGlaSha].til    :=datConExtWin.til[i];
-        id[i+kGlaSha].bouCon :=datConExtWin.boundaryCondition[i];
-      end for;
-    end if;
-    for i in 1:nConExtWin loop
-      id[i+kConExtWinFra].name   :=datConExtWin.name[i] + " (frame)";
-      id[i+kConExtWinFra].A      :=datConExtWin.AFra[i];
-      id[i+kConExtWinFra].til    :=datConExtWin.til[i];
-      id[i+kConExtWinFra].bouCon :=datConExtWin.boundaryCondition[i];
-    end for;
-    for i in 1:nConPar loop
-      id[i+kConPar_a].name   :=datConPar.name[i] + " (surface a)";
-      id[i+kConPar_a].A      :=datConPar.A[i];
-      id[i+kConPar_a].til    :=datConPar.til[i];
-      id[i+kConPar_a].bouCon :=datConPar.boundaryCondition[i];
-      id[i+kConPar_b].name   :=datConPar.name[i] + " (surface b)";
-      id[i+kConPar_b].A      :=datConPar.A[i];
-      id[i+kConPar_b].til    :=datConPar.til[i];
-      id[i+kConPar_b].bouCon :=datConPar.boundaryCondition[i];
-    end for;
-    for i in 1:nConBou loop
-      id[i+kConBou].name   :=datConBou.name[i];
-      id[i+kConBou].A      :=datConBou.A[i];
-      id[i+kConBou].til    :=datConBou.til[i];
-      id[i+kConBou].bouCon :=datConBou.boundaryCondition[i];
-    end for;
-    for i in 1:nSurBou loop
-      id[i+kSurBou].name   :=surBou.name[i];
-      id[i+kSurBou].A      :=surBou.A[i];
-      id[i+kSurBou].til    :=surBou.til[i];
-      id[i+kSurBou].bouCon :=surBou.boundaryCondition[i];
-    end for;
+      id := cat(1, {FFDSurfaceIdentifier(
+                                  name=nameConExt[i],
+                                  A=AConExt[i],
+                                  til=tilConExt[i],
+                                  bouCon=bouConConExt[i]) for i in 1:nConExt},
+                   {FFDSurfaceIdentifier(
+                                  name=nameConExtWin[i],
+                                  A=AConExtWin[i],
+                                  til=tilConExtWin[i],
+                                  bouCon=bouConConExtWin[i]) for i in 1:nConExtWin},
+                   {FFDSurfaceIdentifier(
+                                  name=nameConExtWin[i] + " (glass, unshaded)",
+                                  A=AGla[i],
+                                  til=tilConExtWin[i],
+                                  bouCon=bouConConExtWin[i]) for i in 1:nConExtWin},
+                   {FFDSurfaceIdentifier(
+                                  name=nameConExtWin[i] + " (glass, shaded)",
+                                  A=AGla[i],
+                                  til=tilConExtWin[i],
+                                  bouCon=bouConConExtWin[i]) for i in 1:(if haveShade then nConExtWin else 0)},
+                   {FFDSurfaceIdentifier(
+                                  name=nameConExtWin[i] + " (frame)",
+                                  A=AFra[i],
+                                  til=tilConExtWin[i],
+                                  bouCon=bouConConExtWin[i]) for i in 1:nConExtWin},
+                   {FFDSurfaceIdentifier(
+                                  name=nameConPar[i] + " (surface a)",
+                                  A=AConPar[i],
+                                  til=tilConPar[i],
+                                  bouCon=bouConConPar[i]) for i in 1:nConPar},
+                   {FFDSurfaceIdentifier(
+                                  name=nameConPar[i] + " (surface b)",
+                                  A=AConPar[i],
+                                  til=tilConPar[i] + Modelica.Constants.pi/180,
+                                  bouCon=bouConConPar[i]) for i in 1:nConPar},
+                  {FFDSurfaceIdentifier(
+                                  name=nameConBou[i],
+                                  A=AConBou[i],
+                                  til=tilConBou[i],
+                                  bouCon=bouConConBou[i]) for i in 1:nConBou},
+                  {FFDSurfaceIdentifier(
+                                  name=nameSurBou[i],
+                                  A=ASurBou[i],
+                                  til=tilSurBou[i],
+                                  bouCon=bouConSurBou[i]) for i in 1:nSurBou});
   end assignSurfaceIdentifier;
 
 initial equation
