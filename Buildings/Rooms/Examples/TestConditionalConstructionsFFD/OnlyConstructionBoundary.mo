@@ -8,8 +8,12 @@ model OnlyConstructionBoundary "Test model for room model"
    nConBou=1,
    nSurBou=0,
    roo(
-    datConBou(layers={matLayPar}, each A=12, each til=Buildings.HeatTransfer.Types.Tilt.Floor,
-    each azi=Buildings.HeatTransfer.Types.Azimuth.W)));
+     datConBou(
+       name={"Floor", "Ceiling"},
+       layers={matLayPar},
+     each A=12,
+     each til=Buildings.HeatTransfer.Types.Tilt.Floor,
+     each azi=Buildings.HeatTransfer.Types.Azimuth.W)));
   Buildings.HeatTransfer.Sources.FixedTemperature TBou1[nConBou](each T=288.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -17,7 +21,7 @@ model OnlyConstructionBoundary "Test model for room model"
         origin={110,-70})));
 equation
   connect(TBou1.port, roo.surf_conBou) annotation (Line(
-      points={{100,-70},{70,-70},{70,-34}},
+      points={{100,-70},{70,-70},{70,-32}},
       color={191,0,0},
       smooth=Smooth.None));
    annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructionsFFD/OnlyConstructionBoundary.mos"

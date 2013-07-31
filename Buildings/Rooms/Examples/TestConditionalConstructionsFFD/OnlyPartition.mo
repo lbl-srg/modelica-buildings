@@ -8,9 +8,12 @@ model OnlyPartition "Test model for room model"
    nConBou=0,
    nSurBou=0,
    roo(
-    datConPar(name={"Interior wall"}, layers={matLayPar}, each A=10,
-    each til=Buildings.HeatTransfer.Types.Tilt.Floor,
-    each azi=Buildings.HeatTransfer.Types.Azimuth.W)));
+    datConPar(
+      name={"Interior wall"}, 
+      layers={matLayPar},
+      each A=10,
+      each til=Buildings.HeatTransfer.Types.Tilt.Floor,
+      each azi=Buildings.HeatTransfer.Types.Azimuth.W)));
 
    annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructionsFFD/OnlyPartition.mos"
         "Simulate and plot"),

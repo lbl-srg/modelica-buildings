@@ -42,6 +42,9 @@ protected
 
   output Integer retVal "Return value from FFD";
 
+  parameter Boolean ideNam[nSur-1](fixed=false)
+    "Flag that is set to true if the surface name is used more than once";
+
   function exchangeFFD
     input Integer flag "Communication flag to write to FFD";
     input Modelica.SIunits.Time t "Current simulation time in seconds to write";
@@ -64,23 +67,49 @@ protected
       retVal    := 0;
   end exchangeFFD;
 
-initial algorithm
+  function returnNonUniqueStrings
+    input Integer nSur "Number of surfaces";
+    input Boolean ideNam[nSur-1]
+      "Flag that is set to true if the surface name is used more than once";
+    input FFDSurfaceIdentifier surIde[nSur] "Surface identifiers";
+    output String s "String with non-unique surface names";
+  algorithm
+    s := "";
+    for i in 1:nSur-1 loop
+      s := s + "\n  '" + surIde[i].name + "'";
+    end for;
+  end returnNonUniqueStrings;
+
+initial equation
   // Diagnostics output
   if verbose then
     Modelica.Utilities.Streams.print(string="FFDExchange has the following surfaces:\n");
     for i in 1:nSur loop
       Modelica.Utilities.Streams.print(string=  String(i) + ":
+  name = " + surIde[i].name + "
   A    = " + String(surIde[i].A)   + " [m2]
   tilt = " + String(surIde[i].til*180/Modelica.Constants.pi) + " [deg]");
     end for;
   end if;
-/*
+
   for i in 1:nSur loop
     assert(Modelica.Utilities.Strings.length(surIde[i].name) > 0,
-    "The surface number + " + String(i) + " has no name.//
- To use the FFD interface, all surfaces must have a name.");
+    "The surface number + " + String(i) + " has no name.
+  To use the FFD interface, all surfaces must have a name.");
   end for;
-*/
+
+  // Loop over all surfaces to verify that their names are unique
+  for i in 1:nSur-1 loop
+    ideNam[i] = Modelica.Math.BooleanVectors.anyTrue(
+      {Modelica.Utilities.Strings.isEqual(surIde[i].name, surIde[j].name) for j in i+1:nSur});
+  end for;
+
+  assert( not Modelica.Math.BooleanVectors.anyTrue(ideNam),
+  "For the CFD interface, all surfaces must have a name that is unique within each room.
+  The following surface names are used in the room model:" +
+  returnNonUniqueStrings(nSur, ideNam, surIde));
+
+initial algorithm
   // Assignment of parameters and start values
   flaRea   := 0;
   uInt    := zeros(nWri);
@@ -152,7 +181,6 @@ algorithm
     // Store current value of integral
     uIntPre:=uInt;
   end when;
-
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics),
