@@ -412,7 +412,7 @@ equation
       if datConExtWin[i].boundaryCondition == Buildings.Rooms.Types.CFDBoundaryConditions.Temperature then
         connect(ffd.u[kConExtWin+i], ffdConExtWin[i].T_out)
             annotation (Line(
-            points={{-42,190},{-60,190},{-60,184},{179,184}},
+            points={{-42,190},{-60,190},{-60,172},{60,172},{60,184},{179,184}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(ffd.y[kConExtWin+i], ffdConExtWin[i].Q_flow_in)
