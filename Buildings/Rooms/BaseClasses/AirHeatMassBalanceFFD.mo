@@ -813,9 +813,7 @@ connected.
 If <code>Medium.nXi=0</code> (e.g., for dry air) or <code>Medium.nC=0</code>, then these signals are not present as input/output signals of the FFD block.
 </li>
 </ul>
-<li>
 The quantities that are exchanged between the programs are defined as follows:
-</li>
 <ul>
 <li>
 For the mass flow rate of the fluid port, 
