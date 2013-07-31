@@ -36,7 +36,6 @@ protected
   final parameter Real _uStart[nWri]=
      {if (flaWri[i] <= 1) then uStart[i] else uStart[i]*samplePeriod for i in 1:nWri}
     "Initial input signal, used during first data transfer with FFD";
-  output Integer flaRea "Flag received from FFD";
   output Modelica.SIunits.Time simTimRea
     "Current simulation time received from FFD";
 
@@ -53,7 +52,6 @@ protected
     input Real[nU] u "Input for FFD";
     input Integer nU "Number of inputs for FFD";
     input Integer nY "Number of outputs from FFD";
-    output Integer flaRea "Communication flag read from FFD";
     output Modelica.SIunits.Time simTimRea
       "Current simulation time in seconds read from FFD";
     output Real[nY] y "Output computed by FFD";
@@ -61,9 +59,8 @@ protected
       "The exit value, which is negative if an error occured";
 
   algorithm
-      flaRea    := 0;
       simTimRea := t+dt;
-      y         :=zeros(nY);
+      y         := zeros(nY);
       retVal    := 0;
   end exchangeFFD;
 
@@ -111,7 +108,6 @@ initial equation
 
 initial algorithm
   // Assignment of parameters and start values
-  flaRea   := 0;
   uInt    := zeros(nWri);
   uIntPre := zeros(nWri);
   for i in 1:nWri loop
@@ -120,7 +116,7 @@ initial algorithm
   end for;
   // Exchange initial values
    if activateInterface then
-     (flaRea, simTimRea, y, retVal) :=
+     (simTimRea, y, retVal) :=
        exchangeFFD(
        flag=0,
        t=time,
@@ -129,12 +125,10 @@ initial algorithm
        nU=size(u, 1),
        nY=size(y, 1));
    else
-     flaRea    := 0;
      simTimRea := time;
      y         := yFixed;
      retVal    := 0;
    end if;
-
 equation
    for i in 1:nWri loop
       der(uInt[i]) = if (flaWri[i] > 0) then u[i] else 0;
@@ -157,7 +151,7 @@ algorithm
       end for;
      // Exchange data
     if activateInterface then
-      (flaRea, simTimRea, y, retVal) :=exchangeFFD(
+      (simTimRea, y, retVal) :=exchangeFFD(
         flag=0,
         t=time,
         dt=samplePeriod,
@@ -165,15 +159,11 @@ algorithm
         nU=size(u, 1),
         nY=size(y, 1));
     else
-      flaRea    := 0;
       simTimRea := time;
       y         := yFixed;
       retVal    := 0;
       end if;
     // Check for valid return flags
-    assert(flaRea >= 0, "FFD sent a negative flag to Modelica during data transfer.\n" +
-                        "   Aborting simulation. Check file 'fixme: enter name of FFD log file'.\n" +
-                        "   Received: flaRea = " + String(flaRea));
     assert(retVal >= 0, "Obtained negative return value during data transfer with FFD.\n" +
                         "   Aborting simulation. Check file 'fixme: enter name of FFD log file'.\n" +
                         "   Received: retVal = " + String(retVal));
