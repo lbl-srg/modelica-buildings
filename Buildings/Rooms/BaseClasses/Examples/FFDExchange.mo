@@ -20,7 +20,7 @@ model FFDExchange "Test model for FFDExchange block"
     name={"a","b","c"},
     A={1,2,4},
     til={0,1.5707963267949,3.1415926535898},
-    bouCon=Buildings.Rooms.Types.CFDBoundaryConditions.Temperature)
+    each bouCon=Buildings.Rooms.Types.CFDBoundaryConditions.Temperature)
     "Surface identifier"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 equation
