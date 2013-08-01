@@ -7,6 +7,8 @@ model UF90X3ACloset "Model of the closet connected to test bed UF90X3A"
   nConExt = 2,
   nConBou = 2,
   nSurBou = 2,
+  nConExtWin = 0,
+  nConPar = 0,
   surBou(
     A = {3.6576 * 2.886075 - 2.39*1.22, 2.39 * 1.22},
     each absIR = 0.9,

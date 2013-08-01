@@ -5,7 +5,7 @@ model CalBayComm "Example for testing CalBayComm"
 
 //fixme - Once real time implemented, change to include dimming. Instead of simple binary control at a single setpoint, use dimming to track a changing setpoint
 
-  Buildings.Rooms.Examples.FLEXLAB.IO.CalBaySetDAQ
+  Buildings.Rooms.Examples.FLEXLAB.IO.CalBayGetDAQ
                                              pyt(
     functionName="CalBayComm",
     nDblRea=1,
@@ -13,21 +13,21 @@ model CalBayComm "Example for testing CalBayComm"
     Login="P Grant",
     Password="pgrant213",
     Command="GetDAQ:WattStopper.HS1--4126F--Light Level-1",
-    samplePeriod=5)
+    samplePeriod=1)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=10)
+  Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=0)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Rooms.Examples.FLEXLAB.IO.CalBaySetDAQ pyt1(
     moduleName="GeneralCalBayComm",
     functionName="CalBayComm",
     Login="P Grant",
     Password="pgrant213",
-    samplePeriod=5,
     nDblRea=1,
-    Server=Buildings.Rooms.Examples.FLEXLAB.Types.Server.WattstopperHS1,
-    Signal=Buildings.Rooms.Examples.FLEXLAB.Types.Signal.GetDAQ,
-    Channel="--4126F--Light Level-1")
+    Channel="SETDAQ:WattStopper.HS1--4126F--Relay-2",
+    samplePeriod=1)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+//    Server=Buildings.Rooms.Examples.FLEXLAB.Types.Server.WattstopperHS1,
+//    Signal=Buildings.Rooms.Examples.FLEXLAB.Types.Signal.GetDAQ,
 equation
   connect(pyt.yR[1], lessThreshold.u) annotation (Line(
       points={{-39,0},{-22,0}},

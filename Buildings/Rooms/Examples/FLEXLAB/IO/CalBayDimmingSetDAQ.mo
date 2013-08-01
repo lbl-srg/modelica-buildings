@@ -1,5 +1,6 @@
 within Buildings.Rooms.Examples.FLEXLAB.IO;
-model CalBaySetDAQ "Block calling a Python script to send signals to CalBay"
+model CalBayDimmingSetDAQ
+  "Block calling a Python script to send signals to CalBay"
   extends Modelica.Blocks.Interfaces.DiscreteBlock(startTime=0);
 
   parameter String moduleName
@@ -28,7 +29,7 @@ model CalBaySetDAQ "Block calling a Python script to send signals to CalBay"
   Modelica.Blocks.Interfaces.RealOutput yR[nDblRea]
     "Real outputs received from Python"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.BooleanInput u
+  Modelica.Blocks.Interfaces.RealInput uR
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 algorithm
 //initial equation, python function to get current time. Use current time in this model
@@ -47,11 +48,7 @@ algorithm
 //       Receiver :="WattStopper.HS1";
 //     end if;
 
-    if u == true then
-      Command :="1";
-    else
-      Command :="0";
-    end if;
+      Command :=String(uR);
 
 //    SendString :=SignalType + ":" + Receiver + Channel + ":" + Command + ":" + Login + ":" + Password;
     SendString := Channel + ":" + Command + ":" + Login + ":" + Password;
@@ -129,4 +126,4 @@ Buildings.Utilities.IO.BCVTB.BCVTB</a>.
 </li>
 </ul>
 </html>"));
-end CalBaySetDAQ;
+end CalBayDimmingSetDAQ;

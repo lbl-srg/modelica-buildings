@@ -1,5 +1,6 @@
 within Buildings.Rooms.Examples.FLEXLAB.IO;
-model CalBaySetDAQ "Block calling a Python script to send signals to CalBay"
+model CalBayDimmingGetDAQ
+  "Block calling a Python script to communicate with CalBay"
   extends Modelica.Blocks.Interfaces.DiscreteBlock(startTime=0);
 
   parameter String moduleName
@@ -7,55 +8,19 @@ model CalBaySetDAQ "Block calling a Python script to send signals to CalBay"
   parameter String functionName=moduleName "Name of the python function";
   parameter String Login "Login used in the CalBay system";
   parameter String Password "Password used in the CalBay system";
-//   parameter Buildings.Rooms.Examples.FLEXLAB.Types.Signal Signal
-//     "Type of signal used in communication with CalBay"
-//     annotation(choicesAllMatching=true);
-//   parameter Buildings.Rooms.Examples.FLEXLAB.Types.Server Server
-//     "CalBay server used in the current communication"
-//     annotation(choicesAllMatching=true);
-  parameter String Channel "Channel on the server used for communication";
+  parameter String Command "Command to send to CalBay";
 
   parameter Integer nDblRea
     "Number of real variables to be read from the Python script";
 
-  String SendString
-    "Concatenate the three inputs to the string needed in Python";
-
-  String Command "Command being sent to CalBay";
-//   String SignalType "Type of signal to send to CalBay";
-//   String Receiver "Server receiving the command";
+  String SendString = Command + ":" + Login + ":" + Password
+    "Concatenate the three inputs to the first string needed in Python";
 
   Modelica.Blocks.Interfaces.RealOutput yR[nDblRea]
     "Real outputs received from Python"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.BooleanInput u
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 algorithm
-//initial equation, python function to get current time. Use current time in this model
-//How to set sample trigger to happen at current time + every 5-10s? How does sample trigger work?
-
   when {sampleTrigger} then
-//     if Signal == Buildings.Rooms.Examples.FLEXLAB.Types.Signal.GetDAQ then
-//       SignalType :="GetDAQ";
-//     else
-//       SignalType :="SetDAQ";
-//     end if;
-//
-//     if Server == Buildings.Rooms.Examples.FLEXLAB.Types.Server.FourthFloor then
-//       Receiver :="4th Floor";
-//     else
-//       Receiver :="WattStopper.HS1";
-//     end if;
-
-    if u == true then
-      Command :="1";
-    else
-      Command :="0";
-    end if;
-
-//    SendString :=SignalType + ":" + Receiver + Channel + ":" + Command + ":" + Login + ":" + Password;
-    SendString := Channel + ":" + Command + ":" + Login + ":" + Password;
-
     // Exchange data
     yR :=Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName=moduleName,
@@ -129,4 +94,4 @@ Buildings.Utilities.IO.BCVTB.BCVTB</a>.
 </li>
 </ul>
 </html>"));
-end CalBaySetDAQ;
+end CalBayDimmingGetDAQ;

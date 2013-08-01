@@ -110,24 +110,19 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
   Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical
                            eleRoo(
     redeclare package Medium = Air,
-    nPorts=2,
-    nConExtWin=0,
-    nConPar=0,
-    nConBou=0) "Model of the electrical room"
+    nPorts=2) "Model of the electrical room"
     annotation (Placement(transformation(extent={{54,-80},{94,-40}})));
   Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset
                            clo(
     redeclare package Medium = Air,
-    nPorts=2,
-    nConExtWin=0,
-    nConPar=0) "Model of the closet"
+    nPorts=2) "Model of the closet"
     annotation (Placement(transformation(extent={{156,92},{196,132}})));
   Modelica.Blocks.Sources.CombiTimeTable TNei(table=[0,293.15,293.15; 86400,
         293.15,293.15])
     "Temperature of the neighboring test cells (y[1] = UF90X2B, y[2] = UF90X3B)"
     annotation (Placement(transformation(extent={{110,-118},{90,-98}})));
-  Modelica.Blocks.Sources.CombiTimeTable intGaiEle(table=[0,0,0,0,0,0,0; 86400,0,
-        0,0,0,0,0]) "Internal gain heat flow for the electrical room"
+  Modelica.Blocks.Sources.CombiTimeTable intGaiEle(table=[0,0,0,0; 86400,0,0,0])
+    "Internal gain heat flow for the electrical room"
     annotation (Placement(transformation(extent={{-68,-16},{-48,4}})));
   Modelica.Blocks.Sources.CombiTimeTable airConEle(table=[0,0.1,293.15; 86400,0.1,
         293.15], tableOnFile=false)
@@ -465,41 +460,44 @@ equation
           <td>eleRoo.surf_surBou[2]</td>
           </tr>
           </table>
-          
-          
-          
-          
-          
           <p>
-          The previous table detailed all of the connections between UF90X3A and the other
-          models in the simulation. Additionally, some of the other models must be connected
-          to each other. These connections are described in the following table.
-          </p>        
+          The close connected to the UF90X3A test cell is modeled using an instance of 
+          <a href=\"modelica:Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3ACloset\">
+          Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3ACloset</a>. The connections
+          necessary to accurately include the space in the simulation are described
+          in the following table. Prevsiouly mentioned connections are not included.
+          </p>
           <table border =\"1\">
           <tr>
-          <th>Description of the connection</th>
-          <th>Port 1</th>
-          <th>Port 2</th>
+          <th>External model name</th>
+          <th>External model significance</th>
+          <th>External model port</th>
+          <th>clo port</th>
           </tr>
           <tr>
-          <td>Heat transfer between UF90XA Closet and UF90X3B Closet</td>
-          <td>preTem2[2]</td>
-          <td>clos.surf_conBou[2]</td>
+          <td>intGaiClo</td>
+          <td>Internal gains for the closet</td>
+          <td>intGaiClo.y[1,2,3]</td>
+          <td>clo.qGai_flow[1,2,3]</td>
           </tr>
           <tr>
-          <td>Heat transfer through the wall separating the electrical room and the closet</td>
-          <td>eleRoo.surf_surBou[2]</td>
-          <td>clo.surf_conBou[1]</td>
+          <td>airInClo</td>
+          <td>Prescribed airflow describing service air coming from the AHU</td>
+          <td>airInClo.ports[1]</td>
+          <td>clo.ports[1]</td>
           </tr>
           <tr>
-          <td>Weather data connection to closet</td>
-          <td>weaDat.weaBus</td>
-          <td>clo.weaBus</td>
+          <td>airOutClo</td>
+          <td>Outlet for ventilation air</td>
+          <td>airOutClo.ports[1]</td>
+          <td>clo.ports[2]</td>
           </tr>
           <tr>
-          <td>Weather data connection to electrical room</td>
-          <td>weaDat.weaBus</td>
-          <td>eleRoo.weaBus</td>
+          <td>preTem2</td>
+          <td>Prescribed temperature representing the closet in UF90X3B. Data is 
+          read from the table in TNei</td>
+          <td>preTem2[2].port</td>
+          <td>clo.surf_conBou[2]</td>
           </tr>
           </table>
           <p>
@@ -519,17 +517,12 @@ equation
           <th>y[1] significane</th>
           <th>y[2] significance</th>
           <th>y[3] significance</th>
-          <th>y[4] significance</th>
-          <th>y[5] significance</th>
-          <th>y[6] significance</th>
           </tr>
           <tr>
           <td>shaPos</td>
           <td>Position of the shade</td>
           <td>Table in model</td>
           <td>Position of the shade</td>
-          <td></td>
-          <td></td>
           </tr>
           <tr>
           <td>intGai</td>
@@ -564,12 +557,17 @@ equation
           <td></td>
           </tr>
           <tr>
-          <td>intGaiCon</td>
-          <td>Internal gains for the connected rooms</td>
+          <td>intGaiClo</td>
+          <td>Internal gains for the closet</td>
           <td>Table in model</td>
           <td>Closet radiant heat</td>
           <td>Closet convective heat</td>
           <td>Closet latent heat</td>
+          </tr>
+          <tr>
+          <td>intGaiEle</td>
+          <td>Internal gains for the closet</td>
+          <td>Table in model</td>
           <td>Electrical radiant heat</td>
           <td>Electrical convective heat</td>
           <td>Electrical latent heat</td>
