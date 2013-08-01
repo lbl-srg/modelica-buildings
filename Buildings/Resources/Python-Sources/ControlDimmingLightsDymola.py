@@ -137,25 +137,49 @@ class FlexlabExtInterface(SocketClient):
 
 #for i in range(0,3):
 
+#SetPoint = 8
+
 #def CalBayComm(Login, Password, Command):
-def CalBayComm(SendString):
+def CalBayComm(SetPoint):
 
     conn = FlexlabExtInterface()
     print "Opening connection.\n"
     print "Sending command 'LOGIN:Philips 1:Philips 1':\n" + conn.open("128.3.20.130",3500,"P Grant","pgrant213")
     
 
-    print "Checking light levels in office 4126F"
-    print "Sending command to read WattStopper.HS1--4126F--Light Level-1:\n'GETDAQ:WattStopper.HS1--4126F--Relay-3:P Grant:pgrant213':\n"
-    res = float(conn.cmd(SendString))
+    CurrentLight = conn.cmd('GetDAQ:WattStopper.HS1--4126F--Light Level-1:P Grant:pgrant213')
+#    print "CurrentLight: " + CurrentLight
+    CurrentDim = conn.cmd('GetDAQ:WattStopper.HS1--4126F--Dimmer Level-2:P Grant:pgrant213')
+#    print "CurrentDim: " + CurrentDim
+    NewDim = float(CurrentDim) - 100/1.5 * (1 - float(SetPoint)/float(CurrentLight))
+#    print "NewDim: " + str(NewDim)
+
+    conn.cmd('SETDAQ:WattStopper.HS1--4126F--Dimmer Level-2:' + str(NewDim) + ':P Grant:pgrant213') 
+
+    time.sleep(30)
+
+#    print "After 30s delay..."
+
+    NewLight = conn.cmd('GetDAQ:WattStopper.HS1--4126F--Light Level-1:P Grant:pgrant213')
+#    print "NewLight: " + NewLight
+    NewDim = conn.cmd('GetDAQ:WattStopper.HS1--4126F--Dimmer Level-2:P Grant:pgrant213')
+#    print "NewDim: " + NewDim
+
+    #print "Checking light levels in office 4126F"
+    #print "Sending command to read WattStopper.HS1--4126F--Light Level-1:\n'GETDAQ:WattStopper.HS1--4126F--Relay-3:P Grant:pgrant213':\n"
+    #res = float(conn.cmd(SendString))
 #    print "Result: "+str(res)
     conn.close()
-    time.sleep(10)
-    return res
     #Output = 
 #    results.append(CalBayComm(Login, Password, Command))
 
-#    CalBayComm(SendString)
+    CurrentLightOut = float(CurrentLight)
+    NewLightOut = float(NewLight)
+    NewDimOut = float(NewDim)
+
+    return (CurrentLightOut, NewLightOut, NewDimOut, SetPoint)
+
+#CalBayComm(SetPoint)
 
 #    print Output
 #    print i

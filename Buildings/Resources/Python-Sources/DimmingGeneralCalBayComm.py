@@ -138,7 +138,9 @@ class FlexlabExtInterface(SocketClient):
 #for i in range(0,3):
 
 #def CalBayComm(Login, Password, Command):
-def CalBayComm(SendString):
+def CalBayComm(SendString1, SendString2):
+
+    start = time.clock()
 
     conn = FlexlabExtInterface()
     print "Opening connection.\n"
@@ -147,11 +149,11 @@ def CalBayComm(SendString):
 
     print "Checking light levels in office 4126F"
     print "Sending command to read WattStopper.HS1--4126F--Light Level-1:\n'GETDAQ:WattStopper.HS1--4126F--Relay-3:P Grant:pgrant213':\n"
-    res = float(conn.cmd(SendString))
+    res = float(conn.cmd(SendString1))
+    res2 = float(conn.cmd(SendString2))
 #    print "Result: "+str(res)
     conn.close()
-    time.sleep(10)
-    return res
+    return res, res2
     #Output = 
 #    results.append(CalBayComm(Login, Password, Command))
 
@@ -164,7 +166,9 @@ def CalBayComm(SendString):
 
 #    time.sleep(5)
 
-#    time.sleep(25)
+    end = time.cloed()
+    elapsed = start - end
+    time.sleep(30-elapsed)
 
 #print Output
 
