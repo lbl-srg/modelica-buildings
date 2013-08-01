@@ -22,6 +22,12 @@ block FFDExchange
   parameter FFDSurfaceIdentifier surIde[nSur] "Surface identifiers";
   parameter Boolean haveShade
     "Set to true if at least one window in the room has a shade";
+  parameter Boolean haveSensor
+    "Flag, true if the model has at least one sensor";
+  parameter Integer nSen(min=0)
+    "Number of sensors that are connected to CFD output";
+  parameter String sensorName[nSen]
+    "Names of sensors as declared in the CFD input file";
   parameter Boolean verbose = true "Set to true for verbose output";
 
   Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to FFD"
@@ -43,8 +49,10 @@ protected
 
   output Integer retVal "Return value from FFD";
 
-  parameter Boolean ideNam[nSur-1](fixed=false)
+  parameter Boolean ideSurNam[nSur-1](fixed=false)
     "Flag that is set to true if the surface name is used more than once";
+  parameter Boolean ideSenNam[max(0, nSen-1)](fixed=false)
+    "Flag that is set to true if the sensor name is used more than once";
 
   function exchangeFFD
     input Integer flag "Communication flag to write to FFD";
@@ -67,44 +75,61 @@ protected
   end exchangeFFD;
 
   function returnNonUniqueStrings
-    input Integer nSur "Number of surfaces";
-    input Boolean ideNam[nSur-1]
-      "Flag that is set to true if the surface name is used more than once";
-    input FFDSurfaceIdentifier surIde[nSur] "Surface identifiers";
-    output String s "String with non-unique surface names";
+    input Integer n "Number entries";
+    input Boolean ideNam[n-1]
+      "Flag that is set to true if the name is used more than once";
+    input String names[n] "Names";
+    output String s "String with non-unique names";
   algorithm
     s := "";
-    for i in 1:nSur-1 loop
-      s := s + "\n  '" + surIde[i].name + "'";
+    for i in 1:n-1 loop
+      if ideNam[i] then
+        s := s + "\n  '" + names[i] + "'";
+      end if;
     end for;
   end returnNonUniqueStrings;
 
-  function sendSurfaceIdentifiers
+  function sendParameters
     input String[nSur] name "Surface names";
     input Modelica.SIunits.Area[nSur] A "Surface areas";
     input Modelica.SIunits.Angle[nSur] til "Surface tilt";
     input Buildings.Rooms.Types.CFDBoundaryConditions[nSur] bouCon
       "Type of boundary condition";
+    input Boolean haveSensor "Flag, true if the model has at least one sensor";
+    input String sensorName[nSen]
+      "Names of sensors as declared in the CFD input file";
     input Boolean haveShade "Flag, true if the windows have a shade";
     input Integer nSur "Number of surfaces";
+    input Integer nSen(min=0)
+      "Number of sensors that are connected to CFD output";
 
   algorithm
     for i in 1:nSur loop
       assert(A[i] > 0, "Surface must be bigger than zero.");
     end for;
     // fixme: Send from here the input arguments of this function to the CFD interface
-  end sendSurfaceIdentifiers;
+  end sendParameters;
 
 initial equation
   // Diagnostics output
   if verbose then
-    Modelica.Utilities.Streams.print(string="FFDExchange has the following surfaces:\n");
+    Modelica.Utilities.Streams.print(string="\nFFDExchange has the following surfaces:");
     for i in 1:nSur loop
-      Modelica.Utilities.Streams.print(string=  String(i) + ":
+      Modelica.Utilities.Streams.print(string="
   name = " + surIde[i].name + "
   A    = " + String(surIde[i].A)   + " [m2]
   tilt = " + String(surIde[i].til*180/Modelica.Constants.pi) + " [deg]");
     end for;
+
+    if haveSensor then
+      Modelica.Utilities.Streams.print(string="\nFFDExchange has the following sensors:");
+      for i in 1:nSen loop
+        Modelica.Utilities.Streams.print(string="  " + sensorName[i]);
+      end for;
+    else
+      Modelica.Utilities.Streams.print(string="FFDExchange has no sensors.");
+    end if;
+
   end if;
 
   for i in 1:nSur loop
@@ -115,22 +140,40 @@ initial equation
 
   // Loop over all surfaces to verify that their names are unique
   for i in 1:nSur-1 loop
-    ideNam[i] = Modelica.Math.BooleanVectors.anyTrue(
+    ideSurNam[i] = Modelica.Math.BooleanVectors.anyTrue(
       {Modelica.Utilities.Strings.isEqual(surIde[i].name, surIde[j].name) for j in i+1:nSur});
   end for;
 
-  assert( not Modelica.Math.BooleanVectors.anyTrue(ideNam),
+  assert( not Modelica.Math.BooleanVectors.anyTrue(ideSurNam),
   "For the CFD interface, all surfaces must have a name that is unique within each room.
-  The following surface names are used in the room model:" +
-  returnNonUniqueStrings(nSur, ideNam, surIde));
+  The following surface names are used more than once in the room model:" +
+  returnNonUniqueStrings(nSur, ideSurNam, {surIde[i].name for i in 1:nSur}));
+
+  // Loop over all sensors to verify that their names are unique
+  if nSen > 1 then
+    for i in 1:nSen-1 loop
+      ideSenNam[i] = Modelica.Math.BooleanVectors.anyTrue(
+        {Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j in i+1:nSen});
+     end for;
+
+    assert( not Modelica.Math.BooleanVectors.anyTrue(ideSenNam),
+    "For the CFD interface, all sensors must have a name that is unique within each room.
+    The following sensor names are used more than once in the room model:" +
+    returnNonUniqueStrings(nSen, ideSenNam, sensorName));
+  else
+    ideSenNam = fill(false, max(0, nSen-1));
+  end if;
 
   // Send parameters to the CFD interface
-  sendSurfaceIdentifiers(name=    {surIde[i].name for i in 1:nSur},
-                         A=       {surIde[i].A for i in 1:nSur},
-                         til=     {surIde[i].til for i in 1:nSur},
-                         bouCon=  {surIde[i].bouCon for i in 1:nSur},
-                         haveShade=  haveShade,
-                         nSur=nSur);
+  sendParameters(name=      {surIde[i].name for i in 1:nSur},
+                 A=         {surIde[i].A for i in 1:nSur},
+                 til=       {surIde[i].til for i in 1:nSur},
+                 bouCon=    {surIde[i].bouCon for i in 1:nSur},
+                 haveSensor=haveSensor,
+                 sensorName=sensorName,
+                 haveShade=  haveShade,
+                 nSur=nSur,
+                 nSen=nSen);
 
 initial algorithm
   // Assignment of parameters and start values

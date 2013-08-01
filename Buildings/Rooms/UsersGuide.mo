@@ -2,30 +2,11 @@ within Buildings.Rooms;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
-  annotation (preferredView="info",
-  Documentation(info="<html>
-<p>
-The package <b>Buildings.Rooms</b> contains models for heat transfer 
-through the building envelope.
-Multiple instances of these models can be connected to create
-a multi-zone building model.
-To compute the air exchange between rooms and between a room
-and the exterior, the room models can be connected to 
-multi-zone air exchange models from the package
-<a href=\"modelica://Buildings.Airflow\">
-Buildings.Airflow</a>.
-The room models can also be linked to models of HVAC systems
-that are composed of the components in the package
-<a href=\"modelica://Buildings.Fluid\">
-Buildings.Fluid</a>.
-</p>
-</html>"));
-
 
    class MixedAir "Room model with instantaneously mixed air"
     extends Modelica.Icons.Information;
-  annotation (preferredView="info",
-  Documentation(info="<html>
+    annotation (preferredView="info", Documentation(info=
+                     "<html>
 <p>The model <a href=\"modelica://Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a> is 
 a model of a room with completely mixed air.
 The room can have any number of constructions and surfaces that participate in the 
@@ -570,9 +551,10 @@ Modeling of Heat Transfer in Rooms in the Modelica \"Buildings\" Library.</a><br
 Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 2011. 
 </p>
 </html>"));
-  end MixedAir;
+   end MixedAir;
 
-  class FFD "Room model with air heat and mass balance computed using Fast Fluid Dynamics"
+  class FFD
+    "Room model with air heat and mass balance computed using Fast Fluid Dynamics"
     extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
@@ -582,7 +564,24 @@ a room model in which the room air heat and mass balance is computed
 using the Fast Fluid Dynamics algorithm.
 </p>
 <p>
-fixme: add description
+The model is identical with 
+<a href=\"modelica://Buildings.Rooms.MixedAir\">
+Buildings.Rooms.MixedAir</a>, except
+for the following points:
+<ul>
+<li>
+The heat and mass balance of the air is computed using Fast Fluid Dynamics.
+</li>
+<li>
+To match surfaces and fluid ports between the Modelica model and the Fast Fluid Dynamics model,
+users must declare a unique name for each surface and for each fluid port.
+The same names must be used in the Fast Fluid Dynamics input file.
+</li>
+<li>
+To get access to properties of the cells of the Fast Fluid Dynamics simulation,
+this model allows declaring a sensor that is described in xxxx.
+</li>
+</ul>
 </p>
 <h4>Implementation</h4>
 <p>
@@ -591,4 +590,22 @@ fixme.
 </html>"));
   end FFD;
 
+  annotation (preferredView="info",
+  Documentation(info="<html>
+<p>
+The package <b>Buildings.Rooms</b> contains models for heat transfer 
+through the building envelope.
+Multiple instances of these models can be connected to create
+a multi-zone building model.
+To compute the air exchange between rooms and between a room
+and the exterior, the room models can be connected to 
+multi-zone air exchange models from the package
+<a href=\"modelica://Buildings.Airflow\">
+Buildings.Airflow</a>.
+The room models can also be linked to models of HVAC systems
+that are composed of the components in the package
+<a href=\"modelica://Buildings.Fluid\">
+Buildings.Fluid</a>.
+</p>
+</html>"));
 end UsersGuide;

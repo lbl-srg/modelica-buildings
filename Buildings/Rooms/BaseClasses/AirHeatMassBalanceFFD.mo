@@ -16,6 +16,13 @@ model AirHeatMassBalanceFFD
     "First sample time instant. fixme: this should be at first step."
     annotation(Dialog(group = "Sampling"));
 
+  parameter Boolean haveSensor
+    "Flag, true if the model has at least one sensor";
+  parameter Integer nSen(min=0)
+    "Number of sensors that are connected to CFD output";
+  parameter String sensorName[nSen]
+    "Names of sensors as declared in the CFD input file";
+
   // fixme: for the ffd instance, need to correctly assign flaWri
   FFDExchange ffd(
     final startTime=startTime,
@@ -23,12 +30,22 @@ model AirHeatMassBalanceFFD
     final samplePeriod = if useFFD then samplePeriod else Modelica.Constants.inf,
     final uStart=uStart,
     final nWri=kFluIntC_inflow+Medium.nC*nPorts,
-    final nRea=kFluIntC_outflow+Medium.nC*nPorts,
+    final nRea=kSen+nSen,
     final nSur=nSur,
     final surIde = surIde,
     final haveShade = haveShade,
+    final haveSensor=haveSensor,
+    final nSen=nSen,
+    final sensorName=sensorName,
     final yFixed=yFixed) "Block that exchanges data with the FFD simulation"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
+
+  Modelica.Blocks.Interfaces.RealOutput yCFD[nSen] if
+      haveSensor "Sensor for output from CFD"
+    annotation (Placement(transformation(
+     extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={180,-250})));
 
   // Values that are used for uStart
 protected
@@ -36,7 +53,7 @@ protected
     "Values used for uStart in FFDExchange";
 
   // Values that are used for yFixed
-  parameter Real yFixed[kFluIntC_outflow+Medium.nC*nPorts](fixed=false)
+  parameter Real yFixed[kSen+nSen](fixed=false)
     "Values used for yFixed in FFDExchange";
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_fixed[kSurBou+nSurBou]=fill(0, kSurBou+nSurBou)
@@ -226,6 +243,8 @@ protected
     "Offset used to connect FFD signals to outgoing species concentration for the fluid ports";
   final parameter Integer kFluIntC_outflow = kFluIntXi_outflow+nPorts*Medium.nXi
     "Offset used to connect FFD signals to outgoing trace substances for the fluid ports";
+  final parameter Integer kSen = kFluIntC_outflow+nPorts*Medium.nC
+    "Offset used to connect FFD signals to output sensor";
 
   final parameter Integer nSur = kSurBou+nSurBou "Number of surfaces";
 protected
@@ -401,6 +420,9 @@ initial equation
     for j in 1:Medium.nC loop
       yFixed[kFluIntC_outflow+(i-1)*Medium.nC+j] = C_outflow_fixed[(i-1)*Medium.nC+j];
     end for;
+  end for;
+  for i in 1:nSen loop
+    yFixed[kSen+i] = 0;
   end for;
 equation
   //////////////////////////////////////////////////////////////////////
@@ -755,6 +777,17 @@ equation
           smooth=Smooth.None));
     end for;
   end for;
+
+  // Connections for sensor signal
+  if haveSensor then
+    for i in 1:nSen loop
+      connect(ffd.y[kSen+i], yCFD[i]) annotation (Line(
+        points={{-19,190},{60,190},{60,-234},{180,-234},{180,-250}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    end for;
+  end if;
+
   connect(heaPorAir, senHeaFlo.port_a) annotation (Line(
       points={{-240,0},{-210,0}},
       color={191,0,0},

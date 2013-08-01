@@ -85,6 +85,7 @@ model FreeResponse
        each absIR=0.9,
        each absSol=0.9,
        each til=Buildings.HeatTransfer.Types.Tilt.Wall),
+    sensorName={"Occupied zone air temperature", "Velocity"},
     linearizeRadiation = false,
     nPorts=2,
     useFFD=false,
@@ -149,7 +150,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,50},{38,50}},
+      points={{1,50},{20,50},{20,48},{44,48}},
       color={0,0,127},
       smooth=Smooth.None));
 
