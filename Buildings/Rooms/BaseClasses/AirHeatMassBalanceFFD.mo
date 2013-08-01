@@ -21,11 +21,12 @@ model AirHeatMassBalanceFFD
     final startTime=startTime,
     final activateInterface=useFFD,
     final samplePeriod = if useFFD then samplePeriod else Modelica.Constants.inf,
-    uStart=uStart,
-    nWri=kFluIntC_inflow+Medium.nC*nPorts,
-    nRea=kFluIntC_outflow+Medium.nC*nPorts,
-    nSur=nSur,
+    final uStart=uStart,
+    final nWri=kFluIntC_inflow+Medium.nC*nPorts,
+    final nRea=kFluIntC_outflow+Medium.nC*nPorts,
+    final nSur=nSur,
     final surIde = surIde,
+    final haveShade = haveShade,
     final yFixed=yFixed) "Block that exchanges data with the FFD simulation"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
 
@@ -706,8 +707,6 @@ equation
   end for;
   // Input signals to fluInt block
   // The pressures of ports[2:nPorts] will be sent from FFD to Modelica
-  for i in 1:nPorts-1 loop
-  end for;
   for i in 1:nPorts loop
     connect(ffd.y[kFluIntT_outflow+i], fluInt.T_outflow[i]) annotation (Line(
         points={{-19,190},{60,190},{60,-188},{12,-188}},
@@ -839,7 +838,7 @@ we exchange <i>Q<sub>e</sub> = 1 &frasl; &Delta; t &int;<sub>&Delta; t</sub> Q(s
 </li>
 </ol>
 <p>
-The data exchange with the CFD interface is implemented in the instance
+The data exchange with the CFD interface is done through the instance
 <code>ffd</code>, and implemented in
 <a href=\"modelica://Buildings.Rooms.BaseClasses.FFDExchange\">
 Buildings.Rooms.BaseClasses.FFDExchange</a>.
@@ -850,24 +849,30 @@ This block exchanges the following data with the CFD simulation:
 During the initialzation, the following data are sent from Modelica to CFD:
 <ul>
 <li>
-An array of strings where each element is the name of the surface, as declared by
+An array of strings where each element is the name of the surface, 
+as declared by
 the user when instantiating the model
 <a href=\"Buildings.Rooms.FFD\">Buildings.Rooms.FFD</a>.
 Let us call this array <code>name</code>.
 The orders of elements in this array are as follows:
 <ol>
 <li>
+The first 
 <code>nConExt</code> elements are the names of the exterior constructions 
-declared as <code>datConExt</code>.
+declared as <code>datConExt</code>. The order is the same as 
+in the declaration of <code>datConExt</code>.
 </li>
 <li>
 <code>nConExtWin</code> elements are the names of the exterior constructions 
-declared as <code>datConExtWin</code>. As these embed windows and a frame, what follows are
+declared as <code>datConExtWin</code>. These constructions embed windows
+and a frame. Therefore, what follows are
 <code>nConExtWin</code> elements where each string is the same as above, 
-but <code>' (glass, unshaded)'</code> has been appended, then -- if the window has a shade --
-<code>nConExtWin</code> elements with <code>' (glass, shaded)'</code> appended, and
-finally
-<code>nConExtWin</code> elements with <code>' (frame)'</code> appended.
+but <code>' (glass, unshaded)'</code> has been appended, 
+then -- if and only if the window has a shade --
+<code>nConExtWin</code> elements follow with 
+<code>' (glass, shaded)'</code> appended, and,
+finally,
+<code>nConExtWin</code> elements follow with <code>' (frame)'</code> appended.
 </li>
 <li>
 <code>nConPar</code> elements for the surface <code>a</code> of <code>datConPar</code>.
@@ -886,8 +891,10 @@ Next, there are <code>nConPar</code> elements with  <code>' (surface b)'</code> 
 Using the same order, there is also an array for the areas of the surfaces <code>A</code>,
 an array for the surface tilt <code>til</code>
 and the type of the boundary conditions <code>bouCon</code> for each of these surfaces.
-In <code>bouCon</code>, <i>1</i> means temperature specified and <i>2</i> means
-heat flow rate specified.
+If <code>bouCon[i] = 1</code>, 
+then temperature is sent from Modelica to CFD.
+If <code>bouCon[i] = 2</code>, then
+heat flow rate is sent from Modelica to CFD.
 </li>
 </ul>
 </li>
@@ -897,54 +904,107 @@ receives an array <code>y</code> from CFD.
 The elements of the array <code>u</code> are as follows:
 <ol>
 <li>
-Either temperature or boundary conditions, in the same order as the array <code>name</code>.
-The array <code>bouCon</code> that is sent during the initialization declares the type of boundary
+Either temperature or heat flow rate boundary conditions, 
+in the same order as the array <code>name</code>. The units are <i>[K]</i> or <i>[W]</i>.
+The array <code>bouCon</code> that is sent during the 
+initialization declares the type of boundary
 condition.
 There are <code>nSur</code> elements for surfaces.
 </li>
 <li>
-The convective heat input into the room, which is a scalar.
+The convective heat input into the room in <i>[W]</i>, which is a scalar.
 </li>
 <li>
-If at least one window in the room has a shade, then the next <code>nConExtWin</code>
-elements are the shading control signals. <code>u=0</code> means that the shade is not deployed,
-and <code>u=1</code> means that the shade is completely deployed (blocking solar radiation).
+If at least one window in the room has a shade, then the next 
+<code>nConExtWin</code>
+elements are the shading control signals. <code>u=0</code> means 
+that the shade is not deployed,
+and <code>u=1</code> means that the shade is 
+completely deployed (blocking solar radiation).
 If there is no window in the room, then these elements are not present.
 </li>
 <li>
 If at least one window in the room has a shade, then the next <code>nConExtWin</code>
-elements are the radiation that is absorbed by the shade.
+elements are the radiations in <i>[W]</i> that are absorbed by the 
+respective shades.
 If there is no window in the room, then these elements are not present.
 </li>
 <li>
-The next element is the room average static pressure.
+The next element is the room average static pressure in <i>[Pa]</i>.
 </li>
 <li>
-The next <code>nPorts</code> elements are the mass flow rate into the room. 
-Positive means that air flows into the room.
+The next <code>nPorts</code> elements are the mass flow rates
+into the room in <i>[kg/s]</i>. 
+A positive value is used if the air flows into the room,
+otherwise the value is negative.
 The first element is connected to <code>ports[1]</code>, the second to
 <code>ports[2]</code> etc.
 </li>
 <li>
-The next <code>nPorts</code> elements are the air temperature that the medium has
+The next <code>nPorts</code> elements are the air temperatures 
+that the medium has
 <i>if it were flowing into the room</i>, e.g., the \"inflowing medium\" 
 computed based on <code>inStream(h_outflow)</code>.
 </li>
 <li>
-The next <code>nPorts*Medium.nXi</code> elements are the species concentration of the inflowing
-medium. The first <code>Medium.nXi</code> elements are for port <i>1</i>, then for 
+The next <code>nPorts*Medium.nXi</code> elements are the 
+species concentration of the inflowing
+medium. 
+The first <code>Medium.nXi</code> elements are for port <i>1</i>, then for 
 port <i>2</i> etc.
-The units are in <i>kg/kg</i> total mass, and not in  <i>kg/kg</i> dry air.
+The units are in <i>[kg/kg]</i> total mass, and not in  <i>[kg/kg]</i> dry air.
 </li>
 <li>
-The next <code>nPorts*Medium.nC</code> elements are the trace substances of the inflowing
-medium. The first <code>Medium.nC</code> elements are for port <i>1</i>, then for 
+The next <code>nPorts*Medium.nC</code> elements are the trace substances 
+of the inflowing
+medium. 
+The first <code>Medium.nC</code> elements are for port <i>1</i>, then for 
 port <i>2</i> etc.
 </li>
 </ol>
+The elements of the array <code>y</code> that is sent from CFD to Modelica are as follows:
+<ol>
+<li>
+Either temperature or heat flow rate at the surfaces,
+in the same order as the array <code>name</code>.
+The array <code>bouCon</code> that is sent during the 
+initialization declares the type of boundary
+condition.
+If <code>bouCon[i] = 1</code>, then heat flow rate in <i>[W]</i>
+is sent from CFD to Modelica.
+If <code>bouCon[i] = 2</code>, then temperature in <i>[K]</i>
+is sent from CFD to Modelica.
+There are <code>nSur</code> elements for surfaces.
 </li>
 <li>
-The elements of the array <code>y</code> that is sent from CFD to Modelica are as follows: fixme
+The average room air temperature in <i>[K]</i>.
+</li>
+<li>
+If the room has at least one window with a shade, then the next
+<code>nConExtWin</code> elements are the temperature of the
+shade in <i>[K]</i>.
+</li>
+<li>
+The next <code>nPorts</code> elements are the air temperatures
+in <i>[K]</i>
+of the cells that are connected to the inlet or outlet diffusor 
+of <code>ports[1], ports[2], etc.</code>.
+</li>
+<li>
+The next <code>nPorts*Medium.nXi</code> elements are the 
+species concentration of the cells to which the ports are 
+connected.
+The first <code>Medium.nXi</code> elements are for port <i>1</i>, then for 
+port <i>2</i> etc.
+The units are in <i>[kg/kg]</i> total mass, and not in <i>[kg/kg]</i> dry air.
+</li>
+<li>
+The next <code>nPorts*Medium.nC</code> elements are the trace substances 
+of the cells to which the ports are connected to.
+The first <code>Medium.nC</code> elements are for port <i>1</i>, then for 
+port <i>2</i> etc.
+</li>
+</ol>
 </li>
 </ul>
 </html>",
