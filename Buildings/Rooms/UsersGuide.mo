@@ -1,6 +1,7 @@
 within Buildings.Rooms;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
+
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
@@ -18,7 +19,14 @@ that are composed of the components in the package
 <a href=\"modelica://Buildings.Fluid\">
 Buildings.Fluid</a>.
 </p>
-<p>The model <a href=\"modelica:Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a> is 
+</html>"));
+
+
+   class MixedAir "Room model with instantaneously mixed air"
+    extends Modelica.Icons.Information;
+  annotation (preferredView="info",
+  Documentation(info="<html>
+<p>The model <a href=\"modelica://Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a> is 
 a model of a room with completely mixed air.
 The room can have any number of constructions and surfaces that participate in the 
 heat exchange through convection, conduction, infrared radiation and solar radiation.</p>
@@ -562,5 +570,25 @@ Modeling of Heat Transfer in Rooms in the Modelica \"Buildings\" Library.</a><br
 Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 2011. 
 </p>
 </html>"));
+  end MixedAir;
+
+  class FFD "Room model with air heat and mass balance computed using Fast Fluid Dynamics"
+    extends Modelica.Icons.Information;
+  annotation (preferredView="info",
+  Documentation(info="<html>
+<p>
+The model <a href=\"modelica://Buildings.Rooms.FFD\">Buildings.Rooms.FFD</a> is 
+a room model in which the room air heat and mass balance is computed
+using the Fast Fluid Dynamics algorithm.
+</p>
+<p>
+fixme: add description
+</p>
+<h4>Implementation</h4>
+<p>
+fixme.
+</p>
+</html>"));
+  end FFD;
 
 end UsersGuide;
