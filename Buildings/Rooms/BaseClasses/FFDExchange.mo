@@ -20,6 +20,8 @@ block FFDExchange
 
   parameter Integer nSur(min=1) "Number of surfaces";
   parameter FFDSurfaceIdentifier surIde[nSur] "Surface identifiers";
+  parameter Boolean haveShade
+    "Set to true if at least one window in the room has a shade";
   parameter Boolean verbose = true "Set to true for verbose output";
 
   Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to FFD"
@@ -81,7 +83,7 @@ protected
     input String[nSur] name "Surface names";
     input Modelica.SIunits.Area[nSur] A "Surface areas";
     input Modelica.SIunits.Angle[nSur] til "Surface tilt";
-    input Buildings.Rooms.Types.CFDBoundaryConditions bouCon
+    input Buildings.Rooms.Types.CFDBoundaryConditions[nSur] bouCon
       "Type of boundary condition";
     input Boolean haveShade "Flag, true if the windows have a shade";
     input Integer nSur "Number of surfaces";
@@ -128,7 +130,7 @@ initial equation
                          til=     {surIde[i].til for i in 1:nSur},
                          bouCon=  {surIde[i].bouCon for i in 1:nSur},
                          haveShade=  haveShade,
-                         nSur);
+                         nSur=nSur);
 
 initial algorithm
   // Assignment of parameters and start values
