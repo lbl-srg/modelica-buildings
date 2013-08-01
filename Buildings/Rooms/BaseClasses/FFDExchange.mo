@@ -248,6 +248,11 @@ algorithm
 This block samples interface variables and exchanges data with the fast fluid flow dynamics
 code.
 </p>
+<p>
+For a documentation of the exchange parameters and variables, see
+<a href=\"modelica://Buildings.Rooms.UsersGuide.FFD\">
+Buildings.Rooms.UsersGuide.FFD</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
