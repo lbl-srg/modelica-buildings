@@ -76,7 +76,7 @@ model FreeResponse
     nConBou=nConBou,
     datConBou(
       name = {"Boundary construction"},
-      layers={matLayFlo}, 
+      layers={matLayFlo},
       each A=6*4,
       each til=Buildings.HeatTransfer.Types.Tilt.Floor),
     nSurBou=nSurBou,
@@ -86,7 +86,7 @@ model FreeResponse
        each absSol=0.9,
        each til=Buildings.HeatTransfer.Types.Tilt.Wall),
     linearizeRadiation = false,
-    nPorts=1,
+    nPorts=2,
     useFFD=false,
     lat=0.73268921998722,
     samplePeriod=60,
@@ -124,11 +124,16 @@ model FreeResponse
     each A=6*4) "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
-  Fluid.Sources.MassFlowSource_T boundary(
+  Fluid.Sources.MassFlowSource_T sup(
     nPorts=1,
     redeclare package Medium = MediumA,
     T=293.15) "Boundary condition"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+  Fluid.Sources.FixedBoundary exh(
+    nPorts=1,
+    redeclare package Medium = MediumA,
+    T=293.15) "Boundary condition"
+    annotation (Placement(transformation(extent={{-2,-20},{18,0}})));
 equation
   connect(qRadGai_flow.y, multiplex3_1.u1[1])  annotation (Line(
       points={{-39,90},{-32,90},{-32,57},{-22,57}},
@@ -173,12 +178,16 @@ equation
       points={{44,56},{40,56},{40,100},{31,100}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(roo.ports[1], boundary.ports[1]) annotation (Line(
-      points={{51,30},{34,30},{34,10},{20,10}},
+  connect(roo.ports[1], sup.ports[1])      annotation (Line(
+      points={{49,30},{34,30},{34,20},{20,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {200,200}}),
+  connect(exh.ports[1], roo.ports[2]) annotation (Line(
+      points={{18,-10},{40,-10},{40,30},{53,30}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+            -100},{200,200}}),
                       graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructionsFFD/FreeResponse.mos"
         "Simulate and plot"),
     Documentation(info="<html>
