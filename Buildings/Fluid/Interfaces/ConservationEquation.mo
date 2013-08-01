@@ -136,9 +136,9 @@ equation
   end if;
 
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    0 = mb_flow + sum(mWat_flow);
+    0 = mb_flow + mWat_flow;
   else
-    der(m) = mb_flow + sum(mWat_flow);
+    der(m) = mb_flow + mWat_flow;
   end if;
 
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
