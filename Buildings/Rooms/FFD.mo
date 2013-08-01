@@ -33,6 +33,16 @@ equation
       points={{-198,106},{-152,106},{-152,114},{-142,114}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(air.QCon_flow, heaGai.QCon_flow) annotation (Line(
+      points={{39,-135},{-14,-135},{-14,-92},{-190,-92},{-190,100},{-198,100}},
+
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(air.QLat_flow, heaGai.QLat_flow) annotation (Line(
+      points={{39,-138},{-18,-138},{-18,-94},{-194,-94},{-194,94},{-198,94},{
+          -198,94}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={Rectangle(
@@ -64,5 +74,4 @@ as the latent heat gains are treated differently in the mixed air and in the CFD
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-220},{
             460,200}}),
                     graphics));
-
 end FFD;

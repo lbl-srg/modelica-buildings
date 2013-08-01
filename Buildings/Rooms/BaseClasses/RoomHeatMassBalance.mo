@@ -593,19 +593,19 @@ equation
       smooth=Smooth.None));
 
   connect(radTem.TRad, radiationAdapter.TRad) annotation (Line(
-      points={{-100.417,-77.6667},{-166,-77.6667},{-192,-77.6667},{-192,130},{
-          -182,130}},
+      points={{-100.417,-77.6667},{-144,-77.6667},{-144,-78},{-186,-78},{-186,
+          130},{-182,130},{-182,130}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radiationAdapter.rad, heaPorRad)
                                      annotation (Line(
-      points={{-170.2,120},{-170,120},{-170,118},{-170,118},{-170,114},{-226,114},
-          {-226,4.44089e-16},{-260,4.44089e-16}},
+      points={{-170.2,120},{-170,120},{-170,114},{-226,114},{-226,4.44089e-16},
+          {-260,4.44089e-16}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(radiationAdapter.QRad_flow, add.u1) annotation (Line(
-      points={{-159,130},{-154,130},{-154,126},{-142,126}},
+      points={{-159,130},{-150,130},{-150,126},{-142,126}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add.y, irRadGai.Q_flow) annotation (Line(
@@ -742,7 +742,7 @@ equation
       smooth=Smooth.None));
 
   connect(air.heaPorAir, heaPorAir) annotation (Line(
-      points={{40,-130},{-10,-130},{-10,-88},{-180,-88},{-180,40},{-260,40}},
+      points={{40,-130},{-10,-130},{-10,-88},{-200,-88},{-200,40},{-260,40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(air.TSha, TSha.T) annotation (Line(

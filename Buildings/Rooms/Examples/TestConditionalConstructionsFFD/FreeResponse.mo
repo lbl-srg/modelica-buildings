@@ -100,7 +100,7 @@ model FreeResponse
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
-    annotation (Placement(transformation(extent={{-62,2},{-42,22}})));
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
@@ -145,7 +145,7 @@ equation
       smooth=Smooth.None));
 
   connect(qLatGai_flow.y, multiplex3_1.u3[1])  annotation (Line(
-      points={{-41,12},{-32,12},{-32,43},{-22,43}},
+      points={{-39,10},{-32,10},{-32,43},{-22,43}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(

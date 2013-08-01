@@ -200,7 +200,13 @@ protected
   final parameter Integer kTSha = kHeaPorAir + 1
     "Offset used to connect FFD signals to output signal that contains the shade temperature";
 
-  final parameter Integer kFluIntP = if haveShade then kQRadAbs_flow + nConExtWin else kQRadAbs_flow
+  final parameter Integer kQConGai_flow = if haveShade then kQRadAbs_flow + nConExtWin else kQRadAbs_flow
+    "Offset used to connect FFD signals to input signal for connect convective sensible heat gain";
+
+  final parameter Integer kQLatGai_flow = kQConGai_flow + 1
+    "Offset used to connect FFD signals to input signal for connect radiative heat gain";
+
+  final parameter Integer kFluIntP = kQLatGai_flow + 1
     "Offset used to connect FFD signals to input signal for pressure from the fluid ports";
 
   final parameter Integer kFluIntM_flow = kFluIntP + 1
@@ -363,6 +369,8 @@ initial equation
       uStart[kQRadAbs_flow+i] = 0;
     end for;
   end if;
+  uStart[kQConGai_flow+1] = 0;
+  uStart[kQLatGai_flow+1] = 0;
   uStart[kFluIntP+1] = p_start;
   for i in 1:nPorts loop
     uStart[kFluIntM_flow+i] = 0;
@@ -679,6 +687,19 @@ equation
           smooth=Smooth.None));
     end for;
   end if;
+
+  // Connection for heat gain that is added to the room
+  // (averaged over the whole room air volume)
+  connect(QTotCon_flow.y, ffd.u[kQConGai_flow+1]) annotation (Line(
+      points={{-139,-50},{-60,-50},{-60,190},{-42,190}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QLat_flow, ffd.u[kQLatGai_flow+1]) annotation (Line(
+      points={{-260,-160},{-190,-160},{-190,-72},{-60,-72},{-60,190},{-42,190},{
+          -42,190}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
   // Connections to fluid port
   connect(ports, fluInt.ports) annotation (Line(
       points={{0,-238},{0,-198}},
@@ -687,7 +708,7 @@ equation
 
   // Output signals from fluInt block
 
-  // The pressure the air volume will be sent from Modelica to FFD
+  // The pressure of the air volume will be sent from Modelica to FFD
   connect(ffd.u[kFluIntP+1], fluInt.p) annotation (Line(
       points={{-42,190},{-60,190},{-60,-180},{-11,-180}},
       color={0,0,127},
@@ -750,6 +771,7 @@ equation
       points={{-260,-100},{-200,-100},{-200,-56},{-162,-56}},
       color={0,0,127},
       smooth=Smooth.None));
+
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,
@@ -937,9 +959,6 @@ condition.
 There are <code>nSur</code> elements for surfaces.
 </li>
 <li>
-The convective heat input into the room in <i>[W]</i>, which is a scalar.
-</li>
-<li>
 If at least one window in the room has a shade, then the next 
 <code>nConExtWin</code>
 elements are the shading control signals. <code>u=0</code> means 
@@ -953,6 +972,14 @@ If at least one window in the room has a shade, then the next <code>nConExtWin</
 elements are the radiations in <i>[W]</i> that are absorbed by the 
 respective shades.
 If there is no window in the room, then these elements are not present.
+</li>
+<li>
+The convective sensible heat input into the room in <i>[W]</i>, which is a scalar.
+A positive value means that heat is added to the room.
+</li>
+<li>
+The latent heat input into the room in <i>[W]</i>, which is a scalar.
+A positive value means that moisture is added to the room.
 </li>
 <li>
 The next element is the room average static pressure in <i>[Pa]</i>.
