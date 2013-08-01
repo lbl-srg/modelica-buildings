@@ -12,7 +12,8 @@ model FFDExchange "Test model for FFDExchange block"
     surIde=surIde,
     nSur=nWri,
     samplePeriod=2,
-    flaWri={0,1,2}) "Block for data exchange with FFD"
+    flaWri={0,1,2},
+    haveShade=false) "Block for data exchange with FFD"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Clock u[nWri] "Input to FFD"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
