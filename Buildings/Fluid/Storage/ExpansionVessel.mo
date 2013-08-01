@@ -6,8 +6,8 @@ model ExpansionVessel "Pressure expansion vessel with fixed gas cushion"
  parameter Modelica.SIunits.Volume VGas0 = VTot/2 "Initial volume of gas";
 
 //////////////////////////////////////////////////////////////
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-        Medium) "Fluid port"
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    redeclare package Medium = Medium) "Fluid port"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
   parameter Modelica.SIunits.Pressure pMax = 5E5
@@ -36,8 +36,8 @@ protected
     "Block to set heat input into volume"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Modelica.Blocks.Sources.Constant       masExc[Medium.nXi](final k=zeros(Medium.nXi)) if
-        Medium.nXi > 0 "Block to set mass exchange in volume"
+  Modelica.Blocks.Sources.Constant masExc(final k=0)
+    "Block to set mass exchange in volume"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
   assert(port_a.p < pMax, "Pressure exceeds maximum pressure.\n" +
@@ -50,14 +50,14 @@ equation
       points={{-59,70},{-20,70},{-20,-4},{-12,-4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(masExc.y, vol.mXi_flow) annotation (Line(
-      points={{-59,40},{-30,40},{-30,-8},{-12,-8}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(port_a, vol.ports[1]) annotation (Line(
       points={{5.55112e-16,-100},{5.55112e-16,-60},{6.66134e-16,-60},{
           6.66134e-16,-20}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(masExc.y, vol.mWat_flow) annotation (Line(
+      points={{-59,40},{-40,40},{-40,-8},{-12,-8}},
+      color={0,0,127},
       smooth=Smooth.None));
    annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={
@@ -120,6 +120,10 @@ of equations, which may result in faster simulation.
 </html>", revisions="<html>
 <ul>
 <li>
+August 1, 2013 by Michael Wetter:<br/>
+Updated model to use new connector <code>mWat_flow</code>.
+</li>
+<li>
 February 7, 2012 by Michael Wetter:<br/>
 Revised due to changes in conservation equations in <code>Buildings.Fluid.Interfaces</code>.
 </li>
@@ -143,5 +147,7 @@ Nov. 4, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end ExpansionVessel;
