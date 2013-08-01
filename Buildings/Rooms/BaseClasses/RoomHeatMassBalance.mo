@@ -108,7 +108,8 @@ partial model RoomHeatMassBalance "Base model for a room"
         iconTransformation(extent={{-240,140},{-200,180}})));
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3](unit="W/m2")
     "Radiant, convective and latent heat input into room (positive if heat gain)"
-    annotation (Placement(transformation(extent={{-300,80},{-260,120}})));
+    annotation (Placement(transformation(extent={{-300,60},{-260,100}}),
+        iconTransformation(extent={{-240,60},{-200,100}})));
   // Reassign the tilt since a construction that is declared as a ceiling of the
   // room model has an exterior-facing surface that is a floor
   BaseClasses.ExteriorBoundaryConditions bouConExt(
