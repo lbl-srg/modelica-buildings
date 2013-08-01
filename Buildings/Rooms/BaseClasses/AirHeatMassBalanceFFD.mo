@@ -150,7 +150,7 @@ protected
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature ffdHeaPorAir
     "Interface to heat port of air node"
-    annotation (Placement(transformation(extent={{-182,-10},{-202,10}})));
+    annotation (Placement(transformation(extent={{-140,-10},{-160,10}})));
 
   FFDFluidInterface fluInt(
     redeclare final package Medium = Medium,
@@ -333,6 +333,19 @@ protected
                                   bouCon=bouConSurBou[i]) for i in 1:nSurBou});
   end assignSurfaceIdentifier;
 
+public
+  Modelica.Blocks.Interfaces.RealInput QCon_flow
+    "Convective sensible heat gains of the room"
+    annotation (Placement(transformation(extent={{-280,-120},{-240,-80}})));
+  Modelica.Blocks.Interfaces.RealInput QLat_flow
+    "Latent heat gains for the room"
+    annotation (Placement(transformation(extent={{-280,-180},{-240,-140}})));
+  Modelica.Blocks.Math.Add QTotCon_flow
+    "Total sensible convective heat flow rate added to the room"
+    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor senHeaFlo
+    "Sensor for heat flow added through the port heaPorAir"
+    annotation (Placement(transformation(extent={{-210,-10},{-190,10}})));
 initial equation
    for i in 1:nPorts loop
      for j in 1:Medium.nXi loop
@@ -646,12 +659,8 @@ equation
       smooth=Smooth.None));
   // Connections to heat port of air volume
   connect(ffd.y[kHeaPorAir+1], ffdHeaPorAir.T) annotation (Line(
-      points={{-19,190},{60,190},{60,0},{-180,0}},
+      points={{-19,190},{60,190},{60,8.88178e-16},{-138,8.88178e-16}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(ffdHeaPorAir.port, heaPorAir) annotation (Line(
-      points={{-202,0},{-240,0}},
-      color={191,0,0},
       smooth=Smooth.None));
   // Connections to shade
   if haveShade then
@@ -725,6 +734,22 @@ equation
           smooth=Smooth.None));
     end for;
   end for;
+  connect(heaPorAir, senHeaFlo.port_a) annotation (Line(
+      points={{-240,0},{-210,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(senHeaFlo.port_b, ffdHeaPorAir.port) annotation (Line(
+      points={{-190,0},{-160,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(senHeaFlo.Q_flow, QTotCon_flow.u1) annotation (Line(
+      points={{-200,-10},{-200,-46},{-162,-46},{-162,-44}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QCon_flow, QTotCon_flow.u2) annotation (Line(
+      points={{-260,-100},{-200,-100},{-200,-56},{-162,-56}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,

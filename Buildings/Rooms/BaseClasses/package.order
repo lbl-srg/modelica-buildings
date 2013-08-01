@@ -12,6 +12,7 @@ InfraredRadiationGainDistribution
 PartialAirHeatMassBalance
 RadiationAdapter
 RadiationTemperature
+RoomHeatMassBalance
 SolarRadiationExchange
 PartialSurfaceInterface
 PartialSurfaceInterfaceRadiative

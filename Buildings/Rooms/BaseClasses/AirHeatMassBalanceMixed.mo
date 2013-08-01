@@ -1,7 +1,7 @@
 within Buildings.Rooms.BaseClasses;
 model AirHeatMassBalanceMixed
   "Heat and mass balance of the air, assuming completely mixed air"
-  extends Buildings.Rooms.BaseClasses.PartialAirHeatMassBalance;
+  extends Buildings.Rooms.BaseClasses.PartialAirHeatMassBalance(nPorts=1);
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -30,7 +30,7 @@ model AirHeatMassBalanceMixed
     final C_nominal=C_nominal,
     final m_flow_nominal = m_flow_nominal,
     final prescribedHeatFlowRate = true,
-    final nPorts=nPorts,
+    final nPorts=nPorts+1,
     m_flow_small=1E-4*abs(m_flow_nominal),
     homotopyInitialization=homotopyInitialization,
     allowFlowReversal=true) "Room air volume"
@@ -99,6 +99,11 @@ model AirHeatMassBalanceMixed
        haveSurBou "Convective heat transfer"
     annotation (Placement(transformation(extent={{122,-230},{102,-210}})));
 
+  // Fluid port for latent heat gain
+  Modelica.Fluid.Interfaces.FluidPort_a QLat_flow(
+    redeclare final package Medium = Medium) "Connector for latent heat gain"
+    annotation (Placement(transformation(extent={{-250,-70},{-230,-50}})));
+
   // Thermal collectors
 protected
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExt(final m=nConExt) if
@@ -153,39 +158,39 @@ protected
         origin={52,-220})));
 
 equation
-  connect(convConPar_a.fluid,theConConPar_a. port_a) annotation (Line(
+  connect(convConPar_a.fluid,theConConPar_a.port_a) annotation (Line(
       points={{100,-60},{62,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConPar_b.fluid,theConConPar_b. port_a) annotation (Line(
+  connect(convConPar_b.fluid,theConConPar_b.port_a) annotation (Line(
       points={{100,-100},{60,-100}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConBou.fluid,theConConBou. port_a) annotation (Line(
+  connect(convConBou.fluid,theConConBou.port_a) annotation (Line(
       points={{100,-160},{60,-160}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convSurBou.fluid,theConSurBou. port_a) annotation (Line(
+  connect(convSurBou.fluid,theConSurBou.port_a) annotation (Line(
       points={{102,-220},{62,-220}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(theConConPar_a.port_b,vol. heatPort) annotation (Line(
+  connect(theConConPar_a.port_b,vol.heatPort) annotation (Line(
       points={{42,-60},{20,-60},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(theConConPar_b.port_b,vol. heatPort) annotation (Line(
+  connect(theConConPar_b.port_b,vol.heatPort) annotation (Line(
       points={{40,-100},{20,-100},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(theConConBou.port_b,vol. heatPort) annotation (Line(
+  connect(theConConBou.port_b,vol.heatPort) annotation (Line(
       points={{40,-160},{20,-160},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(theConSurBou.port_b,vol. heatPort) annotation (Line(
+  connect(theConSurBou.port_b,vol.heatPort) annotation (Line(
       points={{42,-220},{20,-220},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conExtWinFra,convConWin. frame) annotation (Line(
+  connect(conExtWinFra,convConWin.frame) annotation (Line(
       points={{242,4.44089e-16},{160,4.44089e-16},{160,100},{115,100},{115,110}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -193,19 +198,19 @@ equation
       points={{120,220},{240,220}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConExt.fluid,theConConExt. port_a) annotation (Line(
+  connect(convConExt.fluid,theConConExt.port_a) annotation (Line(
       points={{100,220},{58,220}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(theConConExt.port_b,vol. heatPort) annotation (Line(
+  connect(theConConExt.port_b,vol.heatPort) annotation (Line(
       points={{38,220},{20,220},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(theConConExtWin.port_b,vol. heatPort) annotation (Line(
+  connect(theConConExtWin.port_b,vol.heatPort) annotation (Line(
       points={{38,180},{20,180},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConExtWin.fluid,theConConExtWin. port_a) annotation (Line(
+  connect(convConExtWin.fluid,theConConExtWin.port_a) annotation (Line(
       points={{100,180},{58,180}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -213,11 +218,11 @@ equation
       points={{120,180},{240,180}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(theConConWin.port_b,vol. heatPort) annotation (Line(
+  connect(theConConWin.port_b,vol.heatPort) annotation (Line(
       points={{40,120},{20,120},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convConWin.air,theConConWin. port_a) annotation (Line(
+  connect(convConWin.air,theConConWin.port_a) annotation (Line(
       points={{98,120},{60,120}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -245,8 +250,15 @@ equation
       points={{122,-220},{241,-220}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(vol.ports, ports) annotation (Line(
+  for i in 1:nPorts loop
+    connect(vol.ports[i], ports[i]) annotation (Line(
       points={{0,-210},{0,-238}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  end for;
+  connect(QLat_flow, vol.ports[nPorts+1]) annotation (Line(
+      points={{-240,-60},{-20,-60},{-20,-218},{-6.66134e-16,-218},{-6.66134e-16,
+          -210}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(heaPorAir, vol.heatPort) annotation (Line(

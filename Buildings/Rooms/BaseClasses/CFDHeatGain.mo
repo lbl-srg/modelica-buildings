@@ -7,11 +7,20 @@ model CFDHeatGain "Model to convert internal heat gain signals"
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3]
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput QGai_flow[3](unit="W")
-    "Radiant, convective and latent heat input into room (positive if heat gain)";
-
+  Modelica.Blocks.Interfaces.RealOutput QRad_flow(unit="W")
+    "Radiant heat input into room (positive if heat gain)"
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+        iconTransformation(extent={{100,40},{140,80}})));
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(unit="W")
+    "Convective sensible heat input into room (positive if heat gain)"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+  Modelica.Blocks.Interfaces.RealOutput QLat_flow(unit="W")
+    "Latent heat input into room (positive if heat gain)"
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
 equation
-  QGai_flow = AFlo .* qGai_flow;
+  {QRad_flow, QCon_flow, QLat_flow} = AFlo .* qGai_flow;
 
  annotation(Documentation(info="<html>
 This model computes the radiant, convective and latent heat flow.
@@ -66,17 +75,17 @@ First implementation.
           lineColor={0,0,127},
           textString="q_flow"),
         Text(
-          extent={{12,72},{86,50}},
+          extent={{20,74},{94,52}},
           lineColor={0,0,127},
           textString="QRad_flow"),
         Text(
-          extent={{10,12},{84,-10}},
+          extent={{18,14},{92,-8}},
           lineColor={0,0,127},
           textString="QCon_flow"),
         Text(
-          extent={{12,-46},{86,-68}},
+          extent={{20,-44},{94,-66}},
           lineColor={0,0,127},
-          textString="mLat_flow")}),
+          textString="QLat_flow")}),
         Documentation(info = "<html>
 This is a dummy model that is required to implement the room
 model with a variable number of surface models.
@@ -101,5 +110,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+            graphics));
 end CFDHeatGain;

@@ -106,7 +106,6 @@ protected
     "Areas of constructions with exterior boundary conditions exposed to outside of room model";
   final parameter Modelica.SIunits.Area ASurBou[NSurBou] = surBou.A
     "Area of surface models of constructions that are modeled outside of this room";
-
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,
