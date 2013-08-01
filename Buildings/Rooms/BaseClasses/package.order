@@ -1,5 +1,6 @@
 AirHeatMassBalanceFFD
 AirHeatMassBalanceMixed
+CFDHeatGain
 ExteriorBoundaryConditions
 ExteriorBoundaryConditionsWithWindow
 FFDExchange
