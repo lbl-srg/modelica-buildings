@@ -22,7 +22,8 @@ model AirHeatMassBalanceFFD
     "Number of sensors that are connected to CFD output";
   parameter String sensorName[nSen]
     "Names of sensors as declared in the CFD input file";
-
+  parameter String portName[nPorts]
+    "Names of fluid ports as declared in the CFD input file";
   // fixme: for the ffd instance, need to correctly assign flaWri
   FFDExchange ffd(
     final startTime=startTime,
@@ -37,6 +38,8 @@ model AirHeatMassBalanceFFD
     final haveSensor=haveSensor,
     final nSen=nSen,
     final sensorName=sensorName,
+    final nPorts=nPorts,
+    final portName=portName,
     final yFixed=yFixed) "Block that exchanges data with the FFD simulation"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
 

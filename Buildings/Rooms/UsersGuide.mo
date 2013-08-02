@@ -586,6 +586,14 @@ This parameter is an array of strings. The same strings must be used
 in the FFD input file when declaring the sensor in order to send the
 FFD results to the output signal of Modelica.
 </li>
+<li>
+To link the fluid ports in Modelica to the boundary conditions of the CFD,
+this model requires declaring names for the fluid ports 
+<code>ports</code> using the parameter 
+<code>portName</code>.
+This parameter is an array of strings. The same strings must be used
+in the FFD input file when declaring the inlet and outlet boundary conditions.
+</li>
 </ul>
 <-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <h4>Conventions</h4>

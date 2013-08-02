@@ -26,7 +26,8 @@ partial model PartialTestModel
     lat=0.73268921998722,
     useFFD=false,
     samplePeriod=60,
-    startTime=0) "Room model"
+    startTime=0,
+    portName={"Inlet", "Outlet"}) "Room model"
     annotation (Placement(transformation(extent={{44,-36},{84,4}})));
 
   inner Modelica.Fluid.System system
@@ -78,7 +79,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,-6},{36,-6}},
+      points={{1,-6},{22,-6},{22,-8},{42,-8}},
       color={0,0,127},
       smooth=Smooth.None));
 

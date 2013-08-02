@@ -28,6 +28,10 @@ block FFDExchange
     "Number of sensors that are connected to CFD output";
   parameter String sensorName[nSen]
     "Names of sensors as declared in the CFD input file";
+  parameter Integer nPorts(min=0)
+    "Number of fluid ports for the HVAC inlet and outlets";
+  parameter String portName[nPorts]
+    "Names of fluid ports as declared in the CFD input file";
   parameter Boolean verbose = true "Set to true for verbose output";
 
   Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to FFD"
@@ -49,10 +53,12 @@ protected
 
   output Integer retVal "Return value from FFD";
 
-  parameter Boolean ideSurNam[nSur-1](fixed=false)
-    "Flag that is set to true if the surface name is used more than once";
+  parameter Boolean ideSurNam[max(0, nSur-1)](fixed=false)
+    "Flag, used to tag identical surface names";
   parameter Boolean ideSenNam[max(0, nSen-1)](fixed=false)
-    "Flag that is set to true if the sensor name is used more than once";
+    "Flag, used to tag identical sensor names";
+  parameter Boolean idePorNam[max(0, nPorts-1)](fixed=false)
+    "Flag, used to tag identical port names";
 
   function exchangeFFD
     input Integer flag "Communication flag to write to FFD";
@@ -73,7 +79,38 @@ protected
       y         := zeros(nY);
       retVal    := 0;
   end exchangeFFD;
+/*
+  // This function does not work because Dymola 2014 has problems with
+  // handling strings in an algorithm section
+  function assertStringsAreUnique
+    input String descriptiveName 
+      "Descriptive name of what is tested, such as 'sensor' or 'ports'";
+    input Integer n(min=2) "Number of strings";
+    input String names[n] "Names";
+  protected 
+    Boolean ideNam[n-1] 
+      "Flag that is set to true if the name is used more than once";
 
+  algorithm 
+      // Loop over all names to verify that they are unique
+    if n > 1 then
+      for i in 1:n-1 loop
+        ideNam[i] = Modelica.Math.BooleanVectors.anyTrue(
+          {Modelica.Utilities.Strings.isEqual(names[i], names[j]) for j in i+1:n});
+      end for;
+
+      assert( not Modelica.Math.BooleanVectors.anyTrue(ideNam),
+      "For the CFD interface, all " + descriptiveName +
+      " must have a name that is unique within each room.
+      The following "
+        + descriptiveName + " names are used more than once in the room model:" +
+      returnNonUniqueStrings(n, ideNam, names));
+    else
+      ideNam = fill(false, max(0, n - 1));
+    end if;
+    annotation(Inline=true);
+  end assertStringsAreUnique;
+*/
   function returnNonUniqueStrings
     input Integer n "Number entries";
     input Boolean ideNam[n-1]
@@ -95,6 +132,10 @@ protected
     input Modelica.SIunits.Angle[nSur] til "Surface tilt";
     input Buildings.Rooms.Types.CFDBoundaryConditions[nSur] bouCon
       "Type of boundary condition";
+    input Integer nPorts(min=0)
+      "Number of fluid ports for the HVAC inlet and outlets";
+    input String portName[nPorts]
+      "Names of fluid ports as declared in the CFD input file";
     input Boolean haveSensor "Flag, true if the model has at least one sensor";
     input String sensorName[nSen]
       "Names of sensors as declared in the CFD input file";
@@ -121,47 +162,72 @@ initial equation
   tilt = " + String(surIde[i].til*180/Modelica.Constants.pi) + " [deg]");
     end for;
 
-    if haveSensor then
-      Modelica.Utilities.Streams.print(string="\nFFDExchange has the following sensors:");
-      for i in 1:nSen loop
-        Modelica.Utilities.Streams.print(string="  " + sensorName[i]);
-      end for;
-    else
-      Modelica.Utilities.Streams.print(string="FFDExchange has no sensors.");
-    end if;
+  if haveSensor then
+    Modelica.Utilities.Streams.print(string="\nFFDExchange has the following sensors:");
+    for i in 1:nSen loop
+      Modelica.Utilities.Streams.print(string="  " + sensorName[i]);
+    end for;
+  else
+    Modelica.Utilities.Streams.print(string="FFDExchange has no sensors.");
+  end if;
+ end if;
 
+  // Assert that the surface, sensor and ports have a name,
+  // and that that name is unique.
+  // Otherwise, stop with an error.
+/*
+  assertStringsAreUnique(descriptiveName="surface",
+                         n=nSur,
+                         names={surIde[i].name for i in 1:nSur});
+  assertStringsAreUnique(descriptiveName="sensor",
+                         n=nSen,
+                         names=sensorName);
+  assertStringsAreUnique(descriptiveName="ports",
+                         n=nPorts,
+                         names=portName);
+*/
+  if nSur > 1 then
+    for i in 1:nSur-1 loop
+      ideSurNam[i] = Modelica.Math.BooleanVectors.anyTrue(
+        {Modelica.Utilities.Strings.isEqual(surIde[i].name, surIde[j].name) for j in i+1:nSur});
+    end for;
+     assert( not Modelica.Math.BooleanVectors.anyTrue(ideSurNam),
+    "For the CFD interface, all surfaces must have a name that is unique within each room.
+  The following surface names are used more than once in the room model:" +
+    returnNonUniqueStrings(nSur, ideSurNam, {surIde[i].name for i in 1:nSur}));
+  else
+    ideSurNam = fill(false, max(0, nSur - 1));
   end if;
 
-  for i in 1:nSur loop
-    assert(Modelica.Utilities.Strings.length(surIde[i].name) > 0,
-    "The surface number + " + String(i) + " has no name.
-  To use the FFD interface, all surfaces must have a name.");
-  end for;
-
-  // Loop over all surfaces to verify that their names are unique
-  for i in 1:nSur-1 loop
-    ideSurNam[i] = Modelica.Math.BooleanVectors.anyTrue(
-      {Modelica.Utilities.Strings.isEqual(surIde[i].name, surIde[j].name) for j in i+1:nSur});
-  end for;
-
-  assert( not Modelica.Math.BooleanVectors.anyTrue(ideSurNam),
-  "For the CFD interface, all surfaces must have a name that is unique within each room.
-  The following surface names are used more than once in the room model:" +
-  returnNonUniqueStrings(nSur, ideSurNam, {surIde[i].name for i in 1:nSur}));
-
-  // Loop over all sensors to verify that their names are unique
+  // -- Check sensors
+  // Loop over all names to verify that they are unique
   if nSen > 1 then
     for i in 1:nSen-1 loop
       ideSenNam[i] = Modelica.Math.BooleanVectors.anyTrue(
         {Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j in i+1:nSen});
-     end for;
+    end for;
 
-    assert( not Modelica.Math.BooleanVectors.anyTrue(ideSenNam),
+     assert( not Modelica.Math.BooleanVectors.anyTrue(ideSenNam),
     "For the CFD interface, all sensors must have a name that is unique within each room.
-    The following sensor names are used more than once in the room model:" +
-    returnNonUniqueStrings(nSen, ideSenNam, sensorName));
+ The following sensor names are used more than once in the room model:" +
+      returnNonUniqueStrings(nSen, ideSenNam, sensorName));
   else
-    ideSenNam = fill(false, max(0, nSen-1));
+    ideSenNam = fill(false, max(0, nSen - 1));
+  end if;
+
+  // -- Check ports
+  if nPorts > 1 then
+    for i in 1:nPorts-1 loop
+      idePorNam[i] = Modelica.Math.BooleanVectors.anyTrue(
+        {Modelica.Utilities.Strings.isEqual(portName[i], portName[j]) for j in i+1:nPorts});
+    end for;
+
+    assert( not Modelica.Math.BooleanVectors.anyTrue(idePorNam),
+    "For the CFD interface, all ports must have a name that is unique within each room.
+  The following port names are used more than once in the room model:" +
+    returnNonUniqueStrings(nPorts, idePorNam, portName));
+  else
+    idePorNam = fill(false, max(0, nPorts - 1));
   end if;
 
   // Send parameters to the CFD interface
@@ -170,10 +236,12 @@ initial equation
                  til=       {surIde[i].til for i in 1:nSur},
                  bouCon=    {surIde[i].bouCon for i in 1:nSur},
                  haveSensor=haveSensor,
+                 portName=  portName,
                  sensorName=sensorName,
                  haveShade=  haveShade,
                  nSur=nSur,
-                 nSen=nSen);
+                 nSen=nSen,
+                 nPorts=nPorts);
 
 initial algorithm
   // Assignment of parameters and start values

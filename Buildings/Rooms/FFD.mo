@@ -8,7 +8,8 @@ model FFD
     final startTime=startTime,
     final haveSensor=haveSensor,
     final nSen=nSen,
-    final sensorName=sensorName),
+    final sensorName=sensorName,
+    final portName=portName),
     final energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial);
 
@@ -25,6 +26,8 @@ model FFD
 
   parameter String sensorName[:] = {""}
     "Names of sensors as declared in the CFD input file";
+  parameter String portName[nPorts]
+    "Names of fluid ports as declared in the CFD input file";
   Modelica.Blocks.Interfaces.RealOutput yCFD[nSen] if
        haveSensor "Sensor for output from CFD"
     annotation (Placement(transformation(

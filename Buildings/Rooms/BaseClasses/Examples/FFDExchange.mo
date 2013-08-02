@@ -15,6 +15,8 @@ model FFDExchange "Test model for FFDExchange block"
     flaWri={0,1,2},
     haveShade=false,
     haveSensor=true,
+    nPorts=2,
+    portName={"Inlet", "Exhaust grill"},
     nSen=3,
     sensorName={"Air temperature sensor near floor",
                 "Velocity sensor",

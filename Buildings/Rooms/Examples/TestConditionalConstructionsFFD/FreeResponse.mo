@@ -86,6 +86,7 @@ model FreeResponse
        each absSol=0.9,
        each til=Buildings.HeatTransfer.Types.Tilt.Wall),
     sensorName={"Occupied zone air temperature", "Velocity"},
+    portName={"Inlet", "Outlet"},
     linearizeRadiation = false,
     nPorts=2,
     useFFD=false,
