@@ -198,24 +198,26 @@ initial algorithm
      y         := yFixed;
      retVal    := 0;
    end if;
+   // Assign uWri. This avoids a translation warning in Dymola
+   // as otherwise, not all initial values are specified.
+   // However, uWri is only used below in the body of the 'when'
+   // block after it has been assigned.
+   uWri := fill(0, nWri);
+
 equation
    for i in 1:nWri loop
       der(uInt[i]) = if (flaWri[i] > 0) then u[i] else 0;
    end for;
-
 algorithm
   when sampleTrigger then
      // Compute value that will be sent to the FFD interface
      for i in 1:nWri loop
        if (flaWri[i] == 0) then
-         uWri[i] :=pre(u[i]);  // Send the current value.
-                               // Without the pre(), Dymola 7.2 crashes during translation of Examples.MoistAir
+         uWri[i] := u[i];
+       elseif (flaWri[i] == 1) then
+         uWri[i] := (uInt[i] - uIntPre[i])/samplePeriod;   // Average value over the sampling interval
        else
-         if (flaWri[i] == 1) then
-            uWri[i] := (uInt[i] - uIntPre[i])/samplePeriod;   // Average value over the sampling interval
-         else
-            uWri[i] :=uInt[i] - uIntPre[i]; // Integral over the sampling interval
-         end if;
+         uWri[i] :=uInt[i] - uIntPre[i]; // Integral over the sampling interval
        end if;
       end for;
      // Exchange data
@@ -224,7 +226,7 @@ algorithm
         flag=0,
         t=time,
         dt=samplePeriod,
-        u=u,
+        u=uWri,
         nU=size(u, 1),
         nY=size(y, 1));
     else
