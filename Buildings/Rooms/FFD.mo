@@ -2,7 +2,7 @@ within Buildings.Rooms;
 model FFD
   "Model of a room in which the air is computed using fast fluid flow dynamics"
   extends Buildings.Rooms.BaseClasses.RoomHeatMassBalance(
-  redeclare BaseClasses.AirHeatMassBalanceFFD air(
+  redeclare BaseClasses.CFDAirHeatMassBalance air(
     final useFFD=useFFD,
     final samplePeriod=samplePeriod,
     final startTime=startTime,

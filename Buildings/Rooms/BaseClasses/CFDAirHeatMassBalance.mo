@@ -1,5 +1,5 @@
 within Buildings.Rooms.BaseClasses;
-model AirHeatMassBalanceFFD
+model CFDAirHeatMassBalance
   "Heat and mass balance of the air based on fast fluid flow dynamics"
   extends Buildings.Rooms.BaseClasses.PartialAirHeatMassBalance(
    energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -838,4 +838,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AirHeatMassBalanceFFD;
+end CFDAirHeatMassBalance;
