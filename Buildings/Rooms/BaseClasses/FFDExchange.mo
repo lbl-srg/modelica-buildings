@@ -281,7 +281,7 @@ algorithm
      // Compute value that will be sent to the FFD interface
      for i in 1:nWri loop
        if (flaWri[i] == 0) then
-         uWri[i] := u[i];
+         uWri[i] := pre(u[i]);
        elseif (flaWri[i] == 1) then
          uWri[i] := (uInt[i] - uIntPre[i])/samplePeriod;   // Average value over the sampling interval
        else
