@@ -32,7 +32,7 @@ block FFDExchange
     "Number of fluid ports for the HVAC inlet and outlets";
   parameter String portName[nPorts]
     "Names of fluid ports as declared in the CFD input file";
-  parameter Boolean verbose = true "Set to true for verbose output";
+  parameter Boolean verbose = false "Set to true for verbose output";
 
   Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to FFD"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
