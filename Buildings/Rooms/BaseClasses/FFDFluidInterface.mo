@@ -15,7 +15,6 @@ model FFDFluidInterface
 
   Modelica.Blocks.Interfaces.RealInput T_outflow[nPorts](
   each start=T_start,
-  each min=200,
   each nominal=300,
   each unit="K",
   each displayUnit="degC") "Temperature if m_flow < 0"
@@ -45,6 +44,7 @@ model FFDFluidInterface
   Modelica.Blocks.Interfaces.RealOutput T_inflow[nPorts](
   each start=T_start,
   each min=200,
+  each max=373.15,
   each nominal=300,
   each unit="K",
   each displayUnit="degC") "Temperature if m_flow >= 0"
