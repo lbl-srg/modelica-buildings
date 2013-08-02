@@ -1,5 +1,5 @@
 within Buildings.Rooms.BaseClasses;
-block FFDExchange
+block CFDExchange
   "Block that exchanges data with the Fast Fluid Flow Dynamics code"
   extends Modelica.Blocks.Interfaces.DiscreteBlock;
   parameter Boolean activateInterface = true
@@ -19,7 +19,7 @@ block FFDExchange
                 Dialog(enable = not activateInterface));
 
   parameter Integer nSur(min=1) "Number of surfaces";
-  parameter FFDSurfaceIdentifier surIde[nSur] "Surface identifiers";
+  parameter CFDSurfaceIdentifier surIde[nSur] "Surface identifiers";
   parameter Boolean haveShade
     "Set to true if at least one window in the room has a shade";
   parameter Boolean haveSensor
@@ -154,7 +154,7 @@ protected
 initial equation
   // Diagnostics output
   if verbose then
-    Modelica.Utilities.Streams.print(string="\nFFDExchange has the following surfaces:");
+    Modelica.Utilities.Streams.print(string="\nCFDExchange has the following surfaces:");
     for i in 1:nSur loop
       Modelica.Utilities.Streams.print(string="
   name = " + surIde[i].name + "
@@ -163,12 +163,12 @@ initial equation
     end for;
 
   if haveSensor then
-    Modelica.Utilities.Streams.print(string="\nFFDExchange has the following sensors:");
+    Modelica.Utilities.Streams.print(string="\nCFDExchange has the following sensors:");
     for i in 1:nSen loop
       Modelica.Utilities.Streams.print(string="  " + sensorName[i]);
     end for;
   else
-    Modelica.Utilities.Streams.print(string="FFDExchange has no sensors.");
+    Modelica.Utilities.Streams.print(string="CFDExchange has no sensors.");
   end if;
  end if;
 
@@ -331,4 +331,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FFDExchange;
+end CFDExchange;

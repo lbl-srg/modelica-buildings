@@ -1,4 +1,4 @@
-simulateModel("Buildings.Rooms.BaseClasses.Examples.HeatGain", stopTime=3600, method="dassl", resultFile="HeatGain");
+simulateModel("Buildings.Rooms.BaseClasses.Examples.MixedAirHeatGain", stopTime=3600, method="dassl", resultFile="MixedAirHeatGain");
 
 createPlot(id = 6,
  position = {15, 6, 744, 504},
@@ -9,7 +9,7 @@ createPlot(id = 6,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "HeatGain.mat",
+ filename = "MixedAirHeatGain.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 6,

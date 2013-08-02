@@ -1,5 +1,5 @@
 within Buildings.Rooms.BaseClasses;
-model FFDFluidInterface
+model CFDFluidInterface
  extends Buildings.BaseClasses.BaseIcon;
  // fixme: check if C_start and similar variables are used in FFD
  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
@@ -201,4 +201,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FFDFluidInterface;
+end CFDFluidInterface;

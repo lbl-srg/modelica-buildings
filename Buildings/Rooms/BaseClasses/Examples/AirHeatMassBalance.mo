@@ -8,7 +8,7 @@ model AirHeatMassBalance "Test model for air heat and mass balance"
   package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
     "Medium model";
 
-  Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed air(
+  Buildings.Rooms.BaseClasses.MixedAirHeatMassBalance air(
     nConExt=nConExt,
     nConExtWin=nConExtWin,
     nConPar=nConPar,

@@ -1,5 +1,5 @@
 within Buildings.Rooms.BaseClasses;
-model FFDSurfaceInterface
+model CFDSurfaceInterface
  extends Buildings.BaseClasses.BaseIcon;
   parameter Buildings.Rooms.Types.CFDBoundaryConditions bouCon 
     "Boundary condition used in the CFD simulation" annotation (Evaluate=true);
@@ -66,4 +66,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FFDSurfaceInterface;
+end CFDSurfaceInterface;

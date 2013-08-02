@@ -1,14 +1,14 @@
 within Buildings.Rooms;
 model MixedAir "Model of a room in which the air is completely mixed"
   extends Buildings.Rooms.BaseClasses.RoomHeatMassBalance(
-  redeclare Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed air(
+  redeclare Buildings.Rooms.BaseClasses.MixedAirHeatMassBalance air(
     final m_flow_nominal=m_flow_nominal,
     final homotopyInitialization=homotopyInitialization,
     final conMod=intConMod,
     final hFixed=hIntFixed));
 
 protected
-  Buildings.Rooms.BaseClasses.HeatGain heaGai(
+  Buildings.Rooms.BaseClasses.MixedAirHeatGain heaGai(
     redeclare package Medium = Medium, final AFlo=AFlo)
     "Model to convert internal heat gains"
     annotation (Placement(transformation(extent={{-220,90},{-200,110}})));

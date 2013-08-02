@@ -1,12 +1,12 @@
 within Buildings.Rooms.BaseClasses.Examples;
-model HeatGain "Test model for the HeatGain model"
+model MixedAirHeatGain "Test model for the MixedAirHeatGain model"
   import Buildings;
   extends Modelica.Icons.Example;
 
   package MediumA = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated
     "Medium model";
 
-  Buildings.Rooms.BaseClasses.HeatGain heatGain(redeclare package Medium =
+  Buildings.Rooms.BaseClasses.MixedAirHeatGain heatGain(redeclare package Medium =
         MediumA, AFlo=AFlo)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=10) "Convective heat gain"
@@ -106,6 +106,6 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(graphics),
 experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/HeatGain.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/MixedAirHeatGain.mos"
         "Simulate and plot"));
-end HeatGain;
+end MixedAirHeatGain;

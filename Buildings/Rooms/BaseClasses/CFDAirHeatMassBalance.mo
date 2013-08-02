@@ -24,8 +24,8 @@ model CFDAirHeatMassBalance
     "Names of sensors as declared in the CFD input file";
   parameter String portName[nPorts]
     "Names of fluid ports as declared in the CFD input file";
-  // fixme: for the ffd instance, need to correctly assign flaWri
-  FFDExchange ffd(
+  // fixme: for the cfd instance, need to correctly assign flaWri
+  CFDExchange cfd(
     final startTime=startTime,
     final activateInterface=useFFD,
     final samplePeriod = if useFFD then samplePeriod else Modelica.Constants.inf,
@@ -53,11 +53,11 @@ model CFDAirHeatMassBalance
   // Values that are used for uStart
 protected
   parameter Real uStart[kFluIntC_inflow+Medium.nC*nPorts](fixed=false)
-    "Values used for uStart in FFDExchange";
+    "Values used for uStart in CFDExchange";
 
   // Values that are used for yFixed
   parameter Real yFixed[kSen+nSen](fixed=false)
-    "Values used for yFixed in FFDExchange";
+    "Values used for yFixed in CFDExchange";
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_fixed[kSurBou+nSurBou]=fill(0, kSurBou+nSurBou)
     "Surface heat flow rate used for yFixed"
@@ -79,7 +79,7 @@ protected
     "Trace substances of the fluid that flows into the HVAC system used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
 
-  final parameter FFDSurfaceIdentifier surIde[kSurBou+nSurBou]=
+  final parameter CFDSurfaceIdentifier surIde[kSurBou+nSurBou]=
    assignSurfaceIdentifier(
     nConExt=  nConExt,
     nConExtWin=  nConExtWin,
@@ -117,62 +117,62 @@ protected
   // Here, we directly access datConExt instead of surIde. The reason is
   // the Dymola thinks that surIde.bouCon is not fixed at translation time
   // and then refuses to use this parameter to conditionally remove connectors
-  // in FFDSurfaceInterface.
-  FFDSurfaceInterface ffdConExt[NConExt](
+  // in CFDSurfaceInterface.
+  CFDSurfaceInterface cfdConExt[NConExt](
     final bouCon={datConExt[i].boundaryCondition for i in 1:NConExt}) if
        haveConExt "Interface to heat port of exterior constructions"
     annotation (Placement(transformation(extent={{180,210},{200,230}})));
 
-  FFDSurfaceInterface ffdConExtWin[NConExtWin](
+  CFDSurfaceInterface cfdConExtWin[NConExtWin](
     final bouCon={datConExtWin[i].boundaryCondition for i in 1:NConExtWin}) if
         haveConExtWin
     "Interface to heat port of opaque part of exterior constructions with window"
     annotation (Placement(transformation(extent={{180,170},{200,190}})));
 
-  FFDSurfaceInterface ffdGlaUns[NConExtWin](
+  CFDSurfaceInterface cfdGlaUns[NConExtWin](
     final bouCon={datConExtWin[i].boundaryCondition for i in 1:NConExtWin}) if
        haveConExtWin "Interface to heat port of unshaded part of glass"
     annotation (Placement(transformation(extent={{180,110},{200,130}})));
 
-  FFDSurfaceInterface ffdGlaSha[NConExtWin](
+  CFDSurfaceInterface cfdGlaSha[NConExtWin](
     final bouCon={datConExtWin[i].boundaryCondition for i in 1:NConExtWin}) if
        haveShade "Interface to heat port of shaded part of glass"
     annotation (Placement(transformation(extent={{180,70},{200,90}})));
 
-  FFDSurfaceInterface ffdConExtWinFra[NConExtWin](
+  CFDSurfaceInterface cfdConExtWinFra[NConExtWin](
     final bouCon={datConExtWin[i].boundaryCondition for i in 1:NConExtWin}) if
        haveConExtWin "Interface to heat port of window frame"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
 
-  FFDSurfaceInterface ffdConPar_a[NConPar](
+  CFDSurfaceInterface cfdConPar_a[NConPar](
     final bouCon={datConPar[i].boundaryCondition for i in 1:NConPar}) if
        haveConPar
     "Interface to heat port of surface a of partition constructions"
     annotation (Placement(transformation(extent={{180,-70},{200,-50}})));
 
-  FFDSurfaceInterface ffdConPar_b[NConPar](
+  CFDSurfaceInterface cfdConPar_b[NConPar](
     final bouCon={datConPar[i].boundaryCondition for i in 1:NConPar}) if
        haveConPar
     "Interface to heat port of surface b of partition constructions"
     annotation (Placement(transformation(extent={{180,-110},{200,-90}})));
 
-  FFDSurfaceInterface ffdConBou[NConBou](
+  CFDSurfaceInterface cfdConBou[NConBou](
     final bouCon={datConBou[i].boundaryCondition for i in 1:NConBou}) if
        haveConBou
     "Interface to heat port that connects to room-side surface of constructions that expose their other surface to the outside"
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
 
-  FFDSurfaceInterface ffdSurBou[NSurBou](
+  CFDSurfaceInterface cfdSurBou[NSurBou](
     final bouCon={surBou[i].boundaryCondition for i in 1:NSurBou}) if
        haveSurBou
     "Interface to heat port of surfaces of models that compute the heat conduction outside of this room"
     annotation (Placement(transformation(extent={{180,-230},{200,-210}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature ffdHeaPorAir
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature cfdHeaPorAir
     "Interface to heat port of air node"
     annotation (Placement(transformation(extent={{-140,-10},{-160,10}})));
 
-  FFDFluidInterface fluInt(
+  CFDFluidInterface fluInt(
     redeclare final package Medium = Medium,
     final nPorts=nPorts,
     final V=V,
@@ -311,50 +311,50 @@ protected
     input Buildings.Rooms.Types.CFDBoundaryConditions bouConSurBou[nSurBou]
       "Boundary condition";
 
-    output FFDSurfaceIdentifier id[nSur] "Name of all surfaces";
+    output CFDSurfaceIdentifier id[nSur] "Name of all surfaces";
 
   algorithm
-      id := cat(1, {FFDSurfaceIdentifier(
+      id := cat(1, {CFDSurfaceIdentifier(
                                   name=nameConExt[i],
                                   A=AConExt[i],
                                   til=tilConExt[i],
                                   bouCon=bouConConExt[i]) for i in 1:nConExt},
-                   {FFDSurfaceIdentifier(
+                   {CFDSurfaceIdentifier(
                                   name=nameConExtWin[i],
                                   A=AConExtWin[i],
                                   til=tilConExtWin[i],
                                   bouCon=bouConConExtWin[i]) for i in 1:nConExtWin},
-                   {FFDSurfaceIdentifier(
+                   {CFDSurfaceIdentifier(
                                   name=nameConExtWin[i] + " (glass, unshaded)",
                                   A=AGla[i],
                                   til=tilConExtWin[i],
                                   bouCon=bouConConExtWin[i]) for i in 1:nConExtWin},
-                   {FFDSurfaceIdentifier(
+                   {CFDSurfaceIdentifier(
                                   name=nameConExtWin[i] + " (glass, shaded)",
                                   A=AGla[i],
                                   til=tilConExtWin[i],
                                   bouCon=bouConConExtWin[i]) for i in 1:(if haveShade then nConExtWin else 0)},
-                   {FFDSurfaceIdentifier(
+                   {CFDSurfaceIdentifier(
                                   name=nameConExtWin[i] + " (frame)",
                                   A=AFra[i],
                                   til=tilConExtWin[i],
                                   bouCon=bouConConExtWin[i]) for i in 1:nConExtWin},
-                   {FFDSurfaceIdentifier(
+                   {CFDSurfaceIdentifier(
                                   name=nameConPar[i] + " (surface a)",
                                   A=AConPar[i],
                                   til=tilConPar[i],
                                   bouCon=bouConConPar[i]) for i in 1:nConPar},
-                   {FFDSurfaceIdentifier(
+                   {CFDSurfaceIdentifier(
                                   name=nameConPar[i] + " (surface b)",
                                   A=AConPar[i],
                                   til=tilConPar[i] + Modelica.Constants.pi/180,
                                   bouCon=bouConConPar[i]) for i in 1:nConPar},
-                  {FFDSurfaceIdentifier(
+                  {CFDSurfaceIdentifier(
                                   name=nameConBou[i],
                                   A=AConBou[i],
                                   til=tilConBou[i],
                                   bouCon=bouConConBou[i]) for i in 1:nConBou},
-                  {FFDSurfaceIdentifier(
+                  {CFDSurfaceIdentifier(
                                   name=nameSurBou[i],
                                   A=ASurBou[i],
                                   til=tilSurBou[i],
@@ -433,20 +433,20 @@ equation
   if haveConExt then
     for i in 1:nConExt loop
       if datConExt[i].boundaryCondition == Buildings.Rooms.Types.CFDBoundaryConditions.Temperature then
-        connect(ffd.u[kConExt+i], ffdConExt[i].T_out) annotation (Line(
+        connect(cfd.u[kConExt+i], cfdConExt[i].T_out) annotation (Line(
           points={{-42,190},{-60,190},{-60,224},{179,224}},
           color={0,0,127},
           smooth=Smooth.None));
-        connect(ffd.y[kConExt+i], ffdConExt[i].Q_flow_in) annotation (Line(
+        connect(cfd.y[kConExt+i], cfdConExt[i].Q_flow_in) annotation (Line(
           points={{-19,190},{60,190},{60,228},{178,228}},
           color={0,0,127},
           smooth=Smooth.None));
       else
-        connect(ffd.u[kConExt+i], ffdConExt[i].T_in) annotation (Line(
+        connect(cfd.u[kConExt+i], cfdConExt[i].T_in) annotation (Line(
           points={{-42,190},{-60,190},{-60,212},{179,212}},
           color={0,0,127},
           smooth=Smooth.None));
-        connect(ffd.y[kConExt+i], ffdConExt[i].Q_flow_out) annotation (Line(
+        connect(cfd.y[kConExt+i], cfdConExt[i].Q_flow_out) annotation (Line(
           points={{-19,190},{60,190},{60,216},{179,216}},
           color={0,0,127},
           smooth=Smooth.None));
@@ -457,63 +457,63 @@ equation
   if haveConExtWin then
     for i in 1:nConExtWin loop
       if datConExtWin[i].boundaryCondition == Buildings.Rooms.Types.CFDBoundaryConditions.Temperature then
-        connect(ffd.u[kConExtWin+i], ffdConExtWin[i].T_out)
+        connect(cfd.u[kConExtWin+i], cfdConExtWin[i].T_out)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,172},{60,172},{60,184},{179,184}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kConExtWin+i], ffdConExtWin[i].Q_flow_in)
+        connect(cfd.y[kConExtWin+i], cfdConExtWin[i].Q_flow_in)
             annotation (Line(
             points={{-19,190},{60,190},{60,188},{178,188}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.u[kGlaUns+i], ffdGlaUns[i].T_out)
+        connect(cfd.u[kGlaUns+i], cfdGlaUns[i].T_out)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,124},{179,124}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kGlaUns+i], ffdGlaUns[i].Q_flow_in)
+        connect(cfd.y[kGlaUns+i], cfdGlaUns[i].Q_flow_in)
             annotation (Line(
             points={{-19,190},{60,190},{60,128},{178,128}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.u[kConExtWinFra+i], ffdConExtWinFra[i].T_out)
+        connect(cfd.u[kConExtWinFra+i], cfdConExtWinFra[i].T_out)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,4},{179,4}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kConExtWinFra+i], ffdConExtWinFra[i].Q_flow_in)
+        connect(cfd.y[kConExtWinFra+i], cfdConExtWinFra[i].Q_flow_in)
             annotation (Line(
             points={{-19,190},{60,190},{60,8},{178,8}},
             color={0,0,127},
             smooth=Smooth.None));
       else
-        connect(ffd.u[kConExtWin+i], ffdConExtWin[i].T_in)
+        connect(cfd.u[kConExtWin+i], cfdConExtWin[i].T_in)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,172},{179,172}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kConExtWin+i], ffdConExtWin[i].Q_flow_out)
+        connect(cfd.y[kConExtWin+i], cfdConExtWin[i].Q_flow_out)
             annotation (Line(
             points={{-19,190},{60,190},{60,176},{179,176}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.u[kGlaUns+i], ffdGlaUns[i].T_in)
+        connect(cfd.u[kGlaUns+i], cfdGlaUns[i].T_in)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,112},{179,112}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kGlaUns+i], ffdGlaUns[i].Q_flow_out)
+        connect(cfd.y[kGlaUns+i], cfdGlaUns[i].Q_flow_out)
             annotation (Line(
             points={{-19,190},{60,190},{60,116},{179,116}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.u[kConExtWinFra+i], ffdConExtWinFra[i].T_in)
+        connect(cfd.u[kConExtWinFra+i], cfdConExtWinFra[i].T_in)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,-8},{179,-8}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kConExtWinFra+i], ffdConExtWinFra[i].Q_flow_out)
+        connect(cfd.y[kConExtWinFra+i], cfdConExtWinFra[i].Q_flow_out)
             annotation (Line(
             points={{-19,190},{60,190},{60,-4},{179,-4}},
             color={0,0,127},
@@ -525,23 +525,23 @@ equation
   if haveShade then
     for i in 1:nConExtWin loop
       if datConExtWin[i].boundaryCondition == Buildings.Rooms.Types.CFDBoundaryConditions.Temperature then
-        connect(ffd.u[kGlaSha+i], ffdGlaSha[i].T_out)
+        connect(cfd.u[kGlaSha+i], cfdGlaSha[i].T_out)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,84},{179,84}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kGlaSha+i], ffdGlaSha[i].Q_flow_in)
+        connect(cfd.y[kGlaSha+i], cfdGlaSha[i].Q_flow_in)
             annotation (Line(
             points={{-19,190},{60,190},{60,88},{178,88}},
             color={0,0,127},
             smooth=Smooth.None));
       else
-        connect(ffd.u[kGlaSha+i], ffdGlaSha[i].T_in)
+        connect(cfd.u[kGlaSha+i], cfdGlaSha[i].T_in)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,72},{179,72}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kGlaSha+i], ffdGlaSha[i].Q_flow_out)
+        connect(cfd.y[kGlaSha+i], cfdGlaSha[i].Q_flow_out)
             annotation (Line(
             points={{-19,190},{60,190},{60,76},{179,76}},
             color={0,0,127},
@@ -553,43 +553,43 @@ equation
   if haveConPar then
     for i in 1:nConPar loop
       if datConPar[i].boundaryCondition == Buildings.Rooms.Types.CFDBoundaryConditions.Temperature then
-        connect(ffd.u[kConPar_a+i], ffdConPar_a[i].T_out)
+        connect(cfd.u[kConPar_a+i], cfdConPar_a[i].T_out)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,-56},{179,-56}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kConPar_a+i], ffdConPar_a[i].Q_flow_in)
+        connect(cfd.y[kConPar_a+i], cfdConPar_a[i].Q_flow_in)
             annotation (Line(
             points={{-19,190},{60,190},{60,-52},{178,-52}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.u[kConPar_b+i], ffdConPar_b[i].T_out)
+        connect(cfd.u[kConPar_b+i], cfdConPar_b[i].T_out)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,-96},{179,-96}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kConPar_b+i], ffdConPar_b[i].Q_flow_in)
+        connect(cfd.y[kConPar_b+i], cfdConPar_b[i].Q_flow_in)
             annotation (Line(
             points={{-19,190},{60,190},{60,-92},{178,-92}},
             color={0,0,127},
             smooth=Smooth.None));
       else
-        connect(ffd.u[kConPar_a+i], ffdConPar_a[i].T_in)
+        connect(cfd.u[kConPar_a+i], cfdConPar_a[i].T_in)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,-68},{179,-68}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kConPar_a+i], ffdConPar_a[i].Q_flow_out)
+        connect(cfd.y[kConPar_a+i], cfdConPar_a[i].Q_flow_out)
             annotation (Line(
             points={{-19,190},{60,190},{60,-64},{179,-64}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.u[kConPar_b+i], ffdConPar_b[i].T_in)
+        connect(cfd.u[kConPar_b+i], cfdConPar_b[i].T_in)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,-108},{179,-108}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kConPar_b+i], ffdConPar_b[i].Q_flow_out)
+        connect(cfd.y[kConPar_b+i], cfdConPar_b[i].Q_flow_out)
             annotation (Line(
             points={{-19,190},{60,190},{60,-104},{179,-104}},
             color={0,0,127},
@@ -601,23 +601,23 @@ equation
   if haveConBou then
     for i in 1:nConBou loop
       if datConBou[i].boundaryCondition == Buildings.Rooms.Types.CFDBoundaryConditions.Temperature then
-        connect(ffd.u[kConBou+i], ffdConBou[i].T_out)
+        connect(cfd.u[kConBou+i], cfdConBou[i].T_out)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,-156},{179,-156}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kConBou+i], ffdConBou[i].Q_flow_in)
+        connect(cfd.y[kConBou+i], cfdConBou[i].Q_flow_in)
             annotation (Line(
             points={{-19,190},{60,190},{60,-152},{178,-152}},
             color={0,0,127},
             smooth=Smooth.None));
       else
-        connect(ffd.u[kConBou+i], ffdConBou[i].T_in)
+        connect(cfd.u[kConBou+i], cfdConBou[i].T_in)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,-168},{179,-168}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kConBou+i], ffdConBou[i].Q_flow_out)
+        connect(cfd.y[kConBou+i], cfdConBou[i].Q_flow_out)
             annotation (Line(
             points={{-19,190},{60,190},{60,-164},{179,-164}},
             color={0,0,127},
@@ -629,23 +629,23 @@ equation
   if haveSurBou then
     for i in 1:nSurBou loop
       if surBou[i].boundaryCondition == Buildings.Rooms.Types.CFDBoundaryConditions.Temperature then
-        connect(ffd.u[kSurBou+i], ffdSurBou[i].T_out)
+        connect(cfd.u[kSurBou+i], cfdSurBou[i].T_out)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,-216},{179,-216}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kSurBou+i], ffdSurBou[i].Q_flow_in)
+        connect(cfd.y[kSurBou+i], cfdSurBou[i].Q_flow_in)
             annotation (Line(
             points={{-19,190},{60,190},{60,-212},{178,-212}},
             color={0,0,127},
             smooth=Smooth.None));
       else
-        connect(ffd.u[kSurBou+i], ffdSurBou[i].T_in)
+        connect(cfd.u[kSurBou+i], cfdSurBou[i].T_in)
             annotation (Line(
             points={{-42,190},{-60,190},{-60,-228},{179,-228}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ffd.y[kSurBou+i], ffdSurBou[i].Q_flow_out)
+        connect(cfd.y[kSurBou+i], cfdSurBou[i].Q_flow_out)
             annotation (Line(
             points={{-19,190},{60,190},{60,-224},{179,-224}},
             color={0,0,127},
@@ -654,59 +654,59 @@ equation
     end for;
   end if;
 
-  connect(ffdConExt.port, conExt) annotation (Line(
+  connect(cfdConExt.port, conExt) annotation (Line(
       points={{200,220},{240,220}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(ffdConExtWin.port, conExtWin) annotation (Line(
+  connect(cfdConExtWin.port, conExtWin) annotation (Line(
       points={{200,180},{240,180}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(ffdGlaUns.port, glaUns) annotation (Line(
+  connect(cfdGlaUns.port, glaUns) annotation (Line(
       points={{200,120},{220,120},{220,120},{240,120}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(ffdGlaSha.port, glaSha) annotation (Line(
+  connect(cfdGlaSha.port, glaSha) annotation (Line(
       points={{200,80},{240,80}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(ffdConExtWinFra.port, conExtWinFra) annotation (Line(
+  connect(cfdConExtWinFra.port, conExtWinFra) annotation (Line(
       points={{200,0},{242,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(ffdConPar_a.port, conPar_a) annotation (Line(
+  connect(cfdConPar_a.port, conPar_a) annotation (Line(
       points={{200,-60},{242,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(ffdConPar_b.port, conPar_b) annotation (Line(
+  connect(cfdConPar_b.port, conPar_b) annotation (Line(
       points={{200,-100},{242,-100}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(ffdConBou.port, conBou) annotation (Line(
+  connect(cfdConBou.port, conBou) annotation (Line(
       points={{200,-160},{222,-160},{222,-160},{242,-160}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(ffdSurBou.port, conSurBou) annotation (Line(
+  connect(cfdSurBou.port, conSurBou) annotation (Line(
       points={{200,-220},{241,-220}},
       color={191,0,0},
       smooth=Smooth.None));
   // Connections to heat port of air volume
-  connect(ffd.y[kHeaPorAir+1], ffdHeaPorAir.T) annotation (Line(
+  connect(cfd.y[kHeaPorAir+1], cfdHeaPorAir.T) annotation (Line(
       points={{-19,190},{60,190},{60,8.88178e-16},{-138,8.88178e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   // Connections to shade
   if haveShade then
     for i in 1:nConExtWin loop
-      connect(ffd.u[kUSha+i], uSha[i]) annotation (Line(
+      connect(cfd.u[kUSha+i], uSha[i]) annotation (Line(
           points={{-42,190},{-60,190},{-60,200},{-260,200}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(ffd.u[kQRadAbs_flow+i], QRadAbs_flow[i]) annotation (Line(
+      connect(cfd.u[kQRadAbs_flow+i], QRadAbs_flow[i]) annotation (Line(
           points={{-42,190},{-60,190},{-60,90},{-260,90}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(ffd.y[kTSha+i], TSha[i]) annotation (Line(
+      connect(cfd.y[kTSha+i], TSha[i]) annotation (Line(
           points={{-19,190},{60,190},{60,60},{-250,60}},
           color={0,0,127},
           smooth=Smooth.None));
@@ -715,11 +715,11 @@ equation
 
   // Connection for heat gain that is added to the room
   // (averaged over the whole room air volume)
-  connect(QTotCon_flow.y, ffd.u[kQConGai_flow+1]) annotation (Line(
+  connect(QTotCon_flow.y, cfd.u[kQConGai_flow+1]) annotation (Line(
       points={{-139,-50},{-60,-50},{-60,190},{-42,190}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(QLat_flow, ffd.u[kQLatGai_flow+1]) annotation (Line(
+  connect(QLat_flow, cfd.u[kQLatGai_flow+1]) annotation (Line(
       points={{-260,-160},{-190,-160},{-190,-72},{-60,-72},{-60,190},{-42,190},{
           -42,190}},
       color={0,0,127},
@@ -734,27 +734,27 @@ equation
   // Output signals from fluInt block
 
   // The pressure of the air volume will be sent from Modelica to FFD
-  connect(ffd.u[kFluIntP+1], fluInt.p) annotation (Line(
+  connect(cfd.u[kFluIntP+1], fluInt.p) annotation (Line(
       points={{-42,190},{-60,190},{-60,-180},{-11,-180}},
       color={0,0,127},
       smooth=Smooth.None));
   for i in 1:nPorts loop
-    connect(ffd.u[kFluIntM_flow+i], fluInt.m_flow[i]) annotation (Line(
+    connect(cfd.u[kFluIntM_flow+i], fluInt.m_flow[i]) annotation (Line(
         points={{-42,190},{-60,190},{-60,-184},{-11,-184}},
         color={0,0,127},
         smooth=Smooth.None));
-    connect(ffd.u[kFluIntT_inflow+i], fluInt.T_inflow[i]) annotation (Line(
+    connect(cfd.u[kFluIntT_inflow+i], fluInt.T_inflow[i]) annotation (Line(
         points={{-42,190},{-60,190},{-60,-188},{-11,-188}},
         color={0,0,127},
         smooth=Smooth.None));
     for j in 1:Medium.nXi loop
-      connect(ffd.u[kFluIntXi_inflow+(i-1)*Medium.nXi+j], fluInt.Xi_inflow[(i-1)*Medium.nXi+j]) annotation (Line(
+      connect(cfd.u[kFluIntXi_inflow+(i-1)*Medium.nXi+j], fluInt.Xi_inflow[(i-1)*Medium.nXi+j]) annotation (Line(
           points={{-42,190},{-60,190},{-60,-192},{-11,-192}},
           color={0,0,127},
           smooth=Smooth.None));
     end for;
     for j in 1:Medium.nC loop
-      connect(ffd.u[kFluIntC_inflow+(i-1)*Medium.nC+j], fluInt.C_inflow[(i-1)*Medium.nC+j]) annotation (Line(
+      connect(cfd.u[kFluIntC_inflow+(i-1)*Medium.nC+j], fluInt.C_inflow[(i-1)*Medium.nC+j]) annotation (Line(
           points={{-42,190},{-60,190},{-60,-196},{-11,-196}},
           color={0,0,127},
           smooth=Smooth.None));
@@ -763,18 +763,18 @@ equation
   // Input signals to fluInt block
   // The pressures of ports[2:nPorts] will be sent from FFD to Modelica
   for i in 1:nPorts loop
-    connect(ffd.y[kFluIntT_outflow+i], fluInt.T_outflow[i]) annotation (Line(
+    connect(cfd.y[kFluIntT_outflow+i], fluInt.T_outflow[i]) annotation (Line(
         points={{-19,190},{60,190},{60,-188},{12,-188}},
         color={0,0,127},
         smooth=Smooth.None));
     for j in 1:Medium.nXi loop
-      connect(ffd.y[kFluIntXi_outflow+(i-1)*Medium.nXi+j], fluInt.Xi_outflow[(i-1)*Medium.nXi+j]) annotation (Line(
+      connect(cfd.y[kFluIntXi_outflow+(i-1)*Medium.nXi+j], fluInt.Xi_outflow[(i-1)*Medium.nXi+j]) annotation (Line(
           points={{-19,190},{60,190},{60,-192},{12,-192}},
           color={0,0,127},
           smooth=Smooth.None));
     end for;
     for j in 1:Medium.nC loop
-      connect(ffd.y[kFluIntC_outflow+(i-1)*Medium.nC+j], fluInt.C_outflow[(i-1)*Medium.nC+j]) annotation (Line(
+      connect(cfd.y[kFluIntC_outflow+(i-1)*Medium.nC+j], fluInt.C_outflow[(i-1)*Medium.nC+j]) annotation (Line(
           points={{-19,190},{60,190},{60,-196},{12,-196}},
           color={0,0,127},
           smooth=Smooth.None));
@@ -784,7 +784,7 @@ equation
   // Connections for sensor signal
   if haveSensor then
     for i in 1:nSen loop
-      connect(ffd.y[kSen+i], yCFD[i]) annotation (Line(
+      connect(cfd.y[kSen+i], yCFD[i]) annotation (Line(
         points={{-19,190},{60,190},{60,-234},{180,-234},{180,-250}},
         color={0,0,127},
         smooth=Smooth.None));
@@ -795,7 +795,7 @@ equation
       points={{-240,0},{-210,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(senHeaFlo.port_b, ffdHeaPorAir.port) annotation (Line(
+  connect(senHeaFlo.port_b, cfdHeaPorAir.port) annotation (Line(
       points={{-190,0},{-160,0}},
       color={191,0,0},
       smooth=Smooth.None));

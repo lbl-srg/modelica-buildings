@@ -67,8 +67,8 @@ These effects are modeled as follows:
 <ol>
 <li>
 The model 
-<a href=\"modelica://Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed\">
-Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed</a>
+<a href=\"modelica://Buildings.Rooms.BaseClasses.MixedAirHeatMassBalance\">
+Buildings.Rooms.BaseClasses.MixedAirHeatMassBalance</a>
 is used to compute heat convection between the room air
 and the surface of opaque constructions. It is also used to compute the
 heat and mass balance of the room air.
@@ -92,8 +92,8 @@ such as CO<sub>2</sub>, can be modeled transiently.
 The latent heat gain of the room, which is a user-input,
 is converted to a moisture source using
 the model
-<a href=\"modelica://Buildings.Rooms.BaseClasses.HeatGain\">
-Buildings.Rooms.BaseClasses.HeatGain</a>.
+<a href=\"modelica://Buildings.Rooms.BaseClasses.MixedAirHeatGain\">
+Buildings.Rooms.BaseClasses.MixedAirHeatGain</a>.
 </li>
 <li>
 The radiant heat gains in the infrared spectrum are also a user
@@ -671,37 +671,37 @@ conventions are used in this model.
 <li>
 If a construction is not present, or if no shade is present, or 
 if no air stream is connected to <code>ports</code>,
-then no variables are exchanged for this quantity with the block <code>ffd</code>.
+then no variables are exchanged for this quantity with the block <code>cfd</code>.
 </li>
 <li>
 For surfaces, heat flow rates in <i>[W]</i> and temperatures
 in <i>[K]</i> are exchanged.
 These variables are connected to the surface heat ports
 through instances of the model
-<a href=\"modelica://Buildings.Rooms.BaseClasses.FFDSurfaceInterface\">
-Buildings.Rooms.BaseClasses.FFDSurfaceInterface</a>.
+<a href=\"modelica://Buildings.Rooms.BaseClasses.CFDSurfaceInterface\">
+Buildings.Rooms.BaseClasses.CFDSurfaceInterface</a>.
 This model has four ports. 
 Depepending on the parameter
 <code>bouCon</code>, two of these ports are conditionally removed.
 This allows to use the parameter <code>bouCon</code> to specify whether
 the surface should be used with a temperature or a heat flow rate
 boundary condition.
-Therefore, the inputs and outputs to the instance <code>ffd</code>
+Therefore, the inputs and outputs to the instance <code>cfd</code>
 are either temperatures or heat flow rates.
 The parameter <code>surIde</code> of this model, which is also
-propagated to the instance <code>ffd</code>, declares what
+propagated to the instance <code>cfd</code>, declares what
 type of boundary condition is used.
 </li>
 <li>
 The variables of the connector <code>ports</code> are exchanged with the FFD block
 through the instance <code>intFlu</code>. 
 This interface is implemented in 
-<a href=\"modelica://Buildings.Rooms.BaseClasses.FFDFluidInterface\">
-Buildings.Rooms.BaseClasses.FFDFluidInterface</a>.
-Its output and input signals are connected to the <code>ffd</code> block as follows:
+<a href=\"modelica://Buildings.Rooms.BaseClasses.CFDFluidInterface\">
+Buildings.Rooms.BaseClasses.CFDFluidInterface</a>.
+Its output and input signals are connected to the <code>cfd</code> block as follows:
 <ul>
 <li>
-Input to the <code>ffd</code> block is a vector 
+Input to the <code>cfd</code> block is a vector 
 <code>[p, m_flow[nPorts], T_inflow[nPorts], X_inflow[nPorts*Medium.nXi], 
 C_inflow[nPorts*Medium.nC]]</code>.
 The quantity <code>p</code> is the total pressure of the fluid ports (all fluid ports have the same
@@ -729,9 +729,9 @@ then these signals are not present as input/output signals of the FFD block.
 <h5>Data exchange with FFD</h5>
 <p>
 The data exchange with the CFD interface is done through the instance
-<code>ffd</code>, and implemented in
-<a href=\"modelica://Buildings.Rooms.BaseClasses.FFDExchange\">
-Buildings.Rooms.BaseClasses.FFDExchange</a>.
+<code>cfd</code>, and implemented in
+<a href=\"modelica://Buildings.Rooms.BaseClasses.CFDExchange\">
+Buildings.Rooms.BaseClasses.CFDExchange</a>.
 This block exchanges the following data with the CFD simulation:
 </p>
 <p>

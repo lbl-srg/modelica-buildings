@@ -1,5 +1,5 @@
 within Buildings.Rooms.BaseClasses;
-model AirHeatMassBalanceMixed
+model MixedAirHeatMassBalance
   "Heat and mass balance of the air, assuming completely mixed air"
   extends Buildings.Rooms.BaseClasses.PartialAirHeatMassBalance(nPorts=1);
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
@@ -307,4 +307,4 @@ First implementation to facilitate the implementation of non-uniform room air mo
 </li>
 </ul>
 </html>"));
-end AirHeatMassBalanceMixed;
+end MixedAirHeatMassBalance;

@@ -1,5 +1,5 @@
 within Buildings.Rooms.BaseClasses;
-record FFDSurfaceIdentifier "Data record to identify surfaces in the FFD code"
+record CFDSurfaceIdentifier "Data record to identify surfaces in the FFD code"
     extends Modelica.Icons.Record;
  parameter String name "Name of the surface";
  parameter Modelica.SIunits.Area A "Area of the surface";
@@ -25,4 +25,4 @@ First implementation.
 </ul>
 </html>"));
 
-end FFDSurfaceIdentifier;
+end CFDSurfaceIdentifier;

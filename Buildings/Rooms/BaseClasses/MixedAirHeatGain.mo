@@ -1,5 +1,5 @@
 within Buildings.Rooms.BaseClasses;
-model HeatGain "Model to convert internal heat gain signals"
+model MixedAirHeatGain "Model to convert internal heat gain signals"
   extends Buildings.BaseClasses.BaseIcon;
 
   replaceable package Medium =
@@ -171,4 +171,4 @@ First implementation.
 </ul>
 </html>"),
     Diagram(graphics));
-end HeatGain;
+end MixedAirHeatGain;

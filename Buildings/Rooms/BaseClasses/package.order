@@ -1,12 +1,13 @@
 CFDAirHeatMassBalance
-AirHeatMassBalanceMixed
 CFDHeatGain
+CFDExchange
+CFDFluidInterface
+CFDSurfaceInterface
+
 ExteriorBoundaryConditions
 ExteriorBoundaryConditionsWithWindow
-FFDExchange
-FFDFluidInterface
-FFDSurfaceInterface
-HeatGain
+MixedAirHeatMassBalance
+MixedAirHeatGain
 InfraredRadiationExchange
 InfraredRadiationGainDistribution
 PartialAirHeatMassBalance
@@ -19,7 +20,7 @@ PartialSurfaceInterfaceRadiative
 SkyRadiationExchange
 ConstructionNumbers
 ConstructionRecords
-FFDSurfaceIdentifier
+CFDSurfaceIdentifier
 OpaqueSurface
 Overhang
 ParameterConstructionWithWindow

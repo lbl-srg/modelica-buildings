@@ -873,8 +873,8 @@ December 6, 2011, by Michael Wetter:<br/>
 Fixed bug that caused convective heat gains to be 
 removed from the room instead of added to the room.
 This error was caused by a wrong sign in
-<a href=\"modelica://Buildings.Rooms.BaseClasses.HeatGain\">
-Buildings.Rooms.BaseClasses.HeatGain</a>.
+<a href=\"modelica://Buildings.Rooms.BaseClasses.MixedAirHeatGain\">
+Buildings.Rooms.BaseClasses.MixedAirHeatGain</a>.
 This closes ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/46\">issue 46</a>.
 </li>
 <li>

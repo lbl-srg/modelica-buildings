@@ -268,7 +268,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Rooms.ExteriorBoundaryConditionsWithWindow<br/>
                        Buildings.Rooms.PartialSurfaceInterface<br/>
                        Buildings.Rooms.InfraredRadiationExchange<br/>
-                       Buildings.Rooms.AirHeatMassBalanceMixed<br/>
+                       Buildings.Rooms.MixedAirHeatMassBalance<br/>
                        Buildings.Rooms.SolarRadiationExchange<br/>
                        Buildings.Rooms.RadiationTemperature<br/>
                        Buildings.Rooms.InfraredRadiationGainDistribution
