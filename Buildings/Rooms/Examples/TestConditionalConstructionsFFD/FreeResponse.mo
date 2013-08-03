@@ -89,7 +89,7 @@ model FreeResponse
     portName={"Inlet", "Outlet"},
     linearizeRadiation = false,
     nPorts=2,
-    useFFD=false,
+    useFFD=true,
     lat=0.73268921998722,
     samplePeriod=60,
     startTime=0) "Room model"

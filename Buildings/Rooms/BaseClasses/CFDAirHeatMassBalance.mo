@@ -36,9 +36,7 @@ model CFDAirHeatMassBalance
     final surIde = surIde,
     final haveShade = haveShade,
     final haveSensor=haveSensor,
-    final nSen=nSen,
     final sensorName=sensorName,
-    final nPorts=nPorts,
     final portName=portName,
     final yFixed=yFixed) "Block that exchanges data with the FFD simulation"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));

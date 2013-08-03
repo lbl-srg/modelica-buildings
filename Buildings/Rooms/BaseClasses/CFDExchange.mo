@@ -24,13 +24,9 @@ block CFDExchange
     "Set to true if at least one window in the room has a shade";
   parameter Boolean haveSensor
     "Flag, true if the model has at least one sensor";
-  parameter Integer nSen(min=0)
-    "Number of sensors that are connected to CFD output";
-  parameter String sensorName[nSen]
+  parameter String sensorName[:]
     "Names of sensors as declared in the CFD input file";
-  parameter Integer nPorts(min=0)
-    "Number of fluid ports for the HVAC inlet and outlets";
-  parameter String portName[nPorts]
+  parameter String portName[:]
     "Names of fluid ports as declared in the CFD input file";
   parameter Boolean verbose = false "Set to true for verbose output";
 
@@ -45,6 +41,10 @@ block CFDExchange
   output Real uWri[nWri] "Value to be sent to the FFD interface";
 
 protected
+  final parameter Integer nSen(min=0) = size(sensorName, 1)
+    "Number of sensors that are connected to CFD output";
+  final parameter Integer nPorts = size(portName, 1)
+    "Number of fluid ports for the HVAC inlet and outlets";
   final parameter Real _uStart[nWri]=
      {if (flaWri[i] <= 1) then uStart[i] else uStart[i]*samplePeriod for i in 1:nWri}
     "Initial input signal, used during first data transfer with FFD";
@@ -102,6 +102,7 @@ protected
       "Requested time step length";
     input Real[nU] u "Input for FFD";
     input Integer nU "Number of inputs for FFD";
+    input Real[nY] yFixed "Fixed values (used for debugging only)";
     input Integer nY "Number of outputs from FFD";
     output Modelica.SIunits.Time simTimRea
       "Current simulation time in seconds read from FFD";
@@ -114,7 +115,7 @@ protected
       Modelica.Utilities.Streams.print("CFDExchange:exchange at t=" + String(t));
     end if;
     simTimRea := t+dt;
-    y         := zeros(nY);
+    y         := yFixed;
     retVal    := 0;
   end exchange;
 
@@ -312,6 +313,7 @@ algorithm
         dt=samplePeriod,
         u=uWri,
         nU=size(u, 1),
+        yFixed=yFixed,
         nY=size(y, 1),
         verbose=verbose);
     else

@@ -24,7 +24,7 @@ partial model PartialTestModel
     linearizeRadiation = true,
     nPorts=2,
     lat=0.73268921998722,
-    useFFD=false,
+    useFFD=true,
     samplePeriod=60,
     startTime=0,
     portName={"Inlet", "Outlet"}) "Room model"
