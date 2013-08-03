@@ -1,4 +1,4 @@
-simulateModel("Buildings.Rooms.BaseClasses.Examples.AirHeatMassBalance", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="AirHeatMassBalance");
+simulateModel("Buildings.Rooms.BaseClasses.Examples.MixedAirMassBalance", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="MixedAirMassBalance");
 createPlot(id = 1,
  position = {35, 30, 407, 281},
  y = {"air.vol.T"},
@@ -10,7 +10,7 @@ createPlot(id = 1,
  grid = true,
  color = true,
  online = false,
- filename = "AirHeatMassBalance.mat",
+ filename = "MixedAirMassBalance.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}});

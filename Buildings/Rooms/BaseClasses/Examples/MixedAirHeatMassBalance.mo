@@ -1,5 +1,5 @@
 within Buildings.Rooms.BaseClasses.Examples;
-model AirHeatMassBalance "Test model for air heat and mass balance"
+model MixedAirHeatMassBalance "Test model for air heat and mass balance"
   extends Modelica.Icons.Example;
   extends
     Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation(
@@ -53,7 +53,7 @@ public
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
 protected
-  Buildings.Rooms.BaseClasses.HeatGain heaGai(
+  Buildings.Rooms.BaseClasses.MixedAirHeatGain heaGai(
     redeclare package Medium = Medium, final AFlo=5)
     "Model to convert internal heat gains"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
@@ -162,6 +162,6 @@ equation
             -200},{140,140}}),
                       graphics),
 experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/AirHeatMassBalance.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/MixedAirHeatMassBalance.mos"
         "Simulate and plot"));
-end AirHeatMassBalance;
+end MixedAirHeatMassBalance;
