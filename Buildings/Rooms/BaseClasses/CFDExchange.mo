@@ -60,7 +60,42 @@ protected
   parameter Boolean idePorNam[max(0, nPorts-1)](fixed=false)
     "Flag, used to tag identical port names";
 
-  function exchangeFFD
+  ///////////////////////////////////////////////////////////////////////////
+  // Function that sends the parameters of the model from Modelica to CFD
+  function sendParameters
+    input String[nSur] name "Surface names";
+    input Modelica.SIunits.Area[nSur] A "Surface areas";
+    input Modelica.SIunits.Angle[nSur] til "Surface tilt";
+    input Buildings.Rooms.Types.CFDBoundaryConditions[nSur] bouCon
+      "Type of boundary condition";
+    input Integer nPorts(min=0)
+      "Number of fluid ports for the HVAC inlet and outlets";
+    input String portName[nPorts]
+      "Names of fluid ports as declared in the CFD input file";
+    input Boolean haveSensor "Flag, true if the model has at least one sensor";
+    input String sensorName[nSen]
+      "Names of sensors as declared in the CFD input file";
+    input Boolean haveShade "Flag, true if the windows have a shade";
+    input Integer nSur "Number of surfaces";
+    input Integer nSen(min=0)
+      "Number of sensors that are connected to CFD output";
+    input Boolean verbose "Set to true for verbose output";
+
+  algorithm
+    if verbose then
+      Modelica.Utilities.Streams.print("CFDExchange:sendParameter");
+    end if;
+
+    for i in 1:nSur loop
+      assert(A[i] > 0, "Surface must be bigger than zero.");
+    end for;
+    // fixme: Send from here the input arguments of this function to the CFD interface
+  end sendParameters;
+
+  ///////////////////////////////////////////////////////////////////////////
+  // Function that exchanges data during the time stepping between
+  // Modelica and CFD.
+  function exchange
     input Integer flag "Communication flag to write to FFD";
     input Modelica.SIunits.Time t "Current simulation time in seconds to write";
     input Modelica.SIunits.Time dt(min=100*Modelica.Constants.eps)
@@ -70,15 +105,48 @@ protected
     input Integer nY "Number of outputs from FFD";
     output Modelica.SIunits.Time simTimRea
       "Current simulation time in seconds read from FFD";
+    input Boolean verbose "Set to true for verbose output";
     output Real[nY] y "Output computed by FFD";
     output Integer retVal
       "The exit value, which is negative if an error occured";
+  algorithm
+    if verbose then
+      Modelica.Utilities.Streams.print("CFDExchange:exchange at t=" + String(t));
+    end if;
+    simTimRea := t+dt;
+    y         := zeros(nY);
+    retVal    := 0;
+  end exchange;
+
+  ///////////////////////////////////////////////////////////////////////////
+  // Function that terminates the CFD simulation.
+  function terminate
+    input Modelica.SIunits.Time t "Current simulation time in seconds to write";
+    input Boolean verbose "Set to true for verbose output";
 
   algorithm
-      simTimRea := t+dt;
-      y         := zeros(nY);
-      retVal    := 0;
-  end exchangeFFD;
+    if verbose then
+      Modelica.Utilities.Streams.print("CFDExchange:terminate at t=" + String(t));
+    end if;
+  end terminate;
+
+  ///////////////////////////////////////////////////////////////////////////
+  // Function that returns strings that are not unique.
+  function returnNonUniqueStrings
+    input Integer n "Number entries";
+    input Boolean ideNam[n-1]
+      "Flag that is set to true if the name is used more than once";
+    input String names[n] "Names";
+    output String s "String with non-unique names";
+  algorithm
+    s := "";
+    for i in 1:n-1 loop
+      if ideNam[i] then
+        s := s + "\n  '" + names[i] + "'";
+      end if;
+    end for;
+  end returnNonUniqueStrings;
+
 /*
   // This function does not work because Dymola 2014 has problems with
   // handling strings in an algorithm section
@@ -111,45 +179,6 @@ protected
     annotation(Inline=true);
   end assertStringsAreUnique;
 */
-  function returnNonUniqueStrings
-    input Integer n "Number entries";
-    input Boolean ideNam[n-1]
-      "Flag that is set to true if the name is used more than once";
-    input String names[n] "Names";
-    output String s "String with non-unique names";
-  algorithm
-    s := "";
-    for i in 1:n-1 loop
-      if ideNam[i] then
-        s := s + "\n  '" + names[i] + "'";
-      end if;
-    end for;
-  end returnNonUniqueStrings;
-
-  function sendParameters
-    input String[nSur] name "Surface names";
-    input Modelica.SIunits.Area[nSur] A "Surface areas";
-    input Modelica.SIunits.Angle[nSur] til "Surface tilt";
-    input Buildings.Rooms.Types.CFDBoundaryConditions[nSur] bouCon
-      "Type of boundary condition";
-    input Integer nPorts(min=0)
-      "Number of fluid ports for the HVAC inlet and outlets";
-    input String portName[nPorts]
-      "Names of fluid ports as declared in the CFD input file";
-    input Boolean haveSensor "Flag, true if the model has at least one sensor";
-    input String sensorName[nSen]
-      "Names of sensors as declared in the CFD input file";
-    input Boolean haveShade "Flag, true if the windows have a shade";
-    input Integer nSur "Number of surfaces";
-    input Integer nSen(min=0)
-      "Number of sensors that are connected to CFD output";
-
-  algorithm
-    for i in 1:nSur loop
-      assert(A[i] > 0, "Surface must be bigger than zero.");
-    end for;
-    // fixme: Send from here the input arguments of this function to the CFD interface
-  end sendParameters;
 
 initial equation
   // Diagnostics output
@@ -241,7 +270,8 @@ initial equation
                  haveShade=  haveShade,
                  nSur=nSur,
                  nSen=nSen,
-                 nPorts=nPorts);
+                 nPorts=nPorts,
+                 verbose=verbose);
 
 initial algorithm
   // Assignment of parameters and start values
@@ -251,26 +281,12 @@ initial algorithm
     assert(flaWri[i]>=0 and flaWri[i]<=2,
        "Parameter flaWri out of range for " + String(i) + "-th component.");
   end for;
-  // Exchange initial values
-   if activateInterface then
-     (simTimRea, y, retVal) :=
-       exchangeFFD(
-       flag=0,
-       t=time,
-       dt=samplePeriod,
-       u=_uStart,
-       nU=size(u, 1),
-       nY=size(y, 1));
-   else
-     simTimRea := time;
-     y         := yFixed;
-     retVal    := 0;
-   end if;
-   // Assign uWri. This avoids a translation warning in Dymola
-   // as otherwise, not all initial values are specified.
-   // However, uWri is only used below in the body of the 'when'
-   // block after it has been assigned.
-   uWri := fill(0, nWri);
+
+  // Assign uWri. This avoids a translation warning in Dymola
+  // as otherwise, not all initial values are specified.
+  // However, uWri is only used below in the body of the 'when'
+  // block after it has been assigned.
+  uWri := fill(0, nWri);
 
 equation
    for i in 1:nWri loop
@@ -290,13 +306,14 @@ algorithm
       end for;
      // Exchange data
     if activateInterface then
-      (simTimRea, y, retVal) :=exchangeFFD(
+      (simTimRea, y, retVal) :=exchange(
         flag=0,
         t=time,
         dt=samplePeriod,
         u=uWri,
         nU=size(u, 1),
-        nY=size(y, 1));
+        nY=size(y, 1),
+        verbose=verbose);
     else
       simTimRea := time;
       y         := yFixed;
@@ -309,6 +326,11 @@ algorithm
 
     // Store current value of integral
     uIntPre:=uInt;
+  end when;
+  when terminal() then
+    terminate(
+      t=time,
+      verbose=verbose);
   end when;
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

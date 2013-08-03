@@ -5,7 +5,6 @@ model CFDExchange "Test model for CFDExchange block"
 
   parameter Integer nWri = 3 "Number of values to write";
   Buildings.Rooms.BaseClasses.CFDExchange cfd(
-    activateInterface=false,
     nWri=nWri,
     uStart=fill(0, nWri),
     nRea=3,
@@ -20,8 +19,9 @@ model CFDExchange "Test model for CFDExchange block"
     nSen=3,
     sensorName={"Air temperature sensor near floor",
                 "Velocity sensor",
-                "Occupied space air temperature sensor"})
-    "Block for data exchange with FFD"
+                "Occupied space air temperature sensor"},
+    activateInterface=true,
+    verbose=true) "Block for data exchange with FFD"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Clock u[nWri] "Input to FFD"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
