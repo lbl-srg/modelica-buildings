@@ -38,7 +38,7 @@ package UsersGuide "User's Guide"
   <li>Identify detailed door constructions</li>
   <li>Use available window information to identify detailed
   model-level window specifications</li>
-  <li>Create FLEXLAB-specific weater data file for 
+  <li>Create FLEXLAB-specific weather data file for 
   taking weather data from the FLEXLAB weather sensors (May be 
   able to use python script to read data, pass into standard 
   weather data reader inputs)</li>
