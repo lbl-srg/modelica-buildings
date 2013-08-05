@@ -245,7 +245,7 @@ Input connectors of the model are
 <code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
 </li>
 <li>
-<code>mWat_flow</code>, which is the species mass flow rate added to the medium.
+<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium.
 </li>
 </ul>
 <p>
