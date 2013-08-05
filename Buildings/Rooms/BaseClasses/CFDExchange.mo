@@ -2,21 +2,20 @@ within Buildings.Rooms.BaseClasses;
 block CFDExchange
   "Block that exchanges data with the Fast Fluid Flow Dynamics code"
   extends Modelica.Blocks.Interfaces.DiscreteBlock;
-  parameter Boolean activateInterface = true
+  parameter Boolean activateInterface=true
     "Set to false to deactivate interface and use instead yFixed as output"
-    annotation(Evaluate = true);
+    annotation (Evaluate=true);
 
   parameter Integer nWri(min=0)
     "Number of values to write to the FFD simulation";
   parameter Integer nRea(min=0)
     "Number of double values to be read from the FFD simulation";
-  parameter Integer flaWri[nWri] = zeros(nWri)
+  parameter Integer flaWri[nWri]=zeros(nWri)
     "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)";
   parameter Real uStart[nWri]
     "Initial input signal, used during first data transfer with FFD simulation";
   parameter Real yFixed[nRea] "Fixed output, used if activateInterface=false"
-    annotation(Evaluate = true,
-                Dialog(enable = not activateInterface));
+    annotation (Evaluate=true, Dialog(enable=not activateInterface));
 
   parameter Integer nSur(min=1) "Number of surfaces";
   parameter CFDSurfaceIdentifier surIde[nSur] "Surface identifiers";
@@ -28,7 +27,7 @@ block CFDExchange
     "Names of sensors as declared in the CFD input file";
   parameter String portName[:]
     "Names of fluid ports as declared in the CFD input file";
-  parameter Boolean verbose = false "Set to true for verbose output";
+  parameter Boolean verbose=false "Set to true for verbose output";
 
   Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to FFD"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -43,21 +42,21 @@ block CFDExchange
 protected
   final parameter Integer nSen(min=0) = size(sensorName, 1)
     "Number of sensors that are connected to CFD output";
-  final parameter Integer nPorts = size(portName, 1)
+  final parameter Integer nPorts=size(portName, 1)
     "Number of fluid ports for the HVAC inlet and outlets";
-  final parameter Real _uStart[nWri]=
-     {if (flaWri[i] <= 1) then uStart[i] else uStart[i]*samplePeriod for i in 1:nWri}
+  final parameter Real _uStart[nWri]={if (flaWri[i] <= 1) then uStart[i] else
+      uStart[i]*samplePeriod for i in 1:nWri}
     "Initial input signal, used during first data transfer with FFD";
   output Modelica.SIunits.Time simTimRea
     "Current simulation time received from FFD";
 
   output Integer retVal "Return value from FFD";
 
-  parameter Boolean ideSurNam[max(0, nSur-1)](fixed=false)
+  parameter Boolean ideSurNam[max(0, nSur - 1)](fixed=false)
     "Flag, used to tag identical surface names";
-  parameter Boolean ideSenNam[max(0, nSen-1)](fixed=false)
+  parameter Boolean ideSenNam[max(0, nSen - 1)](fixed=false)
     "Flag, used to tag identical sensor names";
-  parameter Boolean idePorNam[max(0, nPorts-1)](fixed=false)
+  parameter Boolean idePorNam[max(0, nPorts - 1)](fixed=false)
     "Flag, used to tag identical port names";
 
   ///////////////////////////////////////////////////////////////////////////
@@ -80,7 +79,8 @@ protected
     input Integer nSen(min=0)
       "Number of sensors that are connected to CFD output";
     input Boolean verbose "Set to true for verbose output";
-
+  protected
+    Integer nConExtWin=0;
   algorithm
     if verbose then
       Modelica.Utilities.Streams.print("CFDExchange:sendParameter");
@@ -89,7 +89,28 @@ protected
     for i in 1:nSur loop
       assert(A[i] > 0, "Surface must be bigger than zero.");
     end for;
+
     // fixme: Send from here the input arguments of this function to the CFD interface
+    // fixme: need nConExtWin
+
+    Modelica.Utilities.Streams.print(string="Launch createSharedMemory()");
+    createSharedMemory(
+        name,
+        A,
+        til,
+        bouCon,
+        nPorts,
+        portName,
+        haveSensor,
+        sensorName,
+        haveShade,
+        nSur,
+        nSen,
+        nConExtWin);
+
+    Modelica.Utilities.Streams.print(string="Launch launchFFD()");
+    launchFFD();
+
   end sendParameters;
 
   ///////////////////////////////////////////////////////////////////////////
@@ -114,9 +135,17 @@ protected
     if verbose then
       Modelica.Utilities.Streams.print("CFDExchange:exchange at t=" + String(t));
     end if;
-    simTimRea := t+dt;
-    y         := yFixed;
-    retVal    := 0;
+
+    (simTimRea,y,retVal) := exchangeData(
+        flag,
+        t,
+        dt,
+        u,
+        nU,
+        nY);
+    //simTimRea := t + dt;
+    //y := yFixed;
+    //retVal := 0;
   end exchange;
 
   ///////////////////////////////////////////////////////////////////////////
@@ -135,20 +164,20 @@ protected
   // Function that returns strings that are not unique.
   function returnNonUniqueStrings
     input Integer n "Number entries";
-    input Boolean ideNam[n-1]
+    input Boolean ideNam[n - 1]
       "Flag that is set to true if the name is used more than once";
     input String names[n] "Names";
     output String s "String with non-unique names";
   algorithm
     s := "";
-    for i in 1:n-1 loop
+    for i in 1:n - 1 loop
       if ideNam[i] then
         s := s + "\n  '" + names[i] + "'";
       end if;
     end for;
   end returnNonUniqueStrings;
 
-/*
+  /*
   // This function does not work because Dymola 2014 has problems with
   // handling strings in an algorithm section
   function assertStringsAreUnique
@@ -184,28 +213,30 @@ protected
 initial equation
   // Diagnostics output
   if verbose then
-    Modelica.Utilities.Streams.print(string="\nCFDExchange has the following surfaces:");
+    Modelica.Utilities.Streams.print(string=
+      "\nCFDExchange has the following surfaces:");
     for i in 1:nSur loop
       Modelica.Utilities.Streams.print(string="
   name = " + surIde[i].name + "
-  A    = " + String(surIde[i].A)   + " [m2]
+  A    = " + String(surIde[i].A) + " [m2]
   tilt = " + String(surIde[i].til*180/Modelica.Constants.pi) + " [deg]");
     end for;
 
-  if haveSensor then
-    Modelica.Utilities.Streams.print(string="\nCFDExchange has the following sensors:");
-    for i in 1:nSen loop
-      Modelica.Utilities.Streams.print(string="  " + sensorName[i]);
-    end for;
-  else
-    Modelica.Utilities.Streams.print(string="CFDExchange has no sensors.");
+    if haveSensor then
+      Modelica.Utilities.Streams.print(string=
+        "\nCFDExchange has the following sensors:");
+      for i in 1:nSen loop
+        Modelica.Utilities.Streams.print(string="  " + sensorName[i]);
+      end for;
+    else
+      Modelica.Utilities.Streams.print(string="CFDExchange has no sensors.");
+    end if;
   end if;
- end if;
 
   // Assert that the surface, sensor and ports have a name,
   // and that that name is unique.
   // Otherwise, stop with an error.
-/*
+  /*
   assertStringsAreUnique(descriptiveName="surface",
                          n=nSur,
                          names={surIde[i].name for i in 1:nSur});
@@ -217,14 +248,17 @@ initial equation
                          names=portName);
 */
   if nSur > 1 then
-    for i in 1:nSur-1 loop
-      ideSurNam[i] = Modelica.Math.BooleanVectors.anyTrue(
-        {Modelica.Utilities.Strings.isEqual(surIde[i].name, surIde[j].name) for j in i+1:nSur});
+    for i in 1:nSur - 1 loop
+      ideSurNam[i] = Modelica.Math.BooleanVectors.anyTrue({
+        Modelica.Utilities.Strings.isEqual(surIde[i].name, surIde[j].name) for
+        j in i + 1:nSur});
     end for;
-     assert( not Modelica.Math.BooleanVectors.anyTrue(ideSurNam),
-    "For the CFD interface, all surfaces must have a name that is unique within each room.
+    assert(not Modelica.Math.BooleanVectors.anyTrue(ideSurNam), "For the CFD interface, all surfaces must have a name that is unique within each room.
   The following surface names are used more than once in the room model:" +
-    returnNonUniqueStrings(nSur, ideSurNam, {surIde[i].name for i in 1:nSur}));
+      returnNonUniqueStrings(
+      nSur,
+      ideSurNam,
+      {surIde[i].name for i in 1:nSur}));
   else
     ideSurNam = fill(false, max(0, nSur - 1));
   end if;
@@ -232,55 +266,62 @@ initial equation
   // -- Check sensors
   // Loop over all names to verify that they are unique
   if nSen > 1 then
-    for i in 1:nSen-1 loop
-      ideSenNam[i] = Modelica.Math.BooleanVectors.anyTrue(
-        {Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j in i+1:nSen});
+    for i in 1:nSen - 1 loop
+      ideSenNam[i] = Modelica.Math.BooleanVectors.anyTrue({
+        Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j
+         in i + 1:nSen});
     end for;
 
-     assert( not Modelica.Math.BooleanVectors.anyTrue(ideSenNam),
-    "For the CFD interface, all sensors must have a name that is unique within each room.
+    assert(not Modelica.Math.BooleanVectors.anyTrue(ideSenNam), "For the CFD interface, all sensors must have a name that is unique within each room.
  The following sensor names are used more than once in the room model:" +
-      returnNonUniqueStrings(nSen, ideSenNam, sensorName));
+      returnNonUniqueStrings(
+      nSen,
+      ideSenNam,
+      sensorName));
   else
     ideSenNam = fill(false, max(0, nSen - 1));
   end if;
 
   // -- Check ports
   if nPorts > 1 then
-    for i in 1:nPorts-1 loop
-      idePorNam[i] = Modelica.Math.BooleanVectors.anyTrue(
-        {Modelica.Utilities.Strings.isEqual(portName[i], portName[j]) for j in i+1:nPorts});
+    for i in 1:nPorts - 1 loop
+      idePorNam[i] = Modelica.Math.BooleanVectors.anyTrue({
+        Modelica.Utilities.Strings.isEqual(portName[i], portName[j]) for j in i
+         + 1:nPorts});
     end for;
 
-    assert( not Modelica.Math.BooleanVectors.anyTrue(idePorNam),
-    "For the CFD interface, all ports must have a name that is unique within each room.
+    assert(not Modelica.Math.BooleanVectors.anyTrue(idePorNam), "For the CFD interface, all ports must have a name that is unique within each room.
   The following port names are used more than once in the room model:" +
-    returnNonUniqueStrings(nPorts, idePorNam, portName));
+      returnNonUniqueStrings(
+      nPorts,
+      idePorNam,
+      portName));
   else
     idePorNam = fill(false, max(0, nPorts - 1));
   end if;
 
   // Send parameters to the CFD interface
-  sendParameters(name=      {surIde[i].name for i in 1:nSur},
-                 A=         {surIde[i].A for i in 1:nSur},
-                 til=       {surIde[i].til for i in 1:nSur},
-                 bouCon=    {surIde[i].bouCon for i in 1:nSur},
-                 haveSensor=haveSensor,
-                 portName=  portName,
-                 sensorName=sensorName,
-                 haveShade=  haveShade,
-                 nSur=nSur,
-                 nSen=nSen,
-                 nPorts=nPorts,
-                 verbose=verbose);
+  sendParameters(
+    name={surIde[i].name for i in 1:nSur},
+    A={surIde[i].A for i in 1:nSur},
+    til={surIde[i].til for i in 1:nSur},
+    bouCon={surIde[i].bouCon for i in 1:nSur},
+    haveSensor=haveSensor,
+    portName=portName,
+    sensorName=sensorName,
+    haveShade=haveShade,
+    nSur=nSur,
+    nSen=nSen,
+    nPorts=nPorts,
+    verbose=verbose);
 
 initial algorithm
   // Assignment of parameters and start values
-  uInt    := zeros(nWri);
+  uInt := zeros(nWri);
   uIntPre := zeros(nWri);
   for i in 1:nWri loop
-    assert(flaWri[i]>=0 and flaWri[i]<=2,
-       "Parameter flaWri out of range for " + String(i) + "-th component.");
+    assert(flaWri[i] >= 0 and flaWri[i] <= 2,
+      "Parameter flaWri out of range for " + String(i) + "-th component.");
   end for;
 
   // Assign uWri. This avoids a translation warning in Dymola
@@ -290,24 +331,26 @@ initial algorithm
   uWri := fill(0, nWri);
 
 equation
-   for i in 1:nWri loop
-      der(uInt[i]) = if (flaWri[i] > 0) then u[i] else 0;
-   end for;
+  for i in 1:nWri loop
+    der(uInt[i]) = if (flaWri[i] > 0) then u[i] else 0;
+  end for;
 algorithm
   when sampleTrigger then
-     // Compute value that will be sent to the FFD interface
-     for i in 1:nWri loop
-       if (flaWri[i] == 0) then
-         uWri[i] := pre(u[i]);
-       elseif (flaWri[i] == 1) then
-         uWri[i] := (uInt[i] - uIntPre[i])/samplePeriod;   // Average value over the sampling interval
-       else
-         uWri[i] :=uInt[i] - uIntPre[i]; // Integral over the sampling interval
-       end if;
-      end for;
-     // Exchange data
+    // Compute value that will be sent to the FFD interface
+    for i in 1:nWri loop
+      if (flaWri[i] == 0) then
+        uWri[i] := pre(u[i]);
+      elseif (flaWri[i] == 1) then
+        uWri[i] := (uInt[i] - uIntPre[i])/samplePeriod;
+        // Average value over the sampling interval
+      else
+        uWri[i] := uInt[i] - uIntPre[i];
+        // Integral over the sampling interval
+      end if;
+    end for;
+    // Exchange data
     if activateInterface then
-      (simTimRea, y, retVal) :=exchange(
+      (simTimRea,y,retVal) := exchange(
         flag=0,
         t=time,
         dt=samplePeriod,
@@ -318,25 +361,25 @@ algorithm
         verbose=verbose);
     else
       simTimRea := time;
-      y         := yFixed;
-      retVal    := 0;
-      end if;
+      y := yFixed;
+      retVal := 0;
+    end if;
     // Check for valid return flags
-    assert(retVal >= 0, "Obtained negative return value during data transfer with FFD.\n" +
-                        "   Aborting simulation. Check file 'fixme: enter name of FFD log file'.\n" +
-                        "   Received: retVal = " + String(retVal));
+    assert(retVal >= 0,
+      "Obtained negative return value during data transfer with FFD.\n" +
+      "   Aborting simulation. Check file 'fixme: enter name of FFD log file'.\n"
+       + "   Received: retVal = " + String(retVal));
 
     // Store current value of integral
-    uIntPre:=uInt;
+    uIntPre := uInt;
   end when;
   when terminal() then
-    terminate(
-      t=time,
-      verbose=verbose);
+    terminate(t=time, verbose=verbose);
   end when;
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
+  annotation (
+    Placement(transformation(extent={{-140,-20},{-100,20}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
     Documentation(info="<html>
 <p>
 This block samples interface variables and exchanges data with the fast fluid flow dynamics

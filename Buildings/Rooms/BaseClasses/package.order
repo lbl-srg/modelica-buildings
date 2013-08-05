@@ -3,7 +3,6 @@ CFDHeatGain
 CFDExchange
 CFDFluidInterface
 CFDSurfaceInterface
-
 ExteriorBoundaryConditions
 ExteriorBoundaryConditionsWithWindow
 MixedAirHeatMassBalance
@@ -28,3 +27,6 @@ ParameterConstruction
 PartialParameterConstruction
 SideFins
 Examples
+createSharedMemory
+launchFFD
+exchangeData
