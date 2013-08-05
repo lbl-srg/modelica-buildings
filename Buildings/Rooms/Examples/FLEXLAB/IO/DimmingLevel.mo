@@ -9,10 +9,10 @@ model DimmingLevel "Identifies the desired new light dimming setpoint"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealOutput newDim "New dimmer setpoint"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 
 equation
   newDim = max(0,min(100,oldDim - 100/3 * (1 - perDes)));
 
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics));
 end DimmingLevel;
