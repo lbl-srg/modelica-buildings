@@ -9,19 +9,16 @@ model MixingVolumeMoistAir
   replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases
       annotation (choicesAllMatching = true);
 
+  Modelica.SIunits.HeatFlowRate HWat_flow = mWat_flow * Medium.enthalpyOfLiquid(TWat)
+    "Enthalpy flow rate of extracted water";
 protected
   parameter Integer i_w(min=1, fixed=false) "Index for water substance";
   parameter Real s[Medium.nXi](each fixed=false)
     "Vector with zero everywhere except where species is";
 
-protected
-  Modelica.Blocks.Sources.RealExpression
-    masExc[Medium.nXi](y=mXi_flow) if
-       Medium.nXi > 0 "Block to set mass exchange in volume"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Modelica.Blocks.Sources.RealExpression heaInp(y=heatPort.Q_flow + HWat_flow)
-    "Block to set heat input into volume"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+  Modelica.Blocks.Sources.RealExpression heaInp(final y=
+     heatPort.Q_flow + HWat_flow) "Block to set heat input into volume"
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 initial algorithm
   i_w:= -1;
   for i in 1:Medium.nXi loop
@@ -39,32 +36,28 @@ initial algorithm
          + "Check medium model.");
 
 equation
-  HWat_flow = mWat_flow * Medium.enthalpyOfLiquid(TWat);
-  // We obtain the substance concentration with a vector multiplication
-  // because Dymola 7.4 cannot find the derivative in the model
-  // Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretizedPControl
-  // if we set mXi_flow[i] = if ( i == i_w) then mWat_flow else 0;
-    mXi_flow = mWat_flow * s;
 // Medium species concentration
   X_w = s * Xi;
 
   connect(heaInp.y, steBal.Q_flow) annotation (Line(
-      points={{-59,80},{-32,80},{-32,18},{-22,18}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(masExc.y, steBal.mXi_flow) annotation (Line(
-      points={{-59,60},{-40,60},{-40,14},{-22,14}},
+      points={{-59,50},{-32,50},{-32,18},{-22,18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaInp.y, dynBal.Q_flow) annotation (Line(
-      points={{-59,80},{26,80},{26,16},{38,16}},
+      points={{-59,50},{26,50},{26,16},{38,16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(masExc.y, dynBal.mXi_flow) annotation (Line(
-      points={{-59,60},{20,60},{20,12},{38,12}},
+  connect(mWat_flow, steBal.mWat_flow) annotation (Line(
+      points={{-120,80},{-40,80},{-40,14},{-22,14}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
+  connect(mWat_flow, dynBal.mWat_flow) annotation (Line(
+      points={{-120,80},{20,80},{20,12},{38,12}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
                        Icon(graphics),
 defaultComponentName="vol",
 Documentation(info="<html>
@@ -94,6 +87,17 @@ Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 30, 2013 by Michael Wetter:<br/>
+Changed connector <code>mXi_flow[Medium.nXi]</code>
+to a scalar input connector <code>mWat_flow</code>
+in the conservation equation model.
+The reason is that <code>mXi_flow</code> does not allow
+to compute the other components in <code>mX_flow</code> and
+therefore leads to an ambiguous use of the model.
+By only requesting <code>mWat_flow</code>, the mass balance
+and species balance can be implemented correctly.
+</li>
 <li>
 April 18, 2013 by Michael Wetter:<br/>
 Removed the use of the deprecated
