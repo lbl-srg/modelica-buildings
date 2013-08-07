@@ -1,7 +1,10 @@
+removePlots();
+
 simulateModel("Buildings.Fluid.SolarCollectors.Examples.FlatPlate", stopTime = 86400, method = "dassl", resultFile = "FlatPlate");
+
 createPlot(id = 1,
- position = {0, 0, 1529, 781},
- y = {"solCol.vol[1].T", "solCol.vol[2].T", "solCol.vol[3].T"},
+ position = {0, 0, 1000, 500},
+ y = {"solCol.vol[3].T", "solCol.vol[6].T", "solCol.vol[9].T"},
  range = {0.0, 88000.0, 8.0, 28.0},
  autoscale = true,
  autoerase = true,
@@ -15,7 +18,7 @@ createPlot(id = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}, {255,0,0}, {0,128,0}});
 createPlot(id = 1,
- position = {0, 0, 1529, 387},
+ position = {0, 0, 1000, 500},
  y = {"solCol.m_flow"},
  range = {0.0, 88000.0, 0.092, 0.11599999999999999},
  autoscale = true,

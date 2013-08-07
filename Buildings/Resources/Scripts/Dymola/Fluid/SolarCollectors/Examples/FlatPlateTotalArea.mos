@@ -1,7 +1,10 @@
+removePlots();
+
 simulateModel("Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea", stopTime = 86400, method = "dassl", resultFile = "FlatPlateTotalArea");
+
 createPlot(id = 1,
- position = {0, 0, 1529, 781},
- y = {"solCol.vol[1].T", "solCol.vol[2].T", "solCol.vol[3].T", "solCol1.vol[10].T","solCol1.vol[20].T", "solCol1.vol[30].T"},
+ position = {0, 0, 1000, 500},
+ y = {"solCol.vol[3].T", "solCol.vol[6].T", "solCol.vol[9].T", "solCol1.vol[9].T","solCol1.vol[18].T", "solCol1.vol[27].T"},
  range = {0.0, 88000.0, 9.0, 21.0},
  autoscale = true,
  autoerase = true,
@@ -17,8 +20,8 @@ createPlot(id = 1,
  markers = {MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, 
 MarkerStyle.None, MarkerStyle.Cross});
 createPlot(id = 1,
- position = {0, 0, 1529, 387},
- y = {"solCol.m_flow", "solCol.m_flow_nominal"},
+ position = {0, 0, 1000, 500},
+ y = {"solCol.m_flow", "solCol.m_flow_nominal", "solCol1.m_flow", "solCol1.m_flow_nominal"},
  range = {0.0, 88000.0, 0.31, 0.4},
  autoscale = true,
  autoerase = true,
@@ -30,5 +33,5 @@ createPlot(id = 1,
  subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1,
- colors = {{0,0,255}, {255,0,0}});
+ colors = {{0,0,255}, {255,0,0}, {0,128,0},{255,0,255}});
  
