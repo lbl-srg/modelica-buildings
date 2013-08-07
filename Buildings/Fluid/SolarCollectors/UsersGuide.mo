@@ -94,8 +94,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   that all panels in the system are connected in parallel. As a result the fluid 
   flows through only a single panel and the <code>dp_nominal</code> for the system 
   is <code>dp_nominal</code> specified in the collector data package if the collector
-  field has a mass flow rate equal to <code>per.m_flow_nominal</code> fixme: verify if 
-  this is correct.</li>
+  field has a mass flow rate equal to <code>per.m_flow_nominal</code>.</li>
   </ol>
   </ol>
   <h4>References</h4>
