@@ -127,27 +127,18 @@ def CalBayComm(u):
 
     conn = FlexlabExtInterface()
     print "Opening connection to hardware."
-    conn.open("128.3.20.130",3500,"P Grant","pgrant213")
+    conn.open("128.3.20.130",3500,"Login","Password")
     
     print "Sending control signal."
-    conn.cmd('SETDAQ:WattStopper.HS1--4126F--Dimmer Level-2:' + str(u) + ':P Grant:pgrant213') 
+    conn.cmd('SETDAQ:WattStopper.HS1--4126F--Dimmer Level-2:' + str(u) + ':Login:Password') 
 
     time.sleep(30)
 
-    y = float(conn.cmd('GetDAQ:WattStopper.HS1--4126F--Light Level-1:P Grant:pgrant213'))
+    y = float(conn.cmd('GetDAQ:WattStopper.HS1--4126F--Light Level-1:Login:Password'))
 
     res = []
     res.append(y)
     res.append(u)
-#    res.append(CurrentDimOut)
-#    res.append(SetDim)
-#    res.append(NewLightOut)
-#    res.append(NewDimOut)
-#    res.append(PerDiff)
-#    res.append(Adjustment)
+
 
     return res
-
-#CalBayComm(-50)
-
-#print res
