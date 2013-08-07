@@ -6,8 +6,8 @@ model ConstantEffectiveness
   sensibleOnly2=false,
   Q1_flow = epsS * QMax_flow,
   Q2_flow = -Q1_flow,
-  mXi1_flow = {if ( i == Medium1.Water) then mWat_flow else 0 for i in 1:Medium1.nXi},
-  mXi2_flow = {if ( i == Medium2.Water) then -mWat_flow else 0 for i in 1:Medium2.nXi});
+  mWat1_flow = +mWat_flow,
+  mWat2_flow = -mWat_flow);
 
   parameter Real epsS(min=0, max=1) = 0.8
     "Sensible heat exchanger effectiveness";
@@ -109,6 +109,11 @@ in the species vector.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 30, 2013 by Michael Wetter:<br/>
+Updated model to use new variable <code>mWat_flow</code>
+in the base class.
+</li>
 <li>
 January 28, 2010, by Michael Wetter:<br/>
 Added regularization near zero flow.

@@ -5,35 +5,35 @@ model MixingVolumeDryAir
     steBal(final sensibleOnly = true));
 
 protected
-  Modelica.Blocks.Sources.Constant
-    masExc[Medium.nXi](k=zeros(Medium.nXi)) if
-       Medium.nXi > 0 "Block to set mass exchange in volume"
+  Modelica.Blocks.Sources.Constant masExc(final k=0)
+    "Block to set mass exchange in volume"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.RealExpression heaInp(y=heatPort.Q_flow)
     "Block to set heat input into volume"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 equation
-  HWat_flow = 0;
-  mXi_flow  = zeros(Medium.nXi);
+//  HWat_flow = 0;
 // Assign output port
   X_w = 0;
   connect(heaInp.y, steBal.Q_flow) annotation (Line(
       points={{-59,90},{-34,90},{-34,18},{-22,18}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(masExc.y, steBal.mXi_flow) annotation (Line(
-      points={{-59,70},{-40,70},{-40,14},{-22,14}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(heaInp.y, dynBal.Q_flow) annotation (Line(
       points={{-59,90},{26,90},{26,16},{38,16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(masExc.y, dynBal.mXi_flow) annotation (Line(
+  connect(masExc.y, dynBal.mWat_flow) annotation (Line(
       points={{-59,70},{20,70},{20,12},{38,12}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
+  connect(masExc.y, steBal.mWat_flow) annotation (Line(
+      points={{-59,70},{-40,70},{-40,14},{-22,14}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
                        Icon(graphics),
 defaultComponentName="vol",
 Documentation(info="<html>
@@ -56,6 +56,17 @@ or subtract moisture using a signal that is connected to the port
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 30, 2013 by Michael Wetter:<br/>
+Changed connector <code>mXi_flow[Medium.nXi]</code>
+to a scalar input connector <code>mWat_flow</code>
+in the conservation equation model.
+The reason is that <code>mXi_flow</code> does not allow
+to compute the other components in <code>mX_flow</code> and
+therefore leads to an ambiguous use of the model.
+By only requesting <code>mWat_flow</code>, the mass balance
+and species balance can be implemented correctly.
+</li>
 <li>
 April 18, 2013 by Michael Wetter:<br/>
 Removed the use of the deprecated

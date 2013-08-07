@@ -7,8 +7,8 @@ model StaticTwoPortConservationEquation
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Heat transfered into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput mXi_flow[Medium.nXi](each unit="kg/s")
-    "Mass flow rates of independent substances added to the medium"
+  Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
+    "Moisture mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
   // Outputs that are needed in models that extend this model
@@ -38,7 +38,34 @@ model StaticTwoPortConservationEquation
     "Set to true to improve numerical robustness";
 protected
   Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
+
+  Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
+    "Mass flow rates of independent substances added to the medium";
+
+  // Parameters that are used to construct the vector mXi_flow
+  parameter Integer i_w(min=1, fixed=false) "Index for water substance";
+  final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                            string2="Water",
+                                            caseSensitive=false)
+                                            then 1 else 0 for i in 1:Medium.nXi}
+    "Vector with zero everywhere except where species is";
+initial algorithm
+  i_w:= -1;
+  for i in 1:Medium.nXi loop
+      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                            string2="Water",
+                                            caseSensitive=false) then
+      i_w := i;
+      end if;
+   end for;
+    assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
+      "If Medium.nXi > 1, then substance 'water' must be present for one component.'"
+         + Medium.mediumName + "'.\n"
+         + "Check medium model.");
+
 equation
+ // Species flow rate from connector mWat_flow
+ mXi_flow = mWat_flow * s;
   // Regularization of m_flow around the origin to avoid a division by zero
  if use_safeDivision then
     m_flowInv = Buildings.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3);
@@ -84,10 +111,10 @@ equation
     port_b.C_outflow = inStream(port_a.C_outflow);
   else
     // Mass balance (no storage)
-    port_a.m_flow + port_b.m_flow = -sum(mXi_flow);
+    port_a.m_flow + port_b.m_flow = -mWat_flow;
     // Energy balance.
     // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
-    // at both ports. Since mXi_flow << m_flow, the error is small.
+    // at both ports. Since mWat_flow << m_flow, the error is small.
     if use_safeDivision then
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
       port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
@@ -128,7 +155,7 @@ Input connectors of the model are
 <code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
 </li>
 <li>
-<code>mXi_flow</code>, which is the species mass flow rate added to the medium.
+<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium.
 </li>
 </ul>
 
@@ -140,7 +167,7 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 </p>
 <p>
 Set the constant <code>sensibleOnly=true</code> if the model that extends
-or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
+or instantiates this model sets <code>mWat_flow = 0</code>.
 </p>
 </html>",
 revisions="<html>
@@ -241,7 +268,7 @@ First implementation.
         Text(
           extent={{-93,37},{-58,54}},
           lineColor={0,0,127},
-          textString="mXi_flow"),
+          textString="mWat_flow"),
         Text(
           extent={{-41,103},{-10,117}},
           lineColor={0,0,127},
