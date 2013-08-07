@@ -35,9 +35,10 @@ package UsersGuide "User's Guide"
   <ul>
   <li>Do radiant floors serve the closets and electrical rooms?</li>
   <li>Does HVAC serve the closets and electrical rooms?</li>
-  <li>Identify detailed door constructions</li>
+  <li>Identify all detailed door constructions</li>
   <li>Use available window information to identify detailed
-  model-level window specifications</li>
+  model-level window specifications - recommended to speak
+  with Christian Kohler (sp?)</li>
   <li>Create FLEXLAB-specific weather data file for 
   taking weather data from the FLEXLAB weather sensors (May be 
   able to use python script to read data, pass into standard 

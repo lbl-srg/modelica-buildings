@@ -37,16 +37,16 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
       extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
       lat=0.66098585832754);
 
-  replaceable Data.Constructions.OpaqueConstructions.ModInsulExtWall          R16p8Wal
+  replaceable Data.Constructions.OpaqueConstructions.ModInsulExtWall R16p8Wal
     annotation (Placement(transformation(extent={{410,-168},{430,-148}})));
-  replaceable Data.Constructions.OpaqueConstructions.HighInsulExtWall                R52Wal
+  replaceable Data.Constructions.OpaqueConstructions.HighInsulExtWall R52Wal
     annotation (Placement(transformation(extent={{410,-192},{430,-172}})));
-  replaceable Data.Constructions.OpaqueConstructions.ASHRAE901Roof      R20Wal
+  replaceable Data.Constructions.OpaqueConstructions.ASHRAE901Roof R20Wal
     annotation (Placement(transformation(extent={{410,-216},{430,-196}})));
-  replaceable Data.Constructions.GlazingSystems.ASHRAE901Gla               glaSys
+  replaceable Data.Constructions.GlazingSystems.ASHRAE901Gla glaSys
     annotation (Placement(transformation(extent={{436,-192},{456,-172}})));
   replaceable Data.Constructions.OpaqueConstructions.PartitionWall
-                                                    parCon
+    parCon
     annotation (Placement(transformation(extent={{436,-216},{456,-196}})));
 
   replaceable Data.Constructions.OpaqueConstructions.TestCellDividngWall celDiv
@@ -59,8 +59,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
     "Door used in partition walls in FLeXLab test cells"
     annotation (Placement(transformation(extent={{410,-96},{430,-76}})));
   replaceable Data.Constructions.OpaqueConstructions.ExteriorDoorInsulated
-                                                      extDoo
-    "Construction of an exterior door"
+    extDoo "Construction of an exterior door"
     annotation (Placement(transformation(extent={{410,-72},{430,-52}})));
   annotation(Documentation(info="<html>
   <p>
@@ -213,10 +212,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   <td>Electrical room</td>
   <td>UF90X3AElectrical.surf_SurBou[2]</td>
   </tr>  
-
-
-  </table>
-  
+  </table> 
   </html>",
   revisions = "<html>
   <ul>

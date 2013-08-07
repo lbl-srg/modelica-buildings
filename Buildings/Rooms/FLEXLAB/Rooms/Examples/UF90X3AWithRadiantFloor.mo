@@ -9,15 +9,16 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
     "Water model used in the radiant slab loop";
 
   Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A  UF90X3A(
-      nPorts=2,
+    nPorts=2,
     redeclare package Medium = Air,
     linearizeRadiation=false)
               annotation (Placement(transformation(extent={{-110,38},{-70,78}})));
-  Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0])
+  Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0],
+      tableOnFile=false)
     "Internal gain heat flow (Radiant = 1, Convective = 2, Latent = 3)"
     annotation (Placement(transformation(extent={{-196,92},{-176,112}})));
-  Modelica.Blocks.Sources.CombiTimeTable shaPos(table=[0,1; 86400,1])
-    "Position of the shade"
+  Modelica.Blocks.Sources.CombiTimeTable shaPos(table=[0,1; 86400,1],
+      tableOnFile=false) "Position of the shade"
     annotation (Placement(transformation(extent={{-196,124},{-176,144}})));
   Modelica.Blocks.Sources.CombiTimeTable airCon(table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
@@ -25,19 +26,18 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
     fileName="Resources/Data/Rooms/Examples/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.txt")
     "Inlet air conditions (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-196,54},{-176,74}})));
-  Buildings.Fluid.Sources.MassFlowSource_T
-                                 airIn(
+  Buildings.Fluid.Sources.MassFlowSource_T airIn(
     use_m_flow_in=true,
     use_T_in=true,
     redeclare package Medium = Air,
     nPorts=1) "Inlet air conditions (from AHU) for UF90X3A"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Buildings.Fluid.Sources.Boundary_pT
-                            airOut(nPorts=1, redeclare package Medium = Air)
-    "Air outlet for UF90X3A"
+    airOut(nPorts=1, redeclare package Medium = Air) "Air outlet for UF90X3A"
     annotation (Placement(transformation(extent={{-158,24},{-138,44}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
-                                                      sla(sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sla(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     m_flow_nominal=0.063,
@@ -47,59 +47,59 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
     disPip=0.229)
     annotation (Placement(transformation(extent={{-108,-132},{-88,-112}})));
 
-  Modelica.Blocks.Sources.CombiTimeTable watCon(table=[0,0.06,293.15; 86400,
-        0.06,293.15]) "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
+  Modelica.Blocks.Sources.CombiTimeTable watCon(
+    table=[0,0.06,293.15; 86400,0.06,293.15], tableOnFile=false)
+    "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
     annotation (Placement(transformation(extent={{-196,-128},{-176,-108}})));
-  Buildings.Fluid.Sources.MassFlowSource_T
-                                 watIn(
+  Buildings.Fluid.Sources.MassFlowSource_T watIn(
     nPorts=1,
     use_m_flow_in=true,
     use_T_in=true,
     redeclare package Medium = Water)
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{-154,-132},{-134,-112}})));
-  Buildings.Fluid.Sources.Boundary_pT
-                            watOut(nPorts=1, redeclare package Medium = Water)
-    "Water outlet"
+  Buildings.Fluid.Sources.Boundary_pT watOut(
+    nPorts=1, redeclare package Medium = Water) "Water outlet"
                  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={16,-122})));
-  Buildings.HeatTransfer.Sources.PrescribedTemperature
-                                             preT "Temperature of the ground"
-                                                                   annotation (
-      Placement(transformation(
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preT
+    "Temperature of the ground"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-94,-154})));
-  Modelica.Blocks.Sources.CombiTimeTable TGro(table=[0,288.15; 86400,288.15])
+  Modelica.Blocks.Sources.CombiTimeTable TGro(
+    table=[0,288.15; 86400,288.15], tableOnFile=false)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-94,-186})));
   Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
-                                                slaCon(nLay=3, material={
-        Buildings.HeatTransfer.Data.Solids.Generic(
+    slaCon(nLay=3, material={
+      Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.1524,
         k=1.13,
         c=1000,
         d=1400,
-        nSta=5),Buildings.HeatTransfer.Data.Solids.Generic(
+        nSta=5),
+      Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.127,
         k=0.036,
         c=1200,
-        d=40),Buildings.HeatTransfer.Data.Solids.Generic(
+        d=40),
+      Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.2,
         k=1.8,
         c=1100,
         d=2400)}) "Construction of the slab"
     annotation (Placement(transformation(extent={{-196,-196},{-176,-176}})));
-  Buildings.Fluid.Data.Pipes.PEX_RADTEST
-                               pipe
+  Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe
     annotation (Placement(transformation(extent={{-196,-174},{-176,-154}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    "/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem2[2] annotation (
       Placement(transformation(
@@ -107,30 +107,31 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
         rotation=180,
         origin={50,-108})));
   Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical
-                           eleRoo(
+    eleRoo(
     redeclare package Medium = Air,
     nPorts=2) "Model of the electrical room"
     annotation (Placement(transformation(extent={{54,-80},{94,-40}})));
   Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset
-                           clo(
+    clo(
     redeclare package Medium = Air,
     nPorts=2) "Model of the closet"
     annotation (Placement(transformation(extent={{156,92},{196,132}})));
-  Modelica.Blocks.Sources.CombiTimeTable TNei(table=[0,293.15,293.15; 86400,
-        293.15,293.15])
+  Modelica.Blocks.Sources.CombiTimeTable TNei(
+    table=[0,293.15,293.15; 86400,293.15,293.15], tableOnFile=false)
     "Temperature of the neighboring test cells (y[1] = UF90X2B, y[2] = UF90X3B)"
     annotation (Placement(transformation(extent={{110,-118},{90,-98}})));
-  Modelica.Blocks.Sources.CombiTimeTable intGaiEle(table=[0,0,0,0; 86400,0,0,0])
+  Modelica.Blocks.Sources.CombiTimeTable intGaiEle(
+    table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)
     "Internal gain heat flow for the electrical room"
     annotation (Placement(transformation(extent={{-68,-16},{-48,4}})));
-  Modelica.Blocks.Sources.CombiTimeTable airConEle(table=[0,0.1,293.15; 86400,0.1,
-        293.15], tableOnFile=false)
+  Modelica.Blocks.Sources.CombiTimeTable airConEle(
+    table=[0,0.1,293.15; 86400,0.1,293.15], tableOnFile=false)
     "Inlet air conditions for the connected electrical room (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-58,-38})));
-  Modelica.Blocks.Sources.CombiTimeTable airConClo(table=[0,0.1,293.15; 86400,0.1,
-        293.15], tableOnFile=false)
+  Modelica.Blocks.Sources.CombiTimeTable airConClo(
+    table=[0,0.1,293.15; 86400,0.1,293.15], tableOnFile=false)
     "Inlet air conditions for the connected closet (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -154,12 +155,13 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=180,
         origin={50,116})));
-  Buildings.Fluid.Sources.Boundary_pT airOutClo(          redeclare package
-      Medium = Air, nPorts=1) "Air outlet from the closet"
+  Buildings.Fluid.Sources.Boundary_pT airOutClo(
+    redeclare package Medium = Air, nPorts=1) "Air outlet from the closet"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,80})));
-  Modelica.Blocks.Sources.CombiTimeTable intGaiClo(table=[0,0,0,0; 86400,0,0,0])
+  Modelica.Blocks.Sources.CombiTimeTable intGaiClo(
+    table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)
     "Internal gain heat flow for the closet"
     annotation (Placement(transformation(extent={{-12,132},{8,152}})));
 equation
