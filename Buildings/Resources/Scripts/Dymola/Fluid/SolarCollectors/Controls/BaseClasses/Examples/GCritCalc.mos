@@ -3,7 +3,7 @@ removePlots();
 simulateModel("Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples.GCritCalc", stopTime=100, method="dassl", resultFile="GCritCalc");
 
 createPlot(id = 17,
- position = {54, 38, 407, 281},
+ position = {0, 0, 1000, 500},
  y = {"criSol.GCrit"},
  range = {0.0, 100.0, -50.0, 300.0},
  autoscale = true,

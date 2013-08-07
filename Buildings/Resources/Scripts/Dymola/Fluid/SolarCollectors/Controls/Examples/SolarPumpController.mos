@@ -3,7 +3,7 @@ removePlots();
 simulateModel("Buildings.Fluid.SolarCollectors.Controls.Examples.SolarPumpController", stopTime = 86400, method = "dassl", resultFile = "SolarPumpController");
 
 createPlot(id = 1,
- position = {0, 0, 1529, 781},
+ position = {0, 0, 1000, 500},
  y = {"pumCon.y"},
  range = {0.0, 88000.0, -0.1, 1.2000000000000002},
  autoscale = true,
@@ -18,7 +18,7 @@ createPlot(id = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}});
 createPlot(id = 1,
- position = {0, 0, 1529, 387},
+ position = {0, 0, 1000, 500},
  y = {"pumCon.criSol.GCrit", "pumCon.weaBus.HDirNor"},
  range = {0.0, 88000.0, -100.0, 700.0},
  autoscale = true,
