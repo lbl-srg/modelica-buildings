@@ -3,8 +3,8 @@ model MixingVolume
   "Mixing volume with inlet and outlet ports (flow reversal is allowed)"
   extends Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume;
 protected
-  Modelica.Blocks.Sources.Constant       masExc[Medium.nXi](k=zeros(Medium.nXi)) if
-       Medium.nXi > 0 "Block to set mass exchange in volume"
+  Modelica.Blocks.Sources.Constant masExc(k=0)
+    "Block to set mass exchange in volume"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.RealExpression heaInp(y=heatPort.Q_flow)
     "Block to set heat input into volume"
@@ -18,12 +18,12 @@ equation
       points={{-59,90},{28,90},{28,16},{38,16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(masExc.y, steBal.mXi_flow) annotation (Line(
-      points={{-59,70},{-42,70},{-42,14},{-22,14}},
+  connect(masExc.y, dynBal.mWat_flow) annotation (Line(
+      points={{-59,70},{20,70},{20,12},{38,12}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(masExc.y, dynBal.mXi_flow) annotation (Line(
-      points={{-59,70},{20,70},{20,12},{38,12}},
+  connect(masExc.y, steBal.mWat_flow) annotation (Line(
+      points={{-59,70},{-40,70},{-40,14},{-22,14}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -175,5 +175,7 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
           textString="V=%V"),         Text(
           extent={{-152,100},{148,140}},
           textString="%name",
-          lineColor={0,0,255})}));
+          lineColor={0,0,255})}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),     graphics));
 end MixingVolume;

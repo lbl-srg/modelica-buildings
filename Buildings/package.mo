@@ -214,6 +214,36 @@ have been <b style=\"color:blue\">improved</b> in a
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">
+                       Buildings.Fluid.HeatExchangers.ConstantEffectiveness<br/>
+                       Buildings.Fluid.HeatExchangers.DryEffectivenessNTU<br/>
+                       Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                       Buildings.Fluid.Interfaces.StaticFourPortHeatMassExchanger<br/>
+                       Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation<br/>
+                       Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger<br/>
+                       Buildings.Fluid.MassExchangers.ConstantEffectiveness<br/>
+                       Buildings.Fluid.MassExchangers.HumidifierPrescribed<br/>
+                       Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort<br/>
+                       Buildings.Fluid.MixingVolumes.MixingVolume<br/>
+                       Buildings.Fluid.MixingVolumes.MixingVolumeDryAir<br/>
+                       Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir<br/>
+                       Buildings.Fluid.Storage.ExpansionVessel
+    </td>
+    <td valign=\"top\">Changed the input connector <code>mXi_flow</code> (or <code>mXi1_flow</code>
+                       and <code>mXi2_flow</code>) to <code>mWat_flow</code> (or <code>mWat1_flow</code>
+                       and <code>mWat2_flow</code>).
+                       This change has been done as declaring <code>mXi_flow</code> is ambiguous
+                       because it does not specify what other species are added unless a mass flow rate
+                       <code>m_flow</code> is also known. To avoid this confusion, the connector variables
+                       have been renamed. 
+                       The equations that were used were, however, correct.
+                       This addresses issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/165\">#165</a>.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer<br/>
                          Buildings.Rooms</b>
     </td>
@@ -251,7 +281,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        which is not allowed for <code>flow</code> variables.
                        This change required a reformulation of models because with the new formulation,
                        the incoming and outcoming radiosity are both non-negative values.
-                       This addresses track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+                       This addresses issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer<br/>
@@ -383,6 +413,14 @@ The following
 have been fixed:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Verify mass and species balance</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/165\">#165</a>
+    </td>
+    <td valign=\"top\">This issue has been addressed by renaming the connectors to avoid an ambiguity
+                       in the model equation. The equations were correct.
+    </td>
 <tr><td colspan=\"2\"><b>Remove flow attribute from radiosity connectors</b>
     </td>
 </tr>
@@ -3467,6 +3505,10 @@ individual libraries.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.HeatTransfer.UsersGuide\">HeatTransfer</a>
    </td>
    <td valign=\"top\">Package for heat transfer in building constructions.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.UsersGuide\">Rooms</a>
+   </td>
+   <td valign=\"top\">Package for heat transfer in rooms and through the building envelope.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
    </td>
