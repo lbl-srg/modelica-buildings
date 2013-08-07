@@ -6,7 +6,6 @@ model Tubular "Example showing the use of Tubular"
     "Medium in the system";
   Buildings.Fluid.SolarCollectors.ASHRAE93          solCol(
     redeclare package Medium = Medium,
-    nSeg=3,
     shaCoe=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_shaCoe_in=false,
@@ -15,13 +14,14 @@ model Tubular "Example showing the use of Tubular"
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     rho=0.2,
+    nSeg=9,
     lat=0.73097781993588,
     azi=0.3,
     til=0.5) "Tubular solar collector model"
              annotation (Placement(transformation(extent={{12,-20},{32,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data input file"
     annotation (Placement(transformation(extent={{-28,20},{-8,40}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -39,7 +39,7 @@ model Tubular "Example showing the use of Tubular"
     m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{50,-20},{70,0}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TIn(redeclare package Medium =
-        Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
+    Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=3/86400,

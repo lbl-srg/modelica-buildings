@@ -53,7 +53,6 @@ protected
     "Incident angle modifier for diffuse solar radiation from the sky";
   final parameter Real iamGro( fixed = false)
     "Incident angle modifier for diffuse solar radiation from the ground";
-
   final parameter Modelica.SIunits.Angle incAngSky( fixed = false)
     "Incident angle of diffuse radiation from the sky";
   final parameter Modelica.SIunits.Angle incAngGro( fixed = false)

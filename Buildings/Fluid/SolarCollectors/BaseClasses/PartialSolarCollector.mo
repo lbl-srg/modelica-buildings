@@ -13,7 +13,7 @@ model PartialSolarCollector "Partial model for solar collectors"
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
   parameter Modelica.SIunits.Angle til "Surface tilt";
   parameter Real rho "Ground reflectance";
-  parameter Modelica.SIunits.HeatCapacity C=385*perPar.mDry*nPanels_internal
+  parameter Modelica.SIunits.HeatCapacity C=385*perPar.mDry
     "Heat capacity of solar collector without fluid (default: cp_copper*mDry*nPanels)";
 
   parameter Boolean use_shaCoe_in = false
@@ -45,7 +45,7 @@ model PartialSolarCollector "Partial model for solar collectors"
   annotation(Placement(transformation(extent={{-140,46},{-100,6}},    rotation=0)));
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nSeg](
-    T(each start =   T_start), each C=C/nSeg) if
+    T(each start =   T_start), each C=(C*nPanels_internal)/nSeg) if
        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Heat capacity for one segment of the the solar collector"
     annotation (Placement(transformation(extent={{-82,-44},{-62,-24}})));
@@ -96,7 +96,7 @@ model PartialSolarCollector "Partial model for solar collectors"
     each final T_start=T_start,
     each m_flow_small=m_flow_small,
     each homotopyInitialization=homotopyInitialization,
-    each final V=perPar.V/nSeg*nPanels_internal)
+    each final V=(perPar.V*nPanels_internal)/nSeg)
     "Volume of fluid in one segment of the solar collector"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -109,12 +109,13 @@ model PartialSolarCollector "Partial model for solar collectors"
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={2,-16})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow QLos[nSeg]
-    "Rate of heat loss to the surrounding environment"
-    annotation (Placement(transformation(extent={{50,6},{70,26}})));
+
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaGai[nSeg]
     "Rate of solar heat gain"
     annotation (Placement(transformation(extent={{50,38},{70,58}})));
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow QLos[nSeg]
+    "Rate of solar heat gain"
+    annotation (Placement(transformation(extent={{50,6},{70,26}})));
 
 protected
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector perPar
@@ -183,17 +184,17 @@ equation
       points={{38,-16},{12,-16}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(QLos.port, vol.heatPort)    annotation (Line(
-      points={{70,16},{92,16},{92,-44},{30,-44},{30,-16},{38,-16}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(heaGai.port, vol.heatPort)   annotation (Line(
       points={{70,48},{92,48},{92,-44},{30,-44},{30,-16},{38,-16}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(QLos.port, vol.heatPort) annotation (Line(
+      points={{70,16},{92,16},{92,-44},{30,-44},{30,-16},{38,-16}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
             graphics),
     Icon(graphics),
     defaultComponentName="solCol",

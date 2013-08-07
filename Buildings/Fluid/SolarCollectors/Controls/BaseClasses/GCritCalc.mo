@@ -2,6 +2,10 @@ within Buildings.Fluid.SolarCollectors.Controls.BaseClasses;
 model GCritCalc "Model calculating the critical insolation level"
 
   extends Modelica.Blocks.Interfaces.BlockIcon;
+
+  parameter Real slope(unit="W/(m2.K)") "Slope from ratings data";
+  parameter Real y_intercept "y_intercept from ratings data";
+
   Modelica.Blocks.Interfaces.RealInput TIn(unit="K",
   displayUnit = "degC", quantity = "ThermodynamicTemperature")
     "Temperature of water entering the collector"
@@ -13,10 +17,9 @@ model GCritCalc "Model calculating the critical insolation level"
   displayUnit = "degC", quantity = "ThermodynamicTemperature")
     "Ambient temperature at the collector"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  parameter Real slope(unit="W/(m2.K)") "Slope from ratings data";
-  parameter Real y_intercept "y_intercept from ratings data";
+
 equation
-GCrit = -slope * (TIn - TEnv) / y_intercept;
+  GCrit = -slope * (TIn - TEnv) / y_intercept;
   annotation (defaultComponentName="criSol",
   Documentation(info="<html>
    <p>

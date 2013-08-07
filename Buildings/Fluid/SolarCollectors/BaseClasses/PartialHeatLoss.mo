@@ -7,6 +7,16 @@ block PartialHeatLoss
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component";
 
+  parameter Modelica.SIunits.Irradiance G_nominal
+    "Irradiance at nominal conditions"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal
+    "Ambient temperature at nomincal conditions"
+     annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Fluid flow rate at nominal conditions"
+    annotation(Dialog(group="Nominal condition"));
+
   Modelica.Blocks.Interfaces.RealInput TEnv(
     quantity="ThermodynamicTemperature",
     unit="K",
@@ -24,15 +34,6 @@ public
     unit="W",
     displayUnit="W") "Limited heat loss rate at current conditions"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  parameter Modelica.SIunits.Irradiance G_nominal
-    "Irradiance at nominal conditions"
-    annotation(Dialog(group="Nominal condition"));
-   parameter Modelica.SIunits.TemperatureDifference dT_nominal
-    "Ambient temperature at nomincal conditions"
-     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Fluid flow rate at nominal conditions"
-    annotation(Dialog(group="Nominal condition"));
 
 protected
   final parameter Modelica.SIunits.HeatFlowRate QUse_nominal(fixed = false)

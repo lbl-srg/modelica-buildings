@@ -16,13 +16,13 @@ model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=5,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
-    nSeg=3,
+    nSeg=9,
     lat=0.65938539140346,
     til=0.5235987755983) "Flat plate solar collector with 3 segments"
              annotation (Placement(transformation(extent={{-16,-20},{4,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data input file"
     annotation (Placement(transformation(extent={{-48,30},{-28,50}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -76,7 +76,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(shaCoe.y, solCol.shaCoe_in) annotation (Line(
-      points={{-67,22},{-32,22},{-32,-6},{-18,-6}},
+      points={{-67,22},{-32,22},{-32,-7.4},{-18,-7.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, solCol.weaBus) annotation (Line(

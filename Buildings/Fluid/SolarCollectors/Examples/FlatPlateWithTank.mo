@@ -10,7 +10,6 @@ model FlatPlateWithTank
     "Fluid flowing through the collector";
 
   Buildings.Fluid.SolarCollectors.ASHRAE93  solCol(
-    nSeg=3,
     shaCoe=0,
     redeclare package Medium = Medium_2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -18,15 +17,16 @@ model FlatPlateWithTank
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=5,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf(),
+    nSeg=9,
     lat=0.73097781993588,
     azi=0.3,
-    til=0.78539816339745,
-    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf())
-    "Flat plate solar collector model"
+    til=0.78539816339745) "Flat plate solar collector model"
              annotation (Placement(transformation(extent={{-2,46},{18,66}})));
 
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
-      computeWetBulbTemperature=false) "Weather data file reader"
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+    "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
+    computeWetBulbTemperature=false) "Weather data file reader"
     annotation (Placement(transformation(extent={{-30,80},{-10,100}})));
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
         transformation(extent={{70,68},{90,88}}, rotation=0)));
@@ -36,7 +36,7 @@ model FlatPlateWithTank
     redeclare package Medium = Medium_2) "Temperature sensor"
     annotation (Placement(transformation(extent={{30,46},{50,66}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TIn(m_flow_nominal=solCol.m_flow_nominal,
-      redeclare package Medium = Medium_2) "Temperature sensor"
+    redeclare package Medium = Medium_2) "Temperature sensor"
     annotation (Placement(transformation(extent={{-34,46},{-14,66}})));
   Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
    tan(
@@ -62,8 +62,8 @@ model FlatPlateWithTank
         rotation=0,
         origin={27,-33})));
   Buildings.Fluid.SolarCollectors.Controls.SolarPumpController
-                                                     pumCon(per=
-        Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20())
+    pumCon(per=
+  Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20())
     "Pump controller"                                                                                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -76,8 +76,8 @@ model FlatPlateWithTank
         extent={{-8,-8},{8,8}},
         rotation=270,
         origin={-80,12})));
-  Buildings.Fluid.Sources.Boundary_pT bou(          redeclare package Medium =
-        Medium, nPorts=1) "Outlet for hot water draw"
+  Buildings.Fluid.Sources.Boundary_pT bou(redeclare package Medium =
+    Medium, nPorts=1) "Outlet for hot water draw"
                                            annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -93,13 +93,13 @@ model FlatPlateWithTank
         rotation=0,
         origin={70,-32})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pum(redeclare package Medium =
-        Medium_2, m_flow_nominal=0.1)
-    "Pump forcing circulation through the system"                                  annotation (Placement(transformation(
+    Medium_2, m_flow_nominal=0.1) "Pump forcing circulation through the system"
+                                                                                   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-6})));
   Buildings.Fluid.Storage.ExpansionVessel exp(redeclare package Medium =
-        Medium_2, VTot=0.1,
+    Medium_2, VTot=0.1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Expansion tank in the system"
                             annotation (Placement(transformation(

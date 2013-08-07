@@ -10,27 +10,27 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     shaCoe=0,
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    nSeg=3,
     rho=0.2,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
-    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area,
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf(),
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nPanels=10,
+    nSeg=9,
     lat=0.73097781993588,
     azi=0.3,
-    til=0.5,
-    totalArea=30) "Flat plate solar collector model"
-             annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+    til=0.5) "Flat plate solar collector model"
+             annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data input file"
-    annotation (Placement(transformation(extent={{-52,20},{-32,40}})));
+    annotation (Placement(transformation(extent={{-52,60},{-32,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
-    nPorts=2) "Outlet for water flow" annotation (Placement(transformation(extent={{80,-40},
-            {60,-20}},
+    nPorts=2) "Outlet for water flow" annotation (Placement(transformation(extent={{80,0},{
+            60,20}},
           rotation=0)));
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
         transformation(extent={{60,60},{80,80}}, rotation=0)));
@@ -38,10 +38,10 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
     m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TIn(redeclare package Medium =
         Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     T=273.15 + 10,
@@ -51,7 +51,8 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-90,-30})));
+        origin={-90,10})));
+
   Buildings.Fluid.SolarCollectors.ASHRAE93          solCol1(
     redeclare package Medium = Medium,
     shaCoe=0,
@@ -59,67 +60,67 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     rho=0.2,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
-    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area,
-    nSeg=30,
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf(),
-    totalArea=30,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nPanels=10,
+    nSeg=27,
     lat=0.73097781993588,
     azi=0.3,
     til=0.5) "Flat plate solar collector model"
-             annotation (Placement(transformation(extent={{-20,-62},{0,-42}})));
+             annotation (Placement(transformation(extent={{-20,-22},{0,-2}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut1(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
     m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
-    annotation (Placement(transformation(extent={{20,-62},{40,-42}})));
+    annotation (Placement(transformation(extent={{20,-22},{40,-2}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TIn1(
-                                                 redeclare package Medium =
-        Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
-    annotation (Placement(transformation(extent={{-60,-62},{-40,-42}})));
+    redeclare package Medium =
+    Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
+    annotation (Placement(transformation(extent={{-60,-22},{-40,-2}})));
 equation
   connect(solCol.port_b, TOut.port_a) annotation (Line(
-      points={{0,-10},{20,-10}},
+      points={{0,30},{20,30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TOut.port_b, sin.ports[1]) annotation (Line(
-      points={{40,-10},{48,-10},{48,-28},{60,-28}},
+      points={{40,30},{48,30},{48,12},{60,12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TIn.port_b, solCol.port_a) annotation (Line(
-      points={{-40,-10},{-20,-10}},
+      points={{-40,30},{-20,30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[1], TIn.port_a) annotation (Line(
-      points={{-80,-28},{-70,-28},{-70,-10},{-60,-10}},
+      points={{-80,12},{-70,12},{-70,30},{-60,30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus, solCol.weaBus) annotation (Line(
-      points={{-32,30},{-26,30},{-26,-0.4},{-20,-0.4}},
+      points={{-32,70},{-26,70},{-26,39.6},{-20,39.6}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(solCol1.port_b, TOut1.port_a)
                                       annotation (Line(
-      points={{0,-52},{20,-52}},
+      points={{0,-12},{20,-12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TIn1.port_b, solCol1.port_a)
                                      annotation (Line(
-      points={{-40,-52},{-20,-52}},
+      points={{-40,-12},{-20,-12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus, solCol1.weaBus)
                                         annotation (Line(
-      points={{-32,30},{-26,30},{-26,-42.4},{-20,-42.4}},
+      points={{-32,70},{-26,70},{-26,-2.4},{-20,-2.4}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(sou.ports[2], TIn1.port_a) annotation (Line(
-      points={{-80,-32},{-70,-32},{-70,-52},{-60,-52}},
+      points={{-80,8},{-70,8},{-70,-12},{-60,-12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TOut1.port_b, sin.ports[2]) annotation (Line(
-      points={{40,-52},{48,-52},{48,-32},{60,-32}},
+      points={{40,-12},{48,-12},{48,8},{60,8}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (

@@ -68,12 +68,12 @@ equation
       points={{-8,-16},{-32,-16},{-32,10},{-22,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
-      points={{1,16},{50,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(temSen.T, solGai.TFlu) annotation (Line(
       points={{-8,-16},{-32,-16},{-32,40},{-22,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
+      points={{1,16},{26,16},{26,16},{50,16}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

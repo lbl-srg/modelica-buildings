@@ -14,14 +14,14 @@ model FlatPlateValidation "Validation model for FlatPlate"
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=1,
-    nSeg=3,
+    nSeg=30,
     lat=0.6457718232379,
     til=0.78539816339745)
     "Flat plate solar collector model, has been modified for validation purposes"
              annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data file reader"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.Sources.Boundary_pT sou(

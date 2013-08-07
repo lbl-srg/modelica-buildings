@@ -6,7 +6,6 @@ model Concentrating "Example showing the use of Concentrating"
     "Medium in the system";
   Buildings.Fluid.SolarCollectors.EN12975           solCol(
     redeclare package Medium = Medium,
-    nSeg=3,
     shaCoe=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_shaCoe_in=false,
@@ -15,13 +14,14 @@ model Concentrating "Example showing the use of Concentrating"
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=5,
+    nSeg=9,
     lat=0.73097781993588,
     azi=0.3,
     til=0.5) "Concentrating solar collector model"
              annotation (Placement(transformation(extent={{4,-20},{24,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data input file"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.Sources.Boundary_pT sin(

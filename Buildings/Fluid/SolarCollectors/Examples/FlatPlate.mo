@@ -13,16 +13,16 @@ model FlatPlate "Test model for FlatPlate"
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
-    nSeg=3,
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_GuangdongFSPTY95(),
+    nPanels=1,
+    nSeg=9,
     lat=0.73097781993588,
     azi=0.3,
-    til=0.5,
-    nPanels=1) "Flat plate solar collector model"
+    til=0.5) "Flat plate solar collector model"
              annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data input file"
     annotation (Placement(transformation(extent={{-32,20},{-12,40}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
