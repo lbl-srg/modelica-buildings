@@ -126,8 +126,19 @@ class FlexlabExtInterface(SocketClient):
 def CalBayComm(u):
 
     conn = FlexlabExtInterface()
-    conn.open('OpenCommCommand')    
-    conn.cmd('SetDimmerLevelCommand' + str(u)) 
-    y = float(conn.cmd('GetLightLevelCommand'))
+    print "Opening connection to hardware."
+    conn.open("128.3.20.130",3500,"Login","Password")
+    
+    print "Sending control signal."
+    conn.cmd('SETDAQ:WattStopper.HS1--4126F--Dimmer Level-2:' + str(u) + ':Login:Password') 
 
-    return y
+    time.sleep(30)
+
+    y = float(conn.cmd('GetDAQ:WattStopper.HS1--4126F--Light Level-1:Login:Password'))
+
+    res = []
+    res.append(y)
+    res.append(u)
+
+    return res
+

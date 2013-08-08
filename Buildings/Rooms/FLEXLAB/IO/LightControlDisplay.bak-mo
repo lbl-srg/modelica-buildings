@@ -1,0 +1,39 @@
+within Buildings.Rooms.FLEXLAB.IO;
+model LightControlDisplay
+  "Example using a Python script to control lights through the CalBay adapter"
+  extends Modelica.Icons.Example;
+  Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(table=[0,10; 119,10;
+        119,6; 239,6; 239,8; 359,8; 359,10; 479,10; 479,12; 599,12; 599,14; 719,
+        14]) annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Modelica.Blocks.Math.Feedback feedback
+    annotation (Placement(transformation(extent={{-30,-12},{-6,12}})));
+  Modelica.Blocks.Continuous.PI PI
+    annotation (Placement(transformation(extent={{6,-10},{26,10}})));
+  Utilities.IO.Python27.Real_Real pyt(
+    samplePeriod=30,
+    moduleName="Test",
+    functionName="CalBayComm",
+    nDblWri=1,
+    nDblRea=1) annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+equation
+  connect(combiTimeTable.y[1], feedback.u1) annotation (Line(
+      points={{-39,4.44089e-16},{-32,4.44089e-16},{-32,-3.33067e-16},{-27.6,
+          -3.33067e-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(feedback.y, PI.u) annotation (Line(
+      points={{-7.2,-3.33067e-16},{-1.5,-3.33067e-16},{-1.5,6.66134e-16},{4,
+          6.66134e-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(PI.y, pyt.uR[1]) annotation (Line(
+      points={{27,0},{38,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(feedback.u2, pyt.yR[1]) annotation (Line(
+      points={{-18,-9.6},{-18,-20},{66,-20},{66,0},{61,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics));
+end LightControlDisplay;
