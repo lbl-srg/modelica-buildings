@@ -21,8 +21,8 @@ model DimmingLightsSingleScript
     samplePeriod=30,
     functionName="CalBayComm",
     nDblWri=1,
-    moduleName="Test",
-    nDblRea=2) "Interface to CalBay communication"
+    nDblRea=2,
+    moduleName="CalBayComm") "Interface to CalBay communication"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Math.Feedback feedback
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
