@@ -13,7 +13,9 @@
 #	"Districts.Electrical.Analog.Conversion.DCDCConverter" "Districts.Electrical.DC.Conversion.DCDCConverter" \
 #	"Districts.Electrical.Analog.Conversion.Examples.DCDCConverter" "Districts.Electrical.DC.Conversion.Examples.DCDCConverter")
 
-LIST=(  "raleigh" "rayleigh" )
+##LIST=(  "Rooms.Examples.FLEXLAB" "Rooms.FLEXLAB" \
+##        "FLeXLab" "FLEXLAB" )
+LIST=(  "modelica:Buildings" "modelica://Buildings" )
 
 i=0
 while [ $i -le 1 ]; do

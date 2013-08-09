@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.Data.Constructions.OpaqueConstructions;
+within Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions;
 record ExteriorDoorUninsulated =
    Buildings.HeatTransfer.Data.OpaqueConstructions.Generic(final material={
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.01588),

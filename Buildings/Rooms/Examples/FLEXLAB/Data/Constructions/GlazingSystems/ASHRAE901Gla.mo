@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.Data.Constructions.GlazingSystems;
+within Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems;
 record ASHRAE901Gla =
   Buildings.HeatTransfer.Data.GlazingSystems.Generic (
   final glass={Buildings.HeatTransfer.Data.Glasses.ID101(), Buildings.HeatTransfer.Data.Glasses.ID101()},

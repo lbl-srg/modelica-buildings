@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.Data;
+within Buildings.Rooms.FLEXLAB.Data;
 package Constructions "Wall constructions commonly found in FLEXLAB test cells"
   extends Modelica.Icons.Package;
 

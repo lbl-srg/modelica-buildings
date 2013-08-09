@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.Data.Constructions;
+within Buildings.Rooms.FLEXLAB.Data.Constructions;
 package GlazingSystems "Glazing system constructions commonly found in FLEXLAB test cells"
   extends Modelica.Icons.Package;
   //fixme - What is UFra in XGL-1?

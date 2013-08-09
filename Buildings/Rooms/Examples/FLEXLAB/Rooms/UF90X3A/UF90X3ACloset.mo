@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A;
+within Buildings.Rooms.FLEXLAB.Rooms.UF90X3A;
 model UF90X3ACloset "Model of the closet connected to test bed UF90X3A"
   extends Buildings.Rooms.MixedAir(
   hRoo = 3.6576,
@@ -42,24 +42,24 @@ model UF90X3ACloset "Model of the closet connected to test bed UF90X3A"
     Appropriate condstructions and parameters have been used to describe the test cell. Other 
     models are provided for the main space of the test cell and the connected electrical room.
     Accurate use of this model will likely require the addition of
-    <a href=\"modelica:Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
-    Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3A</a> and
-    <a href=\"modelica:Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical\">
-    Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical</a>. The documentation
+    <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
+    Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A</a> and
+    <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical\">
+    Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical</a>. The documentation
     for these models describes the connecting walls for the spaces, as well as how they
     are intended to be connected. An example of how they can be connected and applied is 
     provided in
-    <a href=\"modelica:Buildings.Rooms.Examples.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
-    Buildings.Rooms.Examples.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>.
+    <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
+    Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>.
     </p>
     <p>
     Constructions used to describe the walls used in test cell UF90X3A are available in 
-    <a href=\"modelica:Buildings.Rooms.Examples.FLEXLAB.Constructions.OpaqueConstructions\">
-    Buildings.Rooms.Examples.FLEXLAB.Constructions.OpaqueConstructions</a>. All wall 
+    <a href=\"modelica:Buildings.Rooms.FLEXLAB.Constructions.OpaqueConstructions\">
+    Buildings.Rooms.FLEXLAB.Constructions.OpaqueConstructions</a>. All wall 
     construction models are made using information from architectural drawings. Constructions
     used to describe the windows are available in
-    <a href=\"modelica:Buildings.Rooms.Examples.FLEXLAB.Data.Constructions.GlazingSystems\">
-    Buildings.Rooms.Examples.FLEXLAB.Data.Constructions.GlazingSystems</a>. Window models are 
+    <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems\">
+    Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems</a>. Window models are 
     based on information available in the construction specifications.    
     </p>
     <p>
@@ -67,7 +67,7 @@ model UF90X3ACloset "Model of the closet connected to test bed UF90X3A"
     in the figure below.
     </p>
     <p align=\"center\">
-    <img src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FLEXLAB/Rooms/UF90X3A/UF90X3ACloset.png\" border=\"1\" alt=\"Wall sections in UF90X3ACloset model\"/>
+    <img src=\"modelica://Buildings/Resources/Images/Rooms.FLEXLAB/Rooms/UF90X3A/UF90X3ACloset.png\" border=\"1\" alt=\"Wall sections in UF90X3ACloset model\"/>
     </p>
     <p>
     The different wall sections are represented in the model according to the following table.

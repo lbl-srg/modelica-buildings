@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.IO.Examples;
+within Buildings.Rooms.FLEXLAB.IO.Examples;
 model DimmingLightsSingleScript
   extends Modelica.Icons.Example;
 

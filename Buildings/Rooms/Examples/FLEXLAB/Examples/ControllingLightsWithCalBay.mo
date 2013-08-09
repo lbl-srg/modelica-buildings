@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.Examples;
+within Buildings.Rooms.FLEXLAB.Examples;
 model ControllingLightsWithCalBay
   "This model uses the BVCTB and Python scripts to control the lights in a room through the CalBay adapter"
   extends Modelica.Icons.Example;

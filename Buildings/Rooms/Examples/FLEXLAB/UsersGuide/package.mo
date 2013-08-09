@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB;
+within Buildings.Rooms.FLEXLAB;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 

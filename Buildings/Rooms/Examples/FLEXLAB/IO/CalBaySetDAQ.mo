@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.IO;
+within Buildings.Rooms.FLEXLAB.IO;
 model CalBaySetDAQ "Block calling a Python script to send signals to CalBay"
   extends Modelica.Blocks.Interfaces.DiscreteBlock(startTime=0);
 
@@ -7,10 +7,10 @@ model CalBaySetDAQ "Block calling a Python script to send signals to CalBay"
   parameter String functionName=moduleName "Name of the python function";
   parameter String Login "Login used in the CalBay system";
   parameter String Password "Password used in the CalBay system";
-//   parameter Buildings.Rooms.Examples.FLEXLAB.Types.Signal Signal
+//   parameter Buildings.Rooms.FLEXLAB.Types.Signal Signal
 //     "Type of signal used in communication with CalBay"
 //     annotation(choicesAllMatching=true);
-//   parameter Buildings.Rooms.Examples.FLEXLAB.Types.Server Server
+//   parameter Buildings.Rooms.FLEXLAB.Types.Server Server
 //     "CalBay server used in the current communication"
 //     annotation(choicesAllMatching=true);
   parameter String Channel "Channel on the server used for communication";
@@ -35,13 +35,13 @@ algorithm
 //How to set sample trigger to happen at current time + every 5-10s? How does sample trigger work?
 
   when {sampleTrigger} then
-//     if Signal == Buildings.Rooms.Examples.FLEXLAB.Types.Signal.GetDAQ then
+//     if Signal == Buildings.Rooms.FLEXLAB.Types.Signal.GetDAQ then
 //       SignalType :="GetDAQ";
 //     else
 //       SignalType :="SetDAQ";
 //     end if;
 //
-//     if Server == Buildings.Rooms.Examples.FLEXLAB.Types.Server.FourthFloor then
+//     if Server == Buildings.Rooms.FLEXLAB.Types.Server.FourthFloor then
 //       Receiver :="4th Floor";
 //     else
 //       Receiver :="WattStopper.HS1";

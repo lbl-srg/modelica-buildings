@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.Data.Constructions;
+within Buildings.Rooms.FLEXLAB.Data.Constructions;
 package OpaqueConstructions "Wall constructions commonly found in FLEXLAB test cells"
 extends Modelica.Icons.Package;
 //fixme - ExteriorDoor is a placeholder. Identify details later.

@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.IO;
+within Buildings.Rooms.FLEXLAB.IO;
 model DimmingLevel "Identifies the desired new light dimming setpoint"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 

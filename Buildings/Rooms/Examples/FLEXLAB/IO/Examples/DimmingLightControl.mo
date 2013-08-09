@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.IO.Examples;
+within Buildings.Rooms.FLEXLAB.IO.Examples;
 model DimmingLightControl
   "Model which communicates with CalBay adapter to control light level in 4126F"
   extends Modelica.Icons.Example;
