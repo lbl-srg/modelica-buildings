@@ -105,7 +105,7 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={50,-108})));
+        origin={58,-108})));
   Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical
     eleRoo(
     redeclare package Medium = Air,
@@ -164,6 +164,8 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
     table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)
     "Internal gain heat flow for the closet"
     annotation (Placement(transformation(extent={{-12,132},{8,152}})));
+  inner Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{160,-180},{180,-160}})));
 equation
   connect(airCon.y[1],airIn. m_flow_in) annotation (Line(
       points={{-175,64},{-168,64},{-168,68},{-160,68}},
@@ -257,11 +259,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(preTem2[1].port, UF90X3A.surf_conBou[1]) annotation (Line(
-      points={{40,-108},{-84,-108},{-84,41.2}},
+      points={{48,-108},{-84,-108},{-84,41.2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preTem2[2].port, UF90X3A.surf_conBou[2]) annotation (Line(
-      points={{40,-108},{-84,-108},{-84,41.6}},
+      points={{48,-108},{-84,-108},{-84,41.6}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airInClo.ports[1], clo.ports[1]) annotation (Line(
@@ -269,11 +271,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TNei.y, preTem2.T) annotation (Line(
-      points={{89,-108},{62,-108}},
+      points={{89,-108},{70,-108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preTem2[2].port, clo.surf_conBou[2]) annotation (Line(
-      points={{40,-108},{36,-108},{36,-90},{182,-90},{182,96.5}},
+      points={{48,-108},{36,-108},{36,-90},{182,-90},{182,96.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airConClo.y[2], airInClo.T_in) annotation (Line(
