@@ -11,7 +11,7 @@ algorithm
 
 annotation(Documentation(info = "<html>
 <p>
-This function is used to identify the prandtl number of water at a given temperature. 
+This function is used to identify the Prandtl number of water at a given temperature. 
 The function used is a fourth order polynomial fit to data from Incropera and Dewitt 
 (1996).
 </p>
