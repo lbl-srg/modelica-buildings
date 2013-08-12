@@ -10,7 +10,7 @@ model GCritCalc "Model calculating the critical insolation level"
   displayUnit = "degC", quantity = "ThermodynamicTemperature")
     "Temperature of water entering the collector"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput GCrit(unit="W/m2",
+  Modelica.Blocks.Interfaces.RealOutput G_TC(unit="W/m2",
   quantity = "RadiantEnergyFluenceRate") "Critical radiation level"
     annotation (Placement(transformation(extent={{100,-16},{132,16}})));
   Modelica.Blocks.Interfaces.RealInput TEnv(unit="K",
@@ -19,7 +19,7 @@ model GCritCalc "Model calculating the critical insolation level"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
 equation
-  GCrit = -slope * (TIn - TEnv) / y_intercept;
+  G_TC = -slope * (TIn - TEnv) / y_intercept;
   annotation (defaultComponentName="criSol",
   Documentation(info="<html>
    <p>
@@ -33,7 +33,7 @@ equation
    and Beckman (2006). It is
    </p>
    <p align=\"center\" style=\"font-style:italic;\">
-   G<sub>Crit</sub>=F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>)
+   G<sub>TC</sub>=F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>)
    /(F<sub>R</sub>(&tau;&alpha;))
    </p>
    <p>

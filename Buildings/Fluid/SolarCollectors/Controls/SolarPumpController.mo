@@ -61,8 +61,8 @@ equation
       points={{1,6.66134e-16},{14,6.66134e-16},{14,0},{26,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(criSol.GCrit, add.u2) annotation (Line(
-      points={{-36.4,-10},{-32,-10},{-32,-6},{-22,-6}},
+  connect(criSol.G_TC, add.u2) annotation (Line(
+      points={{-36.4,-10},{-30,-10},{-30,-6},{-22,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
