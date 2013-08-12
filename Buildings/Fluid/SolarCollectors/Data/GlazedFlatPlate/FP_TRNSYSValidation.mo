@@ -18,9 +18,9 @@ record FP_TRNSYSValidation =
     dT_nominal=10)
   "Default values in the TRNSYS Simulation Studio SDHW example"
     annotation(Documentation(info="<html>
-    <p>
-    Default values in the TRNSYS Simualtion Studio SDHW example.
-    No value for <code>dp_nominal</code> was provided in TRNSYS, so 1000 
-    was used as a placeholder.<br/>
-    </p>
+      <p>
+        Default values in the TRNSYS Simualtion Studio SDHW example.
+        No value for <code>dp_nominal</code> was provided in TRNSYS, so 1000 
+        was used as a placeholder.<br/>
+      </p>
     </html>"));

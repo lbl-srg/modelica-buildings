@@ -4,28 +4,29 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
   extends Modelica.Icons.Example;
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per=
     Buildings.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel()
-    "Performance data" annotation (choicesAllMatching=true);
-  Modelica.Blocks.Sources.Sine     TEnv(
+    "Performance data"
+    annotation (choicesAllMatching=true);
+  Modelica.Blocks.Sources.Sine TEnv(
     freqHz=0.01,
     offset=273.15 + 10,
     amplitude=15) "Temperature of the surrounding environment"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Sources.Sine     T1(
+  Modelica.Blocks.Sources.Sine T1(
     amplitude=15,
     freqHz=0.1,
     offset=273.15 + 10) "Temperature of the first segment"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Modelica.Blocks.Sources.Sine     T2(
+  Modelica.Blocks.Sources.Sine T2(
     freqHz=0.1,
     amplitude=15,
     offset=273.15 + 15) "Temperature of the second segment"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica.Blocks.Sources.Sine     T3(
+  Modelica.Blocks.Sources.Sine T3(
     freqHz=0.1,
     amplitude=15,
     offset=273.15 + 20) "Temperature of the third segment"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss  heaLos(
+  Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
     nSeg=3,
     redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
     C1=per.C1,
@@ -59,19 +60,20 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
     Documentation(info="<html>
-<p>
-This examples demonstrates the implementation of 
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
-Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-Mar 27, 2013 by Peter Grant:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
+      <p>
+        This examples demonstrates the implementation of 
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
+        Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>.
+      </p>
+    </html>",
+    revisions="<html>
+      <ul>
+        <li>
+          Mar 27, 2013 by Peter Grant:<br/>
+          First implementation.
+      </li>
+    </ul>
+  </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975HeatLoss.mos"
         "Simulate and Plot"),

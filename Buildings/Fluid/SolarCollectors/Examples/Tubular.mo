@@ -83,25 +83,25 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/Tubular.mos"
+    "Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/Tubular.mos"
         "Simulate and Plot"),
-        Documentation(info="<html>
-        <p>
+    Documentation(info="<html>
+      <p>
         This example models a tubular solar thermal collector. It uses the 
         <a href=\"modelica:Buildings.Fluid.SolarCollectors.ASHRAE93\">
         Buildings.Fluid.SolarCollectors.ASHRAE93</a> model and references
         data in the <a href=\"modelica:Buildings.Fluid.SolarCollectors.Data.Tubular\">
         Buildings.Fluid.SolarCollectors.Data.Tubular</a> package.
-        </p>
-        </html>",
-        revisions="<html>
-        <ul>
+      </p>
+    </html>",
+    revisions="<html>
+      <ul>
         <li>
-        Mar 27, 2013 by Peter Grant:<br/>
-        First implementation
+          Mar 27, 2013 by Peter Grant:<br/>
+          First implementation
         </li>
-        </ul>
-        </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+      </ul>
+    </html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+      extent={{-100,-100},{100,100}}), graphics));
 end Tubular;

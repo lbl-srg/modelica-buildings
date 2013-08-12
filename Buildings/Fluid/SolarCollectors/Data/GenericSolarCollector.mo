@@ -23,11 +23,11 @@ record GenericSolarCollector
    parameter Modelica.SIunits.TemperatureDifference dT_nominal
     "Nominal temperature difference specified in ratings data";
 annotation(Documentation(info="<html>
-<p>
-Generic data file which is used for the 
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">
-Buildings.Fluid.Solarcollectors.BaseClasses.PartialSolarCollector</a> model. Establishes
-the base inputs needed to create model-specific data packages.
-</p>
+  <p>
+    Generic data file which is used for the 
+    <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">
+    Buildings.Fluid.Solarcollectors.BaseClasses.PartialSolarCollector</a> model. Establishes
+    the base inputs needed to create model-specific data packages.
+  </p>
 </html>"));
 end GenericSolarCollector;

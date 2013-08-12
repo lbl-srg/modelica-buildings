@@ -27,24 +27,23 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics), __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/SolarCollectors/Controls/Examples/SolarPumpController.mos"
+    "Resources/Scripts/Dymola/Fluid/SolarCollectors/Controls/Examples/SolarPumpController.mos"
         "Simulate and Plot"),
-        Documentation(info="<html>
-        <p>
+    Documentation(info="<html>
+      <p>
         This model illustrates the use of the 
         <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\"> 
         Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a> model. 
         Based on weather data and inlet temperature, the controller switches the pump on 
-        and off.<br/>
-        </p>
-        </html>",
-        revisions="<html>
-        <ul>
+        and off.
+      </p>
+    </html>",
+    revisions="<html>
+      <ul>
         <li>
-        Mar 27, 2013 by Peter Grant:<br/>
-        First implementation
+          Mar 27, 2013 by Peter Grant:<br/>
+          First implementation
         </li>
-        </ul>
-        
-        </html>"));
+      </ul>
+    </html>"));
 end SolarPumpController;

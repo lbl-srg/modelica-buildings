@@ -19,7 +19,7 @@ model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
     nSeg=9,
     lat=0.65938539140346,
     til=0.5235987755983) "Flat plate solar collector with 3 segments"
-             annotation (Placement(transformation(extent={{-16,-20},{4,0}})));
+    annotation (Placement(transformation(extent={{-16,-20},{4,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
@@ -29,18 +29,17 @@ model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
     redeclare package Medium = Medium,
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
-    nPorts=1) "Outlet for water flow" annotation (Placement(transformation(extent={{80,-20},
-            {60,0}},
-          rotation=0)));
-  inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
-        transformation(extent={{60,60},{80,80}}, rotation=0)));
+    nPorts=1) "Outlet for water flow"
+    annotation (Placement(transformation(extent={{80,-20},{60,0}},rotation=0)));
+  inner Modelica.Fluid.System system(p_ambient=101325)
+  annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
     m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TIn(redeclare package Medium =
-        Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
+    Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
@@ -48,12 +47,13 @@ model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
     nPorts=1,
     T=273.15 + 10,
     p(displayUnit="Pa") = 101325 + 5*solCol.per.dp_nominal)
-    "Inlet for water flow"                                                     annotation (Placement(
+    "Inlet for water flow"
+    annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-90,-10})));
-  Modelica.Blocks.Sources.Ramp     shaCoe(
+  Modelica.Blocks.Sources.Ramp shaCoe(
     startTime=34040,
     height=1,
     duration=24193) "Varying shading coefficient"
@@ -85,23 +85,24 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+      extent={{-100,-100},{100,100}}), graphics),
     Documentation(info="<html>   
-<p>
-This example demonstrates the use of <code>use_shaCoe_in</code>. Aside from 
-changed use of <code>use_shaCoe_in</code> it is identical to
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.FlatPlate\"> 
-Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
-</p>
-</html>",revisions="<html>
-<ul>
-<li>
-May 13, 2013, by Peter Grant:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
+      <p>
+        This example demonstrates the use of <code>use_shaCoe_in</code>. Aside from 
+        changed use of <code>use_shaCoe_in</code> it is identical to
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.FlatPlate\"> 
+        Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
+      </p>
+    </html>",
+    revisions="<html>
+      <ul>
+        <li>
+          May 13, 2013, by Peter Grant:<br/>
+          First implementation.
+        </li>
+      </ul>
+    </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateShaCoeTrue.mos"
         "Simulate and Plot"),

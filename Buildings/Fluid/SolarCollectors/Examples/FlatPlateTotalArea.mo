@@ -19,7 +19,7 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     lat=0.73097781993588,
     azi=0.3,
     til=0.5) "Flat plate solar collector model"
-             annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
@@ -29,31 +29,31 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     redeclare package Medium = Medium,
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
-    nPorts=2) "Outlet for water flow" annotation (Placement(transformation(extent={{80,0},{
-            60,20}},
-          rotation=0)));
-  inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
-        transformation(extent={{60,60},{80,80}}, rotation=0)));
+    nPorts=2) "Outlet for water flow"
+    annotation (Placement(transformation(extent={{80,0},{60,20}},rotation=0)));
+  inner Modelica.Fluid.System system(p_ambient=101325)
+    annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
     m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TIn(redeclare package Medium =
-        Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
+    Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     T=273.15 + 10,
     use_p_in=false,
     nPorts=2,
-    p(displayUnit="Pa") = 101325 + solCol.dp_nominal) "Inlet for water flow"   annotation (Placement(
+    p(displayUnit="Pa") = 101325 + solCol.dp_nominal) "Inlet for water flow"
+    annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-90,10})));
 
-  Buildings.Fluid.SolarCollectors.ASHRAE93          solCol1(
+  Buildings.Fluid.SolarCollectors.ASHRAE93 solCol1(
     redeclare package Medium = Medium,
     shaCoe=0,
     from_dp=true,
@@ -67,7 +67,7 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     lat=0.73097781993588,
     azi=0.3,
     til=0.5) "Flat plate solar collector model"
-             annotation (Placement(transformation(extent={{-20,-22},{0,-2}})));
+    annotation (Placement(transformation(extent={{-20,-22},{0,-2}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut1(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
@@ -127,20 +127,21 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics),
     Documentation(info="<html>
-<p>
-This model uses <code>TotalArea</code> instead of <code>nPanels</code> to 
-define the system size. Aside from that change, this model is identical to 
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.FlatPlate\">
-Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
-</p>
-</html>",revisions="<html>
-<ul>
-<li>
-Mar 27, 2013, by Peter Grant:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
+      <p>
+        This model uses <code>TotalArea</code> instead of <code>nPanels</code> to 
+        define the system size. Aside from that change, this model is identical to 
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.FlatPlate\">
+        Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
+      </p>
+    </html>",
+    revisions="<html>
+      <ul>
+        <li>
+          Mar 27, 2013, by Peter Grant:<br/>
+          First implementation.
+        </li>
+      </ul>
+    </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateTotalArea.mos"
         "Simulate and Plot"),

@@ -3,10 +3,11 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
   import Buildings;
   extends Modelica.Icons.Example;
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per=
-      Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20()
-    "Performance data" annotation (choicesAllMatching=true);
-  inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
-        transformation(extent={{60,60},{80,80}}, rotation=0)));
+    Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20()
+    "Performance data"
+    annotation (choicesAllMatching=true);
+  inner Modelica.Fluid.System system(p_ambient=101325)
+    annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
   Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain   solHeaGai(
     nSeg=3,
     shaCoe=0,
@@ -93,19 +94,20 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics),
     Documentation(info="<html>
-<p>
-This examples demonstrates the implementation of 
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain\">
-Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain</a>.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-Mat 27, 2013 by Peter Grant:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
+      <p>
+        This examples demonstrates the implementation of 
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain\">
+        Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain</a>.
+      </p>
+    </html>",
+    revisions="<html>
+      <ul>
+        <li>
+          Mar 27, 2013 by Peter Grant:<br/>
+          First implementation.
+        </li>
+      </ul>
+  </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/ASHRAESolarGain.mos"
         "Simulate and Plot"),

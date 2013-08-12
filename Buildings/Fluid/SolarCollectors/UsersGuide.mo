@@ -105,5 +105,4 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   Standardization </li>
   </ul>
   </html>"));
-
 end UsersGuide;

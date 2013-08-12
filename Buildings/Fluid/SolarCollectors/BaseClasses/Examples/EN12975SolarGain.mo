@@ -3,11 +3,12 @@ model EN12975SolarGain "Example showing the use of EN12975SolarGain"
   extends Modelica.Icons.Example;
   import Buildings;
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per=
-      Buildings.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel()
-    "Performance data" annotation (choicesAllMatching=true);
-  inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
-        transformation(extent={{60,60},{80,80}}, rotation=0)));
-  Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain  solHeaGai(
+    Buildings.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel()
+    "Performance data"
+    annotation (choicesAllMatching=true);
+  inner Modelica.Fluid.System system(p_ambient=101325)
+    annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
+  Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain solHeaGai(
     B0=per.B0,
     B1=per.B1,
     y_intercept=per.y_intercept,
@@ -19,10 +20,10 @@ model EN12975SolarGain "Example showing the use of EN12975SolarGain"
     redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater)
     "Solar heat gain model using EN12975 calculations"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Modelica.Blocks.Sources.Ramp incAng(duration=86400, height=60*(2*Modelica.Constants.pi
-        /360)) "Incidence angle"
+  Modelica.Blocks.Sources.Ramp incAng(duration=86400,
+    height=60*(2*Modelica.Constants.pi/360)) "Incidence angle"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.Sine     HDirTil(
+  Modelica.Blocks.Sources.Sine HDirTil(
     offset=400,
     amplitude=300,
     freqHz=2/86400) "Direct beam radiation, tilted surface"
@@ -32,7 +33,7 @@ model EN12975SolarGain "Example showing the use of EN12975SolarGain"
     freqHz=1/86400,
     offset=300) "Diffuse radiation, tilted surface"
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
-  Modelica.Blocks.Sources.Ramp     shaCoe(
+  Modelica.Blocks.Sources.Ramp shaCoe(
     duration=86400,
     offset=1,
     height=-1) "Shading coefficient"
@@ -85,19 +86,20 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics),
     Documentation(info="<html>
-<p>
-This examples demonstrates the implementation of 
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain\">
-Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain</a>.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-Mar 27, 2013 by Peter Grant:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
+      <p>
+        This examples demonstrates the implementation of 
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain\">
+        Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain</a>.
+      </p>
+    </html>",
+    revisions="<html>
+      <ul>
+        <li>
+          Mar 27, 2013 by Peter Grant:<br/>
+          First implementation.
+        </li>
+      </ul>
+    </html>"),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975SolarGain.mos"
         "Simulate and Plot"),
     Icon(graphics));

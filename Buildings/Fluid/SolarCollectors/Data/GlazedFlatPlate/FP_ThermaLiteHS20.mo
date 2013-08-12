@@ -18,8 +18,8 @@ record FP_ThermaLiteHS20 =
     final dT_nominal = 10) "FP - Therma-Lite, HS-20"
     annotation(Documentation(info = "<html>  
     <h4>References</h4>
-    <p>
-    Ratings data taken from the <a href=\"http://www.solar-rating.org\">
-    Solar Rating and Certification Corporation website</a>. SRCC# = 2012047A.
-    </p>
+      <p>
+        Ratings data taken from the <a href=\"http://www.solar-rating.org\">
+        Solar Rating and Certification Corporation website</a>. SRCC# = 2012047A.
+      </p>
     </html>"));

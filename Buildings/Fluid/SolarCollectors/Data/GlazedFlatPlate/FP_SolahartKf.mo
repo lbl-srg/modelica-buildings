@@ -18,8 +18,8 @@ record FP_SolahartKf =
     final dT_nominal=10) "FP - Solahart Kf"
     annotation(Documentation(info = "<html>
     <h4>References</h4>
-    <p>
-    Ratings data taken from the <a href=\"http://www.solar-rating.org\">
-    Solar Rating and Certification Corporation website</a>. SRCC# = 2012021A.<br/>
-    </p>
+      <p>
+        Ratings data taken from the <a href=\"http://www.solar-rating.org\">
+        Solar Rating and Certification Corporation website</a>. SRCC# = 2012021A.<br/>
+      </p>
     </html>"));

@@ -42,7 +42,7 @@ model PartialSolarCollector "Partial model for solar collectors"
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Shading coefficient"
-  annotation(Placement(transformation(extent={{-140,46},{-100,6}},    rotation=0)));
+    annotation(Placement(transformation(extent={{-140,46},{-100,6}},    rotation=0)));
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nSeg](
     T(each start =   T_start), each C=(C*nPanels_internal)/nSeg) if
@@ -51,8 +51,8 @@ model PartialSolarCollector "Partial model for solar collectors"
     annotation (Placement(transformation(extent={{-82,-44},{-62,-24}})));
 
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-                                                               annotation (Placement(
-        transformation(extent={{-110,86},{-90,106}})));
+    annotation (Placement(
+    transformation(extent={{-110,86},{-90,106}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTilIso(
     final outSkyCon=true,
     final outGroCon=true,
@@ -60,18 +60,16 @@ model PartialSolarCollector "Partial model for solar collectors"
     final lat=lat,
     final azi=azi,
     final rho=rho) "Diffuse solar irradiation on a tilted surface"
-                         annotation (Placement(transformation(extent={{-80,70},
-            {-60,90}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     final til=til,
     final lat=lat,
     final azi=azi) "Direct solar irradiation on a tilted surface"
-                   annotation (Placement(transformation(extent={{-80,42},{-60,
-            62}})));
+    annotation (Placement(transformation(extent={{-80,42},{-60,62}})));
 
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
-        Medium, allowFlowReversal=allowFlowReversal) "Mass flow rate sensor"
+    Medium, allowFlowReversal=allowFlowReversal) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-86,-11},{-66,11}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare final package Medium = Medium,
@@ -85,8 +83,7 @@ model PartialSolarCollector "Partial model for solar collectors"
     use_dh=false,
     deltaM=deltaM,
     final dp_nominal=dp_nominal_final) "Flow resistance"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}},
-                       rotation=0)));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}},rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](
     each nPorts=2,
     redeclare package Medium = Medium,
@@ -105,10 +102,10 @@ model PartialSolarCollector "Partial model for solar collectors"
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen[nSeg]
     "Temperature sensor"
-          annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=180,
-        origin={2,-16})));
+    annotation (Placement(transformation(
+      extent={{-10,10},{10,-10}},
+      rotation=180,
+      origin={2,-16})));
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaGai[nSeg]
     "Rate of solar heat gain"
@@ -199,33 +196,34 @@ equation
     Icon(graphics),
     defaultComponentName="solCol",
     Documentation(info="<html>
-<p>
-This component is a partial model of a solar thermal collector. It can be expanded to 
-create solar collector models based on either ASHRAE93 or EN12975 ratings data.
-</p>
-<h4>Notice</h4>
-<p>
-1. As mentioned in the reference, the SRCC incident angle modifier equation 
- coefficients are only valid for incident angles of 60 degrees or less.
- Because these curves behave poorly for angles greater than 60 degrees 
- the model does not calculatue either direct or diffuse solar radiation gains
- when the incidence angle is greater than 60 degrees. 
-<br/>
-2. By default, the estimated heat capacity of the collector without fluid is 
-calculated based on the dry mass and the specific heat capacity of copper.
-</p>
-<h4>References</h4>
-<p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, 
-October 13, 2011.<br/>
-CEN 2006, European Standard 12975-1:2006, European Committee for Standardization 
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-January 4, 2013, by Peter Grant:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
+      <p>
+        This component is a partial model of a solar thermal collector. It can be
+        expanded to create solar collector models based on either ASHRAE93 or 
+        EN12975 ratings data.
+      </p>
+    <h4>Notice</h4>
+      <p>
+        1. As mentioned in the reference, the SRCC incident angle modifier equation 
+        coefficients are only valid for incident angles of 60 degrees or less.
+        Because these curves behave poorly for angles greater than 60 degrees 
+        the model does not calculatue either direct or diffuse solar radiation gains
+        when the incidence angle is greater than 60 degrees. <br/>
+        2. By default, the estimated heat capacity of the collector without fluid is 
+        calculated based on the dry mass and the specific heat capacity of copper.
+      </p>
+    <h4>References</h4>
+      <p>
+      <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, 
+        October 13, 2011.<br/>
+      CEN 2006, European Standard 12975-1:2006, European Committee for Standardization 
+      </p>
+    </html>",
+    revisions="<html>
+      <ul>
+        <li>
+          January 4, 2013, by Peter Grant:<br/>
+          First implementation.
+        </li>
+      </ul>
+    </html>"));
 end PartialSolarCollector;

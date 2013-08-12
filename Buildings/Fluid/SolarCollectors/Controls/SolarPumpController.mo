@@ -65,41 +65,41 @@ equation
       points={{-36.4,-10},{-30,-10},{-30,-6},{-22,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-  defaultComponentName = "pumCon",
-  Documentation(info = "<html>
-  <p>
-  This component models a pump controller which might be used in a solar thermal system. 
-  It controls whether the pump is active or inactive based on the incident solar radiation
-  and the system parameters. The pump is activated when the incident solar radiation is 
-  greater than the critical radiation.
-  </p>
-  <p>
-  The critical radiation is defined per Equation 6.8.2 in Duffie and Beckman (2006). It is 
-  </p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  G<sub>TC</sub>=(F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>))/(F<sub>R</sub>(&tau;&alpha;))
-  </p>
-  <p>
-  where <i>G<sub>TC</sub></i> is the critical solar radiation, <i>F<sub>R</sub>U<sub>L</sub></i> 
-  is the heat loss coefficient, <i>T<sub>In</sub></i> is the inlet temperature, 
-  <i>T<sub>Env</sub></i> is the ambient temperature, and <i>F<sub>R</sub>(&tau;&alpha;)</i> 
-  is the maximum efficiency.
-  </p>
-  <h4>References</h4>
-  <p>
-  J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), 
-  John Wiley &amp; Sons, Inc.<br/>
-  </p>
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
+    extent={{-100,-100},{100,100}}),
+    graphics),
+    defaultComponentName = "pumCon",
+    Documentation(info = "<html>
+      <p>
+        This component models a pump controller which might be used in a solar thermal system. 
+        It controls whether the pump is active or inactive based on the incident solar radiation
+        and the system parameters. The pump is activated when the incident solar radiation is 
+        greater than the critical radiation.
+      </p>
+      <p>
+        The critical radiation is defined per Equation 6.8.2 in Duffie and Beckman (2006). It is 
+      </p>
+      <p align=\"center\" style=\"font-style:italic;\">
+        G<sub>TC</sub>=(F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>))/(F<sub>R</sub>(&tau;&alpha;))
+      </p>
+      <p>
+        where <i>G<sub>TC</sub></i> is the critical solar radiation, <i>F<sub>R</sub>U<sub>L</sub></i> 
+        is the heat loss coefficient, <i>T<sub>In</sub></i> is the inlet temperature, 
+        <i>T<sub>Env</sub></i> is the ambient temperature, and <i>F<sub>R</sub>(&tau;&alpha;)</i> 
+        is the maximum efficiency.
+      </p>
+    <h4>References</h4>
+      <p>
+        J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), 
+        John Wiley &amp; Sons, Inc.<br/>
+      </p>
   </html>",
   revisions = "<html>
-  <ul>
-  <li>
-  January 15, 2013 by Peter Grant <br/>
-  First implementation
-  </li>
-  </ul>
+    <ul>
+      <li>
+        January 15, 2013 by Peter Grant <br/>
+        First implementation
+      </li>
+    </ul>
   </html>"));
 end SolarPumpController;

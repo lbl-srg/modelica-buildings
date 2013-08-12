@@ -72,43 +72,44 @@ equation
       points={{-8,-16},{-28,-16},{-28,40},{-22,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-      defaultComponentName="solCol",
-     Documentation(info="<html>
- <h4>Overview</h4>
- <p>
- This component models a solar thermal collector according to the EN12975
- test standard.
- </p>
- <h4>Notice</h4>
- <ul>
- <li>
- As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier 
- equation coefficients are only valid for incident angles of 60 degrees or less. 
- Because these curves behave poorly for angles greater than 60 degrees 
- the model does not calculate either direct or diffuse solar radiation gains
- when the incidence angle is greater than 60 degrees. 
- </li>
- <li>
- By default, the estimated heat capacity of the collector without fluid is calculated based 
- on the dry mass and the specific heat capacity of copper.
- </li>
- </ul>
- <h4>References</h4>
- <p>
- <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br/>
- </p>
- </html>", revisions="<html>
- <ul>
- <li>
- January 4, 2013, by Peter Grant:<br/>
- First implementation.
- </li>
- </ul>
- </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
+    extent={{-100,-100},{100,100}}), graphics),
+    defaultComponentName="solCol",
+    Documentation(info="<html>
+      <h4>Overview</h4>
+        <p>
+          This component models a solar thermal collector according 
+          to the EN12975 test standard.
+        </p>
+      <h4>Notice</h4>
+        <ul>
+          <li>
+            As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC 
+            incident angle modifier equation coefficients are only valid for 
+            incident angles of 60 degrees or less. Because these curves behave 
+            poorly for angles greater than 60 degrees the model does not calculate 
+            either direct or diffuse solar radiation gains when the incidence
+            angle is greater than 60 degrees. 
+          </li>
+          <li>
+            By default, the estimated heat capacity of the collector without 
+            fluid is calculated based on the dry mass and the specific heat 
+            capacity of copper.
+          </li>
+        </ul>
+      <h4>References</h4>
+        <p>
+          <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br/>
+        </p>
+    </html>", revisions="<html>
+      <ul>
+        <li>
+          January 4, 2013, by Peter Grant:<br/>
+          First implementation.
+        </li>
+      </ul>
+    </html>"),
+      Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Polygon(
           points={{20,-75},{50,-85},{20,-95},{20,-75}},

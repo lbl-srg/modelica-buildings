@@ -18,7 +18,7 @@ model FlatPlateValidation "Validation model for FlatPlate"
     lat=0.6457718232379,
     til=0.78539816339745)
     "Flat plate solar collector model, has been modified for validation purposes"
-             annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
@@ -29,11 +29,9 @@ model FlatPlateValidation "Validation model for FlatPlate"
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     nPorts=1) "Outlet for water flow"
-                                     annotation (Placement(transformation(extent={{80,-20},
-            {60,0}},
-          rotation=0)));
-  inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
-        transformation(extent={{60,60},{80,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{80,-20},{60,0}},rotation=0)));
+  inner Modelica.Fluid.System system(p_ambient=101325)
+    annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
   Buildings.Fluid.Sources.MassFlowSource_T bou(
     nPorts=1,
     redeclare package Medium = Medium,
@@ -90,27 +88,28 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics),
     Documentation(info="<html>
-<p>
-This model was used to validate the 
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\"> 
-Buildings.Fluid.SolarCollectors.ASHRAE93</a> solar collector model against TRNSYS data.
-Data files are used to ensure that the 
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\"> 
-Buildings.Fluid.SolarCollectors.ASHRAE93</a> solar collector model saw the same 
-inlet and weather conditions as the TRNSYS simulation. The solar collector model must
-reference the 
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation\">
-Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation</a> data record
-when comparing model results to the stored TRNSYS results.
-</p>
-</html>",revisions="<html>
-<ul>
-<li>
-Mar 27, 2013, by Peter Grant:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
+      <p>
+        This model was used to validate the 
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\"> 
+        Buildings.Fluid.SolarCollectors.ASHRAE93</a> solar collector model 
+        against TRNSYS data. Data files are used to ensure that the 
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\"> 
+        Buildings.Fluid.SolarCollectors.ASHRAE93</a> solar collector model and
+        the TRNSYS model use the same inlet and weather conditions. The 
+        solar collector model must reference the 
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation\">
+        Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation</a> 
+        data record when comparing model results to the stored TRNSYS results.
+      </p>
+    </html>",
+    revisions="<html>
+      <ul>
+        <li>
+          Mar 27, 2013, by Peter Grant:<br/>
+          First implementation.
+        </li>
+      </ul>
+    </html>"),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateValidation.mos"
         "Simulate and Plot"),
     Icon(graphics));

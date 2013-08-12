@@ -6,15 +6,16 @@ block PartialParameters "Partial model for parameters"
   parameter Real y_intercept "Y intercept (Maximum efficiency)";
 
   annotation(Documentation(info="<html>
-  <p>
-  Partial parameters used in all solar collector models
-  </p>
-  </html>", revisions="<html>
-<ul>
-<li>
-Apr 17, 2013, by Peter Grant:<br/>
-First implementation
-</li>
-</ul>
-</html>"));
+    <p>
+      Partial parameters used in all solar collector models
+    </p>
+  </html>",
+  revisions="<html>
+    <ul>
+      <li>
+        Apr 17, 2013, by Peter Grant:<br/>
+        First implementation
+      </li>
+    </ul>
+  </html>"));
 end PartialParameters;

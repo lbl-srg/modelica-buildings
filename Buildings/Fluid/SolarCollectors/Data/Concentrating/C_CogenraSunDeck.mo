@@ -14,14 +14,14 @@ record C_CogenraSunDeck =
     final mDry=484,
     final slope=0) "C - Cogenra Solar, Inc., SunDeck 1.0"
     annotation(Documentation(info = "<html>
-    <p>
-    Necessary data for calculating <code>dp_nominal</code>, <code>G_nominal
-    </code> and <code>dT_nominal</code> is not provided in the EN12975 test 
-    data. All are left blank.
-    </p>    
+      <p>
+        Necessary data for calculating <code>dp_nominal</code>, <code>G_nominal
+        </code> and <code>dT_nominal</code> is not provided in the EN12975 test 
+        data. All are left blank.
+      </p>    
     <h4>References</h4>
-    <p>
-    Ratings data taken from the <a href=\"http://www.solar-rating.org\">
-    Solar Rating and Certification Corporation website</a>. SRCC# = 2011127A.<br/>
-    </p>
+      <p>
+        Ratings data taken from the <a href=\"http://www.solar-rating.org\">
+        Solar Rating and Certification Corporation website</a>. SRCC# = 2011127A.<br/>
+      </p>
     </html>"));
