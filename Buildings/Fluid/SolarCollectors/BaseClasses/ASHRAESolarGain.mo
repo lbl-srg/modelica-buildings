@@ -201,8 +201,8 @@ internally.
 <p>
 This model reduces the heat gain rate to 0 W when the fluid temperature is within 1 degree C of the
 maximum temperature of the medium model. The calucation is performed using the 
-<a href=\"modelica://Buildings.Utilities.Math.Functions.SmoothHeaviside\">
-Buildings.Utilities.Math.Functions.SmoothHeaviside</a> function. 
+<a href=\"modelica://Buildings.Utilities.Math.Functions.smoothHeaviside\">
+Buildings.Utilities.Math.Functions.smoothHeaviside</a> function. 
 </p>
 <h4>References</h4>
 <p>

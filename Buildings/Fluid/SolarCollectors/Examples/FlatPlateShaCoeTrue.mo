@@ -87,14 +87,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics),
-    Documentation(info="<html>
-<p>
-This example demonstrates the implementation of 
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.FlatPlate\"> 
-Buildings.Fluid.SolarCollectors.FlatPlate</a>. In it water is passed through a 
-solar collector while being heated by the sun in the San Francisco, CA, USA 
-climate.
-</p>    
+    Documentation(info="<html>   
 <p>
 This example demonstrates the use of <code>use_shaCoe_in</code>. Aside from 
 changed use of <code>use_shaCoe_in</code> it is identical to

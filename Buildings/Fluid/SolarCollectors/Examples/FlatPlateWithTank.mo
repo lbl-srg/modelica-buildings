@@ -193,8 +193,8 @@ equation
         Buildings.Fluid.Storage.ExpansionVessel</a>, exp), a temperature sensor
         (<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\"> 
         Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TIn), the solar collector
-        (<a href=\"modelica://Buildings.Fluid.SolarCollectors.FlatPlate\"> 
-        Buildings.Fluid.SolarCollectors.FlatPlate,</a> solCol) and a second temperature sensor 
+        (<a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\"> 
+        Buildings.Fluid.SolarCollectors.ASHRAE93,</a> solCol) and a second temperature sensor 
         (<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\"> 
         Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TOut) before re-entering the tank.
         </p>

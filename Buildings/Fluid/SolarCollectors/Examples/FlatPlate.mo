@@ -89,10 +89,10 @@ equation
     Documentation(info="<html>
 <p>
 This example demonstrates the implementation of 
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.FlatPlate\"> 
-Buildings.Fluid.SolarCollectors.FlatPlate</a>. 
-In it water is passed through a solar collector while being heated by the 
-sun in the San Francisco, CA, USA climate.
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\"> 
+Buildings.Fluid.SolarCollectors.ASHRAE93</a>. 
+In it water is passed through a flat plate solar thermal collector while 
+being heated by the sun in the San Francisco, CA, USA climate.
 </p>
 </html>",revisions="<html>
 <ul>

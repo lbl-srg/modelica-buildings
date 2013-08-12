@@ -87,11 +87,11 @@ equation
         "Simulate and Plot"),
         Documentation(info="<html>
         <p>
-        This model demonstrates the implementation of 
-        <a href=\"modelica://Buildings.Fluid.SolarCollectors.Tubular\">
-        Buildings.Fluid.SolarCollectors.Tubular</a>. In it water is passed through a 
-        tubular solar collector while being heated by the sun in
-        the San Francisco, CA, USA climate.<br/>
+        This example models a tubular solar thermal collector. It uses the 
+        <a href=\"modelica:Buildings.Fluid.SolarCollectors.ASHRAE93\">
+        Buildings.Fluid.SolarCollectors.ASHRAE93</a> model and references
+        data in the <a href=\"modelica:Buildings.Fluid.SolarCollectors.Data.Tubular\">
+        Buildings.Fluid.SolarCollectors.Data.Tubular</a> package.
         </p>
         </html>",
         revisions="<html>
