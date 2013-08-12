@@ -62,13 +62,12 @@ where:<br/>
 This model is currently only used in natural convection calculations for water. As a result, the 
 calculations reference functions to identify properties of water instead of a medium model. 
 </p>
-
-
 <h4>References</h4>
 <p>
 Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David DeWitt, John Wiley and Sons, 1996
 </p>
-<h4>Revisions</h4>
+</html>",
+revisions = "<html>
 <ul>
 <li>
 February 26, 2013 by Peter Grant <br/>
