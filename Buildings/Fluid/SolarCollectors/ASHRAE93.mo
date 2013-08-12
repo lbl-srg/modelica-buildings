@@ -154,7 +154,7 @@ equation
     Documentation(info="<html>
 <h4>Overview</h4>
 <p>
-This component models the solar thermal collector according to the ASHRAE93
+This component models a solar thermal collector according to the ASHRAE93
 test standard.
 </p>
  <h4>Notice</h4>
