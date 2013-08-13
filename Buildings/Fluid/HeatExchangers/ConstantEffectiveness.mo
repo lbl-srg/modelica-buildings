@@ -39,12 +39,6 @@ where <i>&epsilon;</i> is a constant effectiveness and
 <i>Q<sub>max</sub></i> is the maximum heat that can be transferred.
 </p>
 <p>
-In the region <code>mK_flow_small > abs(mK_flow) > mK_flow_small/2</code>, for <code>K = 1</code> or
-<code>2</code>, the effectivness <code>eps</code> is transitioned from 
-its user-specified value to 0. This improves the numerical robustness near
-zero flow.
-</p>
-<p>
 For a heat and moisture exchanger, use
 <a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
 Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>
@@ -53,6 +47,10 @@ instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 13, 2013 by Michael Wetter:<br/>
+Corrected error in the documentation.
+</li>
 <li>
 July 30, 2013 by Michael Wetter:<br/>
 Updated model to use new variable <code>mWat_flow</code>
