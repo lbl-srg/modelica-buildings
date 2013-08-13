@@ -405,6 +405,13 @@ units are wrong or errors in documentation):
                        which is incorrect as, for example, <code>FRWat_max</code> can be larger than one.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ConstantEffectiveness<br/>
+                     Buildings.Fluid.MassExchangers.ConstantEffectiveness
+    </td>
+    <td valign=\"top\">Corrected error in the documentation that was not updated
+                     when the implementation of zero flow rate was revised.
+    </td>
+</tr>
 
 </table>
 <!-- Github issues -->

@@ -91,11 +91,6 @@ for the sensible and latent heat transfer,
 <code>mWat_max</code> is the maximum moisture that can be transferred.
 </p>
 <p>
-In the region <code>mK_flow_small > abs(mK_flow) > mK_flow_small/2</code>, for <code>K = 1</code> or
-<code>2</code>, the effectivness <code>epsS</code> and <code>epsL</code> are transitioned from 
-their user-specified value to 0. This improves the numerical robustness near
-zero flow.</p>
-<p>
 For a sensible heat exchanger, use
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
 Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>
@@ -109,6 +104,10 @@ in the species vector.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 13, 2013 by Michael Wetter:<br/>
+Corrected error in the documentation.
+</li>
 <li>
 July 30, 2013 by Michael Wetter:<br/>
 Updated model to use new variable <code>mWat_flow</code>
