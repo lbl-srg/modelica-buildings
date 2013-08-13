@@ -81,6 +81,7 @@ protected
     input Boolean verbose "Set to true for verbose output";
   protected
     Integer nConExtWin=0;
+    Integer coSimFlag = 0;
   algorithm
     if verbose then
       Modelica.Utilities.Streams.print("CFDExchange:sendParameter");
@@ -94,7 +95,7 @@ protected
     // fixme: need nConExtWin
 
     Modelica.Utilities.Streams.print(string="Launch createSharedMemory()");
-    createSharedMemory(
+    coSimFlag :=startCosimulation(
         name,
         A,
         til,
@@ -106,10 +107,10 @@ protected
         haveShade,
         nSur,
         nSen,
-        nConExtWin);
-
-    Modelica.Utilities.Streams.print(string="Launch launchFFD()");
-    launchFFD();
+        nConExtWin,
+        0,
+        0);
+     assert(coSimFlag < 0.5, "Could not start the cosimulation.");
 
   end sendParameters;
 
@@ -154,10 +155,14 @@ protected
     input Modelica.SIunits.Time t "Current simulation time in seconds to write";
     input Boolean verbose "Set to true for verbose output";
 
+  protected
+    Integer coSimFlag;
   algorithm
     if verbose then
       Modelica.Utilities.Streams.print("CFDExchange:terminate at t=" + String(t));
     end if;
+    coSimFlag :=stopCosimulation();
+    assert(coSimFlag < 0.5, "Could not terminate the cosimulation.");
   end terminate;
 
   ///////////////////////////////////////////////////////////////////////////
@@ -268,8 +273,8 @@ initial equation
   if nSen > 1 then
     for i in 1:nSen - 1 loop
       ideSenNam[i] = Modelica.Math.BooleanVectors.anyTrue({
-        Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j
-         in i + 1:nSen});
+        Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j in
+            i + 1:nSen});
     end for;
 
     assert(not Modelica.Math.BooleanVectors.anyTrue(ideSenNam), "For the CFD interface, all sensors must have a name that is unique within each room.
@@ -348,8 +353,9 @@ algorithm
         // Integral over the sampling interval
       end if;
     end for;
+
     // Exchange data
-    if activateInterface then
+    if (activateInterface and (not terminal())) then
       (simTimRea,y,retVal) := exchange(
         flag=0,
         t=time,
@@ -359,11 +365,13 @@ algorithm
         yFixed=yFixed,
         nY=size(y, 1),
         verbose=verbose);
+
     else
       simTimRea := time;
       y := yFixed;
       retVal := 0;
     end if;
+
     // Check for valid return flags
     assert(retVal >= 0,
       "Obtained negative return value during data transfer with FFD.\n" +
@@ -372,7 +380,9 @@ algorithm
 
     // Store current value of integral
     uIntPre := uInt;
+
   end when;
+
   when terminal() then
     terminate(t=time, verbose=verbose);
   end when;
