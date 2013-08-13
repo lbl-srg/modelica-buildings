@@ -21,7 +21,8 @@ model LinearRegressionCampus
   // Declaration of the line model
   // Set the instance 'line' either to 'DummyLine' or to 'Districts.Electrical.AC.AC3ph.Lines.Line'
   model line = DummyLine "Line model";
-
+  //model line = Districts.Electrical.AC.AC3ph.Lines.Line "Line model";
+  //model line = resistiveLine "Line model";
   Districts.BuildingLoads.LinearRegression buiA(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt")
     "Building A"
     annotation (Placement(transformation(extent={{230,30},{250,50}})));
@@ -40,7 +41,6 @@ model LinearRegressionCampus
     P_nominal=P_dt,
     V_nominal=VDis,
     l=40,
-    cable=Districts.Electrical.Transmission.Cables.mmq_4_0(),
     wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
     "Distribution line"
     annotation (Placement(transformation(extent={{-22,-30},{-2,-10}})));
@@ -48,7 +48,6 @@ model LinearRegressionCampus
     V_nominal=VDis,
     P_nominal=P_de,
     l=400,
-    cable=Districts.Electrical.Transmission.Cables.mmq_4_0(),
     wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
     "Distribution line"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
@@ -56,7 +55,6 @@ model LinearRegressionCampus
     V_nominal=VDis,
     P_nominal=P_d,
     l=20,
-    cable=Districts.Electrical.Transmission.Cables.mmq_4_0(),
     wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
     "Distribution line"       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -66,7 +64,6 @@ model LinearRegressionCampus
     V_nominal=VDis,
     P_nominal=P_e,
     l=20,
-    cable=Districts.Electrical.Transmission.Cables.mmq_4_0(),
     wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
     "Distribution line"       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -76,7 +73,6 @@ model LinearRegressionCampus
     V_nominal=VDis,
     P_nominal=P_ce,
     l=50,
-    cable=Districts.Electrical.Transmission.Cables.mmq_4_0(),
     wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
     "Distribution line"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
@@ -84,7 +80,6 @@ model LinearRegressionCampus
     V_nominal=VDis,
     P_nominal=P_c,
     l=60,
-    cable=Districts.Electrical.Transmission.Cables.mmq_4_0(),
     wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
     "Distribution line"       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -94,7 +89,6 @@ model LinearRegressionCampus
     V_nominal=VDis,
     P_nominal=P_bc,
     l=40,
-    cable=Districts.Electrical.Transmission.Cables.mmq_4_0(),
     wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
     "Distribution line"
     annotation (Placement(transformation(extent={{160,-30},{180,-10}})));
@@ -102,7 +96,6 @@ model LinearRegressionCampus
     V_nominal=VDis,
     P_nominal=P_b,
     l=20,
-    cable=Districts.Electrical.Transmission.Cables.mmq_4_0(),
     wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
     "Distribution line"       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -112,7 +105,6 @@ model LinearRegressionCampus
     V_nominal=VDis,
     P_nominal=P_a,
     l=120,
-    cable=Districts.Electrical.Transmission.Cables.mmq_4_0(),
     wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
     "Distribution line"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -131,54 +123,6 @@ model LinearRegressionCampus
     "Building E"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
-model DummyLine
-  extends Districts.Electrical.Interfaces.PartialTwoPort(
-      redeclare package PhaseSystem_p =
-        Districts.Electrical.PhaseSystems.ThreePhase_dq,
-      redeclare package PhaseSystem_n =
-        Districts.Electrical.PhaseSystems.ThreePhase_dq,
-      redeclare Districts.Electrical.AC.AC3ph.Interfaces.Terminal_n terminal_n,
-      redeclare Districts.Electrical.AC.AC3ph.Interfaces.Terminal_n terminal_p);
-
-  parameter Modelica.SIunits.Distance l(min=0) "Length of the line";
-  parameter Modelica.SIunits.Power P_nominal(min=0) "Nominal power of the line";
-  parameter Modelica.SIunits.Voltage V_nominal "Nominal voltage of the line";
-  parameter Districts.Electrical.Transmission.Cables.Cable cable=
-      Functions.selectCable(P_nominal, V_nominal) "Type of cable"
-  annotation (choicesAllMatching=true,Dialog(tab="Tech. specification"), Placement(transformation(extent={{20,60},
-              {40,80}})));
-  parameter Districts.Electrical.Transmission.Materials.Material wireMaterial=
-      Functions.selectMaterial(0.0) "Material of the cable"
-    annotation (choicesAllMatching=true,Dialog(tab="Tech. specification"), Placement(transformation(extent={{60,60},
-              {80,80}})));
-equation
-
-  connect(terminal_n, terminal_p) annotation (Line(
-      points={{-100,2.22045e-16},{-4,2.22045e-16},{-4,0},{100,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
-            preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-          graphics={
-          Rectangle(extent={{-80,12},{80,-12}}, lineColor={0,0,0}),
-          Line(
-            points={{-80,0},{-100,0}},
-            color={0,0,0},
-            smooth=Smooth.None),
-          Line(
-            points={{80,0},{100,0}},
-            color={0,0,0},
-            smooth=Smooth.None),
-          Text(
-            extent={{-44,70},{40,34}},
-            lineColor={0,0,0},
-            textString="%name"),
-          Text(
-            extent={{-104,-36},{104,-78}},
-            lineColor={0,0,0},
-            textString="l=%l")}));
-end DummyLine;
   Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senAC
     "Sensor in AC line after the transformer"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
@@ -192,6 +136,7 @@ end DummyLine;
         origin={280,10})));
   Districts.Electrical.DC.Storage.Battery bat(EMax=P_dt*24*3600*0.1) "Battery"
     annotation (Placement(transformation(extent={{376,-30},{396,-10}})));
+
 model BatteryControl_S
  extends Modelica.Blocks.Interfaces.SISO;
   parameter Modelica.SIunits.Power PMax=500e3 "Maximum power during discharge";
@@ -316,8 +261,8 @@ model BatteryControl_S
     Modelica.Blocks.Sources.BooleanExpression isHighRate(y=mod(time/3600, 24) >
           14 and mod(time/3600, 24) < 17) "Outputs true during peak rate time"
       annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-equation
 
+equation
     connect(freeFloat.outPort[1], T2.inPort)  annotation (Line(
       points={{18.6667,97.4},{18.6667,92},{0,92},{0,86}},
       color={0,0,0},
@@ -487,6 +432,75 @@ end BatteryControl_S;
     annotation (Placement(transformation(extent={{380,160},{400,180}})));
   Districts.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{210,190},{230,210}})));
+protected
+  model resistiveLine
+    extends Districts.Electrical.AC.AC3ph.Lines.TwoPortResistance(R=0.3e-3*l);
+      parameter Modelica.SIunits.Distance l(min=0) "Length of the line";
+      parameter Modelica.SIunits.Power P_nominal(min=0)
+      "Nominal power of the line";
+      parameter Modelica.SIunits.Voltage V_nominal
+      "Nominal voltage of the line";
+  parameter Districts.Electrical.Transmission.Materials.Material wireMaterial=
+      Districts.Electrical.Transmission.Materials.Copper()
+      "Material of the cable"
+    annotation (choicesAllMatching=true,Dialog(tab="Tech. specification",
+                enable=mode==Districts.Electrical.Types.CableMode.normative),
+                Placement(transformation(extent={{60,60}, {80,80}})));
+
+  end resistiveLine;
+
+model DummyLine
+  extends Districts.Electrical.Interfaces.PartialTwoPort(
+      redeclare package PhaseSystem_p =
+        Districts.Electrical.PhaseSystems.ThreePhase_dq,
+      redeclare package PhaseSystem_n =
+        Districts.Electrical.PhaseSystems.ThreePhase_dq,
+      redeclare Districts.Electrical.AC.AC3ph.Interfaces.Terminal_n terminal_n,
+      redeclare Districts.Electrical.AC.AC3ph.Interfaces.Terminal_n terminal_p);
+
+  parameter Modelica.SIunits.Distance l(min=0) "Length of the line";
+  parameter Modelica.SIunits.Power P_nominal(min=0) "Nominal power of the line";
+  parameter Modelica.SIunits.Voltage V_nominal "Nominal voltage of the line";
+  parameter Districts.Electrical.Transmission.Cables.Cable cable=
+      Districts.Electrical.Transmission.Functions.selectCable(
+        P=P_nominal,
+        V=V_nominal,
+        mode=Districts.Electrical.Types.CableMode.automatic) "Type of cable"
+  annotation (choicesAllMatching=true,Dialog(tab="Tech. specification"), Placement(transformation(extent={{20,60},
+              {40,80}})));
+  parameter Districts.Electrical.Transmission.Materials.Material wireMaterial=
+      Districts.Electrical.Transmission.Materials.Copper()
+      "Material of the cable"
+    annotation (choicesAllMatching=true,Dialog(tab="Tech. specification"), Placement(transformation(extent={{60,60},
+              {80,80}})));
+equation
+
+  connect(terminal_n, terminal_p) annotation (Line(
+      points={{-100,2.22045e-16},{-4,2.22045e-16},{-4,0},{100,0}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics), Icon(coordinateSystem(
+            preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+          graphics={
+          Rectangle(extent={{-80,12},{80,-12}}, lineColor={0,0,0}),
+          Line(
+            points={{-80,0},{-100,0}},
+            color={0,0,0},
+            smooth=Smooth.None),
+          Line(
+            points={{80,0},{100,0}},
+            color={0,0,0},
+            smooth=Smooth.None),
+          Text(
+            extent={{-44,70},{40,34}},
+            lineColor={0,0,0},
+            textString="%name"),
+          Text(
+            extent={{-104,-36},{104,-78}},
+            lineColor={0,0,0},
+            textString="l=%l")}));
+end DummyLine;
 equation
   connect(weaDat.weaBus,buiA. weaBus)             annotation (Line(
       points={{-200,70},{220,70},{220,40},{230,40}},
@@ -581,10 +595,6 @@ equation
       points={{280,20},{280,40},{250.4,40}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(a.terminal_p, acdc.terminal_n) annotation (Line(
-      points={{260,-20},{300,-20}},
-      color={0,120,120},
-      smooth=Smooth.None));
   connect(acdc.terminal_p, buiC.terminal_dc) annotation (Line(
       points={{320,-20},{340,-20},{340,24},{136,24},{136,34},{128,34}},
       color={0,0,255},
@@ -665,6 +675,10 @@ equation
   connect(tur.terminal, acdc.terminal_p) annotation (Line(
       points={{380,170},{340,170},{340,-20},{320,-20}},
       color={0,0,255},
+      smooth=Smooth.None));
+  connect(acdc.terminal_n, a.terminal_p) annotation (Line(
+      points={{300,-20},{260,-20}},
+      color={0,120,120},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -120},{420,220}}), graphics),
