@@ -5,7 +5,7 @@ record T_AMKCollectraAGOWR20 =
     final A=3.457,
     final mDry=73,
     final V=3.5/1000,
-    final dp_nominal=100,
+    final dp_nominal=1000,
     final mperA_flow_nominal=0.0201,
     final B0=0.5722,
     final B1=-0.0052,
@@ -25,6 +25,6 @@ record T_AMKCollectraAGOWR20 =
       </p>
       <p>
         The ratings provided for <code>dp_nominal</code> were suspicious
-        so 100 Pa is used instead.<br/>
+        so 1000 Pa is used instead.<br/>
       </p>
     </html>"));
