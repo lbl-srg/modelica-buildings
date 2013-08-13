@@ -1,8 +1,11 @@
 within Districts.Electrical.AC.AC3ph.Loads;
 model Impedance "Model of a resistive load"
-  extends Districts.Electrical.Interfaces.PartialLoad(redeclare package
-      PhaseSystem = Districts.Electrical.PhaseSystems.ThreePhase_dq, redeclare
-      Interfaces.Terminal_n terminal,                               final mode=1, final P_nominal=0);
+  extends Districts.Electrical.Interfaces.PartialLoad(
+     redeclare package PhaseSystem =
+        Districts.Electrical.PhaseSystems.ThreePhase_dq,
+     redeclare Interfaces.Terminal_n terminal,
+     final mode=1,
+     final P_nominal=0);
   parameter Boolean star = true
     "Type of load connection: true = star, false = triangle" annotation(evaluate=true);
   parameter Boolean inductive=true
@@ -120,14 +123,15 @@ equation
           smooth=Smooth.None)}),
           Documentation(info="<html>
 <p>
-Model of a resistive load. It may be used to model a load that has
-a power factor of one.
+Model of a load that is characterized by its resistance, 
+inductance or capacitance.
 </p>
 <p>
-The model computes the power as
-<i>P = real(v &sdot; i<sup>*</sup>)</i>,
-where <i>i<sup>*</sup></i> is the complex conjugate of the current.
-Complex voltage and complex current are related as <i>v = R &nbsp; i</i>.
+If <code>inductive=true</code>, then the
+inductance is a parameter, otherwise
+the capacitance is a parameter.
+The parameter <code>star</code> is used to 
+configure the model as a star or triangle circuit.
 </p>
 </html>", revisions="<html>
 <ul>
