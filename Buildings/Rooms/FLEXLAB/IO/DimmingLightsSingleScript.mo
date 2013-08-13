@@ -1,17 +1,7 @@
 within Buildings.Rooms.FLEXLAB.IO;
 model DimmingLightsSingleScript
+  "Model calling a Python script to communicate with the CalBay adapter"
   extends Modelica.Icons.Example;
-
-//   Real InitialLight = pyt.yR[1]
-//     "Measure of the light level before the dimmer change";
-//   Real InitialDim = pyt.yR[2] "Dimmer setpoint before the change";
-//   Real SetDim = pyt.yR[3] "New setpoint for the dimmer";
-//   Real NewLight = pyt.yR[4]
-//     "Measure of the light level after the dimmer control change";
-//   Real NewDim = pyt.yR[5] "Dimmer setpoint after the change";
-//   Real SetLight = combiTimeTable.y[1] "Light setpoint";
-//   Real PerDiff = pyt.yR[6] "Percent difference";
-//   Real Adjustement = pyt.yR[7] "Adjustment";
 
   Modelica.Blocks.Sources.CombiTimeTable SetPoint(tableOnFile=false, table=[0,
         12; 119,12; 119,6; 239,6; 239,8; 359,8; 359,9; 479,9; 479,10; 599,10;
