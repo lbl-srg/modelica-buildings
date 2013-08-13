@@ -11,16 +11,14 @@ function exchangeData "Exchange data between FFD and Modelica"
     "Current simulation time in seconds read from FFD";
   output Real[nY] y "Output computed by FFD";
   output Integer retVal;
-
-external"C" exchangeData(
+external"C" retVal = exchangeData(
     t,
     dt,
     u,
     nU,
     nY,
     simTimRea,
-    y,
-    retVal);
+    y);
   annotation (Include="#include <interface_ffd.h>", Library="ModelicaInterface");
 
 end exchangeData;
