@@ -27,6 +27,6 @@ ParameterConstruction
 PartialParameterConstruction
 SideFins
 Examples
-createSharedMemory
-launchFFD
+startCosimulation
 exchangeData
+stopCosimulation
