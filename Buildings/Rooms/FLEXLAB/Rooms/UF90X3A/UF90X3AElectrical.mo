@@ -40,7 +40,7 @@ model UF90X3AElectrical
   <a href=\"modelica:Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
   Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3A</a> and
   <a href=\"modelica:Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset\">
-  Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset'</a>. The documentation
+  Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset</a>. The documentation
   for these models describes the connecting walls for the spaces, as well as how they
   are intended to be connected. An example of how they can be connected and applied is 
   provided in

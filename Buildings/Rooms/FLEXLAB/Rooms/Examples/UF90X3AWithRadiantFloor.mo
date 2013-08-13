@@ -105,7 +105,7 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={50,-108})));
+        origin={64,-108})));
   Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical
     eleRoo(
     redeclare package Medium = Air,
@@ -257,11 +257,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(preTem2[1].port, UF90X3A.surf_conBou[1]) annotation (Line(
-      points={{40,-108},{-84,-108},{-84,41.2}},
+      points={{54,-108},{-84,-108},{-84,41.2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preTem2[2].port, UF90X3A.surf_conBou[2]) annotation (Line(
-      points={{40,-108},{-84,-108},{-84,41.6}},
+      points={{54,-108},{-84,-108},{-84,41.6}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airInClo.ports[1], clo.ports[1]) annotation (Line(
@@ -269,11 +269,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TNei.y, preTem2.T) annotation (Line(
-      points={{89,-108},{62,-108}},
+      points={{89,-108},{76,-108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preTem2[2].port, clo.surf_conBou[2]) annotation (Line(
-      points={{40,-108},{36,-108},{36,-90},{182,-90},{182,96.5}},
+      points={{54,-108},{36,-108},{36,-90},{182,-90},{182,96.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airConClo.y[2], airInClo.T_in) annotation (Line(
@@ -309,13 +309,13 @@ equation
           Documentation(info = "<html>
           <p>
           This model demonstrates one potential use of
-          <a href=\"modelica://Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
-          Buildings.Rooms.Examples.FLeXLab.Rooms.UF90X3A.UF90X3A</a>. This examples
+          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
+          Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A</a>. This example
           simulates the test cell when it is conditioned with a radiant slab.
           </p>
           <p>
-          This example model of <a href=\"modelica://Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
-          Buildings.Rooms.Examples.FLEXLAB.UF90X3A.UF90X3A</a> includes heat transfer between the test cell,
+          This example model of <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
+          Buildings.Rooms.FLEXLAB.UF90X3A.UF90X3A</a> includes heat transfer between the test cell,
           the outdoor environment, the radiant slab conditioning the test cell, the connected electrical room
           and closet, and the neighboring test cells. The following image is a drawing of test cell UF90X3A.
           It shows how the different rooms in this example are connected, as well as providing the names used
@@ -423,8 +423,8 @@ equation
           </table>
           <p>
           The electrical room connected to test cell UF90X3A is modeled using
-          <a href=\"modelica://Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical\">
-          Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical</a>. The necessary 
+          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical\">
+          Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical</a>. The necessary 
           connections are described in the following table. Connections previously described
           are not included here.
           </p>
@@ -461,9 +461,9 @@ equation
           </tr>
           </table>
           <p>
-          The close connected to the UF90X3A test cell is modeled using an instance of 
-          <a href=\"modelica://Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3ACloset\">
-          Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3ACloset</a>. The connections
+          The closet connected to the UF90X3A test cell is modeled using an instance of 
+          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset\">
+          Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset</a>. The connections
           necessary to accurately include the space in the simulation are described
           in the following table. Prevsiouly mentioned connections are not included.
           </p>
