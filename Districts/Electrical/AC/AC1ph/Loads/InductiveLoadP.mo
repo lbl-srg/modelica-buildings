@@ -1,8 +1,8 @@
 within Districts.Electrical.AC.AC1ph.Loads;
 model InductiveLoadP "Model of an inductive and resistive load"
-  extends Districts.Electrical.Interfaces.PartialInductiveLoad(redeclare
-      package PhaseSystem = Districts.Electrical.PhaseSystems.OnePhase, redeclare
-      Interfaces.Terminal_n terminal);
+  extends Districts.Electrical.Interfaces.PartialInductiveLoad(
+    redeclare package PhaseSystem = Districts.Electrical.PhaseSystems.OnePhase,
+    redeclare Interfaces.Terminal_n terminal);
 
 equation
   omega = der(PhaseSystem.thetaRef(terminal.theta));
@@ -10,7 +10,7 @@ equation
   // Magnetic flux
   psi = Z[2]*{i[1], i[2]}/omega;
 
-  if mode==2 then
+  if mode == Districts.Electrical.Types.Assumption.FixedZ_dynamic then
 
     // Use the dynamic phasorial representation
     Z[1] = pf*(V_nominal^2)/(P_nominal/pf);
@@ -24,7 +24,7 @@ equation
     // Use the power specified by the parameter or inputs
     PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, acos(pf));
 
-    // steady state relatoipnship
+    // steady state relationship
     omega*j(psi)  + Z[1]*i = v;
 
   end if;

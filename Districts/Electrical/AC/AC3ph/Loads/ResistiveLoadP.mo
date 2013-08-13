@@ -1,8 +1,9 @@
 within Districts.Electrical.AC.AC3ph.Loads;
 model ResistiveLoadP "Model of a resistive load"
-  extends Districts.Electrical.Interfaces.PartialLoad(redeclare package
-      PhaseSystem = Districts.Electrical.PhaseSystems.ThreePhase_dq, redeclare
-      Interfaces.Terminal_n terminal);
+  extends Districts.Electrical.Interfaces.PartialLoad(
+    redeclare package PhaseSystem =
+        Districts.Electrical.PhaseSystems.ThreePhase_dq,
+    redeclare Interfaces.Terminal_n terminal);
 equation
   PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, 0.0);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

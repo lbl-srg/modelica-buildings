@@ -1,15 +1,16 @@
 within Districts.Electrical.AC.AC3ph.Loads;
 model CapacitiveLoadP "Model of a capacitive and resistive load"
-  extends Districts.Electrical.Interfaces.PartialCapacitiveLoad(redeclare
-      package PhaseSystem = Districts.Electrical.PhaseSystems.ThreePhase_dq, redeclare
-      Interfaces.Terminal_n terminal);
+  extends Districts.Electrical.Interfaces.PartialCapacitiveLoad(
+    redeclare package PhaseSystem =
+        Districts.Electrical.PhaseSystems.ThreePhase_dq,
+    redeclare Interfaces.Terminal_n terminal);
 equation
   omega = der(PhaseSystem.thetaRef(terminal.theta));
 
   // Electric charge
   q = Y[2]*{v[1], v[2]}/omega;
 
-  if mode==2 then
+  if mode == Districts.Electrical.Types.Assumption.FixedZ_dynamic then
 
     // Use the dynamic phasorial representation
     Y[1] = (P_nominal/pf)*pf/V_nominal^2;
@@ -23,7 +24,7 @@ equation
     // Use the power specified by the parameter or inputs
     PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, -acos(pf));
 
-    // steady state relatoipnship
+    // steady state relationship
     omega*j(q)  + Y[1]*v = i;
 
   end if;
