@@ -61,5 +61,8 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{140,100}}), graphics),
     experiment(StopTime=86400, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    Commands(file=
+          "Resources/Scripts/Dymola/BuildingLoads/Examples/TimeSeries.mos"
+        "Simulate and plot"));
 end TimeSeries;
