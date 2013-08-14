@@ -158,12 +158,13 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Resources</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Resources.Include
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added an <code>Include</code> folder and the <code>bcvtb.h</code> 
+    header file to it to fix compilation errors in BCVTB example files.
     </td> 
     </tr>
 </table>
@@ -402,6 +403,13 @@ units are wrong or errors in documentation):
                        and <code>liqGasRat_max</code>.
                        They were declared as <code>Modelica.SIunits.MassFraction</code>,
                        which is incorrect as, for example, <code>FRWat_max</code> can be larger than one.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ConstantEffectiveness<br/>
+                     Buildings.Fluid.MassExchangers.ConstantEffectiveness
+    </td>
+    <td valign=\"top\">Corrected error in the documentation that was not updated
+                     when the implementation of zero flow rate was revised.
     </td>
 </tr>
 

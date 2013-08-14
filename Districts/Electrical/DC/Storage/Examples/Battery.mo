@@ -5,12 +5,14 @@ model Battery "Test model for battery"
   Districts.Electrical.DC.Storage.Battery     bat(EMax=40e3*3600) "Battery"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Districts.Electrical.DC.Sources.ConstantVoltage    sou(V=12) "Voltage source"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={78,-20})));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{58,-60},{78,-40}})));
-  Districts.Electrical.DC.Loads.VariableConductor     loa "Electrical load"
+  Districts.Electrical.DC.Loads.Conductor             loa(
+    P_nominal=0, mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
+    "Electrical load"
     annotation (Placement(transformation(extent={{124,-30},{144,-10}})));
   Modelica.Blocks.Sources.Constant const1(k=10e3)
     annotation (Placement(transformation(extent={{144,0},{124,20}})));
@@ -169,20 +171,20 @@ equation
       points={{-119,-40},{-105,-40}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(const1.y, loa.P) annotation (Line(
-      points={{123,10},{112,10},{112,-12},{122,-12}},
+  connect(ground.p, sou.n) annotation (Line(
+      points={{68,-40},{68,-20},{68,-20}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(const1.y, loa.Pow) annotation (Line(
+      points={{123,10},{110,10},{110,-8},{156,-8},{156,-20},{144,-20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ground.p, sou.n) annotation (Line(
-      points={{68,-40},{68,-20}},
+  connect(loa.terminal, sou.terminal) annotation (Line(
+      points={{124,-20},{88,-20}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sou.dcPlug, bat.dcPlug) annotation (Line(
-      points={{88,-20},{94,-20},{94,30},{100,30}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(sou.dcPlug, loa.dcPlug) annotation (Line(
-      points={{88,-20},{124,-20}},
+  connect(bat.terminal, sou.terminal) annotation (Line(
+      points={{100,30},{94,30},{94,-20},{88,-20}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,

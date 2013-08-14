@@ -8,11 +8,11 @@ model PVSimple "Example for the PVSimple model with constant load"
         rotation=0,
         origin={10,40})));
   Modelica.Electrical.Analog.Basic.Ground ground
-    annotation (Placement(transformation(extent={{-92,-38},{-72,-18}})));
+    annotation (Placement(transformation(extent={{-92,-40},{-72,-20}})));
   Districts.Electrical.DC.Loads.Resistor    res(R=0.5)
     annotation (Placement(transformation(extent={{-2,-10},{18,10}})));
   Districts.Electrical.DC.Sources.ConstantVoltage    sou(V=12) "Voltage source"
-    annotation (Placement(transformation(extent={{-62,-10},{-82,10}})));
+    annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
   Districts.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
     til=0.34906585039887,
     lat=0.65798912800186,
@@ -51,16 +51,16 @@ equation
       points={{-19,80},{10,80},{10,52}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ground.p, sou.n) annotation (Line(
-      points={{-82,-18},{-82,0}},
+  connect(sou.terminal, res.terminal) annotation (Line(
+      points={{-62,0},{-2,0}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sou.dcPlug, pv.dcPlug) annotation (Line(
+  connect(sou.terminal, pv.terminal) annotation (Line(
       points={{-62,0},{-32,0},{-32,40},{0,40}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sou.dcPlug, res.dcPlug) annotation (Line(
-      points={{-62,0},{-2,0}},
+  connect(sou.n, ground.p) annotation (Line(
+      points={{-82,0},{-82,-20}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,

@@ -8,70 +8,59 @@ model LinearRegression "Example model for the linear regression building load"
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Districts.Electrical.AC.Interfaces.Adaptor adaptor
-    annotation (Placement(transformation(extent={{8,40},{28,60}})));
-  Districts.Electrical.AC.Sources.Grid gri(
+  Districts.Electrical.AC.AC3ph.Sources.Grid gri(
     f=60,
     V=480,
-    phi=0)
-    annotation (Placement(transformation(extent={{70,60},{90,80}})));
-  Districts.Electrical.AC.Transmission.SinglePhaseLine singlePhaseLine(
-    Length=50,
-    P=200e3,
-    V=480) annotation (Placement(transformation(extent={{40,46},{60,66}})));
-  Districts.Electrical.AC.Transmission.SinglePhaseLine singlePhaseLine1(
-    Length=50,
-    P=200e3,
-    V=480) annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Districts.Electrical.AC.Transmission.SinglePhaseLine singlePhaseLine2(
-    Length=50,
-    P=200e3,
-    V=480) annotation (Placement(transformation(extent={{40,34},{60,54}})));
-  Districts.Electrical.AC.Sources.Grid gri1(
-    f=60,
-    V=480,
-    phi=0)
-    annotation (Placement(transformation(extent={{100,60},{120,80}})));
-  Districts.Electrical.AC.Sources.Grid gri2(
-    f=60,
-    V=480,
-    phi=0)
-    annotation (Placement(transformation(extent={{128,60},{148,80}})));
+    Phi=0) annotation (Placement(transformation(extent={{78,60},{98,80}})));
+  Districts.Electrical.AC.AC3ph.Lines.Line lin(
+    l=50,
+    V_nominal=480,
+    cable=Districts.Electrical.Transmission.Cables.mmq_4_0(),
+    wireMaterial=Districts.Electrical.Transmission.Materials.Copper(),
+    P_nominal=2e5) "Transmission line"
+    annotation (Placement(transformation(extent={{80,40},{60,60}})));
+  Districts.Electrical.DC.Sources.ConstantVoltage souDC(V=240) "DC source"
+    annotation (Placement(transformation(extent={{100,10},{80,30}})));
+  Modelica.Electrical.Analog.Basic.Ground ground
+    annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+  Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senAC
+    "Sensor for AC line"
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  Districts.Electrical.DC.Sensors.GeneralizedSensor senDC "Sensor for DC line"
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
 equation
   connect(weaDat.weaBus, bui1.weaBus)             annotation (Line(
       points={{-40,50},{-20,50}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(bui1.threePhasePlug, adaptor.threePhasePlug) annotation (Line(
-      points={{8.88178e-16,50},{10,50}},
-      color={0,0,0},
+  connect(lin.terminal_n, gri.terminal) annotation (Line(
+      points={{80,50},{88,50},{88,60}},
+      color={0,120,120},
       smooth=Smooth.None));
-  connect(adaptor.phase1, singlePhaseLine.A) annotation (Line(
-      points={{28,56},{40,56}},
-      color={0,0,0},
+  connect(ground.p, souDC.n) annotation (Line(
+      points={{110,0},{110,20},{100,20}},
+      color={0,0,255},
       smooth=Smooth.None));
-  connect(adaptor.phase2, singlePhaseLine1.A) annotation (Line(
-      points={{28,50},{40,50}},
-      color={0,0,0},
+  connect(lin.terminal_p, senAC.terminal_p) annotation (Line(
+      points={{60,50},{40,50}},
+      color={0,120,120},
       smooth=Smooth.None));
-  connect(adaptor.phase3, singlePhaseLine2.A) annotation (Line(
-      points={{28,44},{40,44}},
-      color={0,0,0},
+  connect(senAC.terminal_n, bui1.terminal) annotation (Line(
+      points={{20,50},{0.4,50}},
+      color={0,120,120},
       smooth=Smooth.None));
-  connect(singlePhaseLine.B, gri.sPhasePlug) annotation (Line(
-      points={{60,56},{79.9,56},{79.9,60}},
-      color={0,0,0},
+  connect(bui1.terminal_dc, senDC.terminal_n) annotation (Line(
+      points={{4.44089e-16,44},{12,44},{12,20},{20,20}},
+      color={0,0,255},
       smooth=Smooth.None));
-  connect(singlePhaseLine1.B, gri1.sPhasePlug) annotation (Line(
-      points={{60,50},{109.9,50},{109.9,60}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(singlePhaseLine2.B, gri2.sPhasePlug) annotation (Line(
-      points={{60,44},{137.9,44},{137.9,60}},
-      color={0,0,0},
+  connect(senDC.terminal_p, souDC.terminal) annotation (Line(
+      points={{40,20},{80,20}},
+      color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{140,100}}), graphics), Icon(coordinateSystem(extent={{-100,
-            -100},{140,100}})));
+            -100},{140,100}})),
+    experiment(StopTime=86400, Tolerance=1e-05),
+    __Dymola_experimentSetupOutput);
 end LinearRegression;

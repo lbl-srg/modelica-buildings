@@ -1,6 +1,6 @@
 within Districts.Electrical.DC.Loads;
 model VariableConductor "Model of a variable conductive load"
-extends Districts.Electrical.DC.Interfaces.OnePort;
+extends Districts.Electrical.DC.Interfaces.OnePort_n;
 
   Modelica.Blocks.Interfaces.RealInput P(unit="W") "Power input"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
@@ -28,7 +28,7 @@ equation
           origin={-3.55271e-15,2},
           rotation=180),
           Line(points={{-10,0},{10,0}},color={0,0,0},
-          origin={-80,2},
+          origin={-80,0},
           rotation=180),
         Text(
           extent={{-44,146},{46,104}},
