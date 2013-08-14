@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.IO;
+within Buildings.Rooms.FLEXLAB.IO;
 model CalBayDimmingGetDAQ
   "Block calling a Python script to communicate with CalBay"
   extends Modelica.Blocks.Interfaces.DiscreteBlock(startTime=0);

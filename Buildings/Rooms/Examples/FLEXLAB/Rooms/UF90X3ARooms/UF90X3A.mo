@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3ARooms;
+within Buildings.Rooms.FLEXLAB.Rooms.UF90X3ARooms;
 model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   extends Buildings.Rooms.MixedAir(AFlo=60.97,
       nSurBou=1,
@@ -56,7 +56,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
     "Construction of wall connecting to cell UF90X2B"
     annotation (Placement(transformation(extent={{410,-120},{430,-100}})));
   replaceable Data.Constructions.OpaqueConstructions.PartitionDoor parDoo
-    "Door used in partition walls in FLeXLab test cells"
+    "Door used in partition walls in FLEXLAB test cells"
     annotation (Placement(transformation(extent={{410,-96},{430,-76}})));
   replaceable Data.Constructions.OpaqueConstructions.ExteriorDoorInsulated
                                                       extDoo
@@ -70,12 +70,12 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   </p>
   <p>
   Constructions used to describe the walls used in test cell UF90X3A are available in 
-  <a href=\"modelica:Buildings.Rooms.Examples.FLEXLAB.Constructions.OpaqueConstructions\">
-  Buildings.Rooms.Examples.FLEXLAB.Constructions.OpaqueConstructions</a>. All wall 
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Constructions.OpaqueConstructions\">
+  Buildings.Rooms.FLEXLAB.Constructions.OpaqueConstructions</a>. All wall 
   construction models are made using information from architectural drawings. Constructions
   used to describe the windows are available in
-  <a href=\"modelica:Buildings.Rooms.Examples.FLEXLAB.Data.Constructions.GlazingSystems\">
-  Buildings.Rooms.Examples.FLEXLAB.Data.Constructions.GLazingSystems</a>. Window models are based on
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems\">
+  Buildings.Rooms.FLEXLAB.Data.Constructions.GLazingSystems</a>. Window models are based on
   information available in the construction specifications.
   </p>
   <p>
@@ -85,7 +85,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   There are 7 different wall sections described in the model. They are shown in the figure below.
   </p>
   <p align=\"center\">
-  <img src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FLEXLAB/Cells/UF90X3A.png\" border=\"1\" alt=\"Wall sections in UF90X3A model\"/>
+  <img src=\"modelica://Buildings/Resources/Images/Rooms.FLEXLAB/Cells/UF90X3A.png\" border=\"1\" alt=\"Wall sections in UF90X3A model\"/>
   </p>  
   <p>
   The different wall sections are entered into the model according to the following table.
@@ -123,16 +123,16 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   <td>4</td>
   <td>This north-facing wall borders an electrical room. It models the heat transfer between test cell
   UF90X3A and the externally modeled electrical room. For an example see
-  <a href=\"modelica:Buildings.Rooms.Examples.FLEXLAB.Cells.Examples.UF90X3AWithRadiantFloor\">
-  Buildings.Rooms.Examples.FLEXLAB.Cells.Examples.UF90X3AWithRadiantFloor</a>.</td>
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Cells.Examples.UF90X3AWithRadiantFloor\">
+  Buildings.Rooms.FLEXLAB.Cells.Examples.UF90X3AWithRadiantFloor</a>.</td>
   <td>datConBou[5]</td>
   <td>R52Wal</td>
   </tr>
   <tr>
   <td>5</td>
   <td>This north facing wall borders an externally modeled closet. For an example see 
-  <a href=\"modelica:Buildings.Rooms.Examples.FLEXLAB.Cells.Examples.UF90X3AWithRadiantFloor\">
-  Buildings.Rooms.Examples.FLEXLAB.Cells.Examples.UF90X3AWithRadiantFloor</a>. Similar to wall section 
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Cells.Examples.UF90X3AWithRadiantFloor\">
+  Buildings.Rooms.FLEXLAB.Cells.Examples.UF90X3AWithRadiantFloor</a>. Similar to wall section 
   3 this wall section contains both a wall construction and a door construction. The wall area
   calculation shows the total wall area minus the door area.</td>
   <td>Door: datConBou[4]; Wall: datConBou[3]</td>

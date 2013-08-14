@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.Rooms.Examples;
+within Buildings.Rooms.FLEXLAB.Rooms.Examples;
 model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
   import Buildings;
   extends Modelica.Icons.Example;
@@ -8,7 +8,7 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
   package Water = Buildings.Media.ConstantPropertyLiquidWater
     "Water model used in the radiant slab loop";
 
-  Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3A
+  Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A
                                                  UF90X3A(
       nPorts=2,
     redeclare package Medium = Air,
@@ -23,7 +23,7 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
   Modelica.Blocks.Sources.CombiTimeTable airCon(table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
     tableName="airCon",
-    fileName="Resources/Data/Rooms/Examples/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.txt")
+    fileName="Resources/Data/Rooms.FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.txt")
     "Inlet air conditions (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-196,54},{-176,74}})));
   Buildings.Fluid.Sources.MassFlowSource_T
@@ -107,12 +107,12 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={50,-108})));
-  Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical
+  Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical
                            eleRoo(
     redeclare package Medium = Air,
     nPorts=2) "Model of the electrical room"
     annotation (Placement(transformation(extent={{54,-80},{94,-40}})));
-  Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset
+  Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset
                            clo(
     redeclare package Medium = Air,
     nPorts=2) "Model of the closet"
@@ -308,20 +308,20 @@ equation
           Documentation(info = "<html>
           <p>
           This model demonstrates one potential use of
-          <a href=\"modelica://Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
-          Buildings.Rooms.Examples.FLeXLab.Rooms.UF90X3A.UF90X3A</a>. This examples
+          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
+          Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3A</a>. This examples
           simulates the test cell when it is conditioned with a radiant slab.
           </p>
           <p>
-          This example model of <a href=\"modelica://Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
-          Buildings.Rooms.Examples.FLEXLAB.UF90X3A.UF90X3A</a> includes heat transfer between the test cell,
+          This example model of <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
+          Buildings.Rooms.FLEXLAB.UF90X3A.UF90X3A</a> includes heat transfer between the test cell,
           the outdoor environment, the radiant slab conditioning the test cell, the connected electrical room
           and closet, and the neighboring test cells. The following image is a drawing of test cell UF90X3A.
           It shows how the different rooms in this example are connected, as well as providing the names used
           in this example for each of the rooms.
           </p>        
           <p align=\"center\">
-          <img src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.png\"border=\"1\" alt=\"Room locations and names in UF90X3AWithRadiantFloor\"/>
+          <img src=\"modelica://Buildings/Resources/Images/Rooms.FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.png\"border=\"1\" alt=\"Room locations and names in UF90X3AWithRadiantFloor\"/>
           </p>                    
           <p>
           The connections between the test cell and the external models are described in the following table.
@@ -422,8 +422,8 @@ equation
           </table>
           <p>
           The electrical room connected to test cell UF90X3A is modeled using
-          <a href=\"modelica://Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical\">
-          Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical</a>. The necessary 
+          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical\">
+          Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical</a>. The necessary 
           connections are described in the following table. Connections previously described
           are not included here.
           </p>
@@ -461,8 +461,8 @@ equation
           </table>
           <p>
           The close connected to the UF90X3A test cell is modeled using an instance of 
-          <a href=\"modelica://Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3ACloset\">
-          Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3ACloset</a>. The connections
+          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3ACloset\">
+          Buildings.Rooms.FLEXLAB.Rooms.UF90X3ACloset</a>. The connections
           necessary to accurately include the space in the simulation are described
           in the following table. Prevsiouly mentioned connections are not included.
           </p>
@@ -600,6 +600,6 @@ equation
           First implementation.</li>
           </ul>
           </html>"),
-    Commands(file="Resources/Scripts/Dymola/Rooms/Examples/FLeXLab/Rooms/Examples/UF90X3AWithRadiantFloor.mos"
+    Commands(file="Resources/Scripts/Dymola/Rooms/Examples/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.mos"
         "Simulate and Plot"));
 end UF90X3AWithRadiantFloor;

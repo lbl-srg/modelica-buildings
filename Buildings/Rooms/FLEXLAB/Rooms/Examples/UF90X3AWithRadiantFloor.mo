@@ -23,7 +23,7 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
   Modelica.Blocks.Sources.CombiTimeTable airCon(table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
     tableName="airCon",
-    fileName="Resources/Data/Rooms/Examples/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.txt")
+    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.txt")
     "Inlet air conditions (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-196,54},{-176,74}})));
   Buildings.Fluid.Sources.MassFlowSource_T airIn(
@@ -164,6 +164,8 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
     table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)
     "Internal gain heat flow for the closet"
     annotation (Placement(transformation(extent={{-12,132},{8,152}})));
+  inner Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{160,-180},{180,-160}})));
 equation
   connect(airCon.y[1],airIn. m_flow_in) annotation (Line(
       points={{-175,64},{-168,64},{-168,68},{-160,68}},
@@ -257,11 +259,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(preTem2[1].port, UF90X3A.surf_conBou[1]) annotation (Line(
-      points={{54,-108},{-84,-108},{-84,41.2}},
+      points={{48,-108},{-84,-108},{-84,41.2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preTem2[2].port, UF90X3A.surf_conBou[2]) annotation (Line(
-      points={{54,-108},{-84,-108},{-84,41.6}},
+      points={{48,-108},{-84,-108},{-84,41.6}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airInClo.ports[1], clo.ports[1]) annotation (Line(
@@ -269,11 +271,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TNei.y, preTem2.T) annotation (Line(
-      points={{89,-108},{76,-108}},
+      points={{89,-108},{70,-108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preTem2[2].port, clo.surf_conBou[2]) annotation (Line(
-      points={{54,-108},{36,-108},{36,-90},{182,-90},{182,96.5}},
+      points={{48,-108},{36,-108},{36,-90},{182,-90},{182,96.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airConClo.y[2], airInClo.T_in) annotation (Line(
@@ -322,7 +324,7 @@ equation
           in this example for each of the rooms.
           </p>        
           <p align=\"center\">
-          <img src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.png\"border=\"1\" alt=\"Room locations and names in UF90X3AWithRadiantFloor\"/>
+          <img src=\"modelica://Buildings/Resources/Images/Rooms.FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.png\"border=\"1\" alt=\"Room locations and names in UF90X3AWithRadiantFloor\"/>
           </p>                    
           <p>
           The connections between the test cell and the external models are described in the following table.
@@ -601,6 +603,6 @@ equation
           First implementation.</li>
           </ul>
           </html>"),
-    Commands(file="Resources/Scripts/Dymola/Rooms/Examples/FLeXLab/Rooms/Examples/UF90X3AWithRadiantFloor.mos"
+    Commands(file="Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.mos"
         "Simulate and Plot"));
 end UF90X3AWithRadiantFloor;

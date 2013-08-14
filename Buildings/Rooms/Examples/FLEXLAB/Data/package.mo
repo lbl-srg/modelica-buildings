@@ -1,5 +1,5 @@
-within Buildings.Rooms.Examples.FLEXLAB;
-package Data "Data files commonly used in FLeXLab model"
+within Buildings.Rooms.FLEXLAB;
+package Data "Data files commonly used in FLEXLAB model"
 
 
 extends Modelica.Icons.Package;

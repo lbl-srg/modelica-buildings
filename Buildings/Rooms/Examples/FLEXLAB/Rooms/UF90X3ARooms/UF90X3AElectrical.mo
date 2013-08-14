@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.Rooms.UF90X3ARooms;
+within Buildings.Rooms.FLEXLAB.Rooms.UF90X3ARooms;
 model UF90X3AElectrical
   "Model of the electrical room attached to test cell UF90X3A"
   extends Buildings.Rooms.MixedAir(

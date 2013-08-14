@@ -67,7 +67,7 @@ model UF90X3ACloset "Model of the closet connected to test bed UF90X3A"
     in the figure below.
     </p>
     <p align=\"center\">
-    <img src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FLEXLAB/Rooms/UF90X3A/UF90X3ACloset.png\" border=\"1\" alt=\"Wall sections in UF90X3ACloset model\"/>
+    <img src=\"modelica://Buildings/Resources/Images/Rooms.FLEXLAB/Rooms/UF90X3A/UF90X3ACloset.png\" border=\"1\" alt=\"Wall sections in UF90X3ACloset model\"/>
     </p>
     <p>
     The different wall sections are represented in the model according to the following table.

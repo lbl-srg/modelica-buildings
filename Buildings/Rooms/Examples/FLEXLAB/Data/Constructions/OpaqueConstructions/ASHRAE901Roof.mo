@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.Data.Constructions.OpaqueConstructions;
+within Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions;
 record ASHRAE901Roof =
   Buildings.HeatTransfer.Data.OpaqueConstructions.Generic(final material={
     Buildings.HeatTransfer.Data.Solids.GypsumBoard(x=0.016),

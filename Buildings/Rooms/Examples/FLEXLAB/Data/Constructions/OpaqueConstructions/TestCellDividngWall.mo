@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.FLEXLAB.Data.Constructions.OpaqueConstructions;
+within Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions;
 record TestCellDividngWall =
   Buildings.HeatTransfer.Data.OpaqueConstructions.Generic(final material={
     Buildings.HeatTransfer.Data.Solids.GypsumBoard(x=0.01588),

@@ -56,7 +56,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
     "Construction of wall connecting to cell UF90X2B"
     annotation (Placement(transformation(extent={{410,-120},{430,-100}})));
   replaceable Data.Constructions.OpaqueConstructions.PartitionDoor parDoo
-    "Door used in partition walls in FLeXLab test cells"
+    "Door used in partition walls in FLEXLAB test cells"
     annotation (Placement(transformation(extent={{410,-96},{430,-76}})));
   replaceable Data.Constructions.OpaqueConstructions.ExteriorDoorInsulated
     extDoo "Construction of an exterior door"
@@ -95,7 +95,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   There are 7 different wall sections described in the model. They are shown in the figure below.
   </p>
   <p align=\"center\">
-  <img src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FLEXLAB/Rooms/UF90X3A/UF90X3A.png\" border=\"1\" alt=\"Wall sections in UF90X3A model\"/>
+  <img src=\"modelica://Buildings/Resources/Images/Rooms.FLEXLAB/Rooms/UF90X3A/UF90X3A.png\" border=\"1\" alt=\"Wall sections in UF90X3A model\"/>
   </p>  
   <p>
   The different wall sections are entered into the model according to the following table.
