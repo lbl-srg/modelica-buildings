@@ -29,4 +29,5 @@ SideFins
 Examples
 startCosimulation
 exchangeData
-stopCosimulation
+receiveFeedback
+sendStopComannd
