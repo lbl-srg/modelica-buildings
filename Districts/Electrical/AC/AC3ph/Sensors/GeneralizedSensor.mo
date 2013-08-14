@@ -18,5 +18,10 @@ July 24, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={Text(
+          extent={{-52,116},{52,50}},
+          lineColor={0,0,255},
+          textString="%name")}));
 end GeneralizedSensor;
