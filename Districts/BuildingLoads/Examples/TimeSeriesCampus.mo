@@ -1,6 +1,6 @@
 within Districts.BuildingLoads.Examples;
-model LinearRegressionCampus
-  "Example model for the linear regression building load as part of a campus"
+model TimeSeriesCampus
+  "Example model for the time series building load as part of a campus"
   import Districts;
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Voltage VTra = 50e3 "Voltage of transmission grid";
@@ -23,9 +23,22 @@ model LinearRegressionCampus
   model line = DummyLine "Line model";
   //model line = Districts.Electrical.AC.AC3ph.Lines.Line "Line model";
   //model line = resistiveLine "Line model";
-  Districts.BuildingLoads.LinearRegression buiA(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt")
+  Districts.BuildingLoads.TimeSeries buiA(fileName="Resources/Data/BuildingLoads/Examples/buildingA.txt")
     "Building A"
     annotation (Placement(transformation(extent={{230,30},{250,50}})));
+  Districts.BuildingLoads.TimeSeries buiB(fileName="Resources/Data/BuildingLoads/Examples/buildingB.txt")
+    "Building B"
+    annotation (Placement(transformation(extent={{170,30},{190,50}})));
+  Districts.BuildingLoads.TimeSeries buiC(fileName="Resources/Data/BuildingLoads/Examples/buildingC.txt")
+    "Building C"
+    annotation (Placement(transformation(extent={{108,30},{128,50}})));
+  Districts.BuildingLoads.TimeSeries buiD(fileName="Resources/Data/BuildingLoads/Examples/buildingD.txt")
+    "Building D"
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+  Districts.BuildingLoads.TimeSeries buiE(fileName="Resources/Data/BuildingLoads/Examples/buildingE.txt")
+    "Building E"
+    annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
+
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-220,60},{-200,80}})));
@@ -37,14 +50,14 @@ model LinearRegressionCampus
   Districts.Electrical.AC.AC3ph.Conversion.ACACConverter acac(eta=0.9,
       conversionFactor=VDis/VTra) "AC/AC converter"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  line dt(
+  line linDT(
     P_nominal=P_dt,
     V_nominal=VDis,
     l=40,
     wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
     "Distribution line"
     annotation (Placement(transformation(extent={{-22,-30},{-2,-10}})));
-  line de(
+  line linDE(
     V_nominal=VDis,
     P_nominal=P_de,
     l=400,
@@ -69,14 +82,14 @@ model LinearRegressionCampus
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,-50})));
-  line ce(
+  line linCE(
     V_nominal=VDis,
     P_nominal=P_ce,
     l=50,
     wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
     "Distribution line"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
-  line c(
+  line linC(
     V_nominal=VDis,
     P_nominal=P_c,
     l=60,
@@ -85,14 +98,14 @@ model LinearRegressionCampus
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={140,10})));
-  line bc(
+  line linBC(
     V_nominal=VDis,
     P_nominal=P_bc,
     l=40,
     wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
     "Distribution line"
     annotation (Placement(transformation(extent={{160,-30},{180,-10}})));
-  line b(
+  line linB(
     V_nominal=VDis,
     P_nominal=P_b,
     l=20,
@@ -101,7 +114,7 @@ model LinearRegressionCampus
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={200,10})));
-  line a(
+  line linA(
     V_nominal=VDis,
     P_nominal=P_a,
     l=120,
@@ -110,18 +123,6 @@ model LinearRegressionCampus
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={250,-20})));
-  Districts.BuildingLoads.LinearRegression buiB(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt")
-    "Building B"
-    annotation (Placement(transformation(extent={{170,30},{190,50}})));
-  Districts.BuildingLoads.LinearRegression buiC(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt")
-    "Building C"
-    annotation (Placement(transformation(extent={{108,30},{128,50}})));
-  Districts.BuildingLoads.LinearRegression buiD(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt")
-    "Building D"
-    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  Districts.BuildingLoads.LinearRegression buiE(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt")
-    "Building E"
-    annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
   Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senAC
     "Sensor in AC line after the transformer"
@@ -139,7 +140,7 @@ model LinearRegressionCampus
 
   Districts.BuildingLoads.Examples.BaseClasses.BatteryControl_S
                    conBat "Battery controller"
-    annotation (Placement(transformation(extent={{358,-114},{378,-94}})));
+    annotation (Placement(transformation(extent={{360,-110},{380,-90}})));
   Districts.Electrical.DC.Sources.PVSimple pv(A=100*150) "PV array"
     annotation (Placement(transformation(extent={{376,80},{396,100}})));
   Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
@@ -238,43 +239,53 @@ equation
       points={{-150,-4.44089e-16},{-150,-20},{-120,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(dt.terminal_p, de.terminal_n) annotation (Line(
+  connect(linDT.terminal_p, linDE.terminal_n)
+                                        annotation (Line(
       points={{-2,-20},{40,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(dt.terminal_p, d.terminal_p) annotation (Line(
+  connect(linDT.terminal_p, d.terminal_p)
+                                       annotation (Line(
       points={{-2,-20},{20,-20},{20,-40}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(de.terminal_p, ce.terminal_n) annotation (Line(
+  connect(linDE.terminal_p, linCE.terminal_n)
+                                        annotation (Line(
       points={{60,-20},{100,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(e.terminal_p, de.terminal_p) annotation (Line(
+  connect(e.terminal_p, linDE.terminal_p)
+                                       annotation (Line(
       points={{80,-40},{80,-20},{60,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(ce.terminal_p, bc.terminal_n) annotation (Line(
+  connect(linCE.terminal_p, linBC.terminal_n)
+                                        annotation (Line(
       points={{120,-20},{160,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(c.terminal_n, ce.terminal_p) annotation (Line(
+  connect(linC.terminal_n, linCE.terminal_p)
+                                       annotation (Line(
       points={{140,0},{140,-20},{120,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(bc.terminal_p, a.terminal_n) annotation (Line(
+  connect(linBC.terminal_p, linA.terminal_n)
+                                       annotation (Line(
       points={{180,-20},{240,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(b.terminal_n, bc.terminal_p) annotation (Line(
+  connect(linB.terminal_n, linBC.terminal_p)
+                                       annotation (Line(
       points={{200,-4.44089e-16},{200,-20},{180,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(b.terminal_p, buiB.terminal) annotation (Line(
+  connect(linB.terminal_p, buiB.terminal)
+                                       annotation (Line(
       points={{200,20},{200,40},{190.4,40}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(c.terminal_p, buiC.terminal) annotation (Line(
+  connect(linC.terminal_p, buiC.terminal)
+                                       annotation (Line(
       points={{140,20},{140,40},{128.4,40}},
       color={0,120,120},
       smooth=Smooth.None));
@@ -310,11 +321,13 @@ equation
       points={{-100,-20},{-80,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(senAC.terminal_p, dt.terminal_n)  annotation (Line(
+  connect(senAC.terminal_p, linDT.terminal_n)
+                                            annotation (Line(
       points={{-60,-20},{-22,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(a.terminal_p, senA.terminal_n) annotation (Line(
+  connect(linA.terminal_p, senA.terminal_n)
+                                         annotation (Line(
       points={{260,-20},{280,-20},{280,-4.44089e-16}},
       color={0,120,120},
       smooth=Smooth.None));
@@ -347,7 +360,7 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(bat.SOC, conBat.SOC) annotation (Line(
-      points={{397,-26},{410,-26},{410,50},{346,50},{346,-98},{356,-98}},
+      points={{397,-26},{410,-26},{410,50},{346,50},{346,-94},{358,-94}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDifTil.H,G. u1) annotation (Line(
@@ -395,16 +408,17 @@ equation
       points={{380,170},{340,170},{340,-20},{320,-20}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(acdc.terminal_n, a.terminal_p) annotation (Line(
+  connect(acdc.terminal_n, linA.terminal_p)
+                                         annotation (Line(
       points={{300,-20},{260,-20}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(senAC.S[1], conBat.S) annotation (Line(
-      points={{-76,-29},{-78,-29},{-78,-110},{356,-110}},
+      points={{-76,-29},{-76,-106},{358,-106}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conBat.P, bat.P) annotation (Line(
-      points={{379,-104},{386,-104},{386,-30}},
+      points={{381,-100},{386,-100},{386,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
@@ -415,6 +429,6 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"),
       Commands(file=
-          "Resources/Scripts/Dymola/BuildingLoads/Examples/LinearRegressionCampus.mos"
+          "Resources/Scripts/Dymola/BuildingLoads/Examples/TimeSeriesCampus.mos"
         "Simulate and plot"));
-end LinearRegressionCampus;
+end TimeSeriesCampus;

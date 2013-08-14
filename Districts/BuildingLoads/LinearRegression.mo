@@ -2,6 +2,7 @@ within Districts.BuildingLoads;
 model LinearRegression
   "Whole building load model based on linear regression and table look-up"
 extends Modelica.Blocks.Interfaces.BlockIcon;
+extends Modelica.Icons.UnderConstruction;
   parameter String fileName="NoName"
     "File where matrix with regression coefficients is stored"
     annotation(Dialog(group="table data definition", enable = tableOnFile,
