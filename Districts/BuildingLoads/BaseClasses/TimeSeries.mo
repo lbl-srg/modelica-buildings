@@ -14,39 +14,25 @@ protected
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Data reader"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 public
-  Utilities.Diagnostics.AssertEquality assEquTOut(threShold=2)
+  Utilities.Diagnostics.AssertEquality assEquTOut(threShold=2,
+    startTime=86400,
+    u2(unit="K"))
     "Assert that the data from the weather bus corresponds with the data in the time series"
     annotation (Placement(transformation(extent={{-40,64},{-20,84}})));
-  Utilities.Diagnostics.AssertEquality assEquTDewPoi(threShold=2)
+  Utilities.Diagnostics.AssertEquality assEquTDewPoi(threShold=2, startTime=
+        86400)
     "Assert that the data from the weather bus corresponds with the data in the time series"
     annotation (Placement(transformation(extent={{-40,24},{-20,44}})));
-  Utilities.Diagnostics.AssertEquality assEquHDirNor(threShold=20)
+  Utilities.Diagnostics.AssertEquality assEquHDirNor(threShold=20, startTime=
+        86400)
     "Assert that the data from the weather bus corresponds with the data in the time series"
     annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
-  Utilities.Diagnostics.AssertEquality assEquHDif(threShold=20)
+  Utilities.Diagnostics.AssertEquality assEquHDif(threShold=20, startTime=86400)
     "Assert that the data from the weather bus corresponds with the data in the time series"
     annotation (Placement(transformation(extent={{-40,-84},{-20,-64}})));
 initial equation
  assert(time >= 0, "fixme: Model has not yet been tested for negative start time.");
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
-<p>
-This is the low-level implementation for reading the time series
-that contains the building load. It is used by by
-<a href=\"modelica://Districts.BuildingLoads.TimeSeries\">
-Districts.BuildingLoads.TimeSeries</a>.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-August 23, 2013, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
 
 equation
   connect(QCoo, datRea.y[6]) annotation (Line(
@@ -117,4 +103,22 @@ equation
       points={{-120,-80},{-42,-80}},
       color={0,0,127},
       smooth=Smooth.None));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics), Diagram(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
+    Documentation(info="<html>
+<p>
+This is the low-level implementation for reading the time series
+that contains the building load. It is used by by
+<a href=\"modelica://Districts.BuildingLoads.TimeSeries\">
+Districts.BuildingLoads.TimeSeries</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 23, 2013, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end TimeSeries;
