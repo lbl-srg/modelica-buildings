@@ -12,8 +12,7 @@ equation
     PhaseSystem.thetaRef(terminal.theta) =  2*Modelica.Constants.pi*f*time;
   end if;
   thetaRel = PhaseSystem.thetaRel(terminal.theta);
-  //terminal.v = PhaseSystem.phaseVoltages(V, thetaRel + Phi);
-  terminal.v = {V*cos(thetaRel + Phi), V*sin(thetaRel + Phi)};
+  terminal.v = PhaseSystem.phaseVoltages(V, thetaRel + Phi);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
