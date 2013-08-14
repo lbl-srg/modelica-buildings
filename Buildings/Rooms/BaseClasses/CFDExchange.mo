@@ -271,8 +271,8 @@ initial equation
   if nSen > 1 then
     for i in 1:nSen - 1 loop
       ideSenNam[i] = Modelica.Math.BooleanVectors.anyTrue({
-        Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j
-         in i + 1:nSen});
+        Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j in
+            i + 1:nSen});
     end for;
 
     assert(not Modelica.Math.BooleanVectors.anyTrue(ideSenNam), "For the CFD interface, all sensors must have a name that is unique within each room.
@@ -382,11 +382,13 @@ algorithm
   end when;
 
   when terminal() then
+    assert(rem(time-startTime,samplePeriod)<0.00001, "Warning: The simulation time is not a multiple of sampling time.",
+    level=AssertionLevel.warning);
     if verbose then
       Modelica.Utilities.Streams.print("CFDExchange:terminate at t=" + String(
         time));
     end if;
-    // Sned the stopping singal to FFD
+    // Send the stopping singal to FFD
     sendStopComannd();
 
     // Last exchange of data
