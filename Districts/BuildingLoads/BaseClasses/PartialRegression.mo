@@ -1,6 +1,7 @@
 within Districts.BuildingLoads.BaseClasses;
 partial block PartialRegression "Partial model for regression of building load"
   extends Modelica.Blocks.Interfaces.BlockIcon;
+
   parameter Integer nU = 4 "Dimension of input vector";
   parameter Integer nY = 9 "Dimension of output vector";
 
@@ -18,6 +19,7 @@ partial block PartialRegression "Partial model for regression of building load"
     "Direct normal solar radiation" annotation (Placement(transformation(extent=
            {{-140,-60},{-100,-20}}), iconTransformation(extent={{-140,-60},{-100,
             -20}})));
+
   Modelica.Blocks.Interfaces.RealOutput QCoo(unit="W")
     "Cooling provided at the coil" annotation (Placement(transformation(extent={
             {100,80},{120,100}}), iconTransformation(extent={{100,80},{120,100}})));
