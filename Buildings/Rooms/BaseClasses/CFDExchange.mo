@@ -81,7 +81,7 @@ protected
     input Boolean verbose "Set to true for verbose output";
   protected
     Integer nConExtWin=0;
-    Integer coSimFlag = 0;
+    Integer coSimFlag=0;
   algorithm
     if verbose then
       Modelica.Utilities.Streams.print("CFDExchange:sendParameter");
@@ -95,7 +95,7 @@ protected
     // fixme: need nConExtWin
 
     Modelica.Utilities.Streams.print(string="Launch createSharedMemory()");
-    coSimFlag :=startCosimulation(
+    coSimFlag := startCosimulation(
         name,
         A,
         til,
@@ -110,7 +110,7 @@ protected
         nConExtWin,
         0,
         0);
-     assert(coSimFlag < 0.5, "Could not start the cosimulation.");
+    assert(coSimFlag < 0.5, "Could not start the cosimulation.");
 
   end sendParameters;
 
@@ -149,21 +149,19 @@ protected
     //retVal := 0;
   end exchange;
 
-  ///////////////////////////////////////////////////////////////////////////
-  // Function that terminates the CFD simulation.
-  function terminate
-    input Modelica.SIunits.Time t "Current simulation time in seconds to write";
-    input Boolean verbose "Set to true for verbose output";
-
-  protected
-    Integer coSimFlag;
-  algorithm
-    if verbose then
-      Modelica.Utilities.Streams.print("CFDExchange:terminate at t=" + String(t));
-    end if;
-    coSimFlag :=stopCosimulation();
-    assert(coSimFlag < 0.5, "Could not terminate the cosimulation.");
-  end terminate;
+  //   ///////////////////////////////////////////////////////////////////////////
+  //   // Function that terminates the CFD simulation.
+  //   function terminate
+  //     input Modelica.SIunits.Time t "Current simulation time in seconds to write";
+  //     input Boolean activateInterface
+  //       "Set to false to deactivate interface and use instead yFixed as output";
+  //     input Boolean verbose "Set to true for verbose output";
+  //
+  //   algorithm
+  //
+  //
+  //
+  //   end terminate;
 
   ///////////////////////////////////////////////////////////////////////////
   // Function that returns strings that are not unique.
@@ -273,8 +271,8 @@ initial equation
   if nSen > 1 then
     for i in 1:nSen - 1 loop
       ideSenNam[i] = Modelica.Math.BooleanVectors.anyTrue({
-        Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j in
-            i + 1:nSen});
+        Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j
+         in i + 1:nSen});
     end for;
 
     assert(not Modelica.Math.BooleanVectors.anyTrue(ideSenNam), "For the CFD interface, all sensors must have a name that is unique within each room.
@@ -384,7 +382,32 @@ algorithm
   end when;
 
   when terminal() then
-    terminate(t=time, verbose=verbose);
+    if verbose then
+      Modelica.Utilities.Streams.print("CFDExchange:terminate at t=" + String(
+        time));
+    end if;
+    // Sned the stopping singal to FFD
+    sendStopComannd();
+
+    // Last exchange of data
+    if activateInterface then
+      (simTimRea,y,retVal) := exchange(
+        flag=0,
+        t=time,
+        dt=samplePeriod,
+        u=uWri,
+        nU=size(u, 1),
+        yFixed=yFixed,
+        nY=size(y, 1),
+        verbose=verbose);
+    else
+      simTimRea := time;
+      y := yFixed;
+      retVal := 0;
+    end if;
+    // Check if CFD has successfully stopped
+    assert(receiveFeedback() < 0.5, "Could not terminate the cosimulation.");
+
   end when;
   annotation (
     Placement(transformation(extent={{-140,-20},{-100,20}})),
