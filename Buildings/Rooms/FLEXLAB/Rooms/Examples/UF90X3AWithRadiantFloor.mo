@@ -399,7 +399,7 @@ equation
           table describes the connections between models used in the radiant slab. Being previously
           described, the connection to UF90X3A is not included.
           </p>
-          <table border \"1\" summary = \"Summary of connections to the radiant slab model\">
+          <table border=\"1\" summary = \"Summary of connections to the radiant slab model\">
           <tr>
           <th>Physical significance of connector</th>
           <th>Radiant slab port</th>
@@ -516,7 +516,7 @@ equation
           <th>Model name</th>
           <th>Quantity described</th>
           <th>Data source</th>          
-          <th>y[1] significane</th>
+          <th>y[1] significance</th>
           <th>y[2] significance</th>
           <th>y[3] significance</th>
           </tr>
