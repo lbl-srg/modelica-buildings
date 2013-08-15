@@ -1,7 +1,11 @@
 '''
 GeneralCalBayComm.py
 
-Allows user to specify login, pw and command. Then sends signal to CalBay adapter
+Communicates with CalBay adapter to control lights
+
+This script was written to interface with a simulation program. The simulation program sends a dimming light control signal,
+then CalBay communicates with the lights to send the control signal. The script then reads the light level in the space, and
+sends that information back to the simulation program.
 
 Created Jul 12, 2013
 
@@ -16,6 +20,7 @@ import struct
 CMDSLEEP = 0.10 # time in seconds to wait after sending command to read command.
 RECVSIZE = 6553600  # number of bytes to read on recv after command.
 
+#This portion of the code establishes communication with the CalBay adapter. It was written by Matt Whitlock
 
 class SocketClient(object):
     '''
@@ -123,19 +128,45 @@ class FlexlabExtInterface(SocketClient):
         #return r[cmdlen+2:]
         return r[4:]
 
+#The function CalBayComm(u) communicates with the CalBay adapter.
+#u is an input sent to the script from a simulation program.
+#In this version of the script u represents a setpoint for the 
+#dimming control on the lights in office 4126F.
+#The output from this function is the current light level in 4126F.
+#The light level is read from the CalBay adapter at the end of the function.
 def CalBayComm(u):
 
+    #References the FlexlabExtInterface() function to communicate with the CalBay adapter whenever "conn" is called
     conn = FlexlabExtInterface()
-    print "Opening connection to hardware."
+
+    #Opens connection to the CalBay adapter. There are four elements in the function call
+    #1. The IP address of the adapter
+    #2. The desired port for communication
+    #3. The login of the person running the script
+    #4. The password of the person running the script
+    #"Login" and "Password" are currently used as placeholders for a user's credentials. They must be edited by the user before the script can be used. 
     conn.open("128.3.20.130",3500,"Login","Password")
     
-    print "Sending control signal."
+    #Sends the dimming control signal to the CalBay adapter. There are seven elements in the string sent to CalBay.
+    #1. SETDAQ - This command indicates that the string is sending a control signal, and will manipulate some aspect of how the building is controlled.
+    #2. WattStopper.HS1 - This portion of the string indicates which server the desired control point is stored on.
+    #3. --4126F - This portion of the string indicates that the control point is in office 4126F
+    #4. --Dimmer Level-2 - This portion of the string indicates that the desired control point is light dimmer #2. Note: Dimmer Level-1 and 
+    #Dimmer Level-3 seem to have no effect
+    #5 str(u) - This portion converts the dimmer set point (u), taken from a simulation program, into a string and includes it in the send string
+    #6 Login - The user's login. This must be replaced with an actual credential before using the script
+    #7 Password - The user's password. This must be replaced with an actual credential before using the script
     conn.cmd('SETDAQ:WattStopper.HS1--4126F--Dimmer Level-2:' + str(u) + ':Login:Password') 
 
     time.sleep(30)
-
+    
+    #Sends the light level read string to the CalBay adapter. Most elements are the same as the send string, and only the changing elements are described here.
+    #1. GETDAQ - This command indicates that the string is obtaining a sensor reading from the CalBay adapter.
+    #2. Light Level-1 - Indicates that the sensor to read is the light level.
+    #3. float( - The value read from conn.cmd is a string. "float(" converts it to a float value
     y = float(conn.cmd('GetDAQ:WattStopper.HS1--4126F--Light Level-1:Login:Password'))
 
+    #Creates a results array for output from the function. Returns the light level (y) and the dimmer level set point (u)
     res = []
     res.append(y)
     res.append(u)
