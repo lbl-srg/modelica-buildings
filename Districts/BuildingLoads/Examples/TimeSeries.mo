@@ -6,7 +6,7 @@ model TimeSeries "Example model for the time series building load"
     "Building A"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        "Resources/weatherdata/CZ10RV2.mos")
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Districts.Electrical.AC.AC3ph.Sources.Grid gri(
     f=60,

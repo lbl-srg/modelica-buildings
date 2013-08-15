@@ -14,25 +14,35 @@ protected
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Data reader"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 public
-  Utilities.Diagnostics.AssertEquality assEquTOut(threShold=2,
-    startTime=86400,
-    u2(unit="K"))
+  Utilities.Diagnostics.AssertEquality assEquTOut(
+    u2(unit="K"),
+    threShold=10,
+    startTime=startTime + 36000)
     "Assert that the data from the weather bus corresponds with the data in the time series"
     annotation (Placement(transformation(extent={{-40,64},{-20,84}})));
-  Utilities.Diagnostics.AssertEquality assEquTDewPoi(threShold=2, startTime=
-        86400)
+  Utilities.Diagnostics.AssertEquality assEquTDewPoi(
+    u2(unit="K"),
+    threShold=10,
+    startTime=startTime + 36000)
     "Assert that the data from the weather bus corresponds with the data in the time series"
     annotation (Placement(transformation(extent={{-40,24},{-20,44}})));
-  Utilities.Diagnostics.AssertEquality assEquHDirNor(threShold=20, startTime=
-        86400)
+  Utilities.Diagnostics.AssertEquality assEquHDirNor(
+    u1(unit="W/m2"),
+    startTime=startTime + 36000,
+    threShold=300)
     "Assert that the data from the weather bus corresponds with the data in the time series"
     annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
-  Utilities.Diagnostics.AssertEquality assEquHDif(threShold=20, startTime=86400)
+  Utilities.Diagnostics.AssertEquality assEquHDif(
+    u1(unit="W/m2"),
+    startTime=startTime + 36000,
+    threShold=300)
     "Assert that the data from the weather bus corresponds with the data in the time series"
     annotation (Placement(transformation(extent={{-40,-84},{-20,-64}})));
+  final parameter Modelica.SIunits.Time startTime(fixed=false)
+    "Start time of the model";
 initial equation
+ startTime=time;
  assert(time >= 0, "fixme: Model has not yet been tested for negative start time.");
-
 
 equation
   connect(QCoo, datRea.y[6]) annotation (Line(
@@ -76,7 +86,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[1], assEquTOut.u2) annotation (Line(
-      points={{-59,0},{-50,0},{-50,68},{-42,68}},
+      points={{-59,4.44089e-16},{-50,4.44089e-16},{-50,68},{-42,68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TDewPoi, assEquTDewPoi.u1) annotation (Line(
@@ -84,11 +94,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[2], assEquTDewPoi.u2) annotation (Line(
-      points={{-59,0},{-50,0},{-50,28},{-42,28}},
+      points={{-59,4.44089e-16},{-50,4.44089e-16},{-50,28},{-42,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[4], assEquHDirNor.u1) annotation (Line(
-      points={{-59,6.66134e-16},{-50,6.66134e-16},{-50,-28},{-42,-28}},
+      points={{-59,4.44089e-16},{-50,4.44089e-16},{-50,-28},{-42,-28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDirNor, assEquHDirNor.u2) annotation (Line(
@@ -96,7 +106,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[3], assEquHDif.u1) annotation (Line(
-      points={{-59,0},{-50,0},{-50,-68},{-42,-68}},
+      points={{-59,4.44089e-16},{-50,4.44089e-16},{-50,-68},{-42,-68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDif, assEquHDif.u2) annotation (Line(

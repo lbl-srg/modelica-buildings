@@ -9,19 +9,56 @@ model TimeSeriesCampus
   parameter Modelica.SIunits.Voltage VDC = 240 "Voltage of DC grid";
 
   // Rated power that is used to size cables
-  parameter Modelica.SIunits.Power P_a = 1e5 "Rated power for sizing";
-  parameter Modelica.SIunits.Power P_b = 1e5 "Rated power for sizing";
-  parameter Modelica.SIunits.Power P_c = 1e5 "Rated power for sizing";
-  parameter Modelica.SIunits.Power P_d = 1e5 "Rated power for sizing";
-  parameter Modelica.SIunits.Power P_e = 1e5 "Rated power for sizing";
-  parameter Modelica.SIunits.Power P_bc = P_a  + P_b "Rated power for sizing";
-  parameter Modelica.SIunits.Power P_ce = P_bc + P_c "Rated power for sizing";
-  parameter Modelica.SIunits.Power P_de = P_ce + P_e "Rated power for sizing";
-  parameter Modelica.SIunits.Power P_dt = P_de + P_d "Rated power for sizing";
+  constant Real safetyMargin = 1.2 "Safety margin used for cable sizing";
+  parameter Modelica.SIunits.Power PBat = 1e5
+    "Rated power for battery charging and discharging";
+
+  parameter Modelica.SIunits.Power PMaxAC_A = 1.6e5
+    "Rated apparent load for sizing";
+  parameter Modelica.SIunits.Power PMaxDC_A = 1.0e5 "Rated load for sizing";
+  parameter Modelica.SIunits.Power PMaxAC_B = 2.5e5
+    "Rated apparent load for sizing";
+  parameter Modelica.SIunits.Power PMaxDC_B = 1.6e5 "Rated load for sizing";
+  parameter Modelica.SIunits.Power PMaxAC_C = 1.8e5
+    "Rated apparent load for sizing";
+  parameter Modelica.SIunits.Power PMaxDC_C = 5.7e4 "Rated load for sizing";
+  parameter Modelica.SIunits.Power PMaxAC_D = 3.7e5
+    "Rated apparent load for sizing";
+  parameter Modelica.SIunits.Power PMaxDC_D = 1.2e5 "Rated load for sizing";
+  parameter Modelica.SIunits.Power PMaxAC_E = 2.9e5
+    "Rated apparent load for sizing";
+  parameter Modelica.SIunits.Power PMaxDC_E = 1.1e5 "Rated load for sizing";
+  parameter Modelica.SIunits.Power PMaxAC=
+    PMaxAC_A + PMaxAC_B + PMaxAC_C + PMaxAC_D + PMaxAC_E
+    "Maximum AC rated load";
+  parameter Modelica.SIunits.Power PMaxDC=
+    PMaxDC_A + PMaxDC_B + PMaxDC_C + PMaxDC_D + PMaxDC_E
+    "Maximum DC rated load";
+
+  parameter Modelica.SIunits.Power P_a = ( PMaxAC_A + PMaxDC)  *safetyMargin + PBat
+    "Rated apparent power for sizing";
+  parameter Modelica.SIunits.Power P_b = PMaxAC_B*safetyMargin
+    "Rated apparent power for sizing";
+  parameter Modelica.SIunits.Power P_c = PMaxAC_C*safetyMargin
+    "Rated apparent power for sizing";
+  parameter Modelica.SIunits.Power P_d = PMaxAC_D*safetyMargin
+    "Rated apparent power for sizing";
+  parameter Modelica.SIunits.Power P_e = PMaxAC_E*safetyMargin
+    "Rated apparent power for sizing";
+  final parameter Modelica.SIunits.Power PBuiTot = (P_a+P_b+P_c+P_d+P_e)/safetyMargin-PBat
+    "Rated apparent power for sizing";
+  parameter Modelica.SIunits.Power P_bc = P_a  + P_b
+    "Rated apparent power for sizing";
+  parameter Modelica.SIunits.Power P_ce = P_bc + P_c
+    "Rated apparent power for sizing";
+  parameter Modelica.SIunits.Power P_de = P_ce + P_e
+    "Rated apparent power for sizing";
+  parameter Modelica.SIunits.Power P_dt = P_de + P_d
+    "Rated apparent power for sizing";
   // Declaration of the line model
   // Set the instance 'line' either to 'DummyLine' or to 'Districts.Electrical.AC.AC3ph.Lines.Line'
-  model line = DummyLine "Line model";
-  //model line = Districts.Electrical.AC.AC3ph.Lines.Line "Line model";
+  //model line = DummyLine "Line model";
+  model line = Districts.Electrical.AC.AC3ph.Lines.Line "Line model";
   //model line = resistiveLine "Line model";
   Districts.BuildingLoads.TimeSeries buiA(fileName="Resources/Data/BuildingLoads/Examples/buildingA.txt")
     "Building A"
@@ -40,13 +77,13 @@ model TimeSeriesCampus
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        "Resources/weatherdata/CZ10RV2.mos")
     annotation (Placement(transformation(extent={{-220,60},{-200,80}})));
   Districts.Electrical.AC.AC3ph.Sources.Grid gri(
     f=60,
     Phi=0,
     V=VTra)
-           annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
+           annotation (Placement(transformation(extent={{-172,0},{-152,20}})));
   Districts.Electrical.AC.AC3ph.Conversion.ACACConverter acac(eta=0.9,
       conversionFactor=VDis/VTra) "AC/AC converter"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
@@ -135,12 +172,13 @@ model TimeSeriesCampus
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={280,10})));
-  Districts.Electrical.DC.Storage.Battery bat(EMax=P_dt*24*3600*0.1) "Battery"
-    annotation (Placement(transformation(extent={{376,-10},{396,-30}})));
+  Districts.Electrical.DC.Storage.Battery bat(EMax=PBuiTot*24*3600*0.1)
+    "Battery"
+    annotation (Placement(transformation(extent={{376,-30},{396,-10}})));
 
-  Districts.BuildingLoads.Examples.BaseClasses.BatteryControl_S
-                   conBat "Battery controller"
-    annotation (Placement(transformation(extent={{360,-110},{380,-90}})));
+  Districts.BuildingLoads.Examples.BaseClasses.BatteryControl_V
+                   conBat(PMax=PBat, VDis=VDis) "Battery controller"
+    annotation (Placement(transformation(extent={{362,8},{382,28}})));
   Districts.Electrical.DC.Sources.PVSimple pv(A=100*150) "PV array"
     annotation (Placement(transformation(extent={{376,80},{396,100}})));
   Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
@@ -229,15 +267,15 @@ equation
             lineColor={0,0,0},
             textString="l=%l")}));
 end DummyLine;
+public
+  Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senTra
+    "Sensor in the transmission grid"
+    annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
 equation
   connect(weaDat.weaBus,buiA. weaBus)             annotation (Line(
       points={{-200,70},{220,70},{220,40},{230,40}},
       color={255,204,51},
       thickness=0.5,
-      smooth=Smooth.None));
-  connect(gri.terminal, acac.terminal_n)          annotation (Line(
-      points={{-150,-4.44089e-16},{-150,-20},{-120,-20}},
-      color={0,120,120},
       smooth=Smooth.None));
   connect(linDT.terminal_p, linDE.terminal_n)
                                         annotation (Line(
@@ -360,7 +398,7 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(bat.SOC, conBat.SOC) annotation (Line(
-      points={{397,-26},{410,-26},{410,50},{346,50},{346,-94},{358,-94}},
+      points={{397,-14},{410,-14},{410,50},{346,50},{346,24},{360,24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDifTil.H,G. u1) annotation (Line(
@@ -413,12 +451,20 @@ equation
       points={{300,-20},{260,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(senAC.S[1], conBat.S) annotation (Line(
-      points={{-76,-29},{-76,-106},{358,-106}},
+  connect(conBat.P, bat.P) annotation (Line(
+      points={{383,18},{386,18},{386,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conBat.P, bat.P) annotation (Line(
-      points={{381,-100},{386,-100},{386,-30}},
+  connect(senTra.terminal_p, acac.terminal_n) annotation (Line(
+      points={{-130,-20},{-120,-20}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(senTra.terminal_n, gri.terminal) annotation (Line(
+      points={{-150,-20},{-162,-20},{-162,-4.44089e-16}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(senA.V, conBat.VMea) annotation (Line(
+      points={{289,10},{324,10},{324,12},{360,12}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,

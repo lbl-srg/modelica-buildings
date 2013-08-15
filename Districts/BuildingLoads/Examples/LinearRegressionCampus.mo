@@ -137,7 +137,7 @@ model LinearRegressionCampus
   Districts.Electrical.DC.Storage.Battery bat(EMax=P_dt*24*3600*0.1) "Battery"
     annotation (Placement(transformation(extent={{376,-10},{396,-30}})));
 
-  Districts.BuildingLoads.Examples.BaseClasses.BatteryControl_S
+  Districts.BuildingLoads.Examples.BaseClasses.BatteryControl_V
                    conBat "Battery controller"
     annotation (Placement(transformation(extent={{358,-114},{378,-94}})));
   Districts.Electrical.DC.Sources.PVSimple pv(A=100*150) "PV array"
