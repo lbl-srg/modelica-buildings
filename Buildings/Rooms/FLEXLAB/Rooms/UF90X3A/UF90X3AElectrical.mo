@@ -40,7 +40,7 @@ model UF90X3AElectrical
   <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
   Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A</a> and
   <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset\">
-  Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset'</a>. The documentation
+  Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset</a>. The documentation
   for these models describes the connecting walls for the spaces, as well as how they
   are intended to be connected. An example of how they can be connected and applied is 
   provided in
@@ -61,12 +61,12 @@ model UF90X3AElectrical
   There are 4 different wall sections described in the model. They are shown in the figure below.
   </p>
   <p align=\"center\">
-  <img src=\"modelica://Buildings/Resources/Images/Rooms.FLEXLAB/Rooms/UF90X3A/UF90X3AElectrical.png\" border=\"1\" alt=\"Wall sections in UF90X3A model\"/>
+  <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/UF90X3A/UF90X3AElectrical.png\" border=\"1\" alt=\"Wall sections in UF90X3A model\"/>
   </p>
   <p>
   The different wall sections are entered into the model according to the following table.  
   </p>
-  <table border=\"1\">
+  <table border=\"1\" summary=\"Description of wall sections in EF90X3AElectrical\">
   <tr>
   <th>Wall Section Number</th>
   <th>Description</th>
@@ -106,7 +106,7 @@ model UF90X3AElectrical
   because they are connected to the external environment, and no additional heat port connections are necessary.
   A rationale for why the model is created this way is also provided if it is considered necessary. 
   </p>
-  <table border =\"1\">
+  <table border =\"1\" summary = \"Description of intended connections including UF90X3AElectrical model\">
   <tr>
   <th>Location in UF90XAElectrical</th>
   <th>Description of External Connection</th>

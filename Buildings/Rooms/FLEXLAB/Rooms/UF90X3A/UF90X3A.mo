@@ -95,12 +95,12 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   There are 7 different wall sections described in the model. They are shown in the figure below.
   </p>
   <p align=\"center\">
-  <img src=\"modelica://Buildings/Resources/Images/Rooms.FLEXLAB/Rooms/UF90X3A/UF90X3A.png\" border=\"1\" alt=\"Wall sections in UF90X3A model\"/>
+  <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/UF90X3A/UF90X3A.png\" border=\"1\" alt=\"Wall sections in UF90X3A model\"/>
   </p>  
   <p>
   The different wall sections are entered into the model according to the following table.
   </p>
-  <table border = \"1\">
+  <table border = \"1\" summary=\"Description of walls in UF90X3A room model\">
   <tr>
   <th>Wall Section Number</th>
   <th>Description</th>
@@ -172,7 +172,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   because they are connected to the external environment, and no additional heat port connections are necessary.
   A rationale for why the model is created this way is also provided if it is considered necessary.
   </p>
-  <table border =\"1\">
+  <table border =\"1\" summary=\"Description of intended connections including UF90X3A model\">
   <tr>
   <th>Location in UF90X3A</th>
   <th>Description of External Connection</th>
@@ -216,7 +216,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   </html>",
   revisions = "<html>
   <ul>
-  <li>Jun 10, 2013 by Peter Grant:<br>
+  <li>Jun 10, 2013 by Peter Grant:<br/>
   First implementation.</li>
   </ul>
   </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,

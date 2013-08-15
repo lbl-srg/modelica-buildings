@@ -259,11 +259,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(preTem2[1].port, UF90X3A.surf_conBou[1]) annotation (Line(
-      points={{48,-108},{-84,-108},{-84,41.2}},
+      points={{54,-108},{-84,-108},{-84,41.2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preTem2[2].port, UF90X3A.surf_conBou[2]) annotation (Line(
-      points={{48,-108},{-84,-108},{-84,41.6}},
+      points={{54,-108},{-84,-108},{-84,41.6}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airInClo.ports[1], clo.ports[1]) annotation (Line(
@@ -271,11 +271,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TNei.y, preTem2.T) annotation (Line(
-      points={{89,-108},{70,-108}},
+      points={{89,-108},{76,-108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preTem2[2].port, clo.surf_conBou[2]) annotation (Line(
-      points={{48,-108},{36,-108},{36,-90},{182,-90},{182,96.5}},
+      points={{54,-108},{36,-108},{36,-90},{182,-90},{182,96.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airConClo.y[2], airInClo.T_in) annotation (Line(
@@ -324,12 +324,12 @@ equation
           in this example for each of the rooms.
           </p>        
           <p align=\"center\">
-          <img src=\"modelica://Buildings/Resources/Images/Rooms.FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.png\"border=\"1\" alt=\"Room locations and names in UF90X3AWithRadiantFloor\"/>
+          <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.png\"border=\"1\" alt=\"Room locations and names in UF90X3AWithRadiantFloor\"/>
           </p>                    
           <p>
           The connections between the test cell and the external models are described in the following table.
           </p>
-          <table border =\"1\">
+          <table border =\"1\" summary = \"Summary of connections between test cell and other models\">
           <tr>
           <th>External model name</th>
           <th>External model significance</th>
@@ -399,7 +399,7 @@ equation
           table describes the connections between models used in the radiant slab. Being previously
           described, the connection to UF90X3A is not included.
           </p>
-          <table border \"1\">
+          <table border \"1\" summary = \"Summary of connections to the radiant slab model\">
           <tr>
           <th>Physical significance of connector</th>
           <th>Radiant slab port</th>
@@ -430,7 +430,7 @@ equation
           connections are described in the following table. Connections previously described
           are not included here.
           </p>
-          <table border=\"1\">
+          <table border=\"1\" summary = \"Connections to the electrical room model\">
           <tr>
           <th>External model name</th>
           <th>External model significance</th>
@@ -469,7 +469,7 @@ equation
           necessary to accurately include the space in the simulation are described
           in the following table. Prevsiouly mentioned connections are not included.
           </p>
-          <table border =\"1\">
+          <table border =\"1\" summary = \"Connections to the closet model\">
           <tr>
           <th>External model name</th>
           <th>External model significance</th>
@@ -511,7 +511,7 @@ equation
           below shows the name of data input files in the model, what physical phonemona the data file 
           describes, the physical signifacance of each data file output, and the source of the data.
           </p>
-          <table border =\"1\">
+          <table border =\"1\" summary = \"Description of data table models\">
           <tr>
           <th>Model name</th>
           <th>Quantity described</th>
@@ -599,7 +599,7 @@ equation
           </html>",
           revisions = "<html>
           <ul>
-          <li>Jun 10, 2013 by Peter Grant:<br>
+          <li>Jun 10, 2013 by Peter Grant:<br/>
           First implementation.</li>
           </ul>
           </html>"),
