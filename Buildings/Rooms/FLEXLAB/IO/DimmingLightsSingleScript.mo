@@ -3,12 +3,14 @@ model DimmingLightsSingleScript
   "Model calling a Python script to communicate with the CalBay adapter"
   extends Modelica.Icons.Example;
 
-  Modelica.Blocks.Sources.CombiTimeTable SetPoint(tableOnFile=false, table=[0,
   parameter Modelica.SIunits.Time samplePeriod = 30
     "Sample period for communication";
+
+  Modelica.Blocks.Sources.CombiTimeTable SetPoint(tableOnFile=false, table=[0,
         12; 119,12; 119,6; 239,6; 239,8; 359,8; 359,9; 479,9; 479,10; 599,10;
         599,12]) "Setpoint for lights"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+
   Utilities.IO.Python27.Real_Real calBay(
     functionName="CalBayComm",
     nDblWri=1,
@@ -83,4 +85,6 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics));
+
 end DimmingLightsSingleScript;
+
