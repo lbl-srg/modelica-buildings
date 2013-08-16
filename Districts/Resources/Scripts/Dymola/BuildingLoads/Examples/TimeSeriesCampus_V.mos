@@ -1,7 +1,7 @@
 simulateModel("Districts.BuildingLoads.Examples.TimeSeriesCampus_V", startTime=345600, stopTime=950400, method="Radau", tolerance=1e-06, resultFile="TimeSeriesCampus_V");
 createPlot(id = 7,
  position = {593, 45, 617, 506},
- y = {"pv.P", "tur.P", "senAC.S[1]"},
+ y = {"pv.P", "tur.P", "senDT.S[1]"},
  range = {0.0, 900000.0, -400000.0, 1600000.0},
  autoscale = true,
  autoerase = true,
