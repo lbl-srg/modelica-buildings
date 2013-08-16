@@ -62,7 +62,7 @@ protected
     "Conductor, used to interface power with electrical circuit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  Modelica.Blocks.Math.Gain gain(final k=-scale)
+  Modelica.Blocks.Math.Gain gain(final k=scale)
     "Gain, used to allow a user to easily scale the power"
     annotation (Placement(transformation(extent={{-8,10},{12,30}})));
 
@@ -74,10 +74,6 @@ protected
         rotation=0,
         origin={-60,20})));
 
-protected
-  Modelica.Blocks.Math.Gain gain1(
-                                 k=-1) "Gain to reverse sign"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
 initial equation
 assert(abs(table[1,2]) == 0,
   "First data point of performance table must be at cut-in wind speed,
@@ -105,12 +101,8 @@ equation
       points={{60,0},{-100,0}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(gain1.y, P) annotation (Line(
-      points={{81,60},{110,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.y, gain1.u) annotation (Line(
-      points={{13,20},{40,20},{40,60},{58,60}},
+  connect(gain.y, P) annotation (Line(
+      points={{13,20},{60,20},{60,60},{110,60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

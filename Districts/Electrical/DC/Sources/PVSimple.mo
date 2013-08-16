@@ -23,13 +23,11 @@ model PVSimple "Simple PV model"
     "Generalised terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
-  Modelica.Blocks.Sources.RealExpression solarPower(y=-A*fAct*eta*G)
+  Modelica.Blocks.Sources.RealExpression solarPower(y=A*fAct*eta*G)
     annotation (Placement(transformation(extent={{91,-10},{71,10}})));
   Loads.Conductor con(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
     "Conductor, used to interface power with electrical circuit"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Math.Gain gain(k=-1) "Gain to reverse sign"
-    annotation (Placement(transformation(extent={{70,60},{90,80}})));
 equation
   connect(con.terminal, terminal)  annotation (Line(
       points={{-10,0},{-100,0}},
@@ -39,15 +37,12 @@ equation
       points={{70,0},{42,0},{42,6.66134e-16},{10,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gain.y, P) annotation (Line(
-      points={{91,70},{110,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solarPower.y, gain.u) annotation (Line(
-      points={{70,6.66134e-16},{58,6.66134e-16},{58,0},{39,0},{39,70},{68,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
+  connect(solarPower.y, P) annotation (Line(
+      points={{70,6.66134e-16},{59,6.66134e-16},{59,0},{50,0},{50,70},{110,70}},
+
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,
