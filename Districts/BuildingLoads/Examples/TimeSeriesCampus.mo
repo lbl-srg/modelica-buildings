@@ -265,7 +265,7 @@ public
   Districts.Electrical.DC.Sources.WindTurbine tur(h=50, scale=500e3)
     "Wind turbine"
     annotation (Placement(transformation(extent={{430,170},{450,190}})));
-  Districts.BuildingLoads.Examples.BaseClasses.BatteryControl_V batCon(VDis=
+  Districts.BuildingLoads.Examples.BaseClasses.BatteryControl_V conBat(VDis=
         VDis, PMax=PDCGen/10) "Battery controller"
     annotation (Placement(transformation(extent={{420,0},{440,20}})));
   Districts.Electrical.DC.Storage.Battery bat(EMax=PDCGen*4*3600) "Battery"
@@ -425,15 +425,15 @@ equation
       points={{320,-20},{330,-20},{330,-4.44089e-16}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(bat.SOC, batCon.SOC) annotation (Line(
+  connect(bat.SOC,conBat. SOC) annotation (Line(
       points={{439,-14},{450,-14},{450,34},{408,34},{408,16},{418,16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senA.V, batCon.VMea) annotation (Line(
+  connect(senA.V,conBat. VMea) annotation (Line(
       points={{339,10},{378,10},{378,4},{418,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(batCon.P, bat.P) annotation (Line(
+  connect(conBat.P, bat.P) annotation (Line(
       points={{441,10},{446,10},{446,-2},{428,-2},{428,-10}},
       color={0,0,127},
       smooth=Smooth.None));
