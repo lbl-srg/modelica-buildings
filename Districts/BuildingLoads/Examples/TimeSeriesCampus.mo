@@ -9,7 +9,7 @@ model TimeSeriesCampus
   parameter Modelica.SIunits.Voltage VDC = 240 "Voltage of DC grid";
 
   // Rated power that is used to size cables
-  constant Real safetyMargin = 1.5 "Safety margin used for cable sizing";
+  constant Real safetyMargin = 2 "Safety margin used for cable sizing";
   parameter Modelica.SIunits.Power PDCGen = 1e8
     "Rated power for generated DC power";
 
