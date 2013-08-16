@@ -9,11 +9,12 @@ partial model PartialLoad
   Modelica.SIunits.Current i[:] = terminal.i;
   Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i)
     "Phase powers";
-  Modelica.SIunits.Power P "Power consumption of the load";
+  Modelica.SIunits.Power P
+    "Powe of the load (negative if consumed, positive if generated)";
   parameter Districts.Electrical.Types.Assumption
                        mode(min=1,max=4) = Districts.Electrical.Types.Assumption.FixedZ_steady_state annotation(evaluate=true,Dialog(group="Modelling assumption"));
-  parameter Modelica.SIunits.Power P_nominal(min=0, start=0)
-    "Nominal power (P_nominal >= 0)"  annotation(evaluate=true,Dialog(group="Nominal conditions",
+  parameter Modelica.SIunits.Power P_nominal(start=0)
+    "Nominal power (negative if consumed, positive if generated)"  annotation(evaluate=true,Dialog(group="Nominal conditions",
         enable = mode <> 3));
   Modelica.Blocks.Interfaces.RealInput y if mode==4
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
@@ -38,9 +39,9 @@ partial model PartialLoad
         iconTransformation(extent={{-108,-8},{-92,8}})));
 protected
   Modelica.Blocks.Interfaces.RealInput y_
-    "hidden value of the input load for the conditional connector";
+    "Hidden value of the input load for the conditional connector";
   Modelica.Blocks.Interfaces.RealInput Pow_
-    "hidden value of the input power for the conditional connector";
+    "Hidden value of the input power for the conditional connector";
   Real load(min=eps, max=1)
     "Internal representation of control signal, used to avoid singularity";
   constant Real eps = 1E-10
