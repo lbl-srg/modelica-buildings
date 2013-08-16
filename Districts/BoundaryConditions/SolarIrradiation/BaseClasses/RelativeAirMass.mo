@@ -28,7 +28,7 @@ This component computes the relative air mass for sky brightness.
 <h4>References</h4>
 R. Perez (1999).
 <i>Fortran Function irrpz.f</i>,
-Emailed by R. Perez to F.C. Winkelmann on May 21, 1999.<br>
+Emailed by R. Perez to F.C. Winkelmann on May 21, 1999.<br/>
 </html>
 ", revisions="<html>
 <ul>

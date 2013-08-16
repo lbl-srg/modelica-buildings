@@ -65,7 +65,7 @@ Feb 27, 2012, by Michael Wetter:<br/>
 Simplified example by using zenith angle from weather data bus.
 </li>
 <li>
-Feb 01, 2012, by Kaustubh Phalak<br>
+Feb 01, 2012, by Kaustubh Phalak<br/>
 First implementation.
 </li>
 </ul>

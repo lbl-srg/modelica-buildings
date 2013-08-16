@@ -63,7 +63,7 @@ Guarded against division by zero because the altitude angle can be <i>90</i> deg
 in the tropics, and hence its cosine can take on zero.
 </li>
 <li>
-Feb 01, 2012, by Kaustubh Phalak<br>
+Feb 01, 2012, by Kaustubh Phalak<br/>
 First implementation.
 </li>
 </ul>

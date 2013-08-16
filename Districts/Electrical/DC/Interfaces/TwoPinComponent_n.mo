@@ -29,7 +29,7 @@ equation
  revisions="<html>
 <ul>
 <li><i> 1998   </i>
-       by Christoph Clauss<br> initially implemented<br>
+       by Christoph Clauss<br/> initially implemented<br/>
        </li>
 </ul>
 </html>"),
