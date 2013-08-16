@@ -1,6 +1,10 @@
 within Districts.Electrical.Transmission.Base;
 partial model PartialLine "Cable line dispersion model"
-  extends Districts.Electrical.Interfaces.PartialTwoPort;
+  extends Districts.Electrical.Interfaces.PartialTwoPort(
+    terminal_n(i[:](each nominal=P_nominal/V_nominal),
+               v[:](each nominal=V_nominal)),
+    terminal_p(i[:](each nominal=P_nominal/V_nominal),
+               v[:](each nominal=V_nominal)));
   parameter Modelica.SIunits.Distance l(min=0) "Length of the line";
   parameter Modelica.SIunits.Power P_nominal(min=0) "Nominal power of the line";
   parameter Modelica.SIunits.Voltage V_nominal "Nominal voltage of the line";
@@ -39,6 +43,8 @@ partial model PartialLine "Cable line dispersion model"
     l, cable, commercialCable, mode)
     "Inductance of the cable due to mutual and self inductance" annotation(Evaluate = True);
 
+  Real IPerANor(unit="A/m2", displayUnit="A/(mm.mm)") = terminal_n.PhaseSystem.systemCurrent(terminal_n.i) / cable.S
+    "Current density";
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature cableTemp
     "Temperature of the cable"
     annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
