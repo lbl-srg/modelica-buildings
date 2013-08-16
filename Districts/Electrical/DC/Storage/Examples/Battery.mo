@@ -3,7 +3,7 @@ model Battery "Test model for battery"
   import Districts;
   extends Modelica.Icons.Example;
   Districts.Electrical.DC.Storage.Battery     bat(EMax=40e3*3600) "Battery"
-    annotation (Placement(transformation(extent={{100,20},{120,40}})));
+    annotation (Placement(transformation(extent={{120,10},{140,30}})));
   Districts.Electrical.DC.Sources.ConstantVoltage    sou(V=12) "Voltage source"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -15,7 +15,7 @@ model Battery "Test model for battery"
     "Electrical load"
     annotation (Placement(transformation(extent={{124,-30},{144,-10}})));
   Modelica.Blocks.Sources.Constant const1(k=10e3)
-    annotation (Placement(transformation(extent={{144,0},{124,20}})));
+    annotation (Placement(transformation(extent={{180,-30},{160,-10}})));
   Modelica.Blocks.Sources.SampleTrigger startCharge(period=24*3600,
       startTime=23*3600)
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
@@ -76,6 +76,11 @@ model Battery "Test model for battery"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  Districts.Electrical.DC.Sensors.GeneralizedSensor powSen "Power sensor"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={106,0})));
 equation
   connect(startCharge.y, TOn.conditionPort) annotation (Line(
       points={{-119,50},{-105,50}},
@@ -143,15 +148,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(add.y, bat.P) annotation (Line(
-      points={{41,-10},{52,-10},{52,50},{110,50},{110,40}},
+      points={{41,-10},{52,-10},{52,50},{130,50},{130,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bat.SOC, greaterEqualThreshold.u) annotation (Line(
-      points={{121,36},{140,36},{140,100},{-160,100},{-160,0},{-142,0}},
+      points={{141,26},{160,26},{160,100},{-160,100},{-160,0},{-142,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bat.SOC, lessEqualThreshold.u) annotation (Line(
-      points={{121,36},{140,36},{140,100},{-160,100},{-160,-80},{-142,-80}},
+      points={{141,26},{160,26},{160,100},{-160,100},{-160,-80},{-142,-80}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -176,15 +181,19 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(const1.y, loa.Pow) annotation (Line(
-      points={{123,10},{110,10},{110,-8},{156,-8},{156,-20},{144,-20}},
+      points={{159,-20},{144,-20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(loa.terminal, sou.terminal) annotation (Line(
       points={{124,-20},{88,-20}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(bat.terminal, sou.terminal) annotation (Line(
-      points={{100,30},{94,30},{94,-20},{88,-20}},
+  connect(bat.terminal, powSen.terminal_p) annotation (Line(
+      points={{120,20},{106,20},{106,10}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(powSen.terminal_n, sou.terminal) annotation (Line(
+      points={{106,-10},{106,-20},{88,-20}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,
@@ -194,7 +203,6 @@ equation
     Commands(file=
           "Resources/Scripts/Dymola/Electrical/DC/Storage/Examples/Battery.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-180,-100},{180,120}})),
     Documentation(info="<html>
 <p>
 This model illustrates use of a battery connected to an DC voltage source

@@ -1,7 +1,7 @@
 simulateModel("Districts.Electrical.DC.Storage.Examples.Battery", stopTime=432000, method="dassl", resultFile="Battery");
 createPlot(id = 11,
  position = {15, 10, 407, 414},
- y = {"bat.P", "powSen.power"},
+ y = {"bat.P", "powSen.S[1]"},
  range = {0.0, 450000.0, -20000.0, 30000.0},
  erase = false,
  autoscale = true,
