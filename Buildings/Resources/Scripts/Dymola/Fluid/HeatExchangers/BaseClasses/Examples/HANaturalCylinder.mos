@@ -1,8 +1,10 @@
-simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HANaturalCylinder", stopTime=50, method="dassl", resultFile="HANaturalCylinder");
+removePlots();
+
+simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HANaturalCylinder", stopTime=250, method="dassl", resultFile="HANaturalCylinder");
 
 createPlot(id = 8,
  position = {0, 0, 800, 600},
- y = {"hANatCyl.h"},
+ y = {"hANatCyl.hA"},
  range = {0.0, 51.0, 0.0, 900.0},
  erase = false,
  autoscale = true,
