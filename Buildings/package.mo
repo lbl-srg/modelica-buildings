@@ -146,9 +146,9 @@ when used with Modelica 3.2.1.
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.SolarCollectors
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Library with solar collectors.
     </td>
     </tr>
 </table>
@@ -158,6 +158,15 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Storage</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+    </td>
+    <td valign=\"top\">Added a model of a tank with built-in heat exchanger.
+                       This model may be used together with solar thermal plants.
+    </td> 
+    </tr>
 <tr><td colspan=\"2\"><b>Buildings.Resources</b>
     </td>
 </tr>
@@ -3505,6 +3514,9 @@ individual libraries.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">Fluid.Sensors</a>
    </td>
    <td valign=\"top\">Package with sensors.</td>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.SolarCollectors.UsersGuide\">Fluid.SolarCollectors</a>
+   </td>
+   <td valign=\"top\">Package with solar collectors.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Interfaces.UsersGuide\">Fluid.Interfaces</a>
    </td>
