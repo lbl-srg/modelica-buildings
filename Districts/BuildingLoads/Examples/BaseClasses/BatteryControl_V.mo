@@ -54,8 +54,8 @@ model BatteryControl_V
     waitTime=1,
       use_conditionPort=false,
     delayedTransition=false,
-    condition=SOC > 0.45 or SOC < 0.55,
-    loopCheck=true)
+    loopCheck=true,
+    condition=SOC > 0.45 and SOC < 0.55)
     annotation (Placement(transformation(extent={{16,24},{24,32}})));
   Modelica_StateGraph2.Step nightCharge(
     nOut=1,
