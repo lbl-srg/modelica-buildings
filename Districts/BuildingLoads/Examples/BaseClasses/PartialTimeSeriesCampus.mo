@@ -57,7 +57,8 @@ partial model PartialTimeSeriesCampus
   // Declaration of the line model
   // Set the instance 'line' either to 'DummyLine' or to 'Districts.Electrical.AC.AC3ph.Lines.Line'
   //model line = DummyLine "Line model";
-  model line = Districts.Electrical.AC.AC3ph.Lines.Line "Line model";
+  replaceable model line = Districts.Electrical.AC.AC3ph.Lines.Line
+    "Line model";
   //model line = resistiveLine "Line model";
   Districts.BuildingLoads.TimeSeries buiA(fileName="Resources/Data/BuildingLoads/Examples/buildingA.txt")
     "Building A"
@@ -97,8 +98,7 @@ partial model PartialTimeSeriesCampus
     V_nominal=VDis,
     wireMaterial=Districts.Electrical.Transmission.Materials.Copper(),
     P_nominal=P_de,
-    l=40)
-    "Distribution line. Fixme: this should be 400 m long, not 40 m long. A longer line may need power factor control"
+    l=400) "Distribution line"
     annotation (Placement(transformation(extent={{34,-30},{54,-10}})));
   line linD(
     V_nominal=VDis,
@@ -188,62 +188,10 @@ partial model PartialTimeSeriesCampus
 
   end resistiveLine;
 
-model DummyLine
-  extends Districts.Electrical.Interfaces.PartialTwoPort(
-      redeclare package PhaseSystem_p =
-        Districts.Electrical.PhaseSystems.ThreePhase_dq,
-      redeclare package PhaseSystem_n =
-        Districts.Electrical.PhaseSystems.ThreePhase_dq,
-      redeclare Districts.Electrical.AC.AC3ph.Interfaces.Terminal_n terminal_n,
-      redeclare Districts.Electrical.AC.AC3ph.Interfaces.Terminal_n terminal_p);
-
-  parameter Modelica.SIunits.Distance l(min=0) "Length of the line";
-  parameter Modelica.SIunits.Power P_nominal(min=0) "Nominal power of the line";
-  parameter Modelica.SIunits.Voltage V_nominal "Nominal voltage of the line";
-  parameter Districts.Electrical.Transmission.Cables.Cable cable=
-      Districts.Electrical.Transmission.Functions.selectCable(
-        P=P_nominal,
-        V=V_nominal,
-        mode=Districts.Electrical.Types.CableMode.automatic) "Type of cable"
-  annotation (choicesAllMatching=true,Dialog(tab="Tech. specification"), Placement(transformation(extent={{20,60},
-              {40,80}})));
-  parameter Districts.Electrical.Transmission.Materials.Material wireMaterial=
-      Districts.Electrical.Transmission.Materials.Copper()
-      "Material of the cable"
-    annotation (choicesAllMatching=true,Dialog(tab="Tech. specification"), Placement(transformation(extent={{60,60},
-              {80,80}})));
-equation
-
-  connect(terminal_n, terminal_p) annotation (Line(
-      points={{-100,2.22045e-16},{-4,2.22045e-16},{-4,0},{100,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
-            preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-          graphics={
-          Rectangle(extent={{-80,12},{80,-12}}, lineColor={0,0,0}),
-          Line(
-            points={{-80,0},{-100,0}},
-            color={0,0,0},
-            smooth=Smooth.None),
-          Line(
-            points={{80,0},{100,0}},
-            color={0,0,0},
-            smooth=Smooth.None),
-          Text(
-            extent={{-44,70},{40,34}},
-            lineColor={0,0,0},
-            textString="%name"),
-          Text(
-            extent={{-104,-36},{104,-78}},
-            lineColor={0,0,0},
-            textString="l=%l")}));
-end DummyLine;
 public
   Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senTra
     "Sensor in the transmission grid"
-    annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
+    annotation (Placement(transformation(extent={{-148,-30},{-128,-10}})));
   Districts.Electrical.AC.AC3ph.Conversion.ACDCConverter acdc(conversionFactor=
         VDC/VDis, eta=0.9) "AC/DC converter"
     annotation (Placement(transformation(extent={{350,-30},{370,-10}})));
@@ -269,6 +217,8 @@ public
   Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senDE
     "Sensor in DE line"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
+  Modelica.Blocks.Continuous.Integrator ETot "Total transmitted energy"
+    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 equation
   connect(weaDat.weaBus,buiA. weaBus)             annotation (Line(
       points={{-200,70},{270,70},{270,40},{280,40}},
@@ -351,11 +301,11 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(senTra.terminal_p, acac.terminal_n) annotation (Line(
-      points={{-130,-20},{-120,-20}},
+      points={{-128,-20},{-120,-20}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(senTra.terminal_n, gri.terminal) annotation (Line(
-      points={{-150,-20},{-162,-20},{-162,-4.44089e-16}},
+      points={{-148,-20},{-162,-20},{-162,-4.44089e-16}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(buiD.terminal_dc, acdc.terminal_p)  annotation (Line(
@@ -450,6 +400,10 @@ equation
   connect(linA.terminal_p, acdc.terminal_n) annotation (Line(
       points={{300,-20},{350,-20}},
       color={0,120,120},
+      smooth=Smooth.None));
+  connect(ETot.u, senTra.S[1]) annotation (Line(
+      points={{-122,-70},{-144,-70},{-144,-29}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -140},{460,220}}), graphics));

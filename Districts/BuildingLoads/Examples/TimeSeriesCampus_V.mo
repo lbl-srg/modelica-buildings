@@ -3,10 +3,11 @@ model TimeSeriesCampus_V
   "Example model for the time series building load as part of a campus"
   import Districts;
   extends Modelica.Icons.Example;
-  extends Districts.BuildingLoads.Examples.BaseClasses.PartialTimeSeriesCampus;
+  extends Districts.BuildingLoads.Examples.BaseClasses.PartialTimeSeriesCampus(
+      bat(EMax=PDCGen*3600/10));
 
   Districts.BuildingLoads.Examples.BaseClasses.BatteryControl_V conBat(VDis=
-        VDis, PMax=PDCGen/50) "Battery controller"
+        VDis, PMax=PDCGen/100) "Battery controller"
     annotation (Placement(transformation(extent={{420,6},{440,26}})));
 equation
   connect(bat.SOC,conBat. SOC) annotation (Line(

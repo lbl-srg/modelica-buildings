@@ -25,10 +25,12 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
       PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor)
     "Generalised terminal"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Modelica.Blocks.Math.Add add(k1=-1, k2=+1)
+  Modelica.Blocks.Math.Add add(k1=1, k2=-1)
     annotation (Placement(transformation(extent={{10,-32},{30,-12}})));
   Modelica.Blocks.Continuous.Integrator ETot(y(unit="J")) "Total energy"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
+  Modelica.Blocks.Math.Gain gain(k=1)
+    annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
 equation
   connect(terminal, loadRC.terminal) annotation (Line(
       points={{104,4.44089e-16},{64,4.44089e-16},{64,0},{60,0}},
@@ -50,10 +52,6 @@ equation
       points={{-39,5},{-30,5},{-30,-28},{8,-28}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(loa.PLigInd, conDC.Pow)    annotation (Line(
-      points={{-39,5},{-30,5},{-30,-60},{40,-60}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(loa.TOut, weaBus.TDryBul)           annotation (Line(
       points={{-62,8},{-80,8},{-80,4.44089e-16},{-100,4.44089e-16}},
       color={0,0,127},
@@ -72,6 +70,14 @@ equation
       smooth=Smooth.None));
   connect(loa.PTot, ETot.u) annotation (Line(
       points={{-39,-5},{-20,-5},{-20,50},{-2,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gain.y, conDC.Pow) annotation (Line(
+      points={{31,-60},{40,-60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(loa.PLigInd, gain.u) annotation (Line(
+      points={{-39,5},{-30,5},{-30,-60},{8,-60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -226,6 +232,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
+                    graphics));
 end TimeSeries;
