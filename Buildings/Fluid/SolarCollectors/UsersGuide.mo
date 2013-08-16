@@ -2,7 +2,7 @@ within Buildings.Fluid.SolarCollectors;
 package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   extends Modelica.Icons.Information;
 
-  annotation(preferredview="info",
+  annotation(preferredView="info",
   Documentation(info="<html>
   <p>
   The package <a href=\"modelica:Buildings.Fluid.SolarCollectors\">
