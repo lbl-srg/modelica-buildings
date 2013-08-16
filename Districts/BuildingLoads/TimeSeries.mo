@@ -27,13 +27,15 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Blocks.Math.Add add(k2=-1)
     annotation (Placement(transformation(extent={{10,-32},{30,-12}})));
+  Modelica.Blocks.Continuous.Integrator ETot(y(unit="J")) "Total energy"
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
 equation
   connect(terminal, loadRC.terminal) annotation (Line(
       points={{104,4.44089e-16},{64,4.44089e-16},{64,0},{60,0}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(loa.PTot, add.u1)    annotation (Line(
-      points={{-39,-5},{-17.5,-5},{-17.5,-16},{8,-16}},
+      points={{-39,-5},{-19.5,-5},{-19.5,-16},{8,-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add.y, loadRC.Pow) annotation (Line(
@@ -66,6 +68,10 @@ equation
       smooth=Smooth.None));
   connect(loa.HDif, weaBus.HDifHor)           annotation (Line(
       points={{-62,-8},{-80,-8},{-80,4.44089e-16},{-100,4.44089e-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(loa.PTot, ETot.u) annotation (Line(
+      points={{-39,-5},{-20,-5},{-20,50},{-2,50}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
