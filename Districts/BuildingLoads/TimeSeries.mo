@@ -13,26 +13,26 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
   BaseClasses.TimeSeries loa(final fileName=fileName) "Building load"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Electrical.AC.AC3ph.Loads.CapacitiveLoadP loadRC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
+  Electrical.AC.AC3ph.Loads.CapacitiveLoadP loaAC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
     "Resistive and capacitive building load"
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
   Electrical.AC.AC3ph.Interfaces.Terminal_n terminal "Electrical connector"
     annotation (Placement(transformation(extent={{94,-10},{114,10}})));
-  Electrical.DC.Loads.Conductor conDC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
+  Electrical.DC.Loads.Conductor loaDC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
     "Conductor for DC load"
     annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
   Districts.Electrical.DC.Interfaces.Terminal_p terminal_dc(redeclare package
       PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor)
     "Generalised terminal"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Modelica.Blocks.Math.Add add(k1=1, k2=-1)
+  Modelica.Blocks.Math.Add add(k1=-1, k2=1)
     annotation (Placement(transformation(extent={{10,-32},{30,-12}})));
   Modelica.Blocks.Continuous.Integrator ETot(y(unit="J")) "Total energy"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Modelica.Blocks.Math.Gain gain(k=1)
+  Modelica.Blocks.Math.Gain gain(k=-1)
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
 equation
-  connect(terminal, loadRC.terminal) annotation (Line(
+  connect(terminal, loaAC.terminal)  annotation (Line(
       points={{104,4.44089e-16},{64,4.44089e-16},{64,0},{60,0}},
       color={0,120,120},
       smooth=Smooth.None));
@@ -40,11 +40,11 @@ equation
       points={{-39,-5},{-19.5,-5},{-19.5,-16},{8,-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(add.y, loadRC.Pow) annotation (Line(
+  connect(add.y, loaAC.Pow)  annotation (Line(
       points={{31,-22},{34,-22},{34,0},{40,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conDC.terminal, terminal_dc) annotation (Line(
+  connect(loaDC.terminal, terminal_dc) annotation (Line(
       points={{60,-60},{100,-60}},
       color={0,0,255},
       smooth=Smooth.None));
@@ -72,7 +72,7 @@ equation
       points={{-39,-5},{-20,-5},{-20,50},{-2,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gain.y, conDC.Pow) annotation (Line(
+  connect(gain.y,loaDC. Pow) annotation (Line(
       points={{31,-60},{40,-60}},
       color={0,0,127},
       smooth=Smooth.None));
