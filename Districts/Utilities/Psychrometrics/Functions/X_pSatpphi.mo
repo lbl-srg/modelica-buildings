@@ -26,7 +26,7 @@ saturation pressure, absolute pressure and relative humidity.
 </html>", revisions="<html>
 <ul>
 <li>
-August 21, 2012 by Michael Wetter:<br>
+August 21, 2012 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

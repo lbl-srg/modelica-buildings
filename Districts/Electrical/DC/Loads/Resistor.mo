@@ -27,7 +27,7 @@ Model of a linear resistor.
  revisions="<html>
 <ul>
 <li>
-February 1, 2013, by Thierry S. Nouidui:<br>
+February 1, 2013, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>

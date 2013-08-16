@@ -33,7 +33,7 @@ Emailed by R. Perez to F.C. Winkelmann on May 21, 1999.<br>
 ", revisions="<html>
 <ul>
 <li>
-July 07, 2010, by Wangda Zuo:<br>
+July 07, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

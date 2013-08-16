@@ -27,7 +27,7 @@ If it feeds power into the electrical grid, then <code>P_nominal &gt; 0</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-February 1, 2013, by Thierry S. Nouidui:<br>
+February 1, 2013, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>

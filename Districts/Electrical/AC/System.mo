@@ -139,7 +139,7 @@ equation
 <pre> der(theta) = omega </pre><br>
      This angle allows the definition of a rotating electrical <b>coordinate system</b><br>
      for <b>AC three-phase models</b>.<br>
-     Root-nodes defining coordinate-orientation will choose a reference angle theta_ref (connector-variable theta[2]) according to the parameter <tt>ref</tt>:<br><br>
+     Root-nodes defining coordinate-orientation will choose a reference angle theta_ref (connector-variable theta[2]) according to the parameter <tt>ref</tt>:<br/><br>
      <tt>theta_ref = theta if ref = \"synchron\"</tt> (reference frame is synchronously rotating with theta).<br>
      <tt>theta_ref = 0 if ref = \"inertial\"</tt> (inertial reference frame, not rotating).<br>
 

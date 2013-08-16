@@ -33,7 +33,7 @@ This function returns the latitude of the TMY3 weather data file.
 </html>", revisions="<html>
 <ul>
 <li>
-February 25, 2012, by Michael Wetter:<br>
+February 25, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

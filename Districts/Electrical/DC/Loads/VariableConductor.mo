@@ -50,7 +50,7 @@ where <i>v</i> is the voltage and <i>i</i> is the current.
 </html>", revisions="<html>
 <ul>
 <li>
-January 8, 2013, by Michael Wetter:<br>
+January 8, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

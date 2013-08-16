@@ -50,12 +50,12 @@ For a definition of the parameters, see the User's Guide
 ", revisions="<html>
 <ul>
 <li>
-February 25, 2012, by Michael Wetter:<br>
+February 25, 2012, by Michael Wetter:<br/>
 Changed model to get declination angle and 
 solar hour angle from weather bus.
 </li>
 <li>
-May 17, 2010, by Wangda Zuo:<br>
+May 17, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

@@ -12,7 +12,7 @@ Enumeration to define the data source used in the weather data reader.
         "<html>
 <ul>
 <li>
-July 20, 2011, by Michael Wetter:<br>
+July 20, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

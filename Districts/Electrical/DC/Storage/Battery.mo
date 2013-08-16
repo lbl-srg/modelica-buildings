@@ -145,7 +145,7 @@ and that the state of charge remains between zero and one.
         revisions="<html>
 <ul>
 <li>
-January 8, 2013, by Michael Wetter:<br>
+January 8, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

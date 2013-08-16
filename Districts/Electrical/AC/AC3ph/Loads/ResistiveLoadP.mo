@@ -87,7 +87,7 @@ Complex voltage and complex current are related as <i>v = R &nbsp; i</i>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 2, 2012, by Michael Wetter:<br>
+January 2, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

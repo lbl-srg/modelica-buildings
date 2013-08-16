@@ -94,7 +94,7 @@ where <i>i<sup>*</sup></i> is the complex conjugate of the current.
 </html>", revisions="<html>
 <ul>
 <li>
-January 2, 2012, by Michael Wetter:<br>
+January 2, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

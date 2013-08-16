@@ -229,7 +229,7 @@ Below and above these wind speeds, the generated power is zero.
 </html>", revisions="<html>
 <ul>
 <li>
-January 10, 2013, by Michael Wetter:<br>
+January 10, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

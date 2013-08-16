@@ -61,7 +61,7 @@ This example calculates the wall solar azimuth angle.
 revisions="<html>
 <ul>
 <li>
-Feb 27, 2012, by Michael Wetter:<br>
+Feb 27, 2012, by Michael Wetter:<br/>
 Simplified example by using zenith angle from weather data bus.
 </li>
 <li>

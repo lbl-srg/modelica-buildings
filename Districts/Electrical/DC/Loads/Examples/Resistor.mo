@@ -54,7 +54,7 @@ This example demonstrates the use of the resistor model.
 </html>", revisions="<html>
 <ul>
 <li>
-August 16, 2013, by Michael Wetter:<br>
+August 16, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

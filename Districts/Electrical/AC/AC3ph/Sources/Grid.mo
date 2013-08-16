@@ -46,7 +46,7 @@ In US households, this is <i>120</i> Volts.
  revisions="<html>
 <ul>
 <li>
-January 2, 2012, by Michael Wetter:<br>
+January 2, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

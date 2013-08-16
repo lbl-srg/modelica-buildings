@@ -121,7 +121,7 @@ This component computes the circumsolar and horizon brightening coefficients.
 ", revisions="<html>
 <ul>
 <li>
-May 25, 2010, by Wangda Zuo:<br>
+May 25, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

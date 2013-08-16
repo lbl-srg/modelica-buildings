@@ -66,7 +66,7 @@ computation of the wet bulb temperature.
 </html>", revisions="<html>
 <ul>
 <li>
-October 1, 2012 by Michael Wetter:<br>
+October 1, 2012 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

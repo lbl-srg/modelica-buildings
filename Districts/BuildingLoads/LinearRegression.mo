@@ -277,7 +277,7 @@ double tab1(\"number_of_time_stamps\", 47)
 </html>", revisions="<html>
 <ul>
 <li>
-April 22, 2013, by Michael Wetter:<br>
+April 22, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

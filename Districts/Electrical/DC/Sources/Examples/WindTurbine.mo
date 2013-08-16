@@ -76,7 +76,7 @@ and hence it is off in the first day when the wind speed is low.
       revisions="<html>
 <ul>
 <li>
-January 29, 2013, by Thierry S. Nouidui:<br>
+January 29, 2013, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>

@@ -96,7 +96,7 @@ In actual systems, the voltage source may be an AC/DC converter.
       revisions="<html>
 <ul>
 <li>
-January 4, 2012, by Michael Wetter:<br>
+January 4, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
