@@ -19,7 +19,7 @@ model BatteryControl_V
   Modelica_StateGraph2.Step voltageControl(
     nOut=3,
     use_activePort=true,
-    nIn=3,
+    nIn=4,
     initialStep=true) "Drain or charge battery to control voltage"
     annotation (Placement(transformation(extent={{16,90},{24,98}})));
 
@@ -42,23 +42,23 @@ model BatteryControl_V
     use_activePort=true,
     nIn=1,
     initialStep=false) "Hold charge"
-    annotation (Placement(transformation(extent={{16,4},{24,12}})));
+    annotation (Placement(transformation(extent={{4,4},{12,12}})));
   Modelica_StateGraph2.Transition T7(
     waitTime=1,
       use_conditionPort=false,
     delayedTransition=false,
       loopCheck=true,
     condition=not isNight.y)
-    annotation (Placement(transformation(extent={{16,-12},{24,-4}})));
+    annotation (Placement(transformation(extent={{4,-12},{12,-4}})));
   Modelica_StateGraph2.Transition T6(
     waitTime=1,
       use_conditionPort=false,
     delayedTransition=false,
     loopCheck=true,
     condition=SOC > 0.45 and SOC < 0.55)
-    annotation (Placement(transformation(extent={{16,24},{24,32}})));
+    annotation (Placement(transformation(extent={{4,24},{12,32}})));
   Modelica_StateGraph2.Step nightCharge(
-    nOut=1,
+    nOut=2,
     use_activePort=true,
     nIn=1,
     initialStep=false) "Charge battery"
@@ -126,21 +126,28 @@ model BatteryControl_V
       annotation (Placement(transformation(extent={{-52,-36},{-32,-16}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=4)
     annotation (Placement(transformation(extent={{-6,-76},{6,-64}})));
+  Modelica_StateGraph2.Transition T8(
+    waitTime=1,
+      use_conditionPort=false,
+    delayedTransition=false,
+      loopCheck=true,
+    condition=not isNight.y)
+    annotation (Placement(transformation(extent={{32,22},{40,30}})));
 equation
     connect(T5.outPort, nightCharge.inPort[1]) annotation (Line(
         points={{20,53},{20,46}},
         color={0,0,0},
         smooth=Smooth.None));
     connect(nightCharge.outPort[1], T6.inPort) annotation (Line(
-        points={{20,37.4},{20,32}},
+        points={{19,37.4},{19,32},{8,32}},
         color={0,0,0},
         smooth=Smooth.None));
     connect(T6.outPort, holdCharge.inPort[1]) annotation (Line(
-        points={{20,23},{20,12}},
+        points={{8,23},{8,12}},
         color={0,0,0},
         smooth=Smooth.None));
     connect(holdCharge.outPort[1], T7.inPort) annotation (Line(
-        points={{20,3.4},{20,-4}},
+        points={{8,3.4},{8,-4}},
         color={0,0,0},
         smooth=Smooth.None));
   connect(VMea, VNor.u)
@@ -169,7 +176,7 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(T2.outPort, voltageControl.inPort[1]) annotation (Line(
-      points={{-20,115},{-20,110},{20,110},{20,104},{18.6667,104},{18.6667,98}},
+      points={{-20,115},{-20,110},{20,110},{20,104},{18.5,104},{18.5,98}},
       color={0,0,0},
       smooth=Smooth.None));
 
@@ -178,7 +185,7 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(T4.outPort, voltageControl.inPort[2]) annotation (Line(
-      points={{68,115},{68,110},{20,110},{20,98}},
+      points={{68,115},{68,110},{19.5,110},{19.5,98}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(T3.outPort, charge.inPort[1]) annotation (Line(
@@ -194,7 +201,7 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(T7.outPort, voltageControl.inPort[3]) annotation (Line(
-      points={{20,-13},{20,-20},{40,-20},{40,108},{21.3333,108},{21.3333,98}},
+      points={{8,-13},{8,-20},{56,-20},{56,108},{20.5,108},{20.5,98}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(chaCon.y, multiSum.u[1]) annotation (Line(
@@ -216,6 +223,14 @@ equation
   connect(multiSum.y, gain.u) annotation (Line(
       points={{7.02,-70},{18,-70}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(nightCharge.outPort[2], T8.inPort) annotation (Line(
+      points={{21,37.4},{21,36},{21,32},{36,32},{36,32},{36,30},{36,30}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(T8.outPort, voltageControl.inPort[4]) annotation (Line(
+      points={{36,21},{36,20},{50,20},{50,106},{21.5,106},{21.5,98}},
+      color={0,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,180}}), graphics), Icon(coordinateSystem(
