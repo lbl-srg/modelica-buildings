@@ -20,19 +20,16 @@ equation
   sum(i) = 0;
   annotation (
     Documentation(info="<html>
-<p>The linear resistor connects the branch voltage <i>v</i> with the branch current <i>i</i> by <i>i*R = v</i>. The Resistance <i>R</i> is allowed to be positive, zero, or negative.</p>
+<p>
+Model of a linear resistor.
+</p>
 </html>",
  revisions="<html>
 <ul>
-<li><i> August 07, 2009   </i>
-       by Anton Haumer<br> temperature dependency of resistance added<br>
-       </li>
-<li><i> March 11, 2009   </i>
-       by Christoph Clauss<br> conditional heat port added<br>
-       </li>
-<li><i> 1998   </i>
-       by Christoph Clauss<br> initially implemented<br>
-       </li>
+<li>
+February 1, 2013, by Thierry S. Nouidui:<br>
+First implementation.
+</li>
 </ul>
 </html>"),
     Icon(coordinateSystem(
