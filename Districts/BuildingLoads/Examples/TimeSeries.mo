@@ -27,7 +27,7 @@ model TimeSeries "Example model for the time series building load"
   Districts.Electrical.AC.AC3ph.Conversion.ACDCConverter acdc(
                   eta=0.9, conversionFactor=240/480) "AC/DC converter"
     annotation (Placement(transformation(extent={{80,10},{60,30}})));
-  Districts.Electrical.AC.AC3ph.Lines.Line lin1(
+  Districts.Electrical.AC.AC3ph.Lines.Line linGri(
     l=50,
     V_nominal=480,
     wireMaterial=Districts.Electrical.Transmission.Materials.Copper(),
@@ -56,15 +56,15 @@ equation
       points={{40,20},{60,20}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(lin.terminal_n, lin1.terminal_p) annotation (Line(
+  connect(lin.terminal_n, linGri.terminal_p) annotation (Line(
       points={{70,50},{90,50}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(acdc.terminal_n, lin1.terminal_p) annotation (Line(
+  connect(acdc.terminal_n, linGri.terminal_p) annotation (Line(
       points={{80,20},{84,20},{84,50},{90,50}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(lin1.terminal_n, gri.terminal) annotation (Line(
+  connect(linGri.terminal_n, gri.terminal) annotation (Line(
       points={{110,50},{120,50},{120,60}},
       color={0,120,120},
       smooth=Smooth.None));
