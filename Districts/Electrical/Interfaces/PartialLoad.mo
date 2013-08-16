@@ -7,7 +7,8 @@ partial model PartialLoad
     annotation (choicesAllMatching=true);
   Modelica.SIunits.Voltage v[:] = terminal.v;
   Modelica.SIunits.Current i[:] = terminal.i;
-  Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i);
+  Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i)
+    "Phase powers";
   Modelica.SIunits.Power P "Power consumption of the load";
   parameter Districts.Electrical.Types.Assumption
                        mode(min=1,max=4) = Districts.Electrical.Types.Assumption.FixedZ_steady_state annotation(evaluate=true,Dialog(group="Modelling assumption"));
