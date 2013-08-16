@@ -20,41 +20,41 @@ model StratifiedEnhancedInternalHex
     T=353.15) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-70,42})));
+        origin={-70,4})));
   Buildings.Fluid.Sources.Boundary_pT boundary3(          redeclare package
       Medium = Medium, nPorts=1)                            annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-68,-20})));
+        origin={-68,-26})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem( m_flow_nominal=0.1,
       redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{30,0},{50,20}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=senTem.T)
-    annotation (Placement(transformation(extent={{-94,4},{-74,24}})));
+    annotation (Placement(transformation(extent={{-94,42},{-74,62}})));
   Buildings.Fluid.Sources.MassFlowSource_T boundary1(
     use_T_in=true,
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=0)
-    annotation (Placement(transformation(extent={{-58,0},{-38,20}})));
+    annotation (Placement(transformation(extent={{-58,38},{-38,58}})));
   Buildings.Fluid.Storage.StratifiedEnhancedInternalHex tan(
     redeclare package Medium = Medium,
     m_flow_nominal=0.001,
     VTan=0.151416,
-    hTan=1,
     dIns=0.0762,
     redeclare package MediumHex = Medium,
-    HexTopHeight=0.75,
-    HexBotHeight=0.25,
     CHex=40,
-    HexSegMult=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=0.278*4200*20,
     mHex_flow_nominal=0.278,
+    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState,
+    hexTopHeight=0.995,
+    hexBotHeight=0.1,
+    hexSegMult=1,
+    hTan=1.746,
     TTan_nominal=293.15,
-    THex_nominal=323.15,
-    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState)
+    THex_nominal=323.15)
     annotation (Placement(transformation(extent={{-22,-6},{12,26}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -64,11 +64,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(realExpression.y, boundary1.T_in) annotation (Line(
-      points={{-73,14},{-60,14}},
+      points={{-73,52},{-60,52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(boundary1.ports[1], tan.port_a) annotation (Line(
-      points={{-38,10},{-22,10}},
+      points={{-38,48},{-30,48},{-30,10},{-22,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(tan.port_b, senTem.port_a) annotation (Line(
@@ -76,11 +76,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boundary2.ports[1], tan.port_a1) annotation (Line(
-      points={{-60,42},{-32,42},{-32,3.6},{-22,3.6}},
+      points={{-60,4},{-32,4},{-32,3.92},{-22,3.92}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(tan.port_b1, boundary3.ports[1]) annotation (Line(
-      points={{-22,-2.8},{-22,-20},{-58,-20}},
+      points={{-22,-2.8},{-22,-26},{-58,-26}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
