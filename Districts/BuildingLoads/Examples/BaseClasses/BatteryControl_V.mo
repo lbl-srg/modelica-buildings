@@ -26,7 +26,7 @@ model BatteryControl_V
     Modelica.Blocks.Sources.RealExpression VCon(
       y=if voltageControl.activePort
          then
-         -(Districts.Utilities.Math.Functions.spliceFunction(
+         (Districts.Utilities.Math.Functions.spliceFunction(
             pos=0, neg=-1, x=VNor.y-0.925, deltax=0.025) +
          Districts.Utilities.Math.Functions.spliceFunction(
             pos=1, neg=0, x=VNor.y-1.075, deltax=0.025))

@@ -25,7 +25,7 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
       PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor)
     "Generalised terminal"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Modelica.Blocks.Math.Add add(k2=-1)
+  Modelica.Blocks.Math.Add add(k1=-1, k2=+1)
     annotation (Placement(transformation(extent={{10,-32},{30,-12}})));
   Modelica.Blocks.Continuous.Integrator ETot(y(unit="J")) "Total energy"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));

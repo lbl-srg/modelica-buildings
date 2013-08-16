@@ -1,4 +1,4 @@
-simulateModel("Districts.BuildingLoads.Examples.TimeSeriesCampus", startTime=345600, stopTime=950400, method="Radau", tolerance=1e-06, resultFile="TimeSeriesCampus");
+simulateModel("Districts.BuildingLoads.Examples.TimeSeriesCampus_V", startTime=345600, stopTime=950400, method="Radau", tolerance=1e-06, resultFile="TimeSeriesCampus_V");
 createPlot(id = 7,
  position = {593, 45, 617, 506},
  y = {"pv.P", "tur.P", "senAC.S[1]"},
@@ -10,7 +10,7 @@ createPlot(id = 7,
  grid = true,
  color = true,
  online = false,
- filename = "TimeSeriesCampus.mat",
+ filename = "TimeSeriesCampus_V.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}, {255,0,0}, {0,128,0}});
@@ -25,7 +25,7 @@ createPlot(id = 8,
  grid = true,
  color = true,
  online = false,
- filename = "TimeSeriesCampus.mat",
+ filename = "TimeSeriesCampus_V.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}});
