@@ -1,7 +1,10 @@
-within Buildings.Fluid;
-package HeatExchangers "Package with heat exchanger models"
-  extends Modelica.Icons.VariantsPackage;
+within Buildings.Fluid.HeatExchangers;
+package BaseClasses "Package with base classes for Buildings.Fluid.HeatExchangers"
+  extends Modelica.Icons.BasesPackage;
 annotation (preferredView="info", Documentation(info="<html>
-This package contains models for heat exchangers with and without humidity condensation.
+<p>
+This package contains base classes that are used to construct the models in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers\">Buildings.Fluid.HeatExchangers</a>.
+</p>
 </html>"));
-end HeatExchangers;
+end BaseClasses;
