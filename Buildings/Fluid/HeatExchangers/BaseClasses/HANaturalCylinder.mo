@@ -171,20 +171,20 @@ equation
             <p>
             Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David 
             DeWitt, John Wiley and Sons, 1996
-            </p>  
-            <h4>Revisions</h4>
-            <ul>
-            <li>
-            May 10, 2013 by Michael Wetter:<br/>
-            Revised implementation to use <code>hA_nominal</code> as a parameter, and compute the 
-            associated surface area <code>A</code>. This revision was required to have a consistent
-            computation of the the <code>hA</code> values inside and outside of the coil in the 
-            heat exchanger model of the water tank.
-            </li>
-            <li>
-            February 26, 2013 by Peter Grant:<br/>
-            First implementation.
-            </li>
-            </ul>
-            </html>"));
+            </p>
+            </html>", revisions="<html>
+<ul>
+<li>
+May 10, 2013 by Michael Wetter:<br/>
+Revised implementation to use <code>hA_nominal</code> as a parameter, and compute the 
+associated surface area <code>A</code>. This revision was required to have a consistent
+computation of the the <code>hA</code> values inside and outside of the coil in the 
+heat exchanger model of the water tank.
+</li>
+<li>
+February 26, 2013 by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end HANaturalCylinder;
