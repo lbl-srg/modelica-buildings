@@ -8,7 +8,7 @@ model Conductor "Model of a constant conductive load"
 equation
   //PhaseSystem.systemVoltage(terminal.v)*G = PhaseSystem.systemCurrent(terminal.i);
   //G = P/PhaseSystem.systemVoltage(terminal.v)^2;
-  PhaseSystem.activePower(terminal.v, terminal.i) = P;
+  PhaseSystem.activePower(terminal.v, terminal.i) = -P;
   sum(i) = 0;
   annotation (
     Documentation(info="<html>
@@ -17,8 +17,12 @@ Model of a constant conductive load.
 </p>
 <p>
 The model computes the power as
-<i>P_nominal = v &nbsp; i</i>,
+<code>P_nominal = v &nbsp; i</code>,
 where <i>v</i> is the voltage and <i>i</i> is the current.
+</p>
+<p>
+If the component consumes power, then <code>P_nominal &lt; 0</code>.
+If it feeds power into the electrical grid, then <code>P_nominal &gt; 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
