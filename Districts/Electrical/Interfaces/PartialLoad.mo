@@ -10,7 +10,7 @@ partial model PartialLoad
   Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i)
     "Phase powers";
   Modelica.SIunits.Power P
-    "Powe of the load (negative if consumed, positive if generated)";
+    "Power of the load (negative if consumed, positive if fed into the electrical grid)";
   parameter Districts.Electrical.Types.Assumption
                        mode(min=1,max=4) = Districts.Electrical.Types.Assumption.FixedZ_steady_state annotation(evaluate=true,Dialog(group="Modelling assumption"));
   parameter Modelica.SIunits.Power P_nominal(start=0)
