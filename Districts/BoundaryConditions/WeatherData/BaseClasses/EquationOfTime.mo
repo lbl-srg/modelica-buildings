@@ -27,7 +27,7 @@ This component computes the difference between solar noon and noon of local civi
 ", revisions="<html>
 <ul>
 <li>
-May 13, 2010, by Wangda Zuo:<br>
+May 13, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

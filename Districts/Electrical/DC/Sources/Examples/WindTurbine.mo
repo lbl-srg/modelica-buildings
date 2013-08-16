@@ -11,7 +11,7 @@ model WindTurbine "Example for the WindTurbine model"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-10,40})));
+        origin={50,40})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false, filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-62,76},{-42,96}})));
@@ -23,6 +23,11 @@ model WindTurbine "Example for the WindTurbine model"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Districts.Electrical.DC.Sources.ConstantVoltage    sou(V=12) "Voltage source"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+  Districts.Electrical.DC.Lines.TwoPortResistance lin(R=0.05)
+    "Transmission line"
+    annotation (Placement(transformation(extent={{-32,30},{-12,50}})));
+  Districts.Electrical.DC.Sensors.GeneralizedSensor sen
+    annotation (Placement(transformation(extent={{-2,30},{18,50}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
       points={{-42,86},{16,86}},
@@ -30,7 +35,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus.winSpe,tur. vWin) annotation (Line(
-      points={{16,86},{16,60},{-10,60},{-10,52}},
+      points={{16,86},{50,86},{50,52}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -38,12 +43,20 @@ equation
       points={{-80,4.44089e-16},{-80,20},{-80,20}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sou.terminal, tur.terminal) annotation (Line(
-      points={{-60,20},{-40,20},{-40,40},{-20,40}},
-      color={0,0,255},
-      smooth=Smooth.None));
   connect(sou.terminal, res.terminal) annotation (Line(
       points={{-60,20},{-40,20},{-40,0},{-20,0}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(lin.terminal_n, res.terminal) annotation (Line(
+      points={{-32,40},{-40,40},{-40,0},{-20,0},{-20,5.55112e-16}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(lin.terminal_p, sen.terminal_n) annotation (Line(
+      points={{-12,40},{-2,40}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(sen.terminal_p, tur.terminal) annotation (Line(
+      points={{18,40},{40,40}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
@@ -63,7 +76,7 @@ and hence it is off in the first day when the wind speed is low.
       revisions="<html>
 <ul>
 <li>
-January 29, 2013, by Thierry S. Nouidui:<br>
+January 29, 2013, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>

@@ -17,7 +17,7 @@ Enumeration to define the data source used in the weather data reader.
         "<html>
 <ul>
 <li>
-August 13, 2012, by Wangda Zuo:<br>
+August 13, 2012, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

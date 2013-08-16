@@ -54,7 +54,7 @@ otherwise weak monotonicity is tested.
 </html>", revisions="<html>
 <ul>
 <li>
-September 28, 2011 by Michael Wetter:<br>
+September 28, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

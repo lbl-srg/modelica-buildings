@@ -36,7 +36,7 @@ Districts.Utilities.Math.Splice</a>
 </html>", revisions="<html>
 <ul>
 <li>
-July 27, 2012, by Kaustubh Phalak:<br>
+July 27, 2012, by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>

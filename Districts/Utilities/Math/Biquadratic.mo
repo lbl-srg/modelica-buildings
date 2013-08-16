@@ -21,7 +21,7 @@ This block computes
 revisions="<html>
 <ul>
 <li>
-Sep. 8, 2010, by Michael Wetter:<br>
+Sep. 8, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

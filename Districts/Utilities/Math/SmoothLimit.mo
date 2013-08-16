@@ -19,7 +19,7 @@ The output is bounded to be in <i>[lower, upper]</i>.
 </html>",
 revisions="<html>
 <ul>
-July 14, 2010, by Wangda Zuo, Michael Wetter:<br>
+July 14, 2010, by Wangda Zuo, Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

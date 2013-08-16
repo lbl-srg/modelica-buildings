@@ -29,7 +29,7 @@ Solar Energy, 44(5):271-289.
 ", revisions="<html>
 <ul>
 <li>
-July 07, 2010, by Wangda Zuo:<br>
+July 07, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

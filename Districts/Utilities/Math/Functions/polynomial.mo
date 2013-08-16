@@ -22,15 +22,15 @@ The polynomial has the form
 revisions="<html>
 <ul>
 <li>
-March 30, 2011, by Michael Wetter:<br>
+March 30, 2011, by Michael Wetter:<br/>
 Added <code>zeroDerivative</code> keyword.
 </li>
 <li>
-March 2, by Michael Wetter:<br>
+March 2, by Michael Wetter:<br/>
 Removed redundant <code>smoothOrder</code> annotation.
 </li>
 <li>
-February 29, 2009 by Michael Wetter:<br>
+February 29, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

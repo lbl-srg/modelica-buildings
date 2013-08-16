@@ -32,7 +32,7 @@ This function returns the time zone of the TMY3 weather data file.
 </html>", revisions="<html>
 <ul>
 <li>
-March 5, 2011, by Michael Wetter:<br>
+March 5, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

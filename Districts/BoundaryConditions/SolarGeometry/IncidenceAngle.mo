@@ -69,15 +69,15 @@ For a definition of the parameters, see the User's Guide
 ", revisions="<html>
 <ul>
 <li>
-November 30, 2011, by Michael Wetter:<br>
+November 30, 2011, by Michael Wetter:<br/>
 Removed <code>connect(y, y)</code> statement.
 </li>
 <li>
-February 28, 2011, by Wangda Zuo:<br>
+February 28, 2011, by Wangda Zuo:<br/>
 Use local civil time instead of clock time.
 </li>
 <li>
-May 19, 2010, by Wangda Zuo:<br>
+May 19, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

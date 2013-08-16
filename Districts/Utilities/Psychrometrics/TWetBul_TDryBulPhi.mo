@@ -169,7 +169,7 @@ DOI: 10.1175/JAMC-D-11-0143.1
 revisions="<html>
 <ul>
 <li>
-October 1, 2012 by Michael Wetter:<br>
+October 1, 2012 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
