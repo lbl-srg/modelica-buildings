@@ -91,11 +91,8 @@ protected
       assert(A[i] > 0, "Surface must be bigger than zero.");
     end for;
 
-    // fixme: Send from here the input arguments of this function to the CFD interface
-    // fixme: need nConExtWin
-
-    Modelica.Utilities.Streams.print(string="Launch createSharedMemory()");
-    coSimFlag := startCosimulation(
+    Modelica.Utilities.Streams.print(string="Start cosimulation");
+    coSimFlag := cfdStartCosimulation(
         name,
         A,
         til,
@@ -137,7 +134,7 @@ protected
       Modelica.Utilities.Streams.print("CFDExchange:exchange at t=" + String(t));
     end if;
 
-    (simTimRea,y,retVal) := exchangeData(
+    (simTimRea,y,retVal) := cfdExchangeData(
         flag,
         t,
         dt,
@@ -271,8 +268,8 @@ initial equation
   if nSen > 1 then
     for i in 1:nSen - 1 loop
       ideSenNam[i] = Modelica.Math.BooleanVectors.anyTrue({
-        Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j in
-            i + 1:nSen});
+        Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j
+         in i + 1:nSen});
     end for;
 
     assert(not Modelica.Math.BooleanVectors.anyTrue(ideSenNam), "For the CFD interface, all sensors must have a name that is unique within each room.
@@ -373,8 +370,8 @@ algorithm
     // Check for valid return flags
     assert(retVal >= 0,
       "Obtained negative return value during data transfer with FFD.\n" +
-      "   Aborting simulation. Check file 'fixme: enter name of FFD log file'.\n"
-       + "   Received: retVal = " + String(retVal));
+      "   Aborting simulation. Check file 'ffd.log'.\n" +
+      "   Received: retVal = " + String(retVal));
 
     // Store current value of integral
     uIntPre := uInt;
@@ -382,14 +379,16 @@ algorithm
   end when;
 
   when terminal() then
-    assert(rem(time-startTime,samplePeriod)<0.00001, "Warning: The simulation time is not a multiple of sampling time.",
-    level=AssertionLevel.warning);
+    assert(
+      rem(time - startTime, samplePeriod) < 0.00001,
+      "Warning: The simulation time is not a multiple of sampling time.",
+      level=AssertionLevel.warning);
     if verbose then
       Modelica.Utilities.Streams.print("CFDExchange:terminate at t=" + String(
         time));
     end if;
     // Send the stopping singal to FFD
-    sendStopComannd();
+    cfdSendStopCommand();
 
     // Last exchange of data
     if activateInterface then
@@ -408,7 +407,7 @@ algorithm
       retVal := 0;
     end if;
     // Check if CFD has successfully stopped
-    assert(receiveFeedback() < 0.5, "Could not terminate the cosimulation.");
+    assert(cfdReceiveFeedback() < 0.5, "Could not terminate the cosimulation.");
 
   end when;
   annotation (
