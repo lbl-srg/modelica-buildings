@@ -59,10 +59,8 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   /****************************************************************************
   | allocate the memory and assign the data
   ****************************************************************************/
-  cosim->para->fileName = (char *) malloc(sizeof(cfdFilNam));
+  cosim->para->fileName = (char *) malloc(sizeof(char)*strlen(cfdFilNam));
   strcpy(cosim->para->fileName, cfdFilNam); 
-  printf("cosim->para->fileName=\"%s\", cfdFilNam=\"%s\"",cosim->para->fileName, cfdFilNam);
-  getchar();
 
   cosim->para->nSur = nSur;
   cosim->para->nSen = nSen;
