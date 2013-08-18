@@ -18,6 +18,7 @@
 ///
 /// Allocate memory for the data exchange and launch CFD simulation
 ///
+///\param cfdFilNam Name of the input file for the CFD simulation
 ///\param name Pointer to the names of surfaces and fluid ports
 ///\param A Pointer to the area of surfaces in the same order of name
 ///\param til Pointer to the tilt of surface in the same order of name
@@ -36,8 +37,8 @@
 ///
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
-int cfdStartCosimulation(char **name, double *A, double *til, int *bouCon, 
-                int nPorts, char** portName, int haveSensor,
+int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til, 
+                int *bouCon, int nPorts, char** portName, int haveSensor,
                 char **sensorName, int haveShade, int nSur, int nSen,
                 int nConExtWin, int nC, int nXi) {
   int i, nBou;
@@ -58,6 +59,11 @@ int cfdStartCosimulation(char **name, double *A, double *til, int *bouCon,
   /****************************************************************************
   | allocate the memory and assign the data
   ****************************************************************************/
+  cosim->para->fileName = (char *) malloc(sizeof(cfdFilNam));
+  strcpy(cosim->para->fileName, cfdFilNam); 
+  printf("cosim->para->fileName=\"%s\", cfdFilNam=\"%s\"",cosim->para->fileName, cfdFilNam);
+  getchar();
+
   cosim->para->nSur = nSur;
   cosim->para->nSen = nSen;
   cosim->para->nConExtWin= nConExtWin;
