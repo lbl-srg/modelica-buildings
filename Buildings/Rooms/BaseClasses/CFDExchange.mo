@@ -2,6 +2,9 @@ within Buildings.Rooms.BaseClasses;
 block CFDExchange
   "Block that exchanges data with the Fast Fluid Flow Dynamics code"
   extends Modelica.Blocks.Interfaces.DiscreteBlock;
+  parameter String cfdFilNam "CFD input file name" annotation (Dialog(
+        __Dymola_loadSelector(caption=
+            "Select CFD input file")));
   parameter Boolean activateInterface=true
     "Set to false to deactivate interface and use instead yFixed as output"
     annotation (Evaluate=true);
@@ -62,6 +65,7 @@ protected
   ///////////////////////////////////////////////////////////////////////////
   // Function that sends the parameters of the model from Modelica to CFD
   function sendParameters
+    input String cfdFilNam "CFD input file name";
     input String[nSur] name "Surface names";
     input Modelica.SIunits.Area[nSur] A "Surface areas";
     input Modelica.SIunits.Angle[nSur] til "Surface tilt";
@@ -93,6 +97,7 @@ protected
 
     Modelica.Utilities.Streams.print(string="Start cosimulation");
     coSimFlag := cfdStartCosimulation(
+        cfdFilNam,
         name,
         A,
         til,
@@ -268,8 +273,8 @@ initial equation
   if nSen > 1 then
     for i in 1:nSen - 1 loop
       ideSenNam[i] = Modelica.Math.BooleanVectors.anyTrue({
-        Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j
-         in i + 1:nSen});
+        Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j in
+            i + 1:nSen});
     end for;
 
     assert(not Modelica.Math.BooleanVectors.anyTrue(ideSenNam), "For the CFD interface, all sensors must have a name that is unique within each room.

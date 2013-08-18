@@ -1,6 +1,6 @@
 within Buildings.Rooms.BaseClasses;
 function cfdStartCosimulation "Start the cosimulation with CFD"
-
+  input String cfdFilNam "CFD input file name";
   input String[nSur] name "Surface names";
   input Modelica.SIunits.Area[nSur] A "Surface areas";
   input Modelica.SIunits.Angle[nSur] til "Surface tilt";
@@ -24,6 +24,7 @@ function cfdStartCosimulation "Start the cosimulation with CFD"
   output Integer retVal
     "Return value of the function (0 indicates CFD successfully started.)";
 external"C" retVal = cfdStartCosimulation(
+    cfdFilNam,
     name,
     A,
     til,

@@ -4,7 +4,9 @@ model CFDAirHeatMassBalance
   extends Buildings.Rooms.BaseClasses.PartialAirHeatMassBalance(
    energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
    massDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial);
-
+  parameter String cfdFilNam "CFD input file name" annotation (Dialog(
+        __Dymola_loadSelector(caption=
+            "Select CFD input file")));
   parameter Boolean useFFD = true
     "Set to false to deactivate the FFD interface and use instead yFixed as output"
     annotation(Evaluate = true);
