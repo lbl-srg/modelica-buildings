@@ -24,6 +24,17 @@ package ThreePhase_dq "AC system, symmetrically loaded three phases"
   end rotate;
 
 
+  redeclare function product
+  "Multiply two complex numbers represented by vectors x[2] and y[2]"
+    extends Modelica.Icons.Function;
+    input Real x[2];
+    input Real y[2];
+    output Real z[2];
+  algorithm
+    z := {x[1]*y[1] - x[2]*y[2], x[1]*y[2] + x[2]*y[1]};
+  end product;
+
+
   redeclare function thetaRel
   "Return absolute angle of rotating system as offset to thetaRef"
     input SI.Angle theta[m];
@@ -58,7 +69,6 @@ package ThreePhase_dq "AC system, symmetrically loaded three phases"
     output SI.Voltage v[n] "phase to neutral voltages";
   algorithm
     v := {V*cos(phi), V*sin(phi)}/sqrt(3);
-    //v := {V/sqrt(2), -V/sqrt(2)};
   end phaseVoltages;
 
 
@@ -119,7 +129,7 @@ package ThreePhase_dq "AC system, symmetrically loaded three phases"
     input SI.Current i[n] "phase currents";
     output SI.ActivePower P "active system power";
   algorithm
-    P := v[1]*i[1];
+    P := v*i;
   end activePower;
 
 
