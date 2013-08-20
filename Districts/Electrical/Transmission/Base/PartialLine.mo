@@ -7,7 +7,8 @@ partial model PartialLine "Cable line dispersion model"
                v[:](each nominal=V_nominal)));
   parameter Modelica.SIunits.Distance l(min=0) "Length of the line";
   parameter Modelica.SIunits.Power P_nominal(min=0) "Nominal power of the line";
-  parameter Modelica.SIunits.Voltage V_nominal "Nominal voltage of the line";
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)
+    "Nominal voltage of the line";
 
   parameter Boolean useExtTemp = false
     "If true, enables the input for the temperature of the cable" annotation(Dialog(tab="Model"));
@@ -31,7 +32,6 @@ partial model PartialLine "Cable line dispersion model"
     annotation (choicesAllMatching=true,Dialog(tab="Tech. specification",
                 enable=mode==Districts.Electrical.Types.CableMode.normative),
                 Placement(transformation(extent={{60,60}, {80,80}})));
-
   final parameter Modelica.SIunits.Temperature T_ref=wireMaterial.T0
     "Reference temperature of the line" annotation(Evaluate=True);
   final parameter Modelica.SIunits.LinearTemperatureCoefficient alpha=wireMaterial.alphaT0
