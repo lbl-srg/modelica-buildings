@@ -5,8 +5,9 @@ partial model PartialLoad
        constrainedby Districts.Electrical.PhaseSystems.PartialPhaseSystem
     "Phase system"
     annotation (choicesAllMatching=true);
-  Modelica.SIunits.Voltage v[:] = terminal.v;
-  Modelica.SIunits.Current i[:] = terminal.i;
+  Modelica.SIunits.Voltage v[:](each start = V_nominal) = terminal.v;
+  Modelica.SIunits.Current i[:](each  stateSelect =  StateSelect.prefer, each start = P_nominal/V_nominal)=
+    terminal.i;
   Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i)
     "Phase powers";
   Modelica.SIunits.Power P
