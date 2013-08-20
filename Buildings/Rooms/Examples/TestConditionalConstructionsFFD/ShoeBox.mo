@@ -1,5 +1,5 @@
 within Buildings.Rooms.Examples.TestConditionalConstructionsFFD;
-model ShoeBox "All walls with 1 by 1 size"
+model ShoeBox "A shoebox room model with only walls"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
     "Medium model";
@@ -42,7 +42,7 @@ model ShoeBox "All walls with 1 by 1 size"
     "Number of surface that are connected to constructions that are modeled inside the room";
   parameter Integer nSurBou=1
     "Number of surface that are connected to the room air volume";
-
+  parameter String cfdFilNam "CFD input file name";
   Buildings.Rooms.FFD roo(
     redeclare package Medium = MediumA,
     nConBou=nConBou,
@@ -55,30 +55,30 @@ model ShoeBox "All walls with 1 by 1 size"
     nConPar=0,
     nConExt=4,
     nConExtWin=0,
-    datConExt(
-      name={"Ceiling","West_Wall","North_Wall","South_Wall"},
-      layers={matLayRoo,matLayExt,matLayExt,matLayExt},
-      A={1*1,1*1,1*1,1*1},
-      til={Buildings.HeatTransfer.Types.Tilt.Ceiling,Buildings.HeatTransfer.Types.Tilt.Wall,
-          Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall},
-
-      azi={Buildings.HeatTransfer.Types.Azimuth.S,Buildings.HeatTransfer.Types.Azimuth.W,
-          Buildings.HeatTransfer.Types.Azimuth.N,Buildings.HeatTransfer.Types.Azimuth.S}),
-
     AFlo=1*1,
     hRoo=1,
-    surBou(
-      name={"East_Wall"},
-      each A=1*1,
-      each absIR=0.9,
-      each absSol=0.9,
-      each til=Buildings.HeatTransfer.Types.Tilt.Wall),
     datConBou(
       name={"Floor"},
       layers={matLayFlo},
       each A=1*1,
       each til=Buildings.HeatTransfer.Types.Tilt.Floor),
-    lat=0.73268921998722) "Room model"
+    datConExt(
+      name={"Ceiling","West Wall","North Wall","South Wall"},
+      layers={matLayRoo,matLayExt,matLayExt,matLayExt},
+      A={1*1,1*1,1*1,1*1},
+      til={Buildings.HeatTransfer.Types.Tilt.Ceiling,Buildings.HeatTransfer.Types.Tilt.Wall,
+          Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall},
+      azi={Buildings.HeatTransfer.Types.Azimuth.S,Buildings.HeatTransfer.Types.Azimuth.W,
+          Buildings.HeatTransfer.Types.Azimuth.N,Buildings.HeatTransfer.Types.Azimuth.S}),
+    surBou(
+      name={"East Wall"},
+      each A=1*1,
+      each absIR=0.9,
+      each absSol=0.9,
+      each til=Buildings.HeatTransfer.Types.Tilt.Wall),
+    cfdFilNam = cfdFilNam,
+    lat=0.73268921998722,
+    cfddFilNam="Buildings/Resources/Data/Rooms/FFD/ShoeBox.ffd") "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
@@ -91,10 +91,10 @@ model ShoeBox "All walls with 1 by 1 size"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
-
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     TDryBul=293.15)
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
+
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
@@ -170,17 +170,17 @@ equation
 This model tests whether 
 <a href=\"modelica://Buildings.Rooms.FFD\">
 Buildings.Rooms.FFD</a>
-has the same number of equations as unknowns.
-For each building element, there is at least one component instantiated.
+can conduct cosimulation with FFD program with only the walls. 
+The dimension of the room is 1m x 1m x 1m.
 </p>
 <p>
 <b>Note:</b> This model has an unrealistic geometry as it is used only 
-to test the correctness of the structure of the system of equations.
+to test the correctness of cosimulaton with walls.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-July 25, 2013, by Michael Wetter:<br/>
+August 13, 2013, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

@@ -27,7 +27,7 @@ ParameterConstruction
 PartialParameterConstruction
 SideFins
 Examples
-startCosimulation
-exchangeData
-receiveFeedback
-sendStopComannd
+cfdExchangeData
+cfdReceiveFeedback
+cfdSendStopCommand
+cfdStartCosimulation

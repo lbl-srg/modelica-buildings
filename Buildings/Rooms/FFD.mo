@@ -28,6 +28,9 @@ model FFD
     "Names of sensors as declared in the CFD input file";
   parameter String portName[nPorts]
     "Names of fluid ports as declared in the CFD input file";
+  parameter String cfddFilNam "CFD input file name" annotation (Dialog(
+        __Dymola_loadSelector(caption=
+            "Select CFD input file")));
   Modelica.Blocks.Interfaces.RealOutput yCFD[nSen] if
        haveSensor "Sensor for output from CFD"
     annotation (Placement(transformation(
