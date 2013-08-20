@@ -1,7 +1,7 @@
 within Districts.Electrical.DC.Sources;
 model WindTurbine
   "Wind turbine with power output based on table as a function of wind speed"
-  extends Districts.Electrical.DC.Interfaces.TwoPin;
+  import Districts;
   final parameter Modelica.SIunits.Velocity vIn = table[1,1]
     "Cut-in steady wind speed";
   final parameter Modelica.SIunits.Velocity vOut = table[size(table,1), 1]
@@ -41,8 +41,12 @@ model WindTurbine
         origin={0,120})));
   Modelica.Blocks.Interfaces.RealOutput P(unit="W") "Generated power"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  Districts.Electrical.DC.Interfaces.Terminal_p terminal(
+    redeclare package PhaseSystem =
+        Districts.Electrical.PhaseSystems.TwoConductor) "Generalised terminal"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+
 protected
-  Interfaces.DCplug dcPlug1;
   Modelica.Blocks.Tables.CombiTable1Ds per(
     final tableOnFile=tableOnFile,
     final table=cat(1, cat(1, [0, 0], table),
@@ -54,9 +58,9 @@ protected
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     "Performance table that maps wind speed to electrical power output"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Loads.VariableConductor               con
+  Loads.Conductor                       con(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
     "Conductor, used to interface power with electrical circuit"
-    annotation (Placement(transformation(extent={{60,-12},{80,8}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Modelica.Blocks.Math.Gain gain(final k=scale)
     "Gain, used to allow a user to easily scale the power"
@@ -64,7 +68,7 @@ protected
 
   BaseClasses.WindCorrection cor(final h=h,
                                  final hRef=hRef,
-                                 final n=nWin)
+                                 final n=nWin) "Correction for wind"
   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -81,14 +85,6 @@ equation
       points={{-19,20},{-10,20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gain.y, con.P) annotation (Line(
-      points={{13,20},{24,20},{24,6},{58,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.y, P)     annotation (Line(
-      points={{13,20},{24,20},{24,60},{110,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(vWin, cor.vRef) annotation (Line(
       points={{1.11022e-15,120},{1.11022e-15,80},{-80,80},{-80,20},{-72.2,20}},
       color={0,0,127},
@@ -97,22 +93,21 @@ equation
       points={{-49,20},{-42,20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(con.dcPlug, dcPlug1) annotation (Line(
-      points={{60,-2},{0,-2}},
+  connect(gain.y, con.Pow) annotation (Line(
+      points={{13,20},{90,20},{90,0},{80,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(con.terminal, terminal) annotation (Line(
+      points={{60,0},{-100,0}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(dcPlug1.p, dcPlug.p) annotation (Line(
-      points={{0,-2},{-100,-2}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(dcPlug1.n, dcPlug.n) annotation (Line(
-      points={{0,-2},{-100,-2}},
-      color={0,0,255},
+  connect(gain.y, P) annotation (Line(
+      points={{13,20},{60,20},{60,60},{110,60}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
           extent={{-100,102},{100,-98}},
@@ -187,7 +182,15 @@ equation
         Text(
           extent={{100,100},{122,74}},
           lineColor={0,0,127},
-          textString="P")}),
+          textString="P"),
+        Text(
+          extent={{-150,70},{-50,20}},
+          lineColor={0,0,255},
+          textString="+"),
+        Text(
+          extent={{-150,-12},{-50,-62}},
+          lineColor={0,0,255},
+          textString="-")}),
     Documentation(info="<html>
 <p>
 Model of a wind turbine whose power is computed as a function of wind-speed as defined in a table.
@@ -226,7 +229,7 @@ Below and above these wind speeds, the generated power is zero.
 </html>", revisions="<html>
 <ul>
 <li>
-January 10, 2013, by Michael Wetter:<br>
+January 10, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

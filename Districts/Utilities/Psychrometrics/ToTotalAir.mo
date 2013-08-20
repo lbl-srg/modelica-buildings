@@ -31,7 +31,7 @@ EnergyPlus to [kg/kg total air], which is the convention used by Modelica.Media.
 </html>", revisions="<html>
 <ul>
 <li>
-September 10, 2009 by Michael Wetter:<br>
+September 10, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

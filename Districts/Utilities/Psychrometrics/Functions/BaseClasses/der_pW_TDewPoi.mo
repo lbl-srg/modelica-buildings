@@ -22,7 +22,7 @@ Derivative of dew point temperature calculation for moist air above freezing tem
 </html>", revisions="<html>
 <ul>
 <li>
-April 15, 2009 by Michael Wetter:<br>
+April 15, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

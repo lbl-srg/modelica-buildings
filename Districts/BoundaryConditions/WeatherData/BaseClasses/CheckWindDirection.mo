@@ -34,11 +34,11 @@ This component constrains the interpolated wind direction between <i>0</i> and <
 ", revisions="<html>
 <ul>
 <li>
-October 27, 2011, by Wangda Zuo:<br>
+October 27, 2011, by Wangda Zuo:<br/>
 Delete the unit convertion part since it will be done outside.
 </li>
 <li>
-July 14, 2010, by Wangda Zuo:<br>
+July 14, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

@@ -24,8 +24,6 @@ protected
     "Type conversion for week-day indicator"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 public
-  Modelica.Blocks.Sources.Constant const[nY + nY*nU](k=0)
-    annotation (Placement(transformation(extent={{-48,74},{-28,94}})));
   Modelica.Blocks.Routing.ExtractSignal extSig(
     nin=nY + nU*nY + 1,
     nout=nY + nU*nY,
@@ -118,7 +116,7 @@ Rather than using physical ports, this model uses input and output signals.
 </html>", revisions="<html>
 <ul>
 <li>
-April 22, 2013, by Michael Wetter:<br>
+April 22, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -8,12 +8,12 @@ model StaticFourPortHeatMassExchanger
   import Modelica.Constants;
   input Modelica.SIunits.HeatFlowRate Q1_flow
     "Heat transfered into the medium 1";
-  input Medium1.MassFlowRate mXi1_flow[Medium1.nXi]
-    "Mass flow rates of independent substances added to the medium 1";
+  input Medium1.MassFlowRate mWat1_flow
+    "Moisture mass flow rate added to the medium 1";
   input Modelica.SIunits.HeatFlowRate Q2_flow
     "Heat transfered into the medium 2";
-  input Medium2.MassFlowRate mXi2_flow[Medium2.nXi]
-    "Mass flow rates of independent substances added to the medium 2";
+  input Medium2.MassFlowRate mWat2_flow
+    "Moisture mass flow rate added to the medium 2";
   constant Boolean sensibleOnly1
     "Set to true if sensible exchange only for medium 1";
   constant Boolean sensibleOnly2
@@ -32,7 +32,7 @@ protected
     final linearizeFlowResistance = linearizeFlowResistance1,
     final deltaM = deltaM1,
     final Q_flow = Q1_flow,
-    final mXi_flow = mXi1_flow)
+    final mWat_flow = mWat1_flow)
     "Model for heat, mass, species, trace substance and pressure balance of stream 1";
   Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger bal2(
     final sensibleOnly = sensibleOnly2,
@@ -47,7 +47,7 @@ protected
     final linearizeFlowResistance = linearizeFlowResistance2,
     final deltaM = deltaM2,
     final Q_flow = Q2_flow,
-    final mXi_flow = mXi2_flow)
+    final mWat_flow = mWat2_flow)
     "Model for heat, mass, species, trace substance and pressure balance of stream 2";
 equation
   connect(bal1.port_a, port_a1);
@@ -92,12 +92,12 @@ The following inputs need to be assigned, where <code><i>N</i></code> denotes <c
 <code>Q<i>N</i>_flow</code>, which is the heat flow rate added to the medium <i>N</i>.
 </li>
 <li>
-<code>mXi<i>N</i>_flow</code>, which is the species mass flow rate added to the medium <i>N</i>.
+<code>mWat<i>N</i>_flow</code>, which is the moisture mass flow rate added to the medium <i>N</i>.
 </li>
 </ul>
 <p>
 Set the constant <code>sensibleOnly<i>N</i>=true</code> if the model that extends
-or instantiates this model sets <code>mXi<i>N</i>_flow = zeros(Medium.nXi<i>N</i>)</code>.
+or instantiates this model sets <code>mWat<i>N</i>_flow = 0</code>.
 </p>
 <p>
      Note that the model does not implement <code>0 = Q1_flow + Q2_flow</code> or
@@ -107,6 +107,16 @@ or instantiates this model sets <code>mXi<i>N</i>_flow = zeros(Medium.nXi<i>N</i
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 30, 2013 by Michael Wetter:<br/>
+Changed connector <code>mXi_flow[Medium.nXi]</code>
+to a scalar input connector <code>mWat_flow</code>.
+The reason is that <code>mXi_flow</code> does not allow
+to compute the other components in <code>mX_flow</code> and
+therefore leads to an ambiguous use of the model.
+By only requesting <code>mWat_flow</code>, the mass balance
+and species balance can be implemented correctly.
+</li>
 <li>
 March 29, 2011, by Michael Wetter:<br/>
 Changed energy and mass balance to avoid a division by zero if <code>m_flow=0</code>.

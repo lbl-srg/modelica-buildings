@@ -3,6 +3,8 @@ package Types "Package with type definitions used in solar collector data record
 
 
 annotation (preferredView="info", Documentation(info="<html>
-This package contains type definitions used in solar thermal collector models.
+  <p>
+    This package contains type definitions used in solar thermal collector models.
+  </p>
 </html>"));
 end Types;

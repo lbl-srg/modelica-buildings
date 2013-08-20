@@ -146,6 +146,11 @@ in the species vector.
 revisions="<html>
 <ul>
 <li>
+July 30, 2013 by Michael Wetter:<br/>
+Updated model to use new variable <code>mWat_flow</code>
+in the base class.
+</li>
+<li>
 May 24, 2011, by Michael Wetter:<br/>
 Changed base class to allow using the model as a dynamic or a steady-state model.
 </li>

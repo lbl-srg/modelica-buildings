@@ -58,15 +58,15 @@ This component computes the solar azimuth angle.
 ", revisions="<html>
 <ul>
 <li>
-July 5, 2012, by Michael Wetter:<br>
+July 5, 2012, by Michael Wetter:<br/>
 Changed model to avoid an event at solar noon.
 </li>
 <li>
-Feburary 28, 2012, by Wangda Zuo:<br>
+Feburary 28, 2012, by Wangda Zuo:<br/>
 Add solar time convertion since it is removed from <code>solTim</code>.
 </li>
 <li>
-May 18, 2010, by Wangda Zuo:<br>
+May 18, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

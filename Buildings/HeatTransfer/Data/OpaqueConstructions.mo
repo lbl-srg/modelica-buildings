@@ -6,7 +6,7 @@ package OpaqueConstructions
     parameter Integer nLay(min=1, fixed=true) "Number of layers";
     parameter Buildings.HeatTransfer.Data.BaseClasses.Material material[nLay]
       "Layer by layer declaration of material, starting from outside to room-side"
-      annotation (choicesAllMatching=true, Evaluate=true, Placement(transformation(extent={{60,60},{80,80}})));
+      annotation (choicesAllMatching=true, Evaluate=false, Placement(transformation(extent={{60,60},{80,80}})));
    final parameter Real R(unit="m2.K/W")=sum(material[:].R)
       "Thermal resistance per unit area";
 
@@ -72,6 +72,18 @@ Buildings.HeatTransfer.Convection.Exterior</a>.
 </html>", revisions=
           "<html>
 <ul>
+<li>
+July 1, 2013, by Michael Wetter:<br/>
+Changed the annotation of the instance <code>material</code>
+from
+<code>Evaluate=true</code> to <code>Evaluate=false</code>.
+This is required to allow changing the material properties after compilation.
+Note, however, that the number of state variables in 
+<a href=\"modelica://Buildings.HeatTransfer.Data.BaseClasses.Material\">
+Buildings.HeatTransfer.Data.BaseClasses.Material</a>
+are only computed when the model is translated, because
+the number of state variables is fixed at compilation time.
+</li>
 <li>
 March 13, 2013, by Michael Wetter:<br/>
 Replaced <code>Buildings.HeatTransfer.Data.Solids.Generic</code>

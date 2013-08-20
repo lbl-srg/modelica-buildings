@@ -4,6 +4,9 @@ package Concentrating "Package with SRCC rating information for concentrating so
 
 
     annotation(Documentation(info="<html>
-    Package containing data for concentrating solar collectors.<br/>
+      <p>
+        Package containing data for concentrating solar collectors. All models in
+        the Concentraing package use EN12975 test data.
+      </p>
     </html>"));
 end Concentrating;

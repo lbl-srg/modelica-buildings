@@ -1,36 +1,54 @@
 within Districts.Electrical.DC.Conversion;
 model DCDCConverter "DC DC converter"
+  extends Districts.Electrical.Interfaces.PartialConversion(
+      redeclare package PhaseSystem_p =
+        Districts.Electrical.PhaseSystems.TwoConductor,
+      redeclare package PhaseSystem_n =
+        Districts.Electrical.PhaseSystems.TwoConductor,
+      redeclare Districts.Electrical.DC.Interfaces.Terminal_n
+                                                           terminal_n,
+      redeclare Districts.Electrical.DC.Interfaces.Terminal_p
+                                                           terminal_p);
   // fixme: add example. Consider adding a constant loss therm for
 
   parameter Real conversionFactor
     "Ratio of DC voltage on side 2 / DC voltage on side 1";
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * pDC2";
+  parameter Boolean ground_1 = true "Connect side 1 of converter to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
+  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
   Modelica.SIunits.Power LossPower "Loss power";
-
 protected
-  Modelica.SIunits.Voltage vDC1= dCplug1.p.v - dCplug1.n.v "DC voltage";
-  Modelica.SIunits.Current iDC1 = dCplug1.p.i "DC current";
-  Modelica.SIunits.Power pDC1 = vDC1*iDC1 "DC power";
-  Modelica.SIunits.Voltage vDC2 = dCplug2.p.v - dCplug2.n.v "DC voltage";
-  Modelica.SIunits.Current iDC2 = dCplug2.p.i "DC current";
-  Modelica.SIunits.Power pDC2 = vDC2*iDC2 "DC power";
-public
-  Interfaces.DCplug dCplug1 annotation (Placement(transformation(extent={{-120,-20},
-            {-100,0}}), iconTransformation(extent={{-120,-20},{-80,20}})));
-  Interfaces.DCplug dCplug2 annotation (Placement(transformation(extent={{80,-20},
-            {100,0}}), iconTransformation(extent={{80,-20},{120,20}})));
+  Real i1,i2,v1,v2;
+  Modelica.SIunits.Power Pow_p;
+  Modelica.SIunits.Power Pow_n;
 equation
 
- //DC current balance
-  dCplug1.p.i + dCplug1.n.i = 0;
-//DC current balance
-  dCplug2.p.i + dCplug2.n.i = 0;
-//voltage relation
-  vDC2 = vDC1*conversionFactor;
-//power balance
-  LossPower = (1-eta) * abs(pDC2);
-  pDC1 + pDC2 - LossPower = 0;
+  if not ground_1 then
+    i1 = 0;
+  else
+    v1 = 0;
+  end if;
+  if not ground_2 then
+    i2 = 0;
+  else
+    v2 = 0;
+  end if;
+
+  Pow_p = PhaseSystem_p.activePower(terminal_p.v, terminal_p.i);
+  Pow_n = PhaseSystem_n.activePower(terminal_n.v, terminal_n.i);
+
+  v1 = terminal_n.v[2];
+  v2 = terminal_p.v[2];
+  sum(terminal_n.i) + i1 = 0;
+  sum(terminal_p.i) + i2 = 0;
+
+  //voltage relation
+  v_p = v_n*conversionFactor;
+
+  //power balance
+  LossPower = (1-eta) * abs(Pow_p);
+  Pow_n + Pow_p - LossPower = 0;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
@@ -42,7 +60,7 @@ equation
           color={0,0,255},
           smooth=Smooth.None),
         Text(
-          extent={{36,54},{96,14}},
+          extent={{30,54},{90,14}},
           lineColor={0,0,255},
           textString="DC"),
         Line(
@@ -65,7 +83,55 @@ equation
         Text(
           extent={{-100,-100},{100,-132}},
           lineColor={0,0,255},
-          textString="%eta")}),
+          textString="%eta"),
+        Text(
+          extent={{-132,80},{-72,40}},
+          lineColor={85,170,255},
+          textString="1"),
+        Text(
+          extent={{70,80},{130,40}},
+          lineColor={0,0,255},
+          textString="2"),
+        Line(
+          points={{-120,-100},{-80,-100}},
+          color=DynamicSelect({0,0,255}, if ground_1 then {0,0,255} else {255,255,
+              255}),
+          smooth=Smooth.None),
+        Line(
+          points={{-112,-106},{-88,-106}},
+          color=DynamicSelect({0,0,255}, if ground_1 then {0,0,255} else {255,255,
+              255}),
+          smooth=Smooth.None),
+        Line(
+          points={{-106,-112},{-92,-112}},
+          color=DynamicSelect({0,0,255}, if ground_1 then {0,0,255} else {255,255,
+              255}),
+          smooth=Smooth.None),
+        Line(
+          points={{-100,-100},{-100,-12}},
+          color=DynamicSelect({0,0,255}, if ground_1 then {0,0,255} else {255,255,
+              255}),
+          smooth=Smooth.None),
+        Line(
+          points={{100,-100},{100,-12}},
+          color=DynamicSelect({0,0,255}, if ground_2 then {0,0,255} else {255,255,
+              255}),
+          smooth=Smooth.None),
+        Line(
+          points={{80,-100},{120,-100}},
+          color=DynamicSelect({0,0,255}, if ground_2 then {0,0,255} else {255,255,
+              255}),
+          smooth=Smooth.None),
+        Line(
+          points={{88,-106},{112,-106}},
+          color=DynamicSelect({0,0,255}, if ground_2 then {0,0,255} else {255,255,
+              255}),
+          smooth=Smooth.None),
+        Line(
+          points={{94,-112},{108,-112}},
+          color=DynamicSelect({0,0,255}, if ground_2 then {0,0,255} else {255,255,
+              255}),
+          smooth=Smooth.None)}),
     Documentation(info="<html>
 <p>
 This is an DC DC converter, based on a power balance between DC and DC side.
@@ -85,7 +151,7 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealDCDCConverter</a>
 </html>", revisions="<html>
 <ul>
 <li>
-January 28, 2012, by Thierry S. Nouidui:<br>
+January 28, 2012, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>

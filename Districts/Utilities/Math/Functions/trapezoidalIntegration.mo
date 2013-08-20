@@ -21,7 +21,7 @@ This function computes a definite integral using the trapezoidal rule.
 </html>", revisions="<html>
 <ul>
 <li>
-August 23, 2010, by Wangda Zuo:<br>
+August 23, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

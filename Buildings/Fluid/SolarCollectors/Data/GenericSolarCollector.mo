@@ -1,12 +1,13 @@
 within Buildings.Fluid.SolarCollectors.Data;
 record GenericSolarCollector
+  "Generic data record providing inputs for specific collector data records"
 
   parameter SolarCollectors.Types.Area ATyp "Gross or aperture area";
   parameter Modelica.SIunits.Area A "Area";
   parameter Modelica.SIunits.Mass mDry "Dry weight";
   parameter Modelica.SIunits.Volume V "Fluid volume";
   parameter Modelica.SIunits.Pressure dp_nominal
-    "fixme: This is the maximum static pressure before it bursts, but it is used as the flow resistance! Pressure drop during test";
+    "Pressure drop during test conditions";
   parameter Real mperA_flow_nominal(unit="kg/(s.m2)")
     "Mass flow rate per unit area of collector";
    parameter Real B0 "1st incident angle modifier coefficient";
@@ -17,7 +18,16 @@ record GenericSolarCollector
    parameter Real C1 "Heat loss coefficient from EN12975 ratings data";
    parameter Real C2
     "Temperature dependence of heat loss from EN12975 ratings data";
+   parameter Modelica.SIunits.Irradiance G_nominal
+    "Nominal solar irradiance specified in ratings data";
+   parameter Modelica.SIunits.TemperatureDifference dT_nominal
+    "Nominal temperature difference specified in ratings data";
 annotation(Documentation(info="<html>
-Partial data file which is used for the <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">Buildings.Fluid.Solarcollectors.BaseClasses.PartialSolarCollector</a>
-model.</html>"));
+  <p>
+    Generic data file which is used for the 
+    <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">
+    Buildings.Fluid.Solarcollectors.BaseClasses.PartialSolarCollector</a> model. Establishes
+    the base inputs needed to create model-specific data packages.
+  </p>
+</html>"));
 end GenericSolarCollector;

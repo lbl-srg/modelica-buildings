@@ -54,6 +54,27 @@ info="<html>
 Record that defines the number of constructions that are 
 used in the room model.
 </p>
+<p>
+This record also declares parameters that contain the number of constructions,
+such as the number of exterior constructions <code>nConExt</code>. 
+This parameter may take on the value <code>0</code>. 
+If this parameter were to be used to declare the size of vectors of
+component models, then there may be vectors with zero components.
+This can cause problems in Dymola 7.4. 
+Therefore, a parameter is declared in the form
+</p>
+<pre>
+  NConExt = max(1, nConExt)
+</pre>
+<p>This parameter is the used by models that extend this model
+to set the size of the vector of component models.</p>
+<p>
+There are also parameters that can be used to conditionally remove components,
+such as <code>haveConExt</code>, which is set to
+</p>
+<pre>
+  haveConExt = nConExt > 0;
+</pre>
 </html>",
 revisions="<html>
 <ul>

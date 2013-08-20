@@ -1,6 +1,5 @@
 within Districts.Electrical.DC.Sources;
 model PVSimple "Simple PV model"
-  extends Districts.Electrical.DC.Interfaces.OnePort;
   parameter Modelica.SIunits.Area A "Net surface area";
   parameter Real fAct(min=0, max=1, unit="1") = 0.9
     "Fraction of surface area with active solar cells";
@@ -15,11 +14,35 @@ model PVSimple "Simple PV model"
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
+  Modelica.Blocks.Interfaces.RealOutput P(unit="W") "Generated power"
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
-  Modelica.SIunits.Power P "Generated electrical power";
+  Districts.Electrical.DC.Interfaces.Terminal_p
+                                             terminal(redeclare package
+      PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor)
+    "Generalised terminal"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+protected
+  Modelica.Blocks.Sources.RealExpression solarPower(y=A*fAct*eta*G)
+    annotation (Placement(transformation(extent={{91,-10},{71,10}})));
+  Loads.Conductor con(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
+    "Conductor, used to interface power with electrical circuit"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
-  P = A*fAct*eta*G;
-  P = -v*i;
+  connect(con.terminal, terminal)  annotation (Line(
+      points={{-10,0},{-100,0}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(solarPower.y, con.Pow) annotation (Line(
+      points={{70,0},{42,0},{42,6.66134e-16},{10,6.66134e-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  connect(solarPower.y, P) annotation (Line(
+      points={{70,6.66134e-16},{59,6.66134e-16},{59,0},{50,0},{50,70},{110,70}},
+
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -35,7 +58,7 @@ equation
           lineColor={0,0,255},
           textString="+"),
         Text(
-          extent={{51,68},{151,18}},
+          extent={{-150,-12},{-50,-62}},
           lineColor={0,0,255},
           textString="-"),
         Polygon(
@@ -102,21 +125,19 @@ equation
           smooth=Smooth.None,
           fillColor={6,13,150},
           fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None)}),
+          pattern=LinePattern.None),
+        Text(
+          extent={{102,107},{124,81}},
+          lineColor={0,0,127},
+          textString="P")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics={
-        Ellipse(
-          extent={{-30,30},{30,-30}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(points={{-50,0},{50,0}}, color={0,0,0})}),
+        grid={1,1}), graphics),
     Documentation(revisions="<html>
 <ul>
 <li>
-January 4, 2013, by Michael Wetter:<br>
+January 4, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
