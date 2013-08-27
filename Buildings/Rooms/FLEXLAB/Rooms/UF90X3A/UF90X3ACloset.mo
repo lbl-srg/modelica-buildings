@@ -156,5 +156,26 @@ model UF90X3ACloset "Model of the closet connected to test bed UF90X3A"
     <li>July 26, 2013 by Peter Grant:<br/>
     First implementation.</li>
     </ul>
-    </html>"));
+    </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
+            -200},{200,200}}), graphics={
+        Bitmap(extent={{-160,164},{162,-166}}, fileName=
+              "modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/icon.png"),
+        Text(
+          extent={{-60,12},{-22,-10}},
+          lineColor={0,0,0},
+          fillColor={61,61,61},
+          fillPattern=FillPattern.Solid,
+          textString="air"),
+        Text(
+          extent={{-72,-22},{-22,-50}},
+          lineColor={0,0,0},
+          fillColor={61,61,61},
+          fillPattern=FillPattern.Solid,
+          textString="radiation"),
+        Text(
+          extent={{-104,-124},{-54,-152}},
+          lineColor={0,0,0},
+          fillColor={61,61,61},
+          fillPattern=FillPattern.Solid,
+          textString="surface")}));
 end UF90X3ACloset;
