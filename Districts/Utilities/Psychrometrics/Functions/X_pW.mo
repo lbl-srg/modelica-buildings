@@ -26,19 +26,19 @@ Function to compute the humidity ratio for a given water vapor partial pressure.
 </html>", revisions="<html>
 <ul>
 <li>
-March 9, 2012 by Michael Wetter:<br>
+March 9, 2012 by Michael Wetter:<br/>
 Added <code>smoothOrder=99</code> and <code>displayUnit</code> for pressure.
 </li>
 <li>
-February 17, 2010 by Michael Wetter:<br>
+February 17, 2010 by Michael Wetter:<br/>
 Renamed block from <code>HumidityRatio_pWat</code> to <code>X_pW</code>.
 </li>
 <li>
-April 14, 2009 by Michael Wetter:<br>
+April 14, 2009 by Michael Wetter:<br/>
 Converted model to block because <code>RealInput</code> are obsolete in Modelica 3.0.
 </li>
 <li>
-August 7, 2008 by Michael Wetter:<br>
+August 7, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

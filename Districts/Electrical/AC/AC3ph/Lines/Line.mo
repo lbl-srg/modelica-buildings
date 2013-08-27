@@ -10,7 +10,7 @@ model Line
   TwoPortRL lineRL(
     useHeatPort=true,
     R=R/2,
-    L=L/2)
+    L=L/2) "Model for electrical line"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
 equation
   connect(lineRL.terminal_n, terminal_n)

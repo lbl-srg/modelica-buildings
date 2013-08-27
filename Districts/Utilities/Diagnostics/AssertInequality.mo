@@ -28,7 +28,7 @@ and <i>t &gt; t<sub>0</sub></i>.
 revisions="<html>
 <ul>
 <li>
-April 17, 2008, by Michael Wetter:<br>
+April 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

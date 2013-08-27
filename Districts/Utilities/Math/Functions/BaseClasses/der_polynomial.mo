@@ -15,12 +15,12 @@ algorithm
                                            a=b, x=x);
   annotation (Documentation(info="<html>
 This function computes the first derivative of a polynomial of arbitrary order.
-The original polynomial has the form<br>
+The original polynomial has the form<br/>
 <p align=\"center\" style=\"font-style:italic;\">
   y = a<sub>1</sub> + a<sub>2</sub> x + a<sub>3</sub> x<sup>2</sup> + ...
 </p>
 <p>
-This function computes new coefficients<br>
+This function computes new coefficients<br/>
 <p align=\"center\" style=\"font-style:italic;\">
    b<sub>1</sub> = a<sub>2</sub>, b<sub>2</sub> = 2 a<sub>3</sub>, ...
 </p>
@@ -32,7 +32,7 @@ Districts.Utilities.Math.polynomial</a>
 revisions="<html>
 <ul>
 <li>
-April 5, 2009 by Michael Wetter:<br>
+April 5, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

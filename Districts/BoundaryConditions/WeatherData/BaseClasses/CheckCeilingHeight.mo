@@ -27,7 +27,7 @@ This component ensures that the ceiling height is at least <i>0</i> meters.
 ", revisions="<html>
 <ul>
 <li>
-July 14, 2010, by Wangda Zuo:<br>
+July 14, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

@@ -131,7 +131,7 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>
 </html>", revisions="<html>
 <ul>
 <li>
-January 29, 2012, by Thierry S. Nouidui:<br>
+January 29, 2012, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>

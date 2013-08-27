@@ -124,34 +124,34 @@ equation
 <li> lower and upper limit-frequencies</li>
 <li> common phase angle for AC-systems</li>
 <li> synchronous or inertial reference frame for AC-3phase-systems</li>
-<li> transient or steady-state initialisation and simulation modes<br>
-     For 'transient' initialisation no specific initial equations are defined.<br>
-     This case allows also to use Dymola's steady-state initialisation, that is DIFFERENT from ours.<br>
+<li> transient or steady-state initialisation and simulation modes<br/>
+     For 'transient' initialisation no specific initial equations are defined.<br/>
+     This case allows also to use Dymola's steady-state initialisation, that is DIFFERENT from ours.<br/>
      <b>Note:</b> the parameter 'sim' only affects AC three-phase components.</li>
 </ul>
 <p>It provides</p>
 <ul>
-<li> the system angular-frequency omega<br>
-     For frequency-type 'parameter' this is simply a parameter value.<br>
-     For frequency-type 'signal' it is a positive input signal.<br>
+<li> the system angular-frequency omega<br/>
+     For frequency-type 'parameter' this is simply a parameter value.<br/>
+     For frequency-type 'signal' it is a positive input signal.<br/>
      For frequency-type 'average' it is a weighted average over the relevant generator frequencies.
 <li> the system angle theta by integration of
-<pre> der(theta) = omega </pre><br>
-     This angle allows the definition of a rotating electrical <b>coordinate system</b><br>
-     for <b>AC three-phase models</b>.<br>
-     Root-nodes defining coordinate-orientation will choose a reference angle theta_ref (connector-variable theta[2]) according to the parameter <tt>ref</tt>:<br><br>
-     <tt>theta_ref = theta if ref = \"synchron\"</tt> (reference frame is synchronously rotating with theta).<br>
-     <tt>theta_ref = 0 if ref = \"inertial\"</tt> (inertial reference frame, not rotating).<br>
+<pre> der(theta) = omega </pre><br/>
+     This angle allows the definition of a rotating electrical <b>coordinate system</b><br/>
+     for <b>AC three-phase models</b>.<br/>
+     Root-nodes defining coordinate-orientation will choose a reference angle theta_ref (connector-variable theta[2]) according to the parameter <tt>ref</tt>:<br/><br/>
+     <tt>theta_ref = theta if ref = \"synchron\"</tt> (reference frame is synchronously rotating with theta).<br/>
+     <tt>theta_ref = 0 if ref = \"inertial\"</tt> (inertial reference frame, not rotating).<br/>
 
-     where<br>
-     <tt>theta = 1 :</tt> reference frame is synchronously rotating.<br>
-     <tt>ref=0 :</tt> reference frame is at rest.<br>
-     Note: Steady-state simulation is only possible for <tt>ref = \"synchron\"</tt>.<br><br>
+     where<br/>
+     <tt>theta = 1 :</tt> reference frame is synchronously rotating.<br/>
+     <tt>ref=0 :</tt> reference frame is at rest.<br/>
+     Note: Steady-state simulation is only possible for <tt>ref = \"synchron\"</tt>.<br/><br/>
      <tt>ref</tt> is determined by the parameter <tt>refFrame</tt> in the following way:
 
      </li>
 </ul>
-<p><b>Note</b>: Each model using <b>System</b> must use it with an <b>inner</b> declaration and instance name <b>system</b> in order that it can be accessed from all objects in the model.<br>When dragging the 'System' from the package browser into the diagram layer, declaration and instance name are automatically generated.</p>
+<p><b>Note</b>: Each model using <b>System</b> must use it with an <b>inner</b> declaration and instance name <b>system</b> in order that it can be accessed from all objects in the model.<br/>When dragging the 'System' from the package browser into the diagram layer, declaration and instance name are automatically generated.</p>
 </html>
 "));
 end System;

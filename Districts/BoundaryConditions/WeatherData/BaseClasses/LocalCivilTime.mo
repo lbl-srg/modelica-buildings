@@ -31,7 +31,7 @@ The formula is based on Michael Wetter's thesis (A4.1):<pre>
 ", revisions="<html>
 <ul>
 <li>
-February 27, 2011, by Wangda Zuo:<br>
+February 27, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

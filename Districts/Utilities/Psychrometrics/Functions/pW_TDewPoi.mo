@@ -31,25 +31,25 @@ temperatures.
 </html>", revisions="<html>
 <ul>
 <li>
-March 9, 2012 by Michael Wetter:<br>
+March 9, 2012 by Michael Wetter:<br/>
 Added <code>smoothOrder=99</code> and <code>displayUnit</code> for pressure.
 </li>
 <li>
-February 17, 2010 by Michael Wetter:<br>
+February 17, 2010 by Michael Wetter:<br/>
 Renamed function from <code>dewPointTemperature</code> to <code>pW_TDewPoi</code>.
 </li>
 <li>
-February 6, 2010 by Michael Wetter:<br>
+February 6, 2010 by Michael Wetter:<br/>
 Fixed derivative implementation.
 </li>
 <li>
-September 4, 2008 by Michael Wetter:<br>
+September 4, 2008 by Michael Wetter:<br/>
 Changed from causal to acausal ports, needed, for example, for
 <a href=\"modelica://Buildings.Fluid.Examples.MixingVolumeMoistAir\">
 Buildings.Fluid.Examples.MixingVolumeMoistAir</a>.
 </li>
 <li>
-August 7, 2008 by Michael Wetter:<br>
+August 7, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

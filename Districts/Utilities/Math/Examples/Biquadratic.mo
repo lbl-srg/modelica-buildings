@@ -33,11 +33,11 @@ This model tests the implementation of the biquadratic function.
 </html>", revisions="<html>
 <ul>
 <li>
-March 14, 2012 by Michael Wetter:<br>
+March 14, 2012 by Michael Wetter:<br/>
 Changed input values of function.
 </li>
 <li>
-Sep 17, 2010 by Michael Wetter:<br>
+Sep 17, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

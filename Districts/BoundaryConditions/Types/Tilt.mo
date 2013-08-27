@@ -22,7 +22,7 @@ package Tilt "Enumeration for surface tilt"
 revisions="<html>
 <ul>
 <li>
-January 14, 2013, by Michael Wetter:<br>
+January 14, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

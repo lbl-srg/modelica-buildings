@@ -1,8 +1,9 @@
 within Districts.Electrical.AC.AC3ph.Loads;
 model ResistiveLoadP "Model of a resistive load"
-  extends Districts.Electrical.Interfaces.PartialLoad(redeclare package
-      PhaseSystem = Districts.Electrical.PhaseSystems.ThreePhase_dq, redeclare
-      Interfaces.Terminal_n terminal);
+  extends Districts.Electrical.Interfaces.PartialLoad(
+    redeclare package PhaseSystem =
+        Districts.Electrical.PhaseSystems.ThreePhase_dq,
+    redeclare Interfaces.Terminal_n terminal);
 equation
   PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, 0.0);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -86,7 +87,7 @@ Complex voltage and complex current are related as <i>v = R &nbsp; i</i>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 2, 2012, by Michael Wetter:<br>
+January 2, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

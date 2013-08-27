@@ -8,5 +8,8 @@ package Controls "Package for solar thermal collector controllers"
 
 
   annotation(Documentation(info="<html>
-  This package contains a controller for solar collectors.</html>"));
+  <p>
+    This package contains a controller for solar thermal collectors.
+  </p>  
+  </html>"));
 end Controls;

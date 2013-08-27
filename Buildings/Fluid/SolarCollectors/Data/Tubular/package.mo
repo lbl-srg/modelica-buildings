@@ -4,6 +4,9 @@ extends Modelica.Icons.MaterialPropertiesPackage;
 
 
     annotation(Documentation(info="<html>
-    Package with data describing tubular solar collectors.
+      <p>
+        Package with data describing tubular solar collectors. All models in the Tubular
+        pacakage use ASHRAE93 test data.
+      </p>
     </html>"));
 end Tubular;

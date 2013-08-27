@@ -45,7 +45,7 @@ This examples is a unit test for the wet bulb computation.
 </html>", revisions="<html>
 <ul>
 <li>
-October 2, 2012 by Michael Wetter:<br>
+October 2, 2012 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

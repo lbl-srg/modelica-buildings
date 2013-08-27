@@ -3,39 +3,39 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
   import Buildings;
   extends Modelica.Icons.Example;
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per=
-    Buildings.Fluid.SolarCollectors.Data.Concentrating.SRCC2011127A()
-    "Performance data" annotation (choicesAllMatching=true);
-  Modelica.Blocks.Sources.Sine     TEnv(
+    Buildings.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel()
+    "Performance data"
+    annotation (choicesAllMatching=true);
+  Modelica.Blocks.Sources.Sine TEnv(
     freqHz=0.01,
     offset=273.15 + 10,
-    amplitude=7.5)
+    amplitude=15) "Temperature of the surrounding environment"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Sources.Sine     T1(
-    amplitude=5,
+  Modelica.Blocks.Sources.Sine T1(
+    amplitude=15,
     freqHz=0.1,
-    offset=273.15 + 20)
+    offset=273.15 + 10) "Temperature of the first segment"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Modelica.Blocks.Sources.Sine     T2(
-    amplitude=5,
+  Modelica.Blocks.Sources.Sine T2(
     freqHz=0.1,
-    offset=273.15 + 25)
+    amplitude=15,
+    offset=273.15 + 15) "Temperature of the second segment"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica.Blocks.Sources.Sine     T3(
-    amplitude=5,
+  Modelica.Blocks.Sources.Sine T3(
     freqHz=0.1,
-    offset=273.15 + 30)
+    amplitude=15,
+    offset=273.15 + 20) "Temperature of the third segment"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss  heaLos(
+  Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
     nSeg=3,
-    A_c=2.699,
-    y_intercept=0.718,
-    C1=0.733,
-    C2=0.0204,
-    m_flow_nominal=0.04,
-    G_nominal=800,
     redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
-    TEnv_nominal=283.15,
-    TMean_nominal=298.15)
+    C1=per.C1,
+    C2=per.C2,
+    m_flow_nominal=per.mperA_flow_nominal*per.A,
+    G_nominal=per.G_nominal,
+    dT_nominal=per.dT_nominal,
+    A_c=per.A,
+    y_intercept=per.y_intercept) "Heat loss model using EN12975 calculations"
     annotation (Placement(transformation(extent={{62,20},{82,40}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
@@ -60,19 +60,22 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
     Documentation(info="<html>
-<p>
-This examples demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
-Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-Mar 27, 2013 by Peter Grant:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975HeatLoss.mos"
+      <p>
+        This examples demonstrates the implementation of 
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
+        Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>.
+      </p>
+    </html>",
+    revisions="<html>
+      <ul>
+        <li>
+          Mar 27, 2013 by Peter Grant:<br/>
+          First implementation.
+      </li>
+    </ul>
+  </html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975HeatLoss.mos"
         "Simulate and Plot"),
     Icon(graphics));
 end EN12975HeatLoss;

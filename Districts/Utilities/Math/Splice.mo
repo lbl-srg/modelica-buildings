@@ -74,11 +74,11 @@ Districts.Utilities.Math.Functions.spliceFunction</a>, which provides a continuo
 revisions="<html>
 <ul>
 <li>
-August 31, 2012, by Michael Wetter:<br>
+August 31, 2012, by Michael Wetter:<br/>
 Revised documentation.
 </li>
 <li>
-July 30, 2012, by Kaustubh Phalak:<br>
+July 30, 2012, by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>

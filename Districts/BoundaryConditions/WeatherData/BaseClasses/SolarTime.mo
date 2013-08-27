@@ -29,14 +29,14 @@ This component computes the local solar time.
 ", revisions="<html>
 <ul>
 <li>
-Feb. 16, 2012, by Michael Wetter:<br>
+Feb. 16, 2012, by Michael Wetter:<br/>
 Removed section that limits solar time to 
 <code>0 &le; solTim &le; 86400</code> as this triggers
 events, and is not needed because solar time is used in
 trigonometric functions only.
 </li>
 <li>
-May 13, 2010, by Wangda Zuo:<br>
+May 13, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

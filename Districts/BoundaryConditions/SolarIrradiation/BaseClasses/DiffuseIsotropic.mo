@@ -47,11 +47,11 @@ Solar Energy, 39(4): 301-305.
 ", revisions="<html>
 <ul>
 <li>
-June 6, 2012, by Wangda Zuo:<br>
+June 6, 2012, by Wangda Zuo:<br/>
 Separated the contributions from the sky and the ground.
 </li>
 <li>
-May 24, 2010, by Wangda Zuo:<br>
+May 24, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

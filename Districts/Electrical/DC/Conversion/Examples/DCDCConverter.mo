@@ -30,7 +30,7 @@ This model illustrates the use of a model that converts DC voltage to DC voltage
       revisions="<html>
 <ul>
 <li>
-January 29, 2013, by Thierry S. Nouidui:<br>
+January 29, 2013, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>

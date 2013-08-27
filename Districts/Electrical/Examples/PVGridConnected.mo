@@ -90,7 +90,7 @@ that shows the amount of power exchanged with the grid.
       revisions="<html>
 <ul>
 <li>
-January 4, 2013, by Michael Wetter:<br>
+January 4, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
