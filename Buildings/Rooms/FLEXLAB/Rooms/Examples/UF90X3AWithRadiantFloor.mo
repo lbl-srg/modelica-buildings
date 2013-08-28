@@ -23,8 +23,8 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
   Modelica.Blocks.Sources.CombiTimeTable airCon(table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
     tableName="airCon",
-    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.txt")
-    "Inlet air conditions (y[1] = m_flow, y[2] = T)"
+    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.txt",
+    columns=2:5) "Inlet air conditions (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-196,54},{-176,74}})));
   Buildings.Fluid.Sources.MassFlowSource_T airIn(
     use_m_flow_in=true,
@@ -125,17 +125,25 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
     "Internal gain heat flow for the electrical room"
     annotation (Placement(transformation(extent={{-68,-16},{-48,4}})));
   Modelica.Blocks.Sources.CombiTimeTable airConEle(
-    table=[0,0.1,293.15; 86400,0.1,293.15], tableOnFile=false)
+    tableOnFile=true,
+    tableName="airCon",
+    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.txt",
+    columns=2:5)
     "Inlet air conditions for the connected electrical room (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-58,-38})));
+
   Modelica.Blocks.Sources.CombiTimeTable airConClo(
-    table=[0,0.1,293.15; 86400,0.1,293.15], tableOnFile=false)
+    tableOnFile=true,
+    tableName="airCon",
+    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.txt",
+    columns=2:5)
     "Inlet air conditions for the connected closet (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-2,112})));
+
   Buildings.Fluid.Sources.MassFlowSource_T airInEle(
     use_m_flow_in=true,
     use_T_in=true,
@@ -171,7 +179,7 @@ equation
       points={{-175,64},{-168,64},{-168,68},{-160,68}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airCon.y[2],airIn. T_in) annotation (Line(
+  connect(airCon.y[4],airIn. T_in) annotation (Line(
       points={{-175,64},{-162,64}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -242,7 +250,7 @@ equation
       points={{172.2,97.5},{172,97.5},{172,-86},{-84,-86},{-84,42.4}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(airConEle.y[2], airInEle.T_in) annotation (Line(
+  connect(airConEle.y[4], airInEle.T_in) annotation (Line(
       points={{-47,-38},{-18,-38}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -278,15 +286,15 @@ equation
       points={{54,-108},{36,-108},{36,-90},{182,-90},{182,96.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(airConClo.y[2], airInClo.T_in) annotation (Line(
+  connect(airConClo.y[4], airInClo.T_in) annotation (Line(
       points={{9,112},{38,112}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airConEle.y[1], airInEle.m_flow_in) annotation (Line(
+  connect(airConEle.y[3], airInEle.m_flow_in) annotation (Line(
       points={{-47,-38},{-36,-38},{-36,-34},{-16,-34}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airConClo.y[1], airInClo.m_flow_in) annotation (Line(
+  connect(airConClo.y[2], airInClo.m_flow_in) annotation (Line(
       points={{9,112},{20,112},{20,108},{40,108}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -596,6 +604,14 @@ equation
           <td>UF90X3B</td>
           </tr>
           </table>
+          <p>
+          The ventilation air flow rates used during occupied hours in this example were calculated using
+          the assumption of 4 air changes per hour (ACH). Four ACH was selected to match the recommendation
+          for \"Offices, private\" listed at
+          <a href=\"http://www.engineeringtoolbox.com/air-change-rate-room-d_867.html\">
+          http://www.engineeringtoolbox.com/air-change-rate-room-d_867.html</a> It is assumed that there is
+          no ventilation flow during unoccupied hours.
+          </p>          
           </html>",
           revisions = "<html>
           <ul>
