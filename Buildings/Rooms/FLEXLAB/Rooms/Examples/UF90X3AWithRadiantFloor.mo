@@ -527,6 +527,7 @@ equation
           <th>y[1] significance</th>
           <th>y[2] significance</th>
           <th>y[3] significance</th>
+          <th>y[4] significance</th>
           </tr>
           <tr>
           <td>shaPos</td>
@@ -541,12 +542,15 @@ equation
           <td>Radiant heat</td>
           <td>Convective heat</td>
           <td>Latent heat</td>
+          <td></td>
           </tr>
           <tr>
           <td>airCon</td>
           <td>Ventilation air from air handling unit</td>
           <td>External text file</td>          
           <td>Mass flow rate</td>
+          <td></td>
+          <td></td>
           <td>Temperature</td>
           <td></td>
           </tr>
@@ -585,15 +589,19 @@ equation
           <tr>
           <td>airConEle</td>
           <td>Ventilation air from AHU in the electrical room</td>
-          <td>Table in model</td>
+          <td>External text file</td>
+          <td></td>
+          <td></td>          
           <td>Mass flow rate</td>
           <td>Temperature</td>
           </tr>
           <tr>
           <td>airConClo</td>
           <td>Ventilation air from AHU in closet</td>
-          <td>Table in model</td>
+          <td>External text file</td>
+          <td></td>
           <td>Mass flow rate</td>
+          <td></td>
           <td>Temperature</td>
           </tr>
           <tr>
@@ -604,6 +612,19 @@ equation
           <td>UF90X3B</td>
           </tr>
           </table>
+          <p>
+          In the above table blank entires either show that there is no data to describe, or that the data
+          is describing a quantity for a separate model. Two examples are:
+          <ul>
+          <li>The table for shaPos only contains data for shade position. Seeing as it only has a y[1] value
+          the remaining columns in the table are left blank.</li>
+          <li> airCon, airConClo, and airConEle all share an external data file. They all use the same
+          temperature data, located in y[4] of the external data file. The three room models use different
+          air mass flow rates. airCon uses the flow rate from y[1] in the data file, airConClo uses the
+          flow rate from y[2], and airConEle uses the flow rate from y[3]. Thus, the other entires
+          for each row in the table are left blank because the data is innapropriate for that particular
+          model.</li>
+          </ul>
           <p>
           The ventilation air flow rates used during occupied hours in this example were calculated using
           the assumption of 4 air changes per hour (ACH). Four ACH was selected to match the recommendation
