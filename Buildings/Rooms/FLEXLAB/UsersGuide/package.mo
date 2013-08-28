@@ -73,6 +73,13 @@ package UsersGuide "User's Guide"
   Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>
   assumes that several temperature and flow measurements are available.
   Are they? If not, how does the model need to be changed?</li>
+  <li>Ventilation assumptions used in
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>  
+  include 0 ACH in the electrical room overnight. Probably not realistic. Electrical
+  equipment will need cooling overnight. Try to estimate convective heat gains from
+  electrical equipment, identify an air flow rate to keep temperature in space
+  realistic.</li>  
   </ul>
   </html>"));
 end UsersGuide;
