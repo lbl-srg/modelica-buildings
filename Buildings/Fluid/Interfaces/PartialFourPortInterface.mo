@@ -32,7 +32,7 @@ partial model PartialFourPortInterface
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed (may lead to events)"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
-public
+
   Modelica.SIunits.VolumeFlowRate V1_flow=m1_flow/Medium1.density(sta_a1) if
         show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a1 to port_b1)";
