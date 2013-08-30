@@ -21,7 +21,7 @@ model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
     period=86400,
     startTime=3600)
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Fluid.Sources.PrescribedExtraPropertyFlowRate prescribedExtraPropertyFlowRate(
+  Fluid.Sources.TraceSubstancesFlowRate prescribedExtraPropertyFlowRate(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1)

@@ -1,5 +1,5 @@
 within Buildings.Fluid.Sources;
-model PrescribedExtraPropertyFlowRate
+model TraceSubstancesFlowRate
   "Source with mass flow that does not take part in medium mass balance (such as CO2)"
   extends Modelica.Fluid.Sources.BaseClasses.PartialSource(nPorts=1);
 
@@ -124,4 +124,4 @@ First implementation.
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="C")}));
-end PrescribedExtraPropertyFlowRate;
+end TraceSubstancesFlowRate;

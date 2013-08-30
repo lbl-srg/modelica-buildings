@@ -29,7 +29,7 @@ model To_VolumeFraction "Example problem for conversion model"
     m_flow_nominal=0.1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Volume of air"
     annotation (Placement(transformation(extent={{90,60},{110,80}})));
-  Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate souCO2(
+  Buildings.Fluid.Sources.TraceSubstancesFlowRate souCO2(
     use_m_flow_in=true,
     redeclare package Medium = Medium,
     nPorts=1) "CO2 source"

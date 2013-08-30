@@ -265,6 +265,20 @@ have been <b style=\"color:blue\">improved</b> in a
                      as the sensor.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate
+    </td>
+    <td valign=\"top\">Renamed model to<code>TraceSubstancesFlowRate</code> to
+                     use the same terminology than the Modelica Standard Library.<br/>
+                     The conversion script updates existing models that instantiate 
+                     this model.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.Examples.PrescribedExtraPropertyFlow
+    </td>
+    <td valign=\"top\">Renamed example to<code>TraceSubstancesFlowRate</code> 
+                     in order to use the same name as the source model.
+    </td>
+</tr>
 
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer<br/>
                          Buildings.Rooms</b>
