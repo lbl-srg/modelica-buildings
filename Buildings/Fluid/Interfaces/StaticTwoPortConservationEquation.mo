@@ -4,13 +4,15 @@ model StaticTwoPortConservationEquation
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
   showDesignFlowDirection = false);
 
+  constant Boolean sensibleOnly "Set to true if sensible exchange only";
+
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Heat transfered into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
     "Moisture mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  constant Boolean sensibleOnly "Set to true if sensible exchange only";
+
   // Outputs that are needed in models that extend this model
   Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg")
     "Leaving temperature of the component"
@@ -72,6 +74,7 @@ equation
  else
      m_flowInv = 0; // m_flowInv is not used if use_safeDivision = false.
  end if;
+
  if allowFlowReversal then
 // This formulation fails to simulate in Buildings.Fluid.MixingVolumes.Examples.MixingVolumePrescribedHeatFlowRate
 // with Dymola 2012. See also Dynasim ticket 13596.
@@ -90,6 +93,7 @@ equation
    XiOut = port_b.Xi_outflow;
    COut =  port_b.C_outflow;
  end if;
+
   //////////////////////////////////////////////////////////////////////////////////////////
   // Energy balance and mass balance
   if sensibleOnly then
@@ -128,14 +132,17 @@ equation
       port_a.m_flow * (port_b.Xi_outflow - inStream(port_a.Xi_outflow)) = mXi_flow;
       port_a.m_flow * (port_a.Xi_outflow - inStream(port_b.Xi_outflow)) =- mXi_flow;
      end if;
+
     // Transport of trace substances
    port_a.m_flow*port_a.C_outflow = -port_b.m_flow*inStream(port_b.C_outflow);
    port_b.m_flow*port_b.C_outflow = -port_a.m_flow*inStream(port_a.C_outflow);
 
   end if; // sensibleOnly
+
   //////////////////////////////////////////////////////////////////////////////////////////
   // No pressure drop in this model
   port_a.p = port_b.p;
+
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(
