@@ -2,7 +2,6 @@ within Buildings.Fluid.Sources.Examples;
 model PrescribedExtraPropertyFlow
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});
- // package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir;
 
   MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
