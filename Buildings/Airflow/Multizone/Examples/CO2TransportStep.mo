@@ -21,18 +21,18 @@ model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
     period=86400,
     startTime=3600)
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Fluid.Sources.TraceSubstancesFlowRate prescribedExtraPropertyFlowRate(
+  Fluid.Sources.TraceSubstancesFlowSource sou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1)
+    nPorts=1) "CO2 source"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 equation
 
-  connect(prescribedExtraPropertyFlowRate.m_flow_in, pulse.y) annotation (Line(
+  connect(sou.m_flow_in, pulse.y)                             annotation (Line(
       points={{-102.1,-70},{-119,-70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(prescribedExtraPropertyFlowRate.ports[1], volWes.ports[4])
+  connect(sou.ports[1], volWes.ports[4])
     annotation (Line(
       points={{-80,-70},{-74,-70},{-74,-38},{-90,-38},{-90,-30}},
       color={0,127,255},

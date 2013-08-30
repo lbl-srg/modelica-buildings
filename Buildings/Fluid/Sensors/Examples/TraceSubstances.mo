@@ -14,7 +14,7 @@ model TraceSubstances "Test model for the extra property sensor"
     nPorts=4) "Mixing volume"
                           annotation (Placement(transformation(extent={{74,50},
             {94,70}}, rotation=0)));
-  Sources.TraceSubstancesFlowRate sou(redeclare package Medium = Medium,
+  Sources.TraceSubstancesFlowSource sou(redeclare package Medium = Medium,
     nPorts=2,
     use_m_flow_in=true)
     annotation (Placement(transformation(extent={{-2,30},{18,50}}, rotation=0)));

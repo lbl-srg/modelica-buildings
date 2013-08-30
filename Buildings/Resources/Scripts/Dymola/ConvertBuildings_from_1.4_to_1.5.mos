@@ -9,5 +9,5 @@ convertClass("Buildings.HeatTransfer.Convection.Functions.HeatFlux.raleigh",
              "Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh"};
 
 convertClass("Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate",
-             "Buildings.Fluid.Sources.TraceSubstancesFlowRate"};
+             "Buildings.Fluid.Sources.TraceSubstancesFlowSource"};
 

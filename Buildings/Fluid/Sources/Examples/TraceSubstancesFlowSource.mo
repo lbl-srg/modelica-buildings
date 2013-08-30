@@ -1,5 +1,5 @@
 within Buildings.Fluid.Sources.Examples;
-model TraceSubstancesFlowRate
+model TraceSubstancesFlowSource
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});
 
@@ -11,7 +11,7 @@ model TraceSubstancesFlowRate
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
                           annotation (Placement(transformation(extent={{100,108},
             {120,128}},rotation=0)));
-  TraceSubstancesFlowRate sou(redeclare package Medium = Medium,
+  Sources.TraceSubstancesFlowSource sou(redeclare package Medium = Medium,
       use_m_flow_in=true,
     nPorts=1)
     annotation (Placement(transformation(extent={{-46,98},{-26,118}},rotation=0)));
@@ -34,7 +34,7 @@ model TraceSubstancesFlowRate
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
                           annotation (Placement(transformation(extent={{100,80},
             {120,100}},rotation=0)));
-  TraceSubstancesFlowRate sou1(
+  Sources.TraceSubstancesFlowSource sou1(
                                       redeclare package Medium = Medium,
       use_m_flow_in=true)
     annotation (Placement(transformation(extent={{-46,70},{-26,90}},  rotation=
@@ -85,7 +85,7 @@ model TraceSubstancesFlowRate
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
                           annotation (Placement(transformation(extent={{-6,-40},
             {14,-20}}, rotation=0)));
-  TraceSubstancesFlowRate sou2(
+  Sources.TraceSubstancesFlowSource sou2(
                                       redeclare package Medium = Medium,
       use_m_flow_in=true)
     annotation (Placement(transformation(extent={{-48,-50},{-28,-30}}, rotation=
@@ -235,7 +235,7 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{240,180}}), graphics),
             experiment(StopTime=600),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/TraceSubstancesFlowRate.mos"
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/TraceSubstancesFlowSource.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This model demonstrates the use of trace substances that are added
@@ -263,4 +263,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end TraceSubstancesFlowRate;
+end TraceSubstancesFlowSource;
