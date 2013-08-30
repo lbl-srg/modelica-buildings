@@ -97,6 +97,55 @@ protected
                                             caseSensitive=false)
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
+initial equation
+  // Make sure that if energyDynamics is SteadyState, then
+  // massDynamics is also SteadyState.
+  // Otherwise, the system of ordinary differential equations may be inconsistent.
+  if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
+    assert(massDynamics == energyDynamics, "
+         If 'massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState', then it is 
+         required that 'energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState'.
+         Otherwise, the system of equations may not be consistent.
+         You need to select other parameter values.");
+  end if;
+
+  // initialization of balances
+  if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
+      medium.T = T_start;
+  else
+    if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
+        der(medium.T) = 0;
+    end if;
+  end if;
+
+  if massDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
+    if initialize_p then
+      medium.p = p_start;
+    end if;
+  else
+    if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
+      if initialize_p then
+        der(medium.p) = 0;
+      end if;
+    end if;
+  end if;
+
+  if substanceDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
+    medium.Xi = X_start[1:Medium.nXi];
+  else
+    if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
+      der(medium.Xi) = zeros(Medium.nXi);
+    end if;
+  end if;
+
+  if traceDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
+    C = C_start[1:Medium.nC];
+  else
+    if traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
+      der(C) = zeros(Medium.nC);
+    end if;
+  end if;
+
 equation
   // Total quantities
   m = fluidVolume*medium.d;
@@ -174,55 +223,6 @@ initial algorithm
       "If Medium.nXi > 1, then substance 'water' must be present for one component.'"
          + Medium.mediumName + "'.\n"
          + "Check medium model.");
-
-initial equation
-  // Make sure that if energyDynamics is SteadyState, then
-  // massDynamics is also SteadyState.
-  // Otherwise, the system of ordinary differential equations may be inconsistent.
-  if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    assert(massDynamics == energyDynamics, "
-         If 'massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState', then it is 
-         required that 'energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState'.
-         Otherwise, the system of equations may not be consistent.
-         You need to select other parameter values.");
-  end if;
-
-  // initialization of balances
-  if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
-      medium.T = T_start;
-  else
-    if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
-        der(medium.T) = 0;
-    end if;
-  end if;
-
-  if massDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
-    if initialize_p then
-      medium.p = p_start;
-    end if;
-  else
-    if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
-      if initialize_p then
-        der(medium.p) = 0;
-      end if;
-    end if;
-  end if;
-
-  if substanceDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
-    medium.Xi = X_start[1:Medium.nXi];
-  else
-    if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
-      der(medium.Xi) = zeros(Medium.nXi);
-    end if;
-  end if;
-
-  if traceDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
-    C = C_start[1:Medium.nC];
-  else
-    if traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
-      der(C) = zeros(Medium.nC);
-    end if;
-  end if;
 
   annotation (
     Documentation(info="<html>
