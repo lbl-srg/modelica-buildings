@@ -1,5 +1,5 @@
 within Buildings.Fluid.Sensors.Examples;
-model ExtraProperty "Test model for the extra property sensor"
+model TraceSubstances "Test model for the extra property sensor"
   extends Modelica.Icons.Example;
   import Buildings;
  package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});
@@ -14,7 +14,7 @@ model ExtraProperty "Test model for the extra property sensor"
     nPorts=4) "Mixing volume"
                           annotation (Placement(transformation(extent={{74,50},
             {94,70}}, rotation=0)));
-  Sources.PrescribedExtraPropertyFlowRate sou(redeclare package Medium = Medium,
+  Sources.PrescribedTraceSubstancesFlowRate sou(redeclare package Medium = Medium,
     nPorts=2,
     use_m_flow_in=true)
     annotation (Placement(transformation(extent={{-2,30},{18,50}}, rotation=0)));
@@ -100,16 +100,16 @@ equation
       smooth=Smooth.None));
     annotation (
 experiment(StopTime=7200),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/ExtraProperty.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TraceSubstances.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{180,
             180}}), graphics),
     Documentation(info="<html>
 <p>
 This example tests the sensors that measure trace substances.
-A CO<sub>2</code> mass flow rate of <i>8.18E-8</i> kg/kg is added to the
+A CO<sub>2</sub> mass flow rate of <i>8.18E-8</i> kg/kg is added to the
 volume. The volume also has a fresh air mass flow rate and
-an exhaust air mass flow rate. The initial CO<sub>2</code> concentration
+an exhaust air mass flow rate. The initial CO<sub>2</sub> concentration
 of the volume is <i>0</i> kg/kg.
 Note that the fresh air supply has zero carbon dioxide concentration.
 Therefore, if it were outside air, then all concentrations are relative
@@ -130,4 +130,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ExtraProperty;
+end TraceSubstances;

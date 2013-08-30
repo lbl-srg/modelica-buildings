@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Sensors.Examples.ExtraProperty", stopTime=7200, method="dassl", resultFile="ExtraProperty");
+simulateModel("Buildings.Fluid.Sensors.Examples.TraceSubstances", stopTime=7200, method="dassl", resultFile="TraceSubstances");
 createPlot(id = 1,
  position = {13, 8, 894, 579},
  y = {"masFraSou.V"},
@@ -10,7 +10,7 @@ createPlot(id = 1,
  grid = true,
  color = true,
  online = false,
- filename = "ExtraProperty.mat",
+ filename = "TraceSubstances.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}});
