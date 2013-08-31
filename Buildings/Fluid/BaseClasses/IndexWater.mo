@@ -10,7 +10,7 @@ initial algorithm
   i_w :=-1;
     for i in 1:Medium.nXi loop
       if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
-                                            string2="Water",
+                                            string2="water",
                                             caseSensitive=false) then
         i_w :=i;
       end if;
@@ -22,7 +22,7 @@ initial algorithm
   annotation (Documentation(info="<html>
 <p>
 This block computes the index that water has in the mass fraction vector <code>X</code>.
-If the medium model has not component called <code>Water</code>, 
+If the medium model has not component called <code>water</code>, 
 then the block writes an error message and terminates the simulation.
 </p>
 </html>", revisions="<html>
