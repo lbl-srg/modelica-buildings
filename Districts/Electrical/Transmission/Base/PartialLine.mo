@@ -11,7 +11,7 @@ partial model PartialLine "Cable line dispersion model"
     "Nominal voltage of the line";
 
   parameter Boolean useExtTemp = false
-    "If true, enables the input for the temperature of the cable" annotation(Dialog(tab="Model"));
+    "If true, enables the input for the temperature of the cable" annotation(evaluate = true, Dialog(tab="Model"));
   parameter Modelica.SIunits.Temperature Tcable = T_ref
     "Fixed temperature of the cable" annotation(Dialog(tab="Model", enable = not useExtTemp));
   parameter Districts.Electrical.Types.CableMode mode = Districts.Electrical.Types.CableMode.automatic
@@ -23,7 +23,8 @@ partial model PartialLine "Cable line dispersion model"
     annotation(Dialog(tab="Tech. specification", enable = mode == Districts.Electrical.Types.CableMode.commercial),
                choicesAllMatching = true);
   parameter Districts.Electrical.Transmission.Cables.Cable cable=
-      Functions.selectCable(P_nominal, V_nominal, mode=mode) "Type of cable"
+      Functions.selectCable(P_nominal, V_nominal, Districts.Electrical.Types.CableMode.automatic)
+    "Type of cable"
   annotation (choicesAllMatching=true,Dialog(tab="Tech. specification",
               enable = mode==Districts.Electrical.Types.CableMode.normative),
               Placement(transformation(extent={{20,60},  {40,80}})));
@@ -43,8 +44,7 @@ partial model PartialLine "Cable line dispersion model"
     l, cable, commercialCable, mode)
     "Inductance of the cable due to mutual and self inductance" annotation(Evaluate = True);
 
-  Real IPerANor(unit="A/m2", displayUnit="A/(mm.mm)") = terminal_n.PhaseSystem.systemCurrent(terminal_n.i) / cable.S
-    "Current density";
+  //Real IPerANor(unit="A/m2", displayUnit="A/(mm.mm)") = terminal_n.PhaseSystem.systemCurrent(terminal_n.i) / cable.S "Current density";
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature cableTemp
     "Temperature of the cable"
     annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
@@ -80,5 +80,9 @@ equation
               255}),
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="T")}));
+          textString="T"),
+          Text(
+            extent={{-150,-19},{150,-59}},
+            lineColor={0,0,0},
+          textString="%name")}));
 end PartialLine;

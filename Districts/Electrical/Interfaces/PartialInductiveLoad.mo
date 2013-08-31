@@ -6,4 +6,6 @@ partial model PartialInductiveLoad
   Modelica.SIunits.MagneticFlux psi[2](each stateSelect=StateSelect.prefer);
   Modelica.SIunits.Impedance Z[2];
   Modelica.SIunits.AngularVelocity omega;
+protected
+  Modelica.SIunits.Power Q = P*tan(acos(pf));
 end PartialInductiveLoad;

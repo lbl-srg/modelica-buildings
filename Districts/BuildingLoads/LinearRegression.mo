@@ -16,13 +16,18 @@ extends Modelica.Icons.UnderConstruction;
     "Building load based on a piecewise linear regression"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Electrical.AC.AC3ph.Loads.CapacitiveLoadP loadRC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
-    "Resistive and capacitive building load"
+  Electrical.AC.ThreePhasesBalanced.Loads.CapacitiveLoadP
+                                            loadRC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input,
+    pf=pf,
+    linear=linear_AC,
+    V_nominal=V_nominal_AC) "Resistive and capacitive building load"
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-  Electrical.AC.AC3ph.Interfaces.Terminal_n terminal "Electrical connector"
+  Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n
+                                            terminal "Electrical connector"
     annotation (Placement(transformation(extent={{94,-10},{114,10}})));
-  Electrical.DC.Loads.Conductor conDC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
-    "Conductor for DC load"
+  Electrical.DC.Loads.Conductor conDC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input,
+    linear=linear_DC,
+    V_nominal=V_nominal_DC) "Conductor for DC load"
     annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
   Districts.Electrical.DC.Interfaces.Terminal_p terminal_dc(redeclare package
       PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor)
@@ -30,6 +35,12 @@ extends Modelica.Icons.UnderConstruction;
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Blocks.Math.Add add(k2=-1)
     annotation (Placement(transformation(extent={{10,-32},{30,-12}})));
+  parameter Boolean linear_AC=false
+    "If =true introduce a linearization in the AC load";
+  parameter Boolean linear_DC=false
+    "If =true introduce a linearization in the DC load";
+  parameter Modelica.SIunits.Voltage V_nominal_AC "AC Voltage of the district";
+  parameter Modelica.SIunits.Voltage V_nominal_DC "DC Voltage of the district";
 equation
   connect(regLoa.TOut, weaBus.TDryBul)           annotation (Line(
       points={{-62,8},{-80,8},{-80,0},{-100,0}},

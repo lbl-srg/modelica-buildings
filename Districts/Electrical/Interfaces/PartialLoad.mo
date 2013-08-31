@@ -6,14 +6,11 @@ partial model PartialLoad
     "Phase system"
     annotation (choicesAllMatching=true);
   Modelica.SIunits.Voltage v[:](each start = V_nominal) = terminal.v;
-  Modelica.SIunits.Current i[:](each  stateSelect =  StateSelect.prefer, each start = P_nominal/V_nominal)=
-    terminal.i;
+  Modelica.SIunits.Current i[:](each start = P_nominal/V_nominal)= terminal.i;
   Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i)
     "Phase powers";
   Modelica.SIunits.Power P
     "Power of the load (negative if consumed, positive if fed into the electrical grid)";
-  /*Modelica.SIunits.Power Q 
-    "Reactive power of the load (negative if capacitive, positive if inductive)";*/
   parameter Boolean linear = false
     "If =true introduce a linearization in the load"                                                    annotation(evaluate=true,Dialog(group="Modelling assumption"));
   parameter Districts.Electrical.Types.Assumption
@@ -22,7 +19,7 @@ partial model PartialLoad
     "Nominal power (negative if consumed, positive if generated)"  annotation(evaluate=true,Dialog(group="Nominal conditions",
         enable = mode <> 3));
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)
-    "Nominal voltage (V_nominal >= 0)"  annotation(evaluate=true, Dialog(group="Nominal conditions", enable = mode==2 or linear));
+    "Nominal voltage (V_nominal >= 0)"  annotation(evaluate=true, Dialog(group="Nominal conditions", enable = (mode==2 or linear)));
   Modelica.Blocks.Interfaces.RealInput y if mode==4
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -83,8 +80,11 @@ equation
   if mode==1 or mode==2 then
     P = P_nominal;
   elseif mode==3 then
-    //P = max(eps,Pow_);
-    P = Pow_;
+    if Pow_ >=0 then
+      P = - max(eps, Pow_);
+    else
+      P = - min(-eps, Pow_);
+    end if;
   else
     P = P_nominal*load;
   end if;

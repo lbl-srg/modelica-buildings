@@ -7,4 +7,6 @@ partial model PartialCapacitiveLoad
     "Electric charge";
   Modelica.SIunits.Admittance[2] Y "Admittance";
   Modelica.SIunits.AngularVelocity omega "Angular velocity";
+protected
+  Modelica.SIunits.Power Q = P*tan(-acos(pf));
 end PartialCapacitiveLoad;
