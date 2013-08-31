@@ -22,8 +22,8 @@ initial algorithm
   annotation (Documentation(info="<html>
 <p>
 This block computes the index that water has in the mass fraction vector <code>X</code>.
-If water cannot be found, then the block writes an error message
-and terminates the simulation.
+If the medium model has not component called <code>Water</code>, 
+then the block writes an error message and terminates the simulation.
 </p>
 </html>", revisions="<html>
 <ul>
