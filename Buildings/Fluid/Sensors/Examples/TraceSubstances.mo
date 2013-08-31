@@ -2,7 +2,8 @@ within Buildings.Fluid.Sensors.Examples;
 model TraceSubstances "Test model for the extra property sensor"
   extends Modelica.Icons.Example;
   import Buildings;
- package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});
+ package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"})
+   "Medium model";
 
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 15*1.2/3600
     "Mass flow rate into and out of the volume";
@@ -12,44 +13,51 @@ model TraceSubstances "Test model for the extra property sensor"
     V=2*3*3,
     m_flow_nominal=1E-6,
     nPorts=4) "Mixing volume"
-                          annotation (Placement(transformation(extent={{74,50},
-            {94,70}}, rotation=0)));
-  Sources.TraceSubstancesFlowSource sou(redeclare package Medium = Medium,
+    annotation (Placement(transformation(extent={{74,50}, {94,70}}, rotation=0)));
+  Sources.TraceSubstancesFlowSource sou(
+    redeclare package Medium = Medium,
     nPorts=2,
-    use_m_flow_in=true)
+    use_m_flow_in=true) 
+    "CO2 mass flow source"
     annotation (Placement(transformation(extent={{-2,30},{18,50}}, rotation=0)));
-  Modelica.Blocks.Sources.Constant step(k=8.18E-6)
+  Modelica.Blocks.Sources.Constant step(k=8.18E-6) "CO2 mass flow rate"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}}, rotation=0)));
   Buildings.Fluid.Sensors.TraceSubstances senVol(
-    redeclare package Medium = Medium) "Sensor at volume"
+    redeclare package Medium = Medium) 
+    "Sensor at volume"
     annotation (Placement(transformation(extent={{100,50},{120,70}}, rotation=0)));
   Buildings.Fluid.Sensors.TraceSubstances senSou(
-    redeclare package Medium = Medium, substanceName="CO2") "Sensor at source"
-    annotation (Placement(transformation(extent={{24,90},{44,110}},   rotation=
-            0)));
+    redeclare package Medium = Medium, 
+    substanceName="CO2") 
+    "Sensor at source"
+    annotation (Placement(transformation(extent={{24,90},{44,110}}, rotation=0)));
   Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal)
-    "Fresh air flow rate"
+    "Fresh air mass flow rate"
     annotation (Placement(transformation(extent={{-80,-14},{-60,6}}, rotation=0)));
   Buildings.Fluid.Sources.MassFlowSource_T mSou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1) "Fresh air supply"
-                annotation (Placement(transformation(extent={{0,-22},{20,-2}},
-          rotation=0)));
-  Modelica.Blocks.Math.Gain gain(k=-1) annotation (Placement(transformation(
+    nPorts=1) 
+    "Fresh air supply"
+    annotation (Placement(transformation(extent={{0,-22},{20,-2}}, rotation=0)));
+  Modelica.Blocks.Math.Gain gain(k=-1) 
+    "Gain for exhaust air mass flow rate"
+    annotation (Placement(transformation(
           extent={{-40,-54},{-20,-34}}, rotation=0)));
   Buildings.Fluid.Sources.MassFlowSource_T mSin(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1) "Exhaust air"
-                annotation (Placement(transformation(extent={{0,-62},{20,-42}},
+    annotation (Placement(transformation(extent={{0,-62},{20,-42}},
           rotation=0)));
   Buildings.Fluid.Sensors.Conversions.To_VolumeFraction masFraSou(
     MMMea=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM)
+    "Conversion of mass ratio to volume ratio"
     annotation (Placement(transformation(extent={{140,90},{160,110}},  rotation=
            0)));
   Buildings.Fluid.Sensors.Conversions.To_VolumeFraction masFraVol(
     MMMea=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM)
+    "Conversion of mass ratio to volume ratio"
     annotation (Placement(transformation(extent={{140,50},{160,70}}, rotation=0)));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSub(
     redeclare package Medium = Medium,
@@ -60,14 +68,13 @@ model TraceSubstances "Test model for the extra property sensor"
           extent={{-100,-100},{-80,-80}}, rotation=0)));
 
 equation
-  connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{0,-4}},
-                                                              color={0,0,127}));
+  connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{0,-4}}, color={0,0,127}));
   connect(m_flow.y, gain.u) annotation (Line(points={{-59,-4},{-50,-4},{-50,-44},
           {-42,-44}}, color={0,0,127}));
   connect(gain.y, mSin.m_flow_in) annotation (Line(points={{-19,-44},{0,-44}},
         color={0,0,127}));
   connect(senSou.C, masFraSou.m) annotation (Line(points={{45,100},{45,100},{139,
-          100}},                 color={0,0,127}));
+          100}}, color={0,0,127}));
   connect(senVol.C, masFraVol.m) annotation (Line(points={{121,60},{139,60}},
         color={0,0,127}));
   connect(sou.ports[1], senSou.port) annotation (Line(

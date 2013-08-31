@@ -1,14 +1,7 @@
 within Buildings.Fluid.Sensors;
 model VolumeFlowRate "Ideal sensor for volume flow rate"
-  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(tau=0);
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
-  Modelica.Blocks.Interfaces.RealOutput V_flow(final quantity="VolumeFlowRate",
-                                               final unit="m3/s")
-    "Volume flow rate from port_a to port_b"
-    annotation (Placement(transformation(
-        origin={0,110},
-        extent={{10,-10},{-10,10}},
-        rotation=270)));
   parameter Medium.Density
     d_start=Medium.density(Medium.setState_pTX(p_start, T_start, X_start))
     "Initial or guess value of density"
@@ -22,13 +15,21 @@ model VolumeFlowRate "Ideal sensor for volume flow rate"
   parameter Modelica.SIunits.MassFraction X_start[Medium.nX]=Medium.X_default
     "Mass fraction used to compute d_start"
     annotation (Dialog(group="Initialization"));
+  Modelica.Blocks.Interfaces.RealOutput V_flow(final quantity="VolumeFlowRate",
+                                               final unit="m3/s")
+    "Volume flow rate from port_a to port_b"
+    annotation (Placement(transformation(
+        origin={0,110},
+        extent={{10,-10},{-10,10}},
+        rotation=270)));
+protected
   Medium.Density dMed(start=d_start)
     "Medium temperature to which the sensor is exposed";
-protected
+
   Medium.Density d_a_inflow(start=d_start)
     "Density of inflowing fluid at port_a";
   Medium.Density d_b_inflow(start=d_start)
-    "Density of inflowing fluid at port_b or rho_a_inflow, if uni-directional flow";
+    "Density of inflowing fluid at port_b, or rho_a_inflow if uni-directional flow";
   Medium.Density d(start=d_start) "Density of the passing fluid";
 initial equation
   if dynamic then
@@ -41,11 +42,20 @@ initial equation
   end if;
 equation
   if allowFlowReversal then
-     d_a_inflow = Medium.density(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
-     d_b_inflow = Medium.density(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow));
-     dMed = Modelica.Fluid.Utilities.regStep(port_a.m_flow, d_a_inflow, d_b_inflow, m_flow_small);
+     d_a_inflow = Medium.density(state=
+                    Medium.setState_phX(p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
+     d_b_inflow = Medium.density(state=
+                    Medium.setState_phX(p=port_a.p, h=port_a.h_outflow, X=port_a.Xi_outflow));
+     dMed = Modelica.Fluid.Utilities.regStep(
+              x=port_a.m_flow,
+              y1=d_a_inflow,
+              y2=d_b_inflow,
+              x_small=m_flow_small);
   else
-     dMed = Medium.density(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
+     dMed = Medium.density(state=Medium.setState_phX(
+              p=port_b.p,
+              h=port_b.h_outflow,
+              X=port_b.Xi_outflow));
      d_a_inflow = dMed;
      d_b_inflow = dMed;
   end if;
@@ -72,17 +82,25 @@ annotation (defaultComponentName="senVolFlo",
         Line(points={{70,0},{100,0}}, color={0,128,255})}),
   Documentation(info="<html>
 <p>
-This component monitors the volume flow rate flowing from port_a to port_b. 
-The sensor is ideal, i.e. it does not influence the fluid.
+This model outputs the volume flow rate flowing from 
+<code>port_a</code> to <code>port_b</code>. 
+The sensor is ideal, i.e., it does not influence the fluid.
 If the parameter <code>tau</code> is non-zero, then the measured
 density that is used to convert the mass flow rate into
 volumetric flow rate is computed using a first order differential equation. 
-See <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
+Setting <code>tau=0</code> is <i>not</i> recommend. See
+<a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ", revisions="<html>
 <ul>
+<li>
+August 31, 2013, by Michael Wetter:<br/>
+Removed default value <code>tau=0</code> as the base class 
+already sets <code>tau=1</code>.
+This change was made so that all sensors use the same default value.
+</li>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that 

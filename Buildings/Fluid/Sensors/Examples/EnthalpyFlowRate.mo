@@ -3,19 +3,27 @@ model EnthalpyFlowRate "Test model for the enthalpy flow rate sensors"
   extends Modelica.Icons.Example;
   import Buildings;
 
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
-  Buildings.Fluid.Sensors.EnthalpyFlowRate senH_flow(redeclare package Medium
-      = Medium, m_flow_nominal=2) "Sensor for enthalpy flow rate"
+  package Medium = Buildings.Media.IdealGases.SimpleAir
+   "Medium model";
+
+  Buildings.Fluid.Sensors.EnthalpyFlowRate senH_flow(
+    redeclare package Medium = Medium, 
+    m_flow_nominal=2)
+    "Enthalpy flow rate sensor"
     annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
   Buildings.Fluid.Sources.MassFlowSource_h sou(
-    use_m_flow_in=true,
-    use_h_in=true,
     redeclare package Medium = Medium,
-    nPorts=1)
+    use_m_flow_in=true,
+    nPorts=1,
+    use_h_in=false,
+    h=10) "Flow boundary condition"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Fluid.Sources.Boundary_ph sin(use_h_in=true, redeclare package
-      Medium = Medium,
-    nPorts=1)          annotation (Placement(transformation(
+  Buildings.Fluid.Sources.Boundary_ph sin(
+    redeclare package Medium = Medium,
+    nPorts=1,
+    use_h_in=false,
+    h=20) "Flow boundary condition"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-10})));
@@ -23,33 +31,24 @@ model EnthalpyFlowRate "Test model for the enthalpy flow rate sensors"
     duration=1,
     height=-2,
     offset=1)
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Modelica.Blocks.Sources.Constant const(k=10)
-    annotation (Placement(transformation(extent={{-100,-16},{-80,4}})));
-  Modelica.Blocks.Sources.Constant const1(k=20)
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    annotation (Placement(transformation(extent={{-100,-12},{-80,8}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senH(redeclare package Medium
-      = Medium, m_flow_nominal=2,
-      tau=0)    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Buildings.Fluid.Sensors.MassFlowRate senM_flow(redeclare package Medium =
-        Medium) annotation (Placement(transformation(extent={{28,-20},{48,0}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality
+  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senH(
+    redeclare package Medium = Medium, 
+    m_flow_nominal=2) "Specific enthalpy sensor"
+                annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+  Buildings.Fluid.Sensors.MassFlowRate senM_flow(
+    redeclare package Medium = Medium) "Mass flow rate sensor"
+                annotation (Placement(transformation(extent={{28,-20},{48,0}})));
+  Buildings.Utilities.Diagnostics.AssertEquality assEqu
+    "Asserts the equality of the enthalpy flow rate computations"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Modelica.Blocks.Math.Product product
+  Modelica.Blocks.Math.Product pro "Computes the enthalphy flow rate"
     annotation (Placement(transformation(extent={{0,54},{20,74}})));
 equation
   connect(ramp.y, sou.m_flow_in) annotation (Line(
-      points={{-79,30},{-70,30},{-70,-2},{-60,-2}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(const.y, sou.h_in) annotation (Line(
-      points={{-79,-6},{-70.5,-6},{-70.5,-6},{-62,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(const1.y, sin.h_in) annotation (Line(
-      points={{81,30},{88,30},{88,-14},{82,-14}},
+      points={{-79,-2},{-60,-2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.ports[1], senH_flow.port_a) annotation (Line(
@@ -68,19 +67,19 @@ equation
       points={{48,-10},{60,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senH_flow.H_flow, assertEquality.u1) annotation (Line(
+  connect(senH_flow.H_flow, assEqu.u1) annotation (Line(
       points={{-20,1},{-20,82},{28,82},{28,76},{38,76}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senH.h_out, product.u1) annotation (Line(
+  connect(senH.h_out, pro.u1) annotation (Line(
       points={{10,1},{10,28},{-14,28},{-14,70},{-2,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senM_flow.m_flow, product.u2) annotation (Line(
+  connect(senM_flow.m_flow, pro.u2) annotation (Line(
       points={{38,1},{38,36},{-10,36},{-10,58},{-2,58}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(product.y, assertEquality.u2) annotation (Line(
+  connect(pro.y, assEqu.u2) annotation (Line(
       points={{21,64},{38,64}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -88,5 +87,24 @@ equation
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EnthalpyFlowRate.mos"
         "Simulate and plot"),  Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
+        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+This example tests the enthalpy flow rate sensor and the
+specific enthalpy sensor.
+The model compares the output of the enthalpy flow rate sensor with 
+the product of the output of the enthalpy and the mass flow rate sensor.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 31, 2013, by Michael Wetter:<br/>
+Change <code>tau=0</code> to <code>tau=1</code> for sensors.
+</li>
+<li>
+September 29, 2009, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EnthalpyFlowRate;

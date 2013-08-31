@@ -13,7 +13,7 @@ model RelativeHumidityTwoPort "Ideal two port relative humidity sensor"
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
   Real phiMed(unit="1", min=0, start=phi_start)
-    "Relative humidity to which the sensor is exposed";
+    "Relative humidity to which the sensor is exposed to";
 protected
   Medium.BaseProperties med_a_inflow
     "Medium state of inflowing fluid at port a";
@@ -36,9 +36,11 @@ equation
   med_b_inflow.h  = port_a.h_outflow;
   med_b_inflow.Xi = port_a.Xi_outflow;
   if allowFlowReversal then
-    phiMed = Modelica.Fluid.Utilities.regStep(port_a.m_flow,
-            med_a_inflow.phi,
-            med_b_inflow.phi, m_flow_small);
+    phiMed = Modelica.Fluid.Utilities.regStep(
+               x=port_a.m_flow,
+               y1=med_a_inflow.phi,
+               y2=med_b_inflow.phi,
+               x_small=m_flow_small);
   else
     phiMed = med_a_inflow.phi;
   end if;
@@ -63,8 +65,9 @@ annotation (defaultComponentName="senRelHum",
         Line(points={{70,0},{100,0}}, color={0,128,255})}),
   Documentation(info="<html>
 <p>
-This component monitors the relative humidity of the fluid flowing from port_a to port_b. 
-The sensor is ideal, i.e. it does not influence the fluid.
+This model outputs the relative humidity of the fluid flowing from 
+<code>port_a</code> to <code>port_b</code>. 
+The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
 Note that this sensor can only be used with media that contain the variable <code>phi</code>,

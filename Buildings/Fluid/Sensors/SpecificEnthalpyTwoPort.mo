@@ -2,6 +2,10 @@ within Buildings.Fluid.Sensors;
 model SpecificEnthalpyTwoPort "Ideal two port sensor for the specific enthalpy"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
+  parameter Modelica.SIunits.SpecificEnthalpy h_out_start=
+    Medium.specificEnthalpy_pTX(p=Medium.p_default, T=Medium.T_default, X=Medium.X_default)
+    "Initial or guess value of output (= state)"
+    annotation (Dialog(group="Initialization"));
   Modelica.Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
                                               final unit="J/kg",
                                               start=h_out_start)
@@ -10,10 +14,7 @@ model SpecificEnthalpyTwoPort "Ideal two port sensor for the specific enthalpy"
         origin={0,110},
         extent={{10,-10},{-10,10}},
         rotation=270)));
-  parameter Modelica.SIunits.SpecificEnthalpy h_out_start=
-    Medium.specificEnthalpy_pTX(Medium.p_default, Medium.T_default, Medium.X_default)
-    "Initial or guess value of output (= state)"
-    annotation (Dialog(group="Initialization"));
+protected
   Modelica.SIunits.SpecificEnthalpy hMed_out(start=h_out_start)
     "Medium enthalpy to which the sensor is exposed";
 initial equation
@@ -27,9 +28,11 @@ initial equation
   end if;
 equation
   if allowFlowReversal then
-    hMed_out = Modelica.Fluid.Utilities.regStep(port_a.m_flow,
-                 port_b.h_outflow,
-                 port_a.h_outflow, m_flow_small);
+    hMed_out = Modelica.Fluid.Utilities.regStep(
+                 x=port_a.m_flow,
+                 y1=port_b.h_outflow,
+                 y2=port_a.h_outflow,
+                 x_small=m_flow_small);
   else
     hMed_out = port_b.h_outflow;
   end if;
@@ -53,7 +56,7 @@ annotation (defaultComponentName="senSpeEnt",
         Line(points={{70,0},{100,0}}, color={0,128,255})}),
   Documentation(info="<html>
 <p>
-This component monitors the specific enthalpy of a passing fluid. 
+This model outputs the specific enthalpy of a passing fluid. 
 The sensor is ideal, i.e. it does not influence the fluid.
 If the parameter <code>tau</code> is non-zero, then its output
 is computed using a first order differential equation. 
@@ -61,8 +64,8 @@ Setting <code>tau=0</code> is <i>not</i> recommend. See
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
-</html>
-", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
 June 3, 2011 by Michael Wetter:<br/>

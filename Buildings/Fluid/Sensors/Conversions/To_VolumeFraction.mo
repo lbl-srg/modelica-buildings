@@ -1,7 +1,10 @@
 within Buildings.Fluid.Sensors.Conversions;
-model To_VolumeFraction
-  "Model to convert between mass fraction and volume fraction"
+model To_VolumeFraction "Conversion from mass fraction to volume fraction"
   extends Buildings.BaseClasses.BaseIcon;
+
+  parameter Modelica.SIunits.MolarMass MMMea "Molar mass of measured substance";
+  parameter Modelica.SIunits.MolarMass MMBul=Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
+    "Molar mass of bulk medium";
 
   Modelica.Blocks.Interfaces.RealInput m "Mass fraction"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}},rotation=
@@ -9,9 +12,6 @@ model To_VolumeFraction
   Modelica.Blocks.Interfaces.RealOutput V "Volume fraction"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
 
- parameter Modelica.SIunits.MolarMass MMMea "Molar mass of measured substance";
- parameter Modelica.SIunits.MolarMass MMBul=Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
-    "Molar mass of bulk medium";
 protected
  parameter Real con = MMBul/MMMea
     "Conversion coefficient from mass to volume fraction";
