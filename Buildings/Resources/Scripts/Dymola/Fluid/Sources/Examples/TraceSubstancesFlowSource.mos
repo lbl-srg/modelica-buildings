@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Sources.Examples.PrescribedExtraPropertyFlow", method="dassl", tolerance=1e-04, stopTime=600, resultFile="PrescribedExtraPropertyFlow");
+simulateModel("Buildings.Fluid.Sources.Examples.TraceSubstancesFlowSource", method="dassl", tolerance=1e-04, stopTime=600, resultFile="TraceSubstancesFlowSource");
 
 removePlots();
 
@@ -9,6 +9,6 @@ createPlot(id = 2,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "PrescribedExtraPropertyFlow.mat",
+ filename = "TraceSubstancesFlowSource.mat",
  leftTitleType = 1,
  bottomTitleType = 1);

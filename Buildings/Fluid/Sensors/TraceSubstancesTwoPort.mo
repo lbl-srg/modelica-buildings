@@ -11,7 +11,8 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
         extent={{10,-10},{-10,10}},
         rotation=270)));
   parameter String substanceName = "CO2" "Name of trace substance";
-  parameter Real C_start(min=0) "Initial or guess value of output (= state)"
+  parameter Real C_start(min=0) = 0
+    "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
   Real CMed(min=0, start=C_start, nominal=Medium.C_nominal)
     "Medium trace substance to which the sensor is exposed";
@@ -77,6 +78,10 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+August 30, 2013, by Michael Wetter:<br/>
+Added default value <code>C_start=0</code>.
+</li>
 <li>
 November 3, 2011, by Michael Wetter:<br/>
 Moved <code>der(C) := 0;</code> from the initial algorithm section to 

@@ -197,6 +197,11 @@ have been <b style=\"color:blue\">improved</b> in a
                        ticket <a href=\"https://trac.modelica.org/Modelica/ticket/739\">#739</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.TraceSubstancesTwoPort
+    </td>
+    <td valign=\"top\">Added default value <code>C_start=0</code>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
@@ -251,6 +256,27 @@ have been <b style=\"color:blue\">improved</b> in a
                        have been renamed. 
                        The equations that were used were, however, correct.
                        This addresses issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/165\">#165</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.Examples.TraceSubstances
+    </td>
+    <td valign=\"top\">Renamed example from <code>ExtraProperty</code> to
+                     <code>TraceSubstances</code> in order to use the same name
+                     as the sensor.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate
+    </td>
+    <td valign=\"top\">Renamed model to<code>TraceSubstancesFlowRate</code> to
+                     use the same terminology than the Modelica Standard Library.<br/>
+                     The conversion script updates existing models that instantiate 
+                     this model.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.Examples.PrescribedExtraPropertyFlow
+    </td>
+    <td valign=\"top\">Renamed example to<code>TraceSubstancesFlowRate</code> 
+                     in order to use the same name as the source model.
     </td>
 </tr>
 
