@@ -35,6 +35,9 @@ protected
     mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
     "Power exchanged with battery pack"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+public
+  Modelica.Blocks.Math.Gain gain(k=-1)
+    annotation (Placement(transformation(extent={{22,10},{42,30}})));
 equation
   connect(cha.SOC, SOC)    annotation (Line(
       points={{61,60},{110,60}},
@@ -44,14 +47,18 @@ equation
       points={{38,60},{0,60},{0,108},{8.88178e-16,108}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(P, bat.Pow) annotation (Line(
-      points={{8.88178e-16,108},{8.88178e-16,20},{68,20},{68,8.88178e-16},{60,8.88178e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
   connect(bat.terminal, terminal) annotation (Line(
       points={{40,0},{-100,0}},
       color={0,0,255},
+      smooth=Smooth.None));
+  connect(P, gain.u) annotation (Line(
+      points={{8.88178e-16,108},{8.88178e-16,20},{20,20}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gain.y, bat.Pow) annotation (Line(
+      points={{43,20},{68,20},{68,8.88178e-16},{60,8.88178e-16}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(

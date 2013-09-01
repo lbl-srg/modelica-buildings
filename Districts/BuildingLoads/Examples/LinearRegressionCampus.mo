@@ -20,42 +20,47 @@ model LinearRegressionCampus
   parameter Modelica.SIunits.Power P_dt = P_de + P_d "Rated power for sizing";
   // Declaration of the line model
   // Set the instance 'line' either to 'DummyLine' or to 'Districts.Electrical.AC.AC3ph.Lines.Line'
-  model line = DummyLine "Line model";
-  //model line = Districts.Electrical.AC.AC3ph.Lines.Line "Line model";
+  //model line = DummyLine "Line model";
+  model line = Districts.Electrical.AC.ThreePhasesBalanced.Lines.Line
+    "Line model";
   //model line = resistiveLine "Line model";
-  Districts.BuildingLoads.LinearRegression buiA(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt")
-    "Building A"
+  Districts.BuildingLoads.LinearRegression buiA(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
+    V_nominal_AC=VDis,
+    V_nominal_DC=VDC) "Building A"
     annotation (Placement(transformation(extent={{230,30},{250,50}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-220,60},{-200,80}})));
-  Districts.Electrical.AC.AC3ph.Sources.Grid gri(
+  Districts.Electrical.AC.ThreePhasesBalanced.Sources.Grid gri(
     f=60,
     Phi=0,
     V=VTra)
            annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  Districts.Electrical.AC.AC3ph.Conversion.ACACConverter acac(eta=0.9,
+  Districts.Electrical.AC.ThreePhasesBalanced.Conversion.ACACConverter acac(eta=0.9,
       conversionFactor=VDis/VTra) "AC/AC converter"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   line dt(
     P_nominal=P_dt,
     V_nominal=VDis,
     l=40,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35())
     "Distribution line"
     annotation (Placement(transformation(extent={{-22,-30},{-2,-10}})));
   line de(
     V_nominal=VDis,
     P_nominal=P_de,
     l=400,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35())
     "Distribution line"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   line d(
     V_nominal=VDis,
     P_nominal=P_d,
     l=20,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35())
     "Distribution line"       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -64,7 +69,8 @@ model LinearRegressionCampus
     V_nominal=VDis,
     P_nominal=P_e,
     l=20,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35())
     "Distribution line"       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -73,14 +79,16 @@ model LinearRegressionCampus
     V_nominal=VDis,
     P_nominal=P_ce,
     l=50,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35())
     "Distribution line"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   line c(
     V_nominal=VDis,
     P_nominal=P_c,
     l=60,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35())
     "Distribution line"       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -89,14 +97,16 @@ model LinearRegressionCampus
     V_nominal=VDis,
     P_nominal=P_bc,
     l=40,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35())
     "Distribution line"
     annotation (Placement(transformation(extent={{160,-30},{180,-10}})));
   line b(
     V_nominal=VDis,
     P_nominal=P_b,
     l=20,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35())
     "Distribution line"       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -105,31 +115,36 @@ model LinearRegressionCampus
     V_nominal=VDis,
     P_nominal=P_a,
     l=120,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35())
     "Distribution line"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={250,-20})));
-  Districts.BuildingLoads.LinearRegression buiB(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt")
-    "Building B"
+  Districts.BuildingLoads.LinearRegression buiB(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
+    V_nominal_AC=VDis,
+    V_nominal_DC=VDC) "Building B"
     annotation (Placement(transformation(extent={{170,30},{190,50}})));
-  Districts.BuildingLoads.LinearRegression buiC(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt")
-    "Building C"
+  Districts.BuildingLoads.LinearRegression buiC(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
+    V_nominal_AC=VDis,
+    V_nominal_DC=VDC) "Building C"
     annotation (Placement(transformation(extent={{108,30},{128,50}})));
-  Districts.BuildingLoads.LinearRegression buiD(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt")
-    "Building D"
+  Districts.BuildingLoads.LinearRegression buiD(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
+    V_nominal_AC=VDis,
+    V_nominal_DC=VDC) "Building D"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  Districts.BuildingLoads.LinearRegression buiE(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt")
-    "Building E"
+  Districts.BuildingLoads.LinearRegression buiE(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
+    V_nominal_AC=VDis,
+    V_nominal_DC=VDC) "Building E"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
-  Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senAC
+  Districts.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor senAC
     "Sensor in AC line after the transformer"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Districts.Electrical.AC.AC3ph.Conversion.ACDCConverter acdc(conversionFactor=
+  Districts.Electrical.AC.ThreePhasesBalanced.Conversion.ACDCConverter acdc(conversionFactor=
         VDC/VDis, eta=0.9) "AC/DC converter"
     annotation (Placement(transformation(extent={{300,-30},{320,-10}})));
-  Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senA
+  Districts.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor senA
     "Sensor in AC line at building A"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -138,7 +153,7 @@ model LinearRegressionCampus
     annotation (Placement(transformation(extent={{376,-10},{396,-30}})));
 
   Districts.BuildingLoads.Examples.BaseClasses.BatteryControl_V
-                   conBat "Battery controller"
+                   conBat(PMax=PDCGen/100, VDis=VDis) "Battery controller"
     annotation (Placement(transformation(extent={{358,-114},{378,-94}})));
   Districts.Electrical.DC.Sources.PVSimple pv(A=100*150) "PV array"
     annotation (Placement(transformation(extent={{376,80},{396,100}})));
@@ -161,7 +176,7 @@ model LinearRegressionCampus
     annotation (Placement(transformation(extent={{210,190},{230,210}})));
 protected
   model resistiveLine
-    extends Districts.Electrical.AC.AC3ph.Lines.TwoPortResistance(R=0.3e-3*l);
+    extends Districts.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortResistance(R=0.3e-3*l);
       parameter Modelica.SIunits.Distance l(min=0) "Length of the line";
       parameter Modelica.SIunits.Power P_nominal(min=0)
       "Nominal power of the line";
@@ -182,8 +197,10 @@ model DummyLine
         Districts.Electrical.PhaseSystems.ThreePhase_dq,
       redeclare package PhaseSystem_n =
         Districts.Electrical.PhaseSystems.ThreePhase_dq,
-      redeclare Districts.Electrical.AC.AC3ph.Interfaces.Terminal_n terminal_n,
-      redeclare Districts.Electrical.AC.AC3ph.Interfaces.Terminal_n terminal_p);
+      redeclare
+        Districts.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n         terminal_n,
+      redeclare
+        Districts.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n         terminal_p);
 
   parameter Modelica.SIunits.Distance l(min=0) "Length of the line";
   parameter Modelica.SIunits.Power P_nominal(min=0) "Nominal power of the line";
@@ -399,12 +416,12 @@ equation
       points={{300,-20},{260,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(senAC.S[1], conBat.S) annotation (Line(
-      points={{-76,-29},{-78,-29},{-78,-110},{356,-110}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(conBat.P, bat.P) annotation (Line(
       points={{379,-104},{386,-104},{386,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(senAC.V, conBat.VMea) annotation (Line(
+      points={{-70,-29},{-70,-110},{356,-110}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,

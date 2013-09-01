@@ -12,11 +12,11 @@ model WindTurbineGridConnected
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-52,0})));
-  Districts.Electrical.AC.AC1ph.Sources.Grid
+        origin={-50,0})));
+  Districts.Electrical.AC.OnePhase.Sources.Grid
     grid(V=380, f=60, Phi=0)
     annotation (Placement(transformation(extent={{30,28},{50,48}})));
-  Districts.Electrical.AC.AC1ph.Conversion.ACDCConverter
+  Districts.Electrical.AC.OnePhase.Conversion.ACDCConverter
     conACDC(       conversionFactor=240/380, eta=0.9) "AC/DC converter"
     annotation (Placement(transformation(extent={{24,-10},{4,10}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -31,12 +31,12 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus.winSpe, tur.vWin) annotation (Line(
-      points={{-52,70},{-52,12}},
+      points={{-52,70},{-52,12},{-50,12}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(tur.terminal, conACDC.terminal_p) annotation (Line(
-      points={{-42,0},{4,0}},
+      points={{-40,4.44089e-16},{-20,4.44089e-16},{-20,0},{4,0}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(conACDC.terminal_n, grid.terminal) annotation (Line(

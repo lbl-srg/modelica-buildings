@@ -2,28 +2,34 @@ within Districts.BuildingLoads.Examples;
 model LinearRegression "Example model for the linear regression building load"
   import Districts;
   extends Modelica.Icons.Example;
-  Districts.BuildingLoads.LinearRegression bui1(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt")
-    "Building 1"
+  Districts.BuildingLoads.LinearRegression bui1(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
+    V_nominal_AC=480,
+    V_nominal_DC=240,
+    linear_AC=true) "Building 1"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Districts.Electrical.AC.AC3ph.Sources.Grid gri(
+  Districts.Electrical.AC.ThreePhasesBalanced.Sources.Grid
+                                             gri(
     f=60,
     V=480,
     Phi=0) annotation (Placement(transformation(extent={{78,60},{98,80}})));
-  Districts.Electrical.AC.AC3ph.Lines.Line lin(
+  Districts.Electrical.AC.ThreePhasesBalanced.Lines.Line
+                                           lin(
     l=50,
     V_nominal=480,
-    cable=Districts.Electrical.Transmission.Cables.mmq_4_0(),
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper(),
-    P_nominal=2e5) "Transmission line"
+    P_nominal=2e5,
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu50())
+    "Transmission line"
     annotation (Placement(transformation(extent={{80,40},{60,60}})));
   Districts.Electrical.DC.Sources.ConstantVoltage souDC(V=240) "DC source"
     annotation (Placement(transformation(extent={{100,10},{80,30}})));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senAC
+  Districts.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor
+                                                          senAC
     "Sensor for AC line"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Districts.Electrical.DC.Sensors.GeneralizedSensor senDC "Sensor for DC line"

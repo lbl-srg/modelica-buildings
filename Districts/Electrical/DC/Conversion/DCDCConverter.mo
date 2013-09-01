@@ -46,9 +46,18 @@ equation
   //voltage relation
   v_p = v_n*conversionFactor;
 
-  //power balance
-  LossPower = (1-eta) * abs(Pow_p);
-  Pow_n + Pow_p - LossPower = 0;
+  // OLD equations that take into account the power at the secondary
+  // power balance
+  // LossPower = (1-eta) * abs(Pow_p);
+  // Pow_n + Pow_p - LossPower = 0;
+
+  // Symmetric and linear version
+  LossPower = Pow_p + Pow_n;
+  if i_n >=0 then
+    i_p = i_n/conversionFactor/(eta - 2);
+  else
+    i_n = conversionFactor*i_p/(eta - 2);
+  end if;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),

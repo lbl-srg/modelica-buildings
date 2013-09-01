@@ -25,10 +25,6 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                                   graphics={
           Text(
-            extent={{-144,97},{156,57}},
-            lineColor={0,0,0},
-          textString="%name"),
-          Text(
             extent={{-142,-30},{144,-62}},
             lineColor={0,0,0},
           textString="R=%R, L=%L"),
