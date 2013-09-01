@@ -7,7 +7,7 @@ model MoistAirEnthalpyFlowRate
   package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
 
   Buildings.Fluid.Sensors.EnthalpyFlowRate senH_flow(
-    redeclare package Medium = Medium, 
+    redeclare package Medium = Medium,
     m_flow_nominal=1) "Sensor for enthalpy flow rate"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
@@ -26,14 +26,14 @@ model MoistAirEnthalpyFlowRate
         rotation=180,
         origin={70,-70})));
   Modelica.Blocks.Sources.Ramp ramp(
-    duration=1,
     height=-2,
-    offset=1)
+    offset=1,
+    duration=60)
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senH(
-    redeclare package Medium = Medium, 
+    redeclare package Medium = Medium,
     m_flow_nominal=1) "Specific enthalpy sensor"
                 annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Fluid.Sensors.MassFlowRate senM_flow(
@@ -42,13 +42,11 @@ model MoistAirEnthalpyFlowRate
   Buildings.Utilities.Diagnostics.AssertEquality assEqu1
     "Assert to check then enthalpy flow rate sensor"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Blocks.Math.Product product
-    "Product to compute enthalpy flow rate"
+  Modelica.Blocks.Math.Product product "Product to compute enthalpy flow rate"
     annotation (Placement(transformation(extent={{0,54},{20,74}})));
   Buildings.Fluid.Sensors.LatentEnthalpyFlowRate senHLat_flow(
-    redeclare package Medium = Medium, 
-    m_flow_nominal=1)
-    "Latent enthalpy flow rate sensor"
+    redeclare package Medium = Medium,
+    m_flow_nominal=1) "Latent enthalpy flow rate sensor"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate senHSen_flow(
     redeclare package Medium = Medium, m_flow_nominal=1)
@@ -123,7 +121,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
     annotation (
-experiment(StopTime=1.0),
+experiment(StopTime=60.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mos"
         "Simulate and plot"),
         Diagram(
