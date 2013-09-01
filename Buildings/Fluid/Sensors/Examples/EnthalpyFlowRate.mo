@@ -3,39 +3,35 @@ model EnthalpyFlowRate "Test model for the enthalpy flow rate sensors"
   extends Modelica.Icons.Example;
   import Buildings;
 
-  package Medium = Buildings.Media.IdealGases.SimpleAir
-   "Medium model";
+  package Medium = Buildings.Media.IdealGases.SimpleAir "Medium model";
 
   Buildings.Fluid.Sensors.EnthalpyFlowRate senH_flow(
-    redeclare package Medium = Medium, 
-    m_flow_nominal=2)
-    "Enthalpy flow rate sensor"
+    redeclare package Medium = Medium,
+    m_flow_nominal=2) "Enthalpy flow rate sensor"
     annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
-  Buildings.Fluid.Sources.MassFlowSource_h sou(
+  Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1,
-    use_h_in=false,
-    h=10) "Flow boundary condition"
+    T=293.15) "Flow boundary condition"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Fluid.Sources.Boundary_ph sin(
+  Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=1,
-    use_h_in=false,
-    h=20) "Flow boundary condition"
+    T=313.15) "Flow boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-10})));
   Modelica.Blocks.Sources.Ramp ramp(
-    duration=1,
     height=-2,
-    offset=1)
+    offset=1,
+    duration=60)
     annotation (Placement(transformation(extent={{-100,-12},{-80,8}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senH(
-    redeclare package Medium = Medium, 
+    redeclare package Medium = Medium,
     m_flow_nominal=2) "Specific enthalpy sensor"
                 annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Fluid.Sensors.MassFlowRate senM_flow(
@@ -84,7 +80,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
     annotation (
-experiment(StopTime=1.0),
+experiment(StopTime=60.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EnthalpyFlowRate.mos"
         "Simulate and plot"),  Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
@@ -100,6 +96,8 @@ the product of the output of the enthalpy and the mass flow rate sensor.
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Change <code>tau=0</code> to <code>tau=1</code> for sensors.
+Changed source model to use temperature instead of specific enthalpy
+as a parameter.
 </li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
