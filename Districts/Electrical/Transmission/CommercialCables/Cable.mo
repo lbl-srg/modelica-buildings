@@ -7,4 +7,8 @@ record Cable "Low Voltage Cable Type"
     "Characteristic Reactance of the Cable";
   parameter Modelica.SIunits.ElectricCurrent In(start=0)
     "Nominal Electrical Current Fused";
+  parameter Modelica.SIunits.Temperature T0 = 273.15 + 25
+    "Reference cable temperature";
+  parameter Modelica.SIunits.LinearTemperatureCoefficient alphaT0 = 0.0
+    "Linear temperature coefficient of the material";
 end Cable;

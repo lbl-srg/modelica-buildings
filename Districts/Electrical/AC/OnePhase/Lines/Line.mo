@@ -7,6 +7,7 @@ model Line
         Districts.Electrical.PhaseSystems.OnePhase,
       redeclare Interfaces.Terminal_n terminal_n,
       redeclare Interfaces.Terminal_p terminal_p);
+protected
   replaceable TwoPortRL lineRL(
     useHeatPort=true,
     R=R,
