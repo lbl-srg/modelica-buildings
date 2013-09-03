@@ -1,5 +1,5 @@
 within Districts.BuildingLoads.Examples.BaseClasses;
-partial model PartialTimeSeriesCampus
+partial model PartialTimeSeriesCampusDecoupled
   "Partial model for the time series building load as part of a campus"
   import Districts;
   parameter Modelica.SIunits.Voltage VTra = 50e3 "Voltage of transmission grid";
@@ -59,8 +59,8 @@ partial model PartialTimeSeriesCampus
   //replaceable model line = DummyLine "Line model";
   replaceable model line =
       Districts.Electrical.AC.ThreePhasesBalanced.Lines.Line (
-    mode=Districts.Electrical.Types.CableMode.commercial,
-    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu50())
+    mode = Districts.Electrical.Types.CableMode.commercial,
+    commercialCable = Districts.Electrical.Transmission.CommercialCables.Cu100())
     "Line model";
   //model line = resistiveLine "Line model";
   Districts.BuildingLoads.TimeSeries buiA(fileName="Resources/Data/BuildingLoads/Examples/buildingA.txt",
@@ -202,23 +202,20 @@ public
   Districts.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor senTra
     "Sensor in the transmission grid"
     annotation (Placement(transformation(extent={{-148,-30},{-128,-10}})));
-  Districts.Electrical.AC.ThreePhasesBalanced.Conversion.ACDCConverter acdc(conversionFactor=
-        VDC/VDis, eta=0.9) "AC/DC converter"
-    annotation (Placement(transformation(extent={{350,-30},{370,-10}})));
   Districts.Electrical.DC.Sources.PVSimple pv(A=10000) "PV array"
     annotation (Placement(transformation(extent={{426,90},{446,110}})));
   Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
-    annotation (Placement(transformation(extent={{360,130},{380,150}})));
+    annotation (Placement(transformation(extent={{340,130},{360,150}})));
   Districts.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
     til=0.34906585039887,
     lat=0.65798912800186,
     azi=-0.78539816339745) "Diffuse irradiation on tilted surface"
-    annotation (Placement(transformation(extent={{310,150},{330,170}})));
+    annotation (Placement(transformation(extent={{290,150},{310,170}})));
   Districts.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=0.34906585039887,
     lat=0.65798912800186,
     azi=-0.78539816339745) "Direct irradiation on tilted surface"
-    annotation (Placement(transformation(extent={{310,110},{330,130}})));
+    annotation (Placement(transformation(extent={{290,110},{310,130}})));
   Districts.Electrical.DC.Sources.WindTurbine tur(h=50, scale=500e3)
     "Wind turbine"
     annotation (Placement(transformation(extent={{430,170},{450,190}})));
@@ -229,6 +226,13 @@ public
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Continuous.Integrator ETot "Total transmitted energy"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
+  Districts.Electrical.DC.Sources.ConstantVoltage constantVoltage(V=VDC)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={360,-20})));
+  Modelica.Electrical.Analog.Basic.Ground ground
+    annotation (Placement(transformation(extent={{340,-52},{360,-32}})));
 equation
   connect(weaDat.weaBus,buiA. weaBus)             annotation (Line(
       points={{-200,70},{270,70},{270,40},{280,40}},
@@ -294,14 +298,6 @@ equation
       points={{330,20},{330,40},{300.4,40}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(buiB.terminal_dc, buiC.terminal_dc) annotation (Line(
-      points={{240,34},{244,34},{244,24},{186,24},{186,34},{172,34}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(buiA.terminal_dc, buiC.terminal_dc) annotation (Line(
-      points={{300,34},{306,34},{306,24},{186,24},{186,34},{172,34}},
-      color={0,0,255},
-      smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-200,70},{270,70},{270,200}},
       color={255,204,51},
@@ -318,29 +314,25 @@ equation
       points={{-148,-20},{-162,-20},{-162,-4.44089e-16}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(buiD.terminal_dc, acdc.terminal_p)  annotation (Line(
-      points={{-22,-76},{0,-76},{0,-100},{400,-100},{400,-20},{370,-20}},
-      color={0,0,255},
-      smooth=Smooth.None));
   connect(HDifTil.H,G. u1) annotation (Line(
-      points={{331,160},{350,160},{350,146},{358,146}},
+      points={{311,160},{332,160},{332,146},{338,146}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDirTil.H,G. u2) annotation (Line(
-      points={{331,120},{350,120},{350,134},{358,134}},
+      points={{311,120},{332,120},{332,134},{338,134}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(G.y,pv. G) annotation (Line(
-      points={{381,140},{436,140},{436,112}},
+      points={{361,140},{436,140},{436,112}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus,HDifTil. weaBus) annotation (Line(
-      points={{-200,70},{270,70},{270,160},{310,160}},
+      points={{-200,70},{270,70},{270,160},{290,160}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(HDirTil.weaBus,HDifTil. weaBus) annotation (Line(
-      points={{310,120},{270,120},{270,160},{310,160}},
+      points={{290,120},{270,120},{270,160},{290,160}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -354,26 +346,6 @@ equation
   connect(linA.terminal_p, senA.terminal_n) annotation (Line(
       points={{300,-20},{330,-20},{330,-4.44089e-16}},
       color={0,120,120},
-      smooth=Smooth.None));
-  connect(acdc.terminal_p, tur.terminal)  annotation (Line(
-      points={{370,-20},{400,-20},{400,180},{430,180}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(pv.terminal, acdc.terminal_p)  annotation (Line(
-      points={{426,100},{400,100},{400,-20},{370,-20}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(buiE.terminal_dc, acdc.terminal_p)  annotation (Line(
-      points={{130,-86},{140,-86},{140,-100},{400,-100},{400,-20},{370,-20}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(bat.terminal, acdc.terminal_p)  annotation (Line(
-      points={{418,-20},{370,-20}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(buiC.terminal_dc, acdc.terminal_p)  annotation (Line(
-      points={{172,34},{184,34},{184,24},{400,24},{400,-20},{370,-20}},
-      color={0,0,255},
       smooth=Smooth.None));
   connect(linA.terminal_n, linBC.terminal_p) annotation (Line(
       points={{280,-20},{230,-20}},
@@ -407,14 +379,47 @@ equation
       points={{120,-20},{140,-20},{140,-40}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(linA.terminal_p, acdc.terminal_n) annotation (Line(
-      points={{300,-20},{350,-20}},
-      color={0,120,120},
-      smooth=Smooth.None));
   connect(ETot.u, senTra.S[1]) annotation (Line(
       points={{-122,-70},{-144,-70},{-144,-29}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(buiC.terminal_dc, buiB.terminal_dc) annotation (Line(
+      points={{172,34},{200,34},{200,24},{246,24},{246,34},{240,34}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(buiB.terminal_dc, buiA.terminal_dc) annotation (Line(
+      points={{240,34},{246,34},{246,24},{310,24},{310,34},{300,34}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(buiA.terminal_dc, constantVoltage.terminal) annotation (Line(
+      points={{300,34},{370,34},{370,-20}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(constantVoltage.terminal, bat.terminal) annotation (Line(
+      points={{370,-20},{418,-20}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(constantVoltage.terminal, pv.terminal) annotation (Line(
+      points={{370,-20},{370,100},{426,100}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(buiD.terminal_dc, buiE.terminal_dc) annotation (Line(
+      points={{-22,-76},{16,-76},{16,-76},{50,-76},{50,-100},{136,-100},{136,-86},
+          {130,-86}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(buiE.terminal_dc, constantVoltage.terminal) annotation (Line(
+      points={{130,-86},{370,-86},{370,-20}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(tur.terminal, constantVoltage.terminal) annotation (Line(
+      points={{430,180},{370,180},{370,-20}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(ground.p, constantVoltage.n) annotation (Line(
+      points={{350,-32},{350,-20}},
+      color={0,0,255},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -140},{460,220}}), graphics));
-end PartialTimeSeriesCampus;
+end PartialTimeSeriesCampusDecoupled;

@@ -5,7 +5,7 @@ model TimeSeriesCampus_S
   extends Modelica.Icons.Example;
   extends Districts.BuildingLoads.Examples.BaseClasses.PartialTimeSeriesCampus(
   PDCGen=500e3,
-  redeclare model line=Districts.BuildingLoads.Examples.BaseClasses.DummyLine,
+  redeclare model line = Districts.BuildingLoads.Examples.BaseClasses.DummyLine,
     bat(EMax=PDCGen*20*3600));
 
   Districts.BuildingLoads.Examples.BaseClasses.BatteryControl_S conBat(PMax=2*
