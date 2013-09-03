@@ -640,6 +640,6 @@ equation
           First implementation.</li>
           </ul>
           </html>"),
-    Commands(file="Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.mos"
+     __Dymola_Commands(file="Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.mos"
         "Simulate and Plot"));
 end UF90X3AWithRadiantFloor;
