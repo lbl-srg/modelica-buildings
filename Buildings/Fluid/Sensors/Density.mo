@@ -9,7 +9,11 @@ model Density "Ideal one port density sensor"
           rotation=0)));
 
 equation
-  d = Medium.density(Medium.setState_phX(port.p, inStream(port.h_outflow), inStream(port.Xi_outflow)));
+  d = Medium.density(
+       state=Medium.setState_phX(
+         p=port.p,
+         h=inStream(port.h_outflow),
+         X=inStream(port.Xi_outflow)));
 annotation (defaultComponentName="senDen",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),     graphics),
@@ -27,21 +31,22 @@ annotation (defaultComponentName="senDen",
         Line(points={{70,0},{100,0}}, color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This component monitors the density of the fluid passing its port. 
+This model outputs the density of the fluid connected to its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
-<p>If using the one port sensor, read the 
-<a href=\"modelica://Buildings.Fluid.Sensors\">Information</a> first.</p>
-</html>
-",
+<p>
+Read the 
+<a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
+Buildings.Fluid.Sensors.UsersGuide</a>
+prior to using this model with one fluid port.
+</p>
+</html>",
 revisions="<html>
 <ul>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation.
-Implementation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"
-));
+</html>"));
 end Density;

@@ -197,6 +197,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        ticket <a href=\"https://trac.modelica.org/Modelica/ticket/739\">#739</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.EnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.LatentEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.VolumeFlowRate
+    </td>
+    <td valign=\"top\">Removed default value <code>tau=0</code> as the base class 
+                       already sets <code>tau=1</code>.
+                       This change was made so that all sensors use the same default value.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Sensors.TraceSubstancesTwoPort
     </td>
     <td valign=\"top\">Added default value <code>C_start=0</code>.
@@ -230,6 +240,13 @@ have been <b style=\"color:blue\">improved</b> in a
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.BaseClasses.IndexWater
+    </td>
+    <td valign=\"top\">Renamed class to 
+                       <code>Buildings.Fluid.BaseClasses.IndexMassFraction</code>
+                       as it is applicable for all mass fraction sensors.
     </td>
 </tr>
 <tr><td valign=\"top\">
@@ -363,6 +380,16 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.SpecificEntropyTwoPort
+    </td>
+    <td valign=\"top\">
+           Corrected wrong computation of the dynamics used for the sensor signal.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>

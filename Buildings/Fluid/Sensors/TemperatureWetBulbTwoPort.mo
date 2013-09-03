@@ -36,14 +36,22 @@ initial equation
   end if;
 equation
   if allowFlowReversal then
-    h  = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.h_outflow,  port_a.h_outflow,  m_flow_small);
-    Xi = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.Xi_outflow, port_a.Xi_outflow, m_flow_small);
+    h  = Modelica.Fluid.Utilities.regStep(
+           x=port_a.m_flow,
+           y1=port_b.h_outflow,
+           y2=port_a.h_outflow,
+           x_small=m_flow_small);
+    Xi = Modelica.Fluid.Utilities.regStep(
+           x=port_a.m_flow,
+           y1=port_b.Xi_outflow,
+           y2=port_a.Xi_outflow,
+           x_small=m_flow_small);
   else
     h = port_b.h_outflow;
     Xi = port_b.Xi_outflow;
   end if;
   // Compute wet bulb temperature
-  wetBulMod.TDryBul = Medium.T_phX(port_a.p, h, cat(1,Xi,{1-sum(Xi)}));
+  wetBulMod.TDryBul = Medium.T_phX(p=port_a.p, h=h, X=cat(1,Xi,{1-sum(Xi)}));
   wetBulMod.Xi = Xi;
   wetBulMod.p  = port_a.p;
   TMedWetBul = wetBulMod.TWetBul;
@@ -93,16 +101,16 @@ annotation (defaultComponentName="senWetBul",
         Line(points={{0,100},{0,50}}, color={0,0,127})}),
     Documentation(info="<html>
 <p>
-This component monitors the wet bulb temperature of the medium in the flow
-between fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
+This sensor outputs the wet bulb temperature of the medium in the flow
+between its fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
 If the parameter <code>tau</code> is non-zero, then its output
 is computed using a first order differential equation. 
 Setting <code>tau=0</code> is <i>not</i> recommend. See
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
-</html>
-", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
 June 3, 2011 by Michael Wetter:<br/>

@@ -8,18 +8,20 @@ model RelativePressure "Ideal relative pressure sensor"
   Modelica.Fluid.Interfaces.FluidPort_a port_a(m_flow(min=0),
                                 p(start=Medium.p_default),
                                 redeclare package Medium = Medium)
+    "Fluid connector of stream a"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
           rotation=0)));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(m_flow(min=0),
                                 p(start=Medium.p_default),
                                 redeclare package Medium = Medium)
+    "Fluid connector of stream b"
     annotation (Placement(transformation(extent={{110,-12},{90,8}}, rotation=
             0), iconTransformation(extent={{110,-10},{90,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput p_rel(final quantity="Pressure",
                                               final unit="Pa",
-                                              displayUnit="bar")
-    "Relative pressure signal" annotation (Placement(transformation(
+                                              displayUnit="Pa")
+    "Relative pressure of port_a minus port_b" annotation (Placement(transformation(
         origin={0,-90},
         extent={{10,-10},{-10,10}},
         rotation=90)));
@@ -63,7 +65,7 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-The relative pressure \"port_a.p - port_b.p\" is determined between
+The relative pressure <code>port_a.p - port_b.p</code> is determined between
 the two ports of this component and is provided as output signal. The
 sensor should be connected in parallel with other equipment, no flow
 through the sensor is allowed.
@@ -73,8 +75,7 @@ revisions="<html>
 <ul>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
-First implementation.
-Implementation is based on <code>Modelica.Fluid</code>.
+First implementation, based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
 </html>"));

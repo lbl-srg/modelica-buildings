@@ -1,20 +1,20 @@
 within Buildings.Fluid.Sensors;
 model LatentEnthalpyFlowRate
   "Ideal enthalphy flow rate sensor that outputs the latent enthalpy flow rate only"
-  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(tau=0);
-  extends Buildings.Fluid.BaseClasses.IndexWater;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
+    redeclare package Medium=Modelica.Media.Interfaces.PartialCondensingGases);
+  extends Buildings.Fluid.BaseClasses.IndexMassFraction(final substanceName="water");
   extends Modelica.Icons.RotationalSensor;
-  Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
+  Modelica.Blocks.Interfaces.RealOutput H_flow(final unit="W")
     "Latent enthalpy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{-10,-10},{10,10}},
         rotation=90)));
   parameter Modelica.SIunits.SpecificEnthalpy h_out_start=
-    Medium.specificEnthalpy_pTX(Medium.p_default, Medium.T_default, Medium.X_default)
-    -Medium.enthalpyOfNonCondensingGas(
-      Medium.temperature(Medium.setState_phX(
-        Medium.p_default, Medium.T_default, Medium.X_default)))
+    Medium.specificEnthalpy_pTX(
+      p=Medium.p_default, T=Medium.T_default, X=Medium.X_default)
+    -Medium.enthalpyOfNonCondensingGas(T=Medium.T_default)
     "Initial or guess value of measured specific latent enthalpy"
     annotation (Dialog(group="Initialization"));
   Modelica.SIunits.SpecificEnthalpy hMed_out(start=h_out_start)
@@ -26,7 +26,6 @@ protected
     "Medium mass fraction to which sensor is exposed to";
   Medium.SpecificEnthalpy hActual
     "Medium enthalpy to which sensor is exposed to";
-  Medium.ThermodynamicState sta "Medium state to which sensor is exposed to";
 initial equation
  // Compute initial state
  if dynamic then
@@ -39,23 +38,27 @@ initial equation
  end if;
 equation
   if allowFlowReversal then
-     XiActual = Modelica.Fluid.Utilities.regStep(port_a.m_flow,
-                 port_b.Xi_outflow,
-                 port_a.Xi_outflow, m_flow_small);
-     hActual = Modelica.Fluid.Utilities.regStep(port_a.m_flow,
-                 port_b.h_outflow,
-                 port_a.h_outflow, m_flow_small);
+     XiActual = Modelica.Fluid.Utilities.regStep(
+                 x=port_a.m_flow,
+                 y1=port_b.Xi_outflow,
+                 y2=port_a.Xi_outflow,
+                 x_small=m_flow_small);
+     hActual = Modelica.Fluid.Utilities.regStep(
+                 x=port_a.m_flow,
+                 y1=port_b.h_outflow,
+                 y2=port_a.h_outflow,
+                 x_small=m_flow_small);
   else
      XiActual = port_b.Xi_outflow;
      hActual = port_b.h_outflow;
   end if;
-  // Specific enthalpy measured by sensor
-  sta = Medium.setState_phX(port_a.p, hActual, XiActual);
+  // Specific enthalpy measured by sensor.
   // Compute H_flow as difference between total enthalpy and enthalpy on non-condensing gas.
   // This is needed to compute the liquid vs. gas fraction of water, using the equations
   // provided by the medium model
   hMed_out = (hActual -
-     (1-XiActual[i_w]) * Medium.enthalpyOfNonCondensingGas(Medium.temperature(sta)));
+     (1-XiActual[i_x]) * Medium.enthalpyOfNonCondensingGas(
+       T=Medium.temperature(Medium.setState_phX(p=port_a.p, h=hActual, X=XiActual))));
   if dynamic then
     der(h_out) = (hMed_out-h_out)*k/tau;
   else
@@ -97,8 +100,8 @@ annotation (defaultComponentName="senLatEnt",
         Line(points={{37.6,13.7},{65.8,23.9}}, color={0,0,0})}),
   Documentation(info="<html>
 <p>
-This component monitors the <i>latent</i> enthalphy flow rate of the medium in the flow
-between fluid ports. In particular, if the total enthalpy flow rate is
+This model outputs the <i>latent</i> enthalphy flow rate of the medium in the flow
+between its fluid ports. In particular, if the total enthalpy flow rate is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   H&#775;<sub>tot</sub> = H&#775;<sub>sen</sub> + H&#775;<sub>lat</sub>,
@@ -130,11 +133,17 @@ Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate</a>.
 <p>
 The sensor is ideal, i.e., it does not influence the fluid.
 The sensor can only be used with medium models that implement the function
-<code>enthalpyOfNonCondensingGas(state)</code>.
+<code>enthalpyOfNonCondensingGas(T)</code>.
 </p>
-</html>
-", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
+<li>
+August 31, 2013, by Michael Wetter:<br/>
+Removed default value <code>tau=0</code> as the base class 
+already sets <code>tau=1</code>.
+This change was made so that all sensors use the same default value.
+</li>
 <li>
 December 18, 2012, by Michael Wetter:<br/>
 Moved computation of <code>i_w</code> to new base class
