@@ -7,19 +7,30 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
                          __Dymola_loadSelector(filter=".txt files (*.txt);;All files (*.*)",
                          caption="Open file in which table is present")));
   parameter Real pf=0.8 "Power factor";
+  parameter Boolean linear_AC=false
+    "If =true introduce a linearization in the AC load";
+  parameter Boolean linear_DC=false
+    "If =true introduce a linearization in the DC load";
+  parameter Modelica.SIunits.Voltage V_nominal_AC "AC Voltage of the district";
+  parameter Modelica.SIunits.Voltage V_nominal_DC "DC Voltage of the district";
   BoundaryConditions.WeatherData.Bus
       weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{-110,
             -10},{-90,10}}),     iconTransformation(extent={{-110,-10},{-90,10}})));
   BaseClasses.TimeSeries loa(final fileName=fileName) "Building load"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Electrical.AC.AC3ph.Loads.CapacitiveLoadP loaAC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
-    "Resistive and capacitive building load"
+  Electrical.AC.ThreePhasesBalanced.Loads.CapacitiveLoadP
+                                            loaAC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input,
+    linear=linear_AC,
+    V_nominal=V_nominal_AC,
+    pf=pf) "Resistive and capacitive building load"
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-  Electrical.AC.AC3ph.Interfaces.Terminal_n terminal "Electrical connector"
+  Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n
+                                            terminal "Electrical connector"
     annotation (Placement(transformation(extent={{94,-10},{114,10}})));
-  Electrical.DC.Loads.Conductor loaDC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
-    "Conductor for DC load"
+  Electrical.DC.Loads.Conductor loaDC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input,
+    linear=linear_DC,
+    V_nominal=V_nominal_DC) "Conductor for DC load"
     annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
   Districts.Electrical.DC.Interfaces.Terminal_p terminal_dc(redeclare package
       PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor)

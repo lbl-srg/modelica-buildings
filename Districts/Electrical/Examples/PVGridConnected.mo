@@ -10,13 +10,13 @@ model PVGridConnected
         origin={-10,40})));
   Districts.Electrical.DC.Loads.Resistor    res(R=0.5)
     annotation (Placement(transformation(extent={{2,-10},{-18,10}})));
-  Districts.Electrical.AC.AC1ph.Sources.Grid
+  Districts.Electrical.AC.OnePhase.Sources.Grid
                grid(
     V=380,
     f=60,
     Phi=0)
     annotation (Placement(transformation(extent={{70,20},{90,40}})));
-  Districts.Electrical.AC.AC1ph.Conversion.ACDCConverter
+  Districts.Electrical.AC.OnePhase.Conversion.ACDCConverter
     conACDC(conversionFactor=12/380, eta=0.9) "AC/DC converter"
     annotation (Placement(transformation(extent={{64,-10},{44,10}})));
   Districts.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(

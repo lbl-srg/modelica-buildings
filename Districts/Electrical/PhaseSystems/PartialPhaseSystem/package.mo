@@ -34,6 +34,14 @@ partial package PartialPhaseSystem "Base package of all phase systems"
   end rotate;
 
 
+  replaceable function product "Multiply two vectors"
+      extends Modelica.Icons.Function;
+      input Real x[n];
+      input Real y[n];
+      output Real z[n];
+  end product;
+
+
   replaceable partial function thetaRel
   "Return absolute angle of rotating system as offset to thetaRef"
     input SI.Angle theta[m];

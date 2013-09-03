@@ -18,10 +18,12 @@ model HeatGain "Test model for the HeatGain model"
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=10) "Latent heat gain"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate QSen_flow(redeclare package
-      Medium = MediumA, m_flow_nominal=2E-4)
+      Medium = MediumA, m_flow_nominal=2E-4,
+    tau=0)
     annotation (Placement(transformation(extent={{30,-16},{50,4}})));
   Buildings.Fluid.Sensors.LatentEnthalpyFlowRate QLat_flow(redeclare package
-      Medium = MediumA, m_flow_nominal=2E-4)
+      Medium = MediumA, m_flow_nominal=2E-4,
+    tau=0)
     annotation (Placement(transformation(extent={{60,-16},{80,4}})));
   Buildings.Fluid.Sources.Boundary_pT boundary(          redeclare package
       Medium = MediumA, nPorts=1)
@@ -68,7 +70,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(QSen_flow.port_b, QLat_flow.port_a) annotation (Line(
-      points={{50,-6},{52.5,-6},{52.5,-6},{55,-6},{55,-6},{60,-6}},
+      points={{50,-6},{60,-6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(assertEquality.u2, QSen_flow.H_flow) annotation (Line(

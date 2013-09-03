@@ -5,8 +5,10 @@ model DummyLine
         Districts.Electrical.PhaseSystems.ThreePhase_dq,
       redeclare package PhaseSystem_n =
         Districts.Electrical.PhaseSystems.ThreePhase_dq,
-      redeclare Districts.Electrical.AC.AC3ph.Interfaces.Terminal_n terminal_n,
-      redeclare Districts.Electrical.AC.AC3ph.Interfaces.Terminal_n terminal_p);
+      redeclare
+      Districts.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n           terminal_n,
+      redeclare
+      Districts.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n           terminal_p);
 
   parameter Modelica.SIunits.Distance l(min=0) "Length of the line";
   parameter Modelica.SIunits.Power P_nominal(min=0) "Nominal power of the line";

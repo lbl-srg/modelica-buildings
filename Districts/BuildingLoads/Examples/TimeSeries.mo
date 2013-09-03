@@ -2,37 +2,45 @@ within Districts.BuildingLoads.Examples;
 model TimeSeries "Example model for the time series building load"
   import Districts;
   extends Modelica.Icons.Example;
-  Districts.BuildingLoads.TimeSeries buiA(fileName="Resources/Data/BuildingLoads/Examples/buildingA.txt")
-    "Building A"
+  Districts.BuildingLoads.TimeSeries buiA(fileName="Resources/Data/BuildingLoads/Examples/buildingA.txt",
+    V_nominal_AC=480,
+    V_nominal_DC=240) "Building A"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/CZ10RV2.mos")
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Districts.Electrical.AC.AC3ph.Sources.Grid gri(
+  Districts.Electrical.AC.ThreePhasesBalanced.Sources.Grid
+                                             gri(
     f=60,
     V=480,
     Phi=0) annotation (Placement(transformation(extent={{110,60},{130,80}})));
-  Districts.Electrical.AC.AC3ph.Lines.Line lin(
+  Districts.Electrical.AC.ThreePhasesBalanced.Lines.Line
+                                           lin(
     l=50,
     V_nominal=480,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper(),
     P_nominal=2e7,
-    mode=Districts.Electrical.Types.CableMode.automatic) "Transmission line"
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu50())
+    "Transmission line"
     annotation (Placement(transformation(extent={{70,40},{50,60}})));
-  Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senAC
+  Districts.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor
+                                                          senAC
     "Sensor for AC line"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Districts.Electrical.DC.Sensors.GeneralizedSensor senDC "Sensor for DC line"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Districts.Electrical.AC.AC3ph.Conversion.ACDCConverter acdc(
+  Districts.Electrical.AC.ThreePhasesBalanced.Conversion.ACDCConverter
+                                                         acdc(
                   eta=0.9, conversionFactor=240/480) "AC/DC converter"
     annotation (Placement(transformation(extent={{80,10},{60,30}})));
-  Districts.Electrical.AC.AC3ph.Lines.Line linGri(
+  Districts.Electrical.AC.ThreePhasesBalanced.Lines.Line
+                                           linGri(
     l=50,
     V_nominal=480,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper(),
     P_nominal=2*2e7,
-    mode=Districts.Electrical.Types.CableMode.automatic) "Transmission line"
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu50())
+    "Transmission line"
     annotation (Placement(transformation(extent={{110,40},{90,60}})));
 equation
   connect(weaDat.weaBus,buiA. weaBus)             annotation (Line(

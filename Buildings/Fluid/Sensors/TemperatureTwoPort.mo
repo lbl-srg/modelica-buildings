@@ -19,7 +19,7 @@ model TemperatureTwoPort "Ideal two port temperature sensor"
 protected
   Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
   Medium.Temperature T_b_inflow
-    "Temperature of inflowing fluid at port_b or T_a_inflow, if uni-directional flow";
+    "Temperature of inflowing fluid at port_b, or T_a_inflow if uni-directional flow";
 initial equation
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
@@ -31,11 +31,18 @@ initial equation
   end if;
 equation
   if allowFlowReversal then
-     T_a_inflow = Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
-     T_b_inflow = Medium.temperature(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow));
-     TMed = Modelica.Fluid.Utilities.regStep(port_a.m_flow, T_a_inflow, T_b_inflow, m_flow_small);
+     T_a_inflow = Medium.temperature(state=
+                    Medium.setState_phX(p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
+     T_b_inflow = Medium.temperature(state=
+                    Medium.setState_phX(p=port_a.p, h=port_a.h_outflow, X=port_a.Xi_outflow));
+     TMed = Modelica.Fluid.Utilities.regStep(
+              x=port_a.m_flow,
+              y1=T_a_inflow,
+              y2=T_b_inflow,
+              x_small=m_flow_small);
   else
-     TMed = Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
+     TMed = Medium.temperature(state=
+              Medium.setState_phX(p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
      T_a_inflow = TMed;
      T_b_inflow = TMed;
   end if;
@@ -85,8 +92,8 @@ annotation (defaultComponentName="senTem",
         Line(points={{0,100},{0,50}}, color={0,0,127})}),
     Documentation(info="<html>
 <p>
-This component monitors the temperature of the medium in the flow
-between fluid ports. The sensor does not influence the fluid. 
+This model outputs the temperature of the medium in the flow
+between its fluid ports. The sensor does not influence the fluid. 
 If the parameter <code>tau</code> is non-zero, then its output
 is computed using a first order differential equation. 
 Setting <code>tau=0</code> is <i>not</i> recommend. See
@@ -108,16 +115,11 @@ Set start attribute for temperature output. Prior to this change,
 the output was 0 at initial time, which caused the plot of the output to 
 use 0 Kelvin as the lower value of the ordinate.
 </li>
-</ul>
-</html>"),
-revisions="<html>
-<ul>
 <li>
 September 10, 2008, by Michael Wetter:<br/>
-First implementation.
-Implementation is based on 
+First implementation, based on 
 <a href=\"modelica://Buildings.Fluid.Sensors.Temperature\">Buildings.Fluid.Sensors.Temperature</a>.
 </li>
 </ul>
-</html>");
+</html>"));
 end TemperatureTwoPort;

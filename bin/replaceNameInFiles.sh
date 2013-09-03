@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # CONVERSION OF THE MODELS CONTAINED INTO THE OLD ANALOG PACKAGE, NOW NAMED DC
 #LIST=(  "Districts.Electrical.Analog.Sources.PVSimple" "Districts.Electrical.DC.Sources.PVSimple" \
 #	"Districts.Electrical.Analog.Sources.WindTurbine" "Districts.Electrical.DC.Sources.WindTurbine" \
@@ -13,29 +14,29 @@
 #	"Districts.Electrical.Analog.Conversion.DCDCConverter" "Districts.Electrical.DC.Conversion.DCDCConverter" \
 #	"Districts.Electrical.Analog.Conversion.Examples.DCDCConverter" "Districts.Electrical.DC.Conversion.Examples.DCDCConverter")
 
-##LIST=(  "Rooms.Examples.FLEXLAB" "Rooms.FLEXLAB" \
-##        "FLeXLab" "FLEXLAB" )
-LIST=(  "modelica:Buildings" "modelica://Buildings" )
+LIST=(  "TraceSubstancesFlowRate" "TraceSubstancesFlowSource" )
 
 i=0
-while [ $i -le 1 ]; do
+while [ "x${LIST[$i]}" != "x" ]; do
+ echo "---------------------------"
  OLD=${LIST[$i]}
  NEW=${LIST[$i+1]}
  i=$[ i + 2 ]
 
-OLDFIL=`echo $OLD | sed -e 's|\.|/|g' -`
+OLDFIL=`echo $OLD | sed -e 's|\.|/|g'`
 OLDMO=${OLDFIL}.mo
 OLDMS=${OLDFIL}.mos
-NEWFIL=`echo $NEW | sed -e 's|\.|/|g' -`
+NEWFIL=`echo $NEW | sed -e 's|\.|/|g'`
 NEWMO=${NEWFIL}.mo
 NEWMS=${NEWFIL}.mos
+
 echo "Processing $OLD $NEW"
 #echo $OLDFIL $NEWFIL
 #echo $OLDMO $NEWMO
 #echo $OLDMS $NEWMS
 
 # replace string in files
-fl=`find . \( -name '*.mos' -or -name '*.mo' \)`
+fl=`find . \( -name '*.mos' -or -name '*.mo' -or -name 'package.order' \)`
 for ff in $fl; do
     egrep $OLD $ff > /dev/null
     if [ $? == 0 ]; then
@@ -48,12 +49,12 @@ for ff in $fl; do
     fi
 done
 
-# move file name in svn
+## move file name in git
 ##if [ -f $OLDMO ]; then
-##    svn mv $OLDMO $NEWMO
+##    git mv -v -k $OLDMO $NEWMO
 ##fi
 ##if [ -f $OLDMS ]; then
-##    svn mv $OLDMS $NEWMS
+##    git mv -v -k $OLDMS $NEWMS
 ##fi
 
 done

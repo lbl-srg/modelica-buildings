@@ -4,11 +4,12 @@ model Conductor "Model of a constant conductive load"
       PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor, redeclare
       Districts.Electrical.DC.Interfaces.Terminal_n
                                                  terminal);
-  //Modelica.SIunits.Conductance G(start=1);
 equation
-  //PhaseSystem.systemVoltage(terminal.v)*G = PhaseSystem.systemCurrent(terminal.i);
-  //G = P/PhaseSystem.systemVoltage(terminal.v)^2;
-  PhaseSystem.activePower(terminal.v, terminal.i) = -P;
+  if linear then
+    terminal.i[1] = P*(2/V_nominal - (terminal.v[1]-terminal.v[2])/V_nominal^2);
+  else
+    PhaseSystem.activePower(terminal.v, terminal.i) = P;
+  end if;
   sum(i) = 0;
   annotation (
     Documentation(info="<html>

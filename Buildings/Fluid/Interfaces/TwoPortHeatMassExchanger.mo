@@ -8,21 +8,6 @@ model TwoPortHeatMassExchanger
     final computeFlowResistance=true);
   import Modelica.Constants;
 
-  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
-    redeclare final package Medium = Medium,
-    nPorts = 2,
-    V=m_flow_nominal*tau/rho_default,
-    final m_flow_nominal = m_flow_nominal,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    final p_start=p_start,
-    final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start) "Volume for fluid stream"
-                                    annotation (Placement(transformation(extent={{-9,0},{
-            11,-20}},         rotation=0)));
-
   parameter Modelica.SIunits.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Evaluate=true, Dialog(tab = "Dynamics", group="Nominal condition"));
@@ -54,16 +39,21 @@ model TwoPortHeatMassExchanger
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
-protected
-  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-      T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
-  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
-    "Density, used to compute fluid volume";
-  parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
-      T=T_start, p=p_start, X=X_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
-    "Start value for outflowing enthalpy";
-public
+  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol
+    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
+    redeclare final package Medium = Medium,
+    nPorts = 2,
+    V=m_flow_nominal*tau/rho_default,
+    final m_flow_nominal = m_flow_nominal,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start) "Volume for fluid stream"
+     annotation (Placement(transformation(extent={{-9,0},{11,-20}},
+         rotation=0)));
+
   Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro(
     redeclare package Medium = Medium,
     final use_dh=false,
@@ -77,6 +67,17 @@ public
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=dp_nominal) "Pressure drop model"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
+protected
+  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
+      T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
+  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
+    "Density, used to compute fluid volume";
+  parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
+      T=T_start, p=p_start, X=X_start);
+  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
+    "Start value for outflowing enthalpy";
+
 initial algorithm
   assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau > Modelica.Constants.eps,

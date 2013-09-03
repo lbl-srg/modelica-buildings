@@ -4,7 +4,9 @@ model TraceSubstances "Ideal one port trace substances sensor"
   extends Modelica.Icons.RotationalSensor;
   parameter String substanceName = "CO2" "Name of trace substance";
 
-  Modelica.Blocks.Interfaces.RealOutput C "Trace substance in port medium"
+  Modelica.Blocks.Interfaces.RealOutput C(min=0,
+                                          nominal=Medium.C_nominal)
+    "Trace substance in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
           rotation=0)));
 
@@ -47,8 +49,14 @@ annotation (defaultComponentName="senTraSub",
         Line(points={{70,0},{100,0}}, color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This component monitors the trace substances contained in the fluid passing its port. 
-The sensor is ideal, i.e. it does not influence the fluid.
+This model outputs the trace substances contained in the fluid connected to its port. 
+The sensor is ideal, i.e., it does not influence the fluid.
+</p>
+<p>
+Read the 
+<a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
+Buildings.Fluid.Sensors.UsersGuide</a>
+prior to using this model with one fluid port.
 </p>
 </html>
 ", revisions="<html>

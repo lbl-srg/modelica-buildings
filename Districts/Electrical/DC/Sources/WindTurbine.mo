@@ -2,187 +2,27 @@ within Districts.Electrical.DC.Sources;
 model WindTurbine
   "Wind turbine with power output based on table as a function of wind speed"
   import Districts;
-  final parameter Modelica.SIunits.Velocity vIn = table[1,1]
-    "Cut-in steady wind speed";
-  final parameter Modelica.SIunits.Velocity vOut = table[size(table,1), 1]
-    "Cut-out steady wind speed";
-  parameter Real scale(min=0)=1
-    "Scaling factor, used to easily adjust the power output without changing the table";
-
-  parameter Real h "Height over ground"
-    annotation (Dialog(group="Wind correction"));
-  parameter Modelica.SIunits.Height hRef = 10
-    "Reference height for wind measurement"
-    annotation (Dialog(group="Wind correction"));
- parameter Real nWin(min=0) = 0.4
-    "Height exponent for wind profile calculation"
-   annotation (Dialog(group="Wind correction"));
-
-  parameter Boolean tableOnFile=false
-    "true, if table is defined on file or in function usertab";
-  parameter Real table[:,2]=
-          [3.5, 0;
-           5.5, 0.1;
-           12, 0.9;
-           14, 1;
-           25, 1]
-    "Table of generated power (first column is wind speed, second column is power)";
-  parameter String tableName="NoName"
-    "Table name on file or in function usertab (see documentation)";
-  parameter String fileName="NoName" "File where matrix is stored";
-
-  Modelica.Blocks.Interfaces.RealInput vWin(unit="m/s") "Steady wind speed"
-     annotation (Placement(transformation(
-        origin={0,120},
-        extent={{-20,-20},{20,20}},
-        rotation=270), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,120})));
-  Modelica.Blocks.Interfaces.RealOutput P(unit="W") "Generated power"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Districts.Electrical.DC.Interfaces.Terminal_p terminal(
-    redeclare package PhaseSystem =
-        Districts.Electrical.PhaseSystems.TwoConductor) "Generalised terminal"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-
+  extends Districts.Electrical.Interfaces.PartialWindTurbine(redeclare package
+      PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor, redeclare
+      Districts.Electrical.DC.Interfaces.Terminal_p
+                                                 terminal);
 protected
-  Modelica.Blocks.Tables.CombiTable1Ds per(
-    final tableOnFile=tableOnFile,
-    final table=cat(1, cat(1, [0, 0], table),
-                    [vOut+10*Modelica.Constants.eps, 0;
-                     vOut+20*Modelica.Constants.eps, 0]),
-    final tableName=tableName,
-    final fileName=fileName,
-    final columns=2:2,
-    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
-    "Performance table that maps wind speed to electrical power output"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Loads.Conductor                       con(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
     "Conductor, used to interface power with electrical circuit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-
-  Modelica.Blocks.Math.Gain gain(final k=scale)
-    "Gain, used to allow a user to easily scale the power"
-    annotation (Placement(transformation(extent={{-8,10},{12,30}})));
-
-  BaseClasses.WindCorrection cor(final h=h,
-                                 final hRef=hRef,
-                                 final n=nWin) "Correction for wind"
-  annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-60,20})));
-
-initial equation
-assert(abs(table[1,2]) == 0,
-  "First data point of performance table must be at cut-in wind speed,
-   and be equal to 0 Watts.
-   Received + " + String(table[1,1]) + " m/s with " + String(table[1,2]) + " Watts");
-
 equation
-  connect(per.y[1], gain.u) annotation (Line(
-      points={{-19,20},{-10,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(vWin, cor.vRef) annotation (Line(
-      points={{1.11022e-15,120},{1.11022e-15,80},{-80,80},{-80,20},{-72.2,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(cor.vLoc, per.u) annotation (Line(
-      points={{-49,20},{-42,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.y, con.Pow) annotation (Line(
-      points={{13,20},{90,20},{90,0},{80,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(con.terminal, terminal) annotation (Line(
       points={{60,0},{-100,0}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(gain.y, P) annotation (Line(
-      points={{13,20},{60,20},{60,60},{110,60}},
+  connect(gain.y, con.Pow) annotation (Line(
+      points={{13,20},{94,20},{94,0},{80,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
-        Rectangle(
-          extent={{-100,102},{100,-98}},
-          pattern=LinePattern.None,
-          fillColor={202,230,255},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),
-        Rectangle(
-          extent={{42,46},{46,-52}},
-          fillColor={233,233,233},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),
-        Rectangle(
-          extent={{-42,14},{-38,-84}},
-          fillColor={233,233,233},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),
-        Polygon(
-          points={{-44,12},{-26,-40},{-38,16},{-44,12}},
-          smooth=Smooth.None,
-          fillColor={222,222,222},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),
-        Polygon(
-          points={{-38,12},{8,46},{-42,18},{-38,12}},
-          smooth=Smooth.None,
-          fillColor={222,222,222},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),
-        Polygon(
-          points={{-42,12},{-90,40},{-38,18},{-42,12}},
-          smooth=Smooth.None,
-          fillColor={222,222,222},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),
-        Polygon(
-          points={{40,44},{100,40},{42,50},{40,44}},
-          smooth=Smooth.None,
-          fillColor={222,222,222},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),
-        Polygon(
-          points={{-21,-17},{27,17},{-25,-11},{-21,-17}},
-          smooth=Smooth.None,
-          fillColor={222,222,222},
-          fillPattern=FillPattern.Solid,
-          origin={29,69},
-          rotation=90,
-          lineColor={0,0,0}),
-        Polygon(
-          points={{24,-14},{-20,22},{26,-8},{24,-14}},
-          smooth=Smooth.None,
-          fillColor={222,222,222},
-          fillPattern=FillPattern.Solid,
-          origin={32,20},
-          rotation=90,
-          lineColor={0,0,0}),
-        Ellipse(
-          extent={{-46,20},{-34,8}},
-          lineColor={0,0,0},
-          fillColor={222,222,222},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{38,52},{50,40}},
-          lineColor={0,0,0},
-          fillColor={222,222,222},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-42,134},{-20,108}},
-          lineColor={0,0,127},
-          textString="v"),
-        Text(
-          extent={{100,100},{122,74}},
-          lineColor={0,0,127},
-          textString="P"),
         Text(
           extent={{-150,70},{-50,20}},
           lineColor={0,0,255},

@@ -10,7 +10,7 @@ partial model PartialFlowSensor
     annotation(Dialog(group="Advanced"));
 equation
   // mass balance
-  0 = port_a.m_flow + port_b.m_flow;
+  port_b.m_flow = -port_a.m_flow;
   // momentum equation (no pressure loss)
   port_a.p = port_b.p;
   // isenthalpic state transformation (no storage and no loss of energy)

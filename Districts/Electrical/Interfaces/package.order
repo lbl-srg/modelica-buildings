@@ -6,3 +6,5 @@ PartialSource
 PartialTwoPort
 PartialConversion
 GeneralizedSensor
+PartialPV
+PartialWindTurbine
