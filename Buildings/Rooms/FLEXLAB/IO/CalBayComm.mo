@@ -1,5 +1,5 @@
 within Buildings.Rooms.FLEXLAB.IO;
-model DimmingLightsSingleScript
+model CalBayComm
   "Model calling a Python script to communicate with the CalBay adapter"
   extends Modelica.Icons.Example;
 
@@ -85,4 +85,4 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics));
-end DimmingLightsSingleScript;
+end CalBayComm;

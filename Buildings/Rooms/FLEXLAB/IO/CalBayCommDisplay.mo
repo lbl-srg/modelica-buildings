@@ -1,5 +1,5 @@
 within Buildings.Rooms.FLEXLAB.IO;
-model DimmingLightsDisplay
+model CalBayCommDisplay
   "Simplified model demonstrating communication with the CalBay adapter"
   extends Modelica.Icons.Example;
 
@@ -44,4 +44,4 @@ equation
       This model has not been tested, and is intended for display purposes only.
       </p>
       </html>"));
-end DimmingLightsDisplay;
+end CalBayCommDisplay;
