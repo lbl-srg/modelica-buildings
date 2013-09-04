@@ -2,9 +2,9 @@ within Districts.BuildingLoads.Examples.BaseClasses;
 model DummyLine
   extends Districts.Electrical.Interfaces.PartialTwoPort(
       redeclare package PhaseSystem_p =
-        Districts.Electrical.PhaseSystems.ThreePhase_dq,
+        Districts.Electrical.PhaseSystems.OnePhase,
       redeclare package PhaseSystem_n =
-        Districts.Electrical.PhaseSystems.ThreePhase_dq,
+        Districts.Electrical.PhaseSystems.OnePhase,
       redeclare
       Districts.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n           terminal_n,
       redeclare
@@ -13,15 +13,8 @@ model DummyLine
   parameter Modelica.SIunits.Distance l(min=0) "Length of the line";
   parameter Modelica.SIunits.Power P_nominal(min=0) "Nominal power of the line";
   parameter Modelica.SIunits.Voltage V_nominal "Nominal voltage of the line";
-  parameter Districts.Electrical.Transmission.Cables.Cable cable=
-      Districts.Electrical.Transmission.Functions.selectCable(
-        P=P_nominal,
-        V=V_nominal,
-        mode=Districts.Electrical.Types.CableMode.automatic) "Type of cable"
-  annotation (choicesAllMatching=true,Dialog(tab="Tech. specification"), Placement(transformation(extent={{20,60},
-              {40,80}})));
   parameter Districts.Electrical.Transmission.Materials.Material wireMaterial=
-      Districts.Electrical.Transmission.Materials.Copper()
+      Districts.Electrical.Transmission.Materials.Material.Cu
     "Material of the cable"
     annotation (choicesAllMatching=true,Dialog(tab="Tech. specification"), Placement(transformation(extent={{60,60},
               {80,80}})));

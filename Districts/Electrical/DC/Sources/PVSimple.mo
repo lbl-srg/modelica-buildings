@@ -5,7 +5,7 @@ model PVSimple "Simple PV model"
       Districts.Electrical.DC.Interfaces.Terminal_p
                                                  terminal);
 protected
-  Loads.Conductor con(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
+   Loads.Conductor con(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
     "Conductor, used to interface power with electrical circuit"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
