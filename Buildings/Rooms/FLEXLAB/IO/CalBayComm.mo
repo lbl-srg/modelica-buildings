@@ -84,5 +84,30 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics),
+            Documentation(info="<html>
+            <p>
+            This example demonstrates how a Python script and model or a controller
+            can be used to control experiments in the FLEXLAB test cells. It uses
+            an instance of
+            <a href=\"modelica:Buildings.Utilities.IO.Python27.Real_Real\">
+            Buildings.Utilities.IO.Python27.Real_Real</a> to communicate with the
+            CalBay adapter. The Python script is located at
+            Buildings/Resources/Python-Sources/CalBayComm.py. The script must be 
+            edited before it will effectively communicate with the CalBay adapter.
+            The necessary changes include:
+            </p>
+            <ul>
+            <li>The script currently does not have valid login or password credentials.
+            The credentials will have to be replaced before communication with the 
+            CalBay adapter will succeed.</li>
+            <li>To avoid accidental manipulation of controls, the script currently does
+            not include effective commands. The desired commands must be added to the 
+            program before it will have any effect.</li>
+            </ul>
+            <p>
+            More details describing the necessary changes to the script are provided in
+            the documentation of the script itself.
+            </p>
+            </html>"));
 end CalBayComm;
