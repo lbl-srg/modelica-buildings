@@ -4,7 +4,7 @@ simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.RayleighNumbe
 
 createPlot(id = 1,
  position = {0, 0, 1609, 781},
- y = {"rayleighNumber.Ra"},
+ y = {"rayleighNumber.Ra","rayleighNumber.Gr"},
  range = {0.0, 10.0, 3600000.0, 4600000.0},
  autoscale = true,
  autoerase = true,
@@ -16,7 +16,7 @@ createPlot(id = 1,
  filename = "RayleighNumber.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
- colors = {{0,0,255}});
+ colors = {{0,0,255},{0,255,0}});
 
 createPlot(id = 1,
  position = {0, 0, 1609, 387},

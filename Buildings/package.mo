@@ -1,5 +1,8 @@
 within ;
 package Buildings "Library with models for building energy and control systems"
+  extends Modelica.Icons.Package;
+
+
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   class Conventions "Conventions"
@@ -125,9 +128,17 @@ its class name ends with the string <code>Beta</code>.
 
     class Version_1_5_build1 "Version 1.5 build 1"
       extends Modelica.Icons.ReleaseNotes;
-        annotation (Documentation(info="<html>
+        annotation (preferredView="info",
+        Documentation(info="<html>
 <p>
 Version X.Y build Z is ... xxx
+It contains a major revision of all info sections to correct invalid html syntax.
+The package <code>Buildings.HeatTransfer.Radiosity</code> has been revised to comply
+with the Modelica language specification.
+The package <code>Buildings.Rooms</code> has been revised to aid implementation of
+non-uniformly mixed room air models.
+This version also contains various corrections that avoid warnings during translation 
+when used with Modelica 3.2.1.
 <!-- New libraries -->
 </p>
 
@@ -135,9 +146,9 @@ Version X.Y build Z is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.SolarCollectors
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Library with solar collectors.
     </td>
     </tr>
 </table>
@@ -147,12 +158,22 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Storage</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added a model of a tank with built-in heat exchanger.
+                       This model may be used together with solar thermal plants.
+    </td> 
+    </tr>
+<tr><td colspan=\"2\"><b>Buildings.Resources</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Resources.Include
+    </td>
+    <td valign=\"top\">Added an <code>Include</code> folder and the <code>bcvtb.h</code> 
+    header file to it to fix compilation errors in BCVTB example files.
     </td> 
     </tr>
 </table>
@@ -163,20 +184,50 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed one instance of <code>Modelica.Fluid.Sources.MassFlowSource_T</code>,
+                       that was connected to the two fluid streams,
+                       to two instances, each having half the mass flow rate.
+                       This is required for the model to work with Modelica 3.2.1 due to the 
+                       change introduced in 
+                       ticket <a href=\"https://trac.modelica.org/Modelica/ticket/739\">#739</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.EnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.LatentEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.VolumeFlowRate
+    </td>
+    <td valign=\"top\">Removed default value <code>tau=0</code> as the base class 
+                       already sets <code>tau=1</code>.
+                       This change was made so that all sensors use the same default value.
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.TraceSubstancesTwoPort
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added default value <code>C_start=0</code>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
+    </td>
+    <td valign=\"top\">Changed the annotation of the 
+                       instance <code>material</code> from
+                       <code>Evaluate=true</code> to <code>Evaluate=false</code>.
+                       This is required to allow changing the 
+                       material properties after compilation.
+                       Note, however, that the number of state variables in 
+                       <a href=\"modelica://Buildings.HeatTransfer.Data.BaseClasses.Material\">
+                       Buildings.HeatTransfer.Data.BaseClasses.Material</a>
+                       are only computed when the model is translated, because
+                       the number of state variables is fixed 
+                       at compilation time.
     </td>
 </tr>
 </table>
@@ -188,14 +239,140 @@ have been <b style=\"color:blue\">improved</b> in a
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.BaseClasses.IndexWater
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Renamed class to 
+                       <code>Buildings.Fluid.BaseClasses.IndexMassFraction</code>
+                       as it is applicable for all mass fraction sensors.
     </td>
 </tr>
+<tr><td valign=\"top\">
+                       Buildings.Fluid.HeatExchangers.ConstantEffectiveness<br/>
+                       Buildings.Fluid.HeatExchangers.DryEffectivenessNTU<br/>
+                       Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                       Buildings.Fluid.Interfaces.StaticFourPortHeatMassExchanger<br/>
+                       Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation<br/>
+                       Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger<br/>
+                       Buildings.Fluid.MassExchangers.ConstantEffectiveness<br/>
+                       Buildings.Fluid.MassExchangers.HumidifierPrescribed<br/>
+                       Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort<br/>
+                       Buildings.Fluid.MixingVolumes.MixingVolume<br/>
+                       Buildings.Fluid.MixingVolumes.MixingVolumeDryAir<br/>
+                       Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir<br/>
+                       Buildings.Fluid.Storage.ExpansionVessel
+    </td>
+    <td valign=\"top\">Changed the input connector <code>mXi_flow</code> (or <code>mXi1_flow</code>
+                       and <code>mXi2_flow</code>) to <code>mWat_flow</code> (or <code>mWat1_flow</code>
+                       and <code>mWat2_flow</code>).
+                       This change has been done as declaring <code>mXi_flow</code> is ambiguous
+                       because it does not specify what other species are added unless a mass flow rate
+                       <code>m_flow</code> is also known. To avoid this confusion, the connector variables
+                       have been renamed. 
+                       The equations that were used were, however, correct.
+                       This addresses issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/165\">#165</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.Examples.TraceSubstances
+    </td>
+    <td valign=\"top\">Renamed example from <code>ExtraProperty</code> to
+                     <code>TraceSubstances</code> in order to use the same name
+                     as the sensor.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate
+    </td>
+    <td valign=\"top\">Renamed model to<code>TraceSubstancesFlowRate</code> to
+                     use the same terminology than the Modelica Standard Library.<br/>
+                     The conversion script updates existing models that instantiate 
+                     this model.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.Examples.PrescribedExtraPropertyFlow
+    </td>
+    <td valign=\"top\">Renamed example to<code>TraceSubstancesFlowRate</code> 
+                     in order to use the same name as the source model.
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer<br/>
+                         Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Interfaces.RadiosityInflow<br/>
+                       Buildings.HeatTransfer.Interfaces.RadiosityOutflow<br/>
+                       Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersTwoSurfaces<br/>
+                       Buildings.HeatTransfer.Radiosity.Constant<br/>
+                       Buildings.HeatTransfer.Radiosity.Examples.OpaqueSurface<br/>
+                       Buildings.HeatTransfer.Radiosity.Examples.OutdoorRadiosity<br/>
+                       Buildings.HeatTransfer.Radiosity.IndoorRadiosity<br/>
+                       Buildings.HeatTransfer.Radiosity.OpaqueSurface<br/>
+                       Buildings.HeatTransfer.Radiosity.OutdoorRadiosity<br/>
+                       Buildings.HeatTransfer.Radiosity.RadiositySplitter<br/>
+                       Buildings.HeatTransfer.Radiosity.package<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Examples.CenterOfGlass<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Examples.GlassLayer<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Examples.Shade<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Shade<br/>
+                       Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer<br/>
+                       Buildings.HeatTransfer.Windows.ExteriorHeatTransfer<br/>
+                       Buildings.HeatTransfer.Windows.InteriorHeatTransfer<br/>
+                       Buildings.Rooms.BaseClasses.InfraredRadiationExchange<br/>
+                       Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution<br/>
+                       Buildings.Rooms.BaseClasses.MixedAir<br/>
+                       Buildings.Rooms.BaseClasses.Overhang<br/>
+                       Buildings.Rooms.BaseClasses.SideFins
+    </td>
+    <td valign=\"top\">Changed the connectors for the radiosity model.
+                       The previous implemenation declared the radiosity as a
+                       <code>flow</code> variables, but the implementation did not use
+                       a potential variable.<br/>
+                       Therefore, the radiosity was the only variable in the connector,
+                       which is not allowed for <code>flow</code> variables.
+                       This change required a reformulation of models because with the new formulation,
+                       the incoming and outcoming radiosity are both non-negative values.
+                       This addresses issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer<br/>
+                         Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.PartialConvection<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.PartialWindowBoundaryCondition<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.Shade<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.ShadeConvection<br/>
+                       Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation<br/>
+                       Buildings.HeatTransfer.Windows.InteriorHeatTransfer<br/>
+                       Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective<br/>
+                       Buildings.Rooms.ExteriorBoundaryConditionsWithWindow<br/>
+                       Buildings.Rooms.PartialSurfaceInterface<br/>
+                       Buildings.Rooms.InfraredRadiationExchange<br/>
+                       Buildings.Rooms.AirHeatMassBalanceMixed<br/>
+                       Buildings.Rooms.SolarRadiationExchange<br/>
+                       Buildings.Rooms.RadiationTemperature<br/>
+                       Buildings.Rooms.InfraredRadiationGainDistribution
+    </td>
+    <td valign=\"top\">Redesigned the implementation of the room model and its base classes.
+                       This redesign separates convection from radiation, and it provides
+                       one composite model for the convection and the heat and mass balance in
+                       the room. This change was done to allow an implementation of the room air
+                       heat and mass balance that does not assume uniformly mixed room air.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh
+    </td>
+    <td valign=\"top\">Renamed function from <code>raleigh</code> to <code>rayleigh</code>.
+    </td>
+</tr>
+
+
 </table>
 <!-- Errors that have been fixed -->
 <p>
@@ -203,6 +380,16 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.SpecificEntropyTwoPort
+    </td>
+    <td valign=\"top\">
+           Corrected wrong computation of the dynamics used for the sensor signal.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
@@ -261,6 +448,33 @@ units are wrong or errors in documentation):
                      with <code>quantity=\"ThermodynamicTemperature\"</code>.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Data.Fuels.Generic
+    </td>
+    <td valign=\"top\">Corrected wrong type for <code>mCO2</code>.
+                       It was declared as <code>Modelica.SIunits.MassFraction</code>,
+                       which is incorrect.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BaseClasses.Bounds
+    </td>
+    <td valign=\"top\">Corrected wrong type for <code>FRWat_min</code>, <code>FRWat_max</code>
+                       and <code>liqGasRat_max</code>.
+                       They were declared as <code>Modelica.SIunits.MassFraction</code>,
+                       which is incorrect as, for example, <code>FRWat_max</code> can be larger than one.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ConstantEffectiveness<br/>
+                     Buildings.Fluid.MassExchangers.ConstantEffectiveness
+    </td>
+    <td valign=\"top\">Corrected error in the documentation that was not updated
+                     when the implementation of zero flow rate was revised.
+    </td>
+</tr>
+
 </table>
 <!-- Github issues -->
 <p>
@@ -269,12 +483,22 @@ The following
 have been fixed:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Verify mass and species balance</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">#xxx</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/165\">#165</a>
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">This issue has been addressed by renaming the connectors to avoid an ambiguity
+                       in the model equation. The equations were correct.
+    </td>
+<tr><td colspan=\"2\"><b>Remove flow attribute from radiosity connectors</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>
+    </td>
+    <td valign=\"top\">This issue has been addressed by reformulating the radiosity models.
+                       With the new implementation, incoming and outgoing radiosity are non-negative
+                       quantities.
     </td>
 </tr>
 </table>
@@ -3343,6 +3567,9 @@ individual libraries.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">Fluid.Sensors</a>
    </td>
    <td valign=\"top\">Package with sensors.</td>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.SolarCollectors.UsersGuide\">Fluid.SolarCollectors</a>
+   </td>
+   <td valign=\"top\">Package with solar collectors.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Interfaces.UsersGuide\">Fluid.Interfaces</a>
    </td>
@@ -3351,6 +3578,10 @@ individual libraries.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.HeatTransfer.UsersGuide\">HeatTransfer</a>
    </td>
    <td valign=\"top\">Package for heat transfer in building constructions.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.UsersGuide\">Rooms</a>
+   </td>
+   <td valign=\"top\">Package for heat transfer in rooms and through the building envelope.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
    </td>
@@ -3377,7 +3608,8 @@ dateModified = "2013-05-15",
 uses(Modelica(version="3.2")),
 uses(Modelica_StateGraph2(version="2.0.1")),
 conversion(
- noneFromVersion="1.4",
+ from(version="1.4",
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.4_to_1.5.mos"),
  noneFromVersion="1.3",
  noneFromVersion="1.2",
  from(version="1.1",

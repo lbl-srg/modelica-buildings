@@ -9,8 +9,9 @@ model DensityTwoPort "Ideal two port density sensor"
         origin={0,110},
         extent={{10,-10},{-10,10}},
         rotation=270)));
-  parameter Medium.Density
-    d_start=Medium.density(Medium.setState_pTX(p_start, T_start, X_start))
+  parameter Medium.Density d_start=
+     Medium.density(state=Medium.setState_pTX(
+       p=p_start, T=T_start, X=X_start))
     "Initial or guess value of output (=state)"
     annotation (Dialog(group="Initialization"));
   parameter Modelica.SIunits.Temperature T_start=Medium.T_default
@@ -23,11 +24,11 @@ model DensityTwoPort "Ideal two port density sensor"
     "Mass fraction used to compute d_start"
     annotation (Dialog(group="Initialization"));
   Medium.Density dMed(start=d_start)
-    "Medium temperature to which the sensor is exposed";
+    "Medium density to which the sensor is exposed";
 protected
   Medium.Density d_a_inflow "Density of inflowing fluid at port_a";
   Medium.Density d_b_inflow
-    "Density of inflowing fluid at port_b or rho_a_inflow, if uni-directional flow";
+    "Density of inflowing fluid at port_b, or rho_a_inflow if uni-directional flow";
 initial equation
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
@@ -39,11 +40,15 @@ initial equation
   end if;
 equation
   if allowFlowReversal then
-     d_a_inflow = Medium.density(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
-     d_b_inflow = Medium.density(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow));
-     dMed = Modelica.Fluid.Utilities.regStep(port_a.m_flow, d_a_inflow, d_b_inflow, m_flow_small);
+     d_a_inflow = Medium.density(
+       state=Medium.setState_phX(p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
+     d_b_inflow = Medium.density(
+       state=Medium.setState_phX(p=port_a.p, h=port_a.h_outflow, X=port_a.Xi_outflow));
+     dMed = Modelica.Fluid.Utilities.regStep(
+       x=port_a.m_flow, y1=d_a_inflow, y2=d_b_inflow, x_small=m_flow_small);
   else
-     dMed = Medium.density(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
+     dMed = Medium.density(
+       state=Medium.setState_phX(p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
      d_a_inflow = dMed;
      d_b_inflow = dMed;
   end if;
@@ -68,16 +73,19 @@ annotation (defaultComponentName="senDen",
         Line(points={{70,0},{100,0}}, color={0,128,255})}),
   Documentation(info="<html>
 <p>
-This component monitors the density of the fluid flowing from port_a to port_b. 
-The sensor is ideal, i.e. it does not influence the fluid.
+This model outputs the density of the fluid flowing from 
+<code>port_a</code> to <code>port_b</code>.
+</p>
+<p> 
+The sensor is ideal, i.e., it does not influence the fluid.
 If the parameter <code>tau</code> is non-zero, then its output
 is computed using a first order differential equation. 
 Setting <code>tau=0</code> is <i>not</i> recommend. See
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
-</html>
-", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
@@ -87,8 +95,7 @@ This significantly improves the numerics.
 </li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
-First implementation.
-Implementation is based on <code>Modelica.Fluid</code>.
+First implementation, based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
 </html>"));

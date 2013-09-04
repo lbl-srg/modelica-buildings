@@ -2,7 +2,6 @@ within Buildings.Fluid.Data;
 package Fuels "Package with properties of fuels"
     extends Modelica.Icons.MaterialPropertiesPackage;
 
-
   record NaturalGasLowerHeatingValue = Buildings.Fluid.Data.Fuels.Generic (
       h=50E6,
       d=0.84,
@@ -36,8 +35,7 @@ Hermann Recknagel, Eberhard Sprenger and Ernst-Rudolf Schramek. Taschenbuch fuer
     parameter Modelica.SIunits.SpecificEnthalpy h
       "Heating value (lower or upper, depending on fuel)";
     parameter Modelica.SIunits.Density d "Mass density";
-    parameter Modelica.SIunits.MassFraction mCO2
-      "CO2 emission at combustion, in kg/kg fuel";
+    parameter Real mCO2(final min=0) "CO2 emission at combustion, in kg/kg fuel";
     annotation (Documentation(info="<html>
 <p>
 This is a generic record where the fuel properties need to be specified by the user.
@@ -45,12 +43,18 @@ This is a generic record where the fuel properties need to be specified by the u
 </html>", revisions="<html>
 <ul>
 <li>
+June 26, 2013 by Michael Wetter:<br/>
+Corrected wrong type for <code>mCO2</code>.
+It was declared as <code>Modelica.SIunits.MassFraction</code>,
+which is incorrect.
+</li>
+<li>
 December 22, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end Generic;
+  end Generic;
 
     annotation (
 preferredView="info",

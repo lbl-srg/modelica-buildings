@@ -6,8 +6,8 @@ model ConstantEffectiveness
   sensibleOnly2=false,
   Q1_flow = epsS * QMax_flow,
   Q2_flow = -Q1_flow,
-  mXi1_flow = {if ( i == Medium1.Water) then mWat_flow else 0 for i in 1:Medium1.nXi},
-  mXi2_flow = {if ( i == Medium2.Water) then -mWat_flow else 0 for i in 1:Medium2.nXi});
+  mWat1_flow = +mWat_flow,
+  mWat2_flow = -mWat_flow);
 
   parameter Real epsS(min=0, max=1) = 0.8
     "Sensible heat exchanger effectiveness";
@@ -91,11 +91,6 @@ for the sensible and latent heat transfer,
 <code>mWat_max</code> is the maximum moisture that can be transferred.
 </p>
 <p>
-In the region <code>mK_flow_small > abs(mK_flow) > mK_flow_small/2</code>, for <code>K = 1</code> or
-<code>2</code>, the effectivness <code>epsS</code> and <code>epsL</code> are transitioned from 
-their user-specified value to 0. This improves the numerical robustness near
-zero flow.</p>
-<p>
 For a sensible heat exchanger, use
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
 Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>
@@ -109,6 +104,15 @@ in the species vector.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 13, 2013 by Michael Wetter:<br/>
+Corrected error in the documentation.
+</li>
+<li>
+July 30, 2013 by Michael Wetter:<br/>
+Updated model to use new variable <code>mWat_flow</code>
+in the base class.
+</li>
 <li>
 January 28, 2010, by Michael Wetter:<br/>
 Added regularization near zero flow.

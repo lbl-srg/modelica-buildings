@@ -8,15 +8,15 @@ model StratifiedEnhancedInternalHex
     "Medium in the heat exchanger loop"
     annotation(Dialog(tab="General", group="Heat exchanger"));
 
-  parameter Modelica.SIunits.Height HexTopHeight
+  parameter Modelica.SIunits.Height hexTopHeight
     "Height of the top of the heat exchanger"
     annotation(Dialog(tab="General", group="Heat exchanger"));
 
-  parameter Modelica.SIunits.Height HexBotHeight
+  parameter Modelica.SIunits.Height hexBotHeight
     "Height of the bottom of the heat exchanger"
     annotation(Dialog(tab="General", group="Heat exchanger"));
 
-  parameter Integer HexSegMult = 2
+  parameter Integer hexSegMult = 2
     "Number of heat exchanger segments in each tank segment"
     annotation(Dialog(tab="General", group="Heat exchanger"));
 
@@ -56,10 +56,32 @@ model StratifiedEnhancedInternalHex
     "Formulation of mass balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
 
+  parameter Integer topHexSeg = integer(ceil(hexTopHeight/segHeight))
+    "Segment the top of the heat exchanger is located in"
+    annotation(Evaluate=true);
+
+  parameter Integer botHexSeg = integer(hexBotHeight/segHeight)
+    "Segment the bottom of the heat exchanger is located in"
+    annotation(Evaluate=true);
+
+  parameter Boolean computeFlowResistance=true
+    "=true, compute flow resistance. Set to false to assume no friction"
+    annotation (Dialog(tab="Flow resistance heat exchanger"));
+  parameter Boolean from_dp=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Dialog(tab="Flow resistance heat exchanger"));
+  parameter Boolean linearizeFlowResistance=false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation (Dialog(tab="Flow resistance heat exchanger"));
+
+  parameter Real deltaM=0.1
+    "Fraction of nominal flow rate where flow transitions to laminar"
+    annotation (Dialog(tab="Flow resistance heat exchanger"));
+
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
     redeclare package Medium =MediumHex) "Heat exchanger inlet"
-   annotation (Placement(transformation(extent={{-110,-50},{-90,-30}}),
-                   iconTransformation(extent={{-110,-50},{-90,-30}})));
+   annotation (Placement(transformation(extent={{-110,-48},{-90,-28}}),
+                   iconTransformation(extent={{-110,-48},{-90,-28}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
      redeclare package Medium = MediumHex) "Heat exchanger outlet"
    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}}),
@@ -98,37 +120,16 @@ protected
   parameter Modelica.SIunits.Volume volHexFlu = 0.25 * Modelica.Constants.pi * dExtHex
     "Volume of the heat exchanger";
 
-  parameter Integer topHexSeg = integer(ceil(HexTopHeight/segHeight))
-    "Segment the top of the heat exchanger is located in"
-    annotation(Evaluate=true);
-
-  parameter Integer botHexSeg = integer(HexBotHeight/segHeight)
-    "Segment the bottom of the heat exchanger is located in"
-    annotation(Evaluate=true);
-
-  parameter Integer nSegHex = (topHexSeg - botHexSeg + 1)*HexSegMult
-    "Number of segments in thDiagnosticse heat exchanger";
+  parameter Integer nSegHex = (topHexSeg - botHexSeg + 1)*hexSegMult
+    "Number of segments in the heat exchanger";
 
   parameter Integer nSegHexTan = topHexSeg - botHexSeg + 1
-    "Number of tank segments the Hex resides in";
+    "Number of tank segments the heat exchanger resides in";
 
-public
-  parameter Boolean computeFlowResistance=true
-    "=true, compute flow resistance. Set to false to assume no friction"
-    annotation (Dialog(tab="Flow resistance heat exchanger"));
-  parameter Boolean from_dp=false
-    "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Dialog(tab="Flow resistance heat exchanger"));
-  parameter Boolean linearizeFlowResistance=false
-    "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation (Dialog(tab="Flow resistance heat exchanger"));
-  parameter Real deltaM=0.1
-    "Fraction of nominal flow rate where flow transitions to laminar"
-    annotation (Dialog(tab="Flow resistance heat exchanger"));
 equation
    for j in 1:nSegHexTan loop
-     for i in 1:HexSegMult loop
-     connect(indTanHex.port[(j-1)*HexSegMult+i], heaPorVol[nSeg-j+1])
+     for i in 1:hexSegMult loop
+     connect(indTanHex.port[(j-1)*hexSegMult+i], heaPorVol[nSeg-j+1])
       annotation (Line(
        points={{-87,41.8},{-20,41.8},{-20,-2.22045e-16},{0,-2.22045e-16}},
        color={191,0,0},
@@ -136,11 +137,11 @@ equation
      end for;
    end for;
   connect(port_a1, indTanHex.port_a) annotation (Line(
-      points={{-100,-40},{-74,-40},{-74,32},{-77,32}},
+      points={{-100,-38},{-74,-38},{-74,32},{-77,32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(indTanHex.port_b, port_b1) annotation (Line(
-      points={{-97,32},{-97,26},{-98,26},{-98,20},{-76,20},{-76,-80},{-100,-80}},
+      points={{-97,32},{-100,32},{-100,20},{-76,20},{-76,-80},{-100,-80}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -192,8 +193,8 @@ equation
             <a href=\"Buildings.Fluid.Storage.StratifiedEnhanced\">Buildings.Fluid.Storage.StratifiedEnhanced</a>.<br/>
             <p>
             The modifications consist of adding a heat exchanger 
-            (<a href=\"Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger\">
-            Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger</a>) and fluid ports to connect to the heat exchanger.
+            (<a href=\"Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\">
+            Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a>) and fluid ports to connect to the heat exchanger.
             The modifications allow to run a fluid through the tank causing heat transfer to the stored fluid. 
             A typical example is a storage tank in a solar hot water system.
             </p>

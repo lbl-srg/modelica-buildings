@@ -2,6 +2,10 @@ within Buildings.Fluid.Sensors;
 model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
+  parameter Modelica.SIunits.SpecificEntropy s_start=
+    Medium.specificEntropy_pTX(p=Medium.p_default, T=Medium.T_default, X=Medium.X_default)
+    "Initial or guess value of output (= state)"
+    annotation (Dialog(group="Initialization"));
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)",
                                           start=s_start)
@@ -10,17 +14,13 @@ model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
         origin={0,110},
         extent={{10,-10},{-10,10}},
         rotation=270)));
-  parameter Modelica.SIunits.SpecificEntropy s_start=
-    Medium.specificEntropy_pTX(Medium.p_default, Medium.T_default, Medium.X_default)
-    "Initial or guess value of output (= state)"
-    annotation (Dialog(group="Initialization"));
+protected
   Modelica.SIunits.SpecificEntropy sMed(start=s_start)
     "Medium entropy to which the sensor is exposed";
-protected
   Medium.SpecificEntropy s_a_inflow
     "Specific entropy of inflowing fluid at port_a";
   Medium.SpecificEntropy s_b_inflow
-    "Specific entropy of inflowing fluid at port_b or s_a_inflow, if uni-directional flow";
+    "Specific entropy of inflowing fluid at port_b, or s_a_inflow if uni-directional flow";
 initial equation
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
@@ -32,13 +32,20 @@ initial equation
   end if;
 equation
   if allowFlowReversal then
-     s_a_inflow = Medium.specificEntropy(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
-     s_b_inflow = Medium.specificEntropy(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow));
-     s = Modelica.Fluid.Utilities.regStep(port_a.m_flow, s_a_inflow, s_b_inflow, m_flow_small);
+     s_a_inflow = Medium.specificEntropy(state=
+                    Medium.setState_phX(p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
+     s_b_inflow = Medium.specificEntropy(state=
+                    Medium.setState_phX(p=port_a.p, h=port_a.h_outflow, X=port_a.Xi_outflow));
+     sMed = Modelica.Fluid.Utilities.regStep(
+           x=port_a.m_flow,
+           y1=s_a_inflow,
+           y2=s_b_inflow,
+           x_small=m_flow_small);
   else
-     s = Medium.specificEntropy(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
-     s_a_inflow = s;
-     s_b_inflow = s;
+     sMed = Medium.specificEntropy(state=
+           Medium.setState_phX(p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
+     s_a_inflow = sMed;
+     s_b_inflow = sMed;
   end if;
   // Output signal of sensor
   if dynamic then
@@ -60,8 +67,8 @@ annotation (defaultComponentName="senSpeEnt",
         Line(points={{70,0},{100,0}}, color={0,128,255})}),
   Documentation(info="<html>
 <p>
-This component monitors the specific entropy of the passing fluid. 
-The sensor is ideal, i.e. it does not influence the fluid.
+This model outputs the specific entropy of the passing fluid. 
+The sensor is ideal, i.e., it does not influence the fluid.
 If the parameter <code>tau</code> is non-zero, then its output
 is computed using a first order differential equation. 
 Setting <code>tau=0</code> is <i>not</i> recommend. See
@@ -71,6 +78,10 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+August 31, 2013, by Michael Wetter:<br/>
+Corrected wrong computation of <code>s</code> and <code>sMed</code>.
+</li>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that 

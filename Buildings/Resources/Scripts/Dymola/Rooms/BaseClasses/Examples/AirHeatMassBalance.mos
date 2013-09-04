@@ -1,0 +1,17 @@
+simulateModel("Buildings.Rooms.BaseClasses.Examples.AirHeatMassBalance", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="AirHeatMassBalance");
+createPlot(id = 1,
+ position = {35, 30, 407, 281},
+ y = {"air.vol.T"},
+ range = {0.0, 4000.0, 17.0, 23.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "AirHeatMassBalance.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}});
+

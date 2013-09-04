@@ -1,6 +1,5 @@
 within Buildings.Rooms.BaseClasses;
 record Overhang "Record for window overhang"
-  extends Modelica.Icons.Record;
 
   parameter Modelica.SIunits.Length wL(min=0)
     "Overhang width left to the window, measured from the window corner"

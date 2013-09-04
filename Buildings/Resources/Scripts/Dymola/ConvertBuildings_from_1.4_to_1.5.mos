@@ -1,0 +1,13 @@
+// Conversion script for Buildings library
+//  from: Version 1.4
+//  to:   Version 1.5
+clear
+
+convertClear();
+
+convertClass("Buildings.HeatTransfer.Convection.Functions.HeatFlux.raleigh",
+             "Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh"};
+
+convertClass("Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate",
+             "Buildings.Fluid.Sources.TraceSubstancesFlowSource"};
+

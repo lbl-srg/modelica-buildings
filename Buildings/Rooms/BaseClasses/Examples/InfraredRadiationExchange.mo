@@ -18,7 +18,7 @@ model InfraredRadiationExchange "Test model for infrared radiation exchange"
     linearizeRadiation=true)
     "Distribution for infrared radiative heat transfer"
     annotation (Placement(transformation(extent={{-30,0},{10,40}})));
-  Buildings.HeatTransfer.Radiosity.Constant radSou[NConExtWin](each k=-187)
+  Buildings.HeatTransfer.Radiosity.Constant radSou[NConExtWin](each k=187)
     "Radiosity source for window"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 equation

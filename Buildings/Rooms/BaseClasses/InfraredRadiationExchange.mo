@@ -1,12 +1,13 @@
 within Buildings.Rooms.BaseClasses;
 model InfraredRadiationExchange
   "Infrared radiation heat exchange between the room facing surfaces"
-  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterface;
+  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterfaceRadiative;
   parameter Boolean linearizeRadiation
     "Set to true to linearize emissive power";
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Evaluate=true,Dialog(tab="Advanced"));
-  HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin]
+  HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin] if
+      haveConExtWin
     "Incoming radiosity that connects to non-frame part of the window"
     annotation (Placement(transformation(extent={{260,70},{240,90}})));
   HeatTransfer.Interfaces.RadiosityOutflow JOutConExtWin[NConExtWin]
@@ -38,6 +39,10 @@ protected
     min=0,
     max=1,
     fixed=false) "View factor from surface i to j";
+
+   Buildings.HeatTransfer.Interfaces.RadiosityInflow JInConExtWin_internal[NConExtWin]
+    "Incoming radiosity that connects to non-frame part of the window";
+
   Modelica.SIunits.HeatFlowRate J[nTot](
     max=0,
     start=A .* 0.8*Modelica.Constants.sigma*293.15^4,
@@ -142,13 +147,10 @@ initial equation
   end for;
   ////////////////////////////////////////////////////////////////////
 equation
-  // If the room has no window, then the incoming radiosity from the window
-  // is not connected. In this situation, we set it to zero.
-  // This approach is easier than using a conditional connector, since
-  // this port carries a flow variable, and hence the sign of the radiosity
-  // would change in a connect statement.
-  if (nWin == 0) then
-    JInConExtWin = zeros(NConExtWin);
+  // Conditional connector
+  connect(JInConExtWin, JInConExtWin_internal);
+  if not haveConExtWin then
+    JInConExtWin_internal = fill(0, NConExtWin);
   end if;
   // Assign temperature of opaque surfaces
   for i in 1:nConExt loop
@@ -203,11 +205,9 @@ equation
   // and that leaves window.
   // J < 0 because it leaves the surface
   // G > 0 because it strikes the surface
-  // JIn > 0 because it enters the model
-  // JOut < 0 because it leaves the model
   for j in 1:nWin loop
-    J[j + nOpa] = -JInConExtWin[j];
-    G[j + nOpa] = -JOutConExtWin[j];
+    J[j + nOpa] = -JInConExtWin_internal[j];
+    G[j + nOpa] = +JOutConExtWin[j];
   end for;
   // Net heat exchange
   Q_flow = -J - G;
@@ -252,10 +252,10 @@ equation
   // Remove sumEBal and assert statement for final release
   sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
     sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
-    conExtWinFra.Q_flow) + (sum(JInConExtWin) + sum(JOutConExtWin));
+    conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
   assert(abs(sumEBal) < 1E-1,
-    "Program error: Energy is not conserved in InfraredRadiationExchange." +
-    "\n  Sum of all energy is " + String(sumEBal));
+    "Program error: Energy is not conserved in InfraredRadiationExchange.
+               Sum of all energy is " + String(sumEBal));
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,
@@ -364,6 +364,11 @@ The view factor from surface <i>i</i> to <i>j</i> is approximated as
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
 <li>
 April 18, 2013, by Michael Wetter:<br/>
 Removed <code>cardinality</code> function as this is 

@@ -1,7 +1,7 @@
 simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.Shade", method="dassl", resultFile="Shade");
 createPlot(id = 3,
  position = {55, 50, 400, 446},
- y = {"extSha.sha.T", "TRadOut.T", "TRadRoo.T"},
+ y = {"extShaCon.TSha", "TRadOut.T", "TRadRoo.T"},
  range = {0, 1, 25.0, -5.0},
  autoscale = true,
  autoerase = true,
@@ -12,7 +12,7 @@ createPlot(id = 3,
  bottomTitleType = 1);
 createPlot(id = 3,
  position = {55, 50, 400, 220},
- y = {"extSha.air.Q_flow", "extSha.glass.Q_flow", "extNonSha.air.Q_flow", "extNonSha.glass.Q_flow"},
+ y = {"extShaCon.air.Q_flow", "extShaCon.glass.Q_flow", "extNonShaCon.air.Q_flow", "extNonShaCon.glass.Q_flow"},
  range = {0, 1, 100.0, -100.0},
  autoscale = true,
  autoerase = true,
