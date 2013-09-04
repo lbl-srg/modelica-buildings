@@ -39,9 +39,9 @@ model UF90X3ACloset "Model of the closet connected to test bed UF90X3A"
     <p>
     This is a model for the closet attached to test cell 3A in the LBNL User Facility. The 
     model is based on <a href=\"modelica:Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>.
-    Appropriate condstructions and parameters have been used to describe the test cell. Other 
-    models are provided for the main space of the test cell and the connected electrical room.
-    Accurate use of this model will likely require the addition of
+    The model was built using construction and parameter information taken from architectural
+    drawings. Other models are provided for the main space of the test cell and the connected 
+    electrical room. Accurate use of this model will likely require the addition of
     <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
     Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A</a> and
     <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical\">
@@ -81,26 +81,26 @@ model UF90X3ACloset "Model of the closet connected to test bed UF90X3A"
     </tr>
     <tr>
     <td>1</td>
-    <td>North facing wall on the exterior of the buildings</td>
+    <td>North-facing wall on the exterior of the buildings</td>
     <td>datConExt[1]</td>
     <td>higIns</td>
     </tr>
     <tr>
     <td>2</td>
-    <td>East facing wall connected to UF90X3BCloset</td>
+    <td>East-facing wall connected to UF90X3BCloset</td>
     <td>datConBou[2]</td>
     <td>celDiv</td>
     </tr>
     <tr>
     <td>3</td>
-    <td>West facing wall connected to UF90X3AElectrical</td>
-    <td>datConBou[1]</td>
-    <td>higIns</td>
-    </tr>
-    <tr>
-    <td>4</td>
     <td>Air space connected to partition wall and door in UF90X3A model</td>
     <td>Wall: datSurBou[1]; Door: datSurBou[2]</td>
+    </tr>    
+    <tr>
+    <td>4</td>
+    <td>West-facing wall connected to UF90X3AElectrical</td>
+    <td>datConBou[1]</td>
+    <td>higIns</td>
     </tr>
     </table>
     <p>

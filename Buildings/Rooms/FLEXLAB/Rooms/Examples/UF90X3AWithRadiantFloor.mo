@@ -318,10 +318,10 @@ equation
             -200},{200,200}}), graphics),
           Documentation(info = "<html>
           <p>
-          This model demonstrates one potential use of
-          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
-          Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A</a>. This example
-          simulates the test cell when it is conditioned with a radiant slab.
+          This model demonstrates one potential simulation using the models available in
+          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A\">
+          Buildings.Rooms.FLEXLAB.Rooms.UF90X3A</a>. This example simulates test cell 
+          UF90X3A when it is conditioned with a radiant slab.
           </p>
           <p>
           This example model of <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
@@ -352,15 +352,19 @@ equation
           </tr>          
           <tr>
           <td>TNei</td>
-          <td>Neighboring test cells</td>
-          <td>UF90X2B: UF90X3A.preTem2.port[1]; UF90X3B: UF90X3A.preTem2.port[2]</td>
-          <td>UF90X2B: UF90X3A.surf_conBou[1]; UF90X3B: UF90X3A.surf_conBou[2]</td>
+          <td>Neighboring test cells (UF90X2B and UF90X3B)</td>
+          <td>UF90X2B: UF90X3A.preTem2.port[1]<br/>
+          UF90X3B: UF90X3A.preTem2.port[2]</td>
+          <td>UF90X2B: UF90X3A.surf_conBou[1]<br/>
+          UF90X3B: UF90X3A.surf_conBou[2]</td>
           </tr>          
           <tr>
           <td>clo</td>
           <td>Closet</td>
-          <td>Door: clo.surf_surBou[2]; Wall: clo.surf_surBou[1]</td>
-          <td>Door: UF90X3A.surf_conBou[4]; Wall: UF90X3A.surf_conBou[3]</td>
+          <td>Door: clo.surf_surBou[2]<br/>
+          Wall: clo.surf_surBou[1]</td>
+          <td>Door: UF90X3A.surf_conBou[4]<br/>
+          Wall: UF90X3A.surf_conBou[3]</td>
           </tr>          
           <tr>
           <td>eleRoo</td>
@@ -404,31 +408,35 @@ equation
           <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
           Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>. All of the inputs
           used to define the radiant slab are taken from the architectural drawings. The following
-          table describes the connections between models used in the radiant slab. Being previously
-          described, the connection to UF90X3A is not included.
+          table describes the connections between models used in the radiant slab. The connection 
+          to UF90X3A is not included because it was previously described.
           </p>
           <table border=\"1\" summary = \"Summary of connections to the radiant slab model\">
           <tr>
-          <th>Physical significance of connector</th>
-          <th>Radiant slab port</th>
+          <th>External model name</th>
+          <th>External model significance</th>
           <th>External model port</th>
+          <th>Radiant slab port</th>
           </tr>
           <tr>
+          <td>watIn</td>
           <td>Inlet for service fluid flow. Currently connects to a prescribed flow described
           in a table</td>
-          <td>sla.port_a</td>
           <td>watIn.ports[1]</td>
+          <td>sla.port_a</td>          
           </tr>
           <tr>
+          <td>preT</td>
           <td>Ground temperature beneath the radiant slab construction. Currently connects to
           a prescribed temperature defined in a table</td>
-          <td>sla.surf_b</td>
           <td>preT.port</td>
+          <td>sla.surf_b</td>          
           </tr>
           <tr>
+          <td>watOut</td>
           <td>Outlet for service fluid flow</td>
-          <td>sla.port_b</td>
           <td>watOut.ports[1]</td>
+          <td>sla.port_b</td>          
           </tr>
           </table>
           <p>
@@ -574,17 +582,17 @@ equation
           <td>intGaiClo</td>
           <td>Internal gains for the closet</td>
           <td>Table in model</td>
-          <td>Closet radiant heat</td>
-          <td>Closet convective heat</td>
-          <td>Closet latent heat</td>
+          <td>Radiant heat</td>
+          <td>Convective heat</td>
+          <td>Latent heat</td>
           </tr>
           <tr>
           <td>intGaiEle</td>
-          <td>Internal gains for the closet</td>
+          <td>Internal gains for the electrical room</td>
           <td>Table in model</td>
-          <td>Electrical radiant heat</td>
-          <td>Electrical convective heat</td>
-          <td>Electrical latent heat</td>
+          <td>Radiant heat</td>
+          <td>Convective heat</td>
+          <td>Latent heat</td>
           </tr>
           <tr>
           <td>airConEle</td>
@@ -616,7 +624,7 @@ equation
           In the above table blank entires either show that there is no data to describe, or that the data
           is describing a quantity for a separate model. Two examples are:
           <ul>
-          <li>The table for shaPos only contains data for shade position. Seeing as it only has a y[1] value
+          <li>The table for shaPos only contains data for shade position. Because it only has a y[1] value
           the remaining columns in the table are left blank.</li>
           <li> airCon, airConClo, and airConEle all share an external data file. They all use the same
           temperature data, located in y[4] of the external data file. The three room models use different

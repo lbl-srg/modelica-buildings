@@ -33,10 +33,10 @@ model UF90X3AElectrical
   <p>
   This is a model for the electrical room connected to test cell 3A in the LBNL User Facility.
   The model is based on 
-  <a href=\"modelica:Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>. Appropriate
-  condstructions and parameters have been used to describe the test cell. Other models are 
-  provided for the main space of the test cell and the connected closet. Accurate use of 
-  this model will likely require the addition of
+  <a href=\"modelica:Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>. The model
+  was built using construction and parameter information taken from architectural
+  drawings. Other models are provided for the main space of the test cell and the 
+  connected closet. Accurate use of this model will likely require the addition of
   <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
   Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A</a> and
   <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset\">
@@ -49,8 +49,8 @@ model UF90X3AElectrical
   </p>
   <p>
   Constructions used to describe the walls used in test cell UF90X3A are available in 
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Constructions.OpaqueConstructions\">
-  Buildings.Rooms.FLEXLAB.Constructions.OpaqueConstructions</a>. All wall 
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions\">
+  Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions</a>. All wall 
   construction models are made using information from architectural drawings. Constructions
   used to describe the windows are available in
   <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems\">
@@ -75,23 +75,23 @@ model UF90X3AElectrical
   </tr>
   <tr>
   <td>1</td>
-  <td>North facing exterior wall</td>
+  <td>North-facing exterior wall</td>
   <td>datConExt[1]</td>
   <td>eleExt</td>
   </tr>
   <tr>
   <td>2</td>
-  <td>East facing air space connecting to UF90X3ACloset</td>
+  <td>East-facing air space connecting to UF90X3ACloset</td>
   <td>surBou[2]</td>
   </tr>
   <tr>
   <td>3</td>
-  <td>South facing air space connecting to UF90X3A</td>
+  <td>South-facing air space connecting to UF90X3A</td>
   <td>surBou[1]</td>
   </tr>
   <tr>
   <td>4</td>
-  <td>West facing exterior door and wall</td>
+  <td>West-facing exterior door and wall</td>
   <td>Door: datConExt[3]; Wall: datConExt[2]</td>
   <td>Door: eleExt; Wall: extDooUn</td>
   </tr>
@@ -118,6 +118,8 @@ model UF90X3AElectrical
   <td>This is a connection to the wall between UF90X3AElectrical and UF90X3A. This connection port represents an air
   space and the corresponding wall is modeled in UF90X3A.</td>
   <td>UF90X3A.surf_conBou[5]</td>
+  <td>This wall is modeled in UF90X3A. surf_surBou[1] in UF90X3AElectrical represents the air gap in the electrical
+  room while surf_conBou[5] in UF90X3A represents the wall surface.</td>
   <td></td>
   </tr>
   <tr>
@@ -125,6 +127,8 @@ model UF90X3AElectrical
   <td>This is a connection to the wall between UF90X3AElectrical and UF90X3ACloset. This connection port represent
   an air space and the corresponding wall is modeled in UF90X3ACloset.</td>
   <td>UF90X3ACloset.surf_conBou[1]</td>
+  <td>This wall is modeled in UF90X3ACloset. surf_surBou[2] in UF90X3AElectrical represents the air gap in the
+  electrical room while surf_conBou[1] in UF90X3ACloset represents the wall surface.</td>
   <td></td>
   </tr>
   </table>

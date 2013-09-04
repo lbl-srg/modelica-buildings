@@ -171,5 +171,13 @@ def CalBayComm(u):
     res.append(y)
     res.append(u)
 
+    #The code programmed in this function references the commands SETDAQ and GetDAQ. There are several commands available. Contact Cindy Regnier
+    #(cmregnier@lbl.gov) for a complete list. Of the available commands the most useful are likely to be:
+    #"REQCHAN:(USER):(PASS)" This command returns all of the communication channels available to the user.
+    #"GETDAQ:(SYS.CHAN):(USER):(PASS)" This command reads a value from the requested channel.
+    #"SETDAQ:(SYS.CHAN):(VALUE):(USER):(PASS)" This command sets a control point to the value specified by the user.
+
     return res
+
+
 
