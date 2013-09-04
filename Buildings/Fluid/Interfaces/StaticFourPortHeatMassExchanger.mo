@@ -18,7 +18,7 @@ model StaticFourPortHeatMassExchanger
     "Set to true if sensible exchange only for medium 1";
   constant Boolean sensibleOnly2
     "Set to true if sensible exchange only for medium 2";
-protected
+//protected -- fixme: made public for numerical experiments
   Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger bal1(
     final sensibleOnly = sensibleOnly1,
     redeclare final package Medium=Medium1,
