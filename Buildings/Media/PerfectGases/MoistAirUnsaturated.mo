@@ -13,11 +13,25 @@ package MoistAirUnsaturated
     "Index of water (in substanceNames, massFractions X, etc.)";
   constant Integer Air=2
     "Index of air (in substanceNames, massFractions X, etc.)";
-  constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
-  constant Buildings.Media.PerfectGases.Common.DataRecord dryair=
-        Buildings.Media.PerfectGases.Common.SingleGasData.Air;
-  constant Buildings.Media.PerfectGases.Common.DataRecord steam=
-        Buildings.Media.PerfectGases.Common.SingleGasData.H2O;
+
+  constant Real k_mair =  Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM
+                         /Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
+    "Ratio of molar weights";
+  // OpenModelica cannot access steam.R in the BaseProperties.
+  // Therefore, we dublicate the declaration here.
+  constant Modelica.SIunits.SpecificHeatCapacity steam_R = 461.5233290850878
+    "Gas constant";
+  constant Modelica.SIunits.SpecificHeatCapacity steam_cp = 1860
+    "Specific heat capacity of steam";
+  constant Modelica.SIunits.SpecificHeatCapacity steam_cv = steam_cp-steam_R
+    "Specific heat capacity of dry air";
+  constant Modelica.SIunits.SpecificHeatCapacity dryair_R = 287.0512249529787
+    "Gas constant";
+  constant Modelica.SIunits.SpecificHeatCapacity dryair_cp = 1006
+    "Specific heat capacity of dry air";
+  constant Modelica.SIunits.SpecificHeatCapacity dryair_cv = dryair_cp-dryair_R
+    "Specific heat capacity of dry air";
+
   import SI = Modelica.SIunits;
 
   // Redeclare ThermodynamicState to avoid the warning
@@ -42,7 +56,8 @@ package MoistAirUnsaturated
     Real phi "Relative humidity";
 
   protected
-    constant SI.MolarMass[2] MMX = {steam.MM,dryair.MM}
+    constant SI.MolarMass[2] MMX = {Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
+                                    Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM}
       "Molar masses of components";
 
   //  MassFraction X_liquid "Mass fraction of liquid water. Need to be zero.";
@@ -53,6 +68,7 @@ package MoistAirUnsaturated
     MassFraction x_sat
       "Steam water mass content of saturation boundary in kg_water/kg_dryair";
     AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
+
   equation
     assert(T >= 200.0 and T <= 423.15, "
 Temperature T is not in the allowed range
@@ -78,7 +94,7 @@ required from medium model \""     + mediumName + "\".");
     X_air    = 1-Xi[Water];
 
     h = specificEnthalpy_pTX(p,T,Xi);
-    R = dryair.R*(1 - X_steam) + steam.R*X_steam;
+    R = dryair_R*(1 - X_steam) + steam_R*X_steam;
     //
     u = h - R*T;
     d = p/(R*T);
@@ -237,7 +253,7 @@ redeclare function enthalpyOfCondensingGas
   input Temperature T "temperature";
   output SpecificEnthalpy h "steam enthalpy";
 algorithm
-  h := (T-273.15) * steam.cp + enthalpyOfVaporization(T);
+  h := (T-273.15) * steam_cp + enthalpyOfVaporization(T);
   annotation(smoothOrder=5, derivative=der_enthalpyOfCondensingGas);
 end enthalpyOfCondensingGas;
 
@@ -248,7 +264,7 @@ replaceable function der_enthalpyOfCondensingGas
   input Real der_T "temperature derivative";
   output Real der_h "derivative of steam enthalpy";
 algorithm
-  der_h := steam.cp*der_T;
+  der_h := steam_cp*der_T;
 end der_enthalpyOfCondensingGas;
 
 redeclare function enthalpyOfNonCondensingGas
@@ -286,7 +302,7 @@ replaceable function enthalpyOfDryAir
   input Temperature T "temperature";
   output SpecificEnthalpy h "dry air enthalpy";
 algorithm
-  h := (T - 273.15)*dryair.cp;
+  h := (T - 273.15)*dryair_cp;
   annotation(smoothOrder=5, derivative=der_enthalpyOfDryAir);
 end enthalpyOfDryAir;
 
@@ -297,13 +313,13 @@ replaceable function der_enthalpyOfDryAir
   input Real der_T "temperature derivative";
   output Real der_h "derivative of dry air enthalpy";
 algorithm
-  der_h := dryair.cp*der_T;
+  der_h := dryair_cp*der_T;
 end der_enthalpyOfDryAir;
 
 redeclare replaceable function extends specificHeatCapacityCp
     "Specific heat capacity of gas mixture at constant pressure"
 algorithm
-  cp := dryair.cp*(1-state.X[Water]) +steam.cp*state.X[Water];
+  cp := dryair_cp*(1-state.X[Water]) +steam_cp*state.X[Water];
     annotation(derivative=der_specificHeatCapacityCp);
 end specificHeatCapacityCp;
 
@@ -313,13 +329,13 @@ replaceable function der_specificHeatCapacityCp
     input ThermodynamicState der_state;
     output Real der_cp(unit="J/(kg.K.s)");
 algorithm
-  der_cp := (steam.cp-dryair.cp)*der_state.X[Water];
+  der_cp := (steam_cp-dryair_cp)*der_state.X[Water];
 end der_specificHeatCapacityCp;
 
 redeclare replaceable function extends specificHeatCapacityCv
     "Specific heat capacity of gas mixture at constant volume"
 algorithm
-  cv:= dryair.cv*(1-state.X[Water]) +steam.cv*state.X[Water];
+  cv:= dryair_cv*(1-state.X[Water]) +steam_cv*state.X[Water];
     annotation(derivative=der_specificHeatCapacityCv);
 end specificHeatCapacityCv;
 
@@ -329,7 +345,7 @@ replaceable function der_specificHeatCapacityCv
     input ThermodynamicState der_state;
     output Real der_cv(unit="J/(kg.K.s)");
 algorithm
-  der_cv := (steam.cv-dryair.cv)*der_state.X[Water];
+  der_cv := (steam_cv-dryair_cv)*der_state.X[Water];
 end der_specificHeatCapacityCv;
 
 redeclare function extends dynamicViscosity "dynamic viscosity of dry air"
@@ -358,6 +374,7 @@ function h_pTX
   SI.MassFraction x_sat "steam water mass fraction of saturation boundary";
   SI.SpecificEnthalpy hDryAir "Enthalpy of dry air";
 algorithm
+
   p_steam_sat :=saturationPressure(T);
   x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
   /*
@@ -369,9 +386,17 @@ algorithm
      + " phi       = " + String(X[Water]/((x_sat)/(1+x_sat))) + "\n"
      + " p         = " + String(p));
   */
-  hDryAir := (T - 273.15)*dryair.cp;
+//  hDryAir := (T - 273.15)*dryair_cp;
+  hDryAir := (T - 273.15)*dryair_cp;
+//  h := hDryAir * (1 - X[Water]) +
+//       ((T-273.15) * steam_cp + 2501014.5) * X[Water];
   h := hDryAir * (1 - X[Water]) +
-       ((T-273.15) * steam.cp + 2501014.5) * X[Water];
+       ((T-273.15) * steam_cp + 2501014.5) * X[Water];
+
+//fixme       p_steam_sat := 0;
+//       x_sat := 0;
+//       hDryAir :=0;
+//       h := 0;
   annotation(Inline=false,smoothOrder=5);
 end h_pTX;
 
@@ -409,7 +434,7 @@ function T_phX "Compute temperature from specific enthalpy and mass fraction"
   SI.MassFraction x_sat "steam water mass fraction of saturation boundary";
 
 algorithm
-  T := 273.15 + (h - 2501014.5 * X[Water])/((1 - X[Water])*dryair.cp + X[Water] * steam.cp);
+  T := 273.15 + (h - 2501014.5 * X[Water])/((1 - X[Water])*dryair_cp + X[Water] * steam_cp);
   // check for saturation
   p_steam_sat :=saturationPressure(T);
   x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
