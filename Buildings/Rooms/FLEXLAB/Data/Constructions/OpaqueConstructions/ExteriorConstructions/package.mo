@@ -3,15 +3,6 @@ package ExteriorConstructions "Exterior walls facing north in FLEXLAB test cells
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 
-
-
-
-
-
-
-
-
-
   annotation(Documentation(info="<html>
     <p>
     This package contains constructions defining exterior walls and windows used in 
@@ -31,10 +22,10 @@ package ExteriorConstructions "Exterior walls facing north in FLEXLAB test cells
     <td>Construction1</td>
     <td>All test cells:<br/>
     UF90XRA:<br/>
-    UF90XRB:<br/></td>
+    UF90XRB:</td>
     <td>North wall of the closet<br/>
     West exterior wall<br/>
-    East exterior wall<br/></td>
+    East exterior wall</td>
     </tr>
     <tr>
     <td>Construction2</td>
