@@ -20,13 +20,16 @@ model UF90X3AElectrical
     A = {3.6576 * 1.26413, 3.6576 * 1.524 - 2.38658 * 1.524, 2.38658*1.524, 2.39},
     til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Ceiling},
     azi = {Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.N}));
-  replaceable Data.Constructions.OpaqueConstructions.ElectricalRoomExteriorWall
+  replaceable
+    Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction3
     eleExt "Construction describing the exterior walls in the electrical room"
     annotation (Placement(transformation(extent={{430,-210},{450,-190}})));
-  replaceable Data.Constructions.OpaqueConstructions.ExteriorDoorUninsulated
+  replaceable
+    Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorUninsulated
     extDooUn "Construction describing the door in the electrical room"
     annotation (Placement(transformation(extent={{430,-178},{450,-158}})));
-  replaceable Data.Constructions.OpaqueConstructions.ASHRAE901Roof roo
+  replaceable Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof
+                                                                   roo
     "Construction describing the roof of the electrical room"
     annotation (Placement(transformation(extent={{430,-148},{450,-128}})));
   annotation(Documentation(info="<html>

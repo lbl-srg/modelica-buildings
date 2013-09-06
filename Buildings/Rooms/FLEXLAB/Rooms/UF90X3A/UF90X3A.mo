@@ -37,28 +37,41 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
       extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
       lat=0.66098585832754);
 
-  replaceable Data.Constructions.OpaqueConstructions.ModInsulExtWall R16p8Wal
+  replaceable
+    Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction10
+                                                                     R16p8Wal
     annotation (Placement(transformation(extent={{410,-168},{430,-148}})));
-  replaceable Data.Constructions.OpaqueConstructions.HighInsulExtWall R52Wal
+  replaceable
+    Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall
+                                                                      R52Wal
     annotation (Placement(transformation(extent={{410,-192},{430,-172}})));
-  replaceable Data.Constructions.OpaqueConstructions.ASHRAE901Roof R20Wal
+  replaceable Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof
+                                                                   R20Wal
     annotation (Placement(transformation(extent={{410,-216},{430,-196}})));
   replaceable Data.Constructions.GlazingSystems.ASHRAE901Gla glaSys
     annotation (Placement(transformation(extent={{436,-192},{456,-172}})));
-  replaceable Data.Constructions.OpaqueConstructions.PartitionWall
+  replaceable
+    Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionWall
     parCon
     annotation (Placement(transformation(extent={{436,-216},{456,-196}})));
 
-  replaceable Data.Constructions.OpaqueConstructions.TestCellDividngWall celDiv
+  replaceable
+    Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall
+                                                                         celDiv
     "Construction of wall connecting to cell UF90X3B"
     annotation (Placement(transformation(extent={{410,-144},{430,-124}})));
-  replaceable Data.Constructions.OpaqueConstructions.TestBedDividingWall bedDiv
+  replaceable
+    Data.Constructions.OpaqueConstructions.DividingWalls.TestBedDividingWall
+                                                                         bedDiv
     "Construction of wall connecting to cell UF90X2B"
     annotation (Placement(transformation(extent={{410,-120},{430,-100}})));
-  replaceable Data.Constructions.OpaqueConstructions.PartitionDoor parDoo
+  replaceable
+    Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionDoor
+                                                                   parDoo
     "Door used in partition walls in FLEXLAB test cells"
     annotation (Placement(transformation(extent={{410,-96},{430,-76}})));
-  replaceable Data.Constructions.OpaqueConstructions.ExteriorDoorInsulated
+  replaceable
+    Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorInsulated
     extDoo "Construction of an exterior door"
     annotation (Placement(transformation(extent={{410,-72},{430,-52}})));
   annotation(Documentation(info="<html>

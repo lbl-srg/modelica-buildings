@@ -25,13 +25,18 @@ model UF90X3ACloset "Model of the closet connected to test bed UF90X3A"
     til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall},
     azi = {Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.E}));
 
-  replaceable Data.Constructions.OpaqueConstructions.HighInsulExtWall higIns
+  replaceable
+    Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall
+                                                                      higIns
     "High insulation wall. Between UF90X3A closet and exterior, UF90X3A closet and electricl room"
     annotation (Placement(transformation(extent={{430,-208},{450,-188}})));
-  replaceable Data.Constructions.OpaqueConstructions.TestCellDividngWall celDiv
+  replaceable
+    Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall
+                                                                         celDiv
     "Wall dividing the UF90X3A closet and the UF90X3B closet"
     annotation (Placement(transformation(extent={{430,-178},{450,-158}})));
-  replaceable Data.Constructions.OpaqueConstructions.ASHRAE901Roof roo
+  replaceable Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof
+                                                                   roo
     "Construction of the roof of the closet in UF90X3A"
     annotation(Placement(transformation(extent={{430,-148},{450,-128}})));
 

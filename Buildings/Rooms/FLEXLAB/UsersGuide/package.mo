@@ -144,7 +144,18 @@ package UsersGuide "User's Guide"
   include 0 ACH in the electrical room overnight. Probably not realistic. Electrical
   equipment will need cooling overnight. Try to estimate convective heat gains from
   electrical equipment and identify an air flow rate to keep temperature in space
-  realistic.</li>  
+  realistic.</li>
+  <li>The specific construction information for the roofs is not currently available 
+  (9/5/13). Roof construction packages in
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions\">
+  Buildings.Rooms.FLEXLAB.Data.Constructions</a> are based on comments on A2.01 in the
+  drawings. These constructions should be revisited when detailed information is
+  available. There is currently no construction for test cell UF90XR-B because the
+  comment in the drawings merely says \"ANNUAL NET-ZERO\".</li>
+  <li>Is east wall of UF90X3B actually made using Construction18? Yes according to
+  drawing on A2.03, but Construction18 is typically a cell or bed dividing wall
+  and UF90X4 is no longer in construction. Has construction been changed since
+  UF90X4 removed from plan?</li>
   </ul>
   </html>"));
 end UsersGuide;

@@ -1,0 +1,4 @@
+within Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions;
+package NorthFacingExteriorConstructions "Exterior walls facing north in FLEXLAB test cells"
+extends Modelica.Icons.MaterialPropertiesPackage;
+end NorthFacingExteriorConstructions;
