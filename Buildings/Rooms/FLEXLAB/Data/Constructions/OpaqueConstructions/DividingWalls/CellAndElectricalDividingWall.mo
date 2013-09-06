@@ -7,4 +7,4 @@ record CellAndElectricalDividingWall =
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.0127),
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.01905)},
     final nLay = 5) "Wall separating FLEXLAB test cells from the adjoining
-    electrical rooms";
+      electrical rooms";
