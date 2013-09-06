@@ -12,18 +12,6 @@ package ThreePhase_dq "AC system, symmetrically loaded three phases"
   end j;
 
 
-  redeclare function rotate
-  "Rotate a vector of an angle Theta (anti-counterclock)"
-    extends Modelica.Icons.Function;
-    input Real x[n];
-    input Modelica.SIunits.Angle theta;
-    output Real y[n];
-  algorithm
-    y[1] := cos(theta)*x[1] - sin(theta)*x[2];
-    y[2] := sin(theta)*x[1] + cos(theta)*x[2];
-  end rotate;
-
-
   redeclare function thetaRel
   "Return absolute angle of rotating system as offset to thetaRef"
     input SI.Angle theta[m];
@@ -58,7 +46,6 @@ package ThreePhase_dq "AC system, symmetrically loaded three phases"
     output SI.Voltage v[n] "phase to neutral voltages";
   algorithm
     v := {V*cos(phi), V*sin(phi)}/sqrt(3);
-    //v := {V/sqrt(2), -V/sqrt(2)};
   end phaseVoltages;
 
 

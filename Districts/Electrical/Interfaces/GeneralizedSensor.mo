@@ -100,8 +100,8 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="I"),    Text(
-          extent={{-54,118},{50,52}},
-          lineColor={0,0,255},
+          extent={{-140,110},{140,70}},
+          lineColor={0,0,0},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics),
     Documentation(info="<html>

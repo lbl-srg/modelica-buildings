@@ -4,33 +4,39 @@ model DCline
   Line line(
     P_nominal=500,
     V_nominal=50,
-    l=1000,
     mode=Districts.Electrical.Types.CableMode.commercial,
-    commercialCable=Districts.Electrical.Transmission.CommercialCables.PvcAl16())
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.PvcAl16(),
+    l=100)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Sources.ConstantVoltage E(V=50)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Line line1(
     P_nominal=500,
     V_nominal=50,
-    l=1000,
     mode=Districts.Electrical.Types.CableMode.commercial,
-    commercialCable=Districts.Electrical.Transmission.CommercialCables.PvcAl16())
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.PvcAl16(),
+    l=100)
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Line line2(
     P_nominal=500,
     V_nominal=50,
-    l=1000,
     mode=Districts.Electrical.Types.CableMode.commercial,
-    commercialCable=Districts.Electrical.Transmission.CommercialCables.PvcAl16())
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.PvcAl16(),
+    l=100)
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-  Loads.Conductor load1(P_nominal=50, mode=Districts.Electrical.Types.Assumption.VariableZ_y_input)
+  Loads.Conductor load1(P_nominal=50, mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
+    V_nominal=50,
+    linear=false)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Loads.Conductor load2(P_nominal=120)
+  Loads.Conductor load2(P_nominal=120,
+    V_nominal=50,
+    linear=false)
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Loads.Conductor load3(P_nominal=200)
+  Loads.Conductor load3(P_nominal=200,
+    V_nominal=50,
+    linear=false)
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Modelica.Blocks.Sources.Ramp varLoad(
     height=0.8,

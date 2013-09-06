@@ -56,47 +56,56 @@ partial model PartialTimeSeriesCampus
     "Rated apparent power for sizing";
   // Declaration of the line model
   // Set the instance 'line' either to 'DummyLine' or to 'Districts.Electrical.AC.AC3ph.Lines.Line'
-  //model line = DummyLine "Line model";
-  replaceable model line = Districts.Electrical.AC.AC3ph.Lines.Line
+  //replaceable model line = DummyLine "Line model";
+  replaceable model line =
+      Districts.Electrical.AC.ThreePhasesBalanced.Lines.Line (
+    mode=Districts.Electrical.Types.CableMode.commercial,
+    commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu50())
     "Line model";
   //model line = resistiveLine "Line model";
-  Districts.BuildingLoads.TimeSeries buiA(fileName="Resources/Data/BuildingLoads/Examples/buildingA.txt")
-    "Building A"
+  Districts.BuildingLoads.TimeSeries buiA(fileName="Resources/Data/BuildingLoads/Examples/buildingA.txt",
+    V_nominal_AC=VDis,
+    V_nominal_DC=VDC) "Building A"
     annotation (Placement(transformation(extent={{280,30},{300,50}})));
-  Districts.BuildingLoads.TimeSeries buiB(fileName="Resources/Data/BuildingLoads/Examples/buildingB.txt")
-    "Building B"
+  Districts.BuildingLoads.TimeSeries buiB(fileName="Resources/Data/BuildingLoads/Examples/buildingB.txt",
+    V_nominal_AC=VDis,
+    V_nominal_DC=VDC) "Building B"
     annotation (Placement(transformation(extent={{220,30},{240,50}})));
-  Districts.BuildingLoads.TimeSeries buiC(fileName="Resources/Data/BuildingLoads/Examples/buildingC.txt")
-    "Building C"
+  Districts.BuildingLoads.TimeSeries buiC(fileName="Resources/Data/BuildingLoads/Examples/buildingC.txt",
+    V_nominal_AC=VDis,
+    V_nominal_DC=VDC) "Building C"
     annotation (Placement(transformation(extent={{152,30},{172,50}})));
-  Districts.BuildingLoads.TimeSeries buiD(fileName="Resources/Data/BuildingLoads/Examples/buildingD.txt")
-    "Building D"
+  Districts.BuildingLoads.TimeSeries buiD(fileName="Resources/Data/BuildingLoads/Examples/buildingD.txt",
+    V_nominal_AC=VDis,
+    V_nominal_DC=VDC) "Building D"
     annotation (Placement(transformation(extent={{-42,-80},{-22,-60}})));
-  Districts.BuildingLoads.TimeSeries buiE(fileName="Resources/Data/BuildingLoads/Examples/buildingE.txt")
-    "Building E"
+  Districts.BuildingLoads.TimeSeries buiE(fileName="Resources/Data/BuildingLoads/Examples/buildingE.txt",
+    V_nominal_AC=VDis,
+    V_nominal_DC=VDC) "Building E"
     annotation (Placement(transformation(extent={{110,-90},{130,-70}})));
 
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/CZ10RV2.mos")
     annotation (Placement(transformation(extent={{-220,60},{-200,80}})));
-  Districts.Electrical.AC.AC3ph.Sources.Grid gri(
+  Districts.Electrical.AC.ThreePhasesBalanced.Sources.Grid gri(
     f=60,
     Phi=0,
     V=VTra)
            annotation (Placement(transformation(extent={{-172,0},{-152,20}})));
-  Districts.Electrical.AC.AC3ph.Conversion.ACACConverter acac(eta=0.9,
+  Districts.Electrical.AC.ThreePhasesBalanced.Conversion.ACACConverter
+                                                         acac(eta=0.9,
       conversionFactor=VDis/VTra) "AC/AC converter"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   line linDT(
     P_nominal=P_dt,
     V_nominal=VDis,
     l=40,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    wireMaterial=Districts.Electrical.Transmission.Materials.Material.Cu)
     "Distribution line"
     annotation (Placement(transformation(extent={{-84,-30},{-64,-10}})));
   line linDE(
     V_nominal=VDis,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper(),
+    wireMaterial=Districts.Electrical.Transmission.Materials.Material.Cu,
     P_nominal=P_de,
     l=400) "Distribution line"
     annotation (Placement(transformation(extent={{34,-30},{54,-10}})));
@@ -104,7 +113,7 @@ partial model PartialTimeSeriesCampus
     V_nominal=VDis,
     P_nominal=P_d,
     l=20,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    wireMaterial=Districts.Electrical.Transmission.Materials.Material.Cu)
     "Distribution line"       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -113,7 +122,7 @@ partial model PartialTimeSeriesCampus
     V_nominal=VDis,
     P_nominal=P_e,
     l=20,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    wireMaterial=Districts.Electrical.Transmission.Materials.Material.Cu)
     "Distribution line"       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -122,14 +131,14 @@ partial model PartialTimeSeriesCampus
     V_nominal=VDis,
     P_nominal=P_ce,
     l=50,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    wireMaterial=Districts.Electrical.Transmission.Materials.Material.Cu)
     "Distribution line"
     annotation (Placement(transformation(extent={{150,-30},{170,-10}})));
   line linC(
     V_nominal=VDis,
     P_nominal=P_c,
     l=60,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    wireMaterial=Districts.Electrical.Transmission.Materials.Material.Cu)
     "Distribution line"       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -138,14 +147,14 @@ partial model PartialTimeSeriesCampus
     V_nominal=VDis,
     P_nominal=P_bc,
     l=40,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    wireMaterial=Districts.Electrical.Transmission.Materials.Material.Cu)
     "Distribution line"
     annotation (Placement(transformation(extent={{210,-30},{230,-10}})));
   line linB(
     V_nominal=VDis,
     P_nominal=P_b,
     l=20,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    wireMaterial=Districts.Electrical.Transmission.Materials.Material.Cu)
     "Distribution line"       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -154,16 +163,17 @@ partial model PartialTimeSeriesCampus
     V_nominal=VDis,
     P_nominal=P_a,
     l=120,
-    wireMaterial=Districts.Electrical.Transmission.Materials.Copper())
+    wireMaterial=Districts.Electrical.Transmission.Materials.Material.Cu)
     "Distribution line"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={290,-20})));
 
-  Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senDT
+  Districts.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor
+                                                          senDT
     "Sensor in DT line"
     annotation (Placement(transformation(extent={{-54,-30},{-34,-10}})));
-  Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senA
+  Districts.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor senA
     "Sensor in AC line at building A"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -173,14 +183,14 @@ partial model PartialTimeSeriesCampus
     annotation (Placement(transformation(extent={{260,190},{280,210}})));
 
   model resistiveLine
-    extends Districts.Electrical.AC.AC3ph.Lines.TwoPortResistance(R=0.3e-3*l);
+    extends Districts.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortResistance(R=0.3e-3*l);
       parameter Modelica.SIunits.Distance l(min=0) "Length of the line";
       parameter Modelica.SIunits.Power P_nominal(min=0)
       "Nominal power of the line";
       parameter Modelica.SIunits.Voltage V_nominal
       "Nominal voltage of the line";
   parameter Districts.Electrical.Transmission.Materials.Material wireMaterial=
-      Districts.Electrical.Transmission.Materials.Copper()
+      Districts.Electrical.Transmission.Materials.Material.Cu
       "Material of the cable"
     annotation (choicesAllMatching=true,Dialog(tab="Tech. specification",
                 enable=mode==Districts.Electrical.Types.CableMode.normative),
@@ -189,10 +199,10 @@ partial model PartialTimeSeriesCampus
   end resistiveLine;
 
 public
-  Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senTra
+  Districts.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor senTra
     "Sensor in the transmission grid"
     annotation (Placement(transformation(extent={{-148,-30},{-128,-10}})));
-  Districts.Electrical.AC.AC3ph.Conversion.ACDCConverter acdc(conversionFactor=
+  Districts.Electrical.AC.ThreePhasesBalanced.Conversion.ACDCConverter acdc(conversionFactor=
         VDC/VDis, eta=0.9) "AC/DC converter"
     annotation (Placement(transformation(extent={{350,-30},{370,-10}})));
   Districts.Electrical.DC.Sources.PVSimple pv(A=10000) "PV array"
@@ -214,7 +224,7 @@ public
     annotation (Placement(transformation(extent={{430,170},{450,190}})));
   Districts.Electrical.DC.Storage.Battery bat(EMax=PDCGen*4*3600) "Battery"
     annotation (Placement(transformation(extent={{418,-30},{438,-10}})));
-  Districts.Electrical.AC.AC3ph.Sensors.GeneralizedSensor senDE
+  Districts.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor senDE
     "Sensor in DE line"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Continuous.Integrator ETot "Total transmitted energy"

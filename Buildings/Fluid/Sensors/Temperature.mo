@@ -3,22 +3,29 @@ model Temperature "Ideal one port temperature sensor"
     extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
 
   Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
-                                          final unit = "K", min=0,
+                                          final unit = "K",
+                                          min=0,
                                           displayUnit = "degC")
     "Temperature in port medium"
     annotation (Placement(transformation(extent={{60,-10},{80,10}}, rotation=
             0)));
 
 equation
-  T = Medium.temperature(Medium.setState_phX(port.p, inStream(port.h_outflow), inStream(port.Xi_outflow)));
+  T = Medium.temperature(state=Medium.setState_phX(
+        p=port.p, h=inStream(port.h_outflow), X=inStream(port.Xi_outflow)));
 annotation (defaultComponentName="senTem",
     Documentation(info="<html>
 <p>
-This component monitors the temperature of the fluid passing its port. 
-The sensor is ideal, i.e. it does not influence the fluid.
+This model outputs the temperature of the fluid connected to its port. 
+The sensor is ideal, i.e., it does not influence the fluid.
 </p>
-</html>
-",
+<p>
+Read the 
+<a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
+Buildings.Fluid.Sensors.UsersGuide</a>
+prior to using this model with one fluid port.
+</p>
+</html>",
 revisions="<html>
 <ul>
 <li>
@@ -27,8 +34,7 @@ First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"
-),
+</html>"),
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
                         graphics={
         Line(points={{0,-70},{0,-100}}, color={0,0,127}),

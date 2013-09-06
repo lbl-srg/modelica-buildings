@@ -10,55 +10,10 @@ model FourPortHeatMassExchanger
      final computeFlowResistance1=true, final computeFlowResistance2=true);
   import Modelica.Constants;
 
-  Buildings.Fluid.MixingVolumes.MixingVolume vol1(
-    redeclare final package Medium = Medium1,
-    nPorts = 2,
-    V=m1_flow_nominal*tau1/rho1_nominal,
-    final m_flow_nominal=m1_flow_nominal,
-    energyDynamics=if tau1 > Modelica.Constants.eps
-                         then energyDynamics else
-                         Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=if tau1 > Modelica.Constants.eps
-                         then massDynamics else
-                         Modelica.Fluid.Types.Dynamics.SteadyState,
-    final p_start=p1_start,
-    final T_start=T1_start,
-    final X_start=X1_start,
-    final C_start=C1_start,
-    final C_nominal=C1_nominal) "Volume for fluid 1"
-                               annotation (Placement(transformation(extent={{-10,70},
-            {10,50}},         rotation=0)));
-
-  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2
-    constrainedby Buildings.Fluid.MixingVolumes.MixingVolume(
-    redeclare final package Medium = Medium2,
-    nPorts = 2,
-    V=m2_flow_nominal*tau2/rho2_nominal,
-    final m_flow_nominal = m2_flow_nominal,
-    energyDynamics=if tau2 > Modelica.Constants.eps
-                         then energyDynamics else
-                         Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=if tau2 > Modelica.Constants.eps
-                         then massDynamics else
-                         Modelica.Fluid.Types.Dynamics.SteadyState,
-    final p_start=p2_start,
-    final T_start=T2_start,
-    final X_start=X2_start,
-    final C_start=C2_start,
-    final C_nominal=C2_nominal) "Volume for fluid 2"
-   annotation (Placement(transformation(
-        origin={2,-60},
-        extent={{-10,10},{10,-10}},
-        rotation=180)));
-
   parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow"
      annotation (Evaluate=true, Dialog(tab = "Dynamics", group="Nominal condition"));
   parameter Modelica.SIunits.Time tau2 = 30 "Time constant at nominal flow"
      annotation (Evaluate=true, Dialog(tab = "Dynamics", group="Nominal condition"));
-  Modelica.SIunits.HeatFlowRate Q1_flow= sum(vol1.heatPort.Q_flow)
-    "Heat flow rate into medium 1";
-  Modelica.SIunits.HeatFlowRate Q2_flow= sum(vol2.heatPort.Q_flow)
-    "Heat flow rate into medium 2";
 
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -109,26 +64,52 @@ model FourPortHeatMassExchanger
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nC > 0));
 
-protected
-  parameter Medium1.ThermodynamicState sta1_nominal=Medium1.setState_pTX(
-      T=Medium1.T_default, p=Medium1.p_default, X=Medium1.X_default);
-  parameter Modelica.SIunits.Density rho1_nominal=Medium1.density(sta1_nominal)
-    "Density, used to compute fluid volume";
-  parameter Medium2.ThermodynamicState sta2_nominal=Medium2.setState_pTX(
-      T=Medium2.T_default, p=Medium2.p_default, X=Medium2.X_default);
-  parameter Modelica.SIunits.Density rho2_nominal=Medium2.density(sta2_nominal)
-    "Density, used to compute fluid volume";
+  Buildings.Fluid.MixingVolumes.MixingVolume vol1(
+    redeclare final package Medium = Medium1,
+    nPorts = 2,
+    V=m1_flow_nominal*tau1/rho1_nominal,
+    final m_flow_nominal=m1_flow_nominal,
+    energyDynamics=if tau1 > Modelica.Constants.eps
+                         then energyDynamics else
+                         Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=if tau1 > Modelica.Constants.eps
+                         then massDynamics else
+                         Modelica.Fluid.Types.Dynamics.SteadyState,
+    final p_start=p1_start,
+    final T_start=T1_start,
+    final X_start=X1_start,
+    final C_start=C1_start,
+    final C_nominal=C1_nominal) "Volume for fluid 1"
+                               annotation (Placement(transformation(extent={{-10,70},
+            {10,50}},         rotation=0)));
 
-  parameter Medium1.ThermodynamicState sta1_start=Medium1.setState_pTX(
-      T=T1_start, p=p1_start, X=X1_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h1_outflow_start = Medium1.specificEnthalpy(sta1_start)
-    "Start value for outflowing enthalpy";
-  parameter Medium2.ThermodynamicState sta2_start=Medium2.setState_pTX(
-      T=T2_start, p=p2_start, X=X2_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h2_outflow_start = Medium2.specificEnthalpy(sta2_start)
-    "Start value for outflowing enthalpy";
+  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2
+    constrainedby Buildings.Fluid.MixingVolumes.MixingVolume(
+    redeclare final package Medium = Medium2,
+    nPorts = 2,
+    V=m2_flow_nominal*tau2/rho2_nominal,
+    final m_flow_nominal = m2_flow_nominal,
+    energyDynamics=if tau2 > Modelica.Constants.eps
+                         then energyDynamics else
+                         Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=if tau2 > Modelica.Constants.eps
+                         then massDynamics else
+                         Modelica.Fluid.Types.Dynamics.SteadyState,
+    final p_start=p2_start,
+    final T_start=T2_start,
+    final X_start=X2_start,
+    final C_start=C2_start,
+    final C_nominal=C2_nominal) "Volume for fluid 2"
+   annotation (Placement(transformation(
+        origin={2,-60},
+        extent={{-10,10},{10,-10}},
+        rotation=180)));
 
-public
+  Modelica.SIunits.HeatFlowRate Q1_flow= sum(vol1.heatPort.Q_flow)
+    "Heat flow rate into medium 1";
+  Modelica.SIunits.HeatFlowRate Q2_flow= sum(vol2.heatPort.Q_flow)
+    "Heat flow rate into medium 2";
+
   Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro1(
     redeclare package Medium = Medium1,
     final use_dh=false,
@@ -160,6 +141,25 @@ public
     final dh=1,
     final ReC=4000) "Pressure drop model for fluid 2"
     annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
+
+protected
+  parameter Medium1.ThermodynamicState sta1_nominal=Medium1.setState_pTX(
+      T=Medium1.T_default, p=Medium1.p_default, X=Medium1.X_default);
+  parameter Modelica.SIunits.Density rho1_nominal=Medium1.density(sta1_nominal)
+    "Density, used to compute fluid volume";
+  parameter Medium2.ThermodynamicState sta2_nominal=Medium2.setState_pTX(
+      T=Medium2.T_default, p=Medium2.p_default, X=Medium2.X_default);
+  parameter Modelica.SIunits.Density rho2_nominal=Medium2.density(sta2_nominal)
+    "Density, used to compute fluid volume";
+
+  parameter Medium1.ThermodynamicState sta1_start=Medium1.setState_pTX(
+      T=T1_start, p=p1_start, X=X1_start);
+  parameter Modelica.SIunits.SpecificEnthalpy h1_outflow_start = Medium1.specificEnthalpy(sta1_start)
+    "Start value for outflowing enthalpy";
+  parameter Medium2.ThermodynamicState sta2_start=Medium2.setState_pTX(
+      T=T2_start, p=p2_start, X=X2_start);
+  parameter Modelica.SIunits.SpecificEnthalpy h2_outflow_start = Medium2.specificEnthalpy(sta2_start)
+    "Start value for outflowing enthalpy";
 
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(

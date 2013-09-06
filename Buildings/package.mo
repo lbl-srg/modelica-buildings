@@ -197,6 +197,21 @@ have been <b style=\"color:blue\">improved</b> in a
                        ticket <a href=\"https://trac.modelica.org/Modelica/ticket/739\">#739</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.EnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.LatentEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.VolumeFlowRate
+    </td>
+    <td valign=\"top\">Removed default value <code>tau=0</code> as the base class 
+                       already sets <code>tau=1</code>.
+                       This change was made so that all sensors use the same default value.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.TraceSubstancesTwoPort
+    </td>
+    <td valign=\"top\">Added default value <code>C_start=0</code>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
@@ -227,6 +242,13 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.BaseClasses.IndexWater
+    </td>
+    <td valign=\"top\">Renamed class to 
+                       <code>Buildings.Fluid.BaseClasses.IndexMassFraction</code>
+                       as it is applicable for all mass fraction sensors.
+    </td>
+</tr>
 <tr><td valign=\"top\">
                        Buildings.Fluid.HeatExchangers.ConstantEffectiveness<br/>
                        Buildings.Fluid.HeatExchangers.DryEffectivenessNTU<br/>
@@ -251,6 +273,27 @@ have been <b style=\"color:blue\">improved</b> in a
                        have been renamed. 
                        The equations that were used were, however, correct.
                        This addresses issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/165\">#165</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.Examples.TraceSubstances
+    </td>
+    <td valign=\"top\">Renamed example from <code>ExtraProperty</code> to
+                     <code>TraceSubstances</code> in order to use the same name
+                     as the sensor.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate
+    </td>
+    <td valign=\"top\">Renamed model to<code>TraceSubstancesFlowRate</code> to
+                     use the same terminology than the Modelica Standard Library.<br/>
+                     The conversion script updates existing models that instantiate 
+                     this model.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.Examples.PrescribedExtraPropertyFlow
+    </td>
+    <td valign=\"top\">Renamed example to<code>TraceSubstancesFlowRate</code> 
+                     in order to use the same name as the source model.
     </td>
 </tr>
 
@@ -337,6 +380,16 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.SpecificEntropyTwoPort
+    </td>
+    <td valign=\"top\">
+           Corrected wrong computation of the dynamics used for the sensor signal.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>

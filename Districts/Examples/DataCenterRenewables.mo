@@ -11,10 +11,10 @@ model DataCenterRenewables
     annotation (Placement(transformation(extent={{-22,50},{-42,70}})));
   Electrical.DC.Storage.Battery     bat(EMax=500e3*4*3600) "Battery"
     annotation (Placement(transformation(extent={{0,-42},{-20,-22}})));
-  Electrical.AC.AC1ph.Conversion.ACDCConverter                    conv(
+  Electrical.AC.OnePhase.Conversion.ACDCConverter                 conv(
       conversionFactor=480/480, eta=0.9) "AC/DC converter"
     annotation (Placement(transformation(extent={{70,10},{50,30}})));
-  Electrical.AC.AC1ph.Sources.Grid                    gri(
+  Electrical.AC.OnePhase.Sources.Grid                 gri(
     f=60,
     V=480,
     Phi=0) annotation (Placement(transformation(extent={{100,60},{120,80}})));
@@ -37,7 +37,8 @@ model DataCenterRenewables
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
   Electrical.DC.Loads.Conductor dcLoad(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
     annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
-  Electrical.AC.AC1ph.Loads.InductiveLoadP   acLoad(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
+  Electrical.AC.OnePhase.Loads.InductiveLoadP acLoad(
+                                                    mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
     annotation (Placement(transformation(extent={{70,-52},{50,-32}})));
 equation
   connect(dataCenterContinuousTimeControl.weaBus, weaBus) annotation (Line(

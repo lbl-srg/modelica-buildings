@@ -3,4 +3,24 @@ package CommercialCables "Package of low voltage electricity cables used in dist
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end CommercialCables;

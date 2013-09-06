@@ -24,7 +24,7 @@ model RoomVAV "Model for CO2 emitted by people"
         Medium) "Sensor at volume"
     annotation (extent=[14,20; 34,40], Placement(transformation(extent={{16,20},
             {36,40}})));
-  Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate sou(redeclare package
+  Buildings.Fluid.Sources.TraceSubstancesFlowSource sou(redeclare package
       Medium =         Medium, use_m_flow_in=true,
     nPorts=1) "CO2 source"
     annotation (extent=[-98,-70; -78,-50], Placement(transformation(extent={{-100,

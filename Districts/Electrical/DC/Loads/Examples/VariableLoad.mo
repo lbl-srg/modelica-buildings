@@ -1,13 +1,16 @@
 within Districts.Electrical.DC.Loads.Examples;
 model VariableLoad
   extends Modelica.Icons.Example;
-  Conductor loa1(P_nominal=50) "Load"
+  Conductor loa1(P_nominal=50,
+    V_nominal=12,
+    linear=false) "Load"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Sources.ConstantVoltage sou(V=12) "Voltage source"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Electrical.Analog.Basic.Ground gro "Ground"
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
-  Conductor loa2(P_nominal=50, mode=Districts.Electrical.Types.Assumption.VariableZ_y_input) "Load"
+  Conductor loa2(P_nominal=50, mode=Districts.Electrical.Types.Assumption.VariableZ_y_input,
+    V_nominal=12) "Load"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Ramp varLoad_y(
     height=0.8,
@@ -15,7 +18,8 @@ model VariableLoad
     startTime=0.3,
     offset=0)
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
-  Conductor loa3(P_nominal=50, mode=Districts.Electrical.Types.Assumption.VariableZ_P_input) "Load"
+  Conductor loa3(P_nominal=50, mode=Districts.Electrical.Types.Assumption.VariableZ_P_input,
+    V_nominal=12) "Load"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Modelica.Blocks.Sources.Ramp varLoad_P(
     duration=0.5,
@@ -23,7 +27,7 @@ model VariableLoad
     height=120,
     offset=-20)
     annotation (Placement(transformation(extent={{60,-40},{40,-20}})));
-  Lines.TwoPortResistance res(R=1) "Resistance"
+  Lines.TwoPortResistance res(R=0.1) "Resistance"
     annotation (Placement(transformation(extent={{-32,40},{-12,60}})));
   Sensors.GeneralizedSensor sen
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
