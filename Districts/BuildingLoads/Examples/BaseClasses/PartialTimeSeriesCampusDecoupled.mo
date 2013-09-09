@@ -226,7 +226,8 @@ public
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Continuous.Integrator ETot "Total transmitted energy"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
-  Districts.Electrical.DC.Sources.ConstantVoltage constantVoltage(V=VDC)
+  Districts.Electrical.DC.Sources.ConstantVoltage constantVoltage(V=VDC,
+      definiteReference=true)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

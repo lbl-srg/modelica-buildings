@@ -5,7 +5,7 @@ model AC_IEEE34
       Districts.Electrical.Transmission.Grids.IEEE_34_AL120 grid)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Loads.InductiveLoadP load[33](each P_nominal=2500, each mode=Districts.Electrical.Types.Assumption.VariableZ_P_input,
-    linear=false)
+    each linear=false)
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Sources.FixedVoltage source(
     f=50,
