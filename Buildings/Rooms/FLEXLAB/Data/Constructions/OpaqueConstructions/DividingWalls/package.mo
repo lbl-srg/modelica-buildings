@@ -10,5 +10,4 @@ package DividingWalls "Walls used to divide test beds and cells"
   and test beds in the LBNL User Facility.
   </p>
   </html>"));
-
 end DividingWalls;

@@ -6,4 +6,5 @@ record Construction1 =
     Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.2032),
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.0127),
     Buildings.HeatTransfer.Data.Solids.GypsumBoard(x=0.01588)},
-    final nLay = 5) "North wall in FLEXLAB closets, west wall in UF90X1A";
+    final nLay = 5)
+  "North wall in FLEXLAB closets, west wall in UF90XRA, east wall in UF90XRB, west wall in UF90X1A";

@@ -11,5 +11,4 @@ extends Modelica.Icons.MaterialPropertiesPackage;
   Facility.
   </p>
   </html>"));
-
 end Constructions;

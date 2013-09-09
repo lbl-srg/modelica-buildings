@@ -87,7 +87,7 @@ equation
             -100},{100,100}}), graphics),
             Documentation(info="<html>
             <p>
-            This example demonstrates how a Python script and model or a controller
+            This example demonstrates how a Python script and model of a controller
             can be used to control experiments in the FLEXLAB test cells. It uses
             an instance of
             <a href=\"modelica:Buildings.Utilities.IO.Python27.Real_Real\">
@@ -109,5 +109,11 @@ equation
             More details describing the necessary changes to the script are provided in
             the documentation of the script itself.
             </p>
+            </html>",
+            revisions = "<html>
+            <ul>
+            <li>Sep 9, 2013 by Peter Grant:<br/>
+            First implementation.</li>
+            </ul>
             </html>"));
 end CalBayComm;

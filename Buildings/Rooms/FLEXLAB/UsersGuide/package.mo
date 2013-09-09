@@ -5,13 +5,13 @@ package UsersGuide "User's Guide"
 
   annotation(Documentation(info="<html>
   <p>
-  The FLEXLAB package contains models of rooms, wall constructions, window
+  The <code>Buildings.Rooms.FLEXLAB</code> package contains models of rooms, wall constructions, window
   constructions, and examples demonstrating their use. These models are
   created to match the FLEXLAB architectural drawings.
   </p>
   <h4>Use of FLEXLAB models</h4>
   <p>
-  Models for FLEXLAB are made based on architectural drawings of individual
+  FLEXLAB models are made based on architectural drawings of individual
   rooms. The room models are located in the
   <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms\">
   Buildings.Rooms.FLEXLAB.Rooms</a> package. The intent is that simulations of 
@@ -29,13 +29,13 @@ package UsersGuide "User's Guide"
   Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems</a>.
   </p>
   <p>
-  The example of a FLEXLAB simulation is made assuming that the shading position
-  controls, internal gains, air handlers, and central plant do not need
-  detailed models. Instead it is assumed that experimental data is available
-  and data tables reading that data are used instead. An example simulation
-  using FLEXLAB models is located in the
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples</a>.
+  One example demonstrating the use of FLEXLAB models is
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>.
+  The example  is made assuming that the shading position controls, internal 
+  gains, air handlers, and central plant do not need detailed models. Instead it 
+  is assumed that experimental data is available and data tables reading that 
+  data are used instead.
   </p>
   <p>
   Each room model is made to match architectural drawings. If a construction
@@ -90,12 +90,12 @@ package UsersGuide "User's Guide"
   <tr>
   <td>air</td>
   <td>heaPorAir</td>
-  <td>Heat port connecting directly to the air in the room</td>
+  <td>Heat port connecting directly to the air in the room.</td>
   </tr>
   <tr>
   <td>radiation</td>
   <td>heaPorRad</td>
-  <td>Heat port for radiative heat gain and radiative temperature</td>
+  <td>Heat port for radiative heat gain and radiative temperature.</td>
   </tr>
   <tr>
   <td></td>

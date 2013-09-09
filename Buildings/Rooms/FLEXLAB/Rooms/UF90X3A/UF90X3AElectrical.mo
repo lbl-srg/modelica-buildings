@@ -78,25 +78,27 @@ model UF90X3AElectrical
   </tr>
   <tr>
   <td>1</td>
-  <td>North-facing exterior wall</td>
+  <td>North exterior wall</td>
   <td>datConExt[1]</td>
   <td>eleExt</td>
   </tr>
   <tr>
   <td>2</td>
-  <td>East-facing air space connecting to UF90X3ACloset</td>
+  <td>East air space connecting to UF90X3ACloset</td>
   <td>surBou[2]</td>
   </tr>
   <tr>
   <td>3</td>
-  <td>South-facing air space connecting to UF90X3A</td>
+  <td>South air space connecting to UF90X3A</td>
   <td>surBou[1]</td>
   </tr>
   <tr>
   <td>4</td>
-  <td>West-facing exterior door and wall</td>
-  <td>Door: datConExt[3]; Wall: datConExt[2]</td>
-  <td>Door: eleExt; Wall: extDooUn</td>
+  <td>West exterior door and wall</td>
+  <td>Door: datConExt[3]<br/>
+  Wall: datConExt[2]</td>
+  <td>  Door: eleExt<br/>
+  Wall: extDooUn</td>
   </tr>
   </table>
   <p>

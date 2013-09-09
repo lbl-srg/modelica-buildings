@@ -122,7 +122,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   </tr>
   <tr>
   <td>1</td>
-  <td>The west-facing wall is modeled in two parts. One part represents the dividing wall between UF90X3A
+  <td>The west wall is modeled in two parts. One part represents the dividing wall between UF90X3A
   and UF90X2B. The other part represents a portion of the wall exposed to the ambient conditions. Wall
   1 is the section of wall connected to UF90X2B.</td>
   <td>datConBou[1]</td>
@@ -130,7 +130,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   </tr>
   <tr>
   <td>2</td>
-  <td>The west-facing wall is modeled in two parts. One part represents the dividing wall between UF90X3A
+  <td>The west wall is modeled in two parts. One part represents the dividing wall between UF90X3A
   and UF90X2B. The other part represents a portion of the wall exposed to the ambient conditions. Wall
   2 is the section of wall exposed to ambient conditions.</td>
   <td>datConExt[4]</td>
@@ -138,7 +138,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   </tr>
   <tr>
   <td>3</td>
-  <td>This is the north-facing exterior wall of test cell UF90X3A. There are actually two constructions
+  <td>This is the north exterior wall of test cell UF90X3A. There are actually two constructions
   used here. One construction models the wall, the other construction models a door. The area
   calculation for the wall in the model shows the calculation of the total wall area minus the door area.</td>
   <td>Door: datConExt[1]; Wall: datConExt[2]</td>
@@ -146,7 +146,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   </tr>
   <tr>
   <td>4</td>
-  <td>This north-facing wall borders an electrical room. It models the heat transfer between test cell
+  <td>This north wall borders an electrical room. It models the heat transfer between test cell
   UF90X3A and the externally modeled electrical room. For an example see
   <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>.</td>
@@ -155,7 +155,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   </tr>
   <tr>
   <td>5</td>
-  <td>This north-facing wall borders an externally modeled closet. For an example see 
+  <td>This north wall borders an externally modeled closet. For an example see 
   <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>. Similar to wall section 
   3 this wall section contains both a wall construction and a door construction. The wall area
@@ -165,13 +165,13 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   </tr>
   <tr>
   <td>6</td>
-  <td>This east-facing wall connects to test cell UF90X3B.</td>
+  <td>This east wall connects to test cell UF90X3B.</td>
   <td>datConBou[2]</td>
   <td>celDiv</td>
   </tr>
   <tr>
   <td>7</td>
-  <td>This is the south-facing wall of test cell UF90X3A. It includes both a wall construction and 
+  <td>This is the south wall of test cell UF90X3A. It includes both a wall construction and 
   windows. The bottoms of the windows are 3 ft above the floor.</td>
   <td>datConExtWin[1]</td>
   <td>Window: glaSys; Wall: R16p8Wal</td>

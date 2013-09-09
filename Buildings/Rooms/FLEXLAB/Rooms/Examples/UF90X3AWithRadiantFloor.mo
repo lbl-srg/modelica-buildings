@@ -483,7 +483,7 @@ equation
           <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset\">
           Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset</a>. The connections
           necessary to accurately include the space in the simulation are described
-          in the following table. Prevsiouly mentioned connections are not included.
+          in the following table. Previously described connections are not included.
           </p>
           <table border =\"1\" summary = \"Connections to the closet model\">
           <tr>
@@ -635,10 +635,7 @@ equation
           </ul>
           <p>
           The ventilation air flow rates used during occupied hours in this example were calculated using
-          the assumption of 4 air changes per hour (ACH). Four ACH was selected to match the recommendation
-          for \"Offices, private\" listed at
-          <a href=\"http://www.engineeringtoolbox.com/air-change-rate-room-d_867.html\">
-          http://www.engineeringtoolbox.com/air-change-rate-room-d_867.html</a> It is assumed that there is
+          the assumption of 4 air changes per hour (ACH). It is assumed that there is
           no ventilation flow during unoccupied hours.
           </p>          
           </html>",

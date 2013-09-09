@@ -86,24 +86,25 @@ model UF90X3ACloset "Model of the closet connected to test bed UF90X3A"
     </tr>
     <tr>
     <td>1</td>
-    <td>North-facing wall on the exterior of the buildings</td>
+    <td>North wall on the exterior of the buildings</td>
     <td>datConExt[1]</td>
     <td>higIns</td>
     </tr>
     <tr>
     <td>2</td>
-    <td>East-facing wall connected to UF90X3BCloset</td>
+    <td>East wall connected to UF90X3BCloset</td>
     <td>datConBou[2]</td>
     <td>celDiv</td>
     </tr>
     <tr>
     <td>3</td>
     <td>Air space connected to partition wall and door in UF90X3A model</td>
-    <td>Wall: datSurBou[1]; Door: datSurBou[2]</td>
+    <td>Wall: datSurBou[1]<br/>
+    Door: datSurBou[2]</td>
     </tr>    
     <tr>
     <td>4</td>
-    <td>West-facing wall connected to UF90X3AElectrical</td>
+    <td>West wall connected to UF90X3AElectrical</td>
     <td>datConBou[1]</td>
     <td>higIns</td>
     </tr>

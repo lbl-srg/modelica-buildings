@@ -6,12 +6,10 @@ extends Modelica.Icons.Package;
 
 
 
-
   annotation (
     Documentation(info="<html>
       <p>
-      The <code>FLEXLAB</code> package contains models specific for FLEXLAB applications.
+      The <code>Buildings.Rooms.FLEXLAB</code> package contains models developed for FLEXLAB applications.
       </p>
       </html>"));
-
 end FLEXLAB;
