@@ -9,8 +9,7 @@ model TimeSeriesCampus_V
     buiE(linear_DC=false, linear_AC=false),
     buiC(linear_DC=false, linear_AC=false),
     buiB(linear_DC=false, linear_AC=false),
-    buiA(linear_DC=false, linear_AC=false),
-    constantVoltage(definiteReference=true));
+    buiA(linear_DC=false, linear_AC=false));
 
   Districts.BuildingLoads.Examples.BaseClasses.BatteryControl_V conBat(VDis=
         VDis, PMax=PDCGen/100) "Battery controller"

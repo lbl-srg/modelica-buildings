@@ -91,11 +91,11 @@ equation
         Text(
           extent={{-60,100},{100,60}},
           lineColor={215,215,215},
-          textString =                      "%name"),
+          textString=                       "%name"),
         Text(
           extent={{-100,50},{100,20}},
           lineColor={0,0,0},
-          textString =                      "f_nom=%f_nom"),
+          textString=                       "f_nom=%f_nom"),
         Text(
           extent={{-100,-20},{100,10}},
           lineColor={0,0,0},
@@ -109,7 +109,7 @@ equation
         Text(
           extent={{-100,-70},{100,-100}},
           lineColor={176,0,0},
-          textString =                         "ini:%ini  sim:%sim")}),
+          textString=                          "ini:%ini  sim:%sim")}),
   Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

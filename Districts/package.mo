@@ -446,6 +446,10 @@ individual libraries.
 end UsersGuide;
 
 
+
+
+
+
 annotation (
 version="0.1",
 versionBuild=0,
@@ -453,7 +457,7 @@ versionDate="2012-12-21",
 dateModified = "$Date: 2012-12-18 14:34:42 -0800 (Tue, 18 Dec 2012) $",
 uses(Modelica(version="3.2"),
     Complex(version="1.0"),
-    Buildings(version="1.3")),
+    Buildings(version="1.5")),
 revisionId="$Id: package.mo 4797 2012-12-18 22:34:42Z mwetter $",
 preferredView="info",
 Documentation(info="<html>
