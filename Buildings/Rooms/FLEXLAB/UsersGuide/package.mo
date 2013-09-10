@@ -3,7 +3,8 @@ package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
 
-  annotation(Documentation(info="<html>
+  annotation(preferredView="info",
+  Documentation(info="<html>
   <p>
   The <code>Buildings.Rooms.FLEXLAB</code> package contains models of rooms, wall constructions, window
   constructions, and examples demonstrating their use. These models are
@@ -54,28 +55,28 @@ package UsersGuide "User's Guide"
   </p>
   <table border = \"1\" summary=\"Description of ports in FLEXLAB models\">
   <tr>
-  <th>Name in image</th>
-  <th>Connection port name</th>
+  <th>Name in icon</th>
+  <th>Name of connector</th>
   <th>Physical significance</th>
   </tr>
   <tr>
   <td>u</td>
-  <td>qGai_flow</td>
+  <td><code>uSha</code></td>
   <td>Shade control signal.<br/>
   1 = closed shade<br/>
   0 = open shade</td>
   </tr>
   <tr>
   <td>q</td>
-  <td>qGai_flow</td>
-  <td>Internal gains matrix<br/>
-  [1] = Radiant<br/>
-  [2] = Convective<br/>
-  [3] = Latent</td>
+  <td><code>qGai_flow</code></td>
+  <td>Internal gains vector with elements<br/>
+  [1] = Radiant in [W/m<sup>2</sup>] floor area<br/>
+  [2] = Convective in [W/m<sup>2</sup>] floor area<br/>
+  [3] = Latent in [W/m<sup>2</sup>] floor area</td>
   </tr>
   <tr>
   <td>surface</td>
-  <td>surf_surBou</td>
+  <td><code>surf_surBou</code></td>
   <td>Models walls of the room with the construction represented externally. The connection represents heat
   transfer from the surface (represented by a separate model outside of the room model) to the air in the space.
   The air in the space must be described within the room model. An example of this could be a description of the
@@ -83,29 +84,32 @@ package UsersGuide "User's Guide"
   </tr>
   <tr>
   <td>boundary</td>
-  <td>surf_conBou</td>
+  <td><code>surf_conBou</code></td>
   <td>Connects to rooms with a shared wall. The wall is modeled in this room, and connects to the air in the other
   room. The area of the air gap in the other room must be described in the other model.</td>
   </tr>
   <tr>
   <td>air</td>
-  <td>heaPorAir</td>
+  <td><code>heaPorAir</code></td>
   <td>Heat port connecting directly to the air in the room.</td>
   </tr>
   <tr>
   <td>radiation</td>
-  <td>heaPorRad</td>
+  <td><code>heaPorRad</code></td>
   <td>Heat port for radiative heat gain and radiative temperature.</td>
   </tr>
   <tr>
-  <td></td>
-  <td>ports</td>
-  <td>Fluid ports representing air flow in the space. These ports are typically used for ventilation and 
-  conditioning air. Connections must include both an inlet and outlet port.</td>
+  <td>fluid</td>
+  <td><code>ports</code></td>
+  <td>Fluid ports that connect to the air volume inside the space.
+  These ports are typically used for air conditioning inlets and outlets, and
+  for air infiltration when connected to the outside air.
+  Note that mass is conserved, hence the thermal zone cannot only have air inflow but
+  must also have a means for air to leave the room.</td>
   </tr>
   </table>
   <p>
-  For an example demonstrating how many of these ports are used see 
+  For an example demonstrating how many of these ports are used, see 
   <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>.
   </p>  

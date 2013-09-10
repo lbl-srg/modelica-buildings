@@ -234,10 +234,30 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   <li>Jun 10, 2013 by Peter Grant:<br/>
   First implementation.</li>
   </ul>
-  </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -200},{200,200}}), graphics={
+  </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},
+            {200,200}}),       graphics={
         Bitmap(extent={{-160,164},{162,-166}}, fileName=
               "modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/icon.png"),
+                Rectangle(
+          extent={{-58,12},{-26,-8}},
+          pattern=LinePattern.None,
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-74,-26},{-22,-42}},
+          pattern=LinePattern.None,
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-108,-132},{-56,-148}},
+          pattern=LinePattern.None,
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-136,-82},{-84,-98}},
+          pattern=LinePattern.None,
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
         Text(
           extent={{-60,12},{-22,-10}},
           lineColor={0,0,0},
@@ -255,5 +275,11 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
           lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
-          textString="surface")}));
+          textString="surface"),
+        Text(
+          extent={{-138,-82},{-96,-100}},
+          lineColor={0,0,0},
+          fillColor={61,61,61},
+          fillPattern=FillPattern.Solid,
+          textString="fluid")}));
 end UF90X3A;
