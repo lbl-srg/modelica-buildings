@@ -837,7 +837,13 @@ equation
           lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
-          textString="surface")}),
+          textString="surface"),
+        Text(
+          extent={{-138,-82},{-96,-100}},
+          lineColor={0,0,0},
+          fillColor={61,61,61},
+          fillPattern=FillPattern.Solid,
+          textString="fluid")}),
     preferredView="info",
     defaultComponentName="roo",
     Documentation(info="<html>
