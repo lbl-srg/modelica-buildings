@@ -31,6 +31,9 @@ package MoistAirUnsaturated
     "Specific heat capacity of dry air";
   constant Modelica.SIunits.SpecificHeatCapacity dryair_cv = dryair_cp-dryair_R
     "Specific heat capacity of dry air";
+  // This statement does not allow OpenModelica to find steam.cp in h_pTX
+  constant Buildings.Media.PerfectGases.Common.DataRecord steam=
+        Buildings.Media.PerfectGases.Common.SingleGasData.H2O;
 
   import SI = Modelica.SIunits;
 
@@ -391,7 +394,7 @@ algorithm
 //  h := hDryAir * (1 - X[Water]) +
 //       ((T-273.15) * steam_cp + 2501014.5) * X[Water];
   h := hDryAir * (1 - X[Water]) +
-       ((T-273.15) * steam_cp + 2501014.5) * X[Water];
+       ((T-273.15) * steam.cp + 2501014.5) * X[Water];
 
 //fixme       p_steam_sat := 0;
 //       x_sat := 0;
