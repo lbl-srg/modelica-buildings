@@ -54,6 +54,8 @@ extends Modelica.Icons.Example;
     dp_nominal=100) "Flow resistance"
              annotation (Placement(transformation(extent={{20,-70},{40,-50}},
           rotation=0)));
+  inner Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(QSen_flow.y, dyn.Q_flow) annotation (Line(
       points={{-59,70},{-48,70},{-48,46},{-12,46}},
