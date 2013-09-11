@@ -12,7 +12,7 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
     T_max=Cv.from_degC(130),
     T0=273.15,
     MM_const=0.018015268,
-    fluidConstants=Modelica.Media.Water.ConstantPropertyLiquidWater.simpleWaterConstants,
+    fluidConstants=Modelica.Media.Water.simpleWaterConstants,
     ThermoStates=Buildings.Media.Interfaces.Choices.IndependentVariables.T);
  //  import SI = Modelica.SIunits;
   import Cv = Modelica.SIunits.Conversions;
@@ -20,8 +20,6 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
 
  redeclare replaceable function extends specificInternalEnergy
   "Return specific internal energy"
-  input ThermodynamicState state;
-  output SpecificEnergy u "Specific internal energy";
  algorithm
    u := cv_const * (state.T-T0);
  end specificInternalEnergy;
