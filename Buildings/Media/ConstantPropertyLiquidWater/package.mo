@@ -8,14 +8,12 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
     eta_const=1.e-3,
     lambda_const=0.598,
     a_const=1484,
-    T_min=Cv.from_degC(-1),
-    T_max=Cv.from_degC(130),
+    T_min=Modelica.SIunits.Conversions.from_degC(-1),
+    T_max=Modelica.SIunits.Conversions.from_degC(130),
     T0=273.15,
     MM_const=0.018015268,
     fluidConstants=Modelica.Media.Water.simpleWaterConstants,
     ThermoStates=Buildings.Media.Interfaces.Choices.IndependentVariables.T);
- //  import SI = Modelica.SIunits;
-  import Cv = Modelica.SIunits.Conversions;
 
 
  redeclare replaceable function extends specificInternalEnergy
