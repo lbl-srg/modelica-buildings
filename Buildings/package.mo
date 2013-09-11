@@ -230,6 +230,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        at compilation time.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Diagnostics.AssertEquality<br/>
+                       Buildings.Utilities.Diagnostics.AssertInequality
+    </td>
+    <td valign=\"top\">Added <code>time</code> in print statement as OpenModelica,
+                       in its error message, does not output the time 
+                       when the assert is triggered.
+    </td>
+</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <p>
