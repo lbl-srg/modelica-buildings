@@ -3,7 +3,7 @@ model TraceSubstances "Test model for the extra property sensor"
   extends Modelica.Icons.Example;
   import Buildings;
  package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"})
-   "Medium model";
+    "Medium model";
 
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 15*1.2/3600
     "Mass flow rate into and out of the volume";
@@ -12,24 +12,22 @@ model TraceSubstances "Test model for the extra property sensor"
     redeclare package Medium = Medium,
     V=2*3*3,
     m_flow_nominal=1E-6,
-    nPorts=4) "Mixing volume"
+    nPorts=4,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
     annotation (Placement(transformation(extent={{74,50}, {94,70}}, rotation=0)));
   Sources.TraceSubstancesFlowSource sou(
     redeclare package Medium = Medium,
     nPorts=2,
-    use_m_flow_in=true) 
-    "CO2 mass flow source"
+    use_m_flow_in=true) "CO2 mass flow source"
     annotation (Placement(transformation(extent={{-2,30},{18,50}}, rotation=0)));
   Modelica.Blocks.Sources.Constant step(k=8.18E-6) "CO2 mass flow rate"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}}, rotation=0)));
   Buildings.Fluid.Sensors.TraceSubstances senVol(
-    redeclare package Medium = Medium) 
-    "Sensor at volume"
+    redeclare package Medium = Medium) "Sensor at volume"
     annotation (Placement(transformation(extent={{100,50},{120,70}}, rotation=0)));
   Buildings.Fluid.Sensors.TraceSubstances senSou(
-    redeclare package Medium = Medium, 
-    substanceName="CO2") 
-    "Sensor at source"
+    redeclare package Medium = Medium,
+    substanceName="CO2") "Sensor at source"
     annotation (Placement(transformation(extent={{24,90},{44,110}}, rotation=0)));
   Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal)
     "Fresh air mass flow rate"
@@ -37,11 +35,9 @@ model TraceSubstances "Test model for the extra property sensor"
   Buildings.Fluid.Sources.MassFlowSource_T mSou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1) 
-    "Fresh air supply"
+    nPorts=1) "Fresh air supply"
     annotation (Placement(transformation(extent={{0,-22},{20,-2}}, rotation=0)));
-  Modelica.Blocks.Math.Gain gain(k=-1) 
-    "Gain for exhaust air mass flow rate"
+  Modelica.Blocks.Math.Gain gain(k=-1) "Gain for exhaust air mass flow rate"
     annotation (Placement(transformation(
           extent={{-40,-54},{-20,-34}}, rotation=0)));
   Buildings.Fluid.Sources.MassFlowSource_T mSin(
@@ -125,6 +121,11 @@ to the outside air concentration.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 10, 2013 by Michael Wetter:<br/>
+Changed initial values of volume to fixed to avoid
+a translation warning in OpenModelica.
+</li>
 <li>
 August 30, 2013 by Michael Wetter:<br/>
 Renamed example and added an instance of 

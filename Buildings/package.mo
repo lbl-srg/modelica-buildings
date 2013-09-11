@@ -474,6 +474,33 @@ units are wrong or errors in documentation):
                      when the implementation of zero flow rate was revised.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation
+    </td>
+    <td valign=\"top\">Corrected the syntax error
+                       <code>Medium.ExtraProperty C[Medium.nC](each nominal=C_nominal)</code>
+                       to
+                       <code>Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)</code>
+                       because <code>C_nominal</code> is a vector. 
+                       This syntax error caused a compilation error in OpenModelica.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.TraceSubstances<br/>
+                       Buildings.Fluid.Sensors.TraceSubstancesTwoPort
+    </td>
+    <td valign=\"top\">Corrected syntax errors in setting nominal value for output signal
+                       and for state variable.
+                       This eliminates a compilation error in OpenModelica.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.TraceSubstancesFlowSource
+    </td>
+    <td valign=\"top\">Added missing <code>each</code> in declaration of 
+                       <code>C_in_internal</code>.
+                       This eliminates a compilation error in OpenModelica.
+    </td>
+</tr>
+
+
 
 </table>
 <!-- Github issues -->

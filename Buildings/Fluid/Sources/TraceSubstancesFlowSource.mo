@@ -21,7 +21,7 @@ protected
   Modelica.Blocks.Interfaces.RealInput m_flow_in_internal
     "Needed to connect to conditional connector";
   parameter Medium.ExtraProperty C_in_internal[Medium.nC](
-       fixed=false,
+       each fixed=false,
        quantity=Medium.extraPropertiesNames) "Boundary trace substances"
     annotation (Evaluate=true,
                 Dialog(enable = Medium.nC > 0));
@@ -63,6 +63,12 @@ made small compared to the room volume if the medium that leaves this
 component has a carbon dioxide concentration of <i>1</i>.
 </html>", revisions="<html>
 <ul>
+<li>
+September 10, 2013, by Michael Wetter:<br/>
+Added missing <code>each</code> in declaration of 
+<code>C_in_internal</code>.
+This eliminates a compilation error in OpenModelica.
+</li>
 <li>
 March 27, 2013, by Michael Wetter:<br/>
 Removed binding for <code>C_in_internal</code> to allow pedantic check in Dymola 2014.
