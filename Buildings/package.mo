@@ -484,6 +484,16 @@ units are wrong or errors in documentation):
                        This syntax error caused a compilation error in OpenModelica.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.LatentEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.MassFraction<br/>
+                       Buildings.Fluid.Sensors.MassFractionTwoPort
+    </td>
+    <td valign=\"top\">Changed medium declaration in the <code>extends</code> statement
+                       to <code>replaceable</code> to avoid a translation error in
+                       OpenModelica.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Sensors.TraceSubstances<br/>
                        Buildings.Fluid.Sensors.TraceSubstancesTwoPort
     </td>

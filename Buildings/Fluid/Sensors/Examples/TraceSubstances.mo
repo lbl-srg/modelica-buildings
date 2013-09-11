@@ -123,7 +123,7 @@ revisions="<html>
 <ul>
 <li>
 September 10, 2013 by Michael Wetter:<br/>
-Changed initial values of volume to fixed to avoid
+Changed initialization of volume to fixed initial values to avoid
 a translation warning in OpenModelica.
 </li>
 <li>
