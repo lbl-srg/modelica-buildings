@@ -39,8 +39,7 @@ model TwoPortHeatMassExchanger
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
-  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
+  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare final package Medium = Medium,
     nPorts = 2,
     V=m_flow_nominal*tau/rho_default,
@@ -92,7 +91,7 @@ initial algorithm
 
 equation
   connect(vol.ports[2], port_b) annotation (Line(
-      points={{1,0},{27.25,0},{27.25,0},{51.5,0},{51.5,0},{100,0}},
+      points={{3,0},{27.25,0},{27.25,0},{51.5,0},{51.5,0},{100,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a, preDro.port_a) annotation (Line(
@@ -100,8 +99,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(preDro.port_b, vol.ports[1]) annotation (Line(
-      points={{-40,0},{-30.25,0},{-30.25,0},{
-          -20.5,0},{-20.5,0},{1,0}},
+      points={{-40,0},{-30.25,0},{-30.25,0},{-20.5,0},{-20.5,0},{-1,0}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
@@ -154,6 +152,12 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2013 by Michael Wetter:<br/>
+Removed <code>constrainedby</code> keyword at the declaration
+of the volume, because this led to a translation error
+in OpenModelica, and is not required.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.

@@ -187,6 +187,14 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger<br/>
+                     Buildings.Fluid.Interfaces.FourPortHeatMassExchanger
+    </td>
+    <td valign=\"top\">Removed <code>constrainedby</code> keyword at the declaration
+                     of the volume, because this led to a translation error
+                     in OpenModelica, and is not required.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier
     </td>
     <td valign=\"top\">Changed one instance of <code>Modelica.Fluid.Sources.MassFlowSource_T</code>,
