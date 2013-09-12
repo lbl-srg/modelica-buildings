@@ -1,6 +1,5 @@
-within Buildings.Rooms.FLEXLAB.Rooms.UF90X3A;
-model UF90X3AElectrical
-  "Model of the electrical room attached to test cell UF90X3A"
+within Buildings.Rooms.FLEXLAB.Rooms.X3A;
+model Electrical "Model of the electrical room attached to test cell X3A"
   extends Buildings.Rooms.MixedAir(
   hRoo = 3.6576,
   AFlo = 2.39,
@@ -40,18 +39,18 @@ model UF90X3AElectrical
   was built using construction and parameter information taken from architectural
   drawings. Other models are provided for the main space of the test cell and the 
   connected closet. Accurate use of this model will likely require the addition of
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
-  Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A</a> and
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset\">
-  Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset</a>. The documentation
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a> and
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a>. The documentation
   for these models describes the connecting walls for the spaces, as well as how they
   are intended to be connected. An example of how they can be connected and applied is 
   provided in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>.  
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.  
   </p>
   <p>
-  Constructions used to describe the walls used in test cell UF90X3A are available in 
+  Constructions used to describe the walls used in test cell X3A are available in 
   <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions\">
   Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions</a>. All wall 
   construction models are made using information from architectural drawings. Constructions
@@ -64,12 +63,12 @@ model UF90X3AElectrical
   There are 4 different wall sections described in the model. They are shown in the figure below.
   </p>
   <p align=\"center\">
-  <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/UF90X3A/UF90X3AElectrical.png\" border=\"1\" alt=\"Wall sections in UF90X3A model\"/>
+  <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/X3A/Electrical.png\" border=\"1\" alt=\"Wall sections in TestCell model\"/>
   </p>
   <p>
   The different wall sections are entered into the model according to the following table.  
   </p>
-  <table border=\"1\" summary=\"Description of wall sections in EF90X3AElectrical\">
+  <table border=\"1\" summary=\"Description of wall sections in EF90Electrical\">
   <tr>
   <th>Wall Section Number</th>
   <th>Description</th>
@@ -84,12 +83,12 @@ model UF90X3AElectrical
   </tr>
   <tr>
   <td>2</td>
-  <td>East air space connecting to UF90X3ACloset</td>
+  <td>East air space connecting to Closet</td>
   <td>surBou[2]</td>
   </tr>
   <tr>
   <td>3</td>
-  <td>South air space connecting to UF90X3A</td>
+  <td>South air space connecting to TestCell</td>
   <td>surBou[1]</td>
   </tr>
   <tr>
@@ -111,29 +110,29 @@ model UF90X3AElectrical
   because they are connected to the external environment, and no additional heat port connections are necessary.
   A rationale for why the model is created this way is also provided if it is considered necessary. 
   </p>
-  <table border =\"1\" summary = \"Description of intended connections including UF90X3AElectrical model\">
+  <table border =\"1\" summary = \"Description of intended connections including Electrical model\">
   <tr>
-  <th>Location in UF90XAElectrical</th>
+  <th>Location in Electrical</th>
   <th>Description of External Connection</th>
   <th>Location in External Model</th>
   <th>Rationale</th>
   </tr>
   <tr>
   <td>surf_surBou[1]</td>
-  <td>This is a connection to the wall between UF90X3AElectrical and UF90X3A. This connection port represents an air
-  space and the corresponding wall is modeled in UF90X3A.</td>
-  <td>UF90X3A.surf_conBou[5]</td>
-  <td>This wall is modeled in UF90X3A. surf_surBou[1] in UF90X3AElectrical represents the air gap in the electrical
-  room while surf_conBou[5] in UF90X3A represents the wall surface.</td>
+  <td>This is a connection to the wall between Electrical and TestCell. This connection port represents an air
+  space and the corresponding wall is modeled in TestCell.</td>
+  <td>TestCell.surf_conBou[5]</td>
+  <td>This wall is modeled in TestCell. surf_surBou[1] in Electrical represents the air gap in the electrical
+  room while surf_conBou[5] in TestCell represents the wall surface.</td>
   <td></td>
   </tr>
   <tr>
   <td>surf_surBou[2]</td>
-  <td>This is a connection to the wall between UF90X3AElectrical and UF90X3ACloset. This connection port represent
-  an air space and the corresponding wall is modeled in UF90X3ACloset.</td>
-  <td>UF90X3ACloset.surf_conBou[1]</td>
-  <td>This wall is modeled in UF90X3ACloset. surf_surBou[2] in UF90X3AElectrical represents the air gap in the
-  electrical room while surf_conBou[1] in UF90X3ACloset represents the wall surface.</td>
+  <td>This is a connection to the wall between Electrical and Closet. This connection port represent
+  an air space and the corresponding wall is modeled in Closet.</td>
+  <td>Closet.surf_conBou[1]</td>
+  <td>This wall is modeled in Closet. surf_surBou[2] in Electrical represents the air gap in the
+  electrical room while surf_conBou[1] in Closet represents the wall surface.</td>
   <td></td>
   </tr>
   </table>
@@ -191,4 +190,4 @@ model UF90X3AElectrical
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="fluid")}));
-end UF90X3AElectrical;
+end Electrical;

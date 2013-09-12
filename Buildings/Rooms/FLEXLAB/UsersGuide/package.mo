@@ -31,8 +31,8 @@ package UsersGuide "User's Guide"
   </p>
   <p>
   One example demonstrating the use of FLEXLAB models is
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>.
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.
   The example  is made assuming that the shading position controls, internal 
   gains, air handlers, and central plant do not need detailed models. Instead it 
   is assumed that experimental data is available and data tables reading that 
@@ -110,8 +110,8 @@ package UsersGuide "User's Guide"
   </table>
   <p>
   For an example demonstrating how many of these ports are used, see 
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>.
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.
   </p>  
   <h4>Future Work</h4>
   <p>
@@ -123,29 +123,24 @@ package UsersGuide "User's Guide"
   <li>Identify all detailed door constructions when detailed
   specifications are available.</li>
   <li>Use available window information to identify detailed
-  model-level window specifications - recommended to speak
-  with Christian Kohler (sp?).</li>
+  model-level window specifications.</li>
   <li>Create FLEXLAB-specific weather data file for 
-  taking weather data from the FLEXLAB weather sensors (May be 
-  able to use python script to read data, pass into standard 
-  weather data reader inputs). See e-mail from Cindy Regnier
-  on Aug 6, attachment
-  \"110612-Baseline Measurement and Instrumentation Set v26.pdf\"
-  for information on available sensors.</li>
-  <li>The design of the radiant slab is still poorly defined.
+  taking weather data from the FLEXLAB weather sensors.
+  </li>
+  <li>The design of the radiant slab is not clearly documented.
   The model of the radiant slab should be carefully checked when
   the design information is available. Specific inputs which
   must be checked include: disPip, m_flow_nominal, iLayPip,
   construction for pipe, fluid flowing through the slab</li>
   <li>Check available air and water flow sensors. The example model
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>
   assumes that several temperature and flow measurements are available.
   Are they? If not, how does the model need to be changed?</li>
   <li>Ventilation assumptions used in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>  
-  include 0 ACH in the electrical room overnight. Probably not realistic. Electrical
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>  
+  include zero ACH in the electrical room overnight. Probably not realistic. Electrical
   equipment will need cooling overnight. Try to estimate convective heat gains from
   electrical equipment and identify an air flow rate to keep temperature in space
   realistic.</li>

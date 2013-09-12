@@ -1,5 +1,5 @@
 within Buildings.Rooms.FLEXLAB.Rooms.Examples;
-model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
+model X3AWithRadiantFloor "Example model showing a use of X3A"
   import Buildings;
   extends Modelica.Icons.Example;
 
@@ -8,7 +8,7 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
   package Water = Buildings.Media.ConstantPropertyLiquidWater
     "Water model used in the radiant slab loop";
 
-  Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A  UF90X3A(
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell X3A(
     nPorts=2,
     redeclare package Medium = Air,
     linearizeRadiation=false)
@@ -23,17 +23,17 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
   Modelica.Blocks.Sources.CombiTimeTable airCon(table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
     tableName="airCon",
-    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.txt",
+    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
     columns=2:5) "Inlet air conditions (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-196,54},{-176,74}})));
   Buildings.Fluid.Sources.MassFlowSource_T airIn(
     use_m_flow_in=true,
     use_T_in=true,
     redeclare package Medium = Air,
-    nPorts=1) "Inlet air conditions (from AHU) for UF90X3A"
+    nPorts=1) "Inlet air conditions (from AHU) for X3A"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Buildings.Fluid.Sources.Boundary_pT
-    airOut(nPorts=1, redeclare package Medium = Air) "Air outlet for UF90X3A"
+    airOut(nPorts=1, redeclare package Medium = Air) "Air outlet for X3A"
     annotation (Placement(transformation(extent={{-158,24},{-138,44}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
     sla(
@@ -106,12 +106,12 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={64,-108})));
-  Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical
     eleRoo(
     redeclare package Medium = Air,
     nPorts=2) "Model of the electrical room"
     annotation (Placement(transformation(extent={{54,-80},{94,-40}})));
-  Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet
     clo(
     redeclare package Medium = Air,
     nPorts=2) "Model of the closet"
@@ -127,7 +127,7 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
   Modelica.Blocks.Sources.CombiTimeTable airConEle(
     tableOnFile=true,
     tableName="airCon",
-    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.txt",
+    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
     columns=2:5)
     "Inlet air conditions for the connected electrical room (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -137,7 +137,7 @@ model UF90X3AWithRadiantFloor "Example model showing a use of UF90X3A"
   Modelica.Blocks.Sources.CombiTimeTable airConClo(
     tableOnFile=true,
     tableName="airCon",
-    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.txt",
+    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
     columns=2:5)
     "Inlet air conditions for the connected closet (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -183,11 +183,11 @@ equation
       points={{-175,64},{-162,64}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airIn.ports[1], UF90X3A.ports[1]) annotation (Line(
+  connect(airIn.ports[1], X3A.ports[1]) annotation (Line(
       points={{-140,60},{-132,60},{-132,48},{-107,48}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(airOut.ports[1], UF90X3A.ports[2]) annotation (Line(
+  connect(airOut.ports[1], X3A.ports[2]) annotation (Line(
       points={{-138,34},{-132,34},{-132,48},{-103,48}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -215,16 +215,16 @@ equation
       points={{-94,-175},{-94,-166}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sla.surf_a, UF90X3A.surf_surBou[1]) annotation (Line(
+  connect(sla.surf_a, X3A.surf_surBou[1]) annotation (Line(
       points={{-94,-112},{-94,0},{-93.8,0},{-93.8,44}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(weaDat.weaBus, UF90X3A.weaBus) annotation (Line(
+  connect(weaDat.weaBus, X3A.weaBus) annotation (Line(
       points={{-100,180},{-72.1,180},{-72.1,75.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(shaPos.y, UF90X3A.uSha) annotation (Line(
+  connect(shaPos.y, X3A.uSha) annotation (Line(
       points={{-175,134},{-118,134},{-118,74},{-112,74}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -238,15 +238,15 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(eleRoo.surf_surBou[1], UF90X3A.surf_conBou[5]) annotation (Line(
+  connect(eleRoo.surf_surBou[1], X3A.surf_conBou[5]) annotation (Line(
       points={{70.2,-74.5},{70,-74.5},{70,-82},{-84,-82},{-84,42.8}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(clo.surf_surBou[1], UF90X3A.surf_conBou[3]) annotation (Line(
+  connect(clo.surf_surBou[1], X3A.surf_conBou[3]) annotation (Line(
       points={{172.2,97.5},{172,97.5},{172,-86},{-84,-86},{-84,42}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(clo.surf_surBou[1], UF90X3A.surf_conBou[4]) annotation (Line(
+  connect(clo.surf_surBou[1], X3A.surf_conBou[4]) annotation (Line(
       points={{172.2,97.5},{172,97.5},{172,-86},{-84,-86},{-84,42.4}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -266,11 +266,11 @@ equation
       points={{70.2,-73.5},{70,-73.5},{70,-82},{182,-82},{182,95.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(preTem2[1].port, UF90X3A.surf_conBou[1]) annotation (Line(
+  connect(preTem2[1].port, X3A.surf_conBou[1]) annotation (Line(
       points={{54,-108},{-84,-108},{-84,41.2}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(preTem2[2].port, UF90X3A.surf_conBou[2]) annotation (Line(
+  connect(preTem2[2].port, X3A.surf_conBou[2]) annotation (Line(
       points={{54,-108},{-84,-108},{-84,41.6}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -302,7 +302,7 @@ equation
       points={{60,80},{110,80},{110,102},{163,102}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(intGai.y, UF90X3A.qGai_flow) annotation (Line(
+  connect(intGai.y, X3A.qGai_flow) annotation (Line(
       points={{-175,102},{-140,102},{-140,68},{-118,68}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -319,20 +319,20 @@ equation
           Documentation(info = "<html>
           <p>
           This model demonstrates one potential simulation using the models available in
-          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A\">
-          Buildings.Rooms.FLEXLAB.Rooms.UF90X3A</a>. This example simulates test cell 
-          UF90X3A when it is conditioned with a radiant slab.
+          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
+          Buildings.Rooms.FLEXLAB.Rooms.X3A</a>. This example simulates test cell 
+          X3A when it is conditioned with a radiant slab.
           </p>
           <p>
-          This example model of <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3A\">
-          Buildings.Rooms.FLEXLAB.UF90X3A.UF90X3A</a> includes heat transfer between the test cell,
+          This example model of <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
+          Buildings.Rooms.FLEXLAB.X3A.TestCell</a> includes heat transfer between the test cell,
           the outdoor environment, the radiant slab conditioning the test cell, the connected electrical room
-          and closet, and the neighboring test cells. The following image is a drawing of test cell UF90X3A.
+          and closet, and the neighboring test cells. The following image is a drawing of test cell X3A.
           It shows how the different rooms in this example are connected, as well as providing the names used
           in this example for each of the rooms.
           </p>        
           <p align=\"center\">
-          <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.png\"border=\"1\" alt=\"Room locations and names in UF90X3AWithRadiantFloor\"/>
+          <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.png\"border=\"1\" alt=\"Room locations and names in X3AWithRadiantFloor\"/>
           </p>                    
           <p>
           The connections between the test cell and the external models are described in the following table.
@@ -342,65 +342,65 @@ equation
           <th>External model name</th>
           <th>External model significance</th>
           <th>External model port</th>
-          <th>UF90X3A port</th>
+          <th>X3A port</th>
           </tr>
           <tr>
           <td>weaDat</td>
           <td>Outdoor weather</td>
           <td>weaDat.weaBus</td>
-          <td>UF90X3A.weaBus</td>
+          <td>X3A.weaBus</td>
           </tr>          
           <tr>
           <td>TNei</td>
           <td>Neighboring test cells (UF90X2B and UF90X3B)</td>
-          <td>UF90X2B: UF90X3A.preTem2.port[1]<br/>
-          UF90X3B: UF90X3A.preTem2.port[2]</td>
-          <td>UF90X2B: UF90X3A.surf_conBou[1]<br/>
-          UF90X3B: UF90X3A.surf_conBou[2]</td>
+          <td>UF90X2B: X3A.preTem2.port[1]<br/>
+          UF90X3B: X3A.preTem2.port[2]</td>
+          <td>UF90X2B: X3A.surf_conBou[1]<br/>
+          UF90X3B: X3A.surf_conBou[2]</td>
           </tr>          
           <tr>
           <td>clo</td>
           <td>Closet</td>
           <td>Door: clo.surf_surBou[2]<br/>
           Wall: clo.surf_surBou[1]</td>
-          <td>Door: UF90X3A.surf_conBou[4]<br/>
-          Wall: UF90X3A.surf_conBou[3]</td>
+          <td>Door: X3A.surf_conBou[4]<br/>
+          Wall: X3A.surf_conBou[3]</td>
           </tr>          
           <tr>
           <td>eleRoo</td>
           <td>Electrical room</td>
           <td>eleRoo.surf_surBou[1]</td>
-          <td>UF90X3A.surf_conBou[5]</td>
+          <td>X3A.surf_conBou[5]</td>
           </tr>
           <tr>
           <td>sla</td>
           <td>Radiant slab</td>
           <td>sla.surf_a</td>
-          <td>UF90X3A.surf_surBou[1]</td>
+          <td>X3A.surf_surBou[1]</td>
           </tr>
           <tr>
           <td>shaPos</td>
           <td>Table describing the position of the window shade</td>
           <td>shaPos.y[1]</td>
-          <td>UF90X3A.uSha</td>
+          <td>X3A.uSha</td>
           </tr>
           <tr>
           <td>intGai</td>
           <td>Table specifying the internal gains in the space</td>
           <td>intGai[1,2,3]</td>
-          <td>UF90X3A.qGai_flow[1,2,3]</td>
+          <td>X3A.qGai_flow[1,2,3]</td>
           </tr>
           <tr>
           <td>airIn</td>
           <td>Prescribed airflow describing service air from the AHU</td>
           <td>airIn.ports[1]</td>
-          <td>UF90X3A.ports[1]</td>
+          <td>X3A.ports[1]</td>
           </tr>
           <tr>
           <td>airOut</td>
           <td>Outlet for ventilation air flow</td>
           <td>airOut.ports[1]</td>
-          <td>UF90X3A.ports[1]</td>
+          <td>X3A.ports[1]</td>
           </tr>
           </table>  
           <p>
@@ -409,7 +409,7 @@ equation
           Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>. All of the inputs
           used to define the radiant slab are taken from the architectural drawings. The following
           table describes the connections between models used in the radiant slab. The connection 
-          to UF90X3A is not included because it was previously described.
+          to X3A is not included because it was previously described.
           </p>
           <table border=\"1\" summary = \"Summary of connections to the radiant slab model\">
           <tr>
@@ -440,9 +440,9 @@ equation
           </tr>
           </table>
           <p>
-          The electrical room connected to test cell UF90X3A is modeled using
-          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical\">
-          Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical</a>. The necessary 
+          The electrical room connected to test cell X3A is modeled using
+          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical\">
+          Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical</a>. The necessary 
           connections are described in the following table. Connections previously described
           are not included here.
           </p>
@@ -479,9 +479,9 @@ equation
           </tr>
           </table>
           <p>
-          The closet connected to the UF90X3A test cell is modeled using an instance of 
-          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset\">
-          Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset</a>. The connections
+          The closet connected to the X3A test cell is modeled using an instance of 
+          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
+          Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a>. The connections
           necessary to accurately include the space in the simulation are described
           in the following table. Previously described connections are not included.
           </p>
@@ -524,8 +524,8 @@ equation
           internal gains, and ground temperature are all modeled by reading data from tables. 
           Currently the ventilation air is read from an external data file, via the model 
           <code>airCon</code>, while the others use tables described in the data reader model. The table
-          below shows the name of data input files in the model, what physical phonemona the data file 
-          describes, the physical signifacance of each data file output, and the source of the data.
+          below shows the name of data input files in the model, what physical phenomena the data file 
+          describes, the physical quantity of each data file output, and the source of the data.
           </p>
           <table border =\"1\" summary = \"Description of data table models\">
           <tr>
@@ -616,8 +616,8 @@ equation
           <td>TNei</td>
           <td>Temperature of the neighboring cells</td>
           <td>Table in model</td>
-          <td>UF90X2B</td>
-          <td>UF90X3B</td>
+          <td>X2B</td>
+          <td>X3B</td>
           </tr>
           </table>
           <p>
@@ -645,6 +645,6 @@ equation
           First implementation.</li>
           </ul>
           </html>"),
-     __Dymola_Commands(file="Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/UF90X3AWithRadiantFloor.mos"
+     __Dymola_Commands(file="Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.mos"
         "Simulate and Plot"));
-end UF90X3AWithRadiantFloor;
+end X3AWithRadiantFloor;

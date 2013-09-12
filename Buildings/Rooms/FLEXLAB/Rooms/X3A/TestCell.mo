@@ -1,5 +1,5 @@
-within Buildings.Rooms.FLEXLAB.Rooms.UF90X3A;
-model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
+within Buildings.Rooms.FLEXLAB.Rooms.X3A;
+model TestCell "Model of LBNL User Test Facility Cell X3A"
   extends Buildings.Rooms.MixedAir(AFlo=60.97,
       nSurBou=1,
       nConPar=0,
@@ -82,17 +82,17 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   drawings. This model is intended to represent the main space in test cell 3A. Other 
   models are provided for adjacent rooms. Accurate use of this model will likely 
   require the addition of 
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset\">
-  Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3ACloset</a> and
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical\">
-  Buildings.Rooms.FLEXLAB.Rooms.UF90X3A.UF90X3AElectrical</a>. The documentation
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a> and
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical\">
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical</a>. The documentation
   for these models describes how the models are intended to be connected. An example of 
   how they can be connected and applied is provided in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>.
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.
   </p>
   <p>
-  Constructions used to describe the walls used in test cell UF90X3A are available in 
+  Constructions used to describe the walls used in test cell X3A are available in 
   <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions\">
   Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions</a>. All wall 
   construction models are made using information from architectural drawings. Constructions
@@ -108,12 +108,12 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   There are 7 different wall sections described in the model. They are shown in the figure below.
   </p>
   <p align=\"center\">
-  <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/UF90X3A/UF90X3A.png\" border=\"1\" alt=\"Wall sections in UF90X3A model\"/>
+  <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/X3A/TestCell.png\" border=\"1\" alt=\"Wall sections in test cell model\"/>
   </p>  
   <p>
   The different wall sections are entered into the model according to the following table.
   </p>
-  <table border = \"1\" summary=\"Description of walls in UF90X3A room model\">
+  <table border = \"1\" summary=\"Description of walls in test cell room model\">
   <tr>
   <th>Wall Section Number</th>
   <th>Description</th>
@@ -122,23 +122,23 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   </tr>
   <tr>
   <td>1</td>
-  <td>The west wall is modeled in two parts. One part represents the dividing wall between UF90X3A
-  and UF90X2B. The other part represents a portion of the wall exposed to the ambient conditions. Wall
-  1 is the section of wall connected to UF90X2B.</td>
+  <td>The west wall is modeled in two parts. One part represents the dividing wall between test cells X3A
+  and X2B. The other part represents a portion of the wall exposed to the ambient conditions. Wall
+  1 is the section of wall connected to test cell X2B.</td>
   <td>datConBou[1]</td>
   <td>bedDiv</td>
   </tr>
   <tr>
   <td>2</td>
-  <td>The west wall is modeled in two parts. One part represents the dividing wall between UF90X3A
-  and UF90X2B. The other part represents a portion of the wall exposed to the ambient conditions. Wall
+  <td>The west wall is modeled in two parts. One part represents the dividing wall between test cell X3A
+  and test cell X2B. The other part represents a portion of the wall exposed to the ambient conditions. Wall
   2 is the section of wall exposed to ambient conditions.</td>
   <td>datConExt[4]</td>
   <td>bedDiv</td>
   </tr>
   <tr>
   <td>3</td>
-  <td>This is the north exterior wall of test cell UF90X3A. There are actually two constructions
+  <td>This is the north exterior wall of test cell X3A. There are actually two constructions
   used here. One construction models the wall, the other construction models a door. The area
   calculation for the wall in the model shows the calculation of the total wall area minus the door area.</td>
   <td>Door: datConExt[1]; Wall: datConExt[2]</td>
@@ -147,17 +147,17 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   <tr>
   <td>4</td>
   <td>This north wall borders an electrical room. It models the heat transfer between test cell
-  UF90X3A and the externally modeled electrical room. For an example see
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>.</td>
+  X3A and the externally modeled electrical room. For an example see
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.</td>
   <td>datConBou[5]</td>
   <td>R52Wal</td>
   </tr>
   <tr>
   <td>5</td>
   <td>This north wall borders an externally modeled closet. For an example see 
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples.UF90X3AWithRadiantFloor</a>. Similar to wall section 
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>. Similar to wall section 
   3 this wall section contains both a wall construction and a door construction. The wall area
   calculation shows the total wall area minus the door area.</td>
   <td>Door: datConBou[4]; Wall: datConBou[3]</td>
@@ -171,7 +171,7 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   </tr>
   <tr>
   <td>7</td>
-  <td>This is the south wall of test cell UF90X3A. It includes both a wall construction and 
+  <td>This is the south wall of test cell X3A. It includes both a wall construction and 
   windows. The bottoms of the windows are 3 ft above the floor.</td>
   <td>datConExtWin[1]</td>
   <td>Window: glaSys; Wall: R16p8Wal</td>
@@ -187,45 +187,45 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
   because they are connected to the external environment, and no additional heat port connections are necessary.
   A rationale for why the model is created this way is also provided if it is considered necessary.
   </p>
-  <table border =\"1\" summary=\"Description of intended connections including UF90X3A model\">
+  <table border =\"1\" summary=\"Description of intended connections including TestCell model\">
   <tr>
-  <th>Location in UF90X3A</th>
+  <th>Location in TestCell</th>
   <th>Description of External Connection</th>
   <th>Location in External Model</th>
   <th>Rationale</th>
   </tr>
   <tr>
   <td>surf_ConBou[1]</td>
-  <td>Temperature of UF90X2B</td>
+  <td>Temperature of test cell X2B</td>
   <td>References a data table</td>
-  <td>A data table is used, instead of a model of UF90X2B, because the goal of this model is to be able to perform
-  simulations of UF90X3A with minimal complexity, by simplifying the neighboring test cells. The wall separating the
+  <td>A data table is used, instead of a model of test cell X2B, because the goal of this model is to be able to perform
+  simulations of TestCell with minimal complexity, by simplifying the neighboring test cells. The wall separating the
   test beds is highly insulated, and it is believed that the error in simulations caused by using a data table will
   be negligible.</td>
   </tr>
   <tr>
   <td>surf_ConBou[2]</td>
-  <td>Temperature of UF90X3A</td>
+  <td>Temperature of TestCell</td>
   <td>References a data table</td>
   <td>See rationale for surf_ConBou[1]</td>
   </tr>  
   <tr>
   <td>surf_conBou[3]</td>
   <td>Closet</td>
-  <td>UF90X3ACloset.surf_surBou[1]</td>
+  <td>Closet.surf_surBou[1]</td>
   <td>The closet is modeled as a separate room under the assumption that the door will be closed, and air exchange
   between the two spaces will be minimal.</td>
   </tr>
   <tr>
   <td>surf_ConBou[4]</td>
   <td>Closet</td>
-  <td>UF90X3ACloset.surf_surBou[2]</td>
+  <td>Closet.surf_surBou[2]</td>
   <td>See rationale for surf_ConBou[3]</td>
   </tr>
   <tr>
   <td>surf_ConBou[5]</td>
   <td>Electrical room</td>
-  <td>UF90X3AElectrical.surf_SurBou[2]</td>
+  <td>Electrical.surf_SurBou[2]</td>
   </tr>  
   </table> 
   </html>",
@@ -282,4 +282,4 @@ model UF90X3A "Model of LBNL User Test Facility Cell 90X3A"
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="fluid")}));
-end UF90X3A;
+end TestCell;
