@@ -132,7 +132,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,50},{44,50}},
+      points={{1,50},{38,50}},
       color={0,0,127},
       smooth=Smooth.None));
 
