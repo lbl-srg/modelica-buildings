@@ -8,10 +8,10 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
      final lambdaIns = 0.04,
      dp_nominal = Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
       m_flow=m_flow_nominal,
-      rho_a=rho_nominal,
-      rho_b=rho_nominal,
-      mu_a=mu_nominal,
-      mu_b=mu_nominal,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
       length=length,
       diameter=pipe.dIn,
       roughness=pipe.roughness,
@@ -19,10 +19,12 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
       res(dp(nominal=200*length)));
   parameter Modelica.SIunits.Area A "Surface area of radiant slab"
   annotation(Dialog(group="Construction"));
-  parameter Modelica.SIunits.Temperature T_c_start=(T_a_start*con_b[1].layers.R+T_b_start*con_a[1].layers.R)/layers.R
+  parameter Modelica.SIunits.Temperature T_c_start=
+    (T_a_start*con_b[1].layers.R+T_b_start*con_a[1].layers.R)/layers.R
     "Initial construction temperature in the layer that contains the pipes, used if steadyStateInitial = false"
     annotation(Dialog(tab="Initialization", group="Construction"));
-  final parameter Modelica.SIunits.Velocity v_nominal = 4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_nominal
+  final parameter Modelica.SIunits.Velocity v_nominal=
+    4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_default
     "Velocity at m_flow_nominal";
 
   Buildings.HeatTransfer.Conduction.MultiLayer con_a[nSeg](

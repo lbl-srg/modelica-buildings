@@ -315,6 +315,20 @@ have been <b style=\"color:blue\">improved</b> in a
                      in order to use the same name as the source model.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume<br/>
+                       Buildings.Fluid.FixedResistances.Pipe<br/>
+                       Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab<br/>
+                       Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab<br/>
+                       Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine
+    </td>
+    <td valign=\"top\">Renamed <code>X_nominal</code> to <code>X_default</code>
+                       or <code>X_start</code>, where <code>X</code> may be
+                       <code>state</code>, <code>rho</code>, or <code>mu</code>,
+                       depending on whether the medium default values or the start values 
+                       are used in the computation of the state
+                       and derived quantities.
+    </td>
+</tr>
 
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer<br/>
                          Buildings.Rooms</b>
