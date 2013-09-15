@@ -11,7 +11,8 @@ partial model FlowMachineInterface
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
     N_nominal = 1500 "Nominal rotational speed for flow characteristic"
     annotation(Dialog(group="Characteristics"));
-  final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal = pressure.V_flow[size(pressure.V_flow,1)]
+  final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
+    pressure.V_flow[size(pressure.V_flow,1)]
     "Nominal volume flow rate, used for homotopy";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
     "Volume flow rate vs. total pressure rise"
@@ -85,17 +86,17 @@ protected
   parameter Integer nOri = size(pressure.V_flow,1)
     "Number of data points for pressure curve";
   parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur1(
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur1(
     final n = nOri,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
   parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur2(
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur2(
    final n = nOri + 1,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
   parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur3(
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur3(
    final n = nOri + 2,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
