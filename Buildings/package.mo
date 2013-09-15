@@ -151,6 +151,19 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     <td valign=\"top\">Library with solar collectors.
     </td>
     </tr>
+<tr><td valign=\"top\">Buildings.Rooms.FLEXLAB
+    </td>
+    <td valign=\"top\">Package with models for test cells of LBNL's FLEXLAB
+                       (Facility for Low Energy Experiments in Buildings).
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.Utilities.IO.FLEXLAB
+    </td>
+    <td valign=\"top\">Package that demonstrates two-way data exchange
+                       between Modelica and LBNL's FLEXLAB (Facility for
+                       Low Energy Experiments in Buildings).
+    </td>
+    </tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
