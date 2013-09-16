@@ -8,7 +8,7 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   nConExt=4,
   nConExtWin=0,
   nConPar=0,
-  nConBou=0,
+  nConBou=1,
   surBou(
     A = {3.6576 * 1.2641, 3.6576 * 1.524},
     each absIR = 0.9,
@@ -18,7 +18,12 @@ model Electrical "Model of the electrical room attached to test cell X3A"
     layers = {eleExt, eleExt, extDooUn, roo},
     A = {3.6576 * 1.26413, 3.6576 * 1.524 - 2.38658 * 1.524, 2.38658*1.524, 2.39},
     til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Ceiling},
-    azi = {Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.N}));
+    azi = {Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.N}),
+   datConBou(
+     layers = {slaCon},
+     A = {2.39},
+     til = {Buildings.HeatTransfer.Types.Tilt.Floor},
+     azi = {Buildings.HeatTransfer.Types.Azimuth.N}));
   replaceable
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction3
     eleExt "Construction describing the exterior walls in the electrical room"
@@ -31,6 +36,25 @@ model Electrical "Model of the electrical room attached to test cell X3A"
                                                                    roo
     "Construction describing the roof of the electrical room"
     annotation (Placement(transformation(extent={{430,-148},{450,-128}})));
+  HeatTransfer.Data.OpaqueConstructions.Generic
+    slaCon(nLay=3, material={
+      Buildings.HeatTransfer.Data.Solids.Generic(
+        x=0.1524,
+        k=1.13,
+        c=1000,
+        d=1400,
+        nSta=5),
+      Buildings.HeatTransfer.Data.Solids.Generic(
+        x=0.127,
+        k=0.036,
+        c=1200,
+        d=40),
+      Buildings.HeatTransfer.Data.Solids.Generic(
+        x=0.2,
+        k=1.8,
+        c=1100,
+        d=2400)}) "Construction of the slab"
+    annotation (Placement(transformation(extent={{428,-118},{448,-98}})));
   annotation(Documentation(info="<html>
   <p>
   This is a model for the electrical room connected to test cell 3A in the LBNL User Facility.
@@ -101,8 +125,9 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   </tr>
   </table>
   <p>
-  An additional surface, not shown on the diagram, is the model of the roof. It is modeled in datConExt[2] using
-  the layer <code>roo</code>.
+  There are two additional surfaces which are not included in the diagram. One is the model of the roof. It is 
+  modeled in datConExt[4] using the layer <code>roo</code>. The other is the floor, which is modeled in 
+  datConBou[1] using the layer <code>slaCon</code>.
   </p>
   <p>
   Several of the connections in this model are intended to be connected to specific surfaces in other room models.
@@ -135,10 +160,19 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   electrical room while surf_conBou[1] in Closet represents the wall surface.</td>
   <td></td>
   </tr>
+  <tr>
+  <td>surf_conBou[1]</td>
+  <td>Connection to ground temperature model</td>
+  <td></td>
+  <td>This port represents the bottom of the floor in the space. It is to be connected to a heat port representing
+  the temperature of the ground.</td>
+  </tr>
   </table>
   </html>",
   revisions = "<html>
   <ul>
+  <li>Setp 16, 2013 by Peter Grant:<br/>
+  Added a model representing the floor.</li>
   <li>July 26, 2013 by Peter Grant:<br/>
   First implementation.</li>
   </ul>

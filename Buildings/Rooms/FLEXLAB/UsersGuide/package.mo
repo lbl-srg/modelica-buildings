@@ -118,7 +118,12 @@ package UsersGuide "User's Guide"
   A list of items which still need to be understood and finalized is below:
   </p>
   <ul>
-  <li>Do radiant floors serve the closets and electrical rooms?</li>
+  <li>The construction of the floors in the closets and electrical rooms
+  is still uncertain. It is clear from the drawing on M3.02 that they are
+  not heated/cooled using the radiant system. However, I have been unable
+  to determine what the construction is. Currently the closet
+  and electrical room floor models are using the same construction as 
+  the test cell radiant slab.</li>
   <li>Does HVAC serve the closets and electrical rooms?</li>
   <li>Identify all detailed door constructions when detailed
   specifications are available.</li>

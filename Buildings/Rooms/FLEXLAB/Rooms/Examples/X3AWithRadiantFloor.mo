@@ -40,36 +40,36 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
-    m_flow_nominal=0.063,
     A=60.97,
     pipe=pipe,
     layers=slaCon,
-    disPip=0.229)
-    annotation (Placement(transformation(extent={{-108,-132},{-88,-112}})));
+    disPip=0.229,
+    m_flow_nominal=0.504)
+    annotation (Placement(transformation(extent={{-108,-136},{-88,-116}})));
 
   Modelica.Blocks.Sources.CombiTimeTable watCon(
     table=[0,0.06,293.15; 86400,0.06,293.15], tableOnFile=false)
     "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
-    annotation (Placement(transformation(extent={{-196,-128},{-176,-108}})));
+    annotation (Placement(transformation(extent={{-196,-132},{-176,-112}})));
   Buildings.Fluid.Sources.MassFlowSource_T watIn(
     nPorts=1,
     use_m_flow_in=true,
     use_T_in=true,
     redeclare package Medium = Water)
     "Inlet water conditions (from central plant)"
-    annotation (Placement(transformation(extent={{-154,-132},{-134,-112}})));
+    annotation (Placement(transformation(extent={{-154,-136},{-134,-116}})));
   Buildings.Fluid.Sources.Boundary_pT watOut(
     nPorts=1, redeclare package Medium = Water) "Water outlet"
                  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={16,-122})));
+        origin={16,-126})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature preT
     "Temperature of the ground"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-94,-154})));
+        origin={-94,-158})));
   Modelica.Blocks.Sources.CombiTimeTable TGro(
     table=[0,288.15; 86400,288.15], tableOnFile=false)
     annotation (Placement(transformation(
@@ -95,7 +95,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
         c=1100,
         d=2400)}) "Construction of the slab"
     annotation (Placement(transformation(extent={{-196,-196},{-176,-176}})));
-  Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe
+  Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe(dOut=0.015875, dIn=0.01905)
     annotation (Placement(transformation(extent={{-196,-174},{-176,-154}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -105,7 +105,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={64,-108})));
+        origin={64,-114})));
   Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical
     eleRoo(
     redeclare package Medium = Air,
@@ -118,8 +118,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     annotation (Placement(transformation(extent={{156,92},{196,132}})));
   Modelica.Blocks.Sources.CombiTimeTable TNei(
     table=[0,293.15,293.15; 86400,293.15,293.15], tableOnFile=false)
-    "Temperature of the neighboring test cells (y[1] = UF90X2B, y[2] = UF90X3B)"
-    annotation (Placement(transformation(extent={{110,-118},{90,-98}})));
+    "Temperature of the neighboring test cells (y[1] = X2B, y[2] = X3B)"
+    annotation (Placement(transformation(extent={{110,-124},{90,-104}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiEle(
     table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)
     "Internal gain heat flow for the electrical room"
@@ -192,31 +192,31 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sla.surf_b,preT. port)                  annotation (Line(
-      points={{-94,-132},{-94,-144}},
+      points={{-94,-136},{-94,-148}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(watIn.ports[1],sla. port_a)    annotation (Line(
-      points={{-134,-122},{-108,-122}},
+      points={{-134,-126},{-108,-126}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sla.port_b,watOut. ports[1])    annotation (Line(
-      points={{-88,-122},{6,-122}},
+      points={{-88,-126},{6,-126}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(watCon.y[1],watIn. m_flow_in) annotation (Line(
-      points={{-175,-118},{-164,-118},{-164,-114},{-154,-114}},
+      points={{-175,-122},{-164,-122},{-164,-118},{-154,-118}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(watCon.y[2],watIn. T_in) annotation (Line(
-      points={{-175,-118},{-156,-118}},
+      points={{-175,-122},{-156,-122}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TGro.y[1],preT. T) annotation (Line(
-      points={{-94,-175},{-94,-166}},
+      points={{-94,-175},{-94,-170}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sla.surf_a, X3A.surf_surBou[1]) annotation (Line(
-      points={{-94,-112},{-94,0},{-93.8,0},{-93.8,44}},
+      points={{-94,-116},{-94,0},{-93.8,0},{-93.8,44}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaDat.weaBus, X3A.weaBus) annotation (Line(
@@ -239,15 +239,15 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(eleRoo.surf_surBou[1], X3A.surf_conBou[5]) annotation (Line(
-      points={{70.2,-74.5},{70,-74.5},{70,-82},{-84,-82},{-84,42.8}},
+      points={{70.2,-74.5},{70,-74.5},{70,-88},{-84,-88},{-84,42.8}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(clo.surf_surBou[1], X3A.surf_conBou[3]) annotation (Line(
-      points={{172.2,97.5},{172,97.5},{172,-86},{-84,-86},{-84,42}},
+      points={{172.2,97.5},{172,97.5},{172,-88},{-84,-88},{-84,42}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(clo.surf_surBou[1], X3A.surf_conBou[4]) annotation (Line(
-      points={{172.2,97.5},{172,97.5},{172,-86},{-84,-86},{-84,42.4}},
+      points={{172.2,97.5},{172,97.5},{172,-88},{-84,-88},{-84,42.4}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airConEle.y[4], airInEle.T_in) annotation (Line(
@@ -263,15 +263,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(eleRoo.surf_surBou[2], clo.surf_conBou[1]) annotation (Line(
-      points={{70.2,-73.5},{70,-73.5},{70,-82},{182,-82},{182,95.5}},
+      points={{70.2,-73.5},{70,-73.5},{70,-88},{182,-88},{182,95.3333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preTem2[1].port, X3A.surf_conBou[1]) annotation (Line(
-      points={{54,-108},{-84,-108},{-84,41.2}},
+      points={{54,-114},{-84,-114},{-84,41.2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preTem2[2].port, X3A.surf_conBou[2]) annotation (Line(
-      points={{54,-108},{-84,-108},{-84,41.6}},
+      points={{54,-114},{-84,-114},{-84,41.6}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airInClo.ports[1], clo.ports[1]) annotation (Line(
@@ -279,11 +279,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TNei.y, preTem2.T) annotation (Line(
-      points={{89,-108},{76,-108}},
+      points={{89,-114},{76,-114}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preTem2[2].port, clo.surf_conBou[2]) annotation (Line(
-      points={{54,-108},{36,-108},{36,-90},{182,-90},{182,96.5}},
+      points={{54,-114},{36,-114},{36,-96},{182,-96},{182,96}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airConClo.y[4], airInClo.T_in) annotation (Line(
@@ -313,6 +313,14 @@ equation
   connect(intGaiClo.y, clo.qGai_flow) annotation (Line(
       points={{9,142},{120,142},{120,122},{148,122}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(preT.port, clo.surf_conBou[3]) annotation (Line(
+      points={{-94,-148},{-94,-142},{182,-142},{182,96.6667}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(eleRoo.surf_conBou[1], preT.port) annotation (Line(
+      points={{80,-76},{80,-92},{-16,-92},{-16,-142},{-94,-142},{-94,-148}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics),
@@ -352,11 +360,11 @@ equation
           </tr>          
           <tr>
           <td>TNei</td>
-          <td>Neighboring test cells (UF90X2B and UF90X3B)</td>
-          <td>UF90X2B: X3A.preTem2.port[1]<br/>
-          UF90X3B: X3A.preTem2.port[2]</td>
-          <td>UF90X2B: X3A.surf_conBou[1]<br/>
-          UF90X3B: X3A.surf_conBou[2]</td>
+          <td>Neighboring test cells (X2B and X3B)</td>
+          <td>X2B: X3A.preTem2.port[1]<br/>
+          X3B: X3A.preTem2.port[2]</td>
+          <td>X2B: X3A.surf_conBou[1]<br/>
+          X3B: X3A.surf_conBou[2]</td>
           </tr>          
           <tr>
           <td>clo</td>
@@ -477,6 +485,12 @@ equation
           <td>clo.surf_conBou[1]</td>
           <td>eleRoo.surf_surBou[2]</td>
           </tr>
+          <tr>
+          <td>preT</td>
+          <td>Ground temperature model</td>
+          <td>preT.port</td>
+          <td>eleRoo.surf_conBou[1]</td>
+          </tr>
           </table>
           <p>
           The closet connected to the X3A test cell is modeled using an instance of 
@@ -512,10 +526,16 @@ equation
           </tr>
           <tr>
           <td>preTem2</td>
-          <td>Prescribed temperature representing the closet in UF90X3B. Data is 
+          <td>Prescribed temperature representing the closet in X3B. Data is 
           read from the table in TNei</td>
           <td>preTem2[2].port</td>
           <td>clo.surf_conBou[2]</td>
+          </tr>
+          <tr>
+          <td>preT</td>
+          <td>Ground temperature model</td>
+          <td>preT.port</td>
+          <td>clo.surf_conBou[3]</td>
           </tr>
           </table>
           <p>
@@ -641,6 +661,8 @@ equation
           </html>",
           revisions = "<html>
           <ul>
+          <li>Sep 16, 2013 by Peter Grant:<br/>
+          Added connections to include floor models in Closet and Electrical.</li>
           <li>Jun 10, 2013 by Peter Grant:<br/>
           First implementation.</li>
           </ul>
