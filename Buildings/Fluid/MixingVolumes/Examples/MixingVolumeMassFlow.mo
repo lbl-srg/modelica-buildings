@@ -44,6 +44,13 @@ equation
 <p>
 This model demonstrates the use of the mixing volume with air flowing into and out of the volume.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 12, 2009 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMassFlow.mos"
         "Simulate and plot"),
