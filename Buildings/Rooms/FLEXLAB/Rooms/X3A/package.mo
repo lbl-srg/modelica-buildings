@@ -13,7 +13,7 @@ extends Modelica.Icons.Package;
   <p>
   </p>        
   <p align=\"center\">
-  <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.png\"border=\"1\" alt=\"Room locations and names in X3AWithRadiantFloor\"/>
+  <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/X3A.png\"border=\"1\" alt=\"Room locations and names in X3AWithRadiantFloor\"/>
   </p>
   <p>
   There are separate models for each room in test cell X3A. The model for the test cell itself is located in
