@@ -10,7 +10,7 @@ model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
     m_flow=1,
     T=313.15) "Flow source and sink"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Sources.Boundary_pT                  bou(
+  Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
     T=303.15,
     nPorts=1) "Boundary condition"                         annotation (
