@@ -299,6 +299,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        This addresses issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/165\">#165</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.MixingVolumeDryAir
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</code>
+                       as this model is no longer used. The model
+                       <code>Buildings.Fluid.MixingVolumes.MixingVolume</code>
+                       can be used instead of.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Sensors.Examples.TraceSubstances
     </td>
     <td valign=\"top\">Renamed example from <code>ExtraProperty</code> to

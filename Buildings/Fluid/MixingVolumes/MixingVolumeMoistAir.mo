@@ -82,8 +82,8 @@ as a substance. In particular, the medium model needs to implement the function
 <code>enthalpyOfLiquid(T)</code> and the integer variable <code>Water</code> that
 contains the index to the water substance. For medium that do not provide this
 functionality, use
-<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolumeDryAir\">
-Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</a>.
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
+Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
