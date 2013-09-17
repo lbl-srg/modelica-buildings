@@ -3,17 +3,17 @@ model MixingVolumeMoistAir
   extends Modelica.Icons.Example;
   import Buildings;
 
-// package Medium = Buildings.Media.PerfectGases.MoistAir;
- //  package Medium = Buildings.Media.GasesPTDecoupled.MoistAir;
-   package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.001
+    "Nominal mass flow rate";
 
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol1(
     redeclare package Medium = Medium,
     V=1,
     nPorts=2,
-    m_flow_nominal=0.001,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial) 
-    "Volume"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=m_flow_nominal) "Volume"
           annotation (Placement(transformation(extent={{50,0},{70,20}},
           rotation=0)));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSen
@@ -52,9 +52,9 @@ model MixingVolumeMoistAir
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin(        redeclare package Medium =
         Medium,
-    nPorts=1,
-    T=293.15)             annotation (Placement(transformation(
-        origin={140,0},
+    T=293.15,
+    nPorts=1)             annotation (Placement(transformation(
+        origin={160,0},
         extent={{-10,-10},{10,10}},
         rotation=180)));
   Buildings.Controls.Continuous.LimPID PI(
@@ -64,7 +64,8 @@ model MixingVolumeMoistAir
     Ti=1,
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    wd=0)
+    wd=0,
+    yMin=-1000)
     annotation (Placement(transformation(extent={{-40,120},{-20,140}}, rotation=
            0)));
   Buildings.Controls.Continuous.LimPID PI1(
@@ -91,6 +92,13 @@ model MixingVolumeMoistAir
           extent={{-20,-60},{0,-40}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
+    redeclare each package Medium = Medium,
+    from_dp=true,
+    dp_nominal=2.5,
+    m_flow_nominal=m_flow_nominal)
+             annotation (Placement(transformation(extent={{120,-10},{140,10}},
+          rotation=0)));
 equation
   connect(preHeaFlo.port, heatFlowSensor.port_a)
     annotation (Line(points={{56,130},{64,130}}, color={191,0,0}));
@@ -125,10 +133,6 @@ equation
           6,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(mOut_flow.port_b, sin.ports[1]) annotation (Line(
-      points={{104,0},{117,0},{117,1.33227e-015},{130,1.33227e-015}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(heatFlowSensor.port_b, vol1.heatPort) annotation (Line(
       points={{84,130},{86,130},{86,40},{50,40},{50,10}},
       color={191,0,0},
@@ -153,9 +157,33 @@ equation
       points={{1,-110},{11,-110}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+  connect(mOut_flow.port_b, res1.port_a) annotation (Line(
+      points={{104,0},{120,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(res1.port_b, sin.ports[1]) annotation (Line(
+      points={{140,0},{150,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -160},{180,160}}),      graphics),
 experiment(StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This model tests 
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir\">
+Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
+After an initial transient, the temperature and humidity of the volume
+stabilizes.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 12, 2009 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end MixingVolumeMoistAir;

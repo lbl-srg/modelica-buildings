@@ -1,7 +1,7 @@
 within Buildings.Fluid.FixedResistances;
 model Pipe "Pipe with finite volume discretization along flow path"
   extends Buildings.Fluid.FixedResistances.BaseClasses.Pipe(
-   diameter=sqrt(4*m_flow_nominal/rho_nominal/v_nominal/Modelica.Constants.pi),
+   diameter=sqrt(4*m_flow_nominal/rho_default/v_nominal/Modelica.Constants.pi),
    dp_nominal=2*dpStraightPipe_nominal,
    res(dp(nominal=length*10)));
   // Because dp_nominal is a non-literal value, we set
@@ -15,10 +15,10 @@ model Pipe "Pipe with finite volume discretization along flow path"
   final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
       Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
       m_flow=m_flow_nominal,
-      rho_a=rho_nominal,
-      rho_b=rho_nominal,
-      mu_a=mu_nominal,
-      mu_b=mu_nominal,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
       length=length,
       diameter=diameter,
       roughness=roughness,
@@ -111,6 +111,11 @@ Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 13, 2013 by Michael Wetter:<br/>
+Replaced <code>nominal</code> with <code>default</code> values
+as they are computed using the default Medium values.
+</li>
 <li>
 February 22, 2012 by Michael Wetter:<br/>
 Renamed <code>useMultipleHeatPort</code> to <code>useMultipleHeatPorts</code> and 

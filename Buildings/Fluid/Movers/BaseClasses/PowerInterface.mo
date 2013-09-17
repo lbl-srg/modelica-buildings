@@ -53,10 +53,10 @@ protected
   //Modelica.SIunits.HeatFlowRate QThe_flow "Heat input into the medium";
   parameter Modelica.SIunits.VolumeFlowRate delta_V_flow = 1E-3*V_flow_max
     "Factor used for setting heat input into medium to zero at very small flows";
-  final parameter Real motDer[size(motorEfficiency.r_V, 1)](fixed=false)
+  final parameter Real motDer[size(motorEfficiency.r_V, 1)](each fixed=false)
     "Coefficients for polynomial of pressure vs. flow rate"
     annotation (Evaluate=true);
-  final parameter Real hydDer[size(hydraulicEfficiency.r_V,1)](fixed=false)
+  final parameter Real hydDer[size(hydraulicEfficiency.r_V,1)](each fixed=false)
     "Coefficients for polynomial of pressure vs. flow rate"
     annotation (Evaluate=true);
 
@@ -128,6 +128,11 @@ to properly guard against division by zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 17, 2013, by Michael Wetter:<br/>
+Added missing <code>each</code> keyword in declaration of parameters
+that are an array.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.

@@ -203,5 +203,21 @@ equation
             -100},{180,100}}),      graphics),
 experiment(StopTime=2),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolume.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This model tests the implementation of the mixing volumes.
+It compares the results from the mixing volume of the Modelica
+Standard Library with the implementation in the <code>Buildings</code>
+library. If the changes are bigger than a prescribed limit, 
+the simulation stops with an error.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 12, 2009 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end MixingVolume;

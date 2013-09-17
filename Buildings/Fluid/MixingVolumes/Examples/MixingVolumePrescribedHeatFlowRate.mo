@@ -3,7 +3,6 @@ model MixingVolumePrescribedHeatFlowRate
   "Test model for heat transfer to volume"
   extends Modelica.Icons.Example;
     package Medium = Modelica.Media.Air.SimpleAir;
-
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -84,6 +83,13 @@ convergence for the case the the prescribed heat flow rate should be zero,
 but due to numerical solutions, it may have a small error that causes the signal to be 
 non-zero.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 12, 2009 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumePrescribedHeatFlowRate.mos"

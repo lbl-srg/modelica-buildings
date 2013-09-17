@@ -57,12 +57,12 @@ model Pipe
 protected
   parameter Modelica.SIunits.Volume VPipe=Modelica.Constants.pi*(diameter/2.0)^
       2*length "Pipe volume";
-  parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
-      T=T_start,
-      p=p_start,
-      X=X_start[1:Medium.nXi]) "Start state";
-  parameter Modelica.SIunits.Density rho_nominal = Medium.density(state_start);
-  parameter Modelica.SIunits.DynamicViscosity mu_nominal = Medium.dynamicViscosity(state_start)
+  parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]) "Default state";
+  parameter Modelica.SIunits.Density rho_default = Medium.density(state_default);
+  parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
     "Dynamic viscosity at nominal condition";
 equation
   connect(port_a, res.port_a) annotation (Line(
@@ -110,6 +110,11 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 13, 2013 by Michael Wetter:<br/>
+Replaced <code>nominal</code> with <code>default</code> values
+as they are computed using the default Medium values.
+</li>
 <li>
 February 15, 2012 by Michael Wetter:<br/>
 Changed base class from which the model extends.
