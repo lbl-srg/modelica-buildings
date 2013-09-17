@@ -14,7 +14,11 @@ model StaticTwoPortConservationEquation
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
   // Outputs that are needed in models that extend this model
-  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg")
+  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
+                                             start=Medium.specificEnthalpy_pTX(
+                                                     p=Medium.p_default,
+                                                     T=Medium.T_default,
+                                                     X=Medium.X_default))
     "Leaving temperature of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -50,6 +54,7 @@ protected
                                             caseSensitive=false)
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
+
 initial equation
   // Assert that the substance with name 'water' has been found.
   assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
@@ -171,6 +176,10 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 17, 2013 by Michael Wetter:<br/>
+Added start value for <code>hOut</code>.
+</li>
 <li>September 10, 2013 by Michael Wetter:<br/>
 Removed unrequired parameter <code>i_w</code>.
 </li>

@@ -18,7 +18,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
       nominal=Medium.p_default,
       stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
                      then StateSelect.prefer else StateSelect.default),
-    h(start=Medium.specificEnthalpy_pTX(p_start, T_start, X_start)),
+    h(start=hStart),
     T(start=T_start,
       nominal=Medium.T_default,
       stateSelect=if (not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
@@ -58,7 +58,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
 
   // Outputs that are needed in models that extend this model
-  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg")
+  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
+                                             start=hStart)
     "Leaving enthalpy of the component"
      annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -96,7 +97,9 @@ protected
                                             caseSensitive=false)
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
-
+  parameter Modelica.SIunits.SpecificEnthalpy hStart=
+    Medium.specificEnthalpy_pTX(p_start, T_start, X_start)
+    "Start value for specific enthalpy";
 initial equation
   // Assert that the substance with name 'water' has been found.
   assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
@@ -257,6 +260,10 @@ Buildings.Fluid.Storage.ExpansionVessel</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 17, 2013 by Michael Wetter:<br/>
+Added start value for <code>hOut</code>.
+</li>
 <li>September 10, 2013 by Michael Wetter:<br/>
 Removed unrequired parameter <code>i_w</code>.<br/>
 Corrected the syntax error
