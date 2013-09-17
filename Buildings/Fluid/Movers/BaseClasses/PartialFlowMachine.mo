@@ -58,7 +58,7 @@ protected
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 
   parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
-      T=T_start, p=p_start, X=X_start);
+      T=T_start, p=p_start, X=X_start) "Medium state at start values";
   parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
 

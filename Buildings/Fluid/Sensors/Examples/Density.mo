@@ -29,7 +29,8 @@ model Density "Test model for the density sensor"
     redeclare package Medium = Medium,
     V=1,
     nPorts=3,
-    m_flow_nominal=10) "Volume"
+    m_flow_nominal=10,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Volume"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dp(
     redeclare package Medium = Medium,
@@ -81,6 +82,11 @@ This example tests the density sensors.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 10, 2013 by Michael Wetter:<br/>
+Changed initialization of volume to fixed initial values to avoid
+a translation warning in OpenModelica.
+</li>
 <li>
 August 31, 2013 by Michael Wetter:<br/>
 First implementation.

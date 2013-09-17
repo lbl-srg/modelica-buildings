@@ -9,7 +9,9 @@ block X_pW "Humidity ratio for given water vapor pressure"
   Modelica.Blocks.Interfaces.RealInput p_w(final quantity="Pressure",
                                            final unit="Pa",
                                            displayUnit="Pa",
-                                           min = 0) "Water vapor pressure"
+                                           min = 0.003,
+                                           start=2000,
+                                           nominal=1000) "Water vapor pressure"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
           rotation=0)));
   output Modelica.SIunits.MassFraction x_w(min=0, max=1, nominal=0.01, start=0.001)
@@ -34,6 +36,10 @@ and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2013 by Michael Wetter:<br/>
+Added attributes to variable <code>p_w</code>.
+</li>
 <li>
 February 17, 2010 by Michael Wetter:<br/>
 Renamed block from <code>HumidityRatio_pWat</code> to <code>X_pW</code>.

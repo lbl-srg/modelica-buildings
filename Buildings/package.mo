@@ -151,6 +151,19 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     <td valign=\"top\">Library with solar collectors.
     </td>
     </tr>
+<tr><td valign=\"top\">Buildings.Rooms.FLEXLAB
+    </td>
+    <td valign=\"top\">Package with models for test cells of LBNL's FLEXLAB
+                       (Facility for Low Energy Experiments in Buildings).
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.Utilities.IO.FLEXLAB
+    </td>
+    <td valign=\"top\">Package that demonstrates two-way data exchange
+                       between Modelica and LBNL's FLEXLAB (Facility for
+                       Low Energy Experiments in Buildings).
+    </td>
+    </tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
@@ -230,6 +243,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        at compilation time.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Diagnostics.AssertEquality<br/>
+                       Buildings.Utilities.Diagnostics.AssertInequality
+    </td>
+    <td valign=\"top\">Added <code>time</code> in print statement as OpenModelica,
+                       in its error message, does not output the time 
+                       when the assert is triggered.
+    </td>
+</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <p>
@@ -294,6 +318,20 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Renamed example to<code>TraceSubstancesFlowRate</code> 
                      in order to use the same name as the source model.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume<br/>
+                       Buildings.Fluid.FixedResistances.Pipe<br/>
+                       Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab<br/>
+                       Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab<br/>
+                       Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine
+    </td>
+    <td valign=\"top\">Renamed <code>X_nominal</code> to <code>X_default</code>
+                       or <code>X_start</code>, where <code>X</code> may be
+                       <code>state</code>, <code>rho</code>, or <code>mu</code>,
+                       depending on whether the medium default values or the start values 
+                       are used in the computation of the state
+                       and derived quantities.
     </td>
 </tr>
 
@@ -474,6 +512,43 @@ units are wrong or errors in documentation):
                      when the implementation of zero flow rate was revised.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation
+    </td>
+    <td valign=\"top\">Corrected the syntax error
+                       <code>Medium.ExtraProperty C[Medium.nC](each nominal=C_nominal)</code>
+                       to
+                       <code>Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)</code>
+                       because <code>C_nominal</code> is a vector. 
+                       This syntax error caused a compilation error in OpenModelica.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.LatentEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.MassFraction<br/>
+                       Buildings.Fluid.Sensors.MassFractionTwoPort
+    </td>
+    <td valign=\"top\">Changed medium declaration in the <code>extends</code> statement
+                       to <code>replaceable</code> to avoid a translation error in
+                       OpenModelica.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.TraceSubstances<br/>
+                       Buildings.Fluid.Sensors.TraceSubstancesTwoPort
+    </td>
+    <td valign=\"top\">Corrected syntax errors in setting nominal value for output signal
+                       and for state variable.
+                       This eliminates a compilation error in OpenModelica.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.TraceSubstancesFlowSource
+    </td>
+    <td valign=\"top\">Added missing <code>each</code> in declaration of 
+                       <code>C_in_internal</code>.
+                       This eliminates a compilation error in OpenModelica.
+    </td>
+</tr>
+
+
 
 </table>
 <!-- Github issues -->

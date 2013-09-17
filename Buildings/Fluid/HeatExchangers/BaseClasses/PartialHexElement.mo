@@ -1,23 +1,8 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model HexElement "Element of a heat exchanger"
+model PartialHexElement "Element of a heat exchanger 2"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
-    vol1( V=m1_flow_nominal*tau1/rho1_nominal,
-          nPorts=2,
-          final energyDynamics=energyDynamics1,
-          final massDynamics=energyDynamics1),
-    redeclare replaceable
-      Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort
-        vol2(
-          nPorts = 2,
-          V=m2_flow_nominal*tau2/rho2_nominal,
-          final energyDynamics=energyDynamics2,
-          final massDynamics=energyDynamics2));
-  // Note that we MUST declare the value of vol2.V here.
-  // Otherwise, if the class of vol2 is redeclared at a higher level,
-  // it will overwrite the assignment of V in the base class
-  // FourPortHeatMassExchanger, which will cause V=0.
-  // Assigning the values for vol1 here is optional, but we added
-  // it to be consistent in the implementation of vol1 and vol2.
+   vol1(final energyDynamics=energyDynamics1,
+        final massDynamics=energyDynamics1));
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal
     "Thermal conductance at nominal flow, used to compute time constant"
@@ -41,9 +26,6 @@ model HexElement "Element of a heat exchanger"
         extent={{-20,-20},{20,20}},
         rotation=90)));
 
-  replaceable MassExchangeDummy masExc "Model for mass exchange"
-    annotation (Placement(transformation(extent={{48,-44},{68,-24}}, rotation=0)));
-
   parameter Modelica.Fluid.Types.Dynamics energyDynamics1=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 1"
@@ -54,8 +36,8 @@ model HexElement "Element of a heat exchanger"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor mas(
-                                                  C=C, T(stateSelect=StateSelect.always))
-    "Mass of metal"
+    C=C,
+    T(stateSelect=StateSelect.always)) "Mass of metal"
     annotation (Placement(transformation(
         origin={-82,0},
         extent={{-10,-10},{10,10}},
@@ -67,56 +49,28 @@ model HexElement "Element of a heat exchanger"
     "Convection (and conduction) on fluid side 2"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}}, rotation=
            0)));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen(
-    T(final quantity="ThermodynamicTemperature",
-      final unit = "K", displayUnit = "degC", min=0))
-    "Temperature sensor of metal"
-    annotation (Placement(transformation(extent={{8,-10},{28,10}},  rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen_1
-    "Heat input into fluid 1" annotation (Placement(transformation(extent={{-34,10},
-            {-14,30}},   rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen_2
-    "Heat input into fluid 1" annotation (Placement(transformation(extent={{-24,-30},
-            {-4,-10}},     rotation=0)));
 equation
   connect(Gc_1, con1.Gc) annotation (Line(points={{-40,100},{-40,40},{-50,40},{
           -50,30}}, color={0,0,127}));
   connect(Gc_2, con2.Gc) annotation (Line(points={{40,-100},{40,-76},{-34,-76},
           {-34,-4},{-50,-4},{-50,-10}}, color={0,0,127}));
-  connect(temSen.T, masExc.TSur) annotation (Line(points={{28,0},{36,0},{36,-26},
-          {46,-26}},                    color={0,0,127}));
-  connect(Gc_2, masExc.Gc) annotation (Line(points={{40,-100},{40,-42},{46,-42}},
-        color={0,0,127}));
-  connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{69,-32},{
-          80,-32},{80,-52},{14,-52}},  color={0,0,127}));
-  connect(masExc.TLiq, vol2.TWat) annotation (Line(points={{69,-38},{72,-38},{
-          72,-55.2},{14,-55.2}},
-                             color={0,0,127}));
-  connect(vol2.X_w, masExc.XInf) annotation (Line(points={{-10,-64},{-20,-64},
-          {-20,-34},{46,-34}}, color={0,0,127}));
   connect(con1.solid,mas. port) annotation (Line(points={{-60,20},{-72,20},{-72,
           -6.12323e-016}}, color={191,0,0}));
   connect(con2.solid,mas. port) annotation (Line(points={{-60,-20},{-60,-20.5},
           {-72,-20.5},{-72,-6.12323e-016}}, color={191,0,0}));
-  connect(mas.port,temSen. port)      annotation (Line(points={{-72,
-          -6.12323e-016},{-39,-6.12323e-016},{-39,0},{8,0}},
-                          color={191,0,0}));
-  connect(con1.fluid,heaFloSen_1. port_a)
-    annotation (Line(points={{-40,20},{-34,20}}, color={191,0,0}));
-  connect(con2.fluid,heaFloSen_2. port_a) annotation (Line(points={{-40,-20},{
-          -24,-20}}, color={191,0,0}));
-  connect(heaFloSen_1.port_b, vol1.heatPort) annotation (Line(
-      points={{-14,20},{-14,60},{-10,60}},
+  connect(con1.fluid, vol1.heatPort) annotation (Line(
+      points={{-40,20},{-20,20},{-20,60},{-10,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(heaFloSen_2.port_b, vol2.heatPort) annotation (Line(
-      points={{-4,-20},{22,-20},{22,-60},{12,-60}},
+  connect(con2.fluid, vol2.heatPort) annotation (Line(
+      points={{-40,-20},{20,-20},{20,-60},{12,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
     Documentation(info="<html>
 <p>
-Element of a heat exchanger with dynamics on the fluids and the solid. 
+Element of a heat exchanger 
+with dynamics of the fluids and the solid. 
 The <i>hA</i> value for both fluids is an input.
 The driving force for the heat transfer is the temperature difference
 between the fluid volumes and the solid.
@@ -155,9 +109,26 @@ where <i>&tau;<sub>m</sub></i> is the time constant that the metal
 of the heat exchanger has if the metal is approximated by a lumped
 thermal mass.
 </p>
+<p>
+<b>Note:</b> This model is introduced to allow the instances
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent
+</a>
+and
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementSensible\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementSensible
+</a>
+to redeclare the volume as <code>final</code>, thereby avoiding
+that a GUI displays the volume as a replaceable component.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 11, 2013, by Michael Wetter:<br/>
+Separated old model into one for dry and for wet heat exchangers.
+This was done to make the coil compatible with OpenModelica.
+</li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
 Changed the redeclaration of <code>vol2</code> to be replaceable,
@@ -185,8 +156,8 @@ March 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
-            {100,100}}),
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
                    graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Text(
@@ -196,4 +167,4 @@ First implementation.
           extent={{58,-92},{84,-120}},
           lineColor={0,0,255},
           textString="h")}));
-end HexElement;
+end PartialHexElement;
