@@ -43,7 +43,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
 //a simpler method is used there
 
   replaceable
-    Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction10
+    Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction10and23
                                                                      R16p8Wal
     annotation (Placement(transformation(extent={{410,-168},{430,-148}})));
   replaceable
