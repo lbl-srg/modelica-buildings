@@ -48,7 +48,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     annotation (Placement(transformation(extent={{-108,-136},{-88,-116}})));
 
   Modelica.Blocks.Sources.CombiTimeTable watCon(
-    table=[0,0.06,293.15; 86400,0.06,293.15], tableOnFile=false)
+                                              tableOnFile=false, table=[0,0.504,
+        293.15; 86400,0.504,293.15])
     "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
     annotation (Placement(transformation(extent={{-196,-132},{-176,-112}})));
   Buildings.Fluid.Sources.MassFlowSource_T watIn(
@@ -106,10 +107,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={64,-114})));
-  Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical
-    eleRoo(
-    redeclare package Medium = Air,
-    nPorts=2) "Model of the electrical room"
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical ele(redeclare package Medium =
+        Air, nPorts=2) "Model of the electrical room"
     annotation (Placement(transformation(extent={{54,-80},{94,-40}})));
   Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet
     clo(
@@ -228,17 +227,17 @@ equation
       points={{-175,134},{-118,134},{-118,74},{-112,74}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaDat.weaBus, eleRoo.weaBus) annotation (Line(
+  connect(weaDat.weaBus, ele.weaBus)    annotation (Line(
       points={{-100,180},{91.9,180},{91.9,-42.1}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaDat.weaBus, clo.weaBus) annotation (Line(
+  connect(weaDat.weaBus,clo. weaBus) annotation (Line(
       points={{-100,180},{193.9,180},{193.9,129.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(eleRoo.surf_surBou[1], X3A.surf_conBou[5]) annotation (Line(
+  connect(ele.surf_surBou[1], X3A.surf_conBou[5])    annotation (Line(
       points={{70.2,-74.5},{70,-74.5},{70,-88},{-84,-88},{-84,42.8}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -254,15 +253,15 @@ equation
       points={{-47,-38},{-18,-38}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airInEle.ports[1], eleRoo.ports[1]) annotation (Line(
+  connect(airInEle.ports[1], ele.ports[1])    annotation (Line(
       points={{4,-42},{12,-42},{12,-70},{57,-70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(eleRoo.ports[2], airOutEle.ports[1]) annotation (Line(
+  connect(ele.ports[2], airOutEle.ports[1])    annotation (Line(
       points={{61,-70},{2,-70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(eleRoo.surf_surBou[2], clo.surf_conBou[1]) annotation (Line(
+  connect(ele.surf_surBou[2], clo.surf_conBou[1])    annotation (Line(
       points={{70.2,-73.5},{70,-73.5},{70,-88},{182,-88},{182,95.3333}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -274,7 +273,7 @@ equation
       points={{54,-114},{-84,-114},{-84,41.6}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(airInClo.ports[1], clo.ports[1]) annotation (Line(
+  connect(airInClo.ports[1],clo. ports[1]) annotation (Line(
       points={{60,116},{110,116},{110,102},{159,102}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -282,7 +281,7 @@ equation
       points={{89,-114},{76,-114}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(preTem2[2].port, clo.surf_conBou[2]) annotation (Line(
+  connect(preTem2[2].port,clo. surf_conBou[2]) annotation (Line(
       points={{54,-114},{36,-114},{36,-96},{182,-96},{182,96}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -298,7 +297,7 @@ equation
       points={{9,112},{20,112},{20,108},{40,108}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airOutClo.ports[1], clo.ports[2]) annotation (Line(
+  connect(airOutClo.ports[1],clo. ports[2]) annotation (Line(
       points={{60,80},{110,80},{110,102},{163,102}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -306,19 +305,19 @@ equation
       points={{-175,102},{-140,102},{-140,68},{-118,68}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(intGaiEle.y, eleRoo.qGai_flow) annotation (Line(
+  connect(intGaiEle.y, ele.qGai_flow)    annotation (Line(
       points={{-47,-6},{20,-6},{20,-50},{46,-50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(intGaiClo.y, clo.qGai_flow) annotation (Line(
+  connect(intGaiClo.y,clo. qGai_flow) annotation (Line(
       points={{9,142},{120,142},{120,122},{148,122}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(preT.port, clo.surf_conBou[3]) annotation (Line(
+  connect(preT.port,clo. surf_conBou[3]) annotation (Line(
       points={{-94,-148},{-94,-142},{182,-142},{182,96.6667}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(eleRoo.surf_conBou[1], preT.port) annotation (Line(
+  connect(ele.surf_conBou[1], preT.port)    annotation (Line(
       points={{80,-76},{80,-92},{-16,-92},{-16,-142},{-94,-142},{-94,-148}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -332,8 +331,8 @@ equation
           X3A when it is conditioned with a radiant slab.
           </p>
           <p>
-          This example model of <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
-          Buildings.Rooms.FLEXLAB.X3A.TestCell</a> includes heat transfer between the test cell,
+          This example model of <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
+          Buildings.Rooms.FLEXLAB.X3A</a> includes heat transfer between the test cell,
           the outdoor environment, the radiant slab conditioning the test cell, the connected electrical room
           and closet, and the neighboring test cells. The following image is a drawing of test cell X3A.
           It shows how the different rooms in this example are connected, as well as providing the names used
@@ -344,6 +343,9 @@ equation
           </p>                    
           <p>
           The connections between the test cell and the external models are described in the following table.
+          Only models not included in the X3A package are included. For documentation describing the connections
+          between X3A models see <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A\">
+          Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
           </p>
           <table border =\"1\" summary = \"Summary of connections between test cell and other models\">
           <tr>
@@ -366,20 +368,6 @@ equation
           <td>X2B: X3A.surf_conBou[1]<br/>
           X3B: X3A.surf_conBou[2]</td>
           </tr>          
-          <tr>
-          <td>clo</td>
-          <td>Closet</td>
-          <td>Door: clo.surf_surBou[2]<br/>
-          Wall: clo.surf_surBou[1]</td>
-          <td>Door: X3A.surf_conBou[4]<br/>
-          Wall: X3A.surf_conBou[3]</td>
-          </tr>          
-          <tr>
-          <td>eleRoo</td>
-          <td>Electrical room</td>
-          <td>eleRoo.surf_surBou[1]</td>
-          <td>X3A.surf_conBou[5]</td>
-          </tr>
           <tr>
           <td>sla</td>
           <td>Radiant slab</td>
@@ -410,7 +398,79 @@ equation
           <td>airOut.ports[1]</td>
           <td>X3A.ports[1]</td>
           </tr>
-          </table>  
+          </table>
+          <p>
+          The connections between the closet and external models are described in the following table.
+          Only connections to models not included in the X3A package are described.
+          </p>
+          <table border=\"1\" summary = \"Summary of connections to the closet model\">      
+          <tr>
+          <th>External model name</th>
+          <th>External model significance</th>
+          <th>External model port</th>
+          <th>clo port</th>
+          </tr>
+          <tr>
+          <td>intGaiClo</td>
+          <td>Table specifying the internal gains in the closet</td>
+          <td>intGaiClo[1,2,3]</td>
+          <td>clo.qGai_flow[1,2,3]</td>
+          </tr>
+          <tr>
+          <td>airInClo</td>
+          <td>Prescribed airflow describing service air from the AHU</td>
+          <td>airInClo.ports[1]</td>
+          <td>clo.ports[1]</td>
+          </tr>
+          <tr>
+          <td>airOutClo</td>
+          <td>Outlet for ventilation air flow</td>
+          <td>airOutClo.ports[1]</td>
+          <td>clo.ports[1]</td>
+          </tr>
+          <tr>
+          <td>preT</td>
+          <td>Prescribed temperature describing the ground temperature</td>
+          <td>preT.port</td>
+          <td>clo.surf_conBou[3]</td>
+          </tr>
+          </table>
+          <p>
+          The connections between the electrical room and external models are described in the following
+          table. Only connections to models not included in the X3A package are described.
+          </p>
+          <table border=\"1\" summary = \"Summary of connections to the electrical room model\">
+          <tr>
+          <th>External model name</th>
+          <th>External model significance</th>
+          <th>External model port</th>
+          <th>ele port</th>
+          </tr>
+          <tr>
+          <td>intGaiEle</td>
+          <td>Table specifying the internal gains in the electrical room</td>
+          <td>intGaiEle[1,2,3]</td>
+          <td>ele.qGai_flow[1,2,3]</td>
+          </tr>
+          <tr>
+          <td>airInEle</td>
+          <td>Prescribed airflow describing service air from the AHU</td>
+          <td>airInEle.ports[1]</td>
+          <td>ele.ports[1]</td>
+          </tr>
+          <tr>
+          <td>airOutEle</td>
+          <td>Outlet for ventilation air flow</td>
+          <td>airOutEle.ports[1]</td>
+          <td>ele.ports[1]</td>
+          </tr>
+          <tr>
+          <td>preT</td>
+          <td>Prescribed temperature describing the ground temperature</td>
+          <td>preT.port</td>
+          <td>ele.surf_conBou[1]</td>
+          </tr>
+          </table>
           <p>
           The radiant slab is modeled using an instance of 
           <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
@@ -445,97 +505,6 @@ equation
           <td>Outlet for service fluid flow</td>
           <td>watOut.ports[1]</td>
           <td>sla.port_b</td>          
-          </tr>
-          </table>
-          <p>
-          The electrical room connected to test cell X3A is modeled using
-          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical\">
-          Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical</a>. The necessary 
-          connections are described in the following table. Connections previously described
-          are not included here.
-          </p>
-          <table border=\"1\" summary = \"Connections to the electrical room model\">
-          <tr>
-          <th>External model name</th>
-          <th>External model significance</th>
-          <th>External model port</th>
-          <th>eleRoo port</th>
-          </tr>
-          <tr>
-          <td>intGaiEle</td>
-          <td>Table specifying internal gains in the space</td>
-          <td>intGaiEle[1,2,3]</td>
-          <td>eleRoo.qGai_flow[1,2,3]</td>
-          </tr>
-          <tr>
-          <td>airInEle</td>
-          <td>Prescribed airflow describing service from AHU</td>
-          <td>airIn.ports[1]</td>
-          <td>eleRoo.ports[1]</td>
-          </tr>
-          <tr>
-          <td>airOut</td>
-          <td>Outlet for ventilation air flow</td>
-          <td>airOut.ports[1]</td>
-          <td>eleRoo.ports[2]</td>
-          </tr>
-          <tr>
-          <td>clo</td>
-          <td>Heat transfer through the wall shared by the closet and the electrical room</td>
-          <td>clo.surf_conBou[1]</td>
-          <td>eleRoo.surf_surBou[2]</td>
-          </tr>
-          <tr>
-          <td>preT</td>
-          <td>Ground temperature model</td>
-          <td>preT.port</td>
-          <td>eleRoo.surf_conBou[1]</td>
-          </tr>
-          </table>
-          <p>
-          The closet connected to the X3A test cell is modeled using an instance of 
-          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
-          Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a>. The connections
-          necessary to accurately include the space in the simulation are described
-          in the following table. Previously described connections are not included.
-          </p>
-          <table border =\"1\" summary = \"Connections to the closet model\">
-          <tr>
-          <th>External model name</th>
-          <th>External model significance</th>
-          <th>External model port</th>
-          <th>clo port</th>
-          </tr>
-          <tr>
-          <td>intGaiClo</td>
-          <td>Internal gains for the closet</td>
-          <td>intGaiClo.y[1,2,3]</td>
-          <td>clo.qGai_flow[1,2,3]</td>
-          </tr>
-          <tr>
-          <td>airInClo</td>
-          <td>Prescribed airflow describing service air coming from the AHU</td>
-          <td>airInClo.ports[1]</td>
-          <td>clo.ports[1]</td>
-          </tr>
-          <tr>
-          <td>airOutClo</td>
-          <td>Outlet for ventilation air</td>
-          <td>airOutClo.ports[1]</td>
-          <td>clo.ports[2]</td>
-          </tr>
-          <tr>
-          <td>preTem2</td>
-          <td>Prescribed temperature representing the closet in X3B. Data is 
-          read from the table in TNei</td>
-          <td>preTem2[2].port</td>
-          <td>clo.surf_conBou[2]</td>
-          </tr>
-          <tr>
-          <td>preT</td>
-          <td>Ground temperature model</td>
-          <td>preT.port</td>
-          <td>clo.surf_conBou[3]</td>
           </tr>
           </table>
           <p>

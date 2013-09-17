@@ -58,31 +58,13 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   annotation(Documentation(info="<html>
   <p>
   This is a model for the electrical room connected to test cell 3A in the LBNL User Facility.
-  The model is based on 
-  <a href=\"modelica:Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>. The model
-  was built using construction and parameter information taken from architectural
-  drawings. Other models are provided for the main space of the test cell and the 
-  connected closet. Accurate use of this model will likely require the addition of
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
-  Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a> and
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
-  Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a>. The documentation
-  for these models describes the connecting walls for the spaces, as well as how they
-  are intended to be connected. An example of how they can be connected and applied is 
-  provided in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.  
-  </p>
-  <p>
-  Constructions used to describe the walls used in test cell X3A are available in 
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions\">
-  Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions</a>. All wall 
-  construction models are made using information from architectural drawings. Constructions
-  used to describe the windows are available in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems\">
-  Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems</a>. Window models are based on
-  information available in the construction specifications.
-  </p>  
+  Other models are provided for the main space of the test cell and the connected closet. This 
+  documentation describes the wall constructions used in the electrical room model. For 
+  documentation describing how the room models are to be connected to develop a model of the
+  entire X3A test cell see
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A\">
+  Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
+  </p> 
   <p>
   There are 4 different wall sections described in the model. They are shown in the figure below.
   </p>
@@ -131,39 +113,20 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   </p>
   <p>
   Several of the connections in this model are intended to be connected to specific surfaces in other room models.
-  The following table describes these connections. The connections in datConExt are not described in the table
-  because they are connected to the external environment, and no additional heat port connections are necessary.
-  A rationale for why the model is created this way is also provided if it is considered necessary. 
+  The following table describes the connections to rooms which are not in the X3A package. The constructions in 
+  datConExt are not described in the table because they are connected to the external environment, and no 
+  additional heat port connections are necessary. A rationale for why the model is created this way is also 
+  provided if it is considered necessary. 
   </p>
   <table border =\"1\" summary = \"Description of intended connections including Electrical model\">
   <tr>
   <th>Location in Electrical</th>
   <th>Description of External Connection</th>
-  <th>Location in External Model</th>
   <th>Rationale</th>
-  </tr>
-  <tr>
-  <td>surf_surBou[1]</td>
-  <td>This is a connection to the wall between Electrical and TestCell. This connection port represents an air
-  space and the corresponding wall is modeled in TestCell.</td>
-  <td>TestCell.surf_conBou[5]</td>
-  <td>This wall is modeled in TestCell. surf_surBou[1] in Electrical represents the air gap in the electrical
-  room while surf_conBou[5] in TestCell represents the wall surface.</td>
-  <td></td>
-  </tr>
-  <tr>
-  <td>surf_surBou[2]</td>
-  <td>This is a connection to the wall between Electrical and Closet. This connection port represent
-  an air space and the corresponding wall is modeled in Closet.</td>
-  <td>Closet.surf_conBou[1]</td>
-  <td>This wall is modeled in Closet. surf_surBou[2] in Electrical represents the air gap in the
-  electrical room while surf_conBou[1] in Closet represents the wall surface.</td>
-  <td></td>
   </tr>
   <tr>
   <td>surf_conBou[1]</td>
   <td>Connection to ground temperature model</td>
-  <td></td>
   <td>This port represents the bottom of the floor in the space. It is to be connected to a heat port representing
   the temperature of the ground.</td>
   </tr>

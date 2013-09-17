@@ -40,6 +40,11 @@ model Closet "Model of the closet connected to test cell X3A"
     "Construction of the roof of the closet in X3A"
     annotation(Placement(transformation(extent={{430,-148},{450,-128}})));
 
+//fixme - Documentation currently references a data table for temperature in X2B and X3B models.
+//Change this to reference the precise connection, then state why a data table is referenced
+//in the example model (this documentation says how to do it precisely, example states why
+//a simpler method is used there
+
   HeatTransfer.Data.OpaqueConstructions.Generic
     slaCon(nLay=3, material={
       Buildings.HeatTransfer.Data.Solids.Generic(
@@ -61,30 +66,12 @@ model Closet "Model of the closet connected to test cell X3A"
     annotation (Placement(transformation(extent={{432,-118},{452,-98}})));
     annotation (Documentation(info="<html>
     <p>
-    This is a model for the closet attached to test cell 3A in the LBNL User Facility. The 
-    model is based on <a href=\"modelica:Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>.
-    The model was built using construction and parameter information taken from architectural
-    drawings. Other models are provided for the main space of the test cell and the connected 
-    electrical room. Accurate use of this model will likely require the addition of
-    <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
-    Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a> and
-    <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical\">
-    Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical</a>. The documentation
-    for these models describes the connecting walls for the spaces, as well as how they
-    are intended to be connected. An example of how they can be connected and applied is 
-    provided in
-    <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
-    Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.
-    </p>
-    <p>
-    Constructions used to describe the walls used in test cell X3A are available in 
-    <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions\">
-    Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions</a>. All wall 
-    construction models are made using information from architectural drawings. Constructions
-    used to describe the windows are available in
-    <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems\">
-    Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems</a>. Window models are 
-    based on information available in the construction specifications.    
+    This is a model for the closet attached to test cell 3A in the LBNL User Facility.
+    This documentation describes the wall constructions used in the closet. Documentation
+    describing how it should be connected to other models in the package to form a 
+    complete model of test cell X3A can be found in
+    <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A\">
+    Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
     </p>
     <p>
     There are four different wall sections connected to the closet modeled here. They are shown
@@ -135,9 +122,10 @@ model Closet "Model of the closet connected to test cell X3A"
     </p>
     <p>
     Several of the connections in this model are intended to be connected to specific surfaces in other room models.
-    The following table describes these connections. The connections in datConExt are not described in the table
-    because they are connected to the external environment, and no additional heat port connections are necessary.
-    A rationale for why the model is created this way is also provided if it is considered necessary. 
+    The following table describes the connections to models outside of the X3A package.. The connections in datConExt 
+    are not described in the table because they are connected to the external environment, and no additional heat 
+    port connections are necessary. A rationale for why the model is created this way is also provided if it is 
+    considered necessary. 
     </p>
     <table border =\"1\" summary=\"Intended connections including the Closet model\">
     <tr>
@@ -145,26 +133,6 @@ model Closet "Model of the closet connected to test cell X3A"
     <th>Description of External Connection</th>
     <th>Location in External Model</th>
     <th>Rationale</th>
-    </tr>
-    <tr>
-    <td>surf_surBou[1]</td>
-    <td>TestCell partition wall</td>
-    <td>TestCell.surf_conBou[3]</td>
-    <td>This wall is modeled in the TestCell model. surf_surBou[1] in Closet represents the corresponding air
-    space on the closet side of the wall.</td>
-    </tr>
-    <tr>
-    <td>surf_surBou[2]</td>
-    <td>TestCell partition door</td>
-    <td>TestCell.surf_conBou[4]</td>
-    <td>This wall is modeled in the TestCell model. surf_surBou[2] in Closet represents the corresponding air
-    space on the closet side of the door.</td>
-    </tr>
-    <tr>
-    <td>surf_conBou[1]</td>
-    <td>Insulated wall between the closet and Electrical</td>
-    <td>Electrical.surf_surBou[2]</td>
-    <td></td>
     </tr>
     <tr>
     <td>surf_conBou[2]</td>
