@@ -1,7 +1,10 @@
 within Buildings.Utilities.Psychrometrics.Functions;
 function X_pW "Humidity ratio for given water vapor pressure"
 
-  input Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
+  input Modelica.SIunits.Pressure p_w(displayUnit="Pa", 
+                                      min=0.003,
+                                      nominal=1000)
+    "Water vapor pressure";
   input Modelica.SIunits.Pressure p=101325 "Total pressure";
   output Modelica.SIunits.MassFraction X_w(
     min=0,
@@ -25,6 +28,10 @@ Function to compute the humidity ratio for a given water vapor partial pressure.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2013 by Michael Wetter:<br/>
+Added attributes to variable <code>p_w</code>.
+</li>
 <li>
 March 9, 2012 by Michael Wetter:<br/>
 Added <code>smoothOrder=99</code> and <code>displayUnit</code> for pressure.
