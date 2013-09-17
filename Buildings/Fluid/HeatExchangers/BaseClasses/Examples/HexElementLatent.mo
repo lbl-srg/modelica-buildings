@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
-model HexElement
+model HexElementLatent
   "Model that tests the basic element that is used to built heat exchanger models"
   import Buildings;
   extends Modelica.Icons.Example;
@@ -64,15 +64,18 @@ model HexElement
     redeclare package Medium = Medium_W)
              annotation (Placement(transformation(extent={{48,-4},{68,16}},
           rotation=0)));
-  Buildings.Fluid.HeatExchangers.BaseClasses.HexElement hex(
-    redeclare Buildings.Fluid.MixingVolumes.MixingVolumeDryAir vol2,
+  Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent hex(
     m1_flow_nominal=5,
     m2_flow_nominal=5,
     UA_nominal=9999,
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
     dp1_nominal=5,
-    dp2_nominal=5)  annotation (Placement(transformation(extent={{10,-10},{30,
+    dp2_nominal=5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    energyDynamics1=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics2=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                    annotation (Placement(transformation(extent={{10,-10},{30,
             10}}, rotation=0)));
   Modelica.Blocks.Sources.Constant TDb1(k=303.15) "Drybulb temperature"
     annotation (Placement(transformation(extent={{-100,-26},{-80,-6}},
@@ -115,8 +118,8 @@ equation
       color={0,0,127},
       pattern=LinePattern.None));
   connect(hex.port_b1, res_12.port_a)
-                                     annotation (Line(points={{30,6},{48,6},{48,
-          6}},          color={0,127,255}));
+                                     annotation (Line(points={{30,6},{48,6}},
+                        color={0,127,255}));
   connect(res_22.port_a, hex.port_b2)
                                      annotation (Line(points={{-4,-20},{2,-20},
           {2,-6},{10,-6}}, color={0,127,255}));
@@ -124,7 +127,7 @@ equation
           -62,-16}},
         color={0,0,127}));
   connect(res_11.port_b, hex.port_a1) annotation (Line(points={{-4,6},{0,6},{10,
-          6},{10,6}},     color={0,127,255}));
+          6}},            color={0,127,255}));
   connect(hex.port_a2, res_21.port_b) annotation (Line(points={{30,-6},{40,-6},
           {40,-20},{50,-20}}, color={0,127,255}));
   connect(hACon.y, hex.Gc_1) annotation (Line(points={{1,70},{16,70},{16,10}},
@@ -150,6 +153,6 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}})),
 experiment(StopTime=600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HexElement.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HexElementLatent.mos"
         "Simulate and plot"));
-end HexElement;
+end HexElementLatent;

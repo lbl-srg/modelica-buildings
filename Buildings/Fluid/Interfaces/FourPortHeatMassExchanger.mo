@@ -83,7 +83,8 @@ model FourPortHeatMassExchanger
                                annotation (Placement(transformation(extent={{-10,70},
             {10,50}},         rotation=0)));
 
-  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2(
+  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2
+    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
     redeclare final package Medium = Medium2,
     nPorts = 2,
     V=m2_flow_nominal*tau2/rho2_nominal,
@@ -166,7 +167,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol2.ports[2], port_b2) annotation (Line(
-      points={{-8.88178e-16,-70},{-30,-70},{-30,-60},{-100,-60}},
+      points={{2,-70},{-30,-70},{-30,-60},{-100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a1, preDro1.port_a) annotation (Line(
@@ -182,7 +183,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(preDro2.port_b, vol2.ports[1]) annotation (Line(
-      points={{60,-80},{4,-80},{4,-70}},
+      points={{60,-80},{2,-80},{2,-70}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
@@ -215,12 +216,6 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-September 11, 2013 by Michael Wetter:<br/>
-Removed <code>constrainedby</code> keyword at the declaration
-of the volume, because this led to a translation error
-in OpenModelica, and is not required.
-</li>
 <li>
 February 6, 2012, by Michael Wetter:<br/>
 Updated documentation.
