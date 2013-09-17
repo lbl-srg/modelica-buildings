@@ -2,19 +2,19 @@ within Buildings.Fluid.HeatExchangers.RadiantSlabs;
 model ParallelCircuitsSlab
   "Model of multiple parallel circuits of a radiant slab"
   extends Modelica.Fluid.Interfaces.PartialTwoPort(
-    port_a(p(start=Medium.p_default,
+    port_a(p(start=p_start,
              nominal=Medium.p_default)),
-    port_b(p(start=Medium.p_default,
+    port_b(p(start=p_start,
            nominal=Medium.p_default)));
   extends Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab;
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
    dp_nominal = Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
       m_flow=m_flow_nominal/nCir,
-      rho_a=rho_nominal,
-      rho_b=rho_nominal,
-      mu_a=mu_nominal,
-      mu_b=mu_nominal,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
       length=length,
       diameter=pipe.dIn,
       roughness=pipe.roughness,
@@ -37,7 +37,8 @@ model ParallelCircuitsSlab
     "Small mass flow rate of all circuits combined for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
 
-  final parameter Modelica.SIunits.Velocity v_nominal = 4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_nominal/nCir
+  final parameter Modelica.SIunits.Velocity v_nominal=
+    4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_default/nCir
     "Velocity at m_flow_nominal";
 
   // Parameters used for the fluid model implementation
@@ -117,12 +118,12 @@ model ParallelCircuitsSlab
     final ReC=4000) "Single parallel circuit of the radiant slab"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 protected
-  parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
-      T=T_start,
-      p=p_start,
-      X=X_start[1:Medium.nXi]) "Start state";
-  parameter Modelica.SIunits.Density rho_nominal = Medium.density(state_start);
-  parameter Modelica.SIunits.DynamicViscosity mu_nominal = Medium.dynamicViscosity(state_start)
+  parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]) "Start state";
+  parameter Modelica.SIunits.Density rho_default = Medium.density(state_default);
+  parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
     "Dynamic viscosity at nominal condition";
 
   Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier
@@ -240,6 +241,12 @@ Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 14, 2013, by Michael Wetter:<br/>
+Corrected assignment of start value for pressure at <code>port_a</code>
+and <code>port_b</code>, which used <code>Medium.p_default</code>
+instead of the parameter <code>p_start</code>.
+</li>
 <li>
 June 27, 2012, by Michael Wetter:<br/>
 First implementation.

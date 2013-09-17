@@ -2,7 +2,8 @@ within Buildings.Fluid.Sensors;
 model LatentEnthalpyFlowRate
   "Ideal enthalphy flow rate sensor that outputs the latent enthalpy flow rate only"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
-    redeclare package Medium=Modelica.Media.Interfaces.PartialCondensingGases);
+    redeclare replaceable package Medium=
+        Modelica.Media.Interfaces.PartialCondensingGases);
   extends Buildings.Fluid.BaseClasses.IndexMassFraction(final substanceName="water");
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput H_flow(final unit="W")
@@ -138,6 +139,12 @@ The sensor can only be used with medium models that implement the function
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 10, 2013, by Michael Wetter:<br/>
+Changed medium declaration in the <code>extends</code> statement
+to <code>replaceable</code> to avoid a translation error in
+OpenModelica.
+</li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Removed default value <code>tau=0</code> as the base class 

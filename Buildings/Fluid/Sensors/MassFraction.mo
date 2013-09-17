@@ -1,12 +1,14 @@
 within Buildings.Fluid.Sensors;
 model MassFraction "Ideal one port mass fraction sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor(
-    redeclare package Medium=Modelica.Media.Interfaces.PartialCondensingGases);
+    redeclare replaceable package Medium =
+        Modelica.Media.Interfaces.PartialCondensingGases);
   extends Buildings.Fluid.BaseClasses.IndexMassFraction(substanceName = "water");
   extends Modelica.Icons.RotationalSensor;
 
-  Modelica.Blocks.Interfaces.RealOutput X(min=0, max=1, unit="1")
-    "Mass fraction in port"
+  Modelica.Blocks.Interfaces.RealOutput X(min=-1e-3,
+                                          max=1.001,
+                                          unit="1") "Mass fraction in port"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
           rotation=0)));
 protected
@@ -46,6 +48,15 @@ prior to using this model with one fluid port.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+September 10, 2013, by Michael Wetter:<br/>
+Changed <code>min</code> and <code>max</code> values for
+output signals to allow for numerical approximation error
+without violating these bounds.<br/>
+Changed medium declaration in the <code>extends</code> statement
+to <code>replaceable</code> to avoid a translation error in
+OpenModelica.
+</li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Revised model to use base class

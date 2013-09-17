@@ -24,8 +24,10 @@ model ControlledFlowMachine
 protected
   final parameter Medium.AbsolutePressure p_a_default(displayUnit="Pa") = Medium.p_default
     "Nominal inlet pressure for predefined fan or pump characteristics";
-  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(T=T_start,
-     p=p_a_default, X=X_start[1:Medium.nXi]);
+  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
+     T=Medium.T_default,
+     p=Medium.p_default,
+     X=Medium.X_default[1:Medium.nXi]) "Default medium state";
 
   Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if  addPowerToMedium
     "Heat and work input into medium"
@@ -77,6 +79,11 @@ the head or the mass flow rate.
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 13, 2013 by Michael Wetter:<br/>
+Corrected computation of <code>sta_default</code> to use medium default
+values instead of medium start values.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.

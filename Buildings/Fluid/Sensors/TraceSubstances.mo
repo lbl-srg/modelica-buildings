@@ -4,14 +4,13 @@ model TraceSubstances "Ideal one port trace substances sensor"
   extends Modelica.Icons.RotationalSensor;
   parameter String substanceName = "CO2" "Name of trace substance";
 
-  Modelica.Blocks.Interfaces.RealOutput C(min=0,
-                                          nominal=Medium.C_nominal)
+  Modelica.Blocks.Interfaces.RealOutput C(min=0)
     "Trace substance in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
           rotation=0)));
 
 protected
-  parameter Real s[Medium.nC](fixed=false)
+  parameter Real s[Medium.nC](each fixed=false)
     "Vector with zero everywhere except where species is";
 initial algorithm
   for i in 1:Medium.nC loop
@@ -61,6 +60,11 @@ prior to using this model with one fluid port.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+September 10, 2013, by Michael Wetter:<br/>
+Corrected a syntax error in setting the nominal value for the output signal.
+This eliminates a compilation error in OpenModelica.
+</li>
 <li>
 February 22, by Michael Wetter:<br/>
 Improved code that searches for index of trace substance in medium model.

@@ -36,7 +36,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Modelica.SIunits.Mass[Medium.nC] mC "Masses of trace substances in the fluid";
   // C need to be added here because unlike for Xi, which has medium.Xi,
   // there is no variable medium.C
-  Medium.ExtraProperty C[Medium.nC](each nominal=C_nominal)
+  Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
     "Trace substance mixture content";
 
   Modelica.SIunits.MassFlowRate mb_flow "Mass flows across boundaries";
@@ -90,14 +90,20 @@ protected
      X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass"
   annotation (Evaluate=true);
 
-  // Parameters that are used to construct the vector mXi_flow
-  parameter Integer i_w(min=1, fixed=false) "Index for water substance";
+  // Parameter that is used to construct the vector mXi_flow
   final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
                                             string2="Water",
                                             caseSensitive=false)
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
+
 initial equation
+  // Assert that the substance with name 'water' has been found.
+  assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
+      "If Medium.nXi > 1, then substance 'water' must be present for one component.'"
+         + Medium.mediumName + "'.\n"
+         + "Check medium model.");
+
   // Make sure that if energyDynamics is SteadyState, then
   // massDynamics is also SteadyState.
   // Otherwise, the system of ordinary differential equations may be inconsistent.
@@ -210,20 +216,6 @@ equation
       ports[i].C_outflow  = C;
   end for;
 
-initial algorithm
-  i_w:= -1;
-  for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
-                                            string2="Water",
-                                            caseSensitive=false) then
-      i_w := i;
-      end if;
-   end for;
-    assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
-      "If Medium.nXi > 1, then substance 'water' must be present for one component.'"
-         + Medium.mediumName + "'.\n"
-         + "Check medium model.");
-
   annotation (
     Documentation(info="<html>
 <p>
@@ -265,6 +257,15 @@ Buildings.Fluid.Storage.ExpansionVessel</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>September 10, 2013 by Michael Wetter:<br/>
+Removed unrequired parameter <code>i_w</code>.<br/>
+Corrected the syntax error
+<code>Medium.ExtraProperty C[Medium.nC](each nominal=C_nominal)</code>
+to
+<code>Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)</code>
+because <code>C_nominal</code> is a vector. 
+This syntax error caused a compilation error in OpenModelica.
+</li>
 <li>
 July 30, 2013 by Michael Wetter:<br/>
 Changed connector <code>mXi_flow[Medium.nXi]</code>

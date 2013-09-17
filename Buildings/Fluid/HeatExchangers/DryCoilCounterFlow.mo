@@ -94,10 +94,10 @@ protected
     "Gain medium-side 2 to take discretization into account" annotation (
       Placement(transformation(extent={{-18,62},{-6,74}}, rotation=0)));
 
-  BaseClasses.HexElement ele[nEle](
+  replaceable BaseClasses.HexElementSensible ele[nEle]
+  constrainedby BaseClasses.PartialHexElement(
     redeclare each package Medium1 = Medium1,
     redeclare each package Medium2 = Medium2,
-    redeclare each Buildings.Fluid.MixingVolumes.MixingVolumeDryAir vol2,
     each allowFlowReversal1=allowFlowReversal1,
     each allowFlowReversal2=allowFlowReversal2,
     each tau1=tau1/nEle,

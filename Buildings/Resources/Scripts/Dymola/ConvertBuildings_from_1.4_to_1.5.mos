@@ -11,3 +11,5 @@ convertClass("Buildings.HeatTransfer.Convection.Functions.HeatFlux.raleigh",
 convertClass("Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate",
              "Buildings.Fluid.Sources.TraceSubstancesFlowSource"};
 
+convertElement({"Buildings.Fluid.Delays.DelayFirstOrder"},
+                "V0", "V_nominal");

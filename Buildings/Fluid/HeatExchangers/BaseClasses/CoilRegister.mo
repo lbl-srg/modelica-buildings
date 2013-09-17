@@ -25,8 +25,8 @@ model CoilRegister "Register for a heat exchanger"
   final parameter Integer nEle = nPipPar * nPipSeg
     "Number of heat exchanger elements";
 
-  Buildings.Fluid.HeatExchangers.BaseClasses.HexElement[
-                      nPipPar, nPipSeg] ele(
+  replaceable Buildings.Fluid.HeatExchangers.BaseClasses.HexElementSensible ele[nPipPar, nPipSeg]
+    constrainedby Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
     redeclare each package Medium1 = Medium1,
     redeclare each package Medium2 = Medium2,
     each allowFlowReversal1=allowFlowReversal1,

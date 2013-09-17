@@ -42,7 +42,9 @@ protected
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
 
-  Modelica.SIunits.MassFraction XiSat "Water vapor mass fraction at saturation";
+  Modelica.SIunits.MassFraction XiSat(start=0.01,
+                                      nominal=0.01)
+    "Water vapor mass fraction at saturation";
 
  parameter Integer iWat(fixed=false)
     "Index of water in medium composition vector";
@@ -177,6 +179,11 @@ DOI: 10.1175/JAMC-D-11-0143.1
 ",
 revisions="<html>
 <ul>
+<li>
+September 10, 2013 by Michael Wetter:<br/>
+Added start value and nominal value for <code>XiSat</code> as this is an iteration
+variable in OpenModelica.
+</li>
 <li>
 October 1, 2012 by Michael Wetter:<br/>
 Revised implementation to change the dimension of the nonlinear
