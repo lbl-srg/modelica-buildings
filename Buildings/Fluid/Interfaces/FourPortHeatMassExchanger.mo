@@ -84,7 +84,7 @@ model FourPortHeatMassExchanger
             {10,50}},         rotation=0)));
 
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2
-    constrainedby Buildings.Fluid.MixingVolumes.MixingVolume(
+    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
     redeclare final package Medium = Medium2,
     nPorts = 2,
     V=m2_flow_nominal*tau2/rho2_nominal,

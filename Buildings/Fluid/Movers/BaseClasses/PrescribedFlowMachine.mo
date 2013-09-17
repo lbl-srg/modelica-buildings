@@ -3,7 +3,10 @@ partial model PrescribedFlowMachine
   "Partial model for fan or pump with speed (y or Nrpm) as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface(
     V_flow_max(start=V_flow_nominal),
-    final rho_default = Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default));
+    final rho_default = Medium.density_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default));
 
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
       final show_V_flow = false,
@@ -16,8 +19,8 @@ protected
     "Pressure drop of the pump or fan"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
-  Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if  addPowerToMedium
-    "Heat and work input into medium"
+  Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if
+       addPowerToMedium "Heat and work input into medium"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 equation
  VMachine_flow = -port_b.m_flow/rho;

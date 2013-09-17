@@ -1,13 +1,27 @@
 within Buildings.Fluid.MixingVolumes;
 model MixingVolumeMoistAir
   "Mixing volume with heat port for latent heat exchange, to be used with media that contain water"
-  extends BaseClasses.PartialMixingVolumeWaterPort(
+  extends BaseClasses.PartialMixingVolume(
     steBal(final sensibleOnly = false));
   // redeclare Medium with a more restricting base class. This improves the error
   // message if a user selects a medium that does not contain the function
   // enthalpyOfLiquid(.)
   replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases
       annotation (choicesAllMatching = true);
+
+  Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
+                                                 final unit = "kg/s")
+    "Water flow rate added into the medium"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}},rotation=
+           0)));
+  Modelica.Blocks.Interfaces.RealInput TWat(final quantity="ThermodynamicTemperature",
+                                            final unit = "K", displayUnit = "degC", min=260)
+    "Temperature of liquid that is drained from or injected into volume"
+    annotation (Placement(transformation(extent={{-140,28},{-100,68}},
+          rotation=0)));
+  Modelica.Blocks.Interfaces.RealOutput X_w "Species composition of medium"
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}}, rotation=
+           0)));
 
   Modelica.SIunits.HeatFlowRate HWat_flow = mWat_flow * Medium.enthalpyOfLiquid(TWat)
     "Enthalpy flow rate of extracted water";
@@ -82,11 +96,15 @@ as a substance. In particular, the medium model needs to implement the function
 <code>enthalpyOfLiquid(T)</code> and the integer variable <code>Water</code> that
 contains the index to the water substance. For medium that do not provide this
 functionality, use
-<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolumeDryAir\">
-Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</a>.
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
+Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 17, 2013 by Michael Wetter:<br/>
+Changed model to no longer use the obsolete model <code>Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort</code>.
+</li>
 <li>
 July 30, 2013 by Michael Wetter:<br/>
 Changed connector <code>mXi_flow[Medium.nXi]</code>

@@ -5,6 +5,7 @@ block AssertInequality "Assert when condition is violated"
 equation
   if (time > t0) then
     assert(u1 > u2 - threShold, message + "\n"
+      + "  time       = " + String(time) + "\n"
       + "  u1         = " + String(u1) + "\n"
       + "  u2         = " + String(u2) + "\n"
       + "  abs(u1-u2) = " + String(abs(u1-u2)) + "\n"
@@ -27,6 +28,11 @@ and <i>t &gt; t<sub>0</sub></i>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 10, 2013, by Michael Wetter:<br/>
+Added <code>time</code> in print statement as OpenModelica,
+in its error message, does not output the time when the assert is triggered.
+</li>
 <li>
 January 23, 2013, by Michael Wetter:<br/>
 Replaced <code>when</code> test with <code>if</code> test as

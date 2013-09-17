@@ -20,7 +20,8 @@ model TemperatureWetBulbTwoPort "Ideal wet bulb temperature sensor"
     "Medium wet bulb temperature to which the sensor is exposed";
 protected
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulMod(
-    redeclare package Medium = Medium) "Block for wet bulb temperature";
+    redeclare package Medium = Medium,
+    TWetBul(start=TWetBul_start)) "Block for wet bulb temperature";
   Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
   Medium.MassFraction Xi[Medium.nXi]
     "Species vector, needed because indexed argument for the operator inStream is not supported";
@@ -112,6 +113,11 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 10, 2013 by Michael Wetter:<br/>
+Set <code>start</code> attribute for <code>wetBulMod</code>
+to use consistent start values within this model.
+</li>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that 

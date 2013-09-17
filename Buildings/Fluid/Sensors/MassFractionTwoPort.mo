@@ -1,7 +1,8 @@
 within Buildings.Fluid.Sensors;
 model MassFractionTwoPort "Ideal two port mass fraction sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
-    redeclare package Medium=Modelica.Media.Interfaces.PartialCondensingGases);
+    redeclare replaceable package Medium =
+        Modelica.Media.Interfaces.PartialCondensingGases);
   extends Buildings.Fluid.BaseClasses.IndexMassFraction(substanceName = "water");
   extends Modelica.Icons.RotationalSensor;
 
@@ -9,7 +10,10 @@ model MassFractionTwoPort "Ideal two port mass fraction sensor"
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
 
-  Modelica.Blocks.Interfaces.RealOutput X(min=0, max=1, start=X_start, unit="1")
+  Modelica.Blocks.Interfaces.RealOutput X(min=-1e-3,
+                                          max=1.001,
+                                          start=X_start,
+                                          unit="1")
     "Mass fraction of the passing fluid"
     annotation (Placement(transformation(
         origin={0,110},
@@ -76,6 +80,15 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 10, 2013, by Michael Wetter:<br/>
+Changed <code>min</code> and <code>max</code> values for
+output signals to allow for numerical approximation error
+without violating these bounds.<br/>
+Changed medium declaration in the <code>extends</code> statement
+to <code>replaceable</code> to avoid a translation error in
+OpenModelica.
+</li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Revised model to use base class

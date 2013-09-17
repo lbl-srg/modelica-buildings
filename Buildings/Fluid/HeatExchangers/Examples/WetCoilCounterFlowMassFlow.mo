@@ -28,8 +28,9 @@ model WetCoilCounterFlowMassFlow
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Sensors.RelativeHumidityTwoPort senRelHum(         redeclare package Medium
-      = Medium2, m_flow_nominal=m2_flow_nominal)
+  Sensors.RelativeHumidityTwoPort senRelHum(
+    redeclare package Medium = Medium2,
+    m_flow_nominal=m2_flow_nominal)
     annotation (Placement(transformation(extent={{20,14},{0,34}})));
 equation
   connect(sou_1.ports[1], hex.port_a1) annotation (Line(

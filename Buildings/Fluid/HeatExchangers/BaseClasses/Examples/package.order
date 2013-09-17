@@ -1,8 +1,8 @@
 EpsilonNTUZ
 HACoilInside
 HANaturalCylinder
-HexElement
+HexElementLatent
+HexElementSensible
 Manifold
 MassExchange
-MassExchangeDummy
 RayleighNumber
