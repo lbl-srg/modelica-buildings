@@ -12,7 +12,7 @@ model TestCellNoCelDiv
         A={6.645*9.144, 3.6576 * 9.144},
         each absIR=0.9,
         each absSol=0.9,
-        til={Buildings.HeatTransfer.Types.Tilt.Floor, Buildings.HeatTransfer.Types.Wall}),
+        til={Buildings.HeatTransfer.Types.Tilt.Floor, Buildings.HeatTransfer.Types.Tilt.Wall}),
       datConExt(
          layers={extDoo,
          R16p8Wal,
