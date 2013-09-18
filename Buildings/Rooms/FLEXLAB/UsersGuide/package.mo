@@ -160,6 +160,9 @@ package UsersGuide "User's Guide"
   drawing on A2.03, but Construction18 is typically a cell or bed dividing wall
   and UF90X4 is no longer in construction. Has construction been changed since
   UF90X4 removed from plan?</li>
+  <li>Change radiant slab model in examples to account for difference in tubing
+  density in different areas of space. Has three sections, with three different
+  tubing densities. See M3.02</li>
   </ul>
   </html>"));
 end UsersGuide;
