@@ -116,6 +116,32 @@ model TestCellNoCelDiv
   </tr>
   </table>
   <p>
+  Because wall section 6 was moved from datConBou[2] to surBou[2] the reference for other constructions in
+  datConBou have changed as well. These changes are documented in the following table.
+  </p>
+  <table border =\"1\" summary=\"Description of changes to construction locations\">
+  <tr>
+  <th>Wall Section Number</th>
+  <th>Physical Description</th>
+  <th>Location in TestCell</th>
+  <th>Location in TestCelNoDiv</th>
+  </tr>
+  <tr>
+  <td>4</td>  
+  <td>Insulated wall separating the test cell and the electrical room</td>
+  <td>TestCell.datConBou[5]</td>
+  <td>TestCelNoDiv.datConBou[4]</td>
+  </tr>
+  <tr>
+  <td>5</td>
+  <td>Partition wall and door separating the test cell and the closet</td>
+  <td>Wall: TestCell.datConBou[3]<br/>
+  Door: TestCell.datConBou[4]</td>
+  <td>Wall: TestCelNoDiv.datConBou[2]<br/>
+  Door: TestCelNoDiv.datConBou[3]</td>
+  </tr>
+  </table>
+  <p>
   Several of the connections in this model are intended to be connected to specific surfaces in other room models.
   The following table describes the connections to models outside of the X3A package. The connections in datConExt 
   are not described in the table because they are connected to the external environment, and no additional heat 
