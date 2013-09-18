@@ -122,9 +122,7 @@ model ClosetNoCelDiv
     </html>",
     revisions = "<html>
     <ul>
-    <li>Sept 16, 2013 by Peter Grant:<br/>
-    Added a model representing the floor.</li>
-    <li>July 26, 2013 by Peter Grant:<br/>
+    <li>Sep 18, 2013 by Peter Grant:<br/>
     First implementation.</li>
     </ul>
     </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,

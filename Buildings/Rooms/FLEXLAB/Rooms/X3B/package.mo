@@ -3,6 +3,8 @@ package X3B "Models of rooms in test cell X3B"
 extends Modelica.Icons.Package;
 
 
+
+
   annotation(Documentation(info="<html>
   <p>
   This package contains models of rooms in test cell X3B of the FLEXLAB at LBNL. The following image is a drawing 
@@ -38,18 +40,18 @@ extends Modelica.Icons.Package;
   </tr>
   <tr>
   <td>Heat transfer through the partition wall between the test cell and the closet</td>
-  <td>TestCell.surf_conBou[3]</td>
+  <td>TestCell.surf_conBou[2]</td>
   <td>Closet.surf_surBou[1]</td>
   </tr>
   <tr>
   <td>Heat transfer through the door in the partition wall between the test cell and the closet</td>
-  <td>TestCell.surf_conBou[4]</td>
+  <td>TestCell.surf_conBou[3]</td>
   <td>Closet.surf_surBou[2]</td>
   </tr>
   <tr>
   <td>Heat transfer through the wall separating the test cell and the electrical room</td>
-  <td>TestCell.surf_conBou[5]</td>
-  <td>Electrical.surf_surBou[2]</td>
+  <td>TestCell.surf_conBou[4]</td>
+  <td>Electrical.surf_surBou[1]</td>
   </tr>
   <tr>
   <td>Heat transfer through the wall separating the closet and the electrical room</td>
