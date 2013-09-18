@@ -37,11 +37,6 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
       extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
       lat=0.66098585832754);
 
-//fixme - Documentation currently references a data table for temperature in X2B and X3B models.
-//Change this to reference the precise connection, then state why a data table is referenced
-//in the example model (this documentation says how to do it precisely, example states why
-//a simpler method is used there
-
   replaceable
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction10and23
                                                                      R16p8Wal

@@ -40,11 +40,6 @@ model Closet "Model of the closet connected to test cell X3A"
     "Construction of the roof of the closet in X3A"
     annotation(Placement(transformation(extent={{430,-148},{450,-128}})));
 
-//fixme - Documentation currently references a data table for temperature in X2B and X3B models.
-//Change this to reference the precise connection, then state why a data table is referenced
-//in the example model (this documentation says how to do it precisely, example states why
-//a simpler method is used there
-
   HeatTransfer.Data.OpaqueConstructions.Generic
     slaCon(nLay=3, material={
       Buildings.HeatTransfer.Data.Solids.Generic(
