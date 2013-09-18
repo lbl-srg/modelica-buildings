@@ -129,16 +129,16 @@ model TestCellNoCelDiv
   <tr>
   <td>4</td>  
   <td>Insulated wall separating the test cell and the electrical room</td>
-  <td>TestCell.datConBou[5]</td>
-  <td>TestCelNoDiv.datConBou[4]</td>
+  <td>datConBou[5]</td>
+  <td>datConBou[4]</td>
   </tr>
   <tr>
   <td>5</td>
   <td>Partition wall and door separating the test cell and the closet</td>
-  <td>Wall: TestCell.datConBou[3]<br/>
-  Door: TestCell.datConBou[4]</td>
-  <td>Wall: TestCelNoDiv.datConBou[2]<br/>
-  Door: TestCelNoDiv.datConBou[3]</td>
+  <td>Wall: datConBou[3]<br/>
+  Door: datConBou[4]</td>
+  <td>Wall: datConBou[2]<br/>
+  Door: datConBou[3]</td>
   </tr>
   </table>
   <p>

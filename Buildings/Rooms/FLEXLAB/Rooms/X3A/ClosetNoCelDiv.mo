@@ -97,8 +97,24 @@ model ClosetNoCelDiv
     </tr>
     </table>
     <p>
+    As a result of removing the dividing wall construction,the location of the construction of the floor has changed.
+    The following table shows the old and new location of this wall construction.
+    </p>
+    <table border =\"1\" summary=\"Changes to construction locations\">
+    <tr>
+    <th>Physical Description</th>
+    <th>Location in Closet</th>
+    <th>Location in ClosetNoCelDiv</th>
+    </tr>
+    <tr>
+    <td>Construction modeling the floor</td>
+    <td>datConBou[3]</td>
+    <td>datConBou[2]</td>
+    </tr>
+    </table>
+    <p>
     Several of the connections in this model are intended to be connected to specific surfaces in other room models.
-    The following table describes the connections to models outside of the X3A package.. The connections in datConExt 
+    The following table describes the connections to models outside of the X3A package. The connections in datConExt 
     are not described in the table because they are connected to the external environment, and no additional heat 
     port connections are necessary. A rationale for why the model is created this way is also provided if it is 
     considered necessary. 
