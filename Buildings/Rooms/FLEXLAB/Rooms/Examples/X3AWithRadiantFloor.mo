@@ -328,19 +328,11 @@ equation
           This model demonstrates one potential simulation using the models available in
           <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
           Buildings.Rooms.FLEXLAB.Rooms.X3A</a>. This example simulates test cell 
-          X3A when it is conditioned with a radiant slab.
-          </p>
-          <p>
-          This example model of <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
-          Buildings.Rooms.FLEXLAB.X3A</a> includes heat transfer between the test cell,
-          the outdoor environment, the radiant slab conditioning the test cell, the connected electrical room
-          and closet, and the neighboring test cells. The following image is a drawing of test cell X3A.
-          It shows how the different rooms in this example are connected, as well as providing the names used
-          in this example for each of the rooms.
-          </p>        
-          <p align=\"center\">
-          <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.png\"border=\"1\" alt=\"Room locations and names in X3AWithRadiantFloor\"/>
-          </p>                    
+          X3A when it is conditioned with a radiant slab. This example model includes 
+          heat transfer between the test cell, the outdoor environment, the radiant slab 
+          conditioning the test cell, the connected electrical room and closet, and the 
+          neighboring test cells.
+          </p>              
           <p>
           The connections between the test cell and the external models are described in the following table.
           Only models not included in the X3A package are included. For documentation describing the connections
