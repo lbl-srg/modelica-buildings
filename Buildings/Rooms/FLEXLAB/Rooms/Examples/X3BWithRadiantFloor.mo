@@ -102,7 +102,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     "/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
-  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem2    annotation (
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preT2      annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -304,15 +304,15 @@ equation
       points={{-84,42.75},{-84,-88},{70.2,-88},{70.2,-74.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TNei.y[1], preTem2.T) annotation (Line(
+  connect(TNei.y[1], preT2.T)   annotation (Line(
       points={{89,-114},{76,-114}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(preTem2.port, X3B.surf_conBou[1]) annotation (Line(
+  connect(preT2.port, X3B.surf_conBou[1])   annotation (Line(
       points={{54,-114},{-84,-114},{-84,41.25}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(preTem2.port, clo.surf_conBou[2]) annotation (Line(
+  connect(preT2.port, clo.surf_conBou[2])   annotation (Line(
       points={{54,-114},{40,-114},{40,-96},{182,-96},{182,96}},
       color={191,0,0},
       smooth=Smooth.None));
