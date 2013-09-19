@@ -16,9 +16,10 @@ model TemperatureWetBulbTwoPort "Ideal wet bulb temperature sensor"
   parameter Modelica.SIunits.Temperature TWetBul_start = Medium.T_default
     "Initial or guess value of wet bulb temperature (used to compute initial output signal))"
     annotation (Dialog(group="Initialization"));
+
+protected
   Medium.Temperature TMedWetBul(start=TWetBul_start)
     "Medium wet bulb temperature to which the sensor is exposed";
-protected
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulMod(
     redeclare package Medium = Medium,
     TWetBul(start=TWetBul_start)) "Block for wet bulb temperature";
