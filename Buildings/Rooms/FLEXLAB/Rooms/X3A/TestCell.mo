@@ -80,7 +80,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   the main space in test cell 3A. This documentation describes the wall constructions used to model
   test cell X3A. Documentation describing how it is to be combined to other room models to create
   a model of the full test cell can be found in
-  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A\">Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
   </p>
   <p>
   There are 7 different wall sections described in the model. They are shown in the figure below.
@@ -126,7 +126,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   <td>4</td>
   <td>This north wall borders an electrical room. It models the heat transfer between test cell
   X3A and the externally modeled electrical room. For an example see
-  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.</td>
   <td>datConBou[5]</td>
   <td>R52Wal</td>
@@ -134,7 +134,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   <tr>
   <td>5</td>
   <td>This north wall borders an externally modeled closet. For an example see 
-  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>. Similar to wall section 
   3 this wall section contains both a wall construction and a door construction. The wall area
   calculation shows the total wall area minus the door area.</td>
@@ -181,7 +181,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   <th>Rationale</th>
   </tr>
   <tr>
-  <td>surf_ConBou[1]</td>
+  <td>surf_conBou[1]</td>
   <td>Temperature of test cell X2B</td>
   <td>References a data table</td>
   <td>A data table is used, instead of a model of test cell X2B, because the goal of this model is to be able to perform
@@ -190,7 +190,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   be negligible.</td>
   </tr>
   <tr>
-  <td>surf_ConBou[2]</td>
+  <td>surf_conBou[2]</td>
   <td>Temperature of test cell X3B</td>
   <td>References a data table</td>
   <td>See rationale for surf_ConBou[1]</td>
