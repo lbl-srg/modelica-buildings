@@ -50,8 +50,8 @@ model TraceSubstancesFlowSource
     m_flow_nominal=1,
     nPorts=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
-                          annotation (Placement(transformation(extent={{58,-20},
-            {78,0}},   rotation=0)));
+                          annotation (Placement(transformation(extent={{90,-20},
+            {110,0}},  rotation=0)));
   MixingVolumes.MixingVolume vol3(
     redeclare package Medium = Medium,
     p_start=Medium.p_default,
@@ -59,32 +59,21 @@ model TraceSubstancesFlowSource
     m_flow_nominal=1,
     nPorts=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
-                          annotation (Placement(transformation(extent={{58,-60},
-            {78,-40}}, rotation=0)));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
-    redeclare package Medium = Medium,
-    m_flow_nominal={1,1,1},
-    dp_nominal={1,1,1},
-    from_dp=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                   annotation (Placement(transformation(
-        origin={40,-40},
-        extent={{-10,-10},{10,10}},
-        rotation=270)));
+                          annotation (Placement(transformation(extent={{88,-60},
+            {108,-40}},rotation=0)));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu1(
                                                      threShold=1E-4)
     "Assert that both volumes have the same concentration"
     annotation (Placement(transformation(extent={{210,0},{230,20}},rotation=0)));
   MixingVolumes.MixingVolume vol4(
     redeclare package Medium = Medium,
-    nPorts=3,
+    nPorts=4,
     p_start=Medium.p_default,
     V=100,
     m_flow_nominal=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
-                          annotation (Placement(transformation(extent={{-6,-40},
-            {14,-20}}, rotation=0)));
+                          annotation (Placement(transformation(extent={{-16,-40},
+            {4,-20}},  rotation=0)));
   Sources.TraceSubstancesFlowSource sou2(
                                       redeclare package Medium = Medium,
       use_m_flow_in=true)
@@ -101,21 +90,21 @@ model TraceSubstancesFlowSource
     nPorts=2,
     p=101320,
     T=293.15) "Sink boundary conditions"
-              annotation (Placement(transformation(extent={{158,-50},{138,-30}},
+              annotation (Placement(transformation(extent={{188,-50},{168,-30}},
           rotation=0)));
   FixedResistances.FixedResistanceDpM res1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)
     "Resistance, used to check if species are transported between ports"
-    annotation (Placement(transformation(extent={{96,-30},{118,-10}}, rotation=
+    annotation (Placement(transformation(extent={{126,-30},{148,-10}},rotation=
             0)));
   FixedResistances.FixedResistanceDpM res2(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)
     "Resistance, used to check if species are transported between ports"
-    annotation (Placement(transformation(extent={{96,-70},{118,-50}}, rotation=
+    annotation (Placement(transformation(extent={{126,-70},{148,-50}},rotation=
             0)));
   FixedResistances.FixedResistanceDpM res3(
     redeclare package Medium = Medium,
@@ -134,22 +123,34 @@ model TraceSubstancesFlowSource
     annotation (Placement(transformation(extent={{130,86},{150,106}})));
   Sensors.TraceSubstances C2(redeclare package Medium = Medium)
     "Trace substance sensor"
-    annotation (Placement(transformation(extent={{138,6},{158,26}})));
+    annotation (Placement(transformation(extent={{168,6},{188,26}})));
   Sensors.TraceSubstances C3(redeclare package Medium = Medium)
     "Trace substance sensor"
-    annotation (Placement(transformation(extent={{168,-50},{188,-30}})));
+    annotation (Placement(transformation(extent={{188,-50},{208,-30}})));
+  FixedResistances.FixedResistanceDpM res4(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1,
+    dp_nominal=1)
+    "Resistance, used to check if species are transported between ports"
+    annotation (Placement(transformation(extent={{58,-30},{80,-10}},  rotation=
+            0)));
+  FixedResistances.FixedResistanceDpM res6(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1,
+    dp_nominal=1)
+    "Resistance, used to check if species are transported between ports"
+    annotation (Placement(transformation(extent={{58,-70},{80,-50}},  rotation=
+            0)));
 equation
-  connect(vol4.ports[2], spl.port_3) annotation (Line(points={{4,-40},{30,-40}},
-                     color={0,127,255}));
-  connect(res3.port_b, vol4.ports[3])
-                                     annotation (Line(points={{-6,-70},{6.66667,
-          -70},{6.66667,-40}},                        color={0,127,255}));
+  connect(res3.port_b, vol4.ports[2])
+                                     annotation (Line(points={{-6,-70},{-6,-40},
+          {-7,-40}},                                  color={0,127,255}));
   connect(res1.port_b, sin.ports[1])  annotation (Line(
-      points={{118,-20},{128,-20},{128,-38},{138,-38}},
+      points={{148,-20},{158,-20},{158,-38},{168,-38}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res2.port_b, sin.ports[2])  annotation (Line(
-      points={{118,-60},{128,-60},{128,-42},{138,-42}},
+      points={{148,-60},{158,-60},{158,-42},{168,-42}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bou.ports[1], res3.port_a) annotation (Line(
@@ -161,7 +162,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou2.ports[1], vol4.ports[1]) annotation (Line(
-      points={{-28,-40},{1.33333,-40}},
+      points={{-28,-40},{-9,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(step.y, sou.m_flow_in) annotation (Line(
@@ -185,11 +186,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(assEqu1.u1, C2.C) annotation (Line(
-      points={{208,16},{159,16}},
+      points={{208,16},{189,16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(C3.C, assEqu1.u2) annotation (Line(
-      points={{189,-40},{198,-40},{198,4},{208,4}},
+      points={{209,-40},{220,-40},{220,-20},{200,-20},{200,4},{208,4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.ports[1], vol.ports[1]) annotation (Line(
@@ -208,28 +209,36 @@ equation
       points={{112,80},{140,80},{140,86}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(spl.port_1, vol2.ports[1]) annotation (Line(
-      points={{40,-30},{40,-20},{65.3333,-20}},
+  connect(vol2.ports[1], res1.port_a) annotation (Line(
+      points={{97.3333,-20},{126,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(vol2.ports[2], res1.port_a) annotation (Line(
-      points={{68,-20},{96,-20}},
+  connect(vol3.ports[1], res2.port_a) annotation (Line(
+      points={{95.3333,-60},{126,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(spl.port_2, vol3.ports[1]) annotation (Line(
-      points={{40,-50},{42,-50},{42,-60},{65.3333,-60}},
+  connect(C2.port, vol2.ports[2]) annotation (Line(
+      points={{178,6},{178,0},{118,0},{118,-20},{100,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(vol3.ports[2], res2.port_a) annotation (Line(
-      points={{68,-60},{96,-60}},
+  connect(C3.port, vol3.ports[2]) annotation (Line(
+      points={{198,-50},{198,-78},{98,-78},{98,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(C2.port, vol2.ports[3]) annotation (Line(
-      points={{148,6},{148,0},{88,0},{88,-20},{70.6667,-20}},
+  connect(vol4.ports[3], res4.port_a) annotation (Line(
+      points={{-5,-40},{26,-40},{26,-20},{58,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(C3.port, vol3.ports[3]) annotation (Line(
-      points={{178,-50},{178,-78},{70.6667,-78},{70.6667,-60}},
+  connect(vol4.ports[4], res6.port_a) annotation (Line(
+      points={{-3,-40},{26,-40},{26,-60},{58,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(res6.port_b, vol3.ports[3]) annotation (Line(
+      points={{80,-60},{100.667,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(res4.port_b, vol2.ports[3]) annotation (Line(
+      points={{80,-20},{92,-20},{92,-20},{102.667,-20}},
       color={0,127,255},
       smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
@@ -250,6 +259,10 @@ The sensors
 as there is a mass flow rate with zero CO<sub>2</sub> from the source <code>bou</code> to the sink <code>sin</code>.
 </html>", revisions="<html>
 <ul>
+<li>
+September 19, 2013, by Michael Wetter:<br/>
+Simplified example.
+</li>
 <li>
 April 29, 2013, by Michael Wetter:<br/>
 Changed the initialization of the medium volumes from free initial conditions
