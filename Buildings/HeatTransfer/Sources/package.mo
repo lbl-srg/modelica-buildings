@@ -213,7 +213,7 @@ if parameter Q_flow is positive.
 </p>
 <p>
 This model is identical to
-<a href=\"modelica:Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow\">
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow\">
 Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a>, except that
 the parameters <code>alpha</code> and <code>T_ref</code> have
 been deleted as these can cause division by zero in some fluid flow models.
@@ -222,7 +222,7 @@ been deleted as these can cause division by zero in some fluid flow models.
 <ul>
 <li>
 March 29 2011, by Michael Wetter:<br/>
-First implementation based on <a href=\"modelica:Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow\">
+First implementation based on <a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow\">
 Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a>.
 </li>
 </ul>
@@ -288,7 +288,7 @@ if the input signal is positive.
 </p>
 <p>
 This model is identical to
-<a href=\"modelica:Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\">
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\">
 Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>, except that
 the parameters <code>alpha</code> and <code>T_ref</code> have
 been deleted as these can cause division by zero in some fluid flow models.
@@ -298,7 +298,7 @@ been deleted as these can cause division by zero in some fluid flow models.
 <ul>
 <li>
 March 29 2011, by Michael Wetter:<br/>
-First implementation based on <a href=\"modelica:Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\">
+First implementation based on <a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\">
 Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>.
 </li>
 </ul>
@@ -336,13 +336,13 @@ Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>.
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}})),   Documentation(info="<html>
 This package is identical to
-<a href=\"modelica:Modelica.Thermal.HeatTransfer.Sources\">
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources\">
 Modelica.Thermal.HeatTransfer.Sources</a>, except that
 the parameters <code>alpha</code> and <code>T_ref</code> have
 been deleted in the models
-<a href=\"modelica:Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow\">
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow\">
 Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a> and
-<a href=\"modelica:Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\">
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\">
 Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>
  as these can cause division by zero in some fluid flow models.
 </html>"));

@@ -48,7 +48,7 @@ end saturationPressure;
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package is identical to 
-<a href=\"Modelica:Modelica.Media.Air.SimpleAir\">
+<a href=\"modelica://Modelica.Media.Air.SimpleAir\">
 Modelica.Media.Air.SimpleAir</a> except for the minimum fluid temperature.
 The package is here for convenience so that all medium models that are typically used
 with the <code>Buildings</code> library are at a central location.

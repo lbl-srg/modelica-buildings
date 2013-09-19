@@ -198,7 +198,7 @@ end saturationPressure;
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This medium model is identical to 
-<a href=\"Modelica:Modelica.Media.Air.SimpleAir\">
+<a href=\"modelica://Modelica.Media.Air.SimpleAir\">
 Modelica.Media.Air.SimpleAir</a>, except the 
 equation <code>d = p/(R*T)</code> has been replaced with 
 <code>d/dStp = p/pStp</code> where 
@@ -211,7 +211,7 @@ because pressure and temperature are decoupled, at the expense of accuracy.
 </p>
 <p>
 As in
-<a href=\"Modelica:Modelica.Media.Air.SimpleAir\">
+<a href=\"modelica://Modelica.Media.Air.SimpleAir\">
 Modelica.Media.Air.SimpleAir</a>, the
 specific enthalpy h and specific internal energy u are only
 a function of temperature T and all other provided medium

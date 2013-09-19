@@ -7,7 +7,7 @@ annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains partial medium models that are used
 to fix a bug in 
-<a href=\"Modelica:Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy\">
+<a href=\"modelica://Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy\">
 Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy</a>.
 See
 <a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleIdealGasMedium\">
