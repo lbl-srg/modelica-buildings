@@ -29,8 +29,7 @@ model X3BConnectedToX3AWithRadiantFloor
     annotation (Placement(transformation(extent={{-212,124},{-172,164}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{280,-300},{300,-280}})));
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-240,260},{-220,280}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiCloB(table=[0,0,0,0; 86400,0,0,0],
       tableOnFile=false)
@@ -66,13 +65,13 @@ model X3BConnectedToX3AWithRadiantFloor
   Modelica.Blocks.Sources.CombiTimeTable airConCloA(
     tableOnFile=true,
     tableName="airCon",
-    fileName=
-        "Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
+    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
     columns=2:5)
     "Inlet air conditions for the connected closet of test cell X3A (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-126,222})));
+
   Buildings.Fluid.Sources.MassFlowSource_T airInCloA(
     use_m_flow_in=true,
     use_T_in=true,
@@ -89,13 +88,13 @@ model X3BConnectedToX3AWithRadiantFloor
   Modelica.Blocks.Sources.CombiTimeTable airConCloB(
     tableOnFile=true,
     tableName="airCon",
-    fileName=
-        "Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
+    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
     columns=2:5)
     "Inlet air conditions for the connected closet of test cell X3B (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={10,220})));
+
   Buildings.Fluid.Sources.MassFlowSource_T airInCloB(
     use_m_flow_in=true,
     use_T_in=true,
@@ -113,11 +112,11 @@ model X3BConnectedToX3AWithRadiantFloor
     table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
     tableName="airCon",
-    fileName=
-        "Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
+    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
     columns=2:5)
     "Inlet air conditions for test cell X3A (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-170,-2},{-150,18}})));
+
   Buildings.Fluid.Sources.MassFlowSource_T airInA(
     use_m_flow_in=true,
     use_T_in=true,
@@ -131,11 +130,11 @@ model X3BConnectedToX3AWithRadiantFloor
     table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
     tableName="airCon",
-    fileName=
-        "Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
+    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
     columns=2:5)
     "Inlet air conditions for test cell X3B (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,22},{10,42}})));
+
   Buildings.Fluid.Sources.MassFlowSource_T airInB(
     use_m_flow_in=true,
     use_T_in=true,
@@ -148,13 +147,13 @@ model X3BConnectedToX3AWithRadiantFloor
   Modelica.Blocks.Sources.CombiTimeTable airConEleA(
     tableOnFile=true,
     tableName="airCon",
-    fileName=
-        "Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
+    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
     columns=2:5)
     "Inlet air conditions for the connected electrical room in test cell X3A (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-252,218})));
+
   Buildings.Fluid.Sources.MassFlowSource_T airInEleA(
     use_m_flow_in=true,
     use_T_in=true,
@@ -169,7 +168,6 @@ model X3BConnectedToX3AWithRadiantFloor
     annotation (Placement(transformation(extent={{-296,124},{-276,144}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab slaA(
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
-
     iLayPip=1,
     redeclare package Medium = Water,
     A=60.97,
@@ -178,8 +176,9 @@ model X3BConnectedToX3AWithRadiantFloor
     disPip=0.229,
     m_flow_nominal=0.504) "Model of a radiant slab attached to test cell X3A"
     annotation (Placement(transformation(extent={{-92,-84},{-72,-64}})));
-  Modelica.Blocks.Sources.CombiTimeTable watConA(tableOnFile=false, table=[0,
-        0.504,293.15; 86400,0.504,293.15])
+
+  Modelica.Blocks.Sources.CombiTimeTable watConA(tableOnFile=false, table=[0,0.504,
+        293.15; 86400,0.504,293.15])
     "Inlet water conditions in test cell X3A (y[1] = m_flow, y[2] =  T)"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
   Buildings.Fluid.Sources.MassFlowSource_T watInA(
@@ -236,7 +235,6 @@ model X3BConnectedToX3AWithRadiantFloor
         origin={154,-74})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab slaB(
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
-
     iLayPip=1,
     redeclare package Medium = Water,
     A=60.97,
@@ -245,6 +243,7 @@ model X3BConnectedToX3AWithRadiantFloor
     disPip=0.229,
     m_flow_nominal=0.504) "Radiant slab connected to test cell X3B"
     annotation (Placement(transformation(extent={{102,-84},{122,-64}})));
+
   Modelica.Blocks.Sources.CombiTimeTable watCon(
                                               tableOnFile=false, table=[0,0.504,
         293.15; 86400,0.504,293.15])
@@ -257,9 +256,8 @@ model X3BConnectedToX3AWithRadiantFloor
     redeclare package Medium = Water)
     "Inlet water conditions for radiant slab connected to X3B (from central plant)"
     annotation (Placement(transformation(extent={{56,-84},{76,-64}})));
-  Modelica.Blocks.Sources.CombiTimeTable TNei(    tableOnFile=false, table=[0,
-        293.15; 86400,293.15])
-    "Temperature of the neighboring test cells (y[1] = X2B)"
+  Modelica.Blocks.Sources.CombiTimeTable TNei(    tableOnFile=false, table=[0,293.15;
+        86400,293.15]) "Temperature of the neighboring test cells (y[1] = X2B)"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-274,-42})));
@@ -283,13 +281,13 @@ model X3BConnectedToX3AWithRadiantFloor
   Modelica.Blocks.Sources.CombiTimeTable airConEleB(
     tableOnFile=true,
     tableName="airCon",
-    fileName=
-        "Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
+    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
     columns=2:5)
     "Inlet air conditions for the connected electrical room in test cell X3B (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={176,218})));
+
 equation
   connect(X3B.surf_conBou[2], BClo.surf_surBou[1]) annotation (Line(
       points={{108,27.75},{108,18},{126,18},{126,98},{84.2,98},{84.2,129.5}},
@@ -301,9 +299,9 @@ equation
       smooth=Smooth.None));
   connect(X3B.surf_conBou[4], BEle.surf_surBou[1]) annotation (Line(
       points={{108,28.75},{108,18},{126,18},{126,98},{260.2,98},{260.2,129.5}},
-
       color={191,0,0},
       smooth=Smooth.None));
+
   connect(BClo.surf_conBou[1], BEle.surf_surBou[2]) annotation (Line(
       points={{94,127.333},{94,116},{260.2,116},{260.2,130.5}},
       color={191,0,0},
@@ -321,11 +319,12 @@ equation
           129.333}},
       color={191,0,0},
       smooth=Smooth.None));
+
   connect(X3A.surf_conBou[3], AClo.surf_surBou[2]) annotation (Line(
       points={{-50,28.25},{-50,24},{-30,24},{-30,100},{-69.8,100},{-69.8,130}},
-
       color={191,0,0},
       smooth=Smooth.None));
+
   connect(AEle.surf_surBou[2], AClo.surf_conBou[1]) annotation (Line(
       points={{-195.8,130.5},{-195.8,122},{-60,122},{-60,127.5}},
       color={191,0,0},
@@ -361,10 +360,10 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(X3A.surf_conBou[4], AEle.surf_surBou[1]) annotation (Line(
-      points={{-50,28.75},{-50,24},{-30,24},{-30,100},{-195.8,100},{-195.8,
-          129.5}},
+      points={{-50,28.75},{-50,24},{-30,24},{-30,100},{-195.8,100},{-195.8,129.5}},
       color={191,0,0},
       smooth=Smooth.None));
+
   connect(intGaiCloB.y, BClo.qGai_flow) annotation (Line(
       points={{-9,250},{50,250},{50,154},{60,154}},
       color={0,0,127},
@@ -409,7 +408,7 @@ equation
       points={{-126,211},{-126,198},{-130,198},{-130,182}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airConCloA.y[2], airInCloA.T_in) annotation (Line(
+  connect(airConCloA.y[4], airInCloA.T_in) annotation (Line(
       points={{-126,211},{-126,184}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -417,7 +416,7 @@ equation
       points={{10,209},{10,200},{6,200},{6,182}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airConCloB.y[2], airInCloB.T_in) annotation (Line(
+  connect(airConCloB.y[4], airInCloB.T_in) annotation (Line(
       points={{10,209},{10,184}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -470,7 +469,7 @@ equation
       points={{-252,207},{-252,174}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airConEleA.y[2], airInEleA.T_in) annotation (Line(
+  connect(airConEleA.y[4], airInEleA.T_in) annotation (Line(
       points={{-252,207},{-252,194},{-256,194},{-256,176}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -551,8 +550,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(preT.port, BEle.surf_conBou[1]) annotation (Line(
-      points={{1.11022e-15,-102},{0,-102},{0,12},{-20,12},{-20,112},{270,112},{
-          270,128}},
+      points={{1.11022e-15,-102},{0,-102},{0,12},{-20,12},{-20,112},{270,112},{270,
+          128}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preT.port, AEle.surf_conBou[1]) annotation (Line(
@@ -563,11 +562,11 @@ equation
       points={{0,-102},{0,12},{-20,12},{-20,112},{-60,112},{-60,128.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(airConEleB.y[2], airInEleB.T_in) annotation (Line(
+  connect(airConEleB.y[4], airInEleB.T_in) annotation (Line(
       points={{176,207},{176,194},{172,194},{172,176}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airConEleB.y[3], airInEleB.m_flow_in)
+  connect(airConEleB.y[1], airInEleB.m_flow_in)
                                               annotation (Line(
       points={{176,207},{176,174}},
       color={0,0,127},
@@ -581,7 +580,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
-            -300},{300,300}}), graphics), Commands(file=
-          "Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3BConnectedToX3AWithRadiantFloor.mos"
+            -300},{300,300}}), graphics), Commands(file="Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3BConnectedToX3AWithRadiantFloor.mos"
         "Simulate and Plot"));
 end X3BConnectedToX3AWithRadiantFloor;
