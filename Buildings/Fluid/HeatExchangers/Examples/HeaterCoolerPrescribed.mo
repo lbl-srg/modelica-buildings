@@ -60,7 +60,7 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
     use_T_in=false,
     nPorts=2,
     m_flow=2*m_flow_nominal,
-    T=303.15) "Source" annotation (Placement(transformation(extent={{-80,40},{
+    T=293.15) "Source" annotation (Placement(transformation(extent={{-80,40},{
             -60,60}},
                   rotation=0)));
 equation
