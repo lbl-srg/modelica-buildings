@@ -132,7 +132,7 @@ model Closet "Model of the closet connected to test cell X3A"
     <tr>
     <td>surf_conBou[2]</td>
     <td>X3A.Closet</td>
-    <td>X3A.Closet.surf_conBou[2]</td>
+    <td>X3A.ClosetNoCelDiv.surf_conBou[3]</td>
     <td></td>
     </tr>
     <tr>

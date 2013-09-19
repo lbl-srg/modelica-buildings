@@ -97,7 +97,7 @@ model ClosetNoCelDiv
     </tr>
     </table>
     <p>
-    As a result of removing the dividing wall construction,the location of the construction of the floor has changed.
+    As a result of removing the dividing wall construction, the location of the construction of the floor has changed.
     The following table shows the old and new location of this wall construction.
     </p>
     <table border =\"1\" summary=\"Changes to construction locations\">
