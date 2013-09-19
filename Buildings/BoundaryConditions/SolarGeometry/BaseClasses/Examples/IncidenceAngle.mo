@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model IncidenceAngle "Test model for incidence angle"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));

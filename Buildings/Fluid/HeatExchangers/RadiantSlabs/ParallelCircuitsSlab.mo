@@ -236,7 +236,7 @@ for the model documentation.
 To allow a better comment for the nominal mass flow rate, i.e., to specify that
 its value is for all circuits combined, this
 model does not inherit 
-<a href=\"modelica:Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
 Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
 </html>", revisions="<html>

@@ -1,7 +1,6 @@
 within Buildings.Rooms.Constructions.Examples;
 model ExteriorWallTwoWindows
   "Test model for an exterior wall with two windows, one having a shade, the other not"
-  import Buildings;
   extends Modelica.Icons.Example;
   parameter Integer nCon = 2 "Number of constructions";
   parameter Modelica.SIunits.Area A[:]={3*10, 3*10}

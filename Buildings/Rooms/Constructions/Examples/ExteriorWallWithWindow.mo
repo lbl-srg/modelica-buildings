@@ -1,6 +1,5 @@
 within Buildings.Rooms.Constructions.Examples;
 model ExteriorWallWithWindow "Test model for an exterior wall with a window"
-  import Buildings;
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Area A=3*10
     "Heat transfer area of wall and window";

@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Convection.Examples;
 model Exterior "Test model for exterior heat transfer coefficients"
-  import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Constant T1(k=290.15)
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));

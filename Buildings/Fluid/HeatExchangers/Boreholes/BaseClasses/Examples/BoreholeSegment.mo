@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples;
 model BoreholeSegment
   "Model that tests a basic segment that is used to built a borehole"
-  import Buildings;
   extends Modelica.Icons.Example;
    inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));

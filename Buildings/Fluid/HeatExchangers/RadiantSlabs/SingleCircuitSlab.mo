@@ -192,7 +192,7 @@ that contains the pipes and the surface heat port
 <code>sur_b</code>, with the heat port <code>con_b.port_b</code> connecting to <code>surf_b</code>.
 The temperature of the plane that contains the pipes is computes using a fictitious
 resistance <code>RFic</code>, which is computed by 
-<a href=\"modelica:Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance</a>.
 There is also a resistance for the pipe wall <code>RPip</code>
 and a convective heat transfer coefficient between the fluid and the pipe inside wall.

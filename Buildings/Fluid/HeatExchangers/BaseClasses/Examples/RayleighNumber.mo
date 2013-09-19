@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model RayleighNumber "Test model for RayleighNumber"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatExchangers.BaseClasses.RayleighNumber rayleighNumber(ChaLen=
         0.1, redeclare package Medium =

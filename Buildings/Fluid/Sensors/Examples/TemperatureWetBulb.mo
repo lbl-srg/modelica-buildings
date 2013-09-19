@@ -1,7 +1,6 @@
 within Buildings.Fluid.Sensors.Examples;
 model TemperatureWetBulb "Test model for the wet bulb temperature sensor"
   extends Modelica.Icons.Example;
-  import Buildings;
  package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model"
            annotation (choicesAllMatching = true);
     Modelica.Blocks.Sources.Ramp p(

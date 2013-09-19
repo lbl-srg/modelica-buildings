@@ -1,7 +1,6 @@
 within Buildings.Controls.Continuous.Examples;
 model LimPID "Test model for PID controller with optional reverse action"
   extends Modelica.Icons.Example;
-  import Buildings;
 
   Modelica.Blocks.Sources.Pulse pulse(period=0.25)
     annotation (Placement(transformation(extent={{-80,30},{-60,50}},rotation=0)));

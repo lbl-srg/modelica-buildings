@@ -13,10 +13,16 @@ LIBHOME=os.path.abspath(".")
 # List of invalid strings
 # Regarding the strings __Dymola_*, see https://trac.modelica.org/Modelica/ticket/786
 # for possible replacements.
-INVALID_IN_ALL=["fixme", "import \"", "<h1", "<h2", "<h3", "todo", "xxx", "tt>", 
+INVALID_IN_ALL=["fixme", "import \"", 
+                "import Buildings;", 
+                "<h1", "<h2", "<h3", "todo", "xxx", "tt>",
                 "realString", "integerString", "structurallyIncomplete",
                 "preferedView", "Algorithm=", "Diagram,", "DocumentationClass",
                 "Modelica.Icons.Info;",
+                "modelica:Buildings",
+                "Modelica:Buildings",
+                "modelica:Modelica",
+                "Modelica:Modelica",
                 "__Dymola_absoluteValue",
                 "__Dymola_checkBox",
                 "__Dymola_choicesAllMatching",

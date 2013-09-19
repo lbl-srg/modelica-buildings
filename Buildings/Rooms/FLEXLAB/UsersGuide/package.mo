@@ -14,7 +14,7 @@ package UsersGuide "User's Guide"
   <p>
   FLEXLAB models are made based on architectural drawings of individual
   rooms. The room models are located in the
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms\">
   Buildings.Rooms.FLEXLAB.Rooms</a> package. The intent is that simulations of 
   FLEXLAB test cells are created by connecting the necessary room models 
   for the desired application.
@@ -23,15 +23,15 @@ package UsersGuide "User's Guide"
   The wall and window constructions in the models match the walls
   and windows installed during the intial FLEXLAB construction. The data records for
   walls can be found in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions\">
   Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions</a>. The data
   records for glazing systems can be found in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems\">
   Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems</a>.
   </p>
   <p>
   One example demonstrating the use of FLEXLAB models is
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.
   The example  is made assuming that the shading position controls, internal 
   gains, air handlers, and central plant do not need detailed models. Instead it 
@@ -47,10 +47,10 @@ package UsersGuide "User's Guide"
   of a model may be necessary.
   </p>
   <p>
-  All FLEXLAB room models are created by extending the <a href=\"modelica:Buildings.Rooms.MixedAir\">
+  All FLEXLAB room models are created by extending the <a href=\"modelica://Buildings.Rooms.MixedAir\">
   Buildings.Rooms.MixedAir</a> model. This model contains several ports which must be used to describe
   the heat transfer into and out of the space. The ports are described both here and in the documentation
-  for <a href=\"modelica:Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>. The following table
+  for <a href=\"modelica://Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>. The following table
   describes the available ports:
   </p>
   <table border = \"1\" summary=\"Description of ports in FLEXLAB models\">
@@ -110,7 +110,7 @@ package UsersGuide "User's Guide"
   </table>
   <p>
   For an example demonstrating how many of these ports are used, see 
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.
   </p>  
   <h4>Future Work</h4>
@@ -138,12 +138,12 @@ package UsersGuide "User's Guide"
   must be checked include: disPip, m_flow_nominal, iLayPip,
   construction for pipe, fluid flowing through the slab</li>
   <li>Check available air and water flow sensors. The example model
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>
   assumes that several temperature and flow measurements are available.
   Are they? If not, how does the model need to be changed?</li>
   <li>Ventilation assumptions used in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>  
   include zero ACH in the electrical room overnight. Probably not realistic. Electrical
   equipment will need cooling overnight. Try to estimate convective heat gains from
@@ -151,7 +151,7 @@ package UsersGuide "User's Guide"
   realistic.</li>
   <li>The specific construction information for the roofs is not currently available 
   (9/5/13). Roof construction packages in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Data.Constructions\">
   Buildings.Rooms.FLEXLAB.Data.Constructions</a> are based on comments on A2.01 in the
   drawings. These constructions should be revisited when detailed information is
   available. There is currently no construction for test cell UF90XR-B because the

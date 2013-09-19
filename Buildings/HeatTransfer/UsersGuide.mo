@@ -6,7 +6,7 @@ package UsersGuide "User's Guide"
 The package <code>Buildings.HeatTransfer</code> consists of models
 for heat transfer.
 The models have the same interface as models of the package
-<a href=\"Modelica:Modelica.Thermal.HeatTransfer\">Modelica.Thermal.HeatTransfer</a>.
+<a href=\"modelica://Modelica.Thermal.HeatTransfer\">Modelica.Thermal.HeatTransfer</a>.
 <br/>
 
 <p>

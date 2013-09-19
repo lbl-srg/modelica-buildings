@@ -1,7 +1,6 @@
 within Buildings.HeatTransfer.Windows;
 model SideFins
   "For a window with side fins, outputs the fraction of the window area exposed to the sun"
-  import Buildings;
   extends Buildings.Rooms.BaseClasses.SideFins;
   extends Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus;
   Buildings.HeatTransfer.Windows.BaseClasses.SideFins fin(

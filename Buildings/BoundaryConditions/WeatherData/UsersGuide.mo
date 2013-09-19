@@ -31,7 +31,7 @@ On a console window, type<pre>
 </pre>
 This will generate the weather data file <code>inputFile.mos</code>, which can be read
 by the model
-<a href=\"modelica:Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
 Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
 </li>
 </ol>

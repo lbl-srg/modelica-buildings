@@ -2,7 +2,6 @@ within Buildings.Fluid.HeatExchangers.Examples;
 model WetCoilDiscretizedPControl
   "Model that demonstrates use of a finite volume model of a heat exchanger with condensation and feedback control"
   extends Modelica.Icons.Example;
-  import Buildings;
 
   package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
   package Medium2 = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;

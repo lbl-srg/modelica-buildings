@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Examples;
 model SpaceCooling "Space cooling with DX coils"
-  import Buildings;
   extends Modelica.Icons.Example;
   replaceable package Medium =
       Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;

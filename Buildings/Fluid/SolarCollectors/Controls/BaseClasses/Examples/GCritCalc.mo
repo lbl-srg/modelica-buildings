@@ -1,6 +1,5 @@
 within Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples;
 model GCritCalc "Example showing the use of GCritCalc"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc criSol(slope=-3.764,
       y_intercept=0.602)

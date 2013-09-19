@@ -1,7 +1,6 @@
 within Buildings.Fluid.Interfaces.Examples;
 model ReverseFlowMassExchanger
   "Model that tests the reverse flow for a mass exchanger"
-  import Buildings;
   extends Modelica.Icons.Example;
 package Medium = Buildings.Media.PerfectGases.MoistAir;
   Buildings.Utilities.Diagnostics.AssertEquality assTem(threShold=1E-8,

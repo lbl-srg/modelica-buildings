@@ -1,6 +1,5 @@
 within Buildings.Rooms.Constructions.Examples;
 model ExteriorWall "Test model for an exterior wall without a window"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   Buildings.Rooms.Constructions.Construction conExt[1](

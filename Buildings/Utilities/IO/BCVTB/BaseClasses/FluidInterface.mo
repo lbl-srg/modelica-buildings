@@ -1,7 +1,6 @@
 within Buildings.Utilities.IO.BCVTB.BaseClasses;
 partial model FluidInterface
   "Partial class for fluid interface that can be coupled to BCVTB"
-  import Buildings;
   extends Buildings.BaseClasses.BaseIcon;
 
   replaceable package Medium =

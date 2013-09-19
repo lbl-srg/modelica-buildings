@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckCeilingHeight "Test model for ceiling height check"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 protected

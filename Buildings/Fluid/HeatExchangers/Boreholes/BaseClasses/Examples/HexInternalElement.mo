@@ -4,7 +4,6 @@ model HexInternalElement
   extends Modelica.Icons.Example;
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  import Buildings;
   package Medium = Buildings.Media.ConstantPropertyLiquidWater;
   Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement hex(
     redeclare package Medium = Medium,

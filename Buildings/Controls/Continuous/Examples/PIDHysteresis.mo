@@ -1,7 +1,6 @@
 within Buildings.Controls.Continuous.Examples;
 model PIDHysteresis "Example model for PID controller with hysteresis"
   extends Modelica.Icons.Example;
-  import Buildings;
 
   Buildings.Controls.Continuous.PIDHysteresis con(
     pre_y_start=false,

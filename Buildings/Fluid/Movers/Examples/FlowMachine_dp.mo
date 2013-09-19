@@ -1,6 +1,5 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachine_dp
-  import Buildings;
   extends Modelica.Icons.Example;
  extends Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow(
     gain(k=dp_nominal),

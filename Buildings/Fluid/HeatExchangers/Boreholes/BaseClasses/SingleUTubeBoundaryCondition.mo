@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses;
 model SingleUTubeBoundaryCondition
   "Prescribed temperature at the outer boundary of a single U tube borehole"
-  import Buildings;
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic matSoi
     "Thermal properties of the soil"
      annotation (choicesAllMatching=true);

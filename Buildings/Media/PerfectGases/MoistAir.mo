@@ -154,7 +154,7 @@ algorithm
 
   annotation(Inline=false,smoothOrder=5,
     Documentation(info="<html>
-Derivative function of <a href=Modelica:Modelica.Media.Air.MoistAir.saturationPressureLiquid>saturationPressureLiquid</a>
+Derivative function of <a href=modelica://Modelica.Media.Air.MoistAir.saturationPressureLiquid>saturationPressureLiquid</a>
 </html>"));
 end saturationPressureLiquid_der;
 
@@ -427,14 +427,14 @@ algorithm
      T := Internal.solve(h, TMin, TMax, p, X[1:nXi], steam);
   end if;
     annotation (Documentation(info="<html>
-Temperature is computed from pressure, specific enthalpy and composition via numerical inversion of function <a href=Modelica:Modelica.Media.Air.MoistAir.h_pTX>h_pTX</a>.
+Temperature is computed from pressure, specific enthalpy and composition via numerical inversion of function <a href=modelica://Modelica.Media.Air.MoistAir.h_pTX>h_pTX</a>.
 </html>"));
 end T_phX;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This is a medium model that is similar to 
-<a href=\"Modelica:Modelica.Media.Air.MoistAir\">
+<a href=\"modelica://Modelica.Media.Air.MoistAir\">
 Modelica.Media.Air.MoistAir</a> but it is a perfect gas, i.e., 
 it has a constant specific heat capacity.
 </p>

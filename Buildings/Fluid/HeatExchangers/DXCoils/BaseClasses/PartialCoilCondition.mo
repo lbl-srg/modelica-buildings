@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial block PartialCoilCondition
   "Partial block for dry and wet coil conditions"
-  import Buildings;
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface;
 

@@ -1,7 +1,6 @@
 within Buildings.Fluid.Sensors.Examples;
 model Density "Test model for the density sensor"
   extends Modelica.Icons.Example;
-  import Buildings;
 
   package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
     "Medium model";

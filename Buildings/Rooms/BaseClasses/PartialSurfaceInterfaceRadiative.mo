@@ -1,7 +1,6 @@
 within Buildings.Rooms.BaseClasses;
 partial model PartialSurfaceInterfaceRadiative
   "Partial model that is used for infrared radiation balance"
-  import Buildings;
   extends Buildings.Rooms.BaseClasses.PartialSurfaceInterface;
 
 protected

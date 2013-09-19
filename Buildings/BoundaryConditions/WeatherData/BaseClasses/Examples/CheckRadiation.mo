@@ -1,6 +1,5 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckRadiation "Test model for CheckRadiation"
-  import Buildings;
   extends
     Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.ConvertRadiation;
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation cheGloRad
