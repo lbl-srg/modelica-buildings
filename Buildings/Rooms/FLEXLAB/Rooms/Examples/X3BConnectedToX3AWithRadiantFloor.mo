@@ -404,7 +404,7 @@ equation
       points={{-122,162},{-122,134},{-81,134}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(airConCloA.y[1], airInCloA.m_flow_in) annotation (Line(
+  connect(airConCloA.y[2], airInCloA.m_flow_in) annotation (Line(
       points={{-126,211},{-126,198},{-130,198},{-130,182}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -412,7 +412,7 @@ equation
       points={{-126,211},{-126,184}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airConCloB.y[1], airInCloB.m_flow_in) annotation (Line(
+  connect(airConCloB.y[2], airInCloB.m_flow_in) annotation (Line(
       points={{10,209},{10,200},{6,200},{6,182}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -558,15 +558,15 @@ equation
       points={{0,-102},{0,12},{-20,12},{-20,112},{-186,112},{-186,128}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(preT.port, AClo.surf_conBou[2]) annotation (Line(
-      points={{0,-102},{0,12},{-20,12},{-20,112},{-60,112},{-60,128.5}},
+  connect(preT.port, AClo.surf_conBou[3]) annotation (Line(
+      points={{0,-102},{0,12},{-20,12},{-20,112},{-60,112},{-60,128}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airConEleB.y[4], airInEleB.T_in) annotation (Line(
       points={{176,207},{176,194},{172,194},{172,176}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airConEleB.y[1], airInEleB.m_flow_in)
+  connect(airConEleB.y[3], airInEleB.m_flow_in)
                                               annotation (Line(
       points={{176,207},{176,174}},
       color={0,0,127},
