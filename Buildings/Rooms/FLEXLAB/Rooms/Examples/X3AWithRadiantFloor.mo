@@ -1,5 +1,6 @@
 within Buildings.Rooms.FLEXLAB.Rooms.Examples;
 model X3AWithRadiantFloor "Example model showing a use of X3A"
+  import Buildings;
   extends Modelica.Icons.Example;
 
   package Air = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
@@ -23,7 +24,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     tableOnFile=true,
     tableName="airCon",
     fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
-    columns=2:5) "Inlet air conditions (y[1] = m_flow, y[2] = T)"
+    columns=2:5) "Inlet air conditions (y[1] = m_flow, y[4] = T)"
     annotation (Placement(transformation(extent={{-196,54},{-176,74}})));
   Buildings.Fluid.Sources.MassFlowSource_T airIn(
     use_m_flow_in=true,
@@ -127,7 +128,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     tableName="airCon",
     fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
     columns=2:5)
-    "Inlet air conditions for the connected electrical room (y[1] = m_flow, y[2] = T)"
+    "Inlet air conditions for the connected electrical room (y[1] = m_flow, y[4] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-58,-38})));
@@ -137,7 +138,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     tableName="airCon",
     fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
     columns=2:5)
-    "Inlet air conditions for the connected closet (y[1] = m_flow, y[2] = T)"
+    "Inlet air conditions for the connected closet (y[1] = m_flow, y[4] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-2,112})));
