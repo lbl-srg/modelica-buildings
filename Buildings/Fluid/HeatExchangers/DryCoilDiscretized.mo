@@ -42,7 +42,6 @@ model DryCoilDiscretized
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister hexReg[nReg](
-    ele(redeclare each Buildings.Fluid.MixingVolumes.MixingVolumeDryAir vol2),
     redeclare each package Medium1 = Medium1,
     redeclare each package Medium2 = Medium2,
     each final allowFlowReversal1=allowFlowReversal1,

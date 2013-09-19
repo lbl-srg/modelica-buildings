@@ -11,7 +11,8 @@ partial model FlowMachineInterface
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
     N_nominal = 1500 "Nominal rotational speed for flow characteristic"
     annotation(Dialog(group="Characteristics"));
-  final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal = pressure.V_flow[size(pressure.V_flow,1)]
+  final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
+    pressure.V_flow[size(pressure.V_flow,1)]
     "Nominal volume flow rate, used for homotopy";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
     "Volume flow rate vs. total pressure rise"
@@ -74,7 +75,7 @@ protected
     "Small pressure";
   parameter Real delta = 0.05
     "Small value used to transition to other fan curve";
-  parameter Real cBar[2](fixed=false)
+  parameter Real cBar[2](each fixed=false)
     "Coefficients for linear approximation of pressure vs. flow rate";
   parameter Modelica.SIunits.Pressure dpMax(min=0, fixed=false);
   parameter Real kRes(min=0, unit="kg/(s.m4)", fixed=false)
@@ -85,25 +86,25 @@ protected
   parameter Integer nOri = size(pressure.V_flow,1)
     "Number of data points for pressure curve";
   parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur1(
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur1(
     final n = nOri,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
   parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur2(
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur2(
    final n = nOri + 1,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
   parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur3(
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur3(
    final n = nOri + 2,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
-  parameter Real preDer1[nOri](fixed=false)
+  parameter Real preDer1[nOri](each fixed=false)
     "Derivatives of flow rate vs. pressure at the support points";
-  parameter Real preDer2[nOri+1](fixed=false)
+  parameter Real preDer2[nOri+1](each fixed=false)
     "Derivatives of flow rate vs. pressure at the support points";
-  parameter Real preDer3[nOri+2](fixed=false)
+  parameter Real preDer3[nOri+2](each fixed=false)
     "Derivatives of flow rate vs. pressure at the support points";
   parameter Real powDer[size(power.V_flow,1)]=
    if use_powerCharacteristic then
@@ -532,6 +533,11 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 17, 2013, by Michael Wetter:<br/>
+Added missing <code>each</code> keyword in declaration of parameters
+that are an array.
+</li>
 <li>
 March 20, 2013, by Michael Wetter:<br/>
 Removed assignment in declaration of <code>pCur?.V_flow</code> as

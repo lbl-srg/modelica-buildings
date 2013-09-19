@@ -132,10 +132,6 @@ for steady-state component models, i.e., instead of <code>actualStream(...)</cod
 <code>inStream(...)</code> formulation is used.
 This changed required the introduction of a new parameter <code>m_flow_nominal</code> which
 is used for smoothing in the steady-state balance equations of the model with two fluid ports.
-This implementation also simplifies the implementation of 
-<a href=\"modelica://Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort\">
-Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort</a>,
-which now uses the same equations as this model.
 </li>
 <li>
 Another revision was the removal of the parameter <code>use_HeatTransfer</code> as there is

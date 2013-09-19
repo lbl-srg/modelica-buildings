@@ -29,7 +29,8 @@ model MixingVolumeInitialization "Test model for mixing volume initialization"
     redeclare package Medium = Medium,
     V=0.1,
     nPorts=2,
-    m_flow_nominal=2)
+    m_flow_nominal=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{20,20},{40,40}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -54,5 +55,17 @@ equation
             -100},{180,100}}),      graphics),
 experiment(StopTime=0.001),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeInitialization.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This model tests the initialization of the mixing volume.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 12, 2009 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end MixingVolumeInitialization;

@@ -5,10 +5,11 @@ DuctManifoldNoResistance
 HACoilInside
 HADryCoil
 HANaturalCylinder
-HexElement
+HexElementLatent
+HexElementSensible
 MassExchange
-MassExchangeDummy
 PartialEffectiveness
+PartialHexElement
 PartialDuctManifold
 PartialDuctPipeManifold
 PartialPipeManifold

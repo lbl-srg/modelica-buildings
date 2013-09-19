@@ -58,23 +58,30 @@ protected
     final C_start=C_start,
     final C_nominal=C_nominal,
     final fluidVolume = V,
-    m(start=V*rho_nominal),
-    U(start=V*rho_nominal*Medium.specificInternalEnergy(
+    m(start=V*rho_start),
+    U(start=V*rho_start*Medium.specificInternalEnergy(
         state_start)),
     nPorts=nPorts) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
+
+  // Density at medium default values, used to compute the size of control volumes
+  parameter Modelica.SIunits.Density rho_default=Medium.density(
+    state=state_default) "Density, used to compute fluid mass"
+  annotation (Evaluate=true);
+  // Density at start values, used to compute initial values and start guesses
+  parameter Modelica.SIunits.Density rho_start=Medium.density(
+   state=state_start) "Density, used to compute start and guess values"
+  annotation (Evaluate=true);
+
+  final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
+  final parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
       T=T_start,
       p=p_start,
-      X=X_start[1:Medium.nXi]) "Start state";
-  parameter Modelica.SIunits.Density rho_nominal=Medium.density(
-   Medium.setState_pTX(
-     T=T_start,
-     p=p_start,
-     X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass"
-  annotation (Evaluate=true);
-  ////////////////////////////////////////////////////
+      X=X_start[1:Medium.nXi]) "Medium state at start values";
   final parameter Boolean useSteadyStateTwoPort=(nPorts == 2) and
       prescribedHeatFlowRate and (
       energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and (
@@ -164,6 +171,12 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 13, 2013 by Michael Wetter:<br/>
+Renamed <code>rho_nominal</code> to <code>rho_start</code>
+because this quantity is computed using start values and not
+nominal values.
+</li>
 <li>
 April 18, 2013 by Michael Wetter:<br/>
 Removed the check of multiple connections to the same element

@@ -3,7 +3,6 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput C(min=0,
-                                          nominal=Medium.C_nominal,
                                           start=C_start)
     "Trace substance of the passing fluid"
     annotation (Placement(transformation(
@@ -14,10 +13,10 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
   parameter Real C_start(min=0) = 0
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
-  Real CMed(min=0, start=C_start, nominal=Medium.C_nominal)
+  Real CMed(min=0, start=C_start, nominal=sum(Medium.C_nominal))
     "Medium trace substance to which the sensor is exposed";
 protected
-  parameter Real s[Medium.nC](fixed=false)
+  parameter Real s[Medium.nC](each fixed=false)
     "Vector with zero everywhere except where the trace substance is";
 initial algorithm
   for i in 1:Medium.nC loop
@@ -82,6 +81,12 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+September 10, 2013, by Michael Wetter:<br/>
+Corrected syntax errors in setting nominal value for output signal
+and for state variable.
+This eliminates a compilation error in OpenModelica.
+</li>
 <li>
 August 30, 2013, by Michael Wetter:<br/>
 Added default value <code>C_start=0</code>.

@@ -209,10 +209,6 @@ model SpaceCooling "Space cooling with DX coils"
     dp2_nominal=200,
     eps=eps) "Heat recovery"
     annotation (Placement(transformation(extent={{-112,-256},{-92,-236}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax=1, uMin=0) "Output limiter"
-    annotation (Placement(transformation(extent={{-40,-220},{-20,-200}})));
-  Modelica.Blocks.Math.Feedback feedback
-    annotation (Placement(transformation(extent={{-80,-220},{-60,-200}})));
   Modelica.Blocks.Continuous.Integrator sinSpePow(y(unit="J"))
     "Power consumed by single speed coil"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
@@ -224,6 +220,12 @@ model SpaceCooling "Space cooling with DX coils"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
   Modelica.Blocks.Logical.Not not1
     annotation (Placement(transformation(extent={{-38,2},{-18,22}})));
+  Buildings.Controls.Continuous.LimPID conVarSpe(
+    controllerType=Modelica.Blocks.Types.SimpleController.P,
+    Ti=1,
+    Td=1,
+    reverseAction=true) "Controller for variable speed DX coil"
+    annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
 equation
   connect(out.ports[1], hex.port_a1) annotation (Line(
       points={{-154,-62.6667},{-125,-62.6667},{-125,-64},{-110,-64}},
@@ -569,23 +571,6 @@ equation
       points={{81,10},{92,10},{92,-212},{107.8,-212},{107.8,-228}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(feedback.u1, rooVarSpe.TRoo) annotation (Line(
-      points={{-78,-210},{-120,-210},{-120,-190},{280,-190},{280,52.3077},{
-          260.933,52.3077}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TRooSetPoi.y, feedback.u2) annotation (Line(
-      points={{-99,18},{-86,18},{-86,-222},{-70,-222},{-70,-218}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(feedback.y, limiter.u) annotation (Line(
-      points={{-61,-210},{-42,-210}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(limiter.y, varSpeDX.speRat) annotation (Line(
-      points={{-19,-210},{-12,-210},{-12,-232},{-5,-232}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(rooSinSpe.TOutDryBul, weaBus.TDryBul) annotation (Line(
       points={{119.067,52.3077},{100,52.3077},{100,70},{-128,70}},
       color={0,0,127},
@@ -628,6 +613,19 @@ equation
           -134.633},{-60.65,-134.633}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(TRooSetPoi.y, conVarSpe.u_s) annotation (Line(
+      points={{-99,18},{-86,18},{-86,-210},{-62,-210}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conVarSpe.u_m, rooVarSpe.TRoo) annotation (Line(
+      points={{-50,-222},{-50,-280},{280,-280},{280,52.3077},{260.933,52.3077}},
+
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conVarSpe.y, varSpeDX.speRat) annotation (Line(
+      points={{-39,-210},{-20,-210},{-20,-232},{-5,-232}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p>
 This model illustrates the use of the DX coil models with 
@@ -665,13 +663,18 @@ Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+September 13, 2013, by Michael Wetter:<br/>
+Changed control implementation of variable speed coil
+to use a proportional controller.
+</li>
+<li>
 January 11, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-300},{300,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-300},{300,
+            100}}), graphics),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/SpaceCooling.mos"
         "Simulate and plot"),

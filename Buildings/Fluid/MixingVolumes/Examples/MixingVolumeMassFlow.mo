@@ -10,7 +10,7 @@ model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
     m_flow=1,
     T=313.15) "Flow source and sink"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Sources.Boundary_pT                  bou(
+  Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
     T=303.15,
     nPorts=1) "Boundary condition"                         annotation (
@@ -44,6 +44,13 @@ equation
 <p>
 This model demonstrates the use of the mixing volume with air flowing into and out of the volume.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 12, 2009 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMassFlow.mos"
         "Simulate and plot"),

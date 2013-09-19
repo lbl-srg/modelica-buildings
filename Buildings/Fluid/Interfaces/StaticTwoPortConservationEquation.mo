@@ -14,7 +14,11 @@ model StaticTwoPortConservationEquation
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
   // Outputs that are needed in models that extend this model
-  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg")
+  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
+                                             start=Medium.specificEnthalpy_pTX(
+                                                     p=Medium.p_default,
+                                                     T=Medium.T_default,
+                                                     X=Medium.X_default))
     "Leaving temperature of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -44,23 +48,16 @@ protected
   Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
 
-  // Parameters that are used to construct the vector mXi_flow
-  parameter Integer i_w(min=1, fixed=false) "Index for water substance";
+  // Parameters that is used to construct the vector mXi_flow
   final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
                                             string2="Water",
                                             caseSensitive=false)
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
-initial algorithm
-  i_w:= -1;
-  for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
-                                            string2="Water",
-                                            caseSensitive=false) then
-      i_w := i;
-      end if;
-   end for;
-    assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
+
+initial equation
+  // Assert that the substance with name 'water' has been found.
+  assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
       "If Medium.nXi > 1, then substance 'water' must be present for one component.'"
          + Medium.mediumName + "'.\n"
          + "Check medium model.");
@@ -179,6 +176,13 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 17, 2013 by Michael Wetter:<br/>
+Added start value for <code>hOut</code>.
+</li>
+<li>September 10, 2013 by Michael Wetter:<br/>
+Removed unrequired parameter <code>i_w</code>.
+</li>
 <li>
 May 7, 2013 by Michael Wetter:<br/>
 Removed <code>for</code> loops for species balance and trace substance balance, 
