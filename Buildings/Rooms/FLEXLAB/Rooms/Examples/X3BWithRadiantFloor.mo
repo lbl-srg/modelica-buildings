@@ -115,9 +115,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     redeclare package Medium = Air,
     nPorts=2) "Model of the closet"
     annotation (Placement(transformation(extent={{156,92},{196,132}})));
-  Modelica.Blocks.Sources.CombiTimeTable TNei(    tableOnFile=false, table=[0,
-        293.15; 86400,293.15])
-    "Temperature of the neighboring test cell (y[1] = X3A)"
+  Modelica.Blocks.Sources.CombiTimeTable TNei(    tableOnFile=false, table=[0,293.15;
+        86400,293.15]) "Temperature of the neighboring test cell (y[1] = X3A)"
     annotation (Placement(transformation(extent={{110,-124},{90,-104}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiEle(
     table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)
@@ -323,12 +322,22 @@ equation
           <p>
           This model demonstrates one potential simulation using the models available in
           <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B\">
-          Buildings.Rooms.FLEXLAB.Rooms.X3B</a>. Aside from switching models of rooms in
-          test cell X3A with models of rooms in test cell X3B, this model is identical to
-          <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+          Buildings.Rooms.FLEXLAB.Rooms.X3B</a>. This model is nearly identical to
+          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
           Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>. For a description
-          of the connections and reasons behind them see that example.
+          of most of the connections and reasons behind them see that example. The changes
+          to make this example model are:
           </p>
+          <ul>
+          <li>The room models were changed from X3A models to X3B models.</li>
+          <li><a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell\">
+          Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell</a> has one external wall which was a dividing 
+          wall in <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
+          Buildings.Rooms.FLEXLAB.Rooms.X3A</a>. Because of this, a few construction indexes
+          changed. Connections were made according to the list in 
+          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B\">
+          Buildings.Rooms.FLEXLAB.Rooms.X3B</a>.</li>
+          </ul>
           </html>",
           revisions = "<html>
           <ul>
@@ -336,7 +345,6 @@ equation
           First implementation.</li>
           </ul>
           </html>"),
-     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3BWithRadiantFloor.mos"
+     __Dymola_Commands(file="Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3BWithRadiantFloor.mos"
         "Simulate and Plot"));
 end X3BWithRadiantFloor;
