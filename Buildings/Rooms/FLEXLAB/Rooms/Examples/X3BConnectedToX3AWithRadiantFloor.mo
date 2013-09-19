@@ -244,8 +244,7 @@ model X3BConnectedToX3AWithRadiantFloor
     m_flow_nominal=0.504) "Radiant slab connected to test cell X3B"
     annotation (Placement(transformation(extent={{102,-84},{122,-64}})));
 
-  Modelica.Blocks.Sources.CombiTimeTable watCon(
-                                              tableOnFile=false, table=[0,0.504,
+  Modelica.Blocks.Sources.CombiTimeTable watConB(tableOnFile=false, table=[0,0.504,
         293.15; 86400,0.504,293.15])
     "Inlet water conditions for radiant slab connected to X3B (y[1] = m_flow, y[2] =  T)"
     annotation (Placement(transformation(extent={{14,-80},{34,-60}})));
@@ -515,12 +514,12 @@ equation
       points={{76,-74},{102,-74}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(watCon.y[1], watInB.m_flow_in)
+  connect(watConB.y[1], watInB.m_flow_in)
                                         annotation (Line(
       points={{35,-70},{46,-70},{46,-66},{56,-66}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(watCon.y[2], watInB.T_in)
+  connect(watConB.y[2], watInB.T_in)
                                    annotation (Line(
       points={{35,-70},{54,-70}},
       color={0,0,127},
@@ -581,5 +580,52 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
             -300},{300,300}}), graphics), Commands(file="Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3BConnectedToX3AWithRadiantFloor.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+        Documentation(info="<html>
+        <p>
+        This example models demonstrates how the <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
+        Buildings.Rooms.FLEXLAB.Rooms.X3A</a> and <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B\">
+        Buildings.Rooms.FLEXLAB.Rooms.X3B</a> test cell models can be combined to form a simulation of test 
+        bed X3. The example is primarily a combination of
+        <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+        Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a> and
+        <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor\">        
+        Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor</a>. The example
+        <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+        Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a> contains detailed
+        documentation on these models. Some small changes were necessary to create the model of the test 
+        bed correctly.
+        </p>
+        <ul>
+        <li>To make the connection between X3A and X3B possible two of the models from the X3A example were
+        replaced with models designed for connection to X3B. Specifically, 
+        <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
+        Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a> was replaced with
+        <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellNoCelDiv\">
+        Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellNoCelDiv</a> and
+        <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
+        Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a> was replaced with
+        <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetNoCelDiv\">
+        Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetNoCelDiv</a>.</li>
+        <li>Connections between the two test cells do not exist in either of the other two examples. 
+        The connections between X3A and X3B were made following the documentation available in
+        <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellNoCelDiv\">
+        Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellNoCelDiv</a> and
+        <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetNoCelDiv\">
+        Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetNoCelDiv</a>.</li>
+        <li>The data reader models in this example function in the same manner as in the
+        other two examples, but their names had to be changed to avoid using the same name
+        for multiple models in this example. Their names now contain a suffix describing the test
+        cell they're connected to. For example, \"airConA\" is connected to test cell X3A and 
+        \"shaPosB\" is connected to test cell X3B.</li>
+        <li>TNei now only contains a temperature for test cell X2B. A temperature input for X3B
+        is not needed because that test cell is now included in the model.</li>
+        </ul>        
+        </html>",
+        revisions="<html>
+        <ul>
+        <li>Sep 19, 2013 by Peter Grant:<br/>
+        First implementation.</li>
+        </ul>
+        </html>"));
 end X3BConnectedToX3AWithRadiantFloor;
