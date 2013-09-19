@@ -1,6 +1,5 @@
 within Buildings.Examples.ChillerPlant.BaseClasses.Controls;
 block TrimAndRespondContinuousTimeApproximation "Trim and respond logic"
-  import Buildings;
   extends Modelica.Blocks.Interfaces.SISO;
 
   Buildings.Controls.Continuous.LimPID conPID(

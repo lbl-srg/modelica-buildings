@@ -1,7 +1,6 @@
 within Buildings.HeatTransfer.Windows.Functions;
 function devAbsExteriorIrradiationInteriorShading
   "Angular and hemispherical absorptance of a shading device for exterior irradiation with interior shading"
-  import Buildings;
   extends
     Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation;
 

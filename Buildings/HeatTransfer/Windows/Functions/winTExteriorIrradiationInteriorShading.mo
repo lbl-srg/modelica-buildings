@@ -1,7 +1,6 @@
 within Buildings.HeatTransfer.Windows.Functions;
 function winTExteriorIrradiationInteriorShading
   "Angular and hemispherical transmittance of a window system (glass and shading device) for exterior irradiation with interior shading"
-  import Buildings;
   extends
     Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation;
 

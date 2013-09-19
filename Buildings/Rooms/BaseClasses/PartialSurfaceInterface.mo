@@ -1,7 +1,6 @@
 within Buildings.Rooms.BaseClasses;
 partial model PartialSurfaceInterface
   "Partial model that is used for infrared radiation balance"
-  import Buildings;
   extends Buildings.Rooms.BaseClasses.ConstructionRecords;
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExt[NConExt]

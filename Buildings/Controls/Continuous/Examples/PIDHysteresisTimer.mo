@@ -2,7 +2,6 @@ within Buildings.Controls.Continuous.Examples;
 model PIDHysteresisTimer
   "Example model for PID controller with hysteresis and timer"
   extends Modelica.Icons.Example;
-  import Buildings;
 
   Buildings.Controls.Continuous.PIDHysteresisTimer con(
     yMin=0.3,

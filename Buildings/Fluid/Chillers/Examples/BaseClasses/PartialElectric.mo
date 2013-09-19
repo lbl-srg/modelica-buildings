@@ -1,7 +1,6 @@
 within Buildings.Fluid.Chillers.Examples.BaseClasses;
 partial model PartialElectric
   "Base class for test model of chiller electric EIR"
-  import Buildings;
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
  package Medium2 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 

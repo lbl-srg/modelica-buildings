@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.GasesConstantDensity.SimpleAir;

@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model MassExchange
   "Block to compute the latent heat transfer based on the Lewis number"
-  import Buildings;
   extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Fluid medium model"

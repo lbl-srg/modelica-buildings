@@ -1,6 +1,5 @@
 within Buildings.Fluid.SolarCollectors.Examples;
 model Tubular "Example showing the use of Tubular"
-  import Buildings;
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
     "Medium in the system";

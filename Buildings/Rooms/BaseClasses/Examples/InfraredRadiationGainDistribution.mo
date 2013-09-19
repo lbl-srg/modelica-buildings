@@ -4,7 +4,6 @@ model InfraredRadiationGainDistribution
   extends Modelica.Icons.Example;
   extends
     Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation;
-  import Buildings;
   Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution irRadGai(
     nConExt=nConExt,
     nConExtWin=nConExtWin,

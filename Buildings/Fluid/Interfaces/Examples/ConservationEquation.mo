@@ -1,6 +1,5 @@
 within Buildings.Fluid.Interfaces.Examples;
 model ConservationEquation "Model that tests the conservation equation"
-  import Buildings;
 extends Modelica.Icons.Example;
  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
   Buildings.Fluid.Interfaces.ConservationEquation dyn(redeclare package Medium

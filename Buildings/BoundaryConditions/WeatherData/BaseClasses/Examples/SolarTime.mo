@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model SolarTime "Test model for solar time"
   extends Modelica.Icons.Example;
-  import Buildings;
   Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(

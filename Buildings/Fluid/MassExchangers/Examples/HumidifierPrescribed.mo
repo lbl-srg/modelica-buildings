@@ -1,6 +1,5 @@
 within Buildings.Fluid.MassExchangers.Examples;
 model HumidifierPrescribed "Model that demonstrates the ideal humidifier model"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;

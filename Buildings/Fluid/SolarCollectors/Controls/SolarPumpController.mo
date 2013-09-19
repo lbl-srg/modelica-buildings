@@ -1,7 +1,6 @@
 within Buildings.Fluid.SolarCollectors.Controls;
 model SolarPumpController
   "Controller which activates a circulation pump when solar radiation is above a critical level"
-  import Buildings;
   extends Modelica.Blocks.Interfaces.BlockIcon;
 
   parameter Real delY(final unit = "W/m2") = 0.01

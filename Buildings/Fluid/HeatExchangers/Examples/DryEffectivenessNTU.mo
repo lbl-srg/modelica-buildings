@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model DryEffectivenessNTU
   "Model that demonstrates use of a heat exchanger without condensation that uses the epsilon-NTU relation"
-  import Buildings;
   extends Modelica.Icons.Example;
 
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;

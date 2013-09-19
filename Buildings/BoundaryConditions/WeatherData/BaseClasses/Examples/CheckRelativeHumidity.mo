@@ -1,6 +1,5 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckRelativeHumidity "Test model for CheckRelativeHumidity"
-  import Buildings;
   extends
     Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.ConvertRelativeHumidity;
 

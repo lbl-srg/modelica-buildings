@@ -1,7 +1,6 @@
 within Buildings.Fluid.Sensors.Examples;
 model Pressure "Test model for the pressure sensor"
   extends Modelica.Icons.Example;
-  import Buildings;
 
   package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
     "Medium model";

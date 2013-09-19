@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model HANaturalCylinder "Test model for natural convection outside of a coil"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder hANatCyl(redeclare
       package Medium =

@@ -1,7 +1,6 @@
 within Buildings.Fluid.MixingVolumes.Examples;
 model MixingVolumeMoistAir
   extends Modelica.Icons.Example;
-  import Buildings;
 
   package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
 

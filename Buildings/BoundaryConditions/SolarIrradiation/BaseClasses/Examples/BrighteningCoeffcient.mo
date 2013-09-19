@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples;
 model BrighteningCoeffcient "Test model for brightening coeffcients"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zen(lat=
         0.6457718232379)
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));

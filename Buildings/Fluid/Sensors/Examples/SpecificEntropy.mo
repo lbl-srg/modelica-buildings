@@ -1,7 +1,6 @@
 within Buildings.Fluid.Sensors.Examples;
 model SpecificEntropy "Test model for the entropy flow rate sensors"
   extends Modelica.Icons.Example;
-  import Buildings;
 
   package Medium = Buildings.Media.IdealGases.SimpleAir "Medium model";
 

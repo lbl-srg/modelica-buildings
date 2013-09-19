@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses;
 partial model PartialStaticTwoPortCoolingTower
   "Base class for test models of cooling towers"
-  import Buildings;
 
  package Medium_W = Buildings.Media.ConstantPropertyLiquidWater;
 

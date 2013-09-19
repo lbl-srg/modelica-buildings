@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Windows.Examples;
 model Overhang "This example tests the window overhang model"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"

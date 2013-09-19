@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model SpeedSelect "Test model for speed select"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect speSel(
     nSta=datCoi.nSta,

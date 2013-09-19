@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses;
 model PartialStaticTwoPortCoolingTowerWetBulb
   "Partial test model for cooling tower with wet bulb temperature as potential for heat transfer"
-  import Buildings;
   extends PartialStaticTwoPortCoolingTower(exp(redeclare package Medium =
           Medium_W));
  package Medium_A = Buildings.Media.PerfectGases.MoistAir;

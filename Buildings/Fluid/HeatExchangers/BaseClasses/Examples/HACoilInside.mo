@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model HACoilInside "Test model for HACoilInside"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.Sine sine(

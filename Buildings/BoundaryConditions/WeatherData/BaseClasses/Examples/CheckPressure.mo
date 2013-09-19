@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckPressure "Test model for pressure check"
   extends Modelica.Icons.Example;
-  import Buildings;
 
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckPressure chePre
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
