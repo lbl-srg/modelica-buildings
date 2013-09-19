@@ -100,10 +100,10 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   <tr>
   <td>4</td>
   <td>East exterior door and wall</td>
-  <td>Door: datConExt[3]<br/>
-  Wall: datConExt[2]</td>
-  <td>  Door: eleExt<br/>
-  Wall: extDooUn</td>
+  <td>  Wall: datConExt[2]<br/>
+  Door: datConExt[3]</td>
+  <td>  Wall: eleExt<br/>
+  Door: extDooUn</td>
   </tr>
   </table>
   <p>

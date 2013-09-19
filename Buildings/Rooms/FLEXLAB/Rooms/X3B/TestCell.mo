@@ -75,7 +75,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   <p>
   This is a model for test cell 3B in the LBNL User Facility. This model is intended to represent 
   the main space in test cell 3B. This documentation describes the wall constructions used to model
-  test cell X3A. Documentation describing how it is to be combined to other room models to create
+  test cell X3B. Documentation describing how it is to be combined to other room models to create
   a model of the full test cell can be found in
   <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3B\">Buildings.Rooms.FLEXLAB.Rooms.X3B</a>.
   </p>
@@ -117,7 +117,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   <td>4</td>
   <td>North partition wall separating X3B and the closet</td>
   <td>Wall: datConBou[2]<br/>
-  Door: datConBou[2]</td>
+  Door: datConBou[3]</td>
   <td>Wall: parCon<br/>
   Door: parDoo</td>
   </tr>
@@ -161,7 +161,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   <tr>
   <td>surf_conBou[1]</td>
   <td>Temperature of test cell X3A</td>
-  <td>X3A.TestCell.surf_conBou[2]</td>
+  <td>X3A.TestCellNoCelDiv.surf_surBou[2]</td>
   </tr> 
   </table> 
   </html>",

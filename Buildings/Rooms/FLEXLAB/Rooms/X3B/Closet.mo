@@ -113,7 +113,7 @@ model Closet "Model of the closet connected to test cell X3A"
     <p>
     There are two additional surfaces which are not included in the diagram. One is the model of the roof. It is 
     modeled in datConExt[2] using the layer <code>roo</code>. The other is the floor, which is modeled in 
-    datConBou[1] using the layer <code>slaCon</code>.
+    datConBou[3] using the layer <code>slaCon</code>.
     </p>
     <p>
     Several of the connections in this model are intended to be connected to specific surfaces in other room models.
