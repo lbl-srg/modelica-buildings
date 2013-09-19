@@ -26,7 +26,7 @@ algorithm
     Documentation(info="<html>
 <p>
 Derivative of function 
-<a href=\"modelica:Buildings.Utilities.Psychrometrics.Functions.pW_X\">
+<a href=\"modelica://Buildings.Utilities.Psychrometrics.Functions.pW_X\">
 Buildings.Utilities.Psychrometrics.Functions.pW_X</a>.
 </p>
 </html>", revisions="<html>

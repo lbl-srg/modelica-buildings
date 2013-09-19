@@ -88,9 +88,9 @@ equation
     Documentation(info="<html>
       <p>
         This example models a tubular solar thermal collector. It uses the 
-        <a href=\"modelica:Buildings.Fluid.SolarCollectors.ASHRAE93\">
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\">
         Buildings.Fluid.SolarCollectors.ASHRAE93</a> model and references
-        data in the <a href=\"modelica:Buildings.Fluid.SolarCollectors.Data.Tubular\">
+        data in the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.Tubular\">
         Buildings.Fluid.SolarCollectors.Data.Tubular</a> package.
       </p>
     </html>",

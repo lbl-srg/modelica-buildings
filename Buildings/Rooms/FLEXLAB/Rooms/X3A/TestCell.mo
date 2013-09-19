@@ -77,27 +77,27 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   annotation(Documentation(info="<html>
   <p>
   This is a model for test cell 3A in the LBNL User Facility. The model is based on 
-  <a href=\"modelica:Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>. The model
+  <a href=\"modelica://Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>. The model
   was built using construction and parameter information taken from architectural
   drawings. This model is intended to represent the main space in test cell 3A. Other 
   models are provided for adjacent rooms. Accurate use of this model will likely 
   require the addition of 
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
   Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a> and
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical\">
   Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical</a>. The documentation
   for these models describes how the models are intended to be connected. An example of 
   how they can be connected and applied is provided in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.
   </p>
   <p>
   Constructions used to describe the walls used in test cell X3A are available in 
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions\">
   Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions</a>. All wall 
   construction models are made using information from architectural drawings. Constructions
   used to describe the windows are available in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems\">
   Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems</a>. Window models are based on
   information available in the construction specifications.
   </p>
@@ -148,7 +148,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   <td>4</td>
   <td>This north wall borders an electrical room. It models the heat transfer between test cell
   X3A and the externally modeled electrical room. For an example see
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.</td>
   <td>datConBou[5]</td>
   <td>R52Wal</td>
@@ -156,7 +156,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   <tr>
   <td>5</td>
   <td>This north wall borders an externally modeled closet. For an example see 
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>. Similar to wall section 
   3 this wall section contains both a wall construction and a door construction. The wall area
   calculation shows the total wall area minus the door area.</td>
