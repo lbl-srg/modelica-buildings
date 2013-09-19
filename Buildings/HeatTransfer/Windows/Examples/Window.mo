@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Windows.Examples;
 model Window "Test model for the window"
-  import Buildings;
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Area A=1 "Window surface area";
   parameter Real fFra=0.2

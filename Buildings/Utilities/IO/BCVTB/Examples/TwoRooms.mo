@@ -1,7 +1,6 @@
 within Buildings.Utilities.IO.BCVTB.Examples;
 model TwoRooms
   "Thermal model of two rooms that will be linked to the BCVTB which models the controls"
-  import Buildings;
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Time tau = 2*3600 "Room time constant";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nom = 100 "Nominal heat flow";

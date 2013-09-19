@@ -4,7 +4,6 @@ model AirHeatMassBalance "Test model for air heat and mass balance"
   extends
     Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation(
     nConExt=1, nConExtWin=0, nConBou=0, nSurBou=0, nConPar=0);
-  import Buildings;
 
   Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed air(
     nConExt=nConExt,

@@ -1,6 +1,5 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachineParallel_y "Test model for two flow machines in parallel"
-  import Buildings;
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 

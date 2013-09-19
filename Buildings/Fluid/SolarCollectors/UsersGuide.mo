@@ -5,7 +5,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   annotation(preferredView="info",
   Documentation(info="<html>
   <p>
-  The package <a href=\"modelica:Buildings.Fluid.SolarCollectors\">
+  The package <a href=\"modelica://Buildings.Fluid.SolarCollectors\">
   Buildings.Fluid.SolarCollectors</a> contains models used for 
   simulation of solar thermal systems. Top-level models are 
   available for solar collectors based on the ASHRAE93 and EN12975 test protocols. 

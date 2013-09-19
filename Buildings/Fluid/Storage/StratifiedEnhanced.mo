@@ -47,7 +47,7 @@ dissipation.
 The correction uses a third order upwind scheme to compute the 
 outlet temperatures of the segments in the tank. This model
 is implemented in
-<a href=\"modelica:Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
+<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
 Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </p>
 <h4>Limitations</h4>
@@ -73,7 +73,7 @@ this model can lead to a large overshoot in tank temperatures, leading to a viol
 second law.
 In this revision, the model that computes the volume outlet temperatures has been changed to a third order upwind scheme,
 which is implemented in
-<a href=\"modelica:Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
+<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
 Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </li>
 <li>

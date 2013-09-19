@@ -1,6 +1,5 @@
 within Buildings.Fluid.Movers.Examples.BaseClasses;
 model ControlledFlowMachine
-  import Buildings;
 
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 

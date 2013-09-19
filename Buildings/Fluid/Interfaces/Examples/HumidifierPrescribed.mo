@@ -1,6 +1,5 @@
 within Buildings.Fluid.Interfaces.Examples;
 model HumidifierPrescribed
-  import Buildings;
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;

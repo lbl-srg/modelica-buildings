@@ -15,7 +15,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
     Documentation(info="<html>
 <p>
 This example tests the function
-<a href=\"modelica:Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.factorial\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.factorial\">
 Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.factorial</a>.
 </p>
 </html>", revisions="<html>

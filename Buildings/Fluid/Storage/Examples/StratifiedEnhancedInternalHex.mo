@@ -1,7 +1,6 @@
 within Buildings.Fluid.Storage.Examples;
 model StratifiedEnhancedInternalHex
   "Example showing the use of StratifiedEnhancedInternalHex"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.ConstantPropertyLiquidWater

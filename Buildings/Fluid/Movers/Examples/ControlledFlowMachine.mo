@@ -1,6 +1,5 @@
 within Buildings.Fluid.Movers.Examples;
 model ControlledFlowMachine
-  import Buildings;
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine(
     fan4(addPowerToMedium=false, filteredSpeed=false),

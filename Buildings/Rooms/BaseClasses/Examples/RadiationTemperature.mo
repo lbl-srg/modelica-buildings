@@ -9,7 +9,6 @@ model RadiationTemperature "Test model for the radiation temperature"
     bouConPar_b(each T=291.15),
     bouConBou(each T=295.15),
     bouSurBou(each T=296.15));
-  import Buildings;
 
   Buildings.Rooms.BaseClasses.RadiationTemperature radTem(
     nConExt=nConExt,

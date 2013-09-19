@@ -1,7 +1,6 @@
 within Buildings.Fluid.Storage.Examples;
 model ExpansionVessel "Test model for expansion vessel"
   extends Modelica.Icons.Example;
-  import Buildings;
 
 // package Medium = Modelica.Media.Water.WaterIF97OnePhase_ph "Medium model";
  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";

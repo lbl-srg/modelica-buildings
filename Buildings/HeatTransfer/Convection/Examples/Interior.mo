@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Convection.Examples;
 model Interior "Test model for convective heat transfer coefficients"
-  import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp step(
     duration=1,

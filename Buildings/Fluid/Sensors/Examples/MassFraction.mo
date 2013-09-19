@@ -1,7 +1,6 @@
 within Buildings.Fluid.Sensors.Examples;
 model MassFraction "Test model for the mass fraction sensor"
   extends Modelica.Icons.Example;
-  import Buildings;
 
   package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
     "Medium model";

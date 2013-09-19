@@ -1,6 +1,5 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachineFeedbackControl "Flow machine with feedback control"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;

@@ -42,7 +42,7 @@ This component generates a time signal by using the simulation time.
 The model is used to allow the simulation to start from any
 time without having to set the parameters for the clock, as
 would be necessairy for the model
-<a href=\"modelica:Modelica.Blocks.Sources.Clock\">
+<a href=\"modelica://Modelica.Blocks.Sources.Clock\">
 Modelica.Blocks.Sources.Clock</a>.
 </p>
 </html>", revisions="<html>

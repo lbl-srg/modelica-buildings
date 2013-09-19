@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.SkyTemperature.Examples;
 model BlackBody "Test model for black body sky temperature"
   extends Modelica.Icons.Example;
-  import Buildings;
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")

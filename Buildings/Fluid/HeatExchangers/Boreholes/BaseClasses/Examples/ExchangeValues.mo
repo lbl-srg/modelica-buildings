@@ -36,7 +36,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
     Documentation(info="<html>
 <p>
 This example tests the function
-<a href=\"modelica:Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues\">
 Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues</a> by 
 assigning and reading different elements of the array.
 The assert statements check whether the returned values is correct.

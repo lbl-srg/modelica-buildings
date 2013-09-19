@@ -1,6 +1,5 @@
 within Buildings.Fluid.FixedResistances.Examples;
 model FixedResistancesParallel
-  import Buildings;
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;

@@ -2,7 +2,6 @@ within Buildings.Fluid.Movers.Examples;
 model FlowMachine_y_pumpCurves
   "Test model for pump that illustrates the pump curves"
   extends Modelica.Icons.Example;
-  import Buildings;
   package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5

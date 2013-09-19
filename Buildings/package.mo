@@ -2735,7 +2735,7 @@ of equations.
 <li>
 Added model <a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
 Buildings.Controls.Continuous.LimPID</a>, which is identical to 
-<a href=\"Modelica:Modelica.Blocks.Continuous.LimPID\">
+<a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">
 Modelica.Blocks.Continuous.LimPID</a>, except that it 
 allows reverse control action. This simplifies use of the controller
 for cooling applications.
@@ -2869,9 +2869,9 @@ Buildings.Fluid.Storage.ExpansionVessel</a>.
 <li>
 Added Wrapper function <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.solve\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.solve</a> for 
-<a href=\"Modelica:Modelica.Math.Matrices.solve\">
+<a href=\"modelica://Modelica.Math.Matrices.solve\">
 Modelica.Math.Matrices.solve</a>. This is currently needed since 
-<a href=\"Modelica:Modelica.Math.Matrices.solve\">
+<a href=\"modelica://Modelica.Math.Matrices.solve\">
 Modelica.Math.Matrices.solve</a> does not specify a 
 derivative.
 </li>
@@ -3152,7 +3152,7 @@ base class
 <a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleIdealGasMedium\">
 Buildings.Media.Interfaces.PartialSimpleIdealGasMedium</a>
  (that fixes the bugs) instead of
-<a href=\"Modelica:Modelica.Media.Interfaces.PartialSimpleIdealGasMedium\">
+<a href=\"modelica://Modelica.Media.Interfaces.PartialSimpleIdealGasMedium\">
 Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</a>.
 In the original implementation, initial states of fluid volumes can be far away from
 the steady-state value because of an inconsistent implementation of the the enthalpy

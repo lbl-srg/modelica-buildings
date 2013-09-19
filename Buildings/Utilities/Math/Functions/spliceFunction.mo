@@ -29,7 +29,7 @@ Function to provide a once continuously differentialbe transition between
 to arguments.
 </p><p>
 The function is adapted from 
-<a href=\"Modelica:Modelica.Media.Air.MoistAir.Utilities.spliceFunction\">
+<a href=\"modelica://Modelica.Media.Air.MoistAir.Utilities.spliceFunction\">
 Modelica.Media.Air.MoistAir.Utilities.spliceFunction</a> and provided here
 for easier accessability to model developers.
 </html>", revisions="<html>

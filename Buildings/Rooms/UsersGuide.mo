@@ -18,7 +18,7 @@ that are composed of the components in the package
 <a href=\"modelica://Buildings.Fluid\">
 Buildings.Fluid</a>.
 </p>
-<p>The model <a href=\"modelica:Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a> is 
+<p>The model <a href=\"modelica://Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a> is 
 a model of a room with completely mixed air.
 The room can have any number of constructions and surfaces that participate in the 
 heat exchange through convection, conduction, infrared radiation and solar radiation.</p>

@@ -1,6 +1,5 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses.Examples;
 model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
-  import Buildings;
   extends Modelica.Icons.Example;
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per=
     Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20()

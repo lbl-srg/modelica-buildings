@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model GasConvection "Test problem for convection in the gas layer"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.HeatTransfer.Windows.BaseClasses.GasConvection conVer(
     A=1,

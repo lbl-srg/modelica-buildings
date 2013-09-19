@@ -1,6 +1,5 @@
 within Buildings.Fluid.SolarCollectors.Controls.Examples;
 model SolarPumpController "Example for the solar pump controller"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Fluid.SolarCollectors.Controls.SolarPumpController
         pumCon(per=

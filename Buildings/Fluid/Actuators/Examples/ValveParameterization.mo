@@ -2,7 +2,6 @@ within Buildings.Fluid.Actuators.Examples;
 model ValveParameterization
   "Model to test and illustrate different parameterization for valves"
   extends Modelica.Icons.Example;
-  import Buildings;
 
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 

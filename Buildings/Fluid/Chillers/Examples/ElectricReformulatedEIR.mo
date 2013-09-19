@@ -2,7 +2,6 @@ within Buildings.Fluid.Chillers.Examples;
 model ElectricReformulatedEIR
   "Test model for chiller electric reformulated EIR"
   extends Modelica.Icons.Example;
-  import Buildings;
   extends Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric(
       redeclare Buildings.Fluid.Chillers.ElectricReformulatedEIR chi(per=per),
       redeclare

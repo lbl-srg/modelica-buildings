@@ -1,7 +1,6 @@
 within Buildings.HeatTransfer.Windows.Examples;
 model BoundaryHeatTransfer
   "Test model for the heat transfer at the window boundary condition"
-  import Buildings;
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Area A=1 "Window surface area";
   parameter Real fFra=0.2

@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Radiosity.Examples;
 model OpaqueSurface "Test model for indoor source as an opaque surface"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   Buildings.HeatTransfer.Sources.FixedTemperature T2(T=303.15)

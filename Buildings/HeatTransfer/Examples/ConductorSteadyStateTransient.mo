@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorSteadyStateTransient "Test model for heat conductor"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   parameter Buildings.HeatTransfer.Data.Solids.Brick brick(x=0.12, nStaRef=4)
