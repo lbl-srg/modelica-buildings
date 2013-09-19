@@ -13,9 +13,10 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
   parameter Real C_start(min=0) = 0
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
+
+protected
   Real CMed(min=0, start=C_start, nominal=sum(Medium.C_nominal))
     "Medium trace substance to which the sensor is exposed";
-protected
   parameter Real s[Medium.nC](each fixed=false)
     "Vector with zero everywhere except where the trace substance is";
 initial algorithm

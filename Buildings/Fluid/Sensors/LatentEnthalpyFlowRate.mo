@@ -2,7 +2,7 @@ within Buildings.Fluid.Sensors;
 model LatentEnthalpyFlowRate
   "Ideal enthalphy flow rate sensor that outputs the latent enthalpy flow rate only"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
-    redeclare replaceable package Medium=
+    redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases);
   extends Buildings.Fluid.BaseClasses.IndexMassFraction(final substanceName="water");
   extends Modelica.Icons.RotationalSensor;
@@ -18,11 +18,13 @@ model LatentEnthalpyFlowRate
     -Medium.enthalpyOfNonCondensingGas(T=Medium.T_default)
     "Initial or guess value of measured specific latent enthalpy"
     annotation (Dialog(group="Initialization"));
+
+protected
   Modelica.SIunits.SpecificEnthalpy hMed_out(start=h_out_start)
     "Medium latent enthalpy to which the sensor is exposed";
   Modelica.SIunits.SpecificEnthalpy h_out(start=h_out_start)
     "Medium latent enthalpy that is used to compute the enthalpy flow rate";
-protected
+
   Medium.MassFraction XiActual[Medium.nXi]
     "Medium mass fraction to which sensor is exposed to";
   Medium.SpecificEnthalpy hActual

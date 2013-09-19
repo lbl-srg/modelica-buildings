@@ -7,8 +7,7 @@ model Temperature "Ideal one port temperature sensor"
                                           min=0,
                                           displayUnit = "degC")
     "Temperature in port medium"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}}, rotation=0)));
 
 equation
   T = Medium.temperature(state=Medium.setState_phX(

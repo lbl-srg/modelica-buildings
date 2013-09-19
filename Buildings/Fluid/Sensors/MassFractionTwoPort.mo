@@ -20,9 +20,9 @@ model MassFractionTwoPort "Ideal two port mass fraction sensor"
         extent={{10,-10},{-10,10}},
         rotation=270)));
 
+protected
   Medium.MassFraction XMed(start=X_start)
     "Mass fraction to which the sensor is exposed";
-protected
   Medium.MassFraction XiVec[Medium.nXi](
       quantity=Medium.extraPropertiesNames)
     "Trace substances vector, needed because indexed argument for the operator inStream is not supported";

@@ -23,9 +23,10 @@ model DensityTwoPort "Ideal two port density sensor"
   parameter Modelica.SIunits.MassFraction X_start[Medium.nX]=Medium.X_default
     "Mass fraction used to compute d_start"
     annotation (Dialog(group="Initialization"));
+protected
   Medium.Density dMed(start=d_start)
     "Medium density to which the sensor is exposed";
-protected
+
   Medium.Density d_a_inflow "Density of inflowing fluid at port_a";
   Medium.Density d_b_inflow
     "Density of inflowing fluid at port_b, or rho_a_inflow if uni-directional flow";
