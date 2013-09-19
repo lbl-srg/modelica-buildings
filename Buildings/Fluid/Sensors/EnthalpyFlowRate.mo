@@ -15,6 +15,7 @@ model EnthalpyFlowRate "Ideal enthalphy flow rate sensor"
       X=Medium.X_default)
     "Initial or guess value of measured specific enthalpy"
     annotation (Dialog(group="Initialization"));
+protected
   Modelica.SIunits.SpecificEnthalpy hMed_out(start=h_out_start)
     "Medium enthalpy to which the sensor is exposed";
   Modelica.SIunits.SpecificEnthalpy h_out(start=h_out_start)

@@ -14,9 +14,10 @@ model TemperatureTwoPort "Ideal two port temperature sensor"
   parameter Modelica.SIunits.Temperature T_start=Medium.T_default
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
+
+protected
   Medium.Temperature TMed(start=T_start)
     "Medium temperature to which the sensor is exposed";
-protected
   Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
   Medium.Temperature T_b_inflow
     "Temperature of inflowing fluid at port_b, or T_a_inflow if uni-directional flow";
