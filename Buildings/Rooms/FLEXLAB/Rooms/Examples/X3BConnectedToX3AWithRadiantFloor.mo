@@ -557,8 +557,8 @@ equation
       points={{0,-102},{0,12},{-20,12},{-20,112},{-186,112},{-186,128}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(preT.port, AClo.surf_conBou[3]) annotation (Line(
-      points={{0,-102},{0,12},{-20,12},{-20,112},{-60,112},{-60,128}},
+  connect(preT.port, AClo.surf_conBou[2]) annotation (Line(
+      points={{0,-102},{0,12},{-20,12},{-20,112},{-60,112},{-60,128.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airConEleB.y[4], airInEleB.T_in) annotation (Line(
