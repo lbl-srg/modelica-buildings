@@ -579,7 +579,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
-            -300},{300,300}}), graphics), Commands(file="Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3BConnectedToX3AWithRadiantFloor.mos"
+            -300},{300,300}}), graphics), __Dymola_Commands(file="Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3BConnectedToX3AWithRadiantFloor.mos"
         "Simulate and Plot"),
         Documentation(info="<html>
         <p>
