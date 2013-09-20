@@ -325,16 +325,17 @@ equation
           Buildings.Rooms.FLEXLAB.Rooms.X3B</a>. This model is nearly identical to
           <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
           Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>. For a description
-          of most of the connections and reasons behind them see that example. The changes
+          of most of the connections and reasons behind them see that documentation. The changes
           to make this example model are:
           </p>
           <ul>
           <li>The room models were changed from X3A models to X3B models.</li>
           <li><a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell\">
-          Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell</a> has one external wall which was a dividing 
-          wall in <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
-          Buildings.Rooms.FLEXLAB.Rooms.X3A</a>. Because of this, a few construction indexes
-          changed. Connections were made according to the list in 
+          Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell</a> has one external wall (modeled in datConExt)
+          which was a dividing wall (modeled in datConBou) in 
+          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
+          Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a>. Because of this, a few construction indexes
+          changed. Connections were made according to the table in 
           <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B\">
           Buildings.Rooms.FLEXLAB.Rooms.X3B</a>.</li>
           </ul>

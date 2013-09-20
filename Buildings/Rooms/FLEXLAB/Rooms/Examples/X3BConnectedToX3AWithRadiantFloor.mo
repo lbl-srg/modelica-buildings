@@ -594,7 +594,7 @@ equation
         <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
         Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a> contains detailed
         documentation on these models. Some small changes were necessary to create the model of the test 
-        bed correctly.
+        bed correctly. These changes are:
         </p>
         <ul>
         <li>To make the connection between X3A and X3B possible two of the models from the X3A example were
