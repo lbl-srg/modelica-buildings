@@ -2,7 +2,6 @@ within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model ConvertRelativeHumidity
   "Test model for converting relative humidity and checking its validity"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity
     conRelHum annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Utilities.SimulationTime simTim

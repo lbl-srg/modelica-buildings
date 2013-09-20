@@ -1,6 +1,5 @@
 within Buildings.BoundaryConditions.SolarIrradiation;
 block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
-  import Buildings;
   extends
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 

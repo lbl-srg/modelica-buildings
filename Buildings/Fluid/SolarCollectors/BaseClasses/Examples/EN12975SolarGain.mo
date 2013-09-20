@@ -1,7 +1,6 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses.Examples;
 model EN12975SolarGain "Example showing the use of EN12975SolarGain"
   extends Modelica.Icons.Example;
-  import Buildings;
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per=
     Buildings.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel()
     "Performance data"

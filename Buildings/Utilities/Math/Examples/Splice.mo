@@ -1,6 +1,5 @@
 within Buildings.Utilities.Math.Examples;
 model Splice "Test model for splice"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Utilities.Math.Splice splice(deltax=0.2)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));

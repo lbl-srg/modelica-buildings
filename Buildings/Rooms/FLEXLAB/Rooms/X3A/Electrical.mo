@@ -35,27 +35,27 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   <p>
   This is a model for the electrical room connected to test cell 3A in the LBNL User Facility.
   The model is based on 
-  <a href=\"modelica:Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>. The model
+  <a href=\"modelica://Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>. The model
   was built using construction and parameter information taken from architectural
   drawings. Other models are provided for the main space of the test cell and the 
   connected closet. Accurate use of this model will likely require the addition of
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
   Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a> and
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
   Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a>. The documentation
   for these models describes the connecting walls for the spaces, as well as how they
   are intended to be connected. An example of how they can be connected and applied is 
   provided in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.  
   </p>
   <p>
   Constructions used to describe the walls used in test cell X3A are available in 
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions\">
   Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions</a>. All wall 
   construction models are made using information from architectural drawings. Constructions
   used to describe the windows are available in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems\">
   Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems</a>. Window models are based on
   information available in the construction specifications.
   </p>  

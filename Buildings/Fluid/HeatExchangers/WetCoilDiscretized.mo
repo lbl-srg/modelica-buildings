@@ -31,7 +31,7 @@ the water vapor is stored in the species concentration vector. Examples for
 such media are
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
 Buildings.Media.PerfectGases.MoistAir</a> and
-<a href=\"Modelica:Modelica.Media.Air.MoistAir\">
+<a href=\"modelica://Modelica.Media.Air.MoistAir\">
 Modelica.Media.Air.MoistAir</a>.
 </p>
 </html>", revisions="<html>

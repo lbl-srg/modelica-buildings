@@ -1,6 +1,5 @@
 within Buildings.Fluid.FixedResistances.Examples;
 model FixedResistancesExplicit "Test of multiple resistances in series"
-  import Buildings;
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.IdealGases.SimpleAir;

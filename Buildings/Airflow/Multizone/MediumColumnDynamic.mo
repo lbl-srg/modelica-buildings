@@ -184,7 +184,7 @@ walls to model a solar chimney that stores heat.
 </p>
 <p>
 For a steady-state model, use
-<a href=\"modelica:Buildings.Airflow.Multizone.MediumColumn\">
+<a href=\"modelica://Buildings.Airflow.Multizone.MediumColumn\">
 Buildings.Airflow.Multizone.MediumColumn</a> instead of this model.
 </p>
 <p>In this model, the parameter <code>h</code> must always be positive, and the port <code>port_a</code> must be

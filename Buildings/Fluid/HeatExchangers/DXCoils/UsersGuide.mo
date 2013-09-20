@@ -88,7 +88,7 @@ The dynamics of the evaporator is approximated by a first order response
 where the time constant is a model parameter. Hence, the dynamic response
 is similar to other models of the <code>Buildings.Fluid</code> package
 and described at 
-<a href=\"modelica:Buildings.Fluid.UsersGuide\">
+<a href=\"modelica://Buildings.Fluid.UsersGuide\">
 Buildings.Fluid.UsersGuide</a>.
 </p>
 <h4>Sensible heat ratio</h4>

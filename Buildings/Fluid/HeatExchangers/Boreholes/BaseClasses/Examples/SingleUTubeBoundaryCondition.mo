@@ -2,7 +2,6 @@ within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples;
 model SingleUTubeBoundaryCondition
   "Test model the temperature boundary condition of a single U tube heat exchanger"
   extends Modelica.Icons.Example;
-  import Buildings;
   parameter Modelica.SIunits.HeatFlowRate  Q_flow=-50
     "Heat flow rate extracted at center of cylinder";
   Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition

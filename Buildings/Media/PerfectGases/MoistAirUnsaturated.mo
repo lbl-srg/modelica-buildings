@@ -163,7 +163,7 @@ algorithm
 
   annotation(Inline=false,smoothOrder=5,
     Documentation(info="<html>
-Derivative function of <a href=Modelica:Modelica.Media.Air.MoistAir.saturationPressureLiquid>saturationPressureLiquid</a>
+Derivative function of <a href=modelica://Modelica.Media.Air.MoistAir.saturationPressureLiquid>saturationPressureLiquid</a>
 </html>"));
 end saturationPressureLiquid_der;
 

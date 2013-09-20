@@ -304,7 +304,7 @@ quantities are assumed to be constant.
   end molarMass;
   annotation (preferredView="info",
 Documentation(info="<html>
-This package is identical to <a href=\"Modelica:Modelica.Media.Interfaces.PartialSimpleIdealGasMedium\">
+This package is identical to <a href=\"modelica://Modelica.Media.Interfaces.PartialSimpleIdealGasMedium\">
 Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</a>
 except that the functions.
 <code>density</code>,

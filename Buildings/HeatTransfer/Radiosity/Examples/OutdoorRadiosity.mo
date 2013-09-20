@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Radiosity.Examples;
 model OutdoorRadiosity "Test model for outdoor radiosity"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.HeatTransfer.Radiosity.OpaqueSurface sur(A=A, absIR=1)
     "Receiving surface"

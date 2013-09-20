@@ -1,6 +1,5 @@
 within Buildings.Utilities.Math.Examples;
 model Bicubic "Test model for bicubic function"
-  import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x1(duration=1)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=0)));

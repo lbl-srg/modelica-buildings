@@ -1,6 +1,5 @@
 within Buildings.Fluid.SolarCollectors.Examples;
 model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
-  import Buildings;
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
     "Medium in the system";

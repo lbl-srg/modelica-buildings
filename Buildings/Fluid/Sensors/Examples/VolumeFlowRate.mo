@@ -1,7 +1,6 @@
 within Buildings.Fluid.Sensors.Examples;
 model VolumeFlowRate "Test model for the volume flow rate sensor"
   extends Modelica.Icons.Example;
-  import Buildings;
 
   package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
     "Medium model";

@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model WindowRadiation "Test model for window radiation"
-  import Buildings;
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Angle lat=0.34906585039887 "Latitude";
   parameter Modelica.SIunits.Angle azi=0 "Surface azimuth";

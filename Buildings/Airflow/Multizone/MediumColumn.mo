@@ -194,7 +194,7 @@ at the top of the column.
 </p>
 <p>
 For a steady-state model, use
-<a href=\"modelica:Buildings.Airflow.Multizone.MediumColumnDynamic\">
+<a href=\"modelica://Buildings.Airflow.Multizone.MediumColumnDynamic\">
 Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </p>
 </html>",

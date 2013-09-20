@@ -1,6 +1,5 @@
 within Buildings.Utilities.Psychrometrics.Examples;
 model TWetBul_TDryBulPhi "Model to test the wet bulb temperature computation"
-  import Buildings;
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated

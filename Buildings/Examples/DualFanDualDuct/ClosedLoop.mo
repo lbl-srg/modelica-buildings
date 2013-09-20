@@ -1,6 +1,5 @@
 within Buildings.Examples.DualFanDualDuct;
 model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   replaceable package MediumA =

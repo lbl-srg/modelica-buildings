@@ -12,9 +12,10 @@ model RelativeHumidityTwoPort "Ideal two port relative humidity sensor"
   parameter Real phi_start(unit="1", min=0, max=1)=0.5
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
+
+protected
   Real phiMed(unit="1", min=0, start=phi_start)
     "Relative humidity to which the sensor is exposed to";
-protected
   Medium.BaseProperties med_a_inflow
     "Medium state of inflowing fluid at port a";
   Medium.BaseProperties med_b_inflow

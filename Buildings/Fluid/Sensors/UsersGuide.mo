@@ -28,7 +28,7 @@ Buildings.Fluid.MixingVolumes</a>.
 Therefore, to measure for example the outlet temperature of a heat exchanger, the
 configuration on the left in the figure below should be used, and not the configuration on the right.
 For an explanation, see
-<a href=\"modelica:Modelica.Fluid.Examples.Explanatory.MeasuringTemperature\">
+<a href=\"modelica://Modelica.Fluid.Examples.Explanatory.MeasuringTemperature\">
 Modelica.Fluid.Examples.Explanatory.MeasuringTemperature</a>.
 </p>
 

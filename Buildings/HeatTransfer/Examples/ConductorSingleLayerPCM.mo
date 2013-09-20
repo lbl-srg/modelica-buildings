@@ -1,7 +1,6 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorSingleLayerPCM "Test model for heat conductor"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     "Temperature boundary condition"
     annotation (Placement(transformation(extent={{100,0},{80,20}})));

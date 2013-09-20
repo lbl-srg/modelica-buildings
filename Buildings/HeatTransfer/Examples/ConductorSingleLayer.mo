@@ -1,7 +1,6 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorSingleLayer "Test model for heat conductor"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.HeatTransfer.Conduction.SingleLayer con(A=1, material=concrete200)
          annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)

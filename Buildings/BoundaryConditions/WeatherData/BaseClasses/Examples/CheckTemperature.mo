@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckTemperature "Test model for CheckTemperature"
   extends Modelica.Icons.Example;
-  import Buildings;
 public
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
     cheTemDryBul "Check dry bulb temperature "

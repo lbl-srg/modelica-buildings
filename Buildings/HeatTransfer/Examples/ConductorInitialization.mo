@@ -1,7 +1,6 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorInitialization "Test model for heat conductor initialization"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.HeatTransfer.Sources.FixedTemperature TB(T=303.15)
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA

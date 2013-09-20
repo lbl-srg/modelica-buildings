@@ -1,7 +1,6 @@
 within Buildings.Fluid.Sources.Examples;
 model Outside_CpLowRise
   "Test model for source and sink with outside weather data and wind pressure"
-  import Buildings;
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
     "Medium model for air";

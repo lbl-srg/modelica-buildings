@@ -3,7 +3,6 @@ model InfraredRadiationExchange "Test model for infrared radiation exchange"
   extends Modelica.Icons.Example;
   extends
     Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation;
-  import Buildings;
   Buildings.Rooms.BaseClasses.InfraredRadiationExchange irRadExc(
     nConExt=nConExt,
     nConExtWin=nConExtWin,

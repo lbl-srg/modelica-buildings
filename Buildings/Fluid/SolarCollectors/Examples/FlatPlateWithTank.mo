@@ -1,7 +1,6 @@
 within Buildings.Fluid.SolarCollectors.Examples;
 model FlatPlateWithTank
   "Example showing use of the flat plate solar collector in a complete solar thermal system"
-  import Buildings;
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
     "Fluid in the storage tank";

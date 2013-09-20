@@ -1,6 +1,5 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model WallSolarAzimuth "Test model for wall solar azimuth angle"
-  import Buildings;
 extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAng(
     azi=0,

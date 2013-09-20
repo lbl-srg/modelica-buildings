@@ -12,7 +12,7 @@ package SolidsPCM
 <p>
 Generic record for phase change materials.
 The record extends from 
-<a href=\"modelica:Buildings.HeatTransfer.Data.BaseClasses.Material\">
+<a href=\"modelica://Buildings.HeatTransfer.Data.BaseClasses.Material\">
 Buildings.HeatTransfer.Data.BaseClasses.Material</a>
 and declares parameters and constants for phase change materials.
 </p>

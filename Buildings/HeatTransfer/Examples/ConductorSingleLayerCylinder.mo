@@ -2,7 +2,6 @@ within Buildings.HeatTransfer.Examples;
 model ConductorSingleLayerCylinder
   "Test model for heat conduction in a cylinder"
   extends Modelica.Icons.Example;
-  import Buildings;
   parameter Modelica.SIunits.HeatFlowRate  Q_flow=50;
   Buildings.HeatTransfer.Conduction.SingleLayerCylinder
                      con( material=concrete,

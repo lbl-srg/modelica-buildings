@@ -3,7 +3,6 @@ package Examples "Examples for BaseClasses models"
   extends Modelica.Icons.ExamplesPackage;
   model IndirectTankHeatExchanger
     "Example showing the use of IndirectTankHeatExchanger"
-    import Buildings;
     extends Modelica.Icons.Example;
 
     package Medium = Buildings.Media.ConstantPropertyLiquidWater

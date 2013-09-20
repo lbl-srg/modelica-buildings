@@ -230,7 +230,7 @@ Buildings.HeatTransfer.Convection</a>.
 </p>
 <p>
 The heat transfer of windows are not computed in this model. They are implemented in
-<a href=\"modelica:Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow\">
+<a href=\"modelica://Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow\">
 Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
 </p>
 </html>",

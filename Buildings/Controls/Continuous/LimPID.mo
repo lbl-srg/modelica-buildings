@@ -17,7 +17,7 @@ defaultComponentName="conPID",
 Documentation(info="<html>
 <p>
 This model is identical to 
-<a href=\"Modelica:Modelica.Blocks.Continuous.LimPID\">
+<a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">
 Modelica.Blocks.Continuous.LimPID</a> except
 that it can be configured to have a reverse action.
 </p>

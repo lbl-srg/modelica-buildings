@@ -1,6 +1,5 @@
 within Buildings.Fluid.SolarCollectors.Examples;
 model Concentrating "Example showing the use of Concentrating"
-  import Buildings;
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
     "Medium in the system";

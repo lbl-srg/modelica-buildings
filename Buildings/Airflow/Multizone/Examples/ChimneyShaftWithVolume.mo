@@ -2,7 +2,6 @@ within Buildings.Airflow.Multizone.Examples;
 model ChimneyShaftWithVolume
   "Model that demonstrates the chimney effect with a dynamic model of a shaft"
   extends Modelica.Icons.Example;
-  import Buildings;
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Fluid.MixingVolumes.MixingVolume roo(

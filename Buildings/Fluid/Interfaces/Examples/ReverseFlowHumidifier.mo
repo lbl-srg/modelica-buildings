@@ -1,7 +1,6 @@
 within Buildings.Fluid.Interfaces.Examples;
 model ReverseFlowHumidifier
   "Model that tests the reverse flow for a humidifier"
-  import Buildings;
   extends Modelica.Icons.Example;
 package Medium = Buildings.Media.PerfectGases.MoistAir;
   Buildings.Utilities.Diagnostics.AssertEquality assTem(threShold=0.01)
