@@ -11,56 +11,67 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
     "If =true introduce a linearization in the AC load";
   parameter Boolean linear_DC=false
     "If =true introduce a linearization in the DC load";
-  parameter Modelica.SIunits.Voltage V_nominal_AC "AC Voltage of the district";
-  parameter Modelica.SIunits.Voltage V_nominal_DC "DC Voltage of the district";
-  BoundaryConditions.WeatherData.Bus
+
+  parameter Modelica.SIunits.Voltage VACDis_nominal
+    "AC voltage of the distribution grid";
+  parameter Modelica.SIunits.Voltage VACBui_nominal
+    "AC voltage of the distribution grid";
+
+  parameter Modelica.SIunits.Voltage VDCDis_nominal
+    "DC voltage of distribution";
+  parameter Modelica.SIunits.Voltage VDCBui_nominal "DC voltage in buildings";
+                               BoundaryConditions.WeatherData.Bus
       weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{-110,
             -10},{-90,10}}),     iconTransformation(extent={{-110,-10},{-90,10}})));
   BaseClasses.TimeSeries loa(final fileName=fileName) "Building load"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Electrical.AC.ThreePhasesBalanced.Loads.CapacitiveLoadP
-                                            loaAC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input,
+  Electrical.AC.ThreePhasesBalanced.Loads.CapacitiveLoadP loaAC(
+    mode=Districts.Electrical.Types.Assumption.VariableZ_P_input,
     linear=linear_AC,
-    V_nominal=V_nominal_AC,
+    V_nominal=VACBui_nominal,
     pf=pf) "Resistive and capacitive building load"
-    annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-  Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n
-                                            terminal "Electrical connector"
+    annotation (Placement(transformation(extent={{40,-10},{20,10}})));
+  Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n terminal
+    "Electrical connector"
     annotation (Placement(transformation(extent={{94,-10},{114,10}})));
-  Electrical.DC.Loads.Conductor loaDC(mode=Districts.Electrical.Types.Assumption.VariableZ_P_input,
+  Electrical.DC.Loads.Conductor loaDC(
+    mode=Districts.Electrical.Types.Assumption.VariableZ_P_input,
     linear=linear_DC,
-    V_nominal=V_nominal_DC) "Conductor for DC load"
-    annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
+    V_nominal=VDCBui_nominal) "Conductor for DC load"
+    annotation (Placement(transformation(extent={{42,-70},{22,-50}})));
   Districts.Electrical.DC.Interfaces.Terminal_p terminal_dc(redeclare package
       PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor)
     "Generalised terminal"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Blocks.Math.Add add(k1=-1, k2=1)
-    annotation (Placement(transformation(extent={{10,-32},{30,-12}})));
+    annotation (Placement(transformation(extent={{-10,-32},{10,-12}})));
   Modelica.Blocks.Continuous.Integrator ETot(y(unit="J")) "Total energy"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Modelica.Blocks.Math.Gain gain(k=-1)
-    annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
+    annotation (Placement(transformation(extent={{-8,-70},{12,-50}})));
+  Electrical.AC.ThreePhasesBalanced.Conversion.ACACConverter acac(
+    conversionFactor=VACDis_nominal/VACBui_nominal,
+    eta=0.9,
+    ground_1=true,
+    ground_2=false) "AC/AC converter"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Electrical.DC.Conversion.DCDCConverter dcdc(
+    eta=0.9,
+    conversionFactor=VDCDis_nominal/VDCBui_nominal,
+    ground_2=false) "DC/DC converter"
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 equation
-  connect(terminal, loaAC.terminal)  annotation (Line(
-      points={{104,4.44089e-16},{64,4.44089e-16},{64,0},{60,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
   connect(loa.PTot, add.u1)    annotation (Line(
-      points={{-39,-5},{-19.5,-5},{-19.5,-16},{8,-16}},
+      points={{-39,-5},{-19.5,-5},{-19.5,-16},{-12,-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add.y, loaAC.Pow)  annotation (Line(
-      points={{31,-22},{34,-22},{34,0},{40,0}},
+      points={{11,-22},{16,-22},{16,0},{20,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(loaDC.terminal, terminal_dc) annotation (Line(
-      points={{60,-60},{100,-60}},
-      color={0,0,255},
-      smooth=Smooth.None));
   connect(loa.PLigInd, add.u2)    annotation (Line(
-      points={{-39,5},{-30,5},{-30,-28},{8,-28}},
+      points={{-39,5},{-30,5},{-30,-28},{-12,-28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(loa.TOut, weaBus.TDryBul)           annotation (Line(
@@ -84,12 +95,28 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y,loaDC. Pow) annotation (Line(
-      points={{31,-60},{40,-60}},
+      points={{13,-60},{22,-60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(loa.PLigInd, gain.u) annotation (Line(
-      points={{-39,5},{-30,5},{-30,-60},{8,-60}},
+      points={{-39,5},{-30,5},{-30,-60},{-10,-60}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(loaAC.terminal, acac.terminal_n) annotation (Line(
+      points={{40,0},{60,0}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(acac.terminal_p, terminal) annotation (Line(
+      points={{80,0},{104,0}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(loaDC.terminal, dcdc.terminal_n) annotation (Line(
+      points={{42,-60},{60,-60}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(dcdc.terminal_p, terminal_dc) annotation (Line(
+      points={{80,-60},{100,-60}},
+      color={0,0,255},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),

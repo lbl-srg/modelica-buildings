@@ -9,7 +9,7 @@ model DummyLine
       Districts.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n           terminal_n,
       redeclare
       Districts.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n           terminal_p);
-
+///fixme: this model can most likely be removed for the release
   parameter Modelica.SIunits.Distance l(min=0) "Length of the line";
   parameter Modelica.SIunits.Power P_nominal(min=0) "Nominal power of the line";
   parameter Modelica.SIunits.Voltage V_nominal "Nominal voltage of the line";

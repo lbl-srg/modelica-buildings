@@ -75,9 +75,10 @@ def reportErrorIfMissing(fileName, listOfStrings):
 # Name of top-level package file
 maiPac=LIBHOME.split(os.path.sep)[-1] + os.path.sep + 'package.mo'
 
-# Walk the directory tree, but skip svn folders
+# Walk the directory tree, but skip the userGuide folder as it contains .mo models
+# that have the uses(...) annotation
 for (path, dirs, files) in os.walk(LIBHOME):
-    pos=path.find('svn')
+    pos=path.find(os.path.join('Resources', 'Documentation', 'userGuide'))
     # skip svn folders
     if pos == -1:
         # Loop over all files

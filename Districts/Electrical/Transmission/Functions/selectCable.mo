@@ -1,11 +1,12 @@
 within Districts.Electrical.Transmission.Functions;
 function selectCable
-  input Districts.Electrical.Transmission.Materials.Material  wireMaterial;
-  input Modelica.SIunits.Power P_nominal;
-  input Modelica.SIunits.Voltage V_nominal;
-  output Districts.Electrical.Transmission.CommercialCables.Cable cable;
+  input Districts.Electrical.Transmission.Materials.Material  wireMaterial
+    "Wire material";
+  input Modelica.SIunits.Power P_nominal "Rated power";
+  input Modelica.SIunits.Voltage V_nominal "Rated voltage";
+  output Districts.Electrical.Transmission.CommercialCables.Cable cable "Cable";
 protected
-  Real I_nominal = P_nominal/V_nominal
+  Modelica.SIunits.Current I_nominal = P_nominal/V_nominal
     "Nominal current flowing through the line";
   parameter Real I_mm2 = 4 "Current density A/mm2";
   // List of commercial cables available in the library
@@ -48,6 +49,9 @@ algorithm
       elseif I_nominal*I_mm2>=120 and I_nominal*I_mm2 <150 then
         cable := pvcAl150;
       else
+        Modelica.Utilities.Streams.print("Warning: Cable autosizing does not support a current of " +
+        String(I_nominal) + " A.
+  The selected cable will be undersized.");
         cable := pvcAl150;
       end if;
 
@@ -69,6 +73,9 @@ algorithm
       elseif I_nominal*I_mm2>=95 and I_nominal*I_mm2 <100 then
         cable := cu100;
       else
+        Modelica.Utilities.Streams.print("Warning: Cable autosizing does not support a current of " +
+        String(I_nominal) + " A.
+  The selected cable will be undersized.");
         cable := cu100;
       end if;
 
