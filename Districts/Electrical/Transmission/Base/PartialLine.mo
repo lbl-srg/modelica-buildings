@@ -15,16 +15,19 @@ partial model PartialLine "Cable line dispersion model"
   parameter Modelica.SIunits.Temperature Tcable = T_ref
     "Fixed temperature of the cable" annotation(Dialog(tab="Model", enable = not useExtTemp));
 
-  parameter Districts.Electrical.Types.CableMode mode = Districts.Electrical.Types.CableMode.automatic
+  parameter Districts.Electrical.Types.CableMode mode=
+    Districts.Electrical.Types.CableMode.automatic
     "Select if choosing the cable automatically or between a list of commercial options"
     annotation(Dialog(tab="Tech. specification"), choicesAllMatching=true);
 
-  parameter Districts.Electrical.Transmission.CommercialCables.Cable commercialCable = Districts.Electrical.Transmission.Functions.selectCable(wireMaterial, P_nominal, V_nominal)
+  parameter Districts.Electrical.Transmission.CommercialCables.Cable commercialCable=
+     Districts.Electrical.Transmission.Functions.selectCable(wireMaterial, P_nominal, V_nominal)
     "List of various commercial cables"
     annotation(Dialog(tab="Tech. specification", enable = mode == Districts.Electrical.Types.CableMode.commercial),
                choicesAllMatching = true);
 
-  parameter Districts.Electrical.Transmission.Materials.Material wireMaterial = Districts.Electrical.Transmission.Materials.Material.Cu
+  parameter Districts.Electrical.Transmission.Materials.Material wireMaterial=
+    Districts.Electrical.Transmission.Materials.Material.Cu
     "Material of the cable"
     annotation (choicesAllMatching=true,Dialog(tab="Tech. specification",
                 enable = mode==Districts.Electrical.Types.CableMode.automatic),
