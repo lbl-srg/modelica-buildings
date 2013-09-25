@@ -160,9 +160,13 @@ package UsersGuide "User's Guide"
   drawing on A2.03, but Construction18 is typically a cell or bed dividing wall
   and UF90X4 is no longer in construction. Has construction been changed since
   UF90X4 removed from plan?</li>
-  <li>Change radiant slab model in examples to account for difference in tubing
-  density in different areas of space. Has three sections, with three different
-  tubing densities. See M3.02</li>
+  <li>According to the drawings on M3.02, each test cell has four different sections of
+  radiant tubing in the slab. To account for this, models of X3A and X3B use four
+  different surBou definitions to define four different sections of the floor.
+  Unfortunately, the total area described in drawing M3.02 (623 sq ft). does not match 
+  the floor area in drawing A2.03 (656.25 sq ft). The areas listed on M3.02 have been
+  increased by the percent difference in the total. This assumption should be checked 
+  against final, as-built drawings when they are available.</li>
   </ul>
   </html>"));
 end UsersGuide;
