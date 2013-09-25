@@ -37,7 +37,7 @@ partial model PartialMixingVolume
   Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
     "Trace substance mixture content";
    // Models for the steady-state and dynamic energy balance.
-protected
+// removed protected for experiments
   Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation steBal(
     sensibleOnly = true,
     redeclare final package Medium=Medium,
@@ -64,8 +64,8 @@ protected
     nPorts=nPorts) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-
   // Density at medium default values, used to compute the size of control volumes
+protected
   parameter Modelica.SIunits.Density rho_default=Medium.density(
     state=state_default) "Density, used to compute fluid mass"
   annotation (Evaluate=true);
