@@ -9,7 +9,7 @@ model TestCellNoCelDiv
       nConExtWin=1,
       hRoo=3.6576,
       surBou(
-        A={6.645*9.144, 3.6576 * 9.144},
+        A = {6.645*3.09, 6.645*1.51, 6.645*0.91, 6.645*3.65},
         each absIR=0.9,
         each absSol=0.9,
         til={Buildings.HeatTransfer.Types.Tilt.Floor, Buildings.HeatTransfer.Types.Tilt.Wall}),
