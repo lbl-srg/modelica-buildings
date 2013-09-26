@@ -142,7 +142,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     "Internal gain heat flow for the closet"
     annotation (Placement(transformation(extent={{-12,132},{8,152}})));
   inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{160,-180},{180,-160}})));
+    annotation (Placement(transformation(extent={{180,-220},{200,-200}})));
   Modelica.Blocks.Sources.CombiTimeTable watCon4B2(tableOnFile=false, table=[0,
         0.504,293.15; 86400,0.504,293.15])
     "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
@@ -480,8 +480,8 @@ equation
       points={{-187,-122},{-182,-122},{-182,-118},{-172,-118}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,
-            -350},{200,200}}), graphics),
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
+            -220},{200,200}}), graphics),
           Documentation(info = "<html>
           <p>
           This model demonstrates one potential simulation using the models available in
