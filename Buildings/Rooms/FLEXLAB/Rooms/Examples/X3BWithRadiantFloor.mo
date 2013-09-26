@@ -35,36 +35,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
   Buildings.Fluid.Sources.Boundary_pT
     airOut(nPorts=1, redeclare package Medium = Air) "Air outlet for X3A"
     annotation (Placement(transformation(extent={{-158,24},{-138,44}})));
-  Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
-    sla(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
-    iLayPip=1,
-    redeclare package Medium = Water,
-    A=60.97,
-    pipe=pipe,
-    layers=slaCon,
-    disPip=0.229,
-    m_flow_nominal=0.504)
-    annotation (Placement(transformation(extent={{-108,-136},{-88,-116}})));
 
-  Modelica.Blocks.Sources.CombiTimeTable watCon(
-                                              tableOnFile=false, table=[0,0.504,
-        293.15; 86400,0.504,293.15])
-    "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
-    annotation (Placement(transformation(extent={{-196,-132},{-176,-112}})));
-  Buildings.Fluid.Sources.MassFlowSource_T watIn(
-    nPorts=1,
-    use_m_flow_in=true,
-    use_T_in=true,
-    redeclare package Medium = Water)
-    "Inlet water conditions (from central plant)"
-    annotation (Placement(transformation(extent={{-154,-136},{-134,-116}})));
-  Buildings.Fluid.Sources.Boundary_pT watOut(
-    nPorts=1, redeclare package Medium = Water) "Water outlet"
-                 annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={16,-126})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature preT
     "Temperature of the ground"
     annotation (Placement(transformation(
@@ -172,6 +143,122 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     annotation (Placement(transformation(extent={{-12,132},{8,152}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{160,-180},{180,-160}})));
+  Modelica.Blocks.Sources.CombiTimeTable watCon4B2(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15])
+    "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
+    annotation (Placement(transformation(extent={{-248,-96},{-228,-76}})));
+  Modelica.Blocks.Sources.CombiTimeTable watCon4B3(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15])
+    "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
+    annotation (Placement(transformation(extent={{-280,-58},{-260,-38}})));
+  Buildings.Fluid.Sources.MassFlowSource_T watIn4B3(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    redeclare package Medium = Water)
+    "Inlet water conditions (from central plant)"
+    annotation (Placement(transformation(extent={{-238,-62},{-218,-42}})));
+  Modelica.Blocks.Sources.CombiTimeTable watCon4B4(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15])
+    "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
+    annotation (Placement(transformation(extent={{-300,-12},{-280,8}})));
+  Buildings.Fluid.Sources.MassFlowSource_T watIn4B4(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    redeclare package Medium = Water)
+    "Inlet water conditions (from central plant)"
+    annotation (Placement(transformation(extent={{-252,-16},{-232,4}})));
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4B4(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    iLayPip=1,
+    redeclare package Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*3.65,
+    length=50.9,
+    disPip=sla4B4.A/sla4B4.length)
+    "Radiant slab serving the south section of cell X3B. Name is taken from drawing M3.02"
+    annotation (Placement(transformation(extent={{-222,-16},{-202,4}})));
+  Buildings.Fluid.Sources.Boundary_pT watOut4B4(nPorts=1, redeclare package
+      Medium = Water) "Water outlet"
+                 annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-182,-6})));
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4B3(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    iLayPip=1,
+    redeclare package Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*0.91,
+    length=42.98,
+    disPip=sla4B3.A/sla4B3.length)
+    "Radiant slab serving the south-central section of cell X3B. Name is taken from drawing M3.02"
+    annotation (Placement(transformation(extent={{-192,-62},{-172,-42}})));
+  Buildings.Fluid.Sources.Boundary_pT watOut4B3(nPorts=1, redeclare package
+      Medium = Water) "Water outlet"
+                 annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-152,-52})));
+  Buildings.Fluid.Sources.MassFlowSource_T watIn4B2(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    redeclare package Medium = Water)
+    "Inlet water conditions (from central plant)"
+    annotation (Placement(transformation(extent={{-206,-100},{-186,-80}})));
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4B2(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    iLayPip=1,
+    redeclare package Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*1.51,
+    length=45.11,
+    disPip=sla4B2.A/sla4B2.length)
+    "Radiant slab serving the north-central section of cell X3B. Name is taken from drawing M3.02"
+    annotation (Placement(transformation(extent={{-152,-100},{-132,-80}})));
+  Buildings.Fluid.Sources.Boundary_pT watOut4B2(nPorts=1, redeclare package
+      Medium = Water) "Water outlet"
+                 annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-112,-90})));
+  Modelica.Blocks.Sources.CombiTimeTable watCon4B1(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15])
+    "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
+    annotation (Placement(transformation(extent={{-208,-132},{-188,-112}})));
+  Buildings.Fluid.Sources.MassFlowSource_T watIn4B1(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    redeclare package Medium = Water)
+    "Inlet water conditions (from central plant)"
+    annotation (Placement(transformation(extent={{-172,-136},{-152,-116}})));
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4B1(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    iLayPip=1,
+    redeclare package Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*3.09,
+    length=32.92,
+    disPip=sla4B1.A/sla4B1.length)
+    "Radiant slab serving the north side of cell X3B. Name is taken from drawing M3.02"
+    annotation (Placement(transformation(extent={{-108,-136},{-88,-116}})));
+  Buildings.Fluid.Sources.Boundary_pT watOut4B1(nPorts=1, redeclare package
+      Medium = Water) "Water outlet"
+                 annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-60,-126})));
 equation
   connect(airCon.y[1],airIn. m_flow_in) annotation (Line(
       points={{-175,64},{-168,64},{-168,68},{-160,68}},
@@ -189,33 +276,9 @@ equation
       points={{-138,34},{-132,34},{-132,48},{-103,48}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sla.surf_b,preT. port)                  annotation (Line(
-      points={{-94,-136},{-94,-148}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(watIn.ports[1],sla. port_a)    annotation (Line(
-      points={{-134,-126},{-108,-126}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(sla.port_b,watOut. ports[1])    annotation (Line(
-      points={{-88,-126},{6,-126}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(watCon.y[1],watIn. m_flow_in) annotation (Line(
-      points={{-175,-122},{-164,-122},{-164,-118},{-154,-118}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(watCon.y[2],watIn. T_in) annotation (Line(
-      points={{-175,-122},{-156,-122}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TGro.y[1],preT. T) annotation (Line(
       points={{-94,-175},{-94,-170}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(sla.surf_a,X3B. surf_surBou[1]) annotation (Line(
-      points={{-94,-116},{-94,0},{-93.8,0},{-93.8,44}},
-      color={191,0,0},
       smooth=Smooth.None));
   connect(weaDat.weaBus,X3B. weaBus) annotation (Line(
       points={{-100,180},{-72.1,180},{-72.1,75.9}},
@@ -316,8 +379,109 @@ equation
       points={{54,-114},{40,-114},{40,-96},{182,-96},{182,96}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -200},{200,200}}), graphics),
+  connect(watCon4B2.y[1],watIn4B2. m_flow_in) annotation (Line(
+      points={{-227,-86},{-216,-86},{-216,-82},{-206,-82}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(watCon4B2.y[2],watIn4B2. T_in) annotation (Line(
+      points={{-227,-86},{-208,-86}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(watCon4B3.y[1],watIn4B3. m_flow_in) annotation (Line(
+      points={{-259,-48},{-248,-48},{-248,-44},{-238,-44}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(watCon4B3.y[2],watIn4B3. T_in) annotation (Line(
+      points={{-259,-48},{-240,-48}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(watCon4B4.y[1],watIn4B4. m_flow_in) annotation (Line(
+      points={{-279,-2},{-266,-2},{-266,2},{-252,2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(watCon4B4.y[2],watIn4B4. T_in) annotation (Line(
+      points={{-279,-2},{-254,-2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(watIn4B4.ports[1],sla4B4. port_a) annotation (Line(
+      points={{-232,-6},{-222,-6}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(watIn4B3.ports[1],sla4B3. port_a) annotation (Line(
+      points={{-218,-52},{-192,-52}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sla4B4.port_b,watOut4B4. ports[1]) annotation (Line(
+      points={{-202,-6},{-192,-6}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sla4B3.port_b,watOut4B3. ports[1]) annotation (Line(
+      points={{-172,-52},{-162,-52}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(watIn4B2.ports[1],sla4B2. port_a) annotation (Line(
+      points={{-186,-90},{-152,-90}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sla4B2.port_b,watOut4B2. ports[1]) annotation (Line(
+      points={{-132,-90},{-122,-90}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(watCon4B1.y[2],watIn4B1. T_in)
+                                   annotation (Line(
+      points={{-187,-122},{-174,-122}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(watIn4B1.ports[1],sla4B1. port_a)
+                                         annotation (Line(
+      points={{-152,-126},{-108,-126}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sla4B1.port_b,watOut4B1. ports[1])
+                                          annotation (Line(
+      points={{-88,-126},{-70,-126}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(preT.port, sla4B1.surf_b) annotation (Line(
+      points={{-94,-148},{-94,-136}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(preT.port, sla4B2.surf_b) annotation (Line(
+      points={{-94,-148},{-94,-142},{-138,-142},{-138,-100}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(preT.port, sla4B3.surf_b) annotation (Line(
+      points={{-94,-148},{-94,-142},{-138,-142},{-138,-104},{-178,-104},{-178,
+          -62}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(preT.port, sla4B4.surf_b) annotation (Line(
+      points={{-94,-148},{-94,-142},{-138,-142},{-138,-104},{-178,-104},{-178,
+          -70},{-208,-70},{-208,-16}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sla4B1.surf_a, X3B.surf_surBou[1]) annotation (Line(
+      points={{-94,-116},{-94,43.25},{-93.8,43.25}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sla4B2.surf_a, X3B.surf_surBou[2]) annotation (Line(
+      points={{-138,-80},{-138,-60},{-93.8,-60},{-93.8,43.75}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sla4B3.surf_a, X3B.surf_surBou[3]) annotation (Line(
+      points={{-178,-42},{-178,-30},{-93.8,-30},{-93.8,44.25}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sla4B4.surf_a, X3B.surf_surBou[4]) annotation (Line(
+      points={{-208,4},{-208,14},{-93.8,14},{-93.8,44.75}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(watCon4B1.y[1], watIn4B1.m_flow_in) annotation (Line(
+      points={{-187,-122},{-182,-122},{-182,-118},{-172,-118}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,
+            -350},{200,200}}), graphics),
           Documentation(info = "<html>
           <p>
           This model demonstrates one potential simulation using the models available in
