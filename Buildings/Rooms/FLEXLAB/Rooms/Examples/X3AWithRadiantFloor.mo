@@ -37,14 +37,14 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     annotation (Placement(transformation(extent={{-158,24},{-138,44}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A1(
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
-
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
     layers=slaCon,
-    disPip=0.229,
     m_flow_nominal=0.504,
-    A=6.645*3.09)
+    A=6.645*3.09,
+    length=32.92,
+    disPip=sla4A1.A/sla4A1.length)
     "Radiant slab serving the north side of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-108,-136},{-88,-116}})));
 
@@ -186,16 +186,17 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     annotation (Placement(transformation(extent={{-206,-100},{-186,-80}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A2(
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
-
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
     layers=slaCon,
-    disPip=0.229,
     m_flow_nominal=0.504,
-    A=6.645*1.51)
+    A=6.645*1.51,
+    disPip=sla4A2.A/sla4A2.length,
+    length=45.11)
     "Radiant slab serving the north-central section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-152,-100},{-132,-80}})));
+
   Buildings.Fluid.Sources.Boundary_pT watOut4A2(nPorts=1, redeclare package
       Medium = Water) "Water outlet"
                  annotation (Placement(transformation(
@@ -215,16 +216,17 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     annotation (Placement(transformation(extent={{-238,-62},{-218,-42}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A3(
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
-
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
     layers=slaCon,
-    disPip=0.229,
     m_flow_nominal=0.504,
-    A=6.645*0.91)
+    A=6.645*0.91,
+    disPip=sla4A3.A/sla4A3.length,
+    length=42.98)
     "Radiant slab serving the south-central section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-192,-62},{-172,-42}})));
+
   Buildings.Fluid.Sources.Boundary_pT watOut4A3(nPorts=1, redeclare package
       Medium = Water) "Water outlet"
                  annotation (Placement(transformation(
@@ -244,16 +246,17 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     annotation (Placement(transformation(extent={{-252,-16},{-232,4}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A4(
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
-
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
     layers=slaCon,
-    disPip=0.229,
     m_flow_nominal=0.504,
-    A=6.645*3.65)
+    A=6.645*3.65,
+    disPip=sla4A4.A/sla4A4.length,
+    length=50.9)
     "Radiant slab serving the south section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-222,-16},{-202,4}})));
+
   Buildings.Fluid.Sources.Boundary_pT watOut4A4(nPorts=1, redeclare package
       Medium = Water) "Water outlet"
                  annotation (Placement(transformation(
