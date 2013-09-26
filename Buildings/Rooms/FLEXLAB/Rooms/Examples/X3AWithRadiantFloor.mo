@@ -528,11 +528,29 @@ equation
           X3B: X3A.surf_conBou[2]</td>
           </tr>          
           <tr>
-          <td>sla</td>
-          <td>Radiant slab</td>
-          <td>sla.surf_a</td>
+          <td>sla4A1</td>
+          <td>Radiant slab serving the north portion of X3A</td>
+          <td>sla4A1.surf_a</td>
           <td>X3A.surf_surBou[1]</td>
           </tr>
+          <tr>
+          <td>sla4A2</td>
+          <td>Radiant slab serving the north-central portion of X3A</td>
+          <td>sla4A2.surf_a</td>
+          <td>X3A.surf_surBou[2]</td>
+          </tr>       
+          <tr>
+          <td>sla4A3</td>
+          <td>Radiant slab serving the south-central portion of X3A</td>
+          <td>sla4A3.surf_a</td>
+          <td>X3A.surf_surBou[3]</td>
+          </tr>           
+          <tr>
+          <td>sla4A4</td>
+          <td>Radiant slab serving the south portion of X3A</td>
+          <td>sla4A4.surf_a</td>
+          <td>X3A.surf_surBou[4]</td>
+          </tr>            
           <tr>
           <td>shaPos</td>
           <td>Table describing the position of the window shade</td>
