@@ -1,6 +1,6 @@
 removePlots();
 
-simulateModel("Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BConnectedToX3AWithRadiantFloor", stopTime=864000, method="dassl", resultFile="X3BConnectedToX3AWithRadiantFloor");
+simulateModel("Buildings.Rooms.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor", stopTime=864000, method="dassl", resultFile="TestBedX3WithRadiantFloor");
 
 createPlot(id = 1,
  position = {0, 0, 1049, 700},
@@ -13,7 +13,7 @@ createPlot(id = 1,
  grid = true,
  color = true,
  online = false,
- filename = "X3BConnectedToX3AWithRadiantFloor.mat",
+ filename = "TestBedX3WithRadiantFloor.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}, {255,0,0}, {0,128,0}});

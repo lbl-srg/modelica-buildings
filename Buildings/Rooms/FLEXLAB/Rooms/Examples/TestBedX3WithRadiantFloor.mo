@@ -1,6 +1,6 @@
 within Buildings.Rooms.FLEXLAB.Rooms.Examples;
-model X3BConnectedToX3AWithRadiantFloor
-  "Example model showing a simulation of test cell X3B connected to test cell X3A (both have radiant floors)"
+model TestBedX3WithRadiantFloor
+  "Example model of test cells X3A and X3B connected to form test bed X3"
   import Buildings;
   extends Modelica.Icons.Example;
 
@@ -786,14 +786,14 @@ equation
       smooth=Smooth.None));
   connect(preT.port, sla4A2.surf_b) annotation (Line(
       points={{0,-244},{0,-230},{-92,-230},{-92,-190},{-112,-190},{-112,-184}},
-
       color={191,0,0},
       smooth=Smooth.None));
+
   connect(preT.port, sla4A3.surf_b) annotation (Line(
       points={{0,-244},{0,-230},{-92,-230},{-92,-190},{-152,-190},{-152,-146}},
-
       color={191,0,0},
       smooth=Smooth.None));
+
   connect(sla4A3.surf_a, X3A.surf_surBou[3]) annotation (Line(
       points={{-152,-126},{-152,-112},{-59.8,-112},{-59.8,30}},
       color={191,0,0},
@@ -906,7 +906,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
-            -300},{300,300}}), graphics), __Dymola_Commands(file="Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3BConnectedToX3AWithRadiantFloor.mos"
+            -300},{300,300}}), graphics), __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/TestBedX3WithRadiantFloor.mos"
         "Simulate and Plot"),
         Documentation(info="<html>
         <p>
@@ -955,4 +956,4 @@ equation
         First implementation.</li>
         </ul>
         </html>"));
-end X3BConnectedToX3AWithRadiantFloor;
+end TestBedX3WithRadiantFloor;
