@@ -305,8 +305,8 @@ equation
       points={{94,127.333},{94,116},{260.2,116},{260.2,130.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(X3A.surf_surBou[2], X3B.surf_conBou[1]) annotation (Line(
-      points={{-59.8,30.5},{-59.8,-12},{108,-12},{108,27.25}},
+  connect(X3A.surf_surBou[5], X3B.surf_conBou[1]) annotation (Line(
+      points={{-59.8,30},{-59.8,-12},{108,-12},{108,27.25}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(AClo.surf_surBou[3], BClo.surf_conBou[2]) annotation (Line(
