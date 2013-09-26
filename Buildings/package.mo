@@ -200,6 +200,11 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
+    </td>
+    <td valign=\"top\">Reformulated computation of outlet properties to avoid an event at zero mass flow rate.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier
     </td>
     <td valign=\"top\">Changed one instance of <code>Modelica.Fluid.Sources.MassFlowSource_T</code>,

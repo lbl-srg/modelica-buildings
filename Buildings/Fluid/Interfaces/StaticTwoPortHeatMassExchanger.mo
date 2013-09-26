@@ -2,8 +2,7 @@ within Buildings.Fluid.Interfaces;
 model StaticTwoPortHeatMassExchanger
   "Partial model transporting fluid between two ports without storing mass or energy"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-  showDesignFlowDirection = false,
-  final show_T=true);
+  showDesignFlowDirection = false);
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
