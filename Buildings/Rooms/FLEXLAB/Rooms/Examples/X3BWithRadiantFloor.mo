@@ -177,8 +177,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     layers=slaCon,
     m_flow_nominal=0.504,
     A=6.645*3.65,
-    length=50.9,
-    disPip=sla4B4.A/sla4B4.length)
+    disPip=sla4B4.A/sla4B4.length,
+    length=48.77)
     "Radiant slab serving the south section of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-222,-16},{-202,4}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B4(nPorts=1, redeclare package
@@ -195,8 +195,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     layers=slaCon,
     m_flow_nominal=0.504,
     A=6.645*0.91,
-    length=42.98,
-    disPip=sla4B3.A/sla4B3.length)
+    disPip=sla4B3.A/sla4B3.length,
+    length=37.49)
     "Radiant slab serving the south-central section of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-192,-62},{-172,-42}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B3(nPorts=1, redeclare package
@@ -249,8 +249,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     layers=slaCon,
     m_flow_nominal=0.504,
     A=6.645*3.09,
-    length=32.92,
-    disPip=sla4B1.A/sla4B1.length)
+    disPip=sla4B1.A/sla4B1.length,
+    length=38.71)
     "Radiant slab serving the north side of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-108,-136},{-88,-116}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B1(nPorts=1, redeclare package
