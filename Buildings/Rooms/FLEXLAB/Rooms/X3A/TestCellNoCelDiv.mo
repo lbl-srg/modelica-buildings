@@ -2,7 +2,7 @@ within Buildings.Rooms.FLEXLAB.Rooms.X3A;
 model TestCellNoCelDiv
   "Model of LBNL User Test Facility Cell X3A without the celDiv wall separating X3A and X3B"
   extends Buildings.Rooms.MixedAir(AFlo=60.97,
-      nSurBou=2,
+      nSurBou=5,
       nConPar=0,
       nConBou=4,
       nConExt=4,
