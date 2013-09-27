@@ -36,7 +36,9 @@ algorithm
   else
     a := 0;
     eps := 0;
-    assert(0 < flowRegime and flowRegime < 6, "Flow regime is not implemented.");
+    assert(f.ParallelFlow <= flowRegime and
+           flowRegime <= f.CrossFlowCMinUnmixedCMaxMixed,
+           "Flow regime is not implemented.");
   end if;
   annotation(preferredView="info",
              inverse(NTU=Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(eps=eps, Z=Z, flowRegime=flowRegime)),
@@ -46,6 +48,11 @@ This function computes the heat exchanger effectiveness for a given number of tr
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 25, 2013, by Michael Wetter:<br/>
+Changed test in the <code>assert</code> statement as OpenModelica
+had an error when comparing enumerations with integers.
+</li>
 <li>
 February 11, 2010, by Michael Wetter:<br/>
 First implementation.
