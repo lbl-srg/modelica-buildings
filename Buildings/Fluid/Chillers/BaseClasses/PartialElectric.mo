@@ -102,7 +102,10 @@ equation
   TEvaLvg_degC=Modelica.SIunits.Conversions.to_degC(TEvaLvg);
 
   // Enthalpy of temperature setpoint
-  hSet = Medium2.specificEnthalpy_pTX(port_b2.p, TSet, port_b2.Xi_outflow);
+  hSet = Medium2.specificEnthalpy_pTX(
+           p=port_b2.p,
+           T=TSet,
+           X=cat(1, port_b2.Xi_outflow, {1-sum(port_b2.Xi_outflow)}));
 
   if on then
     // Available cooling capacity
