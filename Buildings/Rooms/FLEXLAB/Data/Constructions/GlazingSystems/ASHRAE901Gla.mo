@@ -6,4 +6,8 @@ record ASHRAE901Gla =
   final gas = {Buildings.HeatTransfer.Data.Gases.Air(x=0.0127)},
   UFra=1.4,
   final nLay=2) "XGL-1 window constuction used in cells 3A, 3B and RA. ASHRAE 90.1 
-     minimally compliant";
+     minimally compliant" annotation (Documentation(info="<html>
+<p>
+fixme
+</p>
+</html>"));
