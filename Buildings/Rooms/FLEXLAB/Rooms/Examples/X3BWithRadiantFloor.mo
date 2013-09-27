@@ -1,6 +1,6 @@
 within Buildings.Rooms.FLEXLAB.Rooms.Examples;
 model X3BWithRadiantFloor "Example model showing a use of X3B"
-  import Buildings;
+
   extends Modelica.Icons.Example;
 
   package Air = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated

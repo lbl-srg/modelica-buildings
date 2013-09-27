@@ -62,14 +62,14 @@ model ClosetFullBed
     annotation (Placement(transformation(extent={{432,-118},{452,-98}})));
     annotation (Documentation(info="<html>
     <p>
-    This is a duplicate model of <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
+    This is a duplicate model of <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
     Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a> with the wall separating this model and
-    <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3B.Closet\">
+    <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B.Closet\">
     Buildings.Rooms.FLEXLAB.Rooms.X3B.Closet</a> removed. It is intended for use in simulations
     which include both room models to simulate the whole test bed. If the regular models are used 
     the wall separating the closets will be modeled twice, so one model must have the wall removed. 
     This documentation only describes the walls and connections which are different from
-    <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
+    <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
     Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a>. For information on the rest of the walls
     and connections see that documentation.
     </p>

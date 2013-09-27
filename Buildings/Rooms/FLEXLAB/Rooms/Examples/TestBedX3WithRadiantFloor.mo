@@ -1,7 +1,6 @@
 within Buildings.Rooms.FLEXLAB.Rooms.Examples;
 model TestBedX3WithRadiantFloor
   "Example model of test cells X3A and X3B connected to form test bed X3"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   package Air = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated

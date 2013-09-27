@@ -62,7 +62,7 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   documentation describes the wall constructions used in the electrical room model. For 
   documentation describing how the room models are to be connected to develop a model of the
   entire X3B test cell see
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3B\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B\">
   Buildings.Rooms.FLEXLAB.Rooms.X3B</a>.
   </p> 
   <p>

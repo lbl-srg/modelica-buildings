@@ -1,6 +1,6 @@
 within Buildings.Rooms.FLEXLAB.Rooms.Examples;
 model X3AWithRadiantFloor "Example model showing a use of X3A"
-  import Buildings;
+
   extends Modelica.Icons.Example;
 
   package Air = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
@@ -503,7 +503,7 @@ equation
           <p>
           The connections between the test cell and the external models are described in the following table.
           Only models not included in the X3A package are included. For documentation describing the connections
-          between X3A models see <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A\">
+          between X3A models see <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
           Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
           </p>
           <table border =\"1\" summary = \"Summary of connections between test cell and other models\">

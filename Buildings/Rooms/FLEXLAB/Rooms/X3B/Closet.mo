@@ -65,7 +65,7 @@ model Closet "Model of the closet connected to test cell X3A"
     This documentation describes the wall constructions used in the closet. Documentation
     describing how it should be connected to other models in the package to form a 
     complete model of test cell X3B can be found in
-    <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3B\">
+    <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B\">
     Buildings.Rooms.FLEXLAB.Rooms.X3B</a>.
     </p>
     <p>

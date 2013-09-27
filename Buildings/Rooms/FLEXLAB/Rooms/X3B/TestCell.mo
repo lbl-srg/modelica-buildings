@@ -77,7 +77,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   the main space in test cell 3B. This documentation describes the wall constructions used to model
   test cell X3B. Documentation describing how it is to be combined to other room models to create
   a model of the full test cell can be found in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3B\">Buildings.Rooms.FLEXLAB.Rooms.X3B</a>.
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B\">Buildings.Rooms.FLEXLAB.Rooms.X3B</a>.
   </p>
   <p>
   There are 6 different wall sections described in the model. They are shown in the figure below.

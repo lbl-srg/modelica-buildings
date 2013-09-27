@@ -3,6 +3,10 @@ package X3A "Models of rooms in test cell X3A"
 extends Modelica.Icons.Package;
 
 
+
+
+
+
   annotation(Documentation(info="<html>
   <p>
   This package contains models of rooms in test cell X3A of the FLEXLAB at LBNL. The following image is a drawing 
@@ -14,11 +18,11 @@ extends Modelica.Icons.Package;
   </p>
   <p>
   There are separate models for each room in test cell X3A. The model for the test cell itself is located in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
   Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a>, the model for the connected closet is located at
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
   Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a>, and the model for the connected electrical room is located at
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical\">
   Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical</a>. Each of the models were developed using construction and
   parameter information taken from architectural drawings. Accurate use of the models will likely require
   combining all three room models to each other.  
@@ -58,7 +62,7 @@ extends Modelica.Icons.Package;
   </table>
   <p>
   An example of how these room models are connected to create full test cell model can be found in
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.
   </p>
   </html>"));

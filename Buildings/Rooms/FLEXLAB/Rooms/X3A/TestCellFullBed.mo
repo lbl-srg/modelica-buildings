@@ -77,7 +77,7 @@ model TestCellFullBed
     annotation (Placement(transformation(extent={{410,-72},{430,-52}})));
   annotation(Documentation(info="<html>
   <p>
-  This is a duplicate model of <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
+  This is a duplicate model of <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
   Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a> with the wall separating X3A and X3B removed.
   It is designed for simulations where both X3A and X3B are used in the simulation to model the
   whole test bed. If a simulation is created using TestCell from both packages the dividing wall
@@ -86,7 +86,7 @@ model TestCellFullBed
   </p>
   <p>
   This documentation states only the items which are different from the
-  <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
   Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a> model. For documentation on the rest of the
   walls and connections see that documentation instead.
   </p>
