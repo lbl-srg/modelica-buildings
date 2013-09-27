@@ -5,22 +5,20 @@ model Exponential "Air damper with exponential opening characteristics"
   dp(nominal=10),
   final kFixed=0);
 protected
-   parameter Real kDam_default(fixed=false)
+   parameter Real kDam_default = sqrt(2*rho_default)*A/kThetaSqRt_default
     "Flow coefficient for damper, k=m_flow/sqrt(dp), with unit=(kg*m)^(1/2)";
-   parameter Real kThetaSqRt_default(min=0, fixed=false)
+   parameter Real kThetaSqRt_default(min=0)=
+     Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+       y=1,
+       a=a,
+       b=b,
+       cL=cL,
+       cU=cU,
+       yL=yL,
+       yU=yU)
     "Flow coefficient, kThetaSqRt = sqrt(pressure drop divided by dynamic pressure)";
 initial algorithm
-   kThetaSqRt_default :=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-    y=1,
-    a=a,
-    b=b,
-    cL=cL,
-    cU=cU,
-    yL=yL,
-    yU=yU) "y=0 is closed";
    assert(kThetaSqRt_default>0, "Flow coefficient must be strictly positive.");
-   kDam_default :=sqrt(2*rho_default)*A/kThetaSqRt_default
-    "flow coefficient for resistance base model, kDam=k=m_flow/sqrt(dp)";
    annotation (
 defaultComponentName="dam",
 Documentation(info="<html>
@@ -77,6 +75,12 @@ ASHRAE Final Report 825-RP, Atlanta, GA.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 26, 2013 by Michael Wetter:<br/>
+Moved assignemnt of <code>kDam_default</code> and <code>kThetaSqRt_default</code>
+from <code>initial algorithm</code> to the variable declaration, to avoid a division
+by zero in OpenModelica.
+</li> 
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.

@@ -6,6 +6,15 @@ model UTube "Single U-tube borehole heat exchanger"
       computeFlowResistance=false, final linearizeFlowResistance=false);
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
 
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic matSoi
+    "Thermal properties of soil"
+    annotation (choicesAllMatching=true, Dialog(group="Soil"),
+    Placement(transformation(extent={{2,70},{22,90}})));
+  replaceable parameter Buildings.HeatTransfer.Data.BoreholeFillings.Generic matFil
+    "Thermal properties of the filling material"
+    annotation (choicesAllMatching=true, Dialog(group="Borehole"),
+    Placement(transformation(extent={{-68,70},{-48,90}})));
+
   parameter Modelica.SIunits.Radius rTub=0.02 "Radius of the tubes"
     annotation(Dialog(group="Tubes"));
   parameter Modelica.SIunits.ThermalConductivity kTub=0.5
@@ -13,19 +22,12 @@ model UTube "Single U-tube borehole heat exchanger"
   parameter Modelica.SIunits.Length eTub=0.002 "Thickness of a tube"
     annotation (Dialog(group="Tubes"));
 
-  replaceable parameter Buildings.HeatTransfer.Data.BoreholeFillings.Generic
-    matFil "Thermal properties of the borehole filling"
-    annotation (choicesAllMatching=true, Dialog(group="Borehole"));
   parameter Modelica.SIunits.Height hBor "Total height of the borehole"
     annotation(Dialog(group="Borehole"));
   parameter Integer nVer=10
     "Number of segments used for discretization in the vertical direction"
       annotation(Dialog(group="Borehole"));
   parameter Modelica.SIunits.Radius rBor=0.1 "Radius of the borehole";
-
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
-    matSoi[nVer] "Thermal properties of the soil"
-    annotation (choicesAllMatching=true, Dialog(group="Soil"));
 
   parameter Modelica.SIunits.Radius rExt=3
     "Radius of the soil used for the external boundary condition"
@@ -68,7 +70,7 @@ model UTube "Single U-tube borehole heat exchanger"
     annotation(Dialog(group="Borehole"));
   Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment borHol[nVer](
     redeclare each final package Medium = Medium,
-    final matSoi=matSoi,
+    each final matSoi=matSoi,
     each final matFil=matFil,
     each final hSeg=hBor/nVer,
     each final samplePeriod=samplePeriod,
@@ -271,6 +273,10 @@ the far-field temperature boundary condition.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 27, 2013, by Michael Wetter:<br/>
+Added missing <code>each</code> in propagation of material properties.
+</li>
 <li>
 August 2011, by Pierre Vigouroux:<br/>
 First implementation.

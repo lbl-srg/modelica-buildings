@@ -228,20 +228,67 @@ the simulation stops.");
 
   // Correction for flow resistance of pump or fan
   // Case 1:
-  if (haveVMax and haveDPMax) or (nOri == 2) then
+  if (haveVMax and haveDPMax) or (nOri == 2) then  // ----- Curve 1
     curve :=1; // V_flow_max and dpMax are provided by the user, or we only have two data points
     for i in 1:nOri loop
       pCur1.dp[i]  :=pressure.dp[i] + pressure.V_flow[i] * kRes;
       pCur1.V_flow[i] := pressure.V_flow[i];
     end for;
-      pCur2.V_flow := zeros(nOri + 1);
-      pCur2.dp     := zeros(nOri + 1);
-      pCur3.V_flow := zeros(nOri + 2);
-      pCur3.dp     := zeros(nOri + 2);
-      preDer1:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur1.V_flow, y=pCur1.dp);
-      preDer2:=zeros(nOri+1);
-      preDer3:=zeros(nOri+2);
-  elseif haveVMax or haveDPMax then
+    pCur2.V_flow := zeros(nOri + 1);
+    pCur2.dp     := zeros(nOri + 1);
+    pCur3.V_flow := zeros(nOri + 2);
+    pCur3.dp     := zeros(nOri + 2);
+    preDer1:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur1.V_flow, y=pCur1.dp);
+    preDer2:=zeros(nOri+1);
+    preDer3:=zeros(nOri+2);
+
+    // Equation to compute dpDelta
+    dpDelta :=cha.pressure(
+      data=pCur1,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer1,
+      cBar=zeros(2),
+      kRes=  kRes);
+
+    // Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.
+    VDelta_flow :=V_flow_max*delta;
+
+    // Linear equations to determine cBar
+    // Conditions for r_N=delta, V_flow = VDelta_flow
+    // Conditions for r_N=delta, V_flow = 0
+    cBar[1] :=cha.pressure(
+      data=pCur1,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer1,
+      cBar=zeros(2),
+      kRes=  kRes) * (1-delta)/delta^2;
+  
+    cBar[2] :=((cha.pressure(
+      data=pCur1,
+      V_flow=VDelta_flow,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer1,
+      cBar=zeros(2),
+      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+
+  elseif haveVMax or haveDPMax then  // ----- Curve 2
     curve :=2; // V_flow_max or dpMax is provided by the user, but not both
     if haveVMax then
       pCur2.V_flow[1] := 0;
@@ -265,7 +312,55 @@ the simulation stops.");
     preDer1:=zeros(nOri);
     preDer2:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur2.V_flow, y=pCur2.dp);
     preDer3:=zeros(nOri+2);
-  else
+
+    // Equation to compute dpDelta
+    dpDelta :=cha.pressure(
+      data=pCur2,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer2,
+      cBar=zeros(2),
+      kRes=  kRes);
+
+    // Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.
+    VDelta_flow :=V_flow_max*delta;
+
+    // Linear equations to determine cBar
+    // Conditions for r_N=delta, V_flow = VDelta_flow
+    // Conditions for r_N=delta, V_flow = 0
+    cBar[1] :=cha.pressure(
+      data=pCur2,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer2,
+      cBar=zeros(2),
+      kRes=  kRes) * (1-delta)/delta^2;
+  
+    cBar[2] :=((cha.pressure(
+      data=pCur2,
+      V_flow=VDelta_flow,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer2,
+      cBar=zeros(2),
+      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+
+
+  else  // ----- Curve 3
     curve :=3; // Neither V_flow_max nor dpMax are provided by the user
     pCur3.V_flow[1] := 0;
     pCur3.dp[1]     := dpMax;
@@ -282,53 +377,55 @@ the simulation stops.");
     preDer1:=zeros(nOri);
     preDer2:=zeros(nOri+1);
     preDer3:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur3.V_flow, y=pCur3.dp);
+
+    // Equation to compute dpDelta
+    dpDelta :=cha.pressure(
+      data=pCur3,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer3,
+      cBar=zeros(2),
+      kRes=  kRes);
+
+    // Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.
+    VDelta_flow :=V_flow_max*delta;
+
+    // Linear equations to determine cBar
+    // Conditions for r_N=delta, V_flow = VDelta_flow
+    // Conditions for r_N=delta, V_flow = 0
+    cBar[1] :=cha.pressure(
+      data=pCur3,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer3,
+      cBar=zeros(2),
+      kRes=  kRes) * (1-delta)/delta^2;
+  
+    cBar[2] :=((cha.pressure(
+      data=pCur3,
+      V_flow=VDelta_flow,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer3,
+      cBar=zeros(2),
+      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+
   end if;
 
-  // Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.
-  VDelta_flow :=V_flow_max*delta;
-
-  // Equation to compute dpDelta
-  dpDelta :=cha.pressure(
-    data=if (curve == 1) then pCur1 elseif (curve == 2) then pCur2 else pCur3,
-    V_flow=0,
-    r_N=delta,
-    VDelta_flow=0,
-    dpDelta=0,
-    V_flow_max=Modelica.Constants.eps,
-    dpMax=0,
-    delta=0,
-    d=if (curve == 1) then preDer1 elseif (curve == 2) then preDer2 else preDer3,
-    cBar=zeros(2),
-    kRes=  kRes);
-
-  // Linear equations to determine cBar
-  // Conditions for r_N=delta, V_flow = VDelta_flow
-  // Conditions for r_N=delta, V_flow = 0
-  cBar[1] :=cha.pressure(
-    data=if (curve == 1) then pCur1 elseif (curve == 2) then pCur2 else pCur3,
-    V_flow=0,
-    r_N=delta,
-    VDelta_flow=0,
-    dpDelta=0,
-    V_flow_max=Modelica.Constants.eps,
-    dpMax=0,
-    delta=0,
-    d=if (curve == 1) then preDer1 elseif (curve == 2) then preDer2 else preDer3,
-    cBar=zeros(2),
-    kRes=  kRes) * (1-delta)/delta^2;
-
-  cBar[2] :=((cha.pressure(
-    data=if (curve == 1) then pCur1 elseif (curve == 2) then pCur2 else pCur3,
-    V_flow=VDelta_flow,
-    r_N=delta,
-    VDelta_flow=0,
-    dpDelta=0,
-    V_flow_max=Modelica.Constants.eps,
-    dpMax=0,
-    delta=0,
-    d=if (curve == 1) then preDer1 elseif (curve == 2) then preDer2 else preDer3,
-    cBar=zeros(2),
-    kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
 equation
 
   // Hydraulic equations
@@ -533,6 +630,13 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 27, 2013, by Michael Wetter:<br/>
+Reformulated <code>data=if (curve == 1) then pCur1 elseif (curve == 2) then pCur2 else pCur3</code>
+by moving the computation into the idividual logical branches because OpenModelica generates an 
+error when assign the statement to <code>data</code> 
+as <code>pCur1</code>, <code>pCur2</code> and <code>pCur3</code> have different dimensions.
+</li>
 <li>
 September 17, 2013, by Michael Wetter:<br/>
 Added missing <code>each</code> keyword in declaration of parameters
