@@ -167,6 +167,9 @@ package UsersGuide "User's Guide"
   the floor area in drawing A2.03 (656.25 sq ft). The areas listed on M3.02 have been
   increased by the percent difference in the total. This assumption should be checked 
   against final, as-built drawings when they are available.</li>
+  <li>Length of tube in each radiant slab model in the examples is based on the numbers
+  in drawing M3.02. These numbers may include tube  running to/from the manifold,
+  instead of only the tube in the slab itself. Worth determining?</li>
   </ul>
   </html>"));
 end UsersGuide;
