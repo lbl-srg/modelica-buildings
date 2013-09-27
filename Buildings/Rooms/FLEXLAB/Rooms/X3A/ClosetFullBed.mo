@@ -1,6 +1,6 @@
 within Buildings.Rooms.FLEXLAB.Rooms.X3A;
-model ClosetNoCelDiv
-  "Model of the closet connected to test cell X3A without the celDiv wall separating X3A and X3B"
+model ClosetFullBed
+  "Model of the closet connected to test cell X3A intended to be connected to X3B.Closet"
   extends Buildings.Rooms.MixedAir(
   hRoo = 3.6576,
   AFlo = 3.93,
@@ -66,9 +66,9 @@ model ClosetNoCelDiv
     Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a> with the wall separating this model and
     <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3B.Closet\">
     Buildings.Rooms.FLEXLAB.Rooms.X3B.Closet</a> removed. It is intended for use in simulations
-    which include both room models. If the regular models are used the wall separating the
-    closets will be modeled twice, so one model must have the wall removed. This documentation
-    only describes the walls and connections which are different from
+    which include both room models to simulate the whole test bed. If the regular models are used 
+    the wall separating the closets will be modeled twice, so one model must have the wall removed. 
+    This documentation only describes the walls and connections which are different from
     <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
     Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a>. For information on the rest of the walls
     and connections see that documentation.
@@ -189,4 +189,4 @@ model ClosetNoCelDiv
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="fluid")}));
-end ClosetNoCelDiv;
+end ClosetFullBed;

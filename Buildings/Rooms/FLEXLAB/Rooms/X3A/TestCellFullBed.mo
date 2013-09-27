@@ -1,6 +1,6 @@
 within Buildings.Rooms.FLEXLAB.Rooms.X3A;
-model TestCellNoCelDiv
-  "Model of LBNL User Test Facility Cell X3A without the celDiv wall separating X3A and X3B"
+model TestCellFullBed
+  "Model of LBNL User Test Facility Cell X3A intended for connection with X3B.TestCell"
   extends Buildings.Rooms.MixedAir(AFlo=60.97,
       nSurBou=5,
       nConPar=0,
@@ -79,8 +79,8 @@ model TestCellNoCelDiv
   <p>
   This is a duplicate model of <a href=\"modelica:Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
   Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a> with the wall separating X3A and X3B removed.
-  It is designed for simulations where both X3A and X3B are used in the simulation and are to
-  be connected. If a simulation is created using TestCell from both packages the dividing wall
+  It is designed for simulations where both X3A and X3B are used in the simulation to model the
+  whole test bed. If a simulation is created using TestCell from both packages the dividing wall
   will be modeled twice, so one of the two models used must be created without the dividing wall
   in the model.
   </p>
@@ -218,4 +218,4 @@ model TestCellNoCelDiv
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="fluid")}));
-end TestCellNoCelDiv;
+end TestCellFullBed;

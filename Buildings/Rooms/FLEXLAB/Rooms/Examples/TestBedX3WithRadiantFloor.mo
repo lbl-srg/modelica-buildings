@@ -18,10 +18,10 @@ model TestBedX3WithRadiantFloor
   Buildings.Rooms.FLEXLAB.Rooms.X3B.Electrical BEle(redeclare package Medium =
         Air, nPorts=2) "Electrical room in test cell X3B"
     annotation (Placement(transformation(extent={{244,124},{284,164}})));
-  Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellNoCelDiv X3A(redeclare package
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellFullBed  X3A(redeclare package
       Medium = Air, nPorts=2) "Test cell X3A"
     annotation (Placement(transformation(extent={{-76,24},{-36,64}})));
-  Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetNoCelDiv AClo(redeclare package
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetFullBed  AClo(redeclare package
       Medium = Air, nPorts=1) "Closet in test cell X3A"
     annotation (Placement(transformation(extent={{-86,124},{-46,164}})));
   Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical AEle(redeclare package Medium =
