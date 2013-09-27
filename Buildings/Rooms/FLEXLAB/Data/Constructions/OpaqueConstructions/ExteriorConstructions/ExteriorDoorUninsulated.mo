@@ -3,4 +3,10 @@ record ExteriorDoorUninsulated =
    Buildings.HeatTransfer.Data.OpaqueConstructions.Generic(final material={
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.01588),
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.01588)},
-    final nLay=2) "Model of an uninsulated exterior door";
+    final nLay=2) "Model of an uninsulated exterior door"
+    annotation(Documentation(info="<html>
+    <p>
+    This is a model of an uninsulated exterior door. It is used in all
+    FLEXLAB electrical room models.
+    </p>
+    </html>"));
