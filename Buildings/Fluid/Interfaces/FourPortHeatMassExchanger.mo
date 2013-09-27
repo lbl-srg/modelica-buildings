@@ -105,9 +105,9 @@ model FourPortHeatMassExchanger
         extent={{-10,10},{10,-10}},
         rotation=180)));
 
-  Modelica.SIunits.HeatFlowRate Q1_flow= sum(vol1.heatPort.Q_flow)
+  Modelica.SIunits.HeatFlowRate Q1_flow = vol1.heatPort.Q_flow
     "Heat flow rate into medium 1";
-  Modelica.SIunits.HeatFlowRate Q2_flow= sum(vol2.heatPort.Q_flow)
+  Modelica.SIunits.HeatFlowRate Q2_flow = vol2.heatPort.Q_flow
     "Heat flow rate into medium 2";
 
   Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro1(
@@ -216,6 +216,10 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 26, 2013, by Michael Wetter:<br/>
+Removed unrequired <code>sum</code> operator.
+</li>
 <li>
 February 6, 2012, by Michael Wetter:<br/>
 Updated documentation.
