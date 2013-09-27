@@ -40,12 +40,16 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-  Modelica.SIunits.HeatFlowRate QCon_flow
+
+  // Heat flow rates
+  Modelica.SIunits.HeatFlowRate QCon_flow = heatPortCon.Q_flow
     "Heat input into the water due to convective heat transfer with room air";
-  Modelica.SIunits.HeatFlowRate QRad_flow
+  Modelica.SIunits.HeatFlowRate QRad_flow = heatPortRad.Q_flow
     "Heat input into the water due to radiative heat transfer with room";
-  Modelica.SIunits.HeatFlowRate Q_flow "Heat input into the water";
-public
+  Modelica.SIunits.HeatFlowRate Q_flow = QCon_flow + QRad_flow
+    "Heat input into the water";
+
+  // Heat ports
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon
     "Heat port for convective heat transfer with room air temperature"
     annotation (Placement(transformation(extent={{-30,62},{-10,82}},
@@ -54,20 +58,6 @@ public
     "Heat port for radiative heat transfer with room radiation temperature"
     annotation (Placement(transformation(extent={{10,62},{30,82}},
                                  rotation=0)));
-
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nEle] heaCap(
-    each C=500*mDry/nEle,
-    each T(start=T_start)) if
-     not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-    "heat capacity of radiator metal"
-    annotation (Placement(transformation(extent={{-50,12},{-30,32}})));
-
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preHeaFloCon
-    "Heat input into radiator from convective heat transfer"
-    annotation (Placement(transformation(extent={{-48,-48},{-28,-28}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preHeaFloRad
-    "Heat input into radiator from radiative heat transfer"
-    annotation (Placement(transformation(extent={{-48,-70},{-28,-50}})));
 
   Fluid.MixingVolumes.MixingVolume[nEle] vol(
     redeclare each package Medium = Medium,
@@ -109,11 +99,64 @@ protected
 
    final parameter Real k = if T_b_nominal > TAir_nominal then 1 else -1
     "Parameter that is used to compute QEle_flow_nominal for heating or cooling mode";
-   Modelica.SIunits.TemperatureDifference dTCon[nEle]
+
+   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nEle] heaCap(
+     each C=500*mDry/nEle,
+     each T(start=T_start)) if
+       not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    "heat capacity of radiator metal"
+     annotation (Placement(transformation(extent={{-30,12},{-10,32}})));
+
+   Buildings.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preCon
+    "Heat input into radiator from convective heat transfer"
+     annotation (Placement(transformation(extent={{-48,-48},{-28,-28}})));
+   Buildings.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preRad
+    "Heat input into radiator from radiative heat transfer"
+     annotation (Placement(transformation(extent={{-48,-80},{-28,-60}})));
+
+   Modelica.SIunits.TemperatureDifference dTCon[nEle] = heatPortCon.T .- vol.T
     "Temperature difference for convective heat transfer";
-   Modelica.SIunits.TemperatureDifference dTRad[nEle]
+   Modelica.SIunits.TemperatureDifference dTRad[nEle] = heatPortRad.T .- vol.T
     "Temperature difference for radiative heat transfer";
 
+  Modelica.Blocks.Sources.RealExpression QCon[nEle](y=if homotopyInitialization
+         then homotopy(actual=(1 - fraRad) .* UAEle .* dTCon .*
+        Buildings.Utilities.Math.Functions.regNonZeroPower(
+        x=dTCon,
+        n=n - 1,
+        delta=0.05), simplified=(1 - fraRad) .* UAEle .* abs(dTCon_nominal) .^ (
+        n - 1) .* dTCon) else (1 - fraRad) .* UAEle .* dTCon .*
+        Buildings.Utilities.Math.Functions.regNonZeroPower(
+        x=dTCon,
+        n=n - 1,
+        delta=0.05)) "Convective heat flow rate"
+    annotation (Placement(transformation(extent={{-100,-48},{-80,-28}})));
+
+  Modelica.Blocks.Sources.RealExpression QRad[nEle](y=if homotopyInitialization
+         then homotopy(actual=fraRad .* UAEle .* dTRad .*
+        Buildings.Utilities.Math.Functions.regNonZeroPower(
+        x=dTRad,
+        n=n - 1,
+        delta=0.05), simplified=fraRad .* UAEle .* abs(dTRad_nominal) .^ (n - 1)
+         .* dTRad) else fraRad .* UAEle .* dTRad .*
+        Buildings.Utilities.Math.Functions.regNonZeroPower(
+        x=dTRad,
+        n=n - 1,
+        delta=0.05)) "Convective heat flow rate"
+    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preSumCon
+    "Heat input into radiator from convective heat transfer"
+    annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
+  Modelica.Blocks.Math.Sum sumCon(nin=nEle, k=-ones(nEle))
+    "Sum of convective heat flow rate"
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+  Modelica.Blocks.Math.Sum sumRad(nin=nEle, k=-ones(nEle))
+    "Sum of radiative heat flow rate"
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preSumRad
+    "Heat input into radiator from convective heat transfer"
+    annotation (Placement(transformation(extent={{52,-90},{72,-70}})));
 initial equation
   if T_b_nominal > TAir_nominal then
      assert(T_a_nominal > T_b_nominal, "In RadiatorEN442_2, T_a_nominal must be higher than T_b_nominal");
@@ -146,36 +189,16 @@ initial equation
    end for;
 
 equation
-  dTCon = heatPortCon.T .- vol.T;
-  dTRad = heatPortRad.T .- vol.T;
-  if homotopyInitialization then
-    preHeaFloCon.Q_flow = homotopy(actual=(1-fraRad) .* UAEle .* dTCon .*
-                                          Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTCon, n=n-1, delta=0.05),
-                                   simplified= (1-fraRad) .* UAEle .* abs(dTCon_nominal).^(n-1) .* dTCon);
-    preHeaFloRad.Q_flow = homotopy(actual=fraRad     .* UAEle .* dTRad .*
-                                          Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTRad, n=n-1, delta=0.05),
-                                   simplified=fraRad .* UAEle .* abs(dTRad_nominal).^(n-1) .* dTRad);
-  else
-    preHeaFloCon.Q_flow = (1-fraRad) .* UAEle .* dTCon .* Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTCon, n=n-1, delta=0.05);
-    preHeaFloRad.Q_flow = fraRad     .* UAEle .* dTRad .* Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTRad, n=n-1, delta=0.05);
-  end if;
-
-  QCon_flow = sum(preHeaFloCon.Q_flow);
-  QRad_flow = sum(preHeaFloRad.Q_flow);
-  Q_flow = QCon_flow + QRad_flow;
-  heatPortCon.Q_flow = QCon_flow;
-  heatPortRad.Q_flow = QRad_flow;
-
-  connect(preHeaFloCon.port, vol.heatPort) annotation (Line(
-      points={{-28,-38},{-18,-38},{-18,-10},{-9,-10}},
+  connect(preCon.port, vol.heatPort)       annotation (Line(
+      points={{-28,-38},{-20,-38},{-20,-10},{-9,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(preHeaFloRad.port, vol.heatPort) annotation (Line(
-      points={{-28,-60},{-12,-60},{-12,-10},{-9,-10}},
+  connect(preRad.port, vol.heatPort)       annotation (Line(
+      points={{-28,-70},{-20,-70},{-20,-10},{-9,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaCap.port, vol.heatPort)    annotation (Line(
-      points={{-40,12},{-40,-10},{-9,-10}},
+      points={{-20,12},{-20,-10},{-9,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(port_a, vol[1].ports[1]) annotation (Line(
@@ -195,7 +218,39 @@ equation
         color={0,127,255},
         smooth=Smooth.None));
   end for;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+  connect(QCon.y, preCon.Q_flow)                  annotation (Line(
+      points={{-79,-38},{-48,-38}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sumCon.u, QCon.y)          annotation (Line(
+      points={{18,-50},{-60,-50},{-60,-38},{-79,-38}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sumCon.y, preSumCon.Q_flow)     annotation (Line(
+      points={{41,-50},{52,-50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(preSumCon.port, heatPortCon)       annotation (Line(
+      points={{72,-50},{80,-50},{80,40},{-20,40},{-20,72}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(QRad.y, preRad.Q_flow)       annotation (Line(
+      points={{-79,-70},{-48,-70}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QRad.y, sumRad.u) annotation (Line(
+      points={{-79,-70},{-60,-70},{-60,-80},{18,-80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sumRad.y, preSumRad.Q_flow)        annotation (Line(
+      points={{41,-80},{52,-80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(preSumRad.port, heatPortRad)        annotation (Line(
+      points={{72,-80},{86,-80},{86,50},{20,50},{20,72}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),
                       graphics), Icon(graphics={
         Ellipse(
@@ -306,6 +361,11 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 26, 2013 by Michael Wetter:<br/>
+Reformulated implementation to avoid mixing textual and graphical 
+declarations in the <code>equation</code> section.
+</li>
 <li>
 April 4, 2011 by Michael Wetter:<br/>
 Changed the implementation to use

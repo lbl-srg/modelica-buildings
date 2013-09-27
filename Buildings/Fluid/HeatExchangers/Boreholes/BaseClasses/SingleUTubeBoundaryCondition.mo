@@ -23,8 +23,6 @@ model SingleUTubeBoundaryCondition
             {106,10}},      rotation=0), iconTransformation(extent={{86,-10},
             {106,10}})));
 protected
-  Integer iSam(min=1)
-    "Counter for how many time the model was sampled. Defined as iSam=1 when called at t=0";
   final parameter Modelica.SIunits.SpecificHeatCapacity c= matSoi.c
     "Specific heat capacity of the soil";
   final parameter Modelica.SIunits.ThermalConductivity k= matSoi.k
@@ -33,18 +31,23 @@ protected
   Modelica.SIunits.Energy UOld "Internal energy at the previous period";
   Modelica.SIunits.Energy U
     "Current internal energy, defined as U=0 for t=tStart";
-  Modelica.SIunits.Time startTime "Start time of the simulation";
+  final parameter Modelica.SIunits.Time startTime(fixed=false)
+    "Start time of the simulation";
+  Integer iSam(min=1)
+    "Counter for how many time the model was sampled. Defined as iSam=1 when called at t=0";
 initial algorithm
-  U    := 0;
-  UOld := 0;
+  U         := 0;
+  UOld      := 0;
+  startTime := time;
+  iSam      := 1;
 equation
   der(U) = Q_flow;
 algorithm
   // Set the start time for the sampling
-  when initial() then
-    startTime:=time;
-    iSam :=1;
-  end when;
+  // fixme: this may need to be moved to the initial equation section.
+  // See https://test.openmodelica.org/~marsj/Buildings/Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube.err
+//  when initial() then
+//  end when;
 
   when initial() or sample(startTime,samplePeriod) then
     QAve_flow := (U-UOld)/samplePeriod;
@@ -100,6 +103,11 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 27, 2013, by Michael Wetter:<br/>
+Moved assignment of <code>startTime</code> to <code>initial algorithm</code> section
+to avoid an error in OpenModelica.
+</li>
 <li>
 November 3 2011, by Michael Wetter:<br/>
 Moved <code>der(U) := Q_flow;</code> from the algorithm section to the equation section
