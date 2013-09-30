@@ -9,7 +9,7 @@ model ExteriorBoundaryConditions
     "Set to true to linearize emissive power";
 
   replaceable parameter ParameterConstruction conPar[nCon] constrainedby
-    ParameterConstruction "Records for construction"
+    ParameterConstruction[nCon] "Records for construction"
     annotation (Placement(transformation(extent={{174,-214},{194,-194}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a opa_a[nCon]
@@ -236,6 +236,11 @@ Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
 </html>",
         revisions="<html>
 <ul>
+<li>
+September 30, 2013, by Michael Wetter:<br/>
+Added missing dimension in the <code>constrainedby</code> declaration
+of the instance <code>conPar</code>.
+</li>
 <li>
 August 9, 2011 by Michael Wetter:<br/>
 Changed assignment of tilt in instance <code>conOpa</code>.
