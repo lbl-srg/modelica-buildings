@@ -20,20 +20,19 @@ record ConstructionNumbers "Data records for construction data"
   annotation (Dialog(group="Boundary constructions"));
 
   // Dimensions of components and connectors
-protected
-  parameter Integer NConExt(min=1)=max(1, nConExt)
+  final parameter Integer NConExt(min=1)=max(1, nConExt)
     "Number of elements for exterior constructions";
 
-  parameter Integer NConExtWin(min=1)=max(1, nConExtWin)
+  final parameter Integer NConExtWin(min=1)=max(1, nConExtWin)
     "Number of elements for exterior constructions with windows";
 
-  parameter Integer NConPar(min=1)=max(1, nConPar)
+  final parameter Integer NConPar(min=1)=max(1, nConPar)
     "Number of elements for partition constructions";
 
-  parameter Integer NConBou(min=1)=max(1, nConBou)
+  final parameter Integer NConBou(min=1)=max(1, nConBou)
     "Number of elements for constructions that have their outside surface exposed to the boundary of this room";
 
-  parameter Integer NSurBou(min=1)=max(1, nSurBou)
+  final parameter Integer NSurBou(min=1)=max(1, nSurBou)
     "Number of elements for surface heat transfer models that connect to constructions that are modeled outside of this room";
 
   // Flags to conditionally remove components
