@@ -1,5 +1,6 @@
 within Buildings.Rooms.FLEXLAB.Rooms.Examples;
 model X3AWithRadiantFloor "Example model showing a use of X3A"
+
   extends Modelica.Icons.Example;
 
   package Air = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
@@ -23,7 +24,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     tableOnFile=true,
     tableName="airCon",
     fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
-    columns=2:5) "Inlet air conditions (y[1] = m_flow, y[2] = T)"
+    columns=2:5) "Inlet air conditions (y[1] = m_flow, y[4] = T)"
     annotation (Placement(transformation(extent={{-196,54},{-176,74}})));
   Buildings.Fluid.Sources.MassFlowSource_T airIn(
     use_m_flow_in=true,
@@ -34,47 +35,48 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
   Buildings.Fluid.Sources.Boundary_pT
     airOut(nPorts=1, redeclare package Medium = Air) "Air outlet for X3A"
     annotation (Placement(transformation(extent={{-158,24},{-138,44}})));
-  Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
-    sla(
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A1(
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
-    m_flow_nominal=0.063,
-    A=60.97,
     pipe=pipe,
     layers=slaCon,
-    disPip=0.229)
-    annotation (Placement(transformation(extent={{-108,-132},{-88,-112}})));
+    m_flow_nominal=0.504,
+    A=6.645*3.09,
+    length=32.92,
+    disPip=sla4A1.A/sla4A1.length)
+    "Radiant slab serving the north side of cell X3A. Name is taken from drawing M3.02"
+    annotation (Placement(transformation(extent={{-108,-136},{-88,-116}})));
 
-  Modelica.Blocks.Sources.CombiTimeTable watCon(
-    table=[0,0.06,293.15; 86400,0.06,293.15], tableOnFile=false)
+  Modelica.Blocks.Sources.CombiTimeTable watCon4A1(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15])
     "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
-    annotation (Placement(transformation(extent={{-196,-128},{-176,-108}})));
-  Buildings.Fluid.Sources.MassFlowSource_T watIn(
+    annotation (Placement(transformation(extent={{-208,-132},{-188,-112}})));
+  Buildings.Fluid.Sources.MassFlowSource_T watIn4A1(
     nPorts=1,
     use_m_flow_in=true,
     use_T_in=true,
     redeclare package Medium = Water)
     "Inlet water conditions (from central plant)"
-    annotation (Placement(transformation(extent={{-154,-132},{-134,-112}})));
-  Buildings.Fluid.Sources.Boundary_pT watOut(
-    nPorts=1, redeclare package Medium = Water) "Water outlet"
+    annotation (Placement(transformation(extent={{-172,-136},{-152,-116}})));
+  Buildings.Fluid.Sources.Boundary_pT watOut4A1(nPorts=1, redeclare package
+      Medium = Water) "Water outlet"
                  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={16,-122})));
+        origin={-60,-126})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature preT
     "Temperature of the ground"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-94,-154})));
+        origin={-94,-170})));
   Modelica.Blocks.Sources.CombiTimeTable TGro(
     table=[0,288.15; 86400,288.15], tableOnFile=false)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-94,-186})));
+        origin={-94,-198})));
   Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     slaCon(nLay=3, material={
       Buildings.HeatTransfer.Data.Solids.Generic(
@@ -93,22 +95,20 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
         k=1.8,
         c=1100,
         d=2400)}) "Construction of the slab"
-    annotation (Placement(transformation(extent={{-196,-196},{-176,-176}})));
-  Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe
-    annotation (Placement(transformation(extent={{-196,-174},{-176,-154}})));
+    annotation (Placement(transformation(extent={{-196,-208},{-176,-188}})));
+  Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe(dOut=0.015875, dIn=0.01905)
+    annotation (Placement(transformation(extent={{-196,-186},{-176,-166}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     "/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
-  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem2[2] annotation (
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preT2[2]   annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={64,-108})));
-  Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical
-    eleRoo(
-    redeclare package Medium = Air,
-    nPorts=2) "Model of the electrical room"
+        origin={64,-114})));
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical ele(redeclare package Medium =
+        Air, nPorts=2) "Model of the electrical room"
     annotation (Placement(transformation(extent={{54,-80},{94,-40}})));
   Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet
     clo(
@@ -117,8 +117,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     annotation (Placement(transformation(extent={{156,92},{196,132}})));
   Modelica.Blocks.Sources.CombiTimeTable TNei(
     table=[0,293.15,293.15; 86400,293.15,293.15], tableOnFile=false)
-    "Temperature of the neighboring test cells (y[1] = UF90X2B, y[2] = UF90X3B)"
-    annotation (Placement(transformation(extent={{110,-118},{90,-98}})));
+    "Temperature of the neighboring test cells (y[1] = X2B, y[2] = X3B)"
+    annotation (Placement(transformation(extent={{110,-124},{90,-104}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiEle(
     table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)
     "Internal gain heat flow for the electrical room"
@@ -128,7 +128,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     tableName="airCon",
     fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
     columns=2:5)
-    "Inlet air conditions for the connected electrical room (y[1] = m_flow, y[2] = T)"
+    "Inlet air conditions for the connected electrical room (y[1] = m_flow, y[4] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-58,-38})));
@@ -138,7 +138,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     tableName="airCon",
     fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
     columns=2:5)
-    "Inlet air conditions for the connected closet (y[1] = m_flow, y[2] = T)"
+    "Inlet air conditions for the connected closet (y[1] = m_flow, y[4] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-2,112})));
@@ -172,7 +172,97 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     "Internal gain heat flow for the closet"
     annotation (Placement(transformation(extent={{-12,132},{8,152}})));
   inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{160,-180},{180,-160}})));
+    annotation (Placement(transformation(extent={{180,-210},{200,-190}})));
+  Modelica.Blocks.Sources.CombiTimeTable watCon4A2(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15])
+    "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
+    annotation (Placement(transformation(extent={{-248,-96},{-228,-76}})));
+  Buildings.Fluid.Sources.MassFlowSource_T watIn4A2(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    redeclare package Medium = Water)
+    "Inlet water conditions (from central plant)"
+    annotation (Placement(transformation(extent={{-206,-100},{-186,-80}})));
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A2(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    iLayPip=1,
+    redeclare package Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*1.51,
+    disPip=sla4A2.A/sla4A2.length,
+    length=45.11)
+    "Radiant slab serving the north-central section of cell X3A. Name is taken from drawing M3.02"
+    annotation (Placement(transformation(extent={{-152,-100},{-132,-80}})));
+
+  Buildings.Fluid.Sources.Boundary_pT watOut4A2(nPorts=1, redeclare package
+      Medium = Water) "Water outlet"
+                 annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-112,-90})));
+  Modelica.Blocks.Sources.CombiTimeTable watCon4A3(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15])
+    "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
+    annotation (Placement(transformation(extent={{-280,-58},{-260,-38}})));
+  Buildings.Fluid.Sources.MassFlowSource_T watIn4A3(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    redeclare package Medium = Water)
+    "Inlet water conditions (from central plant)"
+    annotation (Placement(transformation(extent={{-238,-62},{-218,-42}})));
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A3(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    iLayPip=1,
+    redeclare package Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*0.91,
+    disPip=sla4A3.A/sla4A3.length,
+    length=42.98)
+    "Radiant slab serving the south-central section of cell X3A. Name is taken from drawing M3.02"
+    annotation (Placement(transformation(extent={{-192,-62},{-172,-42}})));
+
+  Buildings.Fluid.Sources.Boundary_pT watOut4A3(nPorts=1, redeclare package
+      Medium = Water) "Water outlet"
+                 annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-152,-52})));
+  Modelica.Blocks.Sources.CombiTimeTable watCon4A4(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15])
+    "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
+    annotation (Placement(transformation(extent={{-300,-12},{-280,8}})));
+  Buildings.Fluid.Sources.MassFlowSource_T watIn4A4(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    redeclare package Medium = Water)
+    "Inlet water conditions (from central plant)"
+    annotation (Placement(transformation(extent={{-252,-16},{-232,4}})));
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A4(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    iLayPip=1,
+    redeclare package Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*3.65,
+    disPip=sla4A4.A/sla4A4.length,
+    length=50.9)
+    "Radiant slab serving the south section of cell X3A. Name is taken from drawing M3.02"
+    annotation (Placement(transformation(extent={{-222,-16},{-202,4}})));
+
+  Buildings.Fluid.Sources.Boundary_pT watOut4A4(nPorts=1, redeclare package
+      Medium = Water) "Water outlet"
+                 annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-182,-6})));
 equation
   connect(airCon.y[1],airIn. m_flow_in) annotation (Line(
       points={{-175,64},{-168,64},{-168,68},{-160,68}},
@@ -190,33 +280,33 @@ equation
       points={{-138,34},{-132,34},{-132,48},{-103,48}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sla.surf_b,preT. port)                  annotation (Line(
-      points={{-94,-132},{-94,-144}},
+  connect(sla4A1.surf_b, preT.port)               annotation (Line(
+      points={{-94,-136},{-94,-160}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(watIn.ports[1],sla. port_a)    annotation (Line(
-      points={{-134,-122},{-108,-122}},
+  connect(watIn4A1.ports[1], sla4A1.port_a)
+                                         annotation (Line(
+      points={{-152,-126},{-108,-126}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sla.port_b,watOut. ports[1])    annotation (Line(
-      points={{-88,-122},{6,-122}},
+  connect(sla4A1.port_b, watOut4A1.ports[1])
+                                          annotation (Line(
+      points={{-88,-126},{-70,-126}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(watCon.y[1],watIn. m_flow_in) annotation (Line(
-      points={{-175,-118},{-164,-118},{-164,-114},{-154,-114}},
+  connect(watCon4A1.y[1], watIn4A1.m_flow_in)
+                                        annotation (Line(
+      points={{-187,-122},{-180,-122},{-180,-118},{-172,-118}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(watCon.y[2],watIn. T_in) annotation (Line(
-      points={{-175,-118},{-156,-118}},
+  connect(watCon4A1.y[2], watIn4A1.T_in)
+                                   annotation (Line(
+      points={{-187,-122},{-174,-122}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TGro.y[1],preT. T) annotation (Line(
-      points={{-94,-175},{-94,-166}},
+      points={{-94,-187},{-94,-182}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(sla.surf_a, X3A.surf_surBou[1]) annotation (Line(
-      points={{-94,-112},{-94,0},{-93.8,0},{-93.8,44}},
-      color={191,0,0},
       smooth=Smooth.None));
   connect(weaDat.weaBus, X3A.weaBus) annotation (Line(
       points={{-100,180},{-72.1,180},{-72.1,75.9}},
@@ -227,62 +317,62 @@ equation
       points={{-175,134},{-118,134},{-118,74},{-112,74}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaDat.weaBus, eleRoo.weaBus) annotation (Line(
+  connect(weaDat.weaBus, ele.weaBus)    annotation (Line(
       points={{-100,180},{91.9,180},{91.9,-42.1}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaDat.weaBus, clo.weaBus) annotation (Line(
+  connect(weaDat.weaBus,clo. weaBus) annotation (Line(
       points={{-100,180},{193.9,180},{193.9,129.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(eleRoo.surf_surBou[1], X3A.surf_conBou[5]) annotation (Line(
-      points={{70.2,-74.5},{70,-74.5},{70,-82},{-84,-82},{-84,42.8}},
+  connect(ele.surf_surBou[1], X3A.surf_conBou[5])    annotation (Line(
+      points={{70.2,-74.5},{70,-74.5},{70,-88},{-84,-88},{-84,42.8}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(clo.surf_surBou[1], X3A.surf_conBou[3]) annotation (Line(
-      points={{172.2,97.5},{172,97.5},{172,-86},{-84,-86},{-84,42}},
+      points={{172.2,97.5},{172,97.5},{172,-88},{-84,-88},{-84,42}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(clo.surf_surBou[1], X3A.surf_conBou[4]) annotation (Line(
-      points={{172.2,97.5},{172,97.5},{172,-86},{-84,-86},{-84,42.4}},
+      points={{172.2,97.5},{172,97.5},{172,-88},{-84,-88},{-84,42.4}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airConEle.y[4], airInEle.T_in) annotation (Line(
       points={{-47,-38},{-18,-38}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airInEle.ports[1], eleRoo.ports[1]) annotation (Line(
+  connect(airInEle.ports[1], ele.ports[1])    annotation (Line(
       points={{4,-42},{12,-42},{12,-70},{57,-70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(eleRoo.ports[2], airOutEle.ports[1]) annotation (Line(
+  connect(ele.ports[2], airOutEle.ports[1])    annotation (Line(
       points={{61,-70},{2,-70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(eleRoo.surf_surBou[2], clo.surf_conBou[1]) annotation (Line(
-      points={{70.2,-73.5},{70,-73.5},{70,-82},{182,-82},{182,95.5}},
+  connect(ele.surf_surBou[2], clo.surf_conBou[1])    annotation (Line(
+      points={{70.2,-73.5},{70,-73.5},{70,-88},{182,-88},{182,95.3333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(preTem2[1].port, X3A.surf_conBou[1]) annotation (Line(
-      points={{54,-108},{-84,-108},{-84,41.2}},
+  connect(preT2[1].port, X3A.surf_conBou[1])   annotation (Line(
+      points={{54,-114},{-84,-114},{-84,41.2}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(preTem2[2].port, X3A.surf_conBou[2]) annotation (Line(
-      points={{54,-108},{-84,-108},{-84,41.6}},
+  connect(preT2[2].port, X3A.surf_conBou[2])   annotation (Line(
+      points={{54,-114},{-84,-114},{-84,41.6}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(airInClo.ports[1], clo.ports[1]) annotation (Line(
+  connect(airInClo.ports[1],clo. ports[1]) annotation (Line(
       points={{60,116},{110,116},{110,102},{159,102}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TNei.y, preTem2.T) annotation (Line(
-      points={{89,-108},{76,-108}},
+  connect(TNei.y, preT2.T)   annotation (Line(
+      points={{89,-114},{76,-114}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(preTem2[2].port, clo.surf_conBou[2]) annotation (Line(
-      points={{54,-108},{36,-108},{36,-90},{182,-90},{182,96.5}},
+  connect(preT2[2].port, clo.surf_conBou[2])   annotation (Line(
+      points={{54,-114},{36,-114},{36,-96},{182,-96},{182,96}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airConClo.y[4], airInClo.T_in) annotation (Line(
@@ -297,7 +387,7 @@ equation
       points={{9,112},{20,112},{20,108},{40,108}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airOutClo.ports[1], clo.ports[2]) annotation (Line(
+  connect(airOutClo.ports[1],clo. ports[2]) annotation (Line(
       points={{60,80},{110,80},{110,102},{163,102}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -305,36 +395,116 @@ equation
       points={{-175,102},{-140,102},{-140,68},{-118,68}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(intGaiEle.y, eleRoo.qGai_flow) annotation (Line(
+  connect(intGaiEle.y, ele.qGai_flow)    annotation (Line(
       points={{-47,-6},{20,-6},{20,-50},{46,-50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(intGaiClo.y, clo.qGai_flow) annotation (Line(
+  connect(intGaiClo.y,clo. qGai_flow) annotation (Line(
       points={{9,142},{120,142},{120,122},{148,122}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -200},{200,200}}), graphics),
+  connect(preT.port,clo. surf_conBou[3]) annotation (Line(
+      points={{-94,-160},{-94,-142},{182,-142},{182,96.6667}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(ele.surf_conBou[1], preT.port)    annotation (Line(
+      points={{80,-76},{80,-92},{-16,-92},{-16,-142},{-94,-142},{-94,-160}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sla4A1.surf_a, X3A.surf_surBou[1]) annotation (Line(
+      points={{-94,-116},{-94,43.25},{-93.8,43.25}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(watCon4A2.y[1], watIn4A2.m_flow_in) annotation (Line(
+      points={{-227,-86},{-216,-86},{-216,-82},{-206,-82}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(watCon4A2.y[2], watIn4A2.T_in) annotation (Line(
+      points={{-227,-86},{-208,-86}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(watIn4A2.ports[1], sla4A2.port_a) annotation (Line(
+      points={{-186,-90},{-152,-90}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sla4A2.port_b, watOut4A2.ports[1]) annotation (Line(
+      points={{-132,-90},{-122,-90}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sla4A2.surf_a, X3A.surf_surBou[2]) annotation (Line(
+      points={{-138,-80},{-138,-48},{-93.8,-48},{-93.8,43.75}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(preT.port, sla4A2.surf_b) annotation (Line(
+      points={{-94,-160},{-138,-160},{-138,-100}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(watCon4A3.y[1], watIn4A3.m_flow_in) annotation (Line(
+      points={{-259,-48},{-248,-48},{-248,-44},{-238,-44}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(watCon4A3.y[2], watIn4A3.T_in) annotation (Line(
+      points={{-259,-48},{-240,-48}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(watIn4A3.ports[1], sla4A3.port_a) annotation (Line(
+      points={{-218,-52},{-192,-52}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sla4A3.port_b, watOut4A3.ports[1]) annotation (Line(
+      points={{-172,-52},{-162,-52}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sla4A3.surf_a, X3A.surf_surBou[3]) annotation (Line(
+      points={{-178,-42},{-178,-24},{-93.8,-24},{-93.8,44.25}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(preT.port, sla4A3.surf_b) annotation (Line(
+      points={{-94,-160},{-138,-160},{-138,-106},{-178,-106},{-178,-62}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(watCon4A4.y[1], watIn4A4.m_flow_in) annotation (Line(
+      points={{-279,-2},{-266,-2},{-266,2},{-252,2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(watCon4A4.y[2], watIn4A4.T_in) annotation (Line(
+      points={{-279,-2},{-254,-2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(watIn4A4.ports[1], sla4A4.port_a) annotation (Line(
+      points={{-232,-6},{-222,-6}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sla4A4.port_b, watOut4A4.ports[1]) annotation (Line(
+      points={{-202,-6},{-192,-6}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(preT.port, sla4A4.surf_b) annotation (Line(
+      points={{-94,-160},{-138,-160},{-138,-106},{-178,-106},{-178,-72},{-208,
+          -72},{-208,-16}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sla4A4.surf_a, X3A.surf_surBou[4]) annotation (Line(
+      points={{-208,4},{-208,14},{-93.8,14},{-93.8,44.75}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
+            -210},{200,200}}), graphics),
           Documentation(info = "<html>
           <p>
           This model demonstrates one potential simulation using the models available in
           <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
           Buildings.Rooms.FLEXLAB.Rooms.X3A</a>. This example simulates test cell 
-          X3A when it is conditioned with a radiant slab.
-          </p>
-          <p>
-          This example model of <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
-          Buildings.Rooms.FLEXLAB.X3A.TestCell</a> includes heat transfer between the test cell,
-          the outdoor environment, the radiant slab conditioning the test cell, the connected electrical room
-          and closet, and the neighboring test cells. The following image is a drawing of test cell X3A.
-          It shows how the different rooms in this example are connected, as well as providing the names used
-          in this example for each of the rooms.
-          </p>        
-          <p align=\"center\">
-          <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.png\"border=\"1\" alt=\"Room locations and names in X3AWithRadiantFloor\"/>
-          </p>                    
+          X3A when it is conditioned with a radiant slab. This example model includes 
+          heat transfer between the test cell, the outdoor environment, the radiant slab 
+          conditioning the test cell, the connected electrical room and closet, and the 
+          neighboring test cells.
+          </p>              
           <p>
           The connections between the test cell and the external models are described in the following table.
+          Only models not included in the X3A package are included. For documentation describing the connections
+          between X3A models see <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
+          Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
           </p>
           <table border =\"1\" summary = \"Summary of connections between test cell and other models\">
           <tr>
@@ -351,32 +521,36 @@ equation
           </tr>          
           <tr>
           <td>TNei</td>
-          <td>Neighboring test cells (UF90X2B and UF90X3B)</td>
-          <td>UF90X2B: X3A.preTem2.port[1]<br/>
-          UF90X3B: X3A.preTem2.port[2]</td>
-          <td>UF90X2B: X3A.surf_conBou[1]<br/>
-          UF90X3B: X3A.surf_conBou[2]</td>
+          <td>Neighboring test cells (X2B and X3B)</td>
+          <td>X2B: X3A.preTem2.port[1]<br/>
+          X3B: X3A.preTem2.port[2]</td>
+          <td>X2B: X3A.surf_conBou[1]<br/>
+          X3B: X3A.surf_conBou[2]</td>
           </tr>          
           <tr>
-          <td>clo</td>
-          <td>Closet</td>
-          <td>Door: clo.surf_surBou[2]<br/>
-          Wall: clo.surf_surBou[1]</td>
-          <td>Door: X3A.surf_conBou[4]<br/>
-          Wall: X3A.surf_conBou[3]</td>
-          </tr>          
-          <tr>
-          <td>eleRoo</td>
-          <td>Electrical room</td>
-          <td>eleRoo.surf_surBou[1]</td>
-          <td>X3A.surf_conBou[5]</td>
-          </tr>
-          <tr>
-          <td>sla</td>
-          <td>Radiant slab</td>
-          <td>sla.surf_a</td>
+          <td>sla4A1</td>
+          <td>Radiant slab serving the north portion of X3A</td>
+          <td>sla4A1.surf_a</td>
           <td>X3A.surf_surBou[1]</td>
           </tr>
+          <tr>
+          <td>sla4A2</td>
+          <td>Radiant slab serving the north-central portion of X3A</td>
+          <td>sla4A2.surf_a</td>
+          <td>X3A.surf_surBou[2]</td>
+          </tr>       
+          <tr>
+          <td>sla4A3</td>
+          <td>Radiant slab serving the south-central portion of X3A</td>
+          <td>sla4A3.surf_a</td>
+          <td>X3A.surf_surBou[3]</td>
+          </tr>           
+          <tr>
+          <td>sla4A4</td>
+          <td>Radiant slab serving the south portion of X3A</td>
+          <td>sla4A4.surf_a</td>
+          <td>X3A.surf_surBou[4]</td>
+          </tr>            
           <tr>
           <td>shaPos</td>
           <td>Table describing the position of the window shade</td>
@@ -401,7 +575,79 @@ equation
           <td>airOut.ports[1]</td>
           <td>X3A.ports[1]</td>
           </tr>
-          </table>  
+          </table>
+          <p>
+          The connections between the closet and external models are described in the following table.
+          Only connections to models not included in the X3A package are described.
+          </p>
+          <table border=\"1\" summary = \"Summary of connections to the closet model\">      
+          <tr>
+          <th>External model name</th>
+          <th>External model significance</th>
+          <th>External model port</th>
+          <th>clo port</th>
+          </tr>
+          <tr>
+          <td>intGaiClo</td>
+          <td>Table specifying the internal gains in the closet</td>
+          <td>intGaiClo[1,2,3]</td>
+          <td>clo.qGai_flow[1,2,3]</td>
+          </tr>
+          <tr>
+          <td>airInClo</td>
+          <td>Prescribed airflow describing service air from the AHU</td>
+          <td>airInClo.ports[1]</td>
+          <td>clo.ports[1]</td>
+          </tr>
+          <tr>
+          <td>airOutClo</td>
+          <td>Outlet for ventilation air flow</td>
+          <td>airOutClo.ports[1]</td>
+          <td>clo.ports[1]</td>
+          </tr>
+          <tr>
+          <td>preT</td>
+          <td>Prescribed temperature describing the ground temperature</td>
+          <td>preT.port</td>
+          <td>clo.surf_conBou[3]</td>
+          </tr>
+          </table>
+          <p>
+          The connections between the electrical room and external models are described in the following
+          table. Only connections to models not included in the X3A package are described.
+          </p>
+          <table border=\"1\" summary = \"Summary of connections to the electrical room model\">
+          <tr>
+          <th>External model name</th>
+          <th>External model significance</th>
+          <th>External model port</th>
+          <th>ele port</th>
+          </tr>
+          <tr>
+          <td>intGaiEle</td>
+          <td>Table specifying the internal gains in the electrical room</td>
+          <td>intGaiEle[1,2,3]</td>
+          <td>ele.qGai_flow[1,2,3]</td>
+          </tr>
+          <tr>
+          <td>airInEle</td>
+          <td>Prescribed airflow describing service air from the AHU</td>
+          <td>airInEle.ports[1]</td>
+          <td>ele.ports[1]</td>
+          </tr>
+          <tr>
+          <td>airOutEle</td>
+          <td>Outlet for ventilation air flow</td>
+          <td>airOutEle.ports[1]</td>
+          <td>ele.ports[1]</td>
+          </tr>
+          <tr>
+          <td>preT</td>
+          <td>Prescribed temperature describing the ground temperature</td>
+          <td>preT.port</td>
+          <td>ele.surf_conBou[1]</td>
+          </tr>
+          </table>
           <p>
           The radiant slab is modeled using an instance of 
           <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
@@ -436,85 +682,6 @@ equation
           <td>Outlet for service fluid flow</td>
           <td>watOut.ports[1]</td>
           <td>sla.port_b</td>          
-          </tr>
-          </table>
-          <p>
-          The electrical room connected to test cell X3A is modeled using
-          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical\">
-          Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical</a>. The necessary 
-          connections are described in the following table. Connections previously described
-          are not included here.
-          </p>
-          <table border=\"1\" summary = \"Connections to the electrical room model\">
-          <tr>
-          <th>External model name</th>
-          <th>External model significance</th>
-          <th>External model port</th>
-          <th>eleRoo port</th>
-          </tr>
-          <tr>
-          <td>intGaiEle</td>
-          <td>Table specifying internal gains in the space</td>
-          <td>intGaiEle[1,2,3]</td>
-          <td>eleRoo.qGai_flow[1,2,3]</td>
-          </tr>
-          <tr>
-          <td>airInEle</td>
-          <td>Prescribed airflow describing service from AHU</td>
-          <td>airIn.ports[1]</td>
-          <td>eleRoo.ports[1]</td>
-          </tr>
-          <tr>
-          <td>airOut</td>
-          <td>Outlet for ventilation air flow</td>
-          <td>airOut.ports[1]</td>
-          <td>eleRoo.ports[2]</td>
-          </tr>
-          <tr>
-          <td>clo</td>
-          <td>Heat transfer through the wall shared by the closet and the electrical room</td>
-          <td>clo.surf_conBou[1]</td>
-          <td>eleRoo.surf_surBou[2]</td>
-          </tr>
-          </table>
-          <p>
-          The closet connected to the X3A test cell is modeled using an instance of 
-          <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
-          Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a>. The connections
-          necessary to accurately include the space in the simulation are described
-          in the following table. Previously described connections are not included.
-          </p>
-          <table border =\"1\" summary = \"Connections to the closet model\">
-          <tr>
-          <th>External model name</th>
-          <th>External model significance</th>
-          <th>External model port</th>
-          <th>clo port</th>
-          </tr>
-          <tr>
-          <td>intGaiClo</td>
-          <td>Internal gains for the closet</td>
-          <td>intGaiClo.y[1,2,3]</td>
-          <td>clo.qGai_flow[1,2,3]</td>
-          </tr>
-          <tr>
-          <td>airInClo</td>
-          <td>Prescribed airflow describing service air coming from the AHU</td>
-          <td>airInClo.ports[1]</td>
-          <td>clo.ports[1]</td>
-          </tr>
-          <tr>
-          <td>airOutClo</td>
-          <td>Outlet for ventilation air</td>
-          <td>airOutClo.ports[1]</td>
-          <td>clo.ports[2]</td>
-          </tr>
-          <tr>
-          <td>preTem2</td>
-          <td>Prescribed temperature representing the closet in UF90X3B. Data is 
-          read from the table in TNei</td>
-          <td>preTem2[2].port</td>
-          <td>clo.surf_conBou[2]</td>
           </tr>
           </table>
           <p>
@@ -640,6 +807,8 @@ equation
           </html>",
           revisions = "<html>
           <ul>
+          <li>Sep 16, 2013 by Peter Grant:<br/>
+          Added connections to include floor models in Closet and Electrical.</li>
           <li>Jun 10, 2013 by Peter Grant:<br/>
           First implementation.</li>
           </ul>

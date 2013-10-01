@@ -1,4 +1,4 @@
-within Buildings.Rooms.FLEXLAB.Rooms.X3A;
+within Buildings.Rooms.FLEXLAB.Rooms.X3B;
 model Closet "Model of the closet connected to test cell X3A"
   extends Buildings.Rooms.MixedAir(
   hRoo = 3.6576,
@@ -61,19 +61,19 @@ model Closet "Model of the closet connected to test cell X3A"
     annotation (Placement(transformation(extent={{432,-118},{452,-98}})));
     annotation (Documentation(info="<html>
     <p>
-    This is a model for the closet attached to test cell 3A in the LBNL User Facility.
+    This is a model for the closet attached to test cell 3B in the LBNL User Facility.
     This documentation describes the wall constructions used in the closet. Documentation
     describing how it should be connected to other models in the package to form a 
-    complete model of test cell X3A can be found in
-    <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
-    Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
+    complete model of test cell X3B can be found in
+    <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B\">
+    Buildings.Rooms.FLEXLAB.Rooms.X3B</a>.
     </p>
     <p>
     There are four different wall sections connected to the closet modeled here. They are shown
     in the figure below.
     </p>
     <p align=\"center\">
-    <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/X3A/Closet.png\" border=\"1\" alt=\"Wall sections in Closet model\"/>
+    <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/X3B/Closet.png\" border=\"1\" alt=\"Wall sections in Closet model\"/>
     </p>
     <p>
     The different wall sections are represented in the model according to the following table.
@@ -87,37 +87,37 @@ model Closet "Model of the closet connected to test cell X3A"
     </tr>
     <tr>
     <td>1</td>
-    <td>North wall on the exterior of the buildings</td>
-    <td>datConExt[1]</td>
-    <td>higIns</td>
-    </tr>
-    <tr>
-    <td>2</td>
-    <td>East wall connected to X3B.Closet</td>
+    <td>West wall connected to X3A.Closet</td>
     <td>datConBou[2]</td>
     <td>celDiv</td>
     </tr>
     <tr>
+    <td>2</td>
+    <td>North wall on the exterior of the buildings</td>
+    <td>datConExt[1]</td>
+    <td>higIns</td>
+    </tr>   
+    <tr>
     <td>3</td>
+    <td>East wall connected to Electrical</td>
+    <td>datConBou[1]</td>
+    <td>higIns</td>
+    </tr>     
+    <tr>
+    <td>4</td>
     <td>Air space connected to partition wall and door in TestCell model</td>
     <td>Wall: datSurBou[1]<br/>
     Door: datSurBou[2]</td>
     </tr>    
-    <tr>
-    <td>4</td>
-    <td>West wall connected to Electrical</td>
-    <td>datConBou[1]</td>
-    <td>higIns</td>
-    </tr>
     </table>
     <p>
     There are two additional surfaces which are not included in the diagram. One is the model of the roof. It is 
     modeled in datConExt[2] using the layer <code>roo</code>. The other is the floor, which is modeled in 
-    datConBou[1] using the layer <code>slaCon</code>.
+    datConBou[3] using the layer <code>slaCon</code>.
     </p>
     <p>
     Several of the connections in this model are intended to be connected to specific surfaces in other room models.
-    The following table describes the connections to models outside of the X3A package.. The connections in datConExt 
+    The following table describes the connections to models outside of the X3B package. The connections in datConExt 
     are not described in the table because they are connected to the external environment, and no additional heat 
     port connections are necessary. A rationale for why the model is created this way is also provided if it is 
     considered necessary. 
@@ -131,12 +131,9 @@ model Closet "Model of the closet connected to test cell X3A"
     </tr>
     <tr>
     <td>surf_conBou[2]</td>
-    <td>X3B.Closet</td>
-    <td>References a data table</td>
-    <td>A data table is used, instead of a model of X3B.Closet, because the goal of this model is to be able to perform
-    simulations of TestCell with minimal complexity, by simplifying the neighboring test cells. The wall separating the
-    test cells is highly insulated, and it is believed that the error in simulations caused by using a data table will
-    be negligible.</td>
+    <td>X3A.Closet</td>
+    <td>X3A.ClosetNoCelDiv.surf_surBou[3]</td>
+    <td></td>
     </tr>
     <tr>
     <td>surf_conBou[3]</td>
