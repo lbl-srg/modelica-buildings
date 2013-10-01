@@ -14,4 +14,11 @@ record ASHRAE_901_1975Roof =
     <p>
     This model is not currently completed. For more information see the future work list at
     <a href=\"modelica://Buildings.Rooms.FLEXLAB.UsersGuide\">
-    Buildings.Rooms.FLEXLAB.UsersGuide</a>"));
+    Buildings.Rooms.FLEXLAB.UsersGuide</a>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

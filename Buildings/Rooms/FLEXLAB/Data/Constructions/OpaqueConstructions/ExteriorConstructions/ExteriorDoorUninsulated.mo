@@ -9,4 +9,11 @@ record ExteriorDoorUninsulated =
     This is a model of an uninsulated exterior door. It is used in all
     FLEXLAB electrical room models.
     </p>
-    </html>"));
+    </html>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

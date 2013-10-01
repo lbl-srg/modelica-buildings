@@ -15,4 +15,11 @@ record ASHRAE_901_2010Roof =
     Note: This model is currently a work in progress. For more information see
     the documentation available at 
     <a href=\"modelica://Buildings.Rooms.FLEXLAB.UsersGuide\">
-  Buildings.Rooms.FLEXLAB.UsersGuide</a>"));
+  Buildings.Rooms.FLEXLAB.UsersGuide</a>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

@@ -9,4 +9,11 @@ record PartitionDoor =
     This is a model of a parition door. It is used in every test cell
     as the door between the cell itself and the closet.
     </p>
-    </html>"));
+    </html>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

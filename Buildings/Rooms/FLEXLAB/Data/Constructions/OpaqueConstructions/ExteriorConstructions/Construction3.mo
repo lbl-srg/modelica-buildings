@@ -10,4 +10,11 @@ record Construction3 =
     <p>
     This is a model of the north wall of the electrical room in all test cells.
     </p>
-    </html>"));
+    </html>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

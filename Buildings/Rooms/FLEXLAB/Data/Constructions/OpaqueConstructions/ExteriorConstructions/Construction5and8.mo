@@ -14,4 +14,11 @@ record Construction5and8 =
     <p>
     Directions are stated assuming that the windows are facing south.
     </p>
-    </html>"));
+    </html>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

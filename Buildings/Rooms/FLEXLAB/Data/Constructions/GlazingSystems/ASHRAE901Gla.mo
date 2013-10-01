@@ -17,4 +17,11 @@ record ASHRAE901Gla =
   <a href=\"modelica://Buildings.Rooms.FLEXLAB.UsersGuide\">
   Buildings.Rooms.FLEXLAB.UsersGuide</a> for more information.
   </p>
-  </html>"));
+  </html>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

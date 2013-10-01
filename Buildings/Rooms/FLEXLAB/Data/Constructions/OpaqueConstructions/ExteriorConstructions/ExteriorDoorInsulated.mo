@@ -10,4 +10,11 @@ record ExteriorDoorInsulated =
     This is a model of an insulated exterior door. It is used in all
     FLEXLAB test cell models.
     </p>
-    </html>"));
+    </html>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

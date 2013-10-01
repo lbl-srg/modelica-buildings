@@ -9,4 +9,11 @@ record Construction2 =
     <p>
     This is a model of the external wall used in test bed X2.
     </p>
-    </html"));
+    </html", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

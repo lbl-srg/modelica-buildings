@@ -13,4 +13,11 @@ record Construction1 =
   This is a construction of an exterior wall used in some FLEXLAB test cells. It should be used in
   the north wall in all FLEXLAB closets, west wall in XRA, east wall in XRB and west wall in X1A.
   </p>
-  </html>"));
+  </html>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

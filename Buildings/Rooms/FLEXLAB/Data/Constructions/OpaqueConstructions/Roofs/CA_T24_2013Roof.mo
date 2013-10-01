@@ -17,4 +17,11 @@ record CA_T24_2013Roof =
     <a href=\"modelica://Buildings.Rooms.FLEXLAB.UsersGuide\">
     Buildings.Rooms.FLEXLAB.UsersGuide</a>.
     </p>
-    </html>"));
+    </html>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

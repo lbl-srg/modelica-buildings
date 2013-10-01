@@ -10,4 +10,11 @@ record Construction17and24 =
     This is a model of one of the constructions used in test cell XRA. It
     represents the south wall, and the north wall next to the door.
     </p>
-    </html>"));
+    </html>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

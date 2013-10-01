@@ -9,4 +9,11 @@ record PartitionWall =
     This is a model of a partition wall. It is used in every test cell to
     separate the test cell itself and the attached closet.
     </p>
-    </html>"));
+    </html>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

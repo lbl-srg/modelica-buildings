@@ -18,4 +18,11 @@ record TestBedDividingWall =
     It is used to separate one test cell from another (For example,
     it is found between test cells X2B and X3A).
     </p>
-    </html>"));
+    </html>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

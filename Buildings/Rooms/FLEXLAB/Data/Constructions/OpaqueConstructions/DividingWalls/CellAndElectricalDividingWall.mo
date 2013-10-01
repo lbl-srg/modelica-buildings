@@ -14,4 +14,11 @@ record CellAndElectricalDividingWall =
     cells. It is used to divide one test cell from another (cell A and cell B)
     as well as separate the test cell from the connected electrical room.
     </p>
-    </html>"));
+    </html>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

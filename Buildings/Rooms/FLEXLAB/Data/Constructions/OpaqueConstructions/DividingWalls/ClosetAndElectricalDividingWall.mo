@@ -12,6 +12,13 @@ record ClosetAndElectricalDividingWall =
     annotation(Documentation(info="<html>
     <p>
     This is a dividing wall found in FLEXLAB test cells. It is commonly
-    used to separate the electricl room and closet.
+    used to separate the electrical room and closet.
     </p>
-    </html>"));
+    </html>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
