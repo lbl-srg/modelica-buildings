@@ -73,18 +73,20 @@ equation
  end if;
 
  if allowFlowReversal then
-// This formulation fails to simulate in Buildings.Fluid.MixingVolumes.Examples.MixingVolumePrescribedHeatFlowRate
-// with Dymola 2012. See also Dynasim ticket 13596.
-// It works with Dymola 2012 FD01.
-   if (port_a.m_flow >= 0) then
-     hOut =  port_b.h_outflow;
-     XiOut = port_b.Xi_outflow;
-     COut =  port_b.C_outflow;
-    else
-     hOut =  port_a.h_outflow;
-     XiOut = port_a.Xi_outflow;
-     COut =  port_a.C_outflow;
-    end if;
+   // Formulate hOut using spliceFunction. This avoids an event iteration.
+   // The introduced error is small because deltax=m_flow_small/1e3
+   hOut = Buildings.Utilities.Math.Functions.spliceFunction(pos=port_b.h_outflow,
+                                                            neg=port_a.h_outflow,
+                                                            x=port_a.m_flow,
+                                                            deltax=m_flow_small/1E3);
+   XiOut = Buildings.Utilities.Math.Functions.spliceFunction(pos=port_b.Xi_outflow,
+                                                            neg=port_a.Xi_outflow,
+                                                            x=port_a.m_flow,
+                                                            deltax=m_flow_small/1E3);
+   COut = Buildings.Utilities.Math.Functions.spliceFunction(pos=port_b.C_outflow,
+                                                            neg=port_a.C_outflow,
+                                                            x=port_a.m_flow,
+                                                            deltax=m_flow_small/1E3);
  else
    hOut =  port_b.h_outflow;
    XiOut = port_b.Xi_outflow;
@@ -176,6 +178,10 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 25, 2013 by Michael Wetter:<br/>
+Reformulated computation of outlet properties to avoid an event at zero mass flow rate.
+</li>
 <li>
 September 17, 2013 by Michael Wetter:<br/>
 Added start value for <code>hOut</code>.

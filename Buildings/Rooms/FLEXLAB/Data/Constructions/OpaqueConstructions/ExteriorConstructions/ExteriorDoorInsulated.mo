@@ -4,4 +4,17 @@ record ExteriorDoorInsulated =
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.01588),
     Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.05),
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.01588)},
-    final nLay=3) "Model of an insulated exterior door";
+    final nLay=3) "Model of an insulated exterior door"
+    annotation(Documentation(info="<html>
+    <p>
+    This is a model of an insulated exterior door. It is used in all
+    FLEXLAB test cell models.
+    </p>
+    </html>", revisions="<html>
+<ul>
+<li>
+September 17, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

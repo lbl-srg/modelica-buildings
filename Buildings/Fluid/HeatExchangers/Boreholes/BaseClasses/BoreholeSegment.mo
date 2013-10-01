@@ -13,8 +13,7 @@ model BoreholeSegment "Vertical segment of a borehole"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=TFil_start);
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
-                                             matSoi
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic matSoi
     "Thermal properties of soil"
     annotation (choicesAllMatching=true, Dialog(group="Soil"),
     Placement(transformation(extent={{2,70},{22,90}})));
@@ -23,7 +22,8 @@ model BoreholeSegment "Vertical segment of a borehole"
     annotation (choicesAllMatching=true, Dialog(group="Filling material"),
     Placement(transformation(extent={{-68,70},{-48,90}})));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate"
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"

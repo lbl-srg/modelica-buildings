@@ -72,7 +72,7 @@ equation
   T_in2 = if allowFlowReversal2 then
     fra_a2 * Medium2.temperature(state_a2_inflow) + fra_b2 * Medium2.temperature(state_b2_inflow) else
     Medium2.temperature(state_a2_inflow);
-  // fixme: mwetter: this generates an event. Check if this is the root cause of the events in VAVReheat.mo
+
   C1_flow = abs(m1_flow)*
     ( if allowFlowReversal1 then
            fra_a1 * Medium1.specificHeatCapacityCp(state_a1_inflow) +

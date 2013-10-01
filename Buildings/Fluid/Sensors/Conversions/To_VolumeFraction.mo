@@ -1,6 +1,5 @@
 within Buildings.Fluid.Sensors.Conversions;
 model To_VolumeFraction "Conversion from mass fraction to volume fraction"
-  extends Buildings.BaseClasses.BaseIcon;
 
   parameter Modelica.SIunits.MolarMass MMMea "Molar mass of measured substance";
   parameter Modelica.SIunits.MolarMass MMBul=Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
@@ -49,7 +48,10 @@ equation
           extent={{46,2},{80,-2}},
           lineColor={0,0,255},
           fillColor={0,0,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),Text(
+          extent={{-48,146},{50,98}},
+          lineColor={0,0,255},
+          textString="%name")}),
 defaultComponentName="toVolFra",
 Documentation(info="<html>
 <p>

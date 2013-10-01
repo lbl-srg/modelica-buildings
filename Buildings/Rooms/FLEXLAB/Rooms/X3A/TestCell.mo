@@ -1,14 +1,14 @@
 within Buildings.Rooms.FLEXLAB.Rooms.X3A;
 model TestCell "Model of LBNL User Test Facility Cell X3A"
   extends Buildings.Rooms.MixedAir(AFlo=60.97,
-      nSurBou=1,
+      nSurBou=4,
       nConPar=0,
       nConBou=5,
       nConExt=4,
       nConExtWin=1,
       hRoo=3.6576,
       surBou(
-        each A=6.645*9.144,
+        A = {6.645*3.09, 6.645*1.51, 6.645*0.91, 6.645*3.65},
         each absIR=0.9,
         each absSol=0.9,
         each til=Buildings.HeatTransfer.Types.Tilt.Floor),
@@ -38,7 +38,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
       lat=0.66098585832754);
 
   replaceable
-    Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction10
+    Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction10and23
                                                                      R16p8Wal
     annotation (Placement(transformation(extent={{410,-168},{430,-148}})));
   replaceable
@@ -76,33 +76,11 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
     annotation (Placement(transformation(extent={{410,-72},{430,-52}})));
   annotation(Documentation(info="<html>
   <p>
-  This is a model for test cell 3A in the LBNL User Facility. The model is based on 
-  <a href=\"modelica://Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>. The model
-  was built using construction and parameter information taken from architectural
-  drawings. This model is intended to represent the main space in test cell 3A. Other 
-  models are provided for adjacent rooms. Accurate use of this model will likely 
-  require the addition of 
-  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
-  Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a> and
-  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical\">
-  Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical</a>. The documentation
-  for these models describes how the models are intended to be connected. An example of 
-  how they can be connected and applied is provided in
-  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.
-  </p>
-  <p>
-  Constructions used to describe the walls used in test cell X3A are available in 
-  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions\">
-  Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions</a>. All wall 
-  construction models are made using information from architectural drawings. Constructions
-  used to describe the windows are available in
-  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems\">
-  Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems</a>. Window models are based on
-  information available in the construction specifications.
-  </p>
-  <p>
-  This model assumes that the removable wall between cells A and B is installed.
+  This is a model for test cell 3A in the LBNL User Facility. This model is intended to represent 
+  the main space in test cell 3A. This documentation describes the wall constructions used to model
+  test cell X3A. Documentation describing how it is to be combined to other room models to create
+  a model of the full test cell can be found in
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
   </p>
   <p>
   There are 7 different wall sections described in the model. They are shown in the figure below.
@@ -165,7 +143,8 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   </tr>
   <tr>
   <td>6</td>
-  <td>This east wall connects to test cell UF90X3B.</td>
+  <td>This east wall connects to test cell UF90X3B. This wall is removable, but this model was
+  developed assuming that the wall is installed.</td>
   <td>datConBou[2]</td>
   <td>celDiv</td>
   </tr>
@@ -182,10 +161,17 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   the layer <code>R20Wal</code>.
   </p>
   <p>
+  The test cell can be configured with several different floor types. The options include radiant conditioning,
+  a slab on grade floor with no conditioning, or a raised floor. Because of this uncertainty in floor design, a
+  model of the floor itself is not included in this model. The user must include a model for the floor in any
+  applications of this model.
+  </p>
+  <p>
   Several of the connections in this model are intended to be connected to specific surfaces in other room models.
-  The following table describes these connections. The connections in datConExt are not described in the table
-  because they are connected to the external environment, and no additional heat port connections are necessary.
-  A rationale for why the model is created this way is also provided if it is considered necessary.
+  The following table describes the connections to models outside of the X3A package. The connections in datConExt 
+  are not described in the table because they are connected to the external environment, and no additional heat 
+  port connections are necessary. A rationale for why the model is created this way is also provided if it is 
+  considered necessary.
   </p>
   <table border =\"1\" summary=\"Description of intended connections including TestCell model\">
   <tr>
@@ -195,7 +181,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   <th>Rationale</th>
   </tr>
   <tr>
-  <td>surf_ConBou[1]</td>
+  <td>surf_conBou[1]</td>
   <td>Temperature of test cell X2B</td>
   <td>References a data table</td>
   <td>A data table is used, instead of a model of test cell X2B, because the goal of this model is to be able to perform
@@ -204,28 +190,10 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   be negligible.</td>
   </tr>
   <tr>
-  <td>surf_ConBou[2]</td>
-  <td>Temperature of TestCell</td>
+  <td>surf_conBou[2]</td>
+  <td>Temperature of test cell X3B</td>
   <td>References a data table</td>
   <td>See rationale for surf_ConBou[1]</td>
-  </tr>  
-  <tr>
-  <td>surf_conBou[3]</td>
-  <td>Closet</td>
-  <td>Closet.surf_surBou[1]</td>
-  <td>The closet is modeled as a separate room under the assumption that the door will be closed, and air exchange
-  between the two spaces will be minimal.</td>
-  </tr>
-  <tr>
-  <td>surf_ConBou[4]</td>
-  <td>Closet</td>
-  <td>Closet.surf_surBou[2]</td>
-  <td>See rationale for surf_ConBou[3]</td>
-  </tr>
-  <tr>
-  <td>surf_ConBou[5]</td>
-  <td>Electrical room</td>
-  <td>Electrical.surf_SurBou[2]</td>
   </tr>  
   </table> 
   </html>",

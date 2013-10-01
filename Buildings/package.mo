@@ -131,17 +131,22 @@ its class name ends with the string <code>Beta</code>.
         annotation (preferredView="info",
         Documentation(info="<html>
 <p>
-Version X.Y build Z is ... xxx
-It contains a major revision of all info sections to correct invalid html syntax.
+Version 1.5 build 1 is a major release that contains new packages with models for
+solar collectors and for the Facility for Low Energy Experiments (FLEXLAB) 
+at the Lawrence Berkeley National Laboratory.
+</p>
+<p>
+This release also contains a major revision of all info sections to correct invalid html syntax.
 The package <code>Buildings.HeatTransfer.Radiosity</code> has been revised to comply
 with the Modelica language specification.
 The package <code>Buildings.Rooms</code> has been revised to aid implementation of
 non-uniformly mixed room air models.
-This version also contains various corrections that avoid warnings during translation 
+This release also contains various corrections that avoid warnings during translation 
 when used with Modelica 3.2.1.
-<!-- New libraries -->
+Various models have been revised to increase compatibility with OpenModelica. 
+However, currently only a subset of the models work with OpenModelica.
 </p>
-
+<!-- New libraries -->
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
@@ -198,6 +203,11 @@ have been <b style=\"color:blue\">improved</b> in a
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
+    </td>
+    <td valign=\"top\">Reformulated computation of outlet properties to avoid an event at zero mass flow rate.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier
@@ -587,14 +597,6 @@ have been fixed:
     </td>
 </tr>
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li> 
-xxx
-</li>
-</ul>
 </html>"));
     end Version_1_5_build1;
 
@@ -3687,7 +3689,7 @@ end UsersGuide;
 annotation (
 preferredView="info",
 version="1.5",
-versionBuild=0,
+versionBuild=1,
 versionDate="2013-05-15",
 dateModified = "2013-05-15",
 uses(Modelica(version="3.2")),

@@ -7,6 +7,14 @@ model MixedAir "Model of a room in which the air is completely mixed"
       connectorSizing=true,
       tab="General",
       group="Ports"));
+
+  parameter Modelica.SIunits.Angle lat "Latitude";
+  final parameter Modelica.SIunits.Volume V=AFlo*hRoo "Volume";
+  parameter Modelica.SIunits.Area AFlo "Floor area";
+  parameter Modelica.SIunits.Length hRoo "Average room height";
+
+  ////////////////////////////////////////////////////////////////////////
+  // Fluid and heat ports
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(
@@ -16,10 +24,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
         extent={{-40,-10},{40,10}},
         rotation=90,
         origin={-150,-100})));
-  parameter Modelica.SIunits.Angle lat "Latitude";
-  final parameter Modelica.SIunits.Volume V=AFlo*hRoo "Volume";
-  parameter Modelica.SIunits.Area AFlo "Floor area";
-  parameter Modelica.SIunits.Length hRoo "Average room height";
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port to air volume" annotation (Placement(transformation(extent={{-270,30},
             {-250,50}}),   iconTransformation(extent={{-20,-10},{0,10}})));

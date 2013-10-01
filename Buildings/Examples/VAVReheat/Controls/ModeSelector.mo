@@ -14,9 +14,10 @@ model ModeSelector "Finite State Machine for the operational modes"
     mode=Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedNightSetBack,
     nIn=1) "Unoccupied night set back"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
-  Modelica.StateGraph.Transition t2(condition=TRooMinErrHea.y > 0,
+  Modelica.StateGraph.Transition t2(
     enableTimer=true,
-    waitTime=60)
+    waitTime=60,
+    condition=TRooMinErrHea.y > delTRooOnOff/2)
     annotation (Placement(transformation(extent={{28,20},{48,40}})));
   parameter Modelica.SIunits.TemperatureDifference delTRooOnOff(min=0.1)=1
     "Deadband in room temperature between occupied on and occupied off";
@@ -26,7 +27,7 @@ model ModeSelector "Finite State Machine for the operational modes"
     "Set point for room air temperature during cooling mode";
   parameter Modelica.SIunits.Temperature TSetHeaCoiOut=303.15
     "Set point for air outlet temperature at central heating coil";
-  Modelica.StateGraph.Transition t1(condition=delTRooOnOff < -TRooMinErrHea.y)
+  Modelica.StateGraph.Transition t1(condition=delTRooOnOff/2 < -TRooMinErrHea.y)
     annotation (Placement(transformation(extent={{50,70},{30,90}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
@@ -55,8 +56,8 @@ model ModeSelector "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Modelica.Blocks.Math.Feedback TRooMinErrHea "Room control error for heating"
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
-  Modelica.StateGraph.Transition t3(condition=TRooMin.y > TRooSetHeaOcc or
-        occupied.y)
+  Modelica.StateGraph.Transition t3(condition=TRooMin.y + delTRooOnOff/2 >
+        TRooSetHeaOcc or occupied.y)
     annotation (Placement(transformation(extent={{10,-100},{30,-80}})));
   Modelica.Blocks.Routing.BooleanPassThrough occupied
     "outputs true if building is occupied"
@@ -67,8 +68,8 @@ model ModeSelector "Finite State Machine for the operational modes"
     mode=Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedPreCool,
     nOut=1) "Pre-cooling mode"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
-  Modelica.StateGraph.Transition t7(condition=TRooMin.y < TRooSetCooOcc or
-        occupied.y)
+  Modelica.StateGraph.Transition t7(condition=TRooMin.y - delTRooOnOff/2 <
+        TRooSetCooOcc or occupied.y)
     annotation (Placement(transformation(extent={{10,-140},{30,-120}})));
   Modelica.Blocks.Logical.And and1
     annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
