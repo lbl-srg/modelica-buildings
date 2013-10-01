@@ -1,9 +1,9 @@
-within Buildings.Rooms.FLEXLAB.Rooms.X3A;
+within Buildings.Rooms.FLEXLAB.Rooms.X3B;
 model TestCell "Model of LBNL User Test Facility Cell X3A"
   extends Buildings.Rooms.MixedAir(AFlo=60.97,
       nSurBou=4,
       nConPar=0,
-      nConBou=5,
+      nConBou=4,
       nConExt=4,
       nConExtWin=1,
       hRoo=3.6576,
@@ -16,15 +16,15 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
          layers={extDoo,
          R16p8Wal,
          R20Wal,
-         bedDiv},
-         A={1.3716 * 2.39, 3.6576*2.52-2.39*1.3716, 6.6675*9.144, 3.6576 * 1.524},
+         EWal},
+         A={1.3716 * 2.39, 3.6576*2.52-2.39*1.3716, 6.6675*9.144,3.6576*9.144},
          til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Ceiling, Buildings.HeatTransfer.Types.Tilt.Wall},
-         azi={Buildings.HeatTransfer.Types.Azimuth.N,Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.S, Buildings.HeatTransfer.Types.Azimuth.W}),
+         azi={Buildings.HeatTransfer.Types.Azimuth.N,Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.S, Buildings.HeatTransfer.Types.Azimuth.E}),
       datConBou(
-         layers = {bedDiv,celDiv, parCon, parDoo, R52Wal},
-         A = {3.6576 * 7.62, 3.6576 * 9.144, 3.6576*2.886075-2.39*1.22, 2.39*1.22, 3.6576*1.2614},
-         til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall},
-         azi = {Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.E, Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N}),
+         layers = {celDiv, parCon, parDoo, R52Wal},
+         A = {3.6576 * 9.144, 3.6576*2.886075-2.39*1.22, 2.39*1.22, 3.6576*1.2614},
+         til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall},
+         azi = {Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N}),
       datConExtWin(
         layers={R16p8Wal},
         A={6.6675*3.6576},
@@ -61,32 +61,29 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
     "Construction of wall connecting to cell UF90X3B"
     annotation (Placement(transformation(extent={{410,-144},{430,-124}})));
   replaceable
-    Data.Constructions.OpaqueConstructions.DividingWalls.TestBedDividingWall
-                                                                         bedDiv
-    "Construction of wall connecting to cell UF90X2B"
-    annotation (Placement(transformation(extent={{410,-120},{430,-100}})));
-  replaceable
     Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionDoor
                                                                    parDoo
     "Door used in partition walls in FLEXLAB test cells"
-    annotation (Placement(transformation(extent={{410,-96},{430,-76}})));
+    annotation (Placement(transformation(extent={{410,-84},{430,-64}})));
   replaceable
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorInsulated
     extDoo "Construction of an exterior door"
-    annotation (Placement(transformation(extent={{410,-72},{430,-52}})));
+    annotation (Placement(transformation(extent={{410,-114},{430,-94}})));
+  Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction1
+    EWal annotation (Placement(transformation(extent={{436,-166},{456,-146}})));
   annotation(Documentation(info="<html>
   <p>
-  This is a model for test cell 3A in the LBNL User Facility. This model is intended to represent 
-  the main space in test cell 3A. This documentation describes the wall constructions used to model
-  test cell X3A. Documentation describing how it is to be combined to other room models to create
+  This is a model for test cell 3B in the LBNL User Facility. This model is intended to represent 
+  the main space in test cell 3B. This documentation describes the wall constructions used to model
+  test cell X3B. Documentation describing how it is to be combined to other room models to create
   a model of the full test cell can be found in
-  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
+  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B\">Buildings.Rooms.FLEXLAB.Rooms.X3B</a>.
   </p>
   <p>
-  There are 7 different wall sections described in the model. They are shown in the figure below.
+  There are 6 different wall sections described in the model. They are shown in the figure below.
   </p>
   <p align=\"center\">
-  <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/X3A/TestCell.png\" border=\"1\" alt=\"Wall sections in test cell model\"/>
+  <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/X3B/TestCell.png\" border=\"1\" alt=\"Wall sections in test cell model\"/>
   </p>  
   <p>
   The different wall sections are entered into the model according to the following table.
@@ -100,64 +97,47 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   </tr>
   <tr>
   <td>1</td>
-  <td>The west wall is modeled in two parts. One part represents the dividing wall between test cells X3A
-  and X2B. The other part represents a portion of the wall exposed to the ambient conditions. Wall
-  1 is the section of wall connected to test cell X2B.</td>
-  <td>datConBou[1]</td>
-  <td>bedDiv</td>
+  <td>East exterior wall</td>
+  <td>datConExt[4]</td>
+  <td>EWal</td>
   </tr>
   <tr>
   <td>2</td>
-  <td>The west wall is modeled in two parts. One part represents the dividing wall between test cell X3A
-  and test cell X2B. The other part represents a portion of the wall exposed to the ambient conditions. Wall
-  2 is the section of wall exposed to ambient conditions.</td>
-  <td>datConExt[4]</td>
-  <td>bedDiv</td>
+  <td>South exterior wall with windows</td>
+  <td>datConExtWin[1]</td>
+  <td>R16p8Wal</td>
   </tr>
   <tr>
   <td>3</td>
-  <td>This is the north exterior wall of test cell X3A. There are actually two constructions
-  used here. One construction models the wall, the other construction models a door. The area
-  calculation for the wall in the model shows the calculation of the total wall area minus the door area.</td>
-  <td>Door: datConExt[1]; Wall: datConExt[2]</td>
-  <td>Door: extDoo; Wall: R16p8Wal</td>
-  </tr>
-  <tr>
-  <td>4</td>
-  <td>This north wall borders an electrical room. It models the heat transfer between test cell
-  X3A and the externally modeled electrical room. For an example see
-  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.</td>
-  <td>datConBou[5]</td>
-  <td>R52Wal</td>
-  </tr>
-  <tr>
-  <td>5</td>
-  <td>This north wall borders an externally modeled closet. For an example see 
-  <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>. Similar to wall section 
-  3 this wall section contains both a wall construction and a door construction. The wall area
-  calculation shows the total wall area minus the door area.</td>
-  <td>Door: datConBou[4]; Wall: datConBou[3]</td>
-  <td>Door: parDoo; Wall: parCon</td>
-  </tr>
-  <tr>
-  <td>6</td>
-  <td>This east wall connects to test cell UF90X3B. This wall is removable, but this model was
-  developed assuming that the wall is installed.</td>
-  <td>datConBou[2]</td>
+  <td>West wall separating X3B and X3A</td>
+  <td>datConBou[1]</td>
   <td>celDiv</td>
   </tr>
   <tr>
-  <td>7</td>
-  <td>This is the south wall of test cell X3A. It includes both a wall construction and 
-  windows. The bottoms of the windows are 3 ft above the floor.</td>
-  <td>datConExtWin[1]</td>
-  <td>Window: glaSys; Wall: R16p8Wal</td>
+  <td>4</td>
+  <td>North partition wall separating X3B and the closet</td>
+  <td>Wall: datConBou[2]<br/>
+  Door: datConBou[3]</td>
+  <td>Wall: parCon<br/>
+  Door: parDoo</td>
   </tr>
+  <tr>
+  <td>5</td>
+  <td>North wall separating X3B and the electrical room</td>
+  <td>datConBou[4]</td>
+  <td>R52Wal</td>
+  </tr>
+  <tr>
+  <td>6</td>
+  <td>North exterior wall and door</td>
+  <td>Door: datConExt[1]<br/>
+  Wall: datConExt[2]</td>
+  <td>Door: extDoo<br/>
+  Wall: R16p8Wal</td>
+  </tr>  
   </table>
   <p>
-  An eigth construction, not shown in the figure, models the ceiling. It is modeled in datConExt[3] using
+  A seventh construction, not shown in the figure, models the ceiling. It is modeled in datConExt[3] using
   the layer <code>R20Wal</code>.
   </p>
   <p>
@@ -170,31 +150,19 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   Several of the connections in this model are intended to be connected to specific surfaces in other room models.
   The following table describes the connections to models outside of the X3A package. The connections in datConExt 
   are not described in the table because they are connected to the external environment, and no additional heat 
-  port connections are necessary. A rationale for why the model is created this way is also provided if it is 
-  considered necessary.
+  port connections are necessary.
   </p>
   <table border =\"1\" summary=\"Description of intended connections including TestCell model\">
   <tr>
   <th>Location in TestCell</th>
   <th>Description of External Connection</th>
   <th>Location in External Model</th>
-  <th>Rationale</th>
   </tr>
   <tr>
   <td>surf_conBou[1]</td>
-  <td>Temperature of test cell X2B</td>
-  <td>References a data table</td>
-  <td>A data table is used, instead of a model of test cell X2B, because the goal of this model is to be able to perform
-  simulations of TestCell with minimal complexity, by simplifying the neighboring test cells. The wall separating the
-  test beds is highly insulated, and it is believed that the error in simulations caused by using a data table will
-  be negligible.</td>
-  </tr>
-  <tr>
-  <td>surf_conBou[2]</td>
-  <td>Temperature of test cell X3B</td>
-  <td>References a data table</td>
-  <td>See rationale for surf_ConBou[1]</td>
-  </tr>  
+  <td>Temperature of test cell X3A</td>
+  <td>X3A.TestCellNoCelDiv.surf_surBou[2]</td>
+  </tr> 
   </table> 
   </html>",
   revisions = "<html>
