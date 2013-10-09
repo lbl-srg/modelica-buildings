@@ -202,6 +202,24 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br/>
+                       Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath
+    </td>
+    <td valign=\"top\">Improved the algorithm that determines the absolute path of the file.
+                       Now weather files are searched in the path specified, and if not found, the urls
+                       <code>file://</code>, <code>modelica://</code> and <code>modelica://Buildings</code>
+                       are added in this order to search for the weather file.
+                       This allows using the data reader without having to specify an absolute path,
+                       as long as the <code>Buildings</code> library
+                       is on the <code>MODELICAPATH</code>.
+    </td>
+</tr>
+
+
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>

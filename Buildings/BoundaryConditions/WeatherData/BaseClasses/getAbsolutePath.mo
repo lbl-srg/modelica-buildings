@@ -2,23 +2,66 @@ within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 function getAbsolutePath "Gets the absolute path of a URI"
   input String uri "A uri";
   output String path "The absolute path of the file pointed to by the URI";
+  // The two functions below are copied from the MSL because
+  // stat is in a protected package. This causes Dymola 2014 FD01 beta3
+  // to give an error if a model that uses exist() is checked in
+  // with Advanced.PedanticModelica=true;
+protected
+  function exist "Inquire whether file or directory exists"
+    extends Modelica.Icons.Function;
+    input String name "Name of file or directory";
+    output Boolean result "= true, if file or directory exists";
+  algorithm
+    result := stat(name) > Modelica.Utilities.Types.FileType.NoFile;
+
+    annotation (Documentation(info="<html>
+<h4>Syntax</h4>
+<blockquote><pre>
+result = Files.<b>exist</b>(name);
+</pre></blockquote>
+<h4>Description</h4>
+<p>
+Returns true, if \"name\" is an existing file or directory.
+If this is not the case, the function returns false.
+</p>
+</html>"));
+  end exist;
+
+  function stat "Inquire file information (POSIX function 'stat')"
+    extends Modelica.Icons.Function;
+    input String name "Name of file, directory, pipe etc.";
+    output Modelica.Utilities.Types.FileType fileType "Type of file";
+  external"C" fileType=  ModelicaInternal_stat(name);
+
+    annotation (Library="ModelicaExternalC");
+  end stat;
+
+  function loadResource
+    input String name "Name of the resource";
+    output String path
+      "Full path of the resource, or a string of length 0 if it does not exist";
+  algorithm
+    path :=ModelicaServices.ExternalReferences.loadResource(name);
+    if Modelica.Utilities.Strings.length(path) > 0 then
+      path := Modelica.Utilities.Files.fullPathName(name=path);
+    end if;
+  end loadResource;
+
 algorithm
   // If uri does not start with file:// or modelica://, then add file:// to it.
   // This is done because a data reader uses as a parameter the file name without file://
   if (Modelica.Utilities.Strings.find(uri, "file://", startIndex=1, caseSensitive=false) == 0
   and Modelica.Utilities.Strings.find(uri, "modelica://", startIndex=1, caseSensitive=false) == 0) then
   // try file://+uri
-    path :=ModelicaServices.ExternalReferences.loadResource("file://" + uri);
-    path := Modelica.Utilities.Files.fullPathName(name=path);
-    if not Modelica.Utilities.Files.exist(path) then
+    path := loadResource("file://" + uri);
+    if not exist(path) then
       // try modelica://+uri
-      path := ModelicaServices.ExternalReferences.loadResource("modelica://" + uri);
-      path := Modelica.Utilities.Files.fullPathName(name=path);
-      if not Modelica.Utilities.Files.exist(path) then
+      path := loadResource("modelica://" + uri);
+      if not exist(path) then
         // try modelica://Buildings/+uri
-        path := ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/" + uri);
-        path := Modelica.Utilities.Files.fullPathName(name=path);
-        assert(Modelica.Utilities.Files.exist(path), "File '" + uri + "' does not exist.
+        path := loadResource("modelica://Buildings/" + uri);
+
+        assert(exist(path), "File '" + uri + "' does not exist.
   Expected to find either 'file://" + uri + "
                        or 'modelica://" + uri + " +
                        or 'modelica://Buildings/" + uri);
@@ -28,7 +71,7 @@ algorithm
     path := ModelicaServices.ExternalReferences.loadResource(uri);
     path := Modelica.Utilities.Files.fullPathName(name=path);
 
-    assert(Modelica.Utilities.Files.exist(path), "File '" + uri + "' does not exist.");
+    assert(exist(path), "File '" + uri + "' does not exist.");
 
   end if;
 
@@ -54,6 +97,12 @@ the files.
 </p>                       
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Improved algorithm that determines the absolute path of the file.
+Now the function works from any directory as long as the <code>Buildings</code> library
+is on the <code>MODELICAPATH</code>.
+</li>
 <li>
 May 2, 2013, by Michael Wetter:<br/>
 First implementation.
