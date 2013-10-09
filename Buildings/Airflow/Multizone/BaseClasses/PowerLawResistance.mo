@@ -82,7 +82,7 @@ equation
     dynVis = Medium.dynamicViscosity(sta);
   end if;
 
-  port_a.m_flow = rho*Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
+  V_flow = Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
     k=k,
     dp=dp,
     m=m,
@@ -91,7 +91,7 @@ equation
     c=c,
     d=d,
     dp_turbulent=dp_turbulent);
-  V_flow = port_a.m_flow/rho;
+  port_a.m_flow = rho*V_flow;
   v = V_flow/A;
   Re = v*lWet*rho/dynVis;
 
