@@ -102,11 +102,20 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
-<li><i>July 20, 2010</i> by Michael Wetter:<br/>
-       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+<li>
+October 8, 2013 by Michael Wetter:<br/>
+Changed the parameter <code>useConstantDensity</code> to
+<code>useDefaultProperties</code> to use consistent names within this package.
+A conversion script can be used to update this parameter.
 </li>
-<li><i>February 10, 2005</i> by Michael Wetter:<br/>
-       Released first version.
+<li>
+July 20, 2010 by Michael Wetter:<br/>
+Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+</li>
+<li>
+February 10, 2005 by Michael Wetter:<br/>
+Released first version.
+</li>
 </ul>
 </html>"));
 end EffectiveAirLeakageArea;

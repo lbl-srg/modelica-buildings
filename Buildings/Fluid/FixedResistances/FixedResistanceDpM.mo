@@ -130,10 +130,9 @@ The figure below shows the pressure drop for the parameters
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png\"/>
 </p>
 <p>
-If the parameters 
-<code>show_V_flow</code> or
-<code>show_T</code> are set to <code>true</code>,
-then the model will compute the volume flow rate and the
+If the parameter
+<code>show_T</code> is set to <code>true</code>,
+then the model will compute the
 temperature at its ports. Note that this can lead to state events
 when the mass flow rate approaches zero,
 which can increase computing time.
@@ -187,6 +186,10 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.

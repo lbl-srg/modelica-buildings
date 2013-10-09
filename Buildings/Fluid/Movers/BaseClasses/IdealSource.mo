@@ -1,8 +1,7 @@
 within Buildings.Fluid.Movers.BaseClasses;
 model IdealSource
   "Base class for pressure and mass flow source with optional power input"
-  extends Modelica.Fluid.Interfaces.PartialTwoPortTransport(show_V_flow=false,
-                                                            show_T=false);
+  extends Modelica.Fluid.Interfaces.PartialTwoPortTransport(show_T=false);
 
   // what to control
   parameter Boolean control_m_flow "= false to control dp instead of m_flow"
@@ -85,6 +84,10 @@ adding heat to the volume, and flow work to this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
 <li>
 May 25, 2011 by Michael Wetter:<br/>
 Removed the option to add power to the medium, as this is dealt with in the volume

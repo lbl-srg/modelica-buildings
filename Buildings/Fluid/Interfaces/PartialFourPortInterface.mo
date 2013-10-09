@@ -26,19 +26,10 @@ partial model PartialFourPortInterface
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
   // Diagnostics
-  parameter Boolean show_V_flow = false
-    "= true, if volume flow rate at inflowing port is computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed (may lead to events)"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  Modelica.SIunits.VolumeFlowRate V1_flow=m1_flow/Medium1.density(sta_a1) if
-        show_V_flow
-    "Volume flow rate at inflowing port (positive when flow from port_a1 to port_b1)";
-  Modelica.SIunits.VolumeFlowRate V2_flow=m2_flow/Medium2.density(sta_a2) if
-        show_V_flow
-    "Volume flow rate at inflowing port (positive when flow from port_a2 to port_b2)";
   Medium1.MassFlowRate m1_flow(start=0) = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
   Modelica.SIunits.Pressure dp1(start=0, displayUnit="Pa")
@@ -57,7 +48,7 @@ partial model PartialFourPortInterface
       Medium1.setState_phX(port_a1.p,
                            actualStream(port_a1.h_outflow),
                            actualStream(port_a1.Xi_outflow)) if
-         show_T or show_V_flow "Medium properties in port_a1";
+         show_T "Medium properties in port_a1";
   Medium1.ThermodynamicState sta_b1=if homotopyInitialization then
       Medium1.setState_phX(port_b1.p,
           homotopy(actual=actualStream(port_b1.h_outflow),
@@ -79,7 +70,7 @@ partial model PartialFourPortInterface
       Medium2.setState_phX(port_a2.p,
                            actualStream(port_a2.h_outflow),
                            actualStream(port_a2.Xi_outflow)) if
-         show_T or show_V_flow "Medium properties in port_a2";
+         show_T "Medium properties in port_a2";
   Medium2.ThermodynamicState sta_b2=if homotopyInitialization then
       Medium2.setState_phX(port_b2.p,
           homotopy(actual=actualStream(port_b2.h_outflow),
@@ -127,6 +118,20 @@ mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2013 by Michael Wetter:<br/>
+Removed the computation of <code>V_flow</code> and removed the parameter
+<code>show_V_flow</code>.
+The reason is that the computation of <code>V_flow</code> required
+the use of <code>sta_a</code> (to compute the density), 
+but <code>sta_a</code> is also a variable that is conditionally
+enabled. However, this was not correct Modelica syntax as conditional variables 
+can only be used in a <code>connect</code>
+statement, not in an assignment. Dymola 2014 FD01 beta3 is checking
+for this incorrect syntax. Hence, <code>V_flow</code> was removed as its 
+conditional implementation would require a rather cumbersome implementation
+that uses a new connector that carries the state of the medium.
+</li>
 <li>
 April 26, 2013 by Marco Bonvini:<br/>
 Moved the definitions of <code>dp1</code> and <code>dp2</code> because they cause some problem with PyFMI.
