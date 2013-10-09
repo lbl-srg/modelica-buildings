@@ -228,6 +228,14 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Reformulated computation of outlet properties to avoid an event at zero mass flow rate.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc
+    </td>
+    <td valign=\"top\">Simplified the implementation for the situation if 
+                       <code>allowReverseFlow=false</code>.
+                       Avoided the use of the conditionally enabled variables <code>sta_a</code> and
+                       <code>sta_b</code> as this was not proper use of the Modelica syntax.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier
     </td>
     <td valign=\"top\">Changed one instance of <code>Modelica.Fluid.Sources.MassFlowSource_T</code>,

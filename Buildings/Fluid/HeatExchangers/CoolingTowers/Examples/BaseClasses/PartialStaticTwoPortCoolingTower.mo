@@ -119,6 +119,5 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,
             -260},{140,100}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-100,-180},{100,100}})));
+                      graphics));
 end PartialStaticTwoPortCoolingTower;
