@@ -46,7 +46,7 @@ partial block PartialSurfaceCondition
  output Modelica.SIunits.AngularVelocity spe(displayUnit="1/min")
     "Rotational speed";
 
-  final parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp uacp[nSta](
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp uacp[nSta](
       final per=datCoi.sta.nomVal,
       redeclare final package Medium = Medium) "Calculates UA/Cp of the coil"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
@@ -129,6 +129,10 @@ as this ensures that the derivatives are continuous near the off conditions.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 9, 2013 by Michael Wetter:<br/>
+Corrected invalid Modelica syntax.
+</li>
 <li>
 September 24, 2012 by Michael Wetter:<br/>
 Revised implementation.
