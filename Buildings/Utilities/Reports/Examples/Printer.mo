@@ -8,7 +8,8 @@ model Printer "Test model for printer"
             {0,60}},         rotation=0)));
   Modelica.Blocks.Sources.Clock clo annotation (Placement(transformation(extent=
            {{-80,40},{-60,60}}, rotation=0)));
-  Modelica.Blocks.Sources.Ramp ram annotation (Placement(transformation(extent=
+  Modelica.Blocks.Sources.Ramp ram(duration=2)
+                                   annotation (Placement(transformation(extent=
             {{-80,0},{-60,20}}, rotation=0)));
   Buildings.Utilities.Reports.Printer pri2(
     header="time ramp",
