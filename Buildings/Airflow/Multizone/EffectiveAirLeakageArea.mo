@@ -1,7 +1,8 @@
 within Buildings.Airflow.Multizone;
 model EffectiveAirLeakageArea "Effective air leakage area"
   extends Buildings.Airflow.Multizone.Orifice(
-     m=0.65, final A=CD/CDRat * L * dpRat^(0.5-m));
+    m=0.65,
+    final A=CD/CDRat * L * dpRat^(0.5-m));
 
   parameter Modelica.SIunits.Pressure dpRat(min=0)=4
     "|Rating conditions|Pressure drop at rating condition";
@@ -25,7 +26,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-70,-42},{18,-100}},
+          extent={{-104,92},{-20,54}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,255,255},
@@ -33,7 +34,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
           textString=
                "L=%L"),
         Text(
-          extent={{-80,96},{26,52}},
+          extent={{22,94},{98,56}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,255,255},

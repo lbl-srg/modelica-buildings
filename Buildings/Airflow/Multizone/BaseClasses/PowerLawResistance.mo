@@ -1,7 +1,8 @@
 within Buildings.Airflow.Multizone.BaseClasses;
 partial model PowerLawResistance "Flow resistance that uses the power law"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(final
-      m_flow_nominal=rho_default*k*dp_turbulent);
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    final m_flow_nominal=rho_default*k*dp_turbulent,
+    final showDesignFlowDirection=false);
   extends Buildings.Airflow.Multizone.BaseClasses.ErrorControl;
 
   parameter Modelica.SIunits.Area A "|Orifice characteristics|Area of orifice";
@@ -23,6 +24,9 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
   Real Re "Reynolds number";
 
 protected
+  constant Real gamma(min=1) = 1.5
+    "Normalized flow rate where dphi(0)/dpi intersects phi(1)";
+
   parameter Real k "Flow coefficient, k = V_flow/ dp^m";
 
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -36,8 +40,6 @@ protected
     Medium.dynamicViscosity(sta_default)
     "Dynamic viscosity at the medium default properties";
 
-  constant Real gamma(min=1) = 1.5
-    "Normalized flow rate where dphi(0)/dpi intersects phi(1)";
   parameter Real a = gamma
     "Polynomial coefficient for regularized implementation of flow resistance";
   parameter Real b = 1/8*m^2 - 3*gamma - 3/2*m + 35.0/8
@@ -47,10 +49,8 @@ protected
   parameter Real d = 1/8*m^2 - gamma - m + 15.0/8
     "Polynomial coefficient for regularized implementation of flow resistance";
 
-   Medium.ThermodynamicState sta "State of the medium in the component";
-
+  Medium.ThermodynamicState sta "State of the medium in the component";
   Modelica.SIunits.DynamicViscosity dynVis "Dynamic viscosity";
-
   Modelica.SIunits.Mass mExc
     "Air mass exchanged (for purpose of error control only)";
 initial equation
@@ -91,6 +91,7 @@ equation
     c=c,
     d=d,
     dp_turbulent=dp_turbulent);
+
   port_a.m_flow = rho*V_flow;
   v = V_flow/A;
   Re = v*lWet*rho/dynVis;
