@@ -4,7 +4,7 @@ model FixedApproachWetBulb
   extends Modelica.Icons.Example;
   extends
     Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
-     redeclare FixedApproach tow(show_T=true));
+     redeclare FixedApproach tow);
 equation
   connect(wetBulTem.TWetBul, tow.TAir) annotation (Line(
       points={{1,50},{10,50},{10,-46},{22,-46}},
