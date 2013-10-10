@@ -2,40 +2,8 @@ within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 function getAbsolutePath "Gets the absolute path of a URI"
   input String uri "A uri";
   output String path "The absolute path of the file pointed to by the URI";
-  // The two functions below are copied from the MSL because
-  // stat is in a protected package. This causes Dymola 2014 FD01 beta3
-  // to give an error if a model that uses exist() is checked in
-  // with Advanced.PedanticModelica=true;
+
 protected
-  function exist "Inquire whether file or directory exists"
-    extends Modelica.Icons.Function;
-    input String name "Name of file or directory";
-    output Boolean result "= true, if file or directory exists";
-  algorithm
-    result := stat(name) > Modelica.Utilities.Types.FileType.NoFile;
-
-    annotation (Documentation(info="<html>
-<h4>Syntax</h4>
-<blockquote><pre>
-result = Files.<b>exist</b>(name);
-</pre></blockquote>
-<h4>Description</h4>
-<p>
-Returns true, if \"name\" is an existing file or directory.
-If this is not the case, the function returns false.
-</p>
-</html>"));
-  end exist;
-
-  function stat "Inquire file information (POSIX function 'stat')"
-    extends Modelica.Icons.Function;
-    input String name "Name of file, directory, pipe etc.";
-    output Modelica.Utilities.Types.FileType fileType "Type of file";
-  external"C" fileType=  ModelicaInternal_stat(name);
-
-    annotation (Library="ModelicaExternalC");
-  end stat;
-
   function loadResource
     input String name "Name of the resource";
     output String path
@@ -54,14 +22,14 @@ algorithm
   and Modelica.Utilities.Strings.find(uri, "modelica://", startIndex=1, caseSensitive=false) == 0) then
   // try file://+uri
     path := loadResource("file://" + uri);
-    if not exist(path) then
+    if not Modelica.Utilities.Files.exist(path) then
       // try modelica://+uri
       path := loadResource("modelica://" + uri);
-      if not exist(path) then
+      if not Modelica.Utilities.Files.exist(path) then
         // try modelica://Buildings/+uri
         path := loadResource("modelica://Buildings/" + uri);
 
-        assert(exist(path), "File '" + uri + "' does not exist.
+        assert(Modelica.Utilities.Files.exist(path), "File '" + uri + "' does not exist.
   Expected to find either 'file://" + uri + "
                        or 'modelica://" + uri + " +
                        or 'modelica://Buildings/" + uri);
@@ -71,7 +39,7 @@ algorithm
     path := ModelicaServices.ExternalReferences.loadResource(uri);
     path := Modelica.Utilities.Files.fullPathName(name=path);
 
-    assert(exist(path), "File '" + uri + "' does not exist.");
+    assert(Modelica.Utilities.Files.exist(path), "File '" + uri + "' does not exist.");
 
   end if;
 
