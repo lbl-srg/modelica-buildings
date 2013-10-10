@@ -43,12 +43,6 @@ initial algorithm
 equation
   der(U) = Q_flow;
 algorithm
-  // Set the start time for the sampling
-  // fixme: this may need to be moved to the initial equation section.
-  // See https://test.openmodelica.org/~marsj/Buildings/Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube.err
-//  when initial() then
-//  end when;
-
   when initial() or sample(startTime,samplePeriod) then
     QAve_flow := (U-UOld)/samplePeriod;
     UOld      := U;

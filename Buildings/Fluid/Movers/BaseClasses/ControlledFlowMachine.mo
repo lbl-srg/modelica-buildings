@@ -2,7 +2,6 @@ within Buildings.Fluid.Movers.BaseClasses;
 model ControlledFlowMachine
   "Partial model for fan or pump with ideally controlled mass flow rate or head as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
-   final show_V_flow = false,
    preSou(final control_m_flow=control_m_flow));
 
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
@@ -79,6 +78,10 @@ the head or the mass flow rate.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
 <li>
 September 13, 2013 by Michael Wetter:<br/>
 Corrected computation of <code>sta_default</code> to use medium default

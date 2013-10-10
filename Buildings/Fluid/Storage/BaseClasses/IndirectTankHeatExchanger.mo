@@ -54,7 +54,6 @@ model IndirectTankHeatExchanger
     final m_flow_nominal=m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final homotopyInitialization=homotopyInitialization,
-    final show_V_flow=show_V_flow,
     final show_T=show_T,
     final from_dp=from_dp,
     final linearized=linearizeFlowResistance)
@@ -274,7 +273,12 @@ equation
           </html>",
           revisions = "<html>
           <ul>
-          <li> Peter Grant, Jan 29, 2013<br/>
+          <li>
+          October 8, 2013, by Michael Wetter:<br/>
+          Removed parameter <code>show_V_flow</code>.
+          </li>
+          <li>
+          January 29, 2013, by Peter Grant:<br/>
           First implementation.
           </li>
           </ul>

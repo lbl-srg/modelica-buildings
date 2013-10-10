@@ -5,7 +5,7 @@ model Closet "Model of the closet connected to test cell X3A"
   AFlo = 3.93,
   lat = 0.66098585832754,
   nConExt = 2,
-  nConBou = 2,
+  nConBou = 3,
   nSurBou = 2,
   nConExtWin = 0,
   nConPar = 0,
@@ -20,10 +20,10 @@ model Closet "Model of the closet connected to test cell X3A"
     til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Ceiling},
     azi = {Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N}),
   datConBou(
-    layers = {higIns, celDiv},
-    A = {3.6576*1.524, 3.6576 * 1.524},
-    til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall},
-    azi = {Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.E}));
+    layers = {higIns, celDiv, slaCon},
+    A = {3.6576*1.524, 3.6576 * 1.524, 3.93},
+    til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Floor},
+    azi = {Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.E, Buildings.HeatTransfer.Types.Azimuth.N}));
 
   replaceable
     Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall
@@ -40,32 +40,33 @@ model Closet "Model of the closet connected to test cell X3A"
     "Construction of the roof of the closet in X3A"
     annotation(Placement(transformation(extent={{430,-148},{450,-128}})));
 
+  HeatTransfer.Data.OpaqueConstructions.Generic
+    slaCon(nLay=3, material={
+      Buildings.HeatTransfer.Data.Solids.Generic(
+        x=0.1524,
+        k=1.13,
+        c=1000,
+        d=1400,
+        nSta=5),
+      Buildings.HeatTransfer.Data.Solids.Generic(
+        x=0.127,
+        k=0.036,
+        c=1200,
+        d=40),
+      Buildings.HeatTransfer.Data.Solids.Generic(
+        x=0.2,
+        k=1.8,
+        c=1100,
+        d=2400)}) "Construction of the slab"
+    annotation (Placement(transformation(extent={{432,-118},{452,-98}})));
     annotation (Documentation(info="<html>
     <p>
-    This is a model for the closet attached to test cell 3A in the LBNL User Facility. The 
-    model is based on <a href=\"modelica://Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>.
-    The model was built using construction and parameter information taken from architectural
-    drawings. Other models are provided for the main space of the test cell and the connected 
-    electrical room. Accurate use of this model will likely require the addition of
-    <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
-    Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a> and
-    <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical\">
-    Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical</a>. The documentation
-    for these models describes the connecting walls for the spaces, as well as how they
-    are intended to be connected. An example of how they can be connected and applied is 
-    provided in
-    <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
-    Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.
-    </p>
-    <p>
-    Constructions used to describe the walls used in test cell X3A are available in 
-    <a href=\"modelica://Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions\">
-    Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions</a>. All wall 
-    construction models are made using information from architectural drawings. Constructions
-    used to describe the windows are available in
-    <a href=\"modelica://Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems\">
-    Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems</a>. Window models are 
-    based on information available in the construction specifications.    
+    This is a model for the closet attached to test cell 3A in the LBNL User Facility.
+    This documentation describes the wall constructions used in the closet. Documentation
+    describing how it should be connected to other models in the package to form a 
+    complete model of test cell X3A can be found in
+    <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
+    Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
     </p>
     <p>
     There are four different wall sections connected to the closet modeled here. They are shown
@@ -92,7 +93,7 @@ model Closet "Model of the closet connected to test cell X3A"
     </tr>
     <tr>
     <td>2</td>
-    <td>East wall connected to UF90X3BCloset</td>
+    <td>East wall connected to X3B.Closet</td>
     <td>datConBou[2]</td>
     <td>celDiv</td>
     </tr>
@@ -110,14 +111,16 @@ model Closet "Model of the closet connected to test cell X3A"
     </tr>
     </table>
     <p>
-    An additional surface, not shown on the diagram, is the model of the roof. It is modeled in datConExt[2] using
-    the layer <code>roo</code>.
+    There are two additional surfaces which are not included in the diagram. One is the model of the roof. It is 
+    modeled in datConExt[2] using the layer <code>roo</code>. The other is the floor, which is modeled in 
+    datConBou[1] using the layer <code>slaCon</code>.
     </p>
     <p>
     Several of the connections in this model are intended to be connected to specific surfaces in other room models.
-    The following table describes these connections. The connections in datConExt are not described in the table
-    because they are connected to the external environment, and no additional heat port connections are necessary.
-    A rationale for why the model is created this way is also provided if it is considered necessary. 
+    The following table describes the connections to models outside of the X3A package.. The connections in datConExt 
+    are not described in the table because they are connected to the external environment, and no additional heat 
+    port connections are necessary. A rationale for why the model is created this way is also provided if it is 
+    considered necessary. 
     </p>
     <table border =\"1\" summary=\"Intended connections including the Closet model\">
     <tr>
@@ -127,38 +130,27 @@ model Closet "Model of the closet connected to test cell X3A"
     <th>Rationale</th>
     </tr>
     <tr>
-    <td>surf_surBou[1]</td>
-    <td>TestCell partition wall</td>
-    <td>TestCell.surf_conBou[3]</td>
-    <td>This wall is modeled in the TestCell model. surf_surBou[1] in Closet represents the corresponding air
-    space on the closet side of the wall.</td>
-    </tr>
-    <tr>
-    <td>surf_surBou[2]</td>
-    <td>TestCell partition door</td>
-    <td>TestCell.surf_conBou[4]</td>
-    <td>This wall is modeled in the TestCell model. surf_surBou[2] in Closet represents the corresponding air
-    space on the closet side of the door.</td>
-    </tr>
-    <tr>
-    <td>surf_conBou[1]</td>
-    <td>Insulated wall between the closet and Electrical</td>
-    <td>Electrical.surf_surBou[2]</td>
-    <td></td>
-    </tr>
-    <tr>
     <td>surf_conBou[2]</td>
-    <td>UF90X3BCloset</td>
+    <td>X3B.Closet</td>
     <td>References a data table</td>
-    <td>A data table is used, instead of a model of UF90X3BCloset, because the goal of this model is to be able to perform
+    <td>A data table is used, instead of a model of X3B.Closet, because the goal of this model is to be able to perform
     simulations of TestCell with minimal complexity, by simplifying the neighboring test cells. The wall separating the
     test cells is highly insulated, and it is believed that the error in simulations caused by using a data table will
     be negligible.</td>
+    </tr>
+    <tr>
+    <td>surf_conBou[3]</td>
+    <td>Ground temperature</td>
+    <td></td>
+    <td>There is no specific connection which is appropriate connection for this construction. surf_conBou[3] represents
+    the floor of the room, and must be connected to a heat port representing the ground temperature.</td>
     </tr>  
     </table>  
     </html>",
     revisions = "<html>
     <ul>
+    <li>Sept 16, 2013 by Peter Grant:<br/>
+    Added a model representing the floor.</li>
     <li>July 26, 2013 by Peter Grant:<br/>
     First implementation.</li>
     </ul>

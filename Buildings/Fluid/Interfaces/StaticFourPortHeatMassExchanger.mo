@@ -27,7 +27,6 @@ model StaticFourPortHeatMassExchanger
     final allowFlowReversal = allowFlowReversal1,
     final m_flow_small = m1_flow_small,
     final homotopyInitialization = homotopyInitialization,
-    final show_V_flow = false,
     final from_dp = from_dp1,
     final linearizeFlowResistance = linearizeFlowResistance1,
     final deltaM = deltaM1,
@@ -42,7 +41,6 @@ model StaticFourPortHeatMassExchanger
     final allowFlowReversal = allowFlowReversal2,
     final m_flow_small = m2_flow_small,
     final homotopyInitialization = homotopyInitialization,
-    final show_V_flow = false,
     final from_dp = from_dp2,
     final linearizeFlowResistance = linearizeFlowResistance2,
     final deltaM = deltaM2,
@@ -107,6 +105,10 @@ or instantiates this model sets <code>mWat<i>N</i>_flow = 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
 <li>
 July 30, 2013 by Michael Wetter:<br/>
 Changed connector <code>mXi_flow[Medium.nXi]</code>

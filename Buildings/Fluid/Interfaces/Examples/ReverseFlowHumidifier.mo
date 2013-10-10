@@ -38,28 +38,36 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     T(displayUnit="K") = 323.15,
     X={0.01,0.99},
     nPorts=1,
-    m_flow=0.5)     annotation (Placement(transformation(
+    m_flow=0.5) "Fluid source"
+                   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,30})));
-  Modelica.Fluid.Sources.FixedBoundary sink1(
-                                            redeclare package Medium = Medium,
-      nPorts=2)                                         annotation (Placement(
+  Buildings.Fluid.Sources.FixedBoundary sink1(
+    redeclare package Medium = Medium,
+    nPorts=2) "Fluid sink"
+                 annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={40,28})));
   Sensors.SpecificEnthalpy senEnt1(redeclare package Medium = Medium)
+    "Specific enthalpy sensor"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
   Sensors.Temperature senTem1(redeclare package Medium = Medium)
+    "Temperature sensor"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
   Sensors.MassFraction senMas1(redeclare package Medium = Medium)
+    "Mass fraction sensor"
     annotation (Placement(transformation(extent={{50,70},{70,90}})));
   Sensors.Temperature senTem2(redeclare package Medium = Medium)
+    "Temperature sensor"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Sensors.SpecificEnthalpy senEnt2(redeclare package Medium = Medium)
+    "Specific enthalpy sensor"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Sensors.MassFraction senMas2(redeclare package Medium = Medium)
+    "Mass fraction sensor"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   FixedResistances.FixedResistanceDpM res1(
     redeclare package Medium = Medium,
@@ -85,7 +93,8 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     T(displayUnit="K") = 323.15,
     X={0.01,0.99},
     nPorts=1,
-    m_flow=0.5)     annotation (Placement(transformation(
+    m_flow=0.5) "Fluid source"
+                   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,-6})));
@@ -180,6 +189,15 @@ identical for forward flow and reverse flow.
 If the results differ, then an assert is triggered.
 </html>", revisions="<html>
 <ul>
+<li>
+October 9, 2013, by Michael Wetter:<br/>
+Replaced
+<code>Modelica.Fluid.Sources.FixedBoundary</code>
+with 
+<code>Buildings.Fluid.Sources.FixedBoundary</code>
+as otherwise, the pedantic model check fails in 
+Dymola 2014 FD01 beta3.
+</li>
 <li>
 July 5, 2013, by Michael Wetter:<br/>
 Changed one instance of <code>Modelica.Fluid.Sources.MassFlowSource_T</code>,

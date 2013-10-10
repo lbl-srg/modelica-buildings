@@ -5,7 +5,7 @@ model OneOpenDoor "Model with one open and one closed door"
   package Medium = Modelica.Media.Air.SimpleAir;
 
   Buildings.Airflow.Multizone.DoorDiscretizedOpen dooOpe(redeclare package
-      Medium = Medium, show_V_flow=true) "Discretized door"
+      Medium = Medium) "Discretized door"
                                           annotation (Placement(transformation(
           extent={{10,-8},{30,12}}, rotation=0)));
 
@@ -25,7 +25,7 @@ model OneOpenDoor "Model with one open and one closed door"
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=4,
     m_flow_nominal=0.01)
-              annotation (Placement(transformation(extent={{60,60},{80,80}},
+    annotation (Placement(transformation(extent={{60,60},{80,80}},
           rotation=0)));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{14,60},{34,80}}, rotation=0)));
@@ -34,8 +34,8 @@ model OneOpenDoor "Model with one open and one closed door"
   Modelica.Blocks.Math.Gain Gain1(k=100) annotation (Placement(transformation(
           extent={{-20,60},{0,80}}, rotation=0)));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(redeclare
-      package Medium = Medium, LClo=20*1E-4,
-    show_V_flow=true) "Discretized door"                        annotation (
+      package Medium = Medium, LClo=20*1E-4) "Discretized door" 
+      annotation (
       Placement(transformation(extent={{10,-44},{30,-24}}, rotation=0)));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=120,
@@ -107,6 +107,10 @@ Both doors have exactly the same bi-directional airflow rates.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Added documentation.

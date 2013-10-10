@@ -152,7 +152,7 @@ equation
   TSki = 308.85 - 0.0275*(M_in_internal - W);
 
   // partial pressure of steam
-  steRat.p_in = pAir_in_internal;
+  connect(steRat.p_in, pAir_in_internal);
   connect(steRat.T, TAir);
   connect(steRat.phi, phi);
   pSte = Psychrometrics.Functions.pW_X(X_w=steRat.X[1], p=pAir_in_internal);
@@ -367,6 +367,9 @@ http://me.hku.hk/msc-courses/MEBS6006/index.html</a>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li><i>October 9, 2013</i>, by Michael Wetter:<br/>
+Corrected use of conditional connector.
+</li>
 <li><i>July 14, 2010</i>, by Michael Wetter:<br/>
 Merged models into <code>Buildings</code> library.
 Fixed bug in computation of lower value for <code>hCon</code>.

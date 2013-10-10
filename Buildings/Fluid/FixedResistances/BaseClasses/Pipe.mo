@@ -29,7 +29,6 @@ model Pipe
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
     final allowFlowReversal=allowFlowReversal,
-    final show_V_flow=show_V_flow,
     final linearized=linearizeFlowResistance,
     final ReC=ReC,
     final homotopyInitialization=homotopyInitialization) "Flow resistance"
@@ -110,6 +109,10 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
 <li>
 September 13, 2013 by Michael Wetter:<br/>
 Replaced <code>nominal</code> with <code>default</code> values
