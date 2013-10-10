@@ -118,7 +118,12 @@ package UsersGuide "User's Guide"
   A list of items which still need to be understood and finalized is below:
   </p>
   <ul>
-  <li>Do radiant floors serve the closets and electrical rooms?</li>
+  <li>The construction of the floors in the closets and electrical rooms
+  is still uncertain. It is clear from the drawing on M3.02 that they are
+  not heated/cooled using the radiant system. However, I have been unable
+  to determine what the construction is. Currently the closet
+  and electrical room floor models are using the same construction as 
+  the test cell radiant slab.</li>
   <li>Does HVAC serve the closets and electrical rooms?</li>
   <li>Identify all detailed door constructions when detailed
   specifications are available.</li>
@@ -155,6 +160,19 @@ package UsersGuide "User's Guide"
   drawing on A2.03, but Construction18 is typically a cell or bed dividing wall
   and UF90X4 is no longer in construction. Has construction been changed since
   UF90X4 removed from plan?</li>
+  <li>According to the drawings on M3.02, each test cell has four different sections of
+  radiant tubing in the slab. To account for this, models of X3A and X3B use four
+  different surBou definitions to define four different sections of the floor.
+  Unfortunately, the total area described in drawing M3.02 (623 sq ft). does not match 
+  the floor area in drawing A2.03 (656.25 sq ft). The areas listed on M3.02 have been
+  increased by the percent difference in the total. This assumption should be checked 
+  against final, as-built drawings when they are available.</li>
+  <li>Length of tube in each radiant slab model in the examples is based on the numbers
+  in drawing M3.02. These numbers may include tube  running to/from the manifold,
+  instead of only the tube in the slab itself. Worth determining?</li>
+  <li>The heat conduction through the steel beams is not explicitely modelled. 
+  During model calibration, an effective heat conductivity would need to be identified.
+  </li>
   </ul>
   </html>"));
 end UsersGuide;

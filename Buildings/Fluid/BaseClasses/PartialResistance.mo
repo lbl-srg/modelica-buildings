@@ -1,7 +1,7 @@
 within Buildings.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
     extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-     show_T=false, show_V_flow=false,
+     show_T=false,
      m_flow(start=0, nominal=m_flow_nominal_pos),
      dp(start=0, nominal=dp_nominal_pos),
      final m_flow_small = 1E-4*abs(m_flow_nominal));
@@ -81,6 +81,11 @@ this base class.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2013 by Michael Wetter:<br/>
+Removed propagation of <code>show_V_flow</code>
+to base class as it has no longer this parameter.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.

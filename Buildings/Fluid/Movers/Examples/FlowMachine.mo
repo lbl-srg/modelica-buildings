@@ -37,7 +37,8 @@ model FlowMachine
       annotation (Placement(transformation(extent={{60,30},{80,50}}, rotation=0)));
   Buildings.Utilities.Reports.Printer printer(
     nin=6,
-    header="time dp dpNorm mNorm m_flow power")
+    header="time dp dpNorm mNorm m_flow power",
+    samplePeriod=0.1)
     annotation (Placement(transformation(extent={{16,-42},{36,-22}}, rotation=0)));
   Modelica.Blocks.Sources.RealExpression fan_mFlow(y=fan.m_flow)
     annotation (Placement(transformation(extent={{-40,-94},{-20,-74}}, rotation=

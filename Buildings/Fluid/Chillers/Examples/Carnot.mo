@@ -31,7 +31,8 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     dp2_nominal=6000,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Chiller model"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    show_T=true) "Chiller model"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou1(nPorts=1,
     redeclare package Medium = Medium1,

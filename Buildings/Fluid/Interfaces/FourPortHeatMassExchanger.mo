@@ -117,7 +117,6 @@ model FourPortHeatMassExchanger
     final deltaM=deltaM1,
     final allowFlowReversal=allowFlowReversal1,
     final show_T=false,
-    final show_V_flow=show_V_flow,
     final from_dp=from_dp1,
     final linearized=linearizeFlowResistance1,
     final homotopyInitialization=homotopyInitialization,
@@ -133,7 +132,6 @@ model FourPortHeatMassExchanger
     final deltaM=deltaM2,
     final allowFlowReversal=allowFlowReversal2,
     final show_T=false,
-    final show_V_flow=show_V_flow,
     final from_dp=from_dp2,
     final linearized=linearizeFlowResistance2,
     final homotopyInitialization=homotopyInitialization,
@@ -216,6 +214,10 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
 <li>
 September 26, 2013, by Michael Wetter:<br/>
 Removed unrequired <code>sum</code> operator.

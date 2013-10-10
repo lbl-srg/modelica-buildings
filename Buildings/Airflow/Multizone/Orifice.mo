@@ -1,6 +1,7 @@
 within Buildings.Airflow.Multizone;
 model Orifice "Orifice"
-  extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance(m=0.5,
+  extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance(
+    m=0.5,
     k = CD * A * sqrt(2.0/rho_default));
 
   parameter Real CD=0.65 "|Orifice characteristics|Discharge coefficient";
@@ -59,16 +60,26 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
-<li><i>December 6, 2011</i> by Michael Wetter:<br/>
-       Replaced <code>rho</code> with <code>rho_nominal</code> because
-       <code>rho</code> is computed in an <code>equation</code> section and not
-       in the <code>initial equation</code> section.
+<li>
+October 8, 2013 by Michael Wetter:<br/>
+Changed the parameter <code>useConstantDensity</code> to
+<code>useDefaultProperties</code> to use consistent names within this package.
+A conversion script can be used to update this parameter.
 </li>
-<li><i>July 20, 2010</i> by Michael Wetter:<br/>
-       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+<li>
+December 6, 2011 by Michael Wetter:<br/>
+Replaced <code>rho</code> with <code>rho_nominal</code> because
+<code>rho</code> is computed in an <code>equation</code> section and not
+in the <code>initial equation</code> section.
 </li>
-<li><i>February 4, 2005</i> by Michael Wetter:<br/>
-       Released first version.
+<li>
+July 20, 2010 by Michael Wetter:<br/>
+Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+</li>
+<li>
+February 4, 2005 by Michael Wetter:<br/>
+Released first version.
+</li>
 </ul>
 </html>"));
 end Orifice;

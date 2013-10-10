@@ -61,7 +61,6 @@ model TwoPortHeatMassExchanger
     final deltaM=deltaM,
     final allowFlowReversal=allowFlowReversal,
     final show_T=false,
-    final show_V_flow=show_V_flow,
     final from_dp=from_dp,
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
@@ -153,6 +152,10 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.

@@ -247,7 +247,7 @@ May 27, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
+</html>e"),
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

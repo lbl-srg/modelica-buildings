@@ -69,6 +69,9 @@ protected
     "Coefficients for fan relative power consumption as a function of control signal"
     annotation (Evaluate=true);
 
+  Medium.ThermodynamicState staA "Medium properties in port_a";
+  Medium.ThermodynamicState staB "Medium properties in port_b";
+
 initial equation
   TWatOut_nominal = TAirInWB_nominal + TApp_nominal;
   TRan_nominal = TWatIn0 - TWatOut_nominal; // by definition of the range temp.
@@ -93,10 +96,43 @@ initial equation
   + "\n   You need to choose different values for the parameter fanRelPow."
   + "\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.");
 equation
+  // States at the inlet and outlet
+
+  if allowFlowReversal then
+    if homotopyInitialization then
+      staA=Medium.setState_phX(port_a.p,
+                          homotopy(actual=actualStream(port_a.h_outflow),
+                                   simplified=inStream(port_a.h_outflow)),
+                          homotopy(actual=actualStream(port_a.Xi_outflow),
+                                   simplified=inStream(port_a.Xi_outflow)));
+      staB=Medium.setState_phX(port_b.p,
+                          homotopy(actual=actualStream(port_b.h_outflow),
+                                   simplified=port_b.h_outflow),
+                          homotopy(actual=actualStream(port_b.Xi_outflow),
+                            simplified=port_b.Xi_outflow));
+
+    else
+      staA=Medium.setState_phX(port_a.p,
+                          actualStream(port_a.h_outflow),
+                          actualStream(port_a.Xi_outflow));
+      staB=Medium.setState_phX(port_b.p,
+                          actualStream(port_b.h_outflow),
+                          actualStream(port_b.Xi_outflow));
+    end if; // homotopyInitialization
+
+  else // reverse flow not allowed
+    staA=Medium.setState_phX(port_a.p,
+                             inStream(port_a.h_outflow),
+                             inStream(port_a.Xi_outflow));
+    staB=Medium.setState_phX(port_b.p,
+                             inStream(port_b.h_outflow),
+                             inStream(port_b.Xi_outflow));
+  end if;
+
   // Air temperature used for the heat transfer
   TAirHT=TAir;
   // Range temperature
-  TRan = Medium.temperature(sta_a) - Medium.temperature(sta_b);
+  TRan = Medium.temperature(staA) - Medium.temperature(staB);
   // Fractional mass flow rates
   FRWat = m_flow/mRef_flow;
   FRAir = y;
@@ -104,7 +140,7 @@ equation
   TAppCor = Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
                TRan=TRan, TWetBul=TAir,
                FRWat=FRWat, FRAir=max(FRWat/bou.liqGasRat_max, FRAir));
-  dTMax = Medium.temperature(sta_a) - TAir;
+  dTMax = Medium.temperature(staA) - TAir;
   TAppFreCon = (1-fraFreCon) * dTMax  + fraFreCon *
                Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
                    TRan=TRan, TWetBul=TAir, FRWat=FRWat, FRAir=1);
@@ -219,6 +255,13 @@ control law to compute the input signal <code>y</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 9, 2013, by Michael Wetter:<br/>
+Simplified the implementation for the situation if 
+<code>allowReverseFlow=false</code>.
+Avoided the use of the conditionally enabled variables <code>sta_a</code> and
+<code>sta_b</code> as this was not proper use of the Modelica syntax.
+</li>
 <li>
 September 29, 2011, by Michael Wetter:<br/>
 Revised model to use cubic spline interpolation instead of a polynomial.

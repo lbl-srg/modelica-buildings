@@ -13,3 +13,8 @@ convertClass("Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate",
 
 convertElement({"Buildings.Fluid.Delays.DelayFirstOrder"},
                 "V0", "V_nominal");
+
+convertElement({"Buildings.Airflow.Multizone.Orifice",
+                "Buildings.Airflow.Multizone.EffectiveAirLeakageArea",
+                "Buildings.Airflow.Multizone.ZonalFlow_ACS"},
+                "useConstantDensity", "useDefaultProperties");

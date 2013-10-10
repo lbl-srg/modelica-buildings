@@ -7,7 +7,8 @@ model SmoothBlocks "Test model for smooth min and smooth max functions"
             -20,0},{0,20}}, rotation=0)));
   Modelica.Blocks.Sources.Sine sine(freqHz=8)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=0)));
-  Modelica.Blocks.Sources.Sine sine1 annotation (Placement(transformation(
+  Modelica.Blocks.Sources.Sine sine1(freqHz=1)
+                                     annotation (Placement(transformation(
           extent={{-100,0},{-80,20}}, rotation=0)));
   Diagnostics.AssertEquality assEquMax(threShold=0.08)
     annotation (Placement(transformation(extent={{40,20},{60,40}}, rotation=0)));

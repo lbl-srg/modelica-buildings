@@ -89,7 +89,6 @@ model BoreholeSegment "Vertical segment of a borehole"
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversal,
     final homotopyInitialization=homotopyInitialization,
-    final show_V_flow=show_V_flow,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p1_start=p_start,
@@ -222,6 +221,10 @@ Buildings.Fluid.Boreholes.BaseClasses.TemperatureBoundaryCondition</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
 <li>
 July 28 2011, by Pierre Vigouroux:<br/>
 First implementation.
