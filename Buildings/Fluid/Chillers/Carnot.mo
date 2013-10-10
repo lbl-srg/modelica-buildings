@@ -60,6 +60,12 @@ model Carnot
     "Condenser temperature used to compute efficiency";
   Modelica.SIunits.Temperature TEva
     "Evaporator temperature used to compute efficiency";
+
+  Medium1.ThermodynamicState staA1 "Medium properties in port_a1";
+  Medium1.ThermodynamicState staB1 "Medium properties in port_b1";
+  Medium2.ThermodynamicState staA2 "Medium properties in port_a2";
+  Medium2.ThermodynamicState staB2 "Medium properties in port_b2";
+
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
@@ -73,11 +79,6 @@ protected
   Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow)
     "Condenser heat flow rate"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-
-  Medium1.ThermodynamicState staA1 "Medium properties in port_a1";
-  Medium1.ThermodynamicState staB1 "Medium properties in port_b1";
-  Medium2.ThermodynamicState staA2 "Medium properties in port_a2";
-  Medium2.ThermodynamicState staB2 "Medium properties in port_b2";
 
 initial equation
   assert(dTEva_nominal>0, "Parameter dTEva_nominal must be positive.");
