@@ -1,7 +1,7 @@
 within Buildings.Fluid.Chillers;
 model Carnot
   "Chiller with performance curve adjusted based on Carnot efficiency"
- extends Interfaces.FourPortHeatMassExchanger(final show_T = true,
+ extends Interfaces.FourPortHeatMassExchanger(final show_T = false,
     vol1(
       final prescribedHeatFlowRate = true),
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2);
@@ -74,6 +74,11 @@ protected
     "Condenser heat flow rate"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
+  Medium1.ThermodynamicState staA1 "Medium properties in port_a1";
+  Medium1.ThermodynamicState staB1 "Medium properties in port_b1";
+  Medium2.ThermodynamicState staA2 "Medium properties in port_a2";
+  Medium2.ThermodynamicState staB2 "Medium properties in port_b2";
+
 initial equation
   assert(dTEva_nominal>0, "Parameter dTEva_nominal must be positive.");
   assert(dTCon_nominal>0, "Parameter dTCon_nominal must be positive.");
@@ -87,25 +92,83 @@ initial equation
   assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
   assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
 equation
+  if allowFlowReversal1 then
+    if homotopyInitialization then
+      staA1=Medium1.setState_phX(port_a1.p,
+                          homotopy(actual=actualStream(port_a1.h_outflow),
+                                   simplified=inStream(port_a1.h_outflow)),
+                          homotopy(actual=actualStream(port_a1.Xi_outflow),
+                                   simplified=inStream(port_a1.Xi_outflow)));
+      staB1=Medium1.setState_phX(port_b1.p,
+                          homotopy(actual=actualStream(port_b1.h_outflow),
+                                   simplified=port_b1.h_outflow),
+                          homotopy(actual=actualStream(port_b1.Xi_outflow),
+                            simplified=port_b1.Xi_outflow));
+
+    else
+      staA1=Medium1.setState_phX(port_a1.p,
+                          actualStream(port_a1.h_outflow),
+                          actualStream(port_a1.Xi_outflow));
+      staB1=Medium1.setState_phX(port_b1.p,
+                          actualStream(port_b1.h_outflow),
+                          actualStream(port_b1.Xi_outflow));
+    end if; // homotopyInitialization
+  else // reverse flow not allowed
+    staA1=Medium1.setState_phX(port_a1.p,
+                             inStream(port_a1.h_outflow),
+                             inStream(port_a1.Xi_outflow));
+    staB1=Medium1.setState_phX(port_b1.p,
+                             inStream(port_b1.h_outflow),
+                             inStream(port_b1.Xi_outflow));
+  end if;
+  if allowFlowReversal2 then
+    if homotopyInitialization then
+      staA2=Medium2.setState_phX(port_a2.p,
+                          homotopy(actual=actualStream(port_a2.h_outflow),
+                                   simplified=inStream(port_a2.h_outflow)),
+                          homotopy(actual=actualStream(port_a2.Xi_outflow),
+                                   simplified=inStream(port_a2.Xi_outflow)));
+      staB2=Medium2.setState_phX(port_b2.p,
+                          homotopy(actual=actualStream(port_b2.h_outflow),
+                                   simplified=port_b2.h_outflow),
+                          homotopy(actual=actualStream(port_b2.Xi_outflow),
+                            simplified=port_b2.Xi_outflow));
+
+    else
+      staA2=Medium2.setState_phX(port_a2.p,
+                          actualStream(port_a2.h_outflow),
+                          actualStream(port_a2.Xi_outflow));
+      staB2=Medium2.setState_phX(port_b2.p,
+                          actualStream(port_b2.h_outflow),
+                          actualStream(port_b2.Xi_outflow));
+    end if; // homotopyInitialization
+  else // reverse flow not allowed
+    staA2=Medium2.setState_phX(port_a2.p,
+                             inStream(port_a2.h_outflow),
+                             inStream(port_a2.Xi_outflow));
+    staB2=Medium2.setState_phX(port_b2.p,
+                             inStream(port_b2.h_outflow),
+                             inStream(port_b2.Xi_outflow));
+  end if;
   // Set temperatures that will be used to compute Carnot efficiency
   if effInpCon == Buildings.Fluid.Types.EfficiencyInput.volume then
     TCon = vol1.heatPort.T;
   elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_a then
-    TCon = Medium1.temperature(sta_a1);
+    TCon = Medium1.temperature(staA1);
   elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_b then
-    TCon = Medium1.temperature(sta_b1);
+    TCon = Medium1.temperature(staB1);
   else
-    TCon = 0.5 * (Medium1.temperature(sta_a1)+Medium1.temperature(sta_b1));
+    TCon = 0.5 * (Medium1.temperature(staA1)+Medium1.temperature(staB1));
   end if;
 
   if effInpEva == Buildings.Fluid.Types.EfficiencyInput.volume then
     TEva = vol2.heatPort.T;
   elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_a then
-    TEva = Medium2.temperature(sta_a2);
+    TEva = Medium2.temperature(staA2);
   elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_b then
-    TEva = Medium2.temperature(sta_b2);
+    TEva = Medium2.temperature(staB2);
   else
-    TEva = 0.5 * (Medium2.temperature(sta_a2)+Medium2.temperature(sta_b2));
+    TEva = 0.5 * (Medium2.temperature(staA2)+Medium2.temperature(staB2));
   end if;
 
   etaPL  = Buildings.Utilities.Math.Functions.polynomial(a=a, x=y);
@@ -258,6 +321,12 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 9, 2013 by Michael Wetter:<br/>
+Reimplemented the computation of the port states to avoid using
+the conditionally removed variables <code>sta_a1</code>,
+<code>sta_a2</code>, <code>sta_b1</code> and <code>sta_b2</code>.
+</li>
 <li>
 May 10, 2013 by Michael Wetter:<br/>
 Added electric power <code>P</code> as an output signal.
