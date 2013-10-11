@@ -77,7 +77,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-94,-198})));
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     slaCon(nLay=3, material={
       Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.1524,
@@ -96,7 +96,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
         c=1100,
         d=2400)}) "Construction of the slab"
     annotation (Placement(transformation(extent={{-196,-208},{-176,-188}})));
-  Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe(dOut=0.015875, dIn=0.01905)
+  parameter Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe(dOut=0.015875, dIn=0.01905)
     annotation (Placement(transformation(extent={{-196,-186},{-176,-166}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -807,6 +807,8 @@ equation
           </html>",
           revisions = "<html>
           <ul>
+          <li>October 11, 2013, by Michael Wetter:<br/>
+          Added missing <code>parameter</code> keyword in the declaration of the data record.</li>
           <li>Sep 16, 2013 by Peter Grant:<br/>
           Added connections to include floor models in Closet and Electrical.</li>
           <li>Jun 10, 2013 by Peter Grant:<br/>

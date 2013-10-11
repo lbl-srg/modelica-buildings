@@ -41,7 +41,7 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conBel1(G=20*A)
     "Combined convection and radiation resistance below the slab"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  HeatTransfer.Data.OpaqueConstructions.Generic layers(nLay=3, material={
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic layers(nLay=3, material={
         Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.08,
         k=1.13,
@@ -58,7 +58,7 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
         d=2400)})
     "Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm reinforced concrete)"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
-  Data.Pipes.PEX_RADTEST pipe "Pipe material"
+  parameter Data.Pipes.PEX_RADTEST pipe "Pipe material"
     annotation (Placement(transformation(extent={{80,72},{100,92}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conAbo2(G=20*A)
     "Combined convection and radiation resistance above the slab"
@@ -227,6 +227,10 @@ flow.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 11, 2013, by Michael Wetter:<br/>
+Added missing <code>parameter</code> keyword in the declaration of the data record.
+</li>
 <li>
 June 27, 2012, by Michael Wetter:<br/>
 First implementation.

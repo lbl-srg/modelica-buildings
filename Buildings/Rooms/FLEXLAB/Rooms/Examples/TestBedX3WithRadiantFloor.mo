@@ -178,7 +178,7 @@ model TestBedX3WithRadiantFloor
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-290})));
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     slaCon(nLay=3, material={
       Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.1524,
@@ -197,7 +197,7 @@ model TestBedX3WithRadiantFloor
         c=1100,
         d=2400)}) "Construction of the slab"
     annotation (Placement(transformation(extent={{-266,-280},{-246,-260}})));
-  Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe(dOut=0.015875, dIn=0.01905)
+  parameter Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe(dOut=0.015875, dIn=0.01905)
     annotation (Placement(transformation(extent={{-266,-258},{-246,-238}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TNei(    tableOnFile=false, table=[0,293.15;
@@ -951,6 +951,8 @@ equation
         </html>",
         revisions="<html>
         <ul>
+        <li>October 11, 2013, by Michael Wetter:<br/>
+        Added missing <code>parameter</code> keyword in the declaration of the data record.</li>
         <li>Sep 19, 2013 by Peter Grant:<br/>
         First implementation.</li>
         </ul>
