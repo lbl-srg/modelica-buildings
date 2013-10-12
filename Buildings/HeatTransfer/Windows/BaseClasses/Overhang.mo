@@ -38,7 +38,7 @@ protected
     "Half-width of transition interval between left and right formulation for overhang";
 
   final parameter Modelica.SIunits.Area AWin= hWin*wWin "Window area";
-  parameter Modelica.SIunits.Length tmpH[4](fixed=false)
+  parameter Modelica.SIunits.Length tmpH[4](each fixed=false)
     "Height rectangular sections used for superposition";
   Modelica.SIunits.Length w
     "Either wL or wR, depending on the sun relative to the wall azimuth";
