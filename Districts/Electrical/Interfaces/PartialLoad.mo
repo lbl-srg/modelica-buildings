@@ -20,7 +20,7 @@ partial model PartialLoad
     "Nominal power (negative if consumed, positive if generated)"  annotation(evaluate=true,Dialog(group="Nominal conditions",
         enable = mode <> Assumption.VariableZ_P_input));
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)
-    "Nominal voltage (V_nominal >= 0)"  annotation(evaluate=true, Dialog(group="Nominal conditions", enable = (mode==2 or linear)));
+    "Nominal voltage (V_nominal >= 0)"  annotation(evaluate=true, Dialog(group="Nominal conditions", enable = (mode==Assumptionm.FixedZ_dynamic or linear)));
   Modelica.Blocks.Interfaces.RealInput y if mode==Assumption.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},

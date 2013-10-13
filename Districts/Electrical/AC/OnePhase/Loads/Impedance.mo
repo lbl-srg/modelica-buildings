@@ -3,7 +3,7 @@ model Impedance "Model of a generic impedance"
   extends Districts.Electrical.Interfaces.PartialLoad(redeclare package
       PhaseSystem = Districts.Electrical.PhaseSystems.OnePhase, redeclare
       Interfaces.Terminal_n terminal,
-      final mode=1,
+      final mode=Districts.Electrical.Types.Assumption.FixedZ_steady_state,
       final P_nominal=0,
       final V_nominal = 220);
   parameter Modelica.SIunits.Resistance R(start = 1,min=0) "Resistance";

@@ -3,7 +3,7 @@ model Resistor "Ideal linear electrical resistor"
   extends Districts.Electrical.Interfaces.PartialLoad(redeclare package
       PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor, redeclare
       Districts.Electrical.DC.Interfaces.Terminal_n
-                                                 terminal, final mode = 1, final P_nominal=0);
+                                                 terminal, final mode = Districts.Electrical.Types.Assumption.FixedZ_steady_state, final P_nominal=0);
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
   parameter Modelica.SIunits.Resistance R(start=1)
     "Resistance at temperature T_ref";
