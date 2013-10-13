@@ -1,5 +1,6 @@
 within Districts.Electrical.Interfaces;
 partial model PartialLoad
+  import Districts.Electrical.Types.Assumption;
   replaceable package PhaseSystem =
       Districts.Electrical.PhaseSystems.PartialPhaseSystem
        constrainedby Districts.Electrical.PhaseSystems.PartialPhaseSystem
@@ -14,13 +15,13 @@ partial model PartialLoad
   parameter Boolean linear = false
     "If =true introduce a linearization in the load"                                                    annotation(evaluate=true,Dialog(group="Modelling assumption"));
   parameter Districts.Electrical.Types.Assumption
-                       mode(min=1,max=4) = Districts.Electrical.Types.Assumption.FixedZ_steady_state annotation(evaluate=true,Dialog(group="Modelling assumption"));
+                       mode(min=Assumption.FixedZ_steady_state,max=Assumption.VariableZ_y_input) = Assumption.FixedZ_steady_state annotation(evaluate=true,Dialog(group="Modelling assumption"));
   parameter Modelica.SIunits.Power P_nominal(start=0)
     "Nominal power (negative if consumed, positive if generated)"  annotation(evaluate=true,Dialog(group="Nominal conditions",
-        enable = mode <> 3));
+        enable = mode <> Assumption.VariableZ_P_input));
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)
     "Nominal voltage (V_nominal >= 0)"  annotation(evaluate=true, Dialog(group="Nominal conditions", enable = (mode==2 or linear)));
-  Modelica.Blocks.Interfaces.RealInput y if mode==4
+  Modelica.Blocks.Interfaces.RealInput y if mode==Assumption.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -28,7 +29,7 @@ partial model PartialLoad
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,0})));
-  Modelica.Blocks.Interfaces.RealInput Pow(unit="W") if mode==3
+  Modelica.Blocks.Interfaces.RealInput Pow(unit="W") if mode==Assumption.VariableZ_P_input
     "Power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -60,26 +61,26 @@ equation
   connect(Pow,Pow_);
 
   // If the power is fixed, inner connector value is equal to 1
-  if mode==1 or mode==2 then
+  if mode==Assumption.FixedZ_steady_state or mode==Assumption.FixedZ_dynamic then
     y_   = 1;
     Pow_ = P_nominal;
-  elseif mode==3 then
+  elseif mode==Assumption.VariableZ_P_input then
     y_ = 1;
-  elseif mode==4 then
+  elseif mode==Assumption.VariableZ_y_input then
     Pow_ = 0;
   end if;
 
   // Value of the load, depending on the type: fixed or variable
-  if mode==4 then
+  if mode==Assumption.VariableZ_y_input then
     load = eps + oneEps*y_;
   else
     load = 1;
   end if;
 
   // Power consumption
-  if mode==1 or mode==2 then
+  if mode==Assumption.FixedZ_steady_state or mode==Assumption.FixedZ_dynamic then
     P = P_nominal;
-  elseif mode==3 then
+  elseif mode==Assumption.VariableZ_P_input then
     if Pow_ >=0 then
       P = - max(eps, Pow_);
     else
