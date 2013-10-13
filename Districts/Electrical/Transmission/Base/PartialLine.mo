@@ -1,10 +1,17 @@
 within Districts.Electrical.Transmission.Base;
 partial model PartialLine "Cable line dispersion model"
   extends Districts.Electrical.Interfaces.PartialTwoPort(
-    terminal_n(i[:](each nominal=P_nominal/V_nominal),
-               v[:](each nominal=V_nominal)),
-    terminal_p(i[:](each nominal=P_nominal/V_nominal),
-               v[:](each nominal=V_nominal)));
+    terminal_n(i(nominal=nominal_i_),
+               v(nominal=nominal_v_)),
+    terminal_p(i(nominal=nominal_i_),
+               v(nominal=nominal_v_)));
+
+protected
+  parameter Integer n_ = size(terminal_n.i,1);
+  parameter Real nominal_i_ = P_nominal / V_nominal;
+  parameter Real nominal_v_ = V_nominal;
+
+public
   parameter Modelica.SIunits.Distance l(min=0) "Length of the line";
   parameter Modelica.SIunits.Power P_nominal(min=0) "Nominal power of the line";
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)
