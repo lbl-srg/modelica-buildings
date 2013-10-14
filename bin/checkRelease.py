@@ -38,6 +38,8 @@ INVALID_IN_ALL=["fixme", "import \"",
                 "__Dymola_Text"]
 # List of invalid strings in .mos files
 INVALID_IN_MOS=[]
+# List of invalid regular expressions in .mo files
+INVALID_REGEXP_IN_MO=["StopTime\s*=\s*\d\s*[*]\s*\d+"]
 # List of strings that are required in .mo files, except in Examples
 REQUIRED_IN_MO=["documentation"]
 
@@ -56,6 +58,20 @@ def reportErrorIfContains(fileName, listOfStrings):
                         + fileName.replace(LIBHOME, "", 1)
                         + "' contains invalid string '" 
                         + string + "'.")
+
+#########################################################
+def reportErrorIfContainsRegExp(fileName, listOfStrings):
+    import re
+    filObj=open(fileName, 'r')
+    filTex=filObj.read()
+    for string in listOfStrings:
+        match = re.search(string, filTex, re.I)
+        if match is not None:
+            reportError("File '" 
+                        + fileName.replace(LIBHOME, "", 1)
+                        + "' contains invalid string regular expression '" 
+                        + string + "' in '"
+                        + match.group() + "'.")
 
 #########################################################
 def reportErrorIfMissing(fileName, listOfStrings):
@@ -96,6 +112,7 @@ for (path, dirs, files) in os.walk(LIBHOME):
                 reportErrorIfContains(filFulNam, INVALID_IN_MOS)
             # Test .mo files only
             if foundMo:
+                reportErrorIfContainsRegExp(filFulNam, INVALID_REGEXP_IN_MO)
                 if (filFulNam.find('Examples') == -1):
                     reportErrorIfMissing(filFulNam, REQUIRED_IN_MO)
                 if not filFulNam.endswith(maiPac):
