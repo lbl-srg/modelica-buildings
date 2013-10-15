@@ -33,14 +33,15 @@ model TwoRoomsWithStorage
     "Pressure difference of flow leg that serves a room";
  parameter Modelica.SIunits.Pressure dpThrWayVal_nominal = 6000
     "Pressure difference of three-way valve";
- parameter Modelica.SIunits.Pressure dp_nominal = dpPip_nominal + dpVal_nominal + dpRoo_nominal
+ parameter Modelica.SIunits.Pressure dp_nominal=
+    dpPip_nominal + dpVal_nominal + dpRoo_nominal + dpThrWayVal_nominal
     "Pressure difference of loop";
   // Room model
 
   Fluid.Movers.FlowMachine_y pumBoi(
     redeclare package Medium = Medium,
     pressure(V_flow=mBoi_flow_nominal/1000*{0.5, 1},
-             dp=dp_nominal*{2,1}),
+             dp=(3000+2000)*{2,1}),
     dynamicBalance=false)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -50,7 +51,7 @@ model TwoRoomsWithStorage
     redeclare package Medium = Medium,
     pressure(
           V_flow=mRad_flow_nominal/1000*{0,2},
-          dp=5000*{2,0}),
+          dp=dp_nominal*{2,0}),
     dynamicBalance=false) "Pump that serves the radiators"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -799,7 +800,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gai1.y, roo1.qGai_flow) annotation (Line(
-      points={{401,560},{410,560},{410,530},{348,530},{348,494},{354,494}},
+      points={{401,560},{410,560},{410,530},{348,530},{348,494},{348,494}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(switch2.y, gai2.u[1]) annotation (Line(
@@ -807,7 +808,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gai2.y, roo2.qGai_flow) annotation (Line(
-      points={{401,290},{410,290},{410,260},{350,260},{350,236},{366,236}},
+      points={{401,290},{410,290},{410,260},{350,260},{350,236},{360,236}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCha.TSup, lesThr.u1) annotation (Line(
@@ -1016,6 +1017,10 @@ system.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 14, 2013, by Michael Wetter:<br/>
+Corrected wrong pump head for radiator and for boiler pump.
+</li>
 <li>
 March 1, 2013, by Michael Wetter:<br/>
 Removed assignment of <code>Kv_SI</code> because this is now a protected parameter.
