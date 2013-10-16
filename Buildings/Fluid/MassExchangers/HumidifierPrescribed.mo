@@ -2,7 +2,8 @@ within Buildings.Fluid.MassExchangers;
 model HumidifierPrescribed
   "Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol);
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
+    final showDesignFlowDirection=false);
 
   parameter Boolean use_T_in= false
     "Get the temperature from the input connector"
