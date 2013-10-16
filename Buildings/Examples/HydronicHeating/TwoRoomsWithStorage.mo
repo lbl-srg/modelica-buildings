@@ -488,8 +488,8 @@ model TwoRoomsWithStorage
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     dp_nominal=0) "Coil for mechanical cooling"
     annotation (Placement(transformation(extent={{220,490},{240,510}})));
-  Modelica.Blocks.Logical.LessThreshold lesThrTOut(threshold=12 + 273.15)
-    "Test to block boiler if outside temperature is too high"
+  Modelica.Blocks.Logical.LessThreshold lesThrTRoo(threshold=18 + 273.15)
+    "Test to block boiler if room air temperature is sufficiently high"
     annotation (Placement(transformation(extent={{400,-20},{420,0}})));
   Modelica.Blocks.Logical.And and1
     "Logical test to enable pump and subsequently the boiler"
@@ -1083,7 +1083,7 @@ equation
       points={{421,-112},{430,-112},{430,-28},{438,-28}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(lesThrTOut.y, and1.u1) annotation (Line(
+  connect(lesThrTRoo.y, and1.u1) annotation (Line(
       points={{421,-10},{428,-10},{428,-20},{438,-20}},
       color={255,0,255},
       smooth=Smooth.None));
@@ -1091,16 +1091,13 @@ equation
       points={{461,-20},{475,-20}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(weaBus.TDryBul, lesThrTOut.u) annotation (Line(
-      points={{-40,340},{-40,-28},{300,-28},{300,-10},{398,-10}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,-200},
-            {700,600}}), graphics),
+  connect(TRoo1.T, lesThrTRoo.u) annotation (Line(
+      points={{500,484},{688,484},{688,42},{388,42},{388,-10},{398,-10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,
+            -200},{700,600}}),
+                         graphics),
 Documentation(info="<html>
 <p>
 This example demonstrates the implementation of a building that has the following properties:</p>
