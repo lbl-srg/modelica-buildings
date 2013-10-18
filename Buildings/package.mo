@@ -641,6 +641,16 @@ units are wrong or errors in documentation):
                        This eliminates a compilation error in OpenModelica.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Python27</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.IO.Python27.Functions.exchange
+    </td>
+    <td valign=\"top\">Corrected error in C code that lead to message
+                       <code>'module' object has no attribute 'argv'</code>
+                       when a python module accessed <code>sys.argv</code>.
+    </td>
+</tr>
 
 
 
