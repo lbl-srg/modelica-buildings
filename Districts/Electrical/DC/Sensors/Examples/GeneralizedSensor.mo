@@ -36,6 +36,6 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics),
 Commands(file=
-          "Resources/Scripts/Dymola/Electrical/DC/Sensors/Examples/GeneralizedSensor.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/Electrical/DC/Sensors/Examples/GeneralizedSensor.mos"
         "Simulate and plot"));
 end GeneralizedSensor;

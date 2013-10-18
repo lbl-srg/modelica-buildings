@@ -20,7 +20,7 @@ model WindTurbineGridConnected
     conACDC(       conversionFactor=240/380, eta=0.9) "AC/DC converter"
     annotation (Placement(transformation(extent={{24,-10},{4,10}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-      computeWetBulbTemperature=false, filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+      computeWetBulbTemperature=false, filNam="modelica://Districts/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
   Districts.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-62,60},{-42,80}})));
@@ -63,7 +63,7 @@ First implementation.
 </ul>
 </html>"),
     Commands(file=
-          "Resources/Scripts/Dymola/Electrical/Examples/WindTurbineGridConnected.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/Electrical/Examples/WindTurbineGridConnected.mos"
         "Simulate and plot"),
     experiment(StopTime=259200, Tolerance=1e-05),
     __Dymola_experimentSetupOutput);

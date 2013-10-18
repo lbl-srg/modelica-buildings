@@ -1,6 +1,5 @@
 within Buildings.Rooms.FLEXLAB.Rooms.Examples;
 model X3AWithRadiantFloor "Example model showing a use of X3A"
-
   extends Modelica.Icons.Example;
 
   package Air = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
@@ -23,7 +22,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
   Modelica.Blocks.Sources.CombiTimeTable airCon(table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
     tableName="airCon",
-    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+       "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5) "Inlet air conditions (y[1] = m_flow, y[4] = T)"
     annotation (Placement(transformation(extent={{-196,54},{-176,74}})));
   Buildings.Fluid.Sources.MassFlowSource_T airIn(
@@ -100,15 +100,15 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     annotation (Placement(transformation(extent={{-196,-186},{-176,-166}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-    "/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature preT2[2]   annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={64,-114})));
-  Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical ele(redeclare package Medium =
-        Air, nPorts=2) "Model of the electrical room"
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical ele(
+    redeclare package Medium = Air, nPorts=2) "Model of the electrical room"
     annotation (Placement(transformation(extent={{54,-80},{94,-40}})));
   Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet
     clo(
@@ -126,7 +126,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
   Modelica.Blocks.Sources.CombiTimeTable airConEle(
     tableOnFile=true,
     tableName="airCon",
-    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+       "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected electrical room (y[1] = m_flow, y[4] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -136,7 +137,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
   Modelica.Blocks.Sources.CombiTimeTable airConClo(
     tableOnFile=true,
     tableName="airCon",
-    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+       "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected closet (y[1] = m_flow, y[4] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -815,6 +817,6 @@ equation
           First implementation.</li>
           </ul>
           </html>"),
-     __Dymola_Commands(file="Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.mos"
+     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.mos"
         "Simulate and Plot"));
 end X3AWithRadiantFloor;

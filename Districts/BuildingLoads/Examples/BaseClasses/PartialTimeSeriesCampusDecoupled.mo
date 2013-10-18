@@ -63,29 +63,29 @@ partial model PartialTimeSeriesCampusDecoupled
     commercialCable = Districts.Electrical.Transmission.CommercialCables.Cu100())
     "Line model";
   //model line = resistiveLine "Line model";
-  Districts.BuildingLoads.TimeSeries buiA(fileName="Resources/Data/BuildingLoads/Examples/buildingA.txt",
+  Districts.BuildingLoads.TimeSeries buiA(fileName="modelica://Districts/Resources/Data/BuildingLoads/Examples/buildingA.txt",
     V_nominal_AC=VDis,
     V_nominal_DC=VDC) "Building A"
     annotation (Placement(transformation(extent={{280,30},{300,50}})));
-  Districts.BuildingLoads.TimeSeries buiB(fileName="Resources/Data/BuildingLoads/Examples/buildingB.txt",
+  Districts.BuildingLoads.TimeSeries buiB(fileName="modelica://Districts/Resources/Data/BuildingLoads/Examples/buildingB.txt",
     V_nominal_AC=VDis,
     V_nominal_DC=VDC) "Building B"
     annotation (Placement(transformation(extent={{220,30},{240,50}})));
-  Districts.BuildingLoads.TimeSeries buiC(fileName="Resources/Data/BuildingLoads/Examples/buildingC.txt",
+  Districts.BuildingLoads.TimeSeries buiC(fileName="modelica://Districts/Resources/Data/BuildingLoads/Examples/buildingC.txt",
     V_nominal_AC=VDis,
     V_nominal_DC=VDC) "Building C"
     annotation (Placement(transformation(extent={{152,30},{172,50}})));
-  Districts.BuildingLoads.TimeSeries buiD(fileName="Resources/Data/BuildingLoads/Examples/buildingD.txt",
+  Districts.BuildingLoads.TimeSeries buiD(fileName="modelica://Districts/Resources/Data/BuildingLoads/Examples/buildingD.txt",
     V_nominal_AC=VDis,
     V_nominal_DC=VDC) "Building D"
     annotation (Placement(transformation(extent={{-42,-80},{-22,-60}})));
-  Districts.BuildingLoads.TimeSeries buiE(fileName="Resources/Data/BuildingLoads/Examples/buildingE.txt",
+  Districts.BuildingLoads.TimeSeries buiE(fileName="modelica://Districts/Resources/Data/BuildingLoads/Examples/buildingE.txt",
     V_nominal_AC=VDis,
     V_nominal_DC=VDC) "Building E"
     annotation (Placement(transformation(extent={{110,-90},{130,-70}})));
 
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/CZ10RV2.mos")
+        "modelica://Districts/Resources/weatherdata/CZ10RV2.mos")
     annotation (Placement(transformation(extent={{-220,60},{-200,80}})));
   Districts.Electrical.AC.ThreePhasesBalanced.Sources.Grid gri(
     f=60,

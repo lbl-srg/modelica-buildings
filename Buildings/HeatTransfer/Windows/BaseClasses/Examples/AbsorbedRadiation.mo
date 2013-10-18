@@ -13,7 +13,7 @@ model AbsorbedRadiation "Test model for absorbed radiation by windows"
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-38,0},{-18,20}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
 
   BoundaryConditions.SolarIrradiation.DiffuseIsotropic HDifTilIso(

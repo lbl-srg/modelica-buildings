@@ -50,6 +50,6 @@ First implementation.
 </ul>
 </html>"),
     Commands(file=
-          "Resources/Scripts/Dymola/Electrical/AC/Examples/GridDCLoad.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/Electrical/AC/Examples/GridDCLoad.mos"
         "Simulate and plot"));
 end GridDCLoad;

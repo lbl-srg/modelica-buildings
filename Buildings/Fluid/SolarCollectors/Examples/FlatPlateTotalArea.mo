@@ -21,7 +21,7 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-    "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data input file"
     annotation (Placement(transformation(extent={{-52,60},{-32,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -142,7 +142,7 @@ equation
       </ul>
     </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateTotalArea.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateTotalArea.mos"
         "Simulate and Plot"),
     Icon(graphics));
 end FlatPlateTotalArea;

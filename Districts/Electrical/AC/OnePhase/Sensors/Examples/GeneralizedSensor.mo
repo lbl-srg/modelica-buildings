@@ -44,6 +44,6 @@ First implementation.
             100,100}}),
                     graphics),
 Commands(file=
-          "Resources/Scripts/Dymola/Electrical/AC/AC1ph/Sensors/Examples/GeneralizedSensor.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/Electrical/AC/AC1ph/Sensors/Examples/GeneralizedSensor.mos"
         "Simulate and plot"));
 end GeneralizedSensor;

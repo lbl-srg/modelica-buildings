@@ -24,12 +24,12 @@ model LinearRegressionCampus
   model line = Districts.Electrical.AC.ThreePhasesBalanced.Lines.Line
     "Line model";
   //model line = resistiveLine "Line model";
-  Districts.BuildingLoads.LinearRegression buiA(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
+  Districts.BuildingLoads.LinearRegression buiA(fileName="modelica://Districts/Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
     V_nominal_AC=VDis,
     V_nominal_DC=VDC) "Building A"
     annotation (Placement(transformation(extent={{230,30},{250,50}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        "modelica://Districts/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-220,60},{-200,80}})));
   Districts.Electrical.AC.ThreePhasesBalanced.Sources.Grid gri(
     f=60,
@@ -121,19 +121,19 @@ model LinearRegressionCampus
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={250,-20})));
-  Districts.BuildingLoads.LinearRegression buiB(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
+  Districts.BuildingLoads.LinearRegression buiB(fileName="modelica://Districts/Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
     V_nominal_AC=VDis,
     V_nominal_DC=VDC) "Building B"
     annotation (Placement(transformation(extent={{170,30},{190,50}})));
-  Districts.BuildingLoads.LinearRegression buiC(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
+  Districts.BuildingLoads.LinearRegression buiC(fileName="modelica://Districts/Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
     V_nominal_AC=VDis,
     V_nominal_DC=VDC) "Building C"
     annotation (Placement(transformation(extent={{108,30},{128,50}})));
-  Districts.BuildingLoads.LinearRegression buiD(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
+  Districts.BuildingLoads.LinearRegression buiD(fileName="modelica://Districts/Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
     V_nominal_AC=VDis,
     V_nominal_DC=VDC) "Building D"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  Districts.BuildingLoads.LinearRegression buiE(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
+  Districts.BuildingLoads.LinearRegression buiE(fileName="modelica://Districts/Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
     V_nominal_AC=VDis,
     V_nominal_DC=VDC) "Building E"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
@@ -432,6 +432,6 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"),
       Commands(file=
-          "Resources/Scripts/Dymola/BuildingLoads/Examples/LinearRegressionCampus.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/BuildingLoads/Examples/LinearRegressionCampus.mos"
         "Simulate and plot"));
 end LinearRegressionCampus;

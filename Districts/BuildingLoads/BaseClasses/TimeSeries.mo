@@ -8,7 +8,7 @@ protected
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
     final tableName="tab1",
-    final fileName=fileName,
+    final fileName=ModelicaServices.ExternalReferences.loadResource(fileName),
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns=2:14,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Data reader"
@@ -125,6 +125,11 @@ Districts.BuildingLoads.TimeSeries</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 18, 2013, by Michael Wetter:<br/>
+Added <code>ModelicaServices.ExternalReferences.loadResource</code> when loading
+the data file.
+</li>
 <li>
 August 23, 2013, by Michael Wetter:<br/>
 First implementation.
