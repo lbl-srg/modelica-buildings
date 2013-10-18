@@ -2,13 +2,13 @@ within Districts.BuildingLoads.Examples;
 model LinearRegression "Example model for the linear regression building load"
   import Districts;
   extends Modelica.Icons.Example;
-  Districts.BuildingLoads.LinearRegression bui1(fileName="Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
+  Districts.BuildingLoads.LinearRegression bui1(fileName="modelica://Districts/Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
     V_nominal_AC=480,
     V_nominal_DC=240,
     linear_AC=true) "Building 1"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        "modelica://Districts/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Districts.Electrical.AC.ThreePhasesBalanced.Sources.Grid
                                              gri(

@@ -303,7 +303,7 @@ First implementation.
           __Dymola_Algorithm="Radau"),
         __Dymola_experimentSetupOutput,
         Commands(file=
-              "Resources/Scripts/Dymola/Examples/BaseClasses/Examples/BatteryControl.mos"
+              "modelica://Districts/Resources/Scripts/Dymola/Examples/BaseClasses/Examples/BatteryControl.mos"
             "Simulate and plot"),
         Documentation(revisions="<html>
 <ul>

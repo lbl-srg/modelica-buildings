@@ -53,6 +53,6 @@ First implementation.
 </ul>
 </html>"),
     Commands(file=
-          "Resources/Scripts/Dymola/Electrical/AC/Conversion/Examples/ACACConverter.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/Electrical/AC/Conversion/Examples/ACACConverter.mos"
         "Simulate and plot"));
 end ACACConverter;

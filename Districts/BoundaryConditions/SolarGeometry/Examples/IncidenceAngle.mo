@@ -8,7 +8,7 @@ model IncidenceAngle "Test model for solar incidence angle"
     til=0.5) "Incidence angle"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam="modelica://Districts/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data (Chicago)"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation

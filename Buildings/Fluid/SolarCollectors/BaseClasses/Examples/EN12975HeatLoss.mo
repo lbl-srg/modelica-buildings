@@ -74,7 +74,7 @@ equation
     </ul>
   </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975HeatLoss.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975HeatLoss.mos"
         "Simulate and Plot"),
     Icon(graphics));
 end EN12975HeatLoss;

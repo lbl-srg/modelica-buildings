@@ -36,7 +36,7 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"),
       Commands(file=
-          "Resources/Scripts/Dymola/BuildingLoads/Examples/BaseClasses/Examples/BatteryControl_V.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/BuildingLoads/Examples/BaseClasses/Examples/BatteryControl_V.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics),

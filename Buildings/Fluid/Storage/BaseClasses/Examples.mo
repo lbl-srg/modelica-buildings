@@ -61,7 +61,7 @@ package Examples "Examples for BaseClasses models"
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics),
                                   __Dymola_Commands(file=
-            "Resources/Scripts/Dymola/Fluid/Storage/BaseClasses/Examples/IndirectTankHeatExchanger.mos"
+            "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/BaseClasses/Examples/IndirectTankHeatExchanger.mos"
           "Simulate and Plot"),
           Documentation(info="<html>
         <p>

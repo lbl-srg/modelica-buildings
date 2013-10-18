@@ -30,7 +30,7 @@ model PVGridConnected
     azi=-0.78539816339745) "Direct irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-      computeWetBulbTemperature=false, filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+      computeWetBulbTemperature=false, filNam="modelica://Districts/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-128,100},{-108,120}})));
   Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
@@ -96,7 +96,7 @@ First implementation.
 </ul>
 </html>"),
     Commands(file=
-          "Resources/Scripts/Dymola/Electrical/Examples/PVGridConnected.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/Electrical/Examples/PVGridConnected.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-140,-100},{100,140}})));
 end PVGridConnected;

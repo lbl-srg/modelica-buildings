@@ -114,7 +114,7 @@ model Case600FF
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-44,56},{-36,64}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/DRYCOLD.mos")
+        "modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")
     annotation (Placement(transformation(extent={{98,-94},{86,-82}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"

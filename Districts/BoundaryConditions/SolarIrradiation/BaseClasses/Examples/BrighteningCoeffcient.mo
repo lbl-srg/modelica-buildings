@@ -14,7 +14,7 @@ model BrighteningCoeffcient "Test model for brightening coeffcients"
   Districts.BoundaryConditions.SolarIrradiation.BaseClasses.SkyBrightness
     skyBri annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        "modelica://Districts/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Districts.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-20,60},{0,80}}), iconTransformation(extent={{-20,

@@ -1,6 +1,5 @@
 within Buildings.Rooms.FLEXLAB.Rooms.Examples;
 model X3BWithRadiantFloor "Example model showing a use of X3B"
-
   extends Modelica.Icons.Example;
 
   package Air = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
@@ -23,7 +22,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
   Modelica.Blocks.Sources.CombiTimeTable airCon(table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
     tableName="airCon",
-    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+       "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5) "Inlet air conditions (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-196,54},{-176,74}})));
   Buildings.Fluid.Sources.MassFlowSource_T airIn(
@@ -96,7 +96,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
   Modelica.Blocks.Sources.CombiTimeTable airConEle(
     tableOnFile=true,
     tableName="airCon",
-    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+       "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected electrical room (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -106,7 +107,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
   Modelica.Blocks.Sources.CombiTimeTable airConClo(
     tableOnFile=true,
     tableName="airCon",
-    fileName="Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+       "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected closet (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -512,6 +514,6 @@ equation
           First implementation.</li>
           </ul>
           </html>"),
-     __Dymola_Commands(file="Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3BWithRadiantFloor.mos"
+     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3BWithRadiantFloor.mos"
         "Simulate and Plot"));
 end X3BWithRadiantFloor;

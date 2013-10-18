@@ -244,7 +244,7 @@ model System6
 
 //-----------------------------Step 2: Weather data------------------------------//
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data reader"
     annotation (Placement(transformation(extent={{-380,60},{-360,80}})));
   BoundaryConditions.WeatherData.Bus weaBus
@@ -515,7 +515,7 @@ The weather data reader is implemented using
 </p>
 <pre>
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=\"Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos\") 
+    filNam=\"modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos\") 
     \"Weather data reader\";
 </pre>
 <p>

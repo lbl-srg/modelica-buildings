@@ -21,7 +21,7 @@ model FlatPlate "Test model for FlatPlate"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-    "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data input file"
     annotation (Placement(transformation(extent={{-32,20},{-12,40}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -101,7 +101,7 @@ equation
         </li>
       </ul>
     </html>"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlate.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlate.mos"
         "Simulate and Plot"),
     Icon(graphics));
 end FlatPlate;

@@ -52,7 +52,7 @@ First implementation.
 </ul>
 </html>"),
     Commands(file=
-          "Resources/Scripts/Dymola/Electrical/DC/Conversion/Examples/DCDCConverter.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/Electrical/DC/Conversion/Examples/DCDCConverter.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-140,-100},{100,140}})));
 end DCDCConverter;

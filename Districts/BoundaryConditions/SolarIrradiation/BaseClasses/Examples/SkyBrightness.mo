@@ -10,7 +10,7 @@ model SkyBrightness "Test model for sky brightness"
   Districts.BoundaryConditions.SolarIrradiation.BaseClasses.SkyBrightness
     skyBri annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        "modelica://Districts/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Districts.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-22,-20},{-2,0}}), iconTransformation(extent={{

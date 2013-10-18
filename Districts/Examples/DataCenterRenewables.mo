@@ -131,7 +131,7 @@ equation
       __Dymola_Algorithm="Radau"),
     __Dymola_experimentSetupOutput,
     Commands(file=
-          "Resources/Scripts/Dymola/Examples/DataCenterRenewables.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/Examples/DataCenterRenewables.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>

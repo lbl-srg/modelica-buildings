@@ -8,7 +8,7 @@ block LinearRegression
 protected
   Modelica.Blocks.Tables.CombiTable1Ds coef(
     final tableOnFile=true,
-    final fileName=fileName,
+    final fileName=ModelicaServices.ExternalReferences.loadResource(fileName),
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="tab1",
     columns=2:47) "Table reader with coefficients for linear model"
@@ -115,6 +115,11 @@ Districts.BuildingLoads.LinearRegression</a>.
 Rather than using physical ports, this model uses input and output signals.
 </html>", revisions="<html>
 <ul>
+<li>
+October 18, 2013, by Michael Wetter:<br/>
+Added <code>ModelicaServices.ExternalReferences.loadResource</code> when loading
+the data file.
+</li>
 <li>
 April 22, 2013, by Michael Wetter:<br/>
 First implementation.
