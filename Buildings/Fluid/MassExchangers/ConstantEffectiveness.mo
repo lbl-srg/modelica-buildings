@@ -2,6 +2,8 @@ within Buildings.Fluid.MassExchangers;
 model ConstantEffectiveness
   "Heat and moisture exchanger with constant effectiveness"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
+  redeclare replaceable package Medium1 = Modelica.Media.Interfaces.PartialCondensingGases,
+  redeclare replaceable package Medium2 = Modelica.Media.Interfaces.PartialCondensingGases,
   sensibleOnly1=false,
   sensibleOnly2=false,
   Q1_flow = epsS * QMax_flow,
@@ -22,16 +24,41 @@ model ConstantEffectiveness
     "Maximum water flow rate from medium 2 to medium 1";
 
 protected
+  parameter Integer i1_w(min=1, fixed=false) "Index for water substance";
+  parameter Integer i2_w(min=1, fixed=false) "Index for water substance";
   Real gai1(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
   Real gai2(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
+initial algorithm
+  i1_w:= -1;
+  i2_w:= -1;
+  for i in 1:Medium1.nXi loop
+      if Modelica.Utilities.Strings.isEqual(string1=Medium1.substanceNames[i],
+                                            string2="Water",
+                                            caseSensitive=false) then
+      i1_w := i;
+    end if;
+   end for;
+  for i in 1:Medium2.nXi loop
+      if Modelica.Utilities.Strings.isEqual(string1=Medium2.substanceNames[i],
+                                            string2="Water",
+                                            caseSensitive=false) then
+      i2_w := i;
+    end if;
+   end for;
+    assert(i1_w > 0, "Substance 'water' is not present in Medium1 '"
+         + Medium1.mediumName + "'.\n"
+         + "Check medium model.");
+    assert(i2_w > 0, "Substance 'water' is not present in Medium2 '"
+         + Medium2.mediumName + "'.\n"
+         + "Check medium model.");
 equation
   // Definitions for effectiveness model
   X_w_in1 = Modelica.Fluid.Utilities.regStep(m1_flow,
-                  state_a1_inflow.X[Medium1.Water],
-                  state_b1_inflow.X[Medium1.Water], m1_flow_small);
+                  state_a1_inflow.X[i1_w],
+                  state_b1_inflow.X[i1_w], m1_flow_small);
   X_w_in2 = Modelica.Fluid.Utilities.regStep(m2_flow,
-                  state_a2_inflow.X[Medium2.Water],
-                  state_b2_inflow.X[Medium2.Water], m2_flow_small);
+                  state_a2_inflow.X[i2_w],
+                  state_b2_inflow.X[i2_w], m2_flow_small);
 
   // mass exchange
   // Compute a gain that goes to zero near zero flow rate.
@@ -104,6 +131,14 @@ in the species vector.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 14, 2013 by Michael Wetter:<br/>
+Replaced access to constant <code>Medium1.Water</code> by introducing
+the parameter <code>i1_w</code>, and used a similar construct for
+<code>Medium2</code>.
+This avoids an error during model check as these constants are not known
+in the partial medium model.
+</li>
 <li>
 August 13, 2013 by Michael Wetter:<br/>
 Corrected error in the documentation.
