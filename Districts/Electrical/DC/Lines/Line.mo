@@ -9,21 +9,46 @@ model Line
                                                            terminal_n,
       redeclare Districts.Electrical.DC.Interfaces.Terminal_p
                                                            terminal_p);
-  TwoPortResistance lineR(useHeatPort=true, R=R)
+
+  TwoPortRCLine lineRC(
+    useHeatPort=true,
+    R=R,
+    V_nominal=V_nominal) if useC
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
+  TwoPortResistance lineR(useHeatPort=true, R=R) if not useC
+    annotation (Placement(transformation(extent={{-26,-16},{-6,-38}})));
 equation
-  connect(cableTemp.port, lineR.heatPort) annotation (Line(
-      points={{-40,22},{0,22},{0,10}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(lineR.terminal_n, terminal_n) annotation (Line(
+
+  if useC then
+    connect(lineRC.terminal_n, terminal_n)
+                                        annotation (Line(
       points={{-10,0},{-100,0}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(lineR.terminal_p, terminal_p) annotation (Line(
+    connect(lineRC.terminal_p, terminal_p)
+                                        annotation (Line(
       points={{10,0},{100,0}},
       color={0,0,0},
       smooth=Smooth.None));
+    connect(cableTemp.port, lineRC.heatPort)
+                                          annotation (Line(
+      points={{-40,22},{0,22},{0,10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  else
+    connect(cableTemp.port, lineR.heatPort) annotation (Line(
+      points={{-40,22},{-16,22},{-16,-16}},
+      color={191,0,0},
+      smooth=Smooth.None));
+    connect(terminal_n, lineR.terminal_n) annotation (Line(
+      points={{-100,0},{-64,0},{-64,-27},{-26,-27}},
+      color={0,0,255},
+      smooth=Smooth.None));
+    connect(lineR.terminal_p, terminal_p) annotation (Line(
+      points={{-6,-27},{44,-27},{44,0},{100,0}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  end if
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Ellipse(
@@ -58,4 +83,5 @@ equation
           points={{96,0},{60,0}},
           color={0,0,0},
           smooth=Smooth.None)}));
+
 end Line;

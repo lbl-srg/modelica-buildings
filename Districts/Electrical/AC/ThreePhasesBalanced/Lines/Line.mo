@@ -3,7 +3,8 @@ model Line
   extends Districts.Electrical.AC.OnePhase.Lines.Line(
       redeclare Interfaces.Terminal_n terminal_n,
       redeclare Interfaces.Terminal_p terminal_p,
-      redeclare TwoPortRL lineRL);
+      redeclare TwoPortRL lineRL,
+      final useC = false);
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Ellipse(
