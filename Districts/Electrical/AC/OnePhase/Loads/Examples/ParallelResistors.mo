@@ -65,6 +65,6 @@ First implementation.
 </ul>
 </html>"),
     Commands(file=
-          "Resources/Scripts/Dymola/Electrical/AC/Loads/Examples/ParallelLoads.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/Electrical/AC/Loads/Examples/ParallelLoads.mos"
         "Simulate and plot"));
 end ParallelResistors;

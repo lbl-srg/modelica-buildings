@@ -44,8 +44,7 @@ protected
     final m_flow_nominal = m_flow_nominal,
     final allowFlowReversal = allowFlowReversal,
     final m_flow_small = m_flow_small,
-    final homotopyInitialization = homotopyInitialization,
-    final show_V_flow = false) if
+    final homotopyInitialization = homotopyInitialization) if
         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
         annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Fluid.Interfaces.ConservationEquation dynBal(
@@ -171,6 +170,11 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2013 by Michael Wetter:<br/>
+Removed propagation of <code>show_V_flow</code>
+to instance <code>steBal</code> as it has no longer this parameter.
+</li>
 <li>
 September 13, 2013 by Michael Wetter:<br/>
 Renamed <code>rho_nominal</code> to <code>rho_start</code>

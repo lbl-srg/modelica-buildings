@@ -72,7 +72,7 @@ model ExteriorWallTwoWindows
         rotation=270,
         origin={-110,20})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
     "Record for material layers"

@@ -2,6 +2,7 @@ within Buildings.Fluid.MassExchangers;
 model HumidifierPrescribed
   "Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
+    redeclare replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol);
 
   parameter Boolean use_T_in= false
@@ -145,6 +146,13 @@ in the species vector.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 14, 2013 by Michael Wetter:<br/>
+Constrained medium to be a subclass of 
+<code>Modelica.Media.Interfaces.PartialCondensingGases</code>,
+as this base class declares the function
+<code>enthalpyOfCondensingGas</code>.
+</li>
 <li>
 July 30, 2013 by Michael Wetter:<br/>
 Updated model to use new variable <code>mWat_flow</code>

@@ -46,16 +46,9 @@ model ParallelCircuitsSlab
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Diagnostics
-   parameter Boolean show_V_flow = false
-    "= true, if volume flow rate at inflowing port is computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
    parameter Boolean show_T = false
-    "= true, if actual temperature at port is computed (may lead to events)"
+    "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
-
-  Modelica.SIunits.VolumeFlowRate V_flow=
-      m_flow/Medium.density(sta_a) if show_V_flow
-    "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
 
   Modelica.SIunits.MassFlowRate m_flow(start=0) = port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction) for all circuits combined";
@@ -64,26 +57,26 @@ model ParallelCircuitsSlab
 
   Medium.ThermodynamicState sta_a=if homotopyInitialization then
       Medium.setState_phX(port_a.p,
-                          homotopy(actual=actualStream(port_a.h_outflow),
+                          homotopy(actual=noEvent(actualStream(port_a.h_outflow)),
                                    simplified=inStream(port_a.h_outflow)),
-                          homotopy(actual=actualStream(port_a.Xi_outflow),
+                          homotopy(actual=noEvent(actualStream(port_a.Xi_outflow)),
                                    simplified=inStream(port_a.Xi_outflow)))
     else
       Medium.setState_phX(port_a.p,
-                          actualStream(port_a.h_outflow),
-                          actualStream(port_a.Xi_outflow)) if
-         show_T or show_V_flow "Medium properties in port_a";
+                          noEvent(actualStream(port_a.h_outflow)),
+                          noEvent(actualStream(port_a.Xi_outflow))) if
+         show_T "Medium properties in port_a";
 
   Medium.ThermodynamicState sta_b=if homotopyInitialization then
       Medium.setState_phX(port_b.p,
-                          homotopy(actual=actualStream(port_b.h_outflow),
+                          homotopy(actual=noEvent(actualStream(port_b.h_outflow)),
                                    simplified=port_b.h_outflow),
-                          homotopy(actual=actualStream(port_b.Xi_outflow),
+                          homotopy(actual=noEvent(actualStream(port_b.Xi_outflow)),
                             simplified=port_b.Xi_outflow))
     else
       Medium.setState_phX(port_b.p,
-                          actualStream(port_b.h_outflow),
-                          actualStream(port_b.Xi_outflow)) if
+                          noEvent(actualStream(port_b.h_outflow)),
+                          noEvent(actualStream(port_b.Xi_outflow))) if
           show_T "Medium properties in port_b";
 
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla(
@@ -108,7 +101,6 @@ model ParallelCircuitsSlab
     final m_flow_nominal=m_flow_nominal/nCir,
     final m_flow_small=m_flow_small/nCir,
     final homotopyInitialization=homotopyInitialization,
-    final show_V_flow=show_V_flow,
     final from_dp=from_dp,
     final dp_nominal=dp_nominal,
     final linearizeFlowResistance=linearizeFlowResistance,
@@ -241,6 +233,18 @@ Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 10, 2013 by Michael Wetter:<br/>
+Added <code>noEvent</code> to the computation of the states at the port.
+This is correct, because the states are only used for reporting, but not
+to compute any other variable. 
+Use of the states to compute other variables would violate the Modelica 
+language, as conditionally removed variables must not be used in any equation.
+</li>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
 <li>
 September 14, 2013, by Michael Wetter:<br/>
 Corrected assignment of start value for pressure at <code>port_a</code>

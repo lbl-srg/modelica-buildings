@@ -29,7 +29,6 @@ model StaticTwoPortHeatMassExchanger
     final deltaM=deltaM,
     final allowFlowReversal=allowFlowReversal,
     final show_T=false,
-    final show_V_flow=show_V_flow,
     final from_dp=from_dp,
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
@@ -67,14 +66,12 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(preDro.port_b, vol.port_a) annotation (Line(
-      points={{-30,0},{-8,0},{-8,0},{15,
-          0}},
+      points={{-30,0},{15,0}},
       color={0,127,255},
       smooth=Smooth.None));
 
   connect(vol.port_b, port_b) annotation (Line(
-      points={{35,0},{67,0},{67,0},{100,
-          5.55112e-16}},
+      points={{35,0},{67,0},{100,5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -130,6 +127,12 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2013 by Michael Wetter:<br/>
+Removed propagation of <code>show_V_flow</code>
+to pressure drop calculation, as this model no longer has
+that parameter.
+</li>
 <li>
 July 30, 2013 by Michael Wetter:<br/>
 Changed connector <code>mXi_flow[Medium.nXi]</code>

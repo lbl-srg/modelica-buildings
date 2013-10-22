@@ -95,7 +95,7 @@ protected
       Placement(transformation(extent={{-18,62},{-6,74}}, rotation=0)));
 
   replaceable BaseClasses.HexElementSensible ele[nEle]
-  constrainedby BaseClasses.PartialHexElement[nEle](
+  constrainedby BaseClasses.PartialHexElement(
     redeclare each package Medium1 = Medium1,
     redeclare each package Medium2 = Medium2,
     each allowFlowReversal1=allowFlowReversal1,
@@ -232,11 +232,6 @@ this model computes only sensible heat transfer.
 </html>", revisions="<html>
 <ul>
 <li>
-September 30, 2013, by Michael Wetter:<br/>
-Added missing dimension in the <code>constrainedby</code> declaration
-of the instance <code>ele</code>.
-</li>
-<li>
 February 2, 2012, by Michael Wetter:<br/>
 Corrected error in assignment of <code>dp2_nominal</code>.
 The previous assignment caused a pressure drop in all except one element,
@@ -252,7 +247,7 @@ May 27, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
+</html>e"),
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

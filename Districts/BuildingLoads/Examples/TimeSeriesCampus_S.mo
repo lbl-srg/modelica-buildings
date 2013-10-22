@@ -25,6 +25,6 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"),
       Commands(file=
-          "Resources/Scripts/Dymola/BuildingLoads/Examples/TimeSeriesCampus_S.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/BuildingLoads/Examples/TimeSeriesCampus_S.mos"
         "Simulate and plot"));
 end TimeSeriesCampus_S;

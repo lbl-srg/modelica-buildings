@@ -2,12 +2,12 @@ within Districts.BuildingLoads.Examples;
 model TimeSeries "Example model for the time series building load"
   import Districts;
   extends Modelica.Icons.Example;
-  Districts.BuildingLoads.TimeSeries buiA(fileName="Resources/Data/BuildingLoads/Examples/buildingA.txt",
+  Districts.BuildingLoads.TimeSeries buiA(fileName="modelica://Districts/Resources/Data/BuildingLoads/Examples/buildingA.txt",
     V_nominal_AC=480,
     V_nominal_DC=240) "Building A"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/CZ10RV2.mos")
+        "modelica://Districts/Resources/weatherdata/CZ10RV2.mos")
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Districts.Electrical.AC.ThreePhasesBalanced.Sources.Grid
                                              gri(
@@ -81,6 +81,6 @@ equation
     experiment(StopTime=86400, Tolerance=1e-05),
     __Dymola_experimentSetupOutput,
     Commands(file=
-          "Resources/Scripts/Dymola/BuildingLoads/Examples/TimeSeries.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/BuildingLoads/Examples/TimeSeries.mos"
         "Simulate and plot"));
 end TimeSeries;

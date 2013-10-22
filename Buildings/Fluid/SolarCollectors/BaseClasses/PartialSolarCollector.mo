@@ -76,7 +76,6 @@ model PartialSolarCollector "Partial model for solar collectors"
     final show_T=show_T,
     final m_flow_nominal=m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
-    final show_V_flow=show_V_flow,
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
     use_dh=false,
@@ -219,6 +218,10 @@ equation
     </html>",
     revisions="<html>
       <ul>
+        <li>
+          October 8, 2013, by Michael Wetter:<br/>
+          Removed parameter <code>show_V_flow</code> in declaration of instance <code>res</code>.
+          </li>
         <li>
           January 4, 2013, by Peter Grant:<br/>
           First implementation.

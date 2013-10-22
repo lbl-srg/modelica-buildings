@@ -11,7 +11,7 @@ model AltitudeAngle "Test model for altitude angle"
     "Solar hour angle"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "modelica://Districts/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Districts.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"

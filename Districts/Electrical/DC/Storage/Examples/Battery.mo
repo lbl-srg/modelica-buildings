@@ -201,7 +201,7 @@ equation
     experiment(StopTime=432000),
     __Dymola_experimentSetupOutput,
     Commands(file=
-          "Resources/Scripts/Dymola/Electrical/DC/Storage/Examples/Battery.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/Electrical/DC/Storage/Examples/Battery.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

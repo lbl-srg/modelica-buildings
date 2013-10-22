@@ -20,7 +20,7 @@ model FlatPlateValidation "Validation model for FlatPlate"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-    "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data file reader"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -42,7 +42,8 @@ model FlatPlateValidation "Validation model for FlatPlate"
     tableOnFile=true,
     tableName="TRNSYS",
     columns=2:5,
-    fileName="Fluid/SolarCollectors/Examples/ValidationData/TRNSYSAnnualData.txt")
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+       "modelica://Buildings/Fluid/SolarCollectors/Examples/ValidationData/TRNSYSAnnualData.txt"))
     "Data reader with inlet conditions from TRNSYS"
     annotation (Placement(transformation(extent={{-88,-20},{-68,0}})));
 
@@ -109,7 +110,7 @@ equation
         </li>
       </ul>
     </html>"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateValidation.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateValidation.mos"
         "Simulate and Plot"),
     Icon(graphics));
 end FlatPlateValidation;

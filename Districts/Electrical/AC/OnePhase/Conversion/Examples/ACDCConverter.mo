@@ -67,6 +67,6 @@ First implementation.
 </ul>
 </html>"),
     Commands(file=
-          "Resources/Scripts/Dymola/Electrical/AC/Conversion/Examples/ACDCConverter.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/Electrical/AC/Conversion/Examples/ACDCConverter.mos"
         "Simulate and plot"));
 end ACDCConverter;

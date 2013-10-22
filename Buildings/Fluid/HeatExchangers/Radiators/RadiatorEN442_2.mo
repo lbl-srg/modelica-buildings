@@ -34,8 +34,7 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
   parameter Modelica.SIunits.Volume VWat = 5.8E-6*abs(Q_flow_nominal)
     "Water volume of radiator"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Mass mDry = 0.0263*abs(Q_flow_nominal) if
-        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+  parameter Modelica.SIunits.Mass mDry = 0.0263*abs(Q_flow_nominal)
     "Dry mass of radiator that will be lumped to water heat capacity"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -159,11 +158,15 @@ protected
     annotation (Placement(transformation(extent={{52,-90},{72,-70}})));
 initial equation
   if T_b_nominal > TAir_nominal then
-     assert(T_a_nominal > T_b_nominal, "In RadiatorEN442_2, T_a_nominal must be higher than T_b_nominal");
-     assert(Q_flow_nominal > 0, "In RadiatorEN442_2, nominal power must be bigger than zero if T_b_nominal > TAir_nominal");
+     assert(T_a_nominal > T_b_nominal,
+       "In RadiatorEN442_2, T_a_nominal must be higher than T_b_nominal");
+     assert(Q_flow_nominal > 0,
+       "In RadiatorEN442_2, nominal power must be bigger than zero if T_b_nominal > TAir_nominal");
   else
-     assert(T_a_nominal < T_b_nominal, "In RadiatorEN442_2, T_a_nominal must be lower than T_b_nominal");
-     assert(Q_flow_nominal < 0, "In RadiatorEN442_2, nominal power must be smaller than zero if T_b_nominal < TAir_nominal");
+     assert(T_a_nominal < T_b_nominal,
+       "In RadiatorEN442_2, T_a_nominal must be lower than T_b_nominal");
+     assert(Q_flow_nominal < 0,
+       "In RadiatorEN442_2, nominal power must be smaller than zero if T_b_nominal < TAir_nominal");
   end if;
   TWat_nominal[1] = T_a_nominal - QEle_flow_nominal[1]/m_flow_nominal/
   Medium.specificHeatCapacityCp(
@@ -361,6 +364,11 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2013 by Michael Wetter:<br/>
+Removed conditional statement in the declaration of the parameter
+<code>mDry</code>, as this is incorrect syntax.
+</li>
 <li>
 September 26, 2013 by Michael Wetter:<br/>
 Reformulated implementation to avoid mixing textual and graphical 

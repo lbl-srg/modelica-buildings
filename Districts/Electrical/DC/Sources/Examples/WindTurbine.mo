@@ -13,7 +13,7 @@ model WindTurbine "Example for the WindTurbine model"
         rotation=0,
         origin={50,40})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-      computeWetBulbTemperature=false, filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+      computeWetBulbTemperature=false, filNam="modelica://Districts/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-62,76},{-42,96}})));
   Districts.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{6,76},{26,96}})));
@@ -82,7 +82,7 @@ First implementation.
 </ul>
 </html>"),
     Commands(file=
-          "Resources/Scripts/Dymola/Electrical/DC/Sources/Examples/WindTurbine.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/Electrical/DC/Sources/Examples/WindTurbine.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-140,-100},{100,140}})));
 end WindTurbine;

@@ -8,7 +8,7 @@ model RelativeAirMass "Test model for relative air mass"
         0.34906585039887)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        "modelica://Districts/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
   connect(zen.y, relAirMas.zen) annotation (Line(

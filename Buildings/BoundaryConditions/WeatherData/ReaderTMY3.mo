@@ -516,19 +516,19 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[14], cheOpaSkyCov.nIn) annotation (Line(
-      points={{-59,-30},{20,-30},{20,-150},{158,-150}},
+      points={{-59,-29.92},{20,-29.92},{20,-150},{158,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[16], cheCeiHei.ceiHeiIn) annotation (Line(
-      points={{-59,-30},{20,-30},{20,-110},{158,-110}},
+      points={{-59,-29.76},{20,-29.76},{20,-110},{158,-110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[11], conWinDir.u) annotation (Line(
-      points={{-59,-30},{20,-30},{20,-270},{118,-270}},
+      points={{-59,-30.16},{20,-30.16},{20,-270},{118,-270}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea1.y[1], conHorRad.HIn) annotation (Line(
-      points={{-59,170},{20,170},{20,250},{118,250}},
+      points={{-59,169.25},{20,169.25},{20,250},{118,250}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conHorRad.HOut, cheHorRad.HIn) annotation (Line(
@@ -540,11 +540,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[1], conTDryBul.u) annotation (Line(
-      points={{-59,-30},{20,-30},{20,-190},{118,-190}},
+      points={{-59,-30.96},{20,-30.96},{20,-190},{118,-190}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[2], conTDewPoi.u) annotation (Line(
-      points={{-59,-30},{20,-30},{20,-230},{118,-230}},
+      points={{-59,-30.88},{20,-30.88},{20,-230},{118,-230}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conTDewPoi.y, cheTemDewPoi.TIn) annotation (Line(
@@ -563,19 +563,19 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea1.y[3], conDirNorRad.HIn) annotation (Line(
-      points={{-59,170},{20,170},{20,210},{118,210}},
+      points={{-59,170.25},{20,170.25},{20,210},{118,210}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea1.y[2], conGloHorRad.HIn) annotation (Line(
-      points={{-59,170},{118,170}},
+      points={{-59,169.75},{30,169.75},{30,170},{118,170}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea1.y[4], conDifHorRad.HIn) annotation (Line(
-      points={{-59,170},{20,170},{20,130},{118,130}},
+      points={{-59,170.75},{20,170.75},{20,130},{118,130}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conRelHum.relHumIn, datRea.y[3]) annotation (Line(
-      points={{118,30},{20,30},{20,-30},{-59,-30}},
+      points={{118,30},{20,30},{20,-30.8},{-59,-30.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheRelHum.relHumOut, weaBus.relHum) annotation (Line(
@@ -972,6 +972,20 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Improved the algorithm that determines the absolute path of the file.
+Now weather files are searched in the path specified, and if not found, the urls
+<code>file://</code>, <code>modelica://</code> and <code>modelica://Buildings</code>
+are added in this order to search for the weather file.
+This allows using the data reader without having to specify an absolute path,
+as long as the <code>Buildings</code> library
+is on the <code>MODELICAPATH</code>.
+This change was implemented in 
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath\">
+Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath</a>
+and improves this weather data reader.
+</li>
 <li>
 May 2, 2013, by Michael Wetter:<br/>
 Added function call to <code>getAbsolutePath</code>.

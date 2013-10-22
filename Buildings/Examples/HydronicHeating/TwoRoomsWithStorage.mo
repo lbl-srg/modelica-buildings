@@ -33,14 +33,15 @@ model TwoRoomsWithStorage
     "Pressure difference of flow leg that serves a room";
  parameter Modelica.SIunits.Pressure dpThrWayVal_nominal = 6000
     "Pressure difference of three-way valve";
- parameter Modelica.SIunits.Pressure dp_nominal = dpPip_nominal + dpVal_nominal + dpRoo_nominal
+ parameter Modelica.SIunits.Pressure dp_nominal=
+    dpPip_nominal + dpVal_nominal + dpRoo_nominal + dpThrWayVal_nominal
     "Pressure difference of loop";
   // Room model
 
   Fluid.Movers.FlowMachine_y pumBoi(
     redeclare package Medium = Medium,
     pressure(V_flow=mBoi_flow_nominal/1000*{0.5, 1},
-             dp=dp_nominal*{2,1}),
+             dp=(3000+2000)*{2,1}),
     dynamicBalance=false)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -50,7 +51,7 @@ model TwoRoomsWithStorage
     redeclare package Medium = Medium,
     pressure(
           V_flow=mRad_flow_nominal/1000*{0,2},
-          dp=5000*{2,0}),
+          dp=dp_nominal*{2,0}),
     dynamicBalance=false) "Pump that serves the radiators"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -323,7 +324,7 @@ model TwoRoomsWithStorage
   Modelica.Blocks.Sources.Constant pumRadOff(k=0) "Pump off signal"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "File reader that reads weather data"
     annotation (Placement(transformation(extent={{-80,330},{-60,350}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
@@ -351,7 +352,7 @@ model TwoRoomsWithStorage
     redeclare package Medium = MediumA,
     use_C_in=false,
     nPorts=4) "Outside air conditions"
-    annotation (Placement(transformation(extent={{80,470},{100,490}})));
+    annotation (Placement(transformation(extent={{0,470},{20,490}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpFac4(
     from_dp=false,
     redeclare package Medium = MediumA,
@@ -381,20 +382,20 @@ model TwoRoomsWithStorage
     dp1_nominal=100,
     dp2_nominal=100,
     eps=0.9) "Heat recovery"
-    annotation (Placement(transformation(extent={{200,470},{220,490}})));
+    annotation (Placement(transformation(extent={{180,478},{200,498}})));
   Fluid.Movers.FlowMachine_m_flow fanSup(
     redeclare package Medium = MediumA,
     dynamicBalance=false,
     m_flow_nominal=2*VRoo*1.2*0.37/3600) "Supply air fan"
-    annotation (Placement(transformation(extent={{160,490},{180,510}})));
+    annotation (Placement(transformation(extent={{70,490},{90,510}})));
   Modelica.Blocks.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
     "Outside air mass flow rate"
-    annotation (Placement(transformation(extent={{80,530},{100,550}})));
+    annotation (Placement(transformation(extent={{0,500},{20,520}})));
   Fluid.Movers.FlowMachine_m_flow fanRet(
     redeclare package Medium = MediumA,
     dynamicBalance=false,
     m_flow_nominal=2*VRoo*1.2*0.37/3600) "Return air fan"
-    annotation (Placement(transformation(extent={{180,450},{160,470}})));
+    annotation (Placement(transformation(extent={{90,450},{70,470}})));
   Airflow.Multizone.Orifice lea1(redeclare package Medium = MediumA, A=0.01^2)
     "Leakage of facade of room"
     annotation (Placement(transformation(extent={{320,430},{340,450}})));
@@ -473,6 +474,118 @@ model TwoRoomsWithStorage
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={260,100})));
+
+  CoolingControl cooCon "Controller for cooling"
+    annotation (Placement(transformation(extent={{100,530},{120,550}})));
+  Fluid.Actuators.Dampers.Exponential damSupByp(
+    redeclare package Medium = MediumA,
+    allowFlowReversal=false,
+    m_flow_nominal=2*VRoo*1.2*0.37/3600)
+    "Supply air damper that bypasses the heat recovery"
+    annotation (Placement(transformation(extent={{160,510},{180,530}})));
+  Fluid.HeatExchangers.HeaterCoolerPrescribed coo(
+    Q_flow_nominal=-3000,
+    redeclare package Medium = MediumA,
+    m_flow_nominal=2*VRoo*1.2*0.37/3600,
+    dp_nominal=0) "Coil for mechanical cooling"
+    annotation (Placement(transformation(extent={{240,500},{260,520}})));
+  Modelica.Blocks.Logical.LessThreshold lesThrTRoo(threshold=18 + 273.15)
+    "Test to block boiler if room air temperature is sufficiently high"
+    annotation (Placement(transformation(extent={{400,-20},{420,0}})));
+  Modelica.Blocks.Logical.And and1
+    "Logical test to enable pump and subsequently the boiler"
+    annotation (Placement(transformation(extent={{440,-30},{460,-10}})));
+
+  block CoolingControl
+    "Controller for the free cooling and the mechanical cooling"
+     extends Modelica.Blocks.Interfaces.BlockIcon;
+
+     parameter Modelica.SIunits.Temperature TRooCoo = 25+273.15
+      "Set point for mechanical cooling";
+     parameter Modelica.SIunits.Temperature TRooFre = 22+273.15
+      "Maximum temperature above which free cooling is enabled";
+     parameter Modelica.SIunits.Temperature TOutFre = 16+273.15
+      "Outside temperature above which free cooling is allowed";
+     parameter Modelica.SIunits.TemperatureDifference dT = 1
+      "Dead-band for free cooling";
+     parameter Real Kp(min=0) = 1 "Proportional band for mechanical cooling";
+
+     Modelica.Blocks.Interfaces.RealInput TRoo(unit="K") "Room air temperature"
+       annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+     Modelica.Blocks.Interfaces.RealInput TOut(unit="K")
+      "Outside air temperature"
+       annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+     Modelica.Blocks.Interfaces.RealOutput yC
+      "Control signal for mechanical cooling"
+       annotation (Placement(transformation(extent={{100,50},{120,70}}),
+           iconTransformation(extent={{100,50},{120,70}})));
+     Modelica.Blocks.Interfaces.RealOutput yF
+      "Control signal for free cooling, 1 if free cooling should be provided"
+       annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+           iconTransformation(extent={{100,-10},{120,10}})));
+
+     Modelica.Blocks.Interfaces.RealOutput yHex
+      "Control signal for heat recovery damper"
+       annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
+           iconTransformation(extent={{100,-70},{120,-50}})));
+  initial equation
+     yF   = 0;
+     yHex = 1;
+  algorithm
+     when TRoo > TRooFre and TOut > TOutFre and TOut < TRoo - dT then
+       yF   := 1;
+       yHex := 0;
+     elsewhen  TOut < TOutFre-dT or TOut > TRoo then
+       yF   := 0;
+       yHex := 1;
+     end when;
+     yC :=max(0, min(1, Kp*(TRoo - TRooCoo)));
+
+     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+               {100,100}}), graphics={
+           Text(
+             extent={{-94,38},{-64,80}},
+             lineColor={0,0,255},
+             textString="TRoo"),
+           Text(
+             extent={{-94,-82},{-64,-40}},
+             lineColor={0,0,255},
+             textString="TOut"),
+           Text(
+             extent={{66,42},{86,74}},
+             lineColor={0,0,255},
+             textString="yC"),
+           Text(
+             extent={{-32,100},{24,124}},
+             lineColor={0,0,255},
+             textString="%name"),
+           Text(
+             extent={{66,-16},{86,16}},
+             lineColor={0,0,255},
+             textString="yF"),
+           Text(
+             extent={{68,-74},{88,-42}},
+             lineColor={0,0,255},
+            textString="yHex")}),Documentation(info="<html>
+<p>
+This block computes a control signal for free cooling and for mechanical cooling.
+</p>
+</html>"),
+      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+              100}}), graphics));
+  end CoolingControl;
+  Fluid.Actuators.Dampers.Exponential damHex(
+    redeclare package Medium = MediumA,
+    allowFlowReversal=false,
+    m_flow_nominal=2*VRoo*1.2*0.37/3600)
+    "Supply air damper that closes the heat recovery"
+    annotation (Placement(transformation(extent={{120,490},{140,510}})));
+  Fluid.Actuators.Dampers.Exponential damRetByp(
+    redeclare package Medium = MediumA,
+    allowFlowReversal=false,
+    m_flow_nominal=2*VRoo*1.2*0.37/3600)
+    "Return air damper that bypasses the heat recovery"
+    annotation (Placement(transformation(extent={{180,450},{160,470}})));
 equation
   connect(TAmb.port,boi. heatPort) annotation (Line(
       points={{-20,-90},{12,-90},{12,-112.8}},
@@ -613,10 +726,6 @@ equation
       points={{480,-4.6},{480,-16}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(lesThr.y, T1.conditionPort) annotation (Line(
-      points={{421,-112},{440,-112},{440,-20},{475,-20}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(greThr.y, T2.conditionPort) annotation (Line(
       points={{421,-180},{460,-180},{460,-100},{475,-100}},
       color={255,0,255},
@@ -663,68 +772,56 @@ equation
       points={{450,280},{450,160},{384.2,160},{384.2,212}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(hex.port_b1, roo1.ports[1]) annotation (Line(
-      points={{220,486},{350,486},{350,474},{358.333,474}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(roo1.ports[2], dpFac1.port_b) annotation (Line(
-      points={{361,474},{340,474}},
+  connect(roo1.ports[1], dpFac1.port_b) annotation (Line(
+      points={{358.333,474},{340,474}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpFac1.port_a, hex.port_a2) annotation (Line(
-      points={{320,474},{220,474}},
+      points={{320,474},{266,474},{266,482},{200,482}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hex.port_b1, roo2.ports[1]) annotation (Line(
-      points={{220,486},{280,486},{280,232},{360,232},{360,216},{370.333,216}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(dpFac4.port_b, roo2.ports[2]) annotation (Line(
-      points={{340,216},{373,216}},
+  connect(dpFac4.port_b, roo2.ports[1]) annotation (Line(
+      points={{340,216},{370.333,216}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpFac4.port_a, hex.port_a2) annotation (Line(
-      points={{320,216},{274,216},{274,474},{220,474}},
+      points={{320,216},{272,216},{272,460},{220,460},{220,482},{200,482}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fanSup.m_flow_in, m_flow_out.y) annotation (Line(
-      points={{169.8,512},{169.8,540.1},{101,540.1},{101,540}},
+      points={{79.8,512},{79.8,516},{80,516},{80,520},{60,520},{60,510},{21,510}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(fanSup.port_b, hex.port_a1) annotation (Line(
-      points={{180,500},{192,500},{192,486},{200,486}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(fanRet.port_a, hex.port_b2) annotation (Line(
-      points={{180,460},{192,460},{192,474},{200,474}},
+      points={{90,460},{100,460},{100,482},{180,482}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(out.ports[1], fanSup.port_a)  annotation (Line(
-      points={{100,483},{140,483},{140,500},{160,500}},
+      points={{20,483},{50,483},{50,500},{70,500}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fanRet.port_b, out.ports[2])  annotation (Line(
-      points={{160,460},{140,460},{140,481},{100,481}},
+      points={{70,460},{50,460},{50,481},{20,481}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(m_flow_out.y, fanRet.m_flow_in) annotation (Line(
-      points={{101,540},{152,540},{152,476},{170.2,476},{170.2,472}},
+      points={{21,510},{60,510},{60,476},{80.2,476},{80.2,472}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(lea1.port_b, roo1.ports[3]) annotation (Line(
-      points={{340,440},{350,440},{350,474},{363.667,474}},
+  connect(lea1.port_b, roo1.ports[2]) annotation (Line(
+      points={{340,440},{350,440},{350,474},{361,474}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(lea1.port_a, out.ports[3])  annotation (Line(
-      points={{320,440},{128,440},{128,476},{100,476},{100,479}},
+      points={{320,440},{46,440},{46,479},{20,479}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(lea2.port_b, roo2.ports[3]) annotation (Line(
-      points={{340,180},{360,180},{360,216},{375.667,216}},
+  connect(lea2.port_b, roo2.ports[2]) annotation (Line(
+      points={{340,180},{360,180},{360,216},{373,216}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(lea2.port_a, out.ports[4])  annotation (Line(
-      points={{320,180},{268,180},{268,436},{120,436},{120,477},{100,477}},
+      points={{320,180},{266,180},{266,374},{40,374},{40,477},{20,477}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(swi.y, heaCha.TRoo_in)     annotation (Line(
@@ -790,7 +887,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus, out.weaBus)  annotation (Line(
-      points={{-40,340},{-40,480.2},{80,480.2}},
+      points={{-40,340},{-40,480.2},{-4.44089e-16,480.2}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -799,7 +896,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gai1.y, roo1.qGai_flow) annotation (Line(
-      points={{401,560},{410,560},{410,530},{348,530},{348,494},{354,494}},
+      points={{401,560},{410,560},{410,540},{346,540},{346,494},{346,494},{346,
+          494},{348,494},{348,494}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(switch2.y, gai2.u[1]) annotation (Line(
@@ -807,7 +905,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gai2.y, roo2.qGai_flow) annotation (Line(
-      points={{401,290},{410,290},{410,260},{350,260},{350,236},{366,236}},
+      points={{401,290},{410,290},{410,260},{350,260},{350,236},{360,236}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCha.TSup, lesThr.u1) annotation (Line(
@@ -961,8 +1059,95 @@ equation
       points={{260,110},{260,380},{420,380},{420,400},{412,400}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,
-            -200},{700,600}})),
+  connect(weaBus.TDryBul, cooCon.TOut) annotation (Line(
+      points={{-40,340},{-40,534},{98,534}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(TRoo1.T, cooCon.TRoo) annotation (Line(
+      points={{500,484},{508,484},{508,530},{250,530},{250,580},{90,580},{90,
+          546},{98,546}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fanSup.port_b, damSupByp.port_a)
+                                     annotation (Line(
+      points={{90,500},{100,500},{100,520},{160,520}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(cooCon.yF, damSupByp.y)
+                            annotation (Line(
+      points={{121,540},{170,540},{170,532}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(cooCon.yC, coo.u) annotation (Line(
+      points={{121,546},{200,546},{200,516},{238,516}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(hex.port_b1, coo.port_a) annotation (Line(
+      points={{200,494},{220,494},{220,510},{240,510}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(damSupByp.port_b, coo.port_a)
+                                  annotation (Line(
+      points={{180,520},{188,520},{188,510},{240,510}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(coo.port_b, roo1.ports[3]) annotation (Line(
+      points={{260,510},{338,510},{338,486},{350,486},{350,474},{363.667,474}},
+      color={0,127,255},
+      smooth=Smooth.None));
+
+  connect(coo.port_b, roo2.ports[3]) annotation (Line(
+      points={{260,510},{282,510},{282,228},{360,228},{360,216},{375.667,216}},
+      color={0,127,255},
+      smooth=Smooth.None));
+
+  connect(lesThr.y, and1.u2) annotation (Line(
+      points={{421,-112},{430,-112},{430,-28},{438,-28}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(lesThrTRoo.y, and1.u1) annotation (Line(
+      points={{421,-10},{428,-10},{428,-20},{438,-20}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(and1.y, T1.conditionPort) annotation (Line(
+      points={{461,-20},{475,-20}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(TRoo1.T, lesThrTRoo.u) annotation (Line(
+      points={{500,484},{688,484},{688,42},{388,42},{388,-10},{398,-10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(damHex.port_b, hex.port_a1) annotation (Line(
+      points={{140,500},{170,500},{170,494},{180,494}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(damHex.port_a, fanSup.port_b) annotation (Line(
+      points={{120,500},{90,500}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(hex.port_a2, damRetByp.port_a) annotation (Line(
+      points={{200,482},{220,482},{220,460},{180,460}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(damRetByp.port_b, fanRet.port_a) annotation (Line(
+      points={{160,460},{90,460}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(damHex.y, cooCon.yHex) annotation (Line(
+      points={{130,512},{130,534},{121,534}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(damRetByp.y, cooCon.yF) annotation (Line(
+      points={{170,472},{170,478},{154,478},{154,540},{121,540}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,
+            -200},{700,600}}),
+                         graphics),
 Documentation(info="<html>
 <p>
 This example demonstrates the implementation of a building that has the following properties:</p>
@@ -1014,8 +1199,34 @@ If the medium model assumes the density to be constant, then the
 expansion vessel provides a reference pressure for the hydronic heating
 system.
 </p>
+<p>
+The cooling of the two rooms is controlled using the
+temperature of <code>roo1</code>.
+The set point for mechanical cooling is <i>25</i> degree Celsius,
+with a proportional band of <i>1</i> Kelvin.
+</p>
+<p>
+If the room air temperature is above <i>22</i> degree Celsius,
+the free cooling is enabled by opening the bypass damper of the heat
+recovery. Free cooling is only allowed if the outside air temperature
+is above <i>16</i> degree Celsius and <i>1</i> Kelvin below the 
+room air temperature.
+</p>
+<p>
+The cooling control is implemented in the model
+<a href=\"modelica://Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl\">
+Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 15, 2013, by Michael Wetter:<br/>
+Added free cooling and mechanical cooling.
+</li>
+<li>
+October 14, 2013, by Michael Wetter:<br/>
+Corrected wrong pump head for radiator and for boiler pump.
+</li>
 <li>
 March 1, 2013, by Michael Wetter:<br/>
 Removed assignment of <code>Kv_SI</code> because this is now a protected parameter.

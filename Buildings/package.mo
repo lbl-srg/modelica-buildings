@@ -202,12 +202,38 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br/>
+                       Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath
+    </td>
+    <td valign=\"top\">Improved the algorithm that determines the absolute path of the file.
+                       Now weather files are searched in the path specified, and if not found, the urls
+                       <code>file://</code>, <code>modelica://</code> and <code>modelica://Buildings</code>
+                       are added in this order to search for the weather file.
+                       This allows using the data reader without having to specify an absolute path,
+                       as long as the <code>Buildings</code> library
+                       is on the <code>MODELICAPATH</code>.
+    </td>
+</tr>
+
+
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
     </td>
     <td valign=\"top\">Reformulated computation of outlet properties to avoid an event at zero mass flow rate.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc
+    </td>
+    <td valign=\"top\">Simplified the implementation for the situation if 
+                       <code>allowReverseFlow=false</code>.
+                       Avoided the use of the conditionally enabled variables <code>sta_a</code> and
+                       <code>sta_b</code> as this was not proper use of the Modelica syntax.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier
@@ -273,6 +299,21 @@ have been <b style=\"color:blue\">improved</b> in a
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
+<tr><td colspan=\"2\"><b>Buildings.Airflow</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.Orifice<br/>
+                       Buildings.Airflow.Multizone.EffectiveAirLeakageArea<br/>
+                       Buildings.Airflow.Multizone.ZonalFlow_ACS
+    </td>
+    <td valign=\"top\">Changed the parameter <code>useConstantDensity</code> to 
+                       <code>useDefaultProperties</code> to use consistent names 
+                       within this package. 
+                       A conversion script in <code>Resources/Scripts/Dymola</code>
+                       can be used to update old models that use this parameter.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -307,6 +348,39 @@ have been <b style=\"color:blue\">improved</b> in a
                        have been renamed. 
                        The equations that were used were, however, correct.
                        This addresses issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/165\">#165</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">
+                       Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger<br/>
+                       Buildings.Fluid.BaseClasses.PartialResistance<br/>
+                       Buildings.Fluid.FixedResistances.BaseClasses.Pipe<br/>
+                       Buildings.Fluid.FixedResistances.FixedResistanceDpM<br/>
+                       Buildings.Fluid.FixedResistances.LosslessPipe<br/>
+                       Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment<br/>
+                       Buildings.Fluid.HeatExchangers.Boreholes.UTube<br/>
+                       Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab<br/>
+                       Buildings.Fluid.Interfaces.FourPortHeatMassExchanger<br/>
+                       Buildings.Fluid.Interfaces.PartialFourPortInterface<br/>
+                       Buildings.Fluid.Interfaces.PartialTwoPortInterface<br/>
+                       Buildings.Fluid.Interfaces.StaticFourPortHeatMassExchanger<br/>
+                       Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger<br/>
+                       Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger<br/>
+                       Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume<br/>
+                       Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine<br/>
+                       Buildings.Fluid.Movers.BaseClasses.IdealSource<br/>
+                       Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine<br/>
+    </td>
+    <td valign=\"top\">Removed the computation of <code>V_flow</code> and removed the parameter
+                       <code>show_V_flow</code>.
+                       The reason is that the computation of <code>V_flow</code> required
+                       the use of <code>sta_a</code> (to compute the density), 
+                       but <code>sta_a</code> is also a variable that is conditionally
+                       enabled. However, this was not correct Modelica syntax as conditional variables 
+                       can only be used in a <code>connect</code>
+                       statement, not in an assignment. Dymola 2014 FD01 beta3 is checking
+                       for this incorrect syntax. Hence, <code>V_flow</code> was removed as its 
+                       conditional implementation would require a rather cumbersome implementation
+                       that uses a new connector that carries the state of the medium.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.MixingVolumes
@@ -565,6 +639,16 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Added missing <code>each</code> in declaration of 
                        <code>C_in_internal</code>.
                        This eliminates a compilation error in OpenModelica.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Python27</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.IO.Python27.Functions.exchange
+    </td>
+    <td valign=\"top\">Corrected error in C code that lead to message
+                       <code>'module' object has no attribute 'argv'</code>
+                       when a python module accessed <code>sys.argv</code>.
     </td>
 </tr>
 

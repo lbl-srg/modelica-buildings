@@ -45,7 +45,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
             Commands(file=
-          "Resources/Scripts/Dymola/Electrical/DC/Loads/Examples/Resistor.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/Electrical/DC/Loads/Examples/Resistor.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

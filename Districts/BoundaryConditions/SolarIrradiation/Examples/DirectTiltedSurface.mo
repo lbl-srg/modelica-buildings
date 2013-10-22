@@ -5,7 +5,7 @@ model DirectTiltedSurface
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Angle lat=37/180*Modelica.Constants.pi "Latitude";
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "modelica://Districts/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Districts.BoundaryConditions.WeatherData.Bus weaBus annotation (
       Placement(transformation(extent={{1,-1},{21,21}}), iconTransformation(
