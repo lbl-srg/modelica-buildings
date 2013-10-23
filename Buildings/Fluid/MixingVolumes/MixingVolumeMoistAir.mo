@@ -2,12 +2,9 @@ within Buildings.Fluid.MixingVolumes;
 model MixingVolumeMoistAir
   "Mixing volume with heat port for latent heat exchange, to be used with media that contain water"
   extends BaseClasses.PartialMixingVolume(
+    redeclare replaceable package Medium =
+        Modelica.Media.Interfaces.PartialCondensingGases,
     steBal(final sensibleOnly = false));
-  // redeclare Medium with a more restricting base class. This improves the error
-  // message if a user selects a medium that does not contain the function
-  // enthalpyOfLiquid(.)
-  replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases
-      annotation (choicesAllMatching = true);
 
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
@@ -101,6 +98,10 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 21, 2013 by Michael Wetter:<br/>
+Removed dublicate declaration of medium model.
+</li>
 <li>
 September 27, 2013 by Michael Wetter:<br/>
 Reformulated assignment of <code>i_w</code> to avoid a warning in OpenModelica.
