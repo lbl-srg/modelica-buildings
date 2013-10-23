@@ -6,7 +6,8 @@ model Line
       redeclare package PhaseSystem_n =
         Districts.Electrical.PhaseSystems.OnePhase,
       redeclare Interfaces.Terminal_n terminal_n,
-      redeclare Interfaces.Terminal_p terminal_p);
+      redeclare Interfaces.Terminal_p terminal_p,
+      final useC = false);
 protected
   replaceable TwoPortRL lineRL(
     useHeatPort=true,

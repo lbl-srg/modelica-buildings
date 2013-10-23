@@ -6,6 +6,7 @@ partial package PartialPhaseSystem "Base package of all phase systems"
   constant Integer m "Number of reference angles";
 
 
+
   replaceable partial function j "Return vector rotated by 90 degrees"
     extends Modelica.Icons.Function;
     input Real x[n];
@@ -40,6 +41,14 @@ partial package PartialPhaseSystem "Base package of all phase systems"
       input Real y[n];
       output Real z[n];
   end product;
+
+
+  replaceable function divide "Divide two vectors"
+      extends Modelica.Icons.Function;
+      input Real x[n];
+      input Real y[n];
+      output Real z[n];
+  end divide;
 
 
   replaceable partial function thetaRel

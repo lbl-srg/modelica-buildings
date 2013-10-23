@@ -10,6 +10,9 @@ partial model PartialLine "Cable line dispersion model"
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)
     "Nominal voltage of the line";
 
+  parameter Boolean useC = false
+    "Select if choosing the capacitive effect of the cable or not"
+    annotation(Dialog(tab="Model"));
   parameter Boolean useExtTemp = false
     "If true, enables the input for the temperature of the cable" annotation(evaluate = true, Dialog(tab="Model"));
   parameter Modelica.SIunits.Temperature Tcable = T_ref

@@ -35,6 +35,17 @@ package OnePhase "Single phase two connectors AC system"
   end product;
 
 
+  redeclare function divide
+  "Multiply two complex numbers represented by vectors x[2] and y[2]"
+    extends Modelica.Icons.Function;
+    input Real x[2];
+    input Real y[2];
+    output Real z[2];
+  algorithm
+    z := {x[1]*y[1] + x[2]*y[2], x[2]*y[1] - x[1]*y[2]}/(y[1]^2 + y[2]^2);
+  end divide;
+
+
   redeclare function thetaRel
   "Return absolute angle of rotating system as offset to thetaRef"
     input SI.Angle theta[m];
