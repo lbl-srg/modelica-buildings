@@ -1,0 +1,144 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.SolarCollectors.Controls.BaseClasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package of BaseClass models used to create the models in the Controls package&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.SolarCollectors.Controls.BaseClasses"></A><A HREF="Buildings_Fluid_SolarCollectors_Controls.html#Buildings.Fluid.SolarCollectors.Controls"
+>Buildings.Fluid.SolarCollectors.Controls</A>.BaseClasses</H2>
+<B>Package of BaseClass models used to create the models in the Controls package</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains base classes that are used in the 
+<A HREF="Buildings_Fluid_SolarCollectors_Controls.html#Buildings.Fluid.SolarCollectors.Controls"
+>
+Buildings.Fluid.SolarCollectors.Controls</a> package.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</A> (Icon for standard packages).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarColle57cf187ebff9da5tCalcS.png" ALT="Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors_Controls_BaseClasses.html#Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc"
+>GCritCalc</A>
+</TD><TD>Model calculating the critical insolation level</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarCollbfb39b9cd11b406fmplesS.png" ALT="Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors_Controls_BaseClasses_Examples.html#Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples"
+>Examples</A>
+</TD><TD>Package containing examples demonstrating the use of Controls.BaseClasses models</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE GCritCalc<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.SolarColle57cf187ebff9da5tCalcI.png" ALT="Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc"></A><A HREF="Buildings_Fluid_SolarCollectors_Controls_BaseClasses.html#Buildings.Fluid.SolarCollectors.Controls.BaseClasses"
+>Buildings.Fluid.SolarCollectors.Controls.BaseClasses</A>.GCritCalc</H2>
+<B>Model calculating the critical insolation level</B><p></P>
+<IMG SRC="Buildings.Fluid.SolarColle57cf187ebff9da5tCalcD.png" ALT="Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc">
+<P></P><H3>Information</H3>
+
+    <p>
+      This component calculates the solar radiation necessary for the fluid 
+      in the collector to gain heat. It is used in the model 
+      <A HREF="Buildings_Fluid_SolarCollectors_Controls.html#Buildings.Fluid.SolarCollectors.Controls.SolarPumpController"
+>
+      Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a>.
+    </p>
+    <p>
+      The critical solar radiation level is calculated using Equation 6.8.2 in Duffie 
+      and Beckman (2006). It is
+    </p>
+    <p align="center" style="font-style:italic;">
+      G<sub>TC</sub>=F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>)
+      /(F<sub>R</sub>(&tau;&alpha;))
+    </p>
+    <p>
+      where <i>G<sub>TC</sub></i> is the critical solar radiation, 
+      <i>F<sub>R</sub>U<sub>L</sub></i> is the heat loss coefficient, 
+      <i>T<sub>In</sub></i> is the inlet temperature, <i>T<sub>Env</sub></i> is the 
+      ambient temperature, and <i>F<sub>R</sub>(&tau;&alpha;)</i> is the maximum 
+      efficiency.
+    </p>   
+  <h4>References</h4>
+    <p>
+      J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd 
+      Edition), John Wiley &amp; Sons, Inc.<br/>
+    </p>
+ <P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>slope</TD><TD>&nbsp;</TD><TD>Slope from ratings data [W/(m2.K)]</TD></TR>
+<TR><TD>Real</TD><TD>y_intercept</TD><TD>&nbsp;</TD><TD>y_intercept from ratings data</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TIn</TD><TD>Temperature of water entering the collector [K]</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>G_TC</TD><TD>Critical radiation level [W/m2]</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TEnv</TD><TD>Ambient temperature at the collector [K]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> GCritCalc <font color="darkgreen">&quot;Model calculating the critical insolation level&quot;</font>
+
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+
+  <font color="blue">parameter </font>Real slope(unit=&quot;W/(m2.K)&quot;) <font color="darkgreen">&quot;Slope from ratings data&quot;</font>;
+  <font color="blue">parameter </font>Real y_intercept <font color="darkgreen">&quot;y_intercept from ratings data&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TIn(unit=&quot;K&quot;,
+  displayUnit = &quot;degC&quot;, quantity = &quot;ThermodynamicTemperature&quot;) <font color="darkgreen">
+    &quot;Temperature of water entering the collector&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> G_TC(unit=&quot;W/m2&quot;,
+  quantity = &quot;RadiantEnergyFluenceRate&quot;) <font color="darkgreen">&quot;Critical radiation level&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TEnv(unit=&quot;K&quot;,
+  displayUnit = &quot;degC&quot;, quantity = &quot;ThermodynamicTemperature&quot;) <font color="darkgreen">
+    &quot;Ambient temperature at the collector&quot;</font>;</textblock>
+
+<font color="blue">equation </font>
+  G_TC = -slope * (TIn - TEnv) / y_intercept;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>GCritCalc;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:52 2013.
+</address></BODY>
+</HTML>
