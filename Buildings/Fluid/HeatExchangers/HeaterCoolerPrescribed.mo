@@ -1,6 +1,8 @@
 within Buildings.Fluid.HeatExchangers;
 model HeaterCoolerPrescribed "Heater or cooler with prescribed heat flow rate"
-  extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger;
+  extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol,
+    final showDesignFlowDirection=false);
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
     "Heat flow rate at u=1, positive for heating";
@@ -67,6 +69,11 @@ can be positive or negative.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 15, 2013, by Michael Wetter:<br/>
+Redeclared the control volume to be final so that it does not show
+anymore in the parameter window.
+</li>
 <li>
 July 11, 2011, by Michael Wetter:<br/>
 Redeclared fluid volume as final. This prevents the fluid volume model

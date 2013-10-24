@@ -14,7 +14,7 @@ record PartialParameterConstruction "Partial record for constructions"
     "Flag, true if construction is a floor" annotation (Evaluate=true);
   final parameter Integer nLay(min=1, fixed=true) = layers.nLay
     "Number of layers";
-  final parameter Integer nSta[nLay](min=1)={layers.material[i].nSta for i in 1:nLay}
+  final parameter Integer nSta[nLay](each min=1)={layers.material[i].nSta for i in 1:nLay}
     "Number of states"  annotation(Evaluate=true);
   parameter Boolean steadyStateInitial=false
     "=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start"
@@ -40,6 +40,10 @@ Buildings.HeatTransfer.Types.Tilt</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 11, 2013, by Michael Wetter:<br/>
+Added missing <code>each</code> keyword.
+</li>
 <li>
 December 14, 2010, by Michael Wetter:<br/>
 First implementation.

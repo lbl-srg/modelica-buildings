@@ -4,7 +4,7 @@ model ZenithAngle "Test model for zenith angle"
   Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zen(lat = 0.2)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 equation
   connect(weaDat.weaBus, zen.weaBus) annotation (Line(

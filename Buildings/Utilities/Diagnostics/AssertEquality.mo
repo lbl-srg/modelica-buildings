@@ -2,8 +2,8 @@ within Buildings.Utilities.Diagnostics;
 block AssertEquality "Assert when condition is violated"
   extends BaseClasses.PartialInputCheck(message = "Inputs differ by more than threShold");
 equation
-  if (time > t0) then
-    assert(abs(u1 - u2) < threShold, message + "\n"
+  if noEvent(time > t0) then
+    assert(noEvent(abs(u1 - u2) < threShold), message + "\n"
       + "  time       = " + String(time) + "\n"
       + "  u1         = " + String(u1) + "\n"
       + "  u2         = " + String(u2) + "\n"
@@ -25,6 +25,10 @@ and <i>t &gt; t<sub>0</sub></i>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 10, 2013, by Michael Wetter:<br/>
+Reformulated model to avoid an event iteration.
+</li>
 <li>
 September 10, 2013, by Michael Wetter:<br/>
 Added <code>time</code> in print statement as OpenModelica,

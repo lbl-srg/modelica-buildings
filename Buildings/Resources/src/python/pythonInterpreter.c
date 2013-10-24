@@ -22,6 +22,10 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
   ////////////////////////////////////////////////////////////////////////////
   // Initialize Python interpreter
   Py_Initialize();
+  // Set the entries for sys.argv.
+  // This is required if a script uses sys.argv, such as bacpypes.
+  // See also http://stackoverflow.com/questions/19381441/python-modelica-connection-fails-due-to-import-error
+  PySys_SetArgv(0, "");
 
   ////////////////////////////////////////////////////////////////////////////
   // Load Python module

@@ -1,8 +1,7 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses;
 partial model CoolingTower "Base class for cooling towers"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol,
-    show_T=true);
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol);
   extends Buildings.BaseClasses.BaseIcon;
   Modelica.Blocks.Interfaces.RealOutput TLvg "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));

@@ -11,13 +11,13 @@ model ASHRAE93 "Model of a flat plate solar thermal collector"
     final til=til,
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
-    use_shaCoe_in=use_shaCoe_in,
+    final use_shaCoe_in=use_shaCoe_in,
     final A_c=TotalArea_internal,
     redeclare package Medium = Medium)
     "Identifies heat gained from the sun using standard ASHRAE93 calculations"
              annotation (Placement(transformation(extent={{-20,38},{0,58}})));
 
-  BaseClasses.ASHRAEHeatLoss                 heaLos(
+  BaseClasses.ASHRAEHeatLoss heaLos(
     final nSeg=nSeg,
     final slope=per.slope,
     final y_intercept=per.y_intercept,
@@ -30,8 +30,6 @@ model ASHRAE93 "Model of a flat plate solar thermal collector"
         annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 
 equation
-  connect(shaCoe_internal, solGai.shaCoe_in);
-
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
       points={{-100,96},{-88,96},{-88,22},{-22,22}},
       color={255,204,51},
@@ -177,11 +175,15 @@ equation
      <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011. <br/>
    </p>
  </html>", revisions="<html>
-   <ul>
-     <li>
-       January 4, 2013, by Peter Grant:<br/>
-       First implementation.
-     </li>
-   </ul>
+ <ul>
+ <li>
+ October 18, 2013, by Michael Wetter:<br/>
+ Removed duplicate connection.
+ </li>
+ <li>
+ January 4, 2013, by Peter Grant:<br/>
+ First implementation.
+ </li>
+ </ul>
  </html>"));
 end ASHRAE93;

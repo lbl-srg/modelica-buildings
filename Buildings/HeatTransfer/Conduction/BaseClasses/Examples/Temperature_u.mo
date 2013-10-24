@@ -28,9 +28,9 @@ model Temperature_u
     "Support points";
   parameter Real scale=0.999
     "Scale used to position the points 1,3,4 and 6 while T2=TSol and T5=TLiq";
-  parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](fixed=false, unit="kg.K2/J")
+  parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false, each unit="kg.K2/J")
     "Derivatives at the support points - non-monotone, default in Modelica PCM";
-  parameter Real[Buildings.HeatTransfer.Conduction.nSupPCM] dT_duMonotone(fixed=false, unit="kg.K2/J")
+  parameter Real[Buildings.HeatTransfer.Conduction.nSupPCM] dT_duMonotone(each fixed=false, each unit="kg.K2/J")
     "Derivatives at the support points for monotone increasing cubic splines";
   Modelica.SIunits.SpecificInternalEnergy u "Specific internal energy";
   Modelica.SIunits.Temperature T
@@ -145,6 +145,10 @@ obtained for different specific internal energy values (right hand side figure).
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 11, 2013, by Michael Wetter:<br/>
+Added missing <code>each</code> keywords.
+</li>
 <li>
 March 9, 2013, by Michael Wetter:<br/>
 Revised implementation to use new data record.

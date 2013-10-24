@@ -22,8 +22,7 @@ model BoilerPolynomial
   parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q_flow_nominal
     "Water volume of boiler"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Mass mDry =   1.5E-3*Q_flow_nominal if
-        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+  parameter Modelica.SIunits.Mass mDry =   1.5E-3*Q_flow_nominal
     "Mass of boiler that will be lumped to water heat capacity"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
 
@@ -249,6 +248,11 @@ which are lumped into one state. The boiler outlet temperature is equal to this 
 
 </html>", revisions="<html>
 <ul>
+<li>
+October 9, 2013 by Michael Wetter:<br/>
+Removed conditional declaration of <code>mDry</code> as the use of a conditional
+parameter in an instance declaration is not correct Modelica syntax.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.

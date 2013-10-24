@@ -32,11 +32,11 @@ record NominalCondition
      XEvaIn_nominal + (hOut_nominal- hEvaIn_nominal)*(1-per.SHR_nominal)/
      Medium.enthalpyOfCondensingGas(T=per.TEvaIn_nominal)
     "Rated/Nominal mass fraction of air leaving the coil";
-protected
   parameter Modelica.SIunits.SpecificHeatCapacity Cp_nominal=
     Medium.specificHeatCapacityCp(Medium.setState_pTX(
           p=per.p_nominal, T=per.TEvaIn_nominal, X=cat(1,{XEvaIn_nominal}, {1-sum({XEvaIn_nominal})})))
-    "Specific heat of air at specified nominal condition";
+    "Specific heat of air at specified nominal condition"
+    annotation(HideResult=true);
  annotation(defaultComponentName="nomCon",
  Documentation(info="<html>
 <p>
@@ -46,6 +46,12 @@ These parameters are required to determine the apparatus dew point at the nomina
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 9, 2013 by Michael Wetter:<br/>
+Changed protected parameter <code>Cp_nominal</code> to public, and 
+hidded its result. The use of a protected parameter is not valid Modelica
+syntax.
+</li>
 <li>
 September 20, 2012 by Michael Wetter:<br/>
 Reimplemented class as a record. 

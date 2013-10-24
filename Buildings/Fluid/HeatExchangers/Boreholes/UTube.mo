@@ -89,7 +89,6 @@ model UTube "Single U-tube borehole heat exchanger"
     TExt_start=TExt_start,
     TFil_start=TExt_start,
     each final homotopyInitialization=homotopyInitialization,
-    each final show_V_flow=show_V_flow,
     each final show_T=show_T,
     each final computeFlowResistance=computeFlowResistance,
     each final from_dp=from_dp,
@@ -273,6 +272,10 @@ the far-field temperature boundary condition.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
 <li>
 September 27, 2013, by Michael Wetter:<br/>
 Added missing <code>each</code> in propagation of material properties.

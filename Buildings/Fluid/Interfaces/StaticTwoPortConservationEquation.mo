@@ -103,8 +103,8 @@ equation
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
       port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
     else
-      port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow) = Q_flow;
-      port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = -Q_flow;
+      port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow) = -Q_flow;
+      port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
     end if;
     // Transport of species
     port_a.Xi_outflow = inStream(port_b.Xi_outflow);
@@ -125,11 +125,11 @@ equation
       port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
       port_a.Xi_outflow = inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv;
      else
-      port_a.m_flow * (port_b.h_outflow - inStream(port_a.h_outflow)) = Q_flow;
-      port_a.m_flow * (port_a.h_outflow - inStream(port_b.h_outflow)) = -Q_flow;
+      port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow) = -Q_flow;
+      port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
       // Transport of species
-      port_a.m_flow * (port_b.Xi_outflow - inStream(port_a.Xi_outflow)) = mXi_flow;
-      port_a.m_flow * (port_a.Xi_outflow - inStream(port_b.Xi_outflow)) =- mXi_flow;
+      port_a.m_flow * (inStream(port_a.Xi_outflow) - port_b.Xi_outflow) = -mXi_flow;
+      port_a.m_flow * (inStream(port_b.Xi_outflow) - port_a.Xi_outflow) = +mXi_flow;
      end if;
 
     // Transport of trace substances
@@ -178,6 +178,13 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 21, 2013 by Michael Wetter:<br/>
+Corrected sign error in the equation that is used if <code>use_safeDivision=false</code>
+and <code>sensibleOnly=true</code>.
+This only affects internal numerical tests, but not any examples in the library
+as the constant <code>use_safeDivision</code> is set to <code>true</code> by default.
+</li>
 <li>
 September 25, 2013 by Michael Wetter:<br/>
 Reformulated computation of outlet properties to avoid an event at zero mass flow rate.

@@ -9,7 +9,6 @@ partial model PrescribedFlowMachine
       X=Medium.X_default));
 
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
-      final show_V_flow = false,
       final m_flow_nominal = max(pressure.V_flow)*rho_default,
       preSou(final control_m_flow=false));
 
@@ -48,6 +47,10 @@ or the normalized pump speed <code>y=Nrpm/N_nominal</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
 <li>
 May 25, 2011, by Michael Wetter:<br/>
 Revised implementation of energy balance to avoid having to use conditionally removed models.

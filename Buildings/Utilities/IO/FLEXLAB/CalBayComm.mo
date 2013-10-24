@@ -2,7 +2,7 @@ within Buildings.Utilities.IO.FLEXLAB;
 model CalBayComm
   "Model calling a Python script to communicate with the CalBay adapter"
   extends Modelica.Icons.Example;
-
+  extends Modelica.Icons.UnderConstruction;
   parameter Modelica.SIunits.Time samplePeriod = 30
     "Sample period for communication";
 
@@ -112,6 +112,13 @@ equation
             <p>
             More details describing the necessary changes to the script are provided in
             the documentation of the script itself.
+            </p>
+            <p>
+            <b>Note:</b>
+            This model is marked as under construction because the 
+            application programming interface for data exchange with the CalBay adaptor
+            of FLEXLAB has not yet been finalized.
+            The model works, however, with the CalBay infrastructure as of October 2013.
             </p>
             </html>",
             revisions = "<html>
