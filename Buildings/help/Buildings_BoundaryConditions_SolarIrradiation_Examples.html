@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.BoundaryConditions.SolarIrradiation.Examples"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation"
 >Buildings.BoundaryConditions.SolarIrradiation</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -42,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.BoundaryConditions.SolarIrradiation</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.BoundaryConditiff89ca779a372bddropicS.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffuseIsotropic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_SolarIrradiation_Examples.html#Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffuseIsotropic"
@@ -65,9 +65,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Mod
 <H2><IMG SRC="Buildings.BoundaryConditiff89ca779a372bddropicI.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffuseIsotropic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffuseIsotropic"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation_Examples.html#Buildings.BoundaryConditions.SolarIrradiation.Examples"
 >Buildings.BoundaryConditions.SolarIrradiation.Examples</A>.DiffuseIsotropic</H2>
-<B>Test model for diffuse solar irradiation on a tilted surface using the isotropic model</B><p>
+<B>Test model for diffuse solar irradiation on a tilted surface using the isotropic model</B><p></P>
 <IMG SRC="Buildings.BoundaryConditiff89ca779a372bddropicD.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffuseIsotropic">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -81,19 +81,17 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DiffuseIsotropic <font color="darkgreen">
   &quot;Test model for diffuse solar irradiation on a tilted surface using the isotropic model&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">parameter </font>Real rho=0.2 <font color="darkgreen">&quot;Ground reflectance&quot;</font>;
 
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=
-        &quot;Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
+        &quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Buildings.BoundaryConditions.WeatherData.Bus</A> weaBus;
   <A HREF="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic"
@@ -125,9 +123,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.BoundaryConditiff89ca779a372bddropicI.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffusePerez" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffusePerez"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation_Examples.html#Buildings.BoundaryConditions.SolarIrradiation.Examples"
 >Buildings.BoundaryConditions.SolarIrradiation.Examples</A>.DiffusePerez</H2>
-<B>Test model for diffuse solar irradiation on a tilted surface using the Perez model</B><p>
+<B>Test model for diffuse solar irradiation on a tilted surface using the Perez model</B><p></P>
 <IMG SRC="Buildings.BoundaryConditiff89ca779a372bddropicD.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffusePerez">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model tests the implementation of Perez' model for diffuse solar radiation.
@@ -137,7 +135,7 @@ Since the floor only sees the ground but not the radiative heat flow that is
 scattered in the atmosphere, it receives the lowest amount of
 diffuse solar irradiation.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -156,14 +154,12 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DiffusePerez <font color="darkgreen">
   &quot;Test model for diffuse solar irradiation on a tilted surface using the Perez model&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> lat=37/180*Modelica.Constants.pi <font color="darkgreen">&quot;Latitude&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
@@ -172,7 +168,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 >Modelica.SIunits.Angle</A> til=0.5 <font color="darkgreen">&quot;Tilted angle&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=
-        &quot;Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
+        &quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Buildings.BoundaryConditions.WeatherData.Bus</A> weaBus;
   <A HREF="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez"
@@ -205,16 +201,16 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.BoundaryConditiff89ca779a372bddropicI.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.Examples.DirectTiltedSurface" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.SolarIrradiation.Examples.DirectTiltedSurface"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation_Examples.html#Buildings.BoundaryConditions.SolarIrradiation.Examples"
 >Buildings.BoundaryConditions.SolarIrradiation.Examples</A>.DirectTiltedSurface</H2>
-<B>Test model for direct solar irradiation on a tilted surface</B><p>
+<B>Test model for direct solar irradiation on a tilted surface</B><p></P>
 <IMG SRC="Buildings.BoundaryConditid3c369499e02a92crfaceD.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.Examples.DirectTiltedSurface">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model tests the direct solar irradiation received on a ceiling, a wall and a floor.
 The assert statement will stop the simulation if the floor receives
 any direct solar irradiation.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -229,19 +225,17 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DirectTiltedSurface <font color="darkgreen">
   &quot;Test model for direct solar irradiation on a tilted surface&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> lat=37/180*Modelica.Constants.pi <font color="darkgreen">&quot;Latitude&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=
-        &quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
+        &quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Buildings.BoundaryConditions.WeatherData.Bus</A> weaBus;
   <A HREF="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"
@@ -277,6 +271,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>DirectTiltedSurface;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:54:55 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:07:50 2013.
 </address></BODY>
 </HTML>

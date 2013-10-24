@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE HeatFlux<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Convection.Functions.HeatFlux"></A><A HREF="Buildings_HeatTransfer_Convection_Functions.html#Buildings.HeatTransfer.Convection.Functions"
 >Buildings.HeatTransfer.Convection.Functions</A>.HeatFlux</H2>
 <B>Correlations for convective heat flux</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains functions for the convective heat transfer.
 Input into the functions is the temperature difference between 
@@ -46,9 +46,9 @@ is not differentiable around zero for certain flow configurations,
 such as buoyancy driven flow at a horizontal surface. However, the
 product of convective heat transfer coefficient times temperature 
 difference is differentiable around zero.
-<P>
+<P></P>
 
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Cof8f7c61747a94363ifierS.png" ALT="Buildings.HeatTransfer.Convection.Functions.HeatFlux.constantCoefficient" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.constantCoefficient"
@@ -63,9 +63,9 @@ difference is differentiable around zero.
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Cof8f7c61747a94363ifierS.png" ALT="Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling"
 >ceiling</A>
 </TD><TD>Free convection, ceiling</TD></TR>
-<TR><TD><IMG SRC="Buildings.HeatTransfer.Cof8f7c61747a94363ifierS.png" ALT="Buildings.HeatTransfer.Convection.Functions.HeatFlux.raleigh" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.raleigh"
->raleigh</A>
-</TD><TD>Raleigh number with smooth transition to lower limit</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Cof8f7c61747a94363ifierS.png" ALT="Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh"
+>rayleigh</A>
+</TD><TD>Rayleigh number with smooth transition to lower limit</TD></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Coad2de6f34bc91284assesS.png" ALT="Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses"
 >BaseClasses</A>
 </TD><TD>Base classes for convective heat transfer coefficients</TD></TR>
@@ -76,15 +76,15 @@ difference is differentiable around zero.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Convection.Functions.HeatFlux.constantCoefficient"></A><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.constantCoefficient</H2>
-<B>Constant convective heat transfer coefficient</B><p>
-<P><H3>Information</H3></P>
+<B>Constant convective heat transfer coefficient</B><p></P>
+<P></P><H3>Information</H3>
 
 This function computes the convective heat transfer coefficient as
 <code>h=hCon</code>, where <code>hCon=3</code> is a default input argument.
-The convective convective heat flux is
+The convective heat flux is
 <code>q_flow = h * dT</code>,
 where <code>dT</code> is the solid temperature minus the fluid temperature.
-<P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux</A> (Partial function for convective heat flux).
 <P><H3>Inputs</H3><P>
@@ -101,7 +101,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >HeatFlux</A></TD><TD>q_flow</TD><TD>Convective heat flux from solid to fluid [W/m2]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> constantCoefficient <font color="darkgreen">
   &quot;Constant convective heat transfer coefficient&quot;</font>
@@ -120,16 +120,16 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall"></A><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.wall</H2>
-<B>Free convection, wall</B><p>
-<P><H3>Information</H3></P>
+<B>Free convection, wall</B><p></P>
+<P></P><H3>Information</H3>
 
 This function computes the buoyancy-driven convective heat transfer coefficient 
 for a wall as
 <code>h=1.3*|dT|^0.3333</code>,
 where <code>dT</code> is the solid temperature minus the fluid temperature.
-The convective convective heat flux is then
+The convective heat flux is then
 <code>q_flow = h * dT</code>.
-<P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux</A> (Partial function for convective heat flux).
 <P><H3>Inputs</H3><P>
@@ -144,7 +144,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >HeatFlux</A></TD><TD>q_flow</TD><TD>Convective heat flux from solid to fluid [W/m2]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> wall <font color="darkgreen">&quot;Free convection, wall&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
@@ -160,8 +160,8 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor"></A><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.floor</H2>
-<B>Free convection, floor</B><p>
-<P><H3>Information</H3></P>
+<B>Free convection, floor</B><p></P>
+<P></P><H3>Information</H3>
 
 This function computes the buoyancy-driven convective heat transfer coefficient 
 for a floor as
@@ -170,9 +170,9 @@ where
 <code>k=1.51</code> if the floor is warmer than the fluid,
 or <code>k=0.76</code> otherwise, and where
 <code>dT</code> is the solid temperature minus the fluid temperature.
-The convective convective heat flux is then
+The convective heat flux is then
 <code>q_flow = h * dT</code>.
-<P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux</A> (Partial function for convective heat flux).
 <P><H3>Inputs</H3><P>
@@ -187,7 +187,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >HeatFlux</A></TD><TD>q_flow</TD><TD>Convective heat flux from solid to fluid [W/m2]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> floor <font color="darkgreen">&quot;Free convection, floor&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
@@ -203,8 +203,8 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling"></A><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.ceiling</H2>
-<B>Free convection, ceiling</B><p>
-<P><H3>Information</H3></P>
+<B>Free convection, ceiling</B><p></P>
+<P></P><H3>Information</H3>
 
 This function computes the buoyancy-driven convective heat transfer coefficient 
 for a ceiling as
@@ -213,9 +213,9 @@ where
 <code>k=1.51</code> if the fluid is warmer than the ceiling,
 or <code>k=0.76</code> otherwise, and where
 <code>dT</code> is the solid temperature minus the fluid temperature.
-The convective convective heat flux is then
+The convective heat flux is then
 <code>q_flow = h * dT</code>.
-<P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux</A> (Partial function for convective heat flux).
 <P><H3>Inputs</H3><P>
@@ -230,7 +230,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >HeatFlux</A></TD><TD>q_flow</TD><TD>Convective heat flux from solid to fluid [W/m2]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> ceiling <font color="darkgreen">&quot;Free convection, ceiling&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
@@ -242,20 +242,20 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 </PRE>
 <HR>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE raleigh<![endif]-->
+<span style='mso-spacerun:yes'></span>XE rayleigh<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.HeatTransfer.Convection.Functions.HeatFlux.raleigh"></A><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux"
->Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.raleigh</H2>
-<B>Raleigh number with smooth transition to lower limit</B><p>
-<P><H3>Information</H3></P>
+<H2><A NAME="Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh"></A><A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux"
+>Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.rayleigh</H2>
+<B>Rayleigh number with smooth transition to lower limit</B><p></P>
+<P></P><H3>Information</H3>
 
-This function returns the Raleigh number.
+This function returns the Rayleigh number.
 The parameter <code>RaMin</code> is used to transition
-to a lower limit for the Raleigh number.
-This is helpful to avoid a Raleigh number of zero or
+to a lower limit for the Rayleigh number.
+This is helpful to avoid a Rayleigh number of zero or
 to avoid an expression for a convection coefficient that
 has an infinite derivative near zero, i.e., if <i>h=f(Ra<sup>(1/2)</sup>)</i>.
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -274,17 +274,17 @@ has an infinite derivative near zero, i.e., if <i>h=f(Ra<sup>(1/2)</sup>)</i>.
 >Temperature</A></TD><TD>T_a</TD><TD>&nbsp;</TD><TD>Temperature of surface a [K]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>T_b</TD><TD>&nbsp;</TD><TD>Temperature of surface b [K]</TD></TR>
-<TR><TD>Real</TD><TD>Ra_min</TD><TD>&nbsp;</TD><TD>Minimum value for Raleigh number</TD></TR>
+<TR><TD>Real</TD><TD>Ra_min</TD><TD>&nbsp;</TD><TD>Minimum value for Rayleigh number</TD></TR>
 </TABLE>
 <P><H3>Outputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>Real</TD><TD>Ra</TD><TD>Raleigh number</TD></TR>
+<TR><TD>Real</TD><TD>Ra</TD><TD>Rayleigh number</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
-<font color="blue">function</font> raleigh <font color="darkgreen">
-  &quot;Raleigh number with smooth transition to lower limit&quot;</font>
+<font color="blue">function</font> rayleigh <font color="darkgreen">
+  &quot;Rayleigh number with smooth transition to lower limit&quot;</font>
  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</A> x <font color="darkgreen">&quot;Layer thickness&quot;</font>;
  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
@@ -299,8 +299,8 @@ has an infinite derivative near zero, i.e., if <i>h=f(Ra<sup>(1/2)</sup>)</i>.
 >Modelica.SIunits.Temperature</A> T_a <font color="darkgreen">&quot;Temperature of surface a&quot;</font>;
  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> T_b <font color="darkgreen">&quot;Temperature of surface b&quot;</font>;
- <font color="blue">input </font>Real Ra_min <font color="darkgreen">&quot;Minimum value for Raleigh number&quot;</font>;
- <font color="blue">output </font>Real Ra <font color="darkgreen">&quot;Raleigh number&quot;</font>;
+ <font color="blue">input </font>Real Ra_min <font color="darkgreen">&quot;Minimum value for Rayleigh number&quot;</font>;
+ <font color="blue">output </font>Real Ra <font color="darkgreen">&quot;Rayleigh number&quot;</font>;
 <font color="blue">protected </font>
  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >Modelica.SIunits.TemperatureDifference</A> dT <font color="darkgreen">&quot;Temperature difference&quot;</font>;
@@ -308,9 +308,9 @@ has an infinite derivative near zero, i.e., if <i>h=f(Ra<sup>(1/2)</sup>)</i>.
   dT :=<font color="red">abs</font>(T_a - T_b);
   Ra := rho^2*x^3*Modelica.Constants.g_n*c_p*dT/((T_a+T_b)/2*mu*k);
   Ra :=<font color="red"> Buildings.Utilities.Math.Functions.smoothMax</font>(x1=Ra, x2=Ra_min, deltaX=Ra_min/10);
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>raleigh;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>rayleigh;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:55 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:21 2013.
 </address></BODY>
 </HTML>

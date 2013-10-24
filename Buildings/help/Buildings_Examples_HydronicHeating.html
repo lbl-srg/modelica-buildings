@@ -26,18 +26,23 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE HydronicHeating<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Examples.HydronicHeating"></A><A HREF="Buildings_Examples.html#Buildings.Examples"
 >Buildings.Examples</A>.HydronicHeating</H2>
 <B>Hydronic heating system with storage, two rooms and thermostatic radiator valves</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package demonstrates the implementation of a hydronic heating system.
+</p>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Examples.Hydron1b16ecb3e399659eorageS.png" ALT="Buildings.Examples.HydronicHeating.TwoRoomsWithStorage" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_HydronicHeating.html#Buildings.Examples.HydronicHeating.TwoRoomsWithStorage"
@@ -51,15 +56,13 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Mod
 <H2><IMG SRC="Buildings.Examples.Hydron1b16ecb3e399659eorageI.png" ALT="Buildings.Examples.HydronicHeating.TwoRoomsWithStorage" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.HydronicHeating.TwoRoomsWithStorage"></A><A HREF="Buildings_Examples_HydronicHeating.html#Buildings.Examples.HydronicHeating"
 >Buildings.Examples.HydronicHeating</A>.TwoRoomsWithStorage</H2>
-<B>Model of a hydronic heating system with energy storage</B><p>
+<B>Model of a hydronic heating system with energy storage</B><p></P>
 <IMG SRC="Buildings.Examples.Hydron1b16ecb3e399659eorageD.png" ALT="Buildings.Examples.HydronicHeating.TwoRoomsWithStorage">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This example demonstrates the implementation of a building that has the following properties:</p>
 <p>
-<ul>
-<li>
 There are two rooms. (For simplicity, we only modeled two rooms, but more could be added.)
 Each room is modeled using a dynamic model for the heat transfer through the opaque constructions.
 The room <code>roo1</code> has a south- and west-facing window, the room <code>roo2</code> has a south- and 
@@ -68,15 +71,15 @@ The rooms are modeled as if they were in an intermediate floor, with the same te
 the room. The rooms share one common wall. The north facing wall is modeled as a partition wall, i.e., both
 surfaces have the same boundary conditions.
 Weather data are used from Chicago.
-</li>
-<li>
+</p>
+<p>
 There is a hydronic heating system with a boiler, a storage tank and a radiator with
 a thermostatic valve in each room.
 The supply water temperature setpoint
 is reset based on the outside temperature. A three-way-valve mixes the water from the tank with
 the water from the radiator return. The pump has a variable frequency drive that controls the pump head.
-</li>
-<li>
+</p>
+<p>
 A finite state machine is used to switch the boiler and its pump on and off.
 The boiler and pump are switched on when the temperature
 at the top of the tank is less then 1 Kelvin above the setpoint temperature 
@@ -88,14 +91,14 @@ is such that first the pump of the boiler is switched on.
 Ten seconds later, the boiler will be switched on. 
 When the tank reaches its temperature, the boiler
 is switched off, and ten seconds later, the pump will be switched off.
-</li>
-<li>
+</p>
+<p>
 The building has a controlled fresh air supply. A heat recovery ventilator is used to preheat the
 outside air.
 Each room has a model for the leakage of the facade. If supply and exhaust air are unbalanced, then
 the difference in air supply will flow through this leakage model.
-</li>
-<li>
+</p>
+<p>
 The hydronic heating system is connected to an expansion vessel.
 Some medium models for water compute the density as a function of
 temperature, while others assume a constant density.
@@ -106,10 +109,27 @@ the expansion vessel into the hydronic heating system.
 If the medium model assumes the density to be constant, then the
 expansion vessel provides a reference pressure for the hydronic heating
 system.
-</li>
-</ul>
 </p>
-<P>
+<p>
+The cooling of the two rooms is controlled using the
+temperature of <code>roo1</code>.
+The set point for mechanical cooling is <i>25</i> degree Celsius,
+with a proportional band of <i>1</i> Kelvin.
+</p>
+<p>
+If the room air temperature is above <i>22</i> degree Celsius,
+the free cooling is enabled by opening the bypass damper of the heat
+recovery. Free cooling is only allowed if the outside air temperature
+is above <i>16</i> degree Celsius and <i>1</i> Kelvin below the 
+room air temperature.
+</p>
+<p>
+The cooling control is implemented in the model
+<A HREF="Buildings_Examples_HydronicHeating.html#Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl"
+>
+Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
+</p>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -158,7 +178,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>Bus with weather data</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TwoRoomsWithStorage <font color="darkgreen">
   &quot;Model of a hydronic heating system with energy storage&quot;</font>
@@ -210,7 +230,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 >Modelica.SIunits.Pressure</A> dpThrWayVal_nominal = 6000 <font color="darkgreen">
     &quot;Pressure difference of three-way valve&quot;</font>;
  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Modelica.SIunits.Pressure</A> dp_nominal = dpPip_nominal + dpVal_nominal + dpRoo_nominal <font color="darkgreen">
+>Modelica.SIunits.Pressure</A> dp_nominal=
+    dpPip_nominal + dpVal_nominal + dpRoo_nominal + dpThrWayVal_nominal <font color="darkgreen">
     &quot;Pressure difference of loop&quot;</font>;
   <font color="darkgreen">// Room model</font>
 
@@ -218,7 +239,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 >Fluid.Movers.FlowMachine_y</A> pumBoi(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     pressure(V_flow=mBoi_flow_nominal/1000*{0.5, 1},
-             dp=dp_nominal*{2,1}),
+             dp=(3000+2000)*{2,1}),
     dynamicBalance=false);</textblock>
 
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y"
@@ -226,7 +247,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     pressure(
           V_flow=mRad_flow_nominal/1000*{0,2},
-          dp=5000*{2,0}),
+          dp=dp_nominal*{2,0}),
     dynamicBalance=false) <font color="darkgreen">&quot;Pump that serves the radiators&quot;</font>;</textblock>
 
 <textblock type="annotcomp" expanded="false">  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
@@ -488,7 +509,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 >Modelica.Blocks.Sources.Constant</A> pumRadOff(k=0) <font color="darkgreen">&quot;Pump off signal&quot;</font>;
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=
-        &quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
+        &quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
     &quot;File reader that reads weather data&quot;</font>;
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Buildings.BoundaryConditions.WeatherData.Bus</A> weaBus <font color="darkgreen">&quot;Bus with weather data&quot;</font>;
@@ -624,6 +645,88 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     dp_nominal={0,0,0}) <font color="darkgreen">&quot;Flow splitter&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Examples_HydronicHeating.html#Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl"
+>CoolingControl</A> cooCon <font color="darkgreen">&quot;Controller for cooling&quot;</font>;
+  <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.Exponential"
+>Fluid.Actuators.Dampers.Exponential</A> damSupByp(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+    allowFlowReversal=false,
+    m_flow_nominal=2*VRoo*1.2*0.37/3600) <font color="darkgreen">
+    &quot;Supply air damper that bypasses the heat recovery&quot;</font>;
+  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed"
+>Fluid.HeatExchangers.HeaterCoolerPrescribed</A> coo(
+    Q_flow_nominal=-3000,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+    m_flow_nominal=2*VRoo*1.2*0.37/3600,
+    dp_nominal=0) <font color="darkgreen">&quot;Coil for mechanical cooling&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.LessThreshold"
+>Modelica.Blocks.Logical.LessThreshold</A> lesThrTRoo(threshold=18 + 273.15) <font color="darkgreen">
+    &quot;Test to block boiler if room air temperature is sufficiently high&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.And"
+>Modelica.Blocks.Logical.And</A> and1 <font color="darkgreen">
+    &quot;Logical test to enable pump and subsequently the boiler&quot;</font>;</textblock>
+
+  <textblock type="model" expanded="false" path="Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl"><font color="blue">block</font> CoolingControl <font color="darkgreen">
+    &quot;Controller for the free cooling and the mechanical cooling&quot;</font>
+     <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+
+     <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TRooCoo = 25+273.15 <font color="darkgreen">
+      &quot;Set point for mechanical cooling&quot;</font>;
+     <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TRooFre = 22+273.15 <font color="darkgreen">
+      &quot;Maximum temperature above which free cooling is enabled&quot;</font>;
+     <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TOutFre = 16+273.15 <font color="darkgreen">
+      &quot;Outside temperature above which free cooling is allowed&quot;</font>;
+     <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> dT = 1 <font color="darkgreen">
+      &quot;Dead-band for free cooling&quot;</font>;
+     <font color="blue">parameter </font>Real Kp(min=0) = 1 <font color="darkgreen">&quot;Proportional band for mechanical cooling&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">     <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TRoo(unit=&quot;K&quot;) <font color="darkgreen">&quot;Room air temperature&quot;</font>;
+     <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TOut(unit=&quot;K&quot;) <font color="darkgreen">
+      &quot;Outside air temperature&quot;</font>;
+     <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> yC <font color="darkgreen">
+      &quot;Control signal for mechanical cooling&quot;</font>;
+     <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> yF <font color="darkgreen">
+      &quot;Control signal for free cooling, 1 if free cooling should be provided&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">     <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> yHex <font color="darkgreen">
+      &quot;Control signal for heat recovery damper&quot;</font>;</textblock>
+  <font color="blue">initial </font><font color="blue">equation </font>
+     yF   = 0;
+     yHex = 1;
+  <font color="blue">algorithm </font>
+     <font color="blue">when </font>TRoo &gt; TRooFre<font color="blue"> and </font>TOut &gt; TOutFre<font color="blue"> and </font>TOut &lt; TRoo - dT<font color="blue"> then</font>
+       yF   := 1;
+       yHex := 0;
+     <font color="blue">elsewhen </font> TOut &lt; TOutFre-dT<font color="blue"> or </font>TOut &gt; TRoo<font color="blue"> then</font>
+       yF   := 0;
+       yHex := 1;
+     <font color="blue">end when</font>;
+     yC :=<font color="red">max</font>(0, <font color="red">min</font>(1, Kp*(TRoo - TRooCoo)));
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">end </font>CoolingControl</textblock>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.Exponential"
+>Fluid.Actuators.Dampers.Exponential</A> damHex(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+    allowFlowReversal=false,
+    m_flow_nominal=2*VRoo*1.2*0.37/3600) <font color="darkgreen">
+    &quot;Supply air damper that closes the heat recovery&quot;</font>;
+  <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.Exponential"
+>Fluid.Actuators.Dampers.Exponential</A> damRetByp(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+    allowFlowReversal=false,
+    m_flow_nominal=2*VRoo*1.2*0.37/3600) <font color="darkgreen">
+    &quot;Return air damper that bypasses the heat recovery&quot;</font>;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TAmb.port,boi. heatPort);
   <font color="red">connect</font>(pumRad.port_b, dpSen.port_a);
@@ -657,7 +760,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
   <font color="red">connect</font>(conVal.y, thrWayVal.y);
   <font color="red">connect</font>(booToReaPum.y, pumBoi.y);
   <font color="red">connect</font>(off.outPort[1], T1.inPort);
-  <font color="red">connect</font>(lesThr.y, T1.conditionPort);
   <font color="red">connect</font>(greThr.y, T2.conditionPort);
   <font color="red">connect</font>(rad1.heatPortCon, roo1.heaPorAir);
   <font color="red">connect</font>(roo1.heaPorRad, rad1.heatPortRad);
@@ -669,21 +771,18 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
   <font color="red">connect</font>(weaBus, roo2.weaBus);
   <font color="red">connect</font>(roo1.surf_surBou[1], parWal.port_b);
   <font color="red">connect</font>(parWal.port_a, roo2.surf_surBou[1]);
-  <font color="red">connect</font>(hex.port_b1, roo1.ports[1]);
-  <font color="red">connect</font>(roo1.ports[2], dpFac1.port_b);
+  <font color="red">connect</font>(roo1.ports[1], dpFac1.port_b);
   <font color="red">connect</font>(dpFac1.port_a, hex.port_a2);
-  <font color="red">connect</font>(hex.port_b1, roo2.ports[1]);
-  <font color="red">connect</font>(dpFac4.port_b, roo2.ports[2]);
+  <font color="red">connect</font>(dpFac4.port_b, roo2.ports[1]);
   <font color="red">connect</font>(dpFac4.port_a, hex.port_a2);
   <font color="red">connect</font>(fanSup.m_flow_in, m_flow_out.y);
-  <font color="red">connect</font>(fanSup.port_b, hex.port_a1);
   <font color="red">connect</font>(fanRet.port_a, hex.port_b2);
   <font color="red">connect</font>(out.ports[1], fanSup.port_a);
   <font color="red">connect</font>(fanRet.port_b, out.ports[2]);
   <font color="red">connect</font>(m_flow_out.y, fanRet.m_flow_in);
-  <font color="red">connect</font>(lea1.port_b, roo1.ports[3]);
+  <font color="red">connect</font>(lea1.port_b, roo1.ports[2]);
   <font color="red">connect</font>(lea1.port_a, out.ports[3]);
-  <font color="red">connect</font>(lea2.port_b, roo2.ports[3]);
+  <font color="red">connect</font>(lea2.port_b, roo2.ports[2]);
   <font color="red">connect</font>(lea2.port_a, out.ports[4]);
   <font color="red">connect</font>(swi.y, heaCha.TRoo_in);
   <font color="red">connect</font>(pumRad.port_b, temSup.port_a);
@@ -740,10 +839,126 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
   <font color="red">connect</font>(splVal1.port_2, val1.port_a);
   <font color="red">connect</font>(temRet.port_a, splVal2.port_1);
   <font color="red">connect</font>(splVal2.port_3, rad2.port_b);
-  <font color="red">connect</font>(splVal2.port_2, rad1.port_b);</textblock>
+  <font color="red">connect</font>(splVal2.port_2, rad1.port_b);
+  <font color="red">connect</font>(weaBus.TDryBul, cooCon.TOut);
+  <font color="red">connect</font>(TRoo1.T, cooCon.TRoo);
+  <font color="red">connect</font>(fanSup.port_b, damSupByp.port_a);
+  <font color="red">connect</font>(cooCon.yF, damSupByp.y);
+  <font color="red">connect</font>(cooCon.yC, coo.u);
+  <font color="red">connect</font>(hex.port_b1, coo.port_a);
+  <font color="red">connect</font>(damSupByp.port_b, coo.port_a);
+  <font color="red">connect</font>(coo.port_b, roo1.ports[3]);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(coo.port_b, roo2.ports[3]);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(lesThr.y, and1.u2);
+  <font color="red">connect</font>(lesThrTRoo.y, and1.u1);
+  <font color="red">connect</font>(and1.y, T1.conditionPort);
+  <font color="red">connect</font>(TRoo1.T, lesThrTRoo.u);
+  <font color="red">connect</font>(damHex.port_b, hex.port_a1);
+  <font color="red">connect</font>(damHex.port_a, fanSup.port_b);
+  <font color="red">connect</font>(hex.port_a2, damRetByp.port_a);
+  <font color="red">connect</font>(damRetByp.port_b, fanRet.port_a);
+  <font color="red">connect</font>(damHex.y, cooCon.yHex);
+  <font color="red">connect</font>(damRetByp.y, cooCon.yF);</textblock>
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>TwoRoomsWithStorage;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 12:02:42 2013.
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE CoolingControl<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.Hydron67b1760bf3ca74b8ntrolI.png" ALT="Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl"></A><A HREF="Buildings_Examples_HydronicHeating.html#Buildings.Examples.HydronicHeating.TwoRoomsWithStorage"
+>Buildings.Examples.HydronicHeating.TwoRoomsWithStorage</A>.CoolingControl</H2>
+<B>Controller for the free cooling and the mechanical cooling</B><p></P>
+<IMG SRC="Buildings.Examples.Hydron67b1760bf3ca74b8ntrolD.png" ALT="Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl">
+<P></P><H3>Information</H3>
+
+<p>
+This block computes a control signal for free cooling and for mechanical cooling.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TRooCoo</TD><TD>25 + 273.15</TD><TD>Set point for mechanical cooling [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TRooFre</TD><TD>22 + 273.15</TD><TD>Maximum temperature above which free cooling is enabled [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TOutFre</TD><TD>16 + 273.15</TD><TD>Outside temperature above which free cooling is allowed [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</A></TD><TD>dT</TD><TD>1</TD><TD>Dead-band for free cooling [K]</TD></TR>
+<TR><TD>Real</TD><TD>Kp</TD><TD>1</TD><TD>Proportional band for mechanical cooling</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TRoo</TD><TD>Room air temperature [K]</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TOut</TD><TD>Outside air temperature [K]</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>yC</TD><TD>Control signal for mechanical cooling</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>yF</TD><TD>Control signal for free cooling, 1 if free cooling should be provided</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>yHex</TD><TD>Control signal for heat recovery damper</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> CoolingControl <font color="darkgreen">
+  &quot;Controller for the free cooling and the mechanical cooling&quot;</font>
+   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+
+   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TRooCoo = 25+273.15 <font color="darkgreen">
+    &quot;Set point for mechanical cooling&quot;</font>;
+   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TRooFre = 22+273.15 <font color="darkgreen">
+    &quot;Maximum temperature above which free cooling is enabled&quot;</font>;
+   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TOutFre = 16+273.15 <font color="darkgreen">
+    &quot;Outside temperature above which free cooling is allowed&quot;</font>;
+   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> dT = 1 <font color="darkgreen">
+    &quot;Dead-band for free cooling&quot;</font>;
+   <font color="blue">parameter </font>Real Kp(min=0) = 1 <font color="darkgreen">&quot;Proportional band for mechanical cooling&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TRoo(unit=&quot;K&quot;) <font color="darkgreen">&quot;Room air temperature&quot;</font>;
+   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TOut(unit=&quot;K&quot;) <font color="darkgreen">
+    &quot;Outside air temperature&quot;</font>;
+   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> yC <font color="darkgreen">
+    &quot;Control signal for mechanical cooling&quot;</font>;
+   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> yF <font color="darkgreen">
+    &quot;Control signal for free cooling, 1 if free cooling should be provided&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> yHex <font color="darkgreen">
+    &quot;Control signal for heat recovery damper&quot;</font>;</textblock>
+<font color="blue">initial </font><font color="blue">equation </font>
+   yF   = 0;
+   yHex = 1;
+<font color="blue">algorithm </font>
+   <font color="blue">when </font>TRoo &gt; TRooFre<font color="blue"> and </font>TOut &gt; TOutFre<font color="blue"> and </font>TOut &lt; TRoo - dT<font color="blue"> then</font>
+     yF   := 1;
+     yHex := 0;
+   <font color="blue">elsewhen </font> TOut &lt; TOutFre-dT<font color="blue"> or </font>TOut &gt; TRoo<font color="blue"> then</font>
+     yF   := 0;
+     yHex := 1;
+   <font color="blue">end when</font>;
+   yC :=<font color="red">max</font>(0,<font color="red"> min</font>(1, Kp*(TRoo - TRooCoo)));
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>CoolingControl;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:17:41 2013.
 </address></BODY>
 </HTML>

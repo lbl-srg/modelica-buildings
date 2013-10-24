@@ -26,25 +26,25 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes.html#Buildings.Fluid.HeatExchangers.Boreholes"
 >Buildings.Fluid.HeatExchangers.Boreholes</A>.BaseClasses</H2>
 <B>Base classes for Borehole</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_HeatExchangers_Boreholes.html#Buildings.Fluid.HeatExchangers.Boreholes"
 >Buildings.Fluid.HeatExchangers.Boreholes</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExcha1feb32104c7120c0gmentS.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment"
@@ -97,9 +97,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <H2><IMG SRC="Buildings.Fluid.HeatExcha1feb32104c7120c0gmentI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.BoreholeSegment</H2>
-<B>Vertical segment of a borehole</B><p>
+<B>Vertical segment of a borehole</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha1feb32104c7120c0gmentD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Horizontal layer that is used to model a U-tube borehole heat exchanger. 
@@ -125,7 +125,7 @@ The computation is done using the model
 <a href="modelica://Buildings.Fluid.Boreholes.BaseClasses.TemperatureBoundaryCondition">
 Buildings.Fluid.Boreholes.BaseClasses.TemperatureBoundaryCondition</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialFourPortInterface"
 >Buildings.Fluid.Interfaces.PartialFourPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters</A> (Parameters for flow resistance for models with two ports), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
@@ -209,8 +209,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>computeFlowResistance</TD><TD>true</TD><TD>=true, compute flow resistance. Set to false to assume no friction</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
@@ -249,7 +248,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Medium in the component</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> BoreholeSegment <font color="darkgreen">&quot;Vertical segment of a borehole&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialFourPortInterface"
@@ -272,8 +271,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">
     &quot;Medium in the component&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <font color="blue">replaceable </font><font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Generic"
->Buildings.HeatTransfer.Data.Soil.Generic</A>
-                                             matSoi <font color="darkgreen">
+>Buildings.HeatTransfer.Data.Soil.Generic</A> matSoi <font color="darkgreen">
     &quot;Thermal properties of soil&quot;</font>;
   <font color="blue">replaceable </font><font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_BoreholeFillings.html#Buildings.HeatTransfer.Data.BoreholeFillings.Generic"
 >Buildings.HeatTransfer.Data.BoreholeFillings.Generic</A> matFil <font color="darkgreen">
@@ -349,7 +347,6 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     <font color="blue">final </font>allowFlowReversal1=allowFlowReversal,
     <font color="blue">final </font>allowFlowReversal2=allowFlowReversal,
     <font color="blue">final </font>homotopyInitialization=homotopyInitialization,
-    <font color="blue">final </font>show_V_flow=show_V_flow,
     <font color="blue">final </font>energyDynamics=energyDynamics,
     <font color="blue">final </font>massDynamics=massDynamics,
     <font color="blue">final </font>p1_start=p_start,
@@ -403,9 +400,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.HeatExchabc95f273374cc0cbementI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.HexInternalElement</H2>
-<B>Internal part of a borehole</B><p>
+<B>Internal part of a borehole</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchabc95f273374cc0cbementD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model for the heat transfer between the fluid and within the borehole filling.
@@ -423,6 +420,7 @@ The resistance between the fluid and the borehole wall are the sum of the
 convective resistance inside the tubes, the conductive resistance
 of the tube wall and the conductive resistance of the filling material. 
 They are obtained using
+</p>
  <p align="center" style="font-style:italic;">
  G<sub>Con</sub> = 2 &pi; h<sub>seg</sub> r<sub>tub</sub> h<sub>in</sub> , 
  </p>
@@ -431,7 +429,8 @@ G<sub>tub</sub> = 4 &pi; k<sub>tub</sub> h<sub>seg</sub> &frasl; ln( ( r<sub>tub
 </p>
 <p align="center" style="font-style:italic;">
 G<sub>fil</sub>= k<sub>fil</sub> h<sub>seg</sub> &beta;<sub>0</sub> ( r<sub>Bor</sub> &frasl; r<sub>tub</sub> ) <sup>&beta;<sub>1</sub></sup> ,
-</p> 
+</p>
+<p> 
 where <i>h<sub>seg</sub></i> is the height of the tube, 
 <i>h<sub>in</sub></i> is the convection coefficient,
 <i>k<sub>tub</sub></i> is the thermal conductivity of the tube, 
@@ -442,14 +441,12 @@ Paul's shape factors are based on experimental and finite element analysis of ty
 The default values used for these coefficients are &beta;<sub>0</sub>= 20.100 and &beta;<sub>1</sub>=-0.94467.
 Values listed by Paul are given in the table below.
 </p>
-<p>
-  <table>
+  <table summary="summary">
   <tr><th>pipe spacing</th><th><i>&beta;<sub>0</sub></i></th><th><i>&beta;<sub>1</sub></i></th></tr>
   <tr><td> close  </td><td> 20.100377 </td><td> -0.94467 </td></tr>
   <tr><td> middle  </td><td> 17.44 </td><td> -0.6052  </td></tr>
   <tr><td> spaced </td><td> 21.91 </td><td> -0.3796 </td></tr>
   </table>
-</p>
 <h4>Implementation</h4>
 <p>
 The resistances between the fluid and the borehole wall are computed in
@@ -461,7 +458,7 @@ The resistance for the interference of the pipes is computed in
 >
 Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.InterferenceResistance</a>. 
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortHeatMassExchanger"
 >Buildings.Fluid.Interfaces.FourPortHeatMassExchanger</A> (Model transporting two fluid streams between four ports with storing mass or energy).
 <P><H3>Parameters</H3><P>
@@ -522,8 +519,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp1</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
@@ -585,7 +581,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>port</TD><TD>Heat port that connects to filling material</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> HexInternalElement <font color="darkgreen">&quot;Internal part of a borehole&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortHeatMassExchanger"
@@ -740,15 +736,16 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.HeatExchad1d9b408bdcb3284tanceI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeResistance" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeResistance"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.BoreholeResistance</H2>
-<B>Thermal resistance of the borehole</B><p>
+<B>Thermal resistance of the borehole</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchad1d9b408bdcb3284tanceD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeResistance">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model computes the total thermal resistance from the fluid to the borehole wall. 
 This thermal resistance is then used for a three-resistance model.
 It assumes that the pipe configuration is symmetric. 
 The resistance is obtain using
+</p>
 <p align="center" style="font-style:italic;">
  R = 2 R<sub>b</sub>,
 </p>
@@ -756,7 +753,8 @@ The resistance is obtain using
 where <i>R<sub>b</sub></i> is the total borehole resistance as defined by Hellstrom (1991). 
 </p>
 <p>
-The resistance <i>R<sub>b</sub></i> includes three different thermal resistances: 
+The resistance <i>R<sub>b</sub></i> includes three different thermal resistances:
+</p>
 <ol>
 <li>
 a convective resistance from the brine to the pipe wall,
@@ -768,7 +766,6 @@ a thermal resistance of the pipe wall, and
 the thermal resistance of the filling material.
 </li>
 </ol>
-</p>
 <h4>Implementation</h4>
 <p>
 The calculation of <i>R<sub>b</sub></i> is done using the function
@@ -777,12 +774,12 @@ Buildings.Fluid.Boreholes.BaseClasses.boreholeThermalResistance</a>.
 </p>
 <h4>References</h4>
 <p>
-Hellstrom, G (1991). <br>
+Hellstrom, G (1991). <br/>
  <a href="http://intraweb.stockton.edu/eyos/energy_studies/content/docs/proceedings/HELLS.PDF">
- Thermal Performance of Borehole Heat Exchangers</a>.<br> 
+ Thermal Performance of Borehole Heat Exchangers</a>.<br/> 
 Department of Mathematical Physics, Lund Institute of Technology.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.PartialBoreholeResistance"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.PartialBoreholeResistance</A> (Partial model for thermal resistance of the borehole).
 <P><H3>Parameters</H3><P>
@@ -821,7 +818,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</A></TD><TD>port_b</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> BoreholeResistance <font color="darkgreen">&quot;Thermal resistance of the borehole&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.PartialBoreholeResistance"
@@ -853,9 +850,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#
 <H2><IMG SRC="Buildings.Fluid.HeatExchad1d9b408bdcb3284tanceI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.InterferenceResistance" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.InterferenceResistance"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.InterferenceResistance</H2>
-<B>Total interference resistance between the two pipes of a borehole</B><p>
+<B>Total interference resistance between the two pipes of a borehole</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchad1d9b408bdcb3284tanceD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.InterferenceResistance">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model computes the interference resistance between the two pipes of a U-tube borehole. 
@@ -880,7 +877,7 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.boreholeThermalResistance</
 >
 Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.boreholeInternalResistance</a> for <i>R<sub>a</sub></i>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.PartialBoreholeResistance"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.PartialBoreholeResistance</A> (Partial model for thermal resistance of the borehole).
 <P><H3>Parameters</H3><P>
@@ -923,7 +920,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</A></TD><TD>port_b</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> InterferenceResistance <font color="darkgreen">
   &quot;Total interference resistance between the two pipes of a borehole&quot;</font>
@@ -975,14 +972,14 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#
 <H2><IMG SRC="Buildings.Fluid.HeatExchad1d9b408bdcb3284tanceI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.PartialBoreholeResistance" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.PartialBoreholeResistance"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.PartialBoreholeResistance</H2>
-<B>Partial model for thermal resistance of the borehole</B><p>
+<B>Partial model for thermal resistance of the borehole</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchafa2039679592bb5etanceD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.PartialBoreholeResistance">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Partial model for the thermal resistance of the borehole.
 </p>
-<P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1020,7 +1017,7 @@ Partial model for the thermal resistance of the borehole.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</A></TD><TD>port_b</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialBoreholeResistance <font color="darkgreen">
   &quot;Partial model for thermal resistance of the borehole&quot;</font>
@@ -1097,9 +1094,9 @@ Partial model for the thermal resistance of the borehole.
 <H2><IMG SRC="Buildings.Fluid.HeatExcha08bcfd6b3be32707itionI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.SingleUTubeBoundaryCondition</H2>
-<B>Prescribed temperature at the outer boundary of a single U tube borehole</B><p>
+<B>Prescribed temperature at the outer boundary of a single U tube borehole</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha08bcfd6b3be32707itionD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model computes the temperature boundary condition at the outer boundary of the borehole.
@@ -1115,7 +1112,7 @@ The computation of the temperature change of the boundary is computed using the 
 >
 Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop</a>.
 </p>
-<P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1139,12 +1136,10 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop</a>.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</A></TD><TD>port</TD><TD>Heat port</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SingleUTubeBoundaryCondition <font color="darkgreen">
   &quot;Prescribed temperature at the outer boundary of a single U tube borehole&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">replaceable </font><font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Generic"
 >Buildings.HeatTransfer.Data.Soil.Generic</A> matSoi <font color="darkgreen">
     &quot;Thermal properties of the soil&quot;</font>;
@@ -1171,8 +1166,6 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop</a>.
   <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b</A> port <font color="darkgreen">&quot;Heat port&quot;</font>;</textblock>
 <font color="blue">protected </font>
-  Integer iSam(min=1) <font color="darkgreen">
-    &quot;Counter for how many time the model was sampled. Defined as iSam=1 when called at t=0&quot;</font>;
   <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >Modelica.SIunits.SpecificHeatCapacity</A> c= matSoi.c <font color="darkgreen">
     &quot;Specific heat capacity of the soil&quot;</font>;
@@ -1186,20 +1179,19 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop</a>.
   <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
 >Modelica.SIunits.Energy</A> U <font color="darkgreen">
     &quot;Current internal energy, defined as U=0 for t=tStart&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Modelica.SIunits.Time</A> startTime <font color="darkgreen">&quot;Start time of the simulation&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> startTime(fixed=false) <font color="darkgreen">
+    &quot;Start time of the simulation&quot;</font>;
+  Integer iSam(min=1) <font color="darkgreen">
+    &quot;Counter for how many time the model was sampled. Defined as iSam=1 when called at t=0&quot;</font>;
 <font color="blue">initial </font><font color="blue">algorithm </font>
-  U    := 0;
-  UOld := 0;
+  U         := 0;
+  UOld      := 0;
+  startTime := time;
+  iSam      := 1;
 <font color="blue">equation </font>
   <font color="red">der</font>(U) = Q_flow;
 <font color="blue">algorithm </font>
-  <font color="darkgreen">// Set the start time for the sampling</font>
-  <font color="blue">when </font><font color="red">initial</font>()<font color="blue"> then</font>
-    startTime:=time;
-    iSam :=1;
-  <font color="blue">end when</font>;
-
   <font color="blue">when </font><font color="red">initial</font>()<font color="blue"> or </font><font color="red">sample</font>(startTime,samplePeriod)<font color="blue"> then</font>
     QAve_flow := (U-UOld)/samplePeriod;
     UOld      := U;
@@ -1219,8 +1211,8 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop</a>.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.ExtendableArray"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.ExtendableArray</H2>
-<B>class used to create the external object: ExtendableArray</B><p>
-<P><H3>Information</H3></P>
+<B>class used to create the external object: ExtendableArray</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 Class derived from <code>ExternalObject</code> having two local external function definition, 
@@ -1229,15 +1221,13 @@ named <code>destructor</code> and <code>constructor</code> respectively.
 These functions create and release an external object that allows the the storage 
 of real parameters in an array of extendable dimension.
 
-<P>
-Extends from <A HREF="file:////opt/dymola/Modelica/help/ExternalObject.html#ExternalObject"
->ExternalObject</A>.
-<P><H3>Modelica definition</H3>
+<P></P>
+Extends from <code>ExternalObject</code>.
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">class</font> ExtendableArray <font color="darkgreen">
   &quot;class used to create the external object: ExtendableArray&quot;</font>
-<font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/help/ExternalObject.html#ExternalObject"
->ExternalObject</A>;
+<font color="blue">extends </font>ExternalObject;
     <textblock type="model" expanded="false" path="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.ExtendableArray.constructor"><font color="blue">function</font> constructor <font color="darkgreen">
     &quot;Construct an extendable array that can be used to store double values&quot;</font>
     <font color="blue">output </font><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.ExtendableArray"
@@ -1259,8 +1249,8 @@ Extends from <A HREF="file:////opt/dymola/Modelica/help/ExternalObject.html#Exte
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.boreholeInternalResistance"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.boreholeInternalResistance</H2>
-<B>Calculate the internal resistance of the borehole</B><p>
-<P><H3>Information</H3></P>
+<B>Calculate the internal resistance of the borehole</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model computes the internal resistance <i>R</i> of a single U-tube borehole, 
@@ -1282,15 +1272,15 @@ the external radius of a pipe and
 <i>x<sub>c</sub></i> is the shank spacing defined as half the center-to-center distance 
 between the two pipes, and
 <i>W = k<sub>fil</sub> - k<sub>soi</sub>/ (k<sub>soi</sub> + k<sub>fil</sub>)</i>.
-</p>
+<br/>
 <h4>References</h4>
-<p>
-Hellstrom, G (1991). <br>
+
+Hellstrom, G (1991). <br/>
  <a href="http://intraweb.stockton.edu/eyos/energy_studies/content/docs/proceedings/HELLS.PDF">
- Thermal Performance of Borehole Heat Exchangers</a>.<br> 
+ Thermal Performance of Borehole Heat Exchangers</a>.<br/> 
 Department of Mathematical Physics, Lund Institute of Technology.
-</p>
-<P>
+
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1316,7 +1306,7 @@ Department of Mathematical Physics, Lund Institute of Technology.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalResistance"
 >ThermalResistance</A></TD><TD>R</TD><TD>Internal resistance of the borehole [K/W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> boreholeInternalResistance <font color="darkgreen">
   &quot;Calculate the internal resistance of the borehole&quot;</font>
@@ -1362,13 +1352,14 @@ Department of Mathematical Physics, Lund Institute of Technology.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.boreholeThermalResistance"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.boreholeThermalResistance</H2>
-<B>Calculate the total thermal resistance of the borehole from the fluid to the soil</B><p>
-<P><H3>Information</H3></P>
+<B>Calculate the total thermal resistance of the borehole from the fluid to the soil</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model computes the borehole total thermal resistance for a single U-tube.
 The computation is as defined in Hellstom (1991).
 The total thermal resistance is the contribution of three different resistances as
+</p>
 <p align="center" style="font-style:italic;">
  R<sub>tot</sub>= R<sub>Con</sub> + R<sub>tub</sub> + R<sub>fil</sub>.
 </p>
@@ -1379,11 +1370,10 @@ where
 <i>R<sub>fil</sub></i> is the resistance of the filling material.
 </p>
 <p>
-The convective resistance is obtained as
-<p>
- <p align="center" style="font-style:italic;">
- R<sub>Con</sub> = 1 &frasl; (4 &pi; h<sub>seg</sub> r<sub>tub</sub> h<sub>in</sub> ),
- </p> 
+The convective resistance is obtained as</p>
+<p align="center" style="font-style:italic;">
+ R<sub>Con</sub> = 1 &frasl; (4 &pi; h<sub>seg</sub> r<sub>tub</sub> h<sub>in</sub>),
+</p>
 <p>
 where <i>h<sub>seg</sub></i> is the height of the segment and 
 <i>h<sub>in</sub></i> is the convective heat transfer coefficient. 
@@ -1399,18 +1389,20 @@ where <i>k<sub>med</sub></i> is the thermal conductivity of the fluid,
 <i>Re</i> is the Reynolds number and 
 <i>r<sub>tub</sub></i> is the inside radius of the pipe.
 </p>
+
 <p>
-The conductive resistance is determined using
-</p>
+The conductive resistance is determined using</p>
 <p align="center" style="font-style:italic;">
 R<sub>tub</sub>= ln[ ( r<sub>tub</sub>+e<sub>tub</sub> ) &frasl; r<sub>tub</sub> ] &frasl; 4 &pi; 
    k<sub>tub</sub> h<sub>seg</sub>,
- </p>
+</p>
+<p>
 where <i>k<sub>tub</sub></i> the heat conductivity of the pipe and 
 <i>e<sub>tub</sub></i> is the thickness of the wall.
 </p>
+
 <p>
-The resistance of the filling material is determined using the correlation from Paul (1996) :
+The resistance of the filling material is determined using the correlation from Paul (1996) :</p>
 <p align="center" style="font-style:italic;">
 R<sub>fil</sub> = k<sub>fil</sub> h<sub>seg</sub> &beta;<sub>0</sub> 
   (r<sub>Bor</sub> &frasl; (r<sub>tub</sub> + e<sub>tub</sub>)) <sup>&beta;<sub>1</sub></sup> ,
@@ -1421,21 +1413,20 @@ where <i>k<sub>fil</sub></i> is the thermal conductivity of the filling material
 (Paul 1996) based on U-tube shank spacing.
 Paul's shape factors are based on experimental and finite element analysis of typical borehole.
 The default values used for these coefficients are &beta;<sub>0</sub>= 20.100 and &beta;<sub>1</sub>=-0.94467.
-Values listed by Paul are given in the table below.
-</p>
-<p>
-  <table>
+Values listed by Paul are given in the table below.</p>
+
+  <table summary="summary" >
   <tr><th>pipe spacing</th><th><i>&beta;<sub>0</sub></i></th><th><i>&beta;<sub>1</sub></i></th></tr>
   <tr><td> close  </td><td> 20.100377 </td><td> -0.94467 </td></tr>
   <tr><td> middle  </td><td> 17.44 </td><td> -0.6052  </td></tr>
   <tr><td> spaced </td><td> 21.91 </td><td> -0.3796 </td></tr>
   </table>
-  </p>
+
 <h4>References</h4>
 <p>
-Hellstrom, G (1991). <br>
+Hellstrom, G (1991). <br/>
  <a href="http://intraweb.stockton.edu/eyos/energy_studies/content/docs/proceedings/HELLS.PDF">
- Thermal Performance of Borehole Heat Exchangers</a>.<br> 
+ Thermal Performance of Borehole Heat Exchangers</a>.<br/> 
 Department of Mathematical Physics, Lund Institute of Technology.
 </p>
 <p>
@@ -1443,7 +1434,7 @@ Paul, N.D (1996). <i>The effect of grout thermal conductivity on vertical geothe
 and performance.</i> 
 Master of Science Thesis, South Dakota State University.
 </p>
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1479,7 +1470,7 @@ Master of Science Thesis, South Dakota State University.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalResistance"
 >ThermalResistance</A></TD><TD>Rb</TD><TD>Borehole thermal resistance [K/W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> boreholeThermalResistance <font color="darkgreen">
   &quot;Calculate the total thermal resistance of the borehole from the fluid to the soil&quot;</font>
@@ -1547,8 +1538,8 @@ Master of Science Thesis, South Dakota State University.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.exchangeValues</H2>
-<B>Store the value u at the element n in the external object, and return the value of the element i</B><p>
-<P><H3>Information</H3></P>
+<B>Store the value u at the element n in the external object, and return the value of the element i</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 External function that stores the input value <code>x</code> as the element
@@ -1557,7 +1548,7 @@ External function that stores the input value <code>x</code> as the element
 and that returns the element <code>a[iY]</code>.
 The size of the array <code>a</code> is automatically enlarged as needed.
 </p>
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1573,7 +1564,7 @@ The size of the array <code>a</code> is automatically enlarged as needed.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>y</TD><TD>Value of the i-th element</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> exchangeValues <font color="darkgreen">
   &quot;Store the value u at the element n in the external object, and return the value of the element i&quot;</font>
@@ -1594,13 +1585,13 @@ The size of the array <code>a</code> is automatically enlarged as needed.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.factorial"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.factorial</H2>
-<B>Calculates the factorial value of the input</B><p>
-<P><H3>Information</H3></P>
+<B>Calculates the factorial value of the input</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This function computes <i>y = j!</i>.
 </p>
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1612,7 +1603,7 @@ This function computes <i>y = j!</i>.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Integer</TD><TD>f</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> factorial <font color="darkgreen">&quot;Calculates the factorial value of the input&quot;</font>
   <font color="blue">input </font>Integer j;
@@ -1630,14 +1621,14 @@ This function computes <i>y = j!</i>.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.powerSeries"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.powerSeries</H2>
-<B>Power series used to compute far-field temperature</B><p>
-<P><H3>Information</H3></P>
+<B>Power series used to compute far-field temperature</B><p></P>
+<P></P><H3>Information</H3>
 
           <p>
 This function computes the power series that is used to compute the far-field 
 temperature.
 </p>
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1650,7 +1641,7 @@ temperature.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>W</TD><TD>Power series</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> powerSeries <font color="darkgreen">
   &quot;Power series used to compute far-field temperature&quot;</font>
@@ -1668,9 +1659,10 @@ temperature.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.temperatureDrop</H2>
-<B>Calculate the temperature drop of the soil at the external boundary of the cylinder</B><p>
-<P><H3>Information</H3></P>
+<B>Calculate the temperature drop of the soil at the external boundary of the cylinder</B><p></P>
+<P></P><H3>Information</H3>
 
+<p>
 This function calculates the temperature drop of the soil at the outer boundary of the cylinder.
 The analytical formula of Hart and Couvillion (1986) for constant 
 heat extraction is adapted to a non-constant heat flux. 
@@ -1684,6 +1676,7 @@ constant rate of heat extractions are super-imposed as
 &Delta;T ( r , t=n &Delta;t )= 1 &frasl; ( 4 &pi; k ) 
   &sum;  W(u(r, t= i &Delta;t)) (q<sub>n-i+1</sub>-q<sub>n-i</sub>),
 </p>
+<p>
 where <i>r</i> is the radius for which the temperature is computed,
 <i>k</i> is the thermal conductivity of the material,
 <i>W</i> is a solution of the heat conduction in polar coordinates and
@@ -1692,6 +1685,7 @@ the specific rate of heat extraction per unit lenght at time
 <i>t=i &Delta;t</i>.
 The value of 
 <i>W</i> is obtained using
+</p>
 <p align="center" style="font-style:italic;">
 W(u)=[-0.5772 - ln(u) + u - u<sup>2</sup>/(2 &nbsp; 2!) +u<sup>3</sup>/(3 &nbsp; 3!) - u<sup>4</sup>/(4 &nbsp; 4!) + ....].
 </p>
@@ -1713,7 +1707,7 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues</a>.
 Hart and Couvillion, (1986). <i>Earth Coupled Heat Transfer.</i>
 Publication of the National Water Well Association. 
 </p>
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1742,7 +1736,7 @@ Publication of the National Water Well Association.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dT</TD><TD>Temperature drop of the soil [K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> temperatureDrop <font color="darkgreen">
   &quot;Calculate the temperature drop of the soil at the external boundary of the cylinder&quot;</font>
@@ -1810,6 +1804,6 @@ Publication of the National Water Well Association.
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>temperatureDrop;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:27 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:34 2013.
 </address></BODY>
 </HTML>

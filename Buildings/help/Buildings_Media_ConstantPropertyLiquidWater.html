@@ -26,22 +26,22 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE ConstantPropertyLiquidWater<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Media.ConstantPropertyLiquidWater"></A><A HREF="Buildings_Media.html#Buildings.Media"
 >Buildings.Media</A>.ConstantPropertyLiquidWater</H2>
 <B>Package with model for liquid water with constant properties</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
-<p>
 This medium model is identical to 
 <A HREF="../../msl/3.2/help/Modelica_Media_Water_ConstantPropertyLiquidWater.html#Modelica.Media.Water.ConstantPropertyLiquidWater"
 >
 Modelica.Media.Water.ConstantPropertyLiquidWater</a>, except for the following
-points:
+points:<br/>clear
+
 <ul>
 <li>
 It allows computing a compressibility of the medium.
@@ -61,11 +61,10 @@ Buildings.Media.Interfaces.PartialSimpleMedium</a>.
 It implements the function that computes the specific internal energy.
 </li>
 </ul>
-</p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Media_Interfaces_PartialSimpleMedium.html#Buildings.Media.Interfaces.PartialSimpleMedium"
 >Buildings.Media.Interfaces.PartialSimpleMedium</A> (Medium model with linear dependency of u, h from temperature. Most other quantities are constant.).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Media.ConstantP7c246fb0e170ea43nergyS.png" ALT="Buildings.Media.ConstantPropertyLiquidWater.specificInternalEnergy" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater.specificInternalEnergy"
@@ -371,15 +370,15 @@ Extends from <A HREF="Buildings_Media_Interfaces_PartialSimpleMedium.html#Buildi
 <H2><IMG SRC="Buildings.Media.ConstantP7c246fb0e170ea43nergyI.png" ALT="Buildings.Media.ConstantPropertyLiquidWater.specificInternalEnergy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Media.ConstantPropertyLiquidWater.specificInternalEnergy"></A><A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A>.specificInternalEnergy</H2>
-<B>Return specific internal energy</B><p>
-<P><H3>Information</H3></P>
+<B>Return specific internal energy</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificInternalEnergy"
 ></A> (Return specific internal energy).
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="Buildings_Media_Interfaces_PartialSimpleMedium.html#Buildings.Media.Interfaces.PartialSimpleMedium.ThermodynamicState"
->ThermodynamicState</A></TD><TD>state</TD><TD>&nbsp;</TD><TD>&nbsp;</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>ThermodynamicState</A></TD><TD>state</TD><TD>&nbsp;</TD><TD>thermodynamic state record</TD></TR>
 </TABLE>
 <P><H3>Outputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -387,19 +386,15 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy"
 >SpecificEnergy</A></TD><TD>u</TD><TD>Specific internal energy [J/kg]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">replaceable </font><font color="blue">function</font> <font color="blue">extends </font>specificInternalEnergy <font color="darkgreen">
   &quot;Return specific internal energy&quot;</font>
- <font color="blue">input </font><A HREF="Buildings_Media_Interfaces_PartialSimpleMedium.html#Buildings.Media.Interfaces.PartialSimpleMedium.ThermodynamicState"
->ThermodynamicState</A> state;
- <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy"
->SpecificEnergy</A> u <font color="darkgreen">&quot;Specific internal energy&quot;</font>;
 <font color="blue">algorithm </font>
   u := cv_const * (state.T-T0);
 <font color="blue">end </font>specificInternalEnergy;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:57:15 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:44 2013.
 </address></BODY>
 </HTML>

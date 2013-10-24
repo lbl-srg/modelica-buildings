@@ -26,42 +26,44 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE SingleGasData<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Media.PerfectGases.Common.SingleGasData"></A><A HREF="Buildings_Media_PerfectGases_Common.html#Buildings.Media.PerfectGases.Common"
 >Buildings.Media.PerfectGases.Common</A>.SingleGasData</H2>
 <B>Package with data records for single gases</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains the coefficients for perfect gases.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
 >Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD>Air</TD><TD>&nbsp;</TD></TR>
 <TR><TD>H2O</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Types and constants</H3>
+<P></p><H3>Types and constants</H3>
 <PRE> <font color="blue">constant </font><A HREF="Buildings_Media_PerfectGases_Common.html#Buildings.Media.PerfectGases.Common.DataRecord"
 >PerfectGases.Common.DataRecord</A> Air(
    name = Modelica.Media.IdealGases.Common.SingleGasesData.Air.name,
    R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
    MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
-   cp =   1006);</PRE><p>
+   cp =   1006,
+   cv =   1006 - Modelica.Media.IdealGases.Common.SingleGasesData.Air.R);</PRE><P></p>
 <PRE><font color="blue">constant </font><A HREF="Buildings_Media_PerfectGases_Common.html#Buildings.Media.PerfectGases.Common.DataRecord"
 >PerfectGases.Common.DataRecord</A> H2O(
    name = Modelica.Media.IdealGases.Common.SingleGasesData.H2O.name,
    R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
    MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
-   cp =   1860);</PRE><p>
+   cp =   1860,
+   cv =   1860 - Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R);</PRE><P></p>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:57:17 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:46 2013.
 </address></BODY>
 </HTML>

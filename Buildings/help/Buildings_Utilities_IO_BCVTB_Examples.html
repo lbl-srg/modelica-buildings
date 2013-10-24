@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.IO.BCVTB.Examples"></A><A HREF="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
 >Buildings.Utilities.IO.BCVTB</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -42,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Utilities.IO.BCVTB</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Utilities.IO.BCaeb133ef55544be3stAirS.png" ALT="Buildings.Utilities.IO.BCVTB.Examples.MoistAir" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_IO_BCVTB_Examples.html#Buildings.Utilities.IO.BCVTB.Examples.MoistAir"
@@ -62,12 +62,11 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Mod
 <H2><IMG SRC="Buildings.Utilities.IO.BCaeb133ef55544be3stAirI.png" ALT="Buildings.Utilities.IO.BCVTB.Examples.MoistAir" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.IO.BCVTB.Examples.MoistAir"></A><A HREF="Buildings_Utilities_IO_BCVTB_Examples.html#Buildings.Utilities.IO.BCVTB.Examples"
 >Buildings.Utilities.IO.BCVTB.Examples</A>.MoistAir</H2>
-<B>Model with interfaces for media with moist air that will be linked to the BCVTB which models the response of the room</B><p>
+<B>Model with interfaces for media with moist air that will be linked to the BCVTB which models the response of the room</B><p></P>
 <IMG SRC="Buildings.Utilities.IO.BCaeb133ef55544be3stAirD.png" ALT="Buildings.Utilities.IO.BCVTB.Examples.MoistAir">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
-This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.
-</p>
+This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.<br/>
 <p>
 The model represents an air-based heating system with an ideal heater and an ideal humidifier
 in the supply duct. The heater and humidifier are controlled with a feedback loop that 
@@ -79,7 +78,7 @@ system (in Modelica) and the room response (in EnergyPlus).
 <p>
 This model is implemented in <code>bcvtb\examples\dymolaEPlusXY-singleZone</code>,
 where <code>XY</code> denotes the EnergyPlus version number.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -88,12 +87,10 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>259.2*6/1.2/3600</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MoistAir <font color="darkgreen">
   &quot;Model with interfaces for media with moist air that will be linked to the BCVTB which models the response of the room&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
@@ -275,12 +272,11 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Utilities.IO.BCaeb133ef55544be3stAirI.png" ALT="Buildings.Utilities.IO.BCVTB.Examples.TwoRooms" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.IO.BCVTB.Examples.TwoRooms"></A><A HREF="Buildings_Utilities_IO_BCVTB_Examples.html#Buildings.Utilities.IO.BCVTB.Examples"
 >Buildings.Utilities.IO.BCVTB.Examples</A>.TwoRooms</H2>
-<B>Thermal model of two rooms that will be linked to the BCVTB which models the controls</B><p>
+<B>Thermal model of two rooms that will be linked to the BCVTB which models the controls</B><p></P>
 <IMG SRC="Buildings.Utilities.IO.BC394420e95b4973acRoomsD.png" ALT="Buildings.Utilities.IO.BCVTB.Examples.TwoRooms">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
-This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.
-</p>
+This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.<br/>
 <p>
 Given a control signal for two heat flow rates, Modelica simulates the thermal response 
 of two first order systems. The two systems may represent a first order approximation of a room.
@@ -291,7 +287,7 @@ exchanged between Dymola and the Building Controls Virtual Test Bed.
 </p>
 <p>
 This model is implemented in <code>bcvtb\examples\dymola-room</code>.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -306,12 +302,10 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</A></TD><TD>TStart</TD><TD>283.15</TD><TD>Start temperature [K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TwoRooms <font color="darkgreen">
   &quot;Thermal model of two rooms that will be linked to the BCVTB which models the controls&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
@@ -396,6 +390,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>TwoRooms;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:58:31 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:13:43 2013.
 </address></BODY>
 </HTML>

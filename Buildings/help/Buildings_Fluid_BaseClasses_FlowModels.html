@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE FlowModels<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.BaseClasses.FlowModels"></A><A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses"
 >Buildings.Fluid.BaseClasses</A>.FlowModels</H2>
 <B>Flow models for pressure drop calculations</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains a basic flow model that is used by the 
 various models that compute pressure drop.
@@ -50,10 +50,10 @@ detailed pressure drop calculation.
 If a more detailed computation of the flow resistance is needed,
 then a user can use models from the 
 <code>Modelica.Fluid</code> library.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.BaseClassa417cb31b9e73fe8on_dpS.png" ALT="Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp"
@@ -73,22 +73,26 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <H2><IMG SRC="Buildings.Fluid.BaseClassa417cb31b9e73fe8on_dpI.png" ALT="Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp"></A><A HREF="Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels"
 >Buildings.Fluid.BaseClasses.FlowModels</A>.basicFlowFunction_dp</H2>
-<B>Basic class for flow models</B><p>
-<P><H3>Information</H3></P>
+<B>Basic class for flow models</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 Function that computes the pressure drop of flow elements as
+</p>
 <p align="center" style="font-style:italic;">
   m = sign(&Delta;p) k  &radic;<span style="text-decoration:overline;">&nbsp;&Delta;p &nbsp;</span>
 </p>
+<p>
 with regularization near the origin.
 Therefore, the flow coefficient is
+</p>
 <p align="center" style="font-style:italic;">
   k = m &frasl; &radic;<span style="text-decoration:overline;">&nbsp;&Delta;p &nbsp;</span> 
 </p>
+<p>
 The input <code>m_flow_turbulent</code> determines the location of the regularization.
 </p>
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -105,7 +109,7 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow</TD><TD>Mass flow rate in design flow direction [kg/s]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> basicFlowFunction_dp <font color="darkgreen">&quot;Basic class for flow models&quot;</font>
 
@@ -139,22 +143,26 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 <H2><IMG SRC="Buildings.Fluid.BaseClassa417cb31b9e73fe8on_dpI.png" ALT="Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow"></A><A HREF="Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels"
 >Buildings.Fluid.BaseClasses.FlowModels</A>.basicFlowFunction_m_flow</H2>
-<B>Basic class for flow models</B><p>
-<P><H3>Information</H3></P>
+<B>Basic class for flow models</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 Function that computes the pressure drop of flow elements as
+</p>
 <p align="center" style="font-style:italic;">
   &Delta;p = sign(m) (m &frasl; k)<sup>2</sup> 
 </p>
+<p>
 with regularization near the origin.
 Therefore, the flow coefficient is
+</p>
 <p align="center" style="font-style:italic;">
   k = m &frasl; &radic;<span style="text-decoration:overline;">&nbsp;&Delta;p &nbsp;</span> 
 </p>
+<p>
 The input <code>m_flow_turbulent</code> determines the location of the regularization.
 </p>
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -171,7 +179,7 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp</TD><TD>Pressure difference between port_a and port_b (= port_a.p - port_b.p) [Pa]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> basicFlowFunction_m_flow <font color="darkgreen">&quot;Basic class for flow models&quot;</font>
 
@@ -194,6 +202,6 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>basicFlowFunction_m_flow;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:39 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:04 2013.
 </address></BODY>
 </HTML>

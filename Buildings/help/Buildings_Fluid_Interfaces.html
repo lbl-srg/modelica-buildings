@@ -26,24 +26,26 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Interfaces<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Interfaces"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
 >Buildings.Fluid</A>.Interfaces</H2>
 <B>Package with interfaces for fluid models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
+<p>
 This package contains basic classes that are used to build
 component models that change the state of the
 fluid. The classes are not directly usable, but can
 be extended when building a new model.
-<P>
+</p>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_InterfacesPackage.html#Modelica.Icons.InterfacesPackage"
 >Modelica.Icons.InterfacesPackage</A> (Icon for packages containing interfaces).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Interfaces.UsersGuideS.png" ALT="Buildings.Fluid.Interfaces.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide"
@@ -96,9 +98,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_InterfacesPackage.html#M
 <H2><IMG SRC="Buildings.Fluid.Interfaces.FourPortI.png" ALT="Buildings.Fluid.Interfaces.FourPort" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Interfaces.FourPort"></A><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
 >Buildings.Fluid.Interfaces</A>.FourPort</H2>
-<B>Partial model with four ports</B><p>
+<B>Partial model with four ports</B><p></P>
 <IMG SRC="Buildings.Fluid.Interfaces.FourPortD.png" ALT="Buildings.Fluid.Interfaces.FourPort">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model defines an interface for components with four ports. 
@@ -112,7 +114,7 @@ This model is identical to
 >
 Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 </p>
-<P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -147,7 +149,7 @@ Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FourPort <font color="darkgreen">&quot;Partial model with four ports&quot;</font>
   <font color="blue">import </font><A HREF="../../msl/3.2/help/Modelica_Constants.html#Modelica.Constants"
@@ -185,36 +187,36 @@ Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >Modelica.Fluid.Interfaces.FluidPort_a</A> port_a1(
-                                <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium1.html#Buildings.Fluid.Interfaces.FourPort.Medium1"
+                     <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium1.html#Buildings.Fluid.Interfaces.FourPort.Medium1"
 >Medium1</A>,
                      m_flow(min=<font color="blue">if </font>allowFlowReversal1<font color="blue"> then </font>-Constants.inf<font color="blue"> else </font>0),
                      h_outflow(nominal=1E5, start=h_outflow_a1_start),
-                     Xi_outflow(nominal=0.01)) <font color="darkgreen">
+                     Xi_outflow(<font color="blue">each </font>nominal=0.01)) <font color="darkgreen">
     &quot;Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >Modelica.Fluid.Interfaces.FluidPort_b</A> port_b1(
-                                <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium1.html#Buildings.Fluid.Interfaces.FourPort.Medium1"
+                     <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium1.html#Buildings.Fluid.Interfaces.FourPort.Medium1"
 >Medium1</A>,
                      m_flow(max=<font color="blue">if </font>allowFlowReversal1<font color="blue"> then </font>+Constants.inf<font color="blue"> else </font>0),
                      h_outflow(nominal=1E5, start=h_outflow_b1_start),
-                     Xi_outflow(nominal=0.01)) <font color="darkgreen">
+                     Xi_outflow(<font color="blue">each </font>nominal=0.01)) <font color="darkgreen">
     &quot;Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)&quot;</font>;</textblock>
 
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >Modelica.Fluid.Interfaces.FluidPort_a</A> port_a2(
-                                <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium2.html#Buildings.Fluid.Interfaces.FourPort.Medium2"
+                     <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium2.html#Buildings.Fluid.Interfaces.FourPort.Medium2"
 >Medium2</A>,
                      m_flow(min=<font color="blue">if </font>allowFlowReversal2<font color="blue"> then </font>-Constants.inf<font color="blue"> else </font>0),
                      h_outflow(nominal=1E5,start=h_outflow_a2_start),
-                     Xi_outflow(nominal=0.01)) <font color="darkgreen">
+                     Xi_outflow(<font color="blue">each </font>nominal=0.01)) <font color="darkgreen">
     &quot;Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >Modelica.Fluid.Interfaces.FluidPort_b</A> port_b2(
-                                <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium2.html#Buildings.Fluid.Interfaces.FourPort.Medium2"
+                     <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium2.html#Buildings.Fluid.Interfaces.FourPort.Medium2"
 >Medium2</A>,
                      m_flow(max=<font color="blue">if </font>allowFlowReversal2<font color="blue"> then </font>+Constants.inf<font color="blue"> else </font>0),
                      h_outflow(nominal=1E5, start=h_outflow_b2_start),
-                     Xi_outflow(nominal=0.01)) <font color="darkgreen">
+                     Xi_outflow(<font color="blue">each </font>nominal=0.01)) <font color="darkgreen">
     &quot;Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)&quot;</font>;</textblock>
 
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>FourPort;
@@ -226,9 +228,9 @@ Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 <H2><IMG SRC="Buildings.Fluid.Interfaceaa717523098d688cangerI.png" ALT="Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"></A><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
 >Buildings.Fluid.Interfaces</A>.TwoPortHeatMassExchanger</H2>
-<B>Partial model transporting one fluid stream with storing mass or energy</B><p>
+<B>Partial model transporting one fluid stream with storing mass or energy</B><p></P>
 <IMG SRC="Buildings.Fluid.Interfaceaa717523098d688cangerD.png" ALT="Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This component transports one fluid stream. 
@@ -246,7 +248,7 @@ the base class
 >
 Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
-<p>
+
 For models that extend this model, see for example
 <ul>
 <li>
@@ -268,7 +270,7 @@ the boiler
 Buildings.Fluid.Boilers.BoilerPolynomial</a>.
 </li>
 </ul>
-</p>
+
 <h4>Implementation</h4>
 <p>
 The variable names follow the conventions used in 
@@ -277,7 +279,7 @@ The variable names follow the conventions used in
 Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters</A> (Parameters for flow resistance for models with two ports).
@@ -305,8 +307,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>computeFlowResistance</TD><TD>true</TD><TD>=true, compute flow resistance. Set to false to assume no friction</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
@@ -331,7 +332,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> TwoPortHeatMassExchanger <font color="darkgreen">
   &quot;Partial model transporting one fluid stream with storing mass or energy&quot;</font>
@@ -344,20 +345,6 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     <font color="blue">final </font>computeFlowResistance=true);
   <font color="blue">import </font><A HREF="../../msl/3.2/help/Modelica_Constants.html#Modelica.Constants"
 >Modelica.Constants</A>;
-
-<textblock type="annotcomp" expanded="false">  <font color="blue">replaceable </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
->Buildings.Fluid.MixingVolumes.MixingVolume</A> vol
-    <font color="blue">constrainedby </font>Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
-    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium,
-    nPorts = 2,
-    V=m_flow_nominal*tau/rho_default,
-    <font color="blue">final </font>m_flow_nominal = m_flow_nominal,
-    <font color="blue">final </font>energyDynamics=energyDynamics,
-    <font color="blue">final </font>massDynamics=massDynamics,
-    <font color="blue">final </font>p_start=p_start,
-    <font color="blue">final </font>T_start=T_start,
-    <font color="blue">final </font>X_start=X_start,
-    <font color="blue">final </font>C_start=C_start) <font color="darkgreen">&quot;Volume for fluid stream&quot;</font>;</textblock>
 
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> tau = 30 <font color="darkgreen">
@@ -389,6 +376,33 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
        quantity=Medium.extraPropertiesNames)=<font color="red">fill</font>(0, Medium.nC) <font color="darkgreen">
     &quot;Start value of trace substances&quot;</font>;
 
+<textblock type="annotcomp" expanded="false">  <font color="blue">replaceable </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</A> vol
+  <font color="blue">constrainedby </font>Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
+    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium,
+    nPorts = 2,
+    V=m_flow_nominal*tau/rho_default,
+    <font color="blue">final </font>m_flow_nominal = m_flow_nominal,
+    <font color="blue">final </font>energyDynamics=energyDynamics,
+    <font color="blue">final </font>massDynamics=massDynamics,
+    <font color="blue">final </font>p_start=p_start,
+    <font color="blue">final </font>T_start=T_start,
+    <font color="blue">final </font>X_start=X_start,
+    <font color="blue">final </font>C_start=C_start) <font color="darkgreen">&quot;Volume for fluid stream&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> preDro(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    <font color="blue">final </font>use_dh=false,
+    <font color="blue">final </font>m_flow_nominal=m_flow_nominal,
+    <font color="blue">final </font>deltaM=deltaM,
+    <font color="blue">final </font>allowFlowReversal=allowFlowReversal,
+    <font color="blue">final </font>show_T=false,
+    <font color="blue">final </font>from_dp=from_dp,
+    <font color="blue">final </font>linearized=linearizeFlowResistance,
+    <font color="blue">final </font>homotopyInitialization=homotopyInitialization,
+    <font color="blue">final </font>dp_nominal=dp_nominal) <font color="darkgreen">&quot;Pressure drop model&quot;</font>;</textblock>
+
 <font color="blue">protected </font>
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</A> sta_default=<font color="red">Medium.setState_pTX</font>(
@@ -402,20 +416,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> h_outflow_start =<font color="red"> Medium.specificEnthalpy</font>(sta_start) <font color="darkgreen">
     &quot;Start value for outflowing enthalpy&quot;</font>;
-<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
-  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
->Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> preDro(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
-    <font color="blue">final </font>use_dh=false,
-    <font color="blue">final </font>m_flow_nominal=m_flow_nominal,
-    <font color="blue">final </font>deltaM=deltaM,
-    <font color="blue">final </font>allowFlowReversal=allowFlowReversal,
-    <font color="blue">final </font>show_T=false,
-    <font color="blue">final </font>show_V_flow=show_V_flow,
-    <font color="blue">final </font>from_dp=from_dp,
-    <font color="blue">final </font>linearized=linearizeFlowResistance,
-    <font color="blue">final </font>homotopyInitialization=homotopyInitialization,
-    <font color="blue">final </font>dp_nominal=dp_nominal) <font color="darkgreen">&quot;Pressure drop model&quot;</font>;</textblock>
+
 <font color="blue">initial </font><font color="blue">algorithm </font>
   <font color="red">assert</font>((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)<font color="blue"> or </font>
           tau &gt; Modelica.Constants.eps,
@@ -442,9 +443,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.Interface997284f3a7348477angerI.png" ALT="Buildings.Fluid.Interfaces.FourPortHeatMassExchanger" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Interfaces.FourPortHeatMassExchanger"></A><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
 >Buildings.Fluid.Interfaces</A>.FourPortHeatMassExchanger</H2>
-<B>Model transporting two fluid streams between four ports with storing mass or energy</B><p>
+<B>Model transporting two fluid streams between four ports with storing mass or energy</B><p></P>
 <IMG SRC="Buildings.Fluid.Interface997284f3a7348477angerD.png" ALT="Buildings.Fluid.Interfaces.FourPortHeatMassExchanger">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This component transports two fluid streams between four ports. 
@@ -460,8 +461,7 @@ See for example
 Buildings.Fluid.Chillers.Carnot</a>.
 To add moisture input into (or moisture output from) volume <code>vol2</code>,
 the model can be replaced as shown in
-<A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.HexElement"
->
+<a href="modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 </p>
 <h4>Implementation</h4>
@@ -469,7 +469,8 @@ Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 The variable names follow the conventions used in 
 <a href="modelica://Modelica.Fluid.HeatExchangers.BasicHX">
 Modelica.Fluid.HeatExchangers.BasicHX</a>.
-<P>
+</p>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialFourPortInterface"
 >Buildings.Fluid.Interfaces.PartialFourPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters</A> (Parameters for flow resistance for models with four ports).
@@ -519,8 +520,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>computeFlowResistance1</TD><TD>true</TD><TD>=true, compute flow resistance. Set to false to assume no friction</TD></TR>
@@ -579,7 +579,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FourPortHeatMassExchanger <font color="darkgreen">
   &quot;Model transporting two fluid streams between four ports with storing mass or energy&quot;</font>
@@ -595,54 +595,10 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
   <font color="blue">import </font><A HREF="../../msl/3.2/help/Modelica_Constants.html#Modelica.Constants"
 >Modelica.Constants</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
->Buildings.Fluid.MixingVolumes.MixingVolume</A> vol1(
-    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium1.html#Buildings.Fluid.Interfaces.FourPort.Medium1"
->Medium1</A>,
-    nPorts = 2,
-    V=m1_flow_nominal*tau1/rho1_nominal,
-    <font color="blue">final </font>m_flow_nominal=m1_flow_nominal,
-    energyDynamics=<font color="blue">if </font>tau1 &gt; Modelica.Constants.eps<font color="blue">
-                         then </font>energyDynamics<font color="blue"> else </font>
-                         Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=<font color="blue">if </font>tau1 &gt; Modelica.Constants.eps<font color="blue">
-                         then </font>massDynamics<font color="blue"> else </font>
-                         Modelica.Fluid.Types.Dynamics.SteadyState,
-    <font color="blue">final </font>p_start=p1_start,
-    <font color="blue">final </font>T_start=T1_start,
-    <font color="blue">final </font>X_start=X1_start,
-    <font color="blue">final </font>C_start=C1_start,
-    <font color="blue">final </font>C_nominal=C1_nominal) <font color="darkgreen">&quot;Volume for fluid 1&quot;</font>;</textblock>
-
-<textblock type="annotcomp" expanded="false">  <font color="blue">replaceable </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
->Buildings.Fluid.MixingVolumes.MixingVolume</A> vol2
-    <font color="blue">constrainedby </font>Buildings.Fluid.MixingVolumes.MixingVolume(
-    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium2,
-    nPorts = 2,
-    V=m2_flow_nominal*tau2/rho2_nominal,
-    <font color="blue">final </font>m_flow_nominal = m2_flow_nominal,
-    energyDynamics=<font color="blue">if </font>tau2 &gt; Modelica.Constants.eps<font color="blue">
-                         then </font>energyDynamics<font color="blue"> else </font>
-                         Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=<font color="blue">if </font>tau2 &gt; Modelica.Constants.eps<font color="blue">
-                         then </font>massDynamics<font color="blue"> else </font>
-                         Modelica.Fluid.Types.Dynamics.SteadyState,
-    <font color="blue">final </font>p_start=p2_start,
-    <font color="blue">final </font>T_start=T2_start,
-    <font color="blue">final </font>X_start=X2_start,
-    <font color="blue">final </font>C_start=C2_start,
-    <font color="blue">final </font>C_nominal=C2_nominal) <font color="darkgreen">&quot;Volume for fluid 2&quot;</font>;</textblock>
-
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> tau1 = 30 <font color="darkgreen">&quot;Time constant at nominal flow&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> tau2 = 30 <font color="darkgreen">&quot;Time constant at nominal flow&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
->Modelica.SIunits.HeatFlowRate</A> Q1_flow=<font color="red"> sum</font>(vol1.heatPort.Q_flow) <font color="darkgreen">
-    &quot;Heat flow rate into medium 1&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
->Modelica.SIunits.HeatFlowRate</A> Q2_flow=<font color="red"> sum</font>(vol2.heatPort.Q_flow) <font color="darkgreen">
-    &quot;Heat flow rate into medium 2&quot;</font>;
 
   <font color="darkgreen">// Advanced</font>
   <font color="blue">parameter </font>Boolean homotopyInitialization = true <font color="darkgreen">&quot;= true, use homotopy method&quot;</font>;
@@ -692,6 +648,83 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
        quantity=Medium2.extraPropertiesNames) =<font color="red"> fill</font>(1E-2, Medium2.nC) <font color="darkgreen">
     &quot;Nominal value of trace substances. (Set to typical order of magnitude.)&quot;</font>;
 
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</A> vol1(
+    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium1.html#Buildings.Fluid.Interfaces.FourPort.Medium1"
+>Medium1</A>,
+    nPorts = 2,
+    V=m1_flow_nominal*tau1/rho1_nominal,
+    <font color="blue">final </font>m_flow_nominal=m1_flow_nominal,
+    energyDynamics=<font color="blue">if </font>tau1 &gt; Modelica.Constants.eps<font color="blue">
+                         then </font>energyDynamics<font color="blue"> else </font>
+                         Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=<font color="blue">if </font>tau1 &gt; Modelica.Constants.eps<font color="blue">
+                         then </font>massDynamics<font color="blue"> else </font>
+                         Modelica.Fluid.Types.Dynamics.SteadyState,
+    <font color="blue">final </font>p_start=p1_start,
+    <font color="blue">final </font>T_start=T1_start,
+    <font color="blue">final </font>X_start=X1_start,
+    <font color="blue">final </font>C_start=C1_start,
+    <font color="blue">final </font>C_nominal=C1_nominal) <font color="darkgreen">&quot;Volume for fluid 1&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">replaceable </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</A> vol2
+    <font color="blue">constrainedby </font>Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
+    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium2,
+    nPorts = 2,
+    V=m2_flow_nominal*tau2/rho2_nominal,
+    <font color="blue">final </font>m_flow_nominal = m2_flow_nominal,
+    energyDynamics=<font color="blue">if </font>tau2 &gt; Modelica.Constants.eps<font color="blue">
+                         then </font>energyDynamics<font color="blue"> else </font>
+                         Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=<font color="blue">if </font>tau2 &gt; Modelica.Constants.eps<font color="blue">
+                         then </font>massDynamics<font color="blue"> else </font>
+                         Modelica.Fluid.Types.Dynamics.SteadyState,
+    <font color="blue">final </font>p_start=p2_start,
+    <font color="blue">final </font>T_start=T2_start,
+    <font color="blue">final </font>X_start=X2_start,
+    <font color="blue">final </font>C_start=C2_start,
+    <font color="blue">final </font>C_nominal=C2_nominal) <font color="darkgreen">&quot;Volume for fluid 2&quot;</font>;</textblock>
+
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> Q1_flow = vol1.heatPort.Q_flow <font color="darkgreen">
+    &quot;Heat flow rate into medium 1&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> Q2_flow = vol2.heatPort.Q_flow <font color="darkgreen">
+    &quot;Heat flow rate into medium 2&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> preDro1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium1.html#Buildings.Fluid.Interfaces.FourPort.Medium1"
+>Medium1</A>,
+    <font color="blue">final </font>use_dh=false,
+    <font color="blue">final </font>m_flow_nominal=m1_flow_nominal,
+    <font color="blue">final </font>deltaM=deltaM1,
+    <font color="blue">final </font>allowFlowReversal=allowFlowReversal1,
+    <font color="blue">final </font>show_T=false,
+    <font color="blue">final </font>from_dp=from_dp1,
+    <font color="blue">final </font>linearized=linearizeFlowResistance1,
+    <font color="blue">final </font>homotopyInitialization=homotopyInitialization,
+    <font color="blue">final </font>dp_nominal=dp1_nominal,
+    <font color="blue">final </font>dh=1,
+    <font color="blue">final </font>ReC=4000) <font color="darkgreen">&quot;Pressure drop model for fluid 1&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> preDro2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium2.html#Buildings.Fluid.Interfaces.FourPort.Medium2"
+>Medium2</A>,
+    <font color="blue">final </font>use_dh=false,
+    <font color="blue">final </font>m_flow_nominal=m2_flow_nominal,
+    <font color="blue">final </font>deltaM=deltaM2,
+    <font color="blue">final </font>allowFlowReversal=allowFlowReversal2,
+    <font color="blue">final </font>show_T=false,
+    <font color="blue">final </font>from_dp=from_dp2,
+    <font color="blue">final </font>linearized=linearizeFlowResistance2,
+    <font color="blue">final </font>homotopyInitialization=homotopyInitialization,
+    <font color="blue">final </font>dp_nominal=dp2_nominal,
+    <font color="blue">final </font>dh=1,
+    <font color="blue">final </font>ReC=4000) <font color="darkgreen">&quot;Pressure drop model for fluid 2&quot;</font>;</textblock>
+
 <font color="blue">protected </font>
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium1.ThermodynamicState</A> sta1_nominal=<font color="red">Medium1.setState_pTX</font>(
@@ -719,41 +752,6 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >Modelica.SIunits.SpecificEnthalpy</A> h2_outflow_start =<font color="red"> Medium2.specificEnthalpy</font>(sta2_start) <font color="darkgreen">
     &quot;Start value for outflowing enthalpy&quot;</font>;
 
-<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
-  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
->Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> preDro1(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium1.html#Buildings.Fluid.Interfaces.FourPort.Medium1"
->Medium1</A>,
-    <font color="blue">final </font>use_dh=false,
-    <font color="blue">final </font>m_flow_nominal=m1_flow_nominal,
-    <font color="blue">final </font>deltaM=deltaM1,
-    <font color="blue">final </font>allowFlowReversal=allowFlowReversal1,
-    <font color="blue">final </font>show_T=false,
-    <font color="blue">final </font>show_V_flow=show_V_flow,
-    <font color="blue">final </font>from_dp=from_dp1,
-    <font color="blue">final </font>linearized=linearizeFlowResistance1,
-    <font color="blue">final </font>homotopyInitialization=homotopyInitialization,
-    <font color="blue">final </font>dp_nominal=dp1_nominal,
-    <font color="blue">final </font>dh=1,
-    <font color="blue">final </font>ReC=4000) <font color="darkgreen">&quot;Pressure drop model for fluid 1&quot;</font>;</textblock>
-
-<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
->Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> preDro2(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium2.html#Buildings.Fluid.Interfaces.FourPort.Medium2"
->Medium2</A>,
-    <font color="blue">final </font>use_dh=false,
-    <font color="blue">final </font>m_flow_nominal=m2_flow_nominal,
-    <font color="blue">final </font>deltaM=deltaM2,
-    <font color="blue">final </font>allowFlowReversal=allowFlowReversal2,
-    <font color="blue">final </font>show_T=false,
-    <font color="blue">final </font>show_V_flow=show_V_flow,
-    <font color="blue">final </font>from_dp=from_dp2,
-    <font color="blue">final </font>linearized=linearizeFlowResistance2,
-    <font color="blue">final </font>homotopyInitialization=homotopyInitialization,
-    <font color="blue">final </font>dp_nominal=dp2_nominal,
-    <font color="blue">final </font>dh=1,
-    <font color="blue">final </font>ReC=4000) <font color="darkgreen">&quot;Pressure drop model for fluid 2&quot;</font>;</textblock>
-
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(vol1.ports[2], port_b1);
   <font color="red">connect</font>(vol2.ports[2], port_b2);
@@ -770,9 +768,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.Interfacee19327459e14118bangerI.png" ALT="Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger"></A><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
 >Buildings.Fluid.Interfaces</A>.StaticTwoPortHeatMassExchanger</H2>
-<B>Partial model transporting fluid between two ports without storing mass or energy</B><p>
+<B>Partial model transporting fluid between two ports without storing mass or energy</B><p></P>
 <IMG SRC="Buildings.Fluid.Interfacee19327459e14118bangerD.png" ALT="Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This component transports fluid between its two ports, without
@@ -794,7 +792,6 @@ If the parameter <code>linearizeFlowResistance</code> is set to true,
 then the whole pressure drop vs. flow resistance curve is linearized.
 </p>
 <h4>Implementation</h4>
-<p>
 This model uses inputs and constants that need to be set by models
 that extend or instantiate this model.
 The following inputs need to be assigned:
@@ -803,15 +800,15 @@ The following inputs need to be assigned:
 <code>Q_flow</code>, which is the heat flow rate added to the medium.
 </li>
 <li>
-<code>mXi_flow</code>, which is the species mass flow rate added to the medium.
+<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium.
 </li>
 </ul>
-</p>
+
 <p>
 Set the constant <code>sensibleOnly=true</code> if the model that extends
-or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
+or instantiates this model sets <code>mWat_flow = 0</code>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters</A> (Parameters for flow resistance for models with two ports).
@@ -838,8 +835,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>true</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>computeFlowResistance</TD><TD>(abs(dp_nominal) &gt; Modelica....</TD><TD>=true, compute flow resistance. Set to false to assume no friction</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
@@ -860,14 +856,13 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>COut[Medium.nC]</TD><TD>Leaving trace substances of the component</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> StaticTwoPortHeatMassExchanger <font color="darkgreen">
   &quot;Partial model transporting fluid between two ports without storing mass or energy&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A>(
-  showDesignFlowDirection = false,
-  <font color="blue">final </font>show_T=true);
+  showDesignFlowDirection = false);
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters</A>(
     <font color="blue">final </font>computeFlowResistance=(<font color="red">abs</font>(dp_nominal) &gt; Modelica.Constants.eps));
@@ -876,8 +871,8 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
   <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</A> Q_flow <font color="darkgreen">&quot;Heat transfered into the medium&quot;</font>;
   <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->Modelica.SIunits.MassFlowRate</A> mXi_flow[Medium.nXi] <font color="darkgreen">
-    &quot;Mass flow rates of independent substances added to the medium&quot;</font>;
+>Modelica.SIunits.MassFlowRate</A> mWat_flow <font color="darkgreen">
+    &quot;Moisture mass flow rate added to the medium&quot;</font>;
 
   <font color="darkgreen">// Models for conservation equations and pressure drop</font>
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation"
@@ -898,7 +893,6 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     <font color="blue">final </font>deltaM=deltaM,
     <font color="blue">final </font>allowFlowReversal=allowFlowReversal,
     <font color="blue">final </font>show_T=false,
-    <font color="blue">final </font>show_V_flow=show_V_flow,
     <font color="blue">final </font>from_dp=from_dp,
     <font color="blue">final </font>linearized=linearizeFlowResistance,
     <font color="blue">final </font>homotopyInitialization=homotopyInitialization,
@@ -927,8 +921,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     &quot;Block to set heat input into volume&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A>
-    masExc[Medium.nXi](y=mXi_flow) <font color="blue">if </font>
-       Medium.nXi &gt; 0 <font color="darkgreen">&quot;Block to set mass exchange in volume&quot;</font>;</textblock>
+    masExc(<font color="blue">final </font>y=mWat_flow) <font color="darkgreen">&quot;Block to set moisture exchange in volume&quot;</font>;</textblock>
 <font color="blue">equation </font>
   <font color="red">connect</font>(vol.hOut, hOut);
   <font color="red">connect</font>(vol.XiOut, XiOut);
@@ -939,7 +932,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(vol.port_b, port_b);</textblock>
 
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(heaInp.y, vol.Q_flow);
-  <font color="red">connect</font>(masExc.y, vol.mXi_flow);</textblock>
+  <font color="red">connect</font>(masExc.y, vol.mWat_flow);</textblock>
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>StaticTwoPortHeatMassExchanger;
 </PRE>
 <HR>
@@ -949,9 +942,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.Interfacecfb0ac59541ba4f9angerI.png" ALT="Buildings.Fluid.Interfaces.StaticFourPortHeatMassExchanger" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Interfaces.StaticFourPortHeatMassExchanger"></A><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
 >Buildings.Fluid.Interfaces</A>.StaticFourPortHeatMassExchanger</H2>
-<B>Partial model transporting two fluid streams between four ports without storing mass or energy</B><p>
+<B>Partial model transporting two fluid streams between four ports without storing mass or energy</B><p></P>
 <IMG SRC="Buildings.Fluid.Interfacecfb0ac59541ba4f9angerD.png" ALT="Buildings.Fluid.Interfaces.StaticFourPortHeatMassExchanger">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This component transports two fluid streams between four ports, without
@@ -974,26 +967,23 @@ If the parameter <code>linearizeFlowResistance<i>N</i></code> is set to true,
 then the whole pressure drop vs. flow resistance curve is linearized.
 </p>
 
-
-</p>
 <h4>Implementation</h4>
 <p>
 This model uses inputs and constants that need to be set by models
 that extend or instantiate this model.
 The following inputs need to be assigned, where <code><i>N</i></code> denotes <code>1</code> or
-<code>2</code>:
+<code>2</code>:</p>
 <ul>
 <li>
 <code>Q<i>N</i>_flow</code>, which is the heat flow rate added to the medium <i>N</i>.
 </li>
 <li>
-<code>mXi<i>N</i>_flow</code>, which is the species mass flow rate added to the medium <i>N</i>.
+<code>mWat<i>N</i>_flow</code>, which is the moisture mass flow rate added to the medium <i>N</i>.
 </li>
 </ul>
-</p>
 <p>
 Set the constant <code>sensibleOnly<i>N</i>=true</code> if the model that extends
-or instantiates this model sets <code>mXi<i>N</i>_flow = zeros(Medium.nXi<i>N</i>)</code>.
+or instantiates this model sets <code>mWat<i>N</i>_flow = 0</code>.
 </p>
 <p>
      Note that the model does not implement <code>0 = Q1_flow + Q2_flow</code> or
@@ -1001,8 +991,7 @@ or instantiates this model sets <code>mXi<i>N</i>_flow = zeros(Medium.nXi<i>N</i
      with the environment, then a model that extends this model needs to provide these 
      equations.
 </p>
-</p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialFourPortInterface"
 >Buildings.Fluid.Interfaces.PartialFourPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters</A> (Parameters for flow resistance for models with four ports).
@@ -1052,8 +1041,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>computeFlowResistance1</TD><TD>(dp1_nominal &gt; Modelica.Cons...</TD><TD>=true, compute flow resistance. Set to false to assume no friction</TD></TR>
@@ -1078,7 +1066,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> StaticFourPortHeatMassExchanger <font color="darkgreen">
   &quot;Partial model transporting two fluid streams between four ports without storing mass or energy&quot;</font>
@@ -1094,14 +1082,14 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >Modelica.SIunits.HeatFlowRate</A> Q1_flow <font color="darkgreen">
     &quot;Heat transfered into the medium 1&quot;</font>;
   <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->Medium1.MassFlowRate</A> mXi1_flow[Medium1.nXi] <font color="darkgreen">
-    &quot;Mass flow rates of independent substances added to the medium 1&quot;</font>;
+>Medium1.MassFlowRate</A> mWat1_flow <font color="darkgreen">
+    &quot;Moisture mass flow rate added to the medium 1&quot;</font>;
   <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</A> Q2_flow <font color="darkgreen">
     &quot;Heat transfered into the medium 2&quot;</font>;
   <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->Medium2.MassFlowRate</A> mXi2_flow[Medium2.nXi] <font color="darkgreen">
-    &quot;Mass flow rates of independent substances added to the medium 2&quot;</font>;
+>Medium2.MassFlowRate</A> mWat2_flow <font color="darkgreen">
+    &quot;Moisture mass flow rate added to the medium 2&quot;</font>;
   <font color="blue">constant </font>Boolean sensibleOnly1 <font color="darkgreen">
     &quot;Set to true if sensible exchange only for medium 1&quot;</font>;
   <font color="blue">constant </font>Boolean sensibleOnly2 <font color="darkgreen">
@@ -1117,12 +1105,11 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     <font color="blue">final </font>allowFlowReversal = allowFlowReversal1,
     <font color="blue">final </font>m_flow_small = m1_flow_small,
     <font color="blue">final </font>homotopyInitialization = homotopyInitialization,
-    <font color="blue">final </font>show_V_flow = false,
     <font color="blue">final </font>from_dp = from_dp1,
     <font color="blue">final </font>linearizeFlowResistance = linearizeFlowResistance1,
     <font color="blue">final </font>deltaM = deltaM1,
     <font color="blue">final </font>Q_flow = Q1_flow,
-    <font color="blue">final </font>mXi_flow = mXi1_flow) <font color="darkgreen">
+    <font color="blue">final </font>mWat_flow = mWat1_flow) <font color="darkgreen">
     &quot;Model for heat, mass, species, trace substance and pressure balance of stream 1&quot;</font>;
   <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger"
 >Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</A> bal2(
@@ -1134,12 +1121,11 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     <font color="blue">final </font>allowFlowReversal = allowFlowReversal2,
     <font color="blue">final </font>m_flow_small = m2_flow_small,
     <font color="blue">final </font>homotopyInitialization = homotopyInitialization,
-    <font color="blue">final </font>show_V_flow = false,
     <font color="blue">final </font>from_dp = from_dp2,
     <font color="blue">final </font>linearizeFlowResistance = linearizeFlowResistance2,
     <font color="blue">final </font>deltaM = deltaM2,
     <font color="blue">final </font>Q_flow = Q2_flow,
-    <font color="blue">final </font>mXi_flow = mXi2_flow) <font color="darkgreen">
+    <font color="blue">final </font>mWat_flow = mWat2_flow) <font color="darkgreen">
     &quot;Model for heat, mass, species, trace substance and pressure balance of stream 2&quot;</font>;
 <font color="blue">equation </font>
   <font color="red">connect</font>(bal1.port_a, port_a1);
@@ -1155,9 +1141,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.Interfacece5744ecb2dac5c0rfaceI.png" ALT="Buildings.Fluid.Interfaces.PartialTwoPortInterface" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Interfaces.PartialTwoPortInterface"></A><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
 >Buildings.Fluid.Interfaces</A>.PartialTwoPortInterface</H2>
-<B>Partial model transporting fluid between two ports without storing mass or energy</B><p>
+<B>Partial model transporting fluid between two ports without storing mass or energy</B><p></P>
 <IMG SRC="Buildings.Fluid.Interfacece5744ecb2dac5c0rfaceD.png" ALT="Buildings.Fluid.Interfaces.PartialTwoPortInterface">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This component defines the interface for models that 
@@ -1165,10 +1151,12 @@ transports a fluid between two ports. It is similar to
 <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPortTransport"
 >
 Modelica.Fluid.Interfaces.PartialTwoPortTransport</a>, but it does not 
-include the species balance 
+include the species balance
+</p> 
 <pre>
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
 </pre>
+<p>
 Thus, it can be used as a base class for a heat <i>and</i> mass transfer component
 </p>
 <p>
@@ -1178,7 +1166,7 @@ mass transfer and pressure drop equations. See for example
 >
 Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPort"
 >Modelica.Fluid.Interfaces.PartialTwoPort</A> (Partial component with two ports).
 <P><H3>Parameters</H3><P>
@@ -1196,10 +1184,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialTwoPortInterface <font color="darkgreen">
   &quot;Partial model transporting fluid between two ports without storing mass or energy&quot;</font>
@@ -1221,15 +1208,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
   <font color="blue">parameter </font>Boolean homotopyInitialization = true <font color="darkgreen">&quot;= true, use homotopy method&quot;</font>;
 
   <font color="darkgreen">// Diagnostics</font>
-   <font color="blue">parameter </font>Boolean show_V_flow = false <font color="darkgreen">
-    &quot;= true, if volume flow rate at inflowing port is computed&quot;</font>;
    <font color="blue">parameter </font>Boolean show_T = false <font color="darkgreen">
-    &quot;= true, if actual temperature at port is computed (may lead to events)&quot;</font>;
-
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
->Modelica.SIunits.VolumeFlowRate</A> V_flow=
-      m_flow/<font color="red">Medium.density</font>(sta_a) <font color="blue">if </font>show_V_flow <font color="darkgreen">
-    &quot;Volume flow rate at inflowing port (positive when flow from port_a to port_b)&quot;</font>;
+    &quot;= true, if actual temperature at port is computed&quot;</font>;
 
   <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow(start=0) = port_a.m_flow <font color="darkgreen">
@@ -1241,27 +1221,27 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</A> sta_a=<font color="blue">if </font>homotopyInitialization<font color="blue"> then </font>
       <font color="red">Medium.setState_phX</font>(port_a.p,
-                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a.h_outflow),
+                          <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a.h_outflow)),
                                    simplified=<font color="red">inStream</font>(port_a.h_outflow)),
-                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a.Xi_outflow),
+                          <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a.Xi_outflow)),
                                    simplified=<font color="red">inStream</font>(port_a.Xi_outflow)))<font color="blue">
     else </font>
       <font color="red">Medium.setState_phX</font>(port_a.p,
-                          <font color="red">actualStream</font>(port_a.h_outflow),
-                          <font color="red">actualStream</font>(port_a.Xi_outflow)) <font color="blue">if </font>
-         show_T<font color="blue"> or </font>show_V_flow <font color="darkgreen">&quot;Medium properties in port_a&quot;</font>;
+                          <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a.h_outflow)),
+                          <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a.Xi_outflow))) <font color="blue">if </font>
+         show_T <font color="darkgreen">&quot;Medium properties in port_a&quot;</font>;
 
   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</A> sta_b=<font color="blue">if </font>homotopyInitialization<font color="blue"> then </font>
       <font color="red">Medium.setState_phX</font>(port_b.p,
-                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b.h_outflow),
+                          <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b.h_outflow)),
                                    simplified=port_b.h_outflow),
-                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b.Xi_outflow),
+                          <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b.Xi_outflow)),
                             simplified=port_b.Xi_outflow))<font color="blue">
     else </font>
       <font color="red">Medium.setState_phX</font>(port_b.p,
-                          <font color="red">actualStream</font>(port_b.h_outflow),
-                          <font color="red">actualStream</font>(port_b.Xi_outflow)) <font color="blue">if </font>
+                          <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b.h_outflow)),
+                          <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b.Xi_outflow))) <font color="blue">if </font>
           show_T <font color="darkgreen">&quot;Medium properties in port_b&quot;</font>;
 <font color="blue">equation </font>
   dp = port_a.p - port_b.p;
@@ -1274,9 +1254,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
 <H2><IMG SRC="Buildings.Fluid.Interface0bf626e24a9671a0rfaceI.png" ALT="Buildings.Fluid.Interfaces.PartialFourPortInterface" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Interfaces.PartialFourPortInterface"></A><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
 >Buildings.Fluid.Interfaces</A>.PartialFourPortInterface</H2>
-<B>Partial model transporting fluid between two ports without storing mass or energy</B><p>
+<B>Partial model transporting fluid between two ports without storing mass or energy</B><p></P>
 <IMG SRC="Buildings.Fluid.Interface0bf626e24a9671a0rfaceD.png" ALT="Buildings.Fluid.Interfaces.PartialFourPortInterface">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This component defines the interface for models that 
@@ -1290,7 +1270,7 @@ but it has four ports instead of two.
 The model is used by other models in this package that add heat transfer,
 mass transfer and pressure drop equations.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPort"
 >Buildings.Fluid.Interfaces.FourPort</A> (Partial model with four ports).
 <P><H3>Parameters</H3><P>
@@ -1324,10 +1304,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialFourPortInterface <font color="darkgreen">
   &quot;Partial model transporting fluid between two ports without storing mass or energy&quot;</font>
@@ -1357,19 +1336,8 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     &quot;Small mass flow rate for regularization of zero flow&quot;</font>;
   <font color="blue">parameter </font>Boolean homotopyInitialization = true <font color="darkgreen">&quot;= true, use homotopy method&quot;</font>;
   <font color="darkgreen">// Diagnostics</font>
-  <font color="blue">parameter </font>Boolean show_V_flow = false <font color="darkgreen">
-    &quot;= true, if volume flow rate at inflowing port is computed&quot;</font>;
   <font color="blue">parameter </font>Boolean show_T = false <font color="darkgreen">
-    &quot;= true, if actual temperature at port is computed (may lead to events)&quot;</font>;
-<font color="blue">public </font>
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
->Modelica.SIunits.VolumeFlowRate</A> V1_flow=m1_flow/<font color="red">Medium1.density</font>(sta_a1) <font color="blue">if </font>
-        show_V_flow <font color="darkgreen">
-    &quot;Volume flow rate at inflowing port (positive when flow from port_a1 to port_b1)&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
->Modelica.SIunits.VolumeFlowRate</A> V2_flow=m2_flow/<font color="red">Medium2.density</font>(sta_a2) <font color="blue">if </font>
-        show_V_flow <font color="darkgreen">
-    &quot;Volume flow rate at inflowing port (positive when flow from port_a2 to port_b2)&quot;</font>;
+    &quot;= true, if actual temperature at port is computed&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
 >Medium1.MassFlowRate</A> m1_flow(start=0) = port_a1.m_flow <font color="darkgreen">
     &quot;Mass flow rate from port_a1 to port_b1 (m1_flow &gt; 0 is design flow direction)&quot;</font>;
@@ -1385,50 +1353,50 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium1.ThermodynamicState</A> sta_a1=<font color="blue">if </font>homotopyInitialization<font color="blue"> then </font>
       <font color="red">Medium1.setState_phX</font>(port_a1.p,
-         <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a1.h_outflow),
+         <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a1.h_outflow)),
                   simplified=<font color="red">inStream</font>(port_a1.h_outflow)),
-         <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a1.Xi_outflow),
+         <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a1.Xi_outflow)),
                   simplified=<font color="red">inStream</font>(port_a1.Xi_outflow)))<font color="blue">
     else </font>
       <font color="red">Medium1.setState_phX</font>(port_a1.p,
-                           <font color="red">actualStream</font>(port_a1.h_outflow),
-                           <font color="red">actualStream</font>(port_a1.Xi_outflow)) <font color="blue">if </font>
-         show_T<font color="blue"> or </font>show_V_flow <font color="darkgreen">&quot;Medium properties in port_a1&quot;</font>;
+                           <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a1.h_outflow)),
+                           <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a1.Xi_outflow))) <font color="blue">if </font>
+         show_T <font color="darkgreen">&quot;Medium properties in port_a1&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium1.ThermodynamicState</A> sta_b1=<font color="blue">if </font>homotopyInitialization<font color="blue"> then </font>
       <font color="red">Medium1.setState_phX</font>(port_b1.p,
-          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b1.h_outflow),
+          <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b1.h_outflow)),
                    simplified=port_b1.h_outflow),
-          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b1.Xi_outflow),
+          <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b1.Xi_outflow)),
                    simplified=port_b1.Xi_outflow))<font color="blue">
     else </font>
       <font color="red">Medium1.setState_phX</font>(port_b1.p,
-                           <font color="red">actualStream</font>(port_b1.h_outflow),
-                           <font color="red">actualStream</font>(port_b1.Xi_outflow)) <font color="blue">if </font>
+                           <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b1.h_outflow)),
+                           <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b1.Xi_outflow))) <font color="blue">if </font>
          show_T <font color="darkgreen">&quot;Medium properties in port_b1&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium2.ThermodynamicState</A> sta_a2=<font color="blue">if </font>homotopyInitialization<font color="blue"> then </font>
       <font color="red">Medium2.setState_phX</font>(port_b2.p,
-          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a2.h_outflow),
+          <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a2.h_outflow)),
                    simplified=<font color="red">inStream</font>(port_a2.h_outflow)),
-          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a2.Xi_outflow),
+          <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a2.Xi_outflow)),
                    simplified=<font color="red">inStream</font>(port_a2.Xi_outflow)))<font color="blue">
     else </font>
       <font color="red">Medium2.setState_phX</font>(port_a2.p,
-                           <font color="red">actualStream</font>(port_a2.h_outflow),
-                           <font color="red">actualStream</font>(port_a2.Xi_outflow)) <font color="blue">if </font>
-         show_T<font color="blue"> or </font>show_V_flow <font color="darkgreen">&quot;Medium properties in port_a2&quot;</font>;
+                           <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a2.h_outflow)),
+                           <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a2.Xi_outflow))) <font color="blue">if </font>
+         show_T <font color="darkgreen">&quot;Medium properties in port_a2&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium2.ThermodynamicState</A> sta_b2=<font color="blue">if </font>homotopyInitialization<font color="blue"> then </font>
       <font color="red">Medium2.setState_phX</font>(port_b2.p,
-          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b2.h_outflow),
+          <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b2.h_outflow)),
                    simplified=port_b2.h_outflow),
-          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b2.Xi_outflow),
+          <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b2.Xi_outflow)),
                    simplified=port_b2.Xi_outflow))<font color="blue">
     else </font>
       <font color="red">Medium2.setState_phX</font>(port_b2.p,
-                           <font color="red">actualStream</font>(port_b2.h_outflow),
-                           <font color="red">actualStream</font>(port_b2.Xi_outflow)) <font color="blue">if </font>
+                           <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b2.h_outflow)),
+                           <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b2.Xi_outflow))) <font color="blue">if </font>
          show_T <font color="darkgreen">&quot;Medium properties in port_b2&quot;</font>;
 <font color="blue">protected </font>
   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
@@ -1459,9 +1427,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.Interface1d8308de49633a59ationI.png" ALT="Buildings.Fluid.Interfaces.ConservationEquation" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Interfaces.ConservationEquation"></A><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
 >Buildings.Fluid.Interfaces</A>.ConservationEquation</H2>
-<B>Lumped volume with mass and energy balance</B><p>
+<B>Lumped volume with mass and energy balance</B><p></P>
 <IMG SRC="Buildings.Fluid.Interface1d8308de49633a59ationD.png" ALT="Buildings.Fluid.Interfaces.ConservationEquation">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Basic model for an ideally mixed fluid volume with the ability to store mass and energy.
@@ -1476,17 +1444,15 @@ needs to be assigned.
 For most components, this can be set to a parameter. However, for components such as 
 expansion vessels, the fluid volume can change in time.
 </p>
-<p>
 Input connectors of the model are
 <ul>
 <li>
 <code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
 </li>
 <li>
-<code>mXi_flow</code>, which is the species mass flow rate added to the medium.
+<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium.
 </li>
 </ul>
-</p>
 <p>
 The model can be used as a dynamic model or as a steady-state model.
 However, for a steady-state model with exactly two fluid ports connected, 
@@ -1505,7 +1471,7 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a> and
 >
 Buildings.Fluid.Storage.ExpansionVessel</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes).
 <P><H3>Parameters</H3><P>
@@ -1539,7 +1505,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>Q_flow</TD><TD>Heat transfered into the medium [W]</TD></TR>
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>mXi_flow[Medium.nXi]</TD><TD>Mass flow rates of independent substances added to the medium [kg/s]</TD></TR>
+>RealInput</A></TD><TD>mWat_flow</TD><TD>Moisture mass flow rate added to the medium [kg/s]</TD></TR>
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>hOut</TD><TD>Leaving enthalpy of the component [J/kg]</TD></TR>
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
@@ -1547,7 +1513,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>COut[Medium.nC]</TD><TD>Leaving trace substances of the component</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ConservationEquation <font color="darkgreen">
   &quot;Lumped volume with mass and energy balance&quot;</font>
@@ -1569,7 +1535,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
       nominal=Medium.p_default,
       stateSelect=<font color="blue">if </font><font color="blue">not </font>(massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)<font color="blue">
                      then </font>StateSelect.prefer<font color="blue"> else </font>StateSelect.default),
-    h(start=<font color="red">Medium.specificEnthalpy_pTX</font>(p_start, T_start, X_start)),
+    h(start=hStart),
     T(start=T_start,
       nominal=Medium.T_default,
       stateSelect=<font color="blue">if </font>(<font color="blue">not </font>(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))<font color="blue">
@@ -1592,7 +1558,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
   <font color="darkgreen">// C need to be added here because unlike for Xi, which has medium.Xi,</font>
   <font color="darkgreen">// there is no variable medium.C</font>
   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
->Medium.ExtraProperty</A> C[Medium.nC](<font color="blue">each </font>nominal=C_nominal) <font color="darkgreen">
+>Medium.ExtraProperty</A> C[Medium.nC](nominal=C_nominal) <font color="darkgreen">
     &quot;Trace substance mixture content&quot;</font>;
 
   <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
@@ -1615,12 +1581,13 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >Modelica.Blocks.Interfaces.RealInput</A> Q_flow(unit=&quot;W&quot;) <font color="darkgreen">
     &quot;Heat transfered into the medium&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> mXi_flow[Medium.nXi](<font color="blue">each </font>unit=&quot;kg/s&quot;) <font color="darkgreen">
-    &quot;Mass flow rates of independent substances added to the medium&quot;</font>;</textblock>
+>Modelica.Blocks.Interfaces.RealInput</A> mWat_flow(unit=&quot;kg/s&quot;) <font color="darkgreen">
+    &quot;Moisture mass flow rate added to the medium&quot;</font>;</textblock>
 
   <font color="darkgreen">// Outputs that are needed in models that extend this model</font>
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> hOut(unit=&quot;J/kg&quot;) <font color="darkgreen">
+>Modelica.Blocks.Interfaces.RealOutput</A> hOut(unit=&quot;J/kg&quot;,
+                                             start=hStart) <font color="darkgreen">
     &quot;Leaving enthalpy of the component&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> XiOut[Medium.nXi](<font color="blue">each </font>unit=&quot;1&quot;,
@@ -1647,70 +1614,24 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
      T=T_start,
      p=p_start,
      X=X_start[1:Medium.nXi])) <font color="darkgreen">&quot;Density, used to compute fluid mass&quot;</font>;
-<font color="blue">equation </font>
-  <font color="darkgreen">// Total quantities</font>
-  m = fluidVolume*medium.d;
-  mXi = m*medium.Xi;
-  U = m*medium.u;
-  mC = m*C;
 
-  hOut = medium.h;
-  XiOut = medium.Xi;
-  COut = C;
-
-  <font color="blue">for </font>i<font color="blue"> in </font>1:nPorts<font color="blue"> loop</font>
-    ports_H_flow[i]     = ports[i].m_flow *<font color="red"> actualStream</font>(ports[i].h_outflow) <font color="darkgreen">
-      &quot;Enthalpy flow&quot;</font>;
-    ports_mXi_flow[i,:] = ports[i].m_flow *<font color="red"> actualStream</font>(ports[i].Xi_outflow) <font color="darkgreen">
-      &quot;Component mass flow&quot;</font>;
-    ports_mC_flow[i,:]  = ports[i].m_flow *<font color="red"> actualStream</font>(ports[i].C_outflow) <font color="darkgreen">
-      &quot;Trace substance mass flow&quot;</font>;
-  <font color="blue">end for</font>;
-
-  <font color="blue">for </font>i<font color="blue"> in </font>1:Medium.nXi<font color="blue"> loop</font>
-    mbXi_flow[i] =<font color="red"> sum</font>(ports_mXi_flow[:,i]);
-  <font color="blue">end for</font>;
-
-  <font color="blue">for </font>i<font color="blue"> in </font>1:Medium.nC<font color="blue"> loop</font>
-    mbC_flow[i]  =<font color="red"> sum</font>(ports_mC_flow[:,i]);
-  <font color="blue">end for</font>;
-
-  mb_flow =<font color="red"> sum</font>(ports.m_flow);
-  Hb_flow =<font color="red"> sum</font>(ports_H_flow);
-
-  <font color="darkgreen">// Energy and mass balances</font>
-  <font color="blue">if </font>energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState<font color="blue"> then</font>
-    0 = Hb_flow + Q_flow;
-  <font color="blue">else</font>
-    <font color="red">der</font>(U) = Hb_flow + Q_flow;
-  <font color="blue">end if</font>;
-
-  <font color="blue">if </font>massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState<font color="blue"> then</font>
-    0 = mb_flow +<font color="red"> sum</font>(mXi_flow);
-  <font color="blue">else</font>
-    <font color="red">der</font>(m) = mb_flow +<font color="red"> sum</font>(mXi_flow);
-  <font color="blue">end if</font>;
-
-  <font color="blue">if </font>substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState<font color="blue"> then</font>
-    <font color="red">zeros</font>(Medium.nXi) = mbXi_flow + mXi_flow;
-  <font color="blue">else</font>
-    <font color="red">der</font>(mXi) = mbXi_flow + mXi_flow;
-  <font color="blue">end if</font>;
-
-  <font color="blue">if </font>traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState<font color="blue"> then</font>
-    <font color="red">zeros</font>(Medium.nC)  = mbC_flow;
-  <font color="blue">else</font>
-    <font color="red">der</font>(mC)  = mbC_flow;
-  <font color="blue">end if</font>;
-
-  <font color="darkgreen">// Properties of outgoing flows</font>
-  <font color="blue">for </font>i<font color="blue"> in </font>1:nPorts<font color="blue"> loop</font>
-      ports[i].p          = medium.p;
-      ports[i].h_outflow  = medium.h;
-      ports[i].Xi_outflow = medium.Xi;
-      ports[i].C_outflow  = C;
-  <font color="blue">end for</font>;
+  <font color="darkgreen">// Parameter that is used to construct the vector mXi_flow</font>
+  <font color="blue">final </font><font color="blue">parameter </font>Real s[Medium.nXi] = {<font color="blue">if </font><font color="red">Modelica.Utilities.Strings.isEqual</font>(string1=Medium.substanceNames[i],
+                                            string2=&quot;Water&quot;,
+                                            caseSensitive=false)<font color="blue">
+                                            then </font>1<font color="blue"> else </font>0 <font color="blue">for </font>i<font color="blue"> in </font>1:Medium.nXi} <font color="darkgreen">
+    &quot;Vector with zero everywhere except where species is&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</A> hStart=
+    <font color="red">Medium.specificEnthalpy_pTX</font>(p_start, T_start, X_start) <font color="darkgreen">
+    &quot;Start value for specific enthalpy&quot;</font>;
 <font color="blue">initial </font><font color="blue">equation </font>
+  <font color="darkgreen">// Assert that the substance with name &#39;water&#39; has been found.</font>
+  <font color="red">assert</font>(Medium.nXi == 0<font color="blue"> or </font><font color="red">abs</font>(<font color="red">sum</font>(s)-1) &lt; 1e-5,
+      &quot;If Medium.nXi &gt; 1, then substance &#39;water&#39; must be present for one component.&#39;&quot;
+         + Medium.mediumName + &quot;&#39;.\n&quot;
+         + &quot;Check medium model.&quot;);
+
   <font color="darkgreen">// Make sure that if energyDynamics is SteadyState, then</font>
   <font color="darkgreen">// massDynamics is also SteadyState.</font>
   <font color="darkgreen">// Otherwise, the system of ordinary differential equations may be inconsistent.</font>
@@ -1759,6 +1680,70 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     <font color="blue">end if</font>;
   <font color="blue">end if</font>;
 
+<font color="blue">equation </font>
+  <font color="darkgreen">// Total quantities</font>
+  m = fluidVolume*medium.d;
+  mXi = m*medium.Xi;
+  U = m*medium.u;
+  mC = m*C;
+
+  hOut = medium.h;
+  XiOut = medium.Xi;
+  COut = C;
+
+  <font color="blue">for </font>i<font color="blue"> in </font>1:nPorts<font color="blue"> loop</font>
+    ports_H_flow[i]     = ports[i].m_flow *<font color="red"> actualStream</font>(ports[i].h_outflow) <font color="darkgreen">
+      &quot;Enthalpy flow&quot;</font>;
+    ports_mXi_flow[i,:] = ports[i].m_flow *<font color="red"> actualStream</font>(ports[i].Xi_outflow) <font color="darkgreen">
+      &quot;Component mass flow&quot;</font>;
+    ports_mC_flow[i,:]  = ports[i].m_flow *<font color="red"> actualStream</font>(ports[i].C_outflow) <font color="darkgreen">
+      &quot;Trace substance mass flow&quot;</font>;
+  <font color="blue">end for</font>;
+
+  <font color="blue">for </font>i<font color="blue"> in </font>1:Medium.nXi<font color="blue"> loop</font>
+    mbXi_flow[i] =<font color="red"> sum</font>(ports_mXi_flow[:,i]);
+  <font color="blue">end for</font>;
+
+  <font color="blue">for </font>i<font color="blue"> in </font>1:Medium.nC<font color="blue"> loop</font>
+    mbC_flow[i]  =<font color="red"> sum</font>(ports_mC_flow[:,i]);
+  <font color="blue">end for</font>;
+
+  mb_flow =<font color="red"> sum</font>(ports.m_flow);
+  Hb_flow =<font color="red"> sum</font>(ports_H_flow);
+
+  <font color="darkgreen">// Energy and mass balances</font>
+  <font color="blue">if </font>energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState<font color="blue"> then</font>
+    0 = Hb_flow + Q_flow;
+  <font color="blue">else</font>
+    <font color="red">der</font>(U) = Hb_flow + Q_flow;
+  <font color="blue">end if</font>;
+
+  <font color="blue">if </font>massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState<font color="blue"> then</font>
+    0 = mb_flow + mWat_flow;
+  <font color="blue">else</font>
+    <font color="red">der</font>(m) = mb_flow + mWat_flow;
+  <font color="blue">end if</font>;
+
+  <font color="blue">if </font>substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState<font color="blue"> then</font>
+    <font color="red">zeros</font>(Medium.nXi) = mbXi_flow + mWat_flow * s;
+  <font color="blue">else</font>
+    <font color="red">der</font>(mXi) = mbXi_flow + mWat_flow * s;
+  <font color="blue">end if</font>;
+
+  <font color="blue">if </font>traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState<font color="blue"> then</font>
+    <font color="red">zeros</font>(Medium.nC)  = mbC_flow;
+  <font color="blue">else</font>
+    <font color="red">der</font>(mC)  = mbC_flow;
+  <font color="blue">end if</font>;
+
+  <font color="darkgreen">// Properties of outgoing flows</font>
+  <font color="blue">for </font>i<font color="blue"> in </font>1:nPorts<font color="blue"> loop</font>
+      ports[i].p          = medium.p;
+      ports[i].h_outflow  = medium.h;
+      ports[i].Xi_outflow = medium.Xi;
+      ports[i].C_outflow  = C;
+  <font color="blue">end for</font>;
+
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>ConservationEquation;
 </PRE>
 <HR>
@@ -1768,9 +1753,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.Interfacea868bbaf7da4f56dationI.png" ALT="Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation"></A><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
 >Buildings.Fluid.Interfaces</A>.StaticTwoPortConservationEquation</H2>
-<B>Partial model for static energy and mass conservation equations</B><p>
+<B>Partial model for static energy and mass conservation equations</B><p></P>
 <IMG SRC="Buildings.Fluid.Interfacea868bbaf7da4f56dationD.png" ALT="Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model transports fluid between its two ports, without storing mass or energy. 
@@ -1778,17 +1763,16 @@ It implements a steady-state conservation equation for energy and mass fractions
 The model has zero pressure drop between its ports.
 </p>
 <h4>Implementation</h4>
-<p>
 Input connectors of the model are
 <ul>
 <li>
 <code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
 </li>
 <li>
-<code>mXi_flow</code>, which is the species mass flow rate added to the medium.
+<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium.
 </li>
 </ul>
-</p>
+
 <p>
 The model can only be used as a steady-state model with two fluid ports.
 For a model with a dynamic balance, and more fluid ports, use
@@ -1798,9 +1782,9 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 </p>
 <p>
 Set the constant <code>sensibleOnly=true</code> if the model that extends
-or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
+or instantiates this model sets <code>mWat_flow = 0</code>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy).
 <P><H3>Parameters</H3><P>
@@ -1824,8 +1808,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1837,7 +1820,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>Q_flow</TD><TD>Heat transfered into the medium [W]</TD></TR>
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>mXi_flow[Medium.nXi]</TD><TD>Mass flow rates of independent substances added to the medium [kg/s]</TD></TR>
+>RealInput</A></TD><TD>mWat_flow</TD><TD>Moisture mass flow rate added to the medium [kg/s]</TD></TR>
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>hOut</TD><TD>Leaving temperature of the component [J/kg]</TD></TR>
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
@@ -1845,7 +1828,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>COut[Medium.nC]</TD><TD>Leaving trace substances of the component</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> StaticTwoPortConservationEquation <font color="darkgreen">
   &quot;Partial model for static energy and mass conservation equations&quot;</font>
@@ -1853,16 +1836,22 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A>(
   showDesignFlowDirection = false);
 
+  <font color="blue">constant </font>Boolean sensibleOnly <font color="darkgreen">&quot;Set to true if sensible exchange only&quot;</font>;
+
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> Q_flow(unit=&quot;W&quot;) <font color="darkgreen">
     &quot;Heat transfered into the medium&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> mXi_flow[Medium.nXi](<font color="blue">each </font>unit=&quot;kg/s&quot;) <font color="darkgreen">
-    &quot;Mass flow rates of independent substances added to the medium&quot;</font>;</textblock>
-  <font color="blue">constant </font>Boolean sensibleOnly <font color="darkgreen">&quot;Set to true if sensible exchange only&quot;</font>;
+>Modelica.Blocks.Interfaces.RealInput</A> mWat_flow(unit=&quot;kg/s&quot;) <font color="darkgreen">
+    &quot;Moisture mass flow rate added to the medium&quot;</font>;</textblock>
+
   <font color="darkgreen">// Outputs that are needed in models that extend this model</font>
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> hOut(unit=&quot;J/kg&quot;) <font color="darkgreen">
+>Modelica.Blocks.Interfaces.RealOutput</A> hOut(unit=&quot;J/kg&quot;,
+                                             start=<font color="red">Medium.specificEnthalpy_pTX</font>(
+                                                     p=Medium.p_default,
+                                                     T=Medium.T_default,
+                                                     X=Medium.X_default)) <font color="darkgreen">
     &quot;Leaving temperature of the component&quot;</font>;</textblock>
 
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
@@ -1878,31 +1867,56 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     &quot;Set to true to improve numerical robustness&quot;</font>;
 <font color="blue">protected </font>
   Real m_flowInv(unit=&quot;s/kg&quot;) <font color="darkgreen">&quot;Regularization of 1/m_flow&quot;</font>;
+
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mXi_flow[Medium.nXi] <font color="darkgreen">
+    &quot;Mass flow rates of independent substances added to the medium&quot;</font>;
+
+  <font color="darkgreen">// Parameters that is used to construct the vector mXi_flow</font>
+  <font color="blue">final </font><font color="blue">parameter </font>Real s[Medium.nXi] = {<font color="blue">if </font><font color="red">Modelica.Utilities.Strings.isEqual</font>(string1=Medium.substanceNames[i],
+                                            string2=&quot;Water&quot;,
+                                            caseSensitive=false)<font color="blue">
+                                            then </font>1<font color="blue"> else </font>0 <font color="blue">for </font>i<font color="blue"> in </font>1:Medium.nXi} <font color="darkgreen">
+    &quot;Vector with zero everywhere except where species is&quot;</font>;
+
+<font color="blue">initial </font><font color="blue">equation </font>
+  <font color="darkgreen">// Assert that the substance with name &#39;water&#39; has been found.</font>
+  <font color="red">assert</font>(Medium.nXi == 0<font color="blue"> or </font><font color="red">abs</font>(<font color="red">sum</font>(s)-1) &lt; 1e-5,
+      &quot;If Medium.nXi &gt; 1, then substance &#39;water&#39; must be present for one component.&#39;&quot;
+         + Medium.mediumName + &quot;&#39;.\n&quot;
+         + &quot;Check medium model.&quot;);
+
 <font color="blue">equation </font>
+ <font color="darkgreen">// Species flow rate from connector mWat_flow</font>
+ mXi_flow = mWat_flow * s;
   <font color="darkgreen">// Regularization of m_flow around the origin to avoid a division by zero</font>
  <font color="blue">if </font>use_safeDivision<font color="blue"> then</font>
     m_flowInv =<font color="red"> Buildings.Utilities.Math.Functions.inverseXRegularized</font>(x=port_a.m_flow, delta=m_flow_small/1E3);
  <font color="blue">else</font>
      m_flowInv = 0;<font color="darkgreen"> // m_flowInv is not used if use_safeDivision = false.</font>
  <font color="blue">end if</font>;
+
  <font color="blue">if </font>allowFlowReversal<font color="blue"> then</font>
-<font color="darkgreen">// This formulation fails to simulate in Buildings.Fluid.MixingVolumes.Examples.MixingVolumePrescribedHeatFlowRate</font>
-<font color="darkgreen">// with Dymola 2012. See also Dynasim ticket 13596.</font>
-<font color="darkgreen">// It works with Dymola 2012 FD01.</font>
-   <font color="blue">if </font>(port_a.m_flow &gt;= 0)<font color="blue"> then</font>
-     hOut =  port_b.h_outflow;
-     XiOut = port_b.Xi_outflow;
-     COut =  port_b.C_outflow;
-    <font color="blue">else</font>
-     hOut =  port_a.h_outflow;
-     XiOut = port_a.Xi_outflow;
-     COut =  port_a.C_outflow;
-    <font color="blue">end if</font>;
+   <font color="darkgreen">// Formulate hOut using spliceFunction. This avoids an event iteration.</font>
+   <font color="darkgreen">// The introduced error is small because deltax=m_flow_small/1e3</font>
+   hOut =<font color="red"> Buildings.Utilities.Math.Functions.spliceFunction</font>(pos=port_b.h_outflow,
+                                                            neg=port_a.h_outflow,
+                                                            x=port_a.m_flow,
+                                                            deltax=m_flow_small/1E3);
+   XiOut =<font color="red"> Buildings.Utilities.Math.Functions.spliceFunction</font>(pos=port_b.Xi_outflow,
+                                                            neg=port_a.Xi_outflow,
+                                                            x=port_a.m_flow,
+                                                            deltax=m_flow_small/1E3);
+   COut =<font color="red"> Buildings.Utilities.Math.Functions.spliceFunction</font>(pos=port_b.C_outflow,
+                                                            neg=port_a.C_outflow,
+                                                            x=port_a.m_flow,
+                                                            deltax=m_flow_small/1E3);
  <font color="blue">else</font>
    hOut =  port_b.h_outflow;
    XiOut = port_b.Xi_outflow;
    COut =  port_b.C_outflow;
  <font color="blue">end if</font>;
+
   <font color="darkgreen">//////////////////////////////////////////////////////////////////////////////////////////</font>
   <font color="darkgreen">// Energy balance and mass balance</font>
   <font color="blue">if </font>sensibleOnly<font color="blue"> then</font>
@@ -1913,8 +1927,8 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
       port_b.h_outflow =<font color="red"> inStream</font>(port_a.h_outflow) + Q_flow * m_flowInv;
       port_a.h_outflow =<font color="red"> inStream</font>(port_b.h_outflow) - Q_flow * m_flowInv;
     <font color="blue">else</font>
-      port_a.m_flow * (<font color="red">inStream</font>(port_a.h_outflow) - port_b.h_outflow) = Q_flow;
-      port_a.m_flow * (<font color="red">inStream</font>(port_b.h_outflow) - port_a.h_outflow) = -Q_flow;
+      port_a.m_flow * (<font color="red">inStream</font>(port_a.h_outflow) - port_b.h_outflow) = -Q_flow;
+      port_a.m_flow * (<font color="red">inStream</font>(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
     <font color="blue">end if</font>;
     <font color="darkgreen">// Transport of species</font>
     port_a.Xi_outflow =<font color="red"> inStream</font>(port_b.Xi_outflow);
@@ -1924,10 +1938,10 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     port_b.C_outflow =<font color="red"> inStream</font>(port_a.C_outflow);
   <font color="blue">else</font>
     <font color="darkgreen">// Mass balance (no storage)</font>
-    port_a.m_flow + port_b.m_flow = -<font color="red">sum</font>(mXi_flow);
+    port_a.m_flow + port_b.m_flow = -mWat_flow;
     <font color="darkgreen">// Energy balance.</font>
     <font color="darkgreen">// This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate</font>
-    <font color="darkgreen">// at both ports. Since mXi_flow &lt;&lt; m_flow, the error is small.</font>
+    <font color="darkgreen">// at both ports. Since mWat_flow &lt;&lt; m_flow, the error is small.</font>
     <font color="blue">if </font>use_safeDivision<font color="blue"> then</font>
       port_b.h_outflow =<font color="red"> inStream</font>(port_a.h_outflow) + Q_flow * m_flowInv;
       port_a.h_outflow =<font color="red"> inStream</font>(port_b.h_outflow) - Q_flow * m_flowInv;
@@ -1935,20 +1949,23 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
       port_b.Xi_outflow =<font color="red"> inStream</font>(port_a.Xi_outflow) + mXi_flow * m_flowInv;
       port_a.Xi_outflow =<font color="red"> inStream</font>(port_b.Xi_outflow) - mXi_flow * m_flowInv;
      <font color="blue">else</font>
-      port_a.m_flow * (port_b.h_outflow -<font color="red"> inStream</font>(port_a.h_outflow)) = Q_flow;
-      port_a.m_flow * (port_a.h_outflow -<font color="red"> inStream</font>(port_b.h_outflow)) = -Q_flow;
+      port_a.m_flow * (<font color="red">inStream</font>(port_a.h_outflow) - port_b.h_outflow) = -Q_flow;
+      port_a.m_flow * (<font color="red">inStream</font>(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
       <font color="darkgreen">// Transport of species</font>
-      port_a.m_flow * (port_b.Xi_outflow -<font color="red"> inStream</font>(port_a.Xi_outflow)) = mXi_flow;
-      port_a.m_flow * (port_a.Xi_outflow -<font color="red"> inStream</font>(port_b.Xi_outflow)) =- mXi_flow;
+      port_a.m_flow * (<font color="red">inStream</font>(port_a.Xi_outflow) - port_b.Xi_outflow) = -mXi_flow;
+      port_a.m_flow * (<font color="red">inStream</font>(port_b.Xi_outflow) - port_a.Xi_outflow) = +mXi_flow;
      <font color="blue">end if</font>;
+
     <font color="darkgreen">// Transport of trace substances</font>
    port_a.m_flow*port_a.C_outflow = -port_b.m_flow*<font color="red">inStream</font>(port_b.C_outflow);
    port_b.m_flow*port_b.C_outflow = -port_a.m_flow*<font color="red">inStream</font>(port_a.C_outflow);
 
   <font color="blue">end if</font>;<font color="darkgreen"> // sensibleOnly</font>
+
   <font color="darkgreen">//////////////////////////////////////////////////////////////////////////////////////////</font>
   <font color="darkgreen">// No pressure drop in this model</font>
   port_a.p = port_b.p;
+
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>StaticTwoPortConservationEquation;
 </PRE>
 <HR>
@@ -1957,8 +1974,8 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters"></A><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
 >Buildings.Fluid.Interfaces</A>.TwoPortFlowResistanceParameters</H2>
-<B>Parameters for flow resistance for models with two ports</B><p>
-<P><H3>Information</H3></P>
+<B>Parameters for flow resistance for models with two ports</B><p></P>
+<P></P><H3>Information</H3>
 
 This class contains parameters that are used to
 compute the pressure drop in models that have one fluid stream.
@@ -1968,7 +1985,7 @@ the model
 >
 PartialTwoPortInterface</a>
 already declares it.
-<P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1982,7 +1999,7 @@ already declares it.
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
 <TR><TD>Real</TD><TD>deltaM</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> TwoPortFlowResistanceParameters <font color="darkgreen">
   &quot;Parameters for flow resistance for models with two ports&quot;</font>
@@ -2008,8 +2025,8 @@ already declares it.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters"></A><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
 >Buildings.Fluid.Interfaces</A>.FourPortFlowResistanceParameters</H2>
-<B>Parameters for flow resistance for models with four ports</B><p>
-<P><H3>Information</H3></P>
+<B>Parameters for flow resistance for models with four ports</B><p></P>
+<P></P><H3>Information</H3>
 
 This class contains parameters that are used to
 compute the pressure drop in components that have two fluid streams.
@@ -2019,7 +2036,7 @@ the model
 >
 PartialFourPortInterface</a>
 already declares it.
-<P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -2041,7 +2058,7 @@ already declares it.
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance2</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
 <TR><TD>Real</TD><TD>deltaM2</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> FourPortFlowResistanceParameters <font color="darkgreen">
   &quot;Parameters for flow resistance for models with four ports&quot;</font>
@@ -2078,8 +2095,8 @@ already declares it.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"></A><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
 >Buildings.Fluid.Interfaces</A>.LumpedVolumeDeclarations</H2>
-<B>Declarations for lumped volumes</B><p>
-<P><H3>Information</H3></P>
+<B>Declarations for lumped volumes</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This class contains parameters and medium properties
@@ -2097,11 +2114,10 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>,
 <A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
 >
 Buildings.Rooms.MixedAir</a>, and by
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.MixedAir"
->
+<a href="modelica://Buildings.Rooms.BaseClasses.MixedAir">
 Buildings.Rooms.BaseClasses.MixedAir</a>.
 </p>
-<P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -2125,7 +2141,7 @@ Buildings.Rooms.BaseClasses.MixedAir</a>.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> LumpedVolumeDeclarations <font color="darkgreen">&quot;Declarations for lumped volumes&quot;</font>
   <font color="blue">replaceable </font><font color="blue">package</font> Medium =
@@ -2150,15 +2166,9 @@ Buildings.Rooms.BaseClasses.MixedAir</a>.
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
 >Medium.AbsolutePressure</A> p_start = Medium.p_default <font color="darkgreen">
     &quot;Start value of pressure&quot;</font>;
-<font color="darkgreen">//  parameter Boolean use_T_start = true &quot;= true, use T_start, otherwise h_start&quot;</font>
- <font color="darkgreen">//   annotation(Dialog(tab = &quot;Initialization&quot;), Evaluate=true);</font>
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
 >Medium.Temperature</A> T_start=Medium.T_default <font color="darkgreen">
     &quot;Start value of temperature&quot;</font>;
-<font color="darkgreen">//  parameter Medium.SpecificEnthalpy h_start=</font>
-<font color="darkgreen">//    if use_T_start then Medium.specificEnthalpy_pTX(p_start, T_start, X_start) else Medium.h_default</font>
-<font color="darkgreen">//    &quot;Start value of specific enthalpy&quot;</font>
-<font color="darkgreen">//    annotation(Dialog(tab = &quot;Initialization&quot;, enable = not use_T_start));</font>
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
 >Medium.MassFraction</A> X_start[Medium.nX] = Medium.X_default <font color="darkgreen">
     &quot;Start value of mass fractions m_i/m&quot;</font>;
@@ -2174,6 +2184,6 @@ Buildings.Rooms.BaseClasses.MixedAir</a>.
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>LumpedVolumeDeclarations;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:40 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:05 2013.
 </address></BODY>
 </HTML>

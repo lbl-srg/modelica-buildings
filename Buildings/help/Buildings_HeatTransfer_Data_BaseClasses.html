@@ -26,18 +26,18 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Data.BaseClasses"></A><A HREF="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
 >Buildings.HeatTransfer.Data</A>.BaseClasses</H2>
 <B>Base classes for package Data</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Dac3f532245dfa8782erialS.png" ALT="Buildings.HeatTransfer.Data.BaseClasses.Material" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
@@ -54,11 +54,11 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <H2><IMG SRC="Buildings.HeatTransfer.Dac3f532245dfa8782erialI.png" ALT="Buildings.HeatTransfer.Data.BaseClasses.Material" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Data.BaseClasses.Material"></A><A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses"
 >Buildings.HeatTransfer.Data.BaseClasses</A>.Material</H2>
-<B>Thermal properties of materials w/o storage</B><p>
-<P><H3>Information</H3></P>
+<B>Thermal properties of materials w/o storage</B><p></P>
+<P></P><H3>Information</H3>
 
 Base record for materials that declares the thermal properties. 
-</p>
+<br/>
 <p>
 The specific heat capacity can be zero, in which case the material
 will be modeled as a thermal resistor that does not store energy.
@@ -72,7 +72,7 @@ will be defined in the model of the construction that uses this material.
 This allows use of the same material in walls, floors
 and ceilings of different surface area.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
@@ -102,7 +102,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Reco
 <TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
 <TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> Material <font color="darkgreen">&quot;Thermal properties of materials w/o storage&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
@@ -155,18 +155,16 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Reco
 <H2><IMG SRC="Buildings.HeatTransfer.Daa141b80949c15e66rtiesI.png" ALT="Buildings.HeatTransfer.Data.BaseClasses.ThermalProperties" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Data.BaseClasses.ThermalProperties"></A><A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses"
 >Buildings.HeatTransfer.Data.BaseClasses</A>.ThermalProperties</H2>
-<B>Thermal properties of materials with storage</B><p>
-<P><H3>Information</H3></P>
+<B>Thermal properties of materials with storage</B><p></P>
+<P></P><H3>Information</H3>
 
 Base record for materials, used in circular geometry or other configurations, that only declares the thermal properties. 
-</p>
+<br/>
 <p>
 The specific heat capacity can be zero, in which case the material
 will be modeled as a thermal resistor that does not store energy.
 </p>
-<p>
-</p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
@@ -180,7 +178,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Reco
 >Density</A></TD><TD>d</TD><TD>&nbsp;</TD><TD>Mass density [kg/m3]</TD></TR>
 <TR><TD>Boolean</TD><TD>steadyState</TD><TD>(c == 0 or d == 0)</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> ThermalProperties <font color="darkgreen">
   &quot;Thermal properties of materials with storage&quot;</font>
@@ -197,6 +195,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Reco
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>ThermalProperties;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:57:11 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:40 2013.
 </address></BODY>
 </HTML>

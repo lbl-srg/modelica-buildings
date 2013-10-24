@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Chillers.Examples"></A><A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers"
 >Buildings.Fluid.Chillers</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -42,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Fluid.Chillers</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Chillers.Examples.CarnotS.png" ALT="Buildings.Fluid.Chillers.Examples.Carnot" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Chillers_Examples.html#Buildings.Fluid.Chillers.Examples.Carnot"
@@ -68,9 +68,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.Chillers.Examples.CarnotI.png" ALT="Buildings.Fluid.Chillers.Examples.Carnot" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Chillers.Examples.Carnot"></A><A HREF="Buildings_Fluid_Chillers_Examples.html#Buildings.Fluid.Chillers.Examples"
 >Buildings.Fluid.Chillers.Examples</A>.Carnot</H2>
-<B>Test model for chiller based on Carnot efficiency</B><p>
+<B>Test model for chiller based on Carnot efficiency</B><p></P>
 <IMG SRC="Buildings.Fluid.Chillers.Examples.CarnotD.png" ALT="Buildings.Fluid.Chillers.Examples.Carnot">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -88,11 +88,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m1_flow_nominal</TD><TD>m2_flow_nominal*(COPc_nomina...</TD><TD>Nominal mass flow rate at condenser water wide [kg/s]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Carnot <font color="darkgreen">&quot;Test model for chiller based on Carnot efficiency&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
  <font color="blue">package</font> Medium1 = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
@@ -132,7 +130,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     dp1_nominal=6000,
     dp2_nominal=6000,
     m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal) <font color="darkgreen">&quot;Chiller model&quot;</font>;
+    m2_flow_nominal=m2_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    show_T=true) <font color="darkgreen">&quot;Chiller model&quot;</font>;
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
 >Buildings.Fluid.Sources.MassFlowSource_T</A> sou1(nPorts=1,
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium1,
@@ -188,9 +188,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Fluid.Chillers.Examples.CarnotI.png" ALT="Buildings.Fluid.Chillers.Examples.ElectricReformulatedEIR" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Chillers.Examples.ElectricReformulatedEIR"></A><A HREF="Buildings_Fluid_Chillers_Examples.html#Buildings.Fluid.Chillers.Examples"
 >Buildings.Fluid.Chillers.Examples</A>.ElectricReformulatedEIR</H2>
-<B>Test model for chiller electric reformulated EIR</B><p>
+<B>Test model for chiller electric reformulated EIR</B><p></P>
 <IMG SRC="Buildings.Fluid.Chillers.d7b420a1ec6f89a1edEIRD.png" ALT="Buildings.Fluid.Chillers.Examples.ElectricReformulatedEIR">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Fluid_Chillers_Examples_BaseClasses.html#Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric"
 >Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric</A> (Base class for test model of chiller electric EIR).
@@ -209,14 +209,12 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mCon_flow_nominal</TD><TD>per.mCon_flow_nominal</TD><TD>Nominal mass flow rate at condenser [kg/s]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ElectricReformulatedEIR <font color="darkgreen">
   &quot;Test model for chiller electric reformulated EIR&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Chillers_Examples_BaseClasses.html#Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric"
 >Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric</A>(
       <font color="blue">redeclare </font><A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.ElectricReformulatedEIR"
@@ -233,9 +231,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Fluid.Chillers.Examples.CarnotI.png" ALT="Buildings.Fluid.Chillers.Examples.ElectricEIR" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Chillers.Examples.ElectricEIR"></A><A HREF="Buildings_Fluid_Chillers_Examples.html#Buildings.Fluid.Chillers.Examples"
 >Buildings.Fluid.Chillers.Examples</A>.ElectricEIR</H2>
-<B>Test model for chiller electric EIR</B><p>
+<B>Test model for chiller electric EIR</B><p></P>
 <IMG SRC="Buildings.Fluid.Chillers.d7b420a1ec6f89a1edEIRD.png" ALT="Buildings.Fluid.Chillers.Examples.ElectricEIR">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="Buildings_Fluid_Chillers_Examples_BaseClasses.html#Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric"
 >Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric</A> (Base class for test model of chiller electric EIR).
@@ -254,22 +252,21 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>mCon_flow_nominal</TD><TD>per.mCon_flow_nominal</TD><TD>Nominal mass flow rate at condenser [kg/s]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ElectricEIR <font color="darkgreen">&quot;Test model for chiller electric EIR&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Chillers_Examples_BaseClasses.html#Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric"
 >Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric</A>(
       <font color="blue">redeclare </font><A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.ElectricEIR"
->Buildings.Fluid.Chillers.ElectricEIR</A> chi(per=per), <font color="blue">redeclare </font><A HREF="Buildings_Fluid_Chillers_Data_ElectricEIR.html#Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes"
+>Buildings.Fluid.Chillers.ElectricEIR</A> chi(per=per),
+      <font color="blue">redeclare </font><font color="blue">parameter </font><A HREF="Buildings_Fluid_Chillers_Data_ElectricEIR.html#Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes"
 >Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes</A>
       per);
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>ElectricEIR;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:11 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:15 2013.
 </address></BODY>
 </HTML>

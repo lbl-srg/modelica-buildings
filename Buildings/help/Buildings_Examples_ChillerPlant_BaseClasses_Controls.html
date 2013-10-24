@@ -26,25 +26,25 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Controls<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses"
 >Buildings.Examples.ChillerPlant.BaseClasses</A>.Controls</H2>
 <B>Package with control components for Buildings.Examples.ChillerPlant</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains component models that are used to construct the control system in
 <A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
 >Buildings.Examples.ChillerPlant</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Examples.Chille185e20d8bdde5cc2witchS.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch"
@@ -79,9 +79,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Examples.Chille185e20d8bdde5cc2witchI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.ChillerSwitch</H2>
-<B>Control unit for enabling/disabling chiller</B><p>
+<B>Control unit for enabling/disabling chiller</B><p></P>
 <IMG SRC="Buildings.Examples.Chille185e20d8bdde5cc2witchD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 The controls for enabling/disabling chiller are as follows:
 <ul>
@@ -98,7 +98,7 @@ The chiller is disabled when
 </ul>
 where <i>T<sub>Chi_CHWST</sub></i> is chiller chilled water supply temperature, <i>T<sub>ChiSet</sub></i> is set temperature for chilled water leaving chiller, and <i>T<sub>DeaBan</sub></i> is dead band to prevent short cycling. 
 <pre>
-</PRE><P>
+</PRE><P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -117,14 +117,14 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TSet</TD><TD>Set temperature of chiller [K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> ChillerSwitch <font color="darkgreen">&quot;Control unit for enabling/disabling chiller&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> chiCHWST(
-    <font color="blue">final </font>quantity=&quot;Temperature&quot;,
+    <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <font color="darkgreen">
     &quot;Chiller chilled water supply temperature (water entering chiller)&quot;</font>;
@@ -133,7 +133,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
     &quot;Control signal for chiller. 1: Enable, 0: Disable&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TSet(
-    <font color="blue">final </font>quantity=&quot;Temperature&quot;,
+    <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <font color="darkgreen">&quot;Set temperature of chiller&quot;</font>;</textblock>
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
@@ -159,14 +159,14 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Examples.Chille68f475eb386a85cdinusUI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.KMinusU</H2>
-<B>Output y=k-u</B><p>
+<B>Output y=k-u</B><p></P>
 <IMG SRC="Buildings.Examples.Chille68f475eb386a85cdinusUD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 This component computes the value of
 <p align="left" style="font-style:italic;"> y = k - u. </p>
 <pre>
-</PRE><P>
+</PRE><P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -182,7 +182,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Output</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> KMinusU <font color="darkgreen">&quot;Output y=k-u&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
@@ -204,9 +204,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Examples.Chille53ac86a0e07312c8seTwoI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.LinearPiecewiseTwo</H2>
-<B>A two-pieces linear piecewise function</B><p>
+<B>A two-pieces linear piecewise function</B><p></P>
 <IMG SRC="Buildings.Examples.Chille53ac86a0e07312c8seTwoD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This component calcuates the output according to two piecewise linear function as 
@@ -225,7 +225,7 @@ This component calcuates the output according to two piecewise linear function a
        (y<sub>21</sub>-y<sub>20</sub>)/(x<sub>2</sub>-x<sub>1</sub>)</i></td>
 </tr>
 </table> 
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -247,7 +247,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y[2]</TD><TD>Connectors of Real output signal</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> LinearPiecewiseTwo <font color="darkgreen">&quot;A two-pieces linear piecewise function&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
@@ -283,12 +283,12 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Examples.Chillea603ef0e56637393unterI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.RequestCounter" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.RequestCounter"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.RequestCounter</H2>
-<B>Count the number of actuators that have request</B><p>
+<B>Count the number of actuators that have request</B><p></P>
 <IMG SRC="Buildings.Examples.Chillea603ef0e56637393unterD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.RequestCounter">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
    This model counts the number of requests sent by actuators. A request is triggerred when an input singal <code>uAct[i]</code> is larger than <code>uTri</code>.
-   <P>
+   <P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -305,7 +305,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>uAct[nAct]</TD><TD>Input signal from actuators</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> RequestCounter <font color="darkgreen">
   &quot;Count the number of actuators that have request&quot;</font>
@@ -334,19 +334,19 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Examples.Chillecc60e43d7e68836cspondI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.TrimAndRespond</H2>
-<B>Trim and respond logic</B><p>
+<B>Trim and respond logic</B><p></P>
 <IMG SRC="Buildings.Examples.Chillecc60e43d7e68836cspondD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
    This model implements the trim and respond logic. The model samples the outputs of actuators every <code>tSam</code>.
    The control sequence is as follows:
-   <ul>
-<li>If <code>u &ge; 0</code>, then <code>y = y + nActInc</code>,</li> 
-<li>If <code>u &lt; 0</code>, then <code>y = y - yDec</code>.</li>
-</ul>
 </p>
-   <P>
+<ul>
+  <li>If <code>u &ge; 0</code>, then <code>y = y + nActInc</code>,</li> 
+  <li>If <code>u &lt; 0</code>, then <code>y = y - yDec</code>.</li>
+</ul>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteSISO"
 >Modelica.Blocks.Interfaces.DiscreteSISO</A> (Single Input Single Output discrete control block).
 <P><H3>Parameters</H3><P>
@@ -369,7 +369,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Continuous output signal</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> TrimAndRespond <font color="darkgreen">&quot;Trim and respond logic&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteSISO"
@@ -424,15 +424,15 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Examples.Chille204c27065169fa82ationI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.TrimAndRespondContinuousTimeApproximation</H2>
-<B>Trim and respond logic</B><p>
+<B>Trim and respond logic</B><p></P>
 <IMG SRC="Buildings.Examples.Chille204c27065169fa82ationD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
    This model implements a continuous time approximation to the trim and respond
    control algorithm.
 </p>
-   <P>
+   <P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</A> (Single Input Single Output continuous control block).
 <P><H3>Connectors</H3><P>
@@ -443,12 +443,10 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> TrimAndRespondContinuousTimeApproximation <font color="darkgreen">
   &quot;Trim and respond logic&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</A>;
 
@@ -476,13 +474,14 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Examples.Chillee4403c6d2f2446d2ntrolI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
 >Buildings.Examples.ChillerPlant.BaseClasses.Controls</A>.WSEControl</H2>
-<B>Control unit for WSE</B><p>
+<B>Control unit for WSE</B><p></P>
 <IMG SRC="Buildings.Examples.Chillee4403c6d2f2446d2ntrolD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This component decides if the WSE is set to on or off.
 The WSE is enabled when
+</p>
 <ol>
 <li>The WSE has been disabled for at least 20 minutes, and</li>
 <li>
@@ -491,9 +490,9 @@ The WSE is enabled when
 </i>
 </li>
 </ol>
-</p>
 <p>
 The WSE is disabled when
+</p>
 <ol>
 <li>The WSE has been enabled for at least 20 minutes, and</li>
 <li>
@@ -502,11 +501,12 @@ The WSE is disabled when
 </i>
 </li>
 </ol>
+<p>
 where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for the WSE, 
 <i>T<sub>WetBul</sub></i> is the wet bulb temperature, <i>T<sub>TowApp</sub></i> is the cooling tower approach, <i>T<sub>WSEApp</sub></i> is the approach for the WSE, <i>T<sub>WSE_CHWRT</sub></i> is the chilled water return temperature for the WSE, and <i>T<sub>WSE_CWST</sub></i> is the condenser water return temperature for the WSE.
 </p> 
 <pre>
-</PRE><P>
+</PRE><P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -532,7 +532,7 @@ where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for t
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y1</TD><TD>Control signal for WSE shutoff valve</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> WSEControl <font color="darkgreen">&quot;Control unit for WSE&quot;</font>
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
@@ -543,7 +543,7 @@ where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for t
     &quot;Temperature difference that is added to WSE on guard&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> wseCHWST(
-    <font color="blue">final </font>quantity=&quot;Temperature&quot;,
+    <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <font color="darkgreen">
     &quot;WSE chilled water supply temperature (water entering WSE)&quot;</font>;
@@ -552,17 +552,17 @@ where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for t
     &quot;Control signal for chiller shutoff valve&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TWetBul(
-    <font color="blue">final </font>quantity=&quot;Temperature&quot;,
+    <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <font color="darkgreen">&quot;Wet bulb temperature&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> towTApp(
-    <font color="blue">final </font>quantity=&quot;Temperature&quot;,
+    <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <font color="darkgreen">&quot;Cooling tower approach&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> wseCWST(
-    <font color="blue">final </font>quantity=&quot;Temperature&quot;,
+    <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <font color="darkgreen">
     &quot;WSE condenser water supply temperature (water entering WSE)&quot;</font>;
@@ -603,6 +603,6 @@ where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for t
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>WSEControl;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:59:17 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:14:28 2013.
 </address></BODY>
 </HTML>

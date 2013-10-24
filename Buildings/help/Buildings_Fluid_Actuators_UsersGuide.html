@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE UsersGuide<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Actuators.UsersGuide"></A><A HREF="Buildings_Fluid_Actuators.html#Buildings.Fluid.Actuators"
 >Buildings.Fluid.Actuators</A>.UsersGuide</H2>
 <B>User&#39;s Guide</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <h4>Pressure drop of valves</h4>
 <p>
@@ -48,7 +48,7 @@ For example, in the schematics below, a valve and a fixed resistance
 are modeled in series. 
 </p>
 <p align="center">
-<img src="../Resources/Images/Fluid/Actuators/valvePressureDropSeries.png"/>
+<img alt="image" src="../Resources/Images/Fluid/Actuators/valvePressureDropSeries.png"/>
 </p>
 <p>
 This often introduces an additional nonlinear equation.
@@ -77,7 +77,7 @@ For three way valves, similar parameters exist for the controlled ports of the v
 consider the configuration below.
 </p>
 <p align="center">
-<img src="../Resources/Images/Fluid/Actuators/threeWayValvePressureDropSeries.png"/>
+<img alt="image" src="../Resources/Images/Fluid/Actuators/threeWayValvePressureDropSeries.png"/>
 </p>
 <p>
 Suppose the parameters are
@@ -94,9 +94,8 @@ An equivalent model could be created by deleting the two resistance models
 <pre>
   val(dpValve_nominal=6000, dpFixed={10000, 100}, m_flow_nominal=0.1);
 </pre>
-<p>
-</p>
 <h4>Transients of actuators</h4>
+<p>
 This section describes how valves and dampers can be configured
 to approximate the travel time of an actuator.
 Such an approximation can also lead to faster simulation because
@@ -161,14 +160,14 @@ The grey motor symbol above the control valve <code>val1</code>
 indicates that <code>filteredOpening=true</code>.
 </p>
 <p align="center">
-<img src="../Resources/Images/Fluid/Actuators/valveSchematic.png"/>
+<img alt="image" src="../Resources/Images/Fluid/Actuators/valveSchematic.png"/>
 </p>
 <p>
 If these valves both have a step input signal at <i>10</i> seconds, then the
 actual opening of the valves are as follows:
 </p>
 <p align="center">
-<img src="../Resources/Images/Fluid/Actuators/valveResponse.png"/>
+<img alt="image" src="../Resources/Images/Fluid/Actuators/valveResponse.png"/>
 </p>
 <p>
 Thus, in the valve <code>val1</code>, the mass flow rate will slowly increase,
@@ -198,10 +197,10 @@ It is more detailed than the above approximation.
 However, it can significantly increase computing time
 because it generates a state event whenever the valve position changes.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
 >Modelica.Icons.Information</A> (Icon for general information packages).
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:01 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:05 2013.
 </address></BODY>
 </HTML>

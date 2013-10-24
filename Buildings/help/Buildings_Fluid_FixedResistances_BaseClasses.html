@@ -25,23 +25,23 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.FixedResistances.BaseClasses"></A><A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances"
 >Buildings.Fluid.FixedResistances</A>.BaseClasses</H2>
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances"
 >Buildings.Fluid.FixedResistances</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.FixedResie3cebb64bec06b74.PipeS.png" ALT="Buildings.Fluid.FixedResistances.BaseClasses.Pipe" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Buildings.Fluid.FixedResistances.BaseClasses.Pipe"
@@ -55,9 +55,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <H2><IMG SRC="Buildings.Fluid.FixedResie3cebb64bec06b74.PipeI.png" ALT="Buildings.Fluid.FixedResistances.BaseClasses.Pipe" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.FixedResistances.BaseClasses.Pipe"></A><A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Buildings.Fluid.FixedResistances.BaseClasses"
 >Buildings.Fluid.FixedResistances.BaseClasses</A>.Pipe</H2>
-<B>Model of a pipe with finite volume discretization along the flow path</B><p>
+<B>Model of a pipe with finite volume discretization along the flow path</B><p></P>
 <IMG SRC="Buildings.Fluid.FixedResie3cebb64bec06b74.PipeD.png" ALT="Buildings.Fluid.FixedResistances.BaseClasses.Pipe">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of a pipe with flow resistance and optional heat storage.
@@ -71,7 +71,7 @@ and <code>nSeg</code> mixing volumes
 >
 Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters"
@@ -124,8 +124,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>true</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>true</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>computeFlowResistance</TD><TD>(abs(dp_nominal) &gt; Modelica....</TD><TD>=true, compute flow resistance. Set to false to assume no friction</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
@@ -141,7 +140,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Pipe <font color="darkgreen">
   &quot;Model of a pipe with finite volume discretization along the flow path&quot;</font>
@@ -180,7 +179,6 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     <font color="blue">final </font>m_flow_nominal=m_flow_nominal,
     <font color="blue">final </font>dp_nominal=dp_nominal,
     <font color="blue">final </font>allowFlowReversal=allowFlowReversal,
-    <font color="blue">final </font>show_V_flow=show_V_flow,
     <font color="blue">final </font>linearized=linearizeFlowResistance,
     <font color="blue">final </font>ReC=ReC,
     <font color="blue">final </font>homotopyInitialization=homotopyInitialization) <font color="darkgreen">&quot;Flow resistance&quot;</font>;
@@ -207,14 +205,14 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >Modelica.SIunits.Volume</A> VPipe=Modelica.Constants.pi*(diameter/2.0)^
       2*length <font color="darkgreen">&quot;Pipe volume&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
->Medium.ThermodynamicState</A> state_start =<font color="red"> Medium.setState_pTX</font>(
-      T=T_start,
-      p=p_start,
-      X=X_start[1:Medium.nXi]) <font color="darkgreen">&quot;Start state&quot;</font>;
+>Medium.ThermodynamicState</A> state_default =<font color="red"> Medium.setState_pTX</font>(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]) <font color="darkgreen">&quot;Default state&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Modelica.SIunits.Density</A> rho_nominal =<font color="red"> Medium.density</font>(state_start);
+>Modelica.SIunits.Density</A> rho_default =<font color="red"> Medium.density</font>(state_default);
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
->Modelica.SIunits.DynamicViscosity</A> mu_nominal =<font color="red"> Medium.dynamicViscosity</font>(state_start) <font color="darkgreen">
+>Modelica.SIunits.DynamicViscosity</A> mu_default =<font color="red"> Medium.dynamicViscosity</font>(state_default) <font color="darkgreen">
     &quot;Dynamic viscosity at nominal condition&quot;</font>;
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(port_a, res.port_a);
@@ -226,6 +224,6 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Pipe;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:23 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:30 2013.
 </address></BODY>
 </HTML>

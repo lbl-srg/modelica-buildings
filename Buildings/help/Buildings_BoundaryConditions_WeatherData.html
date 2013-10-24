@@ -26,23 +26,23 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE WeatherData<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.BoundaryConditions.WeatherData"></A><A HREF="Buildings_BoundaryConditions.html#Buildings.BoundaryConditions"
 >Buildings.BoundaryConditions</A>.WeatherData</H2>
 <B>Weather data reader</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains models to read weather data. It also contains
 an expandable connector called <code>Bus</code> that
 is used in the library to provide weather data to the different models.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.BoundaryConditi1a4ba17d6f304515GuideS.png" ALT="Buildings.BoundaryConditions.WeatherData.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_UsersGuide.html#Buildings.BoundaryConditions.WeatherData.UsersGuide"
@@ -68,9 +68,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.BoundaryConditiad988c03c070a4c6rTMY3I.png" ALT="Buildings.BoundaryConditions.WeatherData.ReaderTMY3" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.WeatherData.ReaderTMY3"></A><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData"
 >Buildings.BoundaryConditions.WeatherData</A>.ReaderTMY3</H2>
-<B>Reader for TMY3 weather data</B><p>
+<B>Reader for TMY3 weather data</B><p></P>
 <IMG SRC="Buildings.BoundaryConditiad988c03c070a4c6rTMY3D.png" ALT="Buildings.BoundaryConditions.WeatherData.ReaderTMY3">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data. 
@@ -117,8 +117,7 @@ the enumeration
 Buildings.BoundaryConditions.Types.DataSource</a>
 is used as follows:
 </p>
-<p>
-<table border="1" cellspacing=0 cellpadding=2 style="border-collapse:collapse;">
+<table summary="summary" border="1" cellspacing=0 cellpadding=2 style="border-collapse:collapse;">
 <!-- ============================================== -->
 <tr>
   <th>Parameter <code>*Sou</code>
@@ -154,7 +153,6 @@ is used as follows:
   </td>
 </tr>
 </table>
-</p>
 <p>
 Because global, diffuse and direct radiation are related to each other, the parameter
 <code>HSou</code> is treated differently.
@@ -164,8 +162,7 @@ It is set to a value of the enumeration
 Buildings.BoundaryConditions.Types.RadiationDataSource</a>,
 and allows the following configurations:
 </p>
-<p>
-<table border="1" cellspacing=0 cellpadding=2 style="border-collapse:collapse;">
+<table summary="summary" border="1" cellspacing=0 cellpadding=2 style="border-collapse:collapse;">
 <!-- ============================================== -->
 <tr>
   <th>Parameter <code>HSou</code>
@@ -208,9 +205,9 @@ and allows the following configurations:
   </td>
 </tr>
 </table>
-</p>
 <p>
 <b>Notes</b>
+</p>
 <ol>
 <li>
 <p>
@@ -230,6 +227,7 @@ For medium models for moist air and dry air, the default is
 <p>
 Different units apply depending on whether data are obtained from a file, or 
 from a parameter or an input connector:
+</p>
 <ul>
 <li>
 When using TMY3 data from a file (e.g. <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos</code>), the units must be the same as the original TMY3 file used by EnergyPlus (e.g. 
@@ -252,7 +250,6 @@ For instance, the unit must be
 <code>rad</code> for wind direction.
 </li>
 </ul>
-</p>
 </li>
 <li>
 <p>
@@ -260,7 +257,6 @@ The ReaderTMY3 should only be used with TMY3 data. It contains a time shift for 
 </p>
 </li>
 </ol>
-</p>
 <h4>Implementation</h4>
 <p>
 To read weather data from the TMY3 weather data file, there are
@@ -278,19 +274,17 @@ Thus, as the figure below shows, a more accurate interpolation is obtained if
 time is shifted by <i>30</i> minutes prior to reading the weather data.   
 </p>
 <p align="center">
-<img src="../Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png" border="1">
+<img alt="image" src="../Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png" border="1" />
 </p>
 <h4>References</h4>
-<p>
 <ul>
 <li>
 Wilcox S. and W. Marion. <i>Users Manual for TMY3 Data Sets</i>. 
 Technical Report, NREL/TP-581-43156, revised May 2008.
 </li>
 </ul>
-</p>
 <pre>
-</PRE><P>
+</PRE><P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -347,7 +341,7 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarSubBus"
 >SolarSubBus</A></TD><TD>solBus</TD><TD>Sub bus with solar position</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> ReaderTMY3 <font color="darkgreen">&quot;Reader for TMY3 weather data&quot;</font>
 
@@ -377,7 +371,7 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
     &quot;Dry bulb temperature (used if TDryBul=Parameter)&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TDryBul_in(
-    <font color="blue">final </font>quantity=&quot;Temperature&quot;,
+    <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;) <font color="blue">if </font>(TDryBulSou == Buildings.BoundaryConditions.Types.DataSource.Input) <font color="darkgreen">
     &quot;Input dry bulb temperature&quot;</font>;</textblock>
@@ -554,7 +548,7 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
     displayUnit=&quot;bar&quot;) <font color="darkgreen">&quot;Needed to connect to conditional connector&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TDryBul_in_internal(
-    <font color="blue">final </font>quantity=&quot;Temperature&quot;,
+    <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;) <font color="darkgreen">&quot;Needed to connect to conditional connector&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
@@ -794,18 +788,18 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 <H2><IMG SRC="Buildings.BoundaryConditi4cf2958f71af316aa.BusI.png" ALT="Buildings.BoundaryConditions.WeatherData.Bus" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.WeatherData.Bus"></A><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData"
 >Buildings.BoundaryConditions.WeatherData</A>.Bus</H2>
-<B>Data bus that stores weather data</B><p>
+<B>Data bus that stores weather data</B><p></P>
 <IMG SRC="Buildings.BoundaryConditi4cf2958f71af316aa.BusD.png" ALT="Buildings.BoundaryConditions.WeatherData.Bus">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This component is an expandable connector that is used to implement a bus that contains the weather data.
 </p>
 <pre>
-</PRE><P>
+</PRE><P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.SignalBus"
 >Modelica.Icons.SignalBus</A> (Icon for signal bus).
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">expandable connector</font> Bus <font color="darkgreen">&quot;Data bus that stores weather data&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.SignalBus"
@@ -814,6 +808,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Sign
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Bus;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:54:56 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:00 2013.
 </address></BODY>
 </HTML>

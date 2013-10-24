@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Delays<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Delays"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
 >Buildings.Fluid</A>.Delays</H2>
 <B>Package with delay models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains components models for transport delays in
@@ -53,10 +53,10 @@ For a discretized model of a pipe or duct, see
 >
 Buildings.Fluid.FixedResistances.Pipe</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Delays.DelayFirstOrderS.png" ALT="Buildings.Fluid.Delays.DelayFirstOrder" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Delays.html#Buildings.Fluid.Delays.DelayFirstOrder"
@@ -73,9 +73,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.Delays.DelayFirstOrderI.png" ALT="Buildings.Fluid.Delays.DelayFirstOrder" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Delays.DelayFirstOrder"></A><A HREF="Buildings_Fluid_Delays.html#Buildings.Fluid.Delays"
 >Buildings.Fluid.Delays</A>.DelayFirstOrder</H2>
-<B>Delay element, approximated by a first order differential equation</B><p>
+<B>Delay element, approximated by a first order differential equation</B><p></P>
 <IMG SRC="Buildings.Fluid.Delays.DelayFirstOrderD.png" ALT="Buildings.Fluid.Delays.DelayFirstOrder">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model approximates a transport delay using a first order differential equations.
@@ -89,7 +89,7 @@ the time constant of the volume is equal to the parameter <code>tau</code>.
 <p>
 The heat flux connector is optional, it need not be connnected.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
 >Buildings.Fluid.MixingVolumes.MixingVolume</A> (Mixing volume with inlet and outlet ports (flow reversal is allowed)).
 <P><H3>Parameters</H3><P>
@@ -98,7 +98,7 @@ Extends from <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingV
 <TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
->Volume</A></TD><TD>V</TD><TD>V0</TD><TD>Volume [m3]</TD></TR>
+>Volume</A></TD><TD>V</TD><TD>V_nominal</TD><TD>Volume [m3]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
@@ -139,23 +139,23 @@ Extends from <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingV
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>heatPort</TD><TD>Heat port connected to outflowing medium</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DelayFirstOrder <font color="darkgreen">
   &quot;Delay element, approximated by a first order differential equation&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
->Buildings.Fluid.MixingVolumes.MixingVolume</A>(<font color="blue">final </font>V=V0);
+>Buildings.Fluid.MixingVolumes.MixingVolume</A>(<font color="blue">final </font>V=V_nominal);
 
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</A> tau = 60 <font color="darkgreen">&quot;Time constant at nominal flow&quot;</font>;
 
 <font color="blue">protected </font>
    <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
->Modelica.SIunits.Volume</A> V0 = m_flow_nominal*tau/rho_nominal <font color="darkgreen">
+>Modelica.SIunits.Volume</A> V_nominal = m_flow_nominal*tau/rho_default <font color="darkgreen">
     &quot;Volume of delay element&quot;</font>;
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>DelayFirstOrder;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:20 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:27 2013.
 </address></BODY>
 </HTML>

@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE CoolingTowers<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.CoolingTowers"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >Buildings.Fluid.HeatExchangers</A>.CoolingTowers</H2>
 <B>Package with cooling tower models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains components models for cooling towers.
@@ -53,10 +53,10 @@ The model
 Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a>
 computes the cooling tower performance based the York formula.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExcha55e4598e263b512croachS.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers.html#Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach"
@@ -82,9 +82,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha55e4598e263b512croachI.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach"></A><A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers.html#Buildings.Fluid.HeatExchangers.CoolingTowers"
 >Buildings.Fluid.HeatExchangers.CoolingTowers</A>.FixedApproach</H2>
-<B>Cooling tower with constant approach temperature</B><p>
+<B>Cooling tower with constant approach temperature</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha55e4598e263b512croachD.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model for a steady-state or dynamic cooling tower with constant approach temperature.
@@ -102,7 +102,7 @@ For a more detailed model, use for example the
 >YorkCalc</a>
 model.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower"
 >Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower</A> (Base class for cooling towers).
 <P><H3>Parameters</H3><P>
@@ -129,8 +129,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.h
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>true</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
@@ -166,7 +165,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.h
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>TAir</TD><TD>Entering air dry or wet bulb temperature [K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FixedApproach <font color="darkgreen">
   &quot;Cooling tower with constant approach temperature&quot;</font>
@@ -192,9 +191,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.h
 <H2><IMG SRC="Buildings.Fluid.HeatExcha078dece6025f8f7akCalcI.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc"></A><A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers.html#Buildings.Fluid.HeatExchangers.CoolingTowers"
 >Buildings.Fluid.HeatExchangers.CoolingTowers</A>.YorkCalc</H2>
-<B>Cooling tower with variable speed using the York calculation for the approach temperature</B><p>
+<B>Cooling tower with variable speed using the York calculation for the approach temperature</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha078dece6025f8f7akCalcD.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model for a steady-state or dynamic cooling tower with variable speed fan using the York calculation for the
@@ -219,6 +218,7 @@ For numerical reasons, this transition occurs in the range of <code>y &isin; [0.
 <h4>Fan power consumption</h4>
 <p>
 The fan power consumption at the design condition can be specified as follows:
+</p>
 <ul>
 <li>
 The parameter <code>fraPFan_nominal</code> can be used to specify at the 
@@ -232,7 +232,6 @@ If a user does not set this parameter, then the fan power will be
 is the nominal water flow rate.
 </li>
 </ul>
-</p>
 <p>
 In the forced convection mode, the actual fan power is 
 computed as <code>PFan=fanRelPow(y) * PFan_nominal</code>, where
@@ -252,6 +251,7 @@ In between these points, the values are interpolated using cubic splines.
 This model is similar to the model <code>Cooling Tower:Variable Speed</code> that
 is implemented in the EnergyPlus building energy simulation program version 6.0.
 The main differences are
+</p>
 <ol>
 <li>
 Not implemented are the basin heater power consumption, and
@@ -263,12 +263,11 @@ To switch cells on or off, use multiple instances of this model, and use your ow
 control law to compute the input signal <code>y</code>.
 </li>
 </ol>
-</p>
 <h4>References</h4>
 <p>
 <a href="http://www.energyplus.gov">EnergyPlus 2.0.0 Engineering Reference</a>, April 9, 2007.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower"
 >Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower</A> (Base class for cooling towers).
 <P><H3>Parameters</H3><P>
@@ -306,8 +305,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.h
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>true</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
@@ -345,7 +343,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.h
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>y</TD><TD>Fan control signal</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> YorkCalc <font color="darkgreen">
   &quot;Cooling tower with variable speed using the York calculation for the approach temperature&quot;</font>
@@ -430,6 +428,11 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.h
   <font color="blue">final </font><font color="blue">parameter </font>Real fanRelPowDer[<font color="red">size</font>(fanRelPow.r_V,1)](fixed=false) <font color="darkgreen">
     &quot;Coefficients for fan relative power consumption as a function of control signal&quot;</font>;
 
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium.ThermodynamicState</A> staA <font color="darkgreen">&quot;Medium properties in port_a&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium.ThermodynamicState</A> staB <font color="darkgreen">&quot;Medium properties in port_b&quot;</font>;
+
 <font color="blue">initial </font><font color="blue">equation </font>
   TWatOut_nominal = TAirInWB_nominal + TApp_nominal;
   TRan_nominal = TWatIn0 - TWatOut_nominal;<font color="darkgreen"> // by definition of the range temp.</font>
@@ -454,10 +457,43 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.h
   + &quot;\n   You need to choose different values for the parameter fanRelPow.&quot;
   + &quot;\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.&quot;);
 <font color="blue">equation </font>
+  <font color="darkgreen">// States at the inlet and outlet</font>
+
+  <font color="blue">if </font>allowFlowReversal<font color="blue"> then</font>
+    <font color="blue">if </font>homotopyInitialization<font color="blue"> then</font>
+      staA=<font color="red">Medium.setState_phX</font>(port_a.p,
+                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a.h_outflow),
+                                   simplified=<font color="red">inStream</font>(port_a.h_outflow)),
+                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a.Xi_outflow),
+                                   simplified=<font color="red">inStream</font>(port_a.Xi_outflow)));
+      staB=<font color="red">Medium.setState_phX</font>(port_b.p,
+                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b.h_outflow),
+                                   simplified=port_b.h_outflow),
+                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b.Xi_outflow),
+                            simplified=port_b.Xi_outflow));
+
+    <font color="blue">else</font>
+      staA=<font color="red">Medium.setState_phX</font>(port_a.p,
+                          <font color="red">actualStream</font>(port_a.h_outflow),
+                          <font color="red">actualStream</font>(port_a.Xi_outflow));
+      staB=<font color="red">Medium.setState_phX</font>(port_b.p,
+                          <font color="red">actualStream</font>(port_b.h_outflow),
+                          <font color="red">actualStream</font>(port_b.Xi_outflow));
+    <font color="blue">end if</font>;<font color="darkgreen"> // homotopyInitialization</font>
+
+  <font color="blue">else</font><font color="darkgreen"> // reverse flow not allowed</font>
+    staA=<font color="red">Medium.setState_phX</font>(port_a.p,
+                             <font color="red">inStream</font>(port_a.h_outflow),
+                             <font color="red">inStream</font>(port_a.Xi_outflow));
+    staB=<font color="red">Medium.setState_phX</font>(port_b.p,
+                             <font color="red">inStream</font>(port_b.h_outflow),
+                             <font color="red">inStream</font>(port_b.Xi_outflow));
+  <font color="blue">end if</font>;
+
   <font color="darkgreen">// Air temperature used for the heat transfer</font>
   TAirHT=TAir;
   <font color="darkgreen">// Range temperature</font>
-  TRan =<font color="red"> Medium.temperature</font>(sta_a) -<font color="red"> Medium.temperature</font>(sta_b);
+  TRan =<font color="red"> Medium.temperature</font>(staA) -<font color="red"> Medium.temperature</font>(staB);
   <font color="darkgreen">// Fractional mass flow rates</font>
   FRWat = m_flow/mRef_flow;
   FRAir = y;
@@ -465,7 +501,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.h
   TAppCor =<font color="red"> Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc</font>(
                TRan=TRan, TWetBul=TAir,
                FRWat=FRWat, FRAir=<font color="red">max</font>(FRWat/bou.liqGasRat_max, FRAir));
-  dTMax =<font color="red"> Medium.temperature</font>(sta_a) - TAir;
+  dTMax =<font color="red"> Medium.temperature</font>(staA) - TAir;
   TAppFreCon = (1-fraFreCon) * dTMax  + fraFreCon *
                <font color="red">Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc</font>(
                    TRan=TRan, TWetBul=TAir, FRWat=FRWat, FRAir=1);
@@ -484,6 +520,6 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.h
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>YorkCalc;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:28 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:35 2013.
 </address></BODY>
 </HTML>

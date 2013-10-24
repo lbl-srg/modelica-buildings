@@ -26,23 +26,23 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Windows<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows"></A><A HREF="Buildings_HeatTransfer.html#Buildings.HeatTransfer"
 >Buildings.HeatTransfer</A>.Windows</H2>
 <B>Package with models for windows</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains models for heat transfer in windows.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Windows.WindowS.png" ALT="Buildings.HeatTransfer.Windows.Window" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.Window"
@@ -50,9 +50,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 </TD><TD>Model for a window</TD></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Wi2d14d314589e5d51nsferS.png" ALT="Buildings.HeatTransfer.Windows.ExteriorHeatTransfer" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.ExteriorHeatTransfer"
 >ExteriorHeatTransfer</A>
-</TD><TD>Model for heat convection at the exterior surface of a window that may have a shading device</TD></TR>
-<TR><TD><IMG SRC="Buildings.HeatTransfer.Wi82f0bda6009e5d57nsferS.png" ALT="Buildings.HeatTransfer.Windows.InteriorHeatTransfer" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.InteriorHeatTransfer"
->InteriorHeatTransfer</A>
+</TD><TD>Model for heat convection and radiation at the exterior surface of a window that may have a shading device</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Wibd22c4743943a4b1ctiveS.png" ALT="Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective"
+>InteriorHeatTransferConvective</A>
 </TD><TD>Model for heat convection at the interior surface of a window that may have a shading device</TD></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Wieba82d94a86f3ff2ShadeS.png" ALT="Buildings.HeatTransfer.Windows.FixedShade" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.FixedShade"
 >FixedShade</A>
@@ -80,11 +80,12 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Windows.WindowI.png" ALT="Buildings.HeatTransfer.Windows.Window" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.Window"></A><A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows"
 >Buildings.HeatTransfer.Windows</A>.Window</H2>
-<B>Model for a window</B><p>
+<B>Model for a window</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Windows.WindowD.png" ALT="Buildings.HeatTransfer.Windows.Window">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <h4>Overview</h4>
+<p>
 This is a model for a window system. The equations are similar to the
 equations used in the Window 5 model and described in TARCOG 2006. 
 The model computes 
@@ -100,18 +101,19 @@ They can be computed using the models
 >
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>
 and
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.InteriorHeatTransfer"
->
+<a href="modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransfer">
 Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>.
 </p>
-<p>
+
 <h4>Limitations</h4>
+<p>
 To calculate the angular transmittance, reflectance and absorptance of a glazing system, Window 5 model first calculates the value for each wave length, then calculate the weighted value over entire wave lengths.
 Current window model in Buildings library only uses the weighted value of each glass. 
 As a result, there are some differences in prediciton between the current Modelica window model and WINDOW 5. 
 The difference is small for single layer window or multi-layer window with the same glasses. 
 But it can be large for multi-layer window with different glasses.  
 </p>
+
 <h4>Parameters</h4>
 <p>
 This model takes as the parameter <code>glaSys</code> a data record 
@@ -129,6 +131,7 @@ Whether a shade is present or not is determined by the parameters
 <p>
 The parameter <code>linearize</code> can be used
 to linearize the model equations.
+</p>
 <h4>Ports</h4>
 <p>
 If a shade is present, then the input port <code>u</code> is used 
@@ -146,10 +149,11 @@ of the window.
 Each side has heat ports that connect to the glass, to the frame, and, optionally, to the 
 shade. If no shade is present, then the heat port to the shade will be removed.
 </p>
+
 <h4>Description of the Physics</h4>
 <p>
 The model has three main submodels that implement the relevant
-heat balances: 
+heat balances:</p>
 <ol>
 <li>
 The model <code>frame</code> computes heat conduction
@@ -168,6 +172,7 @@ If the parameter <code>glaSys</code> specifies that the window has no exterior
 and no interior shade, then the model <code>glaSha</code> will be removed.
 </li>
 </ol>
+
 <p>
 The models <code>glaUns</code> and <code>glaSha</code> 
 compute the solar radiation that is absorbed by each 
@@ -181,6 +186,7 @@ Heat conduction through the frame is computed using a heat flow path that is par
 glazing system, i.e., there is no heat exchange between the frame 
 and the glazing layer.
 </p>
+
 <h4>Validation</h4>
 <p>
 The window model has been validated by using measurement data at LBNL's Test Cell 71T and by using
@@ -190,19 +196,21 @@ The window model has also been validated as part of the BESTEST validations that
 >
 Buildings.Rooms.Examples.BESTEST</a>.
 </p>
+
 <h4>References</h4>
 <p>
 TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with or without
 shading devices, Technical Report, Oct. 17, 2006.
 </p>
+
 <p>
 Thierry Stephane Nouidui, Michael Wetter, and Wangda Zuo.
 <a href="../Resources/Images/HeatTransfer/Windows/2012-simBuild-windowValidation.pdf">
 Validation of the window model of the Modelica Buildings library.</a>
 <i>Proc. of the 5th SimBuild Conference</i>, Madison, WI, USA, August 2012.
 </p>
-<P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -254,7 +262,7 @@ Validation of the window model of the Modelica Buildings library.</a>
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>QAbsSha_flow[glaSys.nLay]</TD><TD>Solar radiation absorbed by shaded part of glass [W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Window <font color="darkgreen">&quot;Model for a window&quot;</font>
 
@@ -391,9 +399,9 @@ Validation of the window model of the Modelica Buildings library.</a>
 <H2><IMG SRC="Buildings.HeatTransfer.Wi2d14d314589e5d51nsferI.png" ALT="Buildings.HeatTransfer.Windows.ExteriorHeatTransfer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.ExteriorHeatTransfer"></A><A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows"
 >Buildings.HeatTransfer.Windows</A>.ExteriorHeatTransfer</H2>
-<B>Model for heat convection at the exterior surface of a window that may have a shading device</B><p>
+<B>Model for heat convection and radiation at the exterior surface of a window that may have a shading device</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wi2d14d314589e5d51nsferD.png" ALT="Buildings.HeatTransfer.Windows.ExteriorHeatTransfer">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model for the convective heat transfer between a window shade, a window surface
@@ -407,9 +415,9 @@ Buildings.HeatTransfer.Windows.Window</a>.
 <p>
 This model adds the convective heat transfer coefficient to its base model.
 </p>
-<P>
-Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialConvection"
->BaseClasses.PartialConvection</A> (Partial model for heat convection between a possibly shaded window that can be outside or inside the room).
+<P></P>
+Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialWindowBoundaryCondition"
+>BaseClasses.PartialWindowBoundaryCondition</A> (Partial model for heat convection or radiation between a possibly shaded window that can be outside or inside the room).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
@@ -417,8 +425,11 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
 >Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Heat transfer area of frame and window [m2]</TD></TR>
 <TR><TD>Real</TD><TD>fFra</TD><TD>&nbsp;</TD><TD>Fraction of window frame divided by total window area</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeRadiation</TD><TD>&nbsp;</TD><TD>Set to true to linearize emissive power</TD></TR>
-<TR><TD>Real</TD><TD>vieFacSky</TD><TD>&nbsp;</TD><TD>View factor from receiving surface to sky</TD></TR>
+<TR><TD>Real</TD><TD>vieFacSky</TD><TD>&nbsp;</TD><TD>View factor from receiving surface to sky [1]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Shading</TD></TR>
+<TR><TD>Boolean</TD><TD>haveExteriorShade</TD><TD>&nbsp;</TD><TD>Set to true if window has exterior shade (at surface a)</TD></TR>
+<TR><TD>Boolean</TD><TD>haveInteriorShade</TD><TD>&nbsp;</TD><TD>Set to true if window has interior shade (at surface b)</TD></TR>
+<TR><TD>Boolean</TD><TD>thisSideHasShade</TD><TD>haveExteriorShade</TD><TD>Set to true if this side of the model has a shade</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Emissivity</A></TD><TD>absIRSha_air</TD><TD>&nbsp;</TD><TD>Infrared absorptivity of shade surface that faces air [1]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
@@ -427,9 +438,6 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
 >TransmissionCoefficient</A></TD><TD>tauIRSha_air</TD><TD>&nbsp;</TD><TD>Infrared transmissivity of shade for radiation coming from the exterior or the room [1]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
 >TransmissionCoefficient</A></TD><TD>tauIRSha_glass</TD><TD>&nbsp;</TD><TD>Infrared transmissivity of shade for radiation coming from the glass [1]</TD></TR>
-<TR><TD>Boolean</TD><TD>haveExteriorShade</TD><TD>&nbsp;</TD><TD>Set to true if window has exterior shade (at surface a)</TD></TR>
-<TR><TD>Boolean</TD><TD>haveInteriorShade</TD><TD>&nbsp;</TD><TD>Set to true if window has interior shade (at surface b)</TD></TR>
-<TR><TD>Boolean</TD><TD>thisSideHasShade</TD><TD>haveExteriorShade</TD><TD>Set to true if this side of the model has a shade</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -444,6 +452,12 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
 >HeatPort_b</A></TD><TD>glaSha</TD><TD>Heat port that connects to shaded part of glass</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>frame</TD><TD>Heat port at window frame</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>vWin</TD><TD>Wind speed [m/s]</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TBlaSky</TD><TD>Black body sky temperature [K]</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TOut</TD><TD>Outside temperature [K]</TD></TR>
 <TR><TD>output <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
 >RadiosityOutflow</A></TD><TD>JOutUns</TD><TD>Outgoing radiosity that connects to unshaded part of glass [W]</TD></TR>
 <TR><TD>input <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
@@ -453,22 +467,35 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
 <TR><TD>input <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
 >RadiosityInflow</A></TD><TD>JInSha</TD><TD>Incoming radiosity that connects to shaded part of glass [W]</TD></TR>
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>QAbs_flow</TD><TD>Solar radiation absorbed by shade [W]</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>vWin</TD><TD>Wind speed</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>TBlaSky</TD><TD>Black body sky temperature [K]</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>TOut</TD><TD>Outside temperature [K]</TD></TR>
+>RealInput</A></TD><TD>QSolAbs_flow</TD><TD>Solar radiation absorbed by shade [W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ExteriorHeatTransfer <font color="darkgreen">
-  &quot;Model for heat convection at the exterior surface of a window that may have a shading device&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialConvection"
->BaseClasses.PartialConvection</A>(<font color="blue">final </font>thisSideHasShade=haveExteriorShade);
+  &quot;Model for heat convection and radiation at the exterior surface of a window that may have a shading device&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialWindowBoundaryCondition"
+>BaseClasses.PartialWindowBoundaryCondition</A>(<font color="blue">final </font>thisSideHasShade=haveExteriorShade);
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</A> absIRSha_air <font color="darkgreen">
+    &quot;Infrared absorptivity of shade surface that faces air&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</A> absIRSha_glass <font color="darkgreen">
+    &quot;Infrared absorptivity of shade surface that faces glass&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>Modelica.SIunits.TransmissionCoefficient</A> tauIRSha_air <font color="darkgreen">
+    &quot;Infrared transmissivity of shade for radiation coming from the exterior or the room&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>Modelica.SIunits.TransmissionCoefficient</A> tauIRSha_glass <font color="darkgreen">
+    &quot;Infrared transmissivity of shade for radiation coming from the glass&quot;</font>;
+
+  <font color="blue">parameter </font>Boolean linearizeRadiation <font color="darkgreen">
+    &quot;Set to true to linearize emissive power&quot;</font>;
+  <font color="blue">parameter </font>Real vieFacSky(<font color="blue">final </font>min=0, <font color="blue">final </font>max=1, <font color="blue">final </font>unit=&quot;1&quot;) <font color="darkgreen">
+    &quot;View factor from receiving surface to sky&quot;</font>;
+
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> vWin <font color="darkgreen">&quot;Wind speed&quot;</font>;
+>Modelica.Blocks.Interfaces.RealInput</A> vWin(<font color="blue">final </font>unit=&quot;m/s&quot;) <font color="darkgreen">&quot;Wind speed&quot;</font>;
   <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ExteriorConvectionCoefficient"
 >Buildings.HeatTransfer.Windows.BaseClasses.ExteriorConvectionCoefficient</A>
     conCoeGla(                                          <font color="blue">final </font>A=AGla) <font color="darkgreen">
@@ -481,8 +508,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
 >Radiosity.OutdoorRadiosity</A> radOut(
    <font color="blue">final </font>A=AGla, vieFacSky=vieFacSky,
     linearize=linearizeRadiation) <font color="darkgreen">&quot;Outdoor radiosity&quot;</font>;</textblock>
-  <font color="blue">parameter </font>Real vieFacSky(min=0, max=1) <font color="darkgreen">
-    &quot;View factor from receiving surface to sky&quot;</font>;
+
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TBlaSky(
     <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
@@ -491,7 +517,40 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TOut(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                             <font color="blue">final </font>unit = &quot;K&quot;, min=0) <font color="darkgreen">
-    &quot;Outside temperature&quot;</font>;</textblock>
+    &quot;Outside temperature&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>Interfaces.RadiosityOutflow</A> JOutUns <font color="darkgreen">
+    &quot;Outgoing radiosity that connects to unshaded part of glass&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
+>Interfaces.RadiosityInflow</A> JInUns <font color="darkgreen">
+    &quot;Incoming radiosity that connects to unshaded part of glass&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>Interfaces.RadiosityOutflow</A> JOutSha <font color="blue">if </font>haveShade <font color="darkgreen">
+    &quot;Outgoing radiosity that connects to shaded part of glass&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
+>Interfaces.RadiosityInflow</A> JInSha <font color="blue">if </font>haveShade <font color="darkgreen">
+    &quot;Incoming radiosity that connects to shaded part of glass&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> QSolAbs_flow(unit=&quot;W&quot;, quantity=&quot;Power&quot;) <font color="blue">if </font>
+       haveShade <font color="darkgreen">&quot;Solar radiation absorbed by shade&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation"
+>BaseClasses.ShadeRadiation</A> shaRad(
+    <font color="blue">final </font>thisSideHasShade=thisSideHasShade,
+    <font color="blue">final </font>A=AGla,
+    <font color="blue">final </font>linearize=linearizeRadiation,
+    <font color="blue">final </font>absIR_air=<font color="blue">if </font>thisSideHasShade<font color="blue"> then </font>absIRSha_air<font color="blue"> else </font>0,
+    <font color="blue">final </font>absIR_glass=<font color="blue">if </font>thisSideHasShade<font color="blue"> then </font>absIRSha_glass<font color="blue"> else </font>0,
+    <font color="blue">final </font>tauIR_air=<font color="blue">if </font>thisSideHasShade<font color="blue"> then </font>tauIRSha_air<font color="blue"> else </font>1,
+    <font color="blue">final </font>tauIR_glass=<font color="blue">if </font>thisSideHasShade<font color="blue"> then </font>tauIRSha_glass<font color="blue"> else </font>1) <font color="blue">if </font>
+       haveShade <font color="darkgreen">&quot;Radiative heat balance of shade&quot;</font>;
+<font color="blue">protected </font>
+  <A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.RadiositySplitter"
+>Radiosity.RadiositySplitter</A> radShaOut <font color="darkgreen">&quot;Radiosity that strikes shading device&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ShadeConvection"
+>BaseClasses.ShadeConvection</A> shaCon(<font color="blue">final </font>thisSideHasShade=thisSideHasShade,
+      <font color="blue">final </font>A=AGla) <font color="blue">if </font>
+       haveShade <font color="darkgreen">&quot;Convective heat balance of shade&quot;</font>;</textblock>
 <font color="blue">equation </font>
   <font color="red">assert</font>(-1E-10&lt;vieFacSky<font color="blue"> and </font>1.00001 &gt; vieFacSky,
          &quot;View factor to sky is out of range. vieFacSky = &quot; +<font color="red"> String</font>(vieFacSky)
@@ -504,19 +563,31 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
   <font color="red">connect</font>(conCoeGla.GCon, proUns.u2);
   <font color="red">connect</font>(radOut.JOut, radShaOut.JIn);
   <font color="red">connect</font>(radOut.TBlaSky, TBlaSky);
-  <font color="red">connect</font>(radOut.TOut, TOut);</textblock>
+  <font color="red">connect</font>(radOut.TOut, TOut);
+  <font color="red">connect</font>(radShaOut.JOut_2,JOutUns);
+  <font color="red">connect</font>(shaRad.JOut_glass, JOutSha);
+  <font color="red">connect</font>(shaRad.JIn_glass, JInSha);
+  <font color="red">connect</font>(radShaOut.JOut_1, shaRad.JIn_air);
+  <font color="red">connect</font>(shaRad.u, shaSig.y);
+  <font color="red">connect</font>(glaSha, shaCon.glass);
+  <font color="red">connect</font>(shaCon.air, air);
+  <font color="red">connect</font>(shaCon.Gc, proSha.y);
+  <font color="red">connect</font>(shaCon.TSha, shaRad.TSha);
+  <font color="red">connect</font>(shaRad.QRadAbs_flow, shaCon.QRadAbs_flow);
+  <font color="red">connect</font>(radShaOut.u, shaSig.y);
+  <font color="red">connect</font>(shaRad.QSolAbs_flow, QSolAbs_flow);</textblock>
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>ExteriorHeatTransfer;
 </PRE>
 <HR>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE InteriorHeatTransfer<![endif]-->
+<span style='mso-spacerun:yes'></span>XE InteriorHeatTransferConvective<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.HeatTransfer.Wi82f0bda6009e5d57nsferI.png" ALT="Buildings.HeatTransfer.Windows.InteriorHeatTransfer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.HeatTransfer.Windows.InteriorHeatTransfer"></A><A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows"
->Buildings.HeatTransfer.Windows</A>.InteriorHeatTransfer</H2>
-<B>Model for heat convection at the interior surface of a window that may have a shading device</B><p>
-<IMG SRC="Buildings.HeatTransfer.Wi82f0bda6009e5d57nsferD.png" ALT="Buildings.HeatTransfer.Windows.InteriorHeatTransfer">
-<P><H3>Information</H3></P>
+<H2><IMG SRC="Buildings.HeatTransfer.Wibd22c4743943a4b1ctiveI.png" ALT="Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective"></A><A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows"
+>Buildings.HeatTransfer.Windows</A>.InteriorHeatTransferConvective</H2>
+<B>Model for heat convection at the interior surface of a window that may have a shading device</B><p></P>
+<IMG SRC="Buildings.HeatTransfer.Wibd22c4743943a4b1ctiveD.png" ALT="Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective">
+<P></P><H3>Information</H3>
 
 <p>
 Model for the convective heat transfer between a window shade, a window surface
@@ -530,25 +601,16 @@ Buildings.HeatTransfer.Windows.Window</a>.
 <p>
 This model adds the convective heat transfer coefficient to its base model.
 </p>
-<P>
-Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialConvection"
->BaseClasses.PartialConvection</A> (Partial model for heat convection between a possibly shaded window that can be outside or inside the room).
+<P></P>
+Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialWindowBoundaryCondition"
+>BaseClasses.PartialWindowBoundaryCondition</A> (Partial model for heat convection or radiation between a possibly shaded window that can be outside or inside the room).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Heat transfer area of frame and window [m2]</TD></TR>
 <TR><TD>Real</TD><TD>fFra</TD><TD>&nbsp;</TD><TD>Fraction of window frame divided by total window area</TD></TR>
-<TR><TD>Boolean</TD><TD>linearizeRadiation</TD><TD>&nbsp;</TD><TD>Set to true to linearize emissive power</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Shading</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
->Emissivity</A></TD><TD>absIRSha_air</TD><TD>&nbsp;</TD><TD>Infrared absorptivity of shade surface that faces air [1]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
->Emissivity</A></TD><TD>absIRSha_glass</TD><TD>&nbsp;</TD><TD>Infrared absorptivity of shade surface that faces glass [1]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
->TransmissionCoefficient</A></TD><TD>tauIRSha_air</TD><TD>&nbsp;</TD><TD>Infrared transmissivity of shade for radiation coming from the exterior or the room [1]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
->TransmissionCoefficient</A></TD><TD>tauIRSha_glass</TD><TD>&nbsp;</TD><TD>Infrared transmissivity of shade for radiation coming from the glass [1]</TD></TR>
 <TR><TD>Boolean</TD><TD>haveExteriorShade</TD><TD>&nbsp;</TD><TD>Set to true if window has exterior shade (at surface a)</TD></TR>
 <TR><TD>Boolean</TD><TD>haveInteriorShade</TD><TD>&nbsp;</TD><TD>Set to true if window has interior shade (at surface b)</TD></TR>
 <TR><TD>Boolean</TD><TD>thisSideHasShade</TD><TD>haveInteriorShade</TD><TD>Set to true if this side of the model has a shade</TD></TR>
@@ -566,57 +628,54 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
 >HeatPort_b</A></TD><TD>glaSha</TD><TD>Heat port that connects to shaded part of glass</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>frame</TD><TD>Heat port at window frame</TD></TR>
-<TR><TD>output <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
->RadiosityOutflow</A></TD><TD>JOutUns</TD><TD>Outgoing radiosity that connects to unshaded part of glass [W]</TD></TR>
-<TR><TD>input <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
->RadiosityInflow</A></TD><TD>JInUns</TD><TD>Incoming radiosity that connects to unshaded part of glass [W]</TD></TR>
-<TR><TD>output <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
->RadiosityOutflow</A></TD><TD>JOutSha</TD><TD>Outgoing radiosity that connects to shaded part of glass [W]</TD></TR>
-<TR><TD>input <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
->RadiosityInflow</A></TD><TD>JInSha</TD><TD>Incoming radiosity that connects to shaded part of glass [W]</TD></TR>
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>QAbs_flow</TD><TD>Solar radiation absorbed by shade [W]</TD></TR>
-<TR><TD>input <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
->RadiosityInflow</A></TD><TD>JInRoo</TD><TD>Incoming radiosity of window construction [W]</TD></TR>
-<TR><TD>output <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
->RadiosityOutflow</A></TD><TD>JOutRoo</TD><TD>Outgoing radiosity of window construction [W]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
->HeatPort_a</A></TD><TD>sha</TD><TD>Heat port to shade</TD></TR>
+>RealInput</A></TD><TD>QRadAbs_flow</TD><TD>Total net radiation that is absorbed by the shade (positive if absorbed) [W]</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>TSha</TD><TD>Shade temperature [K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
-<font color="blue">model</font> InteriorHeatTransfer <font color="darkgreen">
+<font color="blue">model</font> InteriorHeatTransferConvective <font color="darkgreen">
   &quot;Model for heat convection at the interior surface of a window that may have a shading device&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialConvection"
->BaseClasses.PartialConvection</A>(<font color="blue">final </font>thisSideHasShade=haveInteriorShade);
+  <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialWindowBoundaryCondition"
+>BaseClasses.PartialWindowBoundaryCondition</A>(<font color="blue">final </font>thisSideHasShade=haveInteriorShade);
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.InteriorConvectionCoefficient"
 >Buildings.HeatTransfer.Windows.BaseClasses.InteriorConvectionCoefficient</A>
-    conCoeGla(                                          <font color="blue">final </font>A=AGla) <font color="darkgreen">
+    conCoeGla(<font color="blue">final </font>A=AGla) <font color="darkgreen">
     &quot;Model for the inside convective heat transfer coefficient of the glass&quot;</font>;
   <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.InteriorConvectionCoefficient"
 >Buildings.HeatTransfer.Windows.BaseClasses.InteriorConvectionCoefficient</A>
-    conCoeFra(                                          <font color="blue">final </font>A=AFra) <font color="darkgreen">
+    conCoeFra(<font color="blue">final </font>A=AFra) <font color="darkgreen">
     &quot;Model for the inside convective heat transfer coefficient of the frame&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
->Interfaces.RadiosityInflow</A> JInRoo <font color="darkgreen">&quot;Incoming radiosity of window construction&quot;</font>;
-  <A HREF="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
->Interfaces.RadiosityOutflow</A> JOutRoo <font color="darkgreen">
-    &quot;Outgoing radiosity of window construction&quot;</font>;</textblock>
-
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
->Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A> sha <font color="blue">if </font>
-      windowHasShade <font color="darkgreen">&quot;Heat port to shade&quot;</font>;</textblock>
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ShadeConvection"
+>BaseClasses.ShadeConvection</A> conSha(
+    <font color="blue">final </font>A=AGla,
+    <font color="blue">final </font>thisSideHasShade=thisSideHasShade) <font color="blue">if </font>
+       haveShade <font color="darkgreen">&quot;Convection model for shade&quot;</font>;
+ <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> QRadAbs_flow(<font color="blue">final </font>unit=&quot;W&quot;) <font color="blue">if </font>
+       haveShade <font color="darkgreen">
+    &quot;Total net radiation that is absorbed by the shade (positive if absorbed)&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> TSha(
+   <font color="blue">final </font>unit=&quot;K&quot;,
+   <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;) <font color="blue">if </font>
+      haveShade <font color="darkgreen">&quot;Shade temperature&quot;</font>;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conCoeFra.GCon, conFra.Gc);
   <font color="red">connect</font>(conCoeGla.GCon, proUns.u2);
   <font color="red">connect</font>(conCoeGla.GCon, proSha.u1);</textblock>
 
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(JInRoo, radShaOut.JIn);
-  <font color="red">connect</font>(JInUns, JOutRoo);
-  <font color="red">connect</font>(shade.JOut_air, JOutRoo);
-  <font color="red">connect</font>(shade.sha, sha);</textblock>
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>InteriorHeatTransfer;
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conSha.glass, glaSha);
+  <font color="red">connect</font>(proSha.y, conSha.Gc);
+  <font color="red">connect</font>(conSha.TSha, TSha);
+  <font color="red">connect</font>(QRadAbs_flow, conSha.QRadAbs_flow);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conFra.fluid, air);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(air, conSha.air);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>InteriorHeatTransferConvective;
 </PRE>
 <HR>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -625,9 +684,9 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
 <H2><IMG SRC="Buildings.HeatTransfer.Wieba82d94a86f3ff2ShadeI.png" ALT="Buildings.HeatTransfer.Windows.FixedShade" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.FixedShade"></A><A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows"
 >Buildings.HeatTransfer.Windows</A>.FixedShade</H2>
-<B>Model for exterior shade due to overhang and/or side fin</B><p>
+<B>Model for exterior shade due to overhang and/or side fin</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wieba82d94a86f3ff2ShadeD.png" ALT="Buildings.HeatTransfer.Windows.FixedShade">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model outputs the fraction of the window area that is sun exposed
@@ -653,9 +712,11 @@ and
 >
 Buildings.HeatTransfer.Windows.SideFins</a>.
 </p>
+
 <h4>Limitations</h4>
 <p>
-For overhangs, the model assumes that 
+For overhangs, the model assumes that
+</p>
 <ul>
 <li> 
 the overhang is at least as wide as the window, i.e., 
@@ -666,9 +727,10 @@ the overhang is at least as wide as the window, i.e.,
 the overhang is horizontal.
 </li>
 </ul>
-</p>
+
 <p>
-For side fins, the model assumes that 
+For side fins, the model assumes that
+</p>
 <ul>
 <li>
 the side fins are placed symmetrically to the left and right of the window,
@@ -680,7 +742,7 @@ the top of the side fins must be at an equal or greater height than the window, 
 the side fins extends at least to the lower edge of the window.
 </li>
 </ul> 
-</p>
+
 <h4>Implementation</h4>
 <p>
 The detailed calculation method is explained in 
@@ -692,7 +754,7 @@ and in
 >
 Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ShadeInterface_weatherBus"
 >HeatTransfer.Windows.BaseClasses.ShadeInterface_weatherBus</A> (Base class for models of window shade and overhangs).
 <P><H3>Parameters</H3><P>
@@ -719,7 +781,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>fraSun</TD><TD>Fraction of the area that is unshaded [1]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FixedShade <font color="darkgreen">
   &quot;Model for exterior shade due to overhang and/or side fin&quot;</font>
@@ -848,9 +910,9 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
 <H2><IMG SRC="Buildings.HeatTransfer.Wieba82d94a86f3ff2ShadeI.png" ALT="Buildings.HeatTransfer.Windows.Overhang" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.Overhang"></A><A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows"
 >Buildings.HeatTransfer.Windows</A>.Overhang</H2>
-<B>For a window with an overhang, outputs the fraction of the window area exposed to the sun</B><p>
+<B>For a window with an overhang, outputs the fraction of the window area exposed to the sun</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Windows.OverhangD.png" ALT="Buildings.HeatTransfer.Windows.Overhang">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 For a window with an overhang, this model outputs the fraction of 
@@ -869,17 +931,19 @@ of the window.
 The figure below shows the parameters.
 </p>
 <p align="center">
-<img src="../Resources/Images/HeatTransfer/Windows/Overhang.png">
+<img alt="image" src="../Resources/Images/HeatTransfer/Windows/Overhang.png" />
 </p>
+
 <p>
 The surface azimuth <code>azi</code> is as defined in 
 <A HREF="Buildings_HeatTransfer_Types_Azimuth.html#Buildings.HeatTransfer.Types.Azimuth"
 >
 Buildings.HeatTransfer.Types.Azimuth</a>.
 </p>
+
 <h4>Limitations</h4>
 <p>
-The model assumes that 
+The model assumes that</p>
 <ul>
 <li> 
 the overhang is at least as wide as the window, i.e., 
@@ -890,7 +954,7 @@ the overhang is at least as wide as the window, i.e.,
 the overhang is horizontal.
 </li>
 </ul>
-</p>
+
 <h4>Implementation</h4>
 <p>
 The implementation is explained in 
@@ -898,7 +962,7 @@ The implementation is explained in
 >
 Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.Overhang"
 >Buildings.Rooms.BaseClasses.Overhang</A> (Record for window overhang), <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus"
 >Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus</A> (Partial model to implement overhang and side fins with weather bus connector).
@@ -938,12 +1002,10 @@ Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClass
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>fraSun</TD><TD>Fraction of the area that is unshaded [1]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Overhang <font color="darkgreen">
   &quot;For a window with an overhang, outputs the fraction of the window area exposed to the sun&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.Overhang"
 >Buildings.Rooms.BaseClasses.Overhang</A>;
   <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus"
@@ -980,9 +1042,9 @@ Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClass
 <H2><IMG SRC="Buildings.HeatTransfer.Windows.SideFinsI.png" ALT="Buildings.HeatTransfer.Windows.SideFins" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.SideFins"></A><A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows"
 >Buildings.HeatTransfer.Windows</A>.SideFins</H2>
-<B>For a window with side fins, outputs the fraction of the window area exposed to the sun</B><p>
+<B>For a window with side fins, outputs the fraction of the window area exposed to the sun</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Windows.SideFinsD.png" ALT="Buildings.HeatTransfer.Windows.SideFins">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 For a window with side fins, this model outputs the fraction of 
@@ -998,7 +1060,7 @@ Side fins are assumed to extend at least to the lower edge of the window.
 as shadow on the window anyway.)
 </p>
 <p align="center">
-<img src="../Resources/Images/HeatTransfer/Windows/SideFins.png">
+<img alt="image" src="../Resources/Images/HeatTransfer/Windows/SideFins.png" />
 </p>
 <p>
 The parameter <code>h</code> is measured
@@ -1006,10 +1068,9 @@ from the top of the window to the top of the side fins.
 The side fin must extend at least to the bottom of the window.
 </p>
 <p align="center">
-<img src="../Resources/Images/HeatTransfer/Windows/WindowSideFinsExtendedSideFin.png">
+<img alt="image" src="../Resources/Images/HeatTransfer/Windows/WindowSideFinsExtendedSideFin.png" />
 </p>
 <h4>Limitations</h4>
-<p>
 The model assumes that 
 <ul>
 <li>
@@ -1023,7 +1084,7 @@ the bottom of the side fins must be at an equal or lower height than the
 bottom of the window.
 </li>
 </ul> 
-</p>
+
 <h4>Implementation</h4>
 <p>
 The detailed calculation method is explained in 
@@ -1031,7 +1092,7 @@ The detailed calculation method is explained in
 >
 Buildings.HeatTransfer.Windows.BaseClasses.SideFins</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.SideFins"
 >Buildings.Rooms.BaseClasses.SideFins</A> (Record for window side fins), <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus"
 >Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus</A> (Partial model to implement overhang and side fins with weather bus connector).
@@ -1065,12 +1126,10 @@ Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClass
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>fraSun</TD><TD>Fraction of the area that is unshaded [1]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SideFins <font color="darkgreen">
   &quot;For a window with side fins, outputs the fraction of the window area exposed to the sun&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.SideFins"
 >Buildings.Rooms.BaseClasses.SideFins</A>;
   <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus"
@@ -1090,6 +1149,6 @@ Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClass
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>SideFins;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:59 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:25 2013.
 </address></BODY>
 </HTML>

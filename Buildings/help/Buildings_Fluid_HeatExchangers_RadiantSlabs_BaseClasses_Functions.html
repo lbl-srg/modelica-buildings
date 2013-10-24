@@ -26,24 +26,24 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Functions<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions"></A><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses</A>.Functions</H2>
 <B>Functions for convective heat transfer</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains functions that are used to construct the models in
 <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs</a>.
 </p>
-<P>
+<P></P>
 
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExchadcafa2e11cd35818tanceS.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance"
@@ -56,14 +56,15 @@ This package contains functions that are used to construct the models in
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance"></A><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions</A>.AverageResistance</H2>
-<B>Average fictitious resistance for plane that contains the pipes</B><p>
-<P><H3>Information</H3></P>
+<B>Average fictitious resistance for plane that contains the pipes</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This function computes a fictitious thermal resistance between the pipe outer wall 
 and a fictitious, average temperature of the plane that contains the pipes.
 The equation is the same as is implemented in TRNSYS 17.
-Different equations are used for 
+Different equations are used for
+</p>
 <ul>
 <li>
 floor heating systems (if 
@@ -80,7 +81,6 @@ capillary tube systems (if
 and <code>disPip/dPipOut &lt; 5.8</code>).
 </li>
 </ul>
-</p>
 <h4>Limitations</h4>
 <p>
 The resistance <code>Rx</code> is based on a steady-state heat transfer analysis. Therefore, it is
@@ -88,7 +88,7 @@ only valid during steady-state.
 For a fully dynamic model, a finite element method for the radiant slab would need to be implemented.
 </p>
 <pre>
-</PRE><P>
+</PRE><P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -112,7 +112,7 @@ For a fully dynamic model, a finite element method for the radiant slab would ne
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
 >ThermalInsulance</A></TD><TD>Rx</TD><TD>Thermal insulance [m2.K/W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> AverageResistance <font color="darkgreen">
   &quot;Average fictitious resistance for plane that contains the pipes&quot;</font>
@@ -175,6 +175,6 @@ For a fully dynamic model, a finite element method for the radiant slab would ne
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>AverageResistance;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:06 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:20 2013.
 </address></BODY>
 </HTML>

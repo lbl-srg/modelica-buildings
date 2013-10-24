@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Windows.Examples"></A><A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows"
 >Buildings.HeatTransfer.Windows</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -42,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.HeatTransfer.Windows</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Widbbc42178240ed63nsferS.png" ALT="Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer"
@@ -71,9 +71,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Widbbc42178240ed63nsferI.png" ALT="Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer"></A><A HREF="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
 >Buildings.HeatTransfer.Windows.Examples</A>.BoundaryHeatTransfer</H2>
-<B>Test model for the heat transfer at the window boundary condition</B><p>
+<B>Test model for the heat transfer at the window boundary condition</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Widbbc42178240ed63nsferD.png" ALT="Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -92,12 +92,10 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
 >DoubleClearAir13Clear</A></TD><TD>glaSys</TD><TD>&nbsp;</TD><TD>Parameters for glazing system</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> BoundaryHeatTransfer <font color="darkgreen">
   &quot;Test model for the heat transfer at the window boundary condition&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
@@ -123,9 +121,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</A> TRooAir(k=293.15, y(unit=&quot;K&quot;)) <font color="darkgreen">
     &quot;Room air temperature&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A> TRooRad(k=293.15, y(unit=&quot;K&quot;)) <font color="darkgreen">
-    &quot;Room radiative temperature&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> uSha(duration=1, startTime=0) <font color="darkgreen">
     &quot;Shading control signal&quot;</font>;
@@ -176,7 +171,10 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 >Buildings.HeatTransfer.Sources.PrescribedTemperature</A> TRAir3 <font color="darkgreen">
     &quot;Room air temperature&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A> QAbsSW_flow(k=0) <font color="darkgreen">&quot;Absorbed solar radiation&quot;</font>;</textblock>
+>Modelica.Blocks.Sources.Constant</A> QAbsSW_flow(k=0) <font color="darkgreen">&quot;Absorbed solar radiation&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.MultiSum"
+>Modelica.Blocks.Math.MultiSum</A> sumJ(nu=2) <font color="darkgreen">
+    &quot;Sum of radiosity from construction to room model&quot;</font>;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(uSha.y, extCon.uSha);
   <font color="red">connect</font>(TOuts.port, extCon.air);
@@ -189,17 +187,18 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
   <font color="red">connect</font>(radShaOut.JOut_2, extCon.JInUns);
   <font color="red">connect</font>(radShaOut.JOut_1, extCon.JInSha);
   <font color="red">connect</font>(radIn.heatPort, TRAir.port);
-  <font color="red">connect</font>(extCon.JOutUns, radIn.JIn);
-  <font color="red">connect</font>(extCon.JOutSha, radIn.JIn);
   <font color="red">connect</font>(TRooAir.y, TRAir1.T);
   <font color="red">connect</font>(TRooAir.y, TRAir2.T);
   <font color="red">connect</font>(TRooAir.y, TRAir3.T);
   <font color="red">connect</font>(TRAir1.port, extCon.glaUns);
   <font color="red">connect</font>(TRAir2.port, extCon.glaSha);
   <font color="red">connect</font>(TRAir3.port, extCon.frame);
-  <font color="red">connect</font>(extCon.QAbs_flow, QAbsSW_flow.y);
   <font color="red">connect</font>(TOut.y, extCon.TBlaSky);
-  <font color="red">connect</font>(TOut.y, extCon.TOut);</textblock>
+  <font color="red">connect</font>(TOut.y, extCon.TOut);
+  <font color="red">connect</font>(radIn.JIn, sumJ.y);
+  <font color="red">connect</font>(extCon.JOutUns, sumJ.u[1]);
+  <font color="red">connect</font>(extCon.JOutSha, sumJ.u[2]);
+  <font color="red">connect</font>(QAbsSW_flow.y, extCon.QSolAbs_flow);</textblock>
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>BoundaryHeatTransfer;
 </PRE>
 <HR>
@@ -209,16 +208,16 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.HeatTransfer.Widbbc42178240ed63nsferI.png" ALT="Buildings.HeatTransfer.Windows.Examples.FixedShade" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.Examples.FixedShade"></A><A HREF="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
 >Buildings.HeatTransfer.Windows.Examples</A>.FixedShade</H2>
-<B>Test model for the fixed shade model</B><p>
+<B>Test model for the fixed shade model</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wi08ff5147d0ee924fShadeD.png" ALT="Buildings.HeatTransfer.Windows.Examples.FixedShade">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model tests window overhang and side fins. There are three instances of <code>sha</code>.
 The first instance models an overhang, the second models side fins and the third has neither an overhang
 nor a side fin.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -229,7 +228,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
 >DoubleClearAir13Clear</A></TD><TD>glaSys</TD><TD>&nbsp;</TD><TD>Glazing system</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FixedShade <font color="darkgreen">&quot;Test model for the fixed shade model&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
@@ -241,7 +240,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     <font color="blue">each </font>lat=weaDat.lat) <font color="darkgreen">&quot;Shade model&quot;</font>;
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
-    filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
+    filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
   <A HREF="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"
 >Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface</A> HDirTil(
     lat=weaDat.lat,
@@ -294,9 +293,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.HeatTransfer.Widbbc42178240ed63nsferI.png" ALT="Buildings.HeatTransfer.Windows.Examples.Overhang" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.Examples.Overhang"></A><A HREF="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
 >Buildings.HeatTransfer.Windows.Examples</A>.Overhang</H2>
-<B>This example tests the window overhang model</B><p>
+<B>This example tests the window overhang model</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wiaa2dc68451c0f32erhangD.png" ALT="Buildings.HeatTransfer.Windows.Examples.Overhang">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This example demonstrates the use of the overhang model.
@@ -308,18 +307,16 @@ A similar example of an overhang model with more basic components is implemented
 >
 Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang</a>. 
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Overhang <font color="darkgreen">&quot;This example tests the window overhang model&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
->Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
     &quot;Weather data&quot;</font>;
   <A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.Overhang"
 >Buildings.HeatTransfer.Windows.Overhang</A> ove(
@@ -350,9 +347,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.HeatTransfer.Widbbc42178240ed63nsferI.png" ALT="Buildings.HeatTransfer.Windows.Examples.SideFins" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.Examples.SideFins"></A><A HREF="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
 >Buildings.HeatTransfer.Windows.Examples</A>.SideFins</H2>
-<B>This example demonstrates the use of side fins for a window</B><p>
+<B>This example demonstrates the use of side fins for a window</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wi767018d992a7d3ddeFinsD.png" ALT="Buildings.HeatTransfer.Windows.Examples.SideFins">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This example uses the window sidefin model to calculate the fraction of total window area exposed to the sun.</p>
@@ -364,19 +361,17 @@ A similar example of can be found in
 <A HREF="Buildings_HeatTransfer_Windows_BaseClasses_Examples.html#Buildings.HeatTransfer.Windows.BaseClasses.Examples.SideFins"
 >Buildings.HeatTransfer.Windows.BaseClasses.Examples.SideFins</a>. 
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SideFins <font color="darkgreen">
   &quot;This example demonstrates the use of side fins for a window&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
->Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
     &quot;Weather data&quot;</font>;
   <A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.SideFins"
 >Buildings.HeatTransfer.Windows.SideFins</A> fin(
@@ -404,9 +399,26 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.HeatTransfer.Wic07f621693a1af49indowI.png" ALT="Buildings.HeatTransfer.Windows.Examples.Window" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Windows.Examples.Window"></A><A HREF="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
 >Buildings.HeatTransfer.Windows.Examples</A>.Window</H2>
-<B>Test model for the window</B><p>
+<B>Test model for the window</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wic07f621693a1af49indowD.png" ALT="Buildings.HeatTransfer.Windows.Examples.Window">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
+
+<p>
+This model demonstrates the implementation of a window model.
+On the left hand side is a model for the combined convective and radiative heat
+transfer on the outside facing side of the window. 
+In the top middle is the window model, and below is a model that
+computes the solar radiation balance of the window. Output of the solar
+radiation balance model are the absorbed solar heat flow rates, which are
+input to the heat balance models.
+On the right hand side are models for the inside surface heat balance.
+As opposed to the outside surface heat balance models, these models are
+implemented using separate components for the radiative balance and for the convective
+balance. This has been done to allow separating radiation from convection, 
+which is required when the room model is used with room air heat balance models
+that use computational fluid dynamics.
+</p>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -431,17 +443,19 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Window <font color="darkgreen">&quot;Test model for the window&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</A> A=1 <font color="darkgreen">&quot;Window surface area&quot;</font>;
   <font color="blue">parameter </font>Real fFra=0.2 <font color="darkgreen">
     &quot;Fraction of frame, = frame area divided by total area&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</A> AFra = fFra * A <font color="darkgreen">&quot;Frame area&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</A> AGla = A-AFra <font color="darkgreen">&quot;Glass area&quot;</font>;
   <font color="blue">parameter </font>Boolean linearize = false <font color="darkgreen">&quot;Set to true to linearize emissive power&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> lat=0.34906585039887 <font color="darkgreen">&quot;Latitude&quot;</font>;
@@ -456,16 +470,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     glaSys=glaSys,
     linearize=linearize,
     til=til) <font color="darkgreen">&quot;Window&quot;</font>;
-  <A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.InteriorHeatTransfer"
->Buildings.HeatTransfer.Windows.InteriorHeatTransfer</A> intCon(A=A, fFra=fFra,
-    linearizeRadiation=linearize,
-    absIRSha_air=glaSys.shade.absIR_a,
-    absIRSha_glass=glaSys.shade.absIR_b,
-    tauIRSha_air=glaSys.shade.tauIR_a,
-    tauIRSha_glass=glaSys.shade.tauIR_b,
-    haveExteriorShade=glaSys.haveExteriorShade,
-    haveInteriorShade=glaSys.haveInteriorShade) <font color="darkgreen">
-    &quot;Room-side convective heat transfer&quot;</font>;
   <A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.ExteriorHeatTransfer"
 >Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</A> extCon(
     A=A,
@@ -478,17 +482,14 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade,
     vieFacSky=0.5) <font color="darkgreen">&quot;Exterior convective heat transfer&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A> TRooAir(k=293.15, y(unit=&quot;K&quot;)) <font color="darkgreen">
-    &quot;Room air temperature&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> uSha(duration=0.5, startTime=0.25) <font color="darkgreen">
     &quot;Shading control signal&quot;</font>;
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
 >Buildings.HeatTransfer.Sources.PrescribedTemperature</A> TOuts <font color="darkgreen">
     &quot;Outside air temperature&quot;</font>;
-  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
->Buildings.HeatTransfer.Sources.PrescribedTemperature</A> TRAir <font color="darkgreen">
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A>      TRAir(T=293.15) <font color="darkgreen">
     &quot;Room air temperature&quot;</font>;
   <A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.IndoorRadiosity"
 >Buildings.HeatTransfer.Radiosity.IndoorRadiosity</A> indRad(A=A) <font color="darkgreen">
@@ -511,7 +512,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
                                                         filNam=
-        &quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
+        &quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> HRoo(k=0.1) <font color="darkgreen">&quot;Solar irradiation from room&quot;</font>;
   <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation"
@@ -529,38 +530,56 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade);
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
->Buildings.BoundaryConditions.WeatherData.Bus</A> weaBus;</textblock>
+>Buildings.BoundaryConditions.WeatherData.Bus</A> weaBus;
+<font color="blue">protected </font>
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
+>Modelica.Blocks.Math.Sum</A> sumJ(nin=<font color="blue">if </font>glaSys.haveShade<font color="blue"> then </font>2<font color="blue"> else </font>1) <font color="darkgreen">
+    &quot;Sum of radiosity fom glass to outside&quot;</font>;
+<font color="blue">public </font>
+  <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation"
+>Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation</A> intShaRad(
+    thisSideHasShade=glaSys.haveInteriorShade,
+    linearize=linearize,
+    absIR_air=glaSys.shade.absIR_a,
+    absIR_glass=glaSys.shade.absIR_b,
+    tauIR_air=glaSys.shade.tauIR_a,
+    tauIR_glass=glaSys.shade.tauIR_b,
+    A=AGla) <font color="blue">if </font>
+     glaSys.haveShade <font color="darkgreen">&quot;Interior shade radiation model&quot;</font>;
+<font color="blue">public </font>
+  <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal"
+>Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal</A>
+                shaSig(haveShade=glaSys.haveInteriorShade) <font color="darkgreen">
+    &quot;Conversion for shading signal&quot;</font>;
+<font color="blue">protected </font>
+  <A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.RadiositySplitter"
+>Buildings.HeatTransfer.Radiosity.RadiositySplitter</A>
+                              radShaOut <font color="darkgreen">&quot;Radiosity that strikes shading device&quot;</font>;
+<font color="blue">public </font>
+  <A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective"
+>Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective</A> intShaCon(
+    A=A,
+    fFra=fFra,
+    haveExteriorShade=glaSys.haveExteriorShade,
+    haveInteriorShade=glaSys.haveInteriorShade) <font color="darkgreen">
+    &quot;Model for interior shade heat transfer&quot;</font>;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(uSha.y, extCon.uSha);
   <font color="red">connect</font>(uSha.y, window.uSha);
-  <font color="red">connect</font>(uSha.y, intCon.uSha);
   <font color="red">connect</font>(TOuts.port, extCon.air);
-  <font color="red">connect</font>(TRAir.port, intCon.air);
-  <font color="red">connect</font>(TRooAir.y, TRAir.T);
-  <font color="red">connect</font>(window.glaUns_b, intCon.glaUns);
-  <font color="red">connect</font>(window.glaSha_b, intCon.glaSha);
   <font color="red">connect</font>(window.glaUns_a, extCon.glaUns);
   <font color="red">connect</font>(window.glaSha_a, extCon.glaSha);
   <font color="red">connect</font>(window.fra_a, extCon.frame);
-  <font color="red">connect</font>(window.fra_b, intCon.frame);
   <font color="red">connect</font>(extCon.JOutUns, window.JInUns_a);
   <font color="red">connect</font>(extCon.JInUns, window.JOutUns_a);
   <font color="red">connect</font>(extCon.JOutSha, window.JInSha_a);
   <font color="red">connect</font>(extCon.JInSha, window.JOutSha_a);
-  <font color="red">connect</font>(window.JOutUns_b, intCon.JInUns);
-  <font color="red">connect</font>(intCon.JOutUns, window.JInUns_b);
-  <font color="red">connect</font>(window.JOutSha_b, intCon.JInSha);
-  <font color="red">connect</font>(intCon.JOutSha, window.JInSha_b);
-  <font color="red">connect</font>(indRad.JOut, intCon.JInRoo);
-  <font color="red">connect</font>(intCon.JOutRoo, indRad.JIn);
   <font color="red">connect</font>(fixedHeatFlow.port, indRad.heatPort);
   <font color="red">connect</font>(winRad.QTra_flow,HRoo. u);
   <font color="red">connect</font>(HRoo.y,winRad. HRoo);
   <font color="red">connect</font>(HDifTilIso.H, winRad.HDif);
   <font color="red">connect</font>(HDirTil.H, winRad.HDir);
   <font color="red">connect</font>(HDirTil.inc, winRad.incAng);
-  <font color="red">connect</font>(winRad.QAbsExtSha_flow, extCon.QAbs_flow);
-  <font color="red">connect</font>(winRad.QAbsIntSha_flow, intCon.QAbs_flow);
   <font color="red">connect</font>(winRad.QAbsGlaUns_flow, window.QAbsUns_flow);
   <font color="red">connect</font>(winRad.QAbsGlaSha_flow, window.QAbsSha_flow);
   <font color="red">connect</font>(weaDat.weaBus, weaBus);
@@ -570,10 +589,30 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
   <font color="red">connect</font>(uSha.y, winRad.uSha);
   <font color="red">connect</font>(weaBus.winSpe, extCon.vWin);
   <font color="red">connect</font>(weaBus.TBlaSky, extCon.TBlaSky);
-  <font color="red">connect</font>(weaBus.TDryBul, extCon.TOut);</textblock>
+  <font color="red">connect</font>(weaBus.TDryBul, extCon.TOut);
+  <font color="red">connect</font>(uSha.y, shaSig.u);
+  <font color="red">connect</font>(intShaRad.u, shaSig.y);
+  <font color="red">connect</font>(indRad.JOut, radShaOut.JIn);
+  <font color="red">connect</font>(radShaOut.JOut_1, intShaRad.JIn_air);
+  <font color="red">connect</font>(indRad.JIn, sumJ.y);
+  <font color="red">connect</font>(sumJ.u[2], intShaRad.JOut_air);
+  <font color="red">connect</font>(window.JOutUns_b, sumJ.u[1]);
+  <font color="red">connect</font>(intShaRad.JOut_glass, window.JInSha_b);
+  <font color="red">connect</font>(window.JInUns_b, radShaOut.JOut_2);
+  <font color="red">connect</font>(radShaOut.u, shaSig.y);
+  <font color="red">connect</font>(intShaRad.JIn_glass, window.JOutSha_b);
+  <font color="red">connect</font>(TRAir.port, intShaCon.air);
+  <font color="red">connect</font>(uSha.y, intShaCon.uSha);
+  <font color="red">connect</font>(intShaCon.TSha, intShaRad.TSha);
+  <font color="red">connect</font>(window.fra_b, intShaCon.frame);
+  <font color="red">connect</font>(window.glaUns_b, intShaCon.glaUns);
+  <font color="red">connect</font>(intShaCon.glaSha, window.glaSha_b);
+  <font color="red">connect</font>(intShaCon.QRadAbs_flow, intShaRad.QRadAbs_flow);
+  <font color="red">connect</font>(winRad.QAbsIntSha_flow, intShaRad.QSolAbs_flow);
+  <font color="red">connect</font>(winRad.QAbsExtSha_flow, extCon.QSolAbs_flow);</textblock>
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Window;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:57:00 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:30 2013.
 </address></BODY>
 </HTML>

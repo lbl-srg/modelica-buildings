@@ -26,25 +26,25 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Chillers.BaseClasses"></A><A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers"
 >Buildings.Fluid.Chillers</A>.BaseClasses</H2>
 <B>Package with base classes for Buildings.Fluid.Chillers</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers"
 >Buildings.Fluid.Chillers</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Chillers.4369dea4a4556c9ectricS.png" ALT="Buildings.Fluid.Chillers.BaseClasses.PartialElectric" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses.PartialElectric"
@@ -61,9 +61,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <H2><IMG SRC="Buildings.Fluid.Chillers.4369dea4a4556c9ectricI.png" ALT="Buildings.Fluid.Chillers.BaseClasses.PartialElectric" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Chillers.BaseClasses.PartialElectric"></A><A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses"
 >Buildings.Fluid.Chillers.BaseClasses</A>.PartialElectric</H2>
-<B>Partial model for electric chiller based on the model in DOE-2, CoolTools and EnergyPlus</B><p>
+<B>Partial model for electric chiller based on the model in DOE-2, CoolTools and EnergyPlus</B><p></P>
 <IMG SRC="Buildings.Fluid.Chillers.4369dea4a4556c9ectricD.png" ALT="Buildings.Fluid.Chillers.BaseClasses.PartialElectric">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Base class for model of an electric chiller, based on the DOE-2.1 chiller model and the
@@ -75,9 +75,11 @@ The model takes as an input the set point for the leaving chilled water temperat
 which is met if the chiller has sufficient capacity.
 Thus, the model has a built-in, ideal temperature control.
 The model has three tests on the part load ratio and the cycling ratio:
+</p>
 <ol>
 <li>
-The test<pre>
+The test
+<pre>
   PLR1 =min(QEva_flow_set/QEva_flow_ava, PLRMax);
 </pre>
 ensures that the chiller capacity does not exceed the chiller capacity specified
@@ -88,7 +90,10 @@ The test <pre>
   CR = min(PLR1/per.PRLMin, 1.0);
 </pre>
 computes a cycling ratio. This ratio expresses the fraction of time
-that a chiller would run if it were to cycle because its load is smaller than the minimal load at which it can operature. Notice that this model does continuously operature even if the part load ratio is below the minimum part load ratio. Its leaving evaporator and condenser temperature can therefore be considered as an 
+that a chiller would run if it were to cycle because its load is smaller than 
+the minimal load at which it can operature. Notice that this model does continuously operature even if 
+the part load ratio is below the minimum part load ratio. Its leaving evaporator and condenser temperature 
+can therefore be considered as an 
 average temperature between the modes where the compressor is off and on.
 </li>
 <li>
@@ -99,14 +104,16 @@ computes the part load ratio of the compressor.
 The assumption is that for a part load ratio below <code>PLRMinUnl</code>,
 the chiller uses hot gas bypass to reduce the capacity, while the compressor
 power draw does not change. 
-</li></ol>
-</p>
+</li>
+</ol>
 <p>
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
 </p>
 <h4>Implementation</h4>
-<p>Models that extend from this base class need to provide
+<p>
+Models that extend from this base class need to provide
 three functions to predict capacity and power consumption:
+</p>
 <ul>
 <li>
 A function to predict cooling capacity. The function value needs
@@ -121,8 +128,7 @@ A function to predict the power input as a function of the part load ratio.
 The function value needs to be assigned to <code>EIRFunPLR</code>.
 </li>
 </ul>
-</p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortHeatMassExchanger"
 >Buildings.Fluid.Interfaces.FourPortHeatMassExchanger</A> (Model transporting two fluid streams between four ports with storing mass or energy).
 <P><H3>Parameters</H3><P>
@@ -160,8 +166,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp1</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
@@ -224,7 +229,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>P</TD><TD>Electric power consumed by compressor [W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialElectric <font color="darkgreen">
   &quot;Partial model for electric chiller based on the model in DOE-2, CoolTools and EnergyPlus&quot;</font>
@@ -344,7 +349,10 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
   TEvaLvg_degC=<font color="red">Modelica.SIunits.Conversions.to_degC</font>(TEvaLvg);
 
   <font color="darkgreen">// Enthalpy of temperature setpoint</font>
-  hSet =<font color="red"> Medium2.specificEnthalpy_pTX</font>(port_b2.p, TSet, port_b2.Xi_outflow);
+  hSet =<font color="red"> Medium2.specificEnthalpy_pTX</font>(
+           p=port_b2.p,
+           T=TSet,
+           X=<font color="red">cat</font>(1, port_b2.Xi_outflow, {1-<font color="red">sum</font>(port_b2.Xi_outflow)}));
 
   <font color="blue">if </font>on<font color="blue"> then</font>
     <font color="darkgreen">// Available cooling capacity</font>
@@ -393,14 +401,15 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Chillers.BaseClasses.warnIfPerformanceOutOfBounds"></A><A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses"
 >Buildings.Fluid.Chillers.BaseClasses</A>.warnIfPerformanceOutOfBounds</H2>
-<B>Function that checks the performance and writes a warning if it is outside of 0.9 to 1.1</B><p>
-<P><H3>Information</H3></P>
+<B>Function that checks the performance and writes a warning if it is outside of 0.9 to 1.1</B><p></P>
+<P></P><H3>Information</H3>
 
+<p>
 This function checks if the numeric argument is outside of the
 interval <i>0.9</i> to <i>1.1</i>.
 If this is the case, the function writes a warning.
 </p>
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -414,7 +423,7 @@ If this is the case, the function writes a warning.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Integer</TD><TD>retVal</TD><TD>0 if x is inside bounds, -1 if it is below bounds, or +1 if it is above bounds</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> warnIfPerformanceOutOfBounds <font color="darkgreen">
   &quot;Function that checks the performance and writes a warning if it is outside of 0.9 to 1.1&quot;</font>
@@ -445,6 +454,6 @@ If this is the case, the function writes a warning.
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>warnIfPerformanceOutOfBounds;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:19 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:26 2013.
 </address></BODY>
 </HTML>

@@ -26,24 +26,24 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Dampers<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Actuators.Dampers"></A><A HREF="Buildings_Fluid_Actuators.html#Buildings.Fluid.Actuators"
 >Buildings.Fluid.Actuators</A>.Dampers</H2>
 <B>Package with air damper models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains components models for air dampers.
 For motor models, see
 <A HREF="Buildings_Fluid_Actuators_Motors.html#Buildings.Fluid.Actuators.Motors"
 >Buildings.Fluid.Actuators.Motors</a>.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Actuatorsb0bd0c96b762b30fntialS.png" ALT="Buildings.Fluid.Actuators.Dampers.Exponential" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.Exponential"
@@ -66,10 +66,11 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.Actuatorsb0bd0c96b762b30fntialI.png" ALT="Buildings.Fluid.Actuators.Dampers.Exponential" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.Dampers.Exponential"></A><A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers"
 >Buildings.Fluid.Actuators.Dampers</A>.Exponential</H2>
-<B>Air damper with exponential opening characteristics</B><p>
+<B>Air damper with exponential opening characteristics</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuatorsb0bd0c96b762b30fntialD.png" ALT="Buildings.Fluid.Actuators.Dampers.Exponential">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
+<p>
 This model is an air damper with flow coefficient that is an exponential function 
 of the opening angle. The model is as in ASHRAE 825-RP.
 A control signal of <code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper 
@@ -78,17 +79,19 @@ for consistency within this library.
 </p>
 <p>
 For <code>yL &lt; y &lt; yU</code>, the damper characteristics is
+</p>
 <p align="center" style="font-style:italic;">
   k = exp(a+b (1-y)).
 </p>
+<p>
 Outside this range, the damper characteristic is defined by a quadratic polynomial that
 matches the damper resistance at <code>y=0</code> and <code>y=yL</code> or <code>y=yU</code> and 
 <code>y=1</code>, respectively. In addition, the polynomials are such that <code>k(y)</code> is
 differentiable in <code>y</code> and the derivative is continuous.
 </p>
-<p>
+
 ASHRAE 825-RP lists the following parameter values as typical:
-<table border="1">
+<table summary="summary" border="1">
 <tr>
 <td></td><td>opposed blades</td><td>single blades</td>
 </tr>
@@ -111,12 +114,14 @@ ASHRAE 825-RP lists the following parameter values as typical:
 <td>b</td><td>0.105*90</td><td>0.0842*90</td>
 </tr>
 </table>
-</p>
+
 <h4>References</h4>
+<p>
 P. Haves, L. K. Norford, M. DeSimone and L. Mei,
 <i>A Standard Simulation Testbed for the Evaluation of Control Algorithms &amp; Strategies</i>, 
 ASHRAE Final Report 825-RP, Atlanta, GA.
-<P>
+</p>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential"
 >Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</A> (Partial model for air dampers with exponential opening characteristics).
 <P><H3>Parameters</H3><P>
@@ -152,8 +157,7 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
 <TR><TD>Boolean</TD><TD>linearized</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
 <TR><TD>Boolean</TD><TD>use_constant_density</TD><TD>true</TD><TD>Set to true to use constant density for flow friction</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered opening</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredOpening</TD><TD>true</TD><TD>= true, if opening is filtered with a 2nd order CriticalDamping filter</TD></TR>
@@ -182,7 +186,7 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y_actual</TD><TD>Actual valve position</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Exponential <font color="darkgreen">
   &quot;Air damper with exponential opening characteristics&quot;</font>
@@ -192,22 +196,20 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
   dp(nominal=10),
   <font color="blue">final </font>kFixed=0);
 <font color="blue">protected </font>
-   <font color="blue">parameter </font>Real kDam_default(fixed=false) <font color="darkgreen">
+   <font color="blue">parameter </font>Real kDam_default =<font color="red"> sqrt</font>(2*rho_default)*A/kThetaSqRt_default <font color="darkgreen">
     &quot;Flow coefficient for damper, k=m_flow/sqrt(dp), with unit=(kg*m)^(1/2)&quot;</font>;
-   <font color="blue">parameter </font>Real kThetaSqRt_default(min=0, fixed=false) <font color="darkgreen">
+   <font color="blue">parameter </font>Real kThetaSqRt_default(min=0)=
+     <font color="red">Buildings.Fluid.Actuators.BaseClasses.exponentialDamper</font>(
+       y=1,
+       a=a,
+       b=b,
+       cL=cL,
+       cU=cU,
+       yL=yL,
+       yU=yU) <font color="darkgreen">
     &quot;Flow coefficient, kThetaSqRt = sqrt(pressure drop divided by dynamic pressure)&quot;</font>;
 <font color="blue">initial </font><font color="blue">algorithm </font>
-   kThetaSqRt_default :=<font color="red">Buildings.Fluid.Actuators.BaseClasses.exponentialDamper</font>(
-    y=1,
-    a=a,
-    b=b,
-    cL=cL,
-    cU=cU,
-    yL=yL,
-    yU=yU) <font color="darkgreen">&quot;y=0 is closed&quot;</font>;
   <font color="red"> assert</font>(kThetaSqRt_default&gt;0, &quot;Flow coefficient must be strictly positive.&quot;);
-   kDam_default :=<font color="red">sqrt</font>(2*rho_default)*A/kThetaSqRt_default <font color="darkgreen">
-    &quot;flow coefficient for resistance base model, kDam=k=m_flow/sqrt(dp)&quot;</font>;
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Exponential;
 </PRE>
 <HR>
@@ -217,9 +219,9 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
 <H2><IMG SRC="Buildings.Fluid.Actuators20e26782bf3c5c2antialI.png" ALT="Buildings.Fluid.Actuators.Dampers.VAVBoxExponential" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.Dampers.VAVBoxExponential"></A><A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers"
 >Buildings.Fluid.Actuators.Dampers</A>.VAVBoxExponential</H2>
-<B>VAV box with a fixed resistance plus a damper model withe exponential characteristics</B><p>
+<B>VAV box with a fixed resistance plus a damper model withe exponential characteristics</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuatorsb0bd0c96b762b30fntialD.png" ALT="Buildings.Fluid.Actuators.Dampers.VAVBoxExponential">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of two resistances in series. One resistance has a fixed flow coefficient, the
@@ -232,7 +234,7 @@ flow rate.
 If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
 does not include the flow resistance of the air damper.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential"
 >Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</A> (Partial model for air dampers with exponential opening characteristics).
 <P><H3>Parameters</H3><P>
@@ -269,8 +271,7 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
 <TR><TD>Boolean</TD><TD>linearized</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
 <TR><TD>Boolean</TD><TD>use_constant_density</TD><TD>true</TD><TD>Set to true to use constant density for flow friction</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered opening</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredOpening</TD><TD>true</TD><TD>= true, if opening is filtered with a 2nd order CriticalDamping filter</TD></TR>
@@ -299,7 +300,7 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y_actual</TD><TD>Actual valve position</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> VAVBoxExponential <font color="darkgreen">
   &quot;VAV box with a fixed resistance plus a damper model withe exponential characteristics&quot;</font>
@@ -332,9 +333,9 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
 <H2><IMG SRC="Buildings.Fluid.Actuators7813deb2dfec6354ngBoxI.png" ALT="Buildings.Fluid.Actuators.Dampers.MixingBox" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.Dampers.MixingBox"></A><A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers"
 >Buildings.Fluid.Actuators.Dampers</A>.MixingBox</H2>
-<B>Outside air mixing box with interlocked air dampers</B><p>
+<B>Outside air mixing box with interlocked air dampers</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuators7813deb2dfec6354ngBoxD.png" ALT="Buildings.Fluid.Actuators.Dampers.MixingBox">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of an outside air mixing box with air dampers.
@@ -347,7 +348,7 @@ flow rate.
 If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
 does not include the flow resistance of the air damper.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconLow"
 >Buildings.BaseClasses.BaseIconLow</A> (Base icon with model name below the icon), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
 >Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal</A> (Partial model that implements the filtered opening for valves and dampers).
@@ -421,7 +422,7 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconL
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_Sup</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingBox <font color="darkgreen">&quot;Outside air mixing box with interlocked air dampers&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconLow"
@@ -626,9 +627,9 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconL
 <H2><IMG SRC="Buildings.Fluid.Actuators0eb1af8a07a346f5mFlowI.png" ALT="Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow"></A><A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers"
 >Buildings.Fluid.Actuators.Dampers</A>.MixingBoxMinimumFlow</H2>
-<B>Outside air mixing box with parallel damper for minimum outside air flow rate</B><p>
+<B>Outside air mixing box with parallel damper for minimum outside air flow rate</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuators0eb1af8a07a346f5mFlowD.png" ALT="Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of an outside air mixing box with air dampers and a flow path for the minimum outside air flow rate.
@@ -640,7 +641,7 @@ flow rate.
 If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
 does not include the flow resistance of the air damper.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.MixingBox"
 >Buildings.Fluid.Actuators.Dampers.MixingBox</A> (Outside air mixing box with interlocked air dampers).
 <P><H3>Parameters</H3><P>
@@ -726,7 +727,7 @@ Extends from <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Act
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>yOutMin_actual</TD><TD>Actual valve position</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingBoxMinimumFlow <font color="darkgreen">
   &quot;Outside air mixing box with parallel damper for minimum outside air flow rate&quot;</font>
@@ -817,6 +818,6 @@ Extends from <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Act
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>MixingBoxMinimumFlow;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:02 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:06 2013.
 </address></BODY>
 </HTML>

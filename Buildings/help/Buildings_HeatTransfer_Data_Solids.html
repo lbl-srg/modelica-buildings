@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Solids<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Data.Solids"></A><A HREF="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
 >Buildings.HeatTransfer.Data</A>.Solids</H2>
 <B>Package with solid material, characterized by thermal conductance, density and specific heat capacity</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 Package with records for solid materials.
@@ -75,27 +75,29 @@ is equal to an arbitrary constant
 <p align="center" style="font-style:italic;">
 &Pi; = ( t &frasl; Fo )<sup>1/2</sup> 
 </p>
-<p>
-and hence
-</p>
+
+<p>and hence</p>
+
 <p align="center" style="font-style:italic;">
 &Pi; = L &frasl; &radic; &alpha;.
 </p>
+
 <p>
 Now, let <i>x</i>
 denote the thickness of the material layer.
 Then, we compute the time constant of the material layer as
 </p>
-<p>
 <p align="center" style="font-style:italic;">
 &Pi;<sub>x</sub> = x &frasl; &radic; &alpha;,
 </p>
+<p>
 and we compute the estimated number of elements <i>N' &isin; &#8477;</i> 
-for the material layer as
-</p>
+for the material layer as</p>
+
 <p align="center" style="font-style:italic;">
 N' = N<sub>ref</sub> &Pi;<sub>x</sub> &frasl; &Pi;<sub>ref</sub>
 </p>
+
 <p>
 where <i>&Pi;<sub>ref</sub> &isin; &#8469;</i> is a user-specified number of elements 
 for a reference material, which is equal to the parameter
@@ -106,15 +108,16 @@ Hence,
 <i>&Pi;<sub>ref</sub> = L<sub>ref</sub>/ &radic; &alpha;<sub>ref</sub> = 331.4</i>
 &radic;s.
 </p>
-<p>Next, we define the number of elements for the material layer as
-</p>
+
+<p>
+Next, we define the number of elements for the material layer as
 <p align="center" style="font-style:italic;">
 <i>N<sub>x</sub> = &lceil;  N' &rceil;</i>
 </p>
+
 <p>
 where the notation <i>&lceil; &#8901; &rceil;</i> is defined, for
 <i>s &isin; &#8477;</i>, as
-</p>
 <p align="center" style="font-style:italic;">
 &lceil; s &rceil; = min{ k &isin; &#8484; | k &ge; s }.
 </p>
@@ -122,10 +125,11 @@ where the notation <i>&lceil; &#8901; &rceil;</i> is defined, for
 Finally, we divide the material layer in compartments of length 
 <i>&Delta; = x &frasl; N<sub>x</sub></i>.
 </p>
-<P>
+
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
 >Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Daac3903090d2e36efnericS.png" ALT="Buildings.HeatTransfer.Data.Solids.Generic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
@@ -154,8 +158,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackag
 <H2><IMG SRC="Buildings.HeatTransfer.Daac3903090d2e36efnericI.png" ALT="Buildings.HeatTransfer.Data.Solids.Generic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Data.Solids.Generic"></A><A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
 >Buildings.HeatTransfer.Data.Solids</A>.Generic</H2>
-<B>Thermal properties of solids with heat storage</B><p>
-<P><H3>Information</H3></P>
+<B>Thermal properties of solids with heat storage</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 Generic record for solid materials.
@@ -163,7 +167,7 @@ The material is characterized by its
 thermal conductivity, mass density and specific
 heat capacity.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
 >Buildings.HeatTransfer.Data.BaseClasses.Material</A> (Thermal properties of materials w/o storage).
 <P><H3>Parameters</H3><P>
@@ -193,7 +197,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.Hea
 <TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
 <TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> Generic <font color="darkgreen">&quot;Thermal properties of solids with heat storage&quot;</font>
     <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
@@ -211,7 +215,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.Hea
 <H2><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickI.png" ALT="Buildings.HeatTransfer.Data.Solids.Brick" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Data.Solids.Brick"></A><A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
 >Buildings.HeatTransfer.Data.Solids</A>.Brick</H2>
-<B>Brick (k=0.89)</B><p>
+<B>Brick (k=0.89)</B><p></P>
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
@@ -231,7 +235,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.Hea
 <TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
 <TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> Brick = <A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
 >Buildings.HeatTransfer.Data.Solids.Generic</A> (
@@ -246,7 +250,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.Hea
 <H2><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickI.png" ALT="Buildings.HeatTransfer.Data.Solids.Concrete" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Data.Solids.Concrete"></A><A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
 >Buildings.HeatTransfer.Data.Solids</A>.Concrete</H2>
-<B>Concrete (k=1.4)</B><p>
+<B>Concrete (k=1.4)</B><p></P>
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
@@ -266,7 +270,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.Hea
 <TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
 <TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> Concrete = <A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
 >Buildings.HeatTransfer.Data.Solids.Generic</A> (
@@ -281,7 +285,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.Hea
 <H2><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickI.png" ALT="Buildings.HeatTransfer.Data.Solids.InsulationBoard" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Data.Solids.InsulationBoard"></A><A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
 >Buildings.HeatTransfer.Data.Solids</A>.InsulationBoard</H2>
-<B>Insulation board (k=0.03)</B><p>
+<B>Insulation board (k=0.03)</B><p></P>
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
@@ -301,7 +305,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.Hea
 <TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
 <TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> InsulationBoard = <A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
 >Buildings.HeatTransfer.Data.Solids.Generic</A> (
@@ -316,7 +320,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.Hea
 <H2><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickI.png" ALT="Buildings.HeatTransfer.Data.Solids.GypsumBoard" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Data.Solids.GypsumBoard"></A><A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
 >Buildings.HeatTransfer.Data.Solids</A>.GypsumBoard</H2>
-<B>Gypsum board (k=0.58)</B><p>
+<B>Gypsum board (k=0.58)</B><p></P>
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
@@ -336,7 +340,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.Hea
 <TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
 <TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> GypsumBoard = <A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
 >Buildings.HeatTransfer.Data.Solids.Generic</A> (
@@ -351,7 +355,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.Hea
 <H2><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickI.png" ALT="Buildings.HeatTransfer.Data.Solids.Plywood" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Data.Solids.Plywood"></A><A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
 >Buildings.HeatTransfer.Data.Solids</A>.Plywood</H2>
-<B>Plywood (k=0.12)</B><p>
+<B>Plywood (k=0.12)</B><p></P>
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
@@ -371,7 +375,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.Hea
 <TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
 <TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> Plywood = <A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
 >Buildings.HeatTransfer.Data.Solids.Generic</A> (
@@ -380,6 +384,6 @@ Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.Hea
     c=1210) <font color="darkgreen">&quot;Plywood (k=0.12)&quot;</font>;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:57:11 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:40 2013.
 </address></BODY>
 </HTML>

@@ -26,18 +26,18 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE DualFanDualDuct<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Examples.DualFanDualDuct"></A><A HREF="Buildings_Examples.html#Buildings.Examples"
 >Buildings.Examples</A>.DualFanDualDuct</H2>
 <B>Dual fan dual duct HVAC system with five thermal zones</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Examples.Chille84bb614d47fc5933witchS.png" ALT="Buildings.Examples.DualFanDualDuct.ClosedLoop" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_DualFanDualDuct.html#Buildings.Examples.DualFanDualDuct.ClosedLoop"
@@ -57,9 +57,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Mod
 <H2><IMG SRC="Buildings.Examples.DualFa5d96ebbfc8d7d061dLoopI.png" ALT="Buildings.Examples.DualFanDualDuct.ClosedLoop" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.DualFanDualDuct.ClosedLoop"></A><A HREF="Buildings_Examples_DualFanDualDuct.html#Buildings.Examples.DualFanDualDuct"
 >Buildings.Examples.DualFanDualDuct</A>.ClosedLoop</H2>
-<B>Closed loop model of a dual-fan dual-duct system</B><p>
+<B>Closed loop model of a dual-fan dual-duct system</B><p></P>
 <IMG SRC="Buildings.Examples.DualFa5d96ebbfc8d7d061dLoopD.png" ALT="Buildings.Examples.DualFanDualDuct.ClosedLoop">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model consist of an HVAC system, a building envelope model and a model 
@@ -75,7 +75,7 @@ an economizer. The figure below shows the schematic diagram of the dual-fan,
 dual-duct system.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/DualFanDualDuct/dualFanDualDuctSchematics.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/DualFanDualDuct/dualFanDualDuctSchematics.png" border="1"/>
 </p>
 <p>
 Each thermal zone inlet branch has a flow mixer and an air damper
@@ -83,7 +83,7 @@ in the hot deck and the cold deck. The air damper control signals are
 as shown in the figure below.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/DualFanDualDuct/hotColdDeckControl.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/DualFanDualDuct/hotColdDeckControl.png" border="1"/>
 </p>
 <p>
 Hence, at low room temperatures, the amount
@@ -104,7 +104,7 @@ maintain an air outlet temperature of 11&deg;C during day-time, and
 air outlet temperature shown in the figure below.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/DualFanDualDuct/hotDeckTemperatureSetPoint.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/DualFanDualDuct/hotDeckTemperatureSetPoint.png" border="1"/>
 </p>
 <p>
 The cooling coil is controlled to maintain a constant outlet temperature 
@@ -165,7 +165,7 @@ TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -230,11 +230,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>Weather Data Bus</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ClosedLoop <font color="darkgreen">&quot;Closed loop model of a dual-fan dual-duct system&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
@@ -663,7 +661,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
         285.15, TOff=313.15) <font color="darkgreen">&quot;Setpoint for cooling coil&quot;</font>;
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=
-        &quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
+        &quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >BoundaryConditions.WeatherData.Bus</A> weaBus <font color="darkgreen">&quot;Weather Data Bus&quot;</font>;
   <A HREF="Buildings_Examples_VAVReheat_ThermalZones.html#Buildings.Examples.VAVReheat.ThermalZones.Floor"
@@ -952,6 +950,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>ClosedLoop;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 12:02:07 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:17:18 2013.
 </address></BODY>
 </HTML>

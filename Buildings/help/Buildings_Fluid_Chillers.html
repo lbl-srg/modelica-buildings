@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Chillers<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Chillers"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
 >Buildings.Fluid</A>.Chillers</H2>
 <B>Package with chiller models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains components models for chillers.
 The model 
@@ -55,10 +55,10 @@ use performance curves from the package
 >
 Buildings.Fluid.Chillers.Data</a>
 to compute the chiller performance.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Chillers.CarnotS.png" ALT="Buildings.Fluid.Chillers.Carnot" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.Carnot"
@@ -87,19 +87,22 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.Chillers.CarnotI.png" ALT="Buildings.Fluid.Chillers.Carnot" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Chillers.Carnot"></A><A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers"
 >Buildings.Fluid.Chillers</A>.Carnot</H2>
-<B>Chiller with performance curve adjusted based on Carnot efficiency</B><p>
+<B>Chiller with performance curve adjusted based on Carnot efficiency</B><p></P>
 <IMG SRC="Buildings.Fluid.Chillers.CarnotD.png" ALT="Buildings.Fluid.Chillers.Carnot">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
+<p>
 This is model of a chiller whose coefficient of performance (COP) changes
 with temperatures in the same way as the Carnot efficiency changes.
 The COP at the nominal conditions can be specified by a parameter, or
 it can be computed by the model based on the Carnot effectiveness, in which
 case
+</p>
 <p align="center" style="font-style:italic;">
   COP<sub>0</sub> = &eta;<sub>car</sub> COP<sub>car</sub>
 = &eta;<sub>car</sub> T<sub>eva</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>),
 </p>
+<p>
 where <i>T<sub>eva</sub></i> is the evaporator temperature 
 and <i>T<sub>con</sub></i> is the condenser temperature.
 On the <code>Advanced</code> tab, a user can specify the temperature that
@@ -110,9 +113,11 @@ are the temperature of the fluid volume, of <code>port_a</code>, of
 </p>
 <p>
 The chiller COP is computed as the product
+</p>
 <p align="center" style="font-style:italic;">
   COP = &eta;<sub>car</sub> COP<sub>car</sub> &eta;<sub>PL</sub>,
 </p>
+<p>
 where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness, 
 <i>COP<sub>car</sub></i> is the Carnot efficiency and
 <i>&eta;<sub>PL</sub></i> is a polynomial in the control signal <i>y</i>
@@ -126,7 +131,7 @@ The transient response of the model is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
 The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortHeatMassExchanger"
 >Interfaces.FourPortHeatMassExchanger</A> (Model transporting two fluid streams between four ports with storing mass or energy).
 <P><H3>Parameters</H3><P>
@@ -179,8 +184,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>true</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Temperature dependence</TD></TR>
 <TR><TD><A HREF="Buildings_Fluid_Types.html#Buildings.Fluid.Types.EfficiencyInput"
 >EfficiencyInput</A></TD><TD>effInpEva</TD><TD>Buildings.Fluid.Types.Effici...</TD><TD>Temperatures of evaporator fluid used to compute Carnot efficiency</TD></TR>
@@ -246,12 +250,12 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>P</TD><TD>Electric power consumed by compressor [W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Carnot <font color="darkgreen">
   &quot;Chiller with performance curve adjusted based on Carnot efficiency&quot;</font>
  <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortHeatMassExchanger"
->Interfaces.FourPortHeatMassExchanger</A>(<font color="blue">final </font>show_T = true,
+>Interfaces.FourPortHeatMassExchanger</A>(
     vol1(
       <font color="blue">final </font>prescribedHeatFlowRate = true),
     <font color="blue">redeclare </font><font color="blue">final </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
@@ -323,6 +327,15 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >Modelica.Blocks.Sources.RealExpression</A> QCon_flow_in(y=QCon_flow) <font color="darkgreen">
     &quot;Condenser heat flow rate&quot;</font>;</textblock>
 
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium1.ThermodynamicState</A> staA1 <font color="darkgreen">&quot;Medium properties in port_a1&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium1.ThermodynamicState</A> staB1 <font color="darkgreen">&quot;Medium properties in port_b1&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium2.ThermodynamicState</A> staA2 <font color="darkgreen">&quot;Medium properties in port_a2&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium2.ThermodynamicState</A> staB2 <font color="darkgreen">&quot;Medium properties in port_b2&quot;</font>;
+
 <font color="blue">initial </font><font color="blue">equation </font>
   <font color="red">assert</font>(dTEva_nominal&gt;0, &quot;Parameter dTEva_nominal must be positive.&quot;);
   <font color="red">assert</font>(dTCon_nominal&gt;0, &quot;Parameter dTCon_nominal must be positive.&quot;);
@@ -336,25 +349,83 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
   <font color="red">assert</font>(etaCar &gt; 0.1, &quot;Parameters lead to etaCar &lt; 0.1. Check parameters.&quot;);
   <font color="red">assert</font>(etaCar &lt; 1,   &quot;Parameters lead to etaCar &gt; 1. Check parameters.&quot;);
 <font color="blue">equation </font>
+  <font color="blue">if </font>allowFlowReversal1<font color="blue"> then</font>
+    <font color="blue">if </font>homotopyInitialization<font color="blue"> then</font>
+      staA1=<font color="red">Medium1.setState_phX</font>(port_a1.p,
+                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a1.h_outflow),
+                                   simplified=<font color="red">inStream</font>(port_a1.h_outflow)),
+                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a1.Xi_outflow),
+                                   simplified=<font color="red">inStream</font>(port_a1.Xi_outflow)));
+      staB1=<font color="red">Medium1.setState_phX</font>(port_b1.p,
+                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b1.h_outflow),
+                                   simplified=port_b1.h_outflow),
+                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b1.Xi_outflow),
+                            simplified=port_b1.Xi_outflow));
+
+    <font color="blue">else</font>
+      staA1=<font color="red">Medium1.setState_phX</font>(port_a1.p,
+                          <font color="red">actualStream</font>(port_a1.h_outflow),
+                          <font color="red">actualStream</font>(port_a1.Xi_outflow));
+      staB1=<font color="red">Medium1.setState_phX</font>(port_b1.p,
+                          <font color="red">actualStream</font>(port_b1.h_outflow),
+                          <font color="red">actualStream</font>(port_b1.Xi_outflow));
+    <font color="blue">end if</font>;<font color="darkgreen"> // homotopyInitialization</font>
+  <font color="blue">else</font><font color="darkgreen"> // reverse flow not allowed</font>
+    staA1=<font color="red">Medium1.setState_phX</font>(port_a1.p,
+                             <font color="red">inStream</font>(port_a1.h_outflow),
+                             <font color="red">inStream</font>(port_a1.Xi_outflow));
+    staB1=<font color="red">Medium1.setState_phX</font>(port_b1.p,
+                             <font color="red">inStream</font>(port_b1.h_outflow),
+                             <font color="red">inStream</font>(port_b1.Xi_outflow));
+  <font color="blue">end if</font>;
+  <font color="blue">if </font>allowFlowReversal2<font color="blue"> then</font>
+    <font color="blue">if </font>homotopyInitialization<font color="blue"> then</font>
+      staA2=<font color="red">Medium2.setState_phX</font>(port_a2.p,
+                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a2.h_outflow),
+                                   simplified=<font color="red">inStream</font>(port_a2.h_outflow)),
+                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a2.Xi_outflow),
+                                   simplified=<font color="red">inStream</font>(port_a2.Xi_outflow)));
+      staB2=<font color="red">Medium2.setState_phX</font>(port_b2.p,
+                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b2.h_outflow),
+                                   simplified=port_b2.h_outflow),
+                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b2.Xi_outflow),
+                            simplified=port_b2.Xi_outflow));
+
+    <font color="blue">else</font>
+      staA2=<font color="red">Medium2.setState_phX</font>(port_a2.p,
+                          <font color="red">actualStream</font>(port_a2.h_outflow),
+                          <font color="red">actualStream</font>(port_a2.Xi_outflow));
+      staB2=<font color="red">Medium2.setState_phX</font>(port_b2.p,
+                          <font color="red">actualStream</font>(port_b2.h_outflow),
+                          <font color="red">actualStream</font>(port_b2.Xi_outflow));
+    <font color="blue">end if</font>;<font color="darkgreen"> // homotopyInitialization</font>
+  <font color="blue">else</font><font color="darkgreen"> // reverse flow not allowed</font>
+    staA2=<font color="red">Medium2.setState_phX</font>(port_a2.p,
+                             <font color="red">inStream</font>(port_a2.h_outflow),
+                             <font color="red">inStream</font>(port_a2.Xi_outflow));
+    staB2=<font color="red">Medium2.setState_phX</font>(port_b2.p,
+                             <font color="red">inStream</font>(port_b2.h_outflow),
+                             <font color="red">inStream</font>(port_b2.Xi_outflow));
+  <font color="blue">end if</font>;
   <font color="darkgreen">// Set temperatures that will be used to compute Carnot efficiency</font>
   <font color="blue">if </font>effInpCon == Buildings.Fluid.Types.EfficiencyInput.volume<font color="blue"> then</font>
     TCon = vol1.heatPort.T;
   <font color="blue">elseif </font>effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_a<font color="blue"> then</font>
-    TCon =<font color="red"> Medium1.temperature</font>(sta_a1);
+    TCon =<font color="red"> Medium1.temperature</font>(staA1);
   <font color="blue">elseif </font>effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_b<font color="blue"> then</font>
-    TCon =<font color="red"> Medium1.temperature</font>(sta_b1);
+    TCon =<font color="red"> Medium1.temperature</font>(staB1);
   <font color="blue">else</font>
-    TCon = 0.5 * (<font color="red">Medium1.temperature</font>(sta_a1)+<font color="red">Medium1.temperature</font>(sta_b1));
+    TCon = 0.5 * (<font color="red">Medium1.temperature</font>(staA1)+<font color="red">Medium1.temperature</font>(staB1));
   <font color="blue">end if</font>;
 
   <font color="blue">if </font>effInpEva == Buildings.Fluid.Types.EfficiencyInput.volume<font color="blue"> then</font>
     TEva = vol2.heatPort.T;
   <font color="blue">elseif </font>effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_a<font color="blue"> then</font>
-    TEva =<font color="red"> Medium2.temperature</font>(sta_a2);
+    TEva =<font color="red"> Medium2.temperature</font>(staA2);
   <font color="blue">elseif </font>effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_b<font color="blue"> then</font>
-    TEva =<font color="red"> Medium2.temperature</font>(sta_b2);
+    TEva =<font color="red"> Medium2.temperature</font>(staB2);
   <font color="blue">else</font>
-    TEva = 0.5 * (<font color="red">Medium2.temperature</font>(sta_a2)+<font color="red">Medium2.temperature</font>(sta_b2));
+    TEva = 0.5 * (<font color="red">Medium2.temperature</font>(staA2)+<font color="red">Medium2.temperature</font>(staB2));
   <font color="blue">end if</font>;
 
   etaPL  =<font color="red"> Buildings.Utilities.Math.Functions.polynomial</font>(a=a, x=y);
@@ -377,9 +448,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.Chillers.e7420d146fd92f17edEIRI.png" ALT="Buildings.Fluid.Chillers.ElectricReformulatedEIR" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Chillers.ElectricReformulatedEIR"></A><A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers"
 >Buildings.Fluid.Chillers</A>.ElectricReformulatedEIR</H2>
-<B>Electric chiller based on the DOE-2.1 model, but with performance as a function of condenser leaving instead of entering temperature</B><p>
+<B>Electric chiller based on the DOE-2.1 model, but with performance as a function of condenser leaving instead of entering temperature</B><p></P>
 <IMG SRC="Buildings.Fluid.Chillers.e7420d146fd92f17edEIRD.png" ALT="Buildings.Fluid.Chillers.ElectricReformulatedEIR">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of an electric chiller, based on the model by 
@@ -394,7 +465,9 @@ The difference is that to compute the performance, this model
 uses the condenser leaving temperature instead of the entering temperature,
 and it uses a bicubic polynomial to compute the part load performance.
 </p>
-<p> This model uses three functions to predict capacity and power consumption:
+
+<p>
+This model uses three functions to predict capacity and power consumption:</p>
 <ul>
 <li>
 A biquadratic function is used to predict cooling capacity as a function of
@@ -409,6 +482,8 @@ A biquadratic functions is used to predict power input to cooling capacity ratio
 condenser leaving and evaporator leaving fluid temperature.
 </li>
 </ul>
+
+<p>
 These curves are stored in the data record <code>per</code> and are available from
 <a href="Buildings.Fluid.Chillers.Data.ElectricReformulatedEIRChiller">
 Buildings.Fluid.Chillers.Data.ElectricReformulatedEIRChiller</a>.
@@ -420,11 +495,12 @@ Reference Curve Method and is used when insufficient performance data exist to a
 regression techniques. A detailed description of both techniques can be found in 
 Hydeman and Gillespie (2002).
 </p>
+
 <p>
 The model takes as an input the set point for the leaving chilled water temperature, 
 which is met if the chiller has sufficient capacity.
 Thus, the model has a built-in, ideal temperature control.
-The model has three tests on the part load ratio and the cycling ratio:
+The model has three tests on the part load ratio and the cycling ratio:</p>
 <ol>
 <li>
 The test<pre>
@@ -452,8 +528,9 @@ computes the part load ratio of the compressor.
 The assumption is that for a part load ratio below <code>per.PLRMinUnl</code>,
 the chiller uses hot gas bypass to reduce the capacity, while the compressor
 power draw does not change. 
-</li></ol>
-</p>
+</li>
+</ol>
+
 <p>
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
 </p>
@@ -464,8 +541,8 @@ The transient response of the boiler is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
 The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
 </p>
+
 <h4>References</h4>
-<p>
 <ul>
 <li>
 Hydeman, M., N. Webb, P. Sreedharan, and S. Blanc. 2002. Development and Testing of a
@@ -476,7 +553,7 @@ Hydeman, M. and K.L. Gillespie. 2002. Tools and Techniques to Calibrate Electric
 Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
 </li>
 </ul>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses.PartialElectric"
 >Buildings.Fluid.Chillers.BaseClasses.PartialElectric</A> (Partial model for electric chiller based on the model in DOE-2, CoolTools and EnergyPlus).
 <P><H3>Parameters</H3><P>
@@ -522,8 +599,7 @@ Extends from <A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp1</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
@@ -586,7 +662,7 @@ Extends from <A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>P</TD><TD>Electric power consumed by compressor [W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ElectricReformulatedEIR <font color="darkgreen">
   &quot;Electric chiller based on the DOE-2.1 model, but with performance as a function of condenser leaving instead of entering temperature&quot;</font>
@@ -656,15 +732,16 @@ Extends from <A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.
 <H2><IMG SRC="Buildings.Fluid.Chillers.e7420d146fd92f17edEIRI.png" ALT="Buildings.Fluid.Chillers.ElectricEIR" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Chillers.ElectricEIR"></A><A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers"
 >Buildings.Fluid.Chillers</A>.ElectricEIR</H2>
-<B>Electric chiller based on the DOE-2.1 model</B><p>
+<B>Electric chiller based on the DOE-2.1 model</B><p></P>
 <IMG SRC="Buildings.Fluid.Chillers.e7420d146fd92f17edEIRD.png" ALT="Buildings.Fluid.Chillers.ElectricEIR">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of an electric chiller, based on the DOE-2.1 chiller model and
 the EnergyPlus chiller model <code>Chiller:Electric:EIR</code>.
 </p>
 <p> This model uses three functions to predict capacity and power consumption:
+</p>
 <ul>
 <li>
 A biquadratic function is used to predict cooling capacity as a function of
@@ -678,6 +755,7 @@ A biquadratic functions is used to predict power input to cooling capacity ratio
 condenser entering and evaporator leaving fluid temperature.
 </li>
 </ul>
+<p>
 These curves are stored in the data record <code>per</code> and are available from
 <A HREF="Buildings_Fluid_Chillers_Data_ElectricEIR.html#Buildings.Fluid.Chillers.Data.ElectricEIR"
 >
@@ -695,6 +773,7 @@ The model takes as an input the set point for the leaving chilled water temperat
 which is met if the chiller has sufficient capacity.
 Thus, the model has a built-in, ideal temperature control.
 The model has three tests on the part load ratio and the cycling ratio:
+</p>
 <ol>
 <li>
 The test<pre>
@@ -722,8 +801,8 @@ computes the part load ratio of the compressor.
 The assumption is that for a part load ratio below <code>per.PLRMinUnl</code>,
 the chiller uses hot gas bypass to reduce the capacity, while the compressor
 power draw does not change. 
-</li></ol>
-</p>
+</li>
+</ol>
 <p>
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
 </p>
@@ -741,7 +820,7 @@ Hydeman, M. and K.L. Gillespie. 2002. Tools and Techniques to Calibrate Electric
 Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
 </li>
 </ul>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses.PartialElectric"
 >Buildings.Fluid.Chillers.BaseClasses.PartialElectric</A> (Partial model for electric chiller based on the model in DOE-2, CoolTools and EnergyPlus).
 <P><H3>Parameters</H3><P>
@@ -787,8 +866,7 @@ Extends from <A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp1</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
@@ -851,7 +929,7 @@ Extends from <A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>P</TD><TD>Electric power consumed by compressor [W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ElectricEIR <font color="darkgreen">&quot;Electric chiller based on the DOE-2.1 model&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses.PartialElectric"
@@ -915,6 +993,6 @@ Extends from <A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>ElectricEIR;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:11 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:15 2013.
 </address></BODY>
 </HTML>

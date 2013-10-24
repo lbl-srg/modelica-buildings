@@ -26,21 +26,21 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Comfort<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.Comfort"></A><A HREF="Buildings_Utilities.html#Buildings.Utilities"
 >Buildings.Utilities</A>.Comfort</H2>
 <B>Library with models for comfort</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains models for comfort.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Utilities.Comfort.FangerS.png" ALT="Buildings.Utilities.Comfort.Fanger" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Comfort.html#Buildings.Utilities.Comfort.Fanger"
@@ -57,13 +57,15 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Utilities.Comfort.FangerI.png" ALT="Buildings.Utilities.Comfort.Fanger" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.Comfort.Fanger"></A><A HREF="Buildings_Utilities_Comfort.html#Buildings.Utilities.Comfort"
 >Buildings.Utilities.Comfort</A>.Fanger</H2>
-<B>Thermal comfort model according to Fanger</B><p>
+<B>Thermal comfort model according to Fanger</B><p></P>
 <IMG SRC="Buildings.Utilities.Comfort.FangerD.png" ALT="Buildings.Utilities.Comfort.Fanger">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
+<p>
 Thermal comfort model according to Fanger, as described in
 the ASHRAE Fundamentals (1997).
-<P>
+</p>
+<p>
 The thermal sensation of a human being is mainly related to the thermal balance of its
 body as a whole. This balance is influenced by two groups of factors, personal and
 physical. The activity level and clothing thermal insulation of the subject form the
@@ -75,27 +77,32 @@ comfort) can be predicted by calculating the PMV index. The PPD index, obtained
 from the PMV index, provides information on thermal discomfort (thermal
 dissatisfaction) by predicting the percentage of people likely to feel too hot or too
 cold in the given thermal environment.
+</p>
 <p>
 The Predicted Mean Vote (PMV) model combines four physical variables 
 (air temperature, air velocity, mean radiant temperature, and relative humidity), 
 and two personal variables (clothing insulation and activity level) 
 into an index that can be used to predict the average thermal sensation 
 of a large group of people. 
+</p>
 <p>
 To determine appropriate thermal conditions, practitioners refer to standards such 
 as ASHRAE Standard 55 (ASHRAE, 1992) and ISO Standard 7730 (ISO, 1994). 
 These standards define temperature ranges that should result in thermal satisfaction 
 for at least 80% of occupants in a space.
-
+</p>
 <h4> PMV thermal sensation scale</h4>
+<p>
 The PMV index predicts the mean value of the votes of a large group of
 people on the following 7-point thermal sensation scale:
-<table border="1">
+</p>
+<table summary="summary" border="1">
 <TR><TD>Cold  </TD><TD>  Cool  </TD><TD>  Slightly cool  </TD><TD>  Neutral  </TD><TD>  Slightly warm  </TD><TD>  Warm   </TD><TD>  Hot </TD></TR> 
 <TR><TD>-3 </TD><TD> -2 </TD><TD> -1 </TD><TD> 0 </TD><TD> +1 </TD><TD> +2 </TD><TD> +3 </TD></TR> 
 </table>
 
 <h4>Operative temperature</h4>
+<p>
 For a given space there exists an optimum operative temperature corresponding to PMV=0 (neutral).
 The operative temperature is defined as: The uniform temperature of an imaginary black enclosure 
 in which an occupant would exchange the same amount of heat by radiation plus convection 
@@ -103,35 +110,46 @@ as in the actual nonuniform environment.
 The operative temperature is computed as the average of the air temperature 
 and the mean radiant temperature, weighted by their respective heat transfer coefficients
 (see ASHRAE Fundamentals, 1997, page 8.3, eq (8)).
+</p>
 
 <h4>Optimum operative temperatures</h4>
+<p>
 <B>Winter:</B>
-activity <i>1.2</i> met,<br>
-clothing = <i>0.9</i> clo (sweater, long sleeve shirt, heavy pants),<br>
-air flow = <i>30</i> fpm (<i>0.15</i> m/sec),<br>
-mean radiant temperature equal to air temperature,<br>
-Optimum Operative Temperature (top) = <i>22.7</i>&#176; C (<i>71</i>&#176; F)<P>
+activity <i>1.2</i> met,<br/>
+clothing = <i>0.9</i> clo (sweater, long sleeve shirt, heavy pants),<br/>
+air flow = <i>30</i> fpm (<i>0.15</i> m/sec),<br/>
+mean radiant temperature equal to air temperature,<br/>
+Optimum Operative Temperature (top) = <i>22.7</i>&#176; C (<i>71</i>&#176; F)
+</p>
+<p>
 <B>Summer:</B>
-clothing = <i>0.5</i> clo,<br>
-air flow = <i>50</i> fpm (<i>0.25</i> m/sec),<br>
+clothing = <i>0.5</i> clo,<br/>
+air flow = <i>50</i> fpm (<i>0.25</i> m/sec),<br/>
 Optimum Operative Temperature (top) = <i>24.4</i>&#176; C (<i>76</i>&#176; F).
+</p>
 <p>
 All equation numbers in the model refer to the ASHRAE Handbook Fundamentals,
-Chapter 8, Thermal Comfort, 1997.
+Chapter 8, Thermal Comfort, 1997.</p>
+
 <h4>Usual ranges of variables (ISO)</h4>
-M = <i>46</i> to <i>232</i> W/m^2 (<i>0.8</i> to <i>4</i> met)<BR>
-ICl = <i>0</i> to <i>2</i> clo (<i>0</i> to <i>0.310</i> m^2*K/W)<BR>
-TAir_degC = <i>10</i> to <i>30</i>&#176; C<BR>
-TRad_degC = <i>10</i> to <i>40</i>&#176; C<BR>
-vAir = <i>0</i> to <i>1</i> m/s<BR>
-pSte = <i>0</i> to <i>2700</i> Pa<P>
+<p>
+M = <i>46</i> to <i>232</i> W/m^2 (<i>0.8</i> to <i>4</i> met)<br/>
+ICl = <i>0</i> to <i>2</i> clo (<i>0</i> to <i>0.310</i> m^2*K/W)<br/>
+TAir_degC = <i>10</i> to <i>30</i>&#176; C<br/>
+TRad_degC = <i>10</i> to <i>40</i>&#176; C<br/>
+vAir = <i>0</i> to <i>1</i> m/s<br/>
+pSte = <i>0</i> to <i>2700</i> Pa
+</p>
 
 <h4>Insulation for clothing ensembles</h4>
+<p>
 Clothing is defined in terms of clo units.  Clo is a unit used to express the thermal insulation provided by garments and clothing ensembles, 
 where <i>1</i> clo = <i>0.155</i> (m^2*K/W) (ASHRAE 55-92).
-<P>
-The following table is obtained from ASHRAE page 8.8 
-<TABLE  border="1">
+</p>
+<p>
+The following table is obtained from ASHRAE page 8.8
+</p>
+<TABLE  summary="summary" border="1">
 <TR><TH>Clothing ensemble</TH><TH>clo</TH></TR>
 <TR><TD>ASHRAE Standard 55 Winter</TD><TD>0.90</TD></TR>
 <TR><TD>ASHRAE Standard 55 Summer</TD><TD>0.50</TD></TR>
@@ -148,12 +166,14 @@ The following table is obtained from ASHRAE page 8.8
 <TR><TD>Long-sleeve coveralls, T-shirt</TD><TD>   0.72</TD></TR>
 <TR><TD>Insulated coveralls, long-sleeve, thermal underwear, long underwear bottoms</TD><TD> 1.37</TD></TR>
 </TABLE>
+<br/>
 
-<h4> Metabolic rates</h4> 
+<h4> Metabolic rates</h4>
+<p>
 One met is defined as <i>58.2</i> Watts per square meter which is equal to the energy produced 
-per unit surface area of a seated person at rest.<P>
-The following table is obtained from ASHRAE page 8.6.
-<TABLE border="1">
+per unit surface area of a seated person at rest.</p>
+<p>The following table is obtained from ASHRAE page 8.6.</p>
+<TABLE summary="summary" border="1">
 <TR><TH>Activity</TH><TH>W/m2 body surface area</TH></TR>
 <TR><TD>ASHRAE Standard 55</TD><TD>58.2</TD></TR>
 <TR><TD> reclining  </TD><TD>45</TD></TR>
@@ -181,7 +201,7 @@ The following table is obtained from ASHRAE page 8.6.
 <TR><TD>Basketball</TD><TD>  290-440</TD></TR>
 <TR><TD>Wrestling</TD><TD>  410-505</TD></TR>
 </TABLE> 
-<P>
+<br/>
 <h4>References</h4>
 
 <ul><li>
@@ -209,7 +229,7 @@ The University of Hong Kong MEBS6006 Environmental Services I;
 http://me.hku.hk/msc-courses/MEBS6006/index.html</a>
 </li>
 </ul>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Parameters</H3><P>
@@ -254,7 +274,7 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>M_in</TD><TD>Metabolic heat generation in W/m2 (not in met) [W/m2]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Fanger <font color="darkgreen">&quot;Thermal comfort model according to Fanger&quot;</font>
 <font color="blue">extends </font><A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
@@ -293,11 +313,11 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
     &quot;Fixed value for air pressure&quot;</font>;
 
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> TAir(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
+>Modelica.Blocks.Interfaces.RealInput</A> TAir(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                           <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;) <font color="darkgreen">
     &quot;Air temperature&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> TRad(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
+>Modelica.Blocks.Interfaces.RealInput</A> TRad(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                           <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;) <font color="darkgreen">
     &quot;Radiation temperature&quot;</font>;</textblock>
 
@@ -402,7 +422,7 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
   TSki = 308.85 - 0.0275*(M_in_internal - W);
 
   <font color="darkgreen">// partial pressure of steam</font>
-  steRat.p_in = pAir_in_internal;
+  <font color="red">connect</font>(steRat.p_in, pAir_in_internal);
   <font color="red">connect</font>(steRat.T, TAir);
   <font color="red">connect</font>(steRat.phi, phi);
   pSte =<font color="red"> Psychrometrics.Functions.pW_X</font>(X_w=steRat.X[1], p=pAir_in_internal);
@@ -447,6 +467,6 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Fanger;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:58:29 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:13:40 2013.
 </address></BODY>
 </HTML>

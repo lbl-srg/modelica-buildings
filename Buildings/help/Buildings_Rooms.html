@@ -26,44 +26,37 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Rooms<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Rooms"></A><A HREF="Buildings.html#Buildings"
 >Buildings</A>.Rooms</H2>
 <B>Package with models for rooms</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains models for the heat transfer in rooms
 and through the building envelope. 
-Multiple instances of these models can be connected to create
-a multi-zone building model.
-To compute the air exchange between rooms and between a room
-and the exterior, the room models can be connected to 
-multi-zone air exchange models from the package
-<A HREF="Buildings_Airflow.html#Buildings.Airflow"
->
-Buildings.Airflow</a>.
-The room models can also be linked to models of HVAC systems
-that are composed of the components in the package
-<A HREF="Buildings_Fluid.html#Buildings.Fluid"
->
-Buildings.Fluid</a>.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
 >Modelica.Icons.Package</A> (Icon for standard packages).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.UsersGuideS.png" ALT="Buildings.Rooms.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_UsersGuide.html#Buildings.Rooms.UsersGuide"
+>UsersGuide</A>
+</TD><TD>User&#39;s Guide</TD></TR>
 <TR><TD><IMG SRC="Buildings.Rooms.MixedAirS.png" ALT="Buildings.Rooms.MixedAir" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
 >MixedAir</A>
 </TD><TD>Model of a room in which the air is completely mixed</TD></TR>
 <TR><TD><IMG SRC="Buildings.Rooms.ConstructionsS.png" ALT="Buildings.Rooms.Constructions" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions"
 >Constructions</A>
 </TD><TD>Package with models for constructions that are used in the room model</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.FLEXLABS.png" ALT="Buildings.Rooms.FLEXLAB" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_FLEXLAB.html#Buildings.Rooms.FLEXLAB"
+>FLEXLAB</A>
+</TD><TD>Models that can be used to model the FLEXLAB</TD></TR>
 <TR><TD><IMG SRC="Buildings.Rooms.ExamplesS.png" ALT="Buildings.Rooms.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples.html#Buildings.Rooms.Examples"
 >Examples</A>
 </TD><TD>Collection of models that illustrate model use and test models</TD></TR>
@@ -78,535 +71,20 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_Package.html#Modelica.Ic
 <H2><IMG SRC="Buildings.Rooms.MixedAirI.png" ALT="Buildings.Rooms.MixedAir" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Rooms.MixedAir"></A><A HREF="Buildings_Rooms.html#Buildings.Rooms"
 >Buildings.Rooms</A>.MixedAir</H2>
-<B>Model of a room in which the air is completely mixed</B><p>
+<B>Model of a room in which the air is completely mixed</B><p></P>
 <IMG SRC="Buildings.Rooms.MixedAirD.png" ALT="Buildings.Rooms.MixedAir">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
-<p>The package <b>Buildings.Rooms</b> contains models for heat transfer 
-through the building envelope.</p>
-<p>The model <A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
->Buildings.Rooms.MixedAir</a> is 
-a model of a room with completely mixed air.
-The room can have any number of constructions and surfaces that participate in the 
-heat exchange through convection, conduction, infrared radiation and solar radiation.</p>
-<h4>Physical description</h4>
 <p>
-A description of the model assumptions and the implemention and validation of this room model can be found in 
-<A HREF="Buildings_Rooms.html#WetterEtAl2011"
->Wetter et al. (2011)</a>.
-The room models the following physical processes:
-<ol>
-<li>
-Transient or steady-state heat conduction through opaque surfaces, using
-the model
-<A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.MultiLayer"
->
-Buildings.HeatTransfer.Conduction.MultiLayer</a>
-</li>
-<li>
-Heat transfer through glazing system, taking into account
-solar radiation, infrared radiation, heat conduction and heat convection.
-The solar radiation is modeled using
-<A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation"
->
-Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation</a>.
-The overall heat transfer is modeled using the model
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.Window"
->
-Buildings.HeatTransfer.Windows.Window</a>
-for the glass assembly, and the models
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.ExteriorHeatTransfer"
->
-Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>
-and
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.InteriorHeatTransfer"
->
-Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>
-for the exterior and interior heat transfer.
-A window can have both, an overhang and a side fin.
-Overhangs and side fins are modeled using
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.Overhang"
->
-Buildings.HeatTransfer.Windows.Overhang</a> and
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.SideFins"
->
-Buildings.HeatTransfer.Windows.SideFins</a>, respectively.
-These models compute the reduction in direct solar irradiation 
-due to the external shading device.
-</li>
-<li>
-Convective heat transfer between the room air and room-facing surfaces using
-either a temperature-dependent heat transfer coefficient,
-or using a constant heat transfer coefficient, as described in
-<A HREF="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Interior"
->
-Buildings.HeatTransfer.Convection.Interior</a>.
-</li>
-<li>
-Convective heat transfer between the outside air and outside-facing surfaces using
-either a wind-speed, wind-direction and temperature-dependent heat transfer coefficient,
-or using a constant heat transfer coefficient, as described in
-<A HREF="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Exterior"
->
-Buildings.HeatTransfer.Convection.Exterior</a>.
-</li>
-<li>
-Solar and infrared heat transfer between the room enclosing surfaces,
-and temperature, pressure and species changes inside the room volume.
-These effects are modeled and described in 
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.MixedAir"
->
-Buildings.Rooms.BaseClasses.MixedAir</a>
-which consists of several sub-models.
-</li>
-</ol>
-</p>
-<h4>Model instantiation</h4>
-<p>The next paragraphs describe how to instantiate a room model.
-To instantiate a room model, 
-<ol>
-<li>
-make an instance of the room model in your model,
-</li>
-<li>
-make instances of constructions from the package 
-<A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions"
->
-Buildings.HeatTransfer.Data.OpaqueConstructions</a> to model opaque constructions such as walls, floors,
-ceilings and roofs,
-</li>
-<li>
-make an instance of constructions from the package 
-<A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems"
->
-Buildings.HeatTransfer.Data.GlazingSystems</a> to model glazing systems, and
-</li>
-<li>
-enter the parameters of the room. 
-</li>
-</ol>
-Entering parameters may be easiest in a textual editor. 
-
-In the here presented example, we assume we made several instances
-of data records for the construction material by dragging them from 
-the package <A HREF="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
->
-Buildings.HeatTransfer.Data</a> to create the following list of declarations:
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  </span><span style=" font-family:'Courier New,courier'; color:#ff0000;">Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    matLayExt </span><span style=" font-family:'Courier New,courier'; color:#006400;">"Construction material for exterior walls"</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">annotation </span><span style=" font-family:'Courier New,courier';">(Placement(transformation(extent={{-60,140},{-40,160}})));</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier';"></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">  </span><span style=" font-family:'Courier New,courier'; color:#ff0000;">Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120</span><span style=" font-family:'Courier New,courier';"> matLayPar </span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier'; color:#006400;">    "Construction material for partition walls"</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">annotation </span><span style=" font-family:'Courier New,courier';">(Placement(transformation(extent={{-20,140},{0,160}})));</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier';"></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">  </span><span style=" font-family:'Courier New,courier'; color:#ff0000;">Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</span><span style=" font-family:'Courier New,courier';"> matLayRoo(</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">        material={</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">          </span><span style=" font-family:'Courier New,courier'; color:#ff0000;">HeatTransfer.Data.Solids.InsulationBoard</span><span style=" font-family:'Courier New,courier';">(x=0.2),</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">          </span><span style=" font-family:'Courier New,courier'; color:#ff0000;">HeatTransfer.Data.Solids.Concrete</span><span style=" font-family:'Courier New,courier';">(x=0.2)},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">        </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">final </span><span style=" font-family:'Courier New,courier';">nLay=2) </span><span style=" font-family:'Courier New,courier'; color:#006400;">"Construction material for roof"</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">annotation </span><span style=" font-family:'Courier New,courier';">(Placement(transformation(extent={{20,140},{40,160}})));</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier';"></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">  </span><span style=" font-family:'Courier New,courier'; color:#ff0000;">Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</span><span style=" font-family:'Courier New,courier';"> matLayFlo(</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">        material={</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">          </span><span style=" font-family:'Courier New,courier'; color:#ff0000;">HeatTransfer.Data.Solids.Concrete</span><span style=" font-family:'Courier New,courier';">(x=0.2),</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">          </span><span style=" font-family:'Courier New,courier'; color:#ff0000;">HeatTransfer.Data.Solids.InsulationBoard</span><span style=" font-family:'Courier New,courier';">(x=0.1),</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    </span><span style=" font-family:'Courier New,courier'; color:#000000;">      </span><span style=" font-family:'Courier New,courier';">HeatTransfer.Data.Solids.Concrete(x=0.05)</span><span style=" font-family:'Courier New,courier'; color:#000000;">}</span><span style=" font-family:'Courier New,courier';">,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">        </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">final </span><span style=" font-family:'Courier New,courier';">nLay=3) </span><span style=" font-family:'Courier New,courier'; color:#006400;">"Construction material for floor"</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">annotation </span><span style=" font-family:'Courier New,courier';">(Placement(transformation(extent={{60,140},{80,160}})));</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier';"></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">  </span><span style=" font-family:'Courier New,courier'; color:#ff0000;">Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear</span><span style=" font-family:'Courier New,courier';"> glaSys(</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    UFra=2,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    shade=</span><span style=" font-family:'Courier New,courier'; color:#ff0000;">Buildings.HeatTransfer.Data.Shades.Gray</span><span style=" font-family:'Courier New,courier';">(),</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    haveExteriorShade=false,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    haveInteriorShade=true) </span><span style=" font-family:'Courier New,courier'; color:#006400;">"Data record for the glazing system"</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">annotation </span><span style=" font-family:'Courier New,courier';">(Placement(transformation(extent={{100,140},{120,160}})));</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier';"></p>
-
-</pre>
-<p>
-Note that construction layers are assembled from the outside to the room-side. Thus, the construction
-<code>matLayRoo</code> has an exterior insulation. This constructions can then be used in the room model.
+Room model that assumes the air to be completely mixed. 
 </p>
 <p>
-Before we explain how to declare and parametrize a room model, 
-we explain the different models that can be used to compute heat transfer through the room enclosing surfaces
-and constructions. The room model 
-<A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
->Buildings.Rooms.MixedAir</a> contains the constructions shown
-in the table below. 
-The first row of the table lists the name of the data record that is used by the user
-to assign the model parameters. 
-The second row lists the name of the instance of the model that simulates the equations.
-The third column provides a reference to the class definition that implements the equations.
-The forth column describes the main applicability of the model.
+See 
+<A HREF="Buildings_Rooms_UsersGuide.html#Buildings.Rooms.UsersGuide"
+>Buildings.Rooms.UsersGuide</a>
+for detailed explanations.
 </p>
-<p>
-<table border="1">
-<tr>
-<th>Record name</th>
-<th>Model instance name</th>
-<th>Class name</th>
-<th>Description of the model</th></tr>
-<tr>
-<td>
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
->
-datConExt</a>
-</td>
-<td>
-modConExt
-</td>
-<td>
-<A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.Construction"
->Buildings.Rooms.Constructions.Construction</a>
-</td>
-<td>
-Exterior constructions that have no window.
-</td>
-</tr>
-<tr>
-<td>
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow"
->
-datConExtWin</a>
-</td>
-<td>
-modConExtWin
-</td>
-<td>
-<A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.ConstructionWithWindow"
->Buildings.Rooms.Constructions.ConstructionWithWindow</a>
-</td>
-<td>
-Exterior constructions that have a window. Each construction of this type must have one window.
-<br/>
-Within the same room, all windows can either have an interior shade, an exterior shade or no shade.
-Each window has its own control signal for the shade. This signal is exposed by the port <code>uSha</code>, which
-has the same dimension as the number of windows. The values for <code>uSha</code> must be between 
-<code>0</code> and <code>1</code>. Set <code>uSha=0</code> to open the shade, and <code>uSha=1</code>
-to close the shade.<br/>
-Windows can also have an overhang, side fins, both (overhang and sidefins) or no external shading device.
-</td>
-</tr>
-<tr>
-<td>
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
->
-datConPar</a>
-</td>
-<td>
-modConPar
-</td>
-<td>
-<A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.Construction"
->Buildings.Rooms.Constructions.Construction</a>
-</td>
-<td>
-Interior constructions such as partitions within a room. Both surfaces of this construction are inside the room model
-and participate in the infrared and solar radiation balance. 
-Since the view factor between these surfaces is zero, there is no infrared radiation from one surface to the other
-of the same construction.
-</td>
-</tr>
-<tr>
-<td>
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
->
-datConBou</a>
-</td>
-<td>
-modConBou
-</td>
-<td>
-<A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.Construction"
->Buildings.Rooms.Constructions.Construction</a>
-</td>
-<td>
-Constructions that expose the other boundary conditions of the other surface to the outside of this room model.
-The heat conduction through these constructions is modeled in this room model. 
-The surface at the port <code>opa_b</code> is connected to the models for convection, infrared and solar radiation exchange 
-with this room model and with the other surfaces of this room model.
-The surface at the port <code>opa_a</code> is connected to the port <code>surf_conBou</code> of this room model. This could be used, for example,
-to model a floor inside this room and connect to other side of this floor model to a model that computes heat transfer in the soil.
-</td>
-</tr>
-<tr>
-<td>
-<A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"
->
-surBou</a>
-</td>
-<td>
-N/A
-</td>
-<td>
-<A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"
->Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic</a>
-</td>
-<td>
-Opaque surfaces of this room model whose heat transfer through the construction is modeled outside of this room model.
-This object is modeled using a data record that contains the area, solar and infrared emissivities and surface tilt.
-The surface then participates in the convection and radiation heat balance of the room model. The heat flow rate and temperature
-of this surface are exposed at the heat port <code>surf_surBou</code>.
-An application of this object may be to connect the port <code>surf_surBou</code> of this room model with the port
-<code>surf_conBou</code> of another room model in order to couple two room models.
-Another application would be to model a radiant ceiling outside of this room model, and connect its surface to the port
-<code>surf_conBou</code> in order for the radiant ceiling model to participate in the heat balance of this room.
-</td>
-</tr>
-</table>
-</p>
-<p>
-With these constructions, we may define a room as follows: </p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  </span><span style=" font-family:'Courier New,courier'; color:#ff0000;">Buildings.Rooms.MixedAir</span><span style=" font-family:'Courier New,courier';"> roo(</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">redeclare package</span><span style=" font-family:'Courier New,courier';"> Medium = </span><span style=" font-family:'Courier New,courier'; color:#ff0000;">MediumA</span><span style=" font-family:'Courier New,courier';">,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    AFlo=6*4,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    hRoo=2.7,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    nConExt=2,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    datConExt(layers={matLayRoo, matLayExt},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">           A={6*4, 6*3},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">           til={Buildings.HeatTransfer.Types.Tilt.Ceiling, Buildings.HeatTransfer.Types.Tilt.Wall},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">           azi={Buildings.HeatTransfer.Types.Azimuth.S, Buildings.HeatTransfer.Types.Azimuth.W}),</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    nConExtWin=nConExtWin,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    datConExtWin(layers={matLayExt}, A={4*3},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              glaSys={glaSys},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              hWin={2},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              wWin={2},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              fFra={0.1},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              til={Buildings.HeatTransfer.Types.Tilt.Wall},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              azi={Buildings.HeatTransfer.Types.Azimuth.S}),</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    nConPar=1,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    datConPar(layers={matLayPar}, </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">A=10,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">           </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">til=Buildings.HeatTransfer.Types.Tilt.Wall),</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    nConBou=1,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    datConBou(layers={matLayFlo}, </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">A=6*4,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">           </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">til=Buildings.HeatTransfer.Types.Tilt.Floor),</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    nSurBou=1,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    surBou(</span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">A=6*3, </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">absIR=0.9, </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">absSol=0.9, </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">til=Buildings.HeatTransfer.Types.Tilt.Wall),</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    linearizeRadiation = true ,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    lat=0.73268921998722) </span><span style=" font-family:'Courier New,courier'; color:#006400;">"Room model"</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">annotation </span><span style=" font-family:'Courier New,courier';">(Placement(transformation(extent={{46,20},{86,60}})));</span></p>
-
-</pre>
-<p>
-The following paragraphs explain the different declarations.
-</p>
-<p>
-The statement
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">redeclare package</span><span style=" font-family:'Courier New,courier';"> Medium = </span><span style=" font-family:'Courier New,courier'; color:#ff0000;">MediumA</span><span style=" font-family:'Courier New,courier';">,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    AFlo=20,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    V=20*2.5,</span></p>
-
-</pre>
-<p>
-declares that the medium of the room air is set to <code>MediumA</code>, 
-that the floor area is <i>20 m<sup>2</sup></i> and that 
-the room air volume is <i>20*2.5 m<sup>3</sup></i>. 
-The floor area is used to scale the internal heat
-gains, which are declared with units of <i>W/m<sup>2</sup></i> 
-using the input signal <code>qGai_flow</code>.
-</p>
-<p>
-The next entries specify constructions and surfaces
-that participate in the heat exchange.
-</p>
-<p>
-The entry
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    nConExt=2,</span></p>
-</pre>
-<p>
-declares that there are two exterior constructions.
-</p>
-<p>
-The lines 
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    datConExt(layers={matLayRoo, matLayExt},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">           A={6*4, 6*3},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">           til={Buildings.HeatTransfer.Types.Tilt.Ceiling, Buildings.HeatTransfer.Types.Tilt.Wall},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">           azi={Buildings.HeatTransfer.Types.Azimuth.S, Buildings.HeatTransfer.Types.Azimuth.W}),</span></p>
-
-</pre>
-<p>
-declare that the material layers in these constructions are
-set the the records <code>matLayRoo</code> and <code>matLayExt</code>.
-What follows are the declarations for the surface area,
-the tilt of the surface and the azimuth of the surfaces. Thus, the 
-surface with construction <code>matLayExt</code> is <i>6*3 m<sup>2</sup></i> large
-and it is a west-facing wall.
-</p>
-<p>
-Next, the declaration
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    nConExtWin=nConExtWin,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    datConExtWin(layers={matLayExt}, A={4*3},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              glaSys={glaSys},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              hWin={2},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              wWin={2},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              fFra={0.1},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              til={Buildings.HeatTransfer.Types.Tilt.Wall},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              azi={Buildings.HeatTransfer.Types.Azimuth.S}),</span></p>
-</pre>
-<p>
-declares the construction that contains a window. This construction is built
-using the materials defined in the record <code>matLayExt</code>. Its total area,
-including the window, is <i>4*3 m<sup>2</sup></i>.
-The glazing system is built using the construction defined in the record
-<code>glaSys</code>. The window area is <i>h<sub>win</sub>=2 m</i> high
-and
-<i>w<sub>win</sub>=2 m</i> wide.
-The ratio of frame
-to total glazing system area is <i>10%</i>.
-</p>
-<p>
-Optionally, each window can have an overhang, side fins or both.
-If the above window were to have an overhang of
-<i>2.5 m</i> width that is centered above the window, 
-and hence extends each side of the window by <i>0.25 m</i>, and has a depth of
-<i>1 m</i> and a gap between window and overhang of 
-<i>0.1 m</i>, then
-its declaration would be
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              ove(wL={0.25}, wR={0.25}, gap={0.1}, dep={1}),</span></p>
-</pre>
-<p>
-This line can be placed below the declaration of <code>wWin</code>.
-This would instanciate the model
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.Overhang"
->
-Buildings.HeatTransfer.Windows.Overhang</a> to model the overhang. See this class for a picture of the above dimensions.
-</p>
-<p>
-If the window were to have side fins that are 
-<i>2.5 m</i> high, measured from the bottom of the windows,
-and hence extends <i>0.5 m</i> above the window, are
-<i>1 m</i> depth and are placed 
-<i>0.1 m</i> to the left and right of the window,
-then its declaration would be
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              sidFin(h={0.5}, gap={0.1}, dep={1}),</span></p>
-</pre>
-<p>
-This would instanciate the model
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.SideFins"
->
-Buildings.HeatTransfer.Windows.SideFins</a> to model the side fins. See this class for a picture of the above dimensions.
-</p>
-<p>
-The lines
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              til={Buildings.HeatTransfer.Types.Tilt.Wall},</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              azi={Buildings.HeatTransfer.Types.Azimuth.S}),</span></p>
-</pre>
-<p>
-declare that the construction is a wall that is south exposed.
-</p>
-<p>
-Note that if the room were to have two windows, and one window has side fins and the other window has an overhang, the 
-following declaration could be used, which sets the value of <code>dep</code> to <code>0</code> for the non-present side fins or overhang, respectively:
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              sidFin(h  = {0.5, 0}, gap = {0.1, 0.0}, dep = {1, 0}),</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">              ove(wL = {0.0, 0.25}, wR = {0.0, 0.25}, gap = {0.0, 0.1}, dep = {0, 1}),</span></p>
-</pre>
-<p>
-What follows is the declaration of the partition constructions, as declared by
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    nConPar=1,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    datConPar(layers={matLayPar}, </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">A=10,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">           </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">til=Buildings.HeatTransfer.Types.Tilt.Wall),</span></p>
-
-</pre>
-<p>
-Thus, there is one partition construction. Its area is <i>10 m<sup>2</sup></i> for <em>each</em>
-surface, to form a total surface area inside this thermal zone of <i>20 m<sup>2</sup></i>.
-</p>
-<p>
-Next, the declaration
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    nConBou=1,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    datConBou(layers={matLayFlo}, </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">A=6*4,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">           </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">til=Buildings.HeatTransfer.Types.Tilt.Floor),</span></p>
-
-</pre>
-<p>
-declares one construction whose other surface boundary condition is exposed by this
-room model (through the connector <code>surf_conBou</code>).
-</p>
-<p>
-The declaration
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    nSurBou=1,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    surBou(</span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">A=6*3, </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">absIR=0.9, </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">absSol=0.9, </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">each </span><span style=" font-family:'Courier New,courier';">til=Buildings.HeatTransfer.Types.Tilt.Wall),</span></p>
-
-</pre>
-<p>
-is used to instantiate a model for a surface that is in this room. 
-The surface has an area of <i>6*3 m<sup>2</sup></i>, absorptivity in the infrared and the solar
-spectrum of <i>0.9</i> and it is a wall.
-The room model will compute infrared radiative heat exchange, solar radiative heat gains
-and infrared radiative heat gains of this surface. The surface temperature and 
-heat flow rate are exposed by this room model at the heat port 
-<code>surf_surBou</code>. 
-A model builder may use this construct
-to couple this room model to another room model that may model the construction.
-</p>
-<p>
-The declaration
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    linearizeRadiation = true,</span></p>
-
-</pre>
-<p>
-causes the equations for radiative heat transfer to be linearized. This can
-reduce computing time at the expense of accuracy.
-</p>
-<p>
-The declaration 
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,</span></p>
-
-</pre>
-<p>
-is used to initialize the air volume inside the thermal zone.
-</p>
-<p>
-Finally, the declaration
-</p>
-<pre>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;"><span style=" font-family:'Courier New,courier';">    lat=0.73268921998722) </span><span style=" font-family:'Courier New,courier'; color:#006400;">"Room model"</span></p>
-
-</pre>
-<p>
-sets the latitude of the building which needs to correspond with the latitude of the weather data file.
-</p>
-<h4>References</h4>
-<p>
-<A NAME="WetterEtAl2011"></A> 
-Michael Wetter, Wangda Zuo and Thierry Stephane Nouidui.<br>
-<a href="../Resources/Images/Rooms/2011-ibpsa-BuildingsLib.pdf">
-Modeling of Heat Transfer in Rooms in the Modelica "Buildings" Library.</a><br>
-Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 2011. 
-</p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes), <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ConstructionRecords"
 >Buildings.Rooms.BaseClasses.ConstructionRecords</A> (Data records for construction data).
@@ -669,6 +147,8 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>&nbsp;</TD><TD>= true, use homotopy method</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -690,7 +170,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixedAir <font color="darkgreen">&quot;Model of a room in which the air is completely mixed&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
@@ -698,37 +178,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
   <font color="blue">extends </font><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ConstructionRecords"
 >Buildings.Rooms.BaseClasses.ConstructionRecords</A>;
   <font color="blue">parameter </font>Integer nPorts=0 <font color="darkgreen">&quot;Number of ports&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.MixedAir"
->Buildings.Rooms.BaseClasses.MixedAir</A> air(
-    <font color="blue">final </font>nConExt=nConExt,
-    <font color="blue">final </font>nConExtWin=nConExtWin,
-    <font color="blue">final </font>nConPar=nConPar,
-    <font color="blue">final </font>nConBou=nConBou,
-    <font color="blue">final </font>nSurBou=nSurBou,
-    <font color="blue">final </font>datConExt=datConExt,
-    <font color="blue">final </font>datConExtWin=datConExtWin,
-    <font color="blue">final </font>datConPar=datConPar,
-    <font color="blue">final </font>datConBou=datConBou,
-    <font color="blue">final </font>surBou=surBou,
-    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium,
-    <font color="blue">final </font>V=V,
-    nPorts=nPorts,
-    <font color="blue">final </font>energyDynamics=energyDynamics,
-    <font color="blue">final </font>massDynamics=massDynamics,
-    <font color="blue">final </font>p_start=p_start,
-    <font color="blue">final </font>T_start=T_start,
-    <font color="blue">final </font>X_start=X_start,
-    <font color="blue">final </font>C_start=C_start,
-    <font color="blue">final </font>AFlo=AFlo,
-    <font color="blue">final </font>hRoo=hRoo,
-    <font color="blue">final </font>linearizeRadiation=linearizeRadiation,
-    <font color="blue">final </font>conMod=intConMod,
-    <font color="blue">final </font>hFixed=hIntFixed,
-    <font color="blue">final </font>m_flow_nominal=m_flow_nominal,
-    tauGlaSol={0.6 <font color="blue">for </font>i<font color="blue"> in </font>1:NConExtWin}) <font color="darkgreen">&quot;Air volume&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
->Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b</A> ports[nPorts](
-      <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Fluid inlets and outlets&quot;</font>;</textblock>
+
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</A> lat <font color="darkgreen">&quot;Latitude&quot;</font>;
   <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
@@ -737,6 +187,13 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >Modelica.SIunits.Area</A> AFlo <font color="darkgreen">&quot;Floor area&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</A> hRoo <font color="darkgreen">&quot;Average room height&quot;</font>;
+
+  <font color="darkgreen">////////////////////////////////////////////////////////////////////////</font>
+  <font color="darkgreen">// Fluid and heat ports</font>
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b</A> ports[nPorts](
+      <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Fluid inlets and outlets&quot;</font>;</textblock>
+
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A> heaPorAir <font color="darkgreen">
     &quot;Heat port to air volume&quot;</font>;
@@ -804,6 +261,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow_nominal(min=0) = V*1.2/3600 <font color="darkgreen">
     &quot;Nominal mass flow rate&quot;</font>;
+  <font color="blue">parameter </font>Boolean homotopyInitialization <font color="darkgreen">&quot;= true, use homotopy method&quot;</font>;
   <font color="darkgreen">////////////////////////////////////////////////////////////////////////</font>
   <font color="darkgreen">// Models for boundary conditions</font>
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
@@ -859,26 +317,184 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     haveConExtWin <font color="darkgreen">&quot;Model for solar radiation through shades and window&quot;</font>;
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >BoundaryConditions.WeatherData.Bus</A> weaBus;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed"
+>Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed</A> air(
+    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium,
+    <font color="blue">final </font>energyDynamics=energyDynamics,
+    <font color="blue">final </font>massDynamics=massDynamics,
+    nPorts=nPorts + 1,
+    <font color="blue">final </font>V=V,
+    <font color="blue">final </font>nConExt=nConExt,
+    <font color="blue">final </font>nConExtWin=nConExtWin,
+    <font color="blue">final </font>nConPar=nConPar,
+    <font color="blue">final </font>nConBou=nConBou,
+    <font color="blue">final </font>nSurBou=nSurBou,
+    <font color="blue">final </font>datConExt=datConExt,
+    <font color="blue">final </font>datConExtWin=datConExtWin,
+    <font color="blue">final </font>datConPar=datConPar,
+    <font color="blue">final </font>datConBou=datConBou,
+    <font color="blue">final </font>surBou=surBou,
+    <font color="blue">final </font>homotopyInitialization=homotopyInitialization,
+    <font color="blue">final </font>p_start=p_start,
+    <font color="blue">final </font>T_start=T_start,
+    <font color="blue">final </font>X_start=X_start,
+    <font color="blue">final </font>C_start=C_start,
+    <font color="blue">final </font>C_nominal=C_nominal,
+    <font color="blue">final </font>m_flow_nominal=m_flow_nominal,
+    <font color="blue">final </font>haveShade=haveShade,
+    <font color="blue">final </font>conMod=intConMod,
+    <font color="blue">final </font>hFixed=hIntFixed) <font color="darkgreen">&quot;Convective heat and mass balance of air&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.SolarRadiationExchange"
+>Buildings.Rooms.BaseClasses.SolarRadiationExchange</A> solRadExc(
+    <font color="blue">final </font>nConExt=nConExt,
+    <font color="blue">final </font>nConExtWin=nConExtWin,
+    <font color="blue">final </font>nConPar=nConPar,
+    <font color="blue">final </font>nConBou=nConBou,
+    <font color="blue">final </font>nSurBou=nSurBou,
+    <font color="blue">final </font>datConExt = datConExt,
+    <font color="blue">final </font>datConExtWin = datConExtWin,
+    <font color="blue">final </font>datConPar = datConPar,
+    <font color="blue">final </font>datConBou = datConBou,
+    <font color="blue">final </font>surBou = surBou,
+    <font color="blue">final </font>isFloorConExt=isFloorConExt,
+    <font color="blue">final </font>isFloorConExtWin=isFloorConExtWin,
+    <font color="blue">final </font>isFloorConPar_a=isFloorConPar_a,
+    <font color="blue">final </font>isFloorConPar_b=isFloorConPar_b,
+    <font color="blue">final </font>isFloorConBou=isFloorConBou,
+    <font color="blue">final </font>isFloorSurBou=isFloorSurBou,
+    <font color="blue">final </font>tauGla={datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol <font color="blue">for </font>i<font color="blue"> in </font>1:NConExtWin}) <font color="blue">if </font>
+       haveConExtWin <font color="darkgreen">&quot;Solar radiative heat exchange&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution"
+>Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution</A> irRadGai(
+    <font color="blue">final </font>nConExt=nConExt,
+    <font color="blue">final </font>nConExtWin=nConExtWin,
+    <font color="blue">final </font>nConPar=nConPar,
+    <font color="blue">final </font>nConBou=nConBou,
+    <font color="blue">final </font>nSurBou=nSurBou,
+    <font color="blue">final </font>datConExt = datConExt,
+    <font color="blue">final </font>datConExtWin = datConExtWin,
+    <font color="blue">final </font>datConPar = datConPar,
+    <font color="blue">final </font>datConBou = datConBou,
+    <font color="blue">final </font>surBou = surBou,
+    <font color="blue">final </font>haveShade=haveShade) <font color="darkgreen">
+    &quot;Distribution for infrared radiative heat gains (e.g., due to equipment and people)&quot;</font>;
+  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.InfraredRadiationExchange"
+>Buildings.Rooms.BaseClasses.InfraredRadiationExchange</A> irRadExc(
+    <font color="blue">final </font>nConExt=nConExt,
+    <font color="blue">final </font>nConExtWin=nConExtWin,
+    <font color="blue">final </font>nConPar=nConPar,
+    <font color="blue">final </font>nConBou=nConBou,
+    <font color="blue">final </font>nSurBou=nSurBou,
+    <font color="blue">final </font>datConExt = datConExt,
+    <font color="blue">final </font>datConExtWin = datConExtWin,
+    <font color="blue">final </font>datConPar = datConPar,
+    <font color="blue">final </font>datConBou = datConBou,
+    <font color="blue">final </font>surBou = surBou,
+    <font color="blue">final </font>linearizeRadiation = linearizeRadiation) <font color="darkgreen">
+    &quot;Infrared radiative heat exchange&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.RadiationTemperature"
+>Buildings.Rooms.BaseClasses.RadiationTemperature</A> radTem(
+    <font color="blue">final </font>nConExt=nConExt,
+    <font color="blue">final </font>nConExtWin=nConExtWin,
+    <font color="blue">final </font>nConPar=nConPar,
+    <font color="blue">final </font>nConBou=nConBou,
+    <font color="blue">final </font>nSurBou=nSurBou,
+    <font color="blue">final </font>datConExt=datConExt,
+    <font color="blue">final </font>datConExtWin=datConExtWin,
+    <font color="blue">final </font>datConPar=datConPar,
+    <font color="blue">final </font>datConBou=datConBou,
+    <font color="blue">final </font>surBou=surBou,
+    <font color="blue">final </font>haveShade=haveShade) <font color="darkgreen">&quot;Radiative temperature of the room&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation"
+>HeatTransfer.Windows.BaseClasses.ShadeRadiation</A> shaRad[NConExtWin](
+    <font color="blue">final </font>A=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
+    <font color="blue">final </font>thisSideHasShade=haveInteriorShade,
+    <font color="blue">final </font>absIR_air=datConExtWin.glaSys.shade.absIR_a,
+    <font color="blue">final </font>absIR_glass={(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b) <font color="blue">for </font>i<font color="blue"> in </font>1:NConExtWin},
+    <font color="blue">final </font>tauIR_air=tauIRSha_air,
+    <font color="blue">final </font>tauIR_glass=tauIRSha_glass,
+    <font color="blue">each </font><font color="blue">final </font>linearize = linearizeRadiation) <font color="blue">if </font>
+       haveShade <font color="darkgreen">&quot;Radiation model for room-side window shade&quot;</font>;</textblock>
+
 <font color="blue">protected </font>
-  <font color="blue">final </font><font color="blue">parameter </font>Boolean haveShade=datConExtWin[1].glaSys.haveExteriorShade<font color="blue">
-       or </font>datConExtWin[1].glaSys.haveInteriorShade <font color="darkgreen">
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>Modelica.SIunits.TransmissionCoefficient</A> tauIRSha_air[NConExtWin]=
+    datConExtWin.glaSys.shade.tauIR_a <font color="darkgreen">
+    &quot;Infrared transmissivity of shade for radiation coming from the exterior or the room&quot;</font>;
+        <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>Modelica.SIunits.TransmissionCoefficient</A> tauIRSha_glass[
+                                                                          NConExtWin]=
+    datConExtWin.glaSys.shade.tauIR_b <font color="darkgreen">
+    &quot;Infrared transmissivity of shade for radiation coming from the glass&quot;</font>;
+
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean haveExteriorShade[NConExtWin]=
+    {datConExtWin[i].glaSys.haveExteriorShade <font color="blue">for </font>i<font color="blue"> in </font>1:NConExtWin} <font color="darkgreen">
+    &quot;Set to true if window has exterior shade (at surface a)&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean haveInteriorShade[NConExtWin]=
+    {datConExtWin[i].glaSys.haveInteriorShade <font color="blue">for </font>i<font color="blue"> in </font>1:NConExtWin} <font color="darkgreen">
+    &quot;Set to true if window has interior shade (at surface b)&quot;</font>;
+
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean haveShade=
+    <font color="red">Modelica.Math.BooleanVectors.anyTrue</font>(haveExteriorShade[:])<font color="blue"> or </font>
+    <font color="red">Modelica.Math.BooleanVectors.anyTrue</font>(haveInteriorShade[:]) <font color="darkgreen">
     &quot;Set to true if the windows have a shade&quot;</font>;
+
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean isFloorConExt[NConExt]=
+    datConExt.isFloor <font color="darkgreen">&quot;Flag to indicate if floor for exterior constructions&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean isFloorConExtWin[NConExtWin]=
+    datConExtWin.isFloor <font color="darkgreen">&quot;Flag to indicate if floor for constructions&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean isFloorConPar_a[NConPar]=
+    datConPar.isFloor <font color="darkgreen">&quot;Flag to indicate if floor for constructions&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean isFloorConPar_b[NConPar]=
+    datConPar.isCeiling <font color="darkgreen">&quot;Flag to indicate if floor for constructions&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean isFloorConBou[NConBou]=
+    datConBou.isFloor <font color="darkgreen">
+    &quot;Flag to indicate if floor for constructions with exterior boundary conditions exposed to outside of room model&quot;</font>;
+  <font color="blue">parameter </font>Boolean isFloorSurBou[NSurBou]=
+    surBou.isFloor <font color="darkgreen">
+    &quot;Flag to indicate if floor for constructions that are modeled outside of this room&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal"
+>HeatTransfer.Windows.BaseClasses.ShadingSignal</A> shaSig[NConExtWin](
+    <font color="blue">each </font><font color="blue">final </font>haveShade=haveShade) <font color="blue">if </font>
+       haveConExtWin <font color="darkgreen">&quot;Shading signal&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.HeatGain"
+>Buildings.Rooms.BaseClasses.HeatGain</A> heaGai(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium, <font color="blue">final </font>AFlo=AFlo) <font color="darkgreen">
+    &quot;Model to convert internal heat gains&quot;</font>;
+  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.RadiationAdapter"
+>Buildings.Rooms.BaseClasses.RadiationAdapter</A> radiationAdapter;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</A> add;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</A> sumJToWin[NConExtWin](
+    <font color="blue">each </font><font color="blue">final </font>k1=1,
+    <font color="blue">each </font><font color="blue">final </font>k2=1) <font color="blue">if </font>
+       haveConExtWin <font color="darkgreen">
+    &quot;Sum of radiosity flows from room surfaces toward the window&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.RadiositySplitter"
+>HeatTransfer.Radiosity.RadiositySplitter</A> radShaOut[NConExtWin] <font color="blue">if </font>
+     haveConExtWin <font color="darkgreen">
+    &quot;Splitter for radiosity that strikes shading device or unshaded part of window&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
+>Modelica.Blocks.Math.Sum</A> sumJFroWin[NConExtWin](<font color="blue">each </font>nin=<font color="blue">if </font>haveShade<font color="blue"> then </font>2<font color="blue">
+         else </font>1) <font color="blue">if </font>
+       haveConExtWin <font color="darkgreen">&quot;Sum of radiosity fom window to room surfaces&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature</A> TSha[NConExtWin] <font color="blue">if </font>
+       haveShade <font color="darkgreen">&quot;Temperature of shading device&quot;</font>;</textblock>
+
 <font color="blue">equation </font>
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(air.conExtWin, conExtWin.opa_b);
-  <font color="red">connect</font>(air.conPar_b, conPar.opa_b);
-  <font color="red">connect</font>(air.conPar_a, conPar.opa_a);
-  <font color="red">connect</font>(conBou.opa_a, surf_conBou);
-  <font color="red">connect</font>(air.conBou, conBou.opa_b);
-  <font color="red">connect</font>(surf_surBou, air.conSurBou);
-  <font color="red">connect</font>(uSha, air.uSha);
-  <font color="red">connect</font>(qGai_flow, air.qGai_flow);
-  <font color="red">connect</font>(air.JOutUns, conExtWin.JInUns_b);
-  <font color="red">connect</font>(conExtWin.JOutUns_b, air.JInUns);
-  <font color="red">connect</font>(air.JOutSha, conExtWin.JInSha_b);
-  <font color="red">connect</font>(conExtWin.JOutSha_b, air.JInSha);
-  <font color="red">connect</font>(air.glaUns, conExtWin.glaUns_b);
-  <font color="red">connect</font>(conExtWin.glaSha_b, air.glaSha);
-  <font color="red">connect</font>(air.conExtWinFra, conExtWin.fra_b);
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conBou.opa_a, surf_conBou);
   <font color="red">connect</font>(uSha, conExtWin.uSha);
   <font color="red">connect</font>(uSha, bouConExtWin.uSha);
   <font color="red">connect</font>(bouConExtWin.opa_a, conExtWin.opa_a);
@@ -889,26 +505,112 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
   <font color="red">connect</font>(conExtWin.JInSha_a, bouConExtWin.JOutSha);
   <font color="red">connect</font>(bouConExtWin.JInSha, conExtWin.JOutSha_a);
   <font color="red">connect</font>(conExtWin.fra_a, bouConExtWin.fra);
-  <font color="red">connect</font>(conExt.opa_b, air.conExt);
   <font color="red">connect</font>(conExt.opa_a, bouConExt.opa_a);
   <font color="red">connect</font>(weaBus, bouConExtWin.weaBus);
   <font color="red">connect</font>(weaBus, bouConExt.weaBus);
-  <font color="red">connect</font>(ports, air.ports);
   <font color="red">connect</font>(bouConExtWin.QAbsSolSha_flow, conExtWinRad.QAbsExtSha_flow);
   <font color="red">connect</font>(bouConExtWin.inc, conExtWinRad.incAng);
   <font color="red">connect</font>(bouConExtWin.HDir, conExtWinRad.HDir);
   <font color="red">connect</font>(bouConExtWin.HDif, conExtWinRad.HDif);
   <font color="red">connect</font>(uSha, conExtWinRad.uSha);
-  <font color="red">connect</font>(air.HOutConExtWin, conExtWinRad.HRoo);
-  <font color="red">connect</font>(conExtWinRad.QTra_flow, air.JInConExtWin);
-  <font color="red">connect</font>(conExtWinRad.QAbsIntSha_flow, air.QAbsSolSha_flow);
   <font color="red">connect</font>(conExtWin.QAbsSha_flow, conExtWinRad.QAbsGlaSha_flow);
-  <font color="red">connect</font>(conExtWinRad.QAbsGlaUns_flow, conExtWin.QAbsUns_flow);
-  <font color="red">connect</font>(air.heaPorAir, heaPorAir);
-  <font color="red">connect</font>(air.heaPorRad, heaPorRad);</textblock>
+  <font color="red">connect</font>(conExtWinRad.QAbsGlaUns_flow, conExtWin.QAbsUns_flow);</textblock>
+ <font color="darkgreen">// Connect statements from the model BaseClasses.MixedAir</font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conExt.opa_b, irRadExc.conExt);
+  <font color="red">connect</font>(conExtWin.fra_b, irRadExc.conExtWinFra);
+  <font color="red">connect</font>(conPar.opa_a, irRadExc.conPar_a);
+  <font color="red">connect</font>(conPar.opa_b, irRadExc.conPar_b);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conBou.opa_b, irRadExc.conBou);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(surf_surBou, irRadExc.conSurBou);
+  <font color="red">connect</font>(irRadGai.conExt, conExt.opa_b);
+  <font color="red">connect</font>(irRadGai.conExtWinFra, conExtWin.fra_b);
+  <font color="red">connect</font>(irRadGai.conPar_a, conPar.opa_a);
+  <font color="red">connect</font>(irRadGai.conPar_b, conPar.opa_b);
+  <font color="red">connect</font>(irRadGai.conBou, conBou.opa_b);
+  <font color="red">connect</font>(irRadGai.conSurBou, surf_surBou);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(irRadGai.uSha, uSha);
+  <font color="red">connect</font>(heaGai.qGai_flow, qGai_flow);
+  <font color="red">connect</font>(conExtWin.opa_b, irRadExc.conExtWin);
+  <font color="red">connect</font>(conExtWin.opa_b, irRadGai.conExtWin);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conExt.opa_b, solRadExc.conExt);
+  <font color="red">connect</font>(conExtWin.fra_b, solRadExc.conExtWinFra);
+  <font color="red">connect</font>(conPar.opa_a, solRadExc.conPar_a);
+  <font color="red">connect</font>(conPar.opa_b, solRadExc.conPar_b);
+  <font color="red">connect</font>(conBou.opa_b, solRadExc.conBou);
+  <font color="red">connect</font>(surf_surBou, solRadExc.conSurBou);
+  <font color="red">connect</font>(conExtWin.opa_b, solRadExc.conExtWin);
+  <font color="red">connect</font>(solRadExc.JInConExtWin, conExtWinRad.QTra_flow);
+  <font color="red">connect</font>(solRadExc.HOutConExtWin,conExtWinRad.HRoo);
+  <font color="red">connect</font>(uSha, radTem.uSha);
+  <font color="red">connect</font>(conExt.opa_b, radTem.conExt);
+  <font color="red">connect</font>(conExtWin.opa_b, radTem.conExtWin);
+  <font color="red">connect</font>(conExtWin.fra_b, radTem.conExtWinFra);
+  <font color="red">connect</font>(conPar.opa_a, radTem.conPar_a);
+  <font color="red">connect</font>(conPar.opa_b, radTem.conPar_b);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conBou.opa_b, radTem.conBou);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(surf_surBou, radTem.conSurBou);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(radTem.glaUns, conExtWin.glaUns_b);
+  <font color="red">connect</font>(radTem.glaSha, conExtWin.glaSha_b);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(radTem.TRad, radiationAdapter.TRad);
+  <font color="red">connect</font>(radiationAdapter.rad, heaPorRad);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(radiationAdapter.QRad_flow, add.u1);
+  <font color="red">connect</font>(heaGai.QRad_flow, add.u2);
+  <font color="red">connect</font>(add.y, irRadGai.Q_flow);
+  <font color="red">connect</font>(irRadExc.JOutConExtWin, sumJToWin.u1);
+  <font color="red">connect</font>(irRadGai.JOutConExtWin, sumJToWin.u2);
+  <font color="red">connect</font>(uSha, shaSig.u);
+  <font color="red">connect</font>(shaSig.y, radShaOut.u);
+  <font color="red">connect</font>(shaSig.y, shaRad.u);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sumJToWin.y, radShaOut.JIn);
+  <font color="red">connect</font>(radShaOut.JOut_1, shaRad.JIn_air);
+  <font color="red">connect</font>(radShaOut.JOut_2, conExtWin.JInUns_b);
+  <font color="red">connect</font>(shaRad.JOut_glass, conExtWin.JInSha_b);
+  <font color="red">connect</font>(conExtWin.JOutSha_b, shaRad.JIn_glass);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(irRadExc.JInConExtWin, sumJFroWin.y);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(shaRad.QSolAbs_flow, conExtWinRad.QAbsIntSha_flow);
+  <font color="red">connect</font>(sumJFroWin.u[1], conExtWin.JOutUns_b);
+  <font color="red">connect</font>(sumJFroWin.u[2], shaRad.JOut_air);
+  <font color="red">connect</font>(radTem.sha, TSha.port);</textblock>
+
+  <font color="blue">for </font>i<font color="blue"> in </font>1:nPorts<font color="blue"> loop</font>
+<textblock type="annotconnect" expanded="false">    <font color="red">connect</font>(ports[i],air. ports[i]);</textblock>
+  <font color="blue">end for</font>;
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(heaGai.QLat_flow,air. ports[nPorts + 1]);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(air.heaPorAir, heaGai.QCon_flow);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(air.conExt, conExt.opa_b);
+  <font color="red">connect</font>(air.conExtWin, conExtWin.opa_b);
+  <font color="red">connect</font>(air.glaUns, conExtWin.glaUns_b);
+  <font color="red">connect</font>(air.glaSha, conExtWin.glaSha_b);
+  <font color="red">connect</font>(air.conExtWinFra, conExtWin.fra_b);
+  <font color="red">connect</font>(air.conPar_a, conPar.opa_a);
+  <font color="red">connect</font>(air.conPar_b, conPar.opa_b);
+  <font color="red">connect</font>(air.conBou, conBou.opa_b);
+  <font color="red">connect</font>(air.conSurBou, surf_surBou);
+  <font color="red">connect</font>(air.uSha, uSha);
+  <font color="red">connect</font>(shaRad.QRadAbs_flow,air. QRadAbs_flow);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(air.TSha, shaRad.TSha);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(air.heaPorAir, heaPorAir);
+  <font color="red">connect</font>(air.TSha, TSha.T);</textblock>
+
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>MixedAir;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:57:22 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:56 2013.
 </address></BODY>
 </HTML>

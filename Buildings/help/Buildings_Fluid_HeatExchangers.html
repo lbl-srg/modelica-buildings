@@ -26,21 +26,21 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE HeatExchangers<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
 >Buildings.Fluid</A>.HeatExchangers</H2>
 <B>Package with heat exchanger models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains models for heat exchangers with and without humidity condensation.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExchangers.BoreholesS.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Boreholes.html#Buildings.Fluid.HeatExchangers.Boreholes"
@@ -93,26 +93,22 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha5646c6cf54136ee9enessI.png" ALT="Buildings.Fluid.HeatExchangers.ConstantEffectiveness" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.ConstantEffectiveness"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >Buildings.Fluid.HeatExchangers</A>.ConstantEffectiveness</H2>
-<B>Heat exchanger with constant effectiveness</B><p>
+<B>Heat exchanger with constant effectiveness</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha5646c6cf54136ee9enessD.png" ALT="Buildings.Fluid.HeatExchangers.ConstantEffectiveness">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model for a heat exchanger with constant effectiveness.
 </p>
 <p>
-This model transfers heat in the amount of 
+This model transfers heat in the amount of
+</p>
 <p align="center" style="font-style:italic;">
   Q = Q<sub>max</sub> &epsilon;,
 </p>
+<p>
 where <i>&epsilon;</i> is a constant effectiveness and 
 <i>Q<sub>max</sub></i> is the maximum heat that can be transferred.
-</p>
-<p>
-In the region <code>mK_flow_small > abs(mK_flow) > mK_flow_small/2</code>, for <code>K = 1</code> or
-<code>2</code>, the effectivness <code>eps</code> is transitioned from 
-its user-specified value to 0. This improves the numerical robustness near
-zero flow.
 </p>
 <p>
 For a heat and moisture exchanger, use
@@ -121,7 +117,7 @@ For a heat and moisture exchanger, use
 Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>
 instead of this model.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness"
 >Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness</A> (Partial model to implement heat exchangers based on effectiveness model).
 <P><H3>Parameters</H3><P>
@@ -134,11 +130,11 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >HeatFlowRate</A></TD><TD>Q1_flow</TD><TD>eps*QMax_flow</TD><TD>Heat transfered into the medium 1 [W]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>mXi1_flow[Medium1.nXi]</TD><TD>zeros(Medium1.nXi)</TD><TD>Mass flow rates of independent substances added to the medium 1 [kg/s]</TD></TR>
+>MassFlowRate</A></TD><TD>mWat1_flow</TD><TD>0</TD><TD>Moisture mass flow rate added to the medium 1 [kg/s]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >HeatFlowRate</A></TD><TD>Q2_flow</TD><TD>-Q1_flow</TD><TD>Heat transfered into the medium 2 [W]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>mXi2_flow[Medium2.nXi]</TD><TD>zeros(Medium2.nXi)</TD><TD>Mass flow rates of independent substances added to the medium 2 [kg/s]</TD></TR>
+>MassFlowRate</A></TD><TD>mWat2_flow</TD><TD>0</TD><TD>Moisture mass flow rate added to the medium 2 [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>sensibleOnly1</TD><TD>true</TD><TD>Set to true if sensible exchange only for medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>sensibleOnly2</TD><TD>true</TD><TD>Set to true if sensible exchange only for medium 2</TD></TR>
 <TR><TD>Real</TD><TD>eps</TD><TD>0.8</TD><TD>Heat exchanger effectiveness [1]</TD></TR>
@@ -179,8 +175,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp1</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
@@ -203,7 +198,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ConstantEffectiveness <font color="darkgreen">
   &quot;Heat exchanger with constant effectiveness&quot;</font>
@@ -213,8 +208,8 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
     sensibleOnly2 = true,
     Q1_flow = eps * QMax_flow,
     Q2_flow = -Q1_flow,
-    mXi1_flow =<font color="red"> zeros</font>(Medium1.nXi),
-    mXi2_flow =<font color="red"> zeros</font>(Medium2.nXi));
+    mWat1_flow = 0,
+    mWat2_flow = 0);
 
   <font color="blue">parameter </font>Real eps(min=0, max=1, unit=&quot;1&quot;) = 0.8 <font color="darkgreen">
     &quot;Heat exchanger effectiveness&quot;</font>;
@@ -229,17 +224,19 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <H2><IMG SRC="Buildings.Fluid.HeatExcha5646c6cf54136ee9enessI.png" ALT="Buildings.Fluid.HeatExchangers.DryEffectivenessNTU" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DryEffectivenessNTU"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >Buildings.Fluid.HeatExchangers</A>.DryEffectivenessNTU</H2>
-<B>Heat exchanger with effectiveness - NTU relation and no moisture condensation</B><p>
+<B>Heat exchanger with effectiveness - NTU relation and no moisture condensation</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha5646c6cf54136ee9enessD.png" ALT="Buildings.Fluid.HeatExchangers.DryEffectivenessNTU">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of a heat exchanger without humidity condensation. 
 This model transfers heat in the amount of 
+</p>
 <p align="center" style="font-style:italic;">
-  Q = Q<sub>max</sub>  &epsilon;<br>
+  Q = Q<sub>max</sub>  &epsilon;<br/>
   &epsilon; = f(NTU, Z, flowRegime),
 </p>
+<p>
 where
 <i>Q<sub>max</sub></i> is the maximum heat that can be transferred,
 <i>&epsilon;</i> is the heat transfer effectiveness, 
@@ -264,7 +261,7 @@ For a heat and moisture exchanger, use
 Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>
 instead of this model.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness"
 >Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness</A> (Partial model to implement heat exchangers based on effectiveness model).
 <P><H3>Parameters</H3><P>
@@ -277,11 +274,11 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >HeatFlowRate</A></TD><TD>Q1_flow</TD><TD>eps*QMax_flow</TD><TD>Heat transfered into the medium 1 [W]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>mXi1_flow[Medium1.nXi]</TD><TD>zeros(Medium1.nXi)</TD><TD>Mass flow rates of independent substances added to the medium 1 [kg/s]</TD></TR>
+>MassFlowRate</A></TD><TD>mWat1_flow</TD><TD>0</TD><TD>Moisture mass flow rate added to the medium 1 [kg/s]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >HeatFlowRate</A></TD><TD>Q2_flow</TD><TD>-Q1_flow</TD><TD>Heat transfered into the medium 2 [W]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>mXi2_flow[Medium2.nXi]</TD><TD>zeros(Medium2.nXi)</TD><TD>Mass flow rates of independent substances added to the medium 2 [kg/s]</TD></TR>
+>MassFlowRate</A></TD><TD>mWat2_flow</TD><TD>0</TD><TD>Moisture mass flow rate added to the medium 2 [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>sensibleOnly1</TD><TD>true</TD><TD>Set to true if sensible exchange only for medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>sensibleOnly2</TD><TD>true</TD><TD>Set to true if sensible exchange only for medium 2</TD></TR>
 <TR><TD><A HREF="Buildings_Fluid_Types.html#Buildings.Fluid.Types.HeatExchangerConfiguration"
@@ -330,8 +327,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp1</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
@@ -354,7 +350,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DryEffectivenessNTU <font color="darkgreen">
   &quot;Heat exchanger with effectiveness - NTU relation and no moisture condensation&quot;</font>
@@ -363,8 +359,8 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
       sensibleOnly1=true, sensibleOnly2=true,
       Q1_flow = eps*QMax_flow,
       Q2_flow = -Q1_flow,
-      mXi1_flow =<font color="red"> zeros</font>(Medium1.nXi),
-      mXi2_flow =<font color="red"> zeros</font>(Medium2.nXi));
+      mWat1_flow = 0,
+      mWat2_flow = 0);
   <font color="blue">import </font>con = <A HREF="Buildings_Fluid_Types.html#Buildings.Fluid.Types.HeatExchangerConfiguration"
 >Buildings.Fluid.Types.HeatExchangerConfiguration</A>;
   <font color="blue">import </font>flo = <A HREF="Buildings_Fluid_Types.html#Buildings.Fluid.Types.HeatExchangerFlowRegime"
@@ -541,9 +537,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <H2><IMG SRC="Buildings.Fluid.HeatExcha6f338ce72407a60erFlowI.png" ALT="Buildings.Fluid.HeatExchangers.DryCoilCounterFlow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DryCoilCounterFlow"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >Buildings.Fluid.HeatExchangers</A>.DryCoilCounterFlow</H2>
-<B>Counterflow coil with discretization along the flow paths and without humidity condensation</B><p>
+<B>Counterflow coil with discretization along the flow paths and without humidity condensation</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha6f338ce72407a60erFlowD.png" ALT="Buildings.Fluid.HeatExchangers.DryCoilCounterFlow">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of a discretized coil without water vapor condensation.
@@ -551,8 +547,7 @@ The coil consists of two flow paths which are, at the design flow direction,
 in opposite direction to model a counterflow heat exchanger.
 The flow paths are discretized into <code>nEle</code> elements. 
 Each element is modeled by an instance of
-<A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.HexElement"
->
+<a href="modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 Each element has a state variable for the metal. Depending
 on the value of the boolean parameters <code>steadyState_1</code> and
@@ -574,7 +569,7 @@ To model humidity condensation, use the model
 Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a> instead of this model, as
 this model computes only sensible heat transfer.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialFourPortInterface"
 >Fluid.Interfaces.PartialFourPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters</A> (Parameters for flow resistance for models with four ports).
@@ -633,8 +628,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>computeFlowResistance1</TD><TD>false</TD><TD>=true, compute flow resistance. Set to false to assume no friction</TD></TR>
@@ -670,7 +664,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DryCoilCounterFlow <font color="darkgreen">
   &quot;Counterflow coil with discretization along the flow paths and without humidity condensation&quot;</font>
@@ -769,12 +763,11 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >Modelica.Blocks.Math.Gain</A> gai_2(k=1/nEle) <font color="darkgreen">
     &quot;Gain medium-side 2 to take discretization into account&quot;</font>;</textblock>
 
-<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.HexElement"
->BaseClasses.HexElement</A> ele[nEle](
+<textblock type="annotcomp" expanded="false">  <font color="blue">replaceable </font><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.HexElementSensible"
+>BaseClasses.HexElementSensible</A> ele[nEle]
+  <font color="blue">constrainedby </font>BaseClasses.PartialHexElement(
     <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium1 = Medium1,
     <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium2 = Medium2,
-    <font color="blue">redeclare </font><font color="blue">each </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeDryAir"
->Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</A> vol2,
     <font color="blue">each </font>allowFlowReversal1=allowFlowReversal1,
     <font color="blue">each </font>allowFlowReversal2=allowFlowReversal2,
     <font color="blue">each </font>tau1=tau1/nEle,
@@ -839,9 +832,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.HeatExcha6f338ce72407a60erFlowI.png" ALT="Buildings.Fluid.HeatExchangers.WetCoilCounterFlow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.WetCoilCounterFlow"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >Buildings.Fluid.HeatExchangers</A>.WetCoilCounterFlow</H2>
-<B>Counterflow coil with discretization along the flow paths and humidity condensation</B><p>
+<B>Counterflow coil with discretization along the flow paths and humidity condensation</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha84a9dffc2670ce0erFlowD.png" ALT="Buildings.Fluid.HeatExchangers.WetCoilCounterFlow">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of a discretized coil with water vapor condensation.
@@ -849,8 +842,7 @@ The coil consists of two flow paths which are, at the design flow direction,
 in opposite direction to model a counterflow heat exchanger.
 The flow paths are discretized into <code>nEle</code> elements. 
 Each element is modeled by an instance of
-<A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.HexElement"
->
+<a href="modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 Each element has a state variable for the metal. Depending
 on the value of the boolean parameters <code>steadyState_1</code> and
@@ -896,7 +888,7 @@ To model this coil for conditions without humidity condensation, use the model
 >
 Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.DryCoilCounterFlow"
 >Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</A> (Counterflow coil with discretization along the flow paths and without humidity condensation).
 <P><H3>Parameters</H3><P>
@@ -954,8 +946,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatEx
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp1</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
@@ -989,20 +980,15 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatEx
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> WetCoilCounterFlow <font color="darkgreen">
   &quot;Counterflow coil with discretization along the flow paths and humidity condensation&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.DryCoilCounterFlow"
 >Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</A>(
-    <font color="blue">each </font>ele(
-      <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">final </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"
->Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</A> vol2,
-      <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">final </font><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange"
->Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange</A>
-                                                                masExc(
-         <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium2.html#Buildings.Fluid.Interfaces.FourPort.Medium2"
->Medium2</A>)));
+      <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">final </font><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent"
+>Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</A>
+                                                                  ele[nEle]);
 
   <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</A> QSen2_flow <font color="darkgreen">
@@ -1032,9 +1018,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatEx
 <H2><IMG SRC="Buildings.Fluid.HeatExcha49e904f1a46cb934tizedI.png" ALT="Buildings.Fluid.HeatExchangers.DryCoilDiscretized" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DryCoilDiscretized"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >Buildings.Fluid.HeatExchangers</A>.DryCoilDiscretized</H2>
-<B>Coil with discretization along the flow paths and no humidity condensation</B><p>
+<B>Coil with discretization along the flow paths and no humidity condensation</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha49e904f1a46cb934tizedD.png" ALT="Buildings.Fluid.HeatExchangers.DryCoilDiscretized">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of a discretized coil with no water vapor condensation.
@@ -1043,8 +1029,7 @@ that are perpendicular to the air flow path. Each register consists of <code>nPi
 parallel pipes, and each pipe can be divided into <code>nPipSeg</code> pipe segments along
 the pipe length. Thus, the smallest element of the coil consists of a pipe 
 segment. Each pipe segment is modeled by an instance of
-<A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.HexElement"
->
+<a href="modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 Each element has a state variable for the metal. Depending
 on the value of the boolean parameters <code>steadyState_1</code> and
@@ -1074,7 +1059,7 @@ To model humidity condensation, use the model
 Buildings.Fluid.HeatExchangers.WetCoilDiscretized</a> instead of this model, as
 this model computes only sensible heat transfer.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialFourPortInterface"
 >Fluid.Interfaces.PartialFourPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters</A> (Parameters for flow resistance for models with four ports).
@@ -1146,8 +1131,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD>Real</TD><TD>ReC_1</TD><TD>4000</TD><TD>Reynolds number where transition to turbulent starts inside pipes</TD></TR>
 <TR><TD>Real</TD><TD>ReC_2</TD><TD>4000</TD><TD>Reynolds number where transition to turbulent starts inside ducts</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>computeFlowResistance1</TD><TD>true</TD><TD>=true, compute flow resistance. Set to false to assume no friction</TD></TR>
@@ -1186,7 +1170,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DryCoilDiscretized <font color="darkgreen">
   &quot;Coil with discretization along the flow paths and no humidity condensation&quot;</font>
@@ -1223,8 +1207,6 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister"
 >Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister</A> hexReg[nReg](
-    ele(<font color="blue">redeclare </font><font color="blue">each </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeDryAir"
->Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</A> vol2),
     <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium1 = Medium1,
     <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium2 = Medium2,
     <font color="blue">each </font><font color="blue">final </font>allowFlowReversal1=allowFlowReversal1,
@@ -1463,9 +1445,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.HeatExcha49e904f1a46cb934tizedI.png" ALT="Buildings.Fluid.HeatExchangers.WetCoilDiscretized" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.WetCoilDiscretized"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >Buildings.Fluid.HeatExchangers</A>.WetCoilDiscretized</H2>
-<B>Coil with discretization along the flow paths and humidity condensation</B><p>
+<B>Coil with discretization along the flow paths and humidity condensation</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha49e904f1a46cb934tizedD.png" ALT="Buildings.Fluid.HeatExchangers.WetCoilDiscretized">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of a discretized coil with humidity condensation.
@@ -1494,7 +1476,7 @@ Buildings.Media.PerfectGases.MoistAir</a> and
 >
 Modelica.Media.Air.MoistAir</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.DryCoilDiscretized"
 >DryCoilDiscretized</A> (Coil with discretization along the flow paths and no humidity condensation).
 <P><H3>Parameters</H3><P>
@@ -1565,8 +1547,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatEx
 <TR><TD>Real</TD><TD>ReC_1</TD><TD>4000</TD><TD>Reynolds number where transition to turbulent starts inside pipes</TD></TR>
 <TR><TD>Real</TD><TD>ReC_2</TD><TD>4000</TD><TD>Reynolds number where transition to turbulent starts inside ducts</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp1</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
@@ -1603,7 +1584,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatEx
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> WetCoilDiscretized <font color="darkgreen">
   &quot;Coil with discretization along the flow paths and humidity condensation&quot;</font>
@@ -1611,13 +1592,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatEx
   <font color="darkgreen">// function is known. Otherwise, checkModel(...) will fail</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.DryCoilDiscretized"
 >DryCoilDiscretized</A>(
-    <font color="blue">each </font>hexReg(<font color="blue">each </font>ele(<font color="blue">redeclare </font><font color="blue">each </font><font color="blue">final </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"
->Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</A>
-                                                             vol2,
-          <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">final </font><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange"
->Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange</A>
-            masExc(<font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Interfaces_Medium2.html#Buildings.Fluid.Interfaces.FourPort.Medium2"
->Medium2</A>))),
+    <font color="blue">each </font>hexReg(<font color="blue">redeclare </font><font color="blue">final </font><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent"
+>Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</A>
+                                                                    ele[nPipPar, nPipSeg]),
     temSen_1(m_flow_nominal=m1_flow_nominal),
     temSen_2(m_flow_nominal=m2_flow_nominal));
 <textblock type="annotcomp" expanded="false">
@@ -1630,9 +1607,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatEx
 <H2><IMG SRC="Buildings.Fluid.HeatExchaf13a6bf1f04387dcribedI.png" ALT="Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >Buildings.Fluid.HeatExchangers</A>.HeaterCoolerPrescribed</H2>
-<B>Heater or cooler with prescribed heat flow rate</B><p>
+<B>Heater or cooler with prescribed heat flow rate</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchaf13a6bf1f04387dcribedD.png" ALT="Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model for an ideal heater or cooler with prescribed heat flow rate to the medium.
@@ -1642,7 +1619,7 @@ This model adds heat in the amount of <code>Q_flow = u Q_flow_nominal</code> to 
 The input signal <code>u</code> and the nominal heat flow rate <code>Q_flow_nominal</code> 
 can be positive or negative.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
 >Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</A> (Partial model transporting one fluid stream with storing mass or energy).
 <P><H3>Parameters</H3><P>
@@ -1669,8 +1646,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
@@ -1704,14 +1680,15 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u</TD><TD>Control input</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> HeaterCoolerPrescribed <font color="darkgreen">
   &quot;Heater or cooler with prescribed heat flow rate&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
 >Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</A>(
     <font color="blue">redeclare </font><font color="blue">final </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
->Buildings.Fluid.MixingVolumes.MixingVolume</A> vol);
+>Buildings.Fluid.MixingVolumes.MixingVolume</A> vol,
+    <font color="blue">final </font>showDesignFlowDirection=false);
 
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</A> Q_flow_nominal <font color="darkgreen">
@@ -1731,6 +1708,6 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>HeaterCoolerPrescribed;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:25 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:32 2013.
 </address></BODY>
 </HTML>

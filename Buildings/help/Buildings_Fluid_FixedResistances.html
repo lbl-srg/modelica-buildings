@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE FixedResistances<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.FixedResistances"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
 >Buildings.Fluid</A>.FixedResistances</H2>
 <B>Package with models for fixed flow resistances (pipes, diffusers etc.)</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains components models for fixed flow resistances. 
 By fixed flow resistance, we mean resistances that do not change the 
@@ -75,10 +75,10 @@ The model
 Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a>
 can be used to model flow splitters or flow merges.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.FixedResiefe411e95f8cd6d1ceDpMS.png" ALT="Buildings.Fluid.FixedResistances.FixedResistanceDpM" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
@@ -107,17 +107,19 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.FixedResiefe411e95f8cd6d1ceDpMI.png" ALT="Buildings.Fluid.FixedResistances.FixedResistanceDpM" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.FixedResistances.FixedResistanceDpM"></A><A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances"
 >Buildings.Fluid.FixedResistances</A>.FixedResistanceDpM</H2>
-<B>Fixed flow resistance with dp and m_flow as parameter</B><p>
+<B>Fixed flow resistance with dp and m_flow as parameter</B><p></P>
 <IMG SRC="Buildings.Fluid.FixedResiefe411e95f8cd6d1ceDpMD.png" ALT="Buildings.Fluid.FixedResistances.FixedResistanceDpM">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This is a model of a resistance with a fixed flow coefficient.
 The mass flow rate is computed as
+</p>
 <p align="center" style="font-style:italic;">
 m&#775; = k  
 &radic;<span style="text-decoration:overline;">&Delta;P</span>,
 </p>
+<p>
 where 
 <i>k</i> is a constant and 
 <i>&Delta;P</i> is the pressure drop.
@@ -132,7 +134,6 @@ with finite slope.
 The value of <code>m_flow_turbulent</code> is
 computed as follows:
 </p>
-<p>
 <ul>
 <li>
 If the parameter <code>use_dh</code> is <code>false</code>
@@ -153,7 +154,6 @@ the medium model. The parameter
 can be set by the user.
 </li>
 </ul>
-</p>
 <p>
 The figure below shows the pressure drop for the parameters
 <code>m_flow_nominal=5</code> kg/s,
@@ -161,13 +161,12 @@ The figure below shows the pressure drop for the parameters
 <code>deltaM=0.3</code>.
 </p>
 <p align="center">
-<img src="../Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png"/>
+<img alt="image" src="../Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png"/>
 </p>
 <p>
-If the parameters 
-<code>show_V_flow</code> or
-<code>show_T</code> are set to <code>true</code>,
-then the model will compute the volume flow rate and the
+If the parameter
+<code>show_T</code> is set to <code>true</code>,
+then the model will compute the
 temperature at its ports. Note that this can lead to state events
 when the mass flow rate approaches zero,
 which can increase computing time.
@@ -191,7 +190,6 @@ This can be difficult to guarantee, as pressure imbalance after
 the initialization, or due to medium expansion and contraction,
 can lead to reverse flow.
 </p>
-<p>
 <h4>Notes</h4>
 <p>
 For more detailed models that compute the actual flow friction, 
@@ -209,6 +207,7 @@ The pressure drop is computed by calling a function in the package
 >
 Buildings.Fluid.BaseClasses.FlowModels</a>,
 This package contains regularized implementations of the equation
+</p>
 <p align="center" style="font-style:italic;">
   m = sign(&Delta;p) k  &radic;<span style="text-decoration:overline;">&nbsp;&Delta;p &nbsp;</span>
 </p>
@@ -221,7 +220,7 @@ the pressure drop is a function of the mass flow rate,
 and not the volume flow rate.
 This leads to simpler equations.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance"
 >Buildings.Fluid.BaseClasses.PartialResistance</A> (Partial model for a hydraulic resistance).
 <P><H3>Parameters</H3><P>
@@ -253,8 +252,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearized</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -264,7 +262,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FixedResistanceDpM <font color="darkgreen">
   &quot;Fixed flow resistance with dp and m_flow as parameter&quot;</font>
@@ -345,9 +343,9 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <H2><IMG SRC="Buildings.Fluid.FixedResi0fb31093ff38bc87sPipeI.png" ALT="Buildings.Fluid.FixedResistances.LosslessPipe" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.FixedResistances.LosslessPipe"></A><A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances"
 >Buildings.Fluid.FixedResistances</A>.LosslessPipe</H2>
-<B>Pipe with no flow friction and no heat transfer</B><p>
+<B>Pipe with no flow friction and no heat transfer</B><p></P>
 <IMG SRC="Buildings.Fluid.FixedResiefe411e95f8cd6d1ceDpMD.png" ALT="Buildings.Fluid.FixedResistances.LosslessPipe">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of a pipe with no flow resistance, no heat loss and no transport delay.
@@ -359,7 +357,7 @@ base class for three way valves,
 >
 Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
@@ -383,8 +381,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -394,12 +391,11 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> LosslessPipe <font color="darkgreen">&quot;Pipe with no flow friction and no heat transfer&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
->Buildings.Fluid.Interfaces.PartialTwoPortInterface</A>(
-     show_T=false, show_V_flow=false);
+>Buildings.Fluid.Interfaces.PartialTwoPortInterface</A>;
   <font color="blue">extends </font><A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A>;
   <font color="blue">final </font><font color="blue">parameter </font>Boolean from_dp=true <font color="darkgreen">&quot;Used to satisfy replaceable models&quot;</font>;
@@ -427,9 +423,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.FixedResistances.PipeI.png" ALT="Buildings.Fluid.FixedResistances.Pipe" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.FixedResistances.Pipe"></A><A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances"
 >Buildings.Fluid.FixedResistances</A>.Pipe</H2>
-<B>Pipe with finite volume discretization along flow path</B><p>
+<B>Pipe with finite volume discretization along flow path</B><p></P>
 <IMG SRC="Buildings.Fluid.FixedResistances.PipeD.png" ALT="Buildings.Fluid.FixedResistances.Pipe">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of a pipe with flow resistance and optional heat exchange with environment.
@@ -466,7 +462,7 @@ For a steady-state model of a flow resistance, use
 >
 Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Buildings.Fluid.FixedResistances.BaseClasses.Pipe"
 >Buildings.Fluid.FixedResistances.BaseClasses.Pipe</A> (Model of a pipe with finite volume discretization along the flow path).
 <P><H3>Parameters</H3><P>
@@ -480,7 +476,7 @@ Extends from <A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Building
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >ThermalConductivity</A></TD><TD>lambdaIns</TD><TD>&nbsp;</TD><TD>Heat conductivity of insulation [W/(m.K)]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>diameter</TD><TD>sqrt(4*m_flow_nominal/rho_no...</TD><TD>Pipe diameter (without insulation) [m]</TD></TR>
+>Length</A></TD><TD>diameter</TD><TD>sqrt(4*m_flow_nominal/rho_de...</TD><TD>Pipe diameter (without insulation) [m]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</A></TD><TD>length</TD><TD>&nbsp;</TD><TD>Length of the pipe [m]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
@@ -521,8 +517,6 @@ Extends from <A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Building
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
@@ -541,12 +535,12 @@ Extends from <A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Building
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.HeatPorts_a"
 >HeatPorts_a</A></TD><TD>heatPorts[nSeg]</TD><TD>Multiple heat ports that connect to outside of pipe wall (enabled if useMultipleHeatPorts=true)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Pipe <font color="darkgreen">&quot;Pipe with finite volume discretization along flow path&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Buildings.Fluid.FixedResistances.BaseClasses.Pipe"
 >Buildings.Fluid.FixedResistances.BaseClasses.Pipe</A>(
-   diameter=<font color="red">sqrt</font>(4*m_flow_nominal/rho_nominal/v_nominal/Modelica.Constants.pi),
+   diameter=<font color="red">sqrt</font>(4*m_flow_nominal/rho_default/v_nominal/Modelica.Constants.pi),
    dp_nominal=2*dpStraightPipe_nominal,
    res(dp(nominal=length*10)));
   <font color="darkgreen">// Because dp_nominal is a non-literal value, we set</font>
@@ -563,10 +557,10 @@ Extends from <A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Building
 >Modelica.SIunits.Pressure</A> dpStraightPipe_nominal=
       <font color="red">Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow</font>(
       m_flow=m_flow_nominal,
-      rho_a=rho_nominal,
-      rho_b=rho_nominal,
-      mu_a=mu_nominal,
-      mu_b=mu_nominal,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
       length=length,
       diameter=diameter,
       roughness=roughness,
@@ -614,9 +608,9 @@ Extends from <A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Building
 <H2><IMG SRC="Buildings.Fluid.FixedResi51e52f70be5315dfceDpMI.png" ALT="Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"></A><A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances"
 >Buildings.Fluid.FixedResistances</A>.SplitterFixedResistanceDpM</H2>
-<B>Flow splitter with fixed resistance at each port</B><p>
+<B>Flow splitter with fixed resistance at each port</B><p></P>
 <IMG SRC="Buildings.Fluid.FixedResi51e52f70be5315dfceDpMD.png" ALT="Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of a flow splitter or mixer with a fixed resistance in each flow leg.
@@ -642,7 +636,7 @@ as shown in the figure below. Note that <code>port_3</code> is set to negative v
 The negative values indicate that at the nominal conditions, fluid is leaving the component.
 </p>
 <p align="center">
-<img src="../Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png"/>
+<img alt="image" src="../Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png"/>
 </p>
 <p>
 Optionally, at the fluid junction, a control volume can be modelled. 
@@ -664,7 +658,7 @@ of the medium in the volume at nominal condition.
 Setting <code>dynamicBalance=true</code> can help reducing the size of the nonlinear
 system of equations.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon), <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialThreeWayResistance"
 >Buildings.Fluid.BaseClasses.PartialThreeWayResistance</A> (Flow splitter with partial resistance model at each port).
@@ -721,7 +715,7 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_3</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SplitterFixedResistanceDpM <font color="darkgreen">
   &quot;Flow splitter with fixed resistance at each port&quot;</font>
@@ -788,6 +782,6 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>SplitterFixedResistanceDpM;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:21 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:28 2013.
 </address></BODY>
 </HTML>

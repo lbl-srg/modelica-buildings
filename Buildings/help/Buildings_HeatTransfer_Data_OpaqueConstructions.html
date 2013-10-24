@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE OpaqueConstructions<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Data.OpaqueConstructions"></A><A HREF="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
 >Buildings.HeatTransfer.Data</A>.OpaqueConstructions</H2>
 <B>Package with opaque constructions for floors, walls, etc.</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 Package with material definitions for constructions
@@ -50,10 +50,10 @@ The parameters <code>absSol_a</code> and <code>absSol_b</code>
 are used to compute solar heat radiation (in the solar spectrum).
 </p>
 
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
 >Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericS.png" ALT="Buildings.HeatTransfer.Data.OpaqueConstructions.Generic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
@@ -76,16 +76,16 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackag
 <H2><IMG SRC="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericI.png" ALT="Buildings.HeatTransfer.Data.OpaqueConstructions.Generic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"></A><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions"
 >Buildings.HeatTransfer.Data.OpaqueConstructions</A>.Generic</H2>
-<B>Thermal properties of opaque constructions</B><p>
+<B>Thermal properties of opaque constructions</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericD.png" ALT="Buildings.HeatTransfer.Data.OpaqueConstructions.Generic">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 Generic record with material definitions for constructions
 with one or more layers of material.
 By convention, <code>layer[1]</code> is facing the outside, and the last
 layer is facing the room-side.
 This is the same convention as is used in EnergyPlus and in Window 6.
-</p>
+
 <p>
 The parameters <code>absIR_a</code> and <code>absIR_b</code>
 are used to compute infrared heat radiation (in the infrared spectrum).
@@ -100,7 +100,7 @@ and temperature difference. See
 >
 Buildings.HeatTransfer.Convection.Exterior</a>.
 </p>
-<P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -119,7 +119,7 @@ Buildings.HeatTransfer.Convection.Exterior</a>.
 <TR><TD><A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.SurfaceRoughness"
 >SurfaceRoughness</A></TD><TD>roughness_a</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Exterior surface roughness</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> Generic <font color="darkgreen">&quot;Thermal properties of opaque constructions&quot;</font>
   <font color="blue">parameter </font>Integer nLay(min=1, fixed=true) <font color="darkgreen">&quot;Number of layers&quot;</font>;
@@ -156,7 +156,7 @@ Buildings.HeatTransfer.Convection.Exterior</a>.
 <H2><IMG SRC="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericI.png" ALT="Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"></A><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions"
 >Buildings.HeatTransfer.Data.OpaqueConstructions</A>.Insulation100Concrete200</H2>
-<B>Construction with 100 mm insulation and 200 mm concrete</B><p>
+<B>Construction with 100 mm insulation and 200 mm concrete</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericD.png" ALT="Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200">
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -175,7 +175,7 @@ Buildings.HeatTransfer.Convection.Exterior</a>.
 <TR><TD><A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.SurfaceRoughness"
 >SurfaceRoughness</A></TD><TD>roughness_a</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Exterior surface roughness</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> Insulation100Concrete200 =
     <A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
@@ -190,7 +190,7 @@ Buildings.HeatTransfer.Convection.Exterior</a>.
 <H2><IMG SRC="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericI.png" ALT="Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"></A><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions"
 >Buildings.HeatTransfer.Data.OpaqueConstructions</A>.Brick120</H2>
-<B>Construction with 120mm brick</B><p>
+<B>Construction with 120mm brick</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericD.png" ALT="Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120">
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -209,7 +209,7 @@ Buildings.HeatTransfer.Convection.Exterior</a>.
 <TR><TD><A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.SurfaceRoughness"
 >SurfaceRoughness</A></TD><TD>roughness_a</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Exterior surface roughness</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> Brick120 =
     <A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
@@ -223,7 +223,7 @@ Buildings.HeatTransfer.Convection.Exterior</a>.
 <H2><IMG SRC="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericI.png" ALT="Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200"></A><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions"
 >Buildings.HeatTransfer.Data.OpaqueConstructions</A>.Concrete200</H2>
-<B>Construction with 200mm concrete</B><p>
+<B>Construction with 200mm concrete</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericD.png" ALT="Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200">
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -242,7 +242,7 @@ Buildings.HeatTransfer.Convection.Exterior</a>.
 <TR><TD><A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.SurfaceRoughness"
 >SurfaceRoughness</A></TD><TD>roughness_a</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Exterior surface roughness</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> Concrete200 =
     <A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
@@ -251,6 +251,6 @@ Buildings.HeatTransfer.Convection.Exterior</a>.
   &quot;Construction with 200mm concrete&quot;</font>;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:57:11 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:40 2013.
 </address></BODY>
 </HTML>

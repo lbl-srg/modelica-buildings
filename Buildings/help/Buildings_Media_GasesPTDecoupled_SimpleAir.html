@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE SimpleAir<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir"></A><A HREF="Buildings_Media_GasesPTDecoupled.html#Buildings.Media.GasesPTDecoupled"
 >Buildings.Media.GasesPTDecoupled</A>.SimpleAir</H2>
 <B>Package with dry air model that decouples pressure and temperature</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This medium model is identical to 
@@ -59,10 +59,10 @@ specific enthalpy h and specific internal energy u are only
 a function of temperature T and all other provided medium
 quantities are constant.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Buildings.Media.Interfaces.PartialSimpleIdealGasMedium</A> (Medium model of Ideal gas with constant cp and cv. All other quantities, e.g., transport properties, are constant.).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD>fluidConstants=FluidConstants(iupacName={&quot;simple air&quot;}, casRegistryNumber={&quot;not a real substance&quot;}, chemicalFormula={&quot;N2, O2&quot;}, structureFormula={&quot;N2, O2&quot;}, molarMass=Modelica.Media.IdealGases.Common.SingleGasesData.N2.MM)</TD><TD>constant data for the fluid</TD></TR>
@@ -365,7 +365,7 @@ Extends from <A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.htm
 >Choices</A>
 </TD><TD>Types, constants to define menu choices</TD></TR>
 </TABLE>
-<P><H3>Types and constants</H3>
+<P></p><H3>Types and constants</H3>
 <PRE>  <font color="blue">constant </font><A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.FluidConstants"
 >FluidConstants</A>[nS] fluidConstants=
     <font color="red">FluidConstants</font>(iupacName={&quot;simple air&quot;},
@@ -373,11 +373,11 @@ Extends from <A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.htm
                    chemicalFormula={&quot;N2, O2&quot;},
                    structureFormula={&quot;N2, O2&quot;},
                    molarMass=Modelica.Media.IdealGases.Common.SingleGasesData.N2.MM) <font color="darkgreen">
-  &quot;constant data for the fluid&quot;</font>;</PRE><p>
+  &quot;constant data for the fluid&quot;</font>;</PRE><P></p>
 <PRE>   <font color="blue">constant </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
->AbsolutePressure</A> pStp = 101325 <font color="darkgreen">&quot;Pressure for which dStp is defined&quot;</font>;</PRE><p>
+>AbsolutePressure</A> pStp = 101325 <font color="darkgreen">&quot;Pressure for which dStp is defined&quot;</font>;</PRE><P></p>
 <PRE>   <font color="blue">constant </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
->Density</A> dStp = 1.2 <font color="darkgreen">&quot;Fluid density at pressure pStp&quot;</font>;</PRE><p>
+>Density</A> dStp = 1.2 <font color="darkgreen">&quot;Fluid density at pressure pStp&quot;</font>;</PRE><P></p>
 <HR>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseProperties<![endif]-->
@@ -385,14 +385,14 @@ Extends from <A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.htm
 <H2><IMG SRC="Buildings.Media.GasesPTDea21fac4ffbd8c916rtiesI.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
 >Buildings.Media.GasesPTDecoupled.SimpleAir</A>.BaseProperties</H2>
-<B>Basic medium properties</B><p>
+<B>Basic medium properties</B><p></P>
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
 <TR><TD>Boolean</TD><TD>preferredMediumStates</TD><TD>false</TD><TD>= true if StateSelect.prefer shall be used for the independent property variables of the medium</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">replaceable </font><font color="blue">model</font> BaseProperties <font color="darkgreen">&quot;Basic medium properties&quot;</font>
   <font color="darkgreen"> // declarations from Modelica.Media.Interfaces.PartialMedium</font>
@@ -489,8 +489,8 @@ Extends from <A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.htm
 <H2><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.setState_dTX" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.setState_dTX"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
 >Buildings.Media.GasesPTDecoupled.SimpleAir</A>.setState_dTX</H2>
-<B>Return thermodynamic state from d, T, and X or Xi</B><p>
-<P><H3>Information</H3></P>
+<B>Return thermodynamic state from d, T, and X or Xi</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -509,7 +509,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
 >ThermodynamicState</A></TD><TD>state</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> setState_dTX <font color="darkgreen">
   &quot;Return thermodynamic state from d, T, and X or Xi&quot;</font>
@@ -534,8 +534,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.density" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.density"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
 >Buildings.Media.GasesPTDecoupled.SimpleAir</A>.density</H2>
-<B>return density of ideal gas</B><p>
-<P><H3>Information</H3></P>
+<B>return density of ideal gas</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -550,7 +550,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Density</A></TD><TD>d</TD><TD>Density [kg/m3]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> density <font color="darkgreen">&quot;return density of ideal gas&quot;</font>
    <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
@@ -570,8 +570,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.specificInternalEnergy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.specificInternalEnergy"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
 >Buildings.Media.GasesPTDecoupled.SimpleAir</A>.specificInternalEnergy</H2>
-<B>Return specific internal energy</B><p>
-<P><H3>Information</H3></P>
+<B>Return specific internal energy</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -586,7 +586,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy"
 >SpecificEnergy</A></TD><TD>u</TD><TD>Specific internal energy [J/kg]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> specificInternalEnergy <font color="darkgreen">
   &quot;Return specific internal energy&quot;</font>
@@ -607,8 +607,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.specificEntropy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.specificEntropy"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
 >Buildings.Media.GasesPTDecoupled.SimpleAir</A>.specificEntropy</H2>
-<B>Return specific entropy</B><p>
-<P><H3>Information</H3></P>
+<B>Return specific entropy</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -623,7 +623,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy"
 >SpecificEntropy</A></TD><TD>s</TD><TD>Specific entropy [J/(kg.K)]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">replaceable </font><font color="blue">function</font> specificEntropy <font color="darkgreen">
   &quot;Return specific entropy&quot;</font>
@@ -644,11 +644,11 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.enthalpyOfCondensingGas" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.enthalpyOfCondensingGas"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
 >Buildings.Media.GasesPTDecoupled.SimpleAir</A>.enthalpyOfCondensingGas</H2>
-<B>Enthalpy of steam per unit mass of steam</B><p>
-<P><H3>Information</H3></P>
+<B>Enthalpy of steam per unit mass of steam</B><p></P>
+<P></P><H3>Information</H3>
 
 Dummy function that returns <code>0</code>.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -663,7 +663,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy"
 >SpecificEnthalpy</A></TD><TD>h</TD><TD>Steam enthalpy [J/kg]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">replaceable </font><font color="blue">function</font> enthalpyOfCondensingGas <font color="darkgreen">
   &quot;Enthalpy of steam per unit mass of steam&quot;</font>
@@ -684,11 +684,11 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.saturationPressure" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.saturationPressure"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
 >Buildings.Media.GasesPTDecoupled.SimpleAir</A>.saturationPressure</H2>
-<B>Return saturation pressure of condensing fluid</B><p>
-<P><H3>Information</H3></P>
+<B>Return saturation pressure of condensing fluid</B><p></P>
+<P></P><H3>Information</H3>
 
 Dummy function that returns <code>0</code>.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -703,7 +703,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
 >AbsolutePressure</A></TD><TD>psat</TD><TD>Saturation pressure [Pa]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">replaceable </font><font color="blue">function</font> saturationPressure <font color="darkgreen">
   &quot;Return saturation pressure of condensing fluid&quot;</font>
@@ -723,8 +723,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputAbsolutePressure"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties"
 >Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties</A>.InputAbsolutePressure</H2>
-<B>Pressure as input signal connector</B><p>
-<P><H3>Modelica definition</H3>
+<B>Pressure as input signal connector</B><p></P>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">connector</font> InputAbsolutePressure = <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
 >SI.AbsolutePressure</A> <font color="darkgreen">
@@ -736,8 +736,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputMassFraction"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties"
 >Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties</A>.InputMassFraction</H2>
-<B>Mass fraction as input signal connector</B><p>
-<P><H3>Modelica definition</H3>
+<B>Mass fraction as input signal connector</B><p></P>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">connector</font> InputMassFraction = <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >SI.MassFraction</A> <font color="darkgreen">
@@ -749,14 +749,14 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputSpecificEnthalpy"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties"
 >Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties</A>.InputSpecificEnthalpy</H2>
-<B>Specific enthalpy as input signal connector</B><p>
-<P><H3>Modelica definition</H3>
+<B>Specific enthalpy as input signal connector</B><p></P>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">connector</font> InputSpecificEnthalpy = <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >SI.SpecificEnthalpy</A> <font color="darkgreen">
   &quot;Specific enthalpy as input signal connector&quot;</font>;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:57:16 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:45 2013.
 </address></BODY>
 </HTML>

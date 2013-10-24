@@ -26,25 +26,25 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses"></A><A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Examples.html#Buildings.Fluid.HeatExchangers.CoolingTowers.Examples"
 >Buildings.Fluid.HeatExchangers.CoolingTowers.Examples</A>.BaseClasses</H2>
 <B>Package with base classes for Buildings.Fluid.HeatExchangers.CoolingTowers.Examples</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Examples.html#Buildings.Fluid.HeatExchangers.CoolingTowers.Examples"
 >Buildings.Fluid.HeatExchangers.CoolingTowers.Examples</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExchaf055d592701eab19TowerS.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Examples_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower"
@@ -61,7 +61,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <H2><IMG SRC="Buildings.Fluid.HeatExchaf055d592701eab19TowerI.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower"></A><A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Examples_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses"
 >Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses</A>.PartialStaticTwoPortCoolingTower</H2>
-<B>Base class for test models of cooling towers</B><p>
+<B>Base class for test models of cooling towers</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchaf055d592701eab19TowerD.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower">
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -78,15 +78,14 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialStaticTwoPortCoolingTower <font color="darkgreen">
   &quot;Base class for test models of cooling towers&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
 
- <font color="blue">package</font> Medium_W = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
->Buildings.Media.ConstantPropertyLiquidWater</A>;
+  <font color="blue">package</font> Medium_W = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A> <font color="darkgreen">
+    &quot;Medium model for water&quot;</font>;
 
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> mWat_flow_nominal = 0.5 <font color="darkgreen">
@@ -100,7 +99,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
     dp_nominal=6000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) <font color="darkgreen">&quot;Cooling tower&quot;</font>;
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    show_T=true) <font color="darkgreen">&quot;Cooling tower&quot;</font>;
   <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
 >Buildings.Fluid.Movers.FlowMachine_m_flow</A> pum(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
         Medium_W, m_flow_nominal=mWat_flow_nominal,
@@ -110,7 +110,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 >Modelica.Fluid.System</A> system;
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=
-        &quot;Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
+        &quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Buildings.BoundaryConditions.WeatherData.Bus</A> weaBus;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.OnOffController"
@@ -163,9 +163,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <H2><IMG SRC="Buildings.Fluid.HeatExchaf055d592701eab19TowerI.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb"></A><A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Examples_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses"
 >Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses</A>.PartialStaticTwoPortCoolingTowerWetBulb</H2>
-<B>Partial test model for cooling tower with wet bulb temperature as potential for heat transfer</B><p>
+<B>Partial test model for cooling tower with wet bulb temperature as potential for heat transfer</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha7589e1d18d94e13ctBulbD.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Examples_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower"
 >PartialStaticTwoPortCoolingTower</A> (Base class for test models of cooling towers).
 <P><H3>Parameters</H3><P>
@@ -183,21 +183,20 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Examples_Base
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> PartialStaticTwoPortCoolingTowerWetBulb <font color="darkgreen">
   &quot;Partial test model for cooling tower with wet bulb temperature as potential for heat transfer&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Examples_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower"
->PartialStaticTwoPortCoolingTower</A>(exp(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
-          Medium_W));
- <font color="blue">package</font> Medium_A = <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
->Buildings.Media.PerfectGases.MoistAir</A>;
+>PartialStaticTwoPortCoolingTower</A>(exp(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium_W));
+
+  <font color="blue">package</font> Medium_A = <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
+>Buildings.Media.PerfectGases.MoistAir</A> <font color="darkgreen">
+    &quot;Medium model for air&quot;</font>;
+
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi"
 >Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi</A> wetBulTem(
-                                                        <font color="blue">redeclare </font><font color="blue">package</font>
-      Medium = Medium_A) <font color="darkgreen">&quot;Model for wet bulb temperature&quot;</font>;</textblock>
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium_A) <font color="darkgreen">&quot;Model for wet bulb temperature&quot;</font>;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaBus.pAtm, wetBulTem.p);
   <font color="red">connect</font>(weaBus.TDryBul, wetBulTem.TDryBul);
@@ -205,6 +204,6 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Examples_Base
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>PartialStaticTwoPortCoolingTowerWetBulb;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:41 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:48 2013.
 </address></BODY>
 </HTML>

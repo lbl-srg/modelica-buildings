@@ -26,18 +26,19 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE GasesConstantDensity<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Media.GasesConstantDensity"></A><A HREF="Buildings_Media.html#Buildings.Media"
 >Buildings.Media</A>.GasesConstantDensity</H2>
 <B>Package with models for gases where pressure and temperature are independent of each other</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 Medium models in this package use a constant mass density.
+</p>
 <p>
 The use of a constant density avoids having pressure as a state variable in mixing volumes. Hence, fast transients
 introduced by a change in pressure are avoided. 
@@ -47,28 +48,30 @@ networks.
 </p>
 <p>
 Note that models in this package implement the equation for the internal energy as
+</p>
 <p align="center" style="font-style:italic;">
   u = h - p &frasl; &rho;<sub>stp</sub>,
 </p>
+<p>
 where 
 <i>u</i> is the internal energy per unit mass,
 <i>h</i> is the enthalpy per unit mass,
 <i>p</i> is the static pressure and
 <i>&rho;<sub>stp</sub></i> is the mass density at standard pressure and temperature.
 The reason for this implementation is that in general,
+</p>
 <p align="center" style="font-style:italic;">
   h = u + p v,
 </p>
-from which follows that
+<p>from which follows that</p>
 <p align="center" style="font-style:italic;">
   u = h - p v = h - p &frasl; &rho; = h - p &frasl; &rho;<sub>std</sub>,
 </p>
-because <i>&rho; = &rho;<sub>std</sub></i> in this medium model.
-</p>
-<P>
+<p>because <i>&rho; = &rho;<sub>std</sub></i> in this medium model.</p>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
 >Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Media.GasesCons46d32fa64af6b93bstAirS.png" ALT="Buildings.Media.GasesConstantDensity.MoistAir" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesConstantDensity_MoistAir.html#Buildings.Media.GasesConstantDensity.MoistAir"
@@ -85,6 +88,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackag
 </TD><TD>Collection of models that illustrate model use and test models</TD></TR>
 </TABLE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:57:16 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:45 2013.
 </address></BODY>
 </HTML>

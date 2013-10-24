@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Generic<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data.html#Buildings.Fluid.HeatExchangers.DXCoils.Data"
 >Buildings.Fluid.HeatExchangers.DXCoils.Data</A>.Generic</H2>
 <B>Package with generic performance curves</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains performance curves for the cooling capacity and the EIR 
@@ -54,10 +54,10 @@ The data are described in
 >
 Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
 >Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExchacbda96459db20e98XCoilS.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
@@ -74,14 +74,13 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackag
 <H2><IMG SRC="Buildings.Fluid.HeatExchacbda96459db20e98XCoilI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic"
 >Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic</A>.DXCoil</H2>
-<B>Performance record for a DX Cooling Coil with one or multiple stages</B><p>
-<P><H3>Information</H3></P>
+<B>Performance record for a DX Cooling Coil with one or multiple stages</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This record declares the performance data for the DX cooling coil model.
 The performance data are structured as follows:
 </p>
-<p>
 <pre>
   nSta      - Number of stages. Set to 1 for single speed coil, 
               2 for dual-speed (or dual stage coils), etc.
@@ -89,11 +88,9 @@ The performance data are structured as follows:
   sta       - Array of records with one performance curve for each stage,
               as described below.
 </pre>
-</p>
 <p>
 Each element of the array <code>per</code> has the following data.
 </p>
-<p>
 <pre>
   spe       - Rotational speed for the respective stage.
               (This is only used for variable speed coils to interpolate for 
@@ -136,7 +133,6 @@ Each element of the array <code>per</code> has the following data.
                  for which the performance curves are valid.
                  Outside this range, they will be linearly extrapolated.      
 </pre>
-</p>
 <p>
 The data used to develop the performance curves
 <code>capFunT</code> and 
@@ -169,7 +165,7 @@ same amount of polynomial coefficients. For example, if a
 quadratic function is used for stage one, then stage two must also use 
 a quadratic function.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
@@ -183,7 +179,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Reco
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>0.0001*sta[1].nomVal.m_flow_...</TD><TD>Small mass flow rate for regularization near zero flow [kg/s]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> DXCoil <font color="darkgreen">
   &quot;Performance record for a DX Cooling Coil with one or multiple stages&quot;</font>
@@ -204,6 +200,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Reco
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>DXCoil;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:43 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:51 2013.
 </address></BODY>
 </HTML>

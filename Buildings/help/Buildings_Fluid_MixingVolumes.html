@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE MixingVolumes<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.MixingVolumes"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
 >Buildings.Fluid</A>.MixingVolumes</H2>
 <B>Package with mixing volumes</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains models for completely mixed volumes.
@@ -48,19 +48,16 @@ The other models are only of interest if water should be added to
 or subtracted from the fluid volume, such as in a 
 coil with water vapor condensation.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.MixingVol2b1c22d6332a5efcolumeS.png" ALT="Buildings.Fluid.MixingVolumes.MixingVolume" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
 >MixingVolume</A>
 </TD><TD>Mixing volume with inlet and outlet ports (flow reversal is allowed)</TD></TR>
-<TR><TD><IMG SRC="Buildings.Fluid.MixingVolf5443dbd83cd1eedryAirS.png" ALT="Buildings.Fluid.MixingVolumes.MixingVolumeDryAir" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeDryAir"
->MixingVolumeDryAir</A>
-</TD><TD>Mixing volume with heat port for latent heat exchange, to be used with dry air</TD></TR>
-<TR><TD><IMG SRC="Buildings.Fluid.MixingVolf5443dbd83cd1eedryAirS.png" ALT="Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"
+<TR><TD><IMG SRC="Buildings.Fluid.MixingVol46e02b3c5f55f712stAirS.png" ALT="Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"
 >MixingVolumeMoistAir</A>
 </TD><TD>Mixing volume with heat port for latent heat exchange, to be used with media that contain water</TD></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.MixingVolumes.ExamplesS.png" ALT="Buildings.Fluid.MixingVolumes.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
@@ -77,10 +74,11 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.MixingVol2b1c22d6332a5efcolumeI.png" ALT="Buildings.Fluid.MixingVolumes.MixingVolume" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.MixingVolumes.MixingVolume"></A><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes"
 >Buildings.Fluid.MixingVolumes</A>.MixingVolume</H2>
-<B>Mixing volume with inlet and outlet ports (flow reversal is allowed)</B><p>
+<B>Mixing volume with inlet and outlet ports (flow reversal is allowed)</B><p></P>
 <IMG SRC="Buildings.Fluid.MixingVol2b1c22d6332a5efcolumeD.png" ALT="Buildings.Fluid.MixingVolumes.MixingVolume">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
+<p>
 This model represents an instantaneously mixed volume. 
 Potential and kinetic energy at the port are neglected,
 and there is no pressure drop at the ports.
@@ -88,14 +86,14 @@ The volume can exchange heat through its <code>heatPort</code>.
 </p>
 <p>
 The volume can be parameterized as a steady-state model or as
-dynamic model.
-</p>
+dynamic model.</p>
 <p>
 To increase the numerical robustness of the model, the parameter
 <code>prescribedHeatFlowRate</code> can be set by the user. 
 This parameter only has an effect if the model has exactly two fluid ports connected,
 and if it is used as a steady-state model.
 Use the following settings:
+</p>
 <ul>
 <li>Set <code>prescribedHeatFlowRate=true</code> if there is a model connected to <code>heatPort</code>
 that computes the heat flow rate <i>not</i> as a function of the temperature difference
@@ -107,7 +105,7 @@ is computed as <i>K * (T-heatPort.T)</i>, for some temperature <i>T</i> and some
 which may itself be a function of temperature or mass flow rate.
 </li>
 </ul>
-</p>
+
 <h4>Implementation</h4>
 <p>
 If the model is operated in steady-state and has two fluid ports connected,
@@ -119,6 +117,7 @@ is not used for the properties at the port.
 The implementation of these balance equations is done in the instances
 <code>dynBal</code> for the dynamic balance and <code>steBal</code>
 for the steady-state balance. Both models use the same input variables:
+</p>
 <ul>
 <li>
 The variable <code>Q_flow</code> is used to add sensible <i>and</i> latent heat to the fluid.
@@ -131,7 +130,7 @@ where <code>m_flowInv</code> approximates the expression <code>1/m_flow</code>.
 The variable <code>mXi_flow</code> is used to add a species mass flow rate to the fluid.
 </li>
 </ul>
-</p>
+
 <p>
 For simple models that uses this model, see
 <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed"
@@ -141,7 +140,8 @@ Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</a> and
 >
 Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
 </p>
-<P>
+
+<P></P>
 Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume"
 >Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume</A> (Partial mixing volume with inlet and outlet ports (flow reversal is allowed)).
 <P><H3>Parameters</H3><P>
@@ -188,7 +188,7 @@ Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.F
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>heatPort</TD><TD>Heat port connected to outflowing medium</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolume <font color="darkgreen">
   &quot;Mixing volume with inlet and outlet ports (flow reversal is allowed)&quot;</font>
@@ -196,138 +196,28 @@ Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.F
 >Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume</A>;
 <textblock type="annotcomp" expanded="false"><font color="blue">protected </font>
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A>       masExc[Medium.nXi](k=<font color="red">zeros</font>(Medium.nXi)) <font color="blue">if </font>
-       Medium.nXi &gt; 0 <font color="darkgreen">&quot;Block to set mass exchange in volume&quot;</font>;
+>Modelica.Blocks.Sources.Constant</A> masExc(k=0) <font color="darkgreen">
+    &quot;Block to set mass exchange in volume&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> heaInp(y=heatPort.Q_flow) <font color="darkgreen">
     &quot;Block to set heat input into volume&quot;</font>;</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(heaInp.y, steBal.Q_flow);
   <font color="red">connect</font>(heaInp.y, dynBal.Q_flow);
-  <font color="red">connect</font>(masExc.y, steBal.mXi_flow);
-  <font color="red">connect</font>(masExc.y, dynBal.mXi_flow);</textblock>
+  <font color="red">connect</font>(masExc.y, dynBal.mWat_flow);
+  <font color="red">connect</font>(masExc.y, steBal.mWat_flow);</textblock>
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>MixingVolume;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE MixingVolumeDryAir<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Fluid.MixingVolf5443dbd83cd1eedryAirI.png" ALT="Buildings.Fluid.MixingVolumes.MixingVolumeDryAir" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Fluid.MixingVolumes.MixingVolumeDryAir"></A><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes"
->Buildings.Fluid.MixingVolumes</A>.MixingVolumeDryAir</H2>
-<B>Mixing volume with heat port for latent heat exchange, to be used with dry air</B><p>
-<IMG SRC="Buildings.Fluid.MixingVolf5443dbd83cd1eedryAirD.png" ALT="Buildings.Fluid.MixingVolumes.MixingVolumeDryAir">
-<P><H3>Information</H3></P>
-
-Model for an ideally mixed fluid volume and the ability 
-to store mass and energy. The volume is fixed, 
-and sensible heat can be exchanged.
-<p>
-This model has the same ports as
-<A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"
->
-Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
-However, there is no mass exchange with the medium other than through the port
-<code>ports</code>.
-</p>
-<p>
-For media that do provide water as a species, use the model
-<A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"
->
-Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a> to add
-or subtract moisture using a signal that is connected to the port
-<code>mWat_flow</code> and <code>TWat</code>.
-</p>
-<P>
-Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort"
->BaseClasses.PartialMixingVolumeWaterPort</A> (Partial mixing volume that allows adding or subtracting water vapor).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
->Volume</A></TD><TD>V</TD><TD>&nbsp;</TD><TD>Volume [m3]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
->Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
->Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
->AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
->MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
->ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
->ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
-<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal in medium, false restricts to design direction (ports[1] -&gt; ports[2]). Used only if model has two ports.</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Heat transfer</TD></TR>
-<TR><TD>Boolean</TD><TD>prescribedHeatFlowRate</TD><TD>false</TD><TD>Set to true if the model has a prescribed heat flow at its heatPort</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
->VesselFluidPorts_b</A></TD><TD>ports[nPorts]</TD><TD>Fluid inlets and outlets</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
->HeatPort_a</A></TD><TD>heatPort</TD><TD>Heat port connected to outflowing medium</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>mWat_flow</TD><TD>Water flow rate added into the medium [kg/s]</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>TWat</TD><TD>Temperature of liquid that is drained from or injected into volume [K]</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>X_w</TD><TD>Species composition of medium</TD></TR>
-</TABLE>
-<P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> MixingVolumeDryAir <font color="darkgreen">
-  &quot;Mixing volume with heat port for latent heat exchange, to be used with dry air&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort"
->BaseClasses.PartialMixingVolumeWaterPort</A>(
-    steBal(<font color="blue">final </font>sensibleOnly = true));
-
-<textblock type="annotcomp" expanded="false"><font color="blue">protected </font>
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A>
-    masExc[Medium.nXi](k=<font color="red">zeros</font>(Medium.nXi)) <font color="blue">if </font>
-       Medium.nXi &gt; 0 <font color="darkgreen">&quot;Block to set mass exchange in volume&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
->Modelica.Blocks.Sources.RealExpression</A> heaInp(y=heatPort.Q_flow) <font color="darkgreen">
-    &quot;Block to set heat input into volume&quot;</font>;</textblock>
-<font color="blue">equation </font>
-  HWat_flow = 0;
-  mXi_flow  =<font color="red"> zeros</font>(Medium.nXi);
-<font color="darkgreen">// Assign output port</font>
-  X_w = 0;
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(heaInp.y, steBal.Q_flow);
-  <font color="red">connect</font>(masExc.y, steBal.mXi_flow);
-  <font color="red">connect</font>(heaInp.y, dynBal.Q_flow);
-  <font color="red">connect</font>(masExc.y, dynBal.mXi_flow);</textblock>
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>MixingVolumeDryAir;
 </PRE>
 <HR>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE MixingVolumeMoistAir<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Fluid.MixingVolf5443dbd83cd1eedryAirI.png" ALT="Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<H2><IMG SRC="Buildings.Fluid.MixingVol46e02b3c5f55f712stAirI.png" ALT="Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"></A><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes"
 >Buildings.Fluid.MixingVolumes</A>.MixingVolumeMoistAir</H2>
-<B>Mixing volume with heat port for latent heat exchange, to be used with media that contain water</B><p>
+<B>Mixing volume with heat port for latent heat exchange, to be used with media that contain water</B><p></P>
 <IMG SRC="Buildings.Fluid.MixingVol46e02b3c5f55f712stAirD.png" ALT="Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 Model for an ideally mixed fluid volume and the ability 
 to store mass and energy. The volume is fixed, 
@@ -351,13 +241,13 @@ as a substance. In particular, the medium model needs to implement the function
 <code>enthalpyOfLiquid(T)</code> and the integer variable <code>Water</code> that
 contains the index to the water substance. For medium that do not provide this
 functionality, use
-<A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeDryAir"
+<A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
 >
-Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</a>.
+Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
-<P>
-Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort"
->BaseClasses.PartialMixingVolumeWaterPort</A> (Partial mixing volume that allows adding or subtracting water vapor).
+<P></P>
+Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume"
+>BaseClasses.PartialMixingVolume</A> (Partial mixing volume with inlet and outlet ports (flow reversal is allowed)).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
@@ -397,6 +287,7 @@ Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.F
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD>Medium in the component</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
 >VesselFluidPorts_b</A></TD><TD>ports[nPorts]</TD><TD>Fluid inlets and outlets</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
@@ -407,44 +298,50 @@ Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.F
 >RealInput</A></TD><TD>TWat</TD><TD>Temperature of liquid that is drained from or injected into volume [K]</TD></TR>
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>X_w</TD><TD>Species composition of medium</TD></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolumeMoistAir <font color="darkgreen">
   &quot;Mixing volume with heat port for latent heat exchange, to be used with media that contain water&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort"
->BaseClasses.PartialMixingVolumeWaterPort</A>(
+  <font color="blue">extends </font><A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume"
+>BaseClasses.PartialMixingVolume</A>(
+    <font color="blue">redeclare </font><font color="blue">replaceable </font><font color="blue">package</font> Medium =
+        <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+>Modelica.Media.Interfaces.PartialCondensingGases</A>,
     steBal(<font color="blue">final </font>sensibleOnly = false));
-  <font color="darkgreen">// redeclare Medium with a more restricting base class. This improves the error</font>
-  <font color="darkgreen">// message if a user selects a medium that does not contain the function</font>
-  <font color="darkgreen">// enthalpyOfLiquid(.)</font>
-  <font color="blue">replaceable </font><font color="blue">package</font> Medium = <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
->Modelica.Media.Interfaces.PartialCondensingGases</A>;
 
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> mWat_flow(<font color="blue">final </font>quantity=&quot;MassFlowRate&quot;,
+                                                 <font color="blue">final </font>unit = &quot;kg/s&quot;) <font color="darkgreen">
+    &quot;Water flow rate added into the medium&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TWat(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
+                                            <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=260) <font color="darkgreen">
+    &quot;Temperature of liquid that is drained from or injected into volume&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> X_w <font color="darkgreen">&quot;Species composition of medium&quot;</font>;</textblock>
+
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> HWat_flow = mWat_flow *<font color="red"> Medium.enthalpyOfLiquid</font>(TWat) <font color="darkgreen">
+    &quot;Enthalpy flow rate of extracted water&quot;</font>;
 <font color="blue">protected </font>
-  <font color="blue">parameter </font>Integer i_w(min=1, fixed=false) <font color="darkgreen">&quot;Index for water substance&quot;</font>;
+  <font color="blue">parameter </font>Integer i_w(fixed=false) <font color="darkgreen">&quot;Index for water substance&quot;</font>;
   <font color="blue">parameter </font>Real s[Medium.nXi](<font color="blue">each </font>fixed=false) <font color="darkgreen">
     &quot;Vector with zero everywhere except where species is&quot;</font>;
 
-<textblock type="annotcomp" expanded="false"><font color="blue">protected </font>
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
->Modelica.Blocks.Sources.RealExpression</A>
-    masExc[Medium.nXi](y=mXi_flow) <font color="blue">if </font>
-       Medium.nXi &gt; 0 <font color="darkgreen">&quot;Block to set mass exchange in volume&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
->Modelica.Blocks.Sources.RealExpression</A> heaInp(y=heatPort.Q_flow + HWat_flow) <font color="darkgreen">
-    &quot;Block to set heat input into volume&quot;</font>;</textblock>
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> heaInp(<font color="blue">final </font>y=
+     heatPort.Q_flow + HWat_flow) <font color="darkgreen">&quot;Block to set heat input into volume&quot;</font>;</textblock>
 <font color="blue">initial </font><font color="blue">algorithm </font>
-  i_w:= -1;
+  i_w := 0;
   <font color="blue">for </font>i<font color="blue"> in </font>1:Medium.nXi<font color="blue"> loop</font>
       <font color="blue">if </font><font color="red">Modelica.Utilities.Strings.isEqual</font>(string1=Medium.substanceNames[i],
                                             string2=&quot;Water&quot;,
                                             caseSensitive=false)<font color="blue"> then</font>
-      i_w := i;
-      s[i] :=1;
+      i_w  := i;
+      s[i] := 1;
     <font color="blue">else</font>
-      s[i] :=0;
+      s[i] := 0;
     <font color="blue">end if</font>;
    <font color="blue">end for</font>;
   <font color="red">  assert</font>(i_w &gt; 0, &quot;Substance &#39;water&#39; is not present in medium &#39;&quot;
@@ -452,22 +349,16 @@ Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.F
          + &quot;Check medium model.&quot;);
 
 <font color="blue">equation </font>
-  HWat_flow = mWat_flow *<font color="red"> Medium.enthalpyOfLiquid</font>(TWat);
-  <font color="darkgreen">// We obtain the substance concentration with a vector multiplication</font>
-  <font color="darkgreen">// because Dymola 7.4 cannot find the derivative in the model</font>
-  <font color="darkgreen">// Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretizedPControl</font>
-  <font color="darkgreen">// if we set mXi_flow[i] = if ( i == i_w) then mWat_flow else 0;</font>
-    mXi_flow = mWat_flow * s;
 <font color="darkgreen">// Medium species concentration</font>
   X_w = s * Xi;
 
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(heaInp.y, steBal.Q_flow);
-  <font color="red">connect</font>(masExc.y, steBal.mXi_flow);
   <font color="red">connect</font>(heaInp.y, dynBal.Q_flow);
-  <font color="red">connect</font>(masExc.y, dynBal.mXi_flow);</textblock>
+  <font color="red">connect</font>(mWat_flow, steBal.mWat_flow);
+  <font color="red">connect</font>(mWat_flow, dynBal.mWat_flow);</textblock>
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>MixingVolumeMoistAir;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:19 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:35 2013.
 </address></BODY>
 </HTML>

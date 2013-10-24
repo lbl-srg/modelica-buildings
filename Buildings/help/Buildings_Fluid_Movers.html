@@ -26,21 +26,21 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Movers<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Movers"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
 >Buildings.Fluid</A>.Movers</H2>
 <B>Package with fan and pump models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains components models for fans and pumps.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Movers.UsersGuideS.png" ALT="Buildings.Fluid.Movers.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
@@ -75,9 +75,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.Movers.FlowMachine_yI.png" ALT="Buildings.Fluid.Movers.FlowMachine_y" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.FlowMachine_y"></A><A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
 >Buildings.Fluid.Movers</A>.FlowMachine_y</H2>
-<B>Fan or pump with ideally controlled normalized speed y as input signal</B><p>
+<B>Fan or pump with ideally controlled normalized speed y as input signal</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.FlowMachine_yD.png" ALT="Buildings.Fluid.Movers.FlowMachine_y">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model describes a fan or pump with prescribed normalized speed.
@@ -96,7 +96,7 @@ See the
 >
 User's Guide</a> for more information.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine"
 >Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine</A> (Partial model for fan or pump with speed (y or Nrpm) as input signal).
 <P><H3>Parameters</H3><P>
@@ -129,7 +129,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered speed</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredSpeed</TD><TD>true</TD><TD>= true, if speed is filtered with a 2nd order CriticalDamping filter</TD></TR>
@@ -177,7 +177,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>y</TD><TD>Constant normalized rotational speed [1]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachine_y <font color="darkgreen">
   &quot;Fan or pump with ideally controlled normalized speed y as input signal&quot;</font>
@@ -217,9 +217,9 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <H2><IMG SRC="Buildings.Fluid.Movers.FlowMachine_yI.png" ALT="Buildings.Fluid.Movers.FlowMachine_Nrpm" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.FlowMachine_Nrpm"></A><A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
 >Buildings.Fluid.Movers</A>.FlowMachine_Nrpm</H2>
-<B>Fan or pump with ideally controlled speed Nrpm as input signal</B><p>
+<B>Fan or pump with ideally controlled speed Nrpm as input signal</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.FlowMachine_NrpmD.png" ALT="Buildings.Fluid.Movers.FlowMachine_Nrpm">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 This model describes a fan or pump with prescribed speed in revolutions per minute.
 The head is computed based on the performance curve that take as an argument
@@ -229,14 +229,14 @@ The efficiency of the device is computed based
 on the efficiency curves that take as an argument
 the actual volume flow rate divided by the maximum possible volume flow rate, or
 based on the motor performance curves.
-</p>
+<br/>
 <p>
 See the 
 <A HREF="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
 >
 User's Guide</a> for more information.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine"
 >Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine</A> (Partial model for fan or pump with speed (y or Nrpm) as input signal).
 <P><H3>Parameters</H3><P>
@@ -269,7 +269,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered speed</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredSpeed</TD><TD>true</TD><TD>= true, if speed is filtered with a 2nd order CriticalDamping filter</TD></TR>
@@ -317,7 +317,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>Nrpm</TD><TD>Prescribed rotational speed [1/min]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachine_Nrpm <font color="darkgreen">
   &quot;Fan or pump with ideally controlled speed Nrpm as input signal&quot;</font>
@@ -347,9 +347,9 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <H2><IMG SRC="Buildings.Fluid.Movers.FlowMachine_yI.png" ALT="Buildings.Fluid.Movers.FlowMachine_dp" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.FlowMachine_dp"></A><A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
 >Buildings.Fluid.Movers</A>.FlowMachine_dp</H2>
-<B>Fan or pump with ideally controlled head dp as input signal</B><p>
+<B>Fan or pump with ideally controlled head dp as input signal</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.FlowMachine_dpD.png" ALT="Buildings.Fluid.Movers.FlowMachine_dp">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model describes a fan or pump with prescribed head.
@@ -373,7 +373,7 @@ See the
 >
 User's Guide</a> for more information.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine"
 >Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine</A> (Partial model for fan or pump with ideally controlled mass flow rate or head as input signal).
 <P><H3>Parameters</H3><P>
@@ -436,7 +436,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -454,7 +454,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>dp_actual</TD><TD>[Pa]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachine_dp <font color="darkgreen">
   &quot;Fan or pump with ideally controlled head dp as input signal&quot;</font>
@@ -531,9 +531,9 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <H2><IMG SRC="Buildings.Fluid.Movers.FlowMachine_yI.png" ALT="Buildings.Fluid.Movers.FlowMachine_m_flow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.FlowMachine_m_flow"></A><A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
 >Buildings.Fluid.Movers</A>.FlowMachine_m_flow</H2>
-<B>Fan or pump with ideally controlled mass flow rate as input signal</B><p>
+<B>Fan or pump with ideally controlled mass flow rate as input signal</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Flf8e290cf7e0ae8d8_flowD.png" ALT="Buildings.Fluid.Movers.FlowMachine_m_flow">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model describes a fan or pump with prescribed mass flow rate.
@@ -547,7 +547,7 @@ See the
 >
 User's Guide</a> for more information.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine"
 >Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine</A> (Partial model for fan or pump with ideally controlled mass flow rate or head as input signal).
 <P><H3>Parameters</H3><P>
@@ -608,7 +608,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -626,7 +626,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>m_flow_actual</TD><TD>Actual mass flow rate [kg/s]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachine_m_flow <font color="darkgreen">
   &quot;Fan or pump with ideally controlled mass flow rate as input signal&quot;</font>
@@ -696,9 +696,9 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <H2><IMG SRC="Buildings.Fluid.Movers.Fl4a02980ce06174d6omialI.png" ALT="Buildings.Fluid.Movers.FlowMachinePolynomial" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.FlowMachinePolynomial"></A><A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
 >Buildings.Fluid.Movers</A>.FlowMachinePolynomial</H2>
-<B>Fan or pump with head and efficiency declared by a non-dimensional polynomial</B><p>
+<B>Fan or pump with head and efficiency declared by a non-dimensional polynomial</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Fl4a02980ce06174d6omialD.png" ALT="Buildings.Fluid.Movers.FlowMachinePolynomial">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This is a model of a flow machine (pump or fan).
@@ -712,7 +712,7 @@ For new models, use instead <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid
 >
 Buildings.Fluid.Movers.FlowMachine_y</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.ObsoleteModel"
 >Modelica.Icons.ObsoleteModel</A> (Icon for classes that are obsolete and will be removed in later versions).
@@ -744,8 +744,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -757,7 +756,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>N_in</TD><TD>Prescribed rotational speed</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FlowMachinePolynomial <font color="darkgreen">
   &quot;Fan or pump with head and efficiency declared by a non-dimensional polynomial&quot;</font>
@@ -847,6 +846,6 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>FlowMachinePolynomial;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:24 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:39 2013.
 </address></BODY>
 </HTML>

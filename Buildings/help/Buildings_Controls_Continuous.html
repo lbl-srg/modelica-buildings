@@ -26,25 +26,25 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Continuous<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Controls.Continuous"></A><A HREF="Buildings_Controls.html#Buildings.Controls"
 >Buildings.Controls</A>.Continuous</H2>
 <B>Package with models for discrete time controls</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains components models for continuous time controls.
 For additional models, see also 
 <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous"
 >
 Modelica.Blocks.Discrete</a>.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Controls.Continuous.LimPIDS.png" ALT="Buildings.Controls.Continuous.LimPID" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
@@ -76,21 +76,23 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Controls.Continuous.LimPIDI.png" ALT="Buildings.Controls.Continuous.LimPID" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.Continuous.LimPID"></A><A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
 >Buildings.Controls.Continuous</A>.LimPID</H2>
-<B>P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting</B><p>
+<B>P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting</B><p></P>
 <IMG SRC="Buildings.Controls.Continuous.LimPIDD.png" ALT="Buildings.Controls.Continuous.LimPID">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
+<p>
 This model is identical to 
 <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
 >
 Modelica.Blocks.Continuous.LimPID</a> except
 that it can be configured to have a reverse action.
-</P>
+</p>
 <p>
 If the parameter <code>reverseAction=false</code> (the default),
 then <code>u_m &lt; u_s</code> increases the controller output, 
 otherwise the controller output is decreased.
 Thus, 
+</p>
 <ul>
 <li>
 for a heating coil with a two-way valve, set <code>reverseAction = false</code>,
@@ -99,7 +101,7 @@ for a heating coil with a two-way valve, set <code>reverseAction = false</code>,
 for a cooling coils with a two-way valve, set <code>reverseAction = true</code>.
 </li>
 </ul>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
 >Modelica.Blocks.Continuous.LimPID</A> (P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting).
 <P><H3>Parameters</H3><P>
@@ -137,7 +139,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of actuator output signal</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> LimPID <font color="darkgreen">
   &quot;P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting&quot;</font>
@@ -162,9 +164,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelic
 <H2><IMG SRC="Buildings.Controls.Contin3349fb98317e01fdresisI.png" ALT="Buildings.Controls.Continuous.PIDHysteresis" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.Continuous.PIDHysteresis"></A><A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
 >Buildings.Controls.Continuous</A>.PIDHysteresis</H2>
-<B>PID controller with anti-windup, output limiter and output hysteresis</B><p>
+<B>PID controller with anti-windup, output limiter and output hysteresis</B><p></P>
 <IMG SRC="Buildings.Controls.Contin3349fb98317e01fdresisD.png" ALT="Buildings.Controls.Continuous.PIDHysteresis">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Block of a controller for set point tracking with a hysteresis element that switches the
@@ -179,7 +181,7 @@ used to constrain the output of the controller during its on mode only. This can
 example, to modulate a device between 0.3 and 1.0, and switch it to off when the control error
 is small enough.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
 >Modelica.Blocks.Interfaces.SVcontrol</A> (Single-Variable continuous controller).
 <P><H3>Parameters</H3><P>
@@ -222,7 +224,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of actuator output signal</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> PIDHysteresis <font color="darkgreen">
   &quot;PID controller with anti-windup, output limiter and output hysteresis&quot;</font>
@@ -318,9 +320,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Controls.Contin49fff365ff0cc4d1TimerI.png" ALT="Buildings.Controls.Continuous.PIDHysteresisTimer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.Continuous.PIDHysteresisTimer"></A><A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
 >Buildings.Controls.Continuous</A>.PIDHysteresisTimer</H2>
-<B>PID controller with anti-windup, hysteresis and timer to prevent short cycling</B><p>
+<B>PID controller with anti-windup, hysteresis and timer to prevent short cycling</B><p></P>
 <IMG SRC="Buildings.Controls.Contin49fff365ff0cc4d1TimerD.png" ALT="Buildings.Controls.Continuous.PIDHysteresisTimer">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Block of a controller for set point tracking with a hysteresis element that switches the controller on and off, and a timer that prevents the
@@ -334,7 +336,7 @@ Buildings.Controls.Continuous.PIDHysteresis</a> but in addition,
 it has a timer that prevents the controller from switching to on
 too fast. When the controller switches off, the timer starts and
 avoids the controller from switching on until <code>minOffTime</code> seconds elapsed.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
 >Modelica.Blocks.Interfaces.SVcontrol</A> (Single-Variable continuous controller).
 <P><H3>Parameters</H3><P>
@@ -384,7 +386,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
 >BooleanOutput</A></TD><TD>on</TD><TD>Outputs true if boiler is on</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> PIDHysteresisTimer <font color="darkgreen">
   &quot;PID controller with anti-windup, hysteresis and timer to prevent short cycling&quot;</font>
@@ -518,9 +520,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Controls.Contin6c72835ffcc58c10ankerI.png" ALT="Buildings.Controls.Continuous.SignalRanker" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.Continuous.SignalRanker"></A><A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
 >Buildings.Controls.Continuous</A>.SignalRanker</H2>
-<B>Ranks output signals such that y[i] &gt;= y[i+1]</B><p>
+<B>Ranks output signals such that y[i] &gt;= y[i+1]</B><p></P>
 <IMG SRC="Buildings.Controls.Contin6c72835ffcc58c10ankerD.png" ALT="Buildings.Controls.Continuous.SignalRanker">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Block that sorts the input signal <code>u[:]</code> such that the output
@@ -529,7 +531,7 @@ signal satisfies <code>y[i] >= y[i+1]</code> for all <code>i=1, ..., nin-1</code
 <p>
 This block may for example be used in a variable air volume flow
 controller to access the position of the dampers that are most open.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMO"
 >Modelica.Blocks.Interfaces.MIMO</A> (Multiple Input Multiple Output continuous control block).
 <P><H3>Parameters</H3><P>
@@ -546,7 +548,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y[nout]</TD><TD>Connector of Real output signals</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> SignalRanker <font color="darkgreen">&quot;Ranks output signals such that y[i] &gt;= y[i+1]&quot;</font>
    <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMO"
@@ -573,17 +575,16 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Controls.Contina7ef7cb6ab37c65cuestsI.png" ALT="Buildings.Controls.Continuous.NumberOfRequests" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.Continuous.NumberOfRequests"></A><A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
 >Buildings.Controls.Continuous</A>.NumberOfRequests</H2>
-<B>Outputs the number of signals that are above/below a certain threshold</B><p>
+<B>Outputs the number of signals that are above/below a certain threshold</B><p></P>
 <IMG SRC="Buildings.Controls.Contina7ef7cb6ab37c65cuestsD.png" ALT="Buildings.Controls.Continuous.NumberOfRequests">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Block that outputs the number of inputs that exceed a threshold.
 The parameter <code>kind</code> is used to determine the kind of the 
 inequality. The table below shows the allowed settings.
 </p>
-<p>
-<table border="1" cellspacing=0 cellpadding=2 style="border-collapse:collapse;">
+<table border="1" cellspacing=0 cellpadding=2 style="border-collapse:collapse;" summary="Allowed parameter settings.">
 <tr>
 <th>Value of parameter <code>kind</code></th>
 <th>Output signal incremented by 1 for each <i>i &isin; {1, ..., nin}</i> if</th>
@@ -605,12 +606,11 @@ inequality. The table below shows the allowed settings.
 <td><code>u[i] &lt; threShold</code></td>
 </tr>
 </table>
-</p>
 <p>
 This model may be used to check how many rooms
 exceed a temperature threshold.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -628,7 +628,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u[nin]</TD><TD>Input signals</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> NumberOfRequests <font color="darkgreen">
   &quot;Outputs the number of signals that are above/below a certain threshold&quot;</font>
@@ -677,9 +677,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Controls.Continuous.OffTimerI.png" ALT="Buildings.Controls.Continuous.OffTimer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.Continuous.OffTimer"></A><A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
 >Buildings.Controls.Continuous</A>.OffTimer</H2>
-<B>Records the time since the input changed to false</B><p>
+<B>Records the time since the input changed to false</B><p></P>
 <IMG SRC="Buildings.Controls.Continuous.OffTimerD.png" ALT="Buildings.Controls.Continuous.OffTimer">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Block that records the time that has elapsed since its input signal switched to false.
@@ -687,7 +687,7 @@ Block that records the time that has elapsed since its input signal switched to 
 <p>
 At the beginning of the simulation, this block outputs the time that has elapsed since the start of the simulation. Afterwards, whenever its input switches to false, the timer is reset.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.partialBooleanBlockIcon"
 >Modelica.Blocks.Interfaces.partialBooleanBlockIcon</A> (Basic graphical layout of logical block).
 <P><H3>Connectors</H3><P>
@@ -698,7 +698,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> OffTimer <font color="darkgreen">&quot;Records the time since the input changed to false&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.partialBooleanBlockIcon"
@@ -722,6 +722,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>OffTimer;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:00 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:04 2013.
 </address></BODY>
 </HTML>

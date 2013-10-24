@@ -26,23 +26,23 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Convection<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Convection"></A><A HREF="Buildings_HeatTransfer.html#Buildings.HeatTransfer"
 >Buildings.HeatTransfer</A>.Convection</H2>
 <B>Package with models for convective heat transfer</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package provides component models to compute heat convection.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Co1a13882640d66ec8eriorS.png" ALT="Buildings.HeatTransfer.Convection.Exterior" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Exterior"
@@ -68,15 +68,16 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Co1a13882640d66ec8eriorI.png" ALT="Buildings.HeatTransfer.Convection.Exterior" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Convection.Exterior"></A><A HREF="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection"
 >Buildings.HeatTransfer.Convection</A>.Exterior</H2>
-<B>Model for a exterior (outside) convective heat transfer</B><p>
+<B>Model for a exterior (outside) convective heat transfer</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Co1a13882640d66ec8eriorD.png" ALT="Buildings.HeatTransfer.Convection.Exterior">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
+<p>
 This is a model for a convective heat transfer for exterior, outside-facing surfaces.
 The parameter <code>conMod</code> determines the model that is used to compute
 the heat transfer coefficient:
 </p>
-<p>
+
 <ol>
 <li><p>If <code>conMod=
 <A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.ExteriorConvection"
@@ -135,8 +136,8 @@ which has to be set to a type of
 >
 Buildings.HeatTransfer.Types.SurfaceRoughness</a>.The coefficients for the surface roughness are
 </p>
-<p>
-<table border="1">
+
+<table summary="summary" border="1">
 <tr>
 <th>Roughness index</th>
 <th><i>R</i></th>
@@ -149,7 +150,7 @@ Buildings.HeatTransfer.Types.SurfaceRoughness</a>.The coefficients for the surfa
 <tr><td>Smooth</td>       <td>1.11</td>  <td>Smooth plaster</td></tr>
 <tr><td>VerySmooth</td>  <td>1.00</td>  <td>Glass</td></tr>
 </table>
-</p>
+
 </li>
 </ol>
 <h4>References</h4>
@@ -163,7 +164,7 @@ Walton, G. N. 1981. Passive Solar Extension of the Building Loads Analysis and S
 Thermodynamics (BLAST) Program, Technical Report, United States Army Construction
 Engineering Research Laboratory, Champaign, IL.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_BaseClasses.html#Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection"
 >Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection</A> (Partial model for heat convection).
 <P><H3>Parameters</H3><P>
@@ -197,7 +198,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_BaseClasses.html#Buildin
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>dir</TD><TD>Wind direction (0=wind from North) [rad]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Exterior <font color="darkgreen">
   &quot;Model for a exterior (outside) convective heat transfer&quot;</font>
@@ -285,15 +286,15 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_BaseClasses.html#Buildin
 <H2><IMG SRC="Buildings.HeatTransfer.Coe8b071d8c0d66eaderiorI.png" ALT="Buildings.HeatTransfer.Convection.Interior" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Convection.Interior"></A><A HREF="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection"
 >Buildings.HeatTransfer.Convection</A>.Interior</H2>
-<B>Model for a interior (room-side) convective heat transfer</B><p>
+<B>Model for a interior (room-side) convective heat transfer</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Coe8b071d8c0d66eaderiorD.png" ALT="Buildings.HeatTransfer.Convection.Interior">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 This is a model for a convective heat transfer for interior, room-facing surfaces.
 The parameter <code>conMod</code> determines the model that is used to compute
 the heat transfer coefficient:
-</p>
-<p>
+<br/>
+
 <ul>
 <li><p>If <code>conMod=<A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.InteriorConvection"
 >
@@ -303,33 +304,36 @@ the convective heat transfer coefficient is set to the value specified by the pa
 </p>
 </li>
 <li>
-<p>
+
 If <code>conMod=<A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.InteriorConvection"
 >
 Buildings.HeatTransfer.Types.InteriorConvection.Temperature</a></code>, then
 the convective heat tranfer coefficient is a function of the temperature difference.
 The convective heat flux is computed using
-</p>
+<br/>
 <ul>
 <li>
 for floors the function 
-<a href="modelica://Buildings.HeatTransfer.Convection.Functions.ConvectiveHeatFlux.floor">
-Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.floor</a>
+<A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor"
+>
+Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor</a>
 </li>
 <li>
 for ceilings the function
-<a href="modelica://Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.ceiling">
-Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.ceiling</a>
+<A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling"
+>
+Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling</a>
 </li>
 <li>
 for walls the function
-<a href="modelica://Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.wall">
-Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.wall</a>
+<A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall"
+>
+Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall</a>
 </li>
 </ul>
 </li>
 </ul>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_BaseClasses.html#Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection"
 >Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection</A> (Partial model for heat convection).
 <P><H3>Parameters</H3><P>
@@ -357,7 +361,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_BaseClasses.html#Buildin
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</A></TD><TD>fluid</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Interior <font color="darkgreen">
   &quot;Model for a interior (room-side) convective heat transfer&quot;</font>
@@ -406,6 +410,6 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_BaseClasses.html#Buildin
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Interior;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:53 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:19 2013.
 </address></BODY>
 </HTML>

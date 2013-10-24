@@ -26,25 +26,25 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE MassExchangers<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.MassExchangers"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
 >Buildings.Fluid</A>.MassExchangers</H2>
 <B>Package with mass exchanger models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains models for mass exchangers.
 For heat exchanger models with humidity transfer, see the package
 <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >
 Buildings.Fluid.HeatExchangers</a>.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.MassExchaa4d623e75411fcaeenessS.png" ALT="Buildings.Fluid.MassExchangers.ConstantEffectiveness" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.ConstantEffectiveness"
@@ -64,29 +64,24 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.MassExchaa4d623e75411fcaeenessI.png" ALT="Buildings.Fluid.MassExchangers.ConstantEffectiveness" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.MassExchangers.ConstantEffectiveness"></A><A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers"
 >Buildings.Fluid.MassExchangers</A>.ConstantEffectiveness</H2>
-<B>Heat and moisture exchanger with constant effectiveness</B><p>
+<B>Heat and moisture exchanger with constant effectiveness</B><p></P>
 <IMG SRC="Buildings.Fluid.MassExchaa4d623e75411fcaeenessD.png" ALT="Buildings.Fluid.MassExchangers.ConstantEffectiveness">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model for a heat and moisture exchanger with constant effectiveness.
 </p>
 <p>
-This model transfers heat and moisture in the amount of 
+This model transfers heat and moisture in the amount of </p>
 <pre>
   Q = epsS * Q_max,
   m = epsL * mWat_max,
 </pre>
+<p>
 where <code>epsS</code> and <code>epsL</code> are constant effectiveness 
 for the sensible and latent heat transfer,  
 <code>Q_max</code> is the maximum heat that can be transferred and
 <code>mWat_max</code> is the maximum moisture that can be transferred.
-</p>
-<p>
-In the region <code>mK_flow_small > abs(mK_flow) > mK_flow_small/2</code>, for <code>K = 1</code> or
-<code>2</code>, the effectivness <code>epsS</code> and <code>epsL</code> are transitioned from 
-their user-specified value to 0. This improves the numerical robustness near
-zero flow.
 </p>
 <p>
 For a sensible heat exchanger, use
@@ -100,7 +95,7 @@ This model can only be used with medium models that define the integer constant
 <code>Water</code> which needs to be equal to the index of the water mass fraction 
 in the species vector.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness"
 >Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness</A> (Partial model to implement heat exchangers based on effectiveness model).
 <P><H3>Parameters</H3><P>
@@ -113,11 +108,11 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >HeatFlowRate</A></TD><TD>Q1_flow</TD><TD>epsS*QMax_flow</TD><TD>Heat transfered into the medium 1 [W]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>mXi1_flow[Medium1.nXi]</TD><TD>{if (i == Medium1.Water) the...</TD><TD>Mass flow rates of independent substances added to the medium 1 [kg/s]</TD></TR>
+>MassFlowRate</A></TD><TD>mWat1_flow</TD><TD>+mWat_flow</TD><TD>Moisture mass flow rate added to the medium 1 [kg/s]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >HeatFlowRate</A></TD><TD>Q2_flow</TD><TD>-Q1_flow</TD><TD>Heat transfered into the medium 2 [W]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>mXi2_flow[Medium2.nXi]</TD><TD>{if (i == Medium2.Water) the...</TD><TD>Mass flow rates of independent substances added to the medium 2 [kg/s]</TD></TR>
+>MassFlowRate</A></TD><TD>mWat2_flow</TD><TD>-mWat_flow</TD><TD>Moisture mass flow rate added to the medium 2 [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>sensibleOnly1</TD><TD>false</TD><TD>Set to true if sensible exchange only for medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>sensibleOnly2</TD><TD>false</TD><TD>Set to true if sensible exchange only for medium 2</TD></TR>
 <TR><TD>Real</TD><TD>epsS</TD><TD>0.8</TD><TD>Sensible heat exchanger effectiveness</TD></TR>
@@ -159,8 +154,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp1</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
@@ -174,6 +168,8 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium1</TD><TD>Medium 1 in the component</TD></TR>
+<TR><TD colspan="2">replaceable package Medium2</TD><TD>Medium 2 in the component</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a1</TD><TD>Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
@@ -183,18 +179,22 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ConstantEffectiveness <font color="darkgreen">
   &quot;Heat and moisture exchanger with constant effectiveness&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness"
 >Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness</A>(
+  <font color="blue">redeclare </font><font color="blue">replaceable </font><font color="blue">package</font> Medium1 = <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+>Modelica.Media.Interfaces.PartialCondensingGases</A>,
+  <font color="blue">redeclare </font><font color="blue">replaceable </font><font color="blue">package</font> Medium2 = <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+>Modelica.Media.Interfaces.PartialCondensingGases</A>,
   sensibleOnly1=false,
   sensibleOnly2=false,
   Q1_flow = epsS * QMax_flow,
   Q2_flow = -Q1_flow,
-  mXi1_flow = {<font color="blue">if </font>( i == Medium1.Water)<font color="blue"> then </font>mWat_flow<font color="blue"> else </font>0 <font color="blue">for </font>i<font color="blue"> in </font>1:Medium1.nXi},
-  mXi2_flow = {<font color="blue">if </font>( i == Medium2.Water)<font color="blue"> then </font>-mWat_flow<font color="blue"> else </font>0 <font color="blue">for </font>i<font color="blue"> in </font>1:Medium2.nXi});
+  mWat1_flow = +mWat_flow,
+  mWat2_flow = -mWat_flow);
 
   <font color="blue">parameter </font>Real epsS(min=0, max=1) = 0.8 <font color="darkgreen">
     &quot;Sensible heat exchanger effectiveness&quot;</font>;
@@ -213,16 +213,41 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
     &quot;Maximum water flow rate from medium 2 to medium 1&quot;</font>;
 
 <font color="blue">protected </font>
+  <font color="blue">parameter </font>Integer i1_w(min=1, fixed=false) <font color="darkgreen">&quot;Index for water substance&quot;</font>;
+  <font color="blue">parameter </font>Integer i2_w(min=1, fixed=false) <font color="darkgreen">&quot;Index for water substance&quot;</font>;
   Real gai1(min=0, max=1) <font color="darkgreen">&quot;Auxiliary variable for smoothing at zero flow&quot;</font>;
   Real gai2(min=0, max=1) <font color="darkgreen">&quot;Auxiliary variable for smoothing at zero flow&quot;</font>;
+<font color="blue">initial </font><font color="blue">algorithm </font>
+  i1_w:= -1;
+  i2_w:= -1;
+  <font color="blue">for </font>i<font color="blue"> in </font>1:Medium1.nXi<font color="blue"> loop</font>
+      <font color="blue">if </font><font color="red">Modelica.Utilities.Strings.isEqual</font>(string1=Medium1.substanceNames[i],
+                                            string2=&quot;Water&quot;,
+                                            caseSensitive=false)<font color="blue"> then</font>
+      i1_w := i;
+    <font color="blue">end if</font>;
+   <font color="blue">end for</font>;
+  <font color="blue">for </font>i<font color="blue"> in </font>1:Medium2.nXi<font color="blue"> loop</font>
+      <font color="blue">if </font><font color="red">Modelica.Utilities.Strings.isEqual</font>(string1=Medium2.substanceNames[i],
+                                            string2=&quot;Water&quot;,
+                                            caseSensitive=false)<font color="blue"> then</font>
+      i2_w := i;
+    <font color="blue">end if</font>;
+   <font color="blue">end for</font>;
+  <font color="red">  assert</font>(i1_w &gt; 0, &quot;Substance &#39;water&#39; is not present in Medium1 &#39;&quot;
+         + Medium1.mediumName + &quot;&#39;.\n&quot;
+         + &quot;Check medium model.&quot;);
+  <font color="red">  assert</font>(i2_w &gt; 0, &quot;Substance &#39;water&#39; is not present in Medium2 &#39;&quot;
+         + Medium2.mediumName + &quot;&#39;.\n&quot;
+         + &quot;Check medium model.&quot;);
 <font color="blue">equation </font>
   <font color="darkgreen">// Definitions for effectiveness model</font>
   X_w_in1 =<font color="red"> Modelica.Fluid.Utilities.regStep</font>(m1_flow,
-                  state_a1_inflow.X[Medium1.Water],
-                  state_b1_inflow.X[Medium1.Water], m1_flow_small);
+                  state_a1_inflow.X[i1_w],
+                  state_b1_inflow.X[i1_w], m1_flow_small);
   X_w_in2 =<font color="red"> Modelica.Fluid.Utilities.regStep</font>(m2_flow,
-                  state_a2_inflow.X[Medium2.Water],
-                  state_b2_inflow.X[Medium2.Water], m2_flow_small);
+                  state_a2_inflow.X[i2_w],
+                  state_b2_inflow.X[i2_w], m2_flow_small);
 
   <font color="darkgreen">// mass exchange</font>
   <font color="darkgreen">// Compute a gain that goes to zero near zero flow rate.</font>
@@ -246,9 +271,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <H2><IMG SRC="Buildings.Fluid.MassExcha223cfd8096caead7ribedI.png" ALT="Buildings.Fluid.MassExchangers.HumidifierPrescribed" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.MassExchangers.HumidifierPrescribed"></A><A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers"
 >Buildings.Fluid.MassExchangers</A>.HumidifierPrescribed</H2>
-<B>Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction</B><p>
+<B>Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction</B><p></P>
 <IMG SRC="Buildings.Fluid.MassExcha223cfd8096caead7ribedD.png" ALT="Buildings.Fluid.MassExchangers.HumidifierPrescribed">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model for an air humidifier or dehumidifier.
@@ -276,7 +301,7 @@ This model can only be used with medium models that define the integer constant
 <code>Water</code> which needs to be equal to the index of the water mass fraction 
 in the species vector.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
 >Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</A> (Partial model transporting one fluid stream with storing mass or energy).
 <P><H3>Parameters</H3><P>
@@ -306,8 +331,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
@@ -334,6 +358,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD>Medium in the component</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
@@ -343,12 +368,14 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>u</TD><TD>Control input</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> HumidifierPrescribed <font color="darkgreen">
   &quot;Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
 >Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</A>(
+    <font color="blue">redeclare </font><font color="blue">replaceable </font><font color="blue">package</font> Medium = <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+>Modelica.Media.Interfaces.PartialCondensingGases</A>,
     <font color="blue">redeclare </font><font color="blue">final </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"
 >Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</A> vol);
 
@@ -402,6 +429,6 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>HumidifierPrescribed;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:17 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:33 2013.
 </address></BODY>
 </HTML>

@@ -26,25 +26,25 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.IO.BCVTB.BaseClasses"></A><A HREF="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
 >Buildings.Utilities.IO.BCVTB</A>.BaseClasses</H2>
 <B>Package with base classes for Buildings.Utilities.IO.BCVTB</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
 >Buildings.Utilities.IO.BCVTB</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Utilities.IO.BC1519a5ec2cbeff6brfaceS.png" ALT="Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface"
@@ -67,15 +67,15 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <H2><IMG SRC="Buildings.Utilities.IO.BC1519a5ec2cbeff6brfaceI.png" ALT="Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface"></A><A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses"
 >Buildings.Utilities.IO.BCVTB.BaseClasses</A>.FluidInterface</H2>
-<B>Partial class for fluid interface that can be coupled to BCVTB</B><p>
+<B>Partial class for fluid interface that can be coupled to BCVTB</B><p></P>
 <IMG SRC="Buildings.Utilities.IO.BC1519a5ec2cbeff6brfaceD.png" ALT="Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This is a partial model that is used to construct models for
 interfacing fluid flow systems with the BCVTB interface.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Parameters</H3><P>
@@ -105,12 +105,10 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>HSen_flow</TD><TD>Sensible enthalpy flow rate, positive if flow into the component [W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> FluidInterface <font color="darkgreen">
   &quot;Partial class for fluid interface that can be coupled to BCVTB&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A>;
 
@@ -188,8 +186,8 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.IO.BCVTB.BaseClasses.establishClientSocket"></A><A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses"
 >Buildings.Utilities.IO.BCVTB.BaseClasses</A>.establishClientSocket</H2>
-<B>Establishes the client socket connection</B><p>
-<P><H3>Information</H3></P>
+<B>Establishes the client socket connection</B><p></P>
+<P></P><H3>Information</H3>
 
 Function that establishes a socket connection to the BCVTB.
 <p>
@@ -197,7 +195,7 @@ For the xml file name, on Windows use two backslashes to separate directories, i
 <pre>
   xmlFileName="C:\\examples\\dymola-room\\socket.cfg"
 </pre>
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -209,7 +207,7 @@ For the xml file name, on Windows use two backslashes to separate directories, i
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Integer</TD><TD>socketFD</TD><TD>Socket file descripter, or a negative value if an error occured</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> establishClientSocket <font color="darkgreen">
   &quot;Establishes the client socket connection&quot;</font>
@@ -228,13 +226,13 @@ For the xml file name, on Windows use two backslashes to separate directories, i
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.IO.BCVTB.BaseClasses.exchangeReals"></A><A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses"
 >Buildings.Utilities.IO.BCVTB.BaseClasses</A>.exchangeReals</H2>
-<B>Exchanges values of type Real with the socket</B><p>
-<P><H3>Information</H3></P>
+<B>Exchanges values of type Real with the socket</B><p></P>
+<P></P><H3>Information</H3>
 
 Function to exchange data of type <code>Real</code> with the socket.
 This function must only be called once in each 
 communication interval.
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -256,7 +254,7 @@ communication interval.
 <TR><TD>Real</TD><TD>dblValRea[nDblRea]</TD><TD>Double values read from socket</TD></TR>
 <TR><TD>Integer</TD><TD>retVal</TD><TD>The exit value, which is negative if an error occured</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> exchangeReals <font color="darkgreen">
   &quot;Exchanges values of type Real with the socket&quot;</font>
@@ -290,11 +288,11 @@ communication interval.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.IO.BCVTB.BaseClasses.closeClientSocket"></A><A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses"
 >Buildings.Utilities.IO.BCVTB.BaseClasses</A>.closeClientSocket</H2>
-<B>Closes the socket for the inter process communication</B><p>
-<P><H3>Information</H3></P>
+<B>Closes the socket for the inter process communication</B><p></P>
+<P></P><H3>Information</H3>
 
 Function that closes the inter-process communication.
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -306,7 +304,7 @@ Function that closes the inter-process communication.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Integer</TD><TD>retVal</TD><TD>Return value of the function that closes the socket connection</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> closeClientSocket <font color="darkgreen">
   &quot;Closes the socket for the inter process communication&quot;</font>
@@ -320,6 +318,6 @@ Function that closes the inter-process communication.
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>closeClientSocket;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:58:31 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:13:43 2013.
 </address></BODY>
 </HTML>

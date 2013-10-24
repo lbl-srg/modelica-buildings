@@ -26,22 +26,22 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Constructions<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Rooms.Constructions"></A><A HREF="Buildings_Rooms.html#Buildings.Rooms"
 >Buildings.Rooms</A>.Constructions</H2>
 <B>Package with models for constructions that are used in the room model</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains models for constructions that are
 used in the room model.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Rooms.Constructf0bace60c9278845indowS.png" ALT="Buildings.Rooms.Constructions.ConstructionWithWindow" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.ConstructionWithWindow"
@@ -64,9 +64,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Rooms.Constructf0bace60c9278845indowI.png" ALT="Buildings.Rooms.Constructions.ConstructionWithWindow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Rooms.Constructions.ConstructionWithWindow"></A><A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions"
 >Buildings.Rooms.Constructions</A>.ConstructionWithWindow</H2>
-<B>Model for an opaque construction that has one window embedded in the construction</B><p>
+<B>Model for an opaque construction that has one window embedded in the construction</B><p></P>
 <IMG SRC="Buildings.Rooms.Constructf0bace60c9278845indowD.png" ALT="Buildings.Rooms.Constructions.ConstructionWithWindow">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 This model is used to compute heat transfer through constructions with windows inside the 
 room model.
@@ -99,7 +99,7 @@ The parameter <code>A</code> is the area of the opaque construction plus the win
 The parameter <code>AWin</code> is the area of the glazing system, including the frame.
 The area of the opaque construction is assigned internally as <code>AOpa=A-AWin</code>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Constructions_BaseClasses.html#Buildings.Rooms.Constructions.BaseClasses.PartialConstruction"
 >Buildings.Rooms.Constructions.BaseClasses.PartialConstruction</A> (Partial model for exterior construction that has no window).
 <P><H3>Parameters</H3><P>
@@ -170,7 +170,7 @@ Extends from <A HREF="Buildings_Rooms_Constructions_BaseClasses.html#Buildings.R
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>QAbsSha_flow[glaSys.nLay]</TD><TD>Solar radiation absorbed by shaded part of glass [W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ConstructionWithWindow <font color="darkgreen">
   &quot;Model for an opaque construction that has one window embedded in the construction&quot;</font>
@@ -292,9 +292,9 @@ Extends from <A HREF="Buildings_Rooms_Constructions_BaseClasses.html#Buildings.R
 <H2><IMG SRC="Buildings.Rooms.Construct8e494caee7a21862ctionI.png" ALT="Buildings.Rooms.Constructions.Construction" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Rooms.Constructions.Construction"></A><A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions"
 >Buildings.Rooms.Constructions</A>.Construction</H2>
-<B>Model for an opaque construction that has no window</B><p>
+<B>Model for an opaque construction that has no window</B><p></P>
 <IMG SRC="Buildings.Rooms.Construct8e494caee7a21862ctionD.png" ALT="Buildings.Rooms.Constructions.Construction">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 This model is used to compute heat transfer through opaque constructions inside the 
 room model.
@@ -304,7 +304,7 @@ of the opaque construction. The heat transfer is computed in the instance
 <A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.MultiLayer"
 >
 Buildings.HeatTransfer.Conduction.MultiLayer</a>.
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Constructions_BaseClasses.html#Buildings.Rooms.Constructions.BaseClasses.PartialConstruction"
 >Buildings.Rooms.Constructions.BaseClasses.PartialConstruction</A> (Partial model for exterior construction that has no window).
 <P><H3>Parameters</H3><P>
@@ -334,7 +334,7 @@ Extends from <A HREF="Buildings_Rooms_Constructions_BaseClasses.html#Buildings.R
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</A></TD><TD>opa_b</TD><TD>Heat port at surface b of opaque construction</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Construction <font color="darkgreen">
   &quot;Model for an opaque construction that has no window&quot;</font>
@@ -345,6 +345,6 @@ Extends from <A HREF="Buildings_Rooms_Constructions_BaseClasses.html#Buildings.R
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Construction;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:57:31 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:11:05 2013.
 </address></BODY>
 </HTML>

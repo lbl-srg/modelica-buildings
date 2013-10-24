@@ -26,21 +26,21 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Boilers<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Boilers"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
 >Buildings.Fluid</A>.Boilers</H2>
 <B>Package with boiler models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains components models for boilers.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Boilers.BoilerPolynomialS.png" ALT="Buildings.Fluid.Boilers.BoilerPolynomial" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Boilers.html#Buildings.Fluid.Boilers.BoilerPolynomial"
@@ -57,14 +57,14 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.Boilers.BoilerPolynomialI.png" ALT="Buildings.Fluid.Boilers.BoilerPolynomial" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Boilers.BoilerPolynomial"></A><A HREF="Buildings_Fluid_Boilers.html#Buildings.Fluid.Boilers"
 >Buildings.Fluid.Boilers</A>.BoilerPolynomial</H2>
-<B>Boiler with efficiency curve described by a polynomial of the temperature</B><p>
+<B>Boiler with efficiency curve described by a polynomial of the temperature</B><p></P>
 <IMG SRC="Buildings.Fluid.Boilers.BoilerPolynomialD.png" ALT="Buildings.Fluid.Boilers.BoilerPolynomial">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
+<p>
 This is a model of a boiler whose efficiency is described
 by a polynomial. 
-The heat input into the medium is
-</p>
+The heat input into the medium is</p>
 <p align="center" style="font-style:italic;">
   Q&#775; = y Q&#775;<sub>0</sub> &eta; &frasl; &eta;<sub>0</sub>
 </p>
@@ -92,8 +92,7 @@ where
 <p>
 The following polynomials can be selected to compute the efficiency:
 </p>
-<p>
-<table border="1" cellspacing=0 cellpadding=2 style="border-collapse:collapse;">
+<table summary="summary"  border="1" cellspacing=0 cellpadding=2 style="border-collapse:collapse;">
 <tr>
 <th>Parameter <code>effCur</code></th>
 <th>Efficiency curve</th>
@@ -115,10 +114,9 @@ The following polynomials can be selected to compute the efficiency:
 </i></td>
 </tr>
 </table>
-</p>
+
 <p>
-where
-<i>T</i> is the boiler outlet temperature in Kelvin.
+where <i>T</i> is the boiler outlet temperature in Kelvin.
 For <code>effCur = Buildings.Fluid.Types.EfficiencyCurves.Polynomial</code>,
 an arbitrary number of polynomial coefficients can be specified.
 </p>
@@ -128,20 +126,23 @@ for <code>y=1</code> and, if the efficiency depends on temperature,
 for <code>T=T0</code>.
 </p>
 <p>
-The fuel mass flow rate and volume flow rate are computed as 
+The fuel mass flow rate and volume flow rate are computed as </p>
 <p align="center" style="font-style:italic;">
   m&#775;<sub>f</sub> = Q&#775;<sub>f</sub> &frasl; h<sub>f</sub>
 </p>
-and
+<p> and </p>
 <p align="center" style="font-style:italic;">
   V&#775;<sub>f</sub> = m&#775;<sub>f</sub> &frasl; &rho;<sub>f</sub>,
 </p>
+<p>
 where the fuel heating value
 <i>h<sub>f</sub></i> and the fuel mass density
 <i>&rho;<sub>f</sub></i> are obtained from the 
 parameter <code>fue</code>.
 Note that if <i>&eta;</i> is the efficiency relative to the lower heating value,
 then the fuel properties also need to be used for the lower heating value.
+</p>
+
 <p>
 Optionally, the port <code>heatPort</code> can be connected to a heat port
 outside of this model to impose a boundary condition in order to
@@ -149,6 +150,7 @@ model heat losses to the ambient. When using this <code>heatPort</code>,
 make sure that the efficiency curve <code>effCur</code>
 does not already account for this heat loss.
 </p>
+
 <p>
 On the Assumptions tag, the model can be parameterized to compute a transient
 or steady-state response.
@@ -156,7 +158,8 @@ The transient response of the boiler is computed using a first
 order differential equation to compute the boiler's water and metal temperature,
 which are lumped into one state. The boiler outlet temperature is equal to this water temperature.
 </p>
-<P>
+
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
 >Interfaces.TwoPortHeatMassExchanger</A> (Partial model transporting one fluid stream with storing mass or energy).
 <P><H3>Parameters</H3><P>
@@ -164,8 +167,6 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
->MixingVolume</A></TD><TD>vol</TD><TD>redeclare Buildings.Fluid.Mi...</TD><TD>Volume for fluid stream</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Power</A></TD><TD>Q_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal heating power [W]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
@@ -194,8 +195,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>true</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>true</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
@@ -237,12 +237,14 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>T</TD><TD>[K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> BoilerPolynomial <font color="darkgreen">
   &quot;Boiler with efficiency curve described by a polynomial of the temperature&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
 >Interfaces.TwoPortHeatMassExchanger</A>(
+    <font color="blue">redeclare </font><font color="blue">final </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</A> vol,
     show_T = true,
     <font color="blue">final </font>tau=VWat*rho_default/m_flow_nominal);
 
@@ -267,8 +269,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >Modelica.SIunits.Volume</A> VWat = 1.5E-6*Q_flow_nominal <font color="darkgreen">
     &quot;Water volume of boiler&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Mass"
->Modelica.SIunits.Mass</A> mDry =   1.5E-3*Q_flow_nominal <font color="blue">if </font>
-        <font color="blue">not </font>(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) <font color="darkgreen">
+>Modelica.SIunits.Mass</A> mDry =   1.5E-3*Q_flow_nominal <font color="darkgreen">
     &quot;Mass of boiler that will be lumped to water heat capacity&quot;</font>;
 
   Real eta(min=0) <font color="darkgreen">&quot;Boiler efficiency&quot;</font>;
@@ -299,7 +300,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
       T(start=T_start)) <font color="blue">if </font><font color="blue">not </font>(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) <font color="darkgreen">
     &quot;heat capacity of boiler metal&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> T(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
+>Modelica.Blocks.Interfaces.RealOutput</A> T(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                           <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0);
 <font color="blue">protected </font>
   <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
@@ -345,6 +346,6 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>BoilerPolynomial;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:07 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:11 2013.
 </address></BODY>
 </HTML>

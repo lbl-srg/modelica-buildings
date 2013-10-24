@@ -26,21 +26,21 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE SkyTemperature<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.BoundaryConditions.SkyTemperature"></A><A HREF="Buildings_BoundaryConditions.html#Buildings.BoundaryConditions"
 >Buildings.BoundaryConditions</A>.SkyTemperature</H2>
 <B>Package with models to compute the sky temperature</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains models to compute the black body sky temperature.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.BoundaryConditi8f4560176eb402ddkBodyS.png" ALT="Buildings.BoundaryConditions.SkyTemperature.BlackBody" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_SkyTemperature.html#Buildings.BoundaryConditions.SkyTemperature.BlackBody"
@@ -57,9 +57,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.BoundaryConditi8f4560176eb402ddkBodyI.png" ALT="Buildings.BoundaryConditions.SkyTemperature.BlackBody" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.BoundaryConditions.SkyTemperature.BlackBody"></A><A HREF="Buildings_BoundaryConditions_SkyTemperature.html#Buildings.BoundaryConditions.SkyTemperature"
 >Buildings.BoundaryConditions.SkyTemperature</A>.BlackBody</H2>
-<B>Calculate black body sky temperature</B><p>
+<B>Calculate black body sky temperature</B><p></P>
 <IMG SRC="Buildings.BoundaryConditi8f4560176eb402ddkBodyD.png" ALT="Buildings.BoundaryConditions.SkyTemperature.BlackBody">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This component computes the black-body sky temperature.
@@ -69,7 +69,7 @@ For <code>calTSky = 0</code>, the model uses horizontal infrared irradiation.
 Otherwise, it uses dry buld temperature, dew point temperature and opaque sky cover.
 </p>
 <pre>
-</PRE><P>
+</PRE><P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -92,7 +92,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>radHorIR</TD><TD>Horizontal infrared irradiation [W/m2]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> BlackBody <font color="darkgreen">&quot;Calculate black body sky temperature&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
@@ -105,19 +105,19 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
     &quot;Computation of black-body sky temperature&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TDryBul(
-    <font color="blue">final </font>quantity=&quot;Temperature&quot;,
+    <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;) <font color="darkgreen">&quot;Dry bulb temperature at ground level&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TDewPoi(
-    <font color="blue">final </font>quantity=&quot;Temperature&quot;,
+    <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;) <font color="darkgreen">&quot;Dew point temperature&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> nOpa <font color="darkgreen">&quot;Opaque sky cover&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TBlaSky(
-    <font color="blue">final </font>quantity=&quot;Temperature&quot;,
+    <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
     displayUnit=&quot;degC&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;) <font color="darkgreen">&quot;Black-body sky temperature&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
@@ -147,6 +147,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>BlackBody;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:54:52 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:07:47 2013.
 </address></BODY>
 </HTML>

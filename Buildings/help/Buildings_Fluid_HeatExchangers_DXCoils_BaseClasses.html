@@ -26,23 +26,23 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils"
 >Buildings.Fluid.HeatExchangers.DXCoils</A>.BaseClasses</H2>
 <B>Package with base classes for DX cooling coil model</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils"
 >Buildings.Fluid.HeatExchangers.DXCoils</a>.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExchad1856c8f4f4d7f77PointS.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint"
@@ -119,9 +119,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <H2><IMG SRC="Buildings.Fluid.HeatExchad1856c8f4f4d7f77PointI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.ApparatusDewPoint</H2>
-<B>Calculates air properties at apparatus dew point</B><p>
+<B>Calculates air properties at apparatus dew point</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchad1856c8f4f4d7f77PointD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This blocks outputs the state of the moist air at the dew point of the coil.
@@ -131,7 +131,7 @@ computed by its base class
 >
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition</A> (Partial block for apparatus dew and dry point calculation).
 <P><H3>Parameters</H3><P>
@@ -169,7 +169,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TADP</TD><TD>Dry bulb temperature of air at apparatus dew point [K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> ApparatusDewPoint <font color="darkgreen">
   &quot;Calculates air properties at apparatus dew point&quot;</font>
@@ -186,7 +186,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
     max=1.0) <font color="darkgreen">&quot;Humidity mass fraction of air at  apparatus dew point&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TADP(
-    quantity=&quot;Temperature&quot;,
+    quantity=&quot;ThermodynamicTemperature&quot;,
     unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;,
     min=233.15,
@@ -231,9 +231,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <H2><IMG SRC="Buildings.Fluid.HeatExchaf59fed7a934d7f72PointI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.ApparatusDryPoint</H2>
-<B>Calculates air properties at dry coil surface</B><p>
+<B>Calculates air properties at dry coil surface</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchaf59fed7a934d7f72PointD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This blocks outputs the state of the moist air at of the coil, assuming no condensation occurs.
@@ -243,7 +243,7 @@ computed by its base class
 >
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition</A> (Partial block for apparatus dew and dry point calculation).
 <P><H3>Parameters</H3><P>
@@ -277,7 +277,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TDry</TD><TD>Dry bulb temperature of air at dry coil condition [K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> ApparatusDryPoint <font color="darkgreen">
   &quot;Calculates air properties at dry coil surface&quot;</font>
@@ -285,7 +285,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition</A>;
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TDry(
-    quantity=&quot;Temperature&quot;,
+    quantity=&quot;ThermodynamicTemperature&quot;,
     unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;,
     min=253.15,
@@ -331,14 +331,14 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <H2><IMG SRC="Buildings.Fluid.HeatExcha8c92194f2b979144ationI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.Condensation</H2>
-<B>Calculates rate of condensation</B><p>
+<B>Calculates rate of condensation</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha8c92194f2b979144ationD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This block computes the water mass flow rate that condenses.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -359,7 +359,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>mWat_flow</TD><TD>Mass flow rate of water condensed at cooling coil [kg/s]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> Condensation <font color="darkgreen">&quot;Calculates rate of condensation&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
@@ -395,14 +395,13 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Fluid.HeatExcha924ebce5ae74de27acityI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.CoolingCapacity</H2>
-<B>Calculates cooling capacity at given temperature and flow fraction</B><p>
+<B>Calculates cooling capacity at given temperature and flow fraction</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha924ebce5ae74de27acityD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
-<h4>
-Cooling capacity modifiers
-</h4>
-<p>There are two cooling capacity modifier functions: The function
+<h4>Cooling capacity modifiers</h4>
+<p>
+There are two cooling capacity modifier functions: The function
 <i>cap<sub>&theta;</sub></i> accounts for a performance change due to different
 air temperatures and the function
 cap<sub>FF </sub> accounts for a performance change due to different air flow rates,
@@ -422,7 +421,7 @@ where
 or the wet-bulb temperature if the coil is wet.
 </p>
 <p>
-The temperature dependent cooling capacity modifier function is
+The temperature dependent cooling capacity modifier function is</p>
 <p align="center" style="font-style:italic;" >
   cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = a<sub>1</sub> + a<sub>2</sub> &theta;<sub>e,in</sub> 
 + a<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + a<sub>4</sub> &theta;<sub>c,in</sub> + 
@@ -430,6 +429,7 @@ a<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + a<sub>6</sub> &theta;<sub>e,
 </p>
 <p>
 where the six coefficients are obtained from the coil performance data record.
+</p>
 <p>
 The flow fraction dependent cooling capacity modifier function is a polynomial 
 with the normalized mass flow rate <i>ff</i> (flow fraction) as the time dependent variable.
@@ -449,6 +449,7 @@ Hence,
   cap<sub>FF</sub>(ff) = b<sub>1</sub> + b<sub>2</sub> ff + b<sub>3</sub> ff<sup>2</sup> 
 + b<sub>4</sub>ff<sup>3</sup> + ...
 </p>
+<p>
 The coefficients of the equation are obtained from the coil performance data record.
 </p>
 <p>
@@ -461,7 +462,7 @@ in performance record. A non-zero value of
 Hence, when <i>m&#775; &ne; 0</i> is below the valid range of the flow modifier function,
 the coil capacity will be reduced and set to zero near <i>m&#775; = 0</i>.
 </p>
-<p>
+
 <h4>Energy Input Ratio (EIR) modifiers</h4>
 <p>
 The Energy Input Ratio (<i>EIR</i>) is the inverse of the Coefficient of Performance (<i>COP</i>).
@@ -474,9 +475,11 @@ The EIR is computed as
   EIR(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = EIR<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>)
            EIR<sub>FF</sub>(ff) &frasl; COP<sub>nominal</sub>
 </p>
+<p>
 As for the cooling rate, 
 <i>EIR<sub>&theta;</sub>(&sdot;, &sdot;)</i> is
-<p align="center" style="font-style:italic;" >
+</p>
+<p align="center" style="font-style:italic;">
   EIR<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = c<sub>1</sub> + c<sub>2</sub> &theta;<sub>e,in</sub> 
 + c<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + c<sub>4</sub> &theta;<sub>c,in</sub> + 
 c<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + c<sub>6</sub> &theta;<sub>e,in</sub> &theta;<sub>c,in</sub>.
@@ -488,7 +491,8 @@ the wet-bulb temperature otherwise.
 </p>
 <p>
 Similar to the cooling ratio, the change in EIR due to a change in air mass flow rate
-is 
+is
+</p>
 <p align="center" style="font-style:italic;">
   EIR<sub>FF</sub>(ff) = d<sub>1</sub> + d<sub>2</sub> ff + d<sub>3</sub> ff<sup>2</sup> 
 + d<sub>4</sub>ff<sup>3</sup> + ...
@@ -525,9 +529,7 @@ the name of the polynomial coefficients in
 Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves</a>
 and the independent parameters against which the data need to be fitted.
 </p>
-<p>
-<p>
-  <table border="1" cellspacing=0 cellpadding=2 style="border-collapse:collapse;">
+  <table summary="summary" border="1" cellspacing=0 cellpadding=2 style="border-collapse:collapse;">
   <tr>
       <th>Modelica name of coefficient in data record</th>
       <th>Polynomial of the above info section</th>
@@ -554,8 +556,6 @@ a<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + a<sub>6</sub> &theta;<sub>e,
         cap<sub>FF</sub>, ff
         </i></td>
     </tr>
-
-
     <tr>
       <td><code>EIRFunT</code></td>
       <td><i>
@@ -578,7 +578,7 @@ a<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + a<sub>6</sub> &theta;<sub>e,
         </i></td>
     </tr>
   </table>
-</p>
+
 <p>
 Note that for the above polynomials, the units for temperature is degree Celsius and not Kelvins.
 </p>
@@ -590,7 +590,7 @@ Below this range, this model reduces the cooling capacity and the energy input r
 so that both are zero if <i>ff &lt; ff<sub>min</sub>/4</i>, where
 <i>ff<sub>min</sub></i> is the minimum flow fraction for which the performance curves are valid.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -618,7 +618,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>EIR[nSta]</TD><TD>Energy Input Ratio</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> CoolingCapacity <font color="darkgreen">
   &quot;Calculates cooling capacity at given temperature and flow fraction&quot;</font>
@@ -630,7 +630,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
     &quot;Stage of coil, or 0/1 for variable-speed coil&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TConIn(
-    quantity=&quot;Temperature&quot;,
+    quantity=&quot;ThermodynamicTemperature&quot;,
     unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;) <font color="darkgreen">&quot;Temperature of air entering the condenser coil &quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
@@ -639,7 +639,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
     unit=&quot;kg/s&quot;) <font color="darkgreen">&quot;Air mass flow rate at the evaporator&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TEvaIn(
-    quantity=&quot;Temperature&quot;,
+    quantity=&quot;ThermodynamicTemperature&quot;,
     unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;) <font color="darkgreen">
     &quot;Temperature of air entering the evaporator (wet bulb for wet coil and dry bulb for dry coil)&quot;</font>;
@@ -825,9 +825,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Fluid.HeatExcha7b1370a8257fcdfcyCoilI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.DryCoil</H2>
-<B>Calculates dry coil condition</B><p>
+<B>Calculates dry coil condition</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha7b1370a8257fcdfcyCoilD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This block calculates the rate of cooling and the coil surface condition
@@ -844,7 +844,7 @@ See
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition</A> (Partial block for dry and wet coil conditions).
 <P><H3>Parameters</H3><P>
@@ -882,7 +882,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TDry</TD><TD>Dry bulb temperature of air at ADP [K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DryCoil <font color="darkgreen">&quot;Calculates dry coil condition&quot;</font>
  <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition"
@@ -892,7 +892,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 >Modelica.Media.Interfaces.PartialCondensingGases</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TDry(
-    quantity=&quot;Temperature&quot;,
+    quantity=&quot;ThermodynamicTemperature&quot;,
     unit=&quot;K&quot;,
     min=233.15,
     max=373.15) <font color="darkgreen">&quot;Dry bulb temperature of air at ADP&quot;</font>;
@@ -922,9 +922,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <H2><IMG SRC="Buildings.Fluid.HeatExchaf63652c0b5cf61f2ectorI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.DryWetSelector</H2>
-<B>Selects results from dry or wet coil</B><p>
+<B>Selects results from dry or wet coil</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchaf63652c0b5cf61f2ectorD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This block smoothly transitions the results from the dry coil and
@@ -933,7 +933,7 @@ The independent variable for the transition is the difference between
 the water mass fractions at the apparatus dew point, as computed by the wet coil model,
 and the coil inlet mass fraction. 
 </p>
-<P>
+<P></P>
 
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -969,7 +969,7 @@ and the coil inlet mass fraction.
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>mWat_flow</TD><TD>Mass flow rate of water condensed at cooling coil [kg/s]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> DryWetSelector <font color="darkgreen">&quot;Selects results from dry or wet coil&quot;</font>
 
@@ -994,7 +994,7 @@ and the coil inlet mass fraction.
     &quot;Sensible Heat Ratio: Ratio of sensible heat load to total heat load&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TADPWet(
-    quantity=&quot;Temperature&quot;,
+    quantity=&quot;ThermodynamicTemperature&quot;,
     unit=&quot;K&quot;,
     min=273.15,
     max=373.15) <font color="darkgreen">&quot;Dry bulb temperature of air at ADP&quot;</font>;
@@ -1009,7 +1009,7 @@ and the coil inlet mass fraction.
     &quot;Total cooling capacity&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TADPDry(
-    quantity=&quot;Temperature&quot;,
+    quantity=&quot;ThermodynamicTemperature&quot;,
     unit=&quot;K&quot;,
     min=273.15,
     max=373.15) <font color="darkgreen">&quot;Dry bulb temperature of air at ADP&quot;</font>;</textblock>
@@ -1027,7 +1027,7 @@ and the coil inlet mass fraction.
     &quot;Sensible Heat Ratio: Ratio of sensible heat load to total heat load&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TADP(
-    quantity=&quot;Temperature&quot;,
+    quantity=&quot;ThermodynamicTemperature&quot;,
     unit=&quot;K&quot;,
     min=273.15,
     max=373.15) <font color="darkgreen">&quot;Dry bulb temperature of air at ADP&quot;</font>;
@@ -1067,9 +1067,9 @@ and the coil inlet mass fraction.
 <H2><IMG SRC="Buildings.Fluid.HeatExcha674bdd2f2735086colingI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.DXCooling</H2>
-<B>DX cooling coil operation </B><p>
+<B>DX cooling coil operation </B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha674bdd2f2735086colingD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This block combines the models for the dry coil and the wet coil.
@@ -1078,7 +1078,7 @@ mass fraction at the apparatus dew point temperature and
 the mass fraction of the coil inlet air,
 may be from the dry coil, the wet coil, or a weighted average of the two.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface</A> (Partial block for DX coil).
 <P><H3>Parameters</H3><P>
@@ -1120,7 +1120,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>SHR</TD><TD>Sensible Heat Ratio: Ratio of sensible heat load to total heat load</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DXCooling <font color="darkgreen">&quot;DX cooling coil operation &quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface"
@@ -1134,7 +1134,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TCoiSur(
-    quantity=&quot;Temperature&quot;,
+    quantity=&quot;ThermodynamicTemperature&quot;,
     unit=&quot;K&quot;,
     min=240,
     max=400) <font color="darkgreen">&quot;Coil surface temperature&quot;</font>;
@@ -1202,9 +1202,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.EssentialParameters</H2>
-<B>A partial block for essential parameters</B><p>
+<B>A partial block for essential parameters</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha292b0d1e3b2d3401etersD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This partial block declares parameters that are required by most classes
@@ -1213,7 +1213,7 @@ in the package
 > 
 Buildings.Fluid.HeatExchangers.DXCoils</a>.
 </p>
-<P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1221,7 +1221,7 @@ Buildings.Fluid.HeatExchangers.DXCoils</a>.
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
 >DXCoil</A></TD><TD>datCoi</TD><TD>&nbsp;</TD><TD>Performance data</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">block</font> EssentialParameters <font color="darkgreen">
   &quot;A partial block for essential parameters&quot;</font>
@@ -1241,9 +1241,9 @@ Buildings.Fluid.HeatExchangers.DXCoils</a>.
 <H2><IMG SRC="Buildings.Fluid.HeatExcha77701eece82d67eaationI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.Evaporation</H2>
-<B>Model that computes evaporation of water that accumulated on the coil surface</B><p>
+<B>Model that computes evaporation of water that accumulated on the coil surface</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha77701eece82d67eaationD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model computes the water accumulation on the surface of a cooling coil.
@@ -1271,9 +1271,11 @@ from <i>16.5</i> minutes (<i>990</i> seconds) to
 <i>29</i> minutes (<i>1740</i> seconds). 
 Thus, we use a default value of <i>t<sub>wet</sub>=1400</i> seconds.
 The maximum amount of water that can accumulate on the coil is
+</p>
 <p align="center" style="font-style:italic;">
   m<sub>max</sub> = -Q&#775;<sub>L,nom</sub> &nbsp; t<sub>wet</sub> &frasl; h<sub>fg</sub> 
 </p>
+<p>
 where
 <i>Q&#775;<sub>L,nom</sub>&lt;0</i> is the latent capacity at the nominal conditions and
 <i>h<sub>fg</sub></i> is the latent heat of evaporation.
@@ -1283,9 +1285,11 @@ When the coil is off, the water that has been accumulated on the coil
 evaporates into the air. The rate of water vapor evaporation at nominal operating
 conditions is defined by the parameter <i>&gamma;<sub>nom</sub></i>. The definition of
 <i>&gamma;<sub>nom</sub></i> is
+</p>
 <p align="center" style="font-style:italic;">
   &gamma;<sub>nom</sub> = Q&#775;<sub>e,nom</sub> &frasl; Q&#775;<sub>L,nom</sub>,
 </p>
+<p>
 where 
 <i>Q&#775;<sub>e,nom</sub>&lt;0</i> is the rate of evaporation from the coil surface into 
 the air stream right after the coil is switched off.
@@ -1295,9 +1299,11 @@ The default value is <i>&gamma;<sub>nom</sub> = 1.5</i>.
 <p>
 First, we discuss the accumulation of water on the coil.
 The rate of water accumulation is computed as
+</p>
 <p align="center" style="font-style:italic;">
   dm(t)&frasl;dt = -m&#775;<sub>wat</sub>(t)
 </p>
+<p>
 where
 <i>m&#775;<sub>wat</sub>(t) &le; 0</i> is the water vapor mass flow rate that is extracted
 from the air at the current operating conditions.
@@ -1330,6 +1336,7 @@ For an evaporative cooler,
 <p align="center" style="font-style:italic;">
   &eta;(t) = 1-exp(-NTU(t)),
 </p>
+<p>
 where
 <i>NTU(t)=(hA)<sub>m</sub>/C&#775;<sub>a</sub></i> are the number of mass transfer units and 
 <i>C&#775;<sub>a</sub></i> is the air capacity flow rate.
@@ -1480,6 +1487,7 @@ which corresponds to a mass transfer effectiveness of <i>0.8</i>. If
 To regularize the equations near zero air mass flow rate and zero humidity on the coil, the
 following conditions have been imposed in such a way that the model
 is once continuously differentiable with bounded derivatives on compact sets:
+</p>
 <ul>
 <li>
 We impose that 
@@ -1494,6 +1502,7 @@ to ensure that the evaporation mass flow rate remains bounded at zero air flow r
 and that it is symmetric near zero without having to trigger an event.
 </li>
 </ul>
+<p>
 This is implemented by replacing for <i>|m&#775;<sub>a</sub>(t)| &lt; &delta;</i>
 the equation for the evaporation mass flow rate by
 </p>
@@ -1527,7 +1536,7 @@ Don B. Shirey III, Hugh I. Henderson, Jr. and Richard A. Raustad.
 Understanding the Dehumidification Performance of Air-Conditioning Equipment at Part-Load Conditions.</a>
 Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -1560,7 +1569,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>mTotWat_flow</TD><TD>Total moisture mass flow rate into the air stream [kg/s]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Evaporation <font color="darkgreen">
   &quot;Model that computes evaporation of water that accumulated on the coil surface&quot;</font>
@@ -1598,7 +1607,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
     &quot;Water flow rate added into the medium&quot;</font>;</textblock>
 
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> TWat(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
+>Modelica.Blocks.Interfaces.RealInput</A> TWat(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                             <font color="blue">final </font>unit = &quot;K&quot;,
                                             displayUnit = &quot;degC&quot;) <font color="darkgreen">
     &quot;Temperature of liquid that is drained from or injected into volume&quot;</font>;</textblock>
@@ -1614,7 +1623,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</A> TEvaOut(
-    <font color="blue">final </font>quantity=&quot;Temperature&quot;,
+    <font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
     <font color="blue">final </font>unit=&quot;K&quot;,
     displayUnit=&quot;degC&quot;) <font color="darkgreen">&quot;Air temperature&quot;</font>;</textblock>
 
@@ -1840,9 +1849,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Fluid.HeatExcha5e776f995361fe28PowerI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.InputPower</H2>
-<B>Electrical power consumed by the unit</B><p>
+<B>Electrical power consumed by the unit</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha5e776f995361fe28PowerD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This block calculates total electrical energy consumed by the unit using 
@@ -1854,7 +1863,7 @@ The electrical energy consumed by the unit is
 <p align="center" style="font-style:italic;">
   P = -Q<sub>cool</sub> EIR
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
@@ -1873,7 +1882,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>QLat_flow</TD><TD>Latent heat flow rate [W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> InputPower <font color="darkgreen">&quot;Electrical power consumed by the unit&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
@@ -1910,14 +1919,14 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Fluid.HeatExcha3626cd4d1788ba28itionI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.NominalCondition</H2>
-<B>Calculates inlet and outlet fluid parameters at nominal condition</B><p>
-<P><H3>Information</H3></P>
+<B>Calculates inlet and outlet fluid parameters at nominal condition</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This block calculates inlet and outlet fluid parameters at the nominal condition.
 These parameters are required to determine the apparatus dew point at the nominal condition. 
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
@@ -1926,8 +1935,10 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Reco
 <TR><TD colspan="2">replaceable package Medium</TD><TD>Modelica.Media.Interfaces.Pa...</TD><TD>Medium model</TD></TR>
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues"
 >NominalValues</A></TD><TD>per</TD><TD>&nbsp;</TD><TD>Performance data</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</A></TD><TD>Cp_nominal</TD><TD>Medium.specificHeatCapacityC...</TD><TD>Specific heat of air at specified nominal condition [J/(kg.K)]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> NominalCondition <font color="darkgreen">
   &quot;Calculates inlet and outlet fluid parameters at nominal condition&quot;</font>
@@ -1967,7 +1978,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Reco
      XEvaIn_nominal + (hOut_nominal- hEvaIn_nominal)*(1-per.SHR_nominal)/
      <font color="red">Medium.enthalpyOfCondensingGas</font>(T=per.TEvaIn_nominal) <font color="darkgreen">
     &quot;Rated/Nominal mass fraction of air leaving the coil&quot;</font>;
-<font color="blue">protected </font>
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >Modelica.SIunits.SpecificHeatCapacity</A> Cp_nominal=
     <font color="red">Medium.specificHeatCapacityCp</font>(<font color="red">Medium.setState_pTX</font>(
@@ -1982,9 +1992,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Reco
 <H2><IMG SRC="Buildings.Fluid.HeatExchae858fc254f2ac3f3itionI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.PartialCoilCondition</H2>
-<B>Partial block for dry and wet coil conditions</B><p>
+<B>Partial block for dry and wet coil conditions</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchae858fc254f2ac3f3itionD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This partial block is the base class for 
@@ -1995,7 +2005,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil</a> and
 > 
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface</A> (Partial block for DX coil).
 <P><H3>Parameters</H3><P>
@@ -2029,12 +2039,10 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Q_flow</TD><TD>Total cooling capacity [W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">block</font> PartialCoilCondition <font color="darkgreen">
   &quot;Partial block for dry and wet coil conditions&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface</A>;
 
@@ -2080,9 +2088,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <H2><IMG SRC="Buildings.Fluid.HeatExchae858fc254f2ac3f3itionI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.PartialCoilInterface</H2>
-<B>Partial block for DX coil</B><p>
+<B>Partial block for DX coil</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchadb27dc53cc93e876rfaceD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This partial block declares the inputs and outputs that are common for  
@@ -2092,7 +2100,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCondition</a> and
 > 
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block), <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters</A> (A partial block for essential parameters).
@@ -2126,7 +2134,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Q_flow</TD><TD>Total cooling capacity [W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">block</font> PartialCoilInterface <font color="darkgreen">&quot;Partial block for DX coil&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
@@ -2171,9 +2179,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Fluid.HeatExcha5585a7c2cd552408XCoilI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.PartialDXCoil</H2>
-<B>Partial model for DX coil</B><p>
+<B>Partial model for DX coil</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha5585a7c2cd552408XCoilD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This partial model is the base class for
@@ -2194,10 +2202,10 @@ See
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters"
->Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters</A> (A partial block for essential parameters), <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.IndexWater"
->Buildings.Fluid.BaseClasses.IndexWater</A> (Computes the index of the water substance), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
+>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters</A> (A partial block for essential parameters), <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.IndexMassFraction"
+>Buildings.Fluid.BaseClasses.IndexMassFraction</A> (Computes the index of a substance in the mass fraction vector Xi), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
 >Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</A> (Partial model transporting one fluid stream with storing mass or energy).
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -2206,6 +2214,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 >DXCoil</A></TD><TD>datCoi</TD><TD>&nbsp;</TD><TD>Performance data</TD></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >PartialCondensingGases</A></TD><TD>Medium model</TD></TR>
+<TR><TD>String</TD><TD>substanceName</TD><TD>&quot;water&quot;</TD><TD>Name of species substance</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>datCoi.sta[nSta].nomVal.m_fl...</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
@@ -2223,8 +2232,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
@@ -2267,13 +2275,13 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>QLat_flow</TD><TD>Latent heat flow rate [W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialDXCoil <font color="darkgreen">&quot;Partial model for DX coil&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters</A>;
-  <font color="blue">extends </font><A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.IndexWater"
->Buildings.Fluid.BaseClasses.IndexWater</A>;
+  <font color="blue">extends </font><A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.IndexMassFraction"
+>Buildings.Fluid.BaseClasses.IndexMassFraction</A>(<font color="blue">final </font>substanceName = &quot;water&quot;);
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
 >Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</A>(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
@@ -2328,7 +2336,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 >Modelica.Blocks.Sources.RealExpression</A> p(<font color="blue">final </font>y=port_a.p) <font color="darkgreen">
     &quot;Inlet air pressure&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
->Modelica.Blocks.Sources.RealExpression</A> X(<font color="blue">final </font>y=XEvaIn[i_w]) <font color="darkgreen">
+>Modelica.Blocks.Sources.RealExpression</A> X(<font color="blue">final </font>y=XEvaIn[i_x]) <font color="darkgreen">
     &quot;Inlet air mass fraction&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> T(<font color="blue">final </font>y=TEvaIn) <font color="darkgreen">
@@ -2392,9 +2400,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <H2><IMG SRC="Buildings.Fluid.HeatExchae2833c094a90cf9bitionI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.PartialSurfaceCondition</H2>
-<B>Partial block for apparatus dew and dry point calculation</B><p>
+<B>Partial block for apparatus dew and dry point calculation</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchae2833c094a90cf9bitionD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This partial block is the base class for
@@ -2421,7 +2429,7 @@ for intermediate speeds.
 For coils with variable speed compressors, the computations are also done if the coil is off,
 as this ensures that the derivatives are continuous near the off conditions.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block), <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters</A> (A partial block for essential parameters).
@@ -2452,7 +2460,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>stage</TD><TD>Stage of coil, or 0/1 for variable-speed coil</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">block</font> PartialSurfaceCondition <font color="darkgreen">
   &quot;Partial block for apparatus dew and dry point calculation&quot;</font>
@@ -2501,7 +2509,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 >Modelica.SIunits.AngularVelocity</A> spe(displayUnit=&quot;1/min&quot;) <font color="darkgreen">
     &quot;Rotational speed&quot;</font>;
 
-<textblock type="annotcomp" expanded="false">  <font color="blue">final </font><font color="blue">parameter </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp"
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp</A> uacp[nSta](
       <font color="blue">final </font>per=datCoi.sta.nomVal,
       <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Calculates UA/Cp of the coil&quot;</font>;</textblock>
@@ -2568,14 +2576,14 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Fluid.HeatExcha11adce10f89a9e20RatioI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.SensibleHeatRatio</H2>
-<B>Calculates the sensible heat ratio</B><p>
+<B>Calculates the sensible heat ratio</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha11adce10f89a9e20RatioD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This block computes the sensible heat ratio.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -2602,7 +2610,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>SHR</TD><TD>Sensible Heat Ratio: Ratio of sensible heat load to total heat load</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> SensibleHeatRatio <font color="darkgreen">&quot;Calculates the sensible heat ratio&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
@@ -2679,16 +2687,16 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Fluid.HeatExcha6f5fe0cd6a3992daelectI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.SpeedSelect</H2>
-<B>Selects the lower specified speed ratio for multispeed model</B><p>
+<B>Selects the lower specified speed ratio for multispeed model</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha6f5fe0cd6a3992daelectD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This blocks outputs the normalized speed of the compressor,
 whereas the highest stage is assigned a normalized speed of one,
 and all other stages are proportional to their actual speed.
   </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -2705,7 +2713,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>speRat</TD><TD>Standard speed ratio</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> SpeedSelect <font color="darkgreen">
   &quot;Selects the lower specified speed ratio for multispeed model&quot;</font>
@@ -2738,9 +2746,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Fluid.HeatExchae5e3ed3d735158e2ShiftI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedShift" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedShift"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.SpeedShift</H2>
-<B>Interpolates values between speeds</B><p>
+<B>Interpolates values between speeds</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchae5e3ed3d735158e2ShiftD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedShift">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This block uses the
@@ -2750,7 +2758,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift</a> func
 to interpolate the input array.
 Depending on input speed ratio and speed set array the input array <i>u</i> is interpolated.  
 </p>
-<P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -2772,7 +2780,7 @@ Depending on input speed ratio and speed set array the input array <i>u</i> is i
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>stage</TD><TD>Stage of coil, or 0/1 for variable-speed coil</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> SpeedShift <font color="darkgreen">&quot;Interpolates values between speeds&quot;</font>
   <font color="blue">parameter </font>Integer nSta <font color="darkgreen">&quot;Number of standard compressor speeds&quot;</font>;
@@ -2808,8 +2816,8 @@ Depending on input speed ratio and speed set array the input array <i>u</i> is i
 <H2><IMG SRC="Buildings.Fluid.HeatExcha0f2a3a8bf900018f.UACpI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.UACp</H2>
-<B>Calculates UA/Cp of the coil</B><p>
-<P><H3>Information</H3></P>
+<B>Calculates UA/Cp of the coil</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model calculates the <i>UA/c<sub>p</sub></i> value and the bypass factor
@@ -2837,7 +2845,7 @@ and, hence,
 <p align="center" style="font-style:italic;">
  UA &frasl; c<sub>p</sub> = - m&#775; log(b)
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition</A> (Calculates inlet and outlet fluid parameters at nominal condition), <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
@@ -2848,10 +2856,12 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 >PartialCondensingGases</A></TD><TD>Medium model</TD></TR>
 <TR><TD><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues"
 >NominalValues</A></TD><TD>per</TD><TD>&nbsp;</TD><TD>Performance data</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</A></TD><TD>Cp_nominal</TD><TD>Medium.specificHeatCapacityC...</TD><TD>Specific heat of air at specified nominal condition [J/(kg.K)]</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> UACp <font color="darkgreen">&quot;Calculates UA/Cp of the coil&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition"
@@ -2944,9 +2954,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <H2><IMG SRC="Buildings.Fluid.HeatExchac6d89d57cbafcdf8tCoilI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</A>.WetCoil</H2>
-<B>Calculates wet coil condition </B><p>
+<B>Calculates wet coil condition </B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchac6d89d57cbafcdf8tCoilD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This block calculates the rate of cooling and the coil surface condition
@@ -2963,7 +2973,7 @@ See
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition</A> (Partial block for dry and wet coil conditions).
 <P><H3>Parameters</H3><P>
@@ -3007,7 +3017,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>XADP</TD><TD>Humidity mass fraction of air at  apparatus dew point</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> WetCoil <font color="darkgreen">&quot;Calculates wet coil condition &quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition"
@@ -3017,7 +3027,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 >Modelica.Media.Interfaces.PartialCondensingGases</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</A> TADP(
-    quantity=&quot;Temperature&quot;,
+    quantity=&quot;ThermodynamicTemperature&quot;,
     unit=&quot;K&quot;,
     min=273.15,
     max=373.15) <font color="darkgreen">&quot;Dry bulb temperature of air at ADP&quot;</font>;
@@ -3085,6 +3095,6 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>WetCoil;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:59 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:11 2013.
 </address></BODY>
 </HTML>

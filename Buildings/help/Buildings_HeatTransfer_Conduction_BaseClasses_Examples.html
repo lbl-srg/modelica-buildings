@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.HeatTransfer.Conduction.BaseClasses.Examples"></A><A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildings.HeatTransfer.Conduction.BaseClasses"
 >Buildings.HeatTransfer.Conduction.BaseClasses</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -42,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.HeatTransfer.Conduction.BaseClasses</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.HeatTransfer.Co77046da0dd777ce7ure_uS.png" ALT="Buildings.HeatTransfer.Conduction.BaseClasses.Examples.Temperature_u" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Conduction_BaseClasses_Examples.html#Buildings.HeatTransfer.Conduction.BaseClasses.Examples.Temperature_u"
@@ -59,8 +59,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Mod
 <H2><IMG SRC="Buildings.HeatTransfer.Co77046da0dd777ce7ure_uI.png" ALT="Buildings.HeatTransfer.Conduction.BaseClasses.Examples.Temperature_u" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.HeatTransfer.Conduction.BaseClasses.Examples.Temperature_u"></A><A HREF="Buildings_HeatTransfer_Conduction_BaseClasses_Examples.html#Buildings.HeatTransfer.Conduction.BaseClasses.Examples"
 >Buildings.HeatTransfer.Conduction.BaseClasses.Examples</A>.Temperature_u</H2>
-<B>Approximation of specific internal energy versus temperature curve with cubic hermite cubic spline</B><p>
-<P><H3>Information</H3></P>
+<B>Approximation of specific internal energy versus temperature curve with cubic hermite cubic spline</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This example tests and demonstrates the implementation of the specific internal 
@@ -93,9 +93,9 @@ The curves <code>errNonMonotone</code> and
 represent the relative error between approximated and exact temperatures 
 obtained for different specific internal energy values (right hand side figure).
 </p>
-<p align="center"><img src="../Resources/Images/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.png"/>
+<p align="center"><img alt="image" src="../Resources/Images/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.png"/>
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -115,7 +115,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</A></TD><TD>dTCha</TD><TD>materialMonotone.TSol + mate...</TD><TD>Characteristic temperature difference of the problem [K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Temperature_u <font color="darkgreen">
   &quot;Approximation of specific internal energy versus temperature curve with cubic hermite cubic spline&quot;</font>
@@ -151,9 +151,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     &quot;Support points&quot;</font>;
   <font color="blue">parameter </font>Real scale=0.999 <font color="darkgreen">
     &quot;Scale used to position the points 1,3,4 and 6 while T2=TSol and T5=TLiq&quot;</font>;
-  <font color="blue">parameter </font>Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](fixed=false, unit=&quot;kg.K2/J&quot;) <font color="darkgreen">
+  <font color="blue">parameter </font>Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](<font color="blue">each </font>fixed=false, <font color="blue">each </font>unit=&quot;kg.K2/J&quot;) <font color="darkgreen">
     &quot;Derivatives at the support points - non-monotone, default in Modelica PCM&quot;</font>;
-  <font color="blue">parameter </font>Real[Buildings.HeatTransfer.Conduction.nSupPCM] dT_duMonotone(fixed=false, unit=&quot;kg.K2/J&quot;) <font color="darkgreen">
+  <font color="blue">parameter </font>Real[Buildings.HeatTransfer.Conduction.nSupPCM] dT_duMonotone(<font color="blue">each </font>fixed=false, <font color="blue">each </font>unit=&quot;kg.K2/J&quot;) <font color="darkgreen">
     &quot;Derivatives at the support points for monotone increasing cubic splines&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
 >Modelica.SIunits.SpecificInternalEnergy</A> u <font color="darkgreen">&quot;Specific internal energy&quot;</font>;
@@ -237,6 +237,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Temperature_u;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:53 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:19 2013.
 </address></BODY>
 </HTML>

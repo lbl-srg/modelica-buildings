@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.MixingVolumes.Examples"></A><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes"
 >Buildings.Fluid.MixingVolumes</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -42,17 +42,14 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Fluid.MixingVolumes</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeS.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolume" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples.MixingVolume"
 >MixingVolume</A>
-</TD><TD>&nbsp;</TD></TR>
-<TR><TD><IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeS.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeDryAir" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples.MixingVolumeDryAir"
->MixingVolumeDryAir</A>
 </TD><TD>&nbsp;</TD></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeS.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeInitialization" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples.MixingVolumeInitialization"
 >MixingVolumeInitialization</A>
@@ -78,14 +75,21 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Mod
 <A NAME="Buildings.Fluid.MixingVolumes.Examples.MixingVolume"></A><A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
 >Buildings.Fluid.MixingVolumes.Examples</A>.MixingVolume</H2>
 <IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeD.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolume">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
+
+<p>
+This model tests the implementation of the mixing volumes.
+It compares the results from the mixing volume of the Modelica
+Standard Library with the implementation in the <code>Buildings</code>
+library. If the changes are bigger than a prescribed limit, 
+the simulation stops with an error.
+</p>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolume
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
 
@@ -147,6 +151,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     V=0.1,
     nPorts=2,
+    h_start=45300.945,
     use_portsData=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
@@ -216,128 +221,22 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 </PRE>
 <HR>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE MixingVolumeDryAir<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeI.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeDryAir" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeDryAir"></A><A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
->Buildings.Fluid.MixingVolumes.Examples</A>.MixingVolumeDryAir</H2>
-<IMG SRC="Buildings.Fluid.MixingVol5ff242669178f93fryAirD.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeDryAir">
-<P><H3>Information</H3></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
->Modelica.Icons.Example</A> (Icon for runnable examples).
-<P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> MixingVolumeDryAir
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
->Modelica.Icons.Example</A>;
-
- <font color="blue">package</font> Medium = <A HREF="Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir"
->Buildings.Media.IdealGases.SimpleAir</A>(T_min=<font color="red">Modelica.SIunits.Conversions.from_degC</font>(-50)) <font color="darkgreen">
-    &quot;Medium in the component&quot;</font>;
-
-<textblock type="annotcomp" expanded="false">    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
->Modelica.Blocks.Sources.Ramp</A> P(
-    height=-10,
-    offset=101330,
-    duration=300,
-    startTime=150);
-  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
->Buildings.Fluid.Sources.Boundary_pT</A> sou(             <font color="blue">redeclare </font><font color="blue">package</font> Medium
-      = Medium,
-    nPorts=2,
-    use_p_in=true,
-    p=Medium.p_default,
-    T=293.15);
-  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
->Buildings.Fluid.Sources.Boundary_pT</A> sin(             <font color="blue">redeclare </font><font color="blue">package</font> Medium
-      = Medium,
-    use_p_in=false,
-    p=101325,
-    T=283.15,
-    nPorts=2);
-  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
->MixingVolumes.MixingVolume</A> vol1(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
-    V=0.1,
-    nPorts=2,
-    m_flow_nominal=2);
-    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
->Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res11(
-    <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium = Medium,
-    dp_nominal=5,
-    from_dp=true,
-    m_flow_nominal=2);
-    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
->Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res12(
-    <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium = Medium,
-    dp_nominal=5,
-    from_dp=true,
-    m_flow_nominal=2);
-  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.EnthalpyFlowRate"
->Buildings.Fluid.Sensors.EnthalpyFlowRate</A> entFloRat1(<font color="blue">redeclare </font><font color="blue">package</font> Medium
-      = Medium, m_flow_nominal=2) <font color="darkgreen">&quot;Enthalpy flow rate&quot;</font>;
-    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
->Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res21(
-    <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium = Medium,
-    dp_nominal=5,
-    from_dp=true,
-    m_flow_nominal=2);
-    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
->Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res22(
-    <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium = Medium,
-    dp_nominal=5,
-    from_dp=true,
-    m_flow_nominal=2);
-  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
->Buildings.Utilities.Diagnostics.AssertEquality</A> assertEquality1(startTime=0);
-  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.EnthalpyFlowRate"
->Buildings.Fluid.Sensors.EnthalpyFlowRate</A> entFloRat2(<font color="blue">redeclare </font><font color="blue">package</font> Medium
-      = Medium, m_flow_nominal=2) <font color="darkgreen">&quot;Enthalpy flow rate&quot;</font>;
-    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A> zero(k=0);
-    <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A> TLiq(k=283.15);
-  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
->Modelica.Fluid.System</A> system;
-  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeDryAir"
->Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</A> vol2(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
-    V=0.1,
-    nPorts=2,
-    m_flow_nominal=2);</textblock>
-<font color="blue">equation </font>
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(res12.port_a, entFloRat1.port_b);
-  <font color="red">connect</font>(res22.port_a, entFloRat2.port_b);
-  <font color="red">connect</font>(entFloRat2.H_flow, assertEquality1.u2);
-  <font color="red">connect</font>(res11.port_b, vol1.ports[1]);
-  <font color="red">connect</font>(entFloRat1.port_a, vol1.ports[2]);
-  <font color="red">connect</font>(res21.port_b, vol2.ports[1]);
-  <font color="red">connect</font>(vol2.ports[2], entFloRat2.port_a);
-  <font color="red">connect</font>(zero.y, vol2.mWat_flow);
-  <font color="red">connect</font>(TLiq.y, vol2.TWat);
-  <font color="red">connect</font>(entFloRat1.H_flow, assertEquality1.u1);
-  <font color="red">connect</font>(sou.ports[1], res11.port_a);
-  <font color="red">connect</font>(sou.ports[2], res21.port_a);
-  <font color="red">connect</font>(res12.port_b, sin.ports[1]);
-  <font color="red">connect</font>(res22.port_b, sin.ports[2]);
-  <font color="red">connect</font>(P.y, sou.p_in);</textblock>
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>MixingVolumeDryAir;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE MixingVolumeInitialization<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeI.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeInitialization" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeInitialization"></A><A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
 >Buildings.Fluid.MixingVolumes.Examples</A>.MixingVolumeInitialization</H2>
-<B>Test model for mixing volume initialization</B><p>
+<B>Test model for mixing volume initialization</B><p></P>
 <IMG SRC="Buildings.Fluid.MixingVol599239970206897eationD.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeInitialization">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
+
+<p>
+This model tests the initialization of the mixing volume.
+</p>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolumeInitialization <font color="darkgreen">
   &quot;Test model for mixing volume initialization&quot;</font>
@@ -362,18 +261,21 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 >Modelica.Fluid.Pipes.StaticPipe</A> pipe1(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     length=1,
-    diameter=0.25);
+    diameter=0.25,
+    flowModel(m_flow_nominal=2));
   <A HREF="../../msl/3.2/help/Modelica_Fluid_Pipes.html#Modelica.Fluid.Pipes.StaticPipe"
 >Modelica.Fluid.Pipes.StaticPipe</A> pipe2(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     length=1,
-    diameter=0.25);
+    diameter=0.25,
+    flowModel(m_flow_nominal=2));
   <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
 >MixingVolumes.MixingVolume</A> vol1(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     V=0.1,
     nPorts=2,
-    m_flow_nominal=2);
+    m_flow_nominal=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
   <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
 >Modelica.Fluid.System</A> system;</textblock>
 <font color="blue">equation </font>
@@ -391,29 +293,45 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <A NAME="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeMoistAir"></A><A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
 >Buildings.Fluid.MixingVolumes.Examples</A>.MixingVolumeMoistAir</H2>
 <IMG SRC="Buildings.Fluid.MixingVol9236902d80cabe58stAirD.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeMoistAir">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
+
+<p>
+This model tests 
+<A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"
+>
+Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
+After an initial transient, the temperature and humidity of the volume
+stabilizes.
+</p>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P><H3>Modelica definition</H3>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>0.001</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolumeMoistAir
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
 
-<font color="darkgreen">// package Medium = Buildings.Media.PerfectGases.MoistAir;</font>
- <font color="darkgreen">//  package Medium = Buildings.Media.GasesPTDecoupled.MoistAir;</font>
-   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
+  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
 >Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</A>;
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> m_flow_nominal = 0.001 <font color="darkgreen">
+    &quot;Nominal mass flow rate&quot;</font>;
 
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"
 >Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</A> vol1(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     V=1,
     nPorts=2,
-    m_flow_nominal=0.001,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial) <font color="darkgreen">&quot;Volume&quot;</font>;
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=m_flow_nominal) <font color="darkgreen">&quot;Volume&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
 >Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> TSen <font color="darkgreen">
     &quot;Temperature sensor&quot;</font>;
@@ -447,8 +365,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
 >Buildings.Fluid.Sources.Boundary_pT</A> sin(        <font color="blue">redeclare </font><font color="blue">package</font> Medium =
         Medium,
-    nPorts=1,
-    T=293.15);
+    T=293.15,
+    nPorts=1);
   <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
 >Buildings.Controls.Continuous.LimPID</A> PI(
     Ni=0.1,
@@ -457,7 +375,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     Ti=1,
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    wd=0);
+    wd=0,
+    yMin=-1000);
   <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
 >Buildings.Controls.Continuous.LimPID</A> PI1(
     Ni=0.1,
@@ -480,7 +399,13 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gai1(k=0.1);
   <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
->Modelica.Fluid.System</A> system;</textblock>
+>Modelica.Fluid.System</A> system;
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res1(
+    <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium = Medium,
+    from_dp=true,
+    dp_nominal=2.5,
+    m_flow_nominal=m_flow_nominal);</textblock>
 <font color="blue">equation </font>
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(preHeaFlo.port, heatFlowSensor.port_a);
   <font color="red">connect</font>(heatFlowSensor.Q_flow, QSen.u);
@@ -497,13 +422,14 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
   <font color="red">connect</font>(vol1.X_w, PI1.u_m);
   <font color="red">connect</font>(vol1.X_w, humRat.X_w);
   <font color="red">connect</font>(sou.ports[1], mIn_flow.port_a);
-  <font color="red">connect</font>(mOut_flow.port_b, sin.ports[1]);
   <font color="red">connect</font>(heatFlowSensor.port_b, vol1.heatPort);
   <font color="red">connect</font>(TSen.port, vol1.heatPort);
   <font color="red">connect</font>(mIn_flow.port_b, vol1.ports[1]);
   <font color="red">connect</font>(mOut_flow.port_a, vol1.ports[2]);
   <font color="red">connect</font>(PI.y, gai.u);
-  <font color="red">connect</font>(humRat.p_w, dewPoi.p_w);</textblock>
+  <font color="red">connect</font>(humRat.p_w, dewPoi.p_w);
+  <font color="red">connect</font>(mOut_flow.port_b, res1.port_a);
+  <font color="red">connect</font>(res1.port_b, sin.ports[1]);</textblock>
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>MixingVolumeMoistAir;
 </PRE>
 <HR>
@@ -513,18 +439,18 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeI.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeHeatConduction" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeHeatConduction"></A><A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
 >Buildings.Fluid.MixingVolumes.Examples</A>.MixingVolumeHeatConduction</H2>
-<B>Test model for heat transfer to volume</B><p>
+<B>Test model for heat transfer to volume</B><p></P>
 <IMG SRC="Buildings.Fluid.MixingVol9742f04be823c76fctionD.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeHeatConduction">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model demonstrates the use of the mixing volume with heat conduction to the ambient.
 The mixing volume is configured as a steady-state model.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolumeHeatConduction <font color="darkgreen">
   &quot;Test model for heat transfer to volume&quot;</font>
@@ -588,9 +514,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeI.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumePrescribedHeatFlowRate" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.MixingVolumes.Examples.MixingVolumePrescribedHeatFlowRate"></A><A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
 >Buildings.Fluid.MixingVolumes.Examples</A>.MixingVolumePrescribedHeatFlowRate</H2>
-<B>Test model for heat transfer to volume</B><p>
+<B>Test model for heat transfer to volume</B><p></P>
 <IMG SRC="Buildings.Fluid.MixingVole37d8b148cb235f4wRateD.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumePrescribedHeatFlowRate">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model demonstrates the use of the mixing volume with a prescribed heat flow rate.
@@ -600,10 +526,10 @@ convergence for the case the the prescribed heat flow rate should be zero,
 but due to numerical solutions, it may have a small error that causes the signal to be 
 non-zero.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolumePrescribedHeatFlowRate <font color="darkgreen">
   &quot;Test model for heat transfer to volume&quot;</font>
@@ -666,17 +592,17 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Fluid.MixingVol956460277995c1b1olumeI.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeMassFlow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeMassFlow"></A><A HREF="Buildings_Fluid_MixingVolumes_Examples.html#Buildings.Fluid.MixingVolumes.Examples"
 >Buildings.Fluid.MixingVolumes.Examples</A>.MixingVolumeMassFlow</H2>
-<B>Test model for mass flow into and out of volume</B><p>
+<B>Test model for mass flow into and out of volume</B><p></P>
 <IMG SRC="Buildings.Fluid.MixingVol7d7e508d34d30a9esFlowD.png" ALT="Buildings.Fluid.MixingVolumes.Examples.MixingVolumeMassFlow">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model demonstrates the use of the mixing volume with air flowing into and out of the volume.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MixingVolumeMassFlow <font color="darkgreen">
   &quot;Test model for mass flow into and out of volume&quot;</font>
@@ -693,7 +619,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     m_flow=1,
     T=313.15) <font color="darkgreen">&quot;Flow source and sink&quot;</font>;
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
->Sources.Boundary_pT</A>                  bou(
+>Sources.Boundary_pT</A> bou(
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     T=303.15,
     nPorts=1) <font color="darkgreen">&quot;Boundary condition&quot;</font>;
@@ -713,6 +639,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>MixingVolumeMassFlow;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:23 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:38 2013.
 </address></BODY>
 </HTML>

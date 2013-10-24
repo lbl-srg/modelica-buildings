@@ -26,25 +26,25 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Movers.BaseClasses"></A><A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
 >Buildings.Fluid.Movers</A>.BaseClasses</H2>
 <B>Package with base classes for Buildings.Fluid.Movers</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
 >Buildings.Fluid.Movers</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Movers.Ba75a191fe4ecc4934sticsS.png" ALT="Buildings.Fluid.Movers.BaseClasses.Characteristics" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics"
@@ -76,15 +76,15 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <H2><IMG SRC="Buildings.Fluid.Movers.Ba33a31b119732db57chineI.png" ALT="Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine"></A><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses"
 >Buildings.Fluid.Movers.BaseClasses</A>.ControlledFlowMachine</H2>
-<B>Partial model for fan or pump with ideally controlled mass flow rate or head as input signal</B><p>
+<B>Partial model for fan or pump with ideally controlled mass flow rate or head as input signal</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Ba33a31b119732db57chineD.png" ALT="Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model describes a fan or pump that takes as an input
 the head or the mass flow rate.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine"
 >Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</A> (Partial model to interface fan or pump models with the medium), <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PowerInterface"
 >Buildings.Fluid.Movers.BaseClasses.PowerInterface</A> (Partial model to compute power draw and heat dissipation of fans and pumps).
@@ -140,8 +140,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -155,13 +154,12 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>P</TD><TD>Electrical power consumed [W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ControlledFlowMachine <font color="darkgreen">
   &quot;Partial model for fan or pump with ideally controlled mass flow rate or head as input signal&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine"
 >Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</A>(
-   <font color="blue">final </font>show_V_flow = false,
    preSou(<font color="blue">final </font>control_m_flow=control_m_flow));
 
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PowerInterface"
@@ -186,8 +184,10 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 >Medium.AbsolutePressure</A> p_a_default(displayUnit=&quot;Pa&quot;) = Medium.p_default <font color="darkgreen">
     &quot;Nominal inlet pressure for predefined fan or pump characteristics&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
->Medium.ThermodynamicState</A> sta_default =<font color="red"> Medium.setState_pTX</font>(T=T_start,
-     p=p_a_default, X=X_start[1:Medium.nXi]);
+>Medium.ThermodynamicState</A> sta_default =<font color="red"> Medium.setState_pTX</font>(
+     T=Medium.T_default,
+     p=Medium.p_default,
+     X=Medium.X_default[1:Medium.nXi]) <font color="darkgreen">&quot;Default medium state&quot;</font>;
 
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</A> PToMedium_flow(y=Q_flow + WFlo) <font color="blue">if </font> addPowerToMedium <font color="darkgreen">
@@ -214,15 +214,15 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <H2><IMG SRC="Buildings.Fluid.Movers.Baeff1f2f43bc33335chineI.png" ALT="Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine"></A><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses"
 >Buildings.Fluid.Movers.BaseClasses</A>.PrescribedFlowMachine</H2>
-<B>Partial model for fan or pump with speed (y or Nrpm) as input signal</B><p>
+<B>Partial model for fan or pump with speed (y or Nrpm) as input signal</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Baeff1f2f43bc33335chineD.png" ALT="Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>This is the base model for fans and pumps that take as 
 input a control signal in the form of the pump speed <code>Nrpm</code>
 or the normalized pump speed <code>y=Nrpm/N_nominal</code>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface"
 >Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</A> (Partial model with performance curves for fans or pumps), <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine"
 >Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</A> (Partial model to interface fan or pump models with the medium).
@@ -230,7 +230,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Density</A></TD><TD>rho_default</TD><TD>Medium.density_pTX(Medium.p_...</TD><TD>Fluid density at medium default state [kg/m3]</TD></TR>
+>Density</A></TD><TD>rho_default</TD><TD>Medium.density_pTX(p=Medium....</TD><TD>Fluid density at medium default state [kg/m3]</TD></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
 <TR><TD>Boolean</TD><TD>addPowerToMedium</TD><TD>true</TD><TD>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</TD></TR>
@@ -261,8 +261,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered speed</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredSpeed</TD><TD>true</TD><TD>= true, if speed is filtered with a 2nd order CriticalDamping filter</TD></TR>
@@ -308,18 +307,20 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>heatPort</TD><TD>Heat dissipation to environment</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PrescribedFlowMachine <font color="darkgreen">
   &quot;Partial model for fan or pump with speed (y or Nrpm) as input signal&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface"
 >Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</A>(
     V_flow_max(start=V_flow_nominal),
-    <font color="blue">final </font>rho_default =<font color="red"> Medium.density_pTX</font>(Medium.p_default, Medium.T_default, Medium.X_default));
+    <font color="blue">final </font>rho_default =<font color="red"> Medium.density_pTX</font>(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default));
 
   <font color="blue">extends </font><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine"
 >Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</A>(
-      <font color="blue">final </font>show_V_flow = false,
       <font color="blue">final </font>m_flow_nominal =<font color="red"> max</font>(pressure.V_flow)*rho_default,
       preSou(<font color="blue">final </font>control_m_flow=false));
 
@@ -330,8 +331,8 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
     &quot;Pressure drop of the pump or fan&quot;</font>;</textblock>
 
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
->Modelica.Blocks.Sources.RealExpression</A> PToMedium_flow(y=Q_flow + WFlo) <font color="blue">if </font> addPowerToMedium <font color="darkgreen">
-    &quot;Heat and work input into medium&quot;</font>;</textblock>
+>Modelica.Blocks.Sources.RealExpression</A> PToMedium_flow(y=Q_flow + WFlo) <font color="blue">if </font>
+       addPowerToMedium <font color="darkgreen">&quot;Heat and work input into medium&quot;</font>;</textblock>
 <font color="blue">equation </font>
  VMachine_flow = -port_b.m_flow/rho;
  rho = rho_in;
@@ -347,9 +348,9 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <H2><IMG SRC="Buildings.Fluid.Movers.Ba18ff640e5a705f7dchineI.png" ALT="Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine"></A><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses"
 >Buildings.Fluid.Movers.BaseClasses</A>.PartialFlowMachine</H2>
-<B>Partial model to interface fan or pump models with the medium</B><p>
+<B>Partial model to interface fan or pump models with the medium</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Ba18ff640e5a705f7dchineD.png" ALT="Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>This is the base model for fans and pumps.
 It provides an interface
@@ -372,7 +373,7 @@ The setting <code>addPowerToMedium=false</code> is physically incorrect
 the enthalpy of the medium), but this setting does in some cases lead to simpler equations
 and more robust simulation, in particular if the mass flow is equal to zero.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy).
@@ -418,8 +419,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -427,7 +427,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>heatPort</TD><TD>Heat dissipation to environment</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialFlowMachine <font color="darkgreen">
   &quot;Partial model to interface fan or pump models with the medium&quot;</font>
@@ -491,7 +491,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</A> sta_start=<font color="red">Medium.setState_pTX</font>(
-      T=T_start, p=p_start, X=X_start);
+      T=T_start, p=p_start, X=X_start) <font color="darkgreen">&quot;Medium state at start values&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</A> h_outflow_start =<font color="red"> Medium.specificEnthalpy</font>(sta_start) <font color="darkgreen">
     &quot;Start value for outflowing enthalpy&quot;</font>;
@@ -515,9 +515,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.Movers.Ba6547dcb65f83f622ourceI.png" ALT="Buildings.Fluid.Movers.BaseClasses.IdealSource" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.BaseClasses.IdealSource"></A><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses"
 >Buildings.Fluid.Movers.BaseClasses</A>.IdealSource</H2>
-<B>Base class for pressure and mass flow source with optional power input</B><p>
+<B>Base class for pressure and mass flow source with optional power input</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Ba6547dcb65f83f622ourceD.png" ALT="Buildings.Fluid.Movers.BaseClasses.IdealSource">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model of a fictious pipe that is used as a base class
@@ -529,7 +529,7 @@ both the heat and the flow work are added to the volume of
 air or water. This simplifies the equations compared to 
 adding heat to the volume, and flow work to this model.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPortTransport"
 >Modelica.Fluid.Interfaces.PartialTwoPortTransport</A> (Partial element transporting fluid between two ports without storage of mass or energy).
 <P><H3>Parameters</H3><P>
@@ -549,7 +549,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>system.m_flow_small</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
 <TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if temperatures at port_a and port_b are computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
+<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>true</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -563,13 +563,12 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>dp_in</TD><TD>Prescribed outlet pressure</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> IdealSource <font color="darkgreen">
   &quot;Base class for pressure and mass flow source with optional power input&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPortTransport"
->Modelica.Fluid.Interfaces.PartialTwoPortTransport</A>(show_V_flow=false,
-                                                            show_T=false);
+>Modelica.Fluid.Interfaces.PartialTwoPortTransport</A>(show_T=false);
 
   <font color="darkgreen">// what to control</font>
   <font color="blue">parameter </font>Boolean control_m_flow <font color="darkgreen">&quot;= false to control dp instead of m_flow&quot;</font>;
@@ -614,9 +613,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
 <H2><IMG SRC="Buildings.Fluid.Movers.Ba6bdb383a2ef2fdferfaceI.png" ALT="Buildings.Fluid.Movers.BaseClasses.PowerInterface" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.BaseClasses.PowerInterface"></A><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses"
 >Buildings.Fluid.Movers.BaseClasses</A>.PowerInterface</H2>
-<B>Partial model to compute power draw and heat dissipation of fans and pumps</B><p>
+<B>Partial model to compute power draw and heat dissipation of fans and pumps</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Ba6bdb383a2ef2fdferfaceD.png" ALT="Buildings.Fluid.Movers.BaseClasses.PowerInterface">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>This is an interface that implements the functions to compute the power draw and the
 heat dissipation of fans and pumps. It is used by the model 
@@ -631,7 +630,7 @@ Models that extend this model need to provide an implementation of
 This equation is not implemented in this model to allow other models
 to properly guard against division by zero.
 </p>
-<P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -654,7 +653,7 @@ to properly guard against division by zero.
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>P</TD><TD>Electrical power consumed [W]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PowerInterface <font color="darkgreen">
   &quot;Partial model to compute power draw and heat dissipation of fans and pumps&quot;</font>
@@ -709,9 +708,9 @@ to properly guard against division by zero.
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
 >Modelica.SIunits.VolumeFlowRate</A> delta_V_flow = 1E-3*V_flow_max <font color="darkgreen">
     &quot;Factor used for setting heat input into medium to zero at very small flows&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font>Real motDer[<font color="red">size</font>(motorEfficiency.r_V, 1)](fixed=false) <font color="darkgreen">
+  <font color="blue">final </font><font color="blue">parameter </font>Real motDer[<font color="red">size</font>(motorEfficiency.r_V, 1)](<font color="blue">each </font>fixed=false) <font color="darkgreen">
     &quot;Coefficients for polynomial of pressure vs. flow rate&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font>Real hydDer[<font color="red">size</font>(hydraulicEfficiency.r_V,1)](fixed=false) <font color="darkgreen">
+  <font color="blue">final </font><font color="blue">parameter </font>Real hydDer[<font color="red">size</font>(hydraulicEfficiency.r_V,1)](<font color="blue">each </font>fixed=false) <font color="darkgreen">
     &quot;Coefficients for polynomial of pressure vs. flow rate&quot;</font>;
 
   <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
@@ -768,9 +767,9 @@ to properly guard against division by zero.
 <H2><IMG SRC="Buildings.Fluid.Movers.Ba07507f66cffd8d06rfaceI.png" ALT="Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface"></A><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses"
 >Buildings.Fluid.Movers.BaseClasses</A>.FlowMachineInterface</H2>
-<B>Partial model with performance curves for fans or pumps</B><p>
+<B>Partial model with performance curves for fans or pumps</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Ba07507f66cffd8d06rfaceD.png" ALT="Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This is an interface that implements the functions to compute the head, power draw 
@@ -783,7 +782,7 @@ A cubic hermite spline with linear extrapolation is used to compute the performa
 operating points.
 </p>
 <p>The fan or pump energy balance can be specified in two alternative ways: </p>
-<p>
+
 <ul>
 <li>
 If <code>use_powerCharacteristic = false</code>, then the data points for
@@ -797,7 +796,7 @@ is used to determine the power consumption, and then the efficiency
 is computed based on the actual power consumption and the flow work. 
 </li>
 </ul>
-</p>
+
 <h4>Implementation</h4>
 <p>
 For numerical reasons, the user-provided data points for volume flow rate 
@@ -817,7 +816,7 @@ point is added and where two additional points are added.
 The parameter <code>curve</code> causes the correct data record
 to be used during the simulation.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PowerInterface"
 >Buildings.Fluid.Movers.BaseClasses.PowerInterface</A> (Partial model to compute power draw and heat dissipation of fans and pumps).
 <P><H3>Parameters</H3><P>
@@ -857,7 +856,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>N_actual</TD><TD>[1/min]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> FlowMachineInterface <font color="darkgreen">
   &quot;Partial model with performance curves for fans or pumps&quot;</font>
@@ -875,7 +874,8 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 >Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm</A>
     N_nominal = 1500 <font color="darkgreen">&quot;Nominal rotational speed for flow characteristic&quot;</font>;
   <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
->Modelica.SIunits.VolumeFlowRate</A> V_flow_nominal = pressure.V_flow[<font color="red">size</font>(pressure.V_flow,1)] <font color="darkgreen">
+>Modelica.SIunits.VolumeFlowRate</A> V_flow_nominal=
+    pressure.V_flow[<font color="red">size</font>(pressure.V_flow,1)] <font color="darkgreen">
     &quot;Nominal volume flow rate, used for homotopy&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <font color="blue">parameter </font><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
 >Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters</A> pressure <font color="darkgreen">
@@ -934,7 +934,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
     &quot;Small pressure&quot;</font>;
   <font color="blue">parameter </font>Real delta = 0.05 <font color="darkgreen">
     &quot;Small value used to transition to other fan curve&quot;</font>;
-  <font color="blue">parameter </font>Real cBar[2](fixed=false) <font color="darkgreen">
+  <font color="blue">parameter </font>Real cBar[2](<font color="blue">each </font>fixed=false) <font color="darkgreen">
     &quot;Coefficients for linear approximation of pressure vs. flow rate&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dpMax(min=0, fixed=false);
@@ -947,27 +947,27 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
     &quot;Number of data points for pressure curve&quot;</font>;
   <font color="blue">parameter </font><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal"
 >Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal</A>
-                                                                                      pCur1(
+                                                                              pCur1(
     <font color="blue">final </font>n = nOri,
     V_flow(<font color="blue">each </font>fixed=false), dp(<font color="blue">each </font>fixed=false)) <font color="darkgreen">
     &quot;Volume flow rate vs. total pressure rise with correction for pump resistance added&quot;</font>;
   <font color="blue">parameter </font><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal"
 >Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal</A>
-                                                                                      pCur2(
+                                                                              pCur2(
    <font color="blue">final </font>n = nOri + 1,
     V_flow(<font color="blue">each </font>fixed=false), dp(<font color="blue">each </font>fixed=false)) <font color="darkgreen">
     &quot;Volume flow rate vs. total pressure rise with correction for pump resistance added&quot;</font>;
   <font color="blue">parameter </font><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal"
 >Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal</A>
-                                                                                      pCur3(
+                                                                              pCur3(
    <font color="blue">final </font>n = nOri + 2,
     V_flow(<font color="blue">each </font>fixed=false), dp(<font color="blue">each </font>fixed=false)) <font color="darkgreen">
     &quot;Volume flow rate vs. total pressure rise with correction for pump resistance added&quot;</font>;
-  <font color="blue">parameter </font>Real preDer1[nOri](fixed=false) <font color="darkgreen">
+  <font color="blue">parameter </font>Real preDer1[nOri](<font color="blue">each </font>fixed=false) <font color="darkgreen">
     &quot;Derivatives of flow rate vs. pressure at the support points&quot;</font>;
-  <font color="blue">parameter </font>Real preDer2[nOri+1](fixed=false) <font color="darkgreen">
+  <font color="blue">parameter </font>Real preDer2[nOri+1](<font color="blue">each </font>fixed=false) <font color="darkgreen">
     &quot;Derivatives of flow rate vs. pressure at the support points&quot;</font>;
-  <font color="blue">parameter </font>Real preDer3[nOri+2](fixed=false) <font color="darkgreen">
+  <font color="blue">parameter </font>Real preDer3[nOri+2](<font color="blue">each </font>fixed=false) <font color="darkgreen">
     &quot;Derivatives of flow rate vs. pressure at the support points&quot;</font>;
   <font color="blue">parameter </font>Real powDer[<font color="red">size</font>(power.V_flow,1)]=
    <font color="blue">if </font>use_powerCharacteristic<font color="blue"> then </font>
@@ -1093,20 +1093,67 @@ the simulation stops.&quot;);
 
   <font color="darkgreen">// Correction for flow resistance of pump or fan</font>
   <font color="darkgreen">// Case 1:</font>
-  <font color="blue">if </font>(haveVMax<font color="blue"> and </font>haveDPMax)<font color="blue"> or </font>(nOri == 2)<font color="blue"> then</font>
+  <font color="blue">if </font>(haveVMax<font color="blue"> and </font>haveDPMax)<font color="blue"> or </font>(nOri == 2)<font color="blue"> then</font><font color="darkgreen">  // ----- Curve 1</font>
     curve :=1;<font color="darkgreen"> // V_flow_max and dpMax are provided by the user, or we only have two data points</font>
     <font color="blue">for </font>i<font color="blue"> in </font>1:nOri<font color="blue"> loop</font>
       pCur1.dp[i]  :=pressure.dp[i] + pressure.V_flow[i] * kRes;
       pCur1.V_flow[i] := pressure.V_flow[i];
     <font color="blue">end for</font>;
-      pCur2.V_flow :=<font color="red"> zeros</font>(nOri + 1);
-      pCur2.dp     :=<font color="red"> zeros</font>(nOri + 1);
-      pCur3.V_flow :=<font color="red"> zeros</font>(nOri + 2);
-      pCur3.dp     :=<font color="red"> zeros</font>(nOri + 2);
-      preDer1:=<font color="red">Buildings.Utilities.Math.Functions.splineDerivatives</font>(x=pCur1.V_flow, y=pCur1.dp);
-      preDer2:=<font color="red">zeros</font>(nOri+1);
-      preDer3:=<font color="red">zeros</font>(nOri+2);
-  <font color="blue">elseif </font>haveVMax<font color="blue"> or </font>haveDPMax<font color="blue"> then</font>
+    pCur2.V_flow :=<font color="red"> zeros</font>(nOri + 1);
+    pCur2.dp     :=<font color="red"> zeros</font>(nOri + 1);
+    pCur3.V_flow :=<font color="red"> zeros</font>(nOri + 2);
+    pCur3.dp     :=<font color="red"> zeros</font>(nOri + 2);
+    preDer1:=<font color="red">Buildings.Utilities.Math.Functions.splineDerivatives</font>(x=pCur1.V_flow, y=pCur1.dp);
+    preDer2:=<font color="red">zeros</font>(nOri+1);
+    preDer3:=<font color="red">zeros</font>(nOri+2);
+
+    <font color="darkgreen">// Equation to compute dpDelta</font>
+    dpDelta :=<font color="red">cha.pressure</font>(
+      data=pCur1,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer1,
+      cBar=<font color="red">zeros</font>(2),
+      kRes=  kRes);
+
+    <font color="darkgreen">// Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.</font>
+    VDelta_flow :=V_flow_max*delta;
+
+    <font color="darkgreen">// Linear equations to determine cBar</font>
+    <font color="darkgreen">// Conditions for r_N=delta, V_flow = VDelta_flow</font>
+    <font color="darkgreen">// Conditions for r_N=delta, V_flow = 0</font>
+    cBar[1] :=<font color="red">cha.pressure</font>(
+      data=pCur1,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer1,
+      cBar=<font color="red">zeros</font>(2),
+      kRes=  kRes) * (1-delta)/delta^2;
+
+    cBar[2] :=((<font color="red">cha.pressure</font>(
+      data=pCur1,
+      V_flow=VDelta_flow,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer1,
+      cBar=<font color="red">zeros</font>(2),
+      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+
+  <font color="blue">elseif </font>haveVMax<font color="blue"> or </font>haveDPMax<font color="blue"> then</font><font color="darkgreen">  // ----- Curve 2</font>
     curve :=2;<font color="darkgreen"> // V_flow_max or dpMax is provided by the user, but not both</font>
     <font color="blue">if </font>haveVMax<font color="blue"> then</font>
       pCur2.V_flow[1] := 0;
@@ -1130,7 +1177,54 @@ the simulation stops.&quot;);
     preDer1:=<font color="red">zeros</font>(nOri);
     preDer2:=<font color="red">Buildings.Utilities.Math.Functions.splineDerivatives</font>(x=pCur2.V_flow, y=pCur2.dp);
     preDer3:=<font color="red">zeros</font>(nOri+2);
-  <font color="blue">else</font>
+
+    <font color="darkgreen">// Equation to compute dpDelta</font>
+    dpDelta :=<font color="red">cha.pressure</font>(
+      data=pCur2,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer2,
+      cBar=<font color="red">zeros</font>(2),
+      kRes=  kRes);
+
+    <font color="darkgreen">// Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.</font>
+    VDelta_flow :=V_flow_max*delta;
+
+    <font color="darkgreen">// Linear equations to determine cBar</font>
+    <font color="darkgreen">// Conditions for r_N=delta, V_flow = VDelta_flow</font>
+    <font color="darkgreen">// Conditions for r_N=delta, V_flow = 0</font>
+    cBar[1] :=<font color="red">cha.pressure</font>(
+      data=pCur2,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer2,
+      cBar=<font color="red">zeros</font>(2),
+      kRes=  kRes) * (1-delta)/delta^2;
+
+    cBar[2] :=((<font color="red">cha.pressure</font>(
+      data=pCur2,
+      V_flow=VDelta_flow,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer2,
+      cBar=<font color="red">zeros</font>(2),
+      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+
+  <font color="blue">else</font><font color="darkgreen">  // ----- Curve 3</font>
     curve :=3;<font color="darkgreen"> // Neither V_flow_max nor dpMax are provided by the user</font>
     pCur3.V_flow[1] := 0;
     pCur3.dp[1]     := dpMax;
@@ -1147,53 +1241,55 @@ the simulation stops.&quot;);
     preDer1:=<font color="red">zeros</font>(nOri);
     preDer2:=<font color="red">zeros</font>(nOri+1);
     preDer3:=<font color="red">Buildings.Utilities.Math.Functions.splineDerivatives</font>(x=pCur3.V_flow, y=pCur3.dp);
+
+    <font color="darkgreen">// Equation to compute dpDelta</font>
+    dpDelta :=<font color="red">cha.pressure</font>(
+      data=pCur3,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer3,
+      cBar=<font color="red">zeros</font>(2),
+      kRes=  kRes);
+
+    <font color="darkgreen">// Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.</font>
+    VDelta_flow :=V_flow_max*delta;
+
+    <font color="darkgreen">// Linear equations to determine cBar</font>
+    <font color="darkgreen">// Conditions for r_N=delta, V_flow = VDelta_flow</font>
+    <font color="darkgreen">// Conditions for r_N=delta, V_flow = 0</font>
+    cBar[1] :=<font color="red">cha.pressure</font>(
+      data=pCur3,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer3,
+      cBar=<font color="red">zeros</font>(2),
+      kRes=  kRes) * (1-delta)/delta^2;
+
+    cBar[2] :=((<font color="red">cha.pressure</font>(
+      data=pCur3,
+      V_flow=VDelta_flow,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer3,
+      cBar=<font color="red">zeros</font>(2),
+      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+
   <font color="blue">end if</font>;
 
-  <font color="darkgreen">// Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.</font>
-  VDelta_flow :=V_flow_max*delta;
-
-  <font color="darkgreen">// Equation to compute dpDelta</font>
-  dpDelta :=<font color="red">cha.pressure</font>(
-    data=<font color="blue">if </font>(curve == 1)<font color="blue"> then </font>pCur1<font color="blue"> elseif </font>(curve == 2)<font color="blue"> then </font>pCur2<font color="blue"> else </font>pCur3,
-    V_flow=0,
-    r_N=delta,
-    VDelta_flow=0,
-    dpDelta=0,
-    V_flow_max=Modelica.Constants.eps,
-    dpMax=0,
-    delta=0,
-    d=<font color="blue">if </font>(curve == 1)<font color="blue"> then </font>preDer1<font color="blue"> elseif </font>(curve == 2)<font color="blue"> then </font>preDer2<font color="blue"> else </font>preDer3,
-    cBar=<font color="red">zeros</font>(2),
-    kRes=  kRes);
-
-  <font color="darkgreen">// Linear equations to determine cBar</font>
-  <font color="darkgreen">// Conditions for r_N=delta, V_flow = VDelta_flow</font>
-  <font color="darkgreen">// Conditions for r_N=delta, V_flow = 0</font>
-  cBar[1] :=<font color="red">cha.pressure</font>(
-    data=<font color="blue">if </font>(curve == 1)<font color="blue"> then </font>pCur1<font color="blue"> elseif </font>(curve == 2)<font color="blue"> then </font>pCur2<font color="blue"> else </font>pCur3,
-    V_flow=0,
-    r_N=delta,
-    VDelta_flow=0,
-    dpDelta=0,
-    V_flow_max=Modelica.Constants.eps,
-    dpMax=0,
-    delta=0,
-    d=<font color="blue">if </font>(curve == 1)<font color="blue"> then </font>preDer1<font color="blue"> elseif </font>(curve == 2)<font color="blue"> then </font>preDer2<font color="blue"> else </font>preDer3,
-    cBar=<font color="red">zeros</font>(2),
-    kRes=  kRes) * (1-delta)/delta^2;
-
-  cBar[2] :=((<font color="red">cha.pressure</font>(
-    data=<font color="blue">if </font>(curve == 1)<font color="blue"> then </font>pCur1<font color="blue"> elseif </font>(curve == 2)<font color="blue"> then </font>pCur2<font color="blue"> else </font>pCur3,
-    V_flow=VDelta_flow,
-    r_N=delta,
-    VDelta_flow=0,
-    dpDelta=0,
-    V_flow_max=Modelica.Constants.eps,
-    dpMax=0,
-    delta=0,
-    d=<font color="blue">if </font>(curve == 1)<font color="blue"> then </font>preDer1<font color="blue"> elseif </font>(curve == 2)<font color="blue"> then </font>preDer2<font color="blue"> else </font>preDer3,
-    cBar=<font color="red">zeros</font>(2),
-    kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
 <font color="blue">equation </font>
 
   <font color="darkgreen">// Hydraulic equations</font>
@@ -1342,6 +1438,6 @@ the simulation stops.&quot;);
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>FlowMachineInterface;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:31 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:47 2013.
 </address></BODY>
 </HTML>

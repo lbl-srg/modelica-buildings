@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE UsersGuide<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils"
 >Buildings.Fluid.HeatExchangers.DXCoils</A>.UsersGuide</H2>
 <B>User&#39;s Guide</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains models for direct evaporation cooling coils 
@@ -43,8 +43,7 @@ This package contains models for direct evaporation cooling coils
 <p>
 The following three DX coil models are available:
 </p>
-<p>
-  <table border="1" cellspacing=0 cellpadding=2 style="border-collapse:collapse;">
+  <table summary="summary" border="1" cellspacing=0 cellpadding=2 style="border-collapse:collapse;">
   <tr>
       <th>DX coil model</th>
       <th>Properties</th>
@@ -78,7 +77,6 @@ The following three DX coil models are available:
       <td>Real number; <i>0</i> for coil off, <i>1</i> for coil at full speed.</td>
     </tr>
   </table>
-</p>
 <h4>Control of the coils</h4>
 <p>
 The DX coil models take as a control input 
@@ -172,8 +170,9 @@ Once the appartus dew point is known, the sensible to latent heat ratio can be
 determined as shown in the figure below.
 </p>
 <p align="center">
-<img src="../Resources/Images/Fluid/HeatExchangers/DXCoils/BaseClasses/ApparatusDewPoint.png" border="1">
-</p> 
+<img alt="image" src="../Resources/Images/Fluid/HeatExchangers/DXCoils/BaseClasses/ApparatusDewPoint.png" border="1" />
+</p>
+<p>
 The method used is the bypass factor method, which assumes that of the leaving air, a fraction is at the
 same condition as the entering air, and the other fraction is at the apparatus dew point.
 This computation requires the ratio <i>UA &frasl; c<sub>p</sub></i>, which 
@@ -192,7 +191,6 @@ can be neglected.
 <p>
 This model has the following limitations:
 </p>
-<p>
 <ul>
 <li>
 It does not account for fan in the evaporator or in the condenser air stream.
@@ -208,11 +206,10 @@ The air must flow from port a to port b.
 If there is reverse flow, then no cooling is provided and no power is consumed.
 </li>
 </ul>
-</p>
-<P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Info"
->Modelica.Icons.Info</A> (Icon for general information packages).
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</A> (Icon for general information packages).
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:43 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:51 2013.
 </address></BODY>
 </HTML>

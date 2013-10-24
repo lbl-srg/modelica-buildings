@@ -26,25 +26,25 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Chillers.Examples.BaseClasses"></A><A HREF="Buildings_Fluid_Chillers_Examples.html#Buildings.Fluid.Chillers.Examples"
 >Buildings.Fluid.Chillers.Examples</A>.BaseClasses</H2>
 <B>Package with base classes for Buildings.Fluid.Chillers.Examples</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_Chillers_Examples.html#Buildings.Fluid.Chillers.Examples"
 >Buildings.Fluid.Chillers.Examples</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><A HREF="Buildings_Fluid_Chillers_Examples_BaseClasses.html#Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric"
@@ -57,7 +57,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric"></A><A HREF="Buildings_Fluid_Chillers_Examples_BaseClasses.html#Buildings.Fluid.Chillers.Examples.BaseClasses"
 >Buildings.Fluid.Chillers.Examples.BaseClasses</A>.PartialElectric</H2>
-<B>Base class for test model of chiller electric EIR</B><p>
+<B>Base class for test model of chiller electric EIR</B><p></P>
 <IMG SRC="Buildings.Fluid.Chillers.d7b420a1ec6f89a1edEIRD.png" ALT="Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric">
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -78,12 +78,10 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <TR><TD><A HREF="Buildings_Fluid_Chillers_Data_BaseClasses.html#Buildings.Fluid.Chillers.Data.BaseClasses.Chiller"
 >Chiller</A></TD><TD>per</TD><TD>redeclare parameter Building...</TD><TD>Base class for performance data</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialElectric <font color="darkgreen">
   &quot;Base class for test model of chiller electric EIR&quot;</font>
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
  <font color="blue">package</font> Medium1 = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
  <font color="blue">package</font> Medium2 = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
@@ -107,10 +105,11 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
      per.mCon_flow_nominal <font color="darkgreen">&quot;Nominal mass flow rate at condenser&quot;</font>;
 
 <textblock type="annotcomp" expanded="false">  <font color="blue">replaceable </font><A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses.PartialElectric"
->Buildings.Fluid.Chillers.BaseClasses.PartialElectric</A>
-    chi <font color="blue">constrainedby </font>Buildings.Fluid.Chillers.BaseClasses.PartialElectric(
+>Buildings.Fluid.Chillers.BaseClasses.PartialElectric</A> chi
+        <font color="blue">constrainedby </font>Buildings.Fluid.Chillers.BaseClasses.PartialElectric(
        <font color="blue">redeclare </font><font color="blue">package</font> Medium1 = Medium1,
        <font color="blue">redeclare </font><font color="blue">package</font> Medium2 = Medium2,
+       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
        dp1_nominal=6000,
        dp2_nominal=6000) <font color="darkgreen">&quot;Chiller model&quot;</font>;
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
@@ -126,11 +125,13 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
     m_flow=mEva_flow_nominal,
     T=291.15);
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
->Buildings.Fluid.Sources.FixedBoundary</A> sin1(          <font color="blue">redeclare </font><font color="blue">package</font> Medium
-      = Medium1, nPorts=1);
+>Buildings.Fluid.Sources.FixedBoundary</A> sin1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium1,
+    nPorts=1);
   <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
->Buildings.Fluid.Sources.FixedBoundary</A> sin2(          <font color="blue">redeclare </font><font color="blue">package</font> Medium
-      = Medium2, nPorts=1);
+>Buildings.Fluid.Sources.FixedBoundary</A> sin2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium2,
+    nPorts=1);
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</A> TSet(
     duration=3600,
@@ -185,6 +186,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>PartialElectric;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:12 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:16 2013.
 </address></BODY>
 </HTML>

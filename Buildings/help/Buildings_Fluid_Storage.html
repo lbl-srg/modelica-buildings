@@ -26,21 +26,21 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Storage<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Storage"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
 >Buildings.Fluid</A>.Storage</H2>
 <B>Package with thermal energy storage models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains thermal energy storage models.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Storage.ExpansionVesselS.png" ALT="Buildings.Fluid.Storage.ExpansionVessel" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel"
@@ -52,6 +52,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <TR><TD><IMG SRC="Buildings.Fluid.Storage.S0445f3df34178cb6ancedS.png" ALT="Buildings.Fluid.Storage.StratifiedEnhanced" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.StratifiedEnhanced"
 >StratifiedEnhanced</A>
 </TD><TD>Stratified tank model with enhanced discretization</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Storage.Sfc3500fb0014ae2aalHexS.png" ALT="Buildings.Fluid.Storage.StratifiedEnhancedInternalHex" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.StratifiedEnhancedInternalHex"
+>StratifiedEnhancedInternalHex</A>
+</TD><TD>A model of a water storage tank with a secondary loop and intenral heat exchanger</TD></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Storage.ExamplesS.png" ALT="Buildings.Fluid.Storage.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Storage_Examples.html#Buildings.Fluid.Storage.Examples"
 >Examples</A>
 </TD><TD>Collection of models that illustrate model use and test models</TD></TR>
@@ -66,17 +69,20 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.Storage.ExpansionVesselI.png" ALT="Buildings.Fluid.Storage.ExpansionVessel" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Storage.ExpansionVessel"></A><A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage"
 >Buildings.Fluid.Storage</A>.ExpansionVessel</H2>
-<B>Pressure expansion vessel with fixed gas cushion</B><p>
+<B>Pressure expansion vessel with fixed gas cushion</B><p></P>
 <IMG SRC="Buildings.Fluid.Storage.ExpansionVesselD.png" ALT="Buildings.Fluid.Storage.ExpansionVessel">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This is a model of a pressure expansion vessel. The vessel has a fixed total volume. 
 A fraction of the volume is occupied by a fixed mass of gas, and the other fraction is occupied 
 by the liquid that flows through the port.
-The pressure <code>p</code> in the vessel is<pre>
+The pressure <code>p</code> in the vessel is
+</p>
+<pre>
  VGas0 * p_start = (VTot-VLiquid) * p
 </pre>
+<p>
 where <code>VGas0</code> is the initial volume occupied by the gas, 
 <code>p_start</code> is the initial pressure,
 <code>VTot</code> is the total volume of the vessel and
@@ -110,7 +116,7 @@ Therefore, <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBo
 Buildings.Fluid.Sources.FixedBoundary</a> leads to smaller systems
 of equations, which may result in faster simulation.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes).
 <P><H3>Parameters</H3><P>
@@ -148,7 +154,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid port</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ExpansionVessel <font color="darkgreen">
   &quot;Pressure expansion vessel with fixed gas cushion&quot;</font>
@@ -162,8 +168,8 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 
 <font color="darkgreen">//////////////////////////////////////////////////////////////</font>
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->Modelica.Fluid.Interfaces.FluidPort_a</A> port_a(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
-        Medium) <font color="darkgreen">&quot;Fluid port&quot;</font>;</textblock>
+>Modelica.Fluid.Interfaces.FluidPort_a</A> port_a(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Fluid port&quot;</font>;</textblock>
 
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> pMax = 5E5 <font color="darkgreen">
@@ -194,8 +200,8 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     &quot;Block to set heat input into volume&quot;</font>;</textblock>
 
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A>       masExc[Medium.nXi](<font color="blue">final </font>k=<font color="red">zeros</font>(Medium.nXi)) <font color="blue">if </font>
-        Medium.nXi &gt; 0 <font color="darkgreen">&quot;Block to set mass exchange in volume&quot;</font>;</textblock>
+>Modelica.Blocks.Sources.Constant</A> masExc(<font color="blue">final </font>k=0) <font color="darkgreen">
+    &quot;Block to set mass exchange in volume&quot;</font>;</textblock>
 <font color="blue">equation </font>
   <font color="red">assert</font>(port_a.p &lt; pMax, &quot;Pressure exceeds maximum pressure.\n&quot; +
        &quot;You may need to increase VTot of the ExpansionVessel.&quot;);
@@ -204,8 +210,8 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
   port_a.p * (VTot-VLiq) = p_start * VGas0;
 
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(heaInp.y, vol.Q_flow);
-  <font color="red">connect</font>(masExc.y, vol.mXi_flow);
-  <font color="red">connect</font>(port_a, vol.ports[1]);</textblock>
+  <font color="red">connect</font>(port_a, vol.ports[1]);
+  <font color="red">connect</font>(masExc.y, vol.mWat_flow);</textblock>
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>ExpansionVessel;
 </PRE>
 <HR>
@@ -215,9 +221,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.Storage.StratifiedI.png" ALT="Buildings.Fluid.Storage.Stratified" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Storage.Stratified"></A><A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage"
 >Buildings.Fluid.Storage</A>.Stratified</H2>
-<B>Model of a stratified tank for thermal energy storage</B><p>
+<B>Model of a stratified tank for thermal energy storage</B><p></P>
 <IMG SRC="Buildings.Fluid.Storage.StratifiedD.png" ALT="Buildings.Fluid.Storage.Stratified">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This is a model of a stratified storage tank.
@@ -250,7 +256,7 @@ For a model with enhanced stratification, use
 >
 Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy).
 <P><H3>Parameters</H3><P>
@@ -284,8 +290,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
@@ -321,7 +326,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Ql_flow</TD><TD>Heat loss of tank (positive if heat flows from tank to ambient)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Stratified <font color="darkgreen">
   &quot;Model of a stratified tank for thermal energy storage&quot;</font>
@@ -519,9 +524,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Fluid.Storage.S0445f3df34178cb6ancedI.png" ALT="Buildings.Fluid.Storage.StratifiedEnhanced" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Storage.StratifiedEnhanced"></A><A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage"
 >Buildings.Fluid.Storage</A>.StratifiedEnhanced</H2>
-<B>Stratified tank model with enhanced discretization</B><p>
+<B>Stratified tank model with enhanced discretization</B><p></P>
 <IMG SRC="Buildings.Fluid.Storage.S0445f3df34178cb6ancedD.png" ALT="Buildings.Fluid.Storage.StratifiedEnhanced">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This is a model of a stratified storage tank for thermal energy storage.
@@ -542,7 +547,7 @@ Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 <p>
 The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 or higher.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.Stratified"
 >Stratified</A> (Model of a stratified tank for thermal energy storage).
 <P><H3>Parameters</H3><P>
@@ -576,8 +581,7 @@ Extends from <A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.Strat
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
@@ -612,7 +616,7 @@ Extends from <A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.Strat
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Ql_flow</TD><TD>Heat loss of tank (positive if heat flows from tank to ambient)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> StratifiedEnhanced <font color="darkgreen">
   &quot;Stratified tank model with enhanced discretization&quot;</font>
@@ -638,6 +642,280 @@ Extends from <A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.Strat
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>StratifiedEnhanced;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:38 2013.
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE StratifiedEnhancedInternalHex<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Storage.Sfc3500fb0014ae2aalHexI.png" ALT="Buildings.Fluid.Storage.StratifiedEnhancedInternalHex" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Storage.StratifiedEnhancedInternalHex"></A><A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage"
+>Buildings.Fluid.Storage</A>.StratifiedEnhancedInternalHex</H2>
+<B>A model of a water storage tank with a secondary loop and intenral heat exchanger</B><p></P>
+<IMG SRC="Buildings.Fluid.Storage.Sfc3500fb0014ae2aalHexD.png" ALT="Buildings.Fluid.Storage.StratifiedEnhancedInternalHex">
+<P></P><H3>Information</H3>
+
+            This model is an extension of 
+            <A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.StratifiedEnhanced"
+>Buildings.Fluid.Storage.StratifiedEnhanced</a>.<br/>
+            <p>
+            The modifications consist of adding a heat exchanger 
+            (<A HREF="Buildings_Fluid_Storage_BaseClasses.html#Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger"
+>
+            Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a>) and fluid ports to connect to the heat exchanger.
+            The modifications allow to run a fluid through the tank causing heat transfer to the stored fluid. 
+            A typical example is a storage tank in a solar hot water system.
+            </p>
+            <p>
+            The heat exchanger model assumes flow through the inside of a helical coil heat exchanger, 
+            and stagnant fluid on the outside. Parameters are used to describe the 
+            heat transfer on the inside of the heat exchanger at nominal conditions, and 
+            geometry of the outside of the heat exchanger. This information is used to compute 
+            an <i>hA</i>-value for each side of the coil. Convection calculations are then performed to identify heat transfer 
+            between the heat transfer fluid and the fluid in the tank.
+            </p>
+            <p>
+            Default values describing the heat exchanger are taken from the documentation for a Vitocell 100-B, 300 L tank.
+            </p>
+            <P></P>
+Extends from <A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.StratifiedEnhanced"
+>StratifiedEnhanced</A> (Stratified tank model with enhanced discretization).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium in the component</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</A></TD><TD>VTan</TD><TD>&nbsp;</TD><TD>Tank volume [m3]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>hTan</TD><TD>&nbsp;</TD><TD>Height of tank (without insulation) [m]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>dIns</TD><TD>&nbsp;</TD><TD>Thickness of insulation [m]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>kIns</TD><TD>0.04</TD><TD>Specific heat conductivity of insulation [W/(m.K)]</TD></TR>
+<TR><TD>Integer</TD><TD>nSeg</TD><TD>4</TD><TD>Number of volume segments</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>tau</TD><TD>1</TD><TD>Time constant for mixing due to temperature inversion [s]</TD></TR>
+<TR><TD>Integer</TD><TD>topHexSeg</TD><TD>integer(ceil(hexTopHeight/se...</TD><TD>Segment the top of the heat exchanger is located in</TD></TR>
+<TR><TD>Integer</TD><TD>botHexSeg</TD><TD>integer(hexBotHeight/segHeig...</TD><TD>Segment the bottom of the heat exchanger is located in</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Heat exchanger</TD></TR>
+<TR><TD colspan="2">replaceable package MediumHex</TD><TD>Modelica.Media.Interfaces.Pa...</TD><TD>Medium in the heat exchanger loop</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Height</A></TD><TD>hexTopHeight</TD><TD>&nbsp;</TD><TD>Height of the top of the heat exchanger [m]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Height</A></TD><TD>hexBotHeight</TD><TD>&nbsp;</TD><TD>Height of the bottom of the heat exchanger [m]</TD></TR>
+<TR><TD>Integer</TD><TD>hexSegMult</TD><TD>2</TD><TD>Number of heat exchanger segments in each tank segment</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatCapacity"
+>HeatCapacity</A></TD><TD>CHex</TD><TD>25.163</TD><TD>Capacitance of the heat exchanger [J/K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</A></TD><TD>Q_flow_nominal</TD><TD>&nbsp;</TD><TD>Heat transfer at nominal conditions [W]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TTan_nominal</TD><TD>&nbsp;</TD><TD>Temperature of fluid inside the tank at nominal heat transfer conditions [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>THex_nominal</TD><TD>&nbsp;</TD><TD>Temperature of fluid inside the heat exchanger at nominal heat transfer conditions [K]</TD></TR>
+<TR><TD>Real</TD><TD>r_nominal</TD><TD>0.5</TD><TD>Ratio between coil inside and outside convective heat transfer at nominal heat transfer conditions</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>mHex_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate through the heat exchanger [kg/s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Diameter"
+>Diameter</A></TD><TD>dExtHex</TD><TD>0.025</TD><TD>Exterior diameter of the heat exchanger pipe [m]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dpHex_nominal</TD><TD>2500</TD><TD>Pressure drop across the heat exchanger at nominal conditions [Pa]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
+<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>energyDynamics</TD><TD>system.energyDynamics</TD><TD>Formulation of energy balance</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+>Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics heat exchanger</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>energyDynamicsHex</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>massDynamicsHex</TD><TD>energyDynamicsHex</TD><TD>Formulation of mass balance</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance heat exchanger</B></TD></TR>
+<TR><TD>Boolean</TD><TD>computeFlowResistance</TD><TD>true</TD><TD>=true, compute flow resistance. Set to false to assume no friction</TD></TR>
+<TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
+<TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
+<TR><TD>Real</TD><TD>deltaM</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</A></TD><TD>heaPorVol[nSeg]</TD><TD>Heat port of fluid volumes</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</A></TD><TD>heaPorSid</TD><TD>Heat port tank side (outside insulation)</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</A></TD><TD>heaPorTop</TD><TD>Heat port tank top (outside insulation)</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</A></TD><TD>heaPorBot</TD><TD>Heat port tank bottom (outside insulation). Leave unconnected for adiabatic condition</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>Ql_flow</TD><TD>Heat loss of tank (positive if heat flows from tank to ambient)</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a1</TD><TD>Heat exchanger inlet</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b1</TD><TD>Heat exchanger outlet</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=3>Heat exchanger</TD></TR>
+<TR><TD colspan="2">replaceable package MediumHex</TD><TD>Medium in the heat exchanger loop</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> StratifiedEnhancedInternalHex <font color="darkgreen">
+  &quot;A model of a water storage tank with a secondary loop and intenral heat exchanger&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.StratifiedEnhanced"
+>StratifiedEnhanced</A>;
+
+  <font color="blue">replaceable </font><font color="blue">package</font> MediumHex =
+      <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">
+    &quot;Medium in the heat exchanger loop&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Modelica.SIunits.Height</A> hexTopHeight <font color="darkgreen">
+    &quot;Height of the top of the heat exchanger&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Modelica.SIunits.Height</A> hexBotHeight <font color="darkgreen">
+    &quot;Height of the bottom of the heat exchanger&quot;</font>;
+
+  <font color="blue">parameter </font>Integer hexSegMult = 2 <font color="darkgreen">
+    &quot;Number of heat exchanger segments in each tank segment&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatCapacity"
+>Modelica.SIunits.HeatCapacity</A> CHex = 25.163 <font color="darkgreen">
+    &quot;Capacitance of the heat exchanger&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> Q_flow_nominal <font color="darkgreen">
+    &quot;Heat transfer at nominal conditions&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TTan_nominal <font color="darkgreen">
+    &quot;Temperature of fluid inside the tank at nominal heat transfer conditions&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> THex_nominal <font color="darkgreen">
+    &quot;Temperature of fluid inside the heat exchanger at nominal heat transfer conditions&quot;</font>;
+  <font color="blue">parameter </font>Real r_nominal(min=0, max=1)=0.5 <font color="darkgreen">
+    &quot;Ratio between coil inside and outside convective heat transfer at nominal heat transfer conditions&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mHex_flow_nominal <font color="darkgreen">
+    &quot;Nominal mass flow rate through the heat exchanger&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Diameter"
+>Modelica.SIunits.Diameter</A> dExtHex = 0.025 <font color="darkgreen">
+    &quot;Exterior diameter of the heat exchanger pipe&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</A> dpHex_nominal(displayUnit=&quot;Pa&quot;) = 2500 <font color="darkgreen">
+    &quot;Pressure drop across the heat exchanger at nominal conditions&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Modelica.Fluid.Types.Dynamics</A> energyDynamicsHex=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial <font color="darkgreen">
+    &quot;Formulation of energy balance&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Modelica.Fluid.Types.Dynamics</A> massDynamicsHex=energyDynamicsHex <font color="darkgreen">
+    &quot;Formulation of mass balance&quot;</font>;
+
+  <font color="blue">parameter </font>Integer topHexSeg =<font color="red"> integer</font>(<font color="red">ceil</font>(hexTopHeight/segHeight)) <font color="darkgreen">
+    &quot;Segment the top of the heat exchanger is located in&quot;</font>;
+
+  <font color="blue">parameter </font>Integer botHexSeg =<font color="red"> integer</font>(hexBotHeight/segHeight) <font color="darkgreen">
+    &quot;Segment the bottom of the heat exchanger is located in&quot;</font>;
+
+  <font color="blue">parameter </font>Boolean computeFlowResistance=true <font color="darkgreen">
+    &quot;=true, compute flow resistance. Set to false to assume no friction&quot;</font>;
+  <font color="blue">parameter </font>Boolean from_dp=false <font color="darkgreen">
+    &quot;= true, use m_flow = f(dp) else dp = f(m_flow)&quot;</font>;
+  <font color="blue">parameter </font>Boolean linearizeFlowResistance=false <font color="darkgreen">
+    &quot;= true, use linear relation between m_flow and dp for any flow rate&quot;</font>;
+
+  <font color="blue">parameter </font>Real deltaM=0.1 <font color="darkgreen">
+    &quot;Fraction of nominal flow rate where flow transitions to laminar&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>Modelica.Fluid.Interfaces.FluidPort_a</A> port_a1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium =<A HREF="Buildings_Fluid_Storage_MediumHex.html#Buildings.Fluid.Storage.StratifiedEnhancedInternalHex.MediumHex"
+>MediumHex</A>) <font color="darkgreen">&quot;Heat exchanger inlet&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>Modelica.Fluid.Interfaces.FluidPort_b</A> port_b1(
+     <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Fluid_Storage_MediumHex.html#Buildings.Fluid.Storage.StratifiedEnhancedInternalHex.MediumHex"
+>MediumHex</A>) <font color="darkgreen">&quot;Heat exchanger outlet&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Storage_BaseClasses.html#Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger"
+>BaseClasses.IndirectTankHeatExchanger</A> indTanHex(
+    <font color="blue">final </font>nSeg=nSegHex,
+    <font color="blue">final </font>CHex=CHex,
+    <font color="blue">final </font>volHexFlu=volHexFlu,
+    <font color="blue">final </font>Q_flow_nominal=Q_flow_nominal,
+    <font color="blue">final </font>TTan_nominal=TTan_nominal,
+    <font color="blue">final </font>THex_nominal=THex_nominal,
+    <font color="blue">final </font>r_nominal=r_nominal,
+    <font color="blue">final </font>dExtHex=dExtHex,
+    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium,
+    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> MediumHex = MediumHex,
+    <font color="blue">final </font>dp_nominal=dpHex_nominal,
+    <font color="blue">final </font>m_flow_nominal=mHex_flow_nominal,
+    <font color="blue">final </font>energyDynamics=energyDynamicsHex,
+    <font color="blue">final </font>massDynamics=massDynamicsHex,
+    m_flow_small=1e-4*<font color="red">abs</font>(mHex_flow_nominal),
+    <font color="blue">final </font>computeFlowResistance=computeFlowResistance,
+    from_dp=from_dp,
+    linearizeFlowResistance=linearizeFlowResistance,
+    deltaM=deltaM) <font color="darkgreen">&quot;Heat exchanger inside the tank&quot;</font>;</textblock>
+
+<font color="blue">protected </font>
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Modelica.SIunits.Height</A> segHeight = hTan/nSeg <font color="darkgreen">
+    &quot;Height of each tank segment (relative to bottom of same segment)&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</A> volHexFlu = 0.25 * Modelica.Constants.pi * dExtHex <font color="darkgreen">
+    &quot;Volume of the heat exchanger&quot;</font>;
+
+  <font color="blue">parameter </font>Integer nSegHex = (topHexSeg - botHexSeg + 1)*hexSegMult <font color="darkgreen">
+    &quot;Number of segments in the heat exchanger&quot;</font>;
+
+  <font color="blue">parameter </font>Integer nSegHexTan = topHexSeg - botHexSeg + 1 <font color="darkgreen">
+    &quot;Number of tank segments the heat exchanger resides in&quot;</font>;
+
+<font color="blue">equation </font>
+   <font color="blue">for </font>j<font color="blue"> in </font>1:nSegHexTan<font color="blue"> loop</font>
+     <font color="blue">for </font>i<font color="blue"> in </font>1:hexSegMult<font color="blue"> loop</font>
+<textblock type="annotconnect" expanded="false">     <font color="red">connect</font>(indTanHex.port[(j-1)*hexSegMult+i], heaPorVol[nSeg-j+1]);</textblock>
+     <font color="blue">end for</font>;
+   <font color="blue">end for</font>;
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(port_a1, indTanHex.port_a);
+  <font color="red">connect</font>(indTanHex.port_b, port_b1);</textblock>
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>StratifiedEnhancedInternalHex;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:01 2013.
 </address></BODY>
 </HTML>

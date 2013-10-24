@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Storage.Examples"></A><A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage"
 >Buildings.Fluid.Storage</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -42,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Fluid.Storage</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Storage.E320a95ea57037f4aesselS.png" ALT="Buildings.Fluid.Storage.Examples.ExpansionVessel" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Storage_Examples.html#Buildings.Fluid.Storage.Examples.ExpansionVessel"
@@ -57,6 +57,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Mod
 <TR><TD><IMG SRC="Buildings.Fluid.Storage.E320a95ea57037f4aesselS.png" ALT="Buildings.Fluid.Storage.Examples.StratifiedLoadingUnloading" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Storage_Examples.html#Buildings.Fluid.Storage.Examples.StratifiedLoadingUnloading"
 >StratifiedLoadingUnloading</A>
 </TD><TD>Test model for stratified tank</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Storage.E320a95ea57037f4aesselS.png" ALT="Buildings.Fluid.Storage.Examples.StratifiedEnhancedInternalHex" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Storage_Examples.html#Buildings.Fluid.Storage.Examples.StratifiedEnhancedInternalHex"
+>StratifiedEnhancedInternalHex</A>
+</TD><TD>Example showing the use of StratifiedEnhancedInternalHex</TD></TR>
 </TABLE>
 <HR>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -65,25 +68,23 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.Storage.E320a95ea57037f4aesselI.png" ALT="Buildings.Fluid.Storage.Examples.ExpansionVessel" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Storage.Examples.ExpansionVessel"></A><A HREF="Buildings_Fluid_Storage_Examples.html#Buildings.Fluid.Storage.Examples"
 >Buildings.Fluid.Storage.Examples</A>.ExpansionVessel</H2>
-<B>Test model for expansion vessel</B><p>
+<B>Test model for expansion vessel</B><p></P>
 <IMG SRC="Buildings.Fluid.Storage.E320a95ea57037f4aesselD.png" ALT="Buildings.Fluid.Storage.Examples.ExpansionVessel">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 This model tests a pressure expansion vessel. The medium model that is used in this
 example changes its density as a function of temperature.
 To see the effect of the expansion vessel, delete the connecting line between
 the volume and the expansion vessel and check how much more the pressure increases
 as the fluid is heated.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ExpansionVessel <font color="darkgreen">&quot;Test model for expansion vessel&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
 
 <font color="darkgreen">// package Medium = Modelica.Media.Water.WaterIF97OnePhase_ph &quot;Medium model&quot;;</font>
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
@@ -123,18 +124,18 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Fluid.Storage.E320a95ea57037f4aesselI.png" ALT="Buildings.Fluid.Storage.Examples.Stratified" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Storage.Examples.Stratified"></A><A HREF="Buildings_Fluid_Storage_Examples.html#Buildings.Fluid.Storage.Examples"
 >Buildings.Fluid.Storage.Examples</A>.Stratified</H2>
-<B>Test model for stratified tank</B><p>
+<B>Test model for stratified tank</B><p></P>
 <IMG SRC="Buildings.Fluid.Storage.Eecea308a8dba966aifiedD.png" ALT="Buildings.Fluid.Storage.Examples.Stratified">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 This test model compares two tank models. The only difference between
 the two tank models is that one uses the third order upwind discretization
 scheme that reduces numerical diffusion that is induced when connecting 
 volumes in series.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Stratified <font color="darkgreen">&quot;Test model for stratified tank&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
@@ -253,15 +254,15 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Fluid.Storage.E320a95ea57037f4aesselI.png" ALT="Buildings.Fluid.Storage.Examples.StratifiedLoadingUnloading" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Storage.Examples.StratifiedLoadingUnloading"></A><A HREF="Buildings_Fluid_Storage_Examples.html#Buildings.Fluid.Storage.Examples"
 >Buildings.Fluid.Storage.Examples</A>.StratifiedLoadingUnloading</H2>
-<B>Test model for stratified tank</B><p>
+<B>Test model for stratified tank</B><p></P>
 <IMG SRC="Buildings.Fluid.Storage.E425a05f93b7fe172adingD.png" ALT="Buildings.Fluid.Storage.Examples.StratifiedLoadingUnloading">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 This test model compares two tank models. The only difference between
 the two tank models is that one uses the third order upwind discretization
 scheme that reduces numerical diffusion that is induced when connecting 
 volumes in series.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -270,13 +271,11 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>1*1000/3600/4</TD><TD>[kg/s]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> StratifiedLoadingUnloading <font color="darkgreen">&quot;Test model for stratified tank&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
 
  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
 >Buildings.Media.ConstantPropertyLiquidWater</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
@@ -377,6 +376,90 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>StratifiedLoadingUnloading;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:39 2013.
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE StratifiedEnhancedInternalHex<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Storage.E320a95ea57037f4aesselI.png" ALT="Buildings.Fluid.Storage.Examples.StratifiedEnhancedInternalHex" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Storage.Examples.StratifiedEnhancedInternalHex"></A><A HREF="Buildings_Fluid_Storage_Examples.html#Buildings.Fluid.Storage.Examples"
+>Buildings.Fluid.Storage.Examples</A>.StratifiedEnhancedInternalHex</H2>
+<B>Example showing the use of StratifiedEnhancedInternalHex</B><p></P>
+<IMG SRC="Buildings.Fluid.Storage.Ea6605c066338c398alHexD.png" ALT="Buildings.Fluid.Storage.Examples.StratifiedEnhancedInternalHex">
+<P></P><H3>Information</H3>
+
+        <p>
+        This model provides an example of how the <A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.StratifiedEnhancedInternalHex"
+>
+        Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> model can be used. In it a constant
+        water draw is taken from the tank while a constant flow of hot water is passed through the heat
+        exchanger to heat the water in the tank.<br/>
+        </p>
+        <P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> StratifiedEnhancedInternalHex <font color="darkgreen">
+  &quot;Example showing the use of StratifiedEnhancedInternalHex&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A> <font color="darkgreen">
+    &quot;Buildings library model for water&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> boundary(      nPorts=1, <font color="blue">redeclare </font><font color="blue">
+      package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</A> boundary2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    nPorts=1,
+    m_flow=0.278,
+    T=353.15);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> boundary3(          <font color="blue">redeclare </font><font color="blue">package</font>
+      Medium = Medium, nPorts=1);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A> senTem( m_flow_nominal=0.1,
+      <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> realExpression(y=senTem.T);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</A> boundary1(
+    use_T_in=true,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    nPorts=1,
+    m_flow=0);
+  <A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.StratifiedEnhancedInternalHex"
+>Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</A> tan(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.001,
+    VTan=0.151416,
+    dIns=0.0762,
+    <font color="blue">redeclare </font><font color="blue">package</font> MediumHex = Medium,
+    CHex=40,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    Q_flow_nominal=0.278*4200*20,
+    mHex_flow_nominal=0.278,
+    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState,
+    hexTopHeight=0.995,
+    hexBotHeight=0.1,
+    hexSegMult=1,
+    hTan=1.746,
+    TTan_nominal=293.15,
+    THex_nominal=323.15);
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(senTem.port_b, boundary.ports[1]);
+  <font color="red">connect</font>(realExpression.y, boundary1.T_in);
+  <font color="red">connect</font>(boundary1.ports[1], tan.port_a);
+  <font color="red">connect</font>(tan.port_b, senTem.port_a);
+  <font color="red">connect</font>(boundary2.ports[1], tan.port_a1);
+  <font color="red">connect</font>(tan.port_b1, boundary3.ports[1]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>StratifiedEnhancedInternalHex;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:02 2013.
 </address></BODY>
 </HTML>

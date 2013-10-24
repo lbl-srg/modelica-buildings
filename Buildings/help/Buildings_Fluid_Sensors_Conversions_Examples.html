@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Sensors.Conversions.Examples"></A><A HREF="Buildings_Fluid_Sensors_Conversions.html#Buildings.Fluid.Sensors.Conversions"
 >Buildings.Fluid.Sensors.Conversions</A>.Examples</H2>
 <B>Collection of models that illustrate model use and test models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains examples for the use of models that can be found in
@@ -42,10 +42,10 @@ This package contains examples for the use of models that can be found in
 >
 Buildings.Fluid.Sensors.Conversions</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Sensors.C83fc9374ae695197ctionS.png" ALT="Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sensors_Conversions_Examples.html#Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction"
@@ -59,9 +59,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.Sensors.C83fc9374ae695197ctionI.png" ALT="Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction"></A><A HREF="Buildings_Fluid_Sensors_Conversions_Examples.html#Buildings.Fluid.Sensors.Conversions.Examples"
 >Buildings.Fluid.Sensors.Conversions.Examples</A>.To_VolumeFraction</H2>
-<B>Example problem for conversion model</B><p>
+<B>Example problem for conversion model</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.C83fc9374ae695197ctionD.png" ALT="Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 This example demonstrates the modeling of a room with one person and CO<sub>2</sub> control.
 The room has a volume of <i>4*4*2.7 m<sup>3</sup></i>, and the CO<sub>2</sub> inflow is from
@@ -70,16 +70,14 @@ A control system regulates the outside air to maintain a CO<sub>2</sub> concentr
 in the room. The outside air has a CO<sub>2</sub> concentration of 300 PPM.
 Note that for simplicity, we allow zero outside air flow rate if the CO<sub>2</sub> concentration is below
 the setpoint, which does not comply with ASHRAE regulations.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> To_VolumeFraction <font color="darkgreen">&quot;Example problem for conversion model&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A>;
-  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
->Buildings</A>;
   <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
 >Buildings.Media.GasesPTDecoupled.SimpleAir</A>(extraPropertiesNames={&quot;CO2&quot;});
 
@@ -108,8 +106,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     C_start={300E-6}*44.009544/28.9651159,
     m_flow_nominal=0.1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">&quot;Volume of air&quot;</font>;
-  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate"
->Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate</A> souCO2(
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.TraceSubstancesFlowSource"
+>Buildings.Fluid.Sources.TraceSubstancesFlowSource</A> souCO2(
     use_m_flow_in=true,
     <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
     nPorts=1) <font color="darkgreen">&quot;CO2 source&quot;</font>;
@@ -188,6 +186,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>To_VolumeFraction;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:32 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:48 2013.
 </address></BODY>
 </HTML>

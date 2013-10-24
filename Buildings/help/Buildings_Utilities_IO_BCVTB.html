@@ -26,18 +26,18 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BCVTB<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Utilities.IO.BCVTB"></A><A HREF="Buildings_Utilities_IO.html#Buildings.Utilities.IO"
 >Buildings.Utilities.IO</A>.BCVTB</H2>
 <B>Package with functions to communicate with the Building Controls Virtual Test Bed</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Utilities.IO.BCVTB.UsersGuideS.png" ALT="Buildings.Utilities.IO.BCVTB.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_IO_BCVTB_UsersGuide.html#Buildings.Utilities.IO.BCVTB.UsersGuide"
@@ -69,15 +69,15 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Utilities.IO.BC7a3aa3d7dbf53696rfaceI.png" ALT="Buildings.Utilities.IO.BCVTB.MoistAirInterface" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.IO.BCVTB.MoistAirInterface"></A><A HREF="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
 >Buildings.Utilities.IO.BCVTB</A>.MoistAirInterface</H2>
-<B>Fluid interface that can be coupled to BCVTB for medium that model the air humidity</B><p>
+<B>Fluid interface that can be coupled to BCVTB for medium that model the air humidity</B><p></P>
 <IMG SRC="Buildings.Utilities.IO.BC7a3aa3d7dbf53696rfaceD.png" ALT="Buildings.Utilities.IO.BCVTB.MoistAirInterface">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 This model allows interfacing to the 
 <a href="http://simulationresearch.lbl.gov/bcvtb">Building Controls Virtual Test Bed</a>
 an air-conditioning system
 that uses a medium model with water vapor concentration.
-</p>
+<br/>
 <p>
 The model takes as input signals the temperature and water vapor
 concentration and, optionally, a bulk mass flow rate into or
@@ -103,7 +103,7 @@ needs to be converted. The conversion can be done with the model
 <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.ToTotalAir"
 >
 Buildings.Utilities.Psychrometrics.ToTotalAir</a>.
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface"
 >Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface</A> (Partial class for fluid interface that can be coupled to BCVTB).
 <P><H3>Parameters</H3><P>
@@ -137,7 +137,7 @@ Extends from <A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Ut
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>phi</TD><TD>Medium relative humidity</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MoistAirInterface <font color="darkgreen">
   &quot;Fluid interface that can be coupled to BCVTB for medium that model the air humidity&quot;</font>
@@ -185,9 +185,9 @@ Extends from <A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Ut
 <H2><IMG SRC="Buildings.Utilities.IO.BCVTB.BCVTBI.png" ALT="Buildings.Utilities.IO.BCVTB.BCVTB" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.IO.BCVTB.BCVTB"></A><A HREF="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
 >Buildings.Utilities.IO.BCVTB</A>.BCVTB</H2>
-<B>Block that exchanges data with the Building Controls Virtual Test Bed</B><p>
+<B>Block that exchanges data with the Building Controls Virtual Test Bed</B><p></P>
 <IMG SRC="Buildings.Utilities.IO.BCVTB.BCVTBD.png" ALT="Buildings.Utilities.IO.BCVTB.BCVTB">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 Block that exchanges data with the 
 <a href="http://simulationresearch.lbl.gov/bcvtb">Building Controls Virtual Test Bed</a> (BCVTB).
@@ -204,7 +204,7 @@ For each element in the input vector <code>uR[nDblWri]</code>,
 the value of the flag <code>flaDblWri[nDblWri]</code> determines whether
 the current value, the average over the sampling interval or the integral
 over the sampling interval is sent to the BCVTB. The following three options are allowed:
-<table border="1">
+<table summary="summary" border="1">
 <tr>
 <td>
 flaDblWri[i]
@@ -238,7 +238,7 @@ Integral of uR[i] over the sampling interval
 </td>
 </tr>
 </table>
-</p>
+<br/>
 <p>
 For the first call to the BCVTB interface, the value of the parameter <code>uStart[nDblWri]</code>
 will be used instead of <code>uR[nDblWri]</code>. This avoids an algebraic loop when determining
@@ -256,7 +256,7 @@ This option can be helpful during debugging. Since during model translation, the
 still linked to the C library, the header files and libraries need to be present in the current working 
 directory even if <code>activateInterface=false</code>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
 >Modelica.Blocks.Interfaces.DiscreteBlock</A> (Base class of discrete control blocks).
 <P><H3>Parameters</H3><P>
@@ -284,7 +284,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>yR[nDblRea]</TD><TD>Real outputs received from the BCVTB</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> BCVTB <font color="darkgreen">
   &quot;Block that exchanges data with the Building Controls Virtual Test Bed&quot;</font>
@@ -440,9 +440,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Utilities.IO.BCVTB.To_degCI.png" ALT="Buildings.Utilities.IO.BCVTB.To_degC" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.IO.BCVTB.To_degC"></A><A HREF="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
 >Buildings.Utilities.IO.BCVTB</A>.To_degC</H2>
-<B>Converts Kelvin to Celsius</B><p>
+<B>Converts Kelvin to Celsius</B><p></P>
 <IMG SRC="Buildings.Utilities.IO.BCVTB.To_degCD.png" ALT="Buildings.Utilities.IO.BCVTB.To_degC">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Converts the input from degree Celsius to Kelvin.
@@ -451,7 +451,7 @@ Kelvin. This block is provided for convenience since the BCVTB
 interface may couple Modelica to programs that use Celsius 
 as the unit for temperature.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
@@ -462,18 +462,18 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Celsius</TD><TD>Temperature in Celsius [degC]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> To_degC <font color="darkgreen">&quot;Converts Kelvin to Celsius&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> Kelvin(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
+>Modelica.Blocks.Interfaces.RealInput</A> Kelvin(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                               <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
     &quot;Temperature in Kelvin&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> Celsius(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
+>Modelica.Blocks.Interfaces.RealOutput</A> Celsius(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                                 <font color="blue">final </font>unit = &quot;degC&quot;, displayUnit = &quot;degC&quot;, min=-273.15) <font color="darkgreen">
     &quot;Temperature in Celsius&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -487,9 +487,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Utilities.IO.BCVTB.From_degCI.png" ALT="Buildings.Utilities.IO.BCVTB.From_degC" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Utilities.IO.BCVTB.From_degC"></A><A HREF="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
 >Buildings.Utilities.IO.BCVTB</A>.From_degC</H2>
-<B>Converts Celsius to Kelvin</B><p>
+<B>Converts Celsius to Kelvin</B><p></P>
 <IMG SRC="Buildings.Utilities.IO.BCVTB.From_degCD.png" ALT="Buildings.Utilities.IO.BCVTB.From_degC">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Converts the input from Kelvin to degree Celsius.
@@ -498,7 +498,7 @@ Kelvin. This block is provided for convenience since the BCVTB
 interface may couple Modelica to programs that use Celsius 
 as the unit for temperature.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
@@ -509,18 +509,18 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>Kelvin</TD><TD>Temperature in Kelvin [K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> From_degC <font color="darkgreen">&quot;Converts Celsius to Kelvin&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A>;
 
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> Celsius(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
+>Modelica.Blocks.Interfaces.RealInput</A> Celsius(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                                <font color="blue">final </font>unit = &quot;degC&quot;, displayUnit = &quot;degC&quot;, min=-273.15) <font color="darkgreen">
     &quot;Temperature in Celsius&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> Kelvin(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
+>Modelica.Blocks.Interfaces.RealOutput</A> Kelvin(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                                <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
     &quot;Temperature in Kelvin&quot;</font>;</textblock>
 <font color="blue">equation </font>
@@ -528,6 +528,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>From_degC;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:58:29 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:13:41 2013.
 </address></BODY>
 </HTML>

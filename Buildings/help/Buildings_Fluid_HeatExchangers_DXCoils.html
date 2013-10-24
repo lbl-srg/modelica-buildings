@@ -26,21 +26,21 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE DXCoils<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.DXCoils"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >Buildings.Fluid.HeatExchangers</A>.DXCoils</H2>
 <B>DX(Direct Expansion) cooling coil models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains DX coil models.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExchaf73f6ad9d556ae29GuideS.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_DXCoils_UsersGuide.html#Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide"
@@ -72,9 +72,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExcha372f97f660150800StageI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.MultiStage" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.MultiStage"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils"
 >Buildings.Fluid.HeatExchangers.DXCoils</A>.MultiStage</H2>
-<B>Multi-stage DX cooling coil</B><p>
+<B>Multi-stage DX cooling coil</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha372f97f660150800StageD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.MultiStage">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model can be used to simulate a DX cooling coil with multiple
@@ -89,7 +89,7 @@ See
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil</A> (Partial model for DX coil).
 <P><H3>Parameters</H3><P>
@@ -114,8 +114,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
@@ -159,7 +158,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
 >IntegerInput</A></TD><TD>stage</TD><TD>Stage of cooling coil (0: off, 1: first stage, 2: second stage...)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MultiStage <font color="darkgreen">&quot;Multi-stage DX cooling coil&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil"
@@ -189,9 +188,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <H2><IMG SRC="Buildings.Fluid.HeatExcha6661267e20a20af1SpeedI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils"
 >Buildings.Fluid.HeatExchangers.DXCoils</A>.SingleSpeed</H2>
-<B>Single speed DX cooling coil</B><p>
+<B>Single speed DX cooling coil</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha6661267e20a20af1SpeedD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model can be used to simulate a DX cooling coil with single speed compressor.
@@ -203,7 +202,7 @@ See
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil</A> (Partial model for DX coil).
 <P><H3>Parameters</H3><P>
@@ -228,8 +227,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
@@ -273,7 +271,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
 >BooleanInput</A></TD><TD>on</TD><TD>Set to true to enable compressor, or false to disable compressor</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SingleSpeed <font color="darkgreen">&quot;Single speed DX cooling coil&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil"
@@ -304,9 +302,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <H2><IMG SRC="Buildings.Fluid.HeatExcha377b731a35308111SpeedI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils"
 >Buildings.Fluid.HeatExchangers.DXCoils</A>.VariableSpeed</H2>
-<B>Variable speed DX cooling coil</B><p>
+<B>Variable speed DX cooling coil</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha377b731a35308111SpeedD.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model can be used to simulate a DX cooling coil with continuously variable speed compressors. 
@@ -320,7 +318,7 @@ See
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil"
 >Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil</A> (Partial model for DX coil).
 <P><H3>Parameters</H3><P>
@@ -347,8 +345,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
@@ -392,7 +389,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>speRat</TD><TD>Speed ratio</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> VariableSpeed <font color="darkgreen">&quot;Variable speed DX cooling coil&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil"
@@ -420,6 +417,6 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Bu
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>VariableSpeed;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:43 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:51 2013.
 </address></BODY>
 </HTML>

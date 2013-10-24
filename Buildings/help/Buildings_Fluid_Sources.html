@@ -26,24 +26,24 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Sources<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Sources"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
 >Buildings.Fluid</A>.Sources</H2>
 <B>Package with boundary condition models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 Package <b>Sources</b> contains generic sources for fluid connectors
 to define fixed or prescribed ambient conditions.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_SourcesPackage.html#Modelica.Icons.SourcesPackage"
 >Modelica.Icons.SourcesPackage</A> (Icon for packages containing sources).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Sources.Boundary_phS.png" ALT="Buildings.Fluid.Sources.Boundary_ph" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_ph"
@@ -70,8 +70,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_SourcesPackage.html#Mode
 <TR><TD><IMG SRC="Buildings.Fluid.Sources.O9f395a495c012d40wRiseS.png" ALT="Buildings.Fluid.Sources.Outside_CpLowRise" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside_CpLowRise"
 >Outside_CpLowRise</A>
 </TD><TD>Boundary that takes weather data as an input and computes wind pressure for low-rise buildings</TD></TR>
-<TR><TD><IMG SRC="Buildings.Fluid.Sources.Pd3c78d33a8828471wRateS.png" ALT="Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate"
->PrescribedExtraPropertyFlowRate</A>
+<TR><TD><IMG SRC="Buildings.Fluid.Sources.T883c653ce5a5e5a4ourceS.png" ALT="Buildings.Fluid.Sources.TraceSubstancesFlowSource" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.TraceSubstancesFlowSource"
+>TraceSubstancesFlowSource</A>
 </TD><TD>Source with mass flow that does not take part in medium mass balance (such as CO2)</TD></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Sources.ExamplesS.png" ALT="Buildings.Fluid.Sources.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sources_Examples.html#Buildings.Fluid.Sources.Examples"
 >Examples</A>
@@ -87,9 +87,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_SourcesPackage.html#Mode
 <H2><IMG SRC="Buildings.Fluid.Sources.Boundary_phI.png" ALT="Buildings.Fluid.Sources.Boundary_ph" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sources.Boundary_ph"></A><A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources"
 >Buildings.Fluid.Sources</A>.Boundary_ph</H2>
-<B>Boundary with prescribed pressure, specific enthalpy, composition and trace substances</B><p>
+<B>Boundary with prescribed pressure, specific enthalpy, composition and trace substances</B><p></P>
 <IMG SRC="Buildings.Fluid.Sources.Boundary_phD.png" ALT="Buildings.Fluid.Sources.Boundary_ph">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Defines prescribed values for boundary conditions:
@@ -109,7 +109,7 @@ is from the boundary into the port. If mass is flowing from
 the port into the boundary, the boundary definitions,
 with exception of boundary pressure, do not have an effect.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource"
 >Modelica.Fluid.Sources.BaseClasses.PartialSource</A> (Partial component source with one fluid connector).
 <P><H3>Parameters</H3><P>
@@ -144,7 +144,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>C_in[Medium.nC]</TD><TD>Prescribed boundary trace substances</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Boundary_ph <font color="darkgreen">
   &quot;Boundary with prescribed pressure, specific enthalpy, composition and trace substances&quot;</font>
@@ -230,9 +230,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html
 <H2><IMG SRC="Buildings.Fluid.Sources.Boundary_pTI.png" ALT="Buildings.Fluid.Sources.Boundary_pT" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sources.Boundary_pT"></A><A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources"
 >Buildings.Fluid.Sources</A>.Boundary_pT</H2>
-<B>Boundary with prescribed pressure, temperature, composition and trace substances</B><p>
+<B>Boundary with prescribed pressure, temperature, composition and trace substances</B><p></P>
 <IMG SRC="Buildings.Fluid.Sources.Boundary_pTD.png" ALT="Buildings.Fluid.Sources.Boundary_pT">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Defines prescribed values for boundary conditions:
@@ -252,7 +252,7 @@ is from the boundary into the port. If mass is flowing from
 the port into the boundary, the boundary definitions,
 with exception of boundary pressure, do not have an effect.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource"
 >Modelica.Fluid.Sources.BaseClasses.PartialSource</A> (Partial component source with one fluid connector).
 <P><H3>Parameters</H3><P>
@@ -287,7 +287,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>C_in[Medium.nC]</TD><TD>Prescribed boundary trace substances</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Boundary_pT <font color="darkgreen">
   &quot;Boundary with prescribed pressure, temperature, composition and trace substances&quot;</font>
@@ -373,9 +373,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html
 <H2><IMG SRC="Buildings.Fluid.Sources.FixedBoundaryI.png" ALT="Buildings.Fluid.Sources.FixedBoundary" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sources.FixedBoundary"></A><A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources"
 >Buildings.Fluid.Sources</A>.FixedBoundary</H2>
-<B>Boundary source component</B><p>
+<B>Boundary source component</B><p></P>
 <IMG SRC="Buildings.Fluid.Sources.FixedBoundaryD.png" ALT="Buildings.Fluid.Sources.FixedBoundary">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model defines constant values for boundary conditions:
@@ -392,7 +392,7 @@ is from the Boundary into the port. If mass is flowing from
 the port into the boundary, the boundary definitions,
 with exception of boundary pressure, do not have an effect.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource"
 >Modelica.Fluid.Sources.BaseClasses.PartialSource</A> (Partial component source with one fluid connector).
 <P><H3>Parameters</H3><P>
@@ -425,7 +425,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b"
 >FluidPorts_b</A></TD><TD>ports[nPorts]</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> FixedBoundary <font color="darkgreen">&quot;Boundary source component&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource"
@@ -479,9 +479,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html
 <H2><IMG SRC="Buildings.Fluid.Sources.MassFlowSource_hI.png" ALT="Buildings.Fluid.Sources.MassFlowSource_h" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sources.MassFlowSource_h"></A><A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources"
 >Buildings.Fluid.Sources</A>.MassFlowSource_h</H2>
-<B>Ideal flow source that produces a prescribed mass flow with prescribed specific enthalpy, mass fraction and trace substances</B><p>
+<B>Ideal flow source that produces a prescribed mass flow with prescribed specific enthalpy, mass fraction and trace substances</B><p></P>
 <IMG SRC="Buildings.Fluid.Sources.MassFlowSource_hD.png" ALT="Buildings.Fluid.Sources.MassFlowSource_h">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Models an ideal flow source, with prescribed values of flow rate, temperature and composition:
@@ -501,7 +501,7 @@ is from the boundary into the port. If mass is flowing from
 the port into the boundary, the boundary definitions,
 with exception of boundary flow rate, do not have an effect.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource"
 >Modelica.Fluid.Sources.BaseClasses.PartialSource</A> (Partial component source with one fluid connector).
 <P><H3>Parameters</H3><P>
@@ -536,7 +536,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>C_in[Medium.nC]</TD><TD>Prescribed boundary trace substances</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MassFlowSource_h <font color="darkgreen">
   &quot;Ideal flow source that produces a prescribed mass flow with prescribed specific enthalpy, mass fraction and trace substances&quot;</font>
@@ -627,9 +627,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html
 <H2><IMG SRC="Buildings.Fluid.Sources.MassFlowSource_TI.png" ALT="Buildings.Fluid.Sources.MassFlowSource_T" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sources.MassFlowSource_T"></A><A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources"
 >Buildings.Fluid.Sources</A>.MassFlowSource_T</H2>
-<B>Ideal flow source that produces a prescribed mass flow with prescribed temperature, mass fraction and trace substances</B><p>
+<B>Ideal flow source that produces a prescribed mass flow with prescribed temperature, mass fraction and trace substances</B><p></P>
 <IMG SRC="Buildings.Fluid.Sources.MassFlowSource_TD.png" ALT="Buildings.Fluid.Sources.MassFlowSource_T">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Models an ideal flow source, with prescribed values of flow rate, temperature, composition and trace substances:
@@ -649,7 +649,7 @@ is from the boundary into the port. If mass is flowing from
 the port into the boundary, the boundary definitions,
 with exception of boundary flow rate, do not have an effect.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource"
 >Modelica.Fluid.Sources.BaseClasses.PartialSource</A> (Partial component source with one fluid connector).
 <P><H3>Parameters</H3><P>
@@ -684,7 +684,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>C_in[Medium.nC]</TD><TD>Prescribed boundary trace substances</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MassFlowSource_T <font color="darkgreen">
   &quot;Ideal flow source that produces a prescribed mass flow with prescribed temperature, mass fraction and trace substances&quot;</font>
@@ -775,9 +775,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html
 <H2><IMG SRC="Buildings.Fluid.Sources.OutsideI.png" ALT="Buildings.Fluid.Sources.Outside" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sources.Outside"></A><A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources"
 >Buildings.Fluid.Sources</A>.Outside</H2>
-<B>Boundary that takes weather data, and optionally trace substances, as an input</B><p>
+<B>Boundary that takes weather data, and optionally trace substances, as an input</B><p></P>
 <IMG SRC="Buildings.Fluid.Sources.OutsideD.png" ALT="Buildings.Fluid.Sources.Outside">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model describes boundary conditions for
@@ -807,7 +807,7 @@ is from the boundary into the port. If mass is flowing from
 the port into the boundary, the boundary definitions,
 with exception of boundary pressure, do not have an effect.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Sources_BaseClasses.html#Buildings.Fluid.Sources.BaseClasses.Outside"
 >Buildings.Fluid.Sources.BaseClasses.Outside</A> (Boundary that takes weather data, and optionally trace substances, as an input).
 <P><H3>Parameters</H3><P>
@@ -829,7 +829,7 @@ Extends from <A HREF="Buildings_Fluid_Sources_BaseClasses.html#Buildings.Fluid.S
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>Bus with weather data</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Outside <font color="darkgreen">
   &quot;Boundary that takes weather data, and optionally trace substances, as an input&quot;</font>
@@ -848,9 +848,9 @@ Extends from <A HREF="Buildings_Fluid_Sources_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sources.Outside_CpI.png" ALT="Buildings.Fluid.Sources.Outside_Cp" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sources.Outside_Cp"></A><A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources"
 >Buildings.Fluid.Sources</A>.Outside_Cp</H2>
-<B>Boundary that takes weather data, and optionally the wind pressure coefficient and trace substances, as an input</B><p>
+<B>Boundary that takes weather data, and optionally the wind pressure coefficient and trace substances, as an input</B><p></P>
 <IMG SRC="Buildings.Fluid.Sources.Outside_CpD.png" ALT="Buildings.Fluid.Sources.Outside_Cp">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model describes boundary conditions for
@@ -879,7 +879,7 @@ wind pressure coefficient is obtained from the input connector
 <code>Cp_in</code>. Otherwise, it is set to the parameter 
 <code>Cp</code>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Sources_BaseClasses.html#Buildings.Fluid.Sources.BaseClasses.Outside"
 >Buildings.Fluid.Sources.BaseClasses.Outside</A> (Boundary that takes weather data, and optionally trace substances, as an input).
 <P><H3>Parameters</H3><P>
@@ -905,7 +905,7 @@ Extends from <A HREF="Buildings_Fluid_Sources_BaseClasses.html#Buildings.Fluid.S
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>Cp_in</TD><TD>Prescribed wind pressure coefficient [1]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Outside_Cp <font color="darkgreen">
   &quot;Boundary that takes weather data, and optionally the wind pressure coefficient and trace substances, as an input&quot;</font>
@@ -957,9 +957,9 @@ Extends from <A HREF="Buildings_Fluid_Sources_BaseClasses.html#Buildings.Fluid.S
 <H2><IMG SRC="Buildings.Fluid.Sources.O9f395a495c012d40wRiseI.png" ALT="Buildings.Fluid.Sources.Outside_CpLowRise" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Sources.Outside_CpLowRise"></A><A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources"
 >Buildings.Fluid.Sources</A>.Outside_CpLowRise</H2>
-<B>Boundary that takes weather data as an input and computes wind pressure for low-rise buildings</B><p>
+<B>Boundary that takes weather data as an input and computes wind pressure for low-rise buildings</B><p></P>
 <IMG SRC="Buildings.Fluid.Sources.O9f395a495c012d40wRiseD.png" ALT="Buildings.Fluid.Sources.Outside_CpLowRise">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model describes boundary conditions for
@@ -1027,9 +1027,8 @@ where
 <i>v</i> is the wind speed from the weather bus, and
 <i>&rho;</i> is the fluid density.
 </p>
-<p>
+
 <h4>References</h4>
-<p>
 <ul>
 <li>
 Muthusamy V. Swami and
@@ -1053,8 +1052,7 @@ January, 2001.
 Gaithersburg, MD.
 </li>
 </ul>
-</p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Sources_BaseClasses.html#Buildings.Fluid.Sources.BaseClasses.Outside"
 >Buildings.Fluid.Sources.BaseClasses.Outside</A> (Boundary that takes weather data, and optionally trace substances, as an input).
 <P><H3>Parameters</H3><P>
@@ -1080,7 +1078,7 @@ Extends from <A HREF="Buildings_Fluid_Sources_BaseClasses.html#Buildings.Fluid.S
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>Bus with weather data</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Outside_CpLowRise <font color="darkgreen">
   &quot;Boundary that takes weather data as an input and computes wind pressure for low-rise buildings&quot;</font>
@@ -1135,26 +1133,25 @@ Extends from <A HREF="Buildings_Fluid_Sources_BaseClasses.html#Buildings.Fluid.S
 </PRE>
 <HR>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE PrescribedExtraPropertyFlowRate<![endif]-->
+<span style='mso-spacerun:yes'></span>XE TraceSubstancesFlowSource<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Fluid.Sources.Pd3c78d33a8828471wRateI.png" ALT="Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate"></A><A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources"
->Buildings.Fluid.Sources</A>.PrescribedExtraPropertyFlowRate</H2>
-<B>Source with mass flow that does not take part in medium mass balance (such as CO2)</B><p>
-<IMG SRC="Buildings.Fluid.Sources.Pd3c78d33a8828471wRateD.png" ALT="Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate">
-<P><H3>Information</H3></P>
+<H2><IMG SRC="Buildings.Fluid.Sources.T883c653ce5a5e5a4ourceI.png" ALT="Buildings.Fluid.Sources.TraceSubstancesFlowSource" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Sources.TraceSubstancesFlowSource"></A><A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources"
+>Buildings.Fluid.Sources</A>.TraceSubstancesFlowSource</H2>
+<B>Source with mass flow that does not take part in medium mass balance (such as CO2)</B><p></P>
+<IMG SRC="Buildings.Fluid.Sources.T883c653ce5a5e5a4ourceD.png" ALT="Buildings.Fluid.Sources.TraceSubstancesFlowSource">
+<P></P><H3>Information</H3>
 
 This model can be used to inject trace substances into a system.
 The model adds a mass flow rate to its port with a
 trace substance concentration of <i>1</i>.
-</p>
 <p>
 A typical use of this model is to add carbon dioxide to room air, since the 
 carbon dioxide concentration is typically so small that it need not be 
 added to the room mass balance, and since the mass flow rate can be
 made small compared to the room volume if the medium that leaves this
 component has a carbon dioxide concentration of <i>1</i>.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource"
 >Modelica.Fluid.Sources.BaseClasses.PartialSource</A> (Partial component source with one fluid connector).
 <P><H3>Parameters</H3><P>
@@ -1175,9 +1172,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>m_flow_in</TD><TD>Prescribed mass flow rate for extra property</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
-<font color="blue">model</font> PrescribedExtraPropertyFlowRate <font color="darkgreen">
+<font color="blue">model</font> TraceSubstancesFlowSource <font color="darkgreen">
   &quot;Source with mass flow that does not take part in medium mass balance (such as CO2)&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource"
 >Modelica.Fluid.Sources.BaseClasses.PartialSource</A>(nPorts=1);
@@ -1199,7 +1196,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html
     &quot;Needed to connect to conditional connector&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
 >Medium.ExtraProperty</A> C_in_internal[Medium.nC](
-       fixed=false,
+       <font color="blue">each </font>fixed=false,
        quantity=Medium.extraPropertiesNames) <font color="darkgreen">&quot;Boundary trace substances&quot;</font>;
 <font color="blue">initial </font><font color="blue">algorithm </font>
   <font color="blue">for </font>i<font color="blue"> in </font>1:Medium.nC<font color="blue"> loop</font>
@@ -1225,9 +1222,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Sources_BaseClasses.html
   medium.T = Medium.T_default;
   medium.Xi = Medium.X_default[1:Medium.nXi];
   ports.C_outflow =<font color="red"> fill</font>(C_in_internal, nPorts);
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>PrescribedExtraPropertyFlowRate;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>TraceSubstancesFlowSource;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:34 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:56 2013.
 </address></BODY>
 </HTML>

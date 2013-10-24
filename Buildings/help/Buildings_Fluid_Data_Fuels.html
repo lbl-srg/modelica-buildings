@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Fuels<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Data.Fuels"></A><A HREF="Buildings_Fluid_Data.html#Buildings.Fluid.Data"
 >Buildings.Fluid.Data</A>.Fuels</H2>
 <B>Package with properties of fuels</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 Package with records for fuel properties.
@@ -42,10 +42,10 @@ Note that the heating value and the mass density can vary for individual fuels.
 The parameter <code>mCO2</code> are the CO<sub>2</sub> emission in kilograms 
 that are released per kilogram fuel that is burnt.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
 >Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Data.Fuel4af881f652bf4fa2ValueS.png" ALT="Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue"
@@ -74,7 +74,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackag
 <H2><IMG SRC="Buildings.Fluid.Data.Fuel4af881f652bf4fa2ValueI.png" ALT="Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue"></A><A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels"
 >Buildings.Fluid.Data.Fuels</A>.NaturalGasLowerHeatingValue</H2>
-<B>Natural gas, lower heating value</B><p>
+<B>Natural gas, lower heating value</B><p></P>
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
@@ -82,10 +82,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackag
 >SpecificEnthalpy</A></TD><TD>h</TD><TD>50E6</TD><TD>Heating value (lower or upper, depending on fuel) [J/kg]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>d</TD><TD>0.84</TD><TD>Mass density [kg/m3]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->MassFraction</A></TD><TD>mCO2</TD><TD>2.23</TD><TD>CO2 emission at combustion, in kg/kg fuel [1]</TD></TR>
+<TR><TD>Real</TD><TD>mCO2</TD><TD>2.23</TD><TD>CO2 emission at combustion, in kg/kg fuel</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> NaturalGasLowerHeatingValue = <A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels.Generic"
 >Buildings.Fluid.Data.Fuels.Generic</A> (
@@ -100,7 +99,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackag
 <H2><IMG SRC="Buildings.Fluid.Data.Fuel4af881f652bf4fa2ValueI.png" ALT="Buildings.Fluid.Data.Fuels.NaturalGasHigherHeatingValue" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Data.Fuels.NaturalGasHigherHeatingValue"></A><A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels"
 >Buildings.Fluid.Data.Fuels</A>.NaturalGasHigherHeatingValue</H2>
-<B>Natural gas, higher heating value</B><p>
+<B>Natural gas, higher heating value</B><p></P>
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
@@ -108,10 +107,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackag
 >SpecificEnthalpy</A></TD><TD>h</TD><TD>55.5E6</TD><TD>Heating value (lower or upper, depending on fuel) [J/kg]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>d</TD><TD>0.84</TD><TD>Mass density [kg/m3]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->MassFraction</A></TD><TD>mCO2</TD><TD>2.23</TD><TD>CO2 emission at combustion, in kg/kg fuel [1]</TD></TR>
+<TR><TD>Real</TD><TD>mCO2</TD><TD>2.23</TD><TD>CO2 emission at combustion, in kg/kg fuel</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> NaturalGasHigherHeatingValue = <A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue"
 >NaturalGasLowerHeatingValue</A> (
@@ -124,7 +122,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackag
 <H2><IMG SRC="Buildings.Fluid.Data.Fuel4af881f652bf4fa2ValueI.png" ALT="Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue"></A><A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels"
 >Buildings.Fluid.Data.Fuels</A>.HeatingOilLowerHeatingValue</H2>
-<B>Heating oil, lower heating value</B><p>
+<B>Heating oil, lower heating value</B><p></P>
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
@@ -132,10 +130,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackag
 >SpecificEnthalpy</A></TD><TD>h</TD><TD>42.6E6</TD><TD>Heating value (lower or upper, depending on fuel) [J/kg]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>d</TD><TD>845</TD><TD>Mass density [kg/m3]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->MassFraction</A></TD><TD>mCO2</TD><TD>3.136</TD><TD>CO2 emission at combustion, in kg/kg fuel [1]</TD></TR>
+<TR><TD>Real</TD><TD>mCO2</TD><TD>3.136</TD><TD>CO2 emission at combustion, in kg/kg fuel</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> HeatingOilLowerHeatingValue = <A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels.Generic"
 >Buildings.Fluid.Data.Fuels.Generic</A> (
@@ -150,7 +147,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackag
 <H2><IMG SRC="Buildings.Fluid.Data.Fuel4af881f652bf4fa2ValueI.png" ALT="Buildings.Fluid.Data.Fuels.HeatingOilHigherHeatingValue" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Data.Fuels.HeatingOilHigherHeatingValue"></A><A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels"
 >Buildings.Fluid.Data.Fuels</A>.HeatingOilHigherHeatingValue</H2>
-<B>Heating oil, higher heating value</B><p>
+<B>Heating oil, higher heating value</B><p></P>
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
 <TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
@@ -158,10 +155,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackag
 >SpecificEnthalpy</A></TD><TD>h</TD><TD>45.4E6</TD><TD>Heating value (lower or upper, depending on fuel) [J/kg]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>d</TD><TD>845</TD><TD>Mass density [kg/m3]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->MassFraction</A></TD><TD>mCO2</TD><TD>3.136</TD><TD>CO2 emission at combustion, in kg/kg fuel [1]</TD></TR>
+<TR><TD>Real</TD><TD>mCO2</TD><TD>3.136</TD><TD>CO2 emission at combustion, in kg/kg fuel</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> HeatingOilHigherHeatingValue = <A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue"
 >HeatingOilLowerHeatingValue</A> (
@@ -174,8 +170,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackag
 <H2><IMG SRC="Buildings.Fluid.Data.Fuel4af881f652bf4fa2ValueI.png" ALT="Buildings.Fluid.Data.Fuels.WoodAirDriedLowerHeatingValue" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Data.Fuels.WoodAirDriedLowerHeatingValue"></A><A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels"
 >Buildings.Fluid.Data.Fuels</A>.WoodAirDriedLowerHeatingValue</H2>
-<B>Wood, air-dried, lower heating value</B><p>
-<P><H3>Information</H3></P>
+<B>Wood, air-dried, lower heating value</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 The lower heating value is based on Recknagel 2005, Tafel 1.3.6-1.
@@ -184,7 +180,7 @@ The lower heating value is based on Recknagel 2005, Tafel 1.3.6-1.
 <p>
 Hermann Recknagel, Eberhard Sprenger and Ernst-Rudolf Schramek. Taschenbuch fuer Heizung und Klimatechnik.72. Auflage. Oldenbourg Industrieverlage Muenchen. ISBN 3-486-26560-1. 2005.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels.Generic"
 >Buildings.Fluid.Data.Fuels.Generic</A> (Generic record of fuel properties).
 <P><H3>Parameters</H3><P>
@@ -194,10 +190,9 @@ Extends from <A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels
 >SpecificEnthalpy</A></TD><TD>h</TD><TD>14.6E6</TD><TD>Heating value (lower or upper, depending on fuel) [J/kg]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>d</TD><TD>700</TD><TD>Mass density [kg/m3]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->MassFraction</A></TD><TD>mCO2</TD><TD>0</TD><TD>CO2 emission at combustion, in kg/kg fuel [1]</TD></TR>
+<TR><TD>Real</TD><TD>mCO2</TD><TD>0</TD><TD>CO2 emission at combustion, in kg/kg fuel</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> WoodAirDriedLowerHeatingValue = <A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels.Generic"
 >Buildings.Fluid.Data.Fuels.Generic</A> (
@@ -212,13 +207,13 @@ Extends from <A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels
 <H2><IMG SRC="Buildings.Fluid.Data.Fuel4af881f652bf4fa2ValueI.png" ALT="Buildings.Fluid.Data.Fuels.Generic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Data.Fuels.Generic"></A><A HREF="Buildings_Fluid_Data_Fuels.html#Buildings.Fluid.Data.Fuels"
 >Buildings.Fluid.Data.Fuels</A>.Generic</H2>
-<B>Generic record of fuel properties</B><p>
-<P><H3>Information</H3></P>
+<B>Generic record of fuel properties</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This is a generic record where the fuel properties need to be specified by the user.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
@@ -228,10 +223,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Reco
 >SpecificEnthalpy</A></TD><TD>h</TD><TD>&nbsp;</TD><TD>Heating value (lower or upper, depending on fuel) [J/kg]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>d</TD><TD>&nbsp;</TD><TD>Mass density [kg/m3]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->MassFraction</A></TD><TD>mCO2</TD><TD>&nbsp;</TD><TD>CO2 emission at combustion, in kg/kg fuel [1]</TD></TR>
+<TR><TD>Real</TD><TD>mCO2</TD><TD>&nbsp;</TD><TD>CO2 emission at combustion, in kg/kg fuel</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> Generic <font color="darkgreen">&quot;Generic record of fuel properties&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
@@ -241,12 +235,10 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Reco
     &quot;Heating value (lower or upper, depending on fuel)&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Modelica.SIunits.Density</A> d <font color="darkgreen">&quot;Mass density&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->Modelica.SIunits.MassFraction</A> mCO2 <font color="darkgreen">
-    &quot;CO2 emission at combustion, in kg/kg fuel&quot;</font>;
+  <font color="blue">parameter </font>Real mCO2(<font color="blue">final </font>min=0) <font color="darkgreen">&quot;CO2 emission at combustion, in kg/kg fuel&quot;</font>;
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Generic;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:39 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:04 2013.
 </address></BODY>
 </HTML>

@@ -26,36 +26,62 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE SpaceCooling<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Examples.Tutorial.SpaceCooling"></A><A HREF="Buildings_Examples_Tutorial.html#Buildings.Examples.Tutorial"
 >Buildings.Examples.Tutorial</A>.SpaceCooling</H2>
 <B>Package with example for how to build a model for space cooling</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
-<p>This package contains examples with step-by-step instructions for how to build a system model for space cooling as shown in the figure below. The temperautures correspond to design conditions that will be used to size the components. The room heat capacity has been increased by a factor of three to approximate the thermal storage effect of furniture and building constructions. </p>
-<p align="center"><img src="../Resources/Images/Examples/Tutorial/SpaceCooling/schematics.png"/> </p>
-<p>The model consists of </p>
-<p><ol>
-<li>a room with a cooling load due to internal heat gains and due to conductive heat gains from the environment, </li>
-<li>a fresh air supply with a heat recovery, a cooling coil and a fan. The fan is operating continuously at full speed. The room air temperature is controlled by a controller that switches the water flow rate through the coil on and off with a dead-band of <i>1</i> Kelvin. </li>
-</ol></p>
-<p>To explain the implementation of this model, the model has been created in the following three stages: </p>
-<p><ol>
-<li><A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System1"
->Buildings.Examples.Tutorial.SpaceCooling.System1</a> implements the room model without air supply. </li>
-<li><A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System2"
->Buildings.Examples.Tutorial.SpaceCooling.System2</a> implements the air supply with open-loop control. </li>
-<li><A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System3"
->Buildings.Examples.Tutorial.SpaceCooling.System3</a> adds closed-loop control. </li>
-</ol></p>
-<P>
+<p>
+This package contains examples with step-by-step instructions for 
+how to build a system model for space cooling 
+as shown in the figure below. The temperautures correspond to design conditions 
+that will be used to size the components. The room heat capacity has been increased 
+by a factor of three to approximate the thermal storage effect of furniture and building constructions.
+</p>
+<p align="center"><img alt="image" src="../Resources/Images/Examples/Tutorial/SpaceCooling/schematics.png"/>
+</p>
+<p>
+The model consists of
+</p>
+<ol>
+<li>
+a room with a cooling load due to internal heat gains and due to conductive heat gains from the environment,
+</li>
+<li>
+a fresh air supply with a heat recovery, a cooling coil and a fan. The fan is operating continuously at full speed. 
+The room air temperature is controlled by a controller that switches the water flow rate through the coil on and 
+off with a dead-band of <i>1</i> Kelvin.
+</li>
+</ol>
+<p>
+To explain the implementation of this model, the model has been created in the following three stages:
+</p>
+<ol>
+<li>
+<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System1"
+>Buildings.Examples.Tutorial.SpaceCooling.System1</a> 
+implements the room model without air supply.
+</li>
+<li>
+<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System2"
+>Buildings.Examples.Tutorial.SpaceCooling.System2</a> 
+implements the air supply with open-loop control.
+</li>
+<li>
+<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System3"
+>Buildings.Examples.Tutorial.SpaceCooling.System3</a> 
+adds closed-loop control.
+</li>
+</ol>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Examples.Tutori183681cb9fd28122stem1S.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System1" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System1"
@@ -75,9 +101,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Mod
 <H2><IMG SRC="Buildings.Examples.Tutori92999cf1e5017510stem1I.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System1" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.Tutorial.SpaceCooling.System1"></A><A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling"
 >Buildings.Examples.Tutorial.SpaceCooling</A>.System1</H2>
-<B>First part of the system model, consisting of the room with heat transfer</B><p>
+<B>First part of the system model, consisting of the room with heat transfer</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori92999cf1e5017510stem1D.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System1">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This part of the system model implements the room with a heat gain.
@@ -139,6 +165,7 @@ we can use this medium model for unsaturated air.
 </p>
 <p>
 We also defined the system-level parameters
+</p>
 <pre>
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
@@ -146,6 +173,7 @@ We also defined the system-level parameters
   parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 1000 
     "Internal heat gains of the room";
 </pre>
+<p>
 to declare that the room volume is <i>180</i> m<sup>3</sup>, that the room
 has a nominal mass flow rate of <i>6</i> air changes per hour and that the internal heat gains of the room are <i>1000</i> Watts.
 These parameters have been declared at the top-level of the model
@@ -206,14 +234,14 @@ Finally, we used the instance <code>preHea</code> to model a prescribed, constan
 This completes the initial version of the model. When simulating the model
 for <i>3</i> hours, or <i>10800</i> seconds, the
 response shown below should be seen.
+</p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/SpaceCooling/System1Temperatures.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/SpaceCooling/System1Temperatures.png" border="1"/>
 </p>
 <p>
 To verify the correctness of the model, we can compare the simulated results to the
 following analytical solutions:
 </p>
-<p>
 <ol>
 <li>
 At steady-state, the temperature difference to the outside should be
@@ -228,7 +256,6 @@ that is connected to it, and
 <i>G</i> is the heat conductance.
 </li>
 </ol>
-</p>
 <p>
 Both analytical values agree with the simulation results shown in the above figure.
 </p>
@@ -247,7 +274,7 @@ package
 Buildings.HeatTransfer.Conduction</a>
 could have been used.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -266,7 +293,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package MediumA</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> System1 <font color="darkgreen">
   &quot;First part of the system model, consisting of the room with heat transfer&quot;</font>
@@ -318,9 +345,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Examples.Tutori92999cf2e5017513stem2I.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System2" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.Tutorial.SpaceCooling.System2"></A><A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling"
 >Buildings.Examples.Tutorial.SpaceCooling</A>.System2</H2>
-<B>Second part of the system model with air supply and open loop control</B><p>
+<B>Second part of the system model with air supply and open loop control</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori92999cf2e5017513stem2D.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System2">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This part of the system model adds a space cooling with
@@ -392,9 +419,10 @@ Note that we use an assignment for the nominal air mass flow rate
 >
 Buildings.Examples.Tutorial.SpaceCooling.System1</a> because
 now, the air flow rate is a result of the sizing calculations.
-<p/>
+</p>
 <p>
 The calculations are as follows:
+</p>
 <pre>
   //////////////////////////////////////////////////////////
   // Heat recovery effectiveness
@@ -445,6 +473,7 @@ Now, we explain the component models that are used to assemble the system model.
 </p>
 <ol start="4">
 <li>
+<p>
 The weather data are obtained from the instance
 <code>weaDat</code> in which we set the location to Chicago, IL.
 We also configured the model to use a constant atmospheric pressure,
@@ -591,7 +620,6 @@ as is used for the fan, but we chose to use the simpler model
 Buildings.Fluid.Sources.MassFlowSource_T</a>
 as this model allows the direct specification of the
 leaving fluid temperature.
-</p>
 </li>
 <li>
 <p>
@@ -608,7 +636,7 @@ its temperature.
 This completes the initial version of the model. When simulating the model, the
 response shown below should be seen.
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/SpaceCooling/System2Temperatures.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/SpaceCooling/System2Temperatures.png" border="1"/>
 </p>
 <!-- Notes -->
 <h4>Notes</h4>
@@ -629,7 +657,7 @@ pressure drop of the cooling coil, we could have modeled the cooling coil pressu
 <code>dp2_nominal = 0</code>. Setting the nominal pressure drop to zero will remove this equation 
 from the model.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -673,7 +701,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> System2 <font color="darkgreen">
   &quot;Second part of the system model with air supply and open loop control&quot;</font>
@@ -811,7 +839,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     TDryBul=TOut_nominal,
-    filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
+    filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
     &quot;Weather data reader&quot;</font>;
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >BoundaryConditions.WeatherData.Bus</A> weaBus;
@@ -864,9 +892,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Examples.Tutori92999cf2e5017513stem2I.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System3" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.Tutorial.SpaceCooling.System3"></A><A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling"
 >Buildings.Examples.Tutorial.SpaceCooling</A>.System3</H2>
-<B>Third part of the system model with air supply and closed loop control</B><p>
+<B>Third part of the system model with air supply and closed loop control</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori92999cf3e5017512stem3D.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System3">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This part of the system model modifies
@@ -902,7 +930,7 @@ whether the outside dry bulb temperature is used from the weather data file
 or set to a constant value. This can be accomplished in the GUI of the weather data reader
 as follows:
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/SpaceCooling/System3TOutChange.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/SpaceCooling/System3TOutChange.png" border="1"/>
 </p>
 </li>
 </ol>
@@ -910,7 +938,7 @@ as follows:
 If the model is now simulated, the following plot could be generated that shows that the
 room is cooled too much due to the open loop control:
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesOpenLoop.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesOpenLoop.png" border="1"/>
 </p>
 <p>
 To add closed loop control, we proceeded as follows.
@@ -972,9 +1000,9 @@ This completes building the model shown in the figure on
 Buildings.Examples.Tutorial.SpaceCooling</a>. 
 When simulating the model, the response shown below should be seen.
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesClosedLoop.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesClosedLoop.png" border="1"/>
 <br/>
-<img src="../Resources/Images/Examples/Tutorial/SpaceCooling/System3FlowRateClosedLoop.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/SpaceCooling/System3FlowRateClosedLoop.png" border="1"/>
 </p>
 <!-- Notes -->
 <h4>Notes</h4>
@@ -984,7 +1012,7 @@ To add a continuous controller for the coil water flow rate, we could have used 
 >
 Buildings.Controls.Continuous.LimPID</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -1028,7 +1056,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> System3 <font color="darkgreen">
   &quot;Third part of the system model with air supply and closed loop control&quot;</font>
@@ -1165,7 +1193,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 >BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     TDryBul=TOut_nominal,
-    filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;,
+    filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;,
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File) <font color="darkgreen">
     &quot;Weather data reader&quot;</font>;
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
@@ -1226,6 +1254,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>System3;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:59:07 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:14:19 2013.
 </address></BODY>
 </HTML>

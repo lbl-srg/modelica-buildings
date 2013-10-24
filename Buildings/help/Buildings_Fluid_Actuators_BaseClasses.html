@@ -26,25 +26,25 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Actuators.BaseClasses"></A><A HREF="Buildings_Fluid_Actuators.html#Buildings.Fluid.Actuators"
 >Buildings.Fluid.Actuators</A>.BaseClasses</H2>
 <B>Package with base classes for Buildings.Fluid.Actuators</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_Actuators.html#Buildings.Fluid.Actuators"
 >Buildings.Fluid.Actuators</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.Actuators05b8ecb1449abd53ignalS.png" ALT="Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
@@ -82,9 +82,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <H2><IMG SRC="Buildings.Fluid.Actuators05b8ecb1449abd53ignalI.png" ALT="Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.ActuatorSignal</H2>
-<B>Partial model that implements the filtered opening for valves and dampers</B><p>
+<B>Partial model that implements the filtered opening for valves and dampers</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuators05b8ecb1449abd53ignalD.png" ALT="Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model implements the filter that is used to approximate the travel
@@ -100,7 +100,7 @@ See
 Buildings.Fluid.Actuators.UsersGuide</a>
 for a description of the filter.
 </p>
-<P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -122,7 +122,7 @@ for a description of the filter.
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y_actual</TD><TD>Actual valve position</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ActuatorSignal <font color="darkgreen">
   &quot;Partial model that implements the filtered opening for valves and dampers&quot;</font>
@@ -180,9 +180,9 @@ for a description of the filter.
 <H2><IMG SRC="Buildings.Fluid.Actuators2c08592b56e2d47fntialI.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.PartialDamperExponential</H2>
-<B>Partial model for air dampers with exponential opening characteristics</B><p>
+<B>Partial model for air dampers with exponential opening characteristics</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuators2c08592b56e2d47fntialD.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Partial model for air dampers with exponential opening characteristics. 
@@ -198,7 +198,7 @@ For a description of the opening characteristics and typical parameter values, s
 >
 Exponential</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance"
 >Buildings.Fluid.BaseClasses.PartialResistance</A> (Partial model for a hydraulic resistance), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
 >Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal</A> (Partial model that implements the filtered opening for valves and dampers).
@@ -237,8 +237,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <TR><TD>Boolean</TD><TD>linearized</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
 <TR><TD>Boolean</TD><TD>use_constant_density</TD><TD>true</TD><TD>Set to true to use constant density for flow friction</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Filtered opening</TD></TR>
 <TR><TD>Boolean</TD><TD>filteredOpening</TD><TD>true</TD><TD>= true, if opening is filtered with a 2nd order CriticalDamping filter</TD></TR>
@@ -267,7 +266,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y_actual</TD><TD>Actual valve position</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialDamperExponential <font color="darkgreen">
   &quot;Partial model for air dampers with exponential opening characteristics&quot;</font>
@@ -381,9 +380,9 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <H2><IMG SRC="Buildings.Fluid.Actuators8b7314e2935a9e36ValveI.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.PartialThreeWayValve</H2>
-<B>Partial three way valve</B><p>
+<B>Partial three way valve</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuators8b7314e2935a9e36ValveD.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Partial model of a three way valve. This is the base model for valves
@@ -396,23 +395,23 @@ a parameter.
 The flow coefficient for the bypass flow from <code>port_3 -> port_2</code>
 is computed as
 </p>
-<p>
 <pre>
          Kv(port_3 -> port_2)
   fraK = ----------------------
          Kv(port_1 -> port_2)
 </pre> 
-</p>
 <p>
 where <code>0 &lt; fraK &le; 1</code> is a parameter with a default value
 of <code>fraK=0.7</code>.
-</p><p>
+</p>
+<p>
 Since this model uses two way valves to construct a three way valve, see 
 <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve"
 >
-PartialTwoWayValve</a> for details regarding the valve implementation.
+Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a> 
+for details regarding the valve implementation.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialThreeWayResistance"
 >Buildings.Fluid.BaseClasses.PartialThreeWayResistance</A> (Flow splitter with partial resistance model at each port), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
 >Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal</A> (Partial model that implements the filtered opening for valves and dampers), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ValveParameters"
@@ -492,7 +491,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y_actual</TD><TD>Actual valve position</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialThreeWayValve <font color="darkgreen">&quot;Partial three way valve&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialThreeWayResistance"
@@ -571,23 +570,26 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <H2><IMG SRC="Buildings.Fluid.Actuators8f28c1b0799bc0dcValveI.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.PartialTwoWayValve</H2>
-<B>Partial model for a two way valve</B><p>
+<B>Partial model for a two way valve</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuators8f28c1b0799bc0dcValveD.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 Partial model for a two way valve. This is the base model for valves
 with different opening characteristics, such as linear, equal percentage
 or quick opening.
 </p>
-<p><b>Modelling options</b></p>
-<p>The following options have been adapted from the valve implementation 
+<h4>Modelling options</h4>
+<p>
+The following options have been adapted from the valve implementation 
 in <A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid"
 >
-Modelica.Fluid</a> and are described in 
+Modelica.Fluid</a> 
+and are described in 
 <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ValveParameters"
 >
 Buildings.Fluid.Actuators.BaseClasses.ValveParameters</a>.
+</p>
 <p>
 In contrast to the model in <A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid"
 >
@@ -595,13 +597,16 @@ Modelica.Fluid</a>, this model uses the parameter <code>Kv_SI</code>,
 which is the flow coefficient in SI units, i.e., 
 it is the ratio between mass flow rate in <code>kg/s</code> and square root 
 of pressure drop in <code>Pa</code>.
-</p><p>
+</p>
+<p>
 To prevent the derivative <code>d/dP (m_flow)</code> to be infinite near
-the origin, this model linearizes the pressure drop vs. flow relation
+the origin, this model linearizes the pressure drop versus flow relation
 ship. The region in which it is linearized is parameterized by 
+</p>
 <pre>
   m_turbulent_flow = deltaM * m_flow_nominal
 </pre>
+<p>
 Because the parameterization contains <code>Kv_SI</code>, the values for
 <code>deltaM</code> and <code>dp_nominal</code> need not be changed if the valve size
 changes.
@@ -611,7 +616,8 @@ changes.
 The two way valve models are implemented using this partial model, as opposed to using
 different functions for the valve opening characteristics, because
 each valve opening characteristics has different parameters.
-<P>
+</p>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance"
 >Buildings.Fluid.BaseClasses.PartialResistance</A> (Partial model for a hydraulic resistance), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ValveParameters"
 >Buildings.Fluid.Actuators.BaseClasses.ValveParameters</A> (Model with parameters for valves), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
@@ -652,8 +658,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearized</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>rhoStd</TD><TD>Medium.density_pTX(101325, 2...</TD><TD>Inlet density for which valve coefficients are defined [kg/m3]</TD></TR>
@@ -678,7 +683,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y_actual</TD><TD>Actual valve position</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> PartialTwoWayValve <font color="darkgreen">&quot;Partial model for a two way valve&quot;</font>
 
@@ -751,8 +756,8 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Actuators.BaseClasses.ValveParameters"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.ValveParameters</H2>
-<B>Model with parameters for valves</B><p>
-<P><H3>Information</H3></P>
+<B>Model with parameters for valves</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 Model that computes the flow coefficients of valves. This base class allows the following modeling options,
@@ -761,13 +766,13 @@ in <A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid"
 >
 Modelica.Fluid</a>
 to specify the valve flow coefficient in fully open conditions:
+</p>
 <ul>
 <li><code>CvData = Buildings.Fluid.Types.CvTypes.Av</code>: the flow coefficient is given by the metric <code>Av</code> coefficient (m^2).
 <li><code>CvData = Buildings.Fluid.Types.CvTypes.Kv</code>: the flow coefficient is given by the metric <code>Kv</code> coefficient (m^3/h).
 <li><code>CvData = Buildings.Fluid.Types.CvTypes.Cv</code>: the flow coefficient is given by the US <code>Cv</code> coefficient (USG/min).
 <li><code>CvData = Buildings.Fluid.Types.CvTypes.OpPoint</code>: the flow is computed from the nominal operating point specified by <code>dp_nominal</code> and <code>m_flow_nominal</code>.
 </ul>
-</p>
 <p>
 The treatment of parameters <code>Kv</code> and <code>Cv</code> is
 explained in detail in the 
@@ -797,7 +802,7 @@ Therefore, if
 <code>CvData &lt;&gt; Buildings.Fluid.Types.CvTypes.OpPoint</code>,
 then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 </p>
-<P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -821,7 +826,7 @@ then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</A></TD><TD>rhoStd</TD><TD>&nbsp;</TD><TD>Inlet density for which valve coefficients are defined [kg/m3]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">partial </font><font color="blue">model</font> ValveParameters <font color="darkgreen">&quot;Model with parameters for valves&quot;</font>
 
@@ -894,8 +899,8 @@ Obtained CvData = &quot; +<font color="red"> String</font>(CvData) + &quot;.&quo
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Actuators.BaseClasses.der_equalPercentage"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.der_equalPercentage</H2>
-<B>Derivative of valve opening characteristics for equal percentage valve</B><p>
-<P><H3>Information</H3></P>
+<B>Derivative of valve opening characteristics for equal percentage valve</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This function computes the derivative of the opening characteristics of an equal percentage valve.
@@ -905,7 +910,7 @@ The function is the derivative of
 >
 TwoWayValveEqualPercentage</a>.
 </p>
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -921,7 +926,7 @@ TwoWayValveEqualPercentage</a>.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>der_phi</TD><TD>Derivative of ratio actual to nominal mass flow rate, dphi/dy</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> der_equalPercentage <font color="darkgreen">
   &quot;Derivative of valve opening characteristics for equal percentage valve&quot;</font>
@@ -966,8 +971,8 @@ TwoWayValveEqualPercentage</a>.
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Actuators.BaseClasses.equalPercentage"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.equalPercentage</H2>
-<B>Valve opening characteristics for equal percentage valve</B><p>
-<P><H3>Information</H3></P>
+<B>Valve opening characteristics for equal percentage valve</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This function computes the opening characteristics of an equal percentage valve.
@@ -980,7 +985,7 @@ For <code>y &lt; delta/2</code>, the valve characteristics is linear. For <code>
 the valve characteristics is equal percentage. In between, a cubic spline is used to ensure
 that the valve characteristics is once continuously differentiable with respect to <code>y</code>.
 </p>
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -995,7 +1000,7 @@ that the valve characteristics is once continuously differentiable with respect 
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>phi</TD><TD>Ratio actual to nominal mass flow rate, phi=Cv(y)/Cv(y=1)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> equalPercentage <font color="darkgreen">
   &quot;Valve opening characteristics for equal percentage valve&quot;</font>
@@ -1042,8 +1047,8 @@ that the valve characteristics is once continuously differentiable with respect 
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.Actuators.BaseClasses.exponentialDamper"></A><A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses"
 >Buildings.Fluid.Actuators.BaseClasses</A>.exponentialDamper</H2>
-<B>Damper opening characteristics for an exponential damper</B><p>
-<P><H3>Information</H3></P>
+<B>Damper opening characteristics for an exponential damper</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This function computes the opening characteristics of an exponential damper.
@@ -1067,7 +1072,7 @@ This is done for numerical reason since otherwise <code>k</code> may be an itera
 variable, which may cause a lot of warnings and slower convergence if the solver
 attempts <code>k &lt; 0</code> during the iterative solution procedure.
 </p>
-<P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1085,7 +1090,7 @@ attempts <code>k &lt; 0</code> during the iterative solution procedure.
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>Real</TD><TD>kThetaSqRt</TD><TD>Flow coefficient, kThetaSqRT = =sqrt(kTheta) = sqrt(pressure drop/dynamic pressure)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">function</font> exponentialDamper <font color="darkgreen">
   &quot;Damper opening characteristics for an exponential damper&quot;</font>
@@ -1117,6 +1122,6 @@ attempts <code>k &lt; 0</code> during the iterative solution procedure.
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>exponentialDamper;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:07 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:11 2013.
 </address></BODY>
 </HTML>

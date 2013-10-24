@@ -26,25 +26,25 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BaseClasses"></A><A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Correlations.html#Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations"
 >Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations</A>.BaseClasses</H2>
 <B>Package with base classes for Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Correlations.html#Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations"
 >Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExcha370bc22d8359359boundsS.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BaseClasses.Bounds" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Correlations_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BaseClasses.Bounds"
@@ -58,16 +58,16 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modeli
 <H2><IMG SRC="Buildings.Fluid.HeatExcha370bc22d8359359boundsI.png" ALT="Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BaseClasses.Bounds" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BaseClasses.Bounds"></A><A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers_Correlations_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BaseClasses"
 >Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BaseClasses</A>.Bounds</H2>
-<B>Coefficient data record for properties of cooling tower model</B><p>
-<P><H3>Information</H3></P>
+<B>Coefficient data record for properties of cooling tower model</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This data record contains the bounds for the cooling tower correlations.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">record</font> Bounds <font color="darkgreen">
   &quot;Coefficient data record for properties of cooling tower model&quot;</font>
@@ -87,16 +87,13 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Reco
 >Modelica.SIunits.Temperature</A> TApp_min <font color="darkgreen">&quot;Minimum approach temperature&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</A> TApp_max <font color="darkgreen">&quot;Minimum approach temperature&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->Modelica.SIunits.MassFraction</A> FRWat_min <font color="darkgreen">&quot;Minimum water flow ratio&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->Modelica.SIunits.MassFraction</A> FRWat_max <font color="darkgreen">&quot;Maximum water flow ratio&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->Modelica.SIunits.MassFraction</A> liqGasRat_max <font color="darkgreen">&quot;Maximum liquid to gas ratio&quot;</font>;
+  Real FRWat_min(<font color="blue">final </font>min=0, <font color="blue">final </font>max=1) <font color="darkgreen">&quot;Minimum water flow ratio&quot;</font>;
+  Real FRWat_max(<font color="blue">final </font>min=0) <font color="darkgreen">&quot;Maximum water flow ratio&quot;</font>;
+  Real liqGasRat_max(<font color="blue">final </font>min=0) <font color="darkgreen">&quot;Maximum liquid to gas ratio&quot;</font>;
 
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Bounds;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:41 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:48 2013.
 </address></BODY>
 </HTML>

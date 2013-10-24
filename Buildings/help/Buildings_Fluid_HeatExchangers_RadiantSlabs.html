@@ -26,25 +26,25 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE RadiantSlabs<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Fluid.HeatExchangers.RadiantSlabs"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >Buildings.Fluid.HeatExchangers</A>.RadiantSlabs</H2>
 <B>Package with radiant slab models</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains models for radiant slabs 
 with pipes or a capillary heat exchanger 
 embedded in the construction.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Fluid.HeatExchaf53eae32261856d9tSlabS.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
@@ -67,9 +67,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Fluid.HeatExchaf53eae32261856d9tSlabI.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"></A><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs</A>.SingleCircuitSlab</H2>
-<B>Model of a single circuit of a radiant slab</B><p>
+<B>Model of a single circuit of a radiant slab</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchaf53eae32261856d9tSlabD.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This is a model of a single flow circuit of a radiant slab with pipes or a capillary heat exchanger
@@ -85,7 +85,7 @@ example in which the pipes are embedded in the concrete slab, and
 the layers below the pipes are insulation and reinforced concrete.
 </p>
 <p align="center">
-<img src="../Resources/Images/Fluid/HeatExchangers/RadiantSlabs/resistances.png"/>
+<img alt="image" src="../Resources/Images/Fluid/HeatExchangers/RadiantSlabs/resistances.png"/>
 </p>
 <p>
 The construction <code>con_a</code> computes transient heat conduction
@@ -121,11 +121,12 @@ The first layer of this material is the one at the heat port <code>surf_a</code>
 is at the heat port <code>surf_b</code>.
 The parameter <code>iLayPip</code> must be set to the number of the interface in which the pipes
 are located. For example, consider the following floor slab.
+</p>
 <p align="center">
-<img src="../Resources/Images/Fluid/HeatExchangers/RadiantSlabs/construction.png"/>
+<img alt="image" src="../Resources/Images/Fluid/HeatExchangers/RadiantSlabs/construction.png"/>
 </p>
 Then, the construction definition is
-</p>
+<br/>
 <pre>
   Buildings.HeatTransfer.Data.OpaqueConstructions.Generic layers(
         nLay=3, 
@@ -206,8 +207,7 @@ The parameter <code>sysTyp</code> is used to select the equation that is used to
 the average temperature in the plane of the pipes.
 It needs to be set to the following values:
 </p>
-<p>
-  <table border="1" cellspacing=0 cellpadding=2 style="border-collapse:collapse;">
+  <table summary="summary" border="1" cellspacing=0 cellpadding=2 style="border-collapse:collapse;">
   <tr>
       <th>sysTyp</th>
       <th>System type</th>
@@ -223,7 +223,6 @@ It needs to be set to the following values:
           construction surface.</td>
     </tr>
   </table>
-</p>
 <h4>Limitations</h4>
 <p>
 The analogy with a three-resistance network and the corresponding equation for
@@ -241,7 +240,7 @@ The respective partitions are then assigned to the models for heat conduction be
 plane with the pipes and the construction surfaces, <code>con_a</code> and <code>con_b</code>.
 </p>
 <pre>
-</PRE><P>
+</PRE><P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab</A> (Base class for radiant slab), <A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Buildings.Fluid.FixedResistances.BaseClasses.Pipe"
 >Buildings.Fluid.FixedResistances.BaseClasses.Pipe</A> (Model of a pipe with finite volume discretization along the flow path).
@@ -312,8 +311,6 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.ht
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
 <TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
 <TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
@@ -332,7 +329,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.ht
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> SingleCircuitSlab <font color="darkgreen">&quot;Model of a single circuit of a radiant slab&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab"
@@ -345,10 +342,10 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.ht
      <font color="blue">final </font>lambdaIns = 0.04,
      dp_nominal =<font color="red"> Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow</font>(
       m_flow=m_flow_nominal,
-      rho_a=rho_nominal,
-      rho_b=rho_nominal,
-      mu_a=mu_nominal,
-      mu_b=mu_nominal,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
       length=length,
       diameter=pipe.dIn,
       roughness=pipe.roughness,
@@ -357,10 +354,12 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.ht
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</A> A <font color="darkgreen">&quot;Surface area of radiant slab&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Modelica.SIunits.Temperature</A> T_c_start=(T_a_start*con_b[1].layers.R+T_b_start*con_a[1].layers.R)/layers.R <font color="darkgreen">
+>Modelica.SIunits.Temperature</A> T_c_start=
+    (T_a_start*con_b[1].layers.R+T_b_start*con_a[1].layers.R)/layers.R <font color="darkgreen">
     &quot;Initial construction temperature in the layer that contains the pipes, used if steadyStateInitial = false&quot;</font>;
   <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
->Modelica.SIunits.Velocity</A> v_nominal = 4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_nominal <font color="darkgreen">
+>Modelica.SIunits.Velocity</A> v_nominal=
+    4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_default <font color="darkgreen">
     &quot;Velocity at m_flow_nominal&quot;</font>;
 
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.MultiLayer"
@@ -454,9 +453,9 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.ht
 <H2><IMG SRC="Buildings.Fluid.HeatExchad0a237c4717b4738sSlabI.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab"></A><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs</A>.ParallelCircuitsSlab</H2>
-<B>Model of multiple parallel circuits of a radiant slab</B><p>
+<B>Model of multiple parallel circuits of a radiant slab</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchad0a237c4717b4738sSlabD.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This is a model of a radiant slab with pipes or a capillary heat exchanger
@@ -505,7 +504,7 @@ model does not inherit
 >
 Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPort"
 >Modelica.Fluid.Interfaces.PartialTwoPort</A> (Partial component with two ports), <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab</A> (Base class for radiant slab), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
@@ -572,8 +571,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate of all circuits combined for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -583,15 +581,15 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</A></TD><TD>surf_b</TD><TD>Heat port at construction surface</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ParallelCircuitsSlab <font color="darkgreen">
   &quot;Model of multiple parallel circuits of a radiant slab&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPort"
 >Modelica.Fluid.Interfaces.PartialTwoPort</A>(
-    port_a(p(start=Medium.p_default,
+    port_a(p(start=p_start,
              nominal=Medium.p_default)),
-    port_b(p(start=Medium.p_default,
+    port_b(p(start=p_start,
            nominal=Medium.p_default)));
   <font color="blue">extends </font><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab</A>;
@@ -601,10 +599,10 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
 >Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters</A>(
    dp_nominal =<font color="red"> Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow</font>(
       m_flow=m_flow_nominal/nCir,
-      rho_a=rho_nominal,
-      rho_b=rho_nominal,
-      mu_a=mu_nominal,
-      mu_b=mu_nominal,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
       length=length,
       diameter=pipe.dIn,
       roughness=pipe.roughness,
@@ -629,22 +627,16 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
     &quot;Small mass flow rate of all circuits combined for regularization of zero flow&quot;</font>;
 
   <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
->Modelica.SIunits.Velocity</A> v_nominal = 4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_nominal/nCir <font color="darkgreen">
+>Modelica.SIunits.Velocity</A> v_nominal=
+    4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_default/nCir <font color="darkgreen">
     &quot;Velocity at m_flow_nominal&quot;</font>;
 
   <font color="darkgreen">// Parameters used for the fluid model implementation</font>
   <font color="blue">parameter </font>Boolean homotopyInitialization = true <font color="darkgreen">&quot;= true, use homotopy method&quot;</font>;
 
   <font color="darkgreen">// Diagnostics</font>
-   <font color="blue">parameter </font>Boolean show_V_flow = false <font color="darkgreen">
-    &quot;= true, if volume flow rate at inflowing port is computed&quot;</font>;
    <font color="blue">parameter </font>Boolean show_T = false <font color="darkgreen">
-    &quot;= true, if actual temperature at port is computed (may lead to events)&quot;</font>;
-
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
->Modelica.SIunits.VolumeFlowRate</A> V_flow=
-      m_flow/<font color="red">Medium.density</font>(sta_a) <font color="blue">if </font>show_V_flow <font color="darkgreen">
-    &quot;Volume flow rate at inflowing port (positive when flow from port_a to port_b)&quot;</font>;
+    &quot;= true, if actual temperature at port is computed&quot;</font>;
 
   <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</A> m_flow(start=0) = port_a.m_flow <font color="darkgreen">
@@ -656,27 +648,27 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</A> sta_a=<font color="blue">if </font>homotopyInitialization<font color="blue"> then </font>
       <font color="red">Medium.setState_phX</font>(port_a.p,
-                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a.h_outflow),
+                          <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a.h_outflow)),
                                    simplified=<font color="red">inStream</font>(port_a.h_outflow)),
-                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_a.Xi_outflow),
+                          <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a.Xi_outflow)),
                                    simplified=<font color="red">inStream</font>(port_a.Xi_outflow)))<font color="blue">
     else </font>
       <font color="red">Medium.setState_phX</font>(port_a.p,
-                          <font color="red">actualStream</font>(port_a.h_outflow),
-                          <font color="red">actualStream</font>(port_a.Xi_outflow)) <font color="blue">if </font>
-         show_T<font color="blue"> or </font>show_V_flow <font color="darkgreen">&quot;Medium properties in port_a&quot;</font>;
+                          <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a.h_outflow)),
+                          <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_a.Xi_outflow))) <font color="blue">if </font>
+         show_T <font color="darkgreen">&quot;Medium properties in port_a&quot;</font>;
 
   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</A> sta_b=<font color="blue">if </font>homotopyInitialization<font color="blue"> then </font>
       <font color="red">Medium.setState_phX</font>(port_b.p,
-                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b.h_outflow),
+                          <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b.h_outflow)),
                                    simplified=port_b.h_outflow),
-                          <font color="red">homotopy</font>(actual=<font color="red">actualStream</font>(port_b.Xi_outflow),
+                          <font color="red">homotopy</font>(actual=<font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b.Xi_outflow)),
                             simplified=port_b.Xi_outflow))<font color="blue">
     else </font>
       <font color="red">Medium.setState_phX</font>(port_b.p,
-                          <font color="red">actualStream</font>(port_b.h_outflow),
-                          <font color="red">actualStream</font>(port_b.Xi_outflow)) <font color="blue">if </font>
+                          <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b.h_outflow)),
+                          <font color="red">noEvent</font>(<font color="red">actualStream</font>(port_b.Xi_outflow))) <font color="blue">if </font>
           show_T <font color="darkgreen">&quot;Medium properties in port_b&quot;</font>;
 
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
@@ -702,7 +694,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
     <font color="blue">final </font>m_flow_nominal=m_flow_nominal/nCir,
     <font color="blue">final </font>m_flow_small=m_flow_small/nCir,
     <font color="blue">final </font>homotopyInitialization=homotopyInitialization,
-    <font color="blue">final </font>show_V_flow=show_V_flow,
     <font color="blue">final </font>from_dp=from_dp,
     <font color="blue">final </font>dp_nominal=dp_nominal,
     <font color="blue">final </font>linearizeFlowResistance=linearizeFlowResistance,
@@ -712,14 +703,14 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
     <font color="blue">final </font>ReC=4000) <font color="darkgreen">&quot;Single parallel circuit of the radiant slab&quot;</font>;</textblock>
 <font color="blue">protected </font>
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
->Medium.ThermodynamicState</A> state_start =<font color="red"> Medium.setState_pTX</font>(
-      T=T_start,
-      p=p_start,
-      X=X_start[1:Medium.nXi]) <font color="darkgreen">&quot;Start state&quot;</font>;
+>Medium.ThermodynamicState</A> state_default =<font color="red"> Medium.setState_pTX</font>(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]) <font color="darkgreen">&quot;Start state&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Modelica.SIunits.Density</A> rho_nominal =<font color="red"> Medium.density</font>(state_start);
+>Modelica.SIunits.Density</A> rho_default =<font color="red"> Medium.density</font>(state_default);
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
->Modelica.SIunits.DynamicViscosity</A> mu_nominal =<font color="red"> Medium.dynamicViscosity</font>(state_start) <font color="darkgreen">
+>Modelica.SIunits.DynamicViscosity</A> mu_default =<font color="red"> Medium.dynamicViscosity</font>(state_default) <font color="darkgreen">
     &quot;Dynamic viscosity at nominal condition&quot;</font>;
 
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier"
@@ -760,6 +751,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>ParallelCircuitsSlab;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:56:05 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:19 2013.
 </address></BODY>
 </HTML>

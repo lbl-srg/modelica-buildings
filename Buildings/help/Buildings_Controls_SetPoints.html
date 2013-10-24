@@ -26,25 +26,25 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE SetPoints<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Controls.SetPoints"></A><A HREF="Buildings_Controls.html#Buildings.Controls"
 >Buildings.Controls</A>.SetPoints</H2>
 <B>Package with models for control set points</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package contains components models to compute set points of control systems.
 For additional models, see also 
 <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous"
 >
 Modelica.Blocks.Continuous</a>.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Controls.SetPoi004acb778f1ba78aResetS.png" ALT="Buildings.Controls.SetPoints.HotWaterTemperatureReset" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.HotWaterTemperatureReset"
@@ -67,10 +67,11 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Controls.SetPoi004acb778f1ba78aResetI.png" ALT="Buildings.Controls.SetPoints.HotWaterTemperatureReset" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.SetPoints.HotWaterTemperatureReset"></A><A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints"
 >Buildings.Controls.SetPoints</A>.HotWaterTemperatureReset</H2>
-<B>Block to compute the supply and return set point of heating systems</B><p>
+<B>Block to compute the supply and return set point of heating systems</B><p></P>
 <IMG SRC="Buildings.Controls.SetPoi004acb778f1ba78aResetD.png" ALT="Buildings.Controls.SetPoints.HotWaterTemperatureReset">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
+<p>
 This block computes the set point temperatures for the
 supply and return temperature of a heating system.
 The set point for the room air temperature can either be specified
@@ -87,7 +88,7 @@ the outside air temperature is greater than
 In such a situation, set <code>dTOutHeaBal=20-12=8</code> Kelvin to 
 shift the heating curve.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -121,7 +122,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>TRet</TD><TD>Setpoint for return temperature [K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> HotWaterTemperatureReset <font color="darkgreen">
   &quot;Block to compute the supply and return set point of heating systems&quot;</font>
@@ -148,26 +149,26 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 >Modelica.SIunits.TemperatureDifference</A> dTOutHeaBal(displayUnit=&quot;K&quot;) = 8 <font color="darkgreen">
     &quot;Offset for heating curve&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> TRoo_in(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
+>Modelica.Blocks.Interfaces.RealInput</A> TRoo_in(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                                <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="blue">if </font>
           use_TRoo_in <font color="darkgreen">&quot;Room air temperature set point&quot;</font>;</textblock>
 
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> TOut(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
+>Modelica.Blocks.Interfaces.RealInput</A> TOut(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                             <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
     &quot;Outside temperature&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> TSup(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
+>Modelica.Blocks.Interfaces.RealOutput</A> TSup(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                             <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
     &quot;Setpoint for supply temperature&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> TRet(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
+>Modelica.Blocks.Interfaces.RealOutput</A> TRet(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                             <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
     &quot;Setpoint for return temperature&quot;</font>;</textblock>
 
 <font color="blue">protected </font>
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> TRoo_in_internal(<font color="blue">final </font>quantity=&quot;Temperature&quot;,
+>Modelica.Blocks.Interfaces.RealInput</A> TRoo_in_internal(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
                                                         <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
     &quot;Needed to connect to conditional connector&quot;</font>;
   Real qRel <font color="darkgreen">&quot;Relative heating load = Q_flow/Q_flow_nominal&quot;</font>;
@@ -199,9 +200,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Controls.SetPoia9379402f2a3200eeduleI.png" ALT="Buildings.Controls.SetPoints.OccupancySchedule" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.SetPoints.OccupancySchedule"></A><A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints"
 >Buildings.Controls.SetPoints</A>.OccupancySchedule</H2>
-<B>Occupancy schedule with look-ahead</B><p>
+<B>Occupancy schedule with look-ahead</B><p></P>
 <IMG SRC="Buildings.Controls.SetPoia9379402f2a3200eeduleD.png" ALT="Buildings.Controls.SetPoints.OccupancySchedule">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model outputs whether the building is currently occupied,
@@ -212,15 +213,17 @@ half an hour before occupancy starts in order to ventilate the room.
 </p>
 <p>
 The occupancy is defined by a time schedule of the form
+</p>
 <pre>
   occupancy = 3600*{7, 12, 14, 19}
 </pre>
+<p>
 This indicates that the occupancy is from <i>7:00</i> until <i>12:00</i>
 and from <i>14:00</i> to <i>19:00</i>. This will be repeated periodically.
 The parameter <code>periodicity</code> defines the periodicity.
 The period always starts at <i>t=0</i> seconds.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -241,7 +244,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
 >BooleanOutput</A></TD><TD>occupied</TD><TD>Outputs true if occupied at current time</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">block</font> OccupancySchedule <font color="darkgreen">&quot;Occupancy schedule with look-ahead&quot;</font>
   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
@@ -398,12 +401,14 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <H2><IMG SRC="Buildings.Controls.SetPoints.TableI.png" ALT="Buildings.Controls.SetPoints.Table" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Controls.SetPoints.Table"></A><A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints"
 >Buildings.Controls.SetPoints</A>.Table</H2>
-<B>Model for a set point that is interpolated based on a user-specified table</B><p>
+<B>Model for a set point that is interpolated based on a user-specified table</B><p></P>
 <IMG SRC="Buildings.Controls.SetPoints.TableD.png" ALT="Buildings.Controls.SetPoints.Table">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
+<p>
 This block can be used to schedule a set-point by using piecewise linear functions.
 For example, the instances
+</p>
 <pre>
 Buildings.Controls.SetPoints.Table tabLinExt(constantExtrapolation=false, 
                                              table=[20, 0.0; 
@@ -416,10 +421,11 @@ Buildings.Controls.SetPoints.Table tabConExt(constantExtrapolation=true,
                                                     25, 0.5; 
                                                     26, 1.0]);
 </pre>
+<p>
 will cause the following output:
 </p>
 <p>
-<img src="../Resources/Images/Controls/SetPoints/Table.png" border="1">
+<img src="../Resources/Images/Controls/SetPoints/Table.png" border="1" alt="Table output."/>
 </p>
 <p>
 For the default setting <code>constantExtrapolation=true</code>, the
@@ -431,7 +437,7 @@ Otherwise, the table is linearly extrapolated with a constant derivative.
 <p>
 Note that the first column must be strictly increasing.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</A> (Single Input Single Output continuous control block).
 <P><H3>Parameters</H3><P>
@@ -449,7 +455,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Table <font color="darkgreen">
   &quot;Model for a set point that is interpolated based on a user-specified table&quot;</font>
@@ -486,6 +492,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelic
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>Table;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:55:01 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:05 2013.
 </address></BODY>
 </HTML>

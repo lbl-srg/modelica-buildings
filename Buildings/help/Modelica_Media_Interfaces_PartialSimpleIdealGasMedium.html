@@ -26,18 +26,18 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE ThermodynamicState<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><IMG SRC="Modelica.Media.Interfaces05b9ae8936081c7fStateI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.ThermodynamicState</H2>
-<B>Thermodynamic state of ideal gas</B><p>
-<P><H3>Information</H3></P>
+<B>Thermodynamic state of ideal gas</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 ></A> (Minimal variable set that is available as input argument to every medium function).
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">record</font> <font color="blue">extends </font>ThermodynamicState <font color="darkgreen">
   &quot;Thermodynamic state of ideal gas&quot;</font>
@@ -54,11 +54,11 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfaces05b9ae8936081c7fStateI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.FluidConstants" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.FluidConstants"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.FluidConstants</H2>
-<B>fluid constants</B><p>
-<P><H3>Information</H3></P>
+<B>fluid constants</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.FluidConstants"
 ></A> (critical, triple, molecular and other standard data of fluid).
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">record</font> <font color="blue">extends </font>FluidConstants <font color="darkgreen">&quot;fluid constants&quot;</font>
 <font color="blue">end </font>FluidConstants;
@@ -70,8 +70,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesf9c78b28f5ce9ef5rtiesI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.BaseProperties" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.BaseProperties"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.BaseProperties</H2>
-<B>Base properties of ideal gas</B><p>
-<P><H3>Information</H3></P>
+<B>Base properties of ideal gas</B><p></P>
+<P></P><H3>Information</H3>
 
 <p>
 This is the most simple incompressible medium model, where
@@ -79,7 +79,7 @@ specific enthalpy h and specific internal energy u are only
 a function of temperature T and all other provided medium
 quantities are assumed to be constant.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.BaseProperties"
 ></A>.
 <P><H3>Parameters</H3><P>
@@ -88,7 +88,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSu
 <TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
 <TR><TD>Boolean</TD><TD>preferredMediumStates</TD><TD>false</TD><TD>= true if StateSelect.prefer shall be used for the independent property variables of the medium</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">replaceable </font><font color="blue">model</font> <font color="blue">extends </font>BaseProperties(
   T(stateSelect=<font color="blue">if </font>preferredMediumStates<font color="blue"> then </font>StateSelect.prefer<font color="blue"> else </font>
@@ -119,8 +119,8 @@ required from medium model \&quot;&quot; + mediumName + &quot;\&quot;.
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.setState_pTX" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.setState_pTX"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.setState_pTX</H2>
-<B>Return thermodynamic state from p, T, and X or Xi</B><p>
-<P><H3>Information</H3></P>
+<B>Return thermodynamic state from p, T, and X or Xi</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -139,7 +139,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
 >ThermodynamicState</A></TD><TD>state</TD><TD>thermodynamic state record</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> setState_pTX <font color="darkgreen">
   &quot;Return thermodynamic state from p, T, and X or Xi&quot;</font>
@@ -164,8 +164,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.setState_phX" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.setState_phX"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.setState_phX</H2>
-<B>Return thermodynamic state from p, h, and X or Xi</B><p>
-<P><H3>Information</H3></P>
+<B>Return thermodynamic state from p, h, and X or Xi</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -184,7 +184,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
 >ThermodynamicState</A></TD><TD>state</TD><TD>thermodynamic state record</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> setState_phX <font color="darkgreen">
   &quot;Return thermodynamic state from p, h, and X or Xi&quot;</font>
@@ -209,8 +209,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.setState_psX" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.setState_psX"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.setState_psX</H2>
-<B>Return thermodynamic state from p, s, and X or Xi</B><p>
-<P><H3>Information</H3></P>
+<B>Return thermodynamic state from p, s, and X or Xi</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -229,7 +229,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
 >ThermodynamicState</A></TD><TD>state</TD><TD>thermodynamic state record</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">replaceable </font><font color="blue">function</font> setState_psX <font color="darkgreen">
   &quot;Return thermodynamic state from p, s, and X or Xi&quot;</font>
@@ -255,8 +255,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.setState_dTX" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.setState_dTX"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.setState_dTX</H2>
-<B>Return thermodynamic state from d, T, and X or Xi</B><p>
-<P><H3>Information</H3></P>
+<B>Return thermodynamic state from d, T, and X or Xi</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -275,7 +275,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
 >ThermodynamicState</A></TD><TD>state</TD><TD>thermodynamic state record</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> setState_dTX <font color="darkgreen">
   &quot;Return thermodynamic state from d, T, and X or Xi&quot;</font>
@@ -300,8 +300,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.setSmoothState" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.setSmoothState"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.setSmoothState</H2>
-<B>Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b</B><p>
-<P><H3>Information</H3></P>
+<B>Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.setSmoothState"
 ></A> (Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b).
 <P><H3>Inputs</H3><P>
@@ -320,7 +320,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >ThermodynamicState</A></TD><TD>state</TD><TD>Smooth thermodynamic state for all x (continuous and differentiable)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>setSmoothState <font color="darkgreen">
   &quot;Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b&quot;</font>
@@ -336,8 +336,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.pressure" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.pressure"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.pressure</H2>
-<B>Return pressure of ideal gas</B><p>
-<P><H3>Information</H3></P>
+<B>Return pressure of ideal gas</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.pressure"
 ></A> (Return pressure).
 <P><H3>Inputs</H3><P>
@@ -352,7 +352,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
 >AbsolutePressure</A></TD><TD>p</TD><TD>Pressure [Pa]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>pressure <font color="darkgreen">&quot;Return pressure of ideal gas&quot;</font>
 
@@ -367,8 +367,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.temperature" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.temperature"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.temperature</H2>
-<B>Return temperature of ideal gas</B><p>
-<P><H3>Information</H3></P>
+<B>Return temperature of ideal gas</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.temperature"
 ></A> (Return temperature).
 <P><H3>Inputs</H3><P>
@@ -383,7 +383,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
 >Temperature</A></TD><TD>T</TD><TD>Temperature [K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>temperature <font color="darkgreen">
   &quot;Return temperature of ideal gas&quot;</font>
@@ -399,8 +399,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.density" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.density"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.density</H2>
-<B>Return density of ideal gas</B><p>
-<P><H3>Information</H3></P>
+<B>Return density of ideal gas</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density"
 ></A> (Return density).
 <P><H3>Inputs</H3><P>
@@ -415,7 +415,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Density</A></TD><TD>d</TD><TD>Density [kg/m3]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>density <font color="darkgreen">&quot;Return density of ideal gas&quot;</font>
 <font color="blue">algorithm </font>
@@ -429,8 +429,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.specificEnthalpy</H2>
-<B>Return specific enthalpy</B><p>
-<P><H3>Information</H3></P>
+<B>Return specific enthalpy</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions), <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEnthalpy"
 ></A> (Return specific enthalpy).
@@ -446,7 +446,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy"
 >SpecificEnthalpy</A></TD><TD>h</TD><TD>Specific enthalpy [J/kg]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>specificEnthalpy <font color="darkgreen">
   &quot;Return specific enthalpy&quot;</font>
@@ -463,8 +463,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificInternalEnergy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificInternalEnergy"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.specificInternalEnergy</H2>
-<B>Return specific internal energy</B><p>
-<P><H3>Information</H3></P>
+<B>Return specific internal energy</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions), <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificInternalEnergy"
 ></A> (Return specific internal energy).
@@ -480,7 +480,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy"
 >SpecificEnergy</A></TD><TD>u</TD><TD>Specific internal energy [J/kg]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>specificInternalEnergy <font color="darkgreen">
   &quot;Return specific internal energy&quot;</font>
@@ -498,8 +498,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificEntropy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificEntropy"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.specificEntropy</H2>
-<B>Return specific entropy</B><p>
-<P><H3>Information</H3></P>
+<B>Return specific entropy</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions), <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEntropy"
 ></A> (Return specific entropy).
@@ -515,7 +515,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy"
 >SpecificEntropy</A></TD><TD>s</TD><TD>Specific entropy [J/(kg.K)]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>specificEntropy <font color="darkgreen">&quot;Return specific entropy&quot;</font>
     <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
@@ -531,8 +531,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificGibbsEnergy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificGibbsEnergy"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.specificGibbsEnergy</H2>
-<B>Return specific Gibbs energy</B><p>
-<P><H3>Information</H3></P>
+<B>Return specific Gibbs energy</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions), <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificGibbsEnergy"
 ></A> (Return specific Gibbs energy).
@@ -548,7 +548,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy"
 >SpecificEnergy</A></TD><TD>g</TD><TD>Specific Gibbs energy [J/kg]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>specificGibbsEnergy <font color="darkgreen">
   &quot;Return specific Gibbs energy&quot;</font>
@@ -565,8 +565,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificHelmholtzEnergy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificHelmholtzEnergy"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.specificHelmholtzEnergy</H2>
-<B>Return specific Helmholtz energy</B><p>
-<P><H3>Information</H3></P>
+<B>Return specific Helmholtz energy</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions), <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHelmholtzEnergy"
 ></A> (Return specific Helmholtz energy).
@@ -582,7 +582,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy"
 >SpecificEnergy</A></TD><TD>f</TD><TD>Specific Helmholtz energy [J/kg]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>specificHelmholtzEnergy <font color="darkgreen">
   &quot;Return specific Helmholtz energy&quot;</font>
@@ -599,8 +599,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.dynamicViscosity" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.dynamicViscosity"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.dynamicViscosity</H2>
-<B>Return dynamic viscosity</B><p>
-<P><H3>Information</H3></P>
+<B>Return dynamic viscosity</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.dynamicViscosity"
 ></A> (Return dynamic viscosity).
 <P><H3>Inputs</H3><P>
@@ -615,7 +615,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DynamicViscosity"
 >DynamicViscosity</A></TD><TD>eta</TD><TD>Dynamic viscosity [Pa.s]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>dynamicViscosity <font color="darkgreen">
   &quot;Return dynamic viscosity&quot;</font>
@@ -631,8 +631,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.thermalConductivity" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.thermalConductivity"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.thermalConductivity</H2>
-<B>Return thermal conductivity</B><p>
-<P><H3>Information</H3></P>
+<B>Return thermal conductivity</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.thermalConductivity"
 ></A> (Return thermal conductivity).
 <P><H3>Inputs</H3><P>
@@ -647,7 +647,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermalConductivity"
 >ThermalConductivity</A></TD><TD>lambda</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>thermalConductivity <font color="darkgreen">
   &quot;Return thermal conductivity&quot;</font>
@@ -663,8 +663,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificHeatCapacityCp" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificHeatCapacityCp"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.specificHeatCapacityCp</H2>
-<B>Return specific heat capacity at constant pressure</B><p>
-<P><H3>Information</H3></P>
+<B>Return specific heat capacity at constant pressure</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHeatCapacityCp"
 ></A> (Return specific heat capacity at constant pressure).
 <P><H3>Inputs</H3><P>
@@ -679,7 +679,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity"
 >SpecificHeatCapacity</A></TD><TD>cp</TD><TD>Specific heat capacity at constant pressure [J/(kg.K)]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>specificHeatCapacityCp <font color="darkgreen">
   &quot;Return specific heat capacity at constant pressure&quot;</font>
@@ -695,8 +695,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificHeatCapacityCv" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificHeatCapacityCv"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.specificHeatCapacityCv</H2>
-<B>Return specific heat capacity at constant volume</B><p>
-<P><H3>Information</H3></P>
+<B>Return specific heat capacity at constant volume</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHeatCapacityCv"
 ></A> (Return specific heat capacity at constant volume).
 <P><H3>Inputs</H3><P>
@@ -711,7 +711,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity"
 >SpecificHeatCapacity</A></TD><TD>cv</TD><TD>Specific heat capacity at constant volume [J/(kg.K)]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>specificHeatCapacityCv <font color="darkgreen">
   &quot;Return specific heat capacity at constant volume&quot;</font>
@@ -727,8 +727,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.isentropicExponent" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.isentropicExponent"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.isentropicExponent</H2>
-<B>Return isentropic exponent</B><p>
-<P><H3>Information</H3></P>
+<B>Return isentropic exponent</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isentropicExponent"
 ></A> (Return isentropic exponent).
 <P><H3>Inputs</H3><P>
@@ -743,7 +743,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsentropicExponent"
 >IsentropicExponent</A></TD><TD>gamma</TD><TD>Isentropic exponent [1]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>isentropicExponent <font color="darkgreen">
   &quot;Return isentropic exponent&quot;</font>
@@ -759,8 +759,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.velocityOfSound" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.velocityOfSound"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.velocityOfSound</H2>
-<B>Return velocity of sound </B><p>
-<P><H3>Information</H3></P>
+<B>Return velocity of sound </B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.velocityOfSound"
 ></A> (Return velocity of sound).
 <P><H3>Inputs</H3><P>
@@ -775,7 +775,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.VelocityOfSound"
 >VelocityOfSound</A></TD><TD>a</TD><TD>Velocity of sound [m/s]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>velocityOfSound <font color="darkgreen">
   &quot;Return velocity of sound &quot;</font>
@@ -791,8 +791,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy_pTX" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy_pTX"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.specificEnthalpy_pTX</H2>
-<B>Return specific enthalpy from p, T, and X or Xi</B><p>
-<P><H3>Information</H3></P>
+<B>Return specific enthalpy from p, T, and X or Xi</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -811,7 +811,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy"
 >SpecificEnthalpy</A></TD><TD>h</TD><TD>Specific enthalpy at p, T, X [J/kg]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> specificEnthalpy_pTX <font color="darkgreen">
   &quot;Return specific enthalpy from p, T, and X or Xi&quot;</font>
@@ -836,8 +836,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.temperature_phX" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.temperature_phX"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.temperature_phX</H2>
-<B>Return temperature from p, h, and X or Xi</B><p>
-<P><H3>Information</H3></P>
+<B>Return temperature from p, h, and X or Xi</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -856,7 +856,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
 >Temperature</A></TD><TD>T</TD><TD>Temperature [K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> temperature_phX <font color="darkgreen">
   &quot;Return temperature from p, h, and X or Xi&quot;</font>
@@ -881,8 +881,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.density_phX" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.density_phX"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.density_phX</H2>
-<B>Return density from p, h, and X or Xi</B><p>
-<P><H3>Information</H3></P>
+<B>Return density from p, h, and X or Xi</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -901,7 +901,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Density</A></TD><TD>d</TD><TD>density [kg/m3]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> density_phX <font color="darkgreen">
   &quot;Return density from p, h, and X or Xi&quot;</font>
@@ -926,8 +926,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Func
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.isentropicEnthalpy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.isentropicEnthalpy"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.isentropicEnthalpy</H2>
-<B>Return isentropic enthalpy</B><p>
-<P><H3>Information</H3></P>
+<B>Return isentropic enthalpy</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isentropicEnthalpy"
 ></A> (Return isentropic enthalpy).
 <P><H3>Inputs</H3><P>
@@ -944,7 +944,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy"
 >SpecificEnthalpy</A></TD><TD>h_is</TD><TD>Isentropic enthalpy [J/kg]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>isentropicEnthalpy <font color="darkgreen">
   &quot;Return isentropic enthalpy&quot;</font>
@@ -969,8 +969,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.isobaricExpansionCoefficient" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.isobaricExpansionCoefficient"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.isobaricExpansionCoefficient</H2>
-<B>Returns overall the isobaric expansion coefficient beta</B><p>
-<P><H3>Information</H3></P>
+<B>Returns overall the isobaric expansion coefficient beta</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isobaricExpansionCoefficient"
 ></A> (Return overall the isobaric expansion coefficient beta).
 <P><H3>Inputs</H3><P>
@@ -985,7 +985,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsobaricExpansionCoefficient"
 >IsobaricExpansionCoefficient</A></TD><TD>beta</TD><TD>Isobaric expansion coefficient [1/K]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>isobaricExpansionCoefficient <font color="darkgreen">
   &quot;Returns overall the isobaric expansion coefficient beta&quot;</font>
@@ -1007,8 +1007,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.isothermalCompressibility" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.isothermalCompressibility"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.isothermalCompressibility</H2>
-<B>Returns overall the isothermal compressibility factor</B><p>
-<P><H3>Information</H3></P>
+<B>Returns overall the isothermal compressibility factor</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isothermalCompressibility"
 ></A> (Return overall the isothermal compressibility factor).
 <P><H3>Inputs</H3><P>
@@ -1023,7 +1023,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.IsothermalCompressibility"
 >IsothermalCompressibility</A></TD><TD>kappa</TD><TD>Isothermal compressibility [1/Pa]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>isothermalCompressibility <font color="darkgreen">
   &quot;Returns overall the isothermal compressibility factor&quot;</font>
@@ -1044,8 +1044,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.density_derp_T" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.density_derp_T"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.density_derp_T</H2>
-<B>Returns the partial derivative of density with respect to pressure at constant temperature</B><p>
-<P><H3>Information</H3></P>
+<B>Returns the partial derivative of density with respect to pressure at constant temperature</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derp_T"
 ></A> (Return density derivative w.r.t. pressure at const temperature).
 <P><H3>Inputs</H3><P>
@@ -1060,7 +1060,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByPressure"
 >DerDensityByPressure</A></TD><TD>ddpT</TD><TD>Density derivative w.r.t. pressure [s2/m2]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>density_derp_T <font color="darkgreen">
   &quot;Returns the partial derivative of density with respect to pressure at constant temperature&quot;</font>
@@ -1078,8 +1078,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.density_derT_p" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.density_derT_p"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.density_derT_p</H2>
-<B>Returns the partial derivative of density with respect to temperature at constant pressure</B><p>
-<P><H3>Information</H3></P>
+<B>Returns the partial derivative of density with respect to temperature at constant pressure</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derT_p"
 ></A> (Return density derivative w.r.t. temperature at constant pressure).
 <P><H3>Inputs</H3><P>
@@ -1094,7 +1094,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByTemperature"
 >DerDensityByTemperature</A></TD><TD>ddTp</TD><TD>Density derivative w.r.t. temperature [kg/(m3.K)]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>density_derT_p <font color="darkgreen">
   &quot;Returns the partial derivative of density with respect to temperature at constant pressure&quot;</font>
@@ -1112,8 +1112,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.density_derX" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.density_derX"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.density_derX</H2>
-<B>Returns the partial derivative of density with respect to mass fractions at constant pressure and temperature</B><p>
-<P><H3>Information</H3></P>
+<B>Returns the partial derivative of density with respect to mass fractions at constant pressure and temperature</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derX"
 ></A> (Return density derivative w.r.t. mass fraction).
 <P><H3>Inputs</H3><P>
@@ -1128,7 +1128,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
 >Density</A></TD><TD>dddX[nX]</TD><TD>Derivative of density w.r.t. mass fraction [kg/m3]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>density_derX <font color="darkgreen">
   &quot;Returns the partial derivative of density with respect to mass fractions at constant pressure and temperature&quot;</font>
@@ -1143,8 +1143,8 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <H2><IMG SRC="Modelica.Media.Interfacesd73e55586660b0b1e_pTXI.png" ALT="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.molarMass" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.molarMass"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialSimpleIdealGasMedium.html#Modelica.Media.Interfaces.PartialSimpleIdealGasMedium"
 >Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</A>.molarMass</H2>
-<B>Returns the molar mass of the medium</B><p>
-<P><H3>Information</H3></P>
+<B>Returns the molar mass of the medium</B><p></P>
+<P></P><H3>Information</H3>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.molarMass"
 ></A> (Return the molar mass of the medium).
 <P><H3>Inputs</H3><P>
@@ -1159,7 +1159,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass"
 >MolarMass</A></TD><TD>MM</TD><TD>Mixture molar mass [kg/mol]</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>molarMass <font color="darkgreen">
   &quot;Returns the molar mass of the medium&quot;</font>
@@ -1168,6 +1168,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium
 <font color="blue">end </font>molarMass;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 12:04:42 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:19:42 2013.
 </address></BODY>
 </HTML>

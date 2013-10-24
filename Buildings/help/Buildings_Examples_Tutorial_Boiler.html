@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Boiler<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Examples.Tutorial.Boiler"></A><A HREF="Buildings_Examples_Tutorial.html#Buildings.Examples.Tutorial"
 >Buildings.Examples.Tutorial</A>.Boiler</H2>
 <B>Package with example for how to build a model for boiler with a heating load</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 <p>
 This package contains examples with step-by-step instructions for how to build 
@@ -67,11 +67,11 @@ It shall be switched off if either the outdoor temperature is above
 <i>21</i>&deg;C.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/schematics.png"/>
-</p>
-<p>The model consists of
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/schematics.png"/>
 </p>
 <p>
+The model consists of
+</p>
 <ol>
 <li>
 a room with a heating load, approximated as steady-state heat transfer with the environment,
@@ -84,14 +84,18 @@ a boiler loop with constant mass flow rate, boiler on/off control and control va
 to ensure a minimum return water temperature.
 </li>
 </ol>
+<p>
+To explain the implementation of this model, the model has been created in the following stages:
 </p>
-<p>To explain the implementation of this model, the model has been created in the following stages: </p>
-<p><ol>
-<li><A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler.System1"
+<ol>
+<li>
+<A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler.System1"
 >
 Buildings.Examples.Tutorial.Boiler.System1</a> 
-implements the room model without any heating. </li>
-<li><A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler.System2"
+implements the room model without any heating. 
+</li>
+<li>
+<A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler.System2"
 >
 Buildings.Examples.Tutorial.Boiler.System2</a> 
 adds a radiator that is fed with water at a constant temperature and flow rate.
@@ -129,11 +133,10 @@ Buildings.Examples.Tutorial.Boiler.System7</a>
 replaces the boiler and pump control using a state machine.
 </li>
 </ol>
-</p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Examples.Tutori183681cb9fd28122stem1S.png" ALT="Buildings.Examples.Tutorial.Boiler.System1" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler.System1"
@@ -165,9 +168,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Mod
 <H2><IMG SRC="Buildings.Examples.Tutori183681cb9fd28122stem1I.png" ALT="Buildings.Examples.Tutorial.Boiler.System1" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.Tutorial.Boiler.System1"></A><A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler"
 >Buildings.Examples.Tutorial.Boiler</A>.System1</H2>
-<B>1st part of the system model, consisting of the room with heat transfer</B><p>
+<B>1st part of the system model, consisting of the room with heat transfer</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori183681cb9fd28122stem1D.png" ALT="Buildings.Examples.Tutorial.Boiler.System1">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This part of the system model implements the room with a heat gain.
@@ -229,6 +232,7 @@ Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
 </p>
 <p>
 We also defined the system-level parameters
+</p>
 <pre>
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
@@ -236,6 +240,7 @@ We also defined the system-level parameters
   parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 4000 
     "Internal heat gains of the room";
 </pre>
+<p>
 to declare that the room volume is <i>180</i> m<sup>3</sup>, that the room
 has a nominal mass flow rate of <i>6</i> air changes per hour and that 
 the internal heat gains of the room are <i>4000</i> Watts.
@@ -347,13 +352,12 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System1Temperatures.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System1Temperatures.png" border="1"/>
 </p>
 <p>
 To verify the correctness of the model, we can compare the simulated results to the
 following analytical solutions:
 </p>
-<p>
 <ol>
 <li>
 <p>
@@ -370,7 +374,6 @@ corresponds to a room temperature of <i>-4</i>&deg;C.
 </p>
 </li>
 </ol>
-</p>
 <p>
 Both analytical values agree with the simulation results shown in the above figure.
 </p>
@@ -383,8 +386,9 @@ This can be implemented by connecting an instance of
 >
 Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a>
 as shown below.
+</p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System1PrescribedTemperature.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System1PrescribedTemperature.png" border="1"/>
 </p>
 <p>
 When plotting the heat flow rate <code>fixTemp.port.Q_flow</code>, one can see
@@ -408,7 +412,7 @@ package
 Buildings.HeatTransfer.Conduction</a>
 could have been used.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -427,7 +431,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD colspan="2">replaceable package MediumA</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> System1 <font color="darkgreen">
   &quot;1st part of the system model, consisting of the room with heat transfer&quot;</font>
@@ -489,9 +493,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Examples.Tutori183681cb9fd28122stem1I.png" ALT="Buildings.Examples.Tutorial.Boiler.System2" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.Tutorial.Boiler.System2"></A><A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler"
 >Buildings.Examples.Tutorial.Boiler</A>.System2</H2>
-<B>2nd part of the system model, consisting of the room with heat transfer and a radiator</B><p>
+<B>2nd part of the system model, consisting of the room with heat transfer and a radiator</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori183681cc9fd28121stem2D.png" ALT="Buildings.Examples.Tutorial.Boiler.System2">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This part of the system model adds a radiator with a prescribed mass flow
@@ -524,7 +528,6 @@ at the top-level of the model by adding the lines
   replaceable package MediumW = 
       Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 </pre>
-</p>
 </li>
 <li>
 <p>
@@ -556,7 +559,7 @@ Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor
 We connected the model as shown in the figure below. 
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System2Connections.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System2Connections.png" border="1"/>
 </p>
 <p>
 Note that there are two connections from the
@@ -589,8 +592,6 @@ Thus, we define the radiator mass flow rate as
     Q_flow_nominal/4200/(TRadSup_nominal-TRadRet_nominal)
     "Radiator nominal mass flow rate";
 </pre>
-<p>
-</p>
 </li>
 <li>
 <p>
@@ -607,6 +608,7 @@ We configured the parameters of the radiator model as
     T_a_nominal=TRadSup_nominal,
     T_b_nominal=TRadRet_nominal) "Radiator";
 </pre>
+<p>
 We configured the parameters of the pump model as
 </p>
 <pre>
@@ -616,6 +618,7 @@ We configured the parameters of the pump model as
 </pre>
 </li>
 <li>
+<p>
 To enable the pump when the room temperature is below 
 <i>19</i>&deg;C and to switch it off when the room temperature
 is below 
@@ -623,7 +626,7 @@ is below
 we implemented the control blocks as shown in the figure below.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System2PumpControl.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System2PumpControl.png" border="1"/>
 </p>
 <p>
 In this control sequence, the first block is a hysteresis element,
@@ -672,6 +675,7 @@ This will approximate a continuous change in mass flow rate when the
 pump is switched on or off.
 Finally, we closed the control loop between the room temperature sensor and the
 pump input signal.
+</p>
 </li>
 </ol>
 <!-- ============================== -->
@@ -681,7 +685,7 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System2Temperatures.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System2Temperatures.png" border="1"/>
 </p>
 <p>
 The figure shows that the room temperature is maintained at
@@ -705,7 +709,7 @@ package
 Buildings.HeatTransfer.Conduction</a>
 could have been used.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -734,7 +738,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD colspan="2">replaceable package MediumA</TD><TD>&nbsp;</TD></TR>
 <TR><TD colspan="2">replaceable package MediumW</TD><TD>Medium model</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> System2 <font color="darkgreen">
   &quot;2nd part of the system model, consisting of the room with heat transfer and a radiator&quot;</font>
@@ -879,9 +883,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Examples.Tutori183681cb9fd28122stem1I.png" ALT="Buildings.Examples.Tutorial.Boiler.System3" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.Tutorial.Boiler.System3"></A><A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler"
 >Buildings.Examples.Tutorial.Boiler</A>.System3</H2>
-<B>3rd part of the system model, which adds the boiler loop with open loop control</B><p>
+<B>3rd part of the system model, which adds the boiler loop with open loop control</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori183681cd9fd28120stem3D.png" ALT="Buildings.Examples.Tutorial.Boiler.System3">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This part of the system model adds the boiler loop with
@@ -962,7 +966,6 @@ condensation in the boiler:
     Q_flow_nominal/4200/(TBoiSup_nominal-TBoiRet_min) 
     "Boiler nominal mass flow rate";
 </pre>
-</p>
 </li>
 </ol>
 <p>
@@ -1083,7 +1086,7 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System3Temperatures.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System3Temperatures.png" border="1"/>
 </p>
 <p>
 The figure shows that the room temperature is around
@@ -1093,7 +1096,7 @@ and the room design temperature.
 Since the boiler control signal is <i>0.5</i>, 
 this indicates that the model is correct.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -1130,7 +1133,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD colspan="2">replaceable package MediumA</TD><TD>&nbsp;</TD></TR>
 <TR><TD colspan="2">replaceable package MediumW</TD><TD>Medium model</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> System3 <font color="darkgreen">
   &quot;3rd part of the system model, which adds the boiler loop with open loop control&quot;</font>
@@ -1389,9 +1392,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Examples.Tutori183681cb9fd28122stem1I.png" ALT="Buildings.Examples.Tutorial.Boiler.System4" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.Tutorial.Boiler.System4"></A><A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler"
 >Buildings.Examples.Tutorial.Boiler</A>.System4</H2>
-<B>4th part of the system model, which adds closed-loop control for the pumps and the boiler</B><p>
+<B>4th part of the system model, which adds closed-loop control for the pumps and the boiler</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori183681ce9fd28127stem4D.png" ALT="Buildings.Examples.Tutorial.Boiler.System4">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This part of the system model adds to the model that is implemented in
@@ -1426,7 +1429,7 @@ This is implemented by the instances <code>hysTOut</code> and
 to the block <code>and1</code> as shown in the figure below.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System4PlantOnOff.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System4PlantOnOff.png" border="1"/>
 </p>
 </li>
 <li>
@@ -1456,7 +1459,7 @@ on when the pumps are on and the temperature is below
 Therefore, the boiler control sequence is as shown below.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System4BoilerOnOff.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System4BoilerOnOff.png" border="1"/>
 </p>
 </li>
 </ol>
@@ -1468,7 +1471,7 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System4Temperatures.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System4Temperatures.png" border="1"/>
 </p>
 <p>
 The figure shows that the return water temperature
@@ -1481,7 +1484,7 @@ We will fix these issues by adding closed loop control for the valves in model
 >
 Buildings.Examples.Tutorial.Boiler.System5</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -1518,7 +1521,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD colspan="2">replaceable package MediumA</TD><TD>&nbsp;</TD></TR>
 <TR><TD colspan="2">replaceable package MediumW</TD><TD>Medium model</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> System4 <font color="darkgreen">
   &quot;4th part of the system model, which adds closed-loop control for the pumps and the boiler&quot;</font>
@@ -1805,9 +1808,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Examples.Tutori183681cb9fd28122stem1I.png" ALT="Buildings.Examples.Tutorial.Boiler.System5" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.Tutorial.Boiler.System5"></A><A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler"
 >Buildings.Examples.Tutorial.Boiler</A>.System5</H2>
-<B>5th part of the system model, which adds closed-loop control for the valves</B><p>
+<B>5th part of the system model, which adds closed-loop control for the valves</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori183681cf9fd28126stem5D.png" ALT="Buildings.Examples.Tutorial.Boiler.System5">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This part of the system model adds to the model that is implemented in
@@ -1837,7 +1840,7 @@ Next, we added closed loop control for the boiler valve as
 shown in the figure below.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System5BoilerValveControl.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System5BoilerValveControl.png" border="1"/>
 </p>
 <p>
 This is implemented using the constant block
@@ -1857,6 +1860,7 @@ We configured the controller as
     Ti=120,    
     Td=1) "Controller for valve in boiler loop";
 </pre>
+<p>
 We set the proportional band to <i>10</i> Kelvin, hence <code>k=0.1</code>.
 We set the integral time constant to <i>120</i> seconds, which is 
 the same time as is required to open or close the valve.
@@ -1880,7 +1884,7 @@ This instance is called <code>TSetSup</code> in the
 control sequence shown in the figure below.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System5RadiatorValve.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System5RadiatorValve.png" border="1"/>
 </p>
 <p>
 Its configuration is
@@ -1900,7 +1904,7 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System5Temperatures.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System5Temperatures.png" border="1"/>
 </p>
 <p>
 The figure shows that the return water temperature
@@ -1912,7 +1916,7 @@ has smaller oscillations compared to
 >
 Buildings.Examples.Tutorial.Boiler.System4</a>.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -1949,7 +1953,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD colspan="2">replaceable package MediumA</TD><TD>&nbsp;</TD></TR>
 <TR><TD colspan="2">replaceable package MediumW</TD><TD>Medium model</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> System5 <font color="darkgreen">
   &quot;5th part of the system model, which adds closed-loop control for the valves&quot;</font>
@@ -2249,9 +2253,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Examples.Tutori183681cb9fd28122stem1I.png" ALT="Buildings.Examples.Tutorial.Boiler.System6" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.Tutorial.Boiler.System6"></A><A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler"
 >Buildings.Examples.Tutorial.Boiler</A>.System6</H2>
-<B>6th part of the system model, which adds weather data and changes to PI control</B><p>
+<B>6th part of the system model, which adds weather data and changes to PI control</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori183681d09fd28125stem6D.png" ALT="Buildings.Examples.Tutorial.Boiler.System6">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This part of the system model adds to the model that is implemented in
@@ -2280,17 +2284,16 @@ and called it
 Next, we added the weather data as shown in the figure below.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System6Weather.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System6Weather.png" border="1"/>
 </p>
 <p>
 The weather data reader is implemented using
 </p>
 <pre>
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos") 
+    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos") 
     "Weather data reader";
 </pre>
-</p>
 <p>
 The yellow icon in the middle of the figure is an instance of
 <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
@@ -2319,8 +2322,8 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System6Temperatures1.png" border="1">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System6Temperatures2.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System6Temperatures1.png" border="1"/>
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System6Temperatures2.png" border="1"/>
 </p>
 <p>
 The figure shows that the boiler temperature is regulated between
@@ -2332,7 +2335,7 @@ the boiler inlet temperature is above
 and that the room temperature and the supply water temperature are
 maintained at their set point.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -2371,7 +2374,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> System6 <font color="darkgreen">
   &quot;6th part of the system model, which adds weather data and changes to PI control&quot;</font>
@@ -2585,7 +2588,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 >Modelica.Blocks.Sources.Constant</A> TSetBoiRet(k=TBoiRet_min) <font color="darkgreen">
     &quot;Temperature setpoint for boiler return&quot;</font>;</textblock>
 
-<font color="darkgreen">//-----------------------Step 3: Change in controller type-----------------------//                        </font>
+<font color="darkgreen">//-----------------------Step 3: Change in controller type-----------------------//</font>
 <textblock type="annotcomp" expanded="false"> <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
 >Buildings.Controls.Continuous.LimPID</A> conPIDBoi(
     Td=1,
@@ -2599,7 +2602,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
                                           273.15 + 21, 273.15 + 21]) <font color="darkgreen">
     &quot;Setpoint for supply water temperature&quot;</font>;</textblock>
 
-<font color="darkgreen">//-----------------------Step 3: Change in controller type-----------------------//                        </font>
+<font color="darkgreen">//-----------------------Step 3: Change in controller type-----------------------//</font>
 <textblock type="annotcomp" expanded="false"> <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
 >Buildings.Controls.Continuous.LimPID</A> conPIDRad(
     Td=1,
@@ -2608,10 +2611,10 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     Ti=120) <font color="darkgreen">&quot;Controller for valve in radiator loop&quot;</font>;</textblock>
 <font color="darkgreen">//------------------------------------------------------------------------------//</font>
 
-<font color="darkgreen">//-----------------------------Step 2: Weather data------------------------------//                </font>
+<font color="darkgreen">//-----------------------------Step 2: Weather data------------------------------//</font>
 <textblock type="annotcomp" expanded="false">  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
-    filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
+    filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
     &quot;Weather data reader&quot;</font>;
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >BoundaryConditions.WeatherData.Bus</A> weaBus;
@@ -2684,9 +2687,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <H2><IMG SRC="Buildings.Examples.Tutori183681cb9fd28122stem1I.png" ALT="Buildings.Examples.Tutorial.Boiler.System7" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Examples.Tutorial.Boiler.System7"></A><A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler"
 >Buildings.Examples.Tutorial.Boiler</A>.System7</H2>
-<B>7th part of the system model, which implements the on/off control using a state machine</B><p>
+<B>7th part of the system model, which implements the on/off control using a state machine</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori183681d19fd28124stem7D.png" ALT="Buildings.Examples.Tutorial.Boiler.System7">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This part of the system model changes the implementation of the control in
@@ -2700,7 +2703,7 @@ The state machine that is implemented in this model is shown in
 the figure below.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/stateMachine.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/stateMachine.png" border="1"/>
 </p>
 <p>
 In the figure above, the ovals depict states, and the arrows are transitions between the states.
@@ -2743,7 +2746,7 @@ If a delay is present, the input needs to be true during the entire duration of 
 for a transition to fire.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System7StateMachine.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System7StateMachine.png" border="1"/>
 </p>
 <p>
 In our implementation, the state <code>allOff</code> is the initial state,
@@ -2770,10 +2773,10 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align="center">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System7Temperatures1.png" border="1">
-<img src="../Resources/Images/Examples/Tutorial/Boiler/System7Temperatures2.png" border="1">
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System7Temperatures1.png" border="1"/>
+<img alt="image" src="../Resources/Images/Examples/Tutorial/Boiler/System7Temperatures2.png" border="1"/>
 </p>
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -2812,7 +2815,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> System7 <font color="darkgreen">
   &quot;7th part of the system model, which implements the on/off control using a state machine&quot;</font>
@@ -3023,7 +3026,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     Ti=120) <font color="darkgreen">&quot;Controller for valve in radiator loop&quot;</font>;
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
-    filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
+    filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
     &quot;Weather data reader&quot;</font>;
   <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >BoundaryConditions.WeatherData.Bus</A> weaBus;
@@ -3031,7 +3034,7 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 >Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature</A> TOut <font color="darkgreen">
     &quot;Outside temperature&quot;</font>;</textblock>
 
-<font color="darkgreen">//-------------------------Step 2: State machine implementation-------------------------//                        </font>
+<font color="darkgreen">//-------------------------Step 2: State machine implementation-------------------------//</font>
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/Modelica_StateGraph2 2.0.1/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
 >Modelica_StateGraph2.Step</A> allOff(
     nOut=1,
@@ -3161,6 +3164,6 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>System7;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:59:05 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:14:17 2013.
 </address></BODY>
 </HTML>

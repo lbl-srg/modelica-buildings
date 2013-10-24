@@ -26,15 +26,15 @@ table   { solid #000; border-collapse: collapse;}
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
 <!-- --- end header -- -->
-
+</P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
 <span style='mso-spacerun:yes'></span>XE Multizone<![endif]-->
 <!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
 <H2><A NAME="Buildings.Airflow.Multizone"></A><A HREF="Buildings_Airflow.html#Buildings.Airflow"
 >Buildings.Airflow</A>.Multizone</H2>
 <B>Package with models for multizone airflow and contaminant transport</B>
-<P>
-<P><H3>Information</H3></P>
+<P></P>
+<P></P><H3>Information</H3>
 
 This package provides
 models to compute the airflow and contaminant transport between different rooms and between
@@ -42,10 +42,10 @@ a room and the exterior environment.
 See the <A HREF="Buildings_Airflow_Multizone_UsersGuide.html#Buildings.Airflow.Multizone.UsersGuide"
 >
 User's Guide</a> for more information.
-<P>
+<P></P>
 Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P><H3>Package Content</H3><p>
+<P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
 <TR><TH >Name</TH><TH>Description</TH></TR>
 <TR><TD><IMG SRC="Buildings.Airflow.Multizone.UsersGuideS.png" ALT="Buildings.Airflow.Multizone.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Airflow_Multizone_UsersGuide.html#Buildings.Airflow.Multizone.UsersGuide"
@@ -92,9 +92,9 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Mod
 <H2><IMG SRC="Buildings.Airflow.Multizo429dd7a2e1448ad2dOpenI.png" ALT="Buildings.Airflow.Multizone.DoorDiscretizedOpen" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Airflow.Multizone.DoorDiscretizedOpen"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
 >Buildings.Airflow.Multizone</A>.DoorDiscretizedOpen</H2>
-<B>Door model using discretization along height coordinate</B><p>
+<B>Door model using discretization along height coordinate</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo429dd7a2e1448ad2dOpenD.png" ALT="Buildings.Airflow.Multizone.DoorDiscretizedOpen">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model describes the bi-directional air flow through an open door.
@@ -112,7 +112,7 @@ Use the model
 Buildings.Airflow.Multizone.DoorDiscretizedOperable</a>
 for a door that can either be open or closed.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized"
 >Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</A> (Door model using discretization along height coordinate).
 <P><H3>Parameters</H3><P>
@@ -166,8 +166,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -181,7 +180,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DoorDiscretizedOpen <font color="darkgreen">
   &quot;Door model using discretization along height coordinate&quot;</font>
@@ -226,9 +225,9 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <H2><IMG SRC="Buildings.Airflow.Multizo24c8885cacdf11a3rableI.png" ALT="Buildings.Airflow.Multizone.DoorDiscretizedOperable" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Airflow.Multizone.DoorDiscretizedOperable"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
 >Buildings.Airflow.Multizone</A>.DoorDiscretizedOperable</H2>
-<B>Door model using discretization along height coordinate</B><p>
+<B>Door model using discretization along height coordinate</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo24c8885cacdf11a3rableD.png" ALT="Buildings.Airflow.Multizone.DoorDiscretizedOperable">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model describes the bi-directional air flow through an open door.
@@ -247,7 +246,7 @@ Use the model
 <a href="modelica://Buildings.Airflow.Multizone.Crack">
 Buildings.Airflow.Multizone.Crack
 </a> for a door that is always closed.
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized"
 >Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</A> (Door model using discretization along height coordinate).
 <P><H3>Parameters</H3><P>
@@ -313,8 +312,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -330,7 +328,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>y</TD><TD>Opening signal, 0=closed, 1=open</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> DoorDiscretizedOperable <font color="darkgreen">
   &quot;Door model using discretization along height coordinate&quot;</font>
@@ -400,9 +398,9 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <H2><IMG SRC="Buildings.Airflow.Multizo90b343542b5dabb1eAreaI.png" ALT="Buildings.Airflow.Multizone.EffectiveAirLeakageArea" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Airflow.Multizone.EffectiveAirLeakageArea"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
 >Buildings.Airflow.Multizone</A>.EffectiveAirLeakageArea</H2>
-<B>Effective air leakage area</B><p>
+<B>Effective air leakage area</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo90b343542b5dabb1eAreaD.png" ALT="Buildings.Airflow.Multizone.EffectiveAirLeakageArea">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model describes the one-directional pressure driven
@@ -437,7 +435,7 @@ National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
 </UL>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
 >Buildings.Airflow.Multizone.Orifice</A> (Orifice).
 <P><H3>Parameters</H3><P>
@@ -447,7 +445,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizo
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
 <TR><TD>Boolean</TD><TD>forceErrorControlOnFlow</TD><TD>true</TD><TD>Flag to force error control on m_flow. Set to true if interested in flow rate</TD></TR>
 <TR><TD>Real</TD><TD>m</TD><TD>0.65</TD><TD>Flow exponent, m=0.5 for turbulent, m=1 for laminar</TD></TR>
-<TR><TD>Boolean</TD><TD>useConstantDensity</TD><TD>true</TD><TD>Set to false to use density based on state (as implemented by the Medium model)</TD></TR>
+<TR><TD>Boolean</TD><TD>useDefaultProperties</TD><TD>true</TD><TD>Set to false to use density and viscosity based on actual medium state, rather than using default values</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_turbulent</TD><TD>0.1</TD><TD>Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1 [Pa]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
@@ -473,6 +471,8 @@ Extends from <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizo
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -482,12 +482,13 @@ Extends from <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizo
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> EffectiveAirLeakageArea <font color="darkgreen">&quot;Effective air leakage area&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
 >Buildings.Airflow.Multizone.Orifice</A>(
-     m=0.65, <font color="blue">final </font>A=CD/CDRat * L * dpRat^(0.5-m));
+    m=0.65,
+    <font color="blue">final </font>A=CD/CDRat * L * dpRat^(0.5-m));
 
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</A> dpRat(min=0)=4 <font color="darkgreen">
@@ -507,17 +508,19 @@ Extends from <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizo
 <H2><IMG SRC="Buildings.Airflow.Multizone.MediumColumnI.png" ALT="Buildings.Airflow.Multizone.MediumColumn" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Airflow.Multizone.MediumColumn"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
 >Buildings.Airflow.Multizone</A>.MediumColumn</H2>
-<B>Vertical shaft with no friction and no storage of heat and mass</B><p>
+<B>Vertical shaft with no friction and no storage of heat and mass</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizone.MediumColumnD.png" ALT="Buildings.Airflow.Multizone.MediumColumn">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model describes the pressure difference of a vertical medium
 column. It can be used to model the pressure difference caused by 
-stack effect.</p>
+stack effect.
+</p>
 <p>
 The model can be used with the following three configurations, which are
 controlled by the setting of the parameter <code>densitySelection</code>:
+</p>
 <ul>
 <li>
 <code>top</code>:
@@ -534,7 +537,6 @@ to <code>port_b</code>.
 Use this setting to use the density based on the actual flow direction. 
 </li>
 </ul>
-</p>
 <p>
 The settings <code>top</code> and <code>bottom</code>
 should be used when rooms or different floors of a building are 
@@ -554,7 +556,7 @@ For a steady-state model, use
 >
 Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </p>
-<P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -576,7 +578,7 @@ Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MediumColumn <font color="darkgreen">
   &quot;Vertical shaft with no friction and no storage of heat and mass&quot;</font>
@@ -688,9 +690,9 @@ Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 <H2><IMG SRC="Buildings.Airflow.Multizo04c266c67ac23223namicI.png" ALT="Buildings.Airflow.Multizone.MediumColumnDynamic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Airflow.Multizone.MediumColumnDynamic"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
 >Buildings.Airflow.Multizone</A>.MediumColumnDynamic</H2>
-<B>Vertical shaft with no friction and storage of heat and mass</B><p>
+<B>Vertical shaft with no friction and storage of heat and mass</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo04c266c67ac23223namicD.png" ALT="Buildings.Airflow.Multizone.MediumColumnDynamic">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model contains a completely mixed fluid volume and
@@ -713,7 +715,7 @@ Buildings.Airflow.Multizone.MediumColumn</a> instead of this model.
 </p>
 <p>In this model, the parameter <code>h</code> must always be positive, and the port <code>port_a</code> must be
 at the top of the column.
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes).
 <P><H3>Parameters</H3><P>
@@ -765,7 +767,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <TR bgcolor="#e0e0e0"><TD colspan=3>Heat transfer</TD></TR>
 <TR><TD colspan="2">replaceable model HeatTransfer</TD><TD>Wall heat transfer</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> MediumColumnDynamic <font color="darkgreen">
   &quot;Vertical shaft with no friction and storage of heat and mass&quot;</font>
@@ -863,9 +865,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <H2><IMG SRC="Buildings.Airflow.Multizone.OrificeI.png" ALT="Buildings.Airflow.Multizone.Orifice" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Airflow.Multizone.Orifice"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
 >Buildings.Airflow.Multizone</A>.Orifice</H2>
-<B>Orifice</B><p>
+<B>Orifice</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizone.OrificeD.png" ALT="Buildings.Airflow.Multizone.Orifice">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model describes the mass flow rate and pressure difference relation
@@ -890,7 +892,7 @@ National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
 </UL>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance"
 >Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance</A> (Flow resistance that uses the power law).
 <P><H3>Parameters</H3><P>
@@ -900,7 +902,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 >PartialMedium</A></TD><TD>Medium in the component</TD></TR>
 <TR><TD>Boolean</TD><TD>forceErrorControlOnFlow</TD><TD>true</TD><TD>Flag to force error control on m_flow. Set to true if interested in flow rate</TD></TR>
 <TR><TD>Real</TD><TD>m</TD><TD>0.5</TD><TD>Flow exponent, m=0.5 for turbulent, m=1 for laminar</TD></TR>
-<TR><TD>Boolean</TD><TD>useConstantDensity</TD><TD>true</TD><TD>Set to false to use density based on state (as implemented by the Medium model)</TD></TR>
+<TR><TD>Boolean</TD><TD>useDefaultProperties</TD><TD>true</TD><TD>Set to false to use density and viscosity based on actual medium state, rather than using default values</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</A></TD><TD>dp_turbulent</TD><TD>0.1</TD><TD>Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1 [Pa]</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
@@ -920,6 +922,8 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -929,11 +933,12 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> Orifice <font color="darkgreen">&quot;Orifice&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance"
->Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance</A>(m=0.5,
+>Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance</A>(
+    m=0.5,
     k = CD * A *<font color="red"> sqrt</font>(2.0/rho_default));
 
   <font color="blue">parameter </font>Real CD=0.65 <font color="darkgreen">&quot;|Orifice characteristics|Discharge coefficient&quot;</font>;
@@ -947,21 +952,23 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <H2><IMG SRC="Buildings.Airflow.Multizo8d72ccaa8cc04067w_ACSI.png" ALT="Buildings.Airflow.Multizone.ZonalFlow_ACS" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Airflow.Multizone.ZonalFlow_ACS"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
 >Buildings.Airflow.Multizone</A>.ZonalFlow_ACS</H2>
-<B>Zonal flow with input air change per second</B><p>
+<B>Zonal flow with input air change per second</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo8d72ccaa8cc04067w_ACSD.png" ALT="Buildings.Airflow.Multizone.ZonalFlow_ACS">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model computes the air exchange between volumes.
 </p>
 <p>
 Input is the air change per seconds. The volume flow rate is computed as
+</p>
 <pre>
   V_flow = ACS * V
 </pre>
+<p>
 where <code>ACS</code> is an input and the volume <code>V</code> is a parameter.
 </p>
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.ZonalFlow"
 >Buildings.Airflow.Multizone.BaseClasses.ZonalFlow</A> (Flow across zonal boundaries of a room).
 <P><H3>Parameters</H3><P>
@@ -970,7 +977,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <TR><TD>Boolean</TD><TD>forceErrorControlOnFlow</TD><TD>true</TD><TD>Flag to force error control on m_flow. Set to true if interested in flow rate</TD></TR>
 <TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</A></TD><TD>&nbsp;</TD></TR>
-<TR><TD>Boolean</TD><TD>useConstantDensity</TD><TD>false</TD><TD>Set to true to use constant density</TD></TR>
+<TR><TD>Boolean</TD><TD>useDefaultProperties</TD><TD>false</TD><TD>Set to true to use constant density</TD></TR>
 <TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Volume</A></TD><TD>V</TD><TD>&nbsp;</TD><TD>Volume of room [m3]</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
@@ -998,8 +1005,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1015,13 +1021,13 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>ACS</TD><TD>Air change per seconds, relative to the smaller of the two volumes</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ZonalFlow_ACS <font color="darkgreen">&quot;Zonal flow with input air change per second&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.ZonalFlow"
 >Buildings.Airflow.Multizone.BaseClasses.ZonalFlow</A>;
 
-  <font color="blue">parameter </font>Boolean useConstantDensity = false <font color="darkgreen">
+  <font color="blue">parameter </font>Boolean useDefaultProperties = false <font color="darkgreen">
     &quot;Set to true to use constant density&quot;</font>;
   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Modelica.SIunits.Volume</A> V <font color="darkgreen">&quot;Volume of room&quot;</font>;
@@ -1052,7 +1058,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
     &quot;Medium properties in port_a2&quot;</font>;
 
 <font color="blue">equation </font>
-  <font color="blue">when </font>useConstantDensity<font color="blue"> and </font><font color="red">initial</font>()<font color="blue"> then</font>
+  <font color="blue">when </font>useDefaultProperties<font color="blue"> and </font><font color="red">initial</font>()<font color="blue"> then</font>
    <font color="red">assert</font>(<font color="red"> abs</font>(1-rho_default/((<font color="red">Medium.density</font>(sta_a1_inflow) +<font color="red"> Medium.density</font>(sta_a2_inflow))/2))  &lt; 0.2,
     &quot;Wrong density. Densities need to match.&quot;
     + &quot;\n Medium.density(sta_a1) = &quot; +<font color="red"> String</font>(<font color="red">Medium.density</font>(sta_a1_inflow))
@@ -1060,7 +1066,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
     + &quot;\n rho_nominal            = &quot; +<font color="red"> String</font>(rho_default));
   <font color="blue">end when</font>;
   V_flow = V * ACS;
-  m_flow / V_flow = <font color="blue">if </font>useConstantDensity<font color="blue"> then </font>rho_default<font color="blue"> else </font>(<font color="red">Medium.density</font>(sta_a1_inflow) +<font color="red"> Medium.density</font>(sta_a2_inflow))/2;
+  m_flow / V_flow = <font color="blue">if </font>useDefaultProperties<font color="blue"> then </font>rho_default<font color="blue"> else </font>(<font color="red">Medium.density</font>(sta_a1_inflow) +<font color="red"> Medium.density</font>(sta_a2_inflow))/2;
   <font color="darkgreen">// assign variable in base class</font>
   port_a1.m_flow = m_flow;
   port_a2.m_flow = m_flow;
@@ -1073,16 +1079,16 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <H2><IMG SRC="Buildings.Airflow.Multizo838a391f29e8fbf7_flowI.png" ALT="Buildings.Airflow.Multizone.ZonalFlow_m_flow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
 <A NAME="Buildings.Airflow.Multizone.ZonalFlow_m_flow"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
 >Buildings.Airflow.Multizone</A>.ZonalFlow_m_flow</H2>
-<B>Zonal flow with input air change per second</B><p>
+<B>Zonal flow with input air change per second</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo838a391f29e8fbf7_flowD.png" ALT="Buildings.Airflow.Multizone.ZonalFlow_m_flow">
-<P><H3>Information</H3></P>
+<P></P><H3>Information</H3>
 
 <p>
 This model computes the air exchange between volumes.
 </p>
 <p>
 Input is the mass flow rate from <i>A</i> to <i>B</i> and from <i>B</i> to <i>A</i>.
-<P>
+<P></P>
 Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.ZonalFlow"
 >Buildings.Airflow.Multizone.BaseClasses.ZonalFlow</A> (Flow across zonal boundaries of a room).
 <P><H3>Parameters</H3><P>
@@ -1116,8 +1122,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 >MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
 <TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
 <TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
 </TABLE>
 <P><H3>Connectors</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1135,7 +1140,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</A></TD><TD>mBA_flow</TD><TD>Mass flow rate from B to A</TD></TR>
 </TABLE>
-<P><H3>Modelica definition</H3>
+<P></P><H3>Modelica definition</H3>
 <PRE>
 <font color="blue">model</font> ZonalFlow_m_flow <font color="darkgreen">&quot;Zonal flow with input air change per second&quot;</font>
   <font color="blue">extends </font><A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.ZonalFlow"
@@ -1152,6 +1157,6 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>ZonalFlow_m_flow;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed May 15 11:54:47 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:07:42 2013.
 </address></BODY>
 </HTML>
