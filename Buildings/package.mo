@@ -3774,8 +3774,8 @@ annotation (
 preferredView="info",
 version="1.5",
 versionBuild=1,
-versionDate="2013-05-15",
-dateModified = "2013-05-15",
+versionDate="2013-10-24",
+dateModified = "2013-10-24",
 uses(Modelica(version="3.2")),
 uses(Modelica_StateGraph2(version="2.0.1")),
 conversion(
