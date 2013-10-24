@@ -6,10 +6,10 @@ clear
 convertClear();
 
 convertClass("Buildings.HeatTransfer.Convection.Functions.HeatFlux.raleigh",
-             "Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh"};
+             "Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh");
 
 convertClass("Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate",
-             "Buildings.Fluid.Sources.TraceSubstancesFlowSource"};
+             "Buildings.Fluid.Sources.TraceSubstancesFlowSource");
 
 convertElement({"Buildings.Fluid.Delays.DelayFirstOrder"},
                 "V0", "V_nominal");
