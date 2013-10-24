@@ -3317,7 +3317,7 @@ on the Buildings library.
 </p>
 <ul>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build1\">Version 1.5 build1</a>(xxx, 2013)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build1\">Version 1.5 build1</a>(October 24, 2013)
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_4_build1\">Version 1.4 build1</a>(May 15, 2013)
