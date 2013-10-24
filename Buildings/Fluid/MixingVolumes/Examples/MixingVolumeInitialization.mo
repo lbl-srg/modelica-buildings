@@ -18,12 +18,14 @@ model MixingVolumeInitialization "Test model for mixing volume initialization"
   Modelica.Fluid.Pipes.StaticPipe pipe1(
     redeclare package Medium = Medium,
     length=1,
-    diameter=0.25) annotation (Placement(transformation(extent={{-20,10},{0,30}},
+    diameter=0.25,
+    flowModel(m_flow_nominal=2)) annotation (Placement(transformation(extent={{-20,10},{0,30}},
           rotation=0)));
   Modelica.Fluid.Pipes.StaticPipe pipe2(
     redeclare package Medium = Medium,
     length=1,
-    diameter=0.25) annotation (Placement(transformation(extent={{60,10},{80,30}},
+    diameter=0.25,
+    flowModel(m_flow_nominal=2)) annotation (Placement(transformation(extent={{60,10},{80,30}},
           rotation=0)));
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
@@ -62,6 +64,14 @@ This model tests the initialization of the mixing volume.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 24, 2013 by Michael Wetter:<br/>
+Set <code>flowModel(m_flow_nominal=2)</code> in the pipe models to 
+avoid a cyclic definition of
+<code>pipe1.flowModel.m_flow_nominal</code>
+and
+<code>pipe2.flowModel.m_flow_nominal</code>.
+</li>
 <li>
 October 12, 2009 by Michael Wetter:<br/>
 First implementation.
