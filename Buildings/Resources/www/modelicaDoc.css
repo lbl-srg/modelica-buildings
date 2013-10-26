@@ -195,13 +195,28 @@ pre.comment {
 
 table
 {
-    margin: 0.5em 0 0 0.5em;
     border-collapse: collapse;
     border: 1px solid #022e4d;
+    max-width: 865px;
 }
 
 table.noBorder, th.noBorder, td.noBorder, tr.noBorder  { 
     border: none;
+}
+
+/* Format release table to avoid that it is too wide */
+.releaseTable td:nth-child(1)
+{
+    min-width: 400px;
+    max-width: 400px;
+    word-wrap: break-word; 
+}
+
+.releaseTable td:nth-child(2)
+{
+    min-width: 435px;
+    max-width: 435px;
+    word-wrap: break-word; 
 }
 
 th, td
