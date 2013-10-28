@@ -322,6 +322,16 @@ However, since the thermal expansion of the fluid is usually small, this effect 
    a fixed pressure source and accounts for any thermal expansion 
    of the medium.
 
+
+.. note::
+
+   There must be one, and only one, device in each water circuit to account for the thermal
+   expansion and to set a reference pressure. If there is no device, then the absolute pressure 
+   may not be defined, or it may raise to an unrealistically large value if the medium density changes.
+   If there is more than one device, then there are multiple points in the system that set the
+   reference static pressure. This will affect the distribution of the mass flow rate.
+
+
 Nominal Values
 ~~~~~~~~~~~~~~
 
