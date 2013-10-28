@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -15,7 +13,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -179,12 +177,12 @@ To avoid a nonlinear equation, you could do any of the below measures.</p>
 </div>
 <p>Suppose the parameters are</p>
 <div class="highlight-modelica"><div class="highlight"><pre><span class="nc">Buildings.Fluid.FixedResistances.FixedResistanceDpM</span> <span class="n">res</span><span class="p">(</span>
-  <span class="k">redeclare</span> <span class="nc">package</span> <span class="n">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
+  <span class="k">redeclare</span> <span class="k">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
   <span class="n">m_flow_nominal</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
   <span class="n">dp_nominal</span><span class="o">=</span><span class="mi">10000</span><span class="p">);</span>
 
 <span class="nc">Buildings.Fluid.Actuators.Valves.TwoWayLinear</span> <span class="n">val</span><span class="p">(</span>
-  <span class="k">redeclare</span> <span class="nc">package</span> <span class="n">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
+  <span class="k">redeclare</span> <span class="k">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
   <span class="n">m_flow_nominal</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
   <span class="n">dpValve_nominal</span><span class="o">=</span><span class="mi">5000</span><span class="p">);</span>
 </pre></div>
@@ -196,7 +194,7 @@ To avoid a nonlinear equation, you could do any of the below measures.</p>
 </div>
 <p>If the valve is configured as</p>
 <div class="highlight-modelica"><div class="highlight"><pre><span class="nc">Buildings.Fluid.Actuators.Valves.TwoWayLinear</span> <span class="n">val</span><span class="p">(</span>
-  <span class="k">redeclare</span> <span class="nc">package</span> <span class="n">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
+  <span class="k">redeclare</span> <span class="k">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
   <span class="n">m_flow_nominal</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
   <span class="n">dpValve_nominal</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
   <span class="n">dpFixed_nominal</span><span class="o">=</span><span class="mi">10000</span><span class="p">);</span>
@@ -233,7 +231,7 @@ To correct it you can remove this equation.</pre>
 </pre></div>
 </div>
 <p>in the instances of the components that contain fluid volumes.
-See also the section <a class="reference internal" href="bestPractice.html#thermalexpansionofwater"><em>Thermal expansion of water</em></a>.</p>
+See also the section <a class="reference internal" href="bestPractice.html#referencepressureincompressiblefluids"><em>Reference pressure for incompressible fluids such as water</em></a>.</p>
 </div>
 </div>
 
@@ -265,7 +263,7 @@ See also the section <a class="reference internal" href="bestPractice.html#therm
     </div>
     <div class="footer">
         &copy; Copyright 2012-2013, The Regents of the University of California (through Lawrence Berkeley National Laboratory).
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
     </div>
   </body>
 </html>
