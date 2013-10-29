@@ -126,10 +126,9 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-
-class Version_1_6_build1 "Version 1.6 build 1"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    class Version_1_6_build1 "Version 1.6 build 1"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
 <p>
 Version 1.6 build 1 is ... xxx
 </p>
@@ -263,8 +262,7 @@ xxx
 </ul>
 </p>
 </html>"));
-end Version_1_6_build1;
-
+    end Version_1_6_build1;
 
     class Version_1_5_build1 "Version 1.5 build 1"
       extends Modelica.Icons.ReleaseNotes;
@@ -3916,7 +3914,7 @@ version="1.6",
 versionBuild=0,
 versionDate="2013-10-24",
 dateModified = "2013-10-24",
-uses(Modelica(version="3.2")),
+uses(Modelica(version="3.2"), Modelica_StateGraph2(version="2.0.1")),
 uses(Modelica_StateGraph2(version="2.0.1")),
 conversion(
  noneFromVersion="1.5",
