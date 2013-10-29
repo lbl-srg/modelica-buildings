@@ -1,0 +1,21 @@
+simulateModel("Districts.Electrical.AC.Conversion.Examples.ACDCConverter", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="ACDCConverter");
+removePlots();
+createPlot(id = 6,
+ position = {15, 10, 407, 281},
+ y = {"conACDC.pin_pQS.v.re", "conACDC.pin_pDC.v"},
+ range = {0.0, 4000.0, 50.0, 130.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "ACDCConverter.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}});
+
+
+
+
