@@ -1,5 +1,6 @@
 within Buildings.Electrical.Interfaces;
 model PartialTwoPort
+  "Partial model for a generic two port systems. It does not contain any constraint or relationship between the two ports"
   replaceable package PhaseSystem_p =
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem

@@ -1,5 +1,5 @@
 within Buildings.Electrical.Interfaces;
-partial model PartialLoad
+partial model PartialLoad "Partial model for a generic load"
   import Buildings.Electrical.Types.Assumption;
   replaceable package PhaseSystem =
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby

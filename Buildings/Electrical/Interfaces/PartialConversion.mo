@@ -1,5 +1,6 @@
 within Buildings.Electrical.Interfaces;
 model PartialConversion
+  "Partial model representing a generic two port system for conversion"
   extends Buildings.Electrical.Interfaces.PartialTwoPort;
   Modelica.SIunits.Voltage v_p "Voltage drop between the two positive pins";
   Modelica.SIunits.Voltage v_n "Voltage drop between the two negative pins";

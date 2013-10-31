@@ -1,5 +1,5 @@
 within Buildings.Electrical.Interfaces;
-partial model PartialCapacitiveLoad
+partial model PartialCapacitiveLoad "Partial model for a capacitive load"
   extends PartialLoad;
   function j = PhaseSystem.j;
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"  annotation(evaluate=true,Dialog(group="Nominal conditions"));

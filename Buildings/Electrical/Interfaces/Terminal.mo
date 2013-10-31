@@ -1,5 +1,5 @@
 within Buildings.Electrical.Interfaces;
-connector Terminal "General power terminal"
+connector Terminal "General electric terminal"
 replaceable package PhaseSystem = PhaseSystems.PartialPhaseSystem
     "Phase system"
   annotation (choicesAllMatching=true);

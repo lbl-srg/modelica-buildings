@@ -1,5 +1,5 @@
 within Buildings.Electrical.Interfaces;
-partial model PartialSource
+partial model PartialSource "Partial model for a generic source"
   replaceable package PhaseSystem =
       Buildings.Electrical.PhaseSystems.OnePhase constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"

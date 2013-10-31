@@ -1,5 +1,6 @@
 within Buildings.Electrical.Interfaces;
 model GeneralizedSensor
+  "Partial model representing a generalized sensor that measures: Voltage, Current and Power"
   extends Buildings.Electrical.Interfaces.PartialTwoPort(
     redeclare final package PhaseSystem_p = PhaseSystem_n,
     redeclare Terminal terminal_n(redeclare final package PhaseSystem =

@@ -1,2 +1,3 @@
 within Buildings.Electrical.Types;
-type CharacteristicReactance =  Real (final quantity="Reactance per meter",  final unit="Ohm/m");
+type CharacteristicReactance =  Real (final quantity="Reactance per meter",  final unit="Ohm/m")
+  "Reactance per unit length";
