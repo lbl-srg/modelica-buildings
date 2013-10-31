@@ -23,8 +23,7 @@ algorithm
   // Depending on the material define the constant
   if material == Buildings.Electrical.Transmission.Materials.Material.Al then
     M := 228.1 + 273.15;
-  elseif material == Buildings.Electrical.Transmission.Materials.Material.Cu
-       then
+  elseif material == Buildings.Electrical.Transmission.Materials.Material.Cu then
     M := 234.5 + 273.15;
   else
     Modelica.Utilities.Streams.print("Warning: the material is not known, missing the temperature constant " +

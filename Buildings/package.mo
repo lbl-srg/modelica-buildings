@@ -3908,6 +3908,17 @@ The tutorial contains step by step instructions for how to build system models.
 end UsersGuide;
 
 
+
+
+
+
+
+
+
+
+
+
+
 annotation (
 preferredView="info",
 version="1.6",
@@ -3916,7 +3927,6 @@ versionDate="2013-10-24",
 dateModified = "2013-10-24",
 uses(Modelica(version="3.2"),
     Modelica_StateGraph2(version="2.0.1"),
-    Districts(version="0.1"),
     ModelicaServices(version="1.2")),
 uses(Modelica_StateGraph2(version="2.0.1")),
 conversion(

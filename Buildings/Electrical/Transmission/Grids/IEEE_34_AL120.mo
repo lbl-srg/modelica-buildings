@@ -10,7 +10,6 @@ record IEEE_34_AL120
         11,9]; [12,11]; [13,10]; [14,10]; [15,14]; [16,15]; [17,27]; [18,27]; [
         19,31]; [20,31]; [21,32]; [22,32]; [23,20]; [24,23]; [25,24]; [26,8]; [
         27,29]; [28,16]; [29,16]; [30,17]; [31,17]; [32,19]; [33,22]; [34,18]],
-
     cables={LowVoltageCables.PvcAl120(),LowVoltageCables.PvcAl120(),
         LowVoltageCables.PvcAl120(),LowVoltageCables.PvcAl120(),
         LowVoltageCables.PvcAl120(),LowVoltageCables.PvcAl120(),
