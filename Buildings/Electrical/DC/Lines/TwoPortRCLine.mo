@@ -1,5 +1,5 @@
 within Buildings.Electrical.DC.Lines;
-model TwoPortRCLine
+model TwoPortRCLine "Model of a RC system"
   extends Buildings.Electrical.Transmission.Base.PartialTwoPortRLC(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,

@@ -1,5 +1,5 @@
 within Buildings.Electrical.DC.Loads;
-model Conductor "Model of a constant conductive load"
+model Conductor "Model of a generic DC load"
     extends Buildings.Electrical.Interfaces.PartialLoad(redeclare package
       PhaseSystem = PhaseSystems.TwoConductor, redeclare Interfaces.Terminal_n
       terminal);

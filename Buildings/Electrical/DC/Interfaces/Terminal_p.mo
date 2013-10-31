@@ -1,5 +1,5 @@
 within Buildings.Electrical.DC.Interfaces;
-connector Terminal_p
+connector Terminal_p "Terminal p for DC electrical systems"
   extends Buildings.Electrical.Interfaces.Terminal;
   annotation (Icon(graphics={  Polygon(
           points={{-120,0},{0,-120},{120,0},{0,120},{-120,0}},

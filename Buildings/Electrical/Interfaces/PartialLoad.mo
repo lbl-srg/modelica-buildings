@@ -15,7 +15,9 @@ partial model PartialLoad "Partial model for a generic load"
     "If =true introduce a linearization in the load"                                                    annotation(evaluate=true,Dialog(group="Modelling assumption"));
   parameter Buildings.Electrical.Types.Assumption mode(
     min=Assumption.FixedZ_steady_state,
-    max=Assumption.VariableZ_y_input)=Assumption.FixedZ_steady_state                                                              annotation(evaluate=true,Dialog(group="Modelling assumption"));
+    max=Assumption.VariableZ_y_input)=Assumption.FixedZ_steady_state
+    "Parameters that specifies the mode of the load (e.g., steady state, dynamic, prescribed power consumption, etc.)"
+                                                                                                        annotation(evaluate=true,Dialog(group="Modelling assumption"));
   parameter Modelica.SIunits.Power P_nominal(start=0)
     "Nominal power (negative if consumed, positive if generated)"  annotation(evaluate=true,Dialog(group="Nominal conditions",
         enable = mode <> Assumption.VariableZ_P_input));
@@ -90,5 +92,12 @@ equation
   end if;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), Documentation(revisions="<html>
+<ul>
+<li>
+October 31, 2013, by Marco Bonvini:<br/>
+Model included into the Buildings library.
+</li>
+</ul>
+</html>"));
 end PartialLoad;

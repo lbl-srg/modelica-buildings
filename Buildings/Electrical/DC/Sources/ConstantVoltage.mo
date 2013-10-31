@@ -1,5 +1,5 @@
 within Buildings.Electrical.DC.Sources;
-model ConstantVoltage
+model ConstantVoltage "Model of a constant DC voltage source"
   extends Buildings.Electrical.Interfaces.PartialSource(redeclare package
       PhaseSystem = PhaseSystems.TwoConductor, redeclare Interfaces.Terminal_p
       terminal);

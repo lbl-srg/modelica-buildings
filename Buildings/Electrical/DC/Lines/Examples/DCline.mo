@@ -1,5 +1,5 @@
 within Buildings.Electrical.DC.Lines.Examples;
-model DCline
+model DCline "Example model to test the DC lines"
   extends Modelica.Icons.Example;
   Line line(
     P_nominal=500,

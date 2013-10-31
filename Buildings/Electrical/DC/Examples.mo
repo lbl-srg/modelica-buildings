@@ -1,4 +1,4 @@
 within Buildings.Electrical.DC;
-package Examples
+package Examples "Package with example models"
   extends Modelica.Icons.ExamplesPackage;
 end Examples;

@@ -1,22 +1,9 @@
 within Buildings.Electrical.DC.Sources;
-model PVSimple "Simple PV model"
-  extends Buildings.Electrical.Interfaces.PartialPV(redeclare package
+model PVSimpleOriented "Simple PV model with orientation"
+  extends Buildings.Electrical.Interfaces.PartialPVOriented(redeclare package
       PhaseSystem = PhaseSystems.TwoConductor, redeclare Interfaces.Terminal_p
-      terminal);
-protected
-   Loads.Conductor con(mode=Types.Assumption.VariableZ_P_input)
-    "Conductor, used to interface power with electrical circuit"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-equation
-  connect(con.terminal, terminal)  annotation (Line(
-      points={{-10,0},{-100,0}},
-      color={0,0,255},
-      smooth=Smooth.None));
+      terminal, redeclare Buildings.Electrical.DC.Sources.PVSimple panel);
 
-  connect(solarPower.y, con.Pow) annotation (Line(
-      points={{70,0},{10,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -38,7 +25,7 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-January 4, 2013, by Michael Wetter:<br/>
+October 31, 2013, by Marco Bonvini:<br/>
 First implementation.
 </li>
 </ul>
@@ -48,9 +35,7 @@ First implementation.
 Model of a simple photovoltaic array.
 </p>
 <p>
-<b>N.B.</b> This model takes as input the total solar irradiation on the panel. This has to be computed converting the incoming radiation to take tilt and azimuth into account.
-</p>
-<p>
+This model takes as an input the information provided by the weather bus: direct and diffuse solar radiation.
 The electrical connector is a DC interfaces.
 </p>
 <p>
@@ -58,7 +43,9 @@ This model computes the power as <i>P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbs
 where <i>A</i> is the panel area,
 <i>f<sub>act</sub></i> is the fraction of the aperture area,
 <i>&eta;</i> is the panel efficiency and
-<i>G</i> is the total solar irradiation.
+<i>G</i> is the total solar irradiation (direct + diffuse). The model takes into account the location and the orientation of the PV panel, specified by the surface tilt, latitude and azimith.
+</p>
+<p>
 This power is equal to <i>P = v &nbsp; i</i>,
 where <i>v</i> is the voltage across the panel and 
 <i>i</i> is the current that flows through the panel.
@@ -71,4 +58,4 @@ See
 Buildings.Electrical.DC.Sources.Examples.PVSimple</a>.
 </p>
 </html>"));
-end PVSimple;
+end PVSimpleOriented;

@@ -1,5 +1,6 @@
 within Buildings.Electrical.DC.Lines.Examples;
 model DClines
+  "Example model to test the possible combinations between line and load models"
   extends Modelica.Icons.Example;
   parameter Boolean useC = true;
   parameter Boolean linearLoads = false;

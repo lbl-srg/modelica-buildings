@@ -31,5 +31,28 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), Documentation(info="<html>
+<p>
+Model of a simple photovoltaic array.
+</p>
+<p>
+<b>N.B.</b> This model takes as input the total solar irradiation on the panel. This has to be computed converting the incoming radiation to take tilt and azimuth into account.
+</p>
+<p>
+The electrical connector is an AC interfaces.
+</p>
+<p>
+This model computes the active power as <i>P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G &nbsp; &eta;<sub>DCAC</sub></i> ,
+where <i>A</i> is the panel area,
+<i>f<sub>act</sub></i> is the fraction of the aperture area,
+<i>&eta;</i> is the panel efficiency,
+<i>G</i> is the total solar irradiation (direct + diffuse), and
+<i>&eta;<sub>DCAC</sub></i> is the efficiency of the conversion between DC and AC.
+The model takes into account the location and the orientation of the PV panel, specified by the surface tilt, latitude and azimith.
+</p>
+<p>
+This active power is equal to <i>P</i>, while the reactive power is equal to <i>Q = P &nbsp; tan(acos(pf)) </i>
+where <i>pf</i> is the power factor.
+</p>
+</html>"));
 end PVSimple;

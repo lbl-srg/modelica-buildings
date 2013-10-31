@@ -1,5 +1,5 @@
 within Buildings.Electrical.DC.Lines;
-model TwoPortResistance
+model TwoPortResistance "Model of a resistance"
   extends Buildings.Electrical.Transmission.Base.PartialTwoPortResistance(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,

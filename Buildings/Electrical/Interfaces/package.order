@@ -7,4 +7,5 @@ PartialTwoPort
 PartialConversion
 GeneralizedSensor
 PartialPV
+PartialPVOriented
 PartialWindTurbine

@@ -9,4 +9,12 @@ partial model PartialCapacitiveLoad "Partial model for a capacitive load"
   Modelica.SIunits.AngularVelocity omega "Angular velocity";
 protected
   Modelica.SIunits.Power Q = P*tan(-acos(pf));
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+October 31, 2013, by Marco Bonvini:<br/>
+Model included into the Buildings library.
+</li>
+</ul>
+</html>"));
 end PartialCapacitiveLoad;

@@ -1,5 +1,5 @@
 within Buildings.Electrical.DC.Loads.Examples;
-model VariableLoad
+model VariableLoad "Example using variable loads models"
   extends Modelica.Icons.Example;
   Conductor loa1(P_nominal=50,
     V_nominal=12,

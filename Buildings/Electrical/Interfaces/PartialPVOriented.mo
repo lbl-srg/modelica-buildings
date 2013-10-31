@@ -1,5 +1,5 @@
 within Buildings.Electrical.Interfaces;
-model PartialPV "Partial model of a PV system"
+model PartialPVOriented "Partial model of a PV system with orientation"
   replaceable package PhaseSystem =
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
@@ -9,31 +9,77 @@ model PartialPV "Partial model of a PV system"
     "Fraction of surface area with active solar cells";
   parameter Real eta(min=0, max=1, unit="1") = 0.12
     "Module conversion efficiency";
-  Modelica.Blocks.Interfaces.RealInput G(unit="W/m2")
-    "Total solar irradiation per unit area"
-     annotation (Placement(transformation(
-        origin={0,70},
-        extent={{-20,-20},{20,20}},
-        rotation=270), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,120})));
+  parameter Modelica.SIunits.Angle til "Surface tilt" annotation(evaluate=true,Dialog(group="Orientation"));
+  parameter Modelica.SIunits.Angle lat "Latitude" annotation(evaluate=true,Dialog(group="Orientation"));
+  parameter Modelica.SIunits.Angle azi "Surface Azimith" annotation(evaluate=true,Dialog(group="Orientation"));
   Modelica.Blocks.Interfaces.RealOutput P(unit="W") "Generated power"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
       package PhaseSystem = PhaseSystem) "Generalised terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-protected
-  Modelica.Blocks.Sources.RealExpression solarPower(y=A*fAct*eta*G)
-    annotation (Placement(transformation(extent={{91,-10},{71,10}})));
+  replaceable PartialPV panel(
+    redeclare package PhaseSystem = PhaseSystem,
+    redeclare Buildings.Electrical.Interfaces.Terminal terminal(redeclare
+        package PhaseSystem =
+          PhaseSystem),
+    A=A,
+    fAct=fAct,
+    eta=eta) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  BoundaryConditions.SolarIrradiation.DiffusePerez           HDifTil(
+    til=til,
+    lat=lat,
+    azi=azi) "Diffuse irradiation on tilted surface"
+    annotation (Placement(transformation(extent={{-66,62},{-46,82}})));
+  BoundaryConditions.SolarIrradiation.DirectTiltedSurface           HDirTil(
+    til=til,
+    lat=lat,
+    azi=azi) "Direct irradiation on tilted surface"
+    annotation (Placement(transformation(extent={{-66,35},{-46,55}})));
+  Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={0,30})));
+  BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data" annotation (
+     Placement(transformation(extent={{-10,80},{10,100}}), iconTransformation(
+          extent={{-10,80},{10,100}})));
 equation
-  assert(solarPower.y>=0, "Solar power must be positive");
-  connect(solarPower.y, P) annotation (Line(
-      points={{70,6.66134e-16},{59,6.66134e-16},{59,0},{50,0},{50,70},{110,70}},
+  connect(panel.P, P) annotation (Line(
+      points={{11,7},{60,7},{60,70},{110,70}},
       color={0,0,127},
       smooth=Smooth.None));
-
+  connect(terminal, panel.terminal) annotation (Line(
+      points={{-100,0},{-10,0}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(HDifTil.H,G. u1) annotation (Line(
+      points={{-45,72},{-6,72},{-6,42}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(HDirTil.H,G. u2) annotation (Line(
+      points={{-45,45},{-30,45},{-30,55},{6,55},{6,42}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(G.y, panel.G) annotation (Line(
+      points={{-1.33227e-15,19},{0,19},{0,12}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(HDifTil.weaBus, weaBus) annotation (Line(
+      points={{-66,72},{-90,72},{-90,90},{4.44089e-16,90}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(weaBus, HDirTil.weaBus) annotation (Line(
+      points={{0,90},{-90,90},{-90,45},{-66,45}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -57,10 +103,6 @@ equation
           fillColor={6,13,150},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Text(
-          extent={{-5,100},{98,136}},
-          lineColor={0,0,127},
-          textString="G"),
         Polygon(
           points={{-53,-9},{-41,17},{-18,17},{-29,-9},{-53,-9}},
           smooth=Smooth.None,
@@ -120,12 +162,8 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-January 4, 2013, by Michael Wetter:<br/>
-First implementation.
-</li>
-<li>
 October 31, 2013, by Marco Bonvini:<br/>
-Models included in the Buildings library. Modified the info.
+First implementation.
 </li>
 </ul>
 </html>",
@@ -134,17 +172,15 @@ Models included in the Buildings library. Modified the info.
 Partial model of a simple photovoltaic array.
 </p>
 <p>
-<b>N.B.</b> This model takes as input the total solar irradiation on the panel. This has to be computed converting the incoming radiation to take tilt and azimuth into account.
-</p>
-<p>
-The electrical connector is a general electrical interfaces.
+This model takes as an input the information provided by the weather bus: direct and diffuse solar radiation.
+The electrical connector is a DC interfaces.
 </p>
 <p>
 This model computes the power as <i>P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G</i>,
 where <i>A</i> is the panel area,
 <i>f<sub>act</sub></i> is the fraction of the aperture area,
 <i>&eta;</i> is the panel efficiency and
-<i>G</i> is the total solar irradiation.
+<i>G</i> is the total solar irradiation (direct + diffuse). The model takes into account the location and the orientation of the PV panel, specified by the surface tilt, latitude and azimith.
 </p>
 </html>"));
-end PartialPV;
+end PartialPVOriented;
