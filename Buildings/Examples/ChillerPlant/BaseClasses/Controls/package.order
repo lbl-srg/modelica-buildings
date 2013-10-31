@@ -5,4 +5,5 @@ RequestCounter
 TrimAndRespond
 TrimAndRespondContinuousTimeApproximation
 WSEControl
+BatteryControl
 Examples
