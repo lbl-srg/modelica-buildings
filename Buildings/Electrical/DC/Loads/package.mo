@@ -1,5 +1,7 @@
 within Buildings.Electrical.DC;
-package Loads "Library with models for electrical loads"
+package Loads "Package with models for DC electrical loads"
   extends Modelica.Icons.VariantsPackage;
+
+
 
 end Loads;

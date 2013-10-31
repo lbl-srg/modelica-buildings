@@ -1,6 +1,9 @@
 within Buildings.Electrical.DC;
-package Lines 
+package Lines "Package with models for DC electrical lines"
   extends Modelica.Icons.Package;
+
+
+
 
 
 annotation (Icon(graphics={
