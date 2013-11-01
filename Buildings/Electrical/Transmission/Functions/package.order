@@ -1,7 +1,8 @@
 selectCable_low
 selectCable_med
+lineResistance
 lineInductance
 lineCapacitance
-lineResistance
 temperatureConstant
 selectVoltageLevel
+R_AC_correction
