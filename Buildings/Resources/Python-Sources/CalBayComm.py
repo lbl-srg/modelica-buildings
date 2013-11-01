@@ -8,6 +8,12 @@
     Next, the script reads from CalBay the light level in the space, and
     sends that information back to the simulation program.
 
+    This script is not yet finalized because the application programming 
+    interface for data exchange with the CalBay adaptor of FLEXLAB has 
+    not yet been finalized. 
+    The script works, however, with the CalBay infrastructure as of 
+    October 2013.
+
 '''
 
 import socket # Use the Python socket library to do TCP socket communications.

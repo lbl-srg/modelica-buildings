@@ -249,18 +249,20 @@ The proper use sensors is described in the
 `Buildings.Fluid.Sensors <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors>`_ package.
 
 
-.. _ThermalExpansionOfWater:
+.. _ReferencePressureIncompressibleFluids:
 
-Thermal expansion of water
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Reference pressure for incompressible fluids such as water
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This section explains how to account for the thermal expansion of water.
+This section explains how to set a reference pressure for incompressible fluids. For fluids that model density as a function of temperature, the section also shows how to account for the thermal expansion of the fluid.
+
 Consider the flow circuit shown below that consists of a pump or fan, a flow resistance and a volume.
 
 .. figure:: img/flowCircuitNoExpansion.png
    
    Schematic diagram of a flow circuit without means 
-   to account for the thermal expansion.
+   to set a reference pressure, or to account for 
+   thermal expansion of the fluid.
 
 When this model is used with a medium model that models
 :term:`compressible flow`, such as 
@@ -276,7 +278,7 @@ However, when the medium model is changed to a model that models
 `Buildings.Media.ConstantPropertyLiquidWater <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater>`_,
 then the density is constant. Consequently, there is no equation that 
 can be used to compute the pressure based on the volume. 
-In this situation, trying to translate the model leads, in Dymola, to this error message:
+In this situation, trying to translate the model leads, in Dymola, to the following error message:
 
 .. code-block:: none
 
@@ -321,6 +323,23 @@ However, since the thermal expansion of the fluid is usually small, this effect 
    Schematic diagram of a flow circuit with a boundary model that adds
    a fixed pressure source and accounts for any thermal expansion 
    of the medium.
+
+
+.. note::
+
+   In each water circuit, there must be one, and only one, instance of
+   `Buildings.Fluid.Storage.ExpansionVessel
+   <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel>`_,
+   or instance of 
+   `Buildings.Fluid.Sources.FixedBoundary
+   <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary>`_.
+   If there is no such device, then the absolute pressure 
+   may not be defined, or it may raise to an unrealistically large
+   value if the medium density changes.
+   If there is more than one such device, then there are multiple
+   points in the system that set the reference static pressure. 
+   This will affect the distribution of the mass flow rate.
+
 
 Nominal Values
 ~~~~~~~~~~~~~~

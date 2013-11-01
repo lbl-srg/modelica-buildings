@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -15,7 +13,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -67,7 +65,7 @@
 <li><a class="reference internal" href="#overdetermined-initialization-problem-and-inconsistent-equations">2.4.1. Overdetermined initialization problem and inconsistent equations</a></li>
 <li><a class="reference internal" href="#modeling-of-fluid-junctions">2.4.2. Modeling of fluid junctions</a></li>
 <li><a class="reference internal" href="#use-of-sensors-in-fluid-flow-systems">2.4.3. Use of sensors in fluid flow systems</a></li>
-<li><a class="reference internal" href="#thermal-expansion-of-water">2.4.4. Thermal expansion of water</a></li>
+<li><a class="reference internal" href="#reference-pressure-for-incompressible-fluids-such-as-water">2.4.4. Reference pressure for incompressible fluids such as water</a></li>
 <li><a class="reference internal" href="#nominal-values">2.4.5. Nominal Values</a></li>
 </ul>
 </li>
@@ -147,19 +145,19 @@ Rather than setting these parameters individually to a numeric value, it is reco
 </div>
 <p>This allows to change the value of <tt class="docutils literal"><span class="pre">m_flow_nominal</span></tt> at one location, and then have the value be propagated to all models that reference it. The effort for the additional declaration typically pays off as changes to the model are easier and more robust.</p>
 <p>Propagating parameters and packages is particularly important for medium definitions. This allows the user to change the medium declaration at one location and then have it propagated to all models that reference it. This can be done by using the declaration</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="k">replaceable</span> <span class="nc">package</span> <span class="n">Medium</span> <span class="o">=</span> <span class="nc">Modelica.Media.Interfaces.PartialMedium</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="k">replaceable</span> <span class="k">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="nc">Modelica.Media.Interfaces.PartialMedium</span>
   <span class="s">&quot;Medium model for air&quot;</span> <span class="k">annotation</span> <span class="p">(</span><span class="n">choicesAllMatching</span><span class="o">=</span><span class="k">true</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Here, the optional annotation <tt class="docutils literal"><span class="pre">annotation</span> <span class="pre">(choicesAllMatching=true)</span></tt> is added which causes a GUI to show a drop-down menu with all medium models that extend from <tt class="docutils literal"><span class="pre">Modelica.Media.Interfaces.PartialMedium</span></tt>.</p>
 <p>If the above sensor requires a medium model, which is likely the case, its declaration would be</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="n">TemperatureSensor</span> <span class="n">sen</span><span class="p">(</span><span class="k">redeclare</span> <span class="nc">package</span> <span class="n">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="n">TemperatureSensor</span> <span class="n">sen</span><span class="p">(</span><span class="k">redeclare</span> <span class="k">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
                       <span class="n">m_flow_nominal</span><span class="o">=</span><span class="n">m_flow_nominal</span><span class="p">)</span> <span class="s">&quot;Sensor&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>At the top-level of a system-model, one would set the <tt class="docutils literal"><span class="pre">Medium</span></tt> package to an actual media, such as by using</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="nc">package</span> <span class="n">Medium</span> <span class="o">=</span> <span class="nc">Buildings.Media.PerfectGases.MoistAir</span> <span class="s">&quot;Medium model&quot;</span><span class="p">;</span>
-<span class="n">TemperatureSensor</span> <span class="n">sen</span><span class="p">(</span><span class="k">redeclare</span> <span class="nc">package</span> <span class="n">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="k">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="nc">Buildings.Media.PerfectGases.MoistAir</span> <span class="s">&quot;Medium model&quot;</span><span class="p">;</span>
+<span class="n">TemperatureSensor</span> <span class="n">sen</span><span class="p">(</span><span class="k">redeclare</span> <span class="k">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
                       <span class="n">m_flow_nominal</span><span class="o">=</span><span class="n">m_flow_nominal</span><span class="p">)</span> <span class="s">&quot;Sensor&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -396,14 +394,15 @@ The proper use sensors is described in the
 <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_UsersGuide.html">User&#8217;s Guide</a> of the
 <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors">Buildings.Fluid.Sensors</a> package.</p>
 </div>
-<div class="section" id="thermal-expansion-of-water">
-<span id="thermalexpansionofwater"></span><h3>2.4.4. Thermal expansion of water<a class="headerlink" href="#thermal-expansion-of-water" title="Permalink to this headline">¶</a></h3>
-<p>This section explains how to account for the thermal expansion of water.
-Consider the flow circuit shown below that consists of a pump or fan, a flow resistance and a volume.</p>
+<div class="section" id="reference-pressure-for-incompressible-fluids-such-as-water">
+<span id="referencepressureincompressiblefluids"></span><h3>2.4.4. Reference pressure for incompressible fluids such as water<a class="headerlink" href="#reference-pressure-for-incompressible-fluids-such-as-water" title="Permalink to this headline">¶</a></h3>
+<p>This section explains how to set a reference pressure for incompressible fluids. For fluids that model density as a function of temperature, the section also shows how to account for the thermal expansion of the fluid.</p>
+<p>Consider the flow circuit shown below that consists of a pump or fan, a flow resistance and a volume.</p>
 <div class="figure">
 <img alt="_images/flowCircuitNoExpansion.png" src="_images/flowCircuitNoExpansion.png" />
 <p class="caption">Schematic diagram of a flow circuit without means
-to account for the thermal expansion.</p>
+to set a reference pressure, or to account for
+thermal expansion of the fluid.</p>
 </div>
 <p>When this model is used with a medium model that models
 <a class="reference internal" href="glossary.html#term-compressible-flow"><em class="xref std std-term">compressible flow</em></a>, such as
@@ -418,7 +417,7 @@ where <span class="math">\(p\)</span> is the static pressure, <span class="math"
 <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater">Buildings.Media.ConstantPropertyLiquidWater</a>,
 then the density is constant. Consequently, there is no equation that
 can be used to compute the pressure based on the volume.
-In this situation, trying to translate the model leads, in Dymola, to this error message:</p>
+In this situation, trying to translate the model leads, in Dymola, to the following error message:</p>
 <div class="highlight-none"><div class="highlight"><pre>The DAE has 151 scalar unknowns and 151 scalar equations.
 Error: The model FlowCircuit is structurally singular.
 The problem is structurally singular for the element type Real.
@@ -458,6 +457,19 @@ However, since the thermal expansion of the fluid is usually small, this effect 
 <p class="caption">Schematic diagram of a flow circuit with a boundary model that adds
 a fixed pressure source and accounts for any thermal expansion
 of the medium.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In each water circuit, there must be one, and only one, instance of
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>,
+or instance of
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary">Buildings.Fluid.Sources.FixedBoundary</a>.
+If there is no such device, then the absolute pressure
+may not be defined, or it may raise to an unrealistically large
+value if the medium density changes.
+If there is more than one such device, then there are multiple
+points in the system that set the reference static pressure.
+This will affect the distribution of the mass flow rate.</p>
 </div>
 </div>
 <div class="section" id="nominal-values">
@@ -665,7 +677,7 @@ whenever it crosses at set point temperature, and if
 then the heater can switch on and off rapidly due to the numerical noise.
 This can cause the time integration to stall.</p>
 <p>To illustrate this problem, try to simulate</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="nc">model</span> <span class="n">Unstable</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="k">model</span> <span class="nc">Unstable</span>
   <span class="nb">Real</span> <span class="n">x</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mf">0.1</span><span class="p">);</span>
 <span class="k">equation</span>
   <span class="nb">der</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span><span class="p">;</span>
@@ -723,7 +735,7 @@ and uncontrolled, then the global integration error will grow rapidly.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2012-2013, The Regents of the University of California (through Lawrence Berkeley National Laboratory).
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
     </div>
   </body>
 </html>

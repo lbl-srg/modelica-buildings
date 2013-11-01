@@ -158,4 +158,4 @@ then the initialization problem is overspecified. To avoid this, set
    massDynamics = Modelica.Fluid.Types.Dynamics.DynamicsFreeInitial;
 
 in the instances of the components that contain fluid volumes.
-See also the section :ref:`ThermalExpansionOfWater`.
+See also the section :ref:`ReferencePressureIncompressibleFluids`.
