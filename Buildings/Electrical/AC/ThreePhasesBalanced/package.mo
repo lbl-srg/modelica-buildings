@@ -1,5 +1,11 @@
 within Buildings.Electrical.AC;
-package ThreePhasesBalanced 
+package ThreePhasesBalanced "Three phases balanced AC systems"
   extends Modelica.Icons.VariantsPackage;
+
+
+
+
+
+
 
 end ThreePhasesBalanced;

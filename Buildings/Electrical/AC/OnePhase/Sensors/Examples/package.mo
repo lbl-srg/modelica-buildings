@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Sensors;
-package Examples "Collection of models that illustrate model use and test models"
+package Examples "Package with example models"
   extends Modelica.Icons.ExamplesPackage;
 
 

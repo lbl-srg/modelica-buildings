@@ -1,6 +1,12 @@
 within Buildings.Electrical.AC.OnePhase;
-package Lines 
+package Lines "Package with models for AC electrical lines"
   extends Modelica.Icons.Package;
+
+
+
+
+
+
 
 
 annotation (Icon(graphics={

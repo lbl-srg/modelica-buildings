@@ -1,5 +1,11 @@
 within Buildings.Electrical.AC;
-package OnePhase "AC systems with one phase"
+package OnePhase "One phase AC systems"
 extends Modelica.Icons.VariantsPackage;
+
+
+
+
+
+
 
 end OnePhase;

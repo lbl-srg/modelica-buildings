@@ -4,7 +4,7 @@ model PVSimpleOriented "Simple PV model with orientation"
       PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase, redeclare
       Interfaces.Terminal_p terminal, redeclare
       Buildings.Electrical.AC.OnePhase.Sources.PVSimple panel(pf=pf, eta_DCAC=
-          eta_DCAC));
+         eta_DCAC));
   parameter Real pf(min=0, max=1) = 0.9 "Power factor"
     annotation (Dialog(group="AC-Conversion"));
   parameter Real eta_DCAC(min=0, max=1) = 0.9 "Efficiency of DC/AC conversion"
