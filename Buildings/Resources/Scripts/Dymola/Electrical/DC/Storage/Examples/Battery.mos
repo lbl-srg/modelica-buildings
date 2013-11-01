@@ -1,4 +1,4 @@
-simulateModel("Districts.Electrical.DC.Storage.Examples.Battery", stopTime=432000, method="dassl", resultFile="Battery");
+simulateModel("Buildings.Electrical.DC.Storage.Examples.Battery", stopTime=432000, method="dassl", resultFile="Battery");
 createPlot(id = 11,
  position = {15, 10, 407, 414},
  y = {"bat.P", "powSen.S[1]"},

@@ -1,4 +1,4 @@
-simulateModel("Districts.Examples.DataCenterRenewables", stopTime=604800, method="Radau", tolerance=1e-05, resultFile="DataCenterRenewables");
+simulateModel("Buildings.Examples.DataCenterRenewables", stopTime=604800, method="Radau", tolerance=1e-05, resultFile="DataCenterRenewables");
 createPlot(id = 14,
  position = {17, 1, 407, 281},
  y = {"winTur.vWin"},

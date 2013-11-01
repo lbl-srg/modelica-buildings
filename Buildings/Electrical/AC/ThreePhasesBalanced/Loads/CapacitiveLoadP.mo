@@ -113,8 +113,8 @@ A parameter or input to the model is the real power <i>P</i>, and a parameter
 is the power factor <i>pf=cos(&phi;)</i>.
 In this model, current leads voltage, as is the case for a capacitor bank.
 For an inductive load, use
-<a href=\"modelica://Districts.Electrical.AC.Loads.InductorResistor\">
-Districts.Electrical.AC.Loads.InductorResistor</a>.</p>
+<a href=\"modelica://Buildings.Electrical.AC.Loads.InductorResistor\">
+Buildings.Electrical.AC.Loads.InductorResistor</a>.</p>
 <p>
 The model computes the phase angle of the power <i>&phi;</i>
 and assigns the complex power <i>S = -P/pf &ang; &phi;</i>.

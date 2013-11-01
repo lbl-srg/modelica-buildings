@@ -121,8 +121,8 @@ A parameter or input to the model is the real power <i>P</i>, and a parameter
 is the power factor <i>pf=cos(&phi;)</i>.
 In this model, current lags voltage, as is the case for an inductive motor.
 For a capacitive load, use
-<a href=\"modelica://Districts.Electrical.AC.Loads.CapacitorResistor\">
-Districts.Electrical.AC.Loads.SinglePhase.CapacitorResistor</a>.
+<a href=\"modelica://Buildings.Electrical.AC.Loads.CapacitorResistor\">
+Buildings.Electrical.AC.Loads.SinglePhase.CapacitorResistor</a>.
 </p>
 <p>
 The model computes the phase angle of the power <i>&phi;</i>

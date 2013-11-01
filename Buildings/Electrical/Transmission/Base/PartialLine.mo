@@ -20,8 +20,8 @@ public
     annotation(Dialog(tab="Model", group="Assumptions"));
   parameter Buildings.Electrical.Types.Assumption modelMode=Types.Assumption.FixedZ_steady_state
     "Select between steady state and dynamic model"
-    annotation(Dialog(tab="Model", group="Assumptions", enable = useC), choices(choice=Districts.Electrical.Types.Assumption.FixedZ_steady_state
-        "Steady state", choice=Districts.Electrical.Types.Assumption.FixedZ_dynamic "Dynamic"));
+    annotation(Dialog(tab="Model", group="Assumptions", enable = useC), choices(choice=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
+        "Steady state", choice=Buildings.Electrical.Types.Assumption.FixedZ_dynamic "Dynamic"));
 
   parameter Boolean useExtTemp = false
     "If true, enables the input for the temperature of the cable" annotation(evaluate = true, Dialog(tab="Model", group="Thermal"));
@@ -34,19 +34,19 @@ public
 
   parameter Buildings.Electrical.Types.VoltageLevel voltageLevel=
       Functions.selectVoltageLevel(V_nominal) "Select the voltage level"
-    annotation(Dialog(tab="Tech. specification", group="Manual mode", enable = mode == Districts.Electrical.Types.CableMode.commercial),
+    annotation(Dialog(tab="Tech. specification", group="Manual mode", enable = mode == Buildings.Electrical.Types.CableMode.commercial),
                choicesAllMatching = true);
 
   parameter Buildings.Electrical.Transmission.LowVoltageCables.Cable commercialCable_low=
       Functions.selectCable_low(P_nominal, V_nominal)
     "List of Low voltage commercial cables"
-    annotation(Dialog(tab="Tech. specification", group="Manual mode", enable = mode == Districts.Electrical.Types.CableMode.commercial),
+    annotation(Dialog(tab="Tech. specification", group="Manual mode", enable = mode == Buildings.Electrical.Types.CableMode.commercial),
                choicesAllMatching = true);
 
   parameter Buildings.Electrical.Transmission.MediumVoltageCables.Cable commercialCable_med=
       Functions.selectCable_med(P_nominal, V_nominal)
     "List of Medium Voltage commercial cables"
-    annotation(Dialog(tab="Tech. specification", group="Manual mode", enable = mode == Districts.Electrical.Types.CableMode.commercial),
+    annotation(Dialog(tab="Tech. specification", group="Manual mode", enable = mode == Buildings.Electrical.Types.CableMode.commercial),
                choicesAllMatching = true);
 
   final parameter Modelica.SIunits.Temperature T_ref = if voltageLevel==Types.VoltageLevel.Low                      then commercialCable_low.Tref else commercialCable_med.Tref

@@ -1,5 +1,5 @@
 within Buildings.BuildingLoads;
-package BaseClasses "Package with base classes for Districts.BuildingLoads"
+package BaseClasses "Package with base classes for Buildings.BuildingLoads"
   extends Modelica.Icons.BasesPackage;
 
 
@@ -7,7 +7,7 @@ annotation (preferedView="info", Documentation(info="<html>
 <p>
 This package contains base classes that are used to construct the models in
 <a href=\"modelica://Buildings.BuildingLoads\">
-Districts.BuildingLoads</a>.
+Buildings.BuildingLoads</a>.
 </p>
 </html>"));
 end BaseClasses;

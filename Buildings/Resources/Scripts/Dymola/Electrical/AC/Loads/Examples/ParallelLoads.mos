@@ -1,4 +1,4 @@
-simulateModel("Districts.Electrical.AC.Loads.Examples.ParallelLoads", method="dassl", resultFile="ParallelLoads");
+simulateModel("Buildings.Electrical.AC.Loads.Examples.ParallelLoads", method="dassl", resultFile="ParallelLoads");
 removePlots();
 createPlot(id = 1,
  position = {15, 10, 596, 437},

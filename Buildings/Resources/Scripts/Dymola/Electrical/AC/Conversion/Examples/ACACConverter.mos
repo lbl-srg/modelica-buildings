@@ -1,4 +1,4 @@
-simulateModel("Districts.Electrical.AC.Conversion.Examples.ACACConverter", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="ACACConverter");
+simulateModel("Buildings.Electrical.AC.Conversion.Examples.ACACConverter", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="ACACConverter");
 removePlots();
 createPlot(id = 5,
  position = {0, 0, 1674, 829},

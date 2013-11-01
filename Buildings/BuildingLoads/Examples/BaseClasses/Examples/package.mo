@@ -6,8 +6,8 @@ package Examples "Package with examples"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains examples for the use of models that can be found in
-<a href=\"modelica://Districts.BuildingLoads.Examples.BaseClasses\">
-Districts.BuildingLoads.Examples.BaseClasses</a>.
+<a href=\"modelica://Buildings.BuildingLoads.Examples.BaseClasses\">
+Buildings.BuildingLoads.Examples.BaseClasses</a>.
 </p>
 </html>"));
 end Examples;

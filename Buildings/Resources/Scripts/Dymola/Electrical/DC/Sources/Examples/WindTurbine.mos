@@ -1,4 +1,4 @@
-simulateModel("Districts.Electrical.DC.Sources.Examples.WindTurbine", stopTime=172800, method="dassl", tolerance=1e-05, resultFile="WindTurbine");
+simulateModel("Buildings.Electrical.DC.Sources.Examples.WindTurbine", stopTime=172800, method="dassl", tolerance=1e-05, resultFile="WindTurbine");
 createPlot(id = 8,
  position = {34, 20, 490, 457},
  y = {"tur.P", "sen.S[1]"},

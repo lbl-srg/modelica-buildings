@@ -1,4 +1,4 @@
-simulateModel("Districts.Electrical.Examples.WindTurbineGridConnected", stopTime=259200, method="dassl", tolerance=1e-05, resultFile="WindTurbineGridConnected");
+simulateModel("Buildings.Electrical.Examples.WindTurbineGridConnected", stopTime=259200, method="dassl", tolerance=1e-05, resultFile="WindTurbineGridConnected");
 removePlots();
 createPlot(id = 1,
  position = {15, 10, 407, 281},

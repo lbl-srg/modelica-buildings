@@ -1,4 +1,4 @@
-simulateModel("Districts.BuildingLoads.Examples.LinearRegressionCampus", startTime=345600, stopTime=950400, method="Radau", tolerance=1e-06, resultFile="LinearRegressionCampus");
+simulateModel("Buildings.BuildingLoads.Examples.LinearRegressionCampus", startTime=345600, stopTime=950400, method="Radau", tolerance=1e-06, resultFile="LinearRegressionCampus");
 createPlot(id = 7,
  position = {593, 45, 617, 506},
  y = {"pv.P", "tur.P", "senAC.S[1]"},

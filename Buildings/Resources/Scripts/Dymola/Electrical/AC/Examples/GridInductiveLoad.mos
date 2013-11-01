@@ -1,4 +1,4 @@
-simulateModel("Districts.Electrical.AC.Examples.GridInductiveLoad", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="GridInductiveLoad");
+simulateModel("Buildings.Electrical.AC.Examples.GridInductiveLoad", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="GridInductiveLoad");
 createPlot(id = 12,
  position = {25, 17, 466, 415},
  y = {"powSen1.P.real", "powSen2.P.real", "powSen1.P.apparent", "powSen2.P.apparent"},

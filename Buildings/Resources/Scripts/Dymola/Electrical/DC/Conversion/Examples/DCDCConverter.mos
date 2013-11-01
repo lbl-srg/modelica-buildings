@@ -1,4 +1,4 @@
-simulateModel("Districts.Electrical.DC.Conversion.Examples.DCDCConverter", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="DCDCConverter");
+simulateModel("Buildings.Electrical.DC.Conversion.Examples.DCDCConverter", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="DCDCConverter");
 removePlots();
 createPlot(id = 1,
  position = {50, 44, 698, 573},

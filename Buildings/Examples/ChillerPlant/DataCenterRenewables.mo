@@ -123,5 +123,4 @@ This control logic is implemented using a finite state machine
 inside the model <code>con</code>.
 </p>
 </html>"));
-
 end DataCenterRenewables;

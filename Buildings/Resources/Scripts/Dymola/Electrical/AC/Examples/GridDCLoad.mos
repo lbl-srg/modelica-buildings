@@ -1,4 +1,4 @@
-simulateModel("Districts.Electrical.AC.Examples.GridDCLoad", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="GridDCLoad");
+simulateModel("Buildings.Electrical.AC.Examples.GridDCLoad", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="GridDCLoad");
 createPlot(id = 12,
  position = {25, 17, 466, 415},
  y = {"powSen1.P.real", "powSen1.P.apparent"},

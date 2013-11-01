@@ -1,4 +1,4 @@
-simulateModel("Districts.Electrical.AC.Examples.GeneratorLoadGrid", method="dassl", resultFile="GeneratorLoadGrid");
+simulateModel("Buildings.Electrical.AC.Examples.GeneratorLoadGrid", method="dassl", resultFile="GeneratorLoadGrid");
 createPlot(id = 10,
  position = {32, 14, 481, 387},
  y = {"grid.P.real", "grid.P.apparent", "sou.S.re", "sou.S.im", "res.S.re", "res.S.im"},

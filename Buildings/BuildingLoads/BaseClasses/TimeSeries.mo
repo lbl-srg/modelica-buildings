@@ -121,7 +121,7 @@ equation
 This is the low-level implementation for reading the time series
 that contains the building load. It is used by by
 <a href=\"modelica://Buildings.BuildingLoads.TimeSeries\">
-Districts.BuildingLoads.TimeSeries</a>.
+Buildings.BuildingLoads.TimeSeries</a>.
 </p>
 </html>", revisions="<html>
 <ul>

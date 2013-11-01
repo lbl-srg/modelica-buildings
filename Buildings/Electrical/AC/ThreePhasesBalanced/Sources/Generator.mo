@@ -10,8 +10,8 @@ Model of an inductive generator.
 </p>
 <p>
 This model must be used with 
-<a href=\"modelica://Districts.Electrical.AC.Sources.Grid\">
-Districts.Electrical.AC.Sources.Grid</a>
+<a href=\"modelica://Buildings.Electrical.AC.Sources.Grid\">
+Buildings.Electrical.AC.Sources.Grid</a>
 or with a voltage source from the package
 <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sources\"
 Modelica.Electrical.QuasiStationary.SinglePhase.Sources</a>.

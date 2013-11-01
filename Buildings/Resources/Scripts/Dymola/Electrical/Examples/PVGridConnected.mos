@@ -1,4 +1,4 @@
-simulateModel("Districts.Electrical.Examples.PVGridConnected", stopTime=172800, method="dassl", tolerance=1e-05, resultFile="PVGridConnected");
+simulateModel("Buildings.Electrical.Examples.PVGridConnected", stopTime=172800, method="dassl", tolerance=1e-05, resultFile="PVGridConnected");
 createPlot(id = 1,
  position = {15, 10, 407, 281},
  y = {"pv.P", "grid.P.real", "grid.P.apparent"},

@@ -42,8 +42,8 @@ algorithm
            false, extent={{-100,-100},{100,100}}), graphics),
           Documentation(info="<html>
 This block implements the matrix-vector multiplication of
-<a href=\"modelica://Districts.BuildingLoads.BaseClasses.LinearRegression\">
-Districts.BuildingLoads.BaseClasses.LinearRegression</a>.
+<a href=\"modelica://Buildings.BuildingLoads.BaseClasses.LinearRegression\">
+Buildings.BuildingLoads.BaseClasses.LinearRegression</a>.
 </html>", revisions="<html>
 <ul>
 <li>

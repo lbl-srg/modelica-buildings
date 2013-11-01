@@ -111,7 +111,7 @@ equation
     Documentation(info="<html>
 This is the low-level implementation for the linear regression model used by
 <a href=\"modelica://Buildings.BuildingLoads.LinearRegression\">
-Districts.BuildingLoads.LinearRegression</a>.
+Buildings.BuildingLoads.LinearRegression</a>.
 Rather than using physical ports, this model uses input and output signals.
 </html>", revisions="<html>
 <ul>

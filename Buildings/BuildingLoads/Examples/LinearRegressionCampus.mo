@@ -20,7 +20,7 @@ model LinearRegressionCampus
   parameter Modelica.SIunits.Power P_dt = P_de + P_d "Rated power for sizing";
   parameter Modelica.SIunits.Power PDCGen = 1000000;
   // Declaration of the line model
-  // Set the instance 'line' either to 'DummyLine' or to 'Districts.Electrical.AC.AC3ph.Lines.Line'
+  // Set the instance 'line' either to 'DummyLine' or to 'Buildings.Electrical.AC.AC3ph.Lines.Line'
   //model line = DummyLine "Line model";
   model line = Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Line
     "Line model";

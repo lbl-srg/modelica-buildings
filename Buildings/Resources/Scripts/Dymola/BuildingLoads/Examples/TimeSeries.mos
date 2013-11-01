@@ -1,4 +1,4 @@
-simulateModel("Districts.BuildingLoads.Examples.TimeSeries", stopTime=604800, method="dassl", tolerance=1e-05, resultFile="TimeSeries");
+simulateModel("Buildings.BuildingLoads.Examples.TimeSeries", stopTime=604800, method="dassl", tolerance=1e-05, resultFile="TimeSeries");
 createPlot(id = 1,
  position = {16, 10, 666, 582},
  y = {"buiA.loa.TOut"},

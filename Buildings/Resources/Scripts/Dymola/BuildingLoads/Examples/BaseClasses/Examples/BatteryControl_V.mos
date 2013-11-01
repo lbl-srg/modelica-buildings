@@ -1,4 +1,4 @@
-simulateModel("Districts.BuildingLoads.Examples.BaseClasses.Examples.BatteryControl_V", stopTime=172800, method="Radau", tolerance=1e-06, resultFile="BatteryControl_V");
+simulateModel("Buildings.BuildingLoads.Examples.BaseClasses.Examples.BatteryControl_V", stopTime=172800, method="Radau", tolerance=1e-06, resultFile="BatteryControl_V");
 createPlot(id = 1,
  position = {15, 10, 525, 466},
  y = {"con.P"},

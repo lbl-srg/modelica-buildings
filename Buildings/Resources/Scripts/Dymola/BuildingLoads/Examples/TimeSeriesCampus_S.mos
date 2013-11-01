@@ -1,4 +1,4 @@
-simulateModel("Districts.BuildingLoads.Examples.TimeSeriesCampus_S", startTime=345600, stopTime=950400, method="Radau", tolerance=1e-06, resultFile="TimeSeriesCampus_S");
+simulateModel("Buildings.BuildingLoads.Examples.TimeSeriesCampus_S", startTime=345600, stopTime=950400, method="Radau", tolerance=1e-06, resultFile="TimeSeriesCampus_S");
 createPlot(id = 7,
  position = {593, 45, 617, 506},
  y = {"pv.P", "tur.P", "senDT.S[1]"},

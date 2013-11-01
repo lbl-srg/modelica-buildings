@@ -1,4 +1,4 @@
-simulateModel("Districts.Electrical.DC.Loads.Examples.Resistor", method="dassl", resultFile="Resistor");
+simulateModel("Buildings.Electrical.DC.Loads.Examples.Resistor", method="dassl", resultFile="Resistor");
 createPlot(id = 3,
  position = {55, 50, 407, 564},
  y = {"sen.I", "sen1.I"},
