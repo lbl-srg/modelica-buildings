@@ -132,6 +132,8 @@ class Version_1_6_build1 "Version 1.6 build 1"
     annotation (Documentation(info="<html>
 <p>
 Version 1.6 build 1 is ... xxx
+This version updates the <code>Buildings</code> library to the
+Modelica Standard Library 3.2.1 and to <code>Modelica_StateGraph2</code> 2.0.2.
 </p>
 <!-- New libraries -->
 <p>
@@ -3916,8 +3918,8 @@ version="1.6",
 versionBuild=0,
 versionDate="2013-10-24",
 dateModified = "2013-10-24",
-uses(Modelica(version="3.2")),
-uses(Modelica_StateGraph2(version="2.0.1")),
+uses(Modelica(version="3.2.1")),
+uses(Modelica_StateGraph2(version="2.0.2")),
 conversion(
  noneFromVersion="1.5",
  from(version="1.4",
