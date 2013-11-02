@@ -9,5 +9,5 @@ record Annealed_Al_30 "Annealed Al cable - AWG 3/0"
     D=28.956e-3,
     GMR=0.0,
     GMD=0.0,
-    Amp=100);
+    Amp=250);
 end Annealed_Al_30;

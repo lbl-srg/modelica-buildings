@@ -9,5 +9,5 @@ record Annealed_Al_350 "Annealed Al cable - kcmil 350"
     D=34.417e-3,
     GMR=0.0,
     GMD=0.0,
-    Amp=100);
+    Amp=375);
 end Annealed_Al_350;

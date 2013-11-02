@@ -8,6 +8,6 @@ record Annealed_Al_10 "Annealed Al cable - AWG 1/0"
     d=9.195e-3,
     D=26.543e-3,
     GMR=0.0,
-    GMD=0.0,
-    Amp=100);
+    GMD=(0.1905*0.1905*0.1905*2)^(1.0/3.0),
+    Amp=195);
 end Annealed_Al_10;
