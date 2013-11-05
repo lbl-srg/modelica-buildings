@@ -31,7 +31,8 @@ algorithm
         cable := Al1000;
   elseif I_nominal >= Al1000.Amp and I_nominal < Al1500.Amp then
         cable := Al1500;
-  else  Modelica.Utilities.Streams.print("Warning: Cable autosizing does not support a current of " +
+  else
+        Modelica.Utilities.Streams.print("Warning: Cable autosizing does not support a current of " +
         String(I_nominal) + " A.
   The selected cable will be undersized.");
         cable := Al10;

@@ -6,3 +6,5 @@ lineCapacitance
 temperatureConstant
 selectVoltageLevel
 R_AC_correction
+computeGMR
+computeGMD

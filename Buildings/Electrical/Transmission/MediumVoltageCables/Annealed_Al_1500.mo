@@ -7,7 +7,7 @@ record Annealed_Al_1500 "Annealed Al cable - AWG 1500"
     Tref=298.15,
     d=34.798e-3,
     D=53.34e-3,
-    GMR=0.0,
-    GMD=0.0,
+    GMR=Buildings.Electrical.Transmission.Functions.computeGMR(d),
+    GMD=Buildings.Electrical.Transmission.Functions.computeGMD(0.1905),
     Amp=800);
 end Annealed_Al_1500;
