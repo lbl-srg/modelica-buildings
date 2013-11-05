@@ -8,14 +8,13 @@ protected
   Modelica.SIunits.Current I_nominal = safety_factor*P_nominal/V_nominal
     "Nominal current flowing through the line";
   Buildings.Electrical.Transmission.LowVoltageCables.Cu10 cu10;
-  Buildings.Electrical.Transmission.LowVoltageCables.Cu10 cu20;
-  Buildings.Electrical.Transmission.LowVoltageCables.Cu10 cu25;
-  Buildings.Electrical.Transmission.LowVoltageCables.Cu10 cu35;
-  Buildings.Electrical.Transmission.LowVoltageCables.Cu10 cu50;
-  Buildings.Electrical.Transmission.LowVoltageCables.Cu10 cu95;
-  Buildings.Electrical.Transmission.LowVoltageCables.Cu10 cu100;
+  Buildings.Electrical.Transmission.LowVoltageCables.Cu20 cu20;
+  Buildings.Electrical.Transmission.LowVoltageCables.Cu25 cu25;
+  Buildings.Electrical.Transmission.LowVoltageCables.Cu35 cu35;
+  Buildings.Electrical.Transmission.LowVoltageCables.Cu50 cu50;
+  Buildings.Electrical.Transmission.LowVoltageCables.Cu95 cu95;
+  Buildings.Electrical.Transmission.LowVoltageCables.Cu100 cu100;
 algorithm
-
   // Assumed the material is Copper
   if I_nominal < cu10.Amp then
         cable := cu10;
@@ -33,8 +32,7 @@ algorithm
         cable := cu100;
   else
         Modelica.Utilities.Streams.print("Warning: Cable autosizing does not support a current of " +
-        String(I_nominal) + " A.
-  The selected cable will be undersized.");
+        String(I_nominal) + " [A]. The selected cable will be undersized.");
         cable := cu100;
   end if;
 

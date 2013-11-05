@@ -4,7 +4,9 @@ model Line
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal_n,
-    redeclare Interfaces.Terminal_p terminal_p);
+    redeclare Interfaces.Terminal_p terminal_p,
+    final voltageLevel=Types.VoltageLevel.Low,
+    final commercialCable_med=Buildings.Electrical.Transmission.Functions.selectCable_med(P_nominal, V_nominal));
 protected
   replaceable TwoPortRLC lineRLC(
     useHeatPort=true,

@@ -63,6 +63,8 @@ public
   Functions.lineCapacitance(                                  l, voltageLevel, commercialCable_low, commercialCable_med)
     "Capacitance of the cable" annotation(Evaluate = True);
 
+  Real VoltageLosses = 100*abs(PhaseSystem_p.systemVoltage(terminal_p.v) - PhaseSystem_n.systemVoltage(terminal_n.v))/max(PhaseSystem_p.systemVoltage(terminal_p.v), PhaseSystem_n.systemVoltage(terminal_n.v))
+    "Percentage of voltage losses across the line";
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature cableTemp
     "Temperature of the cable"
     annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
