@@ -94,13 +94,6 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-        Text(
-          extent={{14,40},{40,16}},
-          lineColor=DynamicSelect({0,0,255}, if useExtTemp then {0,0,255} else {255,255,
-              255}),
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="T"),
           Text(
             extent={{-150,-19},{150,-59}},
             lineColor={0,0,0},

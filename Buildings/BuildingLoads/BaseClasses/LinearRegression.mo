@@ -4,11 +4,11 @@ block LinearRegression
   extends Buildings.BuildingLoads.BaseClasses.PartialRegression;
 
   parameter String fileName="NoName" "File where matrix is stored";
-
+  final parameter String fullPath = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(fileName);
 protected
   Modelica.Blocks.Tables.CombiTable1Ds coef(
     final tableOnFile=true,
-    final fileName=ModelicaServices.ExternalReferences.loadResource(fileName),
+    final fileName=fullPath,
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="tab1",
     columns=2:47) "Table reader with coefficients for linear model"

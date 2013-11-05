@@ -4,14 +4,14 @@ partial model PartialTimeSeriesCampus
 
   parameter Modelica.SIunits.Voltage VACTra_nominal = 50e3
     "AC voltage of transmission grid";
-  parameter Modelica.SIunits.Voltage VACDis_nominal = 12e3
+  parameter Modelica.SIunits.Voltage VACDis_nominal = 15e3
     "AC voltage of the distribution grid";
   parameter Modelica.SIunits.Voltage VACBui_nominal = 480
     "AC voltage of the distribution grid";
 
-  parameter Modelica.SIunits.Voltage VDCDis_nominal = 240
+  parameter Modelica.SIunits.Voltage VDCDis_nominal = 1200
     "DC voltage of distribution";
-  parameter Modelica.SIunits.Voltage VDCBui_nominal = 48
+  parameter Modelica.SIunits.Voltage VDCBui_nominal = 240
     "DC voltage in buildings";
 
   // Rated power that is used to size cables
