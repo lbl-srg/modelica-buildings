@@ -3,12 +3,12 @@ block TimeSeries "Whole building load model based on a time series"
   extends Buildings.BuildingLoads.BaseClasses.PartialRegression;
 
   parameter String fileName="NoName" "File where matrix is stored";
-
+  final parameter String fullPath = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(fileName);
 protected
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
     final tableName="tab1",
-    final fileName=ModelicaServices.ExternalReferences.loadResource(fileName),
+    final fileName=fullPath,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns=2:14,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Data reader"
