@@ -170,12 +170,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialTwoPortInterface<br/>
+                       Buildings.Fluid.Interfaces.PartialFourPortInterface
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Removed call to homotopy function 
+                       in the computation of the connector variables as 
+                       these are conditionally enabled variables and 
+                       therefore must not be used in any equation. They
+                       are only for output reporting.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>

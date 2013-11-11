@@ -37,49 +37,25 @@ partial model PartialFourPortInterface
     "Mass flow rate from port_a2 to port_b2 (m2_flow > 0 is design flow direction)";
   Modelica.SIunits.Pressure dp2(start=0, displayUnit="Pa")
     "Pressure difference between port_a2 and port_b2";
-  Medium1.ThermodynamicState sta_a1=if homotopyInitialization then
-      Medium1.setState_phX(port_a1.p,
-         homotopy(actual=noEvent(actualStream(port_a1.h_outflow)),
-                  simplified=inStream(port_a1.h_outflow)),
-         homotopy(actual=noEvent(actualStream(port_a1.Xi_outflow)),
-                  simplified=inStream(port_a1.Xi_outflow)))
-    else
+  Medium1.ThermodynamicState sta_a1=
       Medium1.setState_phX(port_a1.p,
                            noEvent(actualStream(port_a1.h_outflow)),
                            noEvent(actualStream(port_a1.Xi_outflow))) if
          show_T "Medium properties in port_a1";
 
-  Medium1.ThermodynamicState sta_b1=if homotopyInitialization then
-      Medium1.setState_phX(port_b1.p,
-          homotopy(actual=noEvent(actualStream(port_b1.h_outflow)),
-                   simplified=port_b1.h_outflow),
-          homotopy(actual=noEvent(actualStream(port_b1.Xi_outflow)),
-                   simplified=port_b1.Xi_outflow))
-    else
+  Medium1.ThermodynamicState sta_b1=
       Medium1.setState_phX(port_b1.p,
                            noEvent(actualStream(port_b1.h_outflow)),
                            noEvent(actualStream(port_b1.Xi_outflow))) if
          show_T "Medium properties in port_b1";
 
-  Medium2.ThermodynamicState sta_a2=if homotopyInitialization then
-      Medium2.setState_phX(port_b2.p,
-          homotopy(actual=noEvent(actualStream(port_a2.h_outflow)),
-                   simplified=inStream(port_a2.h_outflow)),
-          homotopy(actual=noEvent(actualStream(port_a2.Xi_outflow)),
-                   simplified=inStream(port_a2.Xi_outflow)))
-    else
+  Medium2.ThermodynamicState sta_a2=
       Medium2.setState_phX(port_a2.p,
                            noEvent(actualStream(port_a2.h_outflow)),
                            noEvent(actualStream(port_a2.Xi_outflow))) if
          show_T "Medium properties in port_a2";
 
-  Medium2.ThermodynamicState sta_b2=if homotopyInitialization then
-      Medium2.setState_phX(port_b2.p,
-          homotopy(actual=noEvent(actualStream(port_b2.h_outflow)),
-                   simplified=port_b2.h_outflow),
-          homotopy(actual=noEvent(actualStream(port_b2.Xi_outflow)),
-                   simplified=port_b2.Xi_outflow))
-    else
+  Medium2.ThermodynamicState sta_b2=
       Medium2.setState_phX(port_b2.p,
                            noEvent(actualStream(port_b2.h_outflow)),
                            noEvent(actualStream(port_b2.Xi_outflow))) if
@@ -120,6 +96,16 @@ mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 10, 2013 by Michael Wetter:<br/>
+In the computation of <code>sta_a1</code>, 
+<code>sta_a2</code>, <code>sta_b1</code> and <code>sta_b2</code>,
+removed the branch that uses the homotopy operator.
+The rational is that these variables are conditionally enables (because
+of <code>... if show_T</code>. Therefore, the Modelica Language Specification
+does not allow for these variables to be used in any equation. Hence,
+the use of the homotopy operator is not needed here.
+</li>
 <li>
 October 10, 2013 by Michael Wetter:<br/>
 Added <code>noEvent</code> to the computation of the states at the port.
