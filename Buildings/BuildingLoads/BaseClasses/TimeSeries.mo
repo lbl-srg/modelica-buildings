@@ -11,7 +11,8 @@ protected
     final fileName=fullPath,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns=2:14,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Data reader"
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    startTime=startTime) "Data reader"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 public
   Buildings.Utilities.Diagnostics.AssertEquality assEquTOut(
@@ -38,10 +39,11 @@ public
     threShold=300)
     "Assert that the data from the weather bus corresponds with the data in the time series"
     annotation (Placement(transformation(extent={{-40,-84},{-20,-64}})));
+  parameter Modelica.SIunits.Time timeShift = 0 "Shift the start time";
   final parameter Modelica.SIunits.Time startTime(fixed=false)
     "Start time of the model";
 initial equation
- startTime=time;
+ startTime=time + timeShift;
  assert(time >= 0, "fixme: Model has not yet been tested for negative start time.");
 
 equation

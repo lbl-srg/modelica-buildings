@@ -23,7 +23,8 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
                                Buildings.BoundaryConditions.WeatherData.Bus weaBus
     "Weather Data Bus"          annotation (Placement(transformation(extent={{-110,
             -10},{-90,10}}),     iconTransformation(extent={{-110,-10},{-90,10}})));
-  BaseClasses.TimeSeries loa(final fileName=fileName) "Building load"
+  BaseClasses.TimeSeries loa(final fileName=fileName, timeShift=timeShift)
+    "Building load"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.CapacitiveLoadP loaAC(
@@ -62,6 +63,7 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
     conversionFactor=VDCDis_nominal/VDCBui_nominal,
     ground_2=false) "DC/DC converter"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  parameter Modelica.SIunits.Time timeShift=0 "Shift the start time";
 equation
   connect(loa.PTot, add.u1)    annotation (Line(
       points={{-39,-5},{-19.5,-5},{-19.5,-16},{-12,-16}},
