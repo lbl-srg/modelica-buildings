@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is file 'modelDescription.xml' for input 'A.idf'. -->
+<fmiModelDescription  fmiVersion="1.0"
+  modelName="A.idf"
+  modelIdentifier="A"
+  guid="f09be6f14a7912837e784f0d3abc1a5f"
+  description="Automatically generated from EnergyPlus input file A.idf"
+  generationTool="idf-to-fmu-export-prep-linux"
+  generationDateAndTime="2013-11-13T22:52:32Z"
+  variableNamingConvention="flat"
+  numberOfContinuousStates="0"
+  numberOfEventIndicators="0">
+  <!-- Note guid is an md5 checksum of the IDF file. -->
+  <!-- Exposed model variables. -->
+  <ModelVariables>
+    <!-- Note valueReferences are (1, 2, 3...) for causality="input" (to E+). -->
+    <!-- Note valueReferences are (10001, 10002, 10003...) for "output" (from E+). -->
+    <!-- Note the order of valueReferences should match the order of elements in file 'variables.cfg'. -->
+    <ScalarVariable  name="TSetHea"  valueReference="1"
+      variability="continuous"  causality="input"
+      description="IDF line 18">
+      <Real  start="20"/>
+    </ScalarVariable>
+    <ScalarVariable  name="TSetCoo"  valueReference="2"
+      variability="continuous"  causality="input"
+      description="IDF line 24">
+      <Real  start="27"/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Lights_1"  valueReference="10001"
+      variability="continuous"  causality="output"
+      description="IDF line 56">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Equip_1"  valueReference="10002"
+      variability="continuous"  causality="output"
+      description="IDF line 62">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Lights_2"  valueReference="10003"
+      variability="continuous"  causality="output"
+      description="IDF line 71">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Equip_2"  valueReference="10004"
+      variability="continuous"  causality="output"
+      description="IDF line 77">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Lights_3"  valueReference="10005"
+      variability="continuous"  causality="output"
+      description="IDF line 86">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Equip_3"  valueReference="10006"
+      variability="continuous"  causality="output"
+      description="IDF line 92">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Lights_4"  valueReference="10007"
+      variability="continuous"  causality="output"
+      description="IDF line 101">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Equip_4"  valueReference="10008"
+      variability="continuous"  causality="output"
+      description="IDF line 107">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Lights_5"  valueReference="10009"
+      variability="continuous"  causality="output"
+      description="IDF line 116">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Equip_5"  valueReference="10010"
+      variability="continuous"  causality="output"
+      description="IDF line 122">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Lights_6"  valueReference="10011"
+      variability="continuous"  causality="output"
+      description="IDF line 131">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Equip_6"  valueReference="10012"
+      variability="continuous"  causality="output"
+      description="IDF line 137">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Lights_7"  valueReference="10013"
+      variability="continuous"  causality="output"
+      description="IDF line 146">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Equip_7"  valueReference="10014"
+      variability="continuous"  causality="output"
+      description="IDF line 152">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Lights_8"  valueReference="10015"
+      variability="continuous"  causality="output"
+      description="IDF line 161">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Equip_8"  valueReference="10016"
+      variability="continuous"  causality="output"
+      description="IDF line 167">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Lights_9"  valueReference="10017"
+      variability="continuous"  causality="output"
+      description="IDF line 176">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Equip_9"  valueReference="10018"
+      variability="continuous"  causality="output"
+      description="IDF line 182">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Lights_10"  valueReference="10019"
+      variability="continuous"  causality="output"
+      description="IDF line 191">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Equip_10"  valueReference="10020"
+      variability="continuous"  causality="output"
+      description="IDF line 197">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Tot_El_Demand"  valueReference="10021"
+      variability="continuous"  causality="output"
+      description="IDF line 205">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="P_Fan"  valueReference="10022"
+      variability="continuous"  causality="output"
+      description="IDF line 211">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="E_Vav_tot_Coo"  valueReference="10023"
+      variability="continuous"  causality="output"
+      description="IDF line 217">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="E_Vav_tot_Hea"  valueReference="10024"
+      variability="continuous"  causality="output"
+      description="IDF line 223">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="E_Vav_gas_Hea"  valueReference="10025"
+      variability="continuous"  causality="output"
+      description="IDF line 229">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="E_Vav_DX_Hea"  valueReference="10026"
+      variability="continuous"  causality="output"
+      description="IDF line 235">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="E_Vav_DX_Coo"  valueReference="10027"
+      variability="continuous"  causality="output"
+      description="IDF line 241">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="outTSetHea"  valueReference="10028"
+      variability="continuous"  causality="output"
+      description="IDF line 253">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable  name="outTSetCoo"  valueReference="10029"
+      variability="continuous"  causality="output"
+      description="IDF line 259">
+      <Real/>
+    </ScalarVariable>
+  </ModelVariables>
+  <!-- Implementation details for co-simulation. -->
+  <Implementation>
+    <!-- EnergyPlus provided as tool (as opposed to source code or DLL). -->
+    <CoSimulation_Tool>
+      <Capabilities
+        canHandleVariableCommunicationStepSize="false"
+        canHandleEvents="false"
+        canRejectSteps="false"
+        canInterpolateInputs="false"
+        maxOutputDerivativeOrder="0"
+        canRunAsynchronuously="false"
+        canSignalEvents="false"
+        canBeInstantiatedOnlyOncePerProcess="false"
+        canNotUseMemoryManagementFunctions="true"/>
+      <Model
+        entryPoint="fmu://resources/A.idf"
+        manualStart="false"
+        type="text/plain">
+        <File  file="fmu://resources/variables.cfg"/>
+        <File  file="fmu://resources/USA_CA_San.Francisco.Intl.AP.724940_TMY3.epw"/>
+      </Model>
+    </CoSimulation_Tool>
+  </Implementation>
+</fmiModelDescription>
