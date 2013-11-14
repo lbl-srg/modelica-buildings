@@ -11,7 +11,6 @@ model ACline
     V_nominal=220,
     P_nominal=1500,
     mode=Types.CableMode.commercial,
-    voltageLevel=Types.VoltageLevel.Low,
     commercialCable_low=Transmission.LowVoltageCables.Cu50())
     annotation (Placement(transformation(extent={{-54,-10},{-34,10}})));
   Loads.InductiveLoadP
@@ -30,7 +29,6 @@ model ACline
     P_nominal=5000,
     l=2000,
     mode=Types.CableMode.commercial,
-    voltageLevel=Types.VoltageLevel.Low,
     commercialCable_low=Transmission.LowVoltageCables.Cu50())
     annotation (Placement(transformation(extent={{-54,10},{-34,30}})));
   Loads.InductiveLoadP
@@ -44,7 +42,6 @@ model ACline
     V_nominal=220,
     P_nominal=1500,
     mode=Types.CableMode.commercial,
-    voltageLevel=Types.VoltageLevel.Low,
     commercialCable_low=Transmission.LowVoltageCables.Cu50())
     annotation (Placement(transformation(extent={{-54,-30},{-34,-10}})));
   Loads.InductiveLoadP
@@ -67,7 +64,6 @@ model ACline
     V_nominal=220,
     P_nominal=1500,
     mode=Types.CableMode.commercial,
-    voltageLevel=Types.VoltageLevel.Low,
     commercialCable_low=Transmission.LowVoltageCables.Cu50())
     annotation (Placement(transformation(extent={{-4,40},{16,60}})));
   Loads.InductiveLoadP
