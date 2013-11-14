@@ -3,7 +3,9 @@ model Network "Three phases balanced AC network"
   extends Buildings.Electrical.Transmission.Base.PartialNetwork(
     redeclare Interfaces.Terminal_p terminal,
     redeclare Transmission.Grids.TestGrid2Nodes grid,
-    redeclare Lines.Line lines);
+    redeclare Lines.Line lines(
+    commercialCable_low=grid.cables,
+    commercialCable_med=grid.cables));
   annotation (Icon(graphics={             Line(
           points={{-98,-60},{-78,-20},{-58,-60},{-38,-100},{-18,-60}},
           color={0,0,0},

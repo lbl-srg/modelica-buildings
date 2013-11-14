@@ -9,8 +9,6 @@ partial model PartialNetwork "Partial model that represent an electric network"
   replaceable Buildings.Electrical.Transmission.Base.PartialLine lines[grid.Nlinks](
     each mode=Types.CableMode.commercial,
     l=grid.L,
-    commercialCable_low=grid.cables,
-    commercialCable_med=grid.cables,
     each P_nominal=0,
     each V_nominal=220)
     "Array of line models. Each line connect two nodes of the grid";

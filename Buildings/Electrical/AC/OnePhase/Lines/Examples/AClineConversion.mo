@@ -18,8 +18,7 @@ model AClineConversion
     P_nominal=3500,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.Cu25(),
-    l=200,
-    voltageLevel=Types.VoltageLevel.Low)
+    l=200)
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Conversion.ACACConverter ACAC(
     conversionFactor=220/380,
@@ -31,8 +30,7 @@ model AClineConversion
     P_nominal=3500,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.Cu25(),
-    l=200,
-    voltageLevel=Types.VoltageLevel.Low)
+    l=200)
     annotation (Placement(transformation(extent={{2,-10},{22,10}})));
   Conversion.ACDCConverter ACDC(conversionFactor=60/380, eta=0.9)
     annotation (Placement(transformation(extent={{-28,-40},{-8,-20}})));
@@ -56,8 +54,7 @@ model AClineConversion
     P_nominal=1000,
     V_nominal=60,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl25(),
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable_low=Transmission.LowVoltageCables.PvcAl25())
     annotation (Placement(transformation(extent={{2,-40},{22,-20}})));
 equation
   connect(E.terminal, line1.terminal_n) annotation (Line(
