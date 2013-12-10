@@ -4,6 +4,7 @@ package Soil
     extends Modelica.Icons.MaterialPropertiesPackage;
   record Generic "Thermal properties of solids with heat storage"
       extends Buildings.HeatTransfer.Data.BaseClasses.ThermalProperties;
+      parameter String name = "name";
     annotation (defaultComponentName="mat", Documentation(info=
      "<html>
 <p>
