@@ -1,0 +1,147 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.Chillers.Data.BaseClasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Base classes for package Data&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Chillers.Data.BaseClasses"></A><A HREF="Buildings_Fluid_Chillers_Data.html#Buildings.Fluid.Chillers.Data"
+>Buildings.Fluid.Chillers.Data</A>.BaseClasses</H2>
+<B>Base classes for package Data</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+This package contains the common parameters that are used 
+to specify the performance data 
+for the chiller models
+<A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.ElectricEIR"
+>
+Buildings.Fluid.Chillers.ElectricEIR</a>
+and
+<A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.ElectricReformulatedEIR"
+>
+Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>.
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Fluid_Icons_BaseClassLibrary.html#Modelica.Fluid.Icons.BaseClassLibrary"
+>Modelica.Fluid.Icons.BaseClassLibrary</A> (Icon for library).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Chillers.0c6afd8f8f3e5bffnericS.png" ALT="Buildings.Fluid.Chillers.Data.BaseClasses.Chiller" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Chillers_Data_BaseClasses.html#Buildings.Fluid.Chillers.Data.BaseClasses.Chiller"
+>Chiller</A>
+</TD><TD>Base classes for chiller models</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Chiller<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Chillers.6b3723a100213e93illerI.png" ALT="Buildings.Fluid.Chillers.Data.BaseClasses.Chiller" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Chillers.Data.BaseClasses.Chiller"></A><A HREF="Buildings_Fluid_Chillers_Data_BaseClasses.html#Buildings.Fluid.Chillers.Data.BaseClasses"
+>Buildings.Fluid.Chillers.Data.BaseClasses</A>.Chiller</H2>
+<B>Base classes for chiller models</B><p></P>
+<P></P><H3>Information</H3>
+
+This is the base record for chiller models. 
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</A> (Icon for records).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>PLRMax</TD><TD>&nbsp;</TD><TD>Maximum part load ratio</TD></TR>
+<TR><TD>Real</TD><TD>PLRMinUnl</TD><TD>&nbsp;</TD><TD>Minimum part unload ratio</TD></TR>
+<TR><TD>Real</TD><TD>PLRMin</TD><TD>&nbsp;</TD><TD>Minimum part load ratio</TD></TR>
+<TR><TD>Real</TD><TD>etaMotor</TD><TD>&nbsp;</TD><TD>Fraction of compressor motor heat entering refrigerant</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</A></TD><TD>QEva_flow_nominal</TD><TD>&nbsp;</TD><TD>Reference capacity (negative number) [W]</TD></TR>
+<TR><TD>Real</TD><TD>COP_nominal</TD><TD>&nbsp;</TD><TD>Reference coefficient of performance</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>mEva_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow at evaporator [kg/s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>mCon_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow at condenser [kg/s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TEvaLvg_nominal</TD><TD>&nbsp;</TD><TD>Temperature of fluid leaving evaporator at nominal condition [K]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Performance curves</TD></TR>
+<TR><TD>Integer</TD><TD>nCapFunT</TD><TD>&nbsp;</TD><TD>Number of coefficients for capFunT</TD></TR>
+<TR><TD>Integer</TD><TD>nEIRFunT</TD><TD>&nbsp;</TD><TD>Number of coefficients for capFunT</TD></TR>
+<TR><TD>Integer</TD><TD>nEIRFunPLR</TD><TD>&nbsp;</TD><TD>Number of coefficients for capFunT</TD></TR>
+<TR><TD>Real</TD><TD>capFunT[nCapFunT]</TD><TD>&nbsp;</TD><TD>Biquadratic coefficients for capFunT</TD></TR>
+<TR><TD>Real</TD><TD>EIRFunT[nEIRFunT]</TD><TD>&nbsp;</TD><TD>Biquadratic coefficients for EIRFunT</TD></TR>
+<TR><TD>Real</TD><TD>EIRFunPLR[nEIRFunPLR]</TD><TD>&nbsp;</TD><TD>Coefficients for EIRFunPLR</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TEvaLvgMin</TD><TD>&nbsp;</TD><TD>Minimum value for leaving evaporator temperature [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TEvaLvgMax</TD><TD>&nbsp;</TD><TD>Maximum value for leaving evaporator temperature [K]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> Chiller <font color="darkgreen">&quot;Base classes for chiller models&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</A>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QEva_flow_nominal(max=0) <font color="darkgreen">
+    &quot;Reference capacity (negative number)&quot;</font>;
+  <font color="blue">parameter </font>Real COP_nominal <font color="darkgreen">&quot;Reference coefficient of performance&quot;</font>;
+
+  <font color="blue">parameter </font>Real PLRMax(min=0) <font color="darkgreen">&quot;Maximum part load ratio&quot;</font>;
+  <font color="blue">parameter </font>Real PLRMinUnl(min=0) <font color="darkgreen">&quot;Minimum part unload ratio&quot;</font>;
+  <font color="blue">parameter </font>Real PLRMin(min=0) <font color="darkgreen">&quot;Minimum part load ratio&quot;</font>;
+
+  <font color="blue">parameter </font>Real etaMotor(min=0, max=1) <font color="darkgreen">
+    &quot;Fraction of compressor motor heat entering refrigerant&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mEva_flow_nominal <font color="darkgreen">
+    &quot;Nominal mass flow at evaporator&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mCon_flow_nominal <font color="darkgreen">
+    &quot;Nominal mass flow at condenser&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TEvaLvg_nominal <font color="darkgreen">
+    &quot;Temperature of fluid leaving evaporator at nominal condition&quot;</font>;
+
+  <font color="blue">constant </font>Integer nCapFunT <font color="darkgreen">&quot;Number of coefficients for capFunT&quot;</font>;
+  <font color="blue">constant </font>Integer nEIRFunT <font color="darkgreen">&quot;Number of coefficients for capFunT&quot;</font>;
+  <font color="blue">constant </font>Integer nEIRFunPLR <font color="darkgreen">&quot;Number of coefficients for capFunT&quot;</font>;
+  <font color="blue">parameter </font>Real capFunT[nCapFunT] <font color="darkgreen">&quot;Biquadratic coefficients for capFunT&quot;</font>;
+  <font color="blue">parameter </font>Real EIRFunT[nEIRFunT] <font color="darkgreen">&quot;Biquadratic coefficients for EIRFunT&quot;</font>;
+  <font color="blue">parameter </font>Real EIRFunPLR[nEIRFunPLR] <font color="darkgreen">&quot;Coefficients for EIRFunPLR&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TEvaLvgMin <font color="darkgreen">
+    &quot;Minimum value for leaving evaporator temperature&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TEvaLvgMax <font color="darkgreen">
+    &quot;Maximum value for leaving evaporator temperature&quot;</font>;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Chiller;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:26 2013.
+</address></BODY>
+</HTML>

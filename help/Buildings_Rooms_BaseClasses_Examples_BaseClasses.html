@@ -1,0 +1,157 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Rooms.BaseClasses.Examples.BaseClasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with base classes for Buildings.Rooms.BaseClasses.Examples&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Rooms.BaseClasses.Examples.BaseClasses"></A><A HREF="Buildings_Rooms_BaseClasses_Examples.html#Buildings.Rooms.BaseClasses.Examples"
+>Buildings.Rooms.BaseClasses.Examples</A>.BaseClasses</H2>
+<B>Package with base classes for Buildings.Rooms.BaseClasses.Examples</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<A HREF="Buildings_Rooms_BaseClasses_Examples.html#Buildings.Rooms.BaseClasses.Examples"
+>Buildings.Rooms.BaseClasses.Examples</a>.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses_Examples_BaseClasses.html#Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation"
+>PartialInfraredRadiation</A>
+</TD><TD>Partial model to test infrared radiation inside the room</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE PartialInfraredRadiation<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation"></A><A HREF="Buildings_Rooms_BaseClasses_Examples_BaseClasses.html#Buildings.Rooms.BaseClasses.Examples.BaseClasses"
+>Buildings.Rooms.BaseClasses.Examples.BaseClasses</A>.PartialInfraredRadiation</H2>
+<B>Partial model to test infrared radiation inside the room</B><p></P>
+<IMG SRC="Buildings.Rooms.BaseClassab2bc907824d4b1aationD.png" ALT="Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation">
+<P></P><H3>Information</H3>
+Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ConstructionRecords"
+>Buildings.Rooms.BaseClasses.ConstructionRecords</A> (Data records for construction data).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Exterior constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConExt</TD><TD>1</TD><TD>Number of exterior constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of window constructions</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Partition constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConPar</TD><TD>1</TD><TD>Number of partition constructions</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Boundary constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of constructions that have their outside surface exposed to the boundary of this room</TD></TR>
+<TR><TD>Integer</TD><TD>nSurBou</TD><TD>1</TD><TD>Number of surface heat transfer models that connect to constructions that are modeled outside of this room</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> PartialInfraredRadiation <font color="darkgreen">
+  &quot;Partial model to test infrared radiation inside the room&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ConstructionRecords"
+>Buildings.Rooms.BaseClasses.ConstructionRecords</A>(
+  nConExt=1,
+  nConExtWin=1,
+  nConPar=1,
+  nConBou=1,
+  nSurBou=1,
+  datConExt(<font color="blue">each </font>A=1),
+  datConBou(<font color="blue">each </font>A=1),
+  datConExtWin(<font color="blue">each </font>A=1, <font color="blue">each </font>hWin=1, <font color="blue">each </font>wWin=0.5),
+  surBou(<font color="blue">each </font>A=1),
+  datConPar(<font color="blue">each </font>A=1));
+
+<textblock type="annotcomp" expanded="false"><font color="blue">protected </font>
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> bouConExt[NConExt](<font color="blue">each </font>T=293.15) <font color="darkgreen">
+    &quot;Boundary condition&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conConExt[NConExt](<font color="blue">each </font>G=
+        100) <font color="darkgreen">&quot;Heat conductor&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conConExtWin[
+    NConExtWin](<font color="blue">each </font>G=100) <font color="darkgreen">&quot;Heat conductor&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conConExtWinFra[
+    NConExtWin](<font color="blue">each </font>G=100) <font color="darkgreen">&quot;Heat conductor&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conConPar_a[NConPar](<font color="blue">each </font>G=
+        100) <font color="darkgreen">&quot;Heat conductor&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conConPar_b[NConPar](<font color="blue">each </font>G=
+        100) <font color="darkgreen">&quot;Heat conductor&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conConBou[NConBou](<font color="blue">each </font>G=
+        100) <font color="darkgreen">&quot;Heat conductor&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conSurBou[NSurBou](<font color="blue">each </font>G=
+        100) <font color="darkgreen">&quot;Heat conductor&quot;</font>;
+<font color="blue">protected </font>
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> bouConExtWin[
+    NConExtWin](<font color="blue">each </font>T=293.15) <font color="darkgreen">&quot;Boundary condition&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> bouConExtWinFra[
+    NConExtWin](<font color="blue">each </font>T=293.15) <font color="darkgreen">&quot;Boundary condition&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> bouConPar_a[NConPar](<font color="blue">each </font>T=
+       293.15) <font color="darkgreen">&quot;Boundary condition&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> bouConPar_b[NConPar](<font color="blue">each </font>T=
+       293.15) <font color="darkgreen">&quot;Boundary condition&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> bouConBou[NConBou](<font color="blue">each </font>T=293.15) <font color="darkgreen">
+    &quot;Boundary condition&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> bouSurBou[NSurBou](<font color="blue">each </font>T=293.15) <font color="darkgreen">
+    &quot;Boundary condition&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(bouConExt.port, conConExt.port_b);
+  <font color="red">connect</font>(bouConExtWin.port, conConExtWin.port_b);
+  <font color="red">connect</font>(bouConExtWinFra.port, conConExtWinFra.port_b);
+  <font color="red">connect</font>(bouConPar_a.port, conConPar_a.port_b);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(bouConPar_b.port, conConPar_b.port_b);
+  <font color="red">connect</font>(bouConBou.port, conConBou.port_b);
+  <font color="red">connect</font>(bouSurBou.port, conSurBou.port_b);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>PartialInfraredRadiation;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:13:40 2013.
+</address></BODY>
+</HTML>

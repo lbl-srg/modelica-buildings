@@ -1,0 +1,459 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.Chillers.BaseClasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with base classes for Buildings.Fluid.Chillers&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Chillers.BaseClasses"></A><A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers"
+>Buildings.Fluid.Chillers</A>.BaseClasses</H2>
+<B>Package with base classes for Buildings.Fluid.Chillers</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers"
+>Buildings.Fluid.Chillers</a>.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Chillers.4369dea4a4556c9ectricS.png" ALT="Buildings.Fluid.Chillers.BaseClasses.PartialElectric" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses.PartialElectric"
+>PartialElectric</A>
+</TD><TD>Partial model for electric chiller based on the model in DOE-2, CoolTools and EnergyPlus</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Chillers.288d89d35f54669coundsS.png" ALT="Buildings.Fluid.Chillers.BaseClasses.warnIfPerformanceOutOfBounds" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses.warnIfPerformanceOutOfBounds"
+>warnIfPerformanceOutOfBounds</A>
+</TD><TD>Function that checks the performance and writes a warning if it is outside of 0.9 to 1.1</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE PartialElectric<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Chillers.4369dea4a4556c9ectricI.png" ALT="Buildings.Fluid.Chillers.BaseClasses.PartialElectric" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Chillers.BaseClasses.PartialElectric"></A><A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses"
+>Buildings.Fluid.Chillers.BaseClasses</A>.PartialElectric</H2>
+<B>Partial model for electric chiller based on the model in DOE-2, CoolTools and EnergyPlus</B><p></P>
+<IMG SRC="Buildings.Fluid.Chillers.4369dea4a4556c9ectricD.png" ALT="Buildings.Fluid.Chillers.BaseClasses.PartialElectric">
+<P></P><H3>Information</H3>
+
+<p>
+Base class for model of an electric chiller, based on the DOE-2.1 chiller model and the
+CoolTools chiller model that are implemented in EnergyPlus as the models
+<code>Chiller:Electric:EIR</code> and <code>Chiller:Electric:ReformulatedEIR</code>.
+</p>
+<p>
+The model takes as an input the set point for the leaving chilled water temperature, 
+which is met if the chiller has sufficient capacity.
+Thus, the model has a built-in, ideal temperature control.
+The model has three tests on the part load ratio and the cycling ratio:
+</p>
+<ol>
+<li>
+The test
+<pre>
+  PLR1 =min(QEva_flow_set/QEva_flow_ava, PLRMax);
+</pre>
+ensures that the chiller capacity does not exceed the chiller capacity specified
+by the parameter <code>PLRMax</code>.
+</li>
+<li>
+The test <pre>
+  CR = min(PLR1/per.PRLMin, 1.0);
+</pre>
+computes a cycling ratio. This ratio expresses the fraction of time
+that a chiller would run if it were to cycle because its load is smaller than 
+the minimal load at which it can operature. Notice that this model does continuously operature even if 
+the part load ratio is below the minimum part load ratio. Its leaving evaporator and condenser temperature 
+can therefore be considered as an 
+average temperature between the modes where the compressor is off and on.
+</li>
+<li>
+The test <pre>
+  PLR2 = max(PLRMinUnl, PLR1);
+</pre>
+computes the part load ratio of the compressor. 
+The assumption is that for a part load ratio below <code>PLRMinUnl</code>,
+the chiller uses hot gas bypass to reduce the capacity, while the compressor
+power draw does not change. 
+</li>
+</ol>
+<p>
+The electric power only contains the power for the compressor, but not any power for pumps or fans.
+</p>
+<h4>Implementation</h4>
+<p>
+Models that extend from this base class need to provide
+three functions to predict capacity and power consumption:
+</p>
+<ul>
+<li>
+A function to predict cooling capacity. The function value needs
+to be assigned to <code>capFunT</code>.
+</li>
+<li>
+A function to predict the power input as a function of temperature.
+The function value needs to be assigned to <code>EIRFunT</code>.
+</li>
+<li>
+A function to predict the power input as a function of the part load ratio.
+The function value needs to be assigned to <code>EIRFunPLR</code>.
+</li>
+</ul>
+<P></P>
+Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortHeatMassExchanger"
+>Buildings.Fluid.Interfaces.FourPortHeatMassExchanger</A> (Model transporting two fluid streams between four ports with storing mass or energy).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium1</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium 1 in the component</TD></TR>
+<TR><TD colspan="2">replaceable package Medium2</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium 2 in the component</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m1_flow_nominal</TD><TD>mCon_flow_nominal</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m2_flow_nominal</TD><TD>mEva_flow_nominal</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp1_nominal</TD><TD>&nbsp;</TD><TD>Pressure [Pa]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp2_nominal</TD><TD>&nbsp;</TD><TD>Pressure [Pa]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m1_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a1 to port_b1 (m1_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp1.start</TD><TD>0</TD><TD>Pressure difference between port_a1 and port_b1 [Pa]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m2_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a2 to port_b2 (m2_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp2.start</TD><TD>0</TD><TD>Pressure difference between port_a2 and port_b2 [Pa]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
+<TR><TD>Boolean</TD><TD>allowFlowReversal1</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal in medium 1, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
+<TR><TD>Boolean</TD><TD>allowFlowReversal2</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal in medium 2, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m1_flow_small</TD><TD>1E-4*abs(m1_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
+<TR><TD>Boolean</TD><TD>from_dp1</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
+<TR><TD>Boolean</TD><TD>linearizeFlowResistance1</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
+<TR><TD>Real</TD><TD>deltaM1</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Medium 2</TD></TR>
+<TR><TD>Boolean</TD><TD>from_dp2</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
+<TR><TD>Boolean</TD><TD>linearizeFlowResistance2</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
+<TR><TD>Real</TD><TD>deltaM2</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>tau1</TD><TD>30</TD><TD>Time constant at nominal flow [s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>tau2</TD><TD>30</TD><TD>Time constant at nominal flow [s]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Medium 1</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p1_start</TD><TD>Medium1.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+>Temperature</A></TD><TD>T1_start</TD><TD>273.15 + 25</TD><TD>Start value of temperature [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>MassFraction</A></TD><TD>X1_start[Medium1.nX]</TD><TD>Medium1.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C1_start[Medium1.nC]</TD><TD>fill(0, Medium1.nC)</TD><TD>Start value of trace substances</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C1_nominal[Medium1.nC]</TD><TD>fill(1E-2, Medium1.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Medium 2</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p2_start</TD><TD>Medium2.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+>Temperature</A></TD><TD>T2_start</TD><TD>273.15 + 5</TD><TD>Start value of temperature [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>MassFraction</A></TD><TD>X2_start[Medium2.nX]</TD><TD>Medium2.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C2_start[Medium2.nC]</TD><TD>fill(0, Medium2.nC)</TD><TD>Start value of trace substances</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C2_nominal[Medium2.nC]</TD><TD>fill(1E-2, Medium2.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a1</TD><TD>Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b1</TD><TD>Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a2</TD><TD>Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+>BooleanInput</A></TD><TD>on</TD><TD>Set to true to enable compressor, or false to disable compressor</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TSet</TD><TD>Set point for leaving chilled water temperature [K]</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>P</TD><TD>Electric power consumed by compressor [W]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">partial </font><font color="blue">model</font> PartialElectric <font color="darkgreen">
+  &quot;Partial model for electric chiller based on the model in DOE-2, CoolTools and EnergyPlus&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortHeatMassExchanger"
+>Buildings.Fluid.Interfaces.FourPortHeatMassExchanger</A>(
+   m1_flow_nominal = mCon_flow_nominal,
+   m2_flow_nominal = mEva_flow_nominal,
+   T1_start = 273.15+25,
+   T2_start = 273.15+5,
+   <font color="blue">redeclare </font><font color="blue">final </font><A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</A> vol2(
+      V=m2_flow_nominal*tau2/rho2_nominal,
+      nPorts=2,
+      <font color="blue">final </font>prescribedHeatFlowRate=true),
+    vol1(
+      <font color="blue">final </font>prescribedHeatFlowRate=true));
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+>Modelica.Blocks.Interfaces.BooleanInput</A> on <font color="darkgreen">
+    &quot;Set to true to enable compressor, or false to disable compressor&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TSet(unit=&quot;K&quot;, displayUnit=&quot;degC&quot;) <font color="darkgreen">
+    &quot;Set point for leaving chilled water temperature&quot;</font>;</textblock>
+
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TEvaEnt <font color="darkgreen">&quot;Evaporator entering temperature&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TEvaLvg <font color="darkgreen">&quot;Evaporator leaving temperature&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TConEnt <font color="darkgreen">&quot;Condenser entering temperature&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TConLvg <font color="darkgreen">&quot;Condenser leaving temperature&quot;</font>;
+
+  Real COP(min=0) <font color="darkgreen">&quot;Coefficient of performance&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QCon_flow <font color="darkgreen">&quot;Condenser heat input&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QEva_flow <font color="darkgreen">&quot;Evaporator heat input&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> P(<font color="blue">final </font>quantity=&quot;Power&quot;, unit=&quot;W&quot;) <font color="darkgreen">
+    &quot;Electric power consumed by compressor&quot;</font>;</textblock>
+
+  Real capFunT(min=0, nominal=1, start=1) <font color="darkgreen">
+    &quot;Cooling capacity factor function of temperature curve&quot;</font>;
+  Real EIRFunT(min=0, nominal=1, start=1) <font color="darkgreen">
+    &quot;Power input to cooling capacity ratio function of temperature curve&quot;</font>;
+  Real EIRFunPLR(min=0, nominal=1, start=1) <font color="darkgreen">
+    &quot;Power input to cooling capacity ratio function of part load ratio&quot;</font>;
+  Real PLR1(min=0, nominal=1, start=1) <font color="darkgreen">&quot;Part load ratio&quot;</font>;
+  Real PLR2(min=0, nominal=1, start=1) <font color="darkgreen">&quot;Part load ratio&quot;</font>;
+  Real CR(min=0, nominal=1,  start=1) <font color="darkgreen">&quot;Cycling ratio&quot;</font>;
+
+<font color="blue">protected </font>
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QEva_flow_ava(nominal=QEva_flow_nominal,start=QEva_flow_nominal) <font color="darkgreen">
+    &quot;Cooling capacity available at evaporator&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QEva_flow_set(nominal=QEva_flow_nominal,start=QEva_flow_nominal) <font color="darkgreen">
+    &quot;Cooling capacity required to cool to set point temperature&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</A> hSet <font color="darkgreen">
+    &quot;Enthalpy setpoint for leaving chilled water&quot;</font>;
+  <font color="darkgreen">// Performance data</font>
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QEva_flow_nominal(max=0) <font color="darkgreen">
+    &quot;Reference capacity (negative number)&quot;</font>;
+  <font color="blue">parameter </font>Real COP_nominal <font color="darkgreen">&quot;Reference coefficient of performance&quot;</font>;
+  <font color="blue">parameter </font>Real PLRMax(min=0) <font color="darkgreen">&quot;Maximum part load ratio&quot;</font>;
+  <font color="blue">parameter </font>Real PLRMinUnl(min=0) <font color="darkgreen">&quot;Minimum part unload ratio&quot;</font>;
+  <font color="blue">parameter </font>Real PLRMin(min=0) <font color="darkgreen">&quot;Minimum part load ratio&quot;</font>;
+  <font color="blue">parameter </font>Real etaMotor(min=0, max=1) <font color="darkgreen">
+    &quot;Fraction of compressor motor heat entering refrigerant&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mEva_flow_nominal <font color="darkgreen">
+    &quot;Nominal mass flow at evaporator&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mCon_flow_nominal <font color="darkgreen">
+    &quot;Nominal mass flow at condenser&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TEvaLvg_nominal <font color="darkgreen">
+    &quot;Temperature of fluid leaving evaporator at nominal condition&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.Temperature_degC"
+>Modelica.SIunits.Conversions.NonSIunits.Temperature_degC</A>
+    TEvaLvg_nominal_degC=
+    <font color="red">Modelica.SIunits.Conversions.to_degC</font>(TEvaLvg_nominal) <font color="darkgreen">
+    &quot;Temperature of fluid leaving evaporator at nominal condition&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.Temperature_degC"
+>Modelica.SIunits.Conversions.NonSIunits.Temperature_degC</A> TEvaLvg_degC <font color="darkgreen">
+    &quot;Temperature of fluid leaving evaporator&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> Q_flow_small = QEva_flow_nominal*1E-9 <font color="darkgreen">
+    &quot;Small value for heat flow rate or power, used to avoid division by zero&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
+>Buildings.HeatTransfer.Sources.PrescribedHeatFlow</A> preHeaFloEva <font color="darkgreen">
+    &quot;Prescribed heat flow rate&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
+>Buildings.HeatTransfer.Sources.PrescribedHeatFlow</A> preHeaFloCon <font color="darkgreen">
+    &quot;Prescribed heat flow rate&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> QEva_flow_in(y=QEva_flow) <font color="darkgreen">
+    &quot;Evaporator heat flow rate&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> QCon_flow_in(y=QCon_flow) <font color="darkgreen">
+    &quot;Condenser heat flow rate&quot;</font>;</textblock>
+
+<font color="blue">initial </font><font color="blue">equation </font>
+  <font color="red">assert</font>(QEva_flow_nominal &lt; 0, &quot;Parameter QEva_flow_nominal must be smaller than zero.&quot;);
+  <font color="red">assert</font>(PLRMinUnl &gt;= PLRMin, &quot;Parameter PLRMinUnl must be bigger or equal to PLRMin&quot;);
+  <font color="red">assert</font>(PLRMax &gt; PLRMinUnl, &quot;Parameter PLRMax must be bigger than PLRMinUnl&quot;);
+<font color="blue">equation </font>
+  <font color="darkgreen">// Condenser temperatures</font>
+  TConEnt =<font color="red"> Medium1.temperature</font>(<font color="red">Medium1.setState_phX</font>(port_a1.p,<font color="red"> inStream</font>(port_a1.h_outflow)));
+  TConLvg = vol1.heatPort.T;
+  <font color="darkgreen">// Evaporator temperatures</font>
+  TEvaEnt =<font color="red"> Medium2.temperature</font>(<font color="red">Medium2.setState_phX</font>(port_a2.p,<font color="red"> inStream</font>(port_a2.h_outflow)));
+  TEvaLvg = vol2.heatPort.T;
+  TEvaLvg_degC=<font color="red">Modelica.SIunits.Conversions.to_degC</font>(TEvaLvg);
+
+  <font color="darkgreen">// Enthalpy of temperature setpoint</font>
+  hSet =<font color="red"> Medium2.specificEnthalpy_pTX</font>(
+           p=port_b2.p,
+           T=TSet,
+           X=<font color="red">cat</font>(1, port_b2.Xi_outflow, {1-<font color="red">sum</font>(port_b2.Xi_outflow)}));
+
+  <font color="blue">if </font>on<font color="blue"> then</font>
+    <font color="darkgreen">// Available cooling capacity</font>
+    QEva_flow_ava = QEva_flow_nominal*capFunT;
+    <font color="darkgreen">// Cooling capacity required to chill water to setpoint</font>
+    QEva_flow_set =<font color="red"> min</font>(m2_flow*(hSet-<font color="red">inStream</font>(port_a2.h_outflow)),0);
+
+    <font color="darkgreen">// Part load ratio</font>
+    PLR1 =<font color="red"> min</font>(QEva_flow_set/(QEva_flow_ava+Q_flow_small), PLRMax);
+    <font color="darkgreen">// PLR2 is the compressor part load ratio. The lower bound PLRMinUnl is</font>
+    <font color="darkgreen">// since for PLR1&lt;PLRMinUnl, the chiller uses hot gas bypass, under which</font>
+    <font color="darkgreen">// condition the compressor power is assumed to be the same as if the chiller</font>
+    <font color="darkgreen">// were to operate at PLRMinUnl</font>
+    PLR2 =<font color="red"> max</font>(PLRMinUnl, PLR1);
+    <font color="darkgreen">// Cycling ratio</font>
+    CR =<font color="red"> min</font>(PLR1/PLRMin,1.0);
+
+    <font color="darkgreen">// Compressor power.</font>
+    P = -QEva_flow_ava/COP_nominal*EIRFunT*EIRFunPLR*CR;
+    <font color="darkgreen">// Heat flow rates into evaporator and condenser</font>
+    QEva_flow =<font color="red"> max</font>(QEva_flow_set, QEva_flow_ava);
+    QCon_flow = -QEva_flow + P*etaMotor;
+    <font color="darkgreen">// Coefficient of performance</font>
+    COP = -QEva_flow/(P-Q_flow_small);
+  <font color="blue">else</font>
+    QEva_flow_ava = 0;
+    QEva_flow_set = 0;
+    PLR1 = 0;
+    PLR2 = 0;
+    CR   = 0;
+    P    = 0;
+    QEva_flow = 0;
+    QCon_flow = 0;
+    COP  = 0;
+  <font color="blue">end if</font>;
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(QCon_flow_in.y, preHeaFloCon.Q_flow);
+  <font color="red">connect</font>(preHeaFloCon.port, vol1.heatPort);
+  <font color="red">connect</font>(QEva_flow_in.y, preHeaFloEva.Q_flow);
+  <font color="red">connect</font>(preHeaFloEva.port, vol2.heatPort);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>PartialElectric;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE warnIfPerformanceOutOfBounds<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Chillers.BaseClasses.warnIfPerformanceOutOfBounds"></A><A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses"
+>Buildings.Fluid.Chillers.BaseClasses</A>.warnIfPerformanceOutOfBounds</H2>
+<B>Function that checks the performance and writes a warning if it is outside of 0.9 to 1.1</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+This function checks if the numeric argument is outside of the
+interval <i>0.9</i> to <i>1.1</i>.
+If this is the case, the function writes a warning.
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>&nbsp;</TD><TD>Argument to be checked</TD></TR>
+<TR><TD>String</TD><TD>msg</TD><TD>&nbsp;</TD><TD>String to be added to warning message</TD></TR>
+<TR><TD>String</TD><TD>curveName</TD><TD>&nbsp;</TD><TD>Name of the curve that was tested</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>retVal</TD><TD>0 if x is inside bounds, -1 if it is below bounds, or +1 if it is above bounds</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> warnIfPerformanceOutOfBounds <font color="darkgreen">
+  &quot;Function that checks the performance and writes a warning if it is outside of 0.9 to 1.1&quot;</font>
+  <font color="blue">input </font>Real x <font color="darkgreen">&quot;Argument to be checked&quot;</font>;
+  <font color="blue">input </font>String msg <font color="darkgreen">&quot;String to be added to warning message&quot;</font>;
+  <font color="blue">input </font>String curveName <font color="darkgreen">&quot;Name of the curve that was tested&quot;</font>;
+  <font color="blue">output </font>Integer retVal <font color="darkgreen">
+    &quot;0 if x is inside bounds, -1 if it is below bounds, or +1 if it is above bounds&quot;</font>;
+
+<font color="blue">algorithm </font>
+  <font color="blue">if </font>(x &gt; 1.1)<font color="blue"> then</font>
+    retVal :=1;
+  <font color="blue">elseif </font>( x &lt; 0.9)<font color="blue"> then</font>
+      retVal :=-1;
+  <font color="blue">else</font>
+    retVal :=0;
+  <font color="blue">end if</font>;
+  <font color="blue">if </font>(retVal &lt;&gt; 0)<font color="blue"> then</font>
+    <font color="red">  Modelica.Utilities.Streams.print</font>(&quot;************************************************************************************&quot;);
+    <font color="red">  Modelica.Utilities.Streams.print</font>(&quot;*** Warning: Chiller performance curves at nominal conditions are outside of bounds.&quot;);
+    <font color="red">  Modelica.Utilities.Streams.print</font>(msg + &quot; is outside of bounds 0.9 to 1.1.&quot;);
+    <font color="red">  Modelica.Utilities.Streams.print</font>(&quot;The value of the curve fit is &quot; +<font color="red"> String</font>(x));
+    <font color="red">  Modelica.Utilities.Streams.print</font>(&quot;Check the coefficients of the function &quot; + curveName);
+    <font color="red">  Modelica.Utilities.Streams.print</font>(&quot;************************************************************************************&quot;);
+
+  <font color="blue">end if</font>;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>warnIfPerformanceOutOfBounds;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:26 2013.
+</address></BODY>
+</HTML>

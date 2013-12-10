@@ -1,0 +1,368 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.BoundaryConditions.SolarIrradiation</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with models to compute solar irradition&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SolarIrradiation<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.BoundaryConditions.SolarIrradiation"></A><A HREF="Buildings_BoundaryConditions.html#Buildings.BoundaryConditions"
+>Buildings.BoundaryConditions</A>.SolarIrradiation</H2>
+<B>Package with models to compute solar irradition</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+This package contains models to compute the solar irradiation
+for different sky models.
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditifc29d71637150ae3ropicS.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic"
+>DiffuseIsotropic</A>
+</TD><TD>Diffuse solar irradiation on a tilted surface with an isotropic sky model</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditifc29d71637150ae3ropicS.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez"
+>DiffusePerez</A>
+</TD><TD>Hemispherical diffuse irradiation on a tilted surface using Perez&#39;s anisotropic sky model</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi9994e08e8ea9f05drfaceS.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"
+>DirectTiltedSurface</A>
+</TD><TD>Direct solar irradiation on a tilted surface</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditic7cf1b1b6da8ff72mplesS.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_SolarIrradiation_Examples.html#Buildings.BoundaryConditions.SolarIrradiation.Examples"
+>Examples</A>
+</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditia0e73f375fe7c44aassesS.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses"
+>BaseClasses</A>
+</TD><TD>Package with base classes for Buildings.BoundaryConditions.SolarIrradiation</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE DiffuseIsotropic<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditifc29d71637150ae3ropicI.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation"
+>Buildings.BoundaryConditions.SolarIrradiation</A>.DiffuseIsotropic</H2>
+<B>Diffuse solar irradiation on a tilted surface with an isotropic sky model</B><p></P>
+<IMG SRC="Buildings.BoundaryConditifc29d71637150ae3ropicD.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic">
+<P></P><H3>Information</H3>
+
+<p>
+This component computes the hemispherical diffuse irradiation on a tilted surface using an isotropic model. 
+The irradiation is a sum composed of diffuse solar irradiation and radiation reflected by the ground.
+For a definition of the parameters, see the 
+<A HREF="Buildings_BoundaryConditions_UsersGuide.html#Buildings.BoundaryConditions.UsersGuide"
+>User's Guide</a>.
+</p>
+<h4>References</h4>
+P. Ineichen, R. Perez and R. Seals (1987).
+<i>The Importance of Correct Albedo Determination for Adequately Modeling Energy Received by Tilted Surface</i>,
+Solar Energy, 39(4): 301-305.
+<pre>
+</PRE><P></P>
+Extends from <A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation"
+>Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation</A> (Partial model that is used to compute the direct and diffuse solar irradiation).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>til</TD><TD>&nbsp;</TD><TD>Surface tilt [rad]</TD></TR>
+<TR><TD>Real</TD><TD>rho</TD><TD>0.2</TD><TD>Ground reflectance</TD></TR>
+<TR><TD>Boolean</TD><TD>outSkyCon</TD><TD>false</TD><TD>Output contribution of diffuse irradiation from sky</TD></TR>
+<TR><TD>Boolean</TD><TD>outGroCon</TD><TD>false</TD><TD>Output contribution of diffuse irradiation from ground</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>H</TD><TD>Radiation per unit area [W/m2]</TD></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>Bus with weather data</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>HSkyDifTil</TD><TD>Diffuse solar irradiation on a tilted surfce from the sky</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>HGroDifTil</TD><TD>Diffuse solar irradiation on a tilted surfce from the ground</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> DiffuseIsotropic <font color="darkgreen">
+  &quot;Diffuse solar irradiation on a tilted surface with an isotropic sky model&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation"
+>Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation</A>;
+<font color="blue">public </font>
+  <font color="blue">parameter </font>Real rho=0.2 <font color="darkgreen">&quot;Ground reflectance&quot;</font>;
+  <font color="blue">parameter </font>Boolean outSkyCon=false <font color="darkgreen">
+    &quot;Output contribution of diffuse irradiation from sky&quot;</font>;
+  <font color="blue">parameter </font>Boolean outGroCon=false <font color="darkgreen">
+    &quot;Output contribution of diffuse irradiation from ground&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</A> add;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> HSkyDifTil <font color="blue">if </font>(outSkyCon) <font color="darkgreen">
+    &quot;Diffuse solar irradiation on a tilted surfce from the sky&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> HGroDifTil <font color="blue">if </font>(outGroCon) <font color="darkgreen">
+    &quot;Diffuse solar irradiation on a tilted surfce from the ground&quot;</font>;
+<font color="blue">protected </font>
+  <A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffuseIsotropic"
+>Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffuseIsotropic</A>
+    HDifTilIso(til=til, rho=rho);</textblock>
+
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaBus.HGloHor, HDifTilIso.HGloHor);
+  <font color="red">connect</font>(weaBus.HDifHor, HDifTilIso.HDifHor);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(HDifTilIso.HSkyDifTil, add.u1);
+  <font color="red">connect</font>(HDifTilIso.HGroDifTil, add.u2);
+  <font color="red">connect</font>(add.y, H);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(HDifTilIso.HSkyDifTil, HSkyDifTil);
+  <font color="red">connect</font>(HDifTilIso.HGroDifTil, HGroDifTil);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>DiffuseIsotropic;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE DiffusePerez<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditifc29d71637150ae3ropicI.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation"
+>Buildings.BoundaryConditions.SolarIrradiation</A>.DiffusePerez</H2>
+<B>Hemispherical diffuse irradiation on a tilted surface using Perez&#39;s anisotropic sky model</B><p></P>
+<IMG SRC="Buildings.BoundaryConditiea4c6d1635e1754aPerezD.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez">
+<P></P><H3>Information</H3>
+
+<p>
+This component computes the hemispherical diffuse irradiation on a tilted surface using an anisotropic 
+sky model proposed by Perez. 
+For a definition of the parameters, see the 
+<A HREF="Buildings_BoundaryConditions_UsersGuide.html#Buildings.BoundaryConditions.UsersGuide"
+>User's Guide</a>.
+</p>
+<h4>References</h4>
+<ul>
+<li>
+P. Ineichen, R. Perez and R. Seals (1987).
+<i>The Importance of Correct Albedo Determination for Adequately Modeling Energy Received by Tilted Surface</i>,
+Solar Energy, 39(4): 301-305.
+</li>
+<li>
+R. Perez, R. Seals, P. Ineichen, R. Stewart and D. Menicucci (1987).
+<i>A New Simplified Version of the Perez Diffuse Irradiance Model for Tilted Surface</i>,
+Solar Energy, 39(3): 221-231.
+</li>
+<li>
+R. Perez, P. Ineichen, R. Seals, J. Michalsky and R. Stewart (1990).
+<i>Modeling Dyalight Availability and Irradiance Componets From Direct and Global Irradiance</i>,
+Solar Energy, 44(5):271-289.
+</li>
+</ul>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation"
+>Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation</A> (Partial model that is used to compute the direct and diffuse solar irradiation).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>til</TD><TD>&nbsp;</TD><TD>Surface tilt [rad]</TD></TR>
+<TR><TD>Real</TD><TD>rho</TD><TD>0.2</TD><TD>Ground reflectance</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>lat</TD><TD>&nbsp;</TD><TD>Latitude [rad]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>azi</TD><TD>&nbsp;</TD><TD>Surface azimuth [rad]</TD></TR>
+<TR><TD>Boolean</TD><TD>outSkyCon</TD><TD>false</TD><TD>Output contribution of diffuse irradiation from sky</TD></TR>
+<TR><TD>Boolean</TD><TD>outGroCon</TD><TD>false</TD><TD>Output contribution of diffuse irradiation from ground</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>H</TD><TD>Radiation per unit area [W/m2]</TD></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>Bus with weather data</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>HSkyDifTil</TD><TD>Hemispherical diffuse solar irradiation on a tilted surfce from the sky</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>HGroDifTil</TD><TD>Hemispherical diffuse solar irradiation on a tilted surfce from the ground</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> DiffusePerez <font color="darkgreen">
+  &quot;Hemispherical diffuse irradiation on a tilted surface using Perez&#39;s anisotropic sky model&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation"
+>Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation</A>;
+
+  <font color="blue">parameter </font>Real rho=0.2 <font color="darkgreen">&quot;Ground reflectance&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> lat <font color="darkgreen">&quot;Latitude&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> azi <font color="darkgreen">&quot;Surface azimuth&quot;</font>;
+  <font color="blue">parameter </font>Boolean outSkyCon=false <font color="darkgreen">
+    &quot;Output contribution of diffuse irradiation from sky&quot;</font>;
+  <font color="blue">parameter </font>Boolean outGroCon=false <font color="darkgreen">
+    &quot;Output contribution of diffuse irradiation from ground&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</A> add;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> HSkyDifTil <font color="blue">if </font>(outSkyCon) <font color="darkgreen">
+    &quot;Hemispherical diffuse solar irradiation on a tilted surfce from the sky&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> HGroDifTil <font color="blue">if </font>(outGroCon) <font color="darkgreen">
+    &quot;Hemispherical diffuse solar irradiation on a tilted surfce from the ground&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false"><font color="blue">protected </font>
+  <A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffusePerez"
+>BaseClasses.DiffusePerez</A> HDifTil(<font color="blue">final </font>til=til, <font color="blue">final </font>rho=rho);
+  <A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness"
+>BaseClasses.SkyClearness</A> skyCle;
+  <A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.BrighteningCoefficient"
+>BaseClasses.BrighteningCoefficient</A> briCoe;
+  <A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.RelativeAirMass"
+>BaseClasses.RelativeAirMass</A> relAirMas;
+  <A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyBrightness"
+>BaseClasses.SkyBrightness</A> skyBri;
+  <A HREF="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle"
+>SolarGeometry.IncidenceAngle</A> incAng(
+    lat=lat,
+    azi=azi,
+    til=til);</textblock>
+
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(relAirMas.relAirMas, skyBri.relAirMas);
+  <font color="red">connect</font>(skyBri.skyBri, briCoe.skyBri);
+  <font color="red">connect</font>(skyCle.skyCle, briCoe.skyCle);
+  <font color="red">connect</font>(incAng.y, HDifTil.incAng);
+  <font color="red">connect</font>(weaBus.sol.zen, skyCle.zen);
+  <font color="red">connect</font>(weaBus.sol.zen, relAirMas.zen);
+  <font color="red">connect</font>(weaBus.sol.zen, briCoe.zen);
+  <font color="red">connect</font>(weaBus.HGloHor, skyCle.HGloHor);
+  <font color="red">connect</font>(weaBus.HDifHor, skyCle.HDifHor);
+  <font color="red">connect</font>(weaBus.HDifHor, skyBri.HDifHor);
+  <font color="red">connect</font>(weaBus.HGloHor, HDifTil.HGloHor);
+  <font color="red">connect</font>(weaBus.HDifHor, HDifTil.HDifHor);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(briCoe.F2, HDifTil.briCof2);
+  <font color="red">connect</font>(briCoe.F1, HDifTil.briCof1);
+  <font color="red">connect</font>(weaBus, incAng.weaBus);
+  <font color="red">connect</font>(weaBus.sol.zen, HDifTil.zen);
+  <font color="red">connect</font>(HDifTil.HSkyDifTil, add.u1);
+  <font color="red">connect</font>(HDifTil.HGroDifTil, add.u2);
+  <font color="red">connect</font>(add.y, H);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(HDifTil.HSkyDifTil, HSkyDifTil);
+  <font color="red">connect</font>(HDifTil.HGroDifTil, HGroDifTil);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>DiffusePerez;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE DirectTiltedSurface<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditi9994e08e8ea9f05drfaceI.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"></A><A HREF="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation"
+>Buildings.BoundaryConditions.SolarIrradiation</A>.DirectTiltedSurface</H2>
+<B>Direct solar irradiation on a tilted surface</B><p></P>
+<IMG SRC="Buildings.BoundaryConditi9994e08e8ea9f05drfaceD.png" ALT="Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface">
+<P></P><H3>Information</H3>
+
+<p>
+This component computes the direct solar irradiation on a tilted surface.
+For a definition of the parameters, see the 
+<A HREF="Buildings_BoundaryConditions_UsersGuide.html#Buildings.BoundaryConditions.UsersGuide"
+>User's Guide</a>.
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation"
+>Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation</A> (Partial model that is used to compute the direct and diffuse solar irradiation).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>til</TD><TD>&nbsp;</TD><TD>Surface tilt [rad]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>lat</TD><TD>&nbsp;</TD><TD>Latitude [rad]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>azi</TD><TD>&nbsp;</TD><TD>Surface azimuth [rad]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>H</TD><TD>Radiation per unit area [W/m2]</TD></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>Bus with weather data</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>inc</TD><TD>Incidence angle [rad]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> DirectTiltedSurface <font color="darkgreen">
+  &quot;Direct solar irradiation on a tilted surface&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation"
+>Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation</A>;
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> lat <font color="darkgreen">&quot;Latitude&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> azi <font color="darkgreen">&quot;Surface azimuth&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Buildings.BoundaryConditions.WeatherData.Bus</A> weaBus;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> inc(
+    <font color="blue">final </font>quantity=&quot;Angle&quot;,
+    <font color="blue">final </font>unit=&quot;rad&quot;,
+    displayUnit=&quot;deg&quot;) <font color="darkgreen">&quot;Incidence angle&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false"><font color="blue">protected </font>
+  <A HREF="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle"
+>SolarGeometry.IncidenceAngle</A> incAng(
+    <font color="blue">final </font>azi=azi,
+    <font color="blue">final </font>til=til,
+    <font color="blue">final </font>lat=lat);
+  <A HREF="Buildings_BoundaryConditions_SolarIrradiation_BaseClasses.html#Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DirectTiltedSurface"
+>Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DirectTiltedSurface</A>
+    HDirTil;</textblock>
+
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(incAng.y, HDirTil.incAng);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaBus.HDirNor, HDirTil.HDirNor);
+  <font color="red">connect</font>(incAng.y, inc);
+  <font color="red">connect</font>(HDirTil.HDirTil, H);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaBus, incAng.weaBus);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>DirectTiltedSurface;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:07:50 2013.
+</address></BODY>
+</HTML>

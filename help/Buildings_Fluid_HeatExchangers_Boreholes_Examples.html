@@ -1,0 +1,119 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.HeatExchangers.Boreholes.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Example files for borehole heat exchanger&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.HeatExchangers.Boreholes.Examples"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes.html#Buildings.Fluid.HeatExchangers.Boreholes"
+>Buildings.Fluid.HeatExchangers.Boreholes</A>.Examples</H2>
+<B>Example files for borehole heat exchanger</B>
+<P></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExcha01b9fc828a215302UTubeS.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Boreholes_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube"
+>UTube</A>
+</TD><TD>Model that tests the borehole model</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE UTube<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.HeatExcha01b9fc828a215302UTubeI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.Examples"
+>Buildings.Fluid.HeatExchangers.Boreholes.Examples</A>.UTube</H2>
+<B>Model that tests the borehole model</B><p></P>
+<IMG SRC="Buildings.Fluid.HeatExcha01b9fc828a215302UTubeD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube">
+<P></P><H3>Information</H3>
+
+<p>
+This example models a borehole heat exchanger with two pipes that are
+symmetrically spaced. 
+The simulation period is 5 years.
+From the 4th to the 10th months, the mass flow source switches on the 
+flow rate through the borehole. The leaving
+water of the mass flow source is <i>25</i>&deg;C,
+and the water that returns from the borehole is between 
+<i>20.5</i>&deg;C
+and 
+<i>21.5</i>&deg;C.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> UTube <font color="darkgreen">&quot;Model that tests the borehole model&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+ <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_HeatExchangers_Boreholes.html#Buildings.Fluid.HeatExchangers.Boreholes.UTube"
+>Buildings.Fluid.HeatExchangers.Boreholes.UTube</A> borHol(
+    <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium = Medium,
+    hBor=150,
+    dp_nominal=10000,
+    dT_dz=0.0015,
+    samplePeriod=604800,
+    m_flow_nominal=0.3,
+    <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_BoreholeFillings.html#Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite"
+>Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite</A>
+                                                                                    matFil,
+    <font color="blue">redeclare </font><font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Sandstone"
+>Buildings.HeatTransfer.Data.Soil.Sandstone</A> matSoi,
+    TExt0_start=283.15,
+    TFil0_start=283.15) <font color="darkgreen">&quot;Borehole heat exchanger&quot;</font>;
+      <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_ph"
+>Sources.Boundary_ph</A> sin(nPorts=1, <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Sink&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Sources.MassFlowSource_T</A> sou(
+    nPorts=1,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    use_m_flow_in=true,
+    T=298.15) <font color="darkgreen">&quot;Source&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</A> pulse(
+    amplitude=0.3,
+    period=365*86400,
+    startTime=365*86400/4);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sou.ports[1], borHol.port_a);
+  <font color="red">connect</font>(borHol.port_b, sin.ports[1]);
+  <font color="red">connect</font>(pulse.y, sou.m_flow_in);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>UTube;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:32 2013.
+</address></BODY>
+</HTML>

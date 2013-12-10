@@ -1,0 +1,102 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package containing examples demonstrating the use of Controls.BaseClasses models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples"></A><A HREF="Buildings_Fluid_SolarCollectors_Controls_BaseClasses.html#Buildings.Fluid.SolarCollectors.Controls.BaseClasses"
+>Buildings.Fluid.SolarCollectors.Controls.BaseClasses</A>.Examples</H2>
+<B>Package containing examples demonstrating the use of Controls.BaseClasses models</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+  This package contains examples demonstrating the use of models that can be found in 
+  <A HREF="Buildings_Fluid_SolarCollectors_Controls_BaseClasses.html#Buildings.Fluid.SolarCollectors.Controls.BaseClasses"
+> 
+  Buildings.Fluid.SolarCollectors.Controls.BaseClasses</a>. 
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarCollfe66fb7054dacb5atCalcS.png" ALT="Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples.GCritCalc" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors_Controls_BaseClasses_Examples.html#Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples.GCritCalc"
+>GCritCalc</A>
+</TD><TD>Example showing the use of GCritCalc</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE GCritCalc<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.SolarCollfe66fb7054dacb5atCalcI.png" ALT="Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples.GCritCalc" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples.GCritCalc"></A><A HREF="Buildings_Fluid_SolarCollectors_Controls_BaseClasses_Examples.html#Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples"
+>Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples</A>.GCritCalc</H2>
+<B>Example showing the use of GCritCalc</B><p></P>
+<IMG SRC="Buildings.Fluid.SolarCollfe66fb7054dacb5atCalcD.png" ALT="Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples.GCritCalc">
+<P></P><H3>Information</H3>
+
+    <p>
+      This model provides an example of how to use the 
+      <A HREF="Buildings_Fluid_SolarCollectors_Controls_BaseClasses.html#Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc"
+>
+      Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc</a> model.<br/>
+    </p>
+  <P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> GCritCalc <font color="darkgreen">&quot;Example showing the use of GCritCalc&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_SolarCollectors_Controls_BaseClasses.html#Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc"
+>Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc</A> criSol(slope=-3.764,
+      y_intercept=0.602) <font color="darkgreen">
+    &quot;Calculates the critical insolation based on collector design and current weather conditions&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> TEnv(
+    amplitude=10,
+    freqHz=0.1,
+    offset=10);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> TIn(
+    amplitude=10,
+    freqHz=0.01,
+    offset=30);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TEnv.y, criSol.TEnv);
+  <font color="red">connect</font>(TIn.y, criSol.TIn);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>GCritCalc;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:52 2013.
+</address></BODY>
+</HTML>

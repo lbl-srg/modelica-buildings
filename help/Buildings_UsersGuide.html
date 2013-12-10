@@ -1,0 +1,665 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.UsersGuide</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;User&#39;s Guide&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE UsersGuide<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.UsersGuide"></A><A HREF="Buildings.html#Buildings"
+>Buildings</A>.UsersGuide</H2>
+<B>User&#39;s Guide</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+The <code>Buildings</code> library is a free open-source library for modeling of building energy and control systems. 
+Many models are based on models from the package
+<A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid"
+>Modelica.Fluid</a> and use
+the same ports to ensure compatibility with models from that library.
+</p>
+<p>
+The web page for this library is
+<a href="http://simulationresearch.lbl.gov/modelica">http://simulationresearch.lbl.gov/modelica</a>. 
+We welcome contributions from different users to further advance this library, 
+whether it is through collaborative model development, through model use and testing
+or through requirements definition or by providing feedback regarding the model applicability
+to solve specific problems.
+</p>
+<p>
+The library has the following <i>User's Guides</i>:
+</p>
+<ol>
+<li>
+General information about the use of the <code>Buildings</code> library
+is available at
+<a href="http://simulationresearch.lbl.gov/modelica/userGuide">
+http://simulationresearch.lbl.gov/modelica/userGuide</a>.
+This web site covers general information that is not specific to the 
+use of individual sublibraries or models.
+Discussed topics include 
+how to get started, best practices, how to post-process results using Python,
+work-around for problems and how to develop models.<br/>
+</li>
+<li>
+Some of the main sublibraries have their own
+User's Guides that can be accessed by the links below.
+These User's Guides are discussing items that are specific to the
+individual libraries.<br/>
+<table summary="summary" border=1 cellspacing=0 cellpadding=2>
+<tr><td valign="top"><A HREF="Buildings_Airflow_Multizone_UsersGuide.html#Buildings.Airflow.Multizone.UsersGuide"
+>Airflow.Multizone</a>
+   </td>
+   <td valign="top">Package for multizone airflow and contaminant transport.</td>
+</tr>
+<tr><td valign="top"><A HREF="Buildings_BoundaryConditions_UsersGuide.html#Buildings.BoundaryConditions.UsersGuide"
+>BoundaryConditions</a>
+   </td>
+   <td valign="top">Package for computing boundary conditions, such as solar irradiation.</td>
+</tr>
+<tr><td valign="top"><A HREF="Buildings_BoundaryConditions_WeatherData_UsersGuide.html#Buildings.BoundaryConditions.WeatherData.UsersGuide"
+>BoundaryConditions.WeatherData</a>
+   </td>
+   <td valign="top">Package for reading weather data.</td>
+</tr>
+<tr><td valign="top"><A HREF="Buildings_Fluid_UsersGuide.html#Buildings.Fluid.UsersGuide"
+>Fluid</a>
+   </td>
+   <td valign="top">Package for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>
+</tr>
+<tr><td valign="top"><A HREF="Buildings_Fluid_Actuators_UsersGuide.html#Buildings.Fluid.Actuators.UsersGuide"
+>Fluid.Actuators</a>
+   </td>
+   <td valign="top">Package with valves and air dampers.</td>
+</tr>
+<tr><td valign="top"><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_UsersGuide.html#Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide"
+>Fluid.HeatExchangers.DXCoils</a>
+   </td>
+   <td valign="top">Package with direct evaporative cooling coils.</td>
+</tr>
+<tr><td valign="top"><A HREF="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
+>Fluid.Movers</a>
+   </td>
+   <td valign="top">Package with fans and pumps.</td>
+</tr>
+<tr><td valign="top"><A HREF="Buildings_Fluid_Sensors_UsersGuide.html#Buildings.Fluid.Sensors.UsersGuide"
+>Fluid.Sensors</a>
+   </td>
+   <td valign="top">Package with sensors.</td>
+<tr><td valign="top"><A HREF="Buildings_Fluid_SolarCollectors_UsersGuide.html#Buildings.Fluid.SolarCollectors.UsersGuide"
+>Fluid.SolarCollectors</a>
+   </td>
+   <td valign="top">Package with solar collectors.</td>
+</tr>
+<tr><td valign="top"><A HREF="Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide"
+>Fluid.Interfaces</a>
+   </td>
+   <td valign="top">Base models that can be used by developers to implement new models.</td>
+</tr>
+<tr><td valign="top"><A HREF="Buildings_HeatTransfer_UsersGuide.html#Buildings.HeatTransfer.UsersGuide"
+>HeatTransfer</a>
+   </td>
+   <td valign="top">Package for heat transfer in building constructions.</td>
+</tr>
+<tr><td valign="top"><A HREF="Buildings_Rooms_UsersGuide.html#Buildings.Rooms.UsersGuide"
+>Rooms</a>
+   </td>
+   <td valign="top">Package for heat transfer in rooms and through the building envelope.</td>
+</tr>
+<tr><td valign="top"><A HREF="Buildings_Utilities_IO_Python27_UsersGuide.html#Buildings.Utilities.IO.Python27.UsersGuide"
+>Utilities.IO.Python27</a>
+   </td>
+   <td valign="top">Package to call Python functions from Modelica.</td>
+</tr></table><br/>
+</li>
+<li>
+There is also a tutorial available at 
+<A HREF="Buildings_Examples_Tutorial.html#Buildings.Examples.Tutorial"
+>
+Buildings.Examples.Tutorial</a>.
+The tutorial contains step by step instructions for how to build system models.
+</li>
+</ol>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</A> (Icon for general information packages).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.UsersGuide.ConventionsS.png" ALT="Buildings.UsersGuide.Conventions" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions"
+>Conventions</A>
+</TD><TD>Conventions</TD></TR>
+<TR><TD><IMG SRC="Buildings.UsersGuide.ReleaseNotesS.png" ALT="Buildings.UsersGuide.ReleaseNotes" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_UsersGuide_ReleaseNotes.html#Buildings.UsersGuide.ReleaseNotes"
+>ReleaseNotes</A>
+</TD><TD>Release notes</TD></TR>
+<TR><TD><IMG SRC="Buildings.UsersGuide.ContactS.png" ALT="Buildings.UsersGuide.Contact" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_UsersGuide.html#Buildings.UsersGuide.Contact"
+>Contact</A>
+</TD><TD>Contact</TD></TR>
+<TR><TD><IMG SRC="Buildings.UsersGuide.AcknowledgementsS.png" ALT="Buildings.UsersGuide.Acknowledgements" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_UsersGuide.html#Buildings.UsersGuide.Acknowledgements"
+>Acknowledgements</A>
+</TD><TD>Acknowledgements</TD></TR>
+<TR><TD><IMG SRC="Buildings.UsersGuide.AcknowledgementsS.png" ALT="Buildings.UsersGuide.License" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_UsersGuide.html#Buildings.UsersGuide.License"
+>License</A>
+</TD><TD>Modelica License 2</TD></TR>
+<TR><TD><IMG SRC="Buildings.UsersGuide.AcknowledgementsS.png" ALT="Buildings.UsersGuide.Copyright" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_UsersGuide.html#Buildings.UsersGuide.Copyright"
+>Copyright</A>
+</TD><TD>Copyright</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Conventions<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.UsersGuideI.png" ALT="Buildings.UsersGuide.Conventions" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.UsersGuide.Conventions"></A><A HREF="Buildings_UsersGuide.html#Buildings.UsersGuide"
+>Buildings.UsersGuide</A>.Conventions</H2>
+<B>Conventions</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+This library follows the conventions of the 
+<A HREF="../../msl/3.2/help/Modelica_UsersGuide_Conventions.html#Modelica.UsersGuide.Conventions"
+>Modelica Standard Library</a>, which are as follows:
+</p>
+
+<p>
+Note, in the html documentation of any Modelica library,
+the headings "h1, h2, h3" should not be used,
+because they are utilized from the automatically generated documentation/headings.
+Additional headings in the html documentation should start with "h4".
+</p>
+
+<p>
+In the Modelica package the following conventions are used:
+</p>
+
+<ol>
+<li> Class and instance names are written in upper and lower case
+  letters, e.g., "ElectricCurrent". An underscore is only used
+  at the end of a name to characterize a lower or upper index,
+  e.g., "pin_a".</li>
+
+<li> <b>Class names</b> start always with an upper case letter.</li>
+
+<li> <b>Instance names</b>, i.e., names of component instances and
+  of variables (with the exception of constants),
+  start usually with a lower case letter with only
+  a few exceptions if this is common sense
+  (such as "T" for a temperature variable).</li>
+
+<li> <b>Constant names</b>, i.e., names of variables declared with the
+  "constant" prefix, follow the usual naming conventions
+  (= upper and lower case letters) and start usually with an
+  upper case letter, e.g. UniformGravity, SteadyState.</li>
+<li> The two connectors of a domain that have identical declarations
+  and different icons are usually distinguished by "_a", "_b"
+  or "_p", "_n", e.g., Flange_a/Flange_b, HeatPort_a, HeatPort_b.</li>
+
+<li> The <b>instance name</b> of a component is always displayed in its icon
+  (= text string "%name") in <b>blue color</b>. A connector class has the instance
+  name definition in the diagram layer and not in the icon layer.
+  <b>Parameter</b> values, e.g., resistance, mass, gear ratio, are displayed
+  in the icon in <b>black color</b> in a smaller font size as the instance name.
+ </li>
+
+<li> A main package has usually the following subpackages:
+  <ul>
+  <li><b>UsersGuide</b> containing an overall description of the library
+   and how to use it.</li>
+  <li><b>Examples</b> containing models demonstrating the
+   usage of the library.</li>
+  <li><b>Interfaces</b> containing connectors and partial
+   models.</li>
+  <li><b>Types</b> containing type, enumeration and choice
+   definitions.</li>
+  </ul>
+  </li>
+</ol>
+
+<p>
+The <code>Buildings</code> library uses the following conventions
+in addition to the ones of the Modelica Standard Library:
+</p>
+
+<ol>
+<li>
+The nomenclature used in the package
+<A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>
+Buildings.Utilities.Psychrometrics</a>
+ is as follows, 
+<ul>
+<li>
+Uppercase <code>X</code> denotes mass fraction per total mass.
+</li>
+<li>
+Lowercase <code>x</code> denotes mass fraction per mass of dry air.
+</li>
+<li>
+The notation <code>z_xy</code> denotes that the function or block has output
+<code>z</code> and inputs <code>x</code> and <code>y</code>.
+</li>
+<li>
+The symbol <code>pW</code> denotes water vapor pressure, <code>TDewPoi</code> 
+denotes dew point temperature, <code>TWetBul</code> denotes wet bulb temperature,
+and <code>TDryBul</code> (or simply <code>T</code>) denotes dry bulb temperature.
+</li>
+</ul>
+<li>
+Names of models, blocks and packages should start with an upper-case letter and be a
+noun or a noun with a combination of adjectives and nouns.
+Use camel-case notation to combine multiple words, such as <code>HeatTransfer</code>.
+</li>
+<li>
+Parameter and variables names are usually a character, such as <code>T</code>
+for temperature and <code>p</code> for pressure, or a combination of the first three
+characters of a word, such as <code>higPreSetPoi</code> for high pressure set point.
+</li>
+<li>
+Comments should be added to each class (package, model, function etc.).
+The first character should be upper case.
+For one-line comments of parameters, variables and classes, no period should be used at the end of the comment.
+</li>
+<li>
+Where applicable, all variable must have units, also if the variable is protected.
+</li>
+<li>
+To indicate that a class (i.e., a package, model, block etc.) has not been extensively tested or validated,
+its class name ends with the string <code>Beta</code>.
+</li>
+</ol>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</A> (Icon for general information packages).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">class</font> Conventions <font color="darkgreen">&quot;Conventions&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Conventions;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Contact<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.UsersGuide.ContactI.png" ALT="Buildings.UsersGuide.Contact" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.UsersGuide.Contact"></A><A HREF="Buildings_UsersGuide.html#Buildings.UsersGuide"
+>Buildings.UsersGuide</A>.Contact</H2>
+<B>Contact</B><p></P>
+<P></P><H3>Information</H3>
+
+<h4><font color="#008000" size=5>Contact</font></h4>
+<p>
+The development of the Buildings library is organized by<br/>
+<a href="http://simulationresearch.lbl.gov/wetter">Michael Wetter</a><br/>
+    Lawrence Berkeley National Laboratory (LBNL)<br/>
+    One Cyclotron Road<br/> 
+    Bldg. 90-3147<br/>
+    Berkeley, CA 94720<br/>
+    USA<br/>
+    email: <A HREF="mailto:MWetter@lbl.gov">MWetter@lbl.gov</A><br/>
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Contact"
+>Modelica.Icons.Contact</A> (Icon for contact information).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">class</font> Contact <font color="darkgreen">&quot;Contact&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Contact"
+>Modelica.Icons.Contact</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Contact;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Acknowledgements<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.UsersGuide.AcknowledgementsI.png" ALT="Buildings.UsersGuide.Acknowledgements" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.UsersGuide.Acknowledgements"></A><A HREF="Buildings_UsersGuide.html#Buildings.UsersGuide"
+>Buildings.UsersGuide</A>.Acknowledgements</H2>
+<B>Acknowledgements</B><p></P>
+<P></P><H3>Information</H3>
+
+<h4><font color="#008000" size=5>Acknowledgements</font></h4>
+<p>
+ The development of this library was supported
+</p>
+ <ul>
+ <li>by the Assistant Secretary for
+  Energy Efficiency and Renewable Energy, Office of Building
+  Technologies of the U.S. Department of Energy, under
+  contract No. DE-AC02-05CH11231, and
+ </li>
+ <li>
+  by the California Energy Commission, Public Interest Energy Research Program, Buildings End Use Energy Efficiency Program, award number 500-10-052.
+ </li>
+ </ul>
+<p>
+  The <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
+>package for multizone airflow modeling</a>
+  and the <A HREF="Buildings_Utilities_Comfort.html#Buildings.Utilities.Comfort.Fanger"
+>model for thermal comfort</a>
+  was contributed by the United Technologies Research Center, which also contributed to the
+  validation of the <A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>room heat transfer model</a>.
+</p>
+<p>
+We thank Dietmar Winkler from Telemark University College for the various feedback that 
+helped improve the organization and structure of the library.
+</p>
+<p>
+The following people have directly contributed to the implementation of the Buildings library
+(many others have contributed by other means than model implementation):
+</p>
+<ul>
+<li>Marco Bonvini, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
+</li>
+<li>Sebastian Giglmayr, University of Applied Sciences Technikum Wien, Austria
+</li>
+<li>Peter Grant, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Brandon M. Hencey, Cornell University, USA
+</li>
+<li>Roman Ilk, University of Applied Sciences Technikum Wien, Austria
+</li>
+<li>Thierry S. Nouidui, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Markus Nurschinger, University of Applied Sciences Technikum Wien, Austria
+</li>
+<li>Xiufeng Pang, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Kaustubh Phalak, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Martin Sj&ouml;lund, Link&ouml;ping University, Sweden
+</li>
+<li>Armin Teskeredzic, Mechanical Engineering Faculty Sarajevo and GIZ, Bosnia and Herzegovina
+</li>
+<li>Rafael Velazquez, University of Seville, Spain
+</li>
+<li>Pierre Vigouroux, Institut National des Sciences Appliquees, France
+</li>
+<li>Sebastian Vock, University of Applied Sciences Technikum Wien, Austria
+</li>
+<li>Vladimir Vukovic, Austrian Institute of Technology, Austria
+</li>
+<li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Wangda Zuo, Lawrence Berkeley National Laboratory, USA
+</li>
+</ul>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</A> (Icon for general information packages).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">class</font> Acknowledgements <font color="darkgreen">&quot;Acknowledgements&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Acknowledgements;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE License<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.UsersGuide.AcknowledgementsI.png" ALT="Buildings.UsersGuide.License" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.UsersGuide.License"></A><A HREF="Buildings_UsersGuide.html#Buildings.UsersGuide"
+>Buildings.UsersGuide</A>.License</H2>
+<B>Modelica License 2</B><p></P>
+<P></P><H3>Information</H3>
+
+<h4><font color="#008000" size=5>The Modelica License 2</font></h4>
+<p>
+<strong>Preamble.</strong> The goal of this license is that Modelica related model libraries, software, images, documents, data files etc. can be used freely in the original or a modified form, in open source and in commercial environments (as long as the license conditions below are fulfilled, in particular sections 2c) and 2d). The Original Work is provided free of charge and the use is completely at your own risk. Developers of free Modelica packages are encouraged to utilize this license for their work.
+</p>
+<p>
+The Modelica License applies to any Original Work that contains the following licensing notice adjacent to the copyright notice(s) for this Original Work: 
+</p>
+<p>
+<strong>Note.</strong> This is the standard Modelica License 2, except for the following changes: the parenthetical in paragraph 7., paragraph 5., and the addition of paragraph 15.d). 
+</p>
+<p>
+<strong>Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 </strong> 
+</p>
+
+<h4>1. Definitions</h4>
+<ol type="a"><li>
+"License" is this Modelica License.
+</li><li>
+"Original Work" is any work of authorship, including software, images, documents, data files, that contains the above licensing notice or that is packed together with a licensing notice referencing it. 
+</li><li>
+"Licensor" is the provider of the Original Work who has placed this licensing notice adjacent to the copyright notice(s) for the Original Work. The Original Work is either directly provided by the owner of the Original Work, or by a licensee of the owner. 
+</li><li>
+"Derivative Work" is any modification of the Original Work which represents, as a whole, an original work of authorship. For the matter of clarity and as examples:
+<ol type="A">
+<li>
+Derivative Work shall not include work that remains separable from the Original Work, as well as merely extracting a part of the Original Work without modifying it. 
+</li><li>
+Derivative Work shall not include (a) fixing of errors and/or (b) adding vendor specific Modelica annotations and/or (c) using a subset of the classes of a Modelica package, and/or (d) using a different representation, e.g., a binary representation. 
+</li><li>
+Derivative Work shall include classes that are copied from the Original Work where declarations, equations or the documentation are modified. 
+</li><li>
+Derivative Work shall include executables to simulate the models that are generated by a Modelica translator based on the Original Work (of a Modelica package). </li>
+</ol>
+</li>
+<li>
+"Modified Work" is any modification of the Original Work with the following exceptions: (a) fixing of errors and/or (b) adding vendor specific Modelica annotations and/or (c) using a subset of the classes of a Modelica package, and/or (d) using a different representation, e.g., a binary representation. 
+</li><li>
+"Source Code" means the preferred form of the Original Work for making modifications to it and all available documentation describing how to modify the Original Work. 
+</li><li>
+"You" means an individual or a legal entity exercising rights under, and complying with all of the terms of, this License. 
+</li><li>
+"Modelica package" means any Modelica library that is defined with the
+ <b>package</b> &lt;Name&gt; ... <b>end</b> &lt;Name&gt;<b>;</b> Modelica language element.
+</li>
+</ol>
+ 
+<h4>2. Grant of Copyright License</h4>
+<p>
+Licensor grants You a worldwide, royalty-free, non-exclusive, sublicensable license, for the duration of the copyright, to do the following:
+</p>
+<ol type="a">
+<li>
+To reproduce the Original Work in copies, either alone or as part of a collection. 
+</li><li>
+To create Derivative Works according to Section 1d) of this License. 
+</li><li>
+To distribute or communicate to the public copies of the <u>Original Work</u> or a <u>Derivative Work</u> under <u>this License</u>. No fee, neither as a copyright-license fee, nor as a selling fee for the copy as such may be charged under this License. Furthermore, a verbatim copy of this License must be included in any copy of the Original Work or a Derivative Work under this License. 
+<br/>
+For the matter of clarity, it is permitted A) to distribute or communicate such copies as part of a (possible commercial) collection where other parts are provided under different licenses and a license fee is charged for the other parts only and B) to charge for mere printing and shipping costs. 
+</li><li>
+To distribute or communicate to the public copies of a <u>Derivative Work</u>, alternatively to Section 2c), under <u>any other license</u> of your choice, especially also under a license for commercial/proprietary software, as long as You comply with Sections 3, 4 and 8 below. 
+<br/>
+For the matter of clarity, no restrictions regarding fees, either as to a copyright-license fee or as to a selling fee for the copy as such apply. 
+</li><li>
+To perform the Original Work publicly. 
+</li><li>
+To display the Original Work publicly. 
+</li></ol>
+
+<h4>3. Acceptance</h4>
+<p>
+Any use of the Original Work or a Derivative Work, or any action according to either Section 2a) to 2f) above constitutes Your acceptance of this License.
+</p>
+
+<h4>4. Designation of Derivative Works and of Modified Works</h4>
+<p>
+The identifying designation of Derivative Work and of Modified Work must be different to the corresponding identifying designation of the Original Work. This means especially that the (root-level) name of a Modelica package under this license must be changed if the package is modified (besides fixing of errors, adding vendor specific Modelica annotations, using a subset of the classes of a Modelica package, or using another representation, e.g. a binary representation). 
+</p>
+
+<h4>5. [reserved]</h4>
+<h4>6. Provision of Source Code</h4>
+<p>
+Licensor agrees to provide You with a copy of the Source Code of the Original Work but reserves the right to decide freely on the manner of how the Original Work is provided. For the matter of clarity, Licensor might provide only a binary representation of the Original Work. In that case, You may (a) either reproduce the Source Code from the binary representation if this is possible (e.g., by performing a copy of an encrypted Modelica package, if encryption allows the copy operation) or (b) request the Source Code from the Licensor who will provide it to You.
+</p>
+
+<h4>7. Exclusions from License Grant</h4>
+<p>
+Neither the names of Licensor (including, but not limited to, University of California, Lawrence Berkeley National Laboratory, U.S. Dept. of Energy, UC, LBNL, LBL, and DOE), nor the names of any contributors to the Original Work, nor any of their trademarks or service marks, may be used to endorse or promote products derived from this Original Work without express prior permission of the Licensor. Except as otherwise expressly stated in this License and in particular in Sections 2 and 5, nothing in this License grants any license to Licensor's trademarks, copyrights, patents, trade secrets or any other intellectual property, and no patent license is granted to make, use, sell, offer for sale, have made, or import embodiments of any patent claims. 
+No license is granted to the trademarks of Licensor even if such trademarks are included in the Original Work, except as expressly stated in this License. Nothing in this License shall be interpreted to prohibit Licensor from licensing under terms different from this License any Original Work that Licensor otherwise would have a right to license.
+</p>
+
+<h4>8. Attribution Rights</h4>
+<p>
+You must retain in the Source Code of the Original Work and of any Derivative Works that You create, all author, copyright, patent, or trademark notices, as well as any descriptive text identified therein as an "Attribution Notice". The same applies to the licensing notice of this License in the Original Work. For the matter of clarity, "author notice" means the notice that identifies the original author(s).
+</p>
+<p>
+You must cause the Source Code for any Derivative Works that You create to carry a prominent Attribution Notice reasonably calculated to inform recipients that You have modified the Original Work. 
+</p>
+<p>
+In case the Original Work or Derivative Work is not provided in Source Code, the Attribution Notices shall be appropriately displayed, e.g., in the documentation of the Derivative Work.
+</p>
+
+<h4>9. Disclaimer of Warranty</h4>
+<p>
+<u><strong>The Original Work is provided under this License on an "as is" basis and without warranty, either express or implied, including, without limitation, the warranties of non-infringement, merchantability or fitness for a particular purpose. The entire risk as to the quality of the Original Work is with You.</strong></u> This disclaimer of warranty constitutes an essential part of this License. No license to the Original Work is granted by this License except under this disclaimer.
+</p>
+
+<h4>10. Limitation of Liability</h4>
+<p>
+Under no circumstances and under no legal theory, whether in tort (including negligence), contract, or otherwise, shall the Licensor, the owner or a licensee of the Original Work be liable to anyone for any direct, indirect, general, special, incidental, or consequential damages of any character arising as a result of this License or the use of the Original Work including, without limitation, damages for loss of goodwill, work stoppage, computer failure or malfunction, or any and all other commercial damages or losses. This limitation of liability shall not apply to the extent applicable law prohibits such limitation. 
+</p>
+
+<h4>11. Termination</h4>
+<p>
+This License conditions your rights to undertake the activities listed in Section 2 and 5, including your right to create Derivative Works based upon the Original Work, and doing so without observing these terms and conditions is prohibited by copyright law and international treaty. Nothing in this License is intended to affect copyright exceptions and limitations. This License shall terminate immediately and You may no longer exercise any of the rights granted to You by this License upon your failure to observe the conditions of this license. 
+</p>
+
+<h4>12. Termination for Patent Action</h4>
+<p>
+This License shall terminate automatically and You may no longer exercise any of the rights granted to You by this License as of the date You commence an action, including a cross-claim or counterclaim, against Licensor, any owners of the Original Work or any licensee alleging that the Original Work infringes a patent. This termination provision shall not apply for an action alleging patent infringement through combinations of the Original Work under combination with other software or hardware.
+</p>
+
+<h4>13. Jurisdiction</h4>
+<p>
+Any action or suit relating to this License may be brought only in the courts of a jurisdiction wherein the Licensor resides and under the laws of that jurisdiction excluding its conflict-of-law provisions. The application of the United Nations Convention on Contracts for the International Sale of Goods is expressly excluded. Any use of the Original Work outside the scope of this License or after its termination shall be subject to the requirements and penalties of copyright or patent law in the appropriate jurisdiction. This section shall survive the termination of this License. 
+</p>
+
+<h4>14. Attorneys' Fees</h4>
+<p>
+In any action to enforce the terms of this License or seeking damages relating thereto, the prevailing party shall be entitled to recover its costs and expenses, including, without limitation, reasonable attorneys' fees and costs incurred in connection with such action, including any appeal of such action. This section shall survive the termination of this License. 
+</p>
+
+<h4>15. Miscellaneous</h4>
+<ol type="a">
+<li>If any provision of this License is held to be unenforceable, such provision shall be reformed only to the extent necessary to make it enforceable. 
+</li><li>
+No verbal ancillary agreements have been made. Changes and additions to this License must appear in writing to be valid. This also applies to changing the clause pertaining to written form. 
+</li><li>
+You may use the Original Work in all ways not otherwise restricted or conditioned by this License or by law, and Licensor promises not to interfere with or be responsible for such uses by You. 
+</li><li>
+You are under no obligation whatsoever to provide any bug fixes, patches, or upgrades to the features, functionality or performance of the source code ("Enhancements") to anyone; however, if you choose to make your Enhancements available either publicly, or directly to Lawrence Berkeley National Laboratory, without imposing a separate written license agreement for such Enhancements, then you hereby grant the following license: a non-exclusive, royalty-free perpetual license to install, use, modify, prepare derivative works, incorporate into other computer software, distribute, and sublicense such enhancements or derivative works thereof, in binary and source code form. 
+</li></ol>
+
+<h4>How to Apply the Modelica License 2</h4>
+<p>
+At the top level of your Modelica package and at every important subpackage, add the following notices in the info layer of the package:
+</p>
+<ul><li style="list-style-type:none">
+Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 Copyright (c) 2009-2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory. 
+</li>
+<li style="list-style-type:none"><i>
+This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at <a href="http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>. 
+</i></li></ul>
+
+<p>
+Include a copy of the Modelica License 2 under <strong>&lt;library&gt;.UsersGuide.ModelicaLicense2</strong> 
+(use <a href="http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.mo">
+http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.mo</a>) 
+Furthermore, add the list of authors and contributors under 
+<strong>&lt;library&gt;.UsersGuide.Contributors</strong> or <strong>&lt;library&gt;.UsersGuide.Contact</strong> 
+</p>
+<p>
+For example, sublibrary Modelica.Blocks of the Modelica Standard Library may have the following notices:</p>
+<ul><li style="list-style-type:none">
+Licensed by Modelica Association under the Modelica License 2 Copyright (c) 1998-2008, Modelica Association. 
+<li style="list-style-type:none"><i>
+This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at 
+<a href="http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>. 
+</i>
+</li></ul>
+
+<p>For C-source code and documents, add similar notices in the corresponding file.</p>
+<p>
+For images, add a "readme.txt" file to the directories where the images are stored and include a similar notice in this file. 
+</p>
+
+<p>
+In these cases, save a copy of the Modelica License 2 in one directory of the distribution, e.g., 
+<a href="http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html</a> in directory <strong>&lt;library&gt;/help/documentation/ModelicaLicense2.html</strong>.
+</p>
+
+<pre>
+</PRE><P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</A> (Icon for general information packages).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">class</font> License <font color="darkgreen">&quot;Modelica License 2&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>License;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Copyright<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.UsersGuide.AcknowledgementsI.png" ALT="Buildings.UsersGuide.Copyright" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.UsersGuide.Copyright"></A><A HREF="Buildings_UsersGuide.html#Buildings.UsersGuide"
+>Buildings.UsersGuide</A>.Copyright</H2>
+<B>Copyright</B><p></P>
+<P></P><H3>Information</H3>
+
+<h4><font color="#008000" size=5>Copyright</font></h4>
+<p>
+Copyright (c) 2009-2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
+</p>
+<p>
+If you have questions about your rights to use or distribute this software, please contact Berkeley Lab's Technology Transfer Department at 
+<A HREF="mailto:TTD@lbl.gov">TTD@lbl.gov</A>
+</p>
+<p>
+NOTICE. This software was developed under partial funding from the U.S. Department of Energy. As such, the U.S. Government has been granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, and perform publicly and display publicly. Beginning five (5) years after the date permission to assert copyright is obtained from the U.S. Department of Energy, and subject to any subsequent five (5) year renewals, the U.S. Government is granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, distribute copies to the public, perform publicly and display publicly, and to permit others to do so. 
+</p>
+<pre>
+</PRE><P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</A> (Icon for general information packages).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">class</font> Copyright <font color="darkgreen">&quot;Copyright&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Copyright;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:07:41 2013.
+</address></BODY>
+</HTML>

@@ -1,0 +1,233 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Rooms.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Rooms.Examples"></A><A HREF="Buildings_Rooms.html#Buildings.Rooms"
+>Buildings.Rooms</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_Rooms.html#Buildings.Rooms"
+>
+Buildings.Rooms</a>.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.c8e7a6c07d7aaad6ponseS.png" ALT="Buildings.Rooms.Examples.MixedAirFreeResponse" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples.html#Buildings.Rooms.Examples.MixedAirFreeResponse"
+>MixedAirFreeResponse</A>
+</TD><TD>Free response of room model</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.BESTESTS.png" ALT="Buildings.Rooms.Examples.BESTEST" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>BESTEST</A>
+</TD><TD>BESTEST validation models</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.BESTESTS.png" ALT="Buildings.Rooms.Examples.TestConditionalConstructions" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_TestConditionalConstructions.html#Buildings.Rooms.Examples.TestConditionalConstructions"
+>TestConditionalConstructions</A>
+</TD><TD>Package that tests if constructions can be conditionally removed</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE MixedAirFreeResponse<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.c8e7a6c07d7aaad6ponseI.png" ALT="Buildings.Rooms.Examples.MixedAirFreeResponse" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.MixedAirFreeResponse"></A><A HREF="Buildings_Rooms_Examples.html#Buildings.Rooms.Examples"
+>Buildings.Rooms.Examples</A>.MixedAirFreeResponse</H2>
+<B>Free response of room model</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.c8e7a6c07d7aaad6ponseD.png" ALT="Buildings.Rooms.Examples.MixedAirFreeResponse">
+<P></P><H3>Information</H3>
+
+This model illustrates the use of the room model
+<A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>
+Buildings.Rooms.MixedAir</a>.
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>Insulation100Concrete200</A></TD><TD>matLayExt</TD><TD>&nbsp;</TD><TD>Construction material for exterior walls</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>Brick120</A></TD><TD>matLayPar</TD><TD>&nbsp;</TD><TD>Construction material for partition walls</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matLayRoo</TD><TD>&nbsp;</TD><TD>Construction material for roof</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matLayFlo</TD><TD>&nbsp;</TD><TD>Construction material for floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>DoubleClearAir13Clear</A></TD><TD>glaSys</TD><TD>&nbsp;</TD><TD>Data record for the glazing system</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD>Integer</TD><TD>nSurBou</TD><TD>1</TD><TD>Number of surface that are connected to the room air volume</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> MixedAirFreeResponse <font color="darkgreen">&quot;Free response of room model&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">package</font> MediumA = <A HREF="Buildings_Media_GasesConstantDensity_MoistAirUnsaturated.html#Buildings.Media.GasesConstantDensity.MoistAirUnsaturated"
+>Buildings.Media.GasesConstantDensity.MoistAirUnsaturated</A> <font color="darkgreen">
+    &quot;Medium model&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200</A>
+    matLayExt <font color="darkgreen">&quot;Construction material for exterior walls&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120</A> matLayPar <font color="darkgreen">
+    &quot;Construction material for partition walls&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</A> matLayRoo(
+        material={
+          <font color="red">HeatTransfer.Data.Solids.InsulationBoard</font>(x=0.2),
+          <font color="red">HeatTransfer.Data.Solids.Concrete</font>(x=0.2)},
+        <font color="blue">final </font>nLay=2) <font color="darkgreen">&quot;Construction material for roof&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</A> matLayFlo(
+        material={
+          <font color="red">HeatTransfer.Data.Solids.Concrete</font>(x=0.2),
+          <font color="red">HeatTransfer.Data.Solids.InsulationBoard</font>(x=0.15),
+          <font color="red">HeatTransfer.Data.Solids.Concrete</font>(x=0.05)},
+        <font color="blue">final </font>nLay=3) <font color="darkgreen">&quot;Construction material for floor&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear</A> glaSys(
+    UFra=2,
+    shade=<font color="red">Buildings.HeatTransfer.Data.Shades.Gray</font>(),
+    haveInteriorShade=false,
+    haveExteriorShade=false) <font color="darkgreen">&quot;Data record for the glazing system&quot;</font>;</textblock>
+
+  <font color="blue">parameter </font>Integer nConExtWin = 1 <font color="darkgreen">&quot;Number of constructions with a window&quot;</font>;
+  <font color="blue">parameter </font>Integer nConBou = 1 <font color="darkgreen">
+    &quot;Number of surface that are connected to constructions that are modeled inside the room&quot;</font>;
+  <font color="blue">parameter </font>Integer nSurBou = 1 <font color="darkgreen">
+    &quot;Number of surface that are connected to the room air volume&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>Buildings.Rooms.MixedAir</A> roo(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+    AFlo=6*4,
+    hRoo=2.7,
+    nConExt=2,
+    datConExt(layers={matLayRoo, matLayExt},
+           A={6*4, 6*3},
+           til={Buildings.HeatTransfer.Types.Tilt.Ceiling, Buildings.HeatTransfer.Types.Tilt.Wall},
+           azi={Buildings.HeatTransfer.Types.Azimuth.S, Buildings.HeatTransfer.Types.Azimuth.W}),
+    nConExtWin=nConExtWin,
+    datConExtWin(
+              layers={matLayExt},
+              <font color="blue">each </font>A=4*3,
+              glaSys={glaSys},
+              <font color="blue">each </font>hWin=2,
+              <font color="blue">each </font>wWin=4,
+              ove(wR={0},wL={0}, gap={0.1}, dep={1}),
+              <font color="blue">each </font>fFra=0.1,
+              <font color="blue">each </font>til=Buildings.HeatTransfer.Types.Tilt.Wall,
+              azi={Buildings.HeatTransfer.Types.Azimuth.S}),
+    nConPar=1,
+    datConPar(layers={matLayPar}, <font color="blue">each </font>A=10,
+           <font color="blue">each </font>til=Buildings.HeatTransfer.Types.Tilt.Wall),
+    nConBou=1,
+    datConBou(layers={matLayFlo}, <font color="blue">each </font>A=6*4,
+           <font color="blue">each </font>til=Buildings.HeatTransfer.Types.Tilt.Floor),
+    nSurBou=1,
+    surBou(<font color="blue">each </font>A=6*3,
+           <font color="blue">each </font>absIR=0.9,
+           <font color="blue">each </font>absSol=0.9,
+           <font color="blue">each </font>til=Buildings.HeatTransfer.Types.Tilt.Wall),
+    linearizeRadiation = false,
+    nPorts=1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    lat=0.73268921998722) <font color="darkgreen">&quot;Room model&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qConGai_flow(k=0) <font color="darkgreen">&quot;Convective heat gain&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qRadGai_flow(k=0) <font color="darkgreen">&quot;Radiative heat gain&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex3"
+>Modelica.Blocks.Routing.Multiplex3</A> multiplex3_1;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qLatGai_flow(k=0) <font color="darkgreen">&quot;Latent heat gain&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
+    filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> uSha(k=0) <font color="darkgreen">
+    &quot;Control signal for the shading device&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
+>Modelica.Blocks.Routing.Replicator</A> replicator(nout=<font color="red">max</font>(1,nConExtWin));
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> TSoi[nConBou](<font color="blue">each </font>T=283.15) <font color="darkgreen">
+    &quot;Boundary condition for construction&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> TBou[nSurBou](<font color="blue">each </font>T=288.15) <font color="darkgreen">
+    &quot;Boundary condition for construction&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.MultiLayer"
+>HeatTransfer.Conduction.MultiLayer</A> conOut[nSurBou](
+    <font color="blue">redeclare </font><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120</A> layers,
+    <font color="blue">each </font>A=6*4) <font color="darkgreen">&quot;Construction that is modeled outside of room&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Fluid.Sources.FixedBoundary</A> boundary(
+    nPorts=1,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+    T=293.15) <font color="darkgreen">&quot;Boundary condition&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(qRadGai_flow.y, multiplex3_1.u1[1]);
+  <font color="red">connect</font>(qConGai_flow.y, multiplex3_1.u2[1]);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(qLatGai_flow.y, multiplex3_1.u3[1]);
+  <font color="red">connect</font>(multiplex3_1.y, roo.qGai_flow);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaDat.weaBus, roo.weaBus);
+  <font color="red">connect</font>(uSha.y, replicator.u);
+  <font color="red">connect</font>(TSoi.port, roo.surf_conBou);
+  <font color="red">connect</font>(TBou.port,conOut. port_b);
+  <font color="red">connect</font>(roo.surf_surBou, conOut.port_a);
+  <font color="red">connect</font>(roo.uSha, replicator.y);
+  <font color="red">connect</font>(roo.ports[1], boundary.ports[1]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>MixedAirFreeResponse;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:12:48 2013.
+</address></BODY>
+</HTML>

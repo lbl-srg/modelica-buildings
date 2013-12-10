@@ -1,0 +1,226 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Utilities.IO.FLEXLAB</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package of example models for communication with FLEXLAB using the CalBay interface&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE FLEXLAB<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.IO.FLEXLAB"></A><A HREF="Buildings_Utilities_IO.html#Buildings.Utilities.IO"
+>Buildings.Utilities.IO</A>.FLEXLAB</H2>
+<B>Package of example models for communication with FLEXLAB using the CalBay interface</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+  <p>
+  This package contains a sample model demonstrating the use of Dymola 
+  and a Python script to enable hardware-in-the-loop simulation.
+  </p>
+  <P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.IO.FL70d687c75564671cyCommS.png" ALT="Buildings.Utilities.IO.FLEXLAB.CalBayComm" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_IO_FLEXLAB.html#Buildings.Utilities.IO.FLEXLAB.CalBayComm"
+>CalBayComm</A>
+</TD><TD>Model calling a Python script to communicate with the CalBay adapter</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE CalBayComm<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.IO.FL70d687c75564671cyCommI.png" ALT="Buildings.Utilities.IO.FLEXLAB.CalBayComm" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.IO.FLEXLAB.CalBayComm"></A><A HREF="Buildings_Utilities_IO_FLEXLAB.html#Buildings.Utilities.IO.FLEXLAB"
+>Buildings.Utilities.IO.FLEXLAB</A>.CalBayComm</H2>
+<B>Model calling a Python script to communicate with the CalBay adapter</B><p></P>
+<IMG SRC="Buildings.Utilities.IO.FL70d687c75564671cyCommD.png" ALT="Buildings.Utilities.IO.FLEXLAB.CalBayComm">
+<P></P><H3>Information</H3>
+
+            <p>
+            This example demonstrates how a Python script and model of a controller
+            can be used to control experiments in the FLEXLAB test cells. It uses
+            an instance of
+            <A HREF="Buildings_Utilities_IO_Python27.html#Buildings.Utilities.IO.Python27.Real_Real"
+>
+            Buildings.Utilities.IO.Python27.Real_Real</a> to communicate with the
+            CalBay adapter. The Python script is located at
+            <a href="file://Buildings/Resources/Python-Sources/CalBayComm.py">
+            Buildings/Resources/Python-Sources/CalBayComm.py</a>. The script must be 
+            edited before it will effectively communicate with the CalBay adapter.
+            The necessary changes include:
+            </p>
+            <ul>
+            <li>The script currently does not have valid login or password credentials.
+            The credentials will have to be replaced before communication with the 
+            CalBay adapter will succeed.</li>
+            <li>To avoid accidental manipulation of controls, the script currently does
+            not include effective commands. The desired commands must be added to the 
+            program before it will have any effect.</li>
+            </ul>
+            <p>
+            More details describing the necessary changes to the script are provided in
+            the documentation of the script itself.
+            </p>
+            <p>
+            <b>Note:</b>
+            This model is marked as under construction because the 
+            application programming interface for data exchange with the CalBay adaptor
+            of FLEXLAB has not yet been finalized.
+            The model works, however, with the CalBay infrastructure as of October 2013.
+            </p>
+            <P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.UnderConstruction"
+>Modelica.Icons.UnderConstruction</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>samplePeriod</TD><TD>30</TD><TD>Sample period for communication [s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> CalBayComm <font color="darkgreen">
+  &quot;Model calling a Python script to communicate with the CalBay adapter&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.UnderConstruction"
+>Modelica.Icons.UnderConstruction</A>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> samplePeriod = 30 <font color="darkgreen">
+    &quot;Sample period for communication&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</A> setPoint(tableOnFile=false, table=[0,12;
+        119,12; 119,6; 239,6; 239,8; 359,8; 359,9; 479,9; 479,10; 599,10; 599,12]) <font color="darkgreen">
+    &quot;Setpoint for lights&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Utilities_IO_Python27.html#Buildings.Utilities.IO.Python27.Real_Real"
+>Utilities.IO.Python27.Real_Real</A> calBay(
+    functionName=&quot;CalBayComm&quot;,
+    nDblWri=1,
+    nDblRea=2,
+    moduleName=&quot;CalBayComm&quot;,
+    <font color="blue">final </font>samplePeriod=samplePeriod) <font color="darkgreen">&quot;Interface to CalBay communication&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+>Modelica.Blocks.Math.Feedback</A> feedback <font color="darkgreen">&quot;Control error&quot;</font>;
+  <A HREF="Buildings_Utilities_IO_FLEXLAB.html#Buildings.Utilities.IO.FLEXLAB.CalBayComm.lightingController"
+>lightingController</A> controller(<font color="blue">final </font>samplePeriod=samplePeriod) <font color="darkgreen">
+    &quot;Controller for light level&quot;</font>;</textblock>
+<textblock type="model" expanded="false" path="Buildings.Utilities.IO.FLEXLAB.CalBayComm.lightingController"><font color="blue">block</font> lightingController <font color="darkgreen">&quot;Block for control law&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</A>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> samplePeriod <font color="darkgreen">&quot;Sample period of component&quot;</font>;
+<textblock type="annotcomp" expanded="false">    <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gain(k=10);</textblock>
+
+<textblock type="annotcomp" expanded="false">    <A HREF="../../msl/3.2/help/Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear.Limiter"
+>Modelica.Blocks.Nonlinear.Limiter</A> limiter(uMax=100, uMin=1) <font color="darkgreen">
+      &quot;Output limiter to constrain control signal&quot;</font>;
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</A> add;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.ZeroOrderHold"
+>Modelica.Blocks.Discrete.ZeroOrderHold</A> zeroOrderHold(
+    <font color="blue">final </font>samplePeriod=samplePeriod) <font color="darkgreen">&quot;Zero order hold for feedback&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(limiter.y, y);
+    <font color="red">connect</font>(add.y, limiter.u);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(limiter.y, zeroOrderHold.u);
+  <font color="red">connect</font>(zeroOrderHold.y, add.u2);
+  <font color="red">connect</font>(gain.y, add.u1);
+  <font color="red">connect</font>(u, gain.u);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>lightingController</textblock>;
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(setPoint.y[1], feedback.u1);
+  <font color="red">connect</font>(calBay.yR[1], feedback.u2);
+  <font color="red">connect</font>(controller.y, calBay.uR[1]);
+  <font color="red">connect</font>(feedback.y, controller.u);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>CalBayComm;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE lightingController<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.IO.FL2abef037db0af1dfollerI.png" ALT="Buildings.Utilities.IO.FLEXLAB.CalBayComm.lightingController" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.IO.FLEXLAB.CalBayComm.lightingController"></A><A HREF="Buildings_Utilities_IO_FLEXLAB.html#Buildings.Utilities.IO.FLEXLAB.CalBayComm"
+>Buildings.Utilities.IO.FLEXLAB.CalBayComm</A>.lightingController</H2>
+<B>Block for control law</B><p></P>
+<IMG SRC="Buildings.Utilities.IO.FL2abef037db0af1dfollerD.png" ALT="Buildings.Utilities.IO.FLEXLAB.CalBayComm.lightingController">
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</A> (Single Input Single Output continuous control block).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>samplePeriod</TD><TD>&nbsp;</TD><TD>Sample period of component [s]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>u</TD><TD>Connector of Real input signal</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> lightingController <font color="darkgreen">&quot;Block for control law&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</A>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> samplePeriod <font color="darkgreen">&quot;Sample period of component&quot;</font>;
+<textblock type="annotcomp" expanded="false">    <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gain(k=10);</textblock>
+
+<textblock type="annotcomp" expanded="false">    <A HREF="../../msl/3.2/help/Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear.Limiter"
+>Modelica.Blocks.Nonlinear.Limiter</A> limiter(uMax=100, uMin=1) <font color="darkgreen">
+    &quot;Output limiter to constrain control signal&quot;</font>;
+    <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</A> add;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.ZeroOrderHold"
+>Modelica.Blocks.Discrete.ZeroOrderHold</A> zeroOrderHold(
+    <font color="blue">final </font>samplePeriod=samplePeriod) <font color="darkgreen">&quot;Zero order hold for feedback&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(limiter.y, y);
+  <font color="red">  connect</font>(add.y, limiter.u);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(limiter.y, zeroOrderHold.u);
+  <font color="red">connect</font>(zeroOrderHold.y, add.u2);
+  <font color="red">connect</font>(gain.y, add.u1);
+  <font color="red">connect</font>(u, gain.u);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>lightingController;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:13:43 2013.
+</address></BODY>
+</HTML>

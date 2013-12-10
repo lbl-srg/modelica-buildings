@@ -1,0 +1,27 @@
+simulateModel("Buildings.Airflow.Multizone.Examples.ZonalFlow", method="radau", tolerance=1e-06, stopTime=3600, resultFile="ZonalFlow");
+
+createPlot(id = 1,
+ position = {15, 10, 1077, 724},
+ y = {"rooA.Xi[1]", "rooB.Xi[1]"},
+ range = {0, 3600.0, 0.0155, 0.0095},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "ZonalFlow.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 1,
+ position = {15, 10, 1077, 359},
+ y = {"rooA.T", "rooB.T"},
+ range = {0, 3600.0, 31.0, 19.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+

@@ -1,0 +1,372 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Example models to test base classes&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses"
+>Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.Examples</H2>
+<B>Example models to test base classes</B>
+<P></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentS.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.BoreholeSegment" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.BoreholeSegment"
+>BoreholeSegment</A>
+</TD><TD>Model that tests a basic segment that is used to built a borehole</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentS.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.Factorial" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.Factorial"
+>Factorial</A>
+</TD><TD>Test the function factorial</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentS.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.HexInternalElement" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.HexInternalElement"
+>HexInternalElement</A>
+</TD><TD>Model that tests the basic element that is used to built borehole models</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentS.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.SingleUTubeBoundaryCondition" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.SingleUTubeBoundaryCondition"
+>SingleUTubeBoundaryCondition</A>
+</TD><TD>Test model the temperature boundary condition of a single U tube heat exchanger</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentS.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.ExchangeValues" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.ExchangeValues"
+>ExchangeValues</A>
+</TD><TD>Test problem for the function that exchanges values</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BoreholeSegment<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.BoreholeSegment" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.BoreholeSegment"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples"
+>Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples</A>.BoreholeSegment</H2>
+<B>Model that tests a basic segment that is used to built a borehole</B><p></P>
+<IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.BoreholeSegment">
+<P></P><H3>Information</H3>
+
+This example illustrates modeling a segment of a borehole heat exchanger.
+It simulates the behavior of the borehole on a single horizontal section including the ground and the
+boundary condition.
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> BoreholeSegment <font color="darkgreen">
+  &quot;Model that tests a basic segment that is used to built a borehole&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+<textblock type="annotcomp" expanded="false">   <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;</textblock>
+ <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A>;
+ <A HREF="Buildings_HeatTransfer_Data_BoreholeFillings.html#Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite"
+>Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite</A>                    bento;
+<textblock type="annotcomp" expanded="false"> <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment"
+>Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment</A> seg(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    matFil=bento,
+    m_flow_nominal=0.2,
+    dp_nominal=5,
+    rTub=0.02,
+    eTub=0.002,
+    rBor=0.1,
+    rExt=3,
+    B0=17.44,
+    B1=-0.605,
+    nSta=9,
+    samplePeriod=604800,
+    kTub=0.5,
+    hSeg=10,
+    xC=0.05,
+    <font color="blue">redeclare </font><A HREF="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Concrete"
+>Buildings.HeatTransfer.Data.Soil.Concrete</A> matSoi,
+    TFil_start=283.15,
+    TExt_start=283.15);
+<A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Fluid.Sources.Boundary_pT</A> sou_1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    nPorts=1,
+    use_T_in=false,
+    p=101340,
+    T=303.15);
+ <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Fluid.Sources.Boundary_pT</A> sin_2(
+<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    use_p_in=false,
+    use_T_in=false,
+    nPorts=1,
+    p=101330,
+    T=283.15);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sou_1.ports[1], seg.port_a1);
+  <font color="red">connect</font>(seg.port_b1, seg.port_a2);
+  <font color="red">connect</font>(seg.port_b2, sin_2.ports[1]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>BoreholeSegment;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Factorial<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.Factorial" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.Factorial"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples"
+>Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples</A>.Factorial</H2>
+<B>Test the function factorial</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+This example tests the function
+<A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.factorial"
+>
+Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.factorial</a>.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>x[:]</TD><TD>{1,2,3,4,5}</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Factorial <font color="darkgreen">&quot;Test the function factorial&quot;</font>
+ <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">parameter </font>Integer x[:] = {1, 2, 3, 4, 5};
+  Integer y[5];
+<font color="blue">equation </font>
+  y =<font color="red"> Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.factorial</font>(x);
+  <font color="red">assert</font>(<font color="red">abs</font>(120-y[5]) &lt; 1E-10, &quot;Error: Factorial function yields wrong result.&quot;);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Factorial;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE HexInternalElement<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.HexInternalElement" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.HexInternalElement"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples"
+>Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples</A>.HexInternalElement</H2>
+<B>Model that tests the basic element that is used to built borehole models</B><p></P>
+<IMG SRC="Buildings.Fluid.HeatExcha8430a40eab150c4dementD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.HexInternalElement">
+<P></P><H3>Information</H3>
+
+This example illustrates modeling the internal part of a borehole heat exchanger.
+The borehole is constitued with two pipes that are symetricaly spaced in the borehole. 
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> HexInternalElement <font color="darkgreen">
+  &quot;Model that tests the basic element that is used to built borehole models&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;</textblock>
+  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement"
+>Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement</A> hex(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m1_flow_nominal=0.3,
+    m2_flow_nominal=0.3,
+    rTub=0.02,
+    kTub=0.5,
+    rBor=0.1,
+    xC=0.025,
+    kSoi=3.1,
+    B0=21.91,
+    B1=-0.3796,
+    dp1_nominal=5,
+    dp2_nominal=5,
+    hSeg=20,
+    <font color="blue">redeclare </font><A HREF="Buildings_HeatTransfer_Data_BoreholeFillings.html#Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite"
+>Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite</A> matFil,
+    TFil_start=283.15);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> sou_1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    nPorts=1,
+    use_T_in=false,
+    p=101340,
+    T=303.15);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> sin_2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    nPorts=1,
+    use_p_in=false,
+    use_T_in=false,
+    p=101330,
+    T=283.15);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sou_1.ports[1], hex.port_a1);
+  <font color="red">connect</font>(hex.port_b1, hex.port_a2);
+  <font color="red">connect</font>(hex.port_b2, sin_2.ports[1]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>HexInternalElement;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SingleUTubeBoundaryCondition<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.SingleUTubeBoundaryCondition" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.SingleUTubeBoundaryCondition"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples"
+>Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples</A>.SingleUTubeBoundaryCondition</H2>
+<B>Test model the temperature boundary condition of a single U tube heat exchanger</B><p></P>
+<IMG SRC="Buildings.Fluid.HeatExchaad9773be0b395648itionD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.SingleUTubeBoundaryCondition">
+<P></P><H3>Information</H3>
+
+This example tests the temperature boundary condition at the external part of a cylinder.
+
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</A></TD><TD>Q_flow</TD><TD>-50</TD><TD>Heat flow rate extracted at center of cylinder [W]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> SingleUTubeBoundaryCondition <font color="darkgreen">
+  &quot;Test model the temperature boundary condition of a single U tube heat exchanger&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A>  Q_flow=-50 <font color="darkgreen">
+    &quot;Heat flow rate extracted at center of cylinder&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition"
+>Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition</A>
+                                                TBouSte(
+  <font color="blue">final </font>rExt=3,
+  <font color="blue">final </font>samplePeriod=604800,
+    hSeg=1,
+    <font color="blue">redeclare </font><font color="blue">final </font><A HREF="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Sandstone"
+>Buildings.HeatTransfer.Data.Soil.Sandstone</A> matSoi,
+    TExt_start=293.15) <font color="darkgreen">&quot;Boundary condition&quot;</font>;
+ <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+>Modelica.Blocks.Sources.Step</A> step(
+    height=Q_flow,
+    offset=0,
+    startTime=0);
+  <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition"
+>Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition</A>
+    TBouCon(
+    <font color="blue">final </font>rExt=3,
+    <font color="blue">final </font>samplePeriod=604800,
+    hSeg=1,
+    <font color="blue">redeclare </font><font color="blue">final </font><A HREF="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Sandstone"
+>Buildings.HeatTransfer.Data.Soil.Sandstone</A> matSoi,
+    TExt_start=293.15) <font color="darkgreen">&quot;Boundary condition&quot;</font>;
+ <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> con(k=Q_flow);
+  <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition"
+>Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition</A>
+    TBouPul(
+    <font color="blue">final </font>rExt=3,
+    <font color="blue">final </font>samplePeriod=604800,
+    hSeg=1,
+    <font color="blue">redeclare </font><font color="blue">final </font><A HREF="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Sandstone"
+>Buildings.HeatTransfer.Data.Soil.Sandstone</A> matSoi,
+    TExt_start=293.15) <font color="darkgreen">&quot;Boundary condition&quot;</font>;
+ <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</A> pulse(
+    offset=0,
+    startTime=0,
+    amplitude=2*Q_flow,
+    period=7200);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(con.y, TBouCon.Q_flow);
+  <font color="red">connect</font>(step.y, TBouSte.Q_flow);
+  <font color="red">connect</font>(pulse.y, TBouPul.Q_flow);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>SingleUTubeBoundaryCondition;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ExchangeValues<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.HeatExchac54c9e11d54c1849gmentI.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.ExchangeValues" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.ExchangeValues"></A><A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples"
+>Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples</A>.ExchangeValues</H2>
+<B>Test problem for the function that exchanges values</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+This example tests the function
+<A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues"
+>
+Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues</a> by 
+assigning and reading different elements of the array.
+The assert statements check whether the returned values is correct.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>3</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> ExchangeValues <font color="darkgreen">
+  &quot;Test problem for the function that exchanges values&quot;</font>
+ <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">parameter </font>Real x = 3;
+  Real y;
+  <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.ExtendableArray"
+>Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.ExtendableArray</A> table=
+    <font color="red">Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.ExtendableArray</font>() <font color="darkgreen">
+    &quot;Extentable array, used to store history of rate of heat flows&quot;</font>;
+
+<font color="blue">algorithm </font>
+  y :=<font color="red"> Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues</font>(
+                       table=table, iX=1, x=x, iY=1);
+  <font color="red">assert</font>(<font color="red">abs</font>(y-3) &lt; 1E-10, &quot;Error in implementation of exchangeVaules.&quot;);
+  y :=<font color="red"> Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues</font>(
+                       table=table, iX=2, x=4*x, iY=1);
+  <font color="red">assert</font>(<font color="red">abs</font>(y-3) &lt; 1E-10, &quot;Error in implementation of exchangeVaules.&quot;);
+  y :=<font color="red"> Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues</font>(
+                       table=table, iX=2, x=4*x, iY=2);
+  <font color="red">assert</font>(<font color="red">abs</font>(y-12) &lt; 1E-10, &quot;Error in implementation of exchangeVaules.&quot;);
+  y :=<font color="red"> Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues</font>(
+                       table=table, iX=200, x=5*x, iY=1);
+  <font color="red">assert</font>(<font color="red">abs</font>(y-3) &lt; 1E-10, &quot;Error in implementation of exchangeVaules.&quot;);
+  y :=<font color="red"> Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues</font>(
+                       table=table, iX=10, x=6*x, iY=200);
+  <font color="red">assert</font>(<font color="red">abs</font>(y-15) &lt; 1E-10, &quot;Error in implementation of exchangeVaules.&quot;);
+  y :=<font color="red"> Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues</font>(
+                       table=table, iX=10, x=6*x, iY=1);
+  <font color="red">assert</font>(<font color="red">abs</font>(y-3) &lt; 1E-10, &quot;Error in implementation of exchangeVaules.&quot;);
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ExchangeValues;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:34 2013.
+</address></BODY>
+</HTML>

@@ -1,0 +1,1201 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Examples.VAVReheat.Controls</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with controller models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Controls<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Examples.VAVReheat.Controls"></A><A HREF="Buildings_Examples_VAVReheat.html#Buildings.Examples.VAVReheat"
+>Buildings.Examples.VAVReheat</A>.Controls</H2>
+<B>Package with controller models</B>
+<P></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVReh4976ebbdf690e10aolBusS.png" ALT="Buildings.Examples.VAVReheat.Controls.ControlBus" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A>
+</TD><TD>Empty control bus that is adapted to the signals connected to it</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVRehe98a6de74cb24f05mizerS.png" ALT="Buildings.Examples.VAVReheat.Controls.Economizer" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.Economizer"
+>Economizer</A>
+</TD><TD>Controller for economizer</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVReha7bd4853b49d11c0anVFDS.png" ALT="Buildings.Examples.VAVReheat.Controls.FanVFD" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.FanVFD"
+>FanVFD</A>
+</TD><TD>Controller for fan revolution</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVRehdff2b5139c3ee4c0erSumS.png" ALT="Buildings.Examples.VAVReheat.Controls.IntegerSum" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.IntegerSum"
+>IntegerSum</A>
+</TD><TD>Sums all the integer signals</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVReh09fbd1cccefe6a42ectorS.png" ALT="Buildings.Examples.VAVReheat.Controls.ModeSelector" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ModeSelector"
+>ModeSelector</A>
+</TD><TD>Finite State Machine for the operational modes</TD></TR>
+<TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.OperationModes"
+>OperationModes</A>
+</TD><TD>Enumeration for modes of operation</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVRehee5f3ec34a81459earterS.png" ALT="Buildings.Examples.VAVReheat.Controls.PreCoolingStarter" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.PreCoolingStarter"
+>PreCoolingStarter</A>
+</TD><TD>Outputs true when precooling should start</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVReh8f9ae18170931838pointS.png" ALT="Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint"
+>RoomTemperatureSetpoint</A>
+</TD><TD>Set point scheduler for room temperature</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVReh241e4f8a8faff8e7omVAVS.png" ALT="Buildings.Examples.VAVReheat.Controls.RoomVAV" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.RoomVAV"
+>RoomVAV</A>
+</TD><TD>Controller for room VAV box</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVRehcab25927277e50efStateS.png" ALT="Buildings.Examples.VAVReheat.Controls.State" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.State"
+>State</A>
+</TD><TD>Block that outputs the mode if the state is active, or zero otherwise</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVReh77906b8cfa3849daiedOnS.png" ALT="Buildings.Examples.VAVReheat.Controls.UnoccupiedOn" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.UnoccupiedOn"
+>UnoccupiedOn</A>
+</TD><TD>Controller for unoccupied on state</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVReh9e32ed45e79c272epointS.png" ALT="Buildings.Examples.VAVReheat.Controls.DuctStaticPressureSetpoint" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.DuctStaticPressureSetpoint"
+>DuctStaticPressureSetpoint</A>
+</TD><TD>Computes the duct static pressure setpoint</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVReh6dcb0e64d734f24cpointS.png" ALT="Buildings.Examples.VAVReheat.Controls.CoolingCoilTemperatureSetpoint" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.CoolingCoilTemperatureSetpoint"
+>CoolingCoilTemperatureSetpoint</A>
+</TD><TD>Set point scheduler for cooling coil</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVRehc44d17d9f59197dbpointS.png" ALT="Buildings.Examples.VAVReheat.Controls.MixedAirTemperatureSetpoint" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.MixedAirTemperatureSetpoint"
+>MixedAirTemperatureSetpoint</A>
+</TD><TD>Mixed air temperature setpoint for economizer</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVReh6fc7b0f416506145ntrolS.png" ALT="Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl"
+>EconomizerTemperatureControl</A>
+</TD><TD>Controller for economizer mixed air temperature</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVReh07ea79c729ecae9fmplesS.png" ALT="Buildings.Examples.VAVReheat.Controls.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls_Examples.html#Buildings.Examples.VAVReheat.Controls.Examples"
+>Examples</A>
+</TD><TD>Example models to test the components</TD></TR>
+</TABLE>
+<P></p><H3>Types and constants</H3>
+<A NAME="Buildings.Examples.VAVReheat.Controls.OperationModes"></A><PRE>  <font color="blue">type</font> OperationModes = <font color="blue">enumeration</font>(
+    occupied <font color="darkgreen">&quot;Occupied&quot;</font>,
+    unoccupiedOff <font color="darkgreen">&quot;Unoccupied off&quot;</font>,
+    unoccupiedNightSetBack <font color="darkgreen">&quot;Unoccupied, night set back&quot;</font>,
+    unoccupiedWarmUp <font color="darkgreen">&quot;Unoccupied, warm-up&quot;</font>,
+    unoccupiedPreCool <font color="darkgreen">&quot;Unoccupied, pre-cool&quot;</font>,
+    safety <font color="darkgreen">&quot;Safety (smoke, fire, etc.)&quot;</font>) <font color="darkgreen">&quot;Enumeration for modes of operation&quot;</font>;</PRE><P></p>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ControlBus<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVReh4976ebbdf690e10aolBusI.png" ALT="Buildings.Examples.VAVReheat.Controls.ControlBus" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.ControlBus"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.ControlBus</H2>
+<B>Empty control bus that is adapted to the signals connected to it</B><p></P>
+<IMG SRC="Buildings.Examples.VAVReh4976ebbdf690e10aolBusD.png" ALT="Buildings.Examples.VAVReheat.Controls.ControlBus">
+<P></P><H3>Information</H3>
+
+<p>
+This connector defines the <code>expandable connector</code> ControlBus that
+is used to connect control signals.
+Note, this connector is empty. When using it, the actual content is
+constructed by the signals connected to this bus.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.SignalBus"
+>Modelica.Icons.SignalBus</A> (Icon for signal bus).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">expandable connector</font> ControlBus <font color="darkgreen">
+  &quot;Empty control bus that is adapted to the signals connected to it&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.SignalBus"
+>Modelica.Icons.SignalBus</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ControlBus;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Economizer<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVRehe98a6de74cb24f05mizerI.png" ALT="Buildings.Examples.VAVReheat.Controls.Economizer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.Economizer"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.Economizer</H2>
+<B>Controller for economizer</B><p></P>
+<IMG SRC="Buildings.Examples.VAVRehe98a6de74cb24f05mizerD.png" ALT="Buildings.Examples.VAVReheat.Controls.Economizer">
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</A></TD><TD>dT</TD><TD>1</TD><TD>Temperture offset to activate economizer [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>VolumeFlowRate</A></TD><TD>VOut_flow_min</TD><TD>&nbsp;</TD><TD>Minimum outside air volume flow rate [m3/s]</TD></TR>
+<TR><TD>Real</TD><TD>k</TD><TD>1</TD><TD>Gain of controller</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>Ti</TD><TD>&nbsp;</TD><TD>Time constant of Integrator block [s]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TSupHeaSet</TD><TD>Supply temperature setpoint for heating</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TSupCooSet</TD><TD>Supply temperature setpoint for cooling</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TMix</TD><TD>Measured mixed air temperature</TD></TR>
+<TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A></TD><TD>controlBus</TD><TD>&nbsp;</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>VOut_flow</TD><TD>Measured outside air flow rate</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TRet</TD><TD>Return air temperature</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>yOA</TD><TD>Control signal for outside air damper</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> Economizer <font color="darkgreen">&quot;Controller for economizer&quot;</font>
+  <font color="blue">import </font><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.OperationModes"
+>Buildings.Examples.VAVReheat.Controls.OperationModes</A>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> dT(min=0.1)= 1 <font color="darkgreen">
+    &quot;Temperture offset to activate economizer&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</A> VOut_flow_min(min=0) <font color="darkgreen">
+    &quot;Minimum outside air volume flow rate&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TSupHeaSet <font color="darkgreen">
+    &quot;Supply temperature setpoint for heating&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TSupCooSet <font color="darkgreen">
+    &quot;Supply temperature setpoint for cooling&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TMix <font color="darkgreen">&quot;Measured mixed air temperature&quot;</font>;
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A> controlBus;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> VOut_flow <font color="darkgreen">
+    &quot;Measured outside air flow rate&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TRet <font color="darkgreen">&quot;Return air temperature&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gain(k=1/VOut_flow_min) <font color="darkgreen">&quot;Normalize mass flow rate&quot;</font>;
+  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</A> conV_flow(
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=k,
+    Ti=Ti,
+    yMax=0.995,
+    yMin=0.005,
+    Td=60) <font color="darkgreen">&quot;Controller for outside air flow rate&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> uni(k=1) <font color="darkgreen">&quot;Unity signal&quot;</font>;</textblock>
+  <font color="blue">parameter </font>Real k=1 <font color="darkgreen">&quot;Gain of controller&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> Ti <font color="darkgreen">&quot;Time constant of Integrator block&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> yOA <font color="darkgreen">
+    &quot;Control signal for outside air damper&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Extractor"
+>Modelica.Blocks.Routing.Extractor</A> extractor(nin=6);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> closed(k=0) <font color="darkgreen">&quot;Signal to close OA damper&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Max"
+>Modelica.Blocks.Math.Max</A> max <font color="darkgreen">
+    &quot;Takes bigger signal (OA damper opens for temp. control or for minimum outside air)&quot;</font>;
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.MixedAirTemperatureSetpoint"
+>MixedAirTemperatureSetpoint</A> TSetMix <font color="darkgreen">&quot;Mixed air temperature setpoint&quot;</font>;
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl"
+>EconomizerTemperatureControl</A> yOATMix(Ti=Ti, k=k) <font color="darkgreen">
+    &quot;Control signal for outdoor damper to track mixed air temperature setpoint&quot;</font>;
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl"
+>EconomizerTemperatureControl</A> yOATFre(Ti=Ti, k=k) <font color="darkgreen">
+    &quot;Control signal for outdoor damper to track freeze temperature setpoint&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Min"
+>Modelica.Blocks.Math.Min</A> min <font color="darkgreen">
+    &quot;Takes bigger signal (OA damper opens for temp. control or for minimum outside air)&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> TFre(k=273.15 + 3) <font color="darkgreen">
+    &quot;Setpoint for freeze protection&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(VOut_flow, gain.u);
+  <font color="red">connect</font>(gain.y, conV_flow.u_m);
+  <font color="red">connect</font>(uni.y, conV_flow.u_s);
+  <font color="red">connect</font>(controlBus.controlMode, extractor.index);
+  <font color="red">connect</font>(max.y, extractor.u[OperationModes.occupied]);
+  <font color="red">connect</font>(closed.y, extractor.u[OperationModes.unoccupiedOff]);
+  <font color="red">connect</font>(closed.y, extractor.u[OperationModes.unoccupiedNightSetBack]);
+  <font color="red">connect</font>(max.y, extractor.u[OperationModes.unoccupiedWarmUp]);
+  <font color="red">connect</font>(max.y, extractor.u[OperationModes.unoccupiedPreCool]);
+  <font color="red">connect</font>(closed.y, extractor.u[OperationModes.safety]);
+  <font color="red">connect</font>(TSupHeaSet, TSetMix.TSupHeaSet);
+  <font color="red">connect</font>(TSupCooSet, TSetMix.TSupCooSet);
+  <font color="red">connect</font>(controlBus, TSetMix.controlBus);
+  <font color="red">connect</font>(yOATMix.TRet, TRet);
+  <font color="red">connect</font>(controlBus.TOut, yOATMix.TOut);
+  <font color="red">connect</font>(yOATMix.TMix, TMix);
+  <font color="red">connect</font>(yOATMix.TMixSet, TSetMix.TSet);
+  <font color="red">connect</font>(yOATMix.yOA, max.u1);
+  <font color="red">connect</font>(min.u2, conV_flow.y);
+  <font color="red">connect</font>(min.y, max.u2);
+  <font color="red">connect</font>(min.u1, yOATFre.yOA);
+  <font color="red">connect</font>(yOATFre.TRet, TRet);
+  <font color="red">connect</font>(controlBus.TOut, yOATFre.TOut);
+  <font color="red">connect</font>(yOATFre.TMix, TMix);
+  <font color="red">connect</font>(TFre.y, yOATFre.TMixSet);
+  <font color="red">connect</font>(extractor.y, yOA);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Economizer;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE FanVFD<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVReha7bd4853b49d11c0anVFDI.png" ALT="Buildings.Examples.VAVReheat.Controls.FanVFD" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.FanVFD"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.FanVFD</H2>
+<B>Controller for fan revolution</B><p></P>
+<IMG SRC="Buildings.Examples.VAVReha7bd4853b49d11c0anVFDD.png" ALT="Buildings.Examples.VAVReheat.Controls.FanVFD">
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</A> (Single Input Single Output continuous control block).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>xSet_nominal</TD><TD>&nbsp;</TD><TD>Nominal setpoint (used for normalization)</TD></TR>
+<TR><TD>Real</TD><TD>r_N_min</TD><TD>0.01</TD><TD>Minimum normalized fan speed</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Init</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.Init.N...</TD><TD>Type of initialization (1: no init, 2: steady state, 3/4: initial output)</TD></TR>
+<TR><TD>Real</TD><TD>y_start</TD><TD>0</TD><TD>Initial or guess value of output (= state)</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>u</TD><TD>Connector of Real input signal</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
+<TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A></TD><TD>controlBus</TD><TD>&nbsp;</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>u_m</TD><TD>Connector of measurement input signal</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> FanVFD <font color="darkgreen">&quot;Controller for fan revolution&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</A>;
+  <font color="blue">import </font><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.OperationModes"
+>Buildings.Examples.VAVReheat.Controls.OperationModes</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</A> con(
+    yMax=1,
+    yMin=0,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Td=60,
+    k=0.5,
+    Ti=15) <font color="darkgreen">&quot;Controller&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gaiMea(k=1/xSet_nominal) <font color="darkgreen">
+    &quot;Gain to normalize measurement signal&quot;</font>;</textblock>
+  <font color="blue">parameter </font>Real xSet_nominal <font color="darkgreen">&quot;Nominal setpoint (used for normalization)&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A> controlBus;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Extractor"
+>Modelica.Blocks.Routing.Extractor</A> extractor(nin=6);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> off(k=r_N_min) <font color="darkgreen">&quot;Off signal&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> on(k=1) <font color="darkgreen">&quot;On signal&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gaiSet(k=1/xSet_nominal) <font color="darkgreen">
+    &quot;Gain to normalize setpoint signal&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> u_m <font color="darkgreen">
+    &quot;Connector of measurement input signal&quot;</font>;</textblock>
+  <font color="blue">parameter </font>Real r_N_min=0.01 <font color="darkgreen">&quot;Minimum normalized fan speed&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Modelica.Blocks.Types.Init</A> initType=Modelica.Blocks.Types.Init.NoInit <font color="darkgreen">
+    &quot;Type of initialization (1: no init, 2: steady state, 3/4: initial output)&quot;</font>;
+  <font color="blue">parameter </font>Real y_start=0 <font color="darkgreen">&quot;Initial or guess value of output (= state)&quot;</font>;
+
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(gaiMea.y, con.u_m);
+  <font color="red">connect</font>(con.y, extractor.u[OperationModes.occupied]);
+  <font color="red">connect</font>(con.y, extractor.u[OperationModes.unoccupiedWarmUp]);
+  <font color="red">connect</font>(con.y, extractor.u[OperationModes.unoccupiedPreCool]);
+  <font color="red">connect</font>(off.y, extractor.u[OperationModes.unoccupiedOff]);
+  <font color="red">connect</font>(off.y, extractor.u[OperationModes.safety]);
+  <font color="red">connect</font>(on.y, extractor.u[OperationModes.unoccupiedNightSetBack]);
+  <font color="red">connect</font>(controlBus.controlMode, extractor.index);
+  <font color="red">connect</font>(gaiSet.y, con.u_s);
+  <font color="red">connect</font>(u_m, gaiMea.u);
+  <font color="red">connect</font>(gaiSet.u, u);
+  <font color="red">connect</font>(extractor.y, y);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>FanVFD;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE IntegerSum<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVRehdff2b5139c3ee4c0erSumI.png" ALT="Buildings.Examples.VAVReheat.Controls.IntegerSum" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.IntegerSum"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.IntegerSum</H2>
+<B>Sums all the integer signals</B><p></P>
+<IMG SRC="Buildings.Examples.VAVRehdff2b5139c3ee4c0erSumD.png" ALT="Buildings.Examples.VAVReheat.Controls.IntegerSum">
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerSO"
+>Modelica.Blocks.Interfaces.IntegerSO</A> (Single Integer Output continuous control block).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>nin</TD><TD>&nbsp;</TD><TD>Number of inputs</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+>IntegerOutput</A></TD><TD>y</TD><TD>Connector of Integer output signal</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+>IntegerInput</A></TD><TD>u[nin]</TD><TD>Input signal</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> IntegerSum <font color="darkgreen">&quot;Sums all the integer signals&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerSO"
+>Modelica.Blocks.Interfaces.IntegerSO</A>;
+  <font color="blue">parameter </font>Integer nin <font color="darkgreen">&quot;Number of inputs&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+>Modelica.Blocks.Interfaces.IntegerInput</A> u[nin] <font color="darkgreen">&quot;Input signal&quot;</font>;</textblock>
+<font color="blue">equation </font>
+  y =<font color="red"> sum</font>(u);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>IntegerSum;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ModeSelector<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVReh09fbd1cccefe6a42ectorI.png" ALT="Buildings.Examples.VAVReheat.Controls.ModeSelector" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.ModeSelector"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.ModeSelector</H2>
+<B>Finite State Machine for the operational modes</B><p></P>
+<IMG SRC="Buildings.Examples.VAVReh09fbd1cccefe6a42ectorD.png" ALT="Buildings.Examples.VAVReheat.Controls.ModeSelector">
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</A></TD><TD>delTRooOnOff</TD><TD>1</TD><TD>Deadband in room temperature between occupied on and occupied off [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TRooSetHeaOcc</TD><TD>293.15</TD><TD>Set point for room air temperature during heating mode [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TRooSetCooOcc</TD><TD>299.15</TD><TD>Set point for room air temperature during cooling mode [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TSetHeaCoiOut</TD><TD>303.15</TD><TD>Set point for air outlet temperature at central heating coil [K]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A></TD><TD>cb</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> ModeSelector <font color="darkgreen">&quot;Finite State Machine for the operational modes&quot;</font>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.InitialStep"
+>Modelica.StateGraph.InitialStep</A> initialStep;
+  <A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.Transition"
+>Modelica.StateGraph.Transition</A> start <font color="darkgreen">&quot;Starts the system&quot;</font>;
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.State"
+>State</A> unOccOff(
+    mode=Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedOff,
+    nIn=3,
+    nOut=4) <font color="darkgreen">&quot;Unoccupied off mode, no coil protection&quot;</font>;
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.State"
+>State</A> unOccNigSetBac(
+    nOut=2,
+    mode=Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedNightSetBack,
+    nIn=1) <font color="darkgreen">&quot;Unoccupied night set back&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.Transition"
+>Modelica.StateGraph.Transition</A> t2(
+    enableTimer=true,
+    waitTime=60,
+    condition=TRooMinErrHea.y &gt; delTRooOnOff/2);</textblock>
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> delTRooOnOff(min=0.1)=1 <font color="darkgreen">
+    &quot;Deadband in room temperature between occupied on and occupied off&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TRooSetHeaOcc=293.15 <font color="darkgreen">
+    &quot;Set point for room air temperature during heating mode&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TRooSetCooOcc=299.15 <font color="darkgreen">
+    &quot;Set point for room air temperature during cooling mode&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TSetHeaCoiOut=303.15 <font color="darkgreen">
+    &quot;Set point for air outlet temperature at central heating coil&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.Transition"
+>Modelica.StateGraph.Transition</A> t1(condition=delTRooOnOff/2 &lt; -TRooMinErrHea.y);
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.StateGraphRoot"
+>Modelica.StateGraph.StateGraphRoot</A> stateGraphRoot;
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A> cb;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.RealPassThrough"
+>Modelica.Blocks.Routing.RealPassThrough</A> TRooSetHea <font color="darkgreen">
+    &quot;Current heating setpoint temperature&quot;</font>;
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.State"
+>State</A> morWarUp(mode=Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedWarmUp,
+                                                                            nIn=2,
+    nOut=1) <font color="darkgreen">&quot;Morning warm up&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.TransitionWithSignal"
+>Modelica.StateGraph.TransitionWithSignal</A> t6(enableTimer=true, waitTime=60);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.LessEqualThreshold"
+>Modelica.Blocks.Logical.LessEqualThreshold</A> occThrSho(threshold=1800) <font color="darkgreen">
+    &quot;Signal to allow transition into morning warmup&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.TransitionWithSignal"
+>Modelica.StateGraph.TransitionWithSignal</A> t5;
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.State"
+>State</A> occ(       mode=Buildings.Examples.VAVReheat.Controls.OperationModes.occupied,
+                                                                      nIn=3) <font color="darkgreen">
+    &quot;Occupied mode&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.RealPassThrough"
+>Modelica.Blocks.Routing.RealPassThrough</A> TRooMin;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+>Modelica.Blocks.Math.Feedback</A> TRooMinErrHea <font color="darkgreen">&quot;Room control error for heating&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.Transition"
+>Modelica.StateGraph.Transition</A> t3(condition=TRooMin.y + delTRooOnOff/2 &gt;
+        TRooSetHeaOcc<font color="blue"> or </font>occupied.y);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.BooleanPassThrough"
+>Modelica.Blocks.Routing.BooleanPassThrough</A> occupied <font color="darkgreen">
+    &quot;outputs true if building is occupied&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.TransitionWithSignal"
+>Modelica.StateGraph.TransitionWithSignal</A> t4(enableTimer=false);
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.State"
+>State</A> morPreCoo(                                                        nIn=2,
+    mode=Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedPreCool,
+    nOut=1) <font color="darkgreen">&quot;Pre-cooling mode&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.Transition"
+>Modelica.StateGraph.Transition</A> t7(condition=TRooMin.y - delTRooOnOff/2 &lt;
+        TRooSetCooOcc<font color="blue"> or </font>occupied.y);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.And"
+>Modelica.Blocks.Logical.And</A> and1;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.RealPassThrough"
+>Modelica.Blocks.Routing.RealPassThrough</A> TRooAve <font color="darkgreen">&quot;Average room temperature&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanExpression"
+>Modelica.Blocks.Sources.BooleanExpression</A> booleanExpression(y=TRooAve.y &lt;
+        TRooSetCooOcc);
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.PreCoolingStarter"
+>PreCoolingStarter</A> preCooSta(TRooSetCooOcc=TRooSetCooOcc) <font color="darkgreen">
+    &quot;Model to start pre-cooling&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.TransitionWithSignal"
+>Modelica.StateGraph.TransitionWithSignal</A> t9;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
+>Modelica.Blocks.Logical.Not</A> not1;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.And"
+>Modelica.Blocks.Logical.And</A> and2;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
+>Modelica.Blocks.Logical.Not</A> not2;
+  <A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.TransitionWithSignal"
+>Modelica.StateGraph.TransitionWithSignal</A> t8 <font color="darkgreen">
+    &quot;changes to occupied in case precooling is deactivated&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_MathInteger.html#Modelica.Blocks.MathInteger.Sum"
+>Modelica.Blocks.MathInteger.Sum</A> sum(nu=5);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(start.outPort, unOccOff.inPort[1]);
+  <font color="red">connect</font>(initialStep.outPort[1], start.inPort);
+  <font color="red">connect</font>(unOccOff.outPort[1], t2.inPort);
+  <font color="red">connect</font>(t2.outPort, unOccNigSetBac.inPort[1]);
+  <font color="red">connect</font>(unOccNigSetBac.outPort[1], t1.inPort);
+  <font color="red">connect</font>(t1.outPort, unOccOff.inPort[2]);
+  <font color="red">connect</font>(cb.dTNexOcc, occThrSho.u);
+  <font color="red">connect</font>(t6.outPort, morWarUp.inPort[1]);
+  <font color="red">connect</font>(t5.outPort, morWarUp.inPort[2]);
+  <font color="red">connect</font>(unOccNigSetBac.outPort[2], t5.inPort);
+  <font color="red">connect</font>(cb.TRooMin, TRooMin.u);
+  <font color="red">connect</font>(TRooSetHea.y, TRooMinErrHea.u1);
+  <font color="red">connect</font>(TRooMin.y, TRooMinErrHea.u2);
+  <font color="red">connect</font>(unOccOff.outPort[2], t6.inPort);
+  <font color="red">connect</font>(morWarUp.outPort[1], t3.inPort);
+  <font color="red">connect</font>(cb.occupied, occupied.u);
+  <font color="red">connect</font>(occ.outPort[1], t4.inPort);
+  <font color="red">connect</font>(t4.outPort, unOccOff.inPort[3]);
+  <font color="red">connect</font>(occThrSho.y, and1.u1);
+  <font color="red">connect</font>(and1.y, t6.condition);
+  <font color="red">connect</font>(and1.y, t5.condition);
+  <font color="red">connect</font>(cb.TRooAve, TRooAve.u);
+  <font color="red">connect</font>(booleanExpression.y, and1.u2);
+  <font color="red">connect</font>(preCooSta.y, t9.condition);
+  <font color="red">connect</font>(t9.outPort, morPreCoo.inPort[1]);
+  <font color="red">connect</font>(unOccOff.outPort[3], t9.inPort);
+  <font color="red">connect</font>(cb, preCooSta.controlBus);
+  <font color="red">connect</font>(morPreCoo.outPort[1], t7.inPort);
+  <font color="red">connect</font>(t7.outPort, occ.inPort[2]);
+  <font color="red">connect</font>(t3.outPort, occ.inPort[1]);
+  <font color="red">connect</font>(occThrSho.y, not1.u);
+  <font color="red">connect</font>(not1.y, and2.u2);
+  <font color="red">connect</font>(and2.y, t4.condition);
+  <font color="red">connect</font>(occupied.y, not2.u);
+  <font color="red">connect</font>(not2.y, and2.u1);
+  <font color="red">connect</font>(cb.TRooSetHea, TRooSetHea.u);
+  <font color="red">connect</font>(t8.outPort, occ.inPort[3]);
+  <font color="red">connect</font>(unOccOff.outPort[4], t8.inPort);
+  <font color="red">connect</font>(occupied.y, t8.condition);
+  <font color="red">connect</font>(morPreCoo.y, sum.u[1]);
+  <font color="red">connect</font>(morWarUp.y, sum.u[2]);
+  <font color="red">connect</font>(occ.y, sum.u[3]);
+  <font color="red">connect</font>(unOccOff.y, sum.u[4]);
+  <font color="red">connect</font>(unOccNigSetBac.y, sum.u[5]);
+  <font color="red">connect</font>(sum.y, cb.controlMode);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ModeSelector;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE PreCoolingStarter<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVRehee5f3ec34a81459earterI.png" ALT="Buildings.Examples.VAVReheat.Controls.PreCoolingStarter" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.PreCoolingStarter"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.PreCoolingStarter</H2>
+<B>Outputs true when precooling should start</B><p></P>
+<IMG SRC="Buildings.Examples.VAVRehee5f3ec34a81459earterD.png" ALT="Buildings.Examples.VAVReheat.Controls.PreCoolingStarter">
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanSignalSource"
+>Modelica.Blocks.Interfaces.BooleanSignalSource</A> (Base class for Boolean signal sources).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TOutLim</TD><TD>286.15</TD><TD>Limit for activating precooling [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TRooSetCooOcc</TD><TD>&nbsp;</TD><TD>Set point for room air temperature during cooling mode [K]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+>BooleanOutput</A></TD><TD>y</TD><TD>Connector of Boolean output signal</TD></TR>
+<TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A></TD><TD>controlBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> PreCoolingStarter <font color="darkgreen">&quot;Outputs true when precooling should start&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanSignalSource"
+>Modelica.Blocks.Interfaces.BooleanSignalSource</A>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TOutLim = 286.15 <font color="darkgreen">
+    &quot;Limit for activating precooling&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TRooSetCooOcc <font color="darkgreen">
+    &quot;Set point for room air temperature during cooling mode&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A> controlBus;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterThreshold"
+>Modelica.Blocks.Logical.GreaterThreshold</A> greater(threshold=TRooSetCooOcc);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.LessThreshold"
+>Modelica.Blocks.Logical.LessThreshold</A> greater2(threshold=1800);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.LessThreshold"
+>Modelica.Blocks.Logical.LessThreshold</A> greater1(threshold=TOutLim);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean.And"
+>Modelica.Blocks.MathBoolean.And</A> and3(nu=3);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(controlBus.dTNexOcc, greater2.u);
+  <font color="red">connect</font>(controlBus.TRooAve, greater.u);
+  <font color="red">connect</font>(controlBus.TOut, greater1.u);
+  <font color="red">connect</font>(and3.y, y);
+  <font color="red">connect</font>(greater.y, and3.u[1]);
+  <font color="red">connect</font>(greater1.y, and3.u[2]);
+  <font color="red">connect</font>(greater2.y, and3.u[3]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>PreCoolingStarter;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE RoomTemperatureSetpoint<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVReh8f9ae18170931838pointI.png" ALT="Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.RoomTemperatureSetpoint</H2>
+<B>Set point scheduler for room temperature</B><p></P>
+<IMG SRC="Buildings.Examples.VAVReh8f9ae18170931838pointD.png" ALT="Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint">
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>THeaOn</TD><TD>293.15</TD><TD>Heating setpoint during on [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>THeaOff</TD><TD>285.15</TD><TD>Heating setpoint during off [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TCooOn</TD><TD>297.15</TD><TD>Cooling setpoint during on [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TCooOff</TD><TD>303.15</TD><TD>Cooling setpoint during off [K]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A></TD><TD>controlBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> RoomTemperatureSetpoint <font color="darkgreen">
+  &quot;Set point scheduler for room temperature&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+  <font color="blue">import </font><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.OperationModes"
+>Buildings.Examples.VAVReheat.Controls.OperationModes</A>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> THeaOn=293.15 <font color="darkgreen">
+    &quot;Heating setpoint during on&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> THeaOff=285.15 <font color="darkgreen">
+    &quot;Heating setpoint during off&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TCooOn=297.15 <font color="darkgreen">
+    &quot;Cooling setpoint during on&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TCooOff=303.15 <font color="darkgreen">
+    &quot;Cooling setpoint during off&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A> controlBus;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.IntegerPassThrough"
+>Modelica.Blocks.Routing.IntegerPassThrough</A> mode;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> setPoiHea(y=<font color="blue">if </font>(mode.y ==
+        OperationModes.occupied<font color="blue"> or </font>mode.y == OperationModes.unoccupiedWarmUp<font color="blue">
+         or </font>mode.y == OperationModes.safety)<font color="blue"> then </font>THeaOn<font color="blue"> else </font>THeaOff);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> setPoiCoo(y=<font color="blue">if </font>(mode.y ==
+        OperationModes.occupied<font color="blue"> or </font>mode.y == OperationModes.unoccupiedPreCool<font color="blue">
+         or </font>mode.y == OperationModes.safety)<font color="blue"> then </font>TCooOn<font color="blue"> else </font>TCooOff) <font color="darkgreen">
+    &quot;Cooling setpoint&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(controlBus.controlMode,mode. u);
+  <font color="red">connect</font>(setPoiHea.y, controlBus.TRooSetHea);
+  <font color="red">connect</font>(setPoiCoo.y, controlBus.TRooSetCoo);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>RoomTemperatureSetpoint;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE RoomVAV<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVReh241e4f8a8faff8e7omVAVI.png" ALT="Buildings.Examples.VAVReheat.Controls.RoomVAV" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.RoomVAV"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.RoomVAV</H2>
+<B>Controller for room VAV box</B><p></P>
+<IMG SRC="Buildings.Examples.VAVReh241e4f8a8faff8e7omVAVD.png" ALT="Buildings.Examples.VAVReheat.Controls.RoomVAV">
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A></TD><TD>controlBus</TD><TD>&nbsp;</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TRoo</TD><TD>Measured room temperature [K]</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>yHea</TD><TD>Signal for heating coil valve</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>yDam</TD><TD>Signal for VAV damper</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TSup</TD><TD>Measured supply air temperature after heating coil</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> RoomVAV <font color="darkgreen">&quot;Controller for room VAV box&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</A> conHea(
+    yMax=1,
+    xi_start=0.1,
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    Td=60,
+    yMin=0,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=0.1,
+    Ti=120) <font color="darkgreen">&quot;Controller for heating&quot;</font>;
+  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</A> conCoo(
+    yMax=1,
+    reverseAction=true,
+    Td=60,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=0.1,
+    Ti=120) <font color="darkgreen">&quot;Controller for cooling (acts on damper)&quot;</font>;
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A> controlBus;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TRoo(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
+                                          <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
+    &quot;Measured room temperature&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> yHea <font color="darkgreen">&quot;Signal for heating coil valve&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> yDam <font color="darkgreen">&quot;Signal for VAV damper&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TSup(displayUnit=&quot;degC&quot;) <font color="darkgreen">
+    &quot;Measured supply air temperature after heating coil&quot;</font>;
+  <A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math.SmoothMax"
+>Buildings.Utilities.Math.SmoothMax</A> smoothMax2(deltaX=0.1);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> one(k=1);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add3"
+>Modelica.Blocks.Math.Add3</A> yDamHea(k3=-1) <font color="darkgreen">
+    &quot;Outputs (unlimited) damper signal for heating.&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</A> add;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> zero(k=0.1);
+  <A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math.SmoothMin"
+>Buildings.Utilities.Math.SmoothMin</A> smoothMin(deltaX=0.1);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(controlBus.TRooSetHea, conHea.u_s);
+  <font color="red">connect</font>(controlBus.TRooSetCoo, conCoo.u_s);
+  <font color="red">connect</font>(conHea.u_m, TRoo);
+  <font color="red">connect</font>(conCoo.u_m, TRoo);
+  <font color="red">connect</font>(TRoo, yDamHea.u3);
+  <font color="red">connect</font>(yDamHea.u2, TSup);
+  <font color="red">connect</font>(one.y, yDamHea.u1);
+  <font color="red">connect</font>(conCoo.y, add.u2);
+  <font color="red">connect</font>(yDamHea.y, smoothMax2.u2);
+  <font color="red">connect</font>(smoothMax2.y, add.u1);
+  <font color="red">connect</font>(zero.y, smoothMax2.u1);
+  <font color="red">connect</font>(smoothMin.u1, add.y);
+  <font color="red">connect</font>(one.y, smoothMin.u2);
+  <font color="red">connect</font>(conHea.y, yHea);
+  <font color="red">connect</font>(smoothMin.y, yDam);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>RoomVAV;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE State<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVRehcab25927277e50efStateI.png" ALT="Buildings.Examples.VAVReheat.Controls.State" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.State"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.State</H2>
+<B>Block that outputs the mode if the state is active, or zero otherwise</B><p></P>
+<IMG SRC="Buildings.Examples.VAVRehcab25927277e50efStateD.png" ALT="Buildings.Examples.VAVReheat.Controls.State">
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.StepWithSignal"
+>Modelica.StateGraph.StepWithSignal</A> (Ordinary step (= step that is not active when simulation starts). Connector &#39;active&#39; is true when the step is active).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>nIn</TD><TD>1</TD><TD>Number of input connections</TD></TR>
+<TR><TD>Integer</TD><TD>nOut</TD><TD>1</TD><TD>Number of output connections</TD></TR>
+<TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.OperationModes"
+>OperationModes</A></TD><TD>mode</TD><TD>&nbsp;</TD><TD>Enter enumeration of mode</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_in"
+>Step_in</A></TD><TD>inPort[nIn]</TD><TD>Vector of step input connectors</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_out"
+>Step_out</A></TD><TD>outPort[nOut]</TD><TD>Vector of step output connectors</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+>BooleanOutput</A></TD><TD>active</TD><TD>&nbsp;</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+>IntegerOutput</A></TD><TD>y</TD><TD>Mode signal (=0 if not active)</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> State <font color="darkgreen">
+  &quot;Block that outputs the mode if the state is active, or zero otherwise&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.StepWithSignal"
+>Modelica.StateGraph.StepWithSignal</A>;
+ <font color="blue">parameter </font><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.OperationModes"
+>OperationModes</A> mode <font color="darkgreen">&quot;Enter enumeration of mode&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+>Modelica.Blocks.Interfaces.IntegerOutput</A> y <font color="darkgreen">&quot;Mode signal (=0 if not active)&quot;</font>;</textblock>
+<font color="blue">equation </font>
+   y = <font color="blue">if </font>localActive<font color="blue"> then </font>mode<font color="blue"> else </font>0;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>State;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE UnoccupiedOn<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVReh77906b8cfa3849daiedOnI.png" ALT="Buildings.Examples.VAVReheat.Controls.UnoccupiedOn" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.UnoccupiedOn"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.UnoccupiedOn</H2>
+<B>Controller for unoccupied on state</B><p></P>
+<IMG SRC="Buildings.Examples.VAVReh77906b8cfa3849daiedOnD.png" ALT="Buildings.Examples.VAVReheat.Controls.UnoccupiedOn">
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.StepWithSignal"
+>Modelica.StateGraph.StepWithSignal</A> (Ordinary step (= step that is not active when simulation starts). Connector &#39;active&#39; is true when the step is active).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>nIn</TD><TD>1</TD><TD>Number of input connections</TD></TR>
+<TR><TD>Integer</TD><TD>nOut</TD><TD>1</TD><TD>Number of output connections</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_in"
+>Step_in</A></TD><TD>inPort[nIn]</TD><TD>Vector of step input connectors</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_out"
+>Step_out</A></TD><TD>outPort[nOut]</TD><TD>Vector of step output connectors</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+>BooleanOutput</A></TD><TD>active</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> UnoccupiedOn <font color="darkgreen">&quot;Controller for unoccupied on state&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_StateGraph.html#Modelica.StateGraph.StepWithSignal"
+>Modelica.StateGraph.StepWithSignal</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>UnoccupiedOn;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE DuctStaticPressureSetpoint<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVReh9e32ed45e79c272epointI.png" ALT="Buildings.Examples.VAVReheat.Controls.DuctStaticPressureSetpoint" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.DuctStaticPressureSetpoint"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.DuctStaticPressureSetpoint</H2>
+<B>Computes the duct static pressure setpoint</B><p></P>
+<IMG SRC="Buildings.Examples.VAVReh9e32ed45e79c272epointD.png" ALT="Buildings.Examples.VAVReheat.Controls.DuctStaticPressureSetpoint">
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+>Modelica.Blocks.Interfaces.MISO</A> (Multiple Input Single Output continuous control block).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>nin</TD><TD>1</TD><TD>Number of inputs</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>pMin</TD><TD>100</TD><TD>Minimum duct static pressure setpoint [Pa]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>pMax</TD><TD>410</TD><TD>Maximum duct static pressure setpoint [Pa]</TD></TR>
+<TR><TD>Real</TD><TD>k</TD><TD>0.1</TD><TD>Gain of controller</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>Ti</TD><TD>60</TD><TD>Time constant of Integrator block [s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>Td</TD><TD>60</TD><TD>Time constant of Derivative block [s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
+>SimpleController</A></TD><TD>controllerType</TD><TD>Modelica.Blocks.Types.Simple...</TD><TD>Type of controller</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>u[nin]</TD><TD>Connector of Real input signals</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TOut</TD><TD>Outside air temperature</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> DuctStaticPressureSetpoint <font color="darkgreen">
+  &quot;Computes the duct static pressure setpoint&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+>Modelica.Blocks.Interfaces.MISO</A>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>Modelica.SIunits.AbsolutePressure</A> pMin(displayUnit=&quot;Pa&quot;) = 100 <font color="darkgreen">
+    &quot;Minimum duct static pressure setpoint&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>Modelica.SIunits.AbsolutePressure</A> pMax(displayUnit=&quot;Pa&quot;) = 410 <font color="darkgreen">
+    &quot;Maximum duct static pressure setpoint&quot;</font>;
+  <font color="blue">parameter </font>Real k=0.1 <font color="darkgreen">&quot;Gain of controller&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> Ti=60 <font color="darkgreen">&quot;Time constant of Integrator block&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> Td=60 <font color="darkgreen">&quot;Time constant of Derivative block&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
+>Modelica.Blocks.Types.SimpleController</A> controllerType=Modelica.Blocks.Types.SimpleController.PID <font color="darkgreen">
+    &quot;Type of controller&quot;</font>;
+<textblock type="annotcomp" expanded="false">                           <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</A> limPID(
+    controllerType=controllerType,
+    k=k,
+    Ti=Ti,
+    Td=Td,
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    reverseAction=true);
+<font color="blue">protected </font>
+  <A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Max"
+>Buildings.Utilities.Math.Max</A> max(<font color="blue">final </font>nin=nin);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> ySet(k=0.9) <font color="darkgreen">
+    &quot;Setpoint for maximum damper position&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</A> dp(<font color="blue">final </font>k2=-1) <font color="darkgreen">&quot;Pressure difference&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> pMaxSig(k=pMax);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> pMinSig(k=pMin);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</A> pSet <font color="darkgreen">&quot;Pressure setpoint&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
+>Modelica.Blocks.Math.Product</A> product;
+<font color="blue">public </font>
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Hysteresis"
+>Modelica.Blocks.Logical.Hysteresis</A> hysteresis(uLow=283.15, uHigh=284.15) <font color="darkgreen">
+    &quot;Hysteresis to put fan on minimum revolution&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TOut <font color="darkgreen">&quot;Outside air temperature&quot;</font>;
+<font color="blue">protected </font>
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> zero(k=0) <font color="darkgreen">&quot;Zero output signal&quot;</font>;
+<font color="blue">public </font>
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+>Modelica.Blocks.Logical.Switch</A> switch1;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(max.u, u);
+  <font color="red">connect</font>(ySet.y, limPID.u_s);
+  <font color="red">connect</font>(max.y, limPID.u_m);
+  <font color="red">connect</font>(limPID.y, product.u1);
+  <font color="red">connect</font>(pMaxSig.y, dp.u1);
+  <font color="red">connect</font>(pMinSig.y, dp.u2);
+  <font color="red">connect</font>(dp.y, product.u2);
+  <font color="red">connect</font>(pMinSig.y, pSet.u2);
+  <font color="red">connect</font>(pSet.y, y);
+  <font color="red">connect</font>(hysteresis.u, TOut);
+  <font color="red">connect</font>(product.y, switch1.u1);
+  <font color="red">connect</font>(zero.y, switch1.u3);
+  <font color="red">connect</font>(switch1.y, pSet.u1);
+  <font color="red">connect</font>(hysteresis.y, switch1.u2);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>DuctStaticPressureSetpoint;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE CoolingCoilTemperatureSetpoint<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVReh6dcb0e64d734f24cpointI.png" ALT="Buildings.Examples.VAVReheat.Controls.CoolingCoilTemperatureSetpoint" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.CoolingCoilTemperatureSetpoint"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.CoolingCoilTemperatureSetpoint</H2>
+<B>Set point scheduler for cooling coil</B><p></P>
+<IMG SRC="Buildings.Examples.VAVReh6dcb0e64d734f24cpointD.png" ALT="Buildings.Examples.VAVReheat.Controls.CoolingCoilTemperatureSetpoint">
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TCooOn</TD><TD>273.15 + 12</TD><TD>Cooling setpoint during on [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TCooOff</TD><TD>273.15 + 30</TD><TD>Cooling setpoint during off [K]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TSetHea</TD><TD>Set point for heating coil</TD></TR>
+<TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A></TD><TD>controlBus</TD><TD>&nbsp;</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>TSet</TD><TD>Temperature set point</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> CoolingCoilTemperatureSetpoint <font color="darkgreen">
+  &quot;Set point scheduler for cooling coil&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+  <font color="blue">import </font><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.OperationModes"
+>Buildings.Examples.VAVReheat.Controls.OperationModes</A>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TCooOn=273.15+12 <font color="darkgreen">
+    &quot;Cooling setpoint during on&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TCooOff=273.15+30 <font color="darkgreen">
+    &quot;Cooling setpoint during off&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> TSupSetCoo(
+   y=<font color="blue">if </font>(mode.y == OperationModes.occupied<font color="blue"> or </font>mode.y == OperationModes.unoccupiedPreCool<font color="blue"> or </font>mode.y == OperationModes.safety)<font color="blue"> then </font>
+          TCooOn<font color="blue"> else </font>TCooOff) <font color="darkgreen">&quot;Supply air temperature setpoint for cooling&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TSetHea <font color="darkgreen">&quot;Set point for heating coil&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</A> add;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> dTMin(k=1) <font color="darkgreen">
+    &quot;Minimum offset for cooling coil setpoint&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Max"
+>Modelica.Blocks.Math.Max</A> max1;
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A> controlBus;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.IntegerPassThrough"
+>Modelica.Blocks.Routing.IntegerPassThrough</A> mode;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> TSet <font color="darkgreen">&quot;Temperature set point&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(dTMin.y, add.u1);
+  <font color="red">connect</font>(add.y, max1.u1);
+  <font color="red">connect</font>(TSupSetCoo.y, max1.u2);
+  <font color="red">connect</font>(controlBus.controlMode, mode.u);
+  <font color="red">connect</font>(max1.y, TSet);
+  <font color="red">connect</font>(TSetHea, add.u2);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>CoolingCoilTemperatureSetpoint;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE MixedAirTemperatureSetpoint<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVRehc44d17d9f59197dbpointI.png" ALT="Buildings.Examples.VAVReheat.Controls.MixedAirTemperatureSetpoint" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.MixedAirTemperatureSetpoint"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.MixedAirTemperatureSetpoint</H2>
+<B>Mixed air temperature setpoint for economizer</B><p></P>
+<IMG SRC="Buildings.Examples.VAVRehc44d17d9f59197dbpointD.png" ALT="Buildings.Examples.VAVReheat.Controls.MixedAirTemperatureSetpoint">
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TSupHeaSet</TD><TD>Supply temperature setpoint for heating</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TSupCooSet</TD><TD>Supply temperature setpoint for cooling</TD></TR>
+<TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A></TD><TD>controlBus</TD><TD>&nbsp;</TD></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>TSet</TD><TD>Mixed air temperature setpoint</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> MixedAirTemperatureSetpoint <font color="darkgreen">
+  &quot;Mixed air temperature setpoint for economizer&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Extractor"
+>Modelica.Blocks.Routing.Extractor</A> TSetMix(nin=6) <font color="darkgreen">
+    &quot;Mixed air setpoint temperature extractor&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> off(k=273.15 + 13) <font color="darkgreen">
+    &quot;Setpoint temperature to close damper&quot;</font>;
+  <A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Average"
+>Buildings.Utilities.Math.Average</A> ave(nin=2);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TSupHeaSet <font color="darkgreen">
+    &quot;Supply temperature setpoint for heating&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TSupCooSet <font color="darkgreen">
+    &quot;Supply temperature setpoint for cooling&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> TPreCoo(k=273.15 + 13) <font color="darkgreen">
+    &quot;Setpoint during pre-cooling&quot;</font>;
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A> controlBus;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> TSet <font color="darkgreen">&quot;Mixed air temperature setpoint&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex2"
+>Modelica.Blocks.Routing.Multiplex2</A> multiplex2_1;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TSetMix.u[1], ave.y);
+  <font color="red">connect</font>(ave.y, TSetMix.u[1]);
+  <font color="red">connect</font>(off.y, TSetMix.u[2]);
+  <font color="red">connect</font>(off.y, TSetMix.u[3]);
+  <font color="red">connect</font>(off.y, TSetMix.u[4]);
+  <font color="red">connect</font>(TPreCoo.y, TSetMix.u[5]);
+  <font color="red">connect</font>(off.y, TSetMix.u[6]);
+  <font color="red">connect</font>(controlBus.controlMode, TSetMix.index);
+  <font color="red">connect</font>(TSetMix.y, TSet);
+  <font color="red">connect</font>(multiplex2_1.y, ave.u);
+  <font color="red">connect</font>(TSupCooSet, multiplex2_1.u2[1]);
+  <font color="red">connect</font>(TSupHeaSet, multiplex2_1.u1[1]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>MixedAirTemperatureSetpoint;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE EconomizerTemperatureControl<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVReh6fc7b0f416506145ntrolI.png" ALT="Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.EconomizerTemperatureControl</H2>
+<B>Controller for economizer mixed air temperature</B><p></P>
+<IMG SRC="Buildings.Examples.VAVReh6fc7b0f416506145ntrolD.png" ALT="Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl">
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>k</TD><TD>1</TD><TD>Gain of controller</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>Ti</TD><TD>&nbsp;</TD><TD>Time constant of Integrator block [s]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>yOA</TD><TD>Control signal for outside air damper</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TRet</TD><TD>Return air temperature</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TOut</TD><TD>Outside air temperature</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TMix</TD><TD>Mixed air temperature</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>TMixSet</TD><TD>Setpoint for mixed air temperature</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> EconomizerTemperatureControl <font color="darkgreen">
+  &quot;Controller for economizer mixed air temperature&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</A>;
+  <font color="blue">import </font><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.OperationModes"
+>Buildings.Examples.VAVReheat.Controls.OperationModes</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</A> con(
+    k=k,
+    Ti=Ti,
+    yMax=0.995,
+    yMin=0.005,
+    Td=60,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI) <font color="darkgreen">
+    &quot;Controller for mixed air temperature&quot;</font>;</textblock>
+  <font color="blue">parameter </font>Real k=1 <font color="darkgreen">&quot;Gain of controller&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> Ti <font color="darkgreen">&quot;Time constant of Integrator block&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Greater"
+>Modelica.Blocks.Logical.Greater</A> signGain <font color="darkgreen">&quot;Sign of control gain&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+>Modelica.Blocks.Logical.Switch</A> swi1;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+>Modelica.Blocks.Logical.Switch</A> swi2;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> yOA <font color="darkgreen">
+    &quot;Control signal for outside air damper&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TRet <font color="darkgreen">&quot;Return air temperature&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TOut <font color="darkgreen">&quot;Outside air temperature&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TMix <font color="darkgreen">&quot;Mixed air temperature&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> TMixSet <font color="darkgreen">
+    &quot;Setpoint for mixed air temperature&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(signGain.y, swi1.u2);
+  <font color="red">connect</font>(swi1.y, con.u_s);
+  <font color="red">connect</font>(swi2.y, con.u_m);
+  <font color="red">connect</font>(signGain.y, swi2.u2);
+  <font color="red">connect</font>(con.y, yOA);
+  <font color="red">connect</font>(signGain.u1, TRet);
+  <font color="red">connect</font>(signGain.u2, TOut);
+  <font color="red">connect</font>(swi1.u1, TMix);
+  <font color="red">connect</font>(swi2.u3, TMix);
+  <font color="red">connect</font>(swi1.u3, TMixSet);
+  <font color="red">connect</font>(swi2.u1, TMixSet);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>EconomizerTemperatureControl;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:19:25 2013.
+</address></BODY>
+</HTML>

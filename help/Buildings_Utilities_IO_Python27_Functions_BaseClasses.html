@@ -1,0 +1,132 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Utilities.IO.Python27.Functions.BaseClasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with functions that call Python&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.IO.Python27.Functions.BaseClasses"></A><A HREF="Buildings_Utilities_IO_Python27_Functions.html#Buildings.Utilities.IO.Python27.Functions"
+>Buildings.Utilities.IO.Python27.Functions</A>.BaseClasses</H2>
+<B>Package with functions that call Python</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains functions that call Python.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.IO.Py26192d433fa5b380hangeS.png" ALT="Buildings.Utilities.IO.Python27.Functions.BaseClasses.exchange" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_IO_Python27_Functions_BaseClasses.html#Buildings.Utilities.IO.Python27.Functions.BaseClasses.exchange"
+>exchange</A>
+</TD><TD>Function that communicates with Python</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE exchange<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.IO.Python27.Functions.BaseClasses.exchange"></A><A HREF="Buildings_Utilities_IO_Python27_Functions_BaseClasses.html#Buildings.Utilities.IO.Python27.Functions.BaseClasses"
+>Buildings.Utilities.IO.Python27.Functions.BaseClasses</A>.exchange</H2>
+<B>Function that communicates with Python</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+This function exchanges data with Python.
+See 
+<A HREF="Buildings_Utilities_IO_Python27_UsersGuide.html#Buildings.Utilities.IO.Python27.UsersGuide"
+>
+Buildings.Utilities.IO.Python27.UsersGuide</a>
+for instructions, and 
+<A HREF="Buildings_Utilities_IO_Python27_Functions_Examples.html#Buildings.Utilities.IO.Python27.Functions.Examples"
+>
+Buildings.Utilities.IO.Python27.Functions.Examples</a>
+for examples.
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>String</TD><TD>moduleName</TD><TD>&nbsp;</TD><TD>Name of the python module that contains the function</TD></TR>
+<TR><TD>String</TD><TD>functionName</TD><TD>moduleName</TD><TD>Name of the python function</TD></TR>
+<TR><TD>Real</TD><TD>dblWri[max(1, nDblWri)]</TD><TD>&nbsp;</TD><TD>Double values to write</TD></TR>
+<TR><TD>Integer</TD><TD>intWri[max(1, nIntWri)]</TD><TD>&nbsp;</TD><TD>Integer values to write</TD></TR>
+<TR><TD>String</TD><TD>strWri[max(1, nStrWri)]</TD><TD>&nbsp;</TD><TD>String values to write</TD></TR>
+<TR><TD>Integer</TD><TD>nDblWri</TD><TD>&nbsp;</TD><TD>Number of double values to write</TD></TR>
+<TR><TD>Integer</TD><TD>nDblRea</TD><TD>&nbsp;</TD><TD>Number of double values to read</TD></TR>
+<TR><TD>Integer</TD><TD>nIntWri</TD><TD>&nbsp;</TD><TD>Number of integer values to write</TD></TR>
+<TR><TD>Integer</TD><TD>nIntRea</TD><TD>&nbsp;</TD><TD>Number of integer values to read</TD></TR>
+<TR><TD>Integer</TD><TD>nStrWri</TD><TD>&nbsp;</TD><TD>Number of strings to write</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>dblRea[max(1, nDblRea)]</TD><TD>Double values returned by Python</TD></TR>
+<TR><TD>Integer</TD><TD>intRea[max(1, nIntRea)]</TD><TD>Integer values returned by Python</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> exchange <font color="darkgreen">&quot;Function that communicates with Python&quot;</font>
+  <font color="blue">input </font>String moduleName <font color="darkgreen">
+    &quot;Name of the python module that contains the function&quot;</font>;
+  <font color="blue">input </font>String functionName=moduleName <font color="darkgreen">&quot;Name of the python function&quot;</font>;
+
+  <font color="blue">input </font>Real    dblWri[<font color="red">max</font>(1, nDblWri)] <font color="darkgreen">&quot;Double values to write&quot;</font>;
+  <font color="blue">input </font>Integer intWri[<font color="red">max</font>(1, nIntWri)] <font color="darkgreen">&quot;Integer values to write&quot;</font>;
+  <font color="blue">input </font>String  strWri[<font color="red">max</font>(1, nStrWri)] <font color="darkgreen">&quot;String values to write&quot;</font>;
+
+  <font color="blue">input </font>Integer nDblWri(min=0) <font color="darkgreen">&quot;Number of double values to write&quot;</font>;
+  <font color="blue">input </font>Integer nDblRea(min=0) <font color="darkgreen">&quot;Number of double values to read&quot;</font>;
+
+  <font color="blue">input </font>Integer nIntWri(min=0) <font color="darkgreen">&quot;Number of integer values to write&quot;</font>;
+  <font color="blue">input </font>Integer nIntRea(min=0) <font color="darkgreen">&quot;Number of integer values to read&quot;</font>;
+
+  <font color="blue">input </font>Integer nStrWri(min=0) <font color="darkgreen">&quot;Number of strings to write&quot;</font>;
+<font color="darkgreen">//  input Integer nStrRea(min=0) &quot;Number of strings to read&quot;;</font>
+<font color="darkgreen">//  input Integer strLenRea(min=0)</font>
+<font color="darkgreen">//    &quot;Maximum length of each string that is read. If exceeded, the simulation stops with an error&quot;;</font>
+
+  <font color="blue">output </font>Real    dblRea[<font color="red">max</font>(1, nDblRea)] <font color="darkgreen">&quot;Double values returned by Python&quot;</font>;
+  <font color="blue">output </font>Integer intRea[<font color="red">max</font>(1, nIntRea)] <font color="darkgreen">&quot;Integer values returned by Python&quot;</font>;
+
+  <font color="blue">external</font> &quot;C&quot; <font color="red">pythonExchangeValues</font>(moduleName, functionName,
+                                    dblWri, nDblWri,
+                                    dblRea, nDblRea,
+                                    intWri, nIntWri,
+                                    intRea, nIntRea,
+                                    strWri, nStrWri);
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>exchange;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:13:43 2013.
+</address></BODY>
+</HTML>

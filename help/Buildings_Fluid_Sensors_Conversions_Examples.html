@@ -1,0 +1,191 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.Sensors.Conversions.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Sensors.Conversions.Examples"></A><A HREF="Buildings_Fluid_Sensors_Conversions.html#Buildings.Fluid.Sensors.Conversions"
+>Buildings.Fluid.Sensors.Conversions</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_Fluid_Sensors_Conversions.html#Buildings.Fluid.Sensors.Conversions"
+>
+Buildings.Fluid.Sensors.Conversions</a>.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Sensors.C83fc9374ae695197ctionS.png" ALT="Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sensors_Conversions_Examples.html#Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction"
+>To_VolumeFraction</A>
+</TD><TD>Example problem for conversion model</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE To_VolumeFraction<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Sensors.C83fc9374ae695197ctionI.png" ALT="Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction"></A><A HREF="Buildings_Fluid_Sensors_Conversions_Examples.html#Buildings.Fluid.Sensors.Conversions.Examples"
+>Buildings.Fluid.Sensors.Conversions.Examples</A>.To_VolumeFraction</H2>
+<B>Example problem for conversion model</B><p></P>
+<IMG SRC="Buildings.Fluid.Sensors.C83fc9374ae695197ctionD.png" ALT="Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction">
+<P></P><H3>Information</H3>
+
+This example demonstrates the modeling of a room with one person and CO<sub>2</sub> control.
+The room has a volume of <i>4*4*2.7 m<sup>3</sup></i>, and the CO<sub>2</sub> inflow is from
+one person.
+A control system regulates the outside air to maintain a CO<sub>2</sub> concentration of 1000 PPM 
+in the room. The outside air has a CO<sub>2</sub> concentration of 300 PPM.
+Note that for simplicity, we allow zero outside air flow rate if the CO<sub>2</sub> concentration is below
+the setpoint, which does not comply with ASHRAE regulations.
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> To_VolumeFraction <font color="darkgreen">&quot;Example problem for conversion model&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
+>Buildings.Media.GasesPTDecoupled.SimpleAir</A>(extraPropertiesNames={&quot;CO2&quot;});
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Sensors_Conversions.html#Buildings.Fluid.Sensors.Conversions.To_VolumeFraction"
+>Buildings.Fluid.Sensors.Conversions.To_VolumeFraction</A> conMasVolFra(MMMea=
+        Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM) <font color="darkgreen">
+    &quot;Conversion from mass fraction CO2 to volume fraction CO2&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> volFra(k=1000E-6) <font color="darkgreen">
+    &quot;Set point for volume fraction of 700PPM CO2&quot;</font>;
+  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</A> limPID(
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    reverseAction=true,
+    Ti=600,
+    k=2,
+    Td=1);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TraceSubstances"
+>Buildings.Fluid.Sensors.TraceSubstances</A> senCO2(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium, substanceName=&quot;CO2&quot;) <font color="darkgreen">&quot;CO2 sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</A> vol(
+    nPorts=4,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    V=4*4*2.7,
+    C_start={300E-6}*44.009544/28.9651159,
+    m_flow_nominal=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">&quot;Volume of air&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.TraceSubstancesFlowSource"
+>Buildings.Fluid.Sources.TraceSubstancesFlowSource</A> souCO2(
+    use_m_flow_in=true,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    nPorts=1) <font color="darkgreen">&quot;CO2 source&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> CO2Per(k=15/1000/3600*1.977) <font color="darkgreen">
+    &quot;CO2 emission per person&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</A> sou(
+    use_m_flow_in=true,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    C={300E-6}*44.009544/28.9651159,
+    nPorts=1) <font color="darkgreen">&quot;Source of fresh air with 300 PPM CO2&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Buildings.Fluid.Sources.FixedBoundary</A> sin(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    p=100000,
+    C={300E-6}*44.009544/28.9651159,
+    nPorts=1) <font color="darkgreen">&quot;Sink for exhaust air&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gai(k=50/3600) <font color="darkgreen">&quot;Gain for mass flow rate&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> nPeo(k=1) <font color="darkgreen">&quot;Number of people&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.VolumeFlowRate"
+>Buildings.Fluid.Sensors.VolumeFlowRate</A> senVolFlo(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium, m_flow_nominal=0.1);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> norSet(k=1/1000E-6) <font color="darkgreen">
+    &quot;Normalization for set point (to scale control input)&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> norMea(k=1/1000E-6) <font color="darkgreen">
+    &quot;Normalization for measured concentration (to scale control input)&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> conVolFlo(k=3600, y(unit=&quot;m3/h&quot;)) <font color="darkgreen">
+    &quot;Conversion from m3/s to m3/h&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TraceSubstancesTwoPort"
+>Buildings.Fluid.Sensors.TraceSubstancesTwoPort</A> senTraSubPeo(m_flow_nominal=0.1,
+      <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    C_start=0,
+    initType=Modelica.Blocks.Types.Init.InitialState) <font color="darkgreen">
+    &quot;CO2 concentration in absorptance from people&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TraceSubstancesTwoPort"
+>Buildings.Fluid.Sensors.TraceSubstancesTwoPort</A> senTraSubFre(m_flow_nominal=0.1,
+      <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    C_start=0,
+    initType=Modelica.Blocks.Types.Init.InitialState) <font color="darkgreen">
+    &quot;CO2 concentration in fresh air supply&quot;</font>;
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=10,
+    m_flow_nominal=50/3600) <font color="darkgreen">
+    &quot;Pressure drop to decouple the state of the volume from the state of the boundary condition&quot;</font>;
+    </textblock>
+<font color="blue">equation </font>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(souCO2.m_flow_in, CO2Per.y);
+  <font color="red">connect</font>(gai.y, sou.m_flow_in);
+  <font color="red">connect</font>(limPID.y, gai.u);
+  <font color="red">connect</font>(nPeo.y, CO2Per.u);
+  <font color="red">connect</font>(sou.ports[1], senVolFlo.port_a);
+  <font color="red">connect</font>(senCO2.C, conMasVolFra.m);
+  <font color="red">connect</font>(conMasVolFra.V, norMea.u);
+  <font color="red">connect</font>(norMea.y, limPID.u_m);
+  <font color="red">connect</font>(volFra.y, norSet.u);
+  <font color="red">connect</font>(norSet.y, limPID.u_s);
+  <font color="red">connect</font>(conVolFlo.u, senVolFlo.V_flow);
+  <font color="red">connect</font>(souCO2.ports[1], senTraSubPeo.port_a);
+  <font color="red">connect</font>(senTraSubPeo.port_b, vol.ports[1]);
+  <font color="red">connect</font>(senVolFlo.port_b, senTraSubFre.port_a);
+  <font color="red">connect</font>(senTraSubFre.port_b, vol.ports[2]);
+  <font color="red">connect</font>(vol.ports[3], senCO2.port);
+  <font color="red">connect</font>(vol.ports[4], res.port_a);
+  <font color="red">connect</font>(res.port_b, sin.ports[1]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>To_VolumeFraction;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:48 2013.
+</address></BODY>
+</HTML>

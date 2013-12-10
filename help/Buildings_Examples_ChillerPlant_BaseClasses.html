@@ -1,0 +1,142 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Examples.ChillerPlant.BaseClasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with base classes for Buildings.Examples.ChillerPlant&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Examples.ChillerPlant.BaseClasses"></A><A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
+>Buildings.Examples.ChillerPlant</A>.BaseClasses</H2>
+<B>Package with base classes for Buildings.Examples.ChillerPlant</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
+>Buildings.Examples.ChillerPlant</a>.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Examples.Chille793602028b6244f4dRoomS.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom"
+>SimplifiedRoom</A>
+</TD><TD>Simplified data center room</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.Chille98d389099a64ccdetrolsS.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls"
+>Controls</A>
+</TD><TD>Package with control components for Buildings.Examples.ChillerPlant</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SimplifiedRoom<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.Chille793602028b6244f4dRoomI.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom"></A><A HREF="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses"
+>Buildings.Examples.ChillerPlant.BaseClasses</A>.SimplifiedRoom</H2>
+<B>Simplified data center room</B><p></P>
+<IMG SRC="Buildings.Examples.Chille793602028b6244f4dRoomD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom">
+<P></P><H3>Information</H3>
+
+<p>
+This is a simplified room model for a data center. There is no heat exchange between the room and ambient environment through the building envelope since it is negligible compared to the heat released by the servers.
+</p><P></P>
+
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD>Modelica.Media.Interfaces.Pa...</TD><TD>Medium model</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>rooLen</TD><TD>&nbsp;</TD><TD>Length of the room [m]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>rooWid</TD><TD>&nbsp;</TD><TD>Width of the room [m]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Height</A></TD><TD>rooHei</TD><TD>&nbsp;</TD><TD>Height of the room [m]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</A></TD><TD>QRoo_flow</TD><TD>&nbsp;</TD><TD>Heat generation of the computer room [W]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>VesselFluidPorts_b</A></TD><TD>airPorts[nPorts]</TD><TD>Fluid inlets and outlets</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> SimplifiedRoom <font color="darkgreen">&quot;Simplified data center room&quot;</font>
+  <font color="blue">replaceable </font><font color="blue">package</font> Medium = <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">
+    &quot;Medium model&quot;</font>;
+  <font color="blue">parameter </font>Integer nPorts=0 <font color="darkgreen">&quot;Number of parts&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</A> rooLen <font color="darkgreen">&quot;Length of the room&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</A> rooWid <font color="darkgreen">&quot;Width of the room&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Modelica.SIunits.Height</A> rooHei <font color="darkgreen">&quot;Height of the room&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</A> QRoo_flow <font color="darkgreen">
+    &quot;Heat generation of the computer room&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</A> rooVol(
+    nPorts=nPorts,
+    <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium = Medium,
+    V=rooLen*rooWid*rooHei,
+    <font color="blue">final </font>T_start=293.15,
+    m_flow_nominal=m_flow_nominal) <font color="darkgreen">&quot;Volume of air in the room&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b</A> airPorts[nPorts](
+      <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Fluid inlets and outlets&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow"
+>Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</A> QSou <font color="darkgreen">
+    &quot;Heat source of the room&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</A> ramp(
+    height=QRoo_flow,
+    offset=0,
+    duration=36000,
+    startTime=0);</textblock>
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> m_flow_nominal <font color="darkgreen">
+    &quot;Nominal mass flow rate&quot;</font>;
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(rooVol.ports, airPorts);
+  <font color="red">connect</font>(QSou.port, rooVol.heatPort);
+  <font color="red">connect</font>(ramp.y, QSou.Q_flow);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>SimplifiedRoom;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:14:26 2013.
+</address></BODY>
+</HTML>

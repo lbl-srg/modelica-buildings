@@ -1,0 +1,409 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.SolarCollectors.BaseClasses.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.SolarCollectors.BaseClasses.Examples"></A><A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses"
+>Buildings.Fluid.SolarCollectors.BaseClasses</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains examples for the use of models that can be found in 
+<A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses"
+> 
+Buildings.Fluid.SolarCollectors.BaseClasses.</a>
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarColl539594ed6e22c814tLossS.png" ALT="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAEHeatLoss" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors_BaseClasses_Examples.html#Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAEHeatLoss"
+>ASHRAEHeatLoss</A>
+</TD><TD>Example showing the use of ASHRAEHeatLoss</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarColl539594ed6e22c814tLossS.png" ALT="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAESolarGain" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors_BaseClasses_Examples.html#Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAESolarGain"
+>ASHRAESolarGain</A>
+</TD><TD>Example showing the use of ASHRAESolarGain</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarColl539594ed6e22c814tLossS.png" ALT="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.EN12975HeatLoss" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors_BaseClasses_Examples.html#Buildings.Fluid.SolarCollectors.BaseClasses.Examples.EN12975HeatLoss"
+>EN12975HeatLoss</A>
+</TD><TD>Example showing the use of EN12975HeatLoss</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarColl539594ed6e22c814tLossS.png" ALT="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.EN12975SolarGain" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors_BaseClasses_Examples.html#Buildings.Fluid.SolarCollectors.BaseClasses.Examples.EN12975SolarGain"
+>EN12975SolarGain</A>
+</TD><TD>Example showing the use of EN12975SolarGain</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ASHRAEHeatLoss<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.SolarColl539594ed6e22c814tLossI.png" ALT="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAEHeatLoss" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAEHeatLoss"></A><A HREF="Buildings_Fluid_SolarCollectors_BaseClasses_Examples.html#Buildings.Fluid.SolarCollectors.BaseClasses.Examples"
+>Buildings.Fluid.SolarCollectors.BaseClasses.Examples</A>.ASHRAEHeatLoss</H2>
+<B>Example showing the use of ASHRAEHeatLoss</B><p></P>
+<IMG SRC="Buildings.Fluid.SolarColl539594ed6e22c814tLossD.png" ALT="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAEHeatLoss">
+<P></P><H3>Information</H3>
+
+      <p>
+        This examples demonstrates the implementation of 
+        <A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss"
+>
+        Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a>.
+      </p>
+    <P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>GenericSolarCollector</A></TD><TD>per</TD><TD>Buildings.Fluid.SolarCollect...</TD><TD>Performance data</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> ASHRAEHeatLoss <font color="darkgreen">&quot;Example showing the use of ASHRAEHeatLoss&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">parameter </font><A HREF="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector</A> per=
+    <font color="red">Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf</font>() <font color="darkgreen">
+    &quot;Performance data&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system(p_ambient=101325);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> TEnv(
+    freqHz=0.01,
+    offset=273.15 + 10,
+    amplitude=7.5) <font color="darkgreen">&quot;Temperature of the surrounding environment&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> T1(
+    freqHz=0.1,
+    amplitude=15,
+    offset=273.15 + 10) <font color="darkgreen">&quot;Temperature in the first segment&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> T2(
+    freqHz=0.1,
+    amplitude=15,
+    offset=273.15 + 15) <font color="darkgreen">&quot;Temperature in the second segment&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> T3(
+    freqHz=0.1,
+    amplitude=15,
+    offset=273.15 + 20) <font color="darkgreen">&quot;Temperature in the third segment&quot;</font>;
+  <A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss"
+>Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</A> heaLos(
+    nSeg=3,
+    m_flow_nominal=per.mperA_flow_nominal*per.A,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A>,
+    G_nominal=per.G_nominal,
+    dT_nominal=per.dT_nominal,
+    A_c=per.A,
+    y_intercept=per.y_intercept,
+    slope=per.slope) <font color="darkgreen">&quot;Heat loss model using ASHRAE93 calculations&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TEnv.y, heaLos.TEnv);
+  <font color="red">connect</font>(T3.y, heaLos.TFlu[3]);
+  <font color="red">connect</font>(T2.y, heaLos.TFlu[2]);
+  <font color="red">connect</font>(T1.y, heaLos.TFlu[1]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ASHRAEHeatLoss;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ASHRAESolarGain<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.SolarColl539594ed6e22c814tLossI.png" ALT="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAESolarGain" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAESolarGain"></A><A HREF="Buildings_Fluid_SolarCollectors_BaseClasses_Examples.html#Buildings.Fluid.SolarCollectors.BaseClasses.Examples"
+>Buildings.Fluid.SolarCollectors.BaseClasses.Examples</A>.ASHRAESolarGain</H2>
+<B>Example showing the use of ASHRAESolarGain</B><p></P>
+<IMG SRC="Buildings.Fluid.SolarColl31c600e6addd52f0rGainD.png" ALT="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAESolarGain">
+<P></P><H3>Information</H3>
+
+      <p>
+        This examples demonstrates the implementation of 
+        <A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain"
+>
+        Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain</a>.
+      </p>
+    <P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>GenericSolarCollector</A></TD><TD>per</TD><TD>Buildings.Fluid.SolarCollect...</TD><TD>Performance data</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> ASHRAESolarGain <font color="darkgreen">&quot;Example showing the use of ASHRAESolarGain&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">parameter </font><A HREF="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector</A> per=
+    <font color="red">Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20</font>() <font color="darkgreen">
+    &quot;Performance data&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system(p_ambient=101325);
+  <A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain"
+>Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain</A>   solHeaGai(
+    nSeg=3,
+    shaCoe=0,
+    use_shaCoe_in=true,
+    A_c=per.A,
+    y_intercept=per.y_intercept,
+    B0=per.B0,
+    B1=per.B1,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A>,
+    til=0.78539816339745) <font color="darkgreen">&quot;Solar heat gain model using ASHRAE 93 calculations&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A>     HGroDifTil(
+    amplitude=50,
+    freqHz=4/86400,
+    offset=100) <font color="darkgreen">&quot;Diffuse radiation from the ground, tilted surface&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</A> incAng(duration=86400, height=60*(2*Modelica.Constants.pi
+        /360)) <font color="darkgreen">&quot;Incidence angle&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> HDirTil(
+    offset=400,
+    amplitude=300,
+    freqHz=2/86400) <font color="darkgreen">&quot;Direct beam radiation, tilted surface&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> HSkyDifTil(
+    freqHz=1/86400,
+    amplitude=100,
+    offset=100) <font color="darkgreen">&quot;Diffuse radiation, tilted surface&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</A> shaCoe(
+    height=-1,
+    duration=86400,
+    offset=1) <font color="darkgreen">&quot;Shading coefficient&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> T3(
+    freqHz=2/86400,
+    amplitude=50,
+    offset=273.15 + 110);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> T2(
+    freqHz=2/86400,
+    amplitude=50,
+    offset=273.15 + 100);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> T1(
+    freqHz=2/86400,
+    amplitude=50,
+    offset=273.15 + 90);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(HGroDifTil.y, solHeaGai.HGroDifTil);
+  <font color="red">connect</font>(shaCoe.y, solHeaGai.shaCoe_in);
+  <font color="red">connect</font>(incAng.y, solHeaGai.incAng);
+  <font color="red">connect</font>(HDirTil.y, solHeaGai.HDirTil);
+  <font color="red">connect</font>(HSkyDifTil.y, solHeaGai.HSkyDifTil);
+  <font color="red">connect</font>(T3.y, solHeaGai.TFlu[3]);
+  <font color="red">connect</font>(T2.y, solHeaGai.TFlu[2]);
+  <font color="red">connect</font>(T1.y, solHeaGai.TFlu[1]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ASHRAESolarGain;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE EN12975HeatLoss<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.SolarColl539594ed6e22c814tLossI.png" ALT="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.EN12975HeatLoss" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.EN12975HeatLoss"></A><A HREF="Buildings_Fluid_SolarCollectors_BaseClasses_Examples.html#Buildings.Fluid.SolarCollectors.BaseClasses.Examples"
+>Buildings.Fluid.SolarCollectors.BaseClasses.Examples</A>.EN12975HeatLoss</H2>
+<B>Example showing the use of EN12975HeatLoss</B><p></P>
+<IMG SRC="Buildings.Fluid.SolarCollb60839424c56cfaatLossD.png" ALT="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.EN12975HeatLoss">
+<P></P><H3>Information</H3>
+
+      <p>
+        This examples demonstrates the implementation of 
+        <A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss"
+>
+        Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>.
+      </p>
+    <P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>GenericSolarCollector</A></TD><TD>per</TD><TD>Buildings.Fluid.SolarCollect...</TD><TD>Performance data</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> EN12975HeatLoss <font color="darkgreen">&quot;Example showing the use of EN12975HeatLoss&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">parameter </font><A HREF="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector</A> per=
+    <font color="red">Buildings.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel</font>() <font color="darkgreen">
+    &quot;Performance data&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> TEnv(
+    freqHz=0.01,
+    offset=273.15 + 10,
+    amplitude=15) <font color="darkgreen">&quot;Temperature of the surrounding environment&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> T1(
+    amplitude=15,
+    freqHz=0.1,
+    offset=273.15 + 10) <font color="darkgreen">&quot;Temperature of the first segment&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> T2(
+    freqHz=0.1,
+    amplitude=15,
+    offset=273.15 + 15) <font color="darkgreen">&quot;Temperature of the second segment&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> T3(
+    freqHz=0.1,
+    amplitude=15,
+    offset=273.15 + 20) <font color="darkgreen">&quot;Temperature of the third segment&quot;</font>;
+  <A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss"
+>Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</A> heaLos(
+    nSeg=3,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A>,
+    C1=per.C1,
+    C2=per.C2,
+    m_flow_nominal=per.mperA_flow_nominal*per.A,
+    G_nominal=per.G_nominal,
+    dT_nominal=per.dT_nominal,
+    A_c=per.A,
+    y_intercept=per.y_intercept) <font color="darkgreen">&quot;Heat loss model using EN12975 calculations&quot;</font>;
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TEnv.y, heaLos.TEnv);
+  <font color="red">connect</font>(T3.y, heaLos.TFlu[3]);
+  <font color="red">connect</font>(T2.y, heaLos.TFlu[2]);
+  <font color="red">connect</font>(T1.y, heaLos.TFlu[1]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>EN12975HeatLoss;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE EN12975SolarGain<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.SolarColl539594ed6e22c814tLossI.png" ALT="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.EN12975SolarGain" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.EN12975SolarGain"></A><A HREF="Buildings_Fluid_SolarCollectors_BaseClasses_Examples.html#Buildings.Fluid.SolarCollectors.BaseClasses.Examples"
+>Buildings.Fluid.SolarCollectors.BaseClasses.Examples</A>.EN12975SolarGain</H2>
+<B>Example showing the use of EN12975SolarGain</B><p></P>
+<IMG SRC="Buildings.Fluid.SolarColl92701865e12da534rGainD.png" ALT="Buildings.Fluid.SolarCollectors.BaseClasses.Examples.EN12975SolarGain">
+<P></P><H3>Information</H3>
+
+      <p>
+        This examples demonstrates the implementation of 
+        <A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain"
+>
+        Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain</a>.
+      </p>
+    <P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>GenericSolarCollector</A></TD><TD>per</TD><TD>Buildings.Fluid.SolarCollect...</TD><TD>Performance data</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> EN12975SolarGain <font color="darkgreen">&quot;Example showing the use of EN12975SolarGain&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">parameter </font><A HREF="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector</A> per=
+    <font color="red">Buildings.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel</font>() <font color="darkgreen">
+    &quot;Performance data&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system(p_ambient=101325);
+  <A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain"
+>Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain</A> solHeaGai(
+    B0=per.B0,
+    B1=per.B1,
+    y_intercept=per.y_intercept,
+    nSeg=3,
+    A_c=per.A,
+    iamDiff=per.IAMDiff,
+    shaCoe=0,
+    use_shaCoe_in=true,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A>) <font color="darkgreen">
+    &quot;Solar heat gain model using EN12975 calculations&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</A> incAng(duration=86400,
+    height=60*(2*Modelica.Constants.pi/360)) <font color="darkgreen">&quot;Incidence angle&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> HDirTil(
+    offset=400,
+    amplitude=300,
+    freqHz=2/86400) <font color="darkgreen">&quot;Direct beam radiation, tilted surface&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> HDifTil(
+    amplitude=200,
+    freqHz=1/86400,
+    offset=300) <font color="darkgreen">&quot;Diffuse radiation, tilted surface&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</A> shaCoe(
+    duration=86400,
+    offset=1,
+    height=-1) <font color="darkgreen">&quot;Shading coefficient&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> T3(
+    freqHz=2/86400,
+    amplitude=50,
+    offset=273.15 + 110);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> T2(
+    freqHz=2/86400,
+    amplitude=50,
+    offset=273.15 + 100);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> T1(
+    freqHz=2/86400,
+    amplitude=50,
+    offset=273.15 + 90);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(incAng.y, solHeaGai.incAng);
+  <font color="red">connect</font>(shaCoe.y, solHeaGai.shaCoe_in);
+  <font color="red">connect</font>(HDirTil.y, solHeaGai.HDirTil);
+  <font color="red">connect</font>(HDifTil.y, solHeaGai.HSkyDifTil);
+  <font color="red">connect</font>(T3.y, solHeaGai.TFlu[3]);
+  <font color="red">connect</font>(T2.y, solHeaGai.TFlu[2]);
+  <font color="red">connect</font>(T1.y, solHeaGai.TFlu[1]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>EN12975SolarGain;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:55 2013.
+</address></BODY>
+</HTML>

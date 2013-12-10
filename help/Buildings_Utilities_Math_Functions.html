@@ -1,0 +1,1092 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Utilities.Math.Functions</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with mathematical functions&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Functions<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions"></A><A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</A>.Functions</H2>
+<B>Package with mathematical functions</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains functions for commonly used
+mathematical operations. The functions are used in 
+the blocks
+<A HREF="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>
+Buildings.Utilities.Math</a>.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.bicubic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.bicubic"
+>bicubic</A>
+</TD><TD>Bicubic function</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.biquadratic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.biquadratic"
+>biquadratic</A>
+</TD><TD>Biquadratic function</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation"
+>cubicHermiteLinearExtrapolation</A>
+</TD><TD>Interpolate using a cubic Hermite spline with linear extrapolation</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.polynomial" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.polynomial"
+>polynomial</A>
+</TD><TD>Polynomial function</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.powerLinearized" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.powerLinearized"
+>powerLinearized</A>
+</TD><TD>Power function that is linearized below a user-defined threshold</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.quadraticLinear" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.quadraticLinear"
+>quadraticLinear</A>
+</TD><TD>Function that is quadratic in first argument and linear in second argument</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.regNonZeroPower" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.regNonZeroPower"
+>regNonZeroPower</A>
+</TD><TD>Power function, regularized near zero, but nonzero value for x=0</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.smoothExponential" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.smoothExponential"
+>smoothExponential</A>
+</TD><TD>Once continuously differentiable approximation to exp(-|x|) in interval |x| &lt; delta</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.smoothHeaviside" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.smoothHeaviside"
+>smoothHeaviside</A>
+</TD><TD>Once continuously differentiable approximation to the Heaviside function</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.smoothMax" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.smoothMax"
+>smoothMax</A>
+</TD><TD>Once continuously differentiable approximation to the maximum function</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.smoothMin" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.smoothMin"
+>smoothMin</A>
+</TD><TD>Once continuously differentiable approximation to the minimum function</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.smoothLimit" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.smoothLimit"
+>smoothLimit</A>
+</TD><TD>Once continuously differentiable approximation to the limit function</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.spliceFunction" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.spliceFunction"
+>spliceFunction</A>
+</TD><TD>&nbsp;</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.splineDerivatives" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.splineDerivatives"
+>splineDerivatives</A>
+</TD><TD>Function to compute the derivatives for cubic hermite spline interpolation</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.trapezoidalIntegration" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.trapezoidalIntegration"
+>trapezoidalIntegration</A>
+</TD><TD>Integration using the trapezoidal rule</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.inverseXRegularized" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.inverseXRegularized"
+>inverseXRegularized</A>
+</TD><TD>Function that approximates 1/x by a twice continuously differentiable function</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.315badedb9fe4903cubicS.png" ALT="Buildings.Utilities.Math.Functions.isMonotonic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.isMonotonic"
+>isMonotonic</A>
+</TD><TD>Returns true if the argument is a monotonic sequence</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.d045205f7ac035f8mplesS.png" ALT="Buildings.Utilities.Math.Functions.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions_Examples.html#Buildings.Utilities.Math.Functions.Examples"
+>Examples</A>
+</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Math.f2f9e363daa2cebfassesS.png" ALT="Buildings.Utilities.Math.Functions.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Math_Functions_BaseClasses.html#Buildings.Utilities.Math.Functions.BaseClasses"
+>BaseClasses</A>
+</TD><TD>Package with base classes for Buildings.Utilities.Math.Functions</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE bicubic<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.bicubic"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.bicubic</H2>
+<B>Bicubic function</B><p></P>
+<P></P><H3>Information</H3>
+
+This function computes
+<p align="center" style="font-style:italic;">
+ y = a<sub>1</sub> 
+    + a<sub>2</sub>  x<sub>1</sub> + a<sub>3</sub>  x<sub>1</sub><sup>2</sup> 
+    + a<sub>4</sub>  x<sub>2</sub> + a<sub>5</sub>  x<sub>2</sub><sup>2</sup> 
+    + a<sub>6</sub>  x<sub>1</sub>  x<sub>2</sub> 
+    + a<sub>7</sub>  x<sub>1</sub>^3
+    + a<sub>8</sub>  x<sub>2</sub>^3 
+    + a<sub>9</sub>  x<sub>1</sub><sup>2</sup>  x<sub>2</sub> 
+    + a<sub>1</sub>0  x<sub>1</sub>  x<sub>2</sub><sup>2</sup>
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>a[10]</TD><TD>&nbsp;</TD><TD>Coefficients</TD></TR>
+<TR><TD>Real</TD><TD>x1</TD><TD>&nbsp;</TD><TD>Independent variable</TD></TR>
+<TR><TD>Real</TD><TD>x2</TD><TD>&nbsp;</TD><TD>Independent variable</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>Result</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> bicubic <font color="darkgreen">&quot;Bicubic function&quot;</font>
+ <font color="blue">input </font>Real a[10] <font color="darkgreen">&quot;Coefficients&quot;</font>;
+ <font color="blue">input </font>Real x1 <font color="darkgreen">&quot;Independent variable&quot;</font>;
+ <font color="blue">input </font>Real x2 <font color="darkgreen">&quot;Independent variable&quot;</font>;
+ <font color="blue">output </font>Real y <font color="darkgreen">&quot;Result&quot;</font>;
+<font color="blue">protected </font>
+ Real x1Sq <font color="darkgreen">&quot;= x1^2&quot;</font>;
+ Real x2Sq <font color="darkgreen">&quot;= x2^2&quot;</font>;
+<font color="blue">algorithm </font>
+  x1Sq :=x1*x1;
+  x2Sq :=x2*x2;
+  y := a[1] + a[2] * x1 + a[3] * x1^2
+            + a[4] * x2 + a[5] * x2^2
+            + a[6] * x1 * x2
+            + a[7] * x1Sq * x1
+            + a[8] * x2Sq * x2
+            + a[9] * x1Sq * x2
+            + a[10] * x1 * x2Sq;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>bicubic;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE biquadratic<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.biquadratic"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.biquadratic</H2>
+<B>Biquadratic function</B><p></P>
+<P></P><H3>Information</H3>
+
+This function computes
+<p align="center" style="font-style:italic;">
+  y =   a<sub>1</sub> + a<sub>2</sub>  x<sub>1</sub> 
+        + a<sub>3</sub>  x<sub>1</sub><sup>2</sup>
+        + a<sub>4</sub>  x<sub>2</sub> + a<sub>5</sub>  x<sub>2</sub><sup>2</sup>
+        + a<sub>6</sub>  x<sub>1</sub>  x<sub>2</sub>
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>a[6]</TD><TD>&nbsp;</TD><TD>Coefficients</TD></TR>
+<TR><TD>Real</TD><TD>x1</TD><TD>&nbsp;</TD><TD>Independent variable</TD></TR>
+<TR><TD>Real</TD><TD>x2</TD><TD>&nbsp;</TD><TD>Independent variable</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>Result</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> biquadratic <font color="darkgreen">&quot;Biquadratic function&quot;</font>
+ <font color="blue">input </font>Real a[6] <font color="darkgreen">&quot;Coefficients&quot;</font>;
+ <font color="blue">input </font>Real x1 <font color="darkgreen">&quot;Independent variable&quot;</font>;
+ <font color="blue">input </font>Real x2 <font color="darkgreen">&quot;Independent variable&quot;</font>;
+ <font color="blue">output </font>Real y <font color="darkgreen">&quot;Result&quot;</font>;
+<font color="blue">algorithm </font>
+  y :=a[1] + x1*(a[2] + a[3]*x1) + x2*(a[4]+ a[5]*x2) + a[6]*x1*x2;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>biquadratic;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE cubicHermiteLinearExtrapolation<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.cubicHermiteLinearExtrapolation</H2>
+<B>Interpolate using a cubic Hermite spline with linear extrapolation</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+For <i>x<sub>1</sub> &lt; x &lt; x<sub>2</sub></i>, this function interpolates
+using cubic hermite spline. For <i>x</i> outside this interval, the function 
+linearly extrapolates.
+</p>
+<p>
+For how to use this function, see
+<A HREF="Buildings_Utilities_Math_Functions_Examples.html#Buildings.Utilities.Math.Functions.Examples.CubicHermite"
+>
+Buildings.Utilities.Math.Functions.Examples.CubicHermite</a>.
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>&nbsp;</TD><TD>Abscissa value</TD></TR>
+<TR><TD>Real</TD><TD>x1</TD><TD>&nbsp;</TD><TD>Lower abscissa value</TD></TR>
+<TR><TD>Real</TD><TD>x2</TD><TD>&nbsp;</TD><TD>Upper abscissa value</TD></TR>
+<TR><TD>Real</TD><TD>y1</TD><TD>&nbsp;</TD><TD>Lower ordinate value</TD></TR>
+<TR><TD>Real</TD><TD>y2</TD><TD>&nbsp;</TD><TD>Upper ordinate value</TD></TR>
+<TR><TD>Real</TD><TD>y1d</TD><TD>&nbsp;</TD><TD>Lower gradient</TD></TR>
+<TR><TD>Real</TD><TD>y2d</TD><TD>&nbsp;</TD><TD>Upper gradient</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>Interpolated ordinate value</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> cubicHermiteLinearExtrapolation <font color="darkgreen">
+  &quot;Interpolate using a cubic Hermite spline with linear extrapolation&quot;</font>
+  <font color="blue">input </font>Real x <font color="darkgreen">&quot;Abscissa value&quot;</font>;
+  <font color="blue">input </font>Real x1 <font color="darkgreen">&quot;Lower abscissa value&quot;</font>;
+  <font color="blue">input </font>Real x2 <font color="darkgreen">&quot;Upper abscissa value&quot;</font>;
+  <font color="blue">input </font>Real y1 <font color="darkgreen">&quot;Lower ordinate value&quot;</font>;
+  <font color="blue">input </font>Real y2 <font color="darkgreen">&quot;Upper ordinate value&quot;</font>;
+  <font color="blue">input </font>Real y1d <font color="darkgreen">&quot;Lower gradient&quot;</font>;
+  <font color="blue">input </font>Real y2d <font color="darkgreen">&quot;Upper gradient&quot;</font>;
+  <font color="blue">output </font>Real y <font color="darkgreen">&quot;Interpolated ordinate value&quot;</font>;
+<font color="blue">algorithm </font>
+  <font color="blue">if </font>(x &gt; x1<font color="blue"> and </font>x &lt; x2)<font color="blue"> then</font>
+    y:=<font color="red">Modelica.Fluid.Utilities.cubicHermite</font>(
+      x=x,
+      x1=x1,
+      x2=x2,
+      y1=y1,
+      y2=y2,
+      y1d=y1d,
+      y2d=y2d);
+  <font color="blue">elseif </font>x &lt;= x1<font color="blue"> then</font>
+    <font color="darkgreen">// linear extrapolation</font>
+    y:=y1 + (x - x1)*y1d;
+  <font color="blue">else</font>
+    y:=y2 + (x - x2)*y2d;
+  <font color="blue">end if</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>cubicHermiteLinearExtrapolation;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE polynomial<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.polynomial"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.polynomial</H2>
+<B>Polynomial function</B><p></P>
+<P></P><H3>Information</H3>
+
+This function computes a polynomial of arbitrary order.
+The polynomial has the form
+<p align="center" style="font-style:italic;">
+  y = a<sub>1</sub> + a<sub>2</sub> x + a<sub>3</sub> x<sup>2</sup> + ...
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>&nbsp;</TD><TD>Independent variable</TD></TR>
+<TR><TD>Real</TD><TD>a[:]</TD><TD>&nbsp;</TD><TD>Coefficients</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>Result</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> polynomial <font color="darkgreen">&quot;Polynomial function&quot;</font>
+  annotation(derivative=<A HREF="Buildings_Utilities_Math_Functions_BaseClasses.html#Buildings.Utilities.Math.Functions.BaseClasses.der_polynomial"
+>Buildings.Utilities.Math.Functions.BaseClasses.der_polynomial</A>);
+ <font color="blue">input </font>Real x <font color="darkgreen">&quot;Independent variable&quot;</font>;
+ <font color="blue">input </font>Real a[:] <font color="darkgreen">&quot;Coefficients&quot;</font>;
+ <font color="blue">output </font>Real y <font color="darkgreen">&quot;Result&quot;</font>;
+<font color="blue">protected </font>
+ <font color="blue">parameter </font>Integer n =<font color="red"> size</font>(a, 1)-1;
+ Real xp[n+1] <font color="darkgreen">&quot;Powers of x&quot;</font>;
+<font color="blue">algorithm </font>
+  xp[1] :=1;
+  <font color="blue">for </font>i<font color="blue"> in </font>1:n<font color="blue"> loop</font>
+     xp[i+1] :=xp[i]*x;
+  <font color="blue">end for</font>;
+  y :=a*xp;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>polynomial;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE powerLinearized<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.powerLinearized"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.powerLinearized</H2>
+<B>Power function that is linearized below a user-defined threshold</B><p></P>
+<P></P><H3>Information</H3>
+
+Function that approximates <i>y=x<sup>n</sup></i> 
+where <i>0 &lt; n</i> so that
+<ul>
+<li>the function is defined and monotone increasing for all <i>x</i>.
+<li><i>dy/dx</i> is bounded and continuous everywhere (for <i>n &lt; 1</i>).
+</ul>
+<p>
+For <i>x &lt; x<sub>0</sub></i>, this function replaces 
+<i>y=x<sup>n</sup></i> by 
+a linear function that is continuously differentiable everywhere.
+</p>
+<p>
+A typical use of this function is to replace 
+<i>T = T4<sup>(1/4)</sup></i> in a radiation balance to ensure that the 
+function is defined everywhere. This can help solving the initialization problem
+when a solver may be far from a solution and hence <i>T4 &lt; 0</i>.
+</p>
+<p>
+See the package <code>Examples</code> for the graph.
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>&nbsp;</TD><TD>Abscissa value</TD></TR>
+<TR><TD>Real</TD><TD>n</TD><TD>&nbsp;</TD><TD>Exponent</TD></TR>
+<TR><TD>Real</TD><TD>x0</TD><TD>&nbsp;</TD><TD>Abscissa value below which linearization occurs</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>Function value</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> powerLinearized <font color="darkgreen">
+  &quot;Power function that is linearized below a user-defined threshold&quot;</font>
+
+ <font color="blue">input </font>Real x <font color="darkgreen">&quot;Abscissa value&quot;</font>;
+ <font color="blue">input </font>Real n <font color="darkgreen">&quot;Exponent&quot;</font>;
+ <font color="blue">input </font>Real x0 <font color="darkgreen">&quot;Abscissa value below which linearization occurs&quot;</font>;
+ <font color="blue">output </font>Real y <font color="darkgreen">&quot;Function value&quot;</font>;
+<font color="blue">algorithm </font>
+  <font color="blue">if </font>x &gt; x0<font color="blue"> then</font>
+   y := x^n;
+  <font color="blue">else</font>
+   y := x0^n * (1-n) + n * x0^(n-1) * x;
+  <font color="blue">end if</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>powerLinearized;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE quadraticLinear<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.quadraticLinear"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.quadraticLinear</H2>
+<B>Function that is quadratic in first argument and linear in second argument</B><p></P>
+<P></P><H3>Information</H3>
+
+This function computes
+<p align="center" style="font-style:italic;">
+  y =   a<sub>1</sub> + a<sub>2</sub>  x<sub>1</sub> 
+        + a<sub>3</sub> x<sub>1</sub><sup>2</sup> 
+        + (a<sub>4</sub> + a<sub>5</sub>  x<sub>1</sub> 
+        + a<sub>6</sub> x<sub>1</sub><sup>2</sup>)  x<sub>2</sub>
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>a[6]</TD><TD>&nbsp;</TD><TD>Coefficients</TD></TR>
+<TR><TD>Real</TD><TD>x1</TD><TD>&nbsp;</TD><TD>Independent variable for quadratic part</TD></TR>
+<TR><TD>Real</TD><TD>x2</TD><TD>&nbsp;</TD><TD>Independent variable for linear part</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>Result</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> quadraticLinear <font color="darkgreen">
+  &quot;Function that is quadratic in first argument and linear in second argument&quot;</font>
+ <font color="blue">input </font>Real a[6] <font color="darkgreen">&quot;Coefficients&quot;</font>;
+ <font color="blue">input </font>Real x1 <font color="darkgreen">&quot;Independent variable for quadratic part&quot;</font>;
+ <font color="blue">input </font>Real x2 <font color="darkgreen">&quot;Independent variable for linear part&quot;</font>;
+ <font color="blue">output </font>Real y <font color="darkgreen">&quot;Result&quot;</font>;
+<font color="blue">protected </font>
+ Real x1Sq;
+<font color="blue">algorithm </font>
+  x1Sq :=x1*x1;
+  y :=a[1] + a[2]*x1 + a[3]*x1Sq + (a[4] + a[5]*x1 + a[6]*x1Sq)*x2;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>quadraticLinear;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE regNonZeroPower<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.regNonZeroPower"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.regNonZeroPower</H2>
+<B>Power function, regularized near zero, but nonzero value for x=0</B><p></P>
+<P></P><H3>Information</H3>
+
+
+Function that approximates <i>y=|x|<sup>n</sup></i> where <i>n &gt; 0</i> 
+so that
+<ul>
+<li><i>y(0)</i> is not equal to zero.
+<li><i>dy/dx</i> is bounded and continuous everywhere.
+</ul>
+
+<p>
+This function replaces <i>y=|x|<sup>n</sup></i> in the interval
+<i>-&delta;...+&delta;</i> by a 4-th order polynomial that has the same
+function value and the first and second derivative at <i>x=&plusmn; &delta;</i>.
+</p>
+<p>
+A typical use of this function is to replace the 
+function for the convective heat transfer
+coefficient for forced or free convection that is of the form 
+<i>h=c |dT|<sup>n</sup></i> for some constant <i>c</i> and exponent 
+<i>0 &le; n &le; 1</i>. 
+By using this function, the original function
+that has an infinite derivative near zero and that takes on zero
+at the origin is replaced by a function with a bounded derivative and 
+a non-zero value at the origin. Physically, 
+the region <i>-&delta;...+&delta;</i> may be interpreted as the region
+where heat conduction dominates convection in the boundary layer.
+</p>
+See the package <code>Examples</code> for the graph.
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>&nbsp;</TD><TD>Abscissa value</TD></TR>
+<TR><TD>Real</TD><TD>n</TD><TD>&nbsp;</TD><TD>Exponent</TD></TR>
+<TR><TD>Real</TD><TD>delta</TD><TD>0.01</TD><TD>Abscissa value where transition occurs</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>Function value</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> regNonZeroPower <font color="darkgreen">
+  &quot;Power function, regularized near zero, but nonzero value for x=0&quot;</font>
+  annotation(derivative=<A HREF="Buildings_Utilities_Math_Functions_BaseClasses.html#Buildings.Utilities.Math.Functions.BaseClasses.der_regNonZeroPower"
+>BaseClasses.der_regNonZeroPower</A>);
+
+ <font color="blue">input </font>Real x <font color="darkgreen">&quot;Abscissa value&quot;</font>;
+ <font color="blue">input </font>Real n <font color="darkgreen">&quot;Exponent&quot;</font>;
+ <font color="blue">input </font>Real delta = 0.01 <font color="darkgreen">&quot;Abscissa value where transition occurs&quot;</font>;
+ <font color="blue">output </font>Real y <font color="darkgreen">&quot;Function value&quot;</font>;
+<font color="blue">protected </font>
+  Real a1;
+  Real a3;
+  Real a5;
+  Real delta2;
+  Real x2;
+  Real y_d <font color="darkgreen">&quot;=y(delta)&quot;</font>;
+  Real yP_d <font color="darkgreen">&quot;=dy(delta)/dx&quot;</font>;
+  Real yPP_d <font color="darkgreen">&quot;=d^2y(delta)/dx^2&quot;</font>;
+<font color="blue">algorithm </font>
+  <font color="blue">if </font><font color="red">abs</font>(x) &gt; delta<font color="blue"> then</font>
+   y :=<font color="red"> abs</font>(x)^n;
+  <font color="blue">else</font>
+   delta2 :=delta*delta;
+   x2 :=x*x;
+   y_d :=delta^n;
+   yP_d :=n*delta^(n - 1);
+   yPP_d :=n*(n - 1)*delta^(n - 2);
+   a1 := -(yP_d/delta - yPP_d)/delta2/8;
+   a3 := (yPP_d - 12 * a1 * delta2)/2;
+   a5 := (y_d - delta2 * (a3 + delta2 * a1));
+   y := a5 + x2 * (a3 + x2 * a1);
+   <font color="red">assert</font>(a5&gt;0, &quot;Delta is too small for this exponent.&quot;);
+  <font color="blue">end if</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>regNonZeroPower;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE smoothExponential<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.smoothExponential"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.smoothExponential</H2>
+<B>Once continuously differentiable approximation to exp(-|x|) in interval |x| &lt; delta</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+Function to provide a once continuously differentiable approximation 
+to <i>exp(- |x| )</i>
+in the interval <i>|x| < &delta;</i> for some positive <i>&delta;</i>
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>&nbsp;</TD><TD>Input argument</TD></TR>
+<TR><TD>Real</TD><TD>delta</TD><TD>&nbsp;</TD><TD>Transition point where approximation occurs</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>Output argument</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> smoothExponential <font color="darkgreen">
+  &quot;Once continuously differentiable approximation to exp(-|x|) in interval |x| &lt; delta&quot;</font>
+
+  <font color="blue">input </font>Real x <font color="darkgreen">&quot;Input argument&quot;</font>;
+  <font color="blue">input </font>Real delta <font color="darkgreen">&quot;Transition point where approximation occurs&quot;</font>;
+  <font color="blue">output </font>Real y <font color="darkgreen">&quot;Output argument&quot;</font>;
+<font color="blue">protected </font>
+  Real absX <font color="darkgreen">&quot;Absolute value of x&quot;</font>;
+  Real a2 <font color="darkgreen">&quot;Coefficient for approximating function&quot;</font>;
+  Real a3 <font color="darkgreen">&quot;Coefficient for approximating function&quot;</font>;
+  Real e;
+  Real d2;
+  Real x2;
+<font color="blue">algorithm </font>
+  absX :=<font color="red">abs</font>(x);
+  <font color="blue">if </font>absX &gt; delta<font color="blue"> then</font>
+    y :=<font color="red">  exp</font>(-absX);
+  <font color="blue">else</font>
+    d2 := delta*delta;
+    e  :=<font color="red"> exp</font>(-delta);
+    a2 := (delta*e-4*(1-e))/2/d2;
+    a3 := (e-1-a2*d2)/d2/d2;
+    x2 := x*x;
+    y  := 1+x2*(a2+x2*a3);
+  <font color="blue">end if</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>smoothExponential;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE smoothHeaviside<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.smoothHeaviside"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.smoothHeaviside</H2>
+<B>Once continuously differentiable approximation to the Heaviside function</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+Once Lipschitz continuously differentiable approximation to the 
+<code>Heaviside(.,.)</code> function.
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>&nbsp;</TD><TD>Argument</TD></TR>
+<TR><TD>Real</TD><TD>delta</TD><TD>&nbsp;</TD><TD>Parameter used for scaling</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>Result</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> smoothHeaviside <font color="darkgreen">
+  &quot;Once continuously differentiable approximation to the Heaviside function&quot;</font>
+  <font color="blue">input </font>Real x <font color="darkgreen">&quot;Argument&quot;</font>;
+  <font color="blue">input </font>Real delta <font color="darkgreen">&quot;Parameter used for scaling&quot;</font>;
+  <font color="blue">output </font>Real y <font color="darkgreen">&quot;Result&quot;</font>;
+<font color="blue">algorithm </font>
+ y :=<font color="red"> Buildings.Utilities.Math.Functions.spliceFunction</font>(1, 0, x, delta);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>smoothHeaviside;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE smoothMax<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.smoothMax"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.smoothMax</H2>
+<B>Once continuously differentiable approximation to the maximum function</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+Once continuously differentiable approximation to the <code>max(.,.)</code> function.
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x1</TD><TD>&nbsp;</TD><TD>First argument</TD></TR>
+<TR><TD>Real</TD><TD>x2</TD><TD>&nbsp;</TD><TD>Second argument</TD></TR>
+<TR><TD>Real</TD><TD>deltaX</TD><TD>&nbsp;</TD><TD>Width of transition interval</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>Result</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> smoothMax <font color="darkgreen">
+  &quot;Once continuously differentiable approximation to the maximum function&quot;</font>
+  <font color="blue">input </font>Real x1 <font color="darkgreen">&quot;First argument&quot;</font>;
+  <font color="blue">input </font>Real x2 <font color="darkgreen">&quot;Second argument&quot;</font>;
+  <font color="blue">input </font>Real deltaX <font color="darkgreen">&quot;Width of transition interval&quot;</font>;
+  <font color="blue">output </font>Real y <font color="darkgreen">&quot;Result&quot;</font>;
+<font color="blue">algorithm </font>
+  y :=<font color="red"> Buildings.Utilities.Math.Functions.spliceFunction</font>(
+         pos=x1, neg=x2, x=x1-x2, deltax=deltaX);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>smoothMax;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE smoothMin<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.smoothMin"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.smoothMin</H2>
+<B>Once continuously differentiable approximation to the minimum function</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+Once continuously differentiable approximation to the <code>max(.,.)</code> function.
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x1</TD><TD>&nbsp;</TD><TD>First argument</TD></TR>
+<TR><TD>Real</TD><TD>x2</TD><TD>&nbsp;</TD><TD>Second argument</TD></TR>
+<TR><TD>Real</TD><TD>deltaX</TD><TD>&nbsp;</TD><TD>Width of transition interval</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>Result</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> smoothMin <font color="darkgreen">
+  &quot;Once continuously differentiable approximation to the minimum function&quot;</font>
+  <font color="blue">input </font>Real x1 <font color="darkgreen">&quot;First argument&quot;</font>;
+  <font color="blue">input </font>Real x2 <font color="darkgreen">&quot;Second argument&quot;</font>;
+  <font color="blue">input </font>Real deltaX <font color="darkgreen">&quot;Width of transition interval&quot;</font>;
+  <font color="blue">output </font>Real y <font color="darkgreen">&quot;Result&quot;</font>;
+<font color="blue">algorithm </font>
+  y :=<font color="red"> Buildings.Utilities.Math.Functions.spliceFunction</font>(
+       pos=x1, neg=x2, x=x2-x1, deltax=deltaX);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>smoothMin;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE smoothLimit<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.smoothLimit"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.smoothLimit</H2>
+<B>Once continuously differentiable approximation to the limit function</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+Once continuously differentiable approximation to the <code>limit(.,.)</code> function.
+The output is bounded to be in <i>[l, u]</i>.
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>&nbsp;</TD><TD>Variable</TD></TR>
+<TR><TD>Real</TD><TD>l</TD><TD>&nbsp;</TD><TD>Low limit</TD></TR>
+<TR><TD>Real</TD><TD>u</TD><TD>&nbsp;</TD><TD>Upper limit</TD></TR>
+<TR><TD>Real</TD><TD>deltaX</TD><TD>&nbsp;</TD><TD>Width of transition interval</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>Result</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> smoothLimit <font color="darkgreen">
+  &quot;Once continuously differentiable approximation to the limit function&quot;</font>
+  <font color="blue">input </font>Real x <font color="darkgreen">&quot;Variable&quot;</font>;
+  <font color="blue">input </font>Real l <font color="darkgreen">&quot;Low limit&quot;</font>;
+  <font color="blue">input </font>Real u <font color="darkgreen">&quot;Upper limit&quot;</font>;
+  <font color="blue">input </font>Real deltaX <font color="darkgreen">&quot;Width of transition interval&quot;</font>;
+  <font color="blue">output </font>Real y <font color="darkgreen">&quot;Result&quot;</font>;
+
+<font color="blue">protected </font>
+  Real cor;
+<font color="blue">algorithm </font>
+  cor :=deltaX/10;
+  y :=<font color="red"> Buildings.Utilities.Math.Functions.smoothMax</font>(x,l+deltaX,cor);
+  y :=<font color="red"> Buildings.Utilities.Math.Functions.smoothMin</font>(y,u-deltaX,cor);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>smoothLimit;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE spliceFunction<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.spliceFunction"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.spliceFunction</H2>
+<P></P><H3>Information</H3>
+
+<p>
+Function to provide a once continuously differentialbe transition between 
+to arguments.
+</p><p>
+The function is adapted from 
+<A HREF="../../msl/3.2/help/Modelica_Media_Air_MoistAir_Utilities.html#Modelica.Media.Air.MoistAir.Utilities.spliceFunction"
+>
+Modelica.Media.Air.MoistAir.Utilities.spliceFunction</a> and provided here
+for easier accessability to model developers.
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>pos</TD><TD>&nbsp;</TD><TD>Argument of x &gt; 0</TD></TR>
+<TR><TD>Real</TD><TD>neg</TD><TD>&nbsp;</TD><TD>Argument of x &lt; 0</TD></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>&nbsp;</TD><TD>Independent value</TD></TR>
+<TR><TD>Real</TD><TD>deltax</TD><TD>&nbsp;</TD><TD>Half width of transition interval</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>out</TD><TD>Smoothed value</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> spliceFunction
+  annotation(derivative=<A HREF="Buildings_Utilities_Math_Functions_BaseClasses.html#Buildings.Utilities.Math.Functions.BaseClasses.der_spliceFunction"
+>BaseClasses.der_spliceFunction</A>);
+    <font color="blue">input </font>Real pos <font color="darkgreen">&quot;Argument of x &gt; 0&quot;</font>;
+    <font color="blue">input </font>Real neg <font color="darkgreen">&quot;Argument of x &lt; 0&quot;</font>;
+    <font color="blue">input </font>Real x <font color="darkgreen">&quot;Independent value&quot;</font>;
+    <font color="blue">input </font>Real deltax <font color="darkgreen">&quot;Half width of transition interval&quot;</font>;
+    <font color="blue">output </font>Real out <font color="darkgreen">&quot;Smoothed value&quot;</font>;
+<font color="blue">protected </font>
+    Real scaledX1;
+    Real y;
+    <font color="blue">constant </font>Real asin1 =<font color="red"> Modelica.Math.asin</font>(1);
+<font color="blue">algorithm </font>
+    scaledX1 := x/deltax;
+    <font color="blue">if </font>scaledX1 &lt;= -0.999999999<font color="blue"> then</font>
+      out := neg;
+    <font color="blue">elseif </font>scaledX1 &gt;= 0.999999999<font color="blue"> then</font>
+      out := pos;
+    <font color="blue">else</font>
+      y := (<font color="red">Modelica.Math.tanh</font>(<font color="red">Modelica.Math.tan</font>(scaledX1*asin1)) + 1)/2;
+      out := pos*y + (1 - y)*neg;
+    <font color="blue">end if</font>;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>spliceFunction;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE splineDerivatives<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.splineDerivatives"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.splineDerivatives</H2>
+<B>Function to compute the derivatives for cubic hermite spline interpolation</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+This function computes the derivatives at the support points <i>x<sub>i</sub></i>
+that can be used as input for evaluating a cubic hermite spline.
+If <code>ensureMonotonicity=true</code>, then the support points <i>y<sub>i</sub></i>
+need to be monotone increasing (or increasing), and the computed derivatives
+<i>d<sub>i</sub></i> are such that the cubic hermite is monotone increasing (or decreasing).
+The algorithm to ensure monotonicity is based on the method described in Fritsch and Carlson (1980) for
+<i>&rho; = &rho;<sub>2</sub></i>.
+</p>
+<p>
+This function is typically used with
+<A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation"
+>
+Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation</a>
+which is used to evaluate the cubic spline.
+Because in many applications, the shape of the spline depends on parameters,
+this function has been implemented in such a way that all derivatives can be 
+computed at once and then stored for use during the time stepping,
+in which the above function may be called.
+</p>
+<h4>References</h4>
+<p>
+F.N. Fritsch and R.E. Carlson, <a href="http://dx.doi.org/10.1137/0717021">Monotone piecewise cubic interpolation</a>. 
+<i>SIAM J. Numer. Anal.</i>, 17 (1980), pp. 238?246.
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x[:]</TD><TD>&nbsp;</TD><TD>Support point, strict monotone increasing</TD></TR>
+<TR><TD>Real</TD><TD>y[size(x, 1)]</TD><TD>&nbsp;</TD><TD>Function values at x</TD></TR>
+<TR><TD>Boolean</TD><TD>ensureMonotonicity</TD><TD>isMonotonic(y, strict=false)</TD><TD>Set to true to ensure monotonicity of the cubic hermite</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>d[size(x, 1)]</TD><TD>Derivative at the support points</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> splineDerivatives <font color="darkgreen">
+  &quot;Function to compute the derivatives for cubic hermite spline interpolation&quot;</font>
+  <font color="blue">input </font>Real x[:] <font color="darkgreen">&quot;Support point, strict monotone increasing&quot;</font>;
+  <font color="blue">input </font>Real y[<font color="red">size</font>(x, 1)] <font color="darkgreen">&quot;Function values at x&quot;</font>;
+  <font color="blue">input </font>Boolean ensureMonotonicity=<font color="red">isMonotonic</font>(y, strict=false) <font color="darkgreen">
+    &quot;Set to true to ensure monotonicity of the cubic hermite&quot;</font>;
+  <font color="blue">output </font>Real d[<font color="red">size</font>(x, 1)] <font color="darkgreen">&quot;Derivative at the support points&quot;</font>;
+<font color="blue">protected </font>
+  Integer n=<font color="red">size</font>(x, 1) <font color="darkgreen">&quot;Number of data points&quot;</font>;
+  Real delta[n - 1] <font color="darkgreen">&quot;Slope of secant line between data points&quot;</font>;
+  Real alpha <font color="darkgreen">&quot;Coefficient to ensure monotonicity&quot;</font>;
+  Real beta <font color="darkgreen">&quot;Coefficient to ensure monotonicity&quot;</font>;
+  Real tau <font color="darkgreen">&quot;Coefficient to ensure monotonicity&quot;</font>;
+
+<font color="blue">algorithm </font>
+  <font color="blue">if </font>(n&gt;1)<font color="blue"> then</font>
+    <font color="red">assert</font>(x[1] &lt; x[n], &quot;x must be strictly increasing.
+  Received x[1] = &quot; +<font color="red"> String</font>(x[1]) + &quot;
+           x[&quot; +<font color="red"> String</font>(n) + &quot;] = &quot; +<font color="red"> String</font>(x[n]));
+  <font color="darkgreen">// Check data</font>
+    <font color="red">assert</font>(<font color="red">isMonotonic</font>(x, strict=true),
+      &quot;x-values must be strictly monontone increasing or decreasing.&quot;);
+    <font color="blue">if </font>ensureMonotonicity<font color="blue"> then</font>
+      <font color="red">assert</font>(<font color="red">isMonotonic</font>(y, strict=false),
+        &quot;If ensureMonotonicity=true, y-values must be monontone increasing or decreasing.&quot;);
+    <font color="blue">end if</font>;
+  <font color="blue">end if</font>;
+
+  <font color="darkgreen">// Compute derivatives at the support points</font>
+  <font color="blue">if </font>n == 1<font color="blue"> then</font>
+    <font color="darkgreen">// only one data point</font>
+    d[1] :=0;
+  <font color="blue">elseif </font>n == 2<font color="blue"> then</font>
+    <font color="darkgreen">// linear function</font>
+    d[1] := (y[2] - y[1])/(x[2] - x[1]);
+    d[2] := d[1];
+  <font color="blue">else</font>
+    <font color="darkgreen">// Slopes of the secant lines between i and i+1</font>
+    <font color="blue">for </font>i<font color="blue"> in </font>1:n - 1<font color="blue"> loop</font>
+      delta[i] := (y[i + 1] - y[i])/(x[i + 1] - x[i]);
+    <font color="blue">end for</font>;
+    <font color="darkgreen">// Initial values for tangents at the support points.</font>
+    <font color="darkgreen">// End points use one-sided derivatives</font>
+    d[1] := delta[1];
+    d[n] := delta[n - 1];
+
+    <font color="blue">for </font>i<font color="blue"> in </font>2:n - 1<font color="blue"> loop</font>
+      d[i] := (delta[i - 1] + delta[i])/2;
+    <font color="blue">end for</font>;
+
+  <font color="blue">end if</font>;
+  <font color="darkgreen">// Ensure monotonicity</font>
+  <font color="blue">if </font>n &gt; 2<font color="blue"> and </font>ensureMonotonicity<font color="blue"> then</font>
+    <font color="blue">for </font>i<font color="blue"> in </font>1:n - 1<font color="blue"> loop</font>
+      <font color="blue">if </font>(<font color="red">abs</font>(delta[i]) &lt; Modelica.Constants.small)<font color="blue"> then</font>
+        d[i] := 0;
+        d[i + 1] := 0;
+      <font color="blue">else</font>
+        alpha := d[i]/delta[i];
+        beta := d[i + 1]/delta[i];
+        <font color="darkgreen">// Constrain derivative to ensure monotonicity in this interval</font>
+        <font color="blue">if </font>(alpha^2 + beta^2) &gt; 9<font color="blue"> then</font>
+          tau := 3/(alpha^2 + beta^2)^(1/2);
+          d[i] := delta[i]*alpha*tau;
+          d[i + 1] := delta[i]*beta*tau;
+        <font color="blue">end if</font>;
+      <font color="blue">end if</font>;
+    <font color="blue">end for</font>;
+  <font color="blue">end if</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>splineDerivatives;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE trapezoidalIntegration<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.trapezoidalIntegration"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.trapezoidalIntegration</H2>
+<B>Integration using the trapezoidal rule</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+This function computes a definite integral using the trapezoidal rule.
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>N</TD><TD>&nbsp;</TD><TD>Number of integrand points</TD></TR>
+<TR><TD>Real</TD><TD>f[:]</TD><TD>&nbsp;</TD><TD>Integrands</TD></TR>
+<TR><TD>Real</TD><TD>deltaX</TD><TD>&nbsp;</TD><TD>Width of interval for Trapezoidal integration</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>result</TD><TD>Result</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> trapezoidalIntegration <font color="darkgreen">
+  &quot;Integration using the trapezoidal rule&quot;</font>
+  <font color="blue">input </font>Integer N <font color="darkgreen">&quot;Number of integrand points&quot;</font>;
+  <font color="blue">input </font>Real[:] f <font color="darkgreen">&quot;Integrands&quot;</font>;
+  <font color="blue">input </font>Real deltaX <font color="darkgreen">&quot;Width of interval for Trapezoidal integration&quot;</font>;
+  <font color="blue">output </font>Real result <font color="darkgreen">&quot;Result&quot;</font>;
+<font color="blue">algorithm </font>
+  <font color="red">assert</font>(N &gt;= 2, &quot;N must be no less than 2.&quot;);
+  result := 0;
+  <font color="blue">for </font>i<font color="blue"> in </font>1:N<font color="blue"> loop</font>
+    result := result + f[i];
+  <font color="blue">end for</font>;
+
+  result := 2*result;
+  result := result - f[1] - f[N];
+  result := result*deltaX/2;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>trapezoidalIntegration;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE inverseXRegularized<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.inverseXRegularized"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.inverseXRegularized</H2>
+<B>Function that approximates 1/x by a twice continuously differentiable function</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+Function that approximates <i>y=1 &frasl; x</i> 
+inside the interval <i>-&delta; &le; x &le; &delta;</i>.
+The approximation is twice continuously differentiable with a bounded derivative on the whole 
+real line.
+<p>
+See the package <code>Examples</code> for the graph.
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>&nbsp;</TD><TD>Abscissa value</TD></TR>
+<TR><TD>Real</TD><TD>delta</TD><TD>&nbsp;</TD><TD>Abscissa value below which approximation occurs</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>Function value</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> inverseXRegularized <font color="darkgreen">
+  &quot;Function that approximates 1/x by a twice continuously differentiable function&quot;</font>
+ <font color="blue">input </font>Real x <font color="darkgreen">&quot;Abscissa value&quot;</font>;
+ <font color="blue">input </font>Real delta(min=0) <font color="darkgreen">&quot;Abscissa value below which approximation occurs&quot;</font>;
+ <font color="blue">output </font>Real y <font color="darkgreen">&quot;Function value&quot;</font>;
+<font color="blue">protected </font>
+ Real delta2 <font color="darkgreen">&quot;Delta^2&quot;</font>;
+ Real x2_d2 <font color="darkgreen">&quot;=x^2/delta^2&quot;</font>;
+<font color="blue">algorithm </font>
+  <font color="blue">if </font>(<font color="red">abs</font>(x) &gt; delta)<font color="blue"> then</font>
+    y := 1/x;
+  <font color="blue">else</font>
+    delta2 :=delta*delta;
+    x2_d2  := x*x/delta2;
+    y      := x/delta2 + x*<font color="red">abs</font>(x/delta2/delta*(2 - x2_d2*(3 - x2_d2)));
+  <font color="blue">end if</font>;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>inverseXRegularized;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE isMonotonic<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Math.Functions.isMonotonic"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Buildings.Utilities.Math.Functions</A>.isMonotonic</H2>
+<B>Returns true if the argument is a monotonic sequence</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+This function returns <code>true</code> if its argument is 
+monotonic increasing or decreasing, and <code>false</code> otherwise.
+If <code>strict=true</code>, then strict monotonicity is tested,
+otherwise weak monotonicity is tested.
+</p>
+<P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x[:]</TD><TD>&nbsp;</TD><TD>Sequence to be tested</TD></TR>
+<TR><TD>Boolean</TD><TD>strict</TD><TD>false</TD><TD>Set to true to test for strict monotonicity</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Boolean</TD><TD>monotonic</TD><TD>True if x is monotonic increasing or decreasing</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> isMonotonic <font color="darkgreen">
+  &quot;Returns true if the argument is a monotonic sequence&quot;</font>
+  <font color="blue">input </font>Real x[:] <font color="darkgreen">&quot;Sequence to be tested&quot;</font>;
+  <font color="blue">input </font>Boolean strict=false <font color="darkgreen">&quot;Set to true to test for strict monotonicity&quot;</font>;
+  <font color="blue">output </font>Boolean monotonic <font color="darkgreen">&quot;True if x is monotonic increasing or decreasing&quot;</font>;
+<font color="blue">protected </font>
+  Integer n=<font color="red">size</font>(x, 1) <font color="darkgreen">&quot;Number of data points&quot;</font>;
+
+<font color="blue">algorithm </font>
+  <font color="blue">if </font>n == 1<font color="blue"> then</font>
+    monotonic := true;
+  <font color="blue">else</font>
+    monotonic := true;
+    <font color="blue">if </font>strict<font color="blue"> then</font>
+      <font color="blue">if </font>(x[1] &gt;= x[n])<font color="blue"> then</font>
+        <font color="blue">for </font>i<font color="blue"> in </font>1:n - 1<font color="blue"> loop</font>
+          <font color="blue">if </font>(<font color="blue">not </font>x[i] &gt; x[i + 1])<font color="blue"> then</font>
+            monotonic := false;
+          <font color="blue">end if</font>;
+        <font color="blue">end for</font>;
+      <font color="blue">else</font>
+        <font color="blue">for </font>i<font color="blue"> in </font>1:n - 1<font color="blue"> loop</font>
+          <font color="blue">if </font>(<font color="blue">not </font>x[i] &lt; x[i + 1])<font color="blue"> then</font>
+            monotonic := false;
+          <font color="blue">end if</font>;
+        <font color="blue">end for</font>;
+      <font color="blue">end if</font>;
+    <font color="blue">else</font>
+      <font color="darkgreen">// not strict</font>
+      <font color="blue">if </font>(x[1] &gt;= x[n])<font color="blue"> then</font>
+        <font color="blue">for </font>i<font color="blue"> in </font>1:n - 1<font color="blue"> loop</font>
+          <font color="blue">if </font>(<font color="blue">not </font>x[i] &gt;= x[i + 1])<font color="blue"> then</font>
+            monotonic := false;
+          <font color="blue">end if</font>;
+        <font color="blue">end for</font>;
+      <font color="blue">else</font>
+        <font color="blue">for </font>i<font color="blue"> in </font>1:n - 1<font color="blue"> loop</font>
+          <font color="blue">if </font>(<font color="blue">not </font>x[i] &lt;= x[i + 1])<font color="blue"> then</font>
+            monotonic := false;
+          <font color="blue">end if</font>;
+        <font color="blue">end for</font>;
+      <font color="blue">end if</font>;
+    <font color="blue">end if</font>;
+    <font color="darkgreen">// strict</font>
+  <font color="blue">end if</font>;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>isMonotonic;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:13:44 2013.
+</address></BODY>
+</HTML>
