@@ -65,7 +65,7 @@ model FourPort "Partial model with four ports"
                      Xi_outflow(each nominal=0.01))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}},
-                          rotation=0), 
+                          rotation=0),
                 iconTransformation(extent={{-90,-70},{-110,-50}})));
 
   annotation (

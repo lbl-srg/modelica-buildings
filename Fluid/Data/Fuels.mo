@@ -35,7 +35,8 @@ Hermann Recknagel, Eberhard Sprenger and Ernst-Rudolf Schramek. Taschenbuch fuer
     parameter Modelica.SIunits.SpecificEnthalpy h
       "Heating value (lower or upper, depending on fuel)";
     parameter Modelica.SIunits.Density d "Mass density";
-    parameter Real mCO2(final min=0) "CO2 emission at combustion, in kg/kg fuel";
+    parameter Real mCO2(final min=0)
+      "CO2 emission at combustion, in kg/kg fuel";
     annotation (Documentation(info="<html>
 <p>
 This is a generic record where the fuel properties need to be specified by the user.

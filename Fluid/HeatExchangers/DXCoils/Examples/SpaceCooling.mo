@@ -618,9 +618,9 @@ equation
       smooth=Smooth.None));
   connect(conVarSpe.u_m, rooVarSpe.TRoo) annotation (Line(
       points={{-50,-222},{-50,-280},{280,-280},{280,52.3077},{260.933,52.3077}},
-
       color={0,0,127},
       smooth=Smooth.None));
+
   connect(conVarSpe.y, varSpeDX.speRat) annotation (Line(
       points={{-39,-210},{-20,-210},{-20,-232},{-5,-232}},
       color={0,0,127},

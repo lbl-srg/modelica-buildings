@@ -6,7 +6,7 @@ model Factorial "Test the function factorial"
 equation
   y = Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.factorial(x);
   assert(abs(120-y[5]) < 1E-10, "Error: Factorial function yields wrong result.");
-annotation(
+annotation (
 experiment(StopTime=1),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/BaseClasses/Examples/Factorial.mos"
         "Simulate and plot"),

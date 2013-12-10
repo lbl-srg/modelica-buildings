@@ -19,7 +19,8 @@ equation
 
  annotation(Diagram(graphics),
 experiment(StopTime=4),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Utilities/Examples/ExtendedPolynomialDerivativeCheck.mos" "Simulate and plot"),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Utilities/Examples/ExtendedPolynomialDerivativeCheck.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example checks whether the function derivative

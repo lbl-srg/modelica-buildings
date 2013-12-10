@@ -274,7 +274,7 @@ the simulation stops.");
       d=preDer1,
       cBar=zeros(2),
       kRes=  kRes) * (1-delta)/delta^2;
-  
+
     cBar[2] :=((cha.pressure(
       data=pCur1,
       V_flow=VDelta_flow,
@@ -345,7 +345,7 @@ the simulation stops.");
       d=preDer2,
       cBar=zeros(2),
       kRes=  kRes) * (1-delta)/delta^2;
-  
+
     cBar[2] :=((cha.pressure(
       data=pCur2,
       V_flow=VDelta_flow,
@@ -358,7 +358,6 @@ the simulation stops.");
       d=preDer2,
       cBar=zeros(2),
       kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
-
 
   else  // ----- Curve 3
     curve :=3; // Neither V_flow_max nor dpMax are provided by the user
@@ -410,7 +409,7 @@ the simulation stops.");
       d=preDer3,
       cBar=zeros(2),
       kRes=  kRes) * (1-delta)/delta^2;
-  
+
     cBar[2] :=((cha.pressure(
       data=pCur3,
       V_flow=VDelta_flow,

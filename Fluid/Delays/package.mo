@@ -1,6 +1,8 @@
 within Buildings.Fluid;
 package Delays "Package with delay models"
   extends Modelica.Icons.VariantsPackage;
+
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains components models for transport delays in
@@ -18,5 +20,4 @@ For a discretized model of a pipe or duct, see
 Buildings.Fluid.FixedResistances.Pipe</a>.
 </p>
 </html>"));
-
 end Delays;

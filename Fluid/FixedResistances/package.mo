@@ -1,6 +1,8 @@
 within Buildings.Fluid;
 package FixedResistances "Package with models for fixed flow resistances (pipes, diffusers etc.)"
   extends Modelica.Icons.VariantsPackage;
+
+
 annotation (preferredView="info", Documentation(info="<html>
 This package contains components models for fixed flow resistances. 
 By fixed flow resistance, we mean resistances that do not change the 
@@ -37,5 +39,4 @@ Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a>
 can be used to model flow splitters or flow merges.
 </p>
 </html>"));
-
 end FixedResistances;

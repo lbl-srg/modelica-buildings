@@ -1,6 +1,7 @@
 within Buildings.Fluid.BaseClasses;
 package FlowModels "Flow models for pressure drop calculations"
   extends Modelica.Icons.BasesPackage;
+
 annotation (Documentation(info="<html>
 This package contains a basic flow model that is used by the 
 various models that compute pressure drop.

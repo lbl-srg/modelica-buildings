@@ -6,7 +6,7 @@ partial model PartialDynamicFlowSensor
   parameter Modelica.SIunits.Time tau(min=0) = 1
     "Time constant at nominal flow rate" annotation (Evaluate=true);
   parameter Modelica.Blocks.Types.Init initType = Modelica.Blocks.Types.Init.InitialState
-"Type of initialization (InitialState and InitialOutput are identical)"
+    "Type of initialization (InitialState and InitialOutput are identical)"
   annotation(Evaluate=true, Dialog(group="Initialization"));
 protected
   Real k(start=1)

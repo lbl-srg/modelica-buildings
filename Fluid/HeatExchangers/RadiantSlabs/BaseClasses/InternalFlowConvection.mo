@@ -69,7 +69,7 @@ equation
         Text(
           extent={{-145,140},{155,100}},
           lineColor={0,0,255},
-          textString="%name")}),                          
+          textString="%name")}),
     Documentation(info="<html>
 <p>
 Model to compute the convective heat transfer inside a straight pipe.

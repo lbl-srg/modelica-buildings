@@ -3,12 +3,6 @@ package Sources "Package with boundary condition models"
   extends Modelica.Icons.SourcesPackage;
 
 
-
-
-
-
-
-
 annotation (preferredView="info",
 Documentation(info="<html>
 <p>
