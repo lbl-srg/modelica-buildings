@@ -37,6 +37,20 @@ Modelica.Media.Air.MoistAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+December 13, 2013, by Michael Wetter:<br/>
+Corrected wrong connection 
+<code>connect(hexReg[nReg].port_b1, pipMan_b.port_b)</code>
+to
+<code>connect(hexReg[nReg].port_a1, pipMan_b.port_b)</code>
+in the base class
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilDiscretized\">
+Buildings.Fluid.HeatExchangers.DryCoilDiscretized</a>.
+This closes issue
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/194\">
+https://github.com/lbl-srg/modelica-buildings/issues/194</a>,
+which caused the last register to have no liquid flow.
+</li>
+<li>
 September 10, 2008 by Michael Wetter:<br/>
 Added values for <code>stateSelect</code> attributes.
 </li>
