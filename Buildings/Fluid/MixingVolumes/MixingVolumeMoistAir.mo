@@ -24,7 +24,11 @@ model MixingVolumeMoistAir
     "Enthalpy flow rate of extracted water";
 protected
   parameter Integer i_w(fixed=false) "Index for water substance";
-  parameter Real s[Medium.nXi](each fixed=false)
+  parameter Real s[Medium.nXi] = {
+  if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                            string2="Water",
+                                            caseSensitive=false) then 1 else 0
+                                            for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
 
   Modelica.Blocks.Sources.RealExpression heaInp(final y=
@@ -33,16 +37,12 @@ protected
 initial algorithm
   i_w := 0;
   for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
-                                            string2="Water",
-                                            caseSensitive=false) then
+    if s[i] > 1e-5 then
       i_w  := i;
-      s[i] := 1;
-    else
-      s[i] := 0;
     end if;
-   end for;
-    assert(i_w > 0, "Substance 'water' is not present in medium '"
+  end for;
+  assert(Medium.nXi == 0 or i_w > 0,
+    "Substance 'water' is not present in medium '"
          + Medium.mediumName + "'.\n"
          + "Check medium model.");
 
@@ -98,6 +98,11 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 18, 2013 by Michael Wetter:<br/>
+Changed computation of <code>s</code> to allow this model to also be used
+with <code>Buildings.Media.Water</code>.
+</li>
 <li>
 October 21, 2013 by Michael Wetter:<br/>
 Removed dublicate declaration of medium model.
