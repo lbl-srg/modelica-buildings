@@ -55,6 +55,37 @@ model HexInternalElement "Internal part of a borehole"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port
     "Heat port that connects to filling material"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+
+  HeatTransfer.Windows.BaseClasses.ThermalConductor           RConv1(G=1)
+    annotation (Placement(transformation(extent={{-82,16},{-58,40}})));
+  HeatTransfer.Windows.BaseClasses.ThermalConductor           RConv2(G=1)
+    annotation (Placement(transformation(extent={{-80,-40},{-56,-16}})));
+  HeatTransfer.Windows.BaseClasses.ThermalConductor           Rpg1(G=1)
+    annotation (Placement(transformation(extent={{-50,16},{-26,40}})));
+  HeatTransfer.Windows.BaseClasses.ThermalConductor           Rpg2(G=1)
+    annotation (Placement(transformation(extent={{-48,-40},{-24,-16}})));
+  HeatTransfer.Windows.BaseClasses.ThermalConductor           Rgb1(G=1)
+    annotation (Placement(transformation(extent={{52,26},{76,50}})));
+  HeatTransfer.Windows.BaseClasses.ThermalConductor           Rgb2(G=1)
+    annotation (Placement(transformation(extent={{52,-40},{76,-16}})));
+  HeatTransfer.Windows.BaseClasses.ThermalConductor           Rgg(G=1)
+    annotation (Placement(transformation(extent={{-12,-12},{12,12}},
+        rotation=-90,
+        origin={20,2})));
+
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil1(C=Co_fil/2, T(
+        start=TFil_start)) "Heat capacity of the filling material" annotation (
+      Placement(transformation(
+        extent={{-90,36},{-70,16}},
+        rotation=0,
+        origin={72,2})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(C=Co_fil/2, T(
+        start=TFil_start)) "Heat capacity of the filling material" annotation (
+      Placement(transformation(
+        extent={{-90,-36},{-70,-16}},
+        rotation=0,
+        origin={72,8})));
+
 protected
   final parameter Modelica.SIunits.SpecificHeatCapacity cpFil=matFil.c
     "Specific heat capacity of the filling material";
@@ -64,114 +95,111 @@ protected
     "Density of the filling material";
   parameter Modelica.SIunits.HeatCapacity Co_fil=0.5*dFil*cpFil*hSeg*Modelica.Constants.pi
       *(rBor^2 - 2*(rTub + eTub)^2) "Heat capacity of the filling material";
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap2(C=Co_fil, T(start=
-         TFil_start)) "Heat capacity of the filling material" annotation (
-      Placement(transformation(
-        extent={{-90,-36},{-70,-16}},
-        rotation=-90,
-        origin={76,-140})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap1(C=Co_fil,T(start=
-          TFil_start)) "Heat capacity of the filling material" annotation (
-      Placement(transformation(
-        extent={{-102,14},{-82,34}},
-        rotation=0,
-        origin={12,26})));
-  BoreholeResistance con1(
-    redeclare final package Medium = Medium,
-    final rBor=rBor,
-    final rTub=rTub,
-    final eTub=eTub,
-    final kTub=kTub,
-    final kFil=kFil,
-    final hSeg=hSeg,
-    final B0=B0,
-    final B1=B1,
-    final m_flow_nominal=m1_flow_nominal,
-    homotopyInitialization=homotopyInitialization)
-    "Thermal resistance from the fluid to the wall of the borehole"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-  BoreholeResistance con2(
-    redeclare final package Medium = Medium,
-    final rBor=rBor,
-    final rTub=rTub,
-    final eTub=eTub,
-    final kTub=kTub,
-    final kFil=kFil,
-    final hSeg=hSeg,
-    final B0=B0,
-    final B1=B1,
-    final m_flow_nominal=m1_flow_nominal,
-    homotopyInitialization=homotopyInitialization)
-    "Thermal resistance from the fluid to the wall of the borehole"
-    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+  parameter Modelica.SIunits.SpecificHeatCapacity cpFluid=
+      Medium.specificHeatCapacityCp(Medium.setState_pTX(
+      Medium.p_default,
+      Medium.T_default,
+      Medium.X_default)) "Specific heat capacity of the fluid";
+  parameter Modelica.SIunits.ThermalConductivity kMed=
+      Medium.thermalConductivity(Medium.setState_pTX(
+      Medium.p_default,
+      Medium.T_default,
+      Medium.X_default)) "Thermal conductivity of the fluid";
+  parameter Modelica.SIunits.DynamicViscosity mueMed=Medium.dynamicViscosity(
+      Medium.setState_pTX(
+      Medium.p_default,
+      Medium.T_default,
+      Medium.X_default)) "Dynamic viscosity of the fluid";
+  parameter Real Rgb_val(fixed=false);
+  parameter Real Rgg_val(fixed=false);
+  parameter Real RCondGro_val(fixed=false);
+  parameter Real x(fixed=false);
+  parameter Real i(fixed=false);
 
-  InterferenceResistance con12(
-    redeclare final package Medium = Medium,
-    final rBor=rBor,
-    final rTub=rTub,
-    final eTub=eTub,
-    final kTub=kTub,
-    final kFil=kFil,
-    final kSoi=kSoi,
-    final hSeg=hSeg,
-    final xC=xC,
-    final B0=B0,
-    final B1=B1,
-    final m_flow_nominal=m1_flow_nominal,
-    homotopyInitialization=homotopyInitialization)
-    "Interference resistance between the two pipes" annotation (Placement(
-        transformation(
-        extent={{-74,-12},{-54,8}},
-        rotation=-90,
-        origin={-78,-74})));
+initial equation
+  (Rgb_val,Rgg_val,RCondGro_val,x,i) =
+    singleUTubeResistances(
+    hSeg=hSeg,
+    rBor=rBor,
+    rTub=rTub,
+    eTub=eTub,
+    sha=xC,
+    kFil=matFil.k,
+    kTub=kTub);
 
-  Modelica.Blocks.Sources.RealExpression m_flow(y=port_a1.m_flow)
-    "Mass flow rate"
-    annotation (Placement(transformation(extent={{-74,20},{-54,40}})));
 equation
-  connect(vol1.heatPort, cap1.port) annotation (Line(
-      points={{-10,60},{-60,60},{-60,40},{-80,40}},
+  Rpg2.u = 1/RCondGro_val;
+  Rpg1.u = 1/RCondGro_val;
+  Rgb1.u = 1/Rgb_val;
+  Rgb2.u = 1/Rgb_val;
+  Rgg.u = 1/Rgg_val;
+
+  RConv1.u = 1/convectionResistance(
+    hSeg=hSeg,
+    rBor=rBor,
+    rTub=rTub,
+    kMed=kMed,
+    mueMed=mueMed,
+    cpFluid=cpFluid,
+    m_flow=m1_flow,
+    m_flow_nominal=m1_flow_nominal);
+  RConv2.u = 1/convectionResistance(
+    hSeg=hSeg,
+    rBor=rBor,
+    rTub=rTub,
+    kMed=kMed,
+    mueMed=mueMed,
+    cpFluid=cpFluid,
+    m_flow=m2_flow,
+    m_flow_nominal=m2_flow_nominal);
+
+  connect(vol1.heatPort, RConv1.port_a) annotation (Line(
+      points={{-10,60},{-60,60},{-60,50},{-90,50},{-90,28},{-82,28}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(vol2.heatPort, cap2.port) annotation (Line(
-      points={{12,-60},{40,-60}},
+  connect(RConv1.port_b, Rpg1.port_a) annotation (Line(
+      points={{-58,28},{-50,28}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(cap1.port, con12.port_a) annotation (Line(
-      points={{-80,40},{-80,20},{-80,5.55112e-16},{-80,5.55112e-16}},
+  connect(Rpg1.port_b, capFil1.port) annotation (Line(
+      points={{-26,28},{-20,28},{-20,38},{-8,38}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(cap1.port, con1.port_a) annotation (Line(
-      points={{-80,40},{-80,20},{-20,20}},
+  connect(capFil1.port, Rgb1.port_a) annotation (Line(
+      points={{-8,38},{52,38}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(con12.port_b, cap2.port) annotation (Line(
-      points={{-80,-20},{-80,-40},{40,-40},{40,-60}},
+  connect(capFil1.port, Rgg.port_a) annotation (Line(
+      points={{-8,38},{20,38},{20,14}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(con2.port_a, cap2.port) annotation (Line(
-      points={{-20,-20},{-40,-20},{-40,-40},{40,-40},{40,-60}},
+  connect(Rgb1.port_b, port) annotation (Line(
+      points={{76,38},{86,38},{86,0},{100,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(con1.port_b, port)   annotation (Line(
-      points={{5.55112e-16,20},{60,20},{60,5.55112e-16},{100,5.55112e-16}},
+  connect(RConv2.port_b, Rpg2.port_a) annotation (Line(
+      points={{-56,-28},{-48,-28}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(con2.port_b, port)   annotation (Line(
-      points={{5.55112e-16,-20},{60,-20},{60,5.55112e-16},{100,5.55112e-16}},
+  connect(Rpg2.port_b, capFil2.port) annotation (Line(
+      points={{-24,-28},{-8,-28}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(m_flow.y, con1.m_flow) annotation (Line(
-      points={{-53,30},{-40,30},{-40,26},{-22,26}},
-      color={0,0,127},
+  connect(RConv2.port_a, vol2.heatPort) annotation (Line(
+      points={{-80,-28},{-86,-28},{-86,-46},{20,-46},{20,-60},{12,-60}},
+      color={191,0,0},
       smooth=Smooth.None));
-  connect(m_flow.y, con2.m_flow) annotation (Line(
-      points={{-53,30},{-40,30},{-40,-14},{-22,-14}},
-      color={0,0,127},
+  connect(capFil2.port, Rgb2.port_a) annotation (Line(
+      points={{-8,-28},{52,-28}},
+      color={191,0,0},
       smooth=Smooth.None));
-  connect(m_flow.y, con12.m_flow) annotation (Line(
-      points={{-53,30},{-40,30},{-40,12},{-74,12},{-74,2}},
-      color={0,0,127},
+  connect(Rgg.port_b, capFil2.port) annotation (Line(
+      points={{20,-10},{20,-28},{-8,-28}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(Rgb2.port_b, port) annotation (Line(
+      points={{76,-28},{86,-28},{86,0},{100,0}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (
     Icon(graphics={Rectangle(
@@ -245,5 +273,7 @@ July 28 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end HexInternalElement;
