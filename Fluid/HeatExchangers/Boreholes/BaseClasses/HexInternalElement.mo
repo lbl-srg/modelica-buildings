@@ -7,7 +7,7 @@ model HexInternalElement "Internal part of a borehole"
     T2_start=TFil_start,
     final tau1=Modelica.Constants.pi*rTub^2*hSeg*rho1_nominal/m1_flow_nominal,
     final tau2=Modelica.Constants.pi*rTub^2*hSeg*rho2_nominal/m2_flow_nominal,
-    final show_T=false,
+    final show_T=true,
     vol1(final energyDynamics=energyDynamics,
          final massDynamics=massDynamics,
          final prescribedHeatFlowRate=false,
@@ -93,7 +93,7 @@ protected
     "Thermal conductivity of the filling material";
   final parameter Modelica.SIunits.Density dFil=matFil.d
     "Density of the filling material";
-  parameter Modelica.SIunits.HeatCapacity Co_fil=0.5*dFil*cpFil*hSeg*Modelica.Constants.pi
+  parameter Modelica.SIunits.HeatCapacity Co_fil=dFil*cpFil*hSeg*Modelica.Constants.pi
       *(rBor^2 - 2*(rTub + eTub)^2) "Heat capacity of the filling material";
   parameter Modelica.SIunits.SpecificHeatCapacity cpFluid=
       Medium.specificHeatCapacityCp(Medium.setState_pTX(
