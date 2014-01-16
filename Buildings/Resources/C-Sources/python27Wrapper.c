@@ -16,7 +16,7 @@
 //  strValWri    - String values to write.
 //  nStrWri      - Number of strings to write.
 #include <ModelicaUtilities.h>
-#include "pythonInterpreter.h"
+
 void pythonExchangeValues(const char * moduleName,
                           const char * functionName,
                           const double * dblValWri, int nDblWri,
