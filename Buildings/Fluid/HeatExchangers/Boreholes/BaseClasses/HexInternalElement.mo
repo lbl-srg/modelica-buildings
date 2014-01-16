@@ -220,8 +220,8 @@ where <i>h<sub>seg</sub></i> is the height of the tube,
 and <i>&beta;<sub>0</sub>, &beta;<sub>1</sub></i> are the resistance shape factor coefficients
 (Paul, 1996).
 Paul's shape factors are based on experimental and finite element analysis of typical borehole.
-The default values used for these coefficients are &beta;<sub>0</sub>= 20.100 and &beta;<sub>1</sub>=-0.94467.
-Values listed by Paul are given in the table below.
+The default values used for these coefficients are
+for middle pipe spacing as listed in the table below.
 </p>
   <table summary=\"summary\">
   <tr><th>pipe spacing</th><th><i>&beta;<sub>0</sub></i></th><th><i>&beta;<sub>1</sub></i></th></tr>
