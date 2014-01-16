@@ -28,7 +28,11 @@ model HexInternalElement "Internal part of a borehole"
   replaceable parameter Buildings.HeatTransfer.Data.BoreholeFillings.Generic matFil
     "Thermal properties of the filling material"
     annotation (choicesAllMatching=true, Dialog(group="Filling material"),
-                Placement(transformation(extent={{42,70},{62,90}})));
+                Placement(transformation(extent={{34,74},{54,94}})));
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic matSoi
+    "Thermal properties of soil"
+    annotation (choicesAllMatching=true, Dialog(group="Soil"),
+    Placement(transformation(extent={{66,74},{86,94}})));
 
   parameter Modelica.SIunits.Radius rTub=0.02 "Radius of the tubes"
     annotation (Dialog(group="Pipes"));
@@ -125,7 +129,15 @@ initial equation
     eTub=eTub,
     sha=xC,
     kFil=matFil.k,
-    kTub=kTub);
+    kTub=kTub,
+    kSoi=matSoi.k,
+    kMed=kMed,
+    mueMed=mueMed,
+    cpFluid=cpFluid,
+    m1_flow=m1_flow_nominal,
+    m2_flow=m2_flow_nominal,
+    m1_flow_nominal=m1_flow_nominal,
+    m2_flow_nominal=m2_flow_nominal);
 
 equation
   Rpg2.u = 1/RCondGro_val;
@@ -214,65 +226,17 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
-<p>
-Model for the heat transfer between the fluid and within the borehole filling.
-This model computes the dynamic response of the fluid in the tubes, and the heat transfer between the
-fluid and the borehole filling, and the heat storage within the fluid and the borehole filling.
-</p>
-<p>
-The heat conduction in the filling material is modeled using three three resistances model that are
-arranged in a triangular configuration. 
-Two of these resistances represent the heat conduction from the fluids to the external radius of
-the borehole, and the other resistance represents the thermal interference between the two pipes.
-</p>
-<p>
-The resistance between the fluid and the borehole wall are the sum of the 
-convective resistance inside the tubes, the conductive resistance
-of the tube wall and the conductive resistance of the filling material. 
-They are obtained using
-</p>
- <p align=\"center\" style=\"font-style:italic;\">
- G<sub>Con</sub> = 2 &pi; h<sub>seg</sub> r<sub>tub</sub> h<sub>in</sub> , 
- </p>
-<p align=\"center\" style=\"font-style:italic;\">
-G<sub>tub</sub> = 4 &pi; k<sub>tub</sub> h<sub>seg</sub> &frasl; ln( ( r<sub>tub</sub>+e<sub>tub</sub> ) &frasl; r<sub>tub</sub> ),
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-G<sub>fil</sub>= k<sub>fil</sub> h<sub>seg</sub> &beta;<sub>0</sub> ( r<sub>Bor</sub> &frasl; r<sub>tub</sub> ) <sup>&beta;<sub>1</sub></sup> ,
-</p>
-<p> 
-where <i>h<sub>seg</sub></i> is the height of the tube, 
-<i>h<sub>in</sub></i> is the convection coefficient,
-<i>k<sub>tub</sub></i> is the thermal conductivity of the tube, 
-<i>e<sub>tub</sub></i> is the thickness of the tube,
-and <i>&beta;<sub>0</sub>, &beta;<sub>1</sub></i> are the resistance shape factor coefficients
-(Paul, 1996).
-Paul's shape factors are based on experimental and finite element analysis of typical borehole.
-The default values used for these coefficients are &beta;<sub>0</sub>= 20.100 and &beta;<sub>1</sub>=-0.94467.
-Values listed by Paul are given in the table below.
-</p>
-  <table summary=\"summary\">
-  <tr><th>pipe spacing</th><th><i>&beta;<sub>0</sub></i></th><th><i>&beta;<sub>1</sub></i></th></tr>
-  <tr><td> close  </td><td> 20.100377 </td><td> -0.94467 </td></tr>
-  <tr><td> middle  </td><td> 17.44 </td><td> -0.6052  </td></tr>
-  <tr><td> spaced </td><td> 21.91 </td><td> -0.3796 </td></tr>
-  </table>
-<h4>Implementation</h4>
-<p>
-The resistances between the fluid and the borehole wall are computed in
- <a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeResistance\">
-Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeResistance</a>.
-The resistance for the interference of the pipes is computed in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.InterferenceResistance\">
-Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.InterferenceResistance</a>. 
-</p>
+<p>Model for the heat transfer between the fluid and within the borehole filling. This model computes the dynamic response of the fluid in the tubes, and the heat transfer between the fluid and the borehole filling, and the heat storage within the fluid and the borehole filling. </p>
+<p>This model computes the different thermal resistances present in a single-U-tube borehole using the method of Bauer et al. [1] and computing explicitely the <i>fluid-to-ground</i> thermal resistance <i>Rb</i> and the <i>grout-to-grout </i>resistance <i>Ra</i> as defined by Hellstroem [2] using the multipole method (BaseClasses.singleUTubeResistances). The convection resistance is calculated using the Dittus-Boelter correlation (see BaseClasses.convectionResistance).</p>
+<p>The following figure shows the thermal network set up by Bauer et al. [1]</p>
+<p><img src=\"modelica://DaPModels/HeatHX/Boreholes/BaseClasses/Documentation/Bauer_singleUTube_small.PNG\"/></p>
+<p><h4>References</h4></p>
+<p>[1] G. Hellstr&ouml;m. <i>Ground heat storage: thermal analyses of duct storage systems (Theory)</i>. Dep. of Mathematical Physics, University of Lund, Sweden, 1991.</p>
+<p>[2] D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch. <i>Thermal resistance and capacity models for borehole heat exchangers</i>. INTERNATIONAL JOURNAL OF ENERGY RESEARCH, 35:312&ndash;320, 2010.</p>
 </html>", revisions="<html>
-<ul>
-<li>
-July 28 2011, by Pierre Vigouroux:<br/>
-First implementation.
-</li>
-</ul>
+<p><ul>
+<li>January 2014, Damien Picard<br/><i>First implementation</i></li>
+</ul></p>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
