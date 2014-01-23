@@ -1,0 +1,29 @@
+storeProtected=Advanced.StoreProtectedVariables;
+Advanced.StoreProtectedVariables:=true;
+simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.WindowRadiation", stopTime=864000, method="dassl", resultFile="WindowRadiation");
+
+removePlots();
+createPlot(id = 1, 
+ position = {7, 258, 746, 256},
+ y = {"winRad.HDif", "winRad.HDir", "winRad.QTra_flow"},
+ filename = "WindowRadiation.mat",
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+
+createPlot(id = 2, 
+ position = {7, 7, 746, 256},
+ y = {"winRad.QAbsGlaUns_flow[2]", "winRad.QAbsGlaSha_flow[2]"},
+ filename = "WindowRadiation.mat",
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+

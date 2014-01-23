@@ -1,0 +1,15 @@
+removePlots();
+simulateModel("Districts.Utilities.Math.Examples.SmoothLimit",  startTime=0, method="dassl", resultFile="SmoothLimit");
+createPlot(id = 1,
+ position = {4, 21, 531, 524},
+ y = {"smoLim.y"},
+ range = {0, 1, 1.6, (-1.6)},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "SmoothLimit.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+

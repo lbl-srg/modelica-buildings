@@ -1,0 +1,34 @@
+simulateModel("Districts.Electrical.DC.Conversion.Examples.DCDCConverter", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="DCDCConverter");
+removePlots();
+createPlot(id = 1,
+ position = {50, 44, 698, 573},
+ y = {"conDCDC.v_p", "conDCDC.v_n"},
+ range = {0.0, 3600.0, 50.0, 130.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "DCDCConverter.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}});
+createPlot(id = 1,
+ position = {50, 44, 698, 283},
+ y = {"conDCDC.i_p", "conDCDC.i_n"},
+ range = {0.0, 3600.0, -150.0, 100.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}});
+
+

@@ -1,0 +1,37 @@
+simulateModel("Buildings.HeatTransfer.Examples.ConductorSteadyStateTransient", stopTime=86400, method="dassl", resultFile="ConductorSteadyStateTransient");
+
+removePlots();
+createPlot(id = 1,
+ position = {32, 306, 400, 230},
+ y = {"con.port_a.Q_flow", "con1.port_a.Q_flow"},
+ filename = "ConductorSteadyStateTransient.mat",
+ autoscale = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+
+createPlot(id = 4,
+ position = {35, 30, 400, 280},
+ y = {"con1.T[1]", "con1.T[2]", "con1.T[3]", "con2.T[1]", "con2.T[2]", "conMul.T[1]", "conMul.T[2]", "conMul.T[3]", "conMul.T[4]", "conMul.T[5]"},
+ filename = "ConductorSteadyStateTransient.mat",
+ autoscale = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+
+createPlot(id = 5,
+ position = {459, 32, 400, 280},
+ y = {"con.T[1]", "con.T[2]"},
+ filename = "ConductorSteadyStateTransient.mat",
+ autoscale = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+
+
