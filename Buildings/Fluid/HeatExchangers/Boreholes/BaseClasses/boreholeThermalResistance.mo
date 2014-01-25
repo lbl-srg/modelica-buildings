@@ -13,7 +13,7 @@ function boreholeThermalResistance
     "Thermal conductivity of the fluid";
   input Modelica.SIunits.DynamicViscosity mueMed
     "Dynamic viscosity of the fluid";
-  input Modelica.SIunits.SpecificHeatCapacity cpFluid
+  input Modelica.SIunits.SpecificHeatCapacity cpMed
     "Specific heat capacity of the fluid";
   input Modelica.SIunits.MassFlowRate m_flow "Mass flow rate of the fluid";
   input Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
@@ -33,7 +33,7 @@ protected
     "Coefficient used in the computation of the convective heat transfer coefficient";
 algorithm
   k :=2/(mueMed*Modelica.Constants.pi*rTub);
-  h := 0.023*kMed*(cpFluid*mueMed/kMed)^(0.35)/(2*rTub) *
+  h := 0.023*kMed*(cpMed*mueMed/kMed)^(0.35)/(2*rTub) *
     Buildings.Utilities.Math.Functions.regNonZeroPower(
     x=m_flow*k, n=0.8,
     delta=0.01*m_flow_nominal*k);
@@ -123,6 +123,11 @@ Master of Science Thesis, South Dakota State University.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 24, 2014, by Michael Wetter:<br/>
+Replaced <code>cpFluid</code> with <code>cpMed</code> to
+use consistent notation.
+</li>
 <li>
 August 2011, by Pierre Vigouroux:<br/>
 First implementation.

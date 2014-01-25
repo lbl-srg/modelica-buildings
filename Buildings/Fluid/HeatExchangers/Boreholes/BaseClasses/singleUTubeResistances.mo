@@ -1,17 +1,17 @@
 within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses;
 function singleUTubeResistances
-  "Thermal resistances for single U-tube, according to Bauer et al. 2011"
+  "Thermal resistances for single U-tube, according to Bauer et al. (2011)"
 
-  // Geometry borehole
+  // Geometry of the borehole
   input Modelica.SIunits.Height hSeg "Height of the element";
-  // Geometry pipe
   input Modelica.SIunits.Radius rBor "Radius of the borehole";
+  // Geometry of the pipe
   input Modelica.SIunits.Radius rTub "Radius of the tube";
   input Modelica.SIunits.Length eTub "Thickness of the tubes";
   input Modelica.SIunits.Length sha
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole";
 
-  // thermal properties
+  // Thermal properties
   input Modelica.SIunits.ThermalConductivity kFil
     "Thermal conductivity of the grout";
   input Modelica.SIunits.ThermalConductivity kSoi
@@ -19,51 +19,50 @@ function singleUTubeResistances
   input Modelica.SIunits.ThermalConductivity kTub
     "Thermal conductivity of the tube";
 
-  // inputs for convection
+  // Inputs for convection
   input Modelica.SIunits.ThermalConductivity kMed
     "Thermal conductivity of the fluid";
   input Modelica.SIunits.DynamicViscosity mueMed
-    "Dynamic viscosity of the fluid [kg / (m s) ] = [ Pa * s] (not to confuse with kinematic viscosity: mue/rho";
-  input Modelica.SIunits.SpecificHeatCapacity cpFluid
+    "Dynamic viscosity of the fluid";
+  input Modelica.SIunits.SpecificHeatCapacity cpMed
     "Specific heat capacity of the fluid";
-  input Modelica.SIunits.MassFlowRate m1_flow "Mass flow rate of the fluid";
+  input Modelica.SIunits.MassFlowRate m1_flow "Mass flow rate";
   input Modelica.SIunits.MassFlowRate m1_flow_nominal "Nominal mass flow rate";
-  input Modelica.SIunits.MassFlowRate m2_flow "Mass flow rate of the fluid";
+  input Modelica.SIunits.MassFlowRate m2_flow "Mass flow rate";
   input Modelica.SIunits.MassFlowRate m2_flow_nominal "Nominal mass flow rate";
 
   // Outputs
   output Modelica.SIunits.ThermalResistance Rgb
-    "Thermal resistance between: Grout zone and bore hole wall";
+    "Thermal resistance between grout zone and borehole wall";
   output Modelica.SIunits.ThermalResistance Rgg
-    "Thermal resistance between: The two grout zones";
+    "Thermal resistance between the two grout zones";
   output Modelica.SIunits.ThermalResistance RCondGro
     "Thermal resistance between: pipe wall to capacity in grout";
-  output Real x "capacity location";
-
-  output Integer i=1 "loop counter";
+  output Real x "Capacity location";
 
 protected
   Boolean test=false "thermodynamic test for R and x value";
 
   Modelica.SIunits.ThermalResistance Rg
-    "Thermal resistance between: Outer borehole wall and one tube according to Bauer";
+    "Thermal resistance between outer borehole wall and one tube";
   Modelica.SIunits.ThermalResistance Rar
-    "Thermal resistance between: The two pipe outer walls according to Bauer";
+    "Thermal resistance between the two pipe outer walls";
   Modelica.SIunits.ThermalResistance RCondPipe
-    "Thermal resistance of the pipe's wall";
+    "Thermal resistance of the pipe wall";
 
   Real Rb
-    "Fluid-to-grout resistance, as defined by Hellstroem: resistance from the fluid in the pipe to the borehole wall";
+    "Fluid-to-grout resistance, as defined by Hellstroem. Resistance from the fluid in the pipe to the borehole wall";
   Real Ra
-    "Grout-to-grout resistance (2D) as defined by Hellstroem: interaction between the different grout part";
+    "Grout-to-grout resistance (2D) as defined by Hellstroem. Interaction between the different grout part";
 
   Modelica.SIunits.ThermalResistance RConv1
     "Convection resistance (or conduction in fluid if no mass flow)";
   Modelica.SIunits.ThermalResistance RConv2
     "Convection resistance (or conduction in fluid if no mass flow)";
-  // help variables
-  Real sigma "help variable as defined by Hellstroem";
-  Real beta "help variable as defined by Hellstroem";
+
+  // Help variables
+  Real sigma "Help variable as defined by Hellstroem";
+  Real beta "Help variable as defined by Hellstroem";
   Real R_1delta_LS
     "One leg of the triangle resistance network, corresponding to the line source solution";
   Real R_1delta_MP
@@ -71,15 +70,17 @@ protected
   Real Ra_LS
     "Grout-to-grout resistance calculated with the line-source approximation";
 
+  Integer i=1 "Loop counter";
+
 algorithm
-  // Convection resitances
+  // Convection resistances
   RConv1 :=convectionResistance(
     hSeg=hSeg,
     rBor=rBor,
     rTub=rTub,
     kMed=kMed,
     mueMed=mueMed,
-    cpFluid=cpFluid,
+    cpMed=cpMed,
     m_flow=m1_flow,
     m_flow_nominal=m1_flow_nominal);
 
@@ -89,12 +90,12 @@ algorithm
     rTub=rTub,
     kMed=kMed,
     mueMed=mueMed,
-    cpFluid=cpFluid,
+    cpMed=cpMed,
     m_flow=m2_flow,
     m_flow_nominal=m2_flow_nominal);
 
   // ********** Rb and Ra from multipole **********
-  // help variables
+  // Help variables
   RCondPipe :=Modelica.Math.log((rTub + eTub)/rTub)/(2*Modelica.Constants.pi*hSeg*kTub);
   sigma :=(kFil - kSoi)/(kFil + kSoi);
   R_1delta_LS :=1/(2*Modelica.Constants.pi*kFil)*(log(rBor/(rTub + eTub)) + log(rBor/(2*sha)) +
@@ -112,7 +113,7 @@ algorithm
     sigma*2*rTub^2*rBor^2*(rBor^4 + sha^4)/(rBor^4 - sha^4)^2));
 
   //Conversion of Rb (resp. Ra) to Rg (resp. Rar) of Bauer:
-  Rg :=2*Rb/hSeg - RConv1 - RCondPipe;
+  Rg  :=2*Rb/hSeg - RConv1 - RCondPipe;
   Rar :=Ra/hSeg - 2*(RConv1 + RCondPipe);
 
 /* **************** Simplification of Bauer for single U-tube ************************
@@ -127,20 +128,26 @@ algorithm
 
   // ********** Resistances and capacity location according to Bauer **********
 
+  // fixme: This loop needs to be changed for the following reason:
+  //        The test "    test := ((1/Rgg + 1/2/Rgb)^(-1) > 0);" depends on the
+  //        mass flow rates m1_flow and m2_flow. Therefore, this function is
+  //        discontinuous in the mass flow rate.
+  //        To fix this, we could call this function to build a table for the outputs,
+  //        and then interpolate in the table using cubic splines.
   while test == false and i <= 10 loop
-    // Capacity location ( with correction factor in case that the test is negative )
+    // Capacity location (with correction factor in case that the test is negative)
     x := Modelica.Math.log(sqrt(rBor^2 + 2*(rTub + eTub)^2)/(2*(rTub + eTub)))/
       Modelica.Math.log(rBor/(sqrt(2)*(rTub + eTub)))*((15 - i + 1)/15);
 
-    //Thermal resistance between: Grout zone and bore hole wall
+    //Thermal resistance between the grout zone and bore hole wall
     Rgb := (1 - x)*Rg;
 
-    //Thermal resistance between: The two grout zones
+    //Thermal resistance between the two grout zones
     Rgg := 2*Rgb*(Rar - 2*x*Rg)/(2*Rgb - Rar + 2*x*Rg);
 
     // Thermodynamic test to check if negative R values make sense. If not, decrease x-value.
-    // FIXME: the implemented is only for single U-tube BHE's.
-    test := if (1/Rgg + 1/2/Rgb)^(-1) > 0 then true else false;
+    // fixme: the implemented is only for single U-tube BHE's.
+    test := ((1/Rgg + 1/2/Rgb)^(-1) > 0);
     i := i + 1;
   end while;
   //Conduction resistance in grout from pipe wall to capacity in grout
@@ -148,22 +155,71 @@ algorithm
     *hSeg*kTub);
 
   annotation (Diagram(graphics), Documentation(info="<html>
-<p>This model computes the different thermal resistances present in a single-U-tube borehole using the method of Bauer et al. [1] and computing explicitely the <i>fluid-to-ground</i> thermal resistance <i>Rb</i> and the <i>grout-to-grout </i>resistance <i>Ra</i> as defined by Hellstroem [2] using the multipole method.</p>
-<p>The following figure shows the thermal network set up by Bauer et al.</p>
-<p><img src=\"modelica://DaPModels/HeatHX/Boreholes/BaseClasses/Documentation/Bauer_singleUTube_small.PNG\"/></p>
-<p>The different resistances are calculated with following formules:</p>
-<p><img src=\"modelica://DaPModels/Images/Documentation/Bauer_resistanceValues.PNG\"/></p>
-<p>Notice that each resistance each resistance still need to be divided by <i>hSeg</i>, the hight of the borehole segment.</p>
-<p>The <i>fluid-to-ground</i> thermal resistance <i>Rb</i> and the <i>grout-to-grout </i>resistance <i>Ra</i> are calculated with the multipole method (Hellstroem (1991)):</p>
-<p><img src=\"modelica://DaPModels/Images/Documentation/Rb_multipole.PNG\"/></p>
-<p><img src=\"modelica://DaPModels/Images/Documentation/Ra_multipole.PNG\"/></p>
-<p>where <i>lambda_b</i> and <i>lambda </i>are the conductivity of the filling material and of the ground respectively, <i>r_p</i> and <i>r_b</i> are the pipe and the bore hole radius, <i>D</i> is the shank spacing (center of borehole to center of pipe), <i>Rp</i> is resistance from the fluid to the outside wall of the pipe, <i>r_c</i> is the radius at which the ground temperature is radially uniform and <i>Epsilon </i>can be neglected (nearly zero).</p>
-<p><h4>References</h4></p>
-<p>[1] G. Hellstr&ouml;m. <i>Ground heat storage: thermal analyses of duct storage systems (Theory)</i>. Dep. of Mathematical Physics, University of Lund, Sweden, 1991.</p>
-<p>[2] D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch. <i>Thermal resistance and capacity models for borehole heat exchangers</i>. INTERNATIONAL JOURNAL OF ENERGY RESEARCH, 35:312&ndash;320, 2010.</p>
+<p>
+This model computes the different thermal resistances present in a single-U-tube borehole 
+using the method of Bauer et al. [1].
+It also computes the fluid-to-ground thermal resistance <i>R<sub>b</sub></i> 
+and the grout-to-grout thermal resistance <i>R<sub>a</sub></i> 
+as defined by Hellstroem [2] using the multipole method.
+</p>
+<p>
+The figure below shows the thermal network set up by Bauer et al.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://fixme/Boreholes/BaseClasses/Documentation/Bauer_singleUTube_small.png\"/>
+</p>
+<p>
+The different resistances are calculated with following equations:</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://fixme/Images/Documentation/Bauer_resistanceValues.PNG\"/>
+</p>
+<p>
+Notice that each resistance each resistance still needs to be divided by 
+the height of the borehole segment <i>h<sub>Seg</sub></i>.
+</p>
+<p>
+The fluid-to-ground thermal resistance <i>R<sub>b</sub></i> and the grout-to-grout resistance <i>R<sub>a</sub></i> 
+are calculated with the multipole method (Hellstroem (1991)) shown below.
+</p>
+<p>
+<!-- If this is an equation, it needs to be typed, not an image -->
+<img alt=\"image\" src=\"modelica://fixme/Images/Documentation/Rb_multipole.png\"/>
+</p>
+<p>
+<!-- If this is an equation, it needs to be typed, not an image -->
+<img alt=\"image\" src=\"modelica://fixme/Images/Documentation/Ra_multipole.png\"/>
+</p>
+<p>
+where 
+<!-- fixme: use greek symbols such as &lambda; -->
+<i>lambda<sub>b</sub></i> and <i>lambda</i>are the conductivity of the filling material 
+and of the ground respectively, 
+<i>r<sub>p</sub></i> and <i>r<sub>b</sub></i> 
+are the pipe and the borehole radius, 
+<i>D</i> is the shank spacing (center of borehole to center of pipe), 
+<i>R<sub>p</sub></i> is resistance from the fluid to the outside wall of the pipe, 
+<i>r<sub>c</sub></i> is the radius at which the ground temperature is radially uniform and 
+<i>Epsilon</i> can be neglected as it is close to zero.
+</p>
+<h4>References</h4>
+<p>G. Hellstr&ouml;m. 
+<i>Ground heat storage: thermal analyses of duct storage systems (Theory)</i>. 
+Dept. of Mathematical Physics, University of Lund, Sweden, 1991.
+</p>
+<p>D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch. 
+<i>Thermal resistance and capacity models for borehole heat exchangers</i>. 
+International Journal Of Energy Research, 35:312&ndash;320, 2010.</p>
 </html>", revisions="<html>
-<p><ul>
-<li>January 2014, by Damien Picard:<br/>first implementation</li>
+<p>
+<ul>
+<li>
+January 24, 2014, by Michael Wetter:<br/>
+Revised implementation.
+</li>
+<li>
+January 23, 2014, by Damien Picard:<br/>
+First implementation.
+</li>
 </ul></p>
 </html>"));
 end singleUTubeResistances;
