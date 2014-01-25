@@ -25,8 +25,8 @@ model HexInternalElement "Internal part of a borehole"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
 
-  replaceable parameter Buildings.HeatTransfer.Data.BoreholeFillings.Generic matFil
-    "Thermal properties of the filling material"
+  replaceable parameter Buildings.HeatTransfer.Data.BoreholeFillings.Generic
+    matFil "Thermal properties of the filling material"
     annotation (choicesAllMatching=true, Dialog(group="Filling material"),
                 Placement(transformation(extent={{34,74},{54,94}})));
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic matSoi
@@ -54,37 +54,22 @@ model HexInternalElement "Internal part of a borehole"
   parameter Real B1=-0.60515 "Shape coefficient for grout resistance";
 
   parameter Modelica.SIunits.Length xC=0.05
-    "Shank spacing definied as half the center-to-center distance between the two pipes";
+    "Shank spacing, defined as half the center-to-center distance between the two pipes";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port
     "Heat port that connects to filling material"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  HeatTransfer.Windows.BaseClasses.ThermalConductor           RConv1(G=1)
-    annotation (Placement(transformation(extent={{-82,16},{-58,40}})));
-  HeatTransfer.Windows.BaseClasses.ThermalConductor           RConv2(G=1)
-    annotation (Placement(transformation(extent={{-80,-40},{-56,-16}})));
-  HeatTransfer.Windows.BaseClasses.ThermalConductor           Rpg1(G=1)
-    annotation (Placement(transformation(extent={{-50,16},{-26,40}})));
-  HeatTransfer.Windows.BaseClasses.ThermalConductor           Rpg2(G=1)
-    annotation (Placement(transformation(extent={{-48,-40},{-24,-16}})));
-  HeatTransfer.Windows.BaseClasses.ThermalConductor           Rgb1(G=1)
-    annotation (Placement(transformation(extent={{52,26},{76,50}})));
-  HeatTransfer.Windows.BaseClasses.ThermalConductor           Rgb2(G=1)
-    annotation (Placement(transformation(extent={{52,-40},{76,-16}})));
-  HeatTransfer.Windows.BaseClasses.ThermalConductor           Rgg(G=1)
-    annotation (Placement(transformation(extent={{-12,-12},{12,12}},
-        rotation=-90,
-        origin={20,2})));
-
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil1(C=Co_fil/2, T(
-        start=TFil_start)) "Heat capacity of the filling material" annotation (
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil1(
+    final C=Co_fil/2,
+    T(final start=TFil_start)) "Heat capacity of the filling material" annotation (
       Placement(transformation(
         extent={{-90,36},{-70,16}},
         rotation=0,
         origin={72,2})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(C=Co_fil/2, T(
-        start=TFil_start)) "Heat capacity of the filling material" annotation (
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(
+    final C=Co_fil/2,
+    T(final start=TFil_start)) "Heat capacity of the filling material" annotation (
       Placement(transformation(
         extent={{-90,-36},{-70,-16}},
         rotation=0,
@@ -97,9 +82,10 @@ protected
     "Thermal conductivity of the filling material";
   final parameter Modelica.SIunits.Density dFil=matFil.d
     "Density of the filling material";
-  parameter Modelica.SIunits.HeatCapacity Co_fil=dFil*cpFil*hSeg*Modelica.Constants.pi
-      *(rBor^2 - 2*(rTub + eTub)^2) "Heat capacity of the filling material";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpFluid=
+  parameter Modelica.SIunits.HeatCapacity
+    Co_fil=dFil*cpFil*hSeg*Modelica.Constants.pi*(rBor^2 - 2*(rTub + eTub)^2)
+    "Heat capacity of the filling material";
+  parameter Modelica.SIunits.SpecificHeatCapacity cpMed=
       Medium.specificHeatCapacityCp(Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
@@ -114,14 +100,65 @@ protected
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Dynamic viscosity of the fluid";
-  parameter Real Rgb_val(fixed=false);
-  parameter Real Rgg_val(fixed=false);
-  parameter Real RCondGro_val(fixed=false);
-  parameter Real x(fixed=false);
-  parameter Real i(fixed=false);
+  parameter Modelica.SIunits.ThermalResistance Rgb_val(fixed=false)
+    "Thermal resistance between grout zone and borehole wall";
+  parameter Modelica.SIunits.ThermalResistance Rgg_val(fixed=false)
+    "Thermal resistance between the two grout zones";
+  parameter Modelica.SIunits.ThermalResistance RCondGro_val(fixed=false)
+    "Thermal resistance of the pipe wall";
+  parameter Real x(fixed=false) "Capacity location";
 
+  Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor RConv1
+    "Grout and pipe convective and thermal resistance"
+    annotation (Placement(transformation(extent={{-58,40},{-82,16}})));
+  Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor RConv2
+    "Grout and pipe convective and thermal resistance"
+    annotation (Placement(transformation(extent={{-56,-40},{-80,-16}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg1(
+    final R=RCondGro_val) "Grout thermal resistance"
+    annotation (Placement(transformation(extent={{-50,16},{-26,40}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg2(
+    final R=RCondGro_val) "Grout thermal resistance"
+    annotation (Placement(transformation(extent={{-48,-40},{-24,-16}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgb1(
+    final R=Rgb_val) "Grout thermal resistance"
+    annotation (Placement(transformation(extent={{52,26},{76,50}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgb2(
+    final R=Rgb_val) "Grout thermal resistance"
+    annotation (Placement(transformation(extent={{52,-40},{76,-16}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg(
+    final R=Rgg_val) "Grout thermal resistance"
+    annotation (Placement(transformation(extent={{-12,-12},{12,12}},
+        rotation=-90,
+        origin={20,2})));
+
+public
+  Modelica.Blocks.Sources.RealExpression RVol1(y=
+    convectionResistance(
+      hSeg=hSeg,
+      rBor=rBor,
+      rTub=rTub,
+      kMed=kMed,
+      mueMed=mueMed,
+      cpMed=cpMed,
+      m_flow=m1_flow,
+      m_flow_nominal=m1_flow_nominal))
+    "Convective and thermal resistance at fluid 1"
+    annotation (Placement(transformation(extent={{-100,-2},{-80,18}})));
+  Modelica.Blocks.Sources.RealExpression RVol2(y=
+    convectionResistance(
+      hSeg=hSeg,
+      rBor=rBor,
+      rTub=rTub,
+      kMed=kMed,
+      mueMed=mueMed,
+      cpMed=cpMed,
+      m_flow=m2_flow,
+      m_flow_nominal=m2_flow_nominal))
+    "Convective and thermal resistance at fluid 2"
+    annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
 initial equation
-  (Rgb_val,Rgg_val,RCondGro_val,x,i) =
+  (Rgb_val, Rgg_val, RCondGro_val, x) =
     singleUTubeResistances(
     hSeg=hSeg,
     rBor=rBor,
@@ -133,43 +170,18 @@ initial equation
     kSoi=matSoi.k,
     kMed=kMed,
     mueMed=mueMed,
-    cpFluid=cpFluid,
+    cpMed=cpMed,
     m1_flow=m1_flow_nominal,
     m2_flow=m2_flow_nominal,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal);
 
 equation
-  Rpg2.u = 1/RCondGro_val;
-  Rpg1.u = 1/RCondGro_val;
-  Rgb1.u = 1/Rgb_val;
-  Rgb2.u = 1/Rgb_val;
-  Rgg.u = 1/Rgg_val;
-
-  RConv1.u = 1/convectionResistance(
-    hSeg=hSeg,
-    rBor=rBor,
-    rTub=rTub,
-    kMed=kMed,
-    mueMed=mueMed,
-    cpFluid=cpFluid,
-    m_flow=m1_flow,
-    m_flow_nominal=m1_flow_nominal);
-  RConv2.u = 1/convectionResistance(
-    hSeg=hSeg,
-    rBor=rBor,
-    rTub=rTub,
-    kMed=kMed,
-    mueMed=mueMed,
-    cpFluid=cpFluid,
-    m_flow=m2_flow,
-    m_flow_nominal=m2_flow_nominal);
-
-  connect(vol1.heatPort, RConv1.port_a) annotation (Line(
+  connect(vol1.heatPort, RConv1.fluid) annotation (Line(
       points={{-10,60},{-60,60},{-60,50},{-90,50},{-90,28},{-82,28}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(RConv1.port_b, Rpg1.port_a) annotation (Line(
+  connect(RConv1.solid, Rpg1.port_a) annotation (Line(
       points={{-58,28},{-50,28}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -189,7 +201,7 @@ equation
       points={{76,38},{86,38},{86,0},{100,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(RConv2.port_b, Rpg2.port_a) annotation (Line(
+  connect(RConv2.solid, Rpg2.port_a) annotation (Line(
       points={{-56,-28},{-48,-28}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -197,7 +209,7 @@ equation
       points={{-24,-28},{-8,-28}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(RConv2.port_a, vol2.heatPort) annotation (Line(
+  connect(RConv2.fluid, vol2.heatPort) annotation (Line(
       points={{-80,-28},{-86,-28},{-86,-46},{20,-46},{20,-60},{12,-60}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -213,6 +225,14 @@ equation
       points={{76,-28},{86,-28},{86,0},{100,0}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(RVol1.y, RConv1.Rc) annotation (Line(
+      points={{-79,8},{-70,8},{-70,16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(RVol2.y, RConv2.Rc) annotation (Line(
+      points={{-79,-8},{-68,-8},{-68,-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Icon(graphics={Rectangle(
           extent={{88,54},{-88,64}},
@@ -226,17 +246,61 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
-<p>Model for the heat transfer between the fluid and within the borehole filling. This model computes the dynamic response of the fluid in the tubes, and the heat transfer between the fluid and the borehole filling, and the heat storage within the fluid and the borehole filling. </p>
-<p>This model computes the different thermal resistances present in a single-U-tube borehole using the method of Bauer et al. [1] and computing explicitely the <i>fluid-to-ground</i> thermal resistance <i>Rb</i> and the <i>grout-to-grout </i>resistance <i>Ra</i> as defined by Hellstroem [2] using the multipole method (BaseClasses.singleUTubeResistances). The convection resistance is calculated using the Dittus-Boelter correlation (see BaseClasses.convectionResistance).</p>
-<p>The following figure shows the thermal network set up by Bauer et al. [1]</p>
-<p><img src=\"modelica://DaPModels/HeatHX/Boreholes/BaseClasses/Documentation/Bauer_singleUTube_small.PNG\"/></p>
-<p><h4>References</h4></p>
-<p>[1] G. Hellstr&ouml;m. <i>Ground heat storage: thermal analyses of duct storage systems (Theory)</i>. Dep. of Mathematical Physics, University of Lund, Sweden, 1991.</p>
-<p>[2] D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch. <i>Thermal resistance and capacity models for borehole heat exchangers</i>. INTERNATIONAL JOURNAL OF ENERGY RESEARCH, 35:312&ndash;320, 2010.</p>
+<p>
+Model for the heat transfer between the fluid and within the borehole filling. 
+This model computes the dynamic response of the fluid in the tubes, 
+the heat transfer between the fluid and the borehole filling, 
+and the heat storage within the fluid and the borehole filling.
+</p>
+<p>
+This model computes the different thermal resistances present 
+in a single-U-tube borehole using the method of Bauer et al. (2010) 
+and computing explicitely the <i>fluid-to-ground</i> thermal resistance 
+<i>R<sub>b</sub></i> and the 
+<i>grout-to-grout </i>resistance
+<i>R<sub>a</sub></i> as defined by Hellstroem (1991)
+using the multipole method.
+The multipole method is implemented in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances\">
+Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances</a>. 
+The convection resistance is calculated using the 
+Dittus-Boelter correlation
+as implemented in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance\">
+Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance</a>. 
+</p>
+<p>
+The figure below shows the thermal network set up by Bauer et al. (2010).
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://fixme/Bauer_singleUTube_small.png\"/>
+</p>
+<h4>References</h4>
+<p>
+G. Hellstr&ouml;m. 
+<i>Ground heat storage: thermal analyses of duct storage systems (Theory)</i>. 
+Dept. of Mathematical Physics, University of Lund, Sweden, 1991.
+</p>
+<p>
+D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch.
+<i>Thermal resistance and capacity models for borehole heat exchangers</i>.
+International Journal of Energy Research, 35:312&ndash;320, 2010.
+</p>
 </html>", revisions="<html>
-<p><ul>
-<li>January 2014, Damien Picard<br/><i>First implementation</i></li>
-</ul></p>
+<p>
+<ul>
+<li>
+January 24, 2014, by Michael Wetter:<br/>
+Revised implementation, added comments, replaced 
+<code>HeatTransfer.Windows.BaseClasses.ThermalConductor</code>
+with resistance models from the Modelica Standard Library.
+</li>
+<li>
+January 23, 2014, by Damien Picard:<br/>
+First implementation.
+</li>
+</ul>
+</p>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
