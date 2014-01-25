@@ -19,7 +19,8 @@ model HexInternalElement
     dp1_nominal=5,
     dp2_nominal=5,
     hSeg=20,
-    redeclare Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite matFil,
+    redeclare parameter Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite matFil,
+    redeclare parameter Buildings.HeatTransfer.Data.Soil.Sandstone matSoi,
     TFil_start=283.15)
              annotation (Placement(transformation(extent={{10,-16},{30,4}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
@@ -62,6 +63,11 @@ This example illustrates modeling the internal part of a borehole heat exchanger
 The borehole is constitued with two pipes that are symetricaly spaced in the borehole. 
 </html>", revisions="<html>
 <ul>
+<li>
+January 24, 2014, by Michael Wetter:<br/>
+Added declaration of soil properties as this is needed for the new
+U-tube model.
+</li>
 <li>
 August 2011, by Pierre Vigouroux:<br/>
 First implementation.
