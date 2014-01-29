@@ -20,10 +20,10 @@ connector Terminal_p "AC1ph terminal ('positive')"
           lineColor={255,255,255},
           pattern=LinePattern.None,
           textString=""),                    Polygon(
-            points={{0,100},{-100,0},{0,-100},{100,0},{0,100}},
-            lineColor={0,120,120},
-            fillColor={0,120,120},
-            fillPattern=FillPattern.Solid)}),
+          points={{0,100},{-100,0},{0,-100},{100,0},{0,100}},
+          lineColor={0,120,120},
+          fillColor={0,120,120},
+          fillPattern=FillPattern.Solid)}),
   Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

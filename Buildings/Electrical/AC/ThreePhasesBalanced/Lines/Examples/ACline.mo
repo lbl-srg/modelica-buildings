@@ -21,12 +21,12 @@ model ACline
     mode=Buildings.Electrical.Types.CableMode.commercial,
     commercialCable_med=
         Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_30(),
-
     voltageLevel=Buildings.Electrical.Types.VoltageLevel.Medium,
     l=2000)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,70})));
+
   Sources.FixedVoltage V_2(
     Phi=0,
     f=60,
@@ -46,14 +46,13 @@ model ACline
     mode=Buildings.Electrical.Types.CableMode.commercial,
     commercialCable_med=
         Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_30(),
-
     voltageLevel=Buildings.Electrical.Types.VoltageLevel.Low,
-    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu10
-        (),
+    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu10(),
     l=2000)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,10})));
+
 equation
   connect(line1.terminal_p,load_1. terminal) annotation (Line(
       points={{20,70},{40,70}},

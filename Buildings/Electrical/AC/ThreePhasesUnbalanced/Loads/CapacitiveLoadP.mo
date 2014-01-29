@@ -3,7 +3,8 @@ model CapacitiveLoadP
   extends BaseClasses.PartialLoad(
   redeclare Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load1(pf=pf),
   redeclare Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load2(pf=pf),
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load3(pf=pf));
+  redeclare Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load3(pf=pf),
+  redeclare Buildings.Electrical.AC.OnePhase.Basics.Ground ground);
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"  annotation(evaluate=true,Dialog(group="Nominal conditions"));
   annotation (Icon(graphics={
         Rectangle(
