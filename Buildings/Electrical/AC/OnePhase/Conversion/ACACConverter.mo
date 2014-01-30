@@ -20,19 +20,7 @@ protected
 equation
   terminal_p.v = conversionFactor*terminal_n.v;
 
-  /* OLD VERSION THAT INCLUDED THESE VARIABLES
-  protected
-    Modelica.SIunits.Power LossPower_n "Loss power on side n";
-    Modelica.SIunits.Power LossPower_p "Loss power on side p";
-  equations
-    Pow_n + Pow_p = {LossPower_n, LossPower_p};
-
-    LossPower_n = (1-eta) * abs(Pow_p[1]);
-    LossPower_p = (1-eta) * abs(Pow_p[2]); // fixme: shouldn't this be Pow_n[1] instead of Pow_p[2]?
-    LossPower = LossPower_n + LossPower_p;
-  */
-
-  LossPower = Pow_p + Pow_n;
+  /* Easier way to look at the next expression 
   if Pow_p[1]<=0 then
     terminal_p.i[1] = terminal_n.i[1]/conversionFactor/(eta-2);
     terminal_p.i[2] = terminal_n.i[2]/conversionFactor/(eta-2);
@@ -40,8 +28,12 @@ equation
     terminal_p.i[1] = terminal_n.i[1]/conversionFactor*(eta-2);
     terminal_p.i[2] = terminal_n.i[2]/conversionFactor*(eta-2);
   end if;
+  */
+  terminal_p.i[1] = terminal_n.i[1]/conversionFactor*Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), Pow_p[1], deltax=0.1);
+  terminal_p.i[2] = terminal_n.i[2]/conversionFactor*Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), Pow_p[1], deltax=0.1);
+  LossPower = Pow_p + Pow_n;
 
-  //fixme: do we need to do anything for the phase or should we assume the phase remains the same?
+  //TODO: do we need to do anything for the phase or should we assume the phase remains the same?
   terminal_p.theta = terminal_n.theta;
 
   if ground_1 then

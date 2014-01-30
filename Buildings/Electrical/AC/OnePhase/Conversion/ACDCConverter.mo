@@ -22,24 +22,15 @@ equation
   //voltage relation
   v_p = v_n*conversionFactor;
 
-  /* OLD VERSION INCLUDED ALSO THESE VARIABLES
-  protecetd
-    Modelica.SIunits.Power LossPower_n "Loss power on side n";
-    Modelica.SIunits.Power LossPower_p "Loss power on side p";
-  equation
-    //power balance
-    {LossPower_n, LossPower_p} = (1-eta) * abs(Pow_p);
-    Pow_n + Pow_p = {LossPower_n, LossPower_p};
-    LossPower = LossPower_n + LossPower_p;
-  */
-
+  /* Easier way to lool at the next expression
   if i_p<=0 then
     LossPower = - Pow_p[1]*(1-eta);
-    Pow_n + Pow_p = {LossPower, 0};
   else
     LossPower = - Pow_n[1]*(1-eta);
-    Pow_n + Pow_p = {LossPower, 0};
   end if;
+  */
+  LossPower = -(1-eta)*Buildings.Utilities.Math.Functions.spliceFunction(Pow_n[1], Pow_p[1], i_p, deltax=0.1);
+  Pow_n + Pow_p = {LossPower, 0};
 
   if ground_AC then
     Connections.potentialRoot(terminal_n.theta);
