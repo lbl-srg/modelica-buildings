@@ -1,7 +1,7 @@
 within Buildings.Examples.VAVReheat.Controls;
 block EconomizerTemperatureControl
   "Controller for economizer mixed air temperature"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
   Buildings.Controls.Continuous.LimPID con(
     k=k,

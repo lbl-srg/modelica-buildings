@@ -1,7 +1,7 @@
 within Buildings.Utilities.Psychrometrics.BaseClasses;
 partial block HumidityRatioVaporPressure
   "Humidity ratio for given water vapor pressure"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   parameter Boolean use_p_in = true "Get the pressure from the input connector"
     annotation(Evaluate=true, HideResult=true);
 

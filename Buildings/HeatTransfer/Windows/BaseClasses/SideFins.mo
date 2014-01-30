@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 block SideFins
   "For a window with side fins, outputs the fraction of the area that is sun exposed"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   extends Buildings.Rooms.BaseClasses.SideFins;
   Modelica.Blocks.Interfaces.RealInput alt(quantity="Angle",
                                            unit="rad",

@@ -166,7 +166,7 @@ model DataCenterDiscreteTimeControl
     samplePeriod=120,
     uTri=0,
     yDec=-0.03,
-    yInc=0.03) constrainedby Modelica.Blocks.Interfaces.BlockIcon
+    yInc=0.03) constrainedby Modelica.Blocks.Icons.Block
     "Trim and respond logic"
     annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo

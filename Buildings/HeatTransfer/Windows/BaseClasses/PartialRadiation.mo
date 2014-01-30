@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 partial block PartialRadiation
   "Partial model for variables and data used in radiation calculation"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   extends Buildings.HeatTransfer.Windows.BaseClasses.RadiationBaseData;
 
   ////////////////// Parameters that are not used by RadiationData

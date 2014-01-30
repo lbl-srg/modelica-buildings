@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block SpeedSelect
   "Selects the lower specified speed ratio for multispeed model"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nSta(min=1) "Number of standard compressor speeds";
   parameter Real speSet[nSta] "Array of standard compressor speeds";

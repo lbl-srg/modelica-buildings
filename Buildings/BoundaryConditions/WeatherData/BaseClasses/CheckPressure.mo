@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckPressure
   "Ensures that the interpolated pressure is between prescribed bounds"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput PIn(final quantity="Pressure", final unit=
            "Pa") "Input pressure"

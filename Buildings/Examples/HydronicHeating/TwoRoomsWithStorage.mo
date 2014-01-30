@@ -498,7 +498,7 @@ model TwoRoomsWithStorage
 
   block CoolingControl
     "Controller for the free cooling and the mechanical cooling"
-     extends Modelica.Blocks.Interfaces.BlockIcon;
+     extends Modelica.Blocks.Icons.Block;
 
      parameter Modelica.SIunits.Temperature TRooCoo = 25+273.15
       "Set point for mechanical cooling";
