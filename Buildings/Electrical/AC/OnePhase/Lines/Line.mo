@@ -10,13 +10,13 @@ model Line
 protected
   replaceable TwoPortRLC lineRLC(
     useHeatPort=true,
-    R=R,
-    L=L,
     mode = modelMode,
     M=M,
-    C=C,
     T_ref=T_ref,
-    V_nominal=V_nominal)
+    V_nominal=V_nominal,
+    R=R/3,
+    C=C/3,
+    L=L/3)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
