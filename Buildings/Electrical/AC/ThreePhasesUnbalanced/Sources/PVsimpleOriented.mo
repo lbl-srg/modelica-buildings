@@ -1,7 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources;
 model PVsimpleOriented
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV;
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV(
+    redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase1,
+    redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase2,
+    redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase3);
   parameter Modelica.SIunits.Angle til "Surface tilt" annotation(evaluate=true,Dialog(group="Orientation"));
   parameter Modelica.SIunits.Angle lat "Latitude" annotation(evaluate=true,Dialog(group="Orientation"));
   parameter Modelica.SIunits.Angle azi "Surface Azimith" annotation(evaluate=true,Dialog(group="Orientation"));

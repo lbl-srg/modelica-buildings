@@ -1,7 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources;
 model PVsimple
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV;
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV(
+    redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase1,
+    redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase2,
+    redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase3);
   Modelica.Blocks.Interfaces.RealInput G(unit="W/m2")
     "Total solar irradiation per unit area"
      annotation (Placement(transformation(
@@ -16,7 +19,7 @@ equation
       points={{0,100},{0,70},{-20,70},{-20,88},{-94,88},{-94,20},{-66,20}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Diagram(coordinateSystem(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics), Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
 end PVsimple;
