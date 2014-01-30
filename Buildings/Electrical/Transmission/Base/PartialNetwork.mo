@@ -3,20 +3,15 @@ partial model PartialNetwork "Partial model that represent an electric network"
   replaceable parameter Buildings.Electrical.Transmission.Grids.PartialGrid grid
     "Record that describe the grid (number of nodes, links, connections, etc.)"
     annotation (choicesAllMatching=true);
-  replaceable Buildings.Electrical.Interfaces.Terminal terminal[grid.Nnodes]
+  replaceable Buildings.Electrical.Interfaces.BaseTerminal terminal[grid.Nnodes]
     "Electric terminals for each node of the network"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  replaceable Buildings.Electrical.Transmission.Base.PartialLine lines[grid.Nlinks](
+  replaceable Buildings.Electrical.Transmission.Base.PartialBaseLine lines[grid.Nlinks](
     each mode=Types.CableMode.commercial,
     l=grid.L,
     each P_nominal=0,
     each V_nominal=220)
     "Array of line models. Each line connect two nodes of the grid";
-equation
-  for i in 1:grid.Nlinks loop
-    connect(lines[i].terminal_p, terminal[grid.FromTo[i,1]]);
-    connect(lines[i].terminal_n, terminal[grid.FromTo[i,2]]);
-  end for;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(

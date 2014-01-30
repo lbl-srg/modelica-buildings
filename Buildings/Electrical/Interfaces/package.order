@@ -1,9 +1,11 @@
+BaseTerminal
 Terminal
 PartialGround
 PartialLoad
 PartialInductiveLoad
 PartialCapacitiveLoad
 PartialSource
+PartialBaseTwoPort
 PartialTwoPort
 PartialConversion
 GeneralizedSensor
