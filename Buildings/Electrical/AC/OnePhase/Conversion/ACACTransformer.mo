@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Conversion;
-model ACACTrasformer "AC AC trasformer for single phase systems"
+model ACACTransformer "AC AC transformer for single phase systems"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
@@ -257,4 +257,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ACACTrasformer;
+end ACACTransformer;

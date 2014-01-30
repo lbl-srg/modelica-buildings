@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.OnePhase.Conversion.Examples;
 model ACACTransformer "Test model AC to AC trasformer"
   import Buildings;
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Conversion.ACACTrasformer trasformer(
+  Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer trasformer(
     Vhigh=220,
     XoverR=8,
     Zperc=0.03,
