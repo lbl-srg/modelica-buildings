@@ -1,14 +1,10 @@
 within Buildings.Electrical.Interfaces;
 model PartialPV "Partial model of a PV system"
+  extends Buildings.Electrical.Interfaces.PartialPvBase;
   replaceable package PhaseSystem =
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Area A "Net surface area";
-  parameter Real fAct(min=0, max=1, unit="1") = 0.9
-    "Fraction of surface area with active solar cells";
-  parameter Real eta(min=0, max=1, unit="1") = 0.12
-    "Module conversion efficiency";
   Modelica.Blocks.Interfaces.RealInput G(unit="W/m2")
     "Total solar irradiation per unit area"
      annotation (Placement(transformation(
@@ -18,9 +14,6 @@ model PartialPV "Partial model of a PV system"
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
-  Modelica.Blocks.Interfaces.RealOutput P(unit="W") "Generated power"
-    annotation (Placement(transformation(extent={{100,60},{120,80}})));
-
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
       package PhaseSystem = PhaseSystem) "Generalised terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));

@@ -1,20 +1,13 @@
 within Buildings.Electrical.Interfaces;
 model PartialPVOriented "Partial model of a PV system with orientation"
+  extends Buildings.Electrical.Interfaces.PartialPvBase;
   replaceable package PhaseSystem =
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Area A "Net surface area";
-  parameter Real fAct(min=0, max=1, unit="1") = 0.9
-    "Fraction of surface area with active solar cells";
-  parameter Real eta(min=0, max=1, unit="1") = 0.12
-    "Module conversion efficiency";
   parameter Modelica.SIunits.Angle til "Surface tilt" annotation(evaluate=true,Dialog(group="Orientation"));
   parameter Modelica.SIunits.Angle lat "Latitude" annotation(evaluate=true,Dialog(group="Orientation"));
   parameter Modelica.SIunits.Angle azi "Surface Azimith" annotation(evaluate=true,Dialog(group="Orientation"));
-  Modelica.Blocks.Interfaces.RealOutput P(unit="W") "Generated power"
-    annotation (Placement(transformation(extent={{100,60},{120,80}})));
-
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
       package PhaseSystem = PhaseSystem) "Generalised terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));

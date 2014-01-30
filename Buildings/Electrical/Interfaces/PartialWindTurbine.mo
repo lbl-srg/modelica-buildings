@@ -2,55 +2,17 @@ within Buildings.Electrical.Interfaces;
 model PartialWindTurbine
   "Partial model of a wind turbine with power output based on table as a function of wind speed"
   import Buildings;
+  extends Buildings.Electrical.Interfaces.PartialWindTurbineBase;
   replaceable package PhaseSystem =
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem
        constrainedby Buildings.Electrical.PhaseSystems.PartialPhaseSystem
     "Phase system"
     annotation (choicesAllMatching=true);
-  final parameter Modelica.SIunits.Velocity vIn = table[1,1]
-    "Cut-in steady wind speed";
-  final parameter Modelica.SIunits.Velocity vOut = table[size(table,1), 1]
-    "Cut-out steady wind speed";
-  parameter Real scale(min=0)=1
-    "Scaling factor, used to easily adjust the power output without changing the table";
 
-  parameter Real h "Height over ground"
-    annotation (Dialog(group="Wind correction"));
-  parameter Modelica.SIunits.Height hRef = 10
-    "Reference height for wind measurement"
-    annotation (Dialog(group="Wind correction"));
- parameter Real nWin(min=0) = 0.4
-    "Height exponent for wind profile calculation"
-   annotation (Dialog(group="Wind correction"));
-
-  parameter Boolean tableOnFile=false
-    "true, if table is defined on file or in function usertab";
-  parameter Real table[:,2]=
-          [3.5, 0;
-           5.5, 0.1;
-           12, 0.9;
-           14, 1;
-           25, 1]
-    "Table of generated power (first column is wind speed, second column is power)";
-  parameter String tableName="NoName"
-    "Table name on file or in function usertab (see documentation)";
-  parameter String fileName="NoName" "File where matrix is stored";
-
-  Modelica.Blocks.Interfaces.RealInput vWin(unit="m/s") "Steady wind speed"
-     annotation (Placement(transformation(
-        origin={0,120},
-        extent={{-20,-20},{20,20}},
-        rotation=270), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,120})));
-  Modelica.Blocks.Interfaces.RealOutput P(unit="W") "Generated power"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
       package PhaseSystem =
         PhaseSystem) "Generalised terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-
 protected
   Modelica.Blocks.Tables.CombiTable1Ds per(
     final tableOnFile=tableOnFile,
@@ -62,21 +24,18 @@ protected
     final columns=2:2,
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     "Performance table that maps wind speed to electrical power output"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-
+    annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
   Modelica.Blocks.Math.Gain gain(final k=scale)
     "Gain, used to allow a user to easily scale the power"
-    annotation (Placement(transformation(extent={{-8,10},{12,30}})));
-
-  Buildings.Electrical.DC.Sources.BaseClasses.WindCorrection cor(
+    annotation (Placement(transformation(extent={{2,20},{22,40}})));
+  DC.Sources.BaseClasses.WindCorrection                      cor(
     final h=h,
     final hRef=hRef,
     final n=nWin) "Correction for wind"
   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-60,20})));
-
+        origin={-50,30})));
 initial equation
 assert(abs(table[1,2]) == 0,
   "First data point of performance table must be at cut-in wind speed,
@@ -84,20 +43,20 @@ assert(abs(table[1,2]) == 0,
    Received + " + String(table[1,1]) + " m/s with " + String(table[1,2]) + " Watts");
 equation
   assert(gain.y>=0, "Wind power must be positive");
-  connect(per.y[1], gain.u) annotation (Line(
-      points={{-19,20},{-10,20}},
+  connect(per.y[1],gain. u) annotation (Line(
+      points={{-9,30},{0,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(vWin, cor.vRef) annotation (Line(
-      points={{1.11022e-15,120},{1.11022e-15,80},{-80,80},{-80,20},{-72.2,20}},
+  connect(vWin,cor. vRef) annotation (Line(
+      points={{1.77636e-15,120},{1.77636e-15,90},{-70,90},{-70,30},{-62.2,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(cor.vLoc, per.u) annotation (Line(
-      points={{-49,20},{-42,20}},
+  connect(cor.vLoc,per. u) annotation (Line(
+      points={{-39,30},{-32,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, P) annotation (Line(
-      points={{13,20},{60,20},{60,60},{110,60}},
+      points={{23,30},{60,30},{60,60},{110,60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

@@ -1,12 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model PartialLoad
   import Buildings;
-  parameter Boolean PlugPhase1 = true
-    "This flag indicates if the load on phase 1 is connected or not";
-  parameter Boolean PlugPhase2 = false
-    "This flag indicates if the load on phase 2 is connected or not";
-  parameter Boolean PlugPhase3 = true
-    "This flag indicates if the load on phase 3 is connected or not";
+  extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
   parameter Boolean linear = false
     "If =true introduce a linearization in the load"                                                    annotation(evaluate=true,Dialog(group="Modelling assumption"));
   parameter Buildings.Electrical.Types.Assumption mode(

@@ -7,6 +7,10 @@ PartialSource
 PartialTwoPort
 PartialConversion
 GeneralizedSensor
+PartialPvBase
+PartialRenewableAcDc
 PartialPV
 PartialPVOriented
+PartialWindTurbineBase
 PartialWindTurbine
+PartialPluggableUnbalanced

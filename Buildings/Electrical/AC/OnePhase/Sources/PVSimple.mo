@@ -1,14 +1,11 @@
 within Buildings.Electrical.AC.OnePhase.Sources;
 model PVSimple
   import Buildings;
+  extends Buildings.Electrical.Interfaces.PartialRenewableAcDc;
   extends Buildings.Electrical.Interfaces.PartialPV(redeclare package
       PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase, redeclare
       Interfaces.Terminal_p terminal);
 
-  parameter Real pf(min=0, max=1) = 0.9 "Power factor"
-    annotation (Dialog(group="AC-Conversion"));
-  parameter Real eta_DCAC(min=0, max=1) = 0.9 "Efficiency of DC/AC conversion"
-    annotation (Dialog(group="AC-Conversion"));
   Modelica.Blocks.Math.Gain gain_DCAC(k=eta_DCAC) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
