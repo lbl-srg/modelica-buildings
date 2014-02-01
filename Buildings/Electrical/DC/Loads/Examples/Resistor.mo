@@ -44,7 +44,8 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
-            Commands(file=
+            experiment(StopTime=1.0, Tolerance=1e-06, __Dymola_Algorithm="Radau"),
+            __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Loads/Examples/Resistor.mos"
         "Simulate and plot"),
     Documentation(info="<html>
