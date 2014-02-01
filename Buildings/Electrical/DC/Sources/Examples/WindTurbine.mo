@@ -81,7 +81,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Commands(file=
+    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Sources/Examples/WindTurbine.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-140,-100},{100,140}})));
