@@ -7,7 +7,7 @@ equation
   if linear then
     terminal.i[1] = P*(2/V_nominal - (terminal.v[1]-terminal.v[2])/V_nominal^2);
   else
-    PhaseSystem.activePower(terminal.v, terminal.i) = P;
+    PhaseSystem.activePower(terminal.v, terminal.i) + P = 0;
   end if;
   sum(i) = 0;
   annotation (

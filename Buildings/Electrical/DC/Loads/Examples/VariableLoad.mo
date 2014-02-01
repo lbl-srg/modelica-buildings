@@ -1,16 +1,18 @@
 within Buildings.Electrical.DC.Loads.Examples;
 model VariableLoad "Example using variable loads models"
   extends Modelica.Icons.Example;
-  Conductor loa1(P_nominal=50,
+  Conductor loa1(
     V_nominal=12,
-    linear=false) "Load"
+    linear=false,
+    P_nominal=-50) "Load"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Sources.ConstantVoltage sou(V=12) "Voltage source"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Electrical.Analog.Basic.Ground gro "Ground"
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
-  Conductor loa2(P_nominal=50, mode=Types.Assumption.VariableZ_y_input,
-    V_nominal=12) "Load"
+  Conductor loa2(              mode=Types.Assumption.VariableZ_y_input,
+    V_nominal=12,
+    P_nominal=-50) "Load"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Ramp varLoad_y(
     height=0.8,
@@ -18,7 +20,7 @@ model VariableLoad "Example using variable loads models"
     startTime=0.3,
     offset=0)
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
-  Conductor loa3(P_nominal=50, mode=Types.Assumption.VariableZ_P_input,
+  Conductor loa3(              mode=Types.Assumption.VariableZ_P_input,
     V_nominal=12) "Load"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Modelica.Blocks.Sources.Ramp varLoad_P(
