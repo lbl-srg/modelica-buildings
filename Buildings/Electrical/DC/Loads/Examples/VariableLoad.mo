@@ -70,7 +70,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
             experiment(StopTime=1.0, Tolerance=1e-06, __Dymola_Algorithm="Radau"),
-            Commands(file=
+            __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Loads/Examples/VariableLoad.mos"
         "Simulate and plot"));
 end VariableLoad;
