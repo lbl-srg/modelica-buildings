@@ -10,7 +10,7 @@ model TwoPortRLC
     min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)=Buildings.Electrical.Types.Assumption.FixedZ_steady_state                                                                                                     annotation(evaluate=true,Dialog(group="Modelling assumption"));
 protected
-  Modelica.SIunits.Voltage Vc[2];
+  Modelica.SIunits.Voltage Vc[2](start = {V_nominal,0});
   Modelica.SIunits.Current Ic[2];
 equation
   Connections.branch(terminal_p.theta, terminal_n.theta);

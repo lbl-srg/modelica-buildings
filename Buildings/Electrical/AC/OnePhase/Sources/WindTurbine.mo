@@ -25,7 +25,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, gain_DCAC.u) annotation (Line(
-      points={{13,20},{80,20},{80,0},{64,0}},
+      points={{23,30},{80,30},{80,0},{64,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -62,7 +62,7 @@ as entered by the first and last entry of the wind speed column.
 Below and above these wind speeds, the generated power is zero.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Electrical/DC/Sources/WindTurbine_Table.png\"/>
+<img alt=\"alt-image\" src=\"modelica://Buildings/Resources/Images/Electrical/DC/Sources/WindTurbine_Table.png\"/>
 </p>
 </html>"));
 end WindTurbine;

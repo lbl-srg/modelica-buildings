@@ -51,6 +51,6 @@ record IEEE_34_AL120
    */
   annotation (Documentation(info="<html>
 <p>Schematic of the IEEE-34 grid</p>
-<p><img src=\"modelica://Buildings/Resources/Images/Electrical/Transmission/Grids/IEEE_34.png\"/></p>
+<p><img alt=\"alt-image\" src=\"modelica://Buildings/Resources/Images/Electrical/Transmission/Grids/IEEE_34.png\"/></p>
 </html>"));
 end IEEE_34_AL120;

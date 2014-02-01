@@ -43,11 +43,10 @@ The model computes the wind velocity <i>vLoc</i> as
 <i>vLoc = vRef * (h / hRef)<sup>n</sup> </i>,
 where <i>vRef</i> is the wind velocity at the reference height, <i>h</i> is the height over ground, <i>hRef</i> 
 is the reference height, and <i>n</i> is the height exponent for wind calculation.
-
+</p>
 <h4>Reference</h4>
 <p>
 Gasch, R. 1991. Windkraftanlagen. Grundlagen und Entwurf (German). Teubner, Stuttgart.
-</p>
 </p>
 </html>",
 revisions="<html>

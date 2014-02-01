@@ -1,8 +1,11 @@
 within Buildings.Electrical.Transmission.Base;
 partial model PartialLine "Cable line dispersion model"
+  extends Buildings.Electrical.Interfaces.PartialTwoPort;
+  /*
   extends Buildings.Electrical.Interfaces.PartialTwoPort(terminal_n(i(nominal=
             nominal_i_), v(nominal=nominal_v_)), terminal_p(i(nominal=
             nominal_i_), v(nominal=nominal_v_)));
+  */
   extends Buildings.Electrical.Transmission.Base.PartialBaseLine;
   Real VoltageLosses = 100*abs(PhaseSystem_p.systemVoltage(terminal_p.v) - PhaseSystem_n.systemVoltage(terminal_n.v))/max(PhaseSystem_p.systemVoltage(terminal_p.v), PhaseSystem_n.systemVoltage(terminal_n.v))
     "Percentage of voltage losses across the line";

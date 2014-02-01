@@ -82,11 +82,14 @@ equation
   if mode==Assumption.FixedZ_steady_state or mode==Assumption.FixedZ_dynamic then
     P = P_nominal;
   elseif mode==Assumption.VariableZ_P_input then
+    /*
     if Pow_ >=0 then
       P = - max(eps, Pow_);
     else
       P = - min(-eps, Pow_);
     end if;
+    */
+    P = Pow_;
   else
     P = P_nominal*load;
   end if;

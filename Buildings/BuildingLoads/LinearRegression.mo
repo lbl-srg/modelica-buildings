@@ -219,6 +219,7 @@ equation
           color={0,0,0},
           smooth=Smooth.None)}),
                 Documentation(info="<html>
+<p>
 Model for a building load. This model computes the load of a building
 using a family of linear regression models.
 The model takes as a connector the weather data. This is the input
@@ -242,6 +243,7 @@ where <i>y(&sdot;) &isin; &#8477;<sup>9</sup></i> is the output vector,
 regression coefficients.
 The regression coefficients are obtained from a table, which is stored in the following
 format:
+</p>
 <pre>
 #1
 double tab1(\"number_of_time_stamps\", 47)
@@ -294,7 +296,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end LinearRegression;

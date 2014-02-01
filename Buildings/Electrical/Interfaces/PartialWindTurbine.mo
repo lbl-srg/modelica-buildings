@@ -169,7 +169,7 @@ as entered by the first and last entry of the wind speed column.
 Below and above these wind speeds, the generated power is zero.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Electrical/DC/Sources/WindTurbine_Table.png\"/>
+<img alt=\"alt-image\" src=\"modelica://Buildings/Resources/Images/Electrical/DC/Sources/WindTurbine_Table.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

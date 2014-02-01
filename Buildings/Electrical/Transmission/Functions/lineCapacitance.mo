@@ -16,7 +16,7 @@ algorithm
   r   := cable_med.d/2.0;
 
   if level == Buildings.Electrical.Types.VoltageLevel.Low then
-    C := 0;//(1/omega)*Length;
+    C := 0.0;//(1/omega)*Length;
   elseif level == Buildings.Electrical.Types.VoltageLevel.Medium then
     C := Length*2*Modelica.Constants.pi*Modelica.Constants.epsilon_0/log(GMD/r);
   elseif level == Buildings.Electrical.Types.VoltageLevel.High then
