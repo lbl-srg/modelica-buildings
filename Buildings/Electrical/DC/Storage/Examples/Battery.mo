@@ -14,7 +14,7 @@ model Battery "Test model for battery"
     P_nominal=0, mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
     "Electrical load"
     annotation (Placement(transformation(extent={{124,-30},{144,-10}})));
-  Modelica.Blocks.Sources.Constant const1(k=10e3)
+  Modelica.Blocks.Sources.Constant const1(k=-10e3)
     annotation (Placement(transformation(extent={{180,-30},{160,-10}})));
   Modelica.Blocks.Sources.SampleTrigger startCharge(period=24*3600,
       startTime=23*3600)
@@ -200,7 +200,7 @@ equation
             -100},{180,120}}),      graphics),
     experiment(StopTime=432000),
     __Dymola_experimentSetupOutput,
-    Commands(file=
+    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Storage/Examples/Battery.mos"
         "Simulate and plot"),
     Documentation(info="<html>
