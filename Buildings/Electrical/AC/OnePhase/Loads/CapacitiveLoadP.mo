@@ -7,14 +7,14 @@ model CapacitiveLoadP "Model of a capacitive and resistive load"
 equation
   omega = der(PhaseSystem.thetaRef(terminal.theta));
 
-  // Electric charge
-  q = Y[2]*{v[1], v[2]}/omega;
-
   if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
 
     // Use the dynamic phasorial representation
     Y[1] = (P_nominal/pf)*pf/V_nominal^2;
     Y[2] = (P_nominal/pf)*sqrt(1 - pf^2)/V_nominal^2;
+
+    // Electric charge
+    q = Y[2]*{v[1], v[2]}/omega;
 
     // Dynamic of the system
     der(q) + omega*j(q) + Y[1]*v = i;
@@ -23,16 +23,16 @@ equation
 
     // Use the power specified by the parameter or inputs
     if linear then
-      i[1] = (v[2]*Q + v[1]*P)/(V_nominal^2);
-      i[2] = (v[2]*P - v[1]*Q)/(V_nominal^2);
+      i[1] = -(v[2]*Q + v[1]*P)/(V_nominal^2);
+      i[2] = -(v[2]*P - v[1]*Q)/(V_nominal^2);
     else
       //PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, Q);
-      i[1] = (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2);
-      i[2] = (v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2);
+      i[1] = -homotopy(actual=(v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2), simplified=(v[2]*Q + v[1]*P)/(V_nominal^2));
+      i[2] = -homotopy(actual=(v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2), simplified=(v[2]*P - v[1]*Q)/(V_nominal^2));
     end if;
 
-    // steady state relationship
-    omega*j(q)  + Y[1]*v = i;
+    Y = {0, 0};
+    q = {0, 0};
 
   end if;
 

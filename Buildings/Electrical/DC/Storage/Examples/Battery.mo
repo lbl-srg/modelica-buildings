@@ -19,7 +19,7 @@ model Battery "Test model for battery"
   Modelica.Blocks.Sources.SampleTrigger startCharge(period=24*3600,
       startTime=23*3600)
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-  Modelica_StateGraph2.Step off(initialStep=true, nOut=1,
+  Modelica_StateGraph2.Step off(final initialStep=true, nOut=1,
     nIn=1,
     use_activePort=true) "Battery is disconnected"
     annotation (Placement(transformation(extent={{-104,76},{-96,84}})));
@@ -29,7 +29,7 @@ model Battery "Test model for battery"
   Modelica_StateGraph2.Step charge(
     nIn=1,
     use_activePort=true,
-    initialStep=false,
+    final initialStep=false,
     nOut=1) "Battery is charged"
     annotation (Placement(transformation(extent={{-104,16},{-96,24}})));
   Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=
@@ -43,12 +43,12 @@ model Battery "Test model for battery"
   Modelica_StateGraph2.Step discharge(
     nOut=1,
     use_activePort=true,
-    initialStep=false,
+    final initialStep=false,
     nIn=1) "Battery is discharged"
     annotation (Placement(transformation(extent={{-104,-64},{-96,-56}})));
   Modelica_StateGraph2.Step hold(
     nOut=1,
-    initialStep=false,
+    final initialStep=false,
     use_activePort=false,
     nIn=1) "Battery charge is hold"
     annotation (Placement(transformation(extent={{-104,-24},{-96,-16}})));

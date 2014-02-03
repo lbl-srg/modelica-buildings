@@ -3,9 +3,8 @@ model ParallelLoads
   "Example that illustrates the use of the load models at constant voltage"
   import Buildings;
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP varRL(
-                                                             P_nominal=1e3, mode=
-        Buildings.Electrical.Types.Assumption.VariableZ_P_input)
+  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP varRL(              mode=
+        Buildings.Electrical.Types.Assumption.VariableZ_P_input, P_nominal=-1e3)
     "Variable inductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -16,36 +15,36 @@ model ParallelLoads
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,10})));
-  Modelica.Blocks.Sources.Ramp load(duration=0.5, startTime=0.2)
-    annotation (Placement(transformation(extent={{68,0},{48,20}})));
+  Modelica.Blocks.Sources.Ramp load_y(duration=0.5, startTime=0.2)
+    annotation (Placement(transformation(extent={{60,0},{40,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP
-                               RL(P_nominal=1e3)
+                               RL(P_nominal=-1e3)
     "Constant inductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,30})));
-  Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP varRC(
-                                                              P_nominal=1e3, mode=
-        Buildings.Electrical.Types.Assumption.VariableZ_y_input)
+  Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP varRC(              mode=
+        Buildings.Electrical.Types.Assumption.VariableZ_y_input, P_nominal=-1e3)
     "Variable conductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,10})));
   Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP
-                                RC(P_nominal=1e3, mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state)
-    "Constant conductor and resistor"
+                                RC(               mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+      P_nominal=-1e3) "Constant conductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-10})));
   Buildings.Electrical.AC.OnePhase.Loads.ResistiveLoadP
-                       R(P_nominal=1e3) "Resistive load"
+                       R(P_nominal=-1e3, linear=true) "Resistive load"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-30})));
-  Modelica.Blocks.Sources.Ramp load1(             startTime=0.2,
+  Modelica.Blocks.Sources.Ramp load_P(
+    startTime=0.2,
     height=2000,
-    offset=-1000,
-    duration=0.5)
+    duration=0.5,
+    offset=-1000)
     annotation (Placement(transformation(extent={{60,40},{40,60}})));
 equation
   connect(source.terminal, varRL.terminal)  annotation (Line(
@@ -69,15 +68,18 @@ equation
       points={{0,-10},{-30,-10},{-30,-30},{-5.55112e-16,-30}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(load.y, varRC.y) annotation (Line(
-      points={{47,10},{20,10}},
+  connect(load_y.y, varRC.y)
+                           annotation (Line(
+      points={{39,10},{20,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(load1.y, varRL.Pow) annotation (Line(
+  connect(load_P.y, varRL.Pow)
+                              annotation (Line(
       points={{39,50},{20,50}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
+    experiment(StopTime=1.0, Tolerance=1e-06),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
                     graphics),
@@ -99,9 +101,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/Loads/Examples/ParallelLoads.mos"
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Loads/Examples/ParallelLoads.mos"
         "Simulate and plot"),
-    experiment,
     __Dymola_experimentSetupOutput);
 end ParallelLoads;

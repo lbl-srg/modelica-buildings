@@ -8,32 +8,32 @@ model InductiveLoadP "Model of an inductive and resistive load"
 equation
   omega = der(PhaseSystem.thetaRef(terminal.theta));
 
-  // Magnetic flux
-  psi = Z[2]*{i[1], i[2]}/omega;
-
   if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
 
     // Use the dynamic phasorial representation
-    Z[1] = pf*(V_nominal^2)/(P_nominal/pf);
-    Z[2] = sqrt(1-pf^2)*(V_nominal^2)/(P_nominal/pf);
+    Z[1] = -pf*(V_nominal^2)/(P_nominal/pf);
+    Z[2] = -sqrt(1-pf^2)*(V_nominal^2)/(P_nominal/pf);
 
     // Dynamic of the system
     der(psi) + omega*j(psi) + Z[1]*i = v;
+
+    // Magnetic flux
+    psi = Z[2]*{i[1], i[2]}/omega;
 
   else
 
     // Use the power specified by the parameter or inputs
     if linear then
-      i[1] = (v[2]*Q + v[1]*P)/(V_nominal^2);
-      i[2] = (v[2]*P - v[1]*Q)/(V_nominal^2);
+      i[1] = -(v[2]*Q + v[1]*P)/(V_nominal^2);
+      i[2] = -(v[2]*P - v[1]*Q)/(V_nominal^2);
     else
       //PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, Q);
-      i[1] = (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2);
-      i[2] = (v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2);
+      i[1] = -homotopy(actual=  (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2), simplified= (v[2]*Q + v[1]*P)/(V_nominal^2));
+      i[2] = -homotopy(actual=  (v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2), simplified= (v[2]*P - v[1]*Q)/(V_nominal^2));
     end if;
 
-    // steady state relationship
-    omega*j(psi)  + Z[1]*i = v;
+    Z = {0,0};
+    psi = {0,0};
 
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

@@ -1,9 +1,10 @@
 within Buildings.Electrical.PhaseSystems;
-partial package PartialPhaseSystem "Base package of all phase systems"
+package PartialPhaseSystem "Base package of all phase systems"
   extends Modelica.Icons.Package;
   constant String phaseSystemName = "UnspecifiedPhaseSystem";
   constant Integer n "Number of independent voltage and current components";
   constant Integer m "Number of reference angles";
+
 
 
   replaceable partial function j "Return vector rotated by 90 degrees"

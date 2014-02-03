@@ -7,12 +7,12 @@ model ResistiveLoadP "Model of a resistive load"
 equation
 
   if linear then
-    i[1] = v[1]*P/V_nominal^2;
-    i[2] = v[2]*P/V_nominal^2;
+    i[1] = -v[1]*P/V_nominal^2;
+    i[2] = -v[2]*P/V_nominal^2;
   else
     //PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, 0.0);
-    i[1] = v[1]*P/(v[1]^2 + v[2]^2);
-    i[2] = v[2]*P/(v[1]^2 + v[2]^2);
+    i[1] = -homotopy(actual=  v[1]*P/(v[1]^2 + v[2]^2), simplified= v[1]*P/V_nominal^2);
+    i[2] = -homotopy(actual=  v[2]*P/(v[1]^2 + v[2]^2), simplified= v[2]*P/V_nominal^2);
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
