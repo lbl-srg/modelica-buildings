@@ -1,6 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Loads.Examples;
-model ParallelInductor
-  "Example that illustrates the use of the load models at constant voltage"
+model DynamicLoads "Example that illustrates the use of dynamic loads"
   import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage
@@ -9,39 +8,38 @@ model ParallelInductor
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,10})));
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP
-                                             dynRL(
-    P_nominal=2000,
-    pf=0.8,
-    V_nominal=220,
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)
-    annotation (Placement(transformation(extent={{2,0},{22,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP
                                              dynRC(
-    P_nominal=2000,
     pf=0.8,
     V_nominal=220,
+    P_nominal=-2000,
     mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)
-    annotation (Placement(transformation(extent={{2,-20},{22,0}})));
+    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance line(R=0.1)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP
+                                             dynRL(
+    pf=0.8,
+    V_nominal=220,
+    P_nominal=-2000,
+    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
 equation
   connect(source.terminal, line.terminal_n) annotation (Line(
       points={{-60,10},{-40,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(line.terminal_p, dynRL.terminal) annotation (Line(
-      points={{-20,10},{2,10}},
-      color={0,120,120},
-      smooth=Smooth.None));
   connect(line.terminal_p, dynRC.terminal) annotation (Line(
-      points={{-20,10},{-10,10},{-10,-10},{2,-10}},
+      points={{-20,10},{-10,10},{-10,-10},{-4.44089e-16,-10}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics),
+  connect(dynRL.terminal, line.terminal_p) annotation (Line(
+      points={{-4.44089e-16,20},{-10,20},{-10,10},{-20,10}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics),
     Documentation(info="<html>
 <p>
 This model illustrates the use of the load models.
@@ -60,7 +58,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/Loads/Examples/ParallelLoads.mos"
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Loads/Examples/DynamicLoads.mos"
         "Simulate and plot"));
-end ParallelInductor;
+end DynamicLoads;

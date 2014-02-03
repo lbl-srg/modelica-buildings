@@ -4,14 +4,18 @@ model CapacitiveLoadP "Model of a capacitive and resistive load"
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal,
     V_nominal=220);
+initial equation
+  if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
+    q = Y[2]*{V_nominal, 0}/omega;
+  end if;
 equation
   omega = der(PhaseSystem.thetaRef(terminal.theta));
 
   if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
 
     // Use the dynamic phasorial representation
-    Y[1] = (P_nominal/pf)*pf/V_nominal^2;
-    Y[2] = (P_nominal/pf)*sqrt(1 - pf^2)/V_nominal^2;
+    Y[1] = -(P_nominal/pf)*pf/V_nominal^2;
+    Y[2] = -(P_nominal/pf)*sqrt(1 - pf^2)/V_nominal^2;
 
     // Electric charge
     q = Y[2]*{v[1], v[2]}/omega;

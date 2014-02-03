@@ -43,6 +43,10 @@ equation
       points={{-60,30},{-40,30},{-40,-50},{-20,-50}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics),
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Loads/Examples/TestImpedance.mos"
+        "Simulate and plot"));
 end TestImpedance;

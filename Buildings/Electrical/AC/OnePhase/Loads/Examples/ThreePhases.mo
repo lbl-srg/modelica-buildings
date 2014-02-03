@@ -15,8 +15,8 @@ model ThreePhases
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage Vb(
     f=50,
     V=220,
-    Phi=2.0943951023932,
-    definiteReference=true)
+    definiteReference=true,
+    Phi=2.0943951023932)
            annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Zb(
     inductive=true,
@@ -26,8 +26,8 @@ model ThreePhases
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage Vc(
     f=50,
     V=220,
-    Phi=4.1887902047864,
-    definiteReference=true)
+    definiteReference=true,
+    Phi=4.1887902047864)
            annotation (Placement(transformation(extent={{-40,-40},{-20,
             -20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Zc(
@@ -48,6 +48,10 @@ equation
       points={{-20,-30},{20,-30}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent=
-            {{-100,-100},{100,100}}), graphics));
+  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent=
+            {{-100,-100},{100,100}}), graphics),
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Loads/Examples/ThreePhases.mos"
+        "Simulate and plot"));
 end ThreePhases;

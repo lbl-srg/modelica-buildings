@@ -4,7 +4,10 @@ model InductiveLoadP "Model of an inductive and resistive load"
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal,
     V_nominal=220);
-
+initial equation
+  if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
+    psi = Z[2]*{P_nominal/V_nominal, 0}/omega;
+  end if;
 equation
   omega = der(PhaseSystem.thetaRef(terminal.theta));
 

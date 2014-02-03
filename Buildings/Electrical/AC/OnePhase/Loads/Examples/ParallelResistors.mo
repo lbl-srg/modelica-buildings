@@ -15,17 +15,17 @@ model ParallelResistors
     annotation (Placement(transformation(extent={{40,0},{20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.ResistiveLoadP
                        R(
-    P_nominal=1e3,
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    V_nominal=220) "Resistive load"
+    V_nominal=220,
+    P_nominal=-1e3) "Resistive load"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-22,10})));
   Buildings.Electrical.AC.OnePhase.Loads.ResistiveLoadP
                        R1(
-    P_nominal=1e3,
     mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-    V_nominal=220) "Resistive load"
+    V_nominal=220,
+    P_nominal=-1e3) "Resistive load"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-22,-10})));
@@ -43,6 +43,7 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (
+    experiment(StopTime=1.0, Tolerance=1e-06),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
                     graphics),
@@ -64,7 +65,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/Loads/Examples/ParallelLoads.mos"
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Loads/Examples/ParallelResistors.mos"
         "Simulate and plot"));
 end ParallelResistors;
