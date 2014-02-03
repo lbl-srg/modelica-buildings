@@ -5,7 +5,7 @@ model Conductor "Model of a generic DC load"
       terminal);
 equation
   if linear then
-    terminal.i[1] = P*(2/V_nominal - (terminal.v[1]-terminal.v[2])/V_nominal^2);
+    terminal.i[1] + P*(2/V_nominal - (terminal.v[1]-terminal.v[2])/V_nominal^2) = 0;
   else
     PhaseSystem.activePower(terminal.v, terminal.i) + P = 0;
   end if;

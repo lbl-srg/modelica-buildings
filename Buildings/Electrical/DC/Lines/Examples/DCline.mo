@@ -8,7 +8,7 @@ model DCline "Example model to test the DC lines"
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
     l=100,
     voltageLevel=Types.VoltageLevel.Low)
-    annotation (Placement(transformation(extent={{-2,0},{18,20}})));
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Sources.ConstantVoltage E(V=50)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Line line1(
@@ -29,17 +29,20 @@ model DCline "Example model to test the DC lines"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-  Loads.Conductor load1(P_nominal=50, mode=Types.Assumption.VariableZ_y_input,
+  Loads.Conductor load1(              mode=Types.Assumption.VariableZ_y_input,
     V_nominal=50,
-    linear=false)
+    linear=false,
+    P_nominal=-50)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Loads.Conductor load2(P_nominal=120,
+  Loads.Conductor load2(
     V_nominal=50,
-    linear=false)
+    linear=false,
+    P_nominal=-150)
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Loads.Conductor load3(P_nominal=200,
+  Loads.Conductor load3(
     V_nominal=50,
-    linear=false)
+    linear=false,
+    P_nominal=-200)
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Modelica.Blocks.Sources.Ramp varLoad(
     height=0.8,
@@ -49,7 +52,7 @@ model DCline "Example model to test the DC lines"
     annotation (Placement(transformation(extent={{96,0},{76,20}})));
 equation
   connect(E.terminal, line.terminal_n) annotation (Line(
-      points={{-60,10},{-2,10}},
+      points={{-60,10},{-4.44089e-16,10}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(E.terminal, line1.terminal_n) annotation (Line(
@@ -61,7 +64,7 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(load1.terminal, line.terminal_p) annotation (Line(
-      points={{40,10},{18,10}},
+      points={{40,10},{20,10}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(line1.terminal_p, load2.terminal) annotation (Line(
@@ -80,6 +83,8 @@ equation
       points={{-80,10},{-80,0}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+  annotation (experiment(StopTime=1,Tolerance=1e-05),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/DCline.mos"
+        "Simulate and plot"));
 end DCline;

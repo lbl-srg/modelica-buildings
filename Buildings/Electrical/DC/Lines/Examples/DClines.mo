@@ -2,9 +2,10 @@ within Buildings.Electrical.DC.Lines.Examples;
 model DClines
   "Example model to test the possible combinations between line and load models"
   extends Modelica.Icons.Example;
-  parameter Boolean useC = true;
-  parameter Boolean linearLoads = false;
+  parameter Boolean useC = false;
+  parameter Boolean linearLoads = true;
   parameter Real L = 10;
+  Real Sloads "Sum of the power consumed by the loads";
   Line line(
     P_nominal=500,
     V_nominal=50,
@@ -38,18 +39,20 @@ model DClines
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Loads.Conductor load1(              mode=Types.Assumption.VariableZ_y_input,
     V_nominal=50,
-    P_nominal=150,
-    linear=linearLoads)
+    linear=linearLoads,
+    P_nominal=-150)
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
-  Loads.Conductor load2(P_nominal=120,
+  Loads.Conductor load2(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    linear=linearLoads)
+    linear=linearLoads,
+    P_nominal=-120)
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
-  Loads.Conductor load3(P_nominal=200,
+  Loads.Conductor load3(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    linear=linearLoads)
+    linear=linearLoads,
+    P_nominal=-200)
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
   Modelica.Blocks.Sources.Trapezoid
                                varLoad1(
@@ -64,8 +67,8 @@ model DClines
   Loads.Conductor load4(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    P_nominal=120,
-    linear=linearLoads)
+    linear=linearLoads,
+    P_nominal=-120)
     annotation (Placement(transformation(extent={{30,12},{50,32}})));
   Line line3(
     P_nominal=500,
@@ -122,10 +125,11 @@ model DClines
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{-34,-10},{-14,10}})));
-  Loads.Conductor load5(P_nominal=200,
+  Loads.Conductor load5(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    linear=linearLoads)
+    linear=linearLoads,
+    P_nominal=-200)
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Blocks.Sources.Trapezoid
                                varLoad3(
@@ -140,8 +144,8 @@ model DClines
   Loads.Conductor load6(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    P_nominal=120,
-    linear=linearLoads)
+    linear=linearLoads,
+    P_nominal=-120)
     annotation (Placement(transformation(extent={{30,-28},{50,-8}})));
   Line line7(
     P_nominal=500,
@@ -170,10 +174,11 @@ model DClines
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{-34,-50},{-14,-30}})));
-  Loads.Conductor load7(P_nominal=200,
+  Loads.Conductor load7(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    linear=linearLoads)
+    linear=linearLoads,
+    P_nominal=-200)
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Modelica.Blocks.Sources.Trapezoid
                                varLoad4(
@@ -188,8 +193,8 @@ model DClines
   Loads.Conductor load8(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    P_nominal=120,
-    linear=linearLoads)
+    linear=linearLoads,
+    P_nominal=-120)
     annotation (Placement(transformation(extent={{30,-68},{50,-48}})));
   Line line10(
     P_nominal=500,
@@ -218,10 +223,11 @@ model DClines
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{-34,-90},{-14,-70}})));
-  Loads.Conductor load9(P_nominal=200,
+  Loads.Conductor load9(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    linear=linearLoads)
+    linear=linearLoads,
+    P_nominal=-200)
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
   Modelica.Blocks.Sources.Trapezoid
                                varLoad5(
@@ -236,8 +242,8 @@ model DClines
   Loads.Conductor load10(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    P_nominal=120,
-    linear=linearLoads)
+    linear=linearLoads,
+    P_nominal=-120)
     annotation (Placement(transformation(extent={{30,-108},{50,-88}})));
   Line line13(
     P_nominal=500,
@@ -258,6 +264,7 @@ model DClines
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{2,-108},{22,-88}})));
 equation
+  Sloads = load1.S[1] + load2.S[1] +load3.S[1] +load4.S[1] +load5.S[1] +load6.S[1] +load7.S[1] +load8.S[1] +load9.S[1] +load10.S[1];
   connect(load1.terminal, line.terminal_p) annotation (Line(
       points={{30,80},{18,80}},
       color={0,0,255},
@@ -415,6 +422,9 @@ equation
       points={{-90,80},{-90,70}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+  annotation (experiment(StopTime=4000,Tolerance=1e-06),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/DClines.mos"
+        "Simulate and plot"));
 end DClines;

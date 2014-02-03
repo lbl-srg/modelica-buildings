@@ -3,9 +3,6 @@ package Lines "Package with models for DC electrical lines"
   extends Modelica.Icons.Package;
 
 
-
-
-
 annotation (Icon(graphics={
       Ellipse(
         extent={{40,8},{16,-28}},
