@@ -9,7 +9,8 @@ model VariablePowerSource
     amplitude=100,
     freqHz=0.05)
     annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP   R(P_nominal=300, mode=Types.Assumption.VariableZ_y_input)
+  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP RL(mode=Types.Assumption.VariableZ_y_input,
+      P_nominal=-300)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Electrical.AC.OnePhase.Sources.Grid grid(
     f=50,
@@ -29,20 +30,25 @@ equation
       points={{-71,0},{-50,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(generator.terminal, R.terminal) annotation (Line(
+  connect(generator.terminal, RL.terminal)
+                                          annotation (Line(
       points={{-30,0},{20,0}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(grid.terminal, R.terminal) annotation (Line(
+  connect(grid.terminal, RL.terminal)
+                                     annotation (Line(
       points={{-10,40},{-10,0},{20,0},{20,5.55112e-16}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(load.y, R.y) annotation (Line(
+  connect(load.y, RL.y)
+                       annotation (Line(
       points={{59,0},{40,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
-    experiment(StopTime=10, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput);
+    experiment(StopTime=21, Tolerance=1e-05),
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sources/Examples/VariablePowerSource.mos"
+        "Simulate and plot"));
 end VariablePowerSource;
