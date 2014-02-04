@@ -4,12 +4,14 @@ model DataSeries "Benchmark data"
     "Multiply the power consumed by buildings by this factor";
   parameter Real factorPV = 1.0
     "Multiply the power produced by the PV panels by this factor";
+  parameter String fileName_PV = "modelica://Buildings/Resources/Data/Electrical/Benchmark/load_PV.txt";
+  parameter String fileName_buildings = "modelica://Buildings/Resources/Data/Electrical/Benchmark/SLP_33buildings.txt";
   Modelica.Blocks.Sources.CombiTimeTable pv_loads(
     tableOnFile=true,
     tableName="load_PV",
     columns=2:17,
     fileName=
-        Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath("modelica://Buildings/Resources/Data/Electrical/Benchmark/load_PV.txt"),
+        Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(fileName_PV),
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
@@ -18,7 +20,7 @@ model DataSeries "Benchmark data"
     tableName="SLP_33buildings",
     columns=2:34,
     fileName=
-        Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath("modelica://Buildings/Resources/Data/Electrical/Benchmark/SLP_33buildings.txt"),
+        Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(fileName_buildings),
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
