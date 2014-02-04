@@ -7,9 +7,10 @@ model AC_IEEE34
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Loads.InductiveLoadP load[33](
       each P_nominal=1000,
-    pf=1.0,
-    linear=false,
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
+    each pf=0.8,
+    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    V_nominal=218,
+    each linear=true)
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Sources.FixedVoltage source(
     f=50,
@@ -22,9 +23,10 @@ model AC_IEEE34
     annotation (Placement(transformation(extent={{80,30},{60,50}})));
   Loads.CapacitiveLoadP PVloads[
                                16](
-    pf=1.0,
-    linear=false,
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
+    each pf=0.9,
+    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    V_nominal=218,
+    each linear=true)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 protected
   final parameter Integer connectionMatrix[16,2]=[1,1; 2,5; 3,6; 4,9; 5,11; 6,14; 7,17; 8,18; 9,19; 10,20; 11,24; 12,27; 13,28; 14,29; 15,32; 16,33];

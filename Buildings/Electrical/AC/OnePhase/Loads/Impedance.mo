@@ -3,6 +3,7 @@ model Impedance "Model of a generic impedance"
   extends Buildings.Electrical.Interfaces.PartialLoad(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal,
+    final linear = false,
     final mode=Types.Assumption.FixedZ_steady_state,
     final P_nominal=0,
     final V_nominal=220);

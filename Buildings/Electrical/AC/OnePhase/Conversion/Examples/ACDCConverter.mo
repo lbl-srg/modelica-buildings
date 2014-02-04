@@ -21,8 +21,9 @@ model ACDCConverter "Test model AC to DC converter"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-62,10})));
-  Buildings.Electrical.DC.Loads.Conductor   load(P_nominal=200, mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
-                                                          annotation (Placement(
+  Buildings.Electrical.DC.Loads.Conductor   load(               mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    P_nominal=-200,
+    V_nominal=60)                                         annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -51,7 +52,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), experiment(Tolerance=1e-05),
+            -100},{100,100}}), graphics), experiment(StopTime=1.0, Tolerance=1e-05),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
@@ -66,7 +67,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/Conversion/Examples/ACDCConverter.mos"
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Conversion/Examples/ACDCConverter.mos"
         "Simulate and plot"));
 end ACDCConverter;

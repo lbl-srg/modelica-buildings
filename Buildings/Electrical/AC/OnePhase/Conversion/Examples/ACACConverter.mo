@@ -3,7 +3,7 @@ model ACACConverter "Test model AC to AC converter"
   import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter
-    conACAC(                      eta=0.9, conversionFactor=220/220)
+    conACAC(                      eta=0.9, conversionFactor=110/220)
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage                 sou(
     f=60,
@@ -15,7 +15,9 @@ model ACACConverter "Test model AC to AC converter"
         origin={-60,10})));
   Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP
                                              load(
-      P_nominal=1000, mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
+                      mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    P_nominal=-1000,
+    V_nominal=110)
     annotation (Placement(transformation(extent={{24,0},{44,20}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=0.5,
@@ -37,7 +39,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), experiment(Tolerance=1e-05),
+            -100},{100,100}}), graphics), experiment(StopTime=1.0, Tolerance=1e-05),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
@@ -52,7 +54,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/Conversion/Examples/ACACConverter.mos"
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Conversion/Examples/ACACConverter.mos"
         "Simulate and plot"));
 end ACACConverter;

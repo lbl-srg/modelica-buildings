@@ -18,7 +18,7 @@ model ACACTransformer "AC AC transformer for single phase systems"
   Modelica.SIunits.Power LossPower[2] "Loss power";
   parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
-protected
+//protected
   Real N = Vhigh/Vlow "Winding ratio";
   Modelica.SIunits.Current Ihigh = VAbase/Vhigh
     "Nominal current on primary side";
@@ -42,7 +42,7 @@ equation
   assert(sqrt(Pow_p[1]^2 + Pow_p[2]^2) <= VAbase*1.01,"The load power of transformer is higher than VAbase");
 
   // Efficiency
-  eta = sqrt(Pow_p[1]^2 + Pow_p[2]^2) / sqrt(Pow_n[1]^2 + Pow_n[2]^2);
+  eta = sqrt(Pow_p[1]^2 + Pow_p[2]^2) / (sqrt(Pow_n[1]^2 + Pow_n[2]^2) + 1e-6);
 
   // Ideal transformation
   V2 = V1/N;

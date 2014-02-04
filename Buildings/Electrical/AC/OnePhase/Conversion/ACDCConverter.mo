@@ -29,7 +29,7 @@ equation
     LossPower = - Pow_n[1]*(1-eta);
   end if;
   */
-  LossPower = -(1-eta)*Buildings.Utilities.Math.Functions.spliceFunction(Pow_n[1], Pow_p[1], i_p, deltax=0.1);
+  LossPower = (1-eta)*Buildings.Utilities.Math.Functions.spliceFunction(Pow_p[1], Pow_n[1], i_p, deltax=0.1);
   Pow_n + Pow_p = {LossPower, 0};
 
   if ground_AC then

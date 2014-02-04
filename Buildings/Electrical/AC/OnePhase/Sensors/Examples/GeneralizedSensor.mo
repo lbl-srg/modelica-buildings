@@ -6,9 +6,10 @@ model GeneralizedSensor "Example model for generalized sensor"
                                                           sen
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP
-                                                      loa(P_nominal=100,
+                                                      loa(
     mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
-    V_nominal=120) "Constant load"
+    V_nominal=120,
+    P_nominal=-100) "Constant load"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou(V=120)
     "Voltage source"
@@ -26,7 +27,8 @@ equation
       points={{-12,10},{-4.44089e-16,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Documentation(
+  annotation (experiment(StopTime=0.1, Tolerance=1e-05),
+  Documentation(
   info="<html>
 <p>
 This example illustrates the use of the generalized sensor.
@@ -43,7 +45,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
                     graphics),
-Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/AC1ph/Sensors/Examples/GeneralizedSensor.mos"
+__Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sensors/Examples/GeneralizedSensor.mos"
         "Simulate and plot"));
 end GeneralizedSensor;
