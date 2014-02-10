@@ -6,125 +6,107 @@ model ACline
     Phi=0,
     V=220)
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Line line2(
-    l=2000,
-    V_nominal=220,
-    P_nominal=1500,
-    mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.Cu50())
-    annotation (Placement(transformation(extent={{-54,-10},{-34,10}})));
-  Loads.InductiveLoadP
-                 load2(P_nominal=50,
-    mode=Types.Assumption.FixedZ_dynamic,
-    V_nominal=220)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Loads.InductiveLoadP
-                 load1(
-    V_nominal=220,
-    mode=Types.Assumption.FixedZ_steady_state,
-    P_nominal=150)
-    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
+  Loads.Impedance R1(R=10)
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Line line1(
     V_nominal=220,
     P_nominal=5000,
     l=2000,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.Cu50())
-    annotation (Placement(transformation(extent={{-54,10},{-34,30}})));
-  Loads.InductiveLoadP
-                 load3(
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Line line2(
     V_nominal=220,
-    mode=Types.Assumption.VariableZ_y_input,
-    P_nominal=450)
-    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+    P_nominal=5000,
+    mode=Types.CableMode.commercial,
+    commercialCable_low=Transmission.LowVoltageCables.Cu50(),
+    l=1000)
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+  Loads.Impedance R2(
+    R=10)
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Line line3(
-    l=2000,
     V_nominal=220,
-    P_nominal=1500,
+    P_nominal=5000,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.Cu50())
-    annotation (Placement(transformation(extent={{-54,-30},{-34,-10}})));
-  Loads.InductiveLoadP
-                 load4(
-    V_nominal=220,
-    mode=Types.Assumption.VariableZ_y_input,
-    P_nominal=250)
-    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  Modelica.Blocks.Sources.Ramp ramp(
-    height=1,
-    duration=0.5,
-    startTime=0.3)
-    annotation (Placement(transformation(extent={{76,-50},{56,-30}})));
-  Modelica.Blocks.Math.Feedback feedback
-    annotation (Placement(transformation(extent={{42,-30},{22,-10}})));
-  Modelica.Blocks.Sources.Constant const(k=1)
-    annotation (Placement(transformation(extent={{80,-18},{60,2}})));
+    commercialCable_low=Transmission.LowVoltageCables.Cu50(),
+    l=1000)
+    annotation (Placement(transformation(extent={{-32,-30},{-12,-10}})));
   Line line4(
-    l=2000,
     V_nominal=220,
-    P_nominal=1500,
+    P_nominal=5000,
+    mode=Types.CableMode.commercial,
+    commercialCable_low=Transmission.LowVoltageCables.Cu50(),
+    l=4000)
+    annotation (Placement(transformation(extent={{-60,-54},{-40,-34}})));
+  Line line5(
+    V_nominal=220,
+    P_nominal=5000,
+    mode=Types.CableMode.commercial,
+    commercialCable_low=Transmission.LowVoltageCables.Cu50(),
+    l=4000)
+    annotation (Placement(transformation(extent={{-60,-66},{-40,-46}})));
+  Loads.Impedance R3(
+    R=10)
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+  Line line6(
+    V_nominal=220,
+    P_nominal=5000,
+    l=2000,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.Cu50())
-    annotation (Placement(transformation(extent={{-4,40},{16,60}})));
-  Loads.InductiveLoadP
-                 load5(
-    V_nominal=220,
-    mode=Types.Assumption.FixedZ_steady_state,
-    P_nominal=150)
-    annotation (Placement(transformation(extent={{30,40},{50,60}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  Loads.Impedance ShortCircuit(R=0)
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 equation
-  connect(E.terminal, line2.terminal_n) annotation (Line(
-      points={{-80,6.66134e-16},{-54,6.66134e-16}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(line1.terminal_p, load1.terminal) annotation (Line(
-      points={{-34,20},{-10,20}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(line2.terminal_p, load2.terminal) annotation (Line(
-      points={{-34,6.66134e-16},{-10,6.66134e-16}},
+  connect(line1.terminal_p, R1.terminal)    annotation (Line(
+      points={{-40,0},{-24,0},{-24,6.66134e-16},{-4.44089e-16,6.66134e-16}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(E.terminal, line1.terminal_n) annotation (Line(
-      points={{-80,6.66134e-16},{-74,6.66134e-16},{-74,20},{-54,20}},
+      points={{-80,4.44089e-16},{-60,4.44089e-16}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(line3.terminal_p, load3.terminal) annotation (Line(
-      points={{-34,-20},{-10,-20}},
+  connect(E.terminal, line2.terminal_n) annotation (Line(
+      points={{-80,4.44089e-16},{-70,4.44089e-16},{-70,-20},{-60,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(line3.terminal_p, load4.terminal) annotation (Line(
-      points={{-34,-20},{-30,-20},{-30,-40},{-10,-40}},
+  connect(line2.terminal_p, line3.terminal_n) annotation (Line(
+      points={{-40,-20},{-32,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(E.terminal, line3.terminal_n) annotation (Line(
-      points={{-80,6.66134e-16},{-74,6.66134e-16},{-74,-20},{-54,-20}},
+  connect(line3.terminal_p, R2.terminal) annotation (Line(
+      points={{-12,-20},{0,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(ramp.y, load4.y) annotation (Line(
-      points={{55,-40},{10,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(feedback.y, load3.y) annotation (Line(
-      points={{23,-20},{10,-20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(ramp.y, feedback.u2) annotation (Line(
-      points={{55,-40},{32,-40},{32,-28}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(const.y, feedback.u1) annotation (Line(
-      points={{59,-8},{50,-8},{50,-20},{40,-20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(line1.terminal_p, line4.terminal_n) annotation (Line(
-      points={{-34,20},{-20,20},{-20,50},{-4,50}},
+  connect(line4.terminal_p, R3.terminal) annotation (Line(
+      points={{-40,-44},{-20,-44},{-20,-50},{0,-50}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(line4.terminal_p, load5.terminal) annotation (Line(
-      points={{16,50},{30,50}},
+  connect(line5.terminal_p, R3.terminal) annotation (Line(
+      points={{-40,-56},{-20,-56},{-20,-50},{-5.55112e-16,-50}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+  connect(E.terminal, line4.terminal_n) annotation (Line(
+      points={{-80,0},{-70,0},{-70,-44},{-60,-44}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(E.terminal, line5.terminal_n) annotation (Line(
+      points={{-80,0},{-70,0},{-70,-56},{-60,-56}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(line6.terminal_p, ShortCircuit.terminal) annotation (Line(
+      points={{-40,30},{-20,30}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(E.terminal, line6.terminal_n) annotation (Line(
+      points={{-80,0},{-70,0},{-70,30},{-60,30}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics),
+  __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Lines/Examples/ACline.mos"
+        "Simulate and plot"));
 end ACline;
