@@ -3,9 +3,21 @@ model Conductor "Model of a generic DC load"
     extends Buildings.Electrical.Interfaces.PartialLoad(redeclare package
       PhaseSystem = PhaseSystems.TwoConductor, redeclare Interfaces.Terminal_n
       terminal);
+    Modelica.SIunits.Voltage absDV;
 equation
+  absDV = abs(terminal.v[1]-terminal.v[2]);
+
   if linear then
-    terminal.i[1] + P*(2/V_nominal - (terminal.v[1]-terminal.v[2])/V_nominal^2) = 0;
+    //terminal.i[1] + P*(2/(1.1*V_nominal) - (terminal.v[1]-terminal.v[2])/(1.1*V_nominal)^2) = 0;
+
+    if absDV <= (8/9)*V_nominal then
+      terminal.i[1] + P*(2/(0.8*V_nominal) - (terminal.v[1]-terminal.v[2])/(0.8*V_nominal)^2) = 0;
+    elseif absDV >= (12/11)*V_nominal then
+      terminal.i[1] + P*(2/(1.2*V_nominal) - (terminal.v[1]-terminal.v[2])/(1.2*V_nominal)^2) = 0;
+    else
+      terminal.i[1] + P*(2/V_nominal - (terminal.v[1]-terminal.v[2])/V_nominal^2) = 0;
+    end if;
+
   else
     PhaseSystem.activePower(terminal.v, terminal.i) + P = 0;
   end if;
