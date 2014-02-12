@@ -51,7 +51,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   input Modelica.SIunits.Volume fluidVolume "Volume";
 
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
-    "Heat transfered into the medium"
+    "Sensible plus latent heat flow rate transfered into the medium"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
     "Moisture mass flow rate added to the medium"
@@ -260,6 +260,10 @@ Buildings.Fluid.Storage.ExpansionVessel</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2014 by Michael Wetter:<br/>
+Improved documentation for <code>Q_flow</code> input.
+</li>
 <li>
 September 17, 2013 by Michael Wetter:<br/>
 Added start value for <code>hOut</code>.
