@@ -401,17 +401,9 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
     &quot;Needed to connect to conditional connector&quot;</font>;
 <textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</A> gai(k=mWat_flow_nominal) <font color="darkgreen">&quot;Gain&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow"
->Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</A> preHea <font color="darkgreen">
-    &quot;Prescribed heat flow&quot;</font>;
   <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
->Modelica.Blocks.Sources.RealExpression</A> realExpression(y=
-        <font color="red">Medium.enthalpyOfLiquid</font>(T_in_internal));
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
->Modelica.Blocks.Math.Product</A> pro <font color="darkgreen">
-    &quot;Product to compute latent heat added to volume&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
->Modelica.Blocks.Sources.RealExpression</A> realExpression1(y=T_in_internal);</textblock>
+>Modelica.Blocks.Sources.RealExpression</A> TWat(y=T_in_internal) <font color="darkgreen">
+    &quot;Temperature of the water&quot;</font>;</textblock>
 <font color="blue">equation </font>
   <font color="darkgreen">// Conditional connect statement</font>
   <font color="red">connect</font>(T_in, T_in_internal);
@@ -421,14 +413,10 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 
 <textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(u, gai.u);
   <font color="red">connect</font>(gai.y, vol.mWat_flow);
-  <font color="red">connect</font>(realExpression.y, pro.u1);
-  <font color="red">connect</font>(gai.y, pro.u2);
-  <font color="red">connect</font>(pro.y, preHea.Q_flow);
-  <font color="red">connect</font>(preHea.port, vol.heatPort);
-  <font color="red">connect</font>(vol.TWat, realExpression1.y);</textblock>
+  <font color="red">connect</font>(vol.TWat, TWat.y);</textblock>
 <textblock type="annotcomp" expanded="false"><font color="blue">end </font>HumidifierPrescribed;
 </PRE>
 <HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Fri Dec 13 11:35:21 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:16:37 2014.
 </address></BODY>
 </HTML>
