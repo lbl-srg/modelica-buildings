@@ -109,10 +109,10 @@ protected
   parameter Real x(fixed=false) "Capacity location";
 
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor RConv1
-    "Grout and pipe convective and thermal resistance"
+    "Pipe convective resistance"
     annotation (Placement(transformation(extent={{-58,40},{-82,16}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor RConv2
-    "Grout and pipe convective and thermal resistance"
+    "Pipe convective resistance"
     annotation (Placement(transformation(extent={{-56,-40},{-80,-16}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg1(
     final R=RCondGro_val) "Grout thermal resistance"
@@ -167,14 +167,7 @@ initial equation
     sha=xC,
     kFil=matFil.k,
     kTub=kTub,
-    kSoi=matSoi.k,
-    kMed=kMed,
-    mueMed=mueMed,
-    cpMed=cpMed,
-    m1_flow=m1_flow_nominal,
-    m2_flow=m2_flow_nominal,
-    m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal);
+    kSoi=matSoi.k);
 
 equation
   connect(vol1.heatPort, RConv1.fluid) annotation (Line(

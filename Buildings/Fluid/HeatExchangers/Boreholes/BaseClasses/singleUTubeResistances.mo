@@ -19,18 +19,6 @@ function singleUTubeResistances
   input Modelica.SIunits.ThermalConductivity kTub
     "Thermal conductivity of the tube";
 
-  // Inputs for convection
-  input Modelica.SIunits.ThermalConductivity kMed
-    "Thermal conductivity of the fluid";
-  input Modelica.SIunits.DynamicViscosity mueMed
-    "Dynamic viscosity of the fluid";
-  input Modelica.SIunits.SpecificHeatCapacity cpMed
-    "Specific heat capacity of the fluid";
-  input Modelica.SIunits.MassFlowRate m1_flow "Mass flow rate";
-  input Modelica.SIunits.MassFlowRate m1_flow_nominal "Nominal mass flow rate";
-  input Modelica.SIunits.MassFlowRate m2_flow "Mass flow rate";
-  input Modelica.SIunits.MassFlowRate m2_flow_nominal "Nominal mass flow rate";
-
   // Outputs
   output Modelica.SIunits.ThermalResistance Rgb
     "Thermal resistance between grout zone and borehole wall";
@@ -55,11 +43,6 @@ protected
   Real Ra
     "Grout-to-grout resistance (2D) as defined by Hellstroem. Interaction between the different grout part";
 
-  Modelica.SIunits.ThermalResistance RConv1
-    "Convection resistance (or conduction in fluid if no mass flow)";
-  Modelica.SIunits.ThermalResistance RConv2
-    "Convection resistance (or conduction in fluid if no mass flow)";
-
   // Help variables
   Real sigma "Help variable as defined by Hellstroem";
   Real beta "Help variable as defined by Hellstroem";
@@ -73,38 +56,17 @@ protected
   Integer i=1 "Loop counter";
 
 algorithm
-  // Convection resistances
-  RConv1 :=convectionResistance(
-    hSeg=hSeg,
-    rBor=rBor,
-    rTub=rTub,
-    kMed=kMed,
-    mueMed=mueMed,
-    cpMed=cpMed,
-    m_flow=m1_flow,
-    m_flow_nominal=m1_flow_nominal);
-
-  RConv2 :=convectionResistance(
-    hSeg=hSeg,
-    rBor=rBor,
-    rTub=rTub,
-    kMed=kMed,
-    mueMed=mueMed,
-    cpMed=cpMed,
-    m_flow=m2_flow,
-    m_flow_nominal=m2_flow_nominal);
-
   // ********** Rb and Ra from multipole **********
   // Help variables
   RCondPipe :=Modelica.Math.log((rTub + eTub)/rTub)/(2*Modelica.Constants.pi*hSeg*kTub);
   sigma :=(kFil - kSoi)/(kFil + kSoi);
   R_1delta_LS :=1/(2*Modelica.Constants.pi*kFil)*(log(rBor/(rTub + eTub)) + log(rBor/(2*sha)) +
-    sigma*log(rBor^4/(rBor^4 - sha^4))) + RCondPipe*hSeg;
+    sigma*log(rBor^4/(rBor^4 - sha^4)));
   R_1delta_MP :=R_1delta_LS - 1/(2*Modelica.Constants.pi*kFil)*((rTub + eTub)^2/
     (4*sha^2)*(1 - sigma*4*sha^4/(rBor^4 - sha^4))^2)/((1 + beta)/(1 - beta) + (
     rTub + eTub)^2/(4*sha^2)*(1 + sigma*16*sha^4*rBor^4/(rBor^4 - sha^4)^2));
   Ra_LS      :=1/(Modelica.Constants.pi*kFil)*(log(2*sha/rTub) + sigma*log((
-    rBor^2 + sha^2)/(rBor^2 - sha^2))) + 2*RCondPipe*hSeg;
+    rBor^2 + sha^2)/(rBor^2 - sha^2)));
 
   //Rb and Ra
   Rb :=R_1delta_MP/2;
@@ -113,8 +75,8 @@ algorithm
     sigma*2*rTub^2*rBor^2*(rBor^4 + sha^4)/(rBor^4 - sha^4)^2));
 
   //Conversion of Rb (resp. Ra) to Rg (resp. Rar) of Bauer:
-  Rg  :=2*Rb/hSeg - RConv1 - RCondPipe;
-  Rar :=Ra/hSeg - 2*(RConv1 + RCondPipe);
+  Rg  :=2*Rb/hSeg;
+  Rar :=Ra/hSeg;
 
 /* **************** Simplification of Bauer for single U-tube ************************
   //Thermal resistance between: Outer wall and one tube
@@ -127,13 +89,6 @@ algorithm
 *************************************************************************************** */
 
   // ********** Resistances and capacity location according to Bauer **********
-
-  // fixme: This loop needs to be changed for the following reason:
-  //        The test "    test := ((1/Rgg + 1/2/Rgb)^(-1) > 0);" depends on the
-  //        mass flow rates m1_flow and m2_flow. Therefore, this function is
-  //        discontinuous in the mass flow rate.
-  //        To fix this, we could call this function to build a table for the outputs,
-  //        and then interpolate in the table using cubic splines.
   while test == false and i <= 10 loop
     // Capacity location (with correction factor in case that the test is negative)
     x := Modelica.Math.log(sqrt(rBor^2 + 2*(rTub + eTub)^2)/(2*(rTub + eTub)))/
@@ -151,8 +106,7 @@ algorithm
     i := i + 1;
   end while;
   //Conduction resistance in grout from pipe wall to capacity in grout
-  RCondGro := x*Rg + Modelica.Math.log((rTub + eTub)/rTub)/(2*Modelica.Constants.pi
-    *hSeg*kTub);
+  RCondGro := x*Rg + RCondPipe;
 
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>

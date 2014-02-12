@@ -34,27 +34,13 @@ algorithm
   // Re = rho*v*DTub / mue_f = m_flow/(pi r^2) * DTub/mue_f = 2*m_flow / ( mue*pi*rTub)
   k := 2/(mueMed*Modelica.Constants.pi*rTub);
 
-// fixme: Damien to review.
-//        These branches would need to be done with a splice function to avoid an event
-//        and non-differentiability. Also, negative flow rates would need to be
-//        handled correctly.
-//        However, since regNonZeroPower already has a transition to a non-zero value
-//        (below delta=0.01*m_flow_nominal*k), which could be considered to be the
-//        value for conduction (e.g., the flow is 1% of the nominal flow),
-//        a separate branch for convection is not needed.
-//        I therefore removed it.
-//  if m_flow > 0.0001 then
-    // Convection
+  // Convection
   h := 0.023*kMed*(cpMed*mueMed/kMed)^(0.35)/(2*rTub)*
          Buildings.Utilities.Math.Functions.regNonZeroPower(
            x=m_flow*k,
            n=0.8,
            delta=0.01*m_flow_nominal*k);
   RFlu2pipe := 1/(2*Modelica.Constants.pi*rTub*hSeg*h);
-//  else
-    // conduction instead of convection (lambda_w = 0.58 W/(m.K))
-//    RFlu2pipe := 1/(0.58*rTub);
-//  end if;
 
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>This model computes the convection resistance in the pipes of a borehole segment with heigth hSeg.
