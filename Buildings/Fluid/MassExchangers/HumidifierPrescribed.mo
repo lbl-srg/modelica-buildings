@@ -29,17 +29,9 @@ protected
     "Needed to connect to conditional connector";
   Modelica.Blocks.Math.Gain gai(k=mWat_flow_nominal) "Gain"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
-    "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{36,68},{56,88}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=
-        Medium.enthalpyOfLiquid(T_in_internal))
-    annotation (Placement(transformation(extent={{-96,70},{-20,94}})));
-  Modelica.Blocks.Math.Product pro
-    "Product to compute latent heat added to volume"
-    annotation (Placement(transformation(extent={{0,66},{20,86}})));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=T_in_internal)
-    annotation (Placement(transformation(extent={{-80,-48},{-52,-24}})));
+  Modelica.Blocks.Sources.RealExpression TWat(y=T_in_internal)
+    "Temperature of the water"
+    annotation (Placement(transformation(extent={{-80,72},{-52,96}})));
 equation
   // Conditional connect statement
   connect(T_in, T_in_internal);
@@ -52,27 +44,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gai.y, vol.mWat_flow) annotation (Line(
-      points={{-59,60},{-34,60},{-34,-18},{-11,-18}},
+      points={{-59,60},{-30,60},{-30,-18},{-11,-18}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(realExpression.y, pro.u1)     annotation (Line(
-      points={{-16.2,82},{-2,82}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gai.y, pro.u2)     annotation (Line(
-      points={{-59,60},{-34,60},{-34,70},{-2,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(pro.y, preHea.Q_flow)     annotation (Line(
-      points={{21,76},{28,76},{28,78},{36,78}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(preHea.port, vol.heatPort) annotation (Line(
-      points={{56,78},{80,78},{80,60},{-20,60},{-20,-10},{-9,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(vol.TWat, realExpression1.y) annotation (Line(
-      points={{-11,-14.8},{-30,-14.8},{-30,-36},{-50.6,-36}},
+  connect(vol.TWat, TWat.y) annotation (Line(
+      points={{-11,-14.8},{-20,-14.8},{-20,84},{-50.6,84}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -146,6 +122,11 @@ in the species vector.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 11, 2014 by Michael Wetter:<br/>
+Corrected issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/197\">#197</a>
+which led to twice the amount of latent heat being added to the fluid stream.
+</li>
 <li>
 October 14, 2013 by Michael Wetter:<br/>
 Constrained medium to be a subclass of 
