@@ -167,6 +167,10 @@ International Journal Of Energy Research, 35:312&ndash;320, 2010.</p>
 <p>
 <ul>
 <li>
+February 12, 2014, by Damien Picard:<br/>
+Remove the flow dependency of the resistances, as this function calculates the conduction resistances only.
+</li>
+<li>
 January 24, 2014, by Michael Wetter:<br/>
 Revised implementation.
 </li>
