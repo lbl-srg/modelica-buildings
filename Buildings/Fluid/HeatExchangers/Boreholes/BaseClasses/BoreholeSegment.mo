@@ -64,6 +64,7 @@ model BoreholeSegment "Vertical segment of a borehole"
  Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement pipFil(
     redeclare final package Medium = Medium,
     final matFil=matFil,
+    final matSoi=matSoi,
     final hSeg=hSeg,
     final rTub=rTub,
     final eTub=eTub,
