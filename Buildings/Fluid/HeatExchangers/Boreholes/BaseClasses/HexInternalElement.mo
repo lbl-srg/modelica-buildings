@@ -266,7 +266,7 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance</a>.
 The figure below shows the thermal network set up by Bauer et al. (2010).
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://fixme/Bauer_singleUTube_small.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings 1.5/Buildings/Resources/Images/Fluid/HeatExchangers/Boreholes/BaseClassesBauer_singleUTube_small.png\"/>
 </p>
 <h4>References</h4>
 <p>
