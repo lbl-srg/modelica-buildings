@@ -111,10 +111,10 @@ algorithm
 
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>
-This model computes the different thermal resistances present in a 
+This model computes the thermal resistances of a 
 single-U-tube borehole using the method of Bauer et al. (2010). 
-It also computes the fluid-to-ground thermal resistance <i>Rb</i> 
-and the grout-to-grout thermal resistance <i>Ra</i> as defined by 
+It also computes the fluid-to-ground thermal resistance <i>R<sub>b</sub></i> 
+and the grout-to-grout thermal resistance <i>R<sub>a</sub></i> as defined by 
 Hellstroem (1991) using the multipole method.
 </p>
 <p>
@@ -125,7 +125,7 @@ The figure below shows the thermal network set up by Bauer et al. (2010).
 </p>
 <p>
 The different resistances are calculated as follows.
-The grout zone and bore hole wall is
+The grout zone and bore hole wall thermal resistance are related as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 R<sub>gb</sub><sup>1U</sup> =  (  1 - x<sup>1U</sup>  )  R<sub>g</sub><sup>1U</sup>.
@@ -155,18 +155,18 @@ log ( r<sub>Bor</sub>/ ( &radic;2  ( r<sub>Tub</sub> + e<sub>Tub</sub> ))).
 The thermal resistance between the outer borehole wall and one tube is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-R<sub>g</sub><sup>1U</sup> =2 Rb &frasl; h<sub>Seg</sub>.
+R<sub>g</sub><sup>1U</sup> =2 R<sub>b</sub> &frasl; h<sub>Seg</sub>.
 </p>
 <p>
 The thermal resistance between the two pipe outer walls is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  R<sub>ar</sub><sup>1U</sup> =Ra &frasl; h<sub>Seg</sub>.
+  R<sub>ar</sub><sup>1U</sup> =R<sub>a</sub> &frasl; h<sub>Seg</sub>.
 </p>
 <p>
 The fluid to ground thermal resistance
-<i>Rb</i> 
-and the grout to grout thermal resistance <i>Ra</i> are calculated with the multipole method 
+<i>R<sub>b</sub></i> 
+and the grout to grout thermal resistance <i>R<sub>a</sub></i> are calculated with the multipole method 
 (Hellstroem (1991)) as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -186,9 +186,10 @@ with
 <i>&sigma; = ( k<sub>Fil</sub> - k<sub>Soi</sub> ) / ( k<sub>Fil</sub> + k<sub>Soi</sub> ) </i> and  <i> &beta; = 2 &pi; k<sub>Fil</sub> R<sub>CondPipe</sub></i>,
 where
 <i>k<sub>Fil</sub></i> and <i>k<sub>Soi</sub></i> are the conductivity of the filling material 
-and of the ground respectively,
+and of the ground,
 <i>r<sub>Tub</sub>+e<sub>Tub</sub></i> and <i>r<sub>Bor</sub></i> are the pipe and the borehole outside radius and 
-<i>sha</i> is the shank spacing, which is equal to distance between center of borehole to center of pipe).
+<i>sha</i> is the shank spacing, which is equal to the distance between 
+the center of borehole and the center of the pipe.
 </p>
 <h4>References</h4>
 <p>
