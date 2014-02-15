@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses;
 function convectionResistance
-  "Thermal resistance from the fluid in pipes and the grout zones (Bauer et al. 2011)"
+  "Thermal resistance from the fluid in pipes and the grout zones"
 
   // Geometry of the borehole
   input Modelica.SIunits.Height hSeg "Height of the element";
@@ -43,10 +43,11 @@ algorithm
   RFlu2pipe := 1/(2*Modelica.Constants.pi*rTub*hSeg*h);
 
   annotation (Diagram(graphics), Documentation(info="<html>
-<p>This model computes the convection resistance in the pipes of a borehole segment with heigth hSeg.
+<p>
+This model computes the convection resistance in the pipes of a borehole segment with heigth <i>h<sub>Seg</sub></i>.
 </p>
 <p>
-The correlation of Dittus-Boelter is used to find the convection heat transfer coefficient:
+The correlation of Dittus-Boelter is used to find the convection heat transfer coefficient as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   Nu = 0.023 &nbsp; Re<sup>0.8</sup> &nbsp; Pr<sup>n</sup>,
@@ -55,13 +56,17 @@ The correlation of Dittus-Boelter is used to find the convection heat transfer c
 where <i>Nu</i> is the Nusselt number, 
 <i>Re</i> is the Reynolds number and 
 <i>Pr</i> is the Prandlt number.
-We selected <i>n=0.35</i> (according to the correlation <i>n=0.4</i> for heating,
-<i>0.3</i> for cooling). 
-Dittus-Boelter&apos;s correlation is for turbulent flow in cylindrical smooth pipe.
+We selected <i>n=0.35</i>, as the reference uses <i>n=0.4</i> for heating and 
+<i>n=0.3</i> for cooling.
+Dittus-Boelter&apos;s correlation is valid for turbulent flow in cylindrical smooth pipe.
 </p>
 </html>", revisions="<html>
 <p>
 <ul>
+<li>
+February 14, 2014, by Michael Wetter:<br/>
+Revised documentation.
+</li>
 <li>
 January 24, 2014, by Michael Wetter:<br/>
 Revised implementation. 

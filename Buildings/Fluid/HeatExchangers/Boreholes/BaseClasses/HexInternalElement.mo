@@ -248,9 +248,9 @@ and the heat storage within the fluid and the borehole filling.
 <p>
 This model computes the different thermal resistances present 
 in a single-U-tube borehole using the method of Bauer et al. (2010) 
-and computing explicitely the <i>fluid-to-ground</i> thermal resistance 
+and computing explicitely the fluid-to-ground thermal resistance 
 <i>R<sub>b</sub></i> and the 
-<i>grout-to-grout </i>resistance
+grout-to-grout resistance
 <i>R<sub>a</sub></i> as defined by Hellstroem (1991)
 using the multipole method.
 The multipole method is implemented in
