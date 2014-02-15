@@ -111,11 +111,9 @@ First implementation.
 
   record ThermalProperties "Thermal properties of materials with storage"
     extends Modelica.Icons.Record;
-    parameter String name="name";
     parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
     parameter Modelica.SIunits.SpecificHeatCapacity c "Specific heat capacity";
     parameter Modelica.SIunits.Density d "Mass density";
-    final parameter Modelica.SIunits.DiffusionCoefficient alp = k/d/c;
     parameter Boolean steadyState= (c == 0 or d == 0)
       "Flag, if true, then material is computed using steady-state heat conduction"
       annotation(Evaluate=true);
