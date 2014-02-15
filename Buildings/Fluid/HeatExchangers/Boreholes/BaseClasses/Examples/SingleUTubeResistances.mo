@@ -43,9 +43,9 @@ initial algorithm
     rTub=rTub,
     eTub=eTub,
     sha=xC,
+    kSoi=matSoi.k,
     kFil=matFil.k,
-    kTub=kTub,
-    kSoi=matSoi.k);
+    kTub=kTub);
 
  annotation (
 experiment(StopTime=1),

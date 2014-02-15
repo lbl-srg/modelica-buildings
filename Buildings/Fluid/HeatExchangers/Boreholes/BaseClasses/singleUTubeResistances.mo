@@ -11,10 +11,10 @@ function singleUTubeResistances "Thermal resistances for single U-tube"
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole";
 
   // Thermal properties
-  input Modelica.SIunits.ThermalConductivity kFil
-    "Thermal conductivity of the grout";
   input Modelica.SIunits.ThermalConductivity kSoi
     "Thermal conductivity of the soi";
+  input Modelica.SIunits.ThermalConductivity kFil
+    "Thermal conductivity of the grout";
   input Modelica.SIunits.ThermalConductivity kTub
     "Thermal conductivity of the tube";
 
@@ -107,16 +107,49 @@ algorithm
     test := ((1/Rgg + 1/2/Rgb)^(-1) > 0);
     i := i + 1;
   end while;
+  // Check for errors.
   assert(i <= iMax,
-  "Maximum number of iterations exceeded. Check the borehole geometry
-  Obtained x   = " + String(x) + " K/W
-           Rgb = " + String(Rgb) + " K/W
-           Rgg = " + String(Rgg) + " K/W");
+  "Maximum number of iterations exceeded. Check the borehole geometry.
+  Input to function is
+           hSeg = " + String(hSeg) + " m
+           rBor = " + String(rBor) + " m
+           rTub = " + String(rTub) + " m
+           eTub = " + String(eTub) + " m
+           sha  = " + String(sha)  + " m
+           kSoi = " + String(kSoi) + " W/m/K
+           kFil = " + String(kFil) + " W/m/K
+           kTub = " + String(kTub) + " W/m/K
+  Computed x    = " + String(x) + " K/W
+           Rgb  = " + String(Rgb) + " K/W
+           Rgg  = " + String(Rgg) + " K/W");
+  // The assert below is triggered for these data:
+  //  Input to function is
+  //         hSeg = 1 m
+  //         rBor = 0.1 m
+  //         rTub = 0.02 m
+  //         eTub = 0.002 m
+  //         sha  = 0.05 m
+  //         kSoi = 1.9 W/m/K
+  //         kFil = 1.15 W/m/K
+  //         kTub = 0.5 W/m/K
+  //Computed x    = 0.742731 K/W
+  //         Rgb  = 0.0514545 K/W
+  //         Rgg  = -3.28202 K/W
   assert(x > 0 and Rgb > 0 and Rgg > 0,
   "Computed unrealistic values for resistances. Check the borehole geometry. 
-  Obtained x   = " + String(x) + " K/W
-           Rgb = " + String(Rgb) + " K/W
-           Rgg = " + String(Rgg) + " K/W");
+  Input to function is
+           hSeg = " + String(hSeg) + " m
+           rBor = " + String(rBor) + " m
+           rTub = " + String(rTub) + " m
+           eTub = " + String(eTub) + " m
+           sha  = " + String(sha)  + " m
+           kSoi = " + String(kSoi) + " W/m/K
+           kFil = " + String(kFil) + " W/m/K
+           kTub = " + String(kTub) + " W/m/K
+  Computed x    = " + String(x) + " K/W
+           Rgb  = " + String(Rgb) + " K/W
+           Rgg  = " + String(Rgg) + " K/W");
+
   //Conduction resistance in grout from pipe wall to capacity in grout
   RCondGro := x*Rg + RCondPipe;
 
