@@ -7,7 +7,7 @@ function singleUTubeResistances "Thermal resistances for single U-tube"
   // Geometry of the pipe
   input Modelica.SIunits.Radius rTub "Radius of the tube";
   input Modelica.SIunits.Length eTub "Thickness of the tubes";
-  input Modelica.SIunits.Length sha
+  input Modelica.SIunits.Length xC
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole";
 
   // Thermal properties
@@ -61,20 +61,20 @@ algorithm
   // Help variables
   RCondPipe :=Modelica.Math.log((rTub + eTub)/rTub)/(2*Modelica.Constants.pi*hSeg*kTub);
   sigma :=(kFil - kSoi)/(kFil + kSoi);
-  R_1delta_LS :=1/(2*Modelica.Constants.pi*kFil)*(log(rBor/(rTub + eTub)) + log(rBor/(2*sha)) +
-    sigma*log(rBor^4/(rBor^4 - sha^4)));
+  R_1delta_LS :=1/(2*Modelica.Constants.pi*kFil)*(log(rBor/(rTub + eTub)) + log(rBor/(2*xC)) +
+    sigma*log(rBor^4/(rBor^4 - xC^4)));
   R_1delta_MP :=R_1delta_LS - 1/(2*Modelica.Constants.pi*kFil)*((rTub + eTub)^2/
-    (4*sha^2)*(1 - sigma*4*sha^4/(rBor^4 - sha^4))^2)/((1 + beta)/(1 - beta) + (
-    rTub + eTub)^2/(4*sha^2)*(1 + sigma*16*sha^4*rBor^4/(rBor^4 - sha^4)^2));
-  Ra_LS      :=1/(Modelica.Constants.pi*kFil)*(log(2*sha/rTub) + sigma*log((
-    rBor^2 + sha^2)/(rBor^2 - sha^2)));
+    (4*xC^2)*(1 - sigma*4*xC^4/(rBor^4 - xC^4))^2)/((1 + beta)/(1 - beta) + (
+    rTub + eTub)^2/(4*xC^2)*(1 + sigma*16*xC^4*rBor^4/(rBor^4 - xC^4)^2));
+  Ra_LS      :=1/(Modelica.Constants.pi*kFil)*(log(2*xC/rTub) + sigma*log((
+    rBor^2 + xC^2)/(rBor^2 - xC^2)));
 
   //Rb and Ra
   beta :=2*Modelica.Constants.pi*kFil*RCondPipe;
   Rb :=R_1delta_MP/2;
-  Ra :=Ra_LS - 1/(Modelica.Constants.pi*kFil)*(rTub^2/(4*sha^2)*(1 + sigma*
-    4*rBor^4*sha^2/(rBor^4 - sha^4))/((1 + beta)/(1 - beta) - rTub^2/(4*sha^2) +
-    sigma*2*rTub^2*rBor^2*(rBor^4 + sha^4)/(rBor^4 - sha^4)^2));
+  Ra :=Ra_LS - 1/(Modelica.Constants.pi*kFil)*(rTub^2/(4*xC^2)*(1 + sigma*
+    4*rBor^4*xC^2/(rBor^4 - xC^4))/((1 + beta)/(1 - beta) - rTub^2/(4*xC^2) +
+    sigma*2*rTub^2*rBor^2*(rBor^4 + xC^4)/(rBor^4 - xC^4)^2));
 
   //Conversion of Rb (resp. Ra) to Rg (resp. Rar) of Bauer:
   Rg  :=2*Rb/hSeg;
@@ -82,11 +82,11 @@ algorithm
 
 /* **************** Simplification of Bauer for single U-tube ************************
   //Thermal resistance between: Outer wall and one tube
-     Rg := Modelica.Math.acosh((rBor^2 + (rTub + eTub)^2 - sha^2)/(2*rBor*(rTub +
-       eTub)))/(2*Modelica.Constants.pi*hSeg*kFil)*(1.601 - 0.888*sha/rBor);
+     Rg := Modelica.Math.acosh((rBor^2 + (rTub + eTub)^2 - xC^2)/(2*rBor*(rTub +
+       eTub)))/(2*Modelica.Constants.pi*hSeg*kFil)*(1.601 - 0.888*xC/rBor);
 
   //Thermal resistance between: The two pipe outer walls
-  Rar := Modelica.Math.acosh((2*sha^2 - (rTub + eTub)^2)/(rTub + eTub)^2)/(2*
+  Rar := Modelica.Math.acosh((2*xC^2 - (rTub + eTub)^2)/(rTub + eTub)^2)/(2*
        Modelica.Constants.pi*hSeg*kFil);
 *************************************************************************************** */
 
@@ -115,7 +115,7 @@ algorithm
            rBor = " + String(rBor) + " m
            rTub = " + String(rTub) + " m
            eTub = " + String(eTub) + " m
-           sha  = " + String(sha)  + " m
+           xC   = " + String(xC)  + " m
            kSoi = " + String(kSoi) + " W/m/K
            kFil = " + String(kFil) + " W/m/K
            kTub = " + String(kTub) + " W/m/K
@@ -128,7 +128,7 @@ algorithm
   //         rBor = 0.1 m
   //         rTub = 0.02 m
   //         eTub = 0.002 m
-  //         sha  = 0.05 m
+  //         xC   = 0.05 m
   //         kSoi = 1.9 W/m/K
   //         kFil = 1.15 W/m/K
   //         kTub = 0.5 W/m/K
@@ -142,7 +142,7 @@ algorithm
            rBor = " + String(rBor) + " m
            rTub = " + String(rTub) + " m
            eTub = " + String(eTub) + " m
-           sha  = " + String(sha)  + " m
+           xC   = " + String(xC)  + " m
            kSoi = " + String(kSoi) + " W/m/K
            kFil = " + String(kFil) + " W/m/K
            kTub = " + String(kTub) + " W/m/K
@@ -214,16 +214,16 @@ and the grout to grout thermal resistance <i>R<sub>a</sub></i> are calculated wi
 (Hellstroem (1991)) as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-R<sub>b</sub> =1/ ( 4 &pi; k<sub>Fil</sub> )   ( log ( r<sub>Bor</sub>/ ( r<sub>Tub</sub> + e<sub>Tub</sub> )  )  + log ( r<sub>Bor</sub>/ ( 2 sha )  )  +
-    &sigma; log ( r<sub>Bor</sub><sup>4</sup>/ ( r<sub>Bor</sub><sup>4</sup> - sha<sup>4</sup> )  )  )  - 1/ ( 4 &pi; k<sub>Fil</sub> )   (  ( r<sub>Tub</sub> + e<sub>Tub</sub> ) <sup>2</sup>/
-     ( 4 sha<sup>2</sup> )   ( 1 - &sigma; 4 sha<sup>4</sup>/ ( r<sub>Bor</sub><sup>4</sup> - sha<sup>4</sup> )  ) <sup>2</sup> ) / (  ( 1 + &beta; ) / ( 1 - &beta; )  +  ( 
-    r<sub>Tub</sub> + e<sub>Tub</sub> ) <sup>2</sup>/ ( 4 sha<sup>2</sup> )   ( 1 + &sigma; 16 sha<sup>4</sup> r<sub>Bor</sub><sup>4</sup>/ ( r<sub>Bor</sub><sup>4</sup> - sha<sup>4</sup> ) <sup>2</sup>)).
+R<sub>b</sub> =1/ ( 4 &pi; k<sub>Fil</sub> )   ( log ( r<sub>Bor</sub>/ ( r<sub>Tub</sub> + e<sub>Tub</sub> )  )  + log ( r<sub>Bor</sub>/ ( 2 x<sub>C</sub> )  )  +
+    &sigma; log ( r<sub>Bor</sub><sup>4</sup>/ ( r<sub>Bor</sub><sup>4</sup> - x<sub>C</sub><sup>4</sup> )  )  )  - 1/ ( 4 &pi; k<sub>Fil</sub> )   (  ( r<sub>Tub</sub> + e<sub>Tub</sub> ) <sup>2</sup>/
+     ( 4 x<sub>C</sub><sup>2</sup> )   ( 1 - &sigma; 4 x<sub>C</sub><sup>4</sup>/ ( r<sub>Bor</sub><sup>4</sup> - x<sub>C</sub><sup>4</sup> )  ) <sup>2</sup> ) / (  ( 1 + &beta; ) / ( 1 - &beta; )  +  ( 
+    r<sub>Tub</sub> + e<sub>Tub</sub> ) <sup>2</sup>/ ( 4 x<sub>C</sub><sup>2</sup> )   ( 1 + &sigma; 16 x<sub>C</sub><sup>4</sup> r<sub>Bor</sub><sup>4</sup>/ ( r<sub>Bor</sub><sup>4</sup> - x<sub>C</sub><sup>4</sup> ) <sup>2</sup>)).
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-R<sub>a</sub> = 1/ ( &pi; k<sub>Fil</sub> )   ( log ( 2 sha/r<sub>Tub</sub> )  + &sigma; log ((
-    r<sub>Bor</sub><sup>2</sup> + sha<sup>2</sup> ) / ( r<sub>Bor</sub><sup>2</sup> - sha<sup>2</sup> )  )  )  - 1/ ( &pi; k<sub>Fil</sub> )   ( r<sub>Tub</sub><sup>2</sup>/ ( 4 sha<sup>2</sup> )   ( 1 + &sigma; 
-    4 r<sub>Bor</sub><sup>4</sup> sha<sup>2</sup>/ ( r<sub>Bor</sub><sup>4</sup> - sha<sup>4</sup> )  ) / (  ( 1 + &beta; ) / ( 1 - &beta; )  - r<sub>Tub</sub><sup>2</sup>/ ( 4 sha<sup>2</sup> )  +
-    &sigma; 2 r<sub>Tub</sub><sup>2</sup> r<sub>Bor</sub><sup>2</sup>  ( r<sub>Bor</sub><sup>4</sup> + sha<sup>4</sup> ) / ( r<sub>Bor</sub><sup>4</sup> - sha<sup>4</sup> ) <sup>2</sup>)),
+R<sub>a</sub> = 1/ ( &pi; k<sub>Fil</sub> )   ( log ( 2 x<sub>C</sub>/r<sub>Tub</sub> )  + &sigma; log ((
+    r<sub>Bor</sub><sup>2</sup> + x<sub>C</sub><sup>2</sup> ) / ( r<sub>Bor</sub><sup>2</sup> - x<sub>C</sub><sup>2</sup> )  )  )  - 1/ ( &pi; k<sub>Fil</sub> )   ( r<sub>Tub</sub><sup>2</sup>/ ( 4 x<sub>C</sub><sup>2</sup> )   ( 1 + &sigma; 
+    4 r<sub>Bor</sub><sup>4</sup> x<sub>C</sub><sup>2</sup>/ ( r<sub>Bor</sub><sup>4</sup> - x<sub>C</sub><sup>4</sup> )  ) / (  ( 1 + &beta; ) / ( 1 - &beta; )  - r<sub>Tub</sub><sup>2</sup>/ ( 4 x<sub>C</sub><sup>2</sup> )  +
+    &sigma; 2 r<sub>Tub</sub><sup>2</sup> r<sub>Bor</sub><sup>2</sup>  ( r<sub>Bor</sub><sup>4</sup> + x<sub>C</sub><sup>4</sup> ) / ( r<sub>Bor</sub><sup>4</sup> - x<sub>C</sub><sup>4</sup> ) <sup>2</sup>)),
 </p>
 <p> 
 with 
@@ -232,7 +232,7 @@ where
 <i>k<sub>Fil</sub></i> and <i>k<sub>Soi</sub></i> are the conductivity of the filling material 
 and of the ground,
 <i>r<sub>Tub</sub>+e<sub>Tub</sub></i> and <i>r<sub>Bor</sub></i> are the pipe and the borehole outside radius and 
-<i>sha</i> is the shank spacing, which is equal to the distance between 
+<i>x<sub>C</sub></i> is the shank spacing, which is equal to the distance between 
 the center of borehole and the center of the pipe.
 </p>
 <h4>References</h4>

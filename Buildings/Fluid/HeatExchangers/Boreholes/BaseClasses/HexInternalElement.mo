@@ -156,10 +156,10 @@ initial equation
     rBor=rBor,
     rTub=rTub,
     eTub=eTub,
-    sha=xC,
+    xC=xC,
+    kSoi=matSoi.k,
     kFil=matFil.k,
-    kTub=kTub,
-    kSoi=matSoi.k);
+    kTub=kTub);
 
 equation
   connect(vol1.heatPort, RConv1.fluid) annotation (Line(
