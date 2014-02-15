@@ -1,6 +1,6 @@
 within Buildings.Utilities.Math;
 block BooleanReplicator "Boolean signal replicator"
-  extends Modelica.Blocks.Interfaces.BooleanBlockIcon;
+  extends Modelica.Blocks.Icons.BooleanBlock;
   parameter Integer nout=1 "Number of outputs";
   Modelica.Blocks.Interfaces.BooleanInput u "Connector of boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}},

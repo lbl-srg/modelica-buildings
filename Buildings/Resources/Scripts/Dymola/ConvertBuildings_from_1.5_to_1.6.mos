@@ -1,0 +1,13 @@
+// Conversion script for Buildings library
+//  from: Version 1.5
+//  to:   Version 1.6
+clear
+
+convertClear();
+
+convertElement({"Buildings.Fluid.MixingVolumes.MixingVolume"},
+                "heaInp", "QSen_flow");
+convertElement({"Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"},
+                "heaInp", "Q_flow");
+convertElement({"Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"},
+                "HWat_flow", "QLat_flow.y");

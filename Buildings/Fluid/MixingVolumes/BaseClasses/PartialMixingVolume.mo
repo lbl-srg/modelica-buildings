@@ -28,7 +28,7 @@ partial model PartialMixingVolume
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port connected to outflowing medium"
+    "Heat port for sensible heat input"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.SIunits.Temperature T "Temperature of the fluid";
   Modelica.SIunits.Pressure p "Pressure of the fluid";
@@ -89,8 +89,6 @@ protected
       traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Flag, true if the model has two ports only and uses a steady state balance"
     annotation (Evaluate=true);
-  Modelica.SIunits.HeatFlowRate Q_flow
-    "Heat flow across boundaries or energy source/sink";
   // Outputs that are needed to assign the medium properties
   Modelica.Blocks.Interfaces.RealOutput hOut_internal(unit="J/kg")
     "Internal connector for leaving temperature of the component";
@@ -99,6 +97,9 @@ protected
   Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
 
+  Modelica.Blocks.Sources.RealExpression QSen_flow(y=heatPort.Q_flow)
+    "Block to set sensible heat input into volume"
+    annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
 equation
   ///////////////////////////////////////////////////////////////////////////
   // asserts
@@ -109,7 +110,8 @@ equation
   ports[1].m_flow = " + String(ports[1].m_flow) + "
 ");
   end if;
-  // actual definition of port variables
+  // Actual definition of port variables.
+  //
   // If the model computes the energy and mass balances as steady-state,
   // and if it has only two ports,
   // then we use the same base class as for all other steady state models.
@@ -144,7 +146,6 @@ equation
   C = COut_internal;
   // Port properties
   heatPort.T = T;
-  heatPort.Q_flow = Q_flow;
 
   annotation (
 defaultComponentName="vol",
@@ -170,6 +171,13 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2014 by Michael Wetter:<br/>
+Removed <code>Q_flow</code> and added <code>QSen_flow</code>.
+This was done to clarify what is sensible and total heat flow rate
+as part of the correction of issue 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/197\">#197</a>.
+</li>
 <li>
 October 8, 2013 by Michael Wetter:<br/>
 Removed propagation of <code>show_V_flow</code>

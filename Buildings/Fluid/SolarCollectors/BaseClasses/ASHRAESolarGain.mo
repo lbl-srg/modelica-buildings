@@ -1,7 +1,7 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 block ASHRAESolarGain
   "Calculate the solar heat gain of a solar collector per ASHRAE Standard 93"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   extends SolarCollectors.BaseClasses.PartialParameters;
 
   parameter Real B0 "1st incident angle modifer coefficient";

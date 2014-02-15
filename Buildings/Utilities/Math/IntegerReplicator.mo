@@ -1,6 +1,6 @@
 within Buildings.Utilities.Math;
 block IntegerReplicator "Integer signal replicator"
-  extends Modelica.Blocks.Interfaces.IntegerBlockIcon;
+  extends Modelica.Blocks.Icons.IntegerBlock;
   parameter Integer nout=1 "Number of outputs";
   Modelica.Blocks.Interfaces.IntegerInput u "Connector of integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}},

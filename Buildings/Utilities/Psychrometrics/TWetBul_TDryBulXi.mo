@@ -1,7 +1,7 @@
 within Buildings.Utilities.Psychrometrics;
 block TWetBul_TDryBulXi
   "Model to compute the wet bulb temperature based on mass fraction"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
                                                             annotation (

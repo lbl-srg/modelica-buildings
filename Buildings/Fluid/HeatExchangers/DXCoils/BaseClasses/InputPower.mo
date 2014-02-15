@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block InputPower "Electrical power consumed by the unit"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
    Modelica.Blocks.Interfaces.RealInput Q_flow(
     quantity="Power",
     unit="W") "Cooling capacity of the coil"

@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.SkyTemperature;
 block BlackBody "Calculate black body sky temperature"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   import Buildings.BoundaryConditions.Types.SkyTemperatureCalculation;
   parameter Buildings.BoundaryConditions.Types.SkyTemperatureCalculation calTSky=
     SkyTemperatureCalculation.TemperaturesAndSkyCover

@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Radiosity;
 block RadiositySplitter
   "Splits the incoming radiosity into two flows based on an input signal"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   Interfaces.RadiosityInflow JIn "Inflowing radiosity"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));

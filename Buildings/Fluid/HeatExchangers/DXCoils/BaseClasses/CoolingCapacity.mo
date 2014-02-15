@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block CoolingCapacity
   "Calculates cooling capacity at given temperature and flow fraction"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Interfaces.IntegerInput stage(final min=0)
     "Stage of coil, or 0/1 for variable-speed coil"

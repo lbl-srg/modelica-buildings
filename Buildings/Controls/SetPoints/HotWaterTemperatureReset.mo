@@ -1,7 +1,7 @@
 within Buildings.Controls.SetPoints;
 block HotWaterTemperatureReset
   "Block to compute the supply and return set point of heating systems"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Real m = 1.3 "Exponent for heat transfer";
   parameter Modelica.SIunits.Temperature TSup_nominal "Supply temperature"

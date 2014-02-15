@@ -1,7 +1,7 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 block PartialHeatLoss
   "Partial heat loss model on which ASHRAEHeatLoss and EN12975HeatLoss are based"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   extends SolarCollectors.BaseClasses.PartialParameters;
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
