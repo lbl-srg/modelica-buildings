@@ -112,90 +112,85 @@ algorithm
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>
 This model computes the different thermal resistances present in a 
-single-U-tube borehole using the method of Bauer et al. [1]. 
+single-U-tube borehole using the method of Bauer et al. (2010). 
 It also computes the fluid-to-ground thermal resistance <i>Rb</i> 
 and the grout-to-grout thermal resistance <i>Ra</i> as defined by 
-Hellstroem [2] using the multipole method.
+Hellstroem (1991) using the multipole method.
 </p>
 <p>
-The figure below shows the thermal network set up by Bauer et al.
+The figure below shows the thermal network set up by Bauer et al. (2010).
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings 1.5/Buildings/Resources/Images/Fluid/HeatExchangers/Boreholes/BaseClassesBauer_singleUTube_small.png\" alt=\"image\"/> <!-- fixme -->
+<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Boreholes/BaseClasses/Bauer_singleUTube.png\" alt=\"image\"/>
 </p>
 <p>
-The different resistances are calculated with following equations:
+The different resistances are calculated as follows.
+The grout zone and bore hole wall is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+R<sub>gb</sub><sup>1U</sup> =  (  1 - x<sup>1U</sup>  )  R<sub>g</sub><sup>1U</sup>.
 </p>
 <p>
-Grout zone and bore hole wall:<i> R<sub>gb</sub><sup>1U</sup> =  (  1 - x<sup>1U</sup>  )  R<sub>g</sub><sup>1U</sup></i> </p>
-<p>
-Thermal resistance between the two grout zones: 
-<i>R<sub>gg</sub><sup>1U</sup> := 2 R<sub>gb</sub><sup>1U</sup>  ( R<sub>ar</sub><sup>1U</sup> - 2 x<sup>1U</sup> R<sub>g</sub><sup>1U</sup> ) / ( 2 R<sub>gb</sub><sup>1U</sup> - R<sub>ar</sub><sup>1U</sup> + 2 x<sup>1U</sup> R<sub>g</sub><sup>1U</sup> ) 
-</i>
+The thermal resistance between the two grout zones are
+<p align=\"center\" style=\"font-style:italic;\">
+R<sub>gg</sub><sup>1U</sup> = 2 R<sub>gb</sub><sup>1U</sup>  
+( R<sub>ar</sub><sup>1U</sup> - 2 x<sup>1U</sup> R<sub>g</sub><sup>1U</sup> ) / 
+( 2 R<sub>gb</sub><sup>1U</sup> - R<sub>ar</sub><sup>1U</sup> + 2 x<sup>1U</sup> R<sub>g</sub><sup>1U</sup> ).
 </p>
 <p>
-Thermal resistance between the pipe wall to capacity in grout:
-<i> 
-RCondGro = x<sup>1U</sup> R<sub>g</sub><sup>1U</sup> + log (  ( rTub + eTub ) /rTub ) / ( 2 &pi; hSeg kTub )  
-</i>
+Thermal resistance between the pipe wall to the capacity in the grout is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+R<sub>CondGro</sub> = x<sup>1U</sup> R<sub>g</sub><sup>1U</sup> + log (  ( r<sub>Tub</sub> + e<sub>Tub</sub> ) /r<sub>Tub</sub> ) / ( 2 &pi; h<sub>Seg</sub> k<sub>Tub</sub> ).
 </p>
 <p>
-Capacity location:  <-- fixme -->
-<i> 
-x<sup>1U</sup> =log ( &radic;<span style=\"text-decoration:overline;\">rBor<sup>2</sup> 
-+ 2  ( rTub + eTub ) <sup>2</sup></span>/ ( 2  ( rTub + eTub )  )  ) / 
-log ( rBor/ ( &radic;<span style=\"text-decoration:overline;\">2</span>  ( rTub + eTub )  )  )  
-</i>
+The capacities are located at
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+x<sup>1U</sup> =log ( (r<sub>Bor</sub><sup>2</sup> 
++ 2  ( r<sub>Tub</sub> + e<sub>Tub</sub> ) <sup>2</sup>)<sup>1&frasl;2</sup>/ ( 2  ( r<sub>Tub</sub> + e<sub>Tub</sub> )  )  ) / 
+log ( r<sub>Bor</sub>/ ( &radic;2  ( r<sub>Tub</sub> + e<sub>Tub</sub> ))).
 </p>
 <p>
-Thermal resistance between outer borehole wall and one tube: 
-<i>
-R<sub>g</sub><sup>1U</sup> =2 Rb/hSeg </i>
+The thermal resistance between the outer borehole wall and one tube is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+R<sub>g</sub><sup>1U</sup> =2 Rb &frasl; h<sub>Seg</sub>.
 </p>
 <p>
-Thermal resistance between the two pipe outer walls:
-<i>
-R<sub>ar</sub><sup>1U</sup> :=Ra/hSeg
-</i> 
+The thermal resistance between the two pipe outer walls is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  R<sub>ar</sub><sup>1U</sup> =Ra &frasl; h<sub>Seg</sub>.
 </p>
 <p>
-The fluid-to-ground thermal resistance 
+The fluid to ground thermal resistance
 <i>Rb</i> 
-and the grout-to-grout resistance <i>Ra</i> are calculated with the multipole method 
-(Hellstroem (1991)) shown below.
+and the grout to grout thermal resistance <i>Ra</i> are calculated with the multipole method 
+(Hellstroem (1991)) as
 </p>
-<p>
-<i>
-R_b =1/ ( 4 &pi; kFil )   ( log ( rBor/ ( rTub + eTub )  )  + log ( rBor/ ( 2 sha )  )  +
-    &sigma; log ( rBor<sup>4</sup>/ ( rBor<sup>4</sup> - sha<sup>4</sup> )  )  )  - 1/ ( 4 &pi; kFil )   (  ( rTub + eTub ) <sup>2</sup>/
-     ( 4 sha<sup>2</sup> )   ( 1 - &sigma; 4 sha<sup>4</sup>/ ( rBor<sup>4</sup> - sha<sup>4</sup> )  ) <sup>2</sup> ) / (  ( 1 + &beta; ) / ( 1 - &beta; )  +  ( 
-    rTub + eTub ) <sup>2</sup>/ ( 4 sha<sup>2</sup> )   ( 1 + &sigma; 16 sha<sup>4</sup> rBor<sup>4</sup>/ ( rBor<sup>4</sup> - sha<sup>4</sup> ) <sup>2</sup> )  ) 
-</i>
+<p align=\"center\" style=\"font-style:italic;\">
+R<sub>b</sub> =1/ ( 4 &pi; k<sub>Fil</sub> )   ( log ( r<sub>Bor</sub>/ ( r<sub>Tub</sub> + e<sub>Tub</sub> )  )  + log ( r<sub>Bor</sub>/ ( 2 sha )  )  +
+    &sigma; log ( r<sub>Bor</sub><sup>4</sup>/ ( r<sub>Bor</sub><sup>4</sup> - sha<sup>4</sup> )  )  )  - 1/ ( 4 &pi; k<sub>Fil</sub> )   (  ( r<sub>Tub</sub> + e<sub>Tub</sub> ) <sup>2</sup>/
+     ( 4 sha<sup>2</sup> )   ( 1 - &sigma; 4 sha<sup>4</sup>/ ( r<sub>Bor</sub><sup>4</sup> - sha<sup>4</sup> )  ) <sup>2</sup> ) / (  ( 1 + &beta; ) / ( 1 - &beta; )  +  ( 
+    r<sub>Tub</sub> + e<sub>Tub</sub> ) <sup>2</sup>/ ( 4 sha<sup>2</sup> )   ( 1 + &sigma; 16 sha<sup>4</sup> r<sub>Bor</sub><sup>4</sup>/ ( r<sub>Bor</sub><sup>4</sup> - sha<sup>4</sup> ) <sup>2</sup>)).
 </p>
-<p>
-<i>
-R_a = 1/ ( &pi; kFil )   ( log ( 2 sha/rTub )  + &sigma; log ((
-    rBor<sup>2</sup> + sha<sup>2</sup> ) / ( rBor<sup>2</sup> - sha<sup>2</sup> )  )  )  - 1/ ( &pi; kFil )   ( rTub<sup>2</sup>/ ( 4 sha<sup>2</sup> )   ( 1 + &sigma; 
-    4 rBor<sup>4</sup> sha<sup>2</sup>/ ( rBor<sup>4</sup> - sha<sup>4</sup> )  ) / (  ( 1 + &beta; ) / ( 1 - &beta; )  - rTub<sup>2</sup>/ ( 4 sha<sup>2</sup> )  +
-    &sigma; 2 rTub<sup>2</sup> rBor<sup>2</sup>  ( rBor<sup>4</sup> + sha<sup>4</sup> ) / ( rBor<sup>4</sup> - sha<sup>4</sup> ) <sup>2</sup> )  ) 
-</i>
+<p align=\"center\" style=\"font-style:italic;\">
+R<sub>a</sub> = 1/ ( &pi; k<sub>Fil</sub> )   ( log ( 2 sha/r<sub>Tub</sub> )  + &sigma; log ((
+    r<sub>Bor</sub><sup>2</sup> + sha<sup>2</sup> ) / ( r<sub>Bor</sub><sup>2</sup> - sha<sup>2</sup> )  )  )  - 1/ ( &pi; k<sub>Fil</sub> )   ( r<sub>Tub</sub><sup>2</sup>/ ( 4 sha<sup>2</sup> )   ( 1 + &sigma; 
+    4 r<sub>Bor</sub><sup>4</sup> sha<sup>2</sup>/ ( r<sub>Bor</sub><sup>4</sup> - sha<sup>4</sup> )  ) / (  ( 1 + &beta; ) / ( 1 - &beta; )  - r<sub>Tub</sub><sup>2</sup>/ ( 4 sha<sup>2</sup> )  +
+    &sigma; 2 r<sub>Tub</sub><sup>2</sup> r<sub>Bor</sub><sup>2</sup>  ( r<sub>Bor</sub><sup>4</sup> + sha<sup>4</sup> ) / ( r<sub>Bor</sub><sup>4</sup> - sha<sup>4</sup> ) <sup>2</sup>)),
 </p>
 <p> 
 with 
-<i>
-&sigma; = ( kFil - kSoi ) / ( kFil + kSoi ) </i> and  <i> &beta; :=2 &pi; kFil RCondPipe
-</i>
-</p>
-<p>
+<i>&sigma; = ( k<sub>Fil</sub> - k<sub>Soi</sub> ) / ( k<sub>Fil</sub> + k<sub>Soi</sub> ) </i> and  <i> &beta; = 2 &pi; k<sub>Fil</sub> R<sub>CondPipe</sub></i>,
 where
-<i>kFil</i> and <i>kSoi</i> are the conductivity of the filling material 
+<i>k<sub>Fil</sub></i> and <i>k<sub>Soi</sub></i> are the conductivity of the filling material 
 and of the ground respectively,
-<i>rTub+eTub</i> and <i>rBor</i> are the pipe and the borehole outside radius and 
+<i>r<sub>Tub</sub>+e<sub>Tub</sub></i> and <i>r<sub>Bor</sub></i> are the pipe and the borehole outside radius and 
 <i>sha</i> is the shank spacing, which is equal to distance between center of borehole to center of pipe).
 </p>
-<p>
 <h4>References</h4>
-</p>
 <p>
 G. Hellstr&ouml;m. <i>Ground heat storage: thermal analyses of duct storage systems (Theory)</i>. 
 Dept. of Mathematical Physics, University of Lund, Sweden, 1991.
