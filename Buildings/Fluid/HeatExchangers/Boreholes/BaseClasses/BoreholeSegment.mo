@@ -54,8 +54,6 @@ model BoreholeSegment "Vertical segment of a borehole"
   parameter Modelica.SIunits.Height hSeg "Height of the element";
   parameter Modelica.SIunits.Length xC=0.05
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole";
-  parameter Real B0=17.44 "Shape coefficient for grout resistance";
-  parameter Real B1=-0.6052 "Shape coefficient for grout resistance";
 
  parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -73,8 +71,6 @@ model BoreholeSegment "Vertical segment of a borehole"
     final xC=xC,
     final rBor=rBor,
     final TFil_start=TFil_start,
-    final B0=B0,
-    final B1=B1,
     final m1_flow_nominal=m_flow_nominal,
     final m2_flow_nominal=m_flow_nominal,
     final dp1_nominal=dp_nominal,
@@ -225,6 +221,7 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryConditio
 <ul>
 <li>
 February 14, 2014, by Michael Wetter:<br/>
+Removed unused parameters <code>B0</code> and <code>B1</code>.
 Updated hyperlinks in the documentation.
 </li>
 <li>

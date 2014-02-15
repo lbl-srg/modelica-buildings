@@ -4,7 +4,8 @@ model HexInternalElement
   extends Modelica.Icons.Example;
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Fluid";
+
   Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement hex(
     redeclare package Medium = Medium,
     m1_flow_nominal=0.3,
@@ -14,8 +15,6 @@ model HexInternalElement
     rBor=0.1,
     xC=0.025,
     kSoi=3.1,
-    B0=21.91,
-    B1=-0.3796,
     dp1_nominal=5,
     dp2_nominal=5,
     hSeg=20,

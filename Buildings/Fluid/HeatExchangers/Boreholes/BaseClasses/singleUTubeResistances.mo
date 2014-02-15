@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses;
-function singleUTubeResistances
-  "Thermal resistances for single U-tube, according to Bauer et al. (2011)"
+function singleUTubeResistances "Thermal resistances for single U-tube"
 
   // Geometry of the borehole
   input Modelica.SIunits.Height hSeg "Height of the element";
@@ -21,15 +20,17 @@ function singleUTubeResistances
 
   // Outputs
   output Modelica.SIunits.ThermalResistance Rgb
-    "Thermal resistance between grout zone and borehole wall";
+    "Thermal resistance between the grout zone and the borehole wall";
   output Modelica.SIunits.ThermalResistance Rgg
     "Thermal resistance between the two grout zones";
   output Modelica.SIunits.ThermalResistance RCondGro
-    "Thermal resistance between: pipe wall to capacity in grout";
+    "Thermal resistance between the pipe wall ant the capacity in the grout";
   output Real x "Capacity location";
 
 protected
-  Boolean test=false "thermodynamic test for R and x value";
+  constant Integer iMax = 50 "Maximum number of iterations";
+
+  Boolean test=false "Thermodynamic test for R and x value";
 
   Modelica.SIunits.ThermalResistance Rg
     "Thermal resistance between outer borehole wall and one tube";
@@ -90,7 +91,7 @@ algorithm
 *************************************************************************************** */
 
   // ********** Resistances and capacity location according to Bauer **********
-  while test == false and i <= 10 loop
+  while test == false and i <= iMax loop
     // Capacity location (with correction factor in case that the test is negative)
     x := Modelica.Math.log(sqrt(rBor^2 + 2*(rTub + eTub)^2)/(2*(rTub + eTub)))/
       Modelica.Math.log(rBor/(sqrt(2)*(rTub + eTub)))*((15 - i + 1)/15);
@@ -106,6 +107,16 @@ algorithm
     test := ((1/Rgg + 1/2/Rgb)^(-1) > 0);
     i := i + 1;
   end while;
+  assert(i <= iMax,
+  "Maximum number of iterations exceeded. Check the borehole geometry
+  Obtained x   = " + String(x) + " K/W
+           Rgb = " + String(Rgb) + " K/W
+           Rgg = " + String(Rgg) + " K/W");
+  assert(x > 0 and Rgb > 0 and Rgg > 0,
+  "Computed unrealistic values for resistances. Check the borehole geometry. 
+  Obtained x   = " + String(x) + " K/W
+           Rgb = " + String(Rgb) + " K/W
+           Rgg = " + String(Rgg) + " K/W");
   //Conduction resistance in grout from pipe wall to capacity in grout
   RCondGro := x*Rg + RCondPipe;
 
@@ -204,8 +215,12 @@ International Journal Of Energy Research, 35:312&ndash;320, 2010.
 <p>
 <ul>
 <li>
+February 14, 2014 by Michael Wetter:<br/>
+Added an assert statement to test for non-physical values.
+</li>
+<li>
 February 13, 2014 by Damien Picard:<br/>
-Edit documentation and add formule for beta.
+Edit documentation and add formula for beta.
 </li>
 <li>
 February 12, 2014, by Damien Picard:<br/>

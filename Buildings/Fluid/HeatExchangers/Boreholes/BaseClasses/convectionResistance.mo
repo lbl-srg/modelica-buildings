@@ -1,25 +1,25 @@
 within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses;
 function convectionResistance
-  "Thermal resistance from the fluid in pipes and the grout zones"
+  "Thermal resistance between the fluid and the tube"
 
   // Geometry of the borehole
   input Modelica.SIunits.Height hSeg "Height of the element";
-  input Modelica.SIunits.Radius rBor "Radius of the borehole";
   input Modelica.SIunits.Radius rTub "Tube radius";
 
-  // thermal properties
+  // Thermal properties
   input Modelica.SIunits.ThermalConductivity kMed
     "Thermal conductivity of the fluid";
   input Modelica.SIunits.DynamicViscosity mueMed
     "Dynamic viscosity of the fluid";
   input Modelica.SIunits.SpecificHeatCapacity cpMed
     "Specific heat capacity of the fluid";
+  // Mass flow rates
   input Modelica.SIunits.MassFlowRate m_flow "Mass flow rate";
   input Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
 
   // Outputs
-  output Modelica.SIunits.ThermalResistance RFlu2pipe
-    "Convection resistance (or conduction in fluid if no mass flow)";
+  output Modelica.SIunits.ThermalResistance R
+    "Thermal resistance between the fluid and the tube";
 
 protected
   Modelica.SIunits.CoefficientOfHeatTransfer h
@@ -40,11 +40,12 @@ algorithm
            x=m_flow*k,
            n=0.8,
            delta=0.01*m_flow_nominal*k);
-  RFlu2pipe := 1/(2*Modelica.Constants.pi*rTub*hSeg*h);
+  R := 1/(2*Modelica.Constants.pi*rTub*hSeg*h);
 
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>
-This model computes the convection resistance in the pipes of a borehole segment with heigth <i>h<sub>Seg</sub></i>.
+This model computes the convection resistance in the pipes of a borehole segment 
+with heigth <i>h<sub>Seg</sub></i>.
 </p>
 <p>
 The correlation of Dittus-Boelter is used to find the convection heat transfer coefficient as
@@ -60,11 +61,13 @@ We selected <i>n=0.35</i>, as the reference uses <i>n=0.4</i> for heating and
 <i>n=0.3</i> for cooling.
 Dittus-Boelter&apos;s correlation is valid for turbulent flow in cylindrical smooth pipe.
 </p>
+<!-- fixme: Dittus-Boelter requires a reference -->
 </html>", revisions="<html>
 <p>
 <ul>
 <li>
 February 14, 2014, by Michael Wetter:<br/>
+Removed unused input <code>rBor</code>.
 Revised documentation.
 </li>
 <li>

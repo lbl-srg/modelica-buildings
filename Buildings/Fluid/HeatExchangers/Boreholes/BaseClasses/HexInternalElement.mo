@@ -7,7 +7,6 @@ model HexInternalElement "Internal part of a borehole"
     T2_start=TFil_start,
     final tau1=Modelica.Constants.pi*rTub^2*hSeg*rho1_nominal/m1_flow_nominal,
     final tau2=Modelica.Constants.pi*rTub^2*hSeg*rho2_nominal/m2_flow_nominal,
-    final show_T=true,
     vol1(final energyDynamics=energyDynamics,
          final massDynamics=massDynamics,
          final prescribedHeatFlowRate=false,
@@ -47,11 +46,8 @@ model HexInternalElement "Internal part of a borehole"
     "Initial temperature of the filling material"
     annotation (Dialog(group="Filling material"));
 
-  parameter Modelica.SIunits.Radius rBor "Radius of the borehole";
   parameter Modelica.SIunits.Height hSeg "Height of the element";
-
-  parameter Real B0=17.44268 "Shape coefficient for grout resistance";
-  parameter Real B1=-0.60515 "Shape coefficient for grout resistance";
+  parameter Modelica.SIunits.Radius rBor "Radius of the borehole";
 
   parameter Modelica.SIunits.Length xC=0.05
     "Shank spacing, defined as half the center-to-center distance between the two pipes";
@@ -131,12 +127,9 @@ protected
     annotation (Placement(transformation(extent={{-12,-12},{12,12}},
         rotation=-90,
         origin={20,2})));
-
-public
   Modelica.Blocks.Sources.RealExpression RVol1(y=
     convectionResistance(
       hSeg=hSeg,
-      rBor=rBor,
       rTub=rTub,
       kMed=kMed,
       mueMed=mueMed,
@@ -148,7 +141,6 @@ public
   Modelica.Blocks.Sources.RealExpression RVol2(y=
     convectionResistance(
       hSeg=hSeg,
-      rBor=rBor,
       rTub=rTub,
       kMed=kMed,
       mueMed=mueMed,
@@ -282,6 +274,10 @@ International Journal of Energy Research, 35:312&ndash;320, 2010.
 </html>", revisions="<html>
 <p>
 <ul>
+<li>
+February 14, 2014, by Michael Wetter:<br/>
+Removed unused parameters <code>B0</code> and <code>B1</code>.
+</li>
 <li>
 January 24, 2014, by Michael Wetter:<br/>
 Revised implementation, added comments, replaced 
