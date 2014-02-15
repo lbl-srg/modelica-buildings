@@ -213,12 +213,16 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes.UTube
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Reimplemented the resistor network inside the borehole
+                       as the old implementation led to too slow a transient
+                       response. This change also led to the removal of the
+                       parameters <code>B0</code> and <code>B1</code>
+                       as the new implementation does not require them.
     </td>
 </tr>
 </table>
@@ -246,12 +250,12 @@ The following
 have been fixed:
 </p>
 <table border=\"1\" summary=\"github issues\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">#xxx</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/196\">#196</a>
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Change capacity location in borehole grout.
     </td>
 </tr>
 </table>
@@ -3682,6 +3686,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Markus Nurschinger, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Xiufeng Pang, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Damien Picard, KU Leuven, Belgium
 </li>
 <li>Kaustubh Phalak, Lawrence Berkeley National Laboratory, USA
 </li>

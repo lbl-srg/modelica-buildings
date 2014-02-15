@@ -80,8 +80,6 @@ model UTube "Single U-tube borehole heat exchanger"
     each final xC=xC,
     each final eTub=eTub,
     each final kTub=kTub,
-    each final B0=B0,
-    each final B1=B1,
     each final nSta=nHor,
     each final m_flow_nominal=m_flow_nominal,
     each final m_flow_small=m_flow_small,

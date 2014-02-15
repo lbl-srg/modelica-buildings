@@ -7,8 +7,11 @@ SingleUTubeBoundaryCondition
 ExtendableArray
 boreholeInternalResistance
 boreholeThermalResistance
+convectionResistance
 exchangeValues
 factorial
 powerSeries
 temperatureDrop
+singleUTubeResistances
+
 Examples
