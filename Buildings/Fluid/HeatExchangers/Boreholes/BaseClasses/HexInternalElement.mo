@@ -239,7 +239,7 @@ and the heat storage within the fluid and the borehole filling.
 </p>
 <p>
 This model computes the different thermal resistances present 
-in a single-U-tube borehole using the method of Bauer et al. (2010) 
+in a single-U-tube borehole using the method of Bauer et al. (2011) 
 and computing explicitely the fluid-to-ground thermal resistance 
 <i>R<sub>b</sub></i> and the 
 grout-to-grout resistance
@@ -268,8 +268,12 @@ Dept. of Mathematical Physics, University of Lund, Sweden, 1991.
 </p>
 <p>
 D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch.
-<i>Thermal resistance and capacity models for borehole heat exchangers</i>.
-International Journal of Energy Research, 35:312&ndash;320, 2010.
+<i>
+<a href=\"http://dx.doi.org/10.1002/er.1689\">
+Thermal resistance and capacity models for borehole heat exchangers
+</a>
+</i>.
+International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </p>
 </html>", revisions="<html>
 <p>

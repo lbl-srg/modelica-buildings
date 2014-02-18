@@ -28,7 +28,7 @@ function singleUTubeResistances "Thermal resistances for single U-tube"
   output Real x "Capacity location";
 
 protected
-  constant Integer iMax = 50 "Maximum number of iterations";
+  constant Integer iMax = 10 "Maximum number of iterations";
 
   Boolean test=false "Thermodynamic test for R and x value";
 
@@ -102,42 +102,18 @@ algorithm
     //Thermal resistance between the two grout zones
     Rgg := 2*Rgb*(Rar - 2*x*Rg)/(2*Rgb - Rar + 2*x*Rg);
 
-    // Thermodynamic test to check if negative R values make sense. If not, decrease x-value.
-    // fixme: the implemented is only for single U-tube BHE's.
-    test := ((1/Rgg + 1/2/Rgb)^(-1) > 0);
+    // Thermodynamic test to check if negative R values make sense.
+    // If not, decrease x-value.
+    test := (1/Rgg + 1/2/Rgb > 0);
     i := i + 1;
   end while;
   // Check for errors.
   assert(i <= iMax,
   "Maximum number of iterations exceeded. Check the borehole geometry.
-  Input to function is
-           hSeg = " + String(hSeg) + " m
-           rBor = " + String(rBor) + " m
-           rTub = " + String(rTub) + " m
-           eTub = " + String(eTub) + " m
-           xC   = " + String(xC)  + " m
-           kSoi = " + String(kSoi) + " W/m/K
-           kFil = " + String(kFil) + " W/m/K
-           kTub = " + String(kTub) + " W/m/K
-  Computed x    = " + String(x) + " K/W
-           Rgb  = " + String(Rgb) + " K/W
-           Rgg  = " + String(Rgg) + " K/W");
-  // The assert below is triggered for these data:
-  //  Input to function is
-  //         hSeg = 1 m
-  //         rBor = 0.1 m
-  //         rTub = 0.02 m
-  //         eTub = 0.002 m
-  //         xC   = 0.05 m
-  //         kSoi = 1.9 W/m/K
-  //         kFil = 1.15 W/m/K
-  //         kTub = 0.5 W/m/K
-  //Computed x    = 0.742731 K/W
-  //         Rgb  = 0.0514545 K/W
-  //         Rgg  = -3.28202 K/W
-  assert(x > 0 and Rgb > 0 and Rgg > 0,
-  "Computed unrealistic values for resistances. Check the borehole geometry. 
-  Input to function is
+  The tubes may be too close to the borehole wall.
+  Input to the function 
+  Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances
+  is
            hSeg = " + String(hSeg) + " m
            rBor = " + String(rBor) + " m
            rTub = " + String(rTub) + " m
@@ -156,13 +132,13 @@ algorithm
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>
 This model computes the thermal resistances of a 
-single-U-tube borehole using the method of Bauer et al. (2010). 
+single-U-tube borehole using the method of Bauer et al. (2011). 
 It also computes the fluid-to-ground thermal resistance <i>R<sub>b</sub></i> 
 and the grout-to-grout thermal resistance <i>R<sub>a</sub></i> as defined by 
 Hellstroem (1991) using the multipole method.
 </p>
 <p>
-The figure below shows the thermal network set up by Bauer et al. (2010).
+The figure below shows the thermal network set up by Bauer et al. (2011).
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Boreholes/BaseClasses/Bauer_singleUTube.png\" alt=\"image\"/>
@@ -235,14 +211,30 @@ and of the ground,
 <i>x<sub>C</sub></i> is the shank spacing, which is equal to the distance between 
 the center of borehole and the center of the pipe.
 </p>
+<p>
+<b>Note</b>: The value of <i>R<sub>gg</sub><sup>1U</sup></i> may be negative
+as long as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+1/R<sub>gg</sub><sup>1U</sup> + 1/(2 &nbsp; R<sub>gb</sub><sup>1U</sup>) > 0,
+</p>
+<p>
+in which case the laws of thermodynamics are not violated. See
+Bauer et al. (2011) for details.
+</p>
 <h4>References</h4>
 <p>
 G. Hellstr&ouml;m. <i>Ground heat storage: thermal analyses of duct storage systems (Theory)</i>. 
 Dept. of Mathematical Physics, University of Lund, Sweden, 1991.
 </p>
-<p>D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch. 
-<i>Thermal resistance and capacity models for borehole heat exchangers</i>. 
-International Journal Of Energy Research, 35:312&ndash;320, 2010.
+<p>
+D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch.
+<i>
+<a href=\"http://dx.doi.org/10.1002/er.1689\">
+Thermal resistance and capacity models for borehole heat exchangers
+</a>
+</i>.
+International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </p>
 </html>", revisions="<html>
 <p>
