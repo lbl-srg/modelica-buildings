@@ -28,8 +28,6 @@ function singleUTubeResistances "Thermal resistances for single U-tube"
   output Real x "Capacity location";
 
 protected
-  constant Integer iMax = 10 "Maximum number of iterations";
-
   Boolean test=false "Thermodynamic test for R and x value";
 
   Modelica.SIunits.ThermalResistance Rg
@@ -91,7 +89,7 @@ algorithm
 *************************************************************************************** */
 
   // ********** Resistances and capacity location according to Bauer **********
-  while test == false and i <= iMax loop
+  while test == false and i <= 15 loop
     // Capacity location (with correction factor in case that the test is negative)
     x := Modelica.Math.log(sqrt(rBor^2 + 2*(rTub + eTub)^2)/(2*(rTub + eTub)))/
       Modelica.Math.log(rBor/(sqrt(2)*(rTub + eTub)))*((15 - i + 1)/15);
@@ -108,7 +106,7 @@ algorithm
     i := i + 1;
   end while;
   // Check for errors.
-  assert(i <= iMax,
+  assert(test,
   "Maximum number of iterations exceeded. Check the borehole geometry.
   The tubes may be too close to the borehole wall.
   Input to the function 
