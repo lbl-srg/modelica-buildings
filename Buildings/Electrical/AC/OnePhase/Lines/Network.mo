@@ -11,11 +11,17 @@ model Network "Single phase AC network"
     "Select between steady state and dynamic model"
     annotation(Dialog(tab="Model", group="Assumptions", enable = useC), choices(choice=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
         "Steady state", choice=Buildings.Electrical.Types.Assumption.FixedZ_dynamic "Dynamic"));
+  Modelica.SIunits.Voltage Vabs[grid.Nnodes] "RMS voltage of the grid nodes";
 equation
   for i in 1:grid.Nlinks loop
     connect(lines[i].terminal_p, terminal[grid.FromTo[i,1]]);
     connect(lines[i].terminal_n, terminal[grid.FromTo[i,2]]);
   end for;
+
+  for i in 1:grid.Nnodes loop
+    Vabs[i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].v);
+  end for;
+
   annotation (Icon(graphics={             Line(
           points={{-92,-60},{-72,-20},{-52,-60},{-32,-100},{-12,-60}},
           color={0,0,0},

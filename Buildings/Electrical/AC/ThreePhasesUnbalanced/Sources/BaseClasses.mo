@@ -27,6 +27,20 @@ package BaseClasses
         smooth=Smooth.None));
   end PartialSource;
 
+  partial model PartialSourceN
+
+    OnePhase.Basics.Ground ground
+      annotation (Placement(transformation(extent={{10,-60},{30,-40}})));
+    Interfaces.Terminal4_p terminal
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  equation
+
+    connect(ground.terminal, terminal.phase[4]) annotation (Line(
+        points={{20,-40},{20,0},{100,0}},
+        color={0,120,120},
+        smooth=Smooth.None));
+  end PartialSourceN;
+
   model UnbalancedPV
     extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
     extends Buildings.Electrical.Interfaces.PartialPvBase;

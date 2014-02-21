@@ -12,9 +12,9 @@ equation
   terminal3.phase[3].v[:] = terminal4.phase[3].v[:] - terminal4.phase[4].v[:];
 
   terminal4.phase[1].i[:] + terminal4.phase[2].i[:] = -terminal4.phase[3].i[:] - terminal4.phase[4].i[:];
-  terminal4.phase[1].i[:] = terminal3.phase[1].i[:];
-  terminal4.phase[2].i[:] = terminal3.phase[2].i[:];
-  terminal4.phase[3].i[:] = terminal3.phase[3].i[:];
+  terminal4.phase[1].i[:] = - terminal3.phase[1].i[:];
+  terminal4.phase[2].i[:] = - terminal3.phase[2].i[:];
+  terminal4.phase[3].i[:] = - terminal3.phase[3].i[:];
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={

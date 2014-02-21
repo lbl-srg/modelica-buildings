@@ -8,27 +8,26 @@ model Line
     final voltageLevel=Types.VoltageLevel.Low,
     final commercialCable_med=Buildings.Electrical.Transmission.Functions.selectCable_med(P_nominal, V_nominal));
 protected
-  replaceable TwoPortRLC lineRLC(
+  replaceable TwoPortRL line(
     useHeatPort=true,
-    mode = modelMode,
+    mode=modelMode,
     M=M,
     T_ref=T_ref,
     V_nominal=V_nominal,
     R=R/3,
-    C=C/3,
     L=L/3)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-    connect(cableTemp.port, lineRLC.heatPort)  annotation (Line(
+  connect(cableTemp.port, line.heatPort)       annotation (Line(
       points={{-40,22},{-28,22},{-28,-10},{4.44089e-16,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-    connect(lineRLC.terminal_n, terminal_n)  annotation (Line(
+  connect(line.terminal_n, terminal_n)       annotation (Line(
       points={{-10,4.44089e-16},{-48,4.44089e-16},{-48,0},{-100,0}},
       color={0,120,120},
       smooth=Smooth.None));
-    connect(terminal_p, lineRLC.terminal_p)  annotation (Line(
+  connect(terminal_p, line.terminal_p)       annotation (Line(
       points={{100,0},{56,0},{56,4.44089e-16},{10,4.44089e-16}},
       color={0,120,120},
       smooth=Smooth.None));

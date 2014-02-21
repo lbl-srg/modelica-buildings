@@ -15,7 +15,7 @@ partial model PartialLoad "Partial model for a generic load"
     "If =true introduce a linearization in the load"                                                    annotation(evaluate=true,Dialog(group="Modelling assumption"));
   parameter Buildings.Electrical.Types.Assumption mode(
     min=Assumption.FixedZ_steady_state,
-    max=Assumption.VariableZ_y_input)=Assumption.FixedZ_steady_state
+    max=Assumption.VariableZ_P_inputFile)=Assumption.VariableZ_P_inputFile
     "Parameters that specifies the mode of the load (e.g., steady state, dynamic, prescribed power consumption, etc.)"
                                                                                                         annotation(evaluate=true,Dialog(group="Modelling assumption"));
   parameter Modelica.SIunits.Power P_nominal(start=0)
@@ -39,11 +39,30 @@ partial model PartialLoad "Partial model for a generic load"
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,0})));
+  parameter String fileName = "modelica://Buildings/Resources/Data/Electrical/Benchmark/SLP_33buildings.mat"
+    "Name of the file (path reference from modelica://)"
+     annotation(Dialog(tab="Data from file", group="Details", enable = mode == Buildings.Electrical.Assumption.Assumption.VariableZ_P_inputFile));
+  parameter String tableName = "SLP_33buildings"
+    "Name of the table contained in the .txt or .mat file"
+     annotation(Dialog(tab="Data from file", group="Details", enable = mode == Buildings.Electrical.Assumption.Assumption.VariableZ_P_inputFile));
+  parameter Integer colNumber = 2
+    "Index of the column that contains the load data"
+     annotation(Dialog(tab="Data from file", group="Details", enable = mode == Buildings.Electrical.Assumption.Assumption.VariableZ_P_inputFile));
+  parameter Boolean invertSign = false
+    "If true the sign of the data stored in the files are changed"
+     annotation(Dialog(tab="Data from file", group="Details", enable = mode == Buildings.Electrical.Assumption.Assumption.VariableZ_P_inputFile));
+  Modelica.Blocks.Sources.CombiTimeTable load_fromFile(
+    tableOnFile = mode==Assumption.VariableZ_P_inputFile,
+    tableName = tableName,
+    table = fill(0.0, 1, 2),
+    columns = {colNumber},
+    fileName = fName);
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
       package PhaseSystem = PhaseSystem) "Generalised terminal"
     annotation (Placement(transformation(extent={{-108,-8},{-92,8}}),
         iconTransformation(extent={{-108,-8},{-92,8}})));
 protected
+  parameter String fName = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(fileName);
   Modelica.Blocks.Interfaces.RealInput y_
     "Hidden value of the input load for the conditional connector";
   Modelica.Blocks.Interfaces.RealInput Pow_
@@ -62,7 +81,7 @@ equation
   connect(Pow,Pow_);
 
   // If the power is fixed, inner connector value is equal to 1
-  if mode==Assumption.FixedZ_steady_state or mode==Assumption.FixedZ_dynamic then
+  if mode==Assumption.FixedZ_steady_state or mode==Assumption.FixedZ_dynamic or mode==Assumption.VariableZ_P_inputFile then
     y_   = 1;
     Pow_ = P_nominal;
   elseif mode==Assumption.VariableZ_P_input then
@@ -82,14 +101,9 @@ equation
   if mode==Assumption.FixedZ_steady_state or mode==Assumption.FixedZ_dynamic then
     P = P_nominal;
   elseif mode==Assumption.VariableZ_P_input then
-    /*
-    if Pow_ >=0 then
-      P = - max(eps, Pow_);
-    else
-      P = - min(-eps, Pow_);
-    end if;
-    */
     P = Pow_;
+  elseif mode==Assumption.VariableZ_P_inputFile then
+    P = noEvent( if invertSign then -load_fromFile.y[1] else load_fromFile.y[1]);
   else
     P = P_nominal*load;
   end if;

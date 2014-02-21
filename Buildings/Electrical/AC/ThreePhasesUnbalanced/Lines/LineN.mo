@@ -1,9 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
-model Line
+model LineN
   extends Buildings.Electrical.Transmission.Base.PartialBaseLine;
-  Interfaces.Terminal_n terminal_n
+  Interfaces.Terminal4_n terminal_n
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Interfaces.Terminal_p terminal_p
+  Interfaces.Terminal4_p terminal_p
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   OnePhase.Lines.TwoPortRL  phase1(
     useHeatPort=true,
@@ -32,6 +32,15 @@ model Line
     R=R,
     L=L)
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
+  OnePhase.Lines.TwoPortRL neutral(
+    useHeatPort=true,
+    T_ref=T_ref,
+    M=M,
+    V_nominal=V_nominal,
+    mode=modelMode,
+    R=R,
+    L=L)
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
 
   connect(cableTemp.port, phase1.heatPort) annotation (Line(
@@ -70,6 +79,20 @@ equation
       points={{10,-30},{20,-30},{20,4.44089e-16},{100,4.44089e-16}},
       color={0,120,120},
       smooth=Smooth.None));
+  connect(cableTemp.port, neutral.heatPort) annotation (Line(
+      points={{-40,22},{-26,22},{-26,-74},{6.66134e-16,-74},{6.66134e-16,-70}},
+      color={191,0,0},
+      smooth=Smooth.None));
+
+  // Neutral cable connection
+  connect(terminal_n.phase[4], neutral.terminal_n) annotation (Line(
+      points={{-100,4.44089e-16},{-20,4.44089e-16},{-20,-60},{-10,-60}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(terminal_p.phase[4], neutral.terminal_p) annotation (Line(
+      points={{100,4.44089e-16},{20,4.44089e-16},{20,-60},{10,-60}},
+      color={0,120,120},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Ellipse(
@@ -104,4 +127,4 @@ equation
           points={{96,0},{60,0}},
           color={0,0,0},
           smooth=Smooth.None)}));
-end Line;
+end LineN;

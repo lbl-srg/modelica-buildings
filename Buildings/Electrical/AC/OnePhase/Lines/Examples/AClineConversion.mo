@@ -10,7 +10,7 @@ model AClineConversion
                  load1(
     V_nominal=220,
     mode=Types.Assumption.FixedZ_dynamic,
-    P_nominal=1500,
+    P_nominal=-1500,
     linear=true)
     annotation (Placement(transformation(extent={{32,-10},{52,10}})));
   Line line1(
@@ -51,10 +51,10 @@ model AClineConversion
     annotation (Placement(transformation(extent={{78,-40},{58,-20}})));
   DC.Lines.Line line(
     l=200,
-    P_nominal=1000,
     V_nominal=60,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl25())
+    commercialCable_low=Transmission.LowVoltageCables.PvcAl25(),
+    P_nominal=5000)
     annotation (Placement(transformation(extent={{2,-40},{22,-20}})));
 equation
   connect(E.terminal, line1.terminal_n) annotation (Line(
@@ -85,8 +85,8 @@ equation
       points={{22,-30},{32,-30}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(E.terminal, ACDC.terminal_n) annotation (Line(
-      points={{-80,0},{-76,0},{-76,-30},{-28,-30}},
+  connect(line1.terminal_p, ACDC.terminal_n) annotation (Line(
+      points={{-50,0},{-40,0},{-40,-30},{-28,-30}},
       color={0,120,120},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
