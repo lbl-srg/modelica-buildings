@@ -7,10 +7,17 @@ model Impedance "Model of a resistive load"
     final P_nominal=0,
     final V_nominal=380);
   parameter Boolean star = true
-    "Type of load connection: true = star, false = triangle" annotation(evaluate=true);
+    "Type of load connection: true = star, false = triangle" annotation(Evaluate=true, choices(
+      choice=true "Star",
+      choice=false "Triangle",
+      __Dymola_radioButtons=true));
+
   parameter Boolean inductive=true
     "If =true the load is inductive, otherwise it is capacitive"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, choices(
+      choice=true "Inductive",
+      choice=false "Capacitive",
+      __Dymola_radioButtons=true));
   parameter Modelica.SIunits.Resistance R(start = 1,min=0) "Resistance";
   parameter Modelica.SIunits.Inductance L(start=0, min=0) "Inductance"
     annotation (Dialog(enable=inductive));

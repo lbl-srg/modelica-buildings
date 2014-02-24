@@ -8,7 +8,8 @@ model DataSeries_v2 "Benchmark data"
     tableOnFile=true,
     tableName="SLP_33buildings",
     columns=2:34,
-    fileName=fName_buildings)
+    fileName=fName_buildings,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Modelica.Blocks.Interfaces.RealOutput bldg[33]
     "Connector of Real output signals" annotation (Placement(transformation(

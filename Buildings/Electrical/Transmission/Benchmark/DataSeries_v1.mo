@@ -12,13 +12,15 @@ model DataSeries_v1 "Benchmark data"
     tableOnFile=true,
     tableName="load_PV",
     columns=2:17,
-    fileName=fName_PV)
+    fileName=fName_PV,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Modelica.Blocks.Sources.CombiTimeTable node_loads(
     tableOnFile=true,
     tableName="SLP_33buildings",
     columns=2:34,
-    fileName="/home/marco/Documents/Projects/District/NewBranch-Electrical/modelica-buildings/Buildings/Resources/Data/Electrical/Benchmark/SLP_33buildings.mat")
+    fileName=fName_buildings,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Modelica.Blocks.Interfaces.RealOutput pv[16]
     "Connector of Real output signals" annotation (Placement(transformation(

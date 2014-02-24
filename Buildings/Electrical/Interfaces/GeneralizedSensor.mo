@@ -3,9 +3,11 @@ model GeneralizedSensor
   "Partial model representing a generalized sensor that measures: Voltage, Current and Power"
   extends Buildings.Electrical.Interfaces.PartialTwoPort(
     redeclare final package PhaseSystem_p = PhaseSystem_n,
-    redeclare Terminal terminal_n(redeclare final package PhaseSystem =
+    redeclare replaceable Terminal terminal_n(redeclare final package
+        PhaseSystem =
           PhaseSystem_n),
-    redeclare Terminal terminal_p(redeclare final package PhaseSystem =
+    redeclare replaceable Terminal terminal_p(redeclare final package
+        PhaseSystem =
           PhaseSystem_p));
   Modelica.Blocks.Interfaces.RealOutput V(final quantity="ElectricPotential",
                                           final unit="V") "Voltage"           annotation (Placement(
@@ -26,8 +28,8 @@ model GeneralizedSensor
         rotation=270,
         origin={60,-90})));
   Modelica.Blocks.Interfaces.RealOutput S[terminal_n.PhaseSystem.n](
-                                          final quantity="Power",
-                                          final unit="W") "Phase powers"             annotation (Placement(
+                                          each final quantity="Power",
+                                          each final unit="W") "Phase powers"             annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

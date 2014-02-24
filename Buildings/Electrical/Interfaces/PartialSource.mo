@@ -12,7 +12,7 @@ partial model PartialSource "Partial model for a generic source"
   parameter Boolean definiteReference = false "Serve as definite root"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
-      package PhaseSystem = PhaseSystem) "Generalised terminal"
+      replaceable package PhaseSystem = PhaseSystem) "Generalised terminal"
     annotation (Placement(transformation(extent={{92,-8},{108,8}})));
 equation
   if PhaseSystem.m > 0 then

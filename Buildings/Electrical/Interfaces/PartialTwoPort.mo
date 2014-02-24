@@ -11,11 +11,11 @@ model PartialTwoPort
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem
     "Phase system: terminal n"
     annotation (choicesAllMatching=true);
-  extends Buildings.Electrical.Interfaces.PartialBaseTwoPort( redeclare
+  extends Buildings.Electrical.Interfaces.PartialBaseTwoPort( redeclare replaceable
       Buildings.Electrical.Interfaces.Terminal                                                                   terminal_n(redeclare
-        package PhaseSystem=PhaseSystem_n), redeclare
+        replaceable package PhaseSystem=PhaseSystem_n), redeclare replaceable
       Buildings.Electrical.Interfaces.Terminal                                                 terminal_p(redeclare
-        package PhaseSystem=PhaseSystem_p));
+        replaceable package PhaseSystem=PhaseSystem_p));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(revisions="<html>
 <ul>
