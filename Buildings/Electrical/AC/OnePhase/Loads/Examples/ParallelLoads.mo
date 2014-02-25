@@ -37,7 +37,6 @@ model ParallelLoads
         origin={10,-10})));
   Buildings.Electrical.AC.OnePhase.Loads.ResistiveLoadP
                        R(P_nominal=-1e3, linear=true,
-    invertSign=true,
     mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state)
     "Resistive load"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
