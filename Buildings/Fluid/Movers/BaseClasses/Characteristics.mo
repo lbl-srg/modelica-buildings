@@ -311,17 +311,19 @@ First implementation.
       P := r_N^3*data.P[1];
     else
       i :=1;
+      //max function to avoid problems for low speeds and turned off pumps
+      rat:=V_flow/max(r_N,0.1);
       // Since the coefficients for the spline were evaluated for
       // rat_nominal = V_flow_nominal/r_N_nominal = V_flow_nominal/1, we use
       // V_flow_nominal below
       for j in 1:n-1 loop
-         if V_flow > data.V_flow[j] then
+         if rat > data.V_flow[j] then
            i := j;
          end if;
       end for;
       // Extrapolate or interpolate the data
       P:=r_N^3*Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-                  x=V_flow,
+                  x=rat,
                   x1=data.V_flow[i],
                   x2=data.V_flow[i + 1],
                   y1=data.P[i],
@@ -336,7 +338,7 @@ This function computes the fan power consumption for given volume flow rate,
 speed and performance data. The power consumption is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  P = r<sub>N</sub><sup>3</sup> &nbsp; s(V, d),
+  P = r<sub>N</sub><sup>3</sup> &nbsp; s(V/r<sub>N</sub>, d),
 </p>
 <p>
 where
