@@ -3,8 +3,10 @@ model TwoPortRCLine "Model of a RC system"
   extends Buildings.Electrical.Transmission.Base.PartialTwoPortRLC(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
-    redeclare Interfaces.Terminal_n terminal_n,
-    redeclare Interfaces.Terminal_p terminal_p,
+    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
+          PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
+          PhaseSystem_p),
     final L=0);
   parameter Boolean useC = false
     "Select if choosing the capacitive effect of the cable or not"

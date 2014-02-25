@@ -8,8 +8,8 @@ model AC_IEEE34
   Loads.InductiveLoadP load[33](
       each P_nominal=1000,
     each pf=0.8,
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    V_nominal=218,
+    each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    each V_nominal=220,
     each linear=true)
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Sources.FixedVoltage source(

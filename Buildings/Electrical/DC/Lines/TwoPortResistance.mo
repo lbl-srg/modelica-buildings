@@ -3,8 +3,10 @@ model TwoPortResistance "Model of a resistance"
   extends Buildings.Electrical.Transmission.Base.PartialTwoPortResistance(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
-    redeclare Interfaces.Terminal_n terminal_n,
-    redeclare Interfaces.Terminal_p terminal_p);
+    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
+          PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
+          PhaseSystem_p));
 
 equation
   //terminal_p.v - terminal_n.v = terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual);

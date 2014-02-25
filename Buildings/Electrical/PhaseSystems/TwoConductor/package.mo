@@ -83,9 +83,9 @@ package TwoConductor "Two conductors for Spot DC_AC1ph components"
 
   redeclare function phasePowers_vi "Return phase powers"
     extends Modelica.Icons.Function;
-    input SI.Voltage v[n] "phase voltages";
-    input SI.Current i[n] "phase currents";
-    output SI.Power p[n] "phase powers";
+    input SI.Voltage v[TwoConductor.n] "phase voltages";
+    input SI.Current i[TwoConductor.n] "phase currents";
+    output SI.Power p[TwoConductor.n] "phase powers";
   algorithm
     p := v.*i;
   end phasePowers_vi;

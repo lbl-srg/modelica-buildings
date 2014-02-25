@@ -3,8 +3,10 @@ model DCDCConverter "DC DC converter"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
-    redeclare Interfaces.Terminal_n terminal_n,
-    redeclare Interfaces.Terminal_p terminal_p);
+    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
+          PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
+          PhaseSystem_p));
   // fixme: add example. Consider adding a constant loss therm for
 
   parameter Real conversionFactor

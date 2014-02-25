@@ -3,8 +3,10 @@ model ACACConverter "AC AC converter single phase systems"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n,
-    redeclare Interfaces.Terminal_p terminal_p);
+    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
+          PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
+          PhaseSystem_p));
   // fixme: add example. Consider adding a constant loss therm for
   // parasitic losses
   parameter Real conversionFactor

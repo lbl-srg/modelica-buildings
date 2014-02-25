@@ -3,8 +3,10 @@ model ACACTransformer "AC AC transformer for single phase systems"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n,
-    redeclare Interfaces.Terminal_p terminal_p);
+    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
+          PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
+          PhaseSystem_p));
   parameter Modelica.SIunits.Voltage Vhigh
     "Rms voltage on side 1 of the transformer (primary side)";
   parameter Modelica.SIunits.Voltage Vlow

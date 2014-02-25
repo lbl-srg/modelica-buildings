@@ -3,8 +3,10 @@ model TwoPortResistance
   extends Buildings.Electrical.Transmission.Base.PartialTwoPortResistance(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n,
-    redeclare Interfaces.Terminal_p terminal_p);
+    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
+          PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
+          PhaseSystem_p));
 equation
   Connections.branch(terminal_p.theta, terminal_n.theta);
   terminal_p.theta = terminal_n.theta;

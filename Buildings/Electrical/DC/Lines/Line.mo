@@ -3,8 +3,10 @@ model Line "Model of a DC electrical line"
   extends Buildings.Electrical.Transmission.Base.PartialLine(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
-    redeclare Interfaces.Terminal_n terminal_n,
-    redeclare Interfaces.Terminal_p terminal_p,
+    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
+          PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
+          PhaseSystem_p),
     final modelMode=Types.Assumption.FixedZ_steady_state);
 
   TwoPortRCLine lineRC(
