@@ -16,7 +16,7 @@ equation
 
   omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));
 
-  if mode==2 then
+  if mode==Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
     // Dynamic of the system
     der(L*terminal_p.i) + L*omega*PhaseSystem_p.j(terminal_p.i) = terminal_p.v - terminal_n.v;
 

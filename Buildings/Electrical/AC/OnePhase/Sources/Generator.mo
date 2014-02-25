@@ -18,7 +18,7 @@ model Generator "Model of a generator"
         rotation=0,
         origin={-100,0})));
 equation
-  if isRoot(terminal.theta) then
+  if Connections.isRoot(terminal.theta) then
       PhaseSystem.thetaRef(terminal.theta) =  2*Modelica.Constants.pi*f*time;
   end if;
 

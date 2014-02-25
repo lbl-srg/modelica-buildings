@@ -8,7 +8,7 @@ model FixedVoltage "Fixed 1 phase AC voltage source"
   parameter Modelica.SIunits.Angle Phi(start=0) "Phase shift of the source";
   Modelica.SIunits.Angle thetaRel;
 equation
-  if isRoot(terminal.theta) then
+  if Connections.isRoot(terminal.theta) then
     PhaseSystem.thetaRef(terminal.theta) =  2*Modelica.Constants.pi*f*time;
   end if;
   thetaRel = PhaseSystem.thetaRel(terminal.theta);

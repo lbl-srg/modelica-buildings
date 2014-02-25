@@ -19,7 +19,7 @@ equation
 
   terminal_p.i = - terminal_n.i;
 
-  if mode==2 then
+  if mode==Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
     // Dynamic of the system
     der(L*terminal_p.i) + L*omega*PhaseSystem_p.j(terminal_p.i) + terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual) = terminal_p.v - terminal_n.v;
 
