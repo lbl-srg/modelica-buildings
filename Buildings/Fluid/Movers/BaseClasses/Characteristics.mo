@@ -374,7 +374,7 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 </html>", revisions="<html>
 <ul>
 <li>
-February 26, 2014, by Filip Mathadon:<br/>
+February 26, 2014, by Filip Jorissen:<br/>
 Changed polynomial to be evaluated at <code>V_flow/r_N</code>
 instead of <code>V_flow</code> to properly account for the
 scaling law. See
