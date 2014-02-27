@@ -360,6 +360,19 @@ equation
       smooth=Smooth.None));
   annotation (experiment(StopTime=1000), __Dymola_experimentSetupOutput,
     Documentation(info="<html>
-<p>Test of a Nrpm pump based on real pump data. Outputs X and Y give the coordinates of a pump power curve P=f (m_flow) which can be compared to the manufacturers data sheet for different rotational speeds.</p>
+    <p>Test of a Nrpm pump based on real pump data. 
+    Outputs X and Y give the coordinates of a pump power curve P=f (m_flow), 
+    which can be compared to the manufacturers data sheet for different rotational speeds.
+    </p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+February 27, 2014, by Filip Jorissen:<br/>
+First implementation. See
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/202\">#202</a>
+for a discussion and validation.
+</li>
+</ul>
 </html>"));
 end FlowMachine_Nrpm_stratos;
