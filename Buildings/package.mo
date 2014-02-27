@@ -126,10 +126,9 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-
-class Version_1_6_build1 "Version 1.6 build 1"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    class Version_1_6_build1 "Version 1.6 build 1"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
 <p>
 Version 1.6 build 1 is ... xxx
 This version updates the <code>Buildings</code> library to the
@@ -179,6 +178,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        these are conditionally enabled variables and 
                        therefore must not be used in any equation. They
                        are only for output reporting.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachine_y<br/>
+                       Buildings.Fluid.Movers.FlowMachine_Nrpm<br/>
+                       Buildings.Fluid.Movers.FlowMachine_dp<br/>
+                       Buildings.Fluid.Movers.FlowMachine_m_flow
+
+    </td>
+    <td valign=\"top\">For the parameter setting <code>use_powerCharacteristic=true</code>,
+                     changed the computation of the power consumption at
+                     reduced speed to properly account for the
+                     affinity laws. This is in response to
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/202\">#202</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -268,7 +280,7 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_1_6_build1;
+    end Version_1_6_build1;
 
     class Version_1_5_build3 "Version 1.5 build 3"
       extends Modelica.Icons.ReleaseNotes;
@@ -316,7 +328,6 @@ have been fixed:
 </table>
 </html>"));
     end Version_1_5_build3;
-
 
     class Version_1_5_build2 "Version 1.5 build 2"
       extends Modelica.Icons.ReleaseNotes;
@@ -3680,6 +3691,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Brandon M. Hencey, Cornell University, USA
 </li>
 <li>Roman Ilk, University of Applied Sciences Technikum Wien, Austria
+</li>
+<li>Filip Mathadon, KU Leuven, Belgium
 </li>
 <li>Thierry S. Nouidui, Lawrence Berkeley National Laboratory, USA
 </li>

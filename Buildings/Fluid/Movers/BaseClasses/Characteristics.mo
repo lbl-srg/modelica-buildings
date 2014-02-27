@@ -311,8 +311,13 @@ First implementation.
       P := r_N^3*data.P[1];
     else
       i :=1;
-      //max function to avoid problems for low speeds and turned off pumps
-      rat:=V_flow/max(r_N,0.1);
+      // The use of the max function to avoids problems for low speeds
+      // and turned off pumps
+      rat:=V_flow/
+              Buildings.Utilities.Math.Functions.smoothMax(
+                x1=r_N,
+                x2=0.1,
+                deltaX=0.05);
       // Since the coefficients for the spline were evaluated for
       // rat_nominal = V_flow_nominal/r_N_nominal = V_flow_nominal/1, we use
       // V_flow_nominal below
@@ -355,6 +360,14 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 26, 2014, by Filip Mathadon:<br/>
+Changed polynomial to be evaluated at <code>V_flow/r_N</code>
+instead of <code>V_flow</code> to properly account for the
+scaling law. See
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/202\">#202</a>
+for a discussion and validation.
+</li>
 <li>
 September 28, 2011, by Michael Wetter:<br/>
 First implementation.
