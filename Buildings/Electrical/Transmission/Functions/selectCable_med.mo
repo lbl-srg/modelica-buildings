@@ -37,5 +37,5 @@ algorithm
   The selected cable will be undersized.");
         cable := Al10;
   end if;
-
+annotation(Inline = true);
 end selectCable_med;

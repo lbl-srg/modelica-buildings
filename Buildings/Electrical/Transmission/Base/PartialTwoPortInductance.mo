@@ -1,7 +1,7 @@
 within Buildings.Electrical.Transmission.Base;
 partial model PartialTwoPortInductance
   extends Interfaces.PartialTwoPort;
-  parameter Modelica.SIunits.Inductance L(start=1) "Inductance";
+  parameter Modelica.SIunits.Inductance L(start=1) "Inductance" annotation(Evaluate=true);
 equation
 
   terminal_p.i = - terminal_n.i;

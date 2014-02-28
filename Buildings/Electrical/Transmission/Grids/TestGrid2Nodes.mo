@@ -4,6 +4,6 @@ record TestGrid2Nodes "Simple model of a 2-nodes 1-link grid"
     Nnodes=2,
     Nlinks=1,
     FromTo=[[1,2]],
-    L={200},
+    L=[200],
     cables={LowVoltageCables.Cu35()});
 end TestGrid2Nodes;

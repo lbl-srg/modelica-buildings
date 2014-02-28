@@ -6,4 +6,5 @@ function computeGMD
   output Modelica.SIunits.Length GMD;
 algorithm
   GMD := (d1*d2*d3)^(1.0/3.0);
+annotation(Inline = true);
 end computeGMD;

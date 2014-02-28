@@ -5,8 +5,8 @@ partial model PartialLoad "Partial model for a generic load"
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
-  Modelica.SIunits.Voltage v[:](each start = V_nominal) = terminal.v;
-  Modelica.SIunits.Current i[:](each start = P_nominal/V_nominal)= terminal.i;
+  Modelica.SIunits.Voltage v[:](start = PhaseSystem.phaseVoltages(V_nominal)) = terminal.v;
+  Modelica.SIunits.Current i[:](start = PhaseSystem.phaseCurrents(0.0)) = terminal.i;
   Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i)
     "Phase powers";
   Modelica.SIunits.Power P

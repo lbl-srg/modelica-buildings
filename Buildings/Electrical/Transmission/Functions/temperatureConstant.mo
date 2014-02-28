@@ -31,4 +31,5 @@ algorithm
     M := 234.5 + 273.15;
   end if;
 
+annotation(Inline = true);
 end temperatureConstant;

@@ -5,4 +5,5 @@ function computeGMR
   output Modelica.SIunits.Length GMR;
 algorithm
   GMR :=0.5*d*0.7788;
+annotation(Inline = true);
 end computeGMR;

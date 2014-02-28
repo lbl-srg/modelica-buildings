@@ -35,5 +35,5 @@ algorithm
         String(I_nominal) + " [A]. The selected cable will be undersized.");
         cable := cu100;
   end if;
-
+annotation(Inline = true);
 end selectCable_low;

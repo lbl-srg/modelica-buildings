@@ -3,14 +3,15 @@ partial model PartialTwoPortRLC
   extends Interfaces.PartialTwoPort;
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
   parameter Modelica.SIunits.Resistance R(start=1)
-    "Resistance at temperature T_ref";
-  parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature";
+    "Resistance at temperature T_ref" annotation(Evaluate=true);
+  parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature"
+                                                                                annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature M = 507.65
-    "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))";
+    "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))" annotation(Evaluate=true);
   parameter Modelica.SIunits.Capacitance C(start=0) "Capacity" annotation(evaluate=true);
   parameter Modelica.SIunits.Inductance L(start=0) "Inductance" annotation(evaluate=true);
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)=100
-    "Nominal voltage (V_nominal >= 0)"  annotation(evaluate=true, Dialog(group="Nominal conditions"));
+    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
   Modelica.SIunits.Resistance R_actual
     "Actual resistance = R*(M + T_heatPort)/(M + T_ref) " annotation(evaluate=true);
 equation

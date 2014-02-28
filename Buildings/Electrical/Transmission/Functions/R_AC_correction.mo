@@ -95,4 +95,5 @@ algorithm
         String(material) + ". No correction applied.");
     correction := 1.0;
   end if;
+annotation(Inline = true);
 end R_AC_correction;

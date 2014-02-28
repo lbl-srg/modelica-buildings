@@ -15,4 +15,5 @@ algorithm
   else
     level := Buildings.Electrical.Types.VoltageLevel.High;
   end if;
+annotation(Inline = true);
 end selectVoltageLevel;

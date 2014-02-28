@@ -26,4 +26,5 @@ algorithm
         String(level) + ". A Low level has been choose as default.");
   end if;
 
+annotation(Inline = true);
 end lineCapacitance;
