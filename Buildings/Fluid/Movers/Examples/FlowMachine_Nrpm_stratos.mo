@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachine_Nrpm_stratos "Model test using a Wilo Stratos 80/1-12 pump"
   extends Modelica.Icons.Example;
-
+  // fixme: use media declaration at pacakge level
   parameter Integer numCurves= 5 "The amount of curves that will be plotted";
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
     N_nominal=2610 "Nominal rotational speed for flow characteristic";
@@ -20,345 +20,309 @@ model FlowMachine_Nrpm_stratos "Model test using a Wilo Stratos 80/1-12 pump"
           1171.51603429,1166.47479929})
     "Volume flow rate vs. electrical power consumption";
 
-  Modelica.Blocks.Interfaces.RealOutput[numCurves] outputX "X signal values"
-    annotation (Placement(transformation(extent={{94,-70},{114,-50}})));
-  Modelica.Blocks.Interfaces.RealOutput[numCurves] outputY "Y signal values"
-    annotation (Placement(transformation(extent={{94,-90},{114,-70}})));
-
-    Buildings.Fluid.Sources.Boundary_pT bou(
+    Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
+    nPorts=5,
     p=100000,
-    T=313.15,
-    nPorts=5)
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Modelica.Blocks.Sources.Constant const(k=2960)
-    annotation (Placement(transformation(extent={{-72,58},{-60,70}})));
-  Buildings.Fluid.Sources.Boundary_pT bou1(
+    T=293.15) "Boundary condition with fixed pressure"
+    annotation (Placement(transformation(extent={{-120,-32},{-100,-12}})));
+  Modelica.Blocks.Sources.Constant rpm1(k=2960) "Pump speed control signal"
+    annotation (Placement(transformation(extent={{-90,84},{-78,96}})));
+  Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     use_p_in=false,
-    p=101000,
-    nPorts=5) annotation (Placement(transformation(extent={{100,-10},{80,10}})));
+    nPorts=5,
+    p=101000) "Fixed pressure boundary condition"
+    annotation (Placement(transformation(extent={{130,-10},{110,10}})));
   Buildings.Fluid.Movers.FlowMachine_m_flow fan(redeclare package Medium =
         Modelica.Media.Water.StandardWater, m_flow_nominal=3)
-    annotation (Placement(transformation(extent={{26,34},{46,54}})));
-  Modelica.Blocks.Sources.Ramp ramp(
+    annotation (Placement(transformation(extent={{38,60},{58,80}})));
+  Modelica.Blocks.Sources.Ramp m_flow(
     startTime=100,
     duration=800,
     height=60/3.6,
-    offset=0)
-    annotation (Placement(transformation(extent={{-16,80},{-4,92}})));
+    offset=0) "Ramp signal for forced mass flow rate"
+    annotation (Placement(transformation(extent={{-36,88},{-24,100}})));
   Buildings.Fluid.Movers.FlowMachine_Nrpm stratosPump80dash1to12_1(
   redeclare package Medium = Modelica.Media.Water.StandardWater,
   N_nominal=N_nominal,
   pressure=pressure,
   use_powerCharacteristic=true,
   power=power,
-    N_start=N_nominal)
-    annotation (Placement(transformation(extent={{-42,34},{-22,54}})));
+    N_start=N_nominal) "Wilo Stratos pump"
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Fluid.Movers.FlowMachine_m_flow fan1(
                                                 redeclare package Medium =
         Modelica.Media.Water.StandardWater, m_flow_nominal=3)
-    annotation (Placement(transformation(extent={{26,2},{46,22}})));
+    annotation (Placement(transformation(extent={{38,10},{58,30}})));
   Buildings.Fluid.Movers.FlowMachine_Nrpm stratosPump80dash1to12_2(
   redeclare package Medium = Modelica.Media.Water.StandardWater,
   N_nominal=N_nominal,
   pressure=pressure,
   use_powerCharacteristic=true,
   power=power,
-    N_start=N_nominal)
-    annotation (Placement(transformation(extent={{-42,2},{-22,22}})));
+    N_start=N_nominal) "Wilo Stratos pump"
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Fluid.Movers.FlowMachine_m_flow fan2(
                                                 redeclare package Medium =
         Modelica.Media.Water.StandardWater, m_flow_nominal=3)
-    annotation (Placement(transformation(extent={{26,-36},{46,-16}})));
+    annotation (Placement(transformation(extent={{38,-36},{58,-16}})));
   Buildings.Fluid.Movers.FlowMachine_Nrpm stratosPump80dash1to12_3(
   redeclare package Medium = Modelica.Media.Water.StandardWater,
   N_nominal=N_nominal,
   pressure=pressure,
   use_powerCharacteristic=true,
   power=power,
-    N_start=N_nominal)
-    annotation (Placement(transformation(extent={{-42,-36},{-22,-16}})));
+    N_start=N_nominal) "Wilo Stratos pump"
+    annotation (Placement(transformation(extent={{-60,-36},{-40,-16}})));
   Buildings.Fluid.Movers.FlowMachine_m_flow fan3(
                                                 redeclare package Medium =
         Modelica.Media.Water.StandardWater, m_flow_nominal=3)
-    annotation (Placement(transformation(extent={{26,-68},{46,-48}})));
+    annotation (Placement(transformation(extent={{38,-80},{58,-60}})));
   Buildings.Fluid.Movers.FlowMachine_Nrpm stratosPump80dash1to12_4(
   redeclare package Medium = Modelica.Media.Water.StandardWater,
   N_nominal=N_nominal,
   pressure=pressure,
   use_powerCharacteristic=true,
   power=power,
-    N_start=N_nominal)
-    annotation (Placement(transformation(extent={{-42,-76},{-22,-56}})));
+    N_start=N_nominal) "Wilo Stratos pump"
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Fluid.Movers.FlowMachine_m_flow fan4(
                                                 redeclare package Medium =
         Modelica.Media.Water.StandardWater, m_flow_nominal=3)
-    annotation (Placement(transformation(extent={{26,-100},{46,-80}})));
+    annotation (Placement(transformation(extent={{38,-130},{58,-110}})));
   Buildings.Fluid.Movers.FlowMachine_Nrpm stratosPump80dash1to12_5(
   redeclare package Medium = Modelica.Media.Water.StandardWater,
   N_nominal=N_nominal,
   pressure=pressure,
   use_powerCharacteristic=true,
   power=power,
-    N_start=N_nominal)
-    annotation (Placement(transformation(extent={{-42,-108},{-22,-88}})));
-  Modelica.Blocks.Sources.Constant const1(k=2610)
-    annotation (Placement(transformation(extent={{-72,18},{-60,30}})));
-  Modelica.Blocks.Sources.Constant const2(k=1930)
-    annotation (Placement(transformation(extent={{-72,-22},{-60,-10}})));
-  Modelica.Blocks.Sources.Constant const3(k=3300)
-    annotation (Placement(transformation(extent={{-72,-58},{-60,-46}})));
-  Modelica.Blocks.Sources.Constant const4(k=900)
-    annotation (Placement(transformation(extent={{-72,-86},{-60,-74}})));
+    N_start=N_nominal) "Wilo Stratos pump"
+    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
+  Modelica.Blocks.Sources.Constant rpm2(k=2610) "Pump speed control signal"
+    annotation (Placement(transformation(extent={{-90,34},{-78,46}})));
+  Modelica.Blocks.Sources.Constant rpm3(k=1930) "Pump speed control signal"
+    annotation (Placement(transformation(extent={{-90,-6},{-78,6}})));
+  Modelica.Blocks.Sources.Constant rpm4(k=3300) "Pump speed control signal"
+    annotation (Placement(transformation(extent={{-90,-56},{-78,-44}})));
+  Modelica.Blocks.Sources.Constant rpm5(k=900) "Pump speed control signal"
+    annotation (Placement(transformation(extent={{-90,-108},{-78,-96}})));
   Modelica.Blocks.Math.Min min1 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=0,
-        origin={25,65})));
+        origin={35,91})));
   Modelica.Blocks.Math.Min min2 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=0,
-        origin={25,29})));
+        origin={29,45})));
   Modelica.Blocks.Math.Min min3 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=0,
-        origin={23,-11})));
+        origin={35,-1})));
   Modelica.Blocks.Math.Min min4 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=0,
-        origin={23,-45})));
+        origin={35,-49})));
   Modelica.Blocks.Math.Min min5 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=0,
-        origin={23,-75})));
-  Modelica.Blocks.Sources.Constant const5(k=40/3.6)
-    annotation (Placement(transformation(extent={{-8,56},{4,68}})));
-  Modelica.Blocks.Sources.Constant const6(k=55/3.6)
-    annotation (Placement(transformation(extent={{-8,20},{4,32}})));
-  Modelica.Blocks.Sources.Constant const7(k=40/3.6)
-    annotation (Placement(transformation(extent={{-8,-20},{4,-8}})));
-  Modelica.Blocks.Sources.Constant const8(k=22/3.6)
-    annotation (Placement(transformation(extent={{-8,-54},{4,-42}})));
-  Modelica.Blocks.Sources.Constant const9(k=16/3.6)
-    annotation (Placement(transformation(extent={{-8,-84},{4,-72}})));
+        origin={35,-97})));
+  Modelica.Blocks.Sources.Constant mMax_flow1(k=40/3.6)
+    "Maximum flow rate of the pump"
+    annotation (Placement(transformation(extent={{2,74},{14,86}})));
+  Modelica.Blocks.Sources.Constant mMax_flow2(k=55/3.6)
+    "Maximum flow rate of the pump"
+    annotation (Placement(transformation(extent={{4,24},{16,36}})));
+  Modelica.Blocks.Sources.Constant mMax_flow3(k=40/3.6)
+    "Maximum flow rate of the pump"
+    annotation (Placement(transformation(extent={{2,-18},{14,-6}})));
+  Modelica.Blocks.Sources.Constant mMax_flow4(k=22/3.6)
+    "Maximum flow rate of the pump"
+    annotation (Placement(transformation(extent={{8,-68},{20,-56}})));
+  Modelica.Blocks.Sources.Constant mMax_flow5(k=16/3.6)
+    "Maximum flow rate of the pump"
+    annotation (Placement(transformation(extent={{4,-116},{16,-104}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
-    annotation (Placement(transformation(extent={{46,34},{66,54}})));
+    annotation (Placement(transformation(extent={{66,60},{86,80}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
-    annotation (Placement(transformation(extent={{46,2},{66,22}})));
+    annotation (Placement(transformation(extent={{66,10},{86,30}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo2(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
-    annotation (Placement(transformation(extent={{46,-36},{66,-16}})));
+    annotation (Placement(transformation(extent={{66,-36},{86,-16}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo3(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
-    annotation (Placement(transformation(extent={{46,-68},{66,-48}})));
+    annotation (Placement(transformation(extent={{66,-80},{86,-60}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo4(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
-    annotation (Placement(transformation(extent={{46,-100},{66,-80}})));
+    annotation (Placement(transformation(extent={{66,-130},{86,-110}})));
 equation
 
-  connect(bou.ports[1],stratosPump80dash1to12_1. port_a) annotation (Line(
-      points={{-80,3.2},{-46,3.2},{-46,44},{-42,44}},
+  connect(sou.ports[1],stratosPump80dash1to12_1. port_a) annotation (Line(
+      points={{-100,-18.8},{-70,-18.8},{-70,70},{-60,70}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan.port_a,stratosPump80dash1to12_1. port_b) annotation (Line(
-      points={{26,44},{-22,44}},
+      points={{38,70},{-40,70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(stratosPump80dash1to12_1.Nrpm,const. y) annotation (Line(
-      points={{-32,56},{-32,64},{-59.4,64}},
+  connect(stratosPump80dash1to12_1.Nrpm, rpm1.y) annotation (Line(
+      points={{-50,82},{-50,90},{-77.4,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(stratosPump80dash1to12_2.port_a, bou.ports[2]) annotation (Line(
-      points={{-42,12},{-64,12},{-64,1.6},{-80,1.6}},
+  connect(stratosPump80dash1to12_2.port_a,sou. ports[2]) annotation (Line(
+      points={{-60,20},{-70,20},{-70,-20.4},{-100,-20.4}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(stratosPump80dash1to12_3.port_a, bou.ports[3]) annotation (Line(
-      points={{-42,-26},{-64,-26},{-64,0},{-80,0}},
+  connect(stratosPump80dash1to12_3.port_a,sou. ports[3]) annotation (Line(
+      points={{-60,-26},{-70,-26},{-70,-22},{-100,-22}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(stratosPump80dash1to12_4.port_a, bou.ports[4]) annotation (Line(
-      points={{-42,-66},{-64,-66},{-64,-1.6},{-80,-1.6}},
+  connect(stratosPump80dash1to12_4.port_a,sou. ports[4]) annotation (Line(
+      points={{-60,-70},{-70,-70},{-70,-24},{-96,-24},{-96,-23.6},{-100,-23.6}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(stratosPump80dash1to12_5.port_a, bou.ports[5]) annotation (Line(
-      points={{-42,-98},{-64,-98},{-64,-3.2},{-80,-3.2}},
+  connect(stratosPump80dash1to12_5.port_a,sou. ports[5]) annotation (Line(
+      points={{-60,-120},{-70,-120},{-70,-25.2},{-100,-25.2}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(stratosPump80dash1to12_2.port_b, fan1.port_a) annotation (Line(
-      points={{-22,12},{26,12}},
+      points={{-40,20},{38,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(stratosPump80dash1to12_3.port_b, fan2.port_a) annotation (Line(
-      points={{-22,-26},{26,-26}},
+      points={{-40,-26},{38,-26}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(stratosPump80dash1to12_4.port_b, fan3.port_a) annotation (Line(
-      points={{-22,-66},{8,-66},{8,-58},{26,-58}},
+      points={{-40,-70},{38,-70}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(stratosPump80dash1to12_5.port_b, fan4.port_a) annotation (Line(
-      points={{-22,-98},{8,-98},{8,-90},{26,-90}},
+      points={{-40,-120},{38,-120}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(const1.y, stratosPump80dash1to12_2.Nrpm) annotation (Line(
-      points={{-59.4,24},{-32,24}},
+  connect(rpm2.y, stratosPump80dash1to12_2.Nrpm) annotation (Line(
+      points={{-77.4,40},{-50,40},{-50,32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const2.y, stratosPump80dash1to12_3.Nrpm) annotation (Line(
-      points={{-59.4,-16},{-54,-16},{-54,-14},{-32,-14}},
+  connect(rpm3.y, stratosPump80dash1to12_3.Nrpm) annotation (Line(
+      points={{-77.4,0},{-50,0},{-50,-14}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const3.y, stratosPump80dash1to12_4.Nrpm) annotation (Line(
-      points={{-59.4,-52},{-54,-52},{-54,-54},{-32,-54}},
+  connect(rpm4.y, stratosPump80dash1to12_4.Nrpm) annotation (Line(
+      points={{-77.4,-50},{-50,-50},{-50,-58}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const4.y, stratosPump80dash1to12_5.Nrpm) annotation (Line(
-      points={{-59.4,-80},{-54,-80},{-54,-86},{-32,-86}},
+  connect(rpm5.y, stratosPump80dash1to12_5.Nrpm) annotation (Line(
+      points={{-77.4,-102},{-50,-102},{-50,-108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(fan.m_flow_in, min1.y) annotation (Line(
-      points={{35.8,56},{36,56},{36,65},{30.5,65}},
+      points={{47.8,82},{48,82},{48,91},{40.5,91}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(min1.u1, ramp.y) annotation (Line(
-      points={{19,68},{8,68},{8,86},{-3.4,86}},
+  connect(min1.u1, m_flow.y) annotation (Line(
+      points={{29,94},{-23.4,94}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(min2.y, fan1.m_flow_in) annotation (Line(
-      points={{30.5,29},{32.25,29},{32.25,24},{35.8,24}},
+      points={{34.5,45},{42,45},{42,44},{48,44},{48,32},{47.8,32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(min2.u1, ramp.y) annotation (Line(
-      points={{19,32},{8,32},{8,86},{-3.4,86}},
+  connect(min2.u1, m_flow.y) annotation (Line(
+      points={{23,48},{-14,48},{-14,94},{-23.4,94}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(min3.y, fan2.m_flow_in) annotation (Line(
-      points={{28.5,-11},{32.25,-11},{32.25,-14},{35.8,-14}},
+      points={{40.5,-1},{44.25,-1},{44.25,-14},{47.8,-14}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(min5.y, fan4.m_flow_in) annotation (Line(
-      points={{28.5,-75},{32.25,-75},{32.25,-78},{35.8,-78}},
+      points={{40.5,-97},{44.25,-97},{44.25,-108},{47.8,-108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(min4.y, fan3.m_flow_in) annotation (Line(
-      points={{28.5,-45},{32.25,-45},{32.25,-46},{35.8,-46}},
+      points={{40.5,-49},{44.25,-49},{44.25,-58},{47.8,-58}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(min3.u1, ramp.y) annotation (Line(
-      points={{17,-8},{8,-8},{8,86},{-3.4,86}},
+  connect(min3.u1, m_flow.y) annotation (Line(
+      points={{29,2},{-14,2},{-14,94},{-23.4,94}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(min4.u1, ramp.y) annotation (Line(
-      points={{17,-42},{8,-42},{8,86},{-3.4,86}},
+  connect(min4.u1, m_flow.y) annotation (Line(
+      points={{29,-46},{-14,-46},{-14,94},{-23.4,94}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(min5.u1, ramp.y) annotation (Line(
-      points={{17,-72},{8,-72},{8,86},{-3.4,86}},
+  connect(min5.u1, m_flow.y) annotation (Line(
+      points={{29,-94},{-14,-94},{-14,94},{-23.4,94}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const5.y, min1.u2) annotation (Line(
-      points={{4.6,62},{19,62}},
+  connect(mMax_flow1.y, min1.u2) annotation (Line(
+      points={{14.6,80},{18,80},{18,88},{29,88}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const6.y, min2.u2) annotation (Line(
-      points={{4.6,26},{19,26}},
+  connect(mMax_flow2.y, min2.u2) annotation (Line(
+      points={{16.6,30},{20,30},{20,42},{23,42}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(min3.u2, const7.y) annotation (Line(
-      points={{17,-14},{4.6,-14}},
+  connect(min3.u2, mMax_flow3.y) annotation (Line(
+      points={{29,-4},{20,-4},{20,-12},{14.6,-12}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const8.y, min4.u2) annotation (Line(
-      points={{4.6,-48},{17,-48}},
+  connect(mMax_flow4.y, min4.u2) annotation (Line(
+      points={{20.6,-62},{26,-62},{26,-52},{29,-52}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const9.y, min5.u2) annotation (Line(
-      points={{4.6,-78},{17,-78}},
+  connect(mMax_flow5.y, min5.u2) annotation (Line(
+      points={{16.6,-110},{20,-110},{20,-100},{29,-100}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(fan.port_b, senMasFlo.port_a) annotation (Line(
-      points={{46,44},{46,44}},
+      points={{58,70},{66,70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senMasFlo.port_b, bou1.ports[1]) annotation (Line(
-      points={{66,44},{76,44},{76,3.2},{80,3.2}},
+  connect(senMasFlo.port_b, sin.ports[1]) annotation (Line(
+      points={{86,70},{96,70},{96,3.2},{110,3.2}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan4.port_b, senMasFlo4.port_a) annotation (Line(
-      points={{46,-90},{46,-90}},
+      points={{58,-120},{66,-120}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan3.port_b, senMasFlo3.port_a) annotation (Line(
-      points={{46,-58},{46,-58}},
+      points={{58,-70},{66,-70}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan2.port_b, senMasFlo2.port_a) annotation (Line(
-      points={{46,-26},{46,-26}},
+      points={{58,-26},{66,-26}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan1.port_b, senMasFlo1.port_a) annotation (Line(
-      points={{46,12},{46,12}},
+      points={{58,20},{66,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(bou1.ports[2], senMasFlo1.port_b) annotation (Line(
-      points={{80,1.6},{74,1.6},{74,12},{66,12}},
+  connect(sin.ports[2], senMasFlo1.port_b) annotation (Line(
+      points={{110,1.6},{94,1.6},{94,20},{86,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senMasFlo2.port_b, bou1.ports[3]) annotation (Line(
-      points={{66,-26},{72,-26},{72,0},{80,0}},
+  connect(senMasFlo2.port_b, sin.ports[3]) annotation (Line(
+      points={{86,-26},{92,-26},{92,0},{110,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senMasFlo3.port_b, bou1.ports[4]) annotation (Line(
-      points={{66,-58},{74,-58},{74,-1.6},{80,-1.6}},
+  connect(senMasFlo3.port_b, sin.ports[4]) annotation (Line(
+      points={{86,-70},{94,-70},{94,-1.6},{110,-1.6}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senMasFlo4.port_b, bou1.ports[5]) annotation (Line(
-      points={{66,-90},{74,-90},{74,-3.2},{80,-3.2}},
+  connect(senMasFlo4.port_b, sin.ports[5]) annotation (Line(
+      points={{86,-120},{94,-120},{94,-3.2},{110,-3.2}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(outputX[1], senMasFlo.m_flow) annotation (Line(
-      points={{104,-68},{80,-68},{80,55},{56,55}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(outputX[2], senMasFlo1.m_flow) annotation (Line(
-      points={{104,-64},{80,-64},{80,23},{56,23}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(outputX[3], senMasFlo2.m_flow) annotation (Line(
-      points={{104,-60},{80,-60},{80,-15},{56,-15}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(outputX[4], senMasFlo3.m_flow) annotation (Line(
-      points={{104,-56},{80,-56},{80,-47},{56,-47}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(outputX[5], senMasFlo4.m_flow) annotation (Line(
-      points={{104,-52},{80,-52},{80,-79},{56,-79}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(outputY[1], stratosPump80dash1to12_1.P) annotation (Line(
-      points={{104,-88},{40,-88},{40,52},{-21,52}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(outputY[2], stratosPump80dash1to12_2.P) annotation (Line(
-      points={{104,-84},{40,-84},{40,20},{-21,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(outputY[3], stratosPump80dash1to12_3.P) annotation (Line(
-      points={{104,-80},{40,-80},{40,-18},{-21,-18}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(outputY[4], stratosPump80dash1to12_4.P) annotation (Line(
-      points={{104,-76},{40,-76},{40,-58},{-21,-58}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(outputY[5], stratosPump80dash1to12_5.P) annotation (Line(
-      points={{104,-72},{40,-72},{40,-90},{-21,-90}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  annotation (experiment(StopTime=1000), __Dymola_experimentSetupOutput,
+  annotation (experiment(StopTime=1000),
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/FlowMachine_Nrpm_stratos.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
     <p>Test of a Nrpm pump based on real pump data. 
     Outputs X and Y give the coordinates of a pump power curve P=f (m_flow), 
@@ -374,5 +338,8 @@ First implementation. See
 for a discussion and validation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-140,-140},{140,120}},
+          preserveAspectRatio=false), graphics),
+    Icon(coordinateSystem(extent={{-140,-140},{140,120}})));
 end FlowMachine_Nrpm_stratos;
