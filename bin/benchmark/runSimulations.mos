@@ -23,7 +23,7 @@ for n in 1:size(names,1) loop
     for i in 1:size(methods,1) loop
         for j in  1:size(endTimes,1) loop
             for k in 1:size(tolerances,1) loop
-                simulateModel(modelName, stopTime=endTimes[j], method=methods[i], tolerance=tolerances[k], resultFile=names[n]);
+                simulateModel(stopTime=endTimes[j], method=methods[i], tolerance=tolerances[k], resultFile=names[n]);
 
                 N = readTrajectorySize(names[n]+".mat");
                 cpuTime = readTrajectory(names[n]+".mat", {"CPUtime"}, N);
