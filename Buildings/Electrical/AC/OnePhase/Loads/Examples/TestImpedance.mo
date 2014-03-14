@@ -7,7 +7,8 @@ model TestImpedance
     Phi=0) annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Z1(R=0,
     inductive=true,
-    L=1/(2*Modelica.Constants.pi*50))
+    L=1/(2*Modelica.Constants.pi*50),
+    useVariableR=false)
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Z2(R=0,
     inductive=false,

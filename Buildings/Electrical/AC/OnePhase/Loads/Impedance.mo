@@ -1,30 +1,19 @@
 within Buildings.Electrical.AC.OnePhase.Loads;
 model Impedance "Model of a generic impedance"
-  extends Buildings.Electrical.Interfaces.PartialLoad(
+  extends Buildings.Electrical.Interfaces.PartialImpedance(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal,
-    final linear = false,
-    final mode=Types.Assumption.FixedZ_steady_state,
-    final P_nominal=0,
-    final V_nominal=220);
-  parameter Modelica.SIunits.Resistance R(start = 1,min=0) "Resistance";
-  parameter Boolean inductive=true
-    "If =true the load is inductive, otherwise it is capacitive"
-    annotation (Evaluate=true);
-  parameter Modelica.SIunits.Inductance L(start=0, min=0) "Inductance"
-    annotation (Dialog(enable=inductive));
-  parameter Modelica.SIunits.Capacitance C(start=0,min=0) "Capacitance"  annotation (Dialog(enable=not inductive));
+    redeclare Interfaces.Terminal_n terminal);
 protected
   Modelica.SIunits.AngularVelocity omega;
   Modelica.SIunits.Reactance X(start = 1);
 equation
   omega = der(PhaseSystem.thetaRef(terminal.theta));
   if inductive then
-    X = omega*L;
+    X = omega*L_;
   else
-    X = -1/(omega*C);
+    X = -1/(omega*C_);
   end if;
-  terminal.v = {{R,-X}*terminal.i, {X,R}*terminal.i};
+  terminal.v = {{R_,-X}*terminal.i, {X,R_}*terminal.i};
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
             lineColor={255,255,255}),
