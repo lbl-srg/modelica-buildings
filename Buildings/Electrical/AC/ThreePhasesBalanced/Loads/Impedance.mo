@@ -1,27 +1,14 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads;
 model Impedance "Model of a resistive load"
-  extends Buildings.Electrical.Interfaces.PartialLoad(
+  extends Buildings.Electrical.Interfaces.PartialImpedance(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal,
-    final mode=1,
-    final P_nominal=0,
-    final V_nominal=380);
+    redeclare Interfaces.Terminal_n terminal);
+
   parameter Boolean star = true
     "Type of load connection: true = star, false = triangle" annotation(Evaluate=true, choices(
       choice=true "Star",
       choice=false "Triangle",
       __Dymola_radioButtons=true));
-
-  parameter Boolean inductive=true
-    "If =true the load is inductive, otherwise it is capacitive"
-    annotation (Evaluate=true, choices(
-      choice=true "Inductive",
-      choice=false "Capacitive",
-      __Dymola_radioButtons=true));
-  parameter Modelica.SIunits.Resistance R(start = 1,min=0) "Resistance";
-  parameter Modelica.SIunits.Inductance L(start=0, min=0) "Inductance"
-    annotation (Dialog(enable=inductive));
-  parameter Modelica.SIunits.Capacitance C(start=0,min=0) "Capacitance"  annotation (Dialog(enable=not inductive));
 protected
   Modelica.SIunits.AngularVelocity omega;
   Modelica.SIunits.Reactance X(start = 1);
@@ -30,16 +17,16 @@ equation
 
   // Inductance of each line
   if inductive then
-    X = omega*L;
+    X = omega*L_;
   else
-    X = -1/(omega*C);
+    X = -1/(omega*C_);
   end if;
 
   // Ohm's law
   if star then
-    terminal.v = {{R,-X}*terminal.i, {X,R}*terminal.i};
+    terminal.v = {{R_,-X}*terminal.i, {X,R_}*terminal.i};
   else
-    terminal.v = {{R/3,-X/3}*terminal.i, {X/3,R/3}*terminal.i};
+    terminal.v = {{R_/3,-X/3}*terminal.i, {X/3,R_/3}*terminal.i};
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
@@ -56,7 +43,7 @@ equation
           origin={-80,0},
           rotation=180),
         Text(
-          extent={{-120,120},{120,80}},
+          extent={{-120,-80},{120,-120}},
           lineColor={0,120,120},
           textString="%name"),
         Rectangle(

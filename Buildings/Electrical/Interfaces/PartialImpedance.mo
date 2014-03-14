@@ -3,14 +3,17 @@ partial model PartialImpedance
   "Partial model representing a generalized impedance"
   extends Buildings.Electrical.Interfaces.PartialLoad(
     final linear = false,
-    final mode=Types.Assumption.FixedZ_steady_state,
+    final mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
     final P_nominal=0,
-    final V_nominal=220);
-  parameter Modelica.SIunits.Resistance R(start = 1,min=0) "Resistance"
-    annotation (Dialog(enable= not useVariableR));
+    final V_nominal=1);
   parameter Boolean inductive=true
     "If =true the load is inductive, otherwise it is capacitive"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, choices(
+      choice=true "Inductive",
+      choice=false "Capacitive",
+      __Dymola_radioButtons=true));
+  parameter Modelica.SIunits.Resistance R(start = 1,min=0) "Resistance"
+    annotation (Dialog(enable= not useVariableR));
   parameter Modelica.SIunits.Inductance L(start=0, min=0) "Inductance"
     annotation (Dialog(enable=inductive and (not useVariableL)));
   parameter Modelica.SIunits.Capacitance C(start=0,min=0) "Capacitance"  annotation (Dialog(enable=(not inductive) and (not useVariableC)));
