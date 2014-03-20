@@ -36,6 +36,7 @@ package Examples
 
   model AC_InHomeGrid
     extends Modelica.Icons.Example;
+    parameter Boolean linear = false;
     Network network(redeclare
         Buildings.Electrical.Transmission.Grids.GridInHome_AL70 grid)
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
@@ -46,7 +47,7 @@ package Examples
       PlugPhase1 = Phase1,
       PlugPhase2 = Phase2,
       PlugPhase3 = Phase3,
-      each linear=false)
+      each linear=linear)
       annotation (Placement(transformation(extent={{20,26},{40,46}})));
     Sources.FixedVoltage source(
       f=50,
@@ -102,6 +103,7 @@ package Examples
 
   model AC_InHomeGridN
     extends Modelica.Icons.Example;
+    parameter Boolean linear = false;
     NetworkN network(
                     redeclare
         Buildings.Electrical.Transmission.Grids.GridInHome_AL70 grid)
@@ -114,7 +116,7 @@ package Examples
       PlugPhase1 = Phase1,
       PlugPhase2 = Phase2,
       PlugPhase3 = Phase3,
-      each linear=false)
+      each linear=linear)
       annotation (Placement(transformation(extent={{20,26},{40,46}})));
     Sources.FixedVoltageN source(
       f=50,
@@ -165,11 +167,16 @@ package Examples
         smooth=Smooth.None));
 
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics));
+              -100},{100,100}}), graphics),
+      experiment(
+        StopTime=84600,
+        Tolerance=1e-06,
+        __Dymola_Algorithm="Radau"));
   end AC_InHomeGridN;
 
   model AC_IEEE34_GridN
     extends Modelica.Icons.Example;
+    parameter Boolean linear = false;
     NetworkN network(
                     redeclare
         Buildings.Electrical.Transmission.Grids.IEEE_34_AL120 grid)
@@ -182,7 +189,7 @@ package Examples
       PlugPhase1 = Phase1,
       PlugPhase2 = Phase2,
       PlugPhase3 = Phase3,
-      each linear=false)
+      each linear=linear)
       annotation (Placement(transformation(extent={{20,26},{40,46}})));
     Sources.FixedVoltageN source(
       f=50,

@@ -2,6 +2,7 @@ BaseTerminal
 Terminal
 PartialGround
 PartialLoad
+PartialImpedance
 PartialInductiveLoad
 PartialCapacitiveLoad
 PartialSource
@@ -16,4 +17,3 @@ PartialPVOriented
 PartialWindTurbineBase
 PartialWindTurbine
 PartialPluggableUnbalanced
-PartialImpedance

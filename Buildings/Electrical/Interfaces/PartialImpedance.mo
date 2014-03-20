@@ -53,8 +53,6 @@ partial model PartialImpedance
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={40,100})));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 //protected
   Modelica.Blocks.Interfaces.RealOutput y_R_int;
   Modelica.Blocks.Interfaces.RealOutput y_C_int;
@@ -105,4 +103,6 @@ equation
     L_ = Lmin + y_L_int*(Lmax - Lmin);
   end if;
 
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics));
 end PartialImpedance;
