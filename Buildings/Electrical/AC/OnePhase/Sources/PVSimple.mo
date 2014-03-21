@@ -12,7 +12,15 @@ model PVSimple
         rotation=180,
         origin={12,0})));
   replaceable Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-      pf=pf) annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+      pf=pf,
+    V_nominal=V_nominal,
+    P_nominal=0,
+    linear=linear)
+             annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  parameter Modelica.SIunits.Voltage V_nominal=220
+    "Nominal voltage (V_nominal >= 0)";
+  parameter Boolean linear=false
+    "If =true introduce a linearization in the load";
 equation
   connect(load.terminal, terminal) annotation (Line(
       points={{-40,0},{-100,0}},

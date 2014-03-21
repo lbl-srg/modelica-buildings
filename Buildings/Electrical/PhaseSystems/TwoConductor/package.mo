@@ -9,6 +9,7 @@ package TwoConductor "Two conductors for Spot DC_AC1ph components"
     output Real y[n];
   algorithm
     y := zeros(n);
+    annotation(Inline=true);
   end j;
 
 
@@ -20,6 +21,7 @@ package TwoConductor "Two conductors for Spot DC_AC1ph components"
     output Real y[n];
   algorithm
     y[n] := x[n];
+    annotation(Inline=true);
   end rotate;
 
 
@@ -29,6 +31,7 @@ package TwoConductor "Two conductors for Spot DC_AC1ph components"
     output SI.Angle thetaRel;
   algorithm
     thetaRel := 0;
+    annotation(Inline=true);
   end thetaRel;
 
 
@@ -38,6 +41,7 @@ package TwoConductor "Two conductors for Spot DC_AC1ph components"
     output SI.Angle thetaRef;
   algorithm
     thetaRef := 0;
+    annotation(Inline=true);
   end thetaRef;
 
 
@@ -47,6 +51,7 @@ package TwoConductor "Two conductors for Spot DC_AC1ph components"
     output SI.Angle phase;
   algorithm
     phase := 0;
+    annotation(Inline=true);
   end phase;
 
 
@@ -58,6 +63,7 @@ package TwoConductor "Two conductors for Spot DC_AC1ph components"
     output SI.Voltage v[n] "phase to neutral voltages";
   algorithm
     v := 0.5*{V, -V};
+    annotation(Inline=true);
   end phaseVoltages;
 
 
@@ -68,6 +74,7 @@ package TwoConductor "Two conductors for Spot DC_AC1ph components"
     output SI.Current i[n] "phase currents";
   algorithm
     i := {I, -I};
+    annotation(Inline=true);
   end phaseCurrents;
 
 
@@ -78,6 +85,7 @@ package TwoConductor "Two conductors for Spot DC_AC1ph components"
     output SI.Power p[n] "phase powers";
   algorithm
     p := {P, 0};
+    annotation(Inline=true);
   end phasePowers;
 
 
@@ -88,6 +96,7 @@ package TwoConductor "Two conductors for Spot DC_AC1ph components"
     output SI.Power p[TwoConductor.n] "phase powers";
   algorithm
     p := v.*i;
+    annotation(Inline=true);
   end phasePowers_vi;
 
 
@@ -98,6 +107,7 @@ package TwoConductor "Two conductors for Spot DC_AC1ph components"
     output SI.Voltage V;
   algorithm
     V := v[1] - v[2];
+    annotation(Inline=true);
   end systemVoltage;
 
 
@@ -108,6 +118,7 @@ package TwoConductor "Two conductors for Spot DC_AC1ph components"
     output SI.Current I;
   algorithm
     I := (i[1] - i[2])/2;
+    annotation(Inline=true);
   end systemCurrent;
 
 
@@ -119,6 +130,7 @@ package TwoConductor "Two conductors for Spot DC_AC1ph components"
     output SI.ActivePower P "active system power";
   algorithm
     P := v*i;
+    annotation(Inline=true);
   end activePower;
 
 

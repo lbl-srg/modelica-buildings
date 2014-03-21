@@ -9,6 +9,7 @@ package OnePhase "Single phase two connectors AC system"
     output Real y[n];
   algorithm
     y := {-x[2], x[1]};
+    annotation(Inline=true);
   end j;
 
 
@@ -21,6 +22,7 @@ package OnePhase "Single phase two connectors AC system"
   algorithm
     y[1] := cos(theta)*x[1] - sin(theta)*x[2];
     y[2] := sin(theta)*x[1] + cos(theta)*x[2];
+    annotation(Inline=true);
   end rotate;
 
 
@@ -32,6 +34,7 @@ package OnePhase "Single phase two connectors AC system"
     output Real z[2];
   algorithm
     z := {x[1]*y[1] - x[2]*y[2], x[1]*y[2] + x[2]*y[1]};
+    annotation(Inline=true);
   end product;
 
 
@@ -43,6 +46,7 @@ package OnePhase "Single phase two connectors AC system"
     output Real z[2];
   algorithm
     z := {x[1]*y[1] + x[2]*y[2], x[2]*y[1] - x[1]*y[2]}/(y[1]^2 + y[2]^2);
+    annotation(Inline=true);
   end divide;
 
 
@@ -52,6 +56,7 @@ package OnePhase "Single phase two connectors AC system"
     output SI.Angle thetaRel;
   algorithm
     thetaRel := 0;
+    annotation(Inline=true);
   end thetaRel;
 
 
@@ -61,6 +66,7 @@ package OnePhase "Single phase two connectors AC system"
     output SI.Angle thetaRef;
   algorithm
     thetaRef := theta[1];
+    annotation(Inline=true);
   end thetaRef;
 
 
@@ -70,6 +76,7 @@ package OnePhase "Single phase two connectors AC system"
     output SI.Angle phase;
   algorithm
     phase := atan2(x[2], x[1]);
+    annotation(Inline=true);
   end phase;
 
 
@@ -80,6 +87,7 @@ package OnePhase "Single phase two connectors AC system"
     output SI.Voltage v[n] "phase to neutral voltages";
   algorithm
     v := {V*cos(phi), V*sin(phi)};
+    annotation(Inline=true);
   end phaseVoltages;
 
 
@@ -90,6 +98,7 @@ package OnePhase "Single phase two connectors AC system"
     output SI.Current i[n] "phase currents";
   algorithm
     i := {I*cos(phi), I*sin(phi)};
+    annotation(Inline=true);
   end phaseCurrents;
 
 
@@ -100,6 +109,7 @@ package OnePhase "Single phase two connectors AC system"
     output SI.Power p[n] "phase powers";
   algorithm
     p := {P, P*tan(phi)};
+    annotation(Inline=true);
   end phasePowers;
 
 
@@ -110,6 +120,7 @@ package OnePhase "Single phase two connectors AC system"
     output SI.Power p[n] "phase powers";
   algorithm
     p := {v[1]*i[1] + v[2]*i[2], v[2]*i[1] - v[1]*i[2]};
+    annotation(Inline=true);
   end phasePowers_vi;
 
 
@@ -120,6 +131,7 @@ package OnePhase "Single phase two connectors AC system"
     output SI.Voltage V;
   algorithm
     V := sqrt(v*v);
+    annotation(Inline=true);
   end systemVoltage;
 
 
@@ -130,6 +142,7 @@ package OnePhase "Single phase two connectors AC system"
     output SI.Current I;
   algorithm
     I := sqrt(i*i);
+    annotation(Inline=true);
   end systemCurrent;
 
 
@@ -142,6 +155,7 @@ package OnePhase "Single phase two connectors AC system"
   algorithm
     // P = v[1]*i[1] + v[2]*i[2]
     P := v*i;
+    annotation(Inline=true);
   end activePower;
 
 

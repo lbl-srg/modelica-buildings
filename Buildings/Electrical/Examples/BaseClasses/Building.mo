@@ -3,13 +3,16 @@ model Building
 
   AC.OnePhase.Sources.PVSimple pVSimple(A=A,
     pf=0.95,
-    eta_DCAC=0.9)
+    eta_DCAC=0.9,
+    V_nominal=V_building_n,
+    linear=linear)
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   AC.OnePhase.Loads.InductiveLoadP building(
     pf=pf,
     V_nominal=V_building_n,
     mode=Buildings.Electrical.Types.Assumption.VariableZ_y_input,
-    P_nominal=-P_nominal)   annotation (Placement(transformation(
+    P_nominal=-P_nominal,
+    linear=linear)          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-30})));
@@ -39,14 +42,16 @@ model Building
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={80,40})));
-  Modelica.Blocks.Sources.TimeTable loadProfile(table=[0,0.4; 1*3600,0.3; 2*
-        3600,0.3; 3*3600,0.2; 4*3600,0.25; 5*3600,0.4; 6*3600,0.4; 7*3600,0.5;
-        8*3600,0.55; 9*3600,0.5; 10*3600,0.6; 11*3600,0.5; 12*3600,0.7; 13*3600,
-        0.75; 14*3600,0.7; 15*3600,0.8; 16*3600,1; 17*3600,1; 18*3600,0.9; 19*
-        3600,0.85; 20*3600,0.7; 21*3600,0.6; 22*3600,0.65; 23*3600,0.5],
-      startTime=startTime)
+  Modelica.Blocks.Sources.Sine loadProfile(
+    startTime=startTime,
+    amplitude=-0.3,
+    freqHz=1/24/3600,
+    phase=-0.5235987755983,
+    offset=0.65)
     annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
   parameter Modelica.SIunits.Time startTime=0 "Offset for load schedule";
+  parameter Boolean linear=false
+    "If =true introduce a linearization in the load";
 equation
   connect(node, trasformer.terminal_n) annotation (Line(
       points={{-98,0},{-80,0}},

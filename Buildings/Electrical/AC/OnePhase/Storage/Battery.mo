@@ -1,6 +1,7 @@
-within Buildings.Electrical.DC.Storage;
+within Buildings.Electrical.AC.OnePhase.Storage;
 model Battery "Simple model of a battery"
-  import Buildings;
+ import Buildings;
+ extends Buildings.Electrical.Interfaces.PartialRenewableAcDc;
  parameter Real etaCha(min=0, max=1, unit="1") = 0.9
     "Efficiency during charging";
  parameter Real etaDis(min=0, max=1, unit="1") = 0.9
@@ -18,9 +19,9 @@ model Battery "Simple model of a battery"
         origin={0,100})));
   Modelica.Blocks.Interfaces.RealOutput SOC "State of charge"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Buildings.Electrical.DC.Interfaces.Terminal_p
+  Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p
                                              terminal(redeclare package
-      PhaseSystem = Buildings.Electrical.PhaseSystems.TwoConductor)
+      PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase)
     "Generalised terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
@@ -30,36 +31,47 @@ protected
     etaCha=etaCha,
     etaDis=etaDis) "Charge model"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Loads.Conductor                                       bat(
+  Buildings.Electrical.AC.OnePhase.Loads.ResistiveLoadP
+                                          bat(
     P_nominal=0,
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    V_nominal=V_nominal) "Power exchanged with battery pack"
+    V_nominal=V_nominal,
+    linear=linear) "Power exchanged with battery pack"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 public
   Modelica.Blocks.Math.Gain gain(k=-1)
     annotation (Placement(transformation(extent={{22,10},{42,30}})));
   parameter Modelica.SIunits.Voltage V_nominal
     "Nominal voltage (V_nominal >= 0)";
+public
+  Modelica.Blocks.Math.Gain acdc_conversion(k=eta_DCAC)
+    annotation (Placement(transformation(extent={{-16,10},{4,30}})));
+  parameter Boolean linear=false
+    "If =true introduce a linearization in the load";
 equation
   connect(cha.SOC, SOC)    annotation (Line(
       points={{61,60},{110,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(cha.P, P)    annotation (Line(
-      points={{38,60},{0,60},{0,108},{8.88178e-16,108}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
-  connect(bat.terminal, terminal) annotation (Line(
-      points={{40,0},{-100,0}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(P, gain.u) annotation (Line(
-      points={{8.88178e-16,108},{8.88178e-16,20},{20,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(gain.y, bat.Pow) annotation (Line(
       points={{43,20},{68,20},{68,8.88178e-16},{60,8.88178e-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(bat.terminal, terminal) annotation (Line(
+      points={{40,0},{-100,0}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(P, acdc_conversion.u) annotation (Line(
+      points={{8.88178e-16,108},{0,108},{0,58},{-40,58},{-40,20},{-18,20}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(acdc_conversion.y, gain.u) annotation (Line(
+      points={{5,20},{20,20}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(acdc_conversion.y, cha.P) annotation (Line(
+      points={{5,20},{12,20},{12,60},{38,60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -111,14 +123,6 @@ equation
           points={{-74,0},{-100,0},{-100,0}},
           color={0,0,0},
           smooth=Smooth.None),
-        Text(
-          extent={{-150,70},{-50,20}},
-          lineColor={0,0,255},
-          textString="+"),
-        Text(
-          extent={{-150,-12},{-50,-62}},
-          lineColor={0,0,255},
-          textString="-"),
         Text(
           extent={{44,70},{100,116}},
           lineColor={0,0,0},

@@ -9,7 +9,8 @@ model Charge "Model to compute the battery charge"
     "Maximum available charge";
  //Modelica.SIunits.Energy E(min=0, displayUnit="kWh") "Actual charge";
   Modelica.SIunits.Power PAct "Actual power";
-  parameter Real SOC_start(min=0, max=1, unit="1")=0 "Initial charge";
+  parameter Real SOC_start(start = SOC_start, min=0, max=1, unit="1")=0
+    "Initial charge";
   Modelica.Blocks.Interfaces.RealInput P(final quantity="Power",
                                          final unit="W") annotation (Placement(transformation(
           extent={{-140,-20},{-100,20}}),iconTransformation(extent={{-140,-20},{

@@ -17,8 +17,8 @@ protected
   parameter Modelica.SIunits.Resistance R = RCha*l
     "Resistance at temperature T_ref";
   parameter Modelica.SIunits.Inductance L = XCha*l/omega "Inductance";
-  parameter Buildings.Electrical.Types.CharacteristicResistance RCha=0.181e-003;
-  parameter Buildings.Electrical.Types.CharacteristicReactance XCha=0.072e-003;
+  parameter Buildings.Electrical.Types.CharacteristicResistance RCha=0.5e-003;
+  parameter Buildings.Electrical.Types.CharacteristicReactance XCha=0.1e-003;
   parameter Modelica.SIunits.AngularVelocity omega = 2*Modelica.Constants.pi*f;
   parameter Modelica.SIunits.Frequency f = 50
     "Frequency for which cabple properties are computed";
