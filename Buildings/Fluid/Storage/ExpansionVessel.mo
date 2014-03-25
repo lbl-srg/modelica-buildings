@@ -69,7 +69,7 @@ equation
         Polygon(
           points={{-68,16},{-68,16},{-54,30},{-28,14},{0,28},{26,14},{46,30},{
               70,16},{70,16},{70,-72},{70,-72},{-68,-72},{-68,-72},{-68,16}},
-          lineColor={0,0,0},
+          lineColor={0,0,255},
           smooth=Smooth.Bezier,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
