@@ -70,7 +70,7 @@ model DataCenterDiscreteTimeControl
         rotation=270,
         origin={218,-120})));
   Buildings.Fluid.Storage.ExpansionVessel expVesCHW(redeclare package Medium =
-        MediumCHW, VTot=1) "Expansion vessel"
+        MediumCHW, V_start=1) "Expansion vessel"
     annotation (Placement(transformation(extent={{248,-147},{268,-127}})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow(
     redeclare package Medium = MediumCW,
@@ -123,7 +123,7 @@ model DataCenterDiscreteTimeControl
         rotation=90,
         origin={218,-40})));
   Buildings.Fluid.Storage.ExpansionVessel expVesChi(redeclare package Medium =
-        MediumCW, VTot=1)
+        MediumCW, V_start=1)
     annotation (Placement(transformation(extent={{236,143},{256,163}})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl wseCon
     annotation (Placement(transformation(
@@ -639,6 +639,10 @@ Buildings.Examples.ChillerPlant</a>.
 </HTML>
 ", revisions="<html>
 <ul>
+<li>
+March 25, 2014, by Michael Wetter:<br/>
+Updated model with new expansion vessel.
+</li>
 <li>
 December 5, 2012, by Michael Wetter:<br/>
 Removed the filtered speed calculation for the valves to reduce computing time by 25%.
