@@ -62,13 +62,13 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-68,70},{70,-72}},
+          extent={{-68,70},{70,-70}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-68,16},{-68,16},{-54,30},{-28,14},{0,28},{26,14},{46,30},{
-              70,16},{70,16},{70,-72},{70,-72},{-68,-72},{-68,-72},{-68,16}},
+          points={{-68,18},{-68,18},{-54,32},{-28,16},{0,30},{26,16},{46,32},{
+              70,18},{70,18},{70,-70},{70,-70},{-68,-70},{-68,-70},{-68,18}},
           lineColor={0,0,255},
           smooth=Smooth.Bezier,
           fillColor={0,0,255},
