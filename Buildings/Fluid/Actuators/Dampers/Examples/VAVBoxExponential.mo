@@ -1,5 +1,6 @@
-within Buildings.Fluid.Actuators.Examples;
+within Buildings.Fluid.Actuators.Dampers.Examples;
 model VAVBoxExponential
+  "VAV box with constant pressure difference and varying control signal"
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.IdealGases.SimpleAir;
@@ -83,7 +84,28 @@ equation
  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                      graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/VAVBoxExponential.mos"
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/VAVBoxExponential.mos"
         "Simulate and plot"),
-    experiment(StopTime=240));
+    experiment(StopTime=240),
+Documentation(info="<html>
+<p>
+Test model for the variable air volume flow box.
+The model has two flow legs, both are connected to models for constant inlet and outlet
+pressures.
+The top flow leg has a flow resistance and an air damper, and
+the bottom flow leg combines both of these resistances into one model.
+Both flow legs have identical mass flow rates, except at very small 
+flow rates. The reason for this difference is that the equations 
+are regularized for numerical reasons, and combining the two components
+within one component leads to a slightly different equation for the
+regularization.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 20, 2007 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end VAVBoxExponential;

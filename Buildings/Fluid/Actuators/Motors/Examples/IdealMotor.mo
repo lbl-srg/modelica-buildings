@@ -13,5 +13,20 @@ equation
   annotation (
 experiment(StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Motors/Examples/IdealMotor.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+Documentation(info="<html>
+<p>
+Test model for the ideal motor with hysteresis model.
+The motor receives at its control input a time-varying signal.
+It adjusts its position whenever the input signal differs 
+from the current position by more than the hysteresis.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 8, 2008 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end IdealMotor;

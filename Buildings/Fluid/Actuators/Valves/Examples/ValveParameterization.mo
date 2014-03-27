@@ -1,4 +1,4 @@
-within Buildings.Fluid.Actuators.Examples;
+within Buildings.Fluid.Actuators.Valves.Examples;
 model ValveParameterization
   "Model to test and illustrate different parameterization for valves"
   extends Modelica.Icons.Example;
@@ -141,7 +141,7 @@ equation
             -100},{100,100}}),
                         graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/ValveParameterization.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ValveParameterization.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

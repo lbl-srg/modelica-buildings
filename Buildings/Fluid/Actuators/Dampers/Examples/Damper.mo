@@ -1,5 +1,6 @@
-within Buildings.Fluid.Actuators.Examples;
+within Buildings.Fluid.Actuators.Dampers.Examples;
 model Damper
+  "Damper with constant pressure difference and varying control signal"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
@@ -47,6 +48,20 @@ equation
             -100},{100,100}}),
                         graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/Damper.mos"
-        "Simulate and plot"));
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
+        "Simulate and plot"),
+Documentation(info="<html>
+<p>
+Test model for the air damper.
+The air damper is connected to models for constant inlet and outlet
+pressures. The control signal of the damper is a ramp.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 20, 2007 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Damper;

@@ -1,4 +1,4 @@
-within Buildings.Fluid.Actuators.Examples;
+within Buildings.Fluid.Actuators.Valves.Examples;
 model TwoWayValveTable
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.ConstantPropertyLiquidWater;
@@ -49,7 +49,7 @@ equation
             -100},{100,100}}),
                         graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/TwoWayValveTable.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValveTable.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
