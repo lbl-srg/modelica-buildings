@@ -1,7 +1,7 @@
 within Buildings.Fluid.Actuators.Valves;
 model TwoWayTable "Two way valve with linear flow characteristics"
   extends BaseClasses.PartialTwoWayValve;
-
+  // fixme. phiTab should be implemented using a record from Valves.Data
   parameter Real phiTab[:, 2] = [0, 0.0001; 0.5, 0.5-0.0001/2; 1, 1]
     "Table with first column being valve opening and second column normalized volume flow rate";
   Modelica.Blocks.Tables.CombiTable1D phiLooUp(
