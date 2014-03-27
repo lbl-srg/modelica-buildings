@@ -4,11 +4,17 @@ model TwoWayEqualPercentage "Two way valve with linear flow characteristics"
   parameter Real R = 50 "Rangeability, R=50...100 typically";
   parameter Real delta0 = 0.01
     "Range of significant deviation from equal percentage law";
+  parameter Real l(min=1e-10, max=1) = 0.0001
+    "Valve leakage, l=Kv(y=0)/Kv(y=1)";
+
 initial equation
- assert(l < 1/R, "Wrong parameters in valve model.\n"
-               + "  Rangeability R = " + String(R) +  "\n"
-               + "  Leakage flow l = " + String(l) +  "\n"
-               + "  Must have l < 1/R = " + String(1/R));
+  // Since the flow model Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
+  // 1/k^2, the parameter l must not be zero.
+  assert(l > 0, "Valve leakage parameter l must be bigger than zero.");
+  assert(l < 1/R, "Wrong parameters in valve model.\n"
+                + "  Rangeability R = " + String(R) +  "\n"
+                + "  Leakage flow l = " + String(l) +  "\n"
+                + "  Must have l < 1/R = " + String(1/R));
 
 equation
   if homotopyInitialization then
@@ -32,6 +38,11 @@ as the leakage flow or regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 27, 2014 by Michael Wetter:<br/>
+Revised model for implementation of new valve model that computes the flow function 
+based on a table.
+</li>
 <li>
 February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,

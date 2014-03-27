@@ -13,8 +13,7 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
   parameter Modelica.SIunits.Pressure dpFixed_nominal(displayUnit="Pa", min=0) = 0
     "Pressure drop of pipe and other resistances that are in series"
      annotation(Dialog(group = "Nominal condition"));
-  parameter Real l(min=1e-10, max=1) = 0.0001
-    "Valve leakage, l=Kv(y=0)/Kv(y=1)";
+
   Real phi "Ratio actual to nominal mass flow rate of valve, phi=Kv(y)/Kv(y=1)";
 protected
  parameter Real kFixed(unit="") = if dpFixed_nominal > Modelica.Constants.small
@@ -25,9 +24,6 @@ protected
  Real k(unit="", min=Modelica.Constants.small)
     "Flow coefficient of valve and pipe in series, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 initial equation
-  // Since the flow model Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
-  // 1/k^2, the parameter l must not be zero.
-  assert(l > 0, "Valve leakage parameter l must be bigger than zero.");
   assert(dpFixed_nominal > -Modelica.Constants.small, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
         + String(dpFixed_nominal) + " Pa.");
 equation
@@ -136,6 +132,11 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 27, 2014 by Michael Wetter:<br/>
+Revised model for implementation of new valve model that computes the flow function 
+based on a table.
+</li>
 <li>
 March 20, 2013, by Michael Wetter:<br/>
 Set <code>dp(nominal=6000)</code> as the previous formulation gives an error during model check

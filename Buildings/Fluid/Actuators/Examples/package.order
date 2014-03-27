@@ -2,6 +2,7 @@ Damper
 ThreeWayValves
 TwoWayValves
 TwoWayValvesMotor
+TwoWayValveTable
 ValveParameterization
 VAVBoxExponential
 MixingBox
