@@ -33,7 +33,7 @@ This model is based on the partial valve model
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
 Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>.
 Check this model for more information, such
-as the leakage flow or regularization near the origin.
+as the regularization near the origin.
 </p>
 </html>",
 revisions="<html>

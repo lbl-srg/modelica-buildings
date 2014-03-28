@@ -9,24 +9,25 @@ model TwoWayValvesTable
     offset=0) "Control signal"
                  annotation (Placement(transformation(extent={{-60,60},{-40,80}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
-      = Medium,
+  Buildings.Fluid.Sources.Boundary_pT sou(
+    redeclare package Medium = Medium,
     nPorts=1,
     use_p_in=false,
     p(displayUnit="Pa") = 306000,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{-70,-20},{-50,0}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
-      = Medium,
+  Buildings.Fluid.Sources.Boundary_pT sin(
+    redeclare package Medium = Medium,
     nPorts=1,
     p(displayUnit="Pa") = 3E5,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{72,-20},{52,0}}, rotation=0)));
-  Valves.TwoWayTable                                     valTab(
+  Valves.TwoWayTable valTab(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     filteredOpening=false,
-    dpValve_nominal=6000)
+    dpValve_nominal=6000,
+    flowCharacteristics=Buildings.Fluid.Actuators.Valves.Data.Linear())
     "Valve model with opening characteristics based on a table"
          annotation (Placement(transformation(extent={{-2,-20},{18,0}},
           rotation=0)));
