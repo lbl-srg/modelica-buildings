@@ -5,7 +5,9 @@ record Generic "Generic record for valve parameters"
     "Valve position, starting with 0 and ending with 1";
   parameter Real phi[size(y,1)](each min=0, each max=1)
     "Normalized volume flow rates for the positions y";
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="parValLin",
+Documentation(info="<html>
 <p>
 This is a generic record for the normalized volume flow
 rates for different valve opening positions.

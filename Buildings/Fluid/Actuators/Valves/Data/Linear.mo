@@ -3,6 +3,7 @@ record Linear = Generic (
     y =  {0, 1},
     phi = {0.0001, 1}) "Linear opening curve"
   annotation (
+defaultComponentName="parValLin",
 Documentation(info="<html>
 <p>
 Linear valve opening characteristics with 
