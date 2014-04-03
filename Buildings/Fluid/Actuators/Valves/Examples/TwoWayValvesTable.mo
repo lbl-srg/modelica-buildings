@@ -1,13 +1,13 @@
 within Buildings.Fluid.Actuators.Valves.Examples;
-model TwoWayValvesTable
+model TwoWayValvesTable "Two way valve with linear opening characteristics"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium";
 
     Modelica.Blocks.Sources.Ramp y(
     height=1,
     duration=1,
     offset=0) "Control signal"
-                 annotation (Placement(transformation(extent={{-60,40},{-40,60}},
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}},
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,

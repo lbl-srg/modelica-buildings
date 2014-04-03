@@ -4,19 +4,21 @@ model TwoWayTable "Two way valve with linear flow characteristics"
   parameter Data.Generic flowCharacteristics "Table with flow characteristics"
     annotation (choicesAllMatching=true,
     Placement(transformation(extent={{-80,60},{-60,80}})));
+  // Since the flow model Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
+  // 1/k^2, the flowCharacteristics.phi[1] must not be zero.
+  // We therefore set a lower bound.
 protected
   Modelica.Blocks.Tables.CombiTable1D phiLooUp(
     final tableOnFile=false,
-    final table=[flowCharacteristics.y, flowCharacteristics.phi],
+    final table=[flowCharacteristics.y,
+                 cat(1, {max(flowCharacteristics.phi[1], 1E-8)},
+                 {flowCharacteristics.phi[i] for i in 2:size(flowCharacteristics.phi,1)})],
     final columns=2:2,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Normalized mass flow rate for the given valve position under the assumption of a constant pressure"
     annotation (Placement(transformation(extent={{70,60},{90,80}})));
 initial equation
-  // Since the flow model Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
-  // 1/k^2, the parameter l must not be zero.
   assert(flowCharacteristics.y[1] == 0,   "flowCharateristics.y[1] must be 0.");
-  assert(flowCharacteristics.phi[1] > 0, "Valve leakage must be bigger than zero.");
   assert(flowCharacteristics.y[end] == 1,   "flowCharateristics.y[end] must be 1.");
   assert(flowCharacteristics.phi[end] == 1, "flowCharateristics.phi[end] must be 1.");
 
@@ -56,11 +58,13 @@ The parameter <code>flowCharacteristics</code> declares a table of the form
 </p>
 <p>
 where <i>l = K<sub>v</sub>(y=0)/K<sub>v</sub>(y=1) &gt; 0</i> is the valve leakage.
-A typical value may be <i>l=0.0001</i>.
 The first row is the valve opening, and the second row is the
 mass flow rate, relative to the mass flow rate of the fully open
 valve, under the assumption of a constant pressure difference across the
 valve.
+A suggested value for the valve leakage is <i>l=0.0001</i>.
+If <i>l = 0</i>, then this model will replace it with 
+<i>l = 10<sub>-8</sub></i> for numerical reasons.
 For example, if a valve has <i>K<sub>v</sub>=0.5</i> [m<sup>3</sup>/h/bar<sup>1/2</sup>] and
 a linear opening characteristics and
 a valve leakage of <i>l=0.0001</i>, then one would set
@@ -89,6 +93,7 @@ The first value must satisfy
 <code>flowCharacteristics.y[1]=0</code>, and
 <code>flowCharacteristics.phi[1]</code> must be equal to the
 leakage flow rate, which must be bigger than zero.
+Otherwise, a default value of <code>1E-8</code> is used.
 </li>
 <li>
 The last values must satisfy
@@ -102,6 +107,11 @@ This model is based on the partial valve model
 Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>. 
 Check this model for more information, such
 as the regularization near the origin.
+</p>
+<p>
+For an example that specifies an opening characteristics, see
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable\">
+Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable</a>.
 </p>
 </html>",
 revisions="<html>
