@@ -32,10 +32,10 @@ model ACACTransformer "AC AC transformer for single phase systems"
     "Short circuit current on secondary side";
   Modelica.SIunits.Impedance Zp = Vhigh/Isc_high
     "Impedance of the primary side";
-  Modelica.SIunits.Impedance Z1[2] = {Zp*XoverR/sqrt(1+XoverR^2), Zp/sqrt(1+XoverR^2)};
+  Modelica.SIunits.Impedance Z1[2] = {Zp*cos(atan(XoverR)), Zp*sin(atan(XoverR))};
   Modelica.SIunits.Impedance Zs = Vlow/Isc_low
     "Impedance of the secondary side";
-  Modelica.SIunits.Impedance Z2[2] = {Zs*XoverR/sqrt(1+XoverR^2), Zs/sqrt(1+XoverR^2)};
+  Modelica.SIunits.Impedance Z2[2] = {Zs*cos(atan(XoverR)), Zs*sin(atan(XoverR))};
   Modelica.SIunits.Voltage V1[2] "Voltage at the winding - primary side";
   Modelica.SIunits.Voltage V2[2] "Voltage at the winding - secondary side";
   Modelica.SIunits.Power Pow_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
@@ -48,7 +48,10 @@ equation
   assert(sqrt(Pow_p[1]^2 + Pow_p[2]^2) <= VAbase*1.01,"The load power of transformer is higher than VAbase");
 
   // Efficiency
-  eta = sqrt(Pow_p[1]^2 + Pow_p[2]^2) / (sqrt(Pow_n[1]^2 + Pow_n[2]^2) + 1e-6);
+  eta = Buildings.Utilities.Math.Functions.smoothMin(
+        x1=  sqrt(Pow_p[1]^2 + Pow_p[2]^2) / (sqrt(Pow_n[1]^2 + Pow_n[2]^2) + 1e-6),
+        x2=  sqrt(Pow_n[1]^2 + Pow_n[2]^2) / (sqrt(Pow_p[1]^2 + Pow_p[2]^2) + 1e-6),
+        deltaX=  0.01);
 
   // Ideal transformation
   V2 = V1/N;
