@@ -114,7 +114,6 @@ opening characteristics.
 The valve has the following opening characteristics, which is taken from a test case
 of the IEA EBC Annex 60 project.
 </p>
-<p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td><i>y</i></td>
   <td>0</td>  <td>0.1667</td>  <td>0.3333</td>  <td>0.5</td>  <td>0.6667</td>  <td>1</td>   
@@ -122,7 +121,6 @@ of the IEA EBC Annex 60 project.
 <tr><td><i>K<sub>v</sub></i></td> 
   <td>0</td>  <td>0.19</td>  <td>0.35</td>  <td>0.45</td>  <td>0.5</td>  <td>0.65</td>       </tr>
 </table>
-</p>
 <p>
 The <i>K<sub>v</sub></i> value is the volume flow rate in m<sup>3</sup>/h at a pressure difference
 of 1 bar.

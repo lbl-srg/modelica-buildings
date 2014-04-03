@@ -50,12 +50,14 @@ scaled by the values of the parameter
 <code>flowCharacteristics</code>.
 The parameter <code>flowCharacteristics</code> declares a table of the form
 </p>
-<p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td><i>y</i></td>         <td>0</td>  <td>...</td> <td>1</td>       </tr>
-<tr><td><i>&phi;</i></td>         <td><i>l</i></td>  <td>...</td> <td>1</td>       </tr>
+<tr>
+<td><i>y</i></td>  <td>0</td>  <td>...</td>  <td>1</td>
+</tr>
+<tr>
+<td><i>&phi;</i></td>  <td><i>l</i></td>  <td>...</td>  <td>1</td>
+</tr>
 </table>
-</p>
 <p>
 where <i>l = K<sub>v</sub>(y=0)/K<sub>v</sub>(y=1) &gt; 0</i> is the valve leakage.
 The first row is the valve opening, and the second row is the
@@ -68,11 +70,13 @@ If <i>l = 0</i>, then this model will replace it with
 For example, if a valve has <i>K<sub>v</sub>=0.5</i> [m<sup>3</sup>/h/bar<sup>1/2</sup>] and
 a linear opening characteristics and
 a valve leakage of <i>l=0.0001</i>, then one would set
+</p>
 <pre>
  CvData=Buildings.Fluid.Types.CvTypes.Kv
  Kv = 0.5
  flowCharacteristics(y={0,1}, phi={0.0001,1})
  </pre>
+<p>
 Note, however, that 
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayLinear\">
 Buildings.Fluid.Actuators.Valves.TwoWayLinear</a> provides a more
