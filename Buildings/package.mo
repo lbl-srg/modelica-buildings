@@ -152,12 +152,13 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.TwoWayTable
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Two way valve for which the opening characteristics
+                       is specified by a table.
     </td> 
     </tr>
 </table>
