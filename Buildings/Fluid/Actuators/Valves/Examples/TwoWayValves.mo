@@ -1,5 +1,5 @@
 within Buildings.Fluid.Actuators.Valves.Examples;
-model TwoWayValves
+model TwoWayValves "Two way valves with different opening characteristics"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 
