@@ -1,8 +1,18 @@
 within Buildings.Fluid.Actuators.Valves;
 model TwoWayEqualPercentage "Two way valve with linear flow characteristics"
-  extends BaseClasses.PartialTwoWayValve;
-  parameter Real R = 50 "Rangeability, R=50...100 typically";
-  parameter Real delta0 = 0.01
+  extends BaseClasses.PartialTwoWayValve(phi=if homotopyInitialization then
+        homotopy(actual=Buildings.Fluid.Actuators.BaseClasses.equalPercentage(
+        y_actual,
+        R,
+        l,
+        delta0), simplified=l + y_actual*(1 - l)) else
+        Buildings.Fluid.Actuators.BaseClasses.equalPercentage(
+        y_actual,
+        R,
+        l,
+        delta0));
+  parameter Real R=50 "Rangeability, R=50...100 typically";
+  parameter Real delta0=0.01
     "Range of significant deviation from equal percentage law";
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
@@ -11,21 +21,13 @@ initial equation
   // Since the flow model Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
   // 1/k^2, the parameter l must not be zero.
   assert(l > 0, "Valve leakage parameter l must be bigger than zero.");
-  assert(l < 1/R, "Wrong parameters in valve model.\n"
-                + "  Rangeability R = " + String(R) +  "\n"
-                + "  Leakage flow l = " + String(l) +  "\n"
+  assert(l < 1/R, "Wrong parameters in valve model.\n" 
+                + "  Rangeability R = " + String(R) + "\n"
+                + "  Leakage flow l = " + String(l) + "\n"
                 + "  Must have l < 1/R = " + String(1/R));
-
-equation
-  if homotopyInitialization then
-     phi = homotopy(actual=Buildings.Fluid.Actuators.BaseClasses.equalPercentage(y_actual, R, l, delta0),
-                    simplified=l + y_actual * (1 - l));
-  else
-     phi = Buildings.Fluid.Actuators.BaseClasses.equalPercentage(y_actual, R, l, delta0);
-  end if;
-annotation (
-defaultComponentName="val",
-Documentation(info="<html>
+  annotation (
+    defaultComponentName="val",
+    Documentation(info="<html>
 <p>
 Two way valve with an equal percentage valve opening characteristic.
 </p><p>
@@ -35,9 +37,15 @@ Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>.
 Check this model for more information, such
 as the regularization near the origin.
 </p>
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <ul>
+<li>
+April 4, 2014, by Michael Wetter:<br/>
+Moved the assignment of the flow function <code>phi</code>
+to the model instantiation because in its base class,
+the keyword <code>input</code>
+has been added to the variable <code>phi</code>.
+</li>
 <li>
 March 27, 2014 by Michael Wetter:<br/>
 Revised model for implementation of new valve model that computes the flow function 

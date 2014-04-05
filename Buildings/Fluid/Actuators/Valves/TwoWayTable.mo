@@ -1,43 +1,46 @@
 within Buildings.Fluid.Actuators.Valves;
 model TwoWayTable "Two way valve with linear flow characteristics"
-  extends BaseClasses.PartialTwoWayValve;
+  extends BaseClasses.PartialTwoWayValve(phi=phiLooUp.y[1]);
   parameter Data.Generic flowCharacteristics "Table with flow characteristics"
-    annotation (choicesAllMatching=true,
-    Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{-80,
+            60},{-60,80}})));
   // Since the flow model Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
   // 1/k^2, the flowCharacteristics.phi[1] must not be zero.
   // We therefore set a lower bound.
 protected
   Modelica.Blocks.Tables.CombiTable1D phiLooUp(
     final tableOnFile=false,
-    final table=[flowCharacteristics.y,
-                 cat(1, {max(flowCharacteristics.phi[1], 1E-8)},
-                 {flowCharacteristics.phi[i] for i in 2:size(flowCharacteristics.phi,1)})],
+    final table=[flowCharacteristics.y, cat(
+        1,
+        {max(flowCharacteristics.phi[1], 1E-8)},
+        {flowCharacteristics.phi[i] for i in 2:size(flowCharacteristics.phi, 1)})],
+
     final columns=2:2,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Normalized mass flow rate for the given valve position under the assumption of a constant pressure"
     annotation (Placement(transformation(extent={{70,60},{90,80}})));
 initial equation
-  assert(flowCharacteristics.y[1] == 0,   "flowCharateristics.y[1] must be 0.");
-  assert(flowCharacteristics.y[end] == 1,   "flowCharateristics.y[end] must be 1.");
+  assert(flowCharacteristics.y[1] == 0, "flowCharateristics.y[1] must be 0.");
+  assert(flowCharacteristics.y[end] == 1, "flowCharateristics.y[end] must be 1.");
   assert(flowCharacteristics.phi[end] == 1, "flowCharateristics.phi[end] must be 1.");
 
   // Assert that the sequences are strictly monotonic increasing
   assert(Buildings.Utilities.Math.Functions.isMonotonic(
-            x=flowCharacteristics.y, strict=true),
+           x=flowCharacteristics.y,
+           strict=true),
          "The values for y in flowCharacteristics must be strictly monotone increasing.");
   assert(Buildings.Utilities.Math.Functions.isMonotonic(
-            x=flowCharacteristics.phi, strict=true),
+           x=flowCharacteristics.phi,
+           strict=true),
          "The values for phi in flowCharacteristics must be strictly monotone increasing.");
 equation
-  phi = phiLooUp.y[1]; // fixme: should phi be an input of the base class?
   connect(phiLooUp.u[1], y_actual) annotation (Line(
       points={{68,70},{50,70}},
       color={0,0,127},
       smooth=Smooth.None));
-annotation (
-defaultComponentName="val",
-Documentation(info="<html>
+  annotation (
+    defaultComponentName="val",
+    Documentation(info="<html>
 <p>
 Two way valve with opening characteristic that is configured through
 a table.
@@ -117,19 +120,25 @@ For an example that specifies an opening characteristics, see
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable\">
 Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable</a>.
 </p>
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <ul>
+<li>
+April 4, 2014, by Michael Wetter:<br/>
+Moved the assignment of the flow function <code>phi</code>
+to the model instantiation because in its base class,
+the keyword <code>input</code>
+has been added to the variable <code>phi</code>.
+</li>
 <li>
 March 26, 2014 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={
         Rectangle(
           origin={-70,83},
           lineColor={64,64,64},
