@@ -69,7 +69,7 @@ valve, under the assumption of a constant pressure difference across the
 valve.
 A suggested value for the valve leakage is <i>l=0.0001</i>.
 If <i>l = 0</i>, then this model will replace it with 
-<i>l = 10<sub>-8</sub></i> for numerical reasons.
+<i>l = 10<sup>-8</sup></i> for numerical reasons.
 For example, if a valve has <i>K<sub>v</sub>=0.5</i> [m<sup>3</sup>/h/bar<sup>1/2</sup>] and
 a linear opening characteristics and
 a valve leakage of <i>l=0.0001</i>, then one would set
