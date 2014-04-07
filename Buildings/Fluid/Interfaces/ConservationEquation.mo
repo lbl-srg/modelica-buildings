@@ -231,8 +231,7 @@ The model has zero pressure drop between its ports.
 When extending or instantiating this model, the input 
 <code>fluidVolume</code>, which is the actual volume occupied by the fluid,
 needs to be assigned.
-For most components, this can be set to a parameter. However, for components such as 
-expansion vessels, the fluid volume can change in time.
+For most components, this can be set to a parameter.
 </p>
 Input connectors of the model are
 <ul>
@@ -252,11 +251,9 @@ Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
 provides a more efficient implementation.
 </p>
 <p>
-For models that instantiates this model, see
+For a model that instantiates this model, see
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
-Buildings.Fluid.MixingVolumes.MixingVolume</a> and
-<a href=\"modelica://Buildings.Fluid.Storage.ExpansionVessel\">
-Buildings.Fluid.Storage.ExpansionVessel</a>.
+Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
