@@ -14,8 +14,6 @@ partial model PartialTwoPortInterface
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Diagnostics
    parameter Boolean show_T = false
@@ -68,6 +66,10 @@ Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 7, 2014, by Michael Wetter:<br/>
+Removed the <code>homotopy</code> operator as this is no longer needed.
+</li>
 <li>
 November 10, 2013 by Michael Wetter:<br/>
 In the computation of <code>sta_a</code> and <code>sta_b</code>,

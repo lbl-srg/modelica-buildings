@@ -11,6 +11,9 @@ model StaticTwoPortHeatMassExchanger
   input Modelica.SIunits.MassFlowRate mWat_flow
     "Moisture mass flow rate added to the medium";
 
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   // Models for conservation equations and pressure drop
   Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation vol(
     sensibleOnly = sensibleOnly,
@@ -18,8 +21,7 @@ model StaticTwoPortHeatMassExchanger
     redeclare final package Medium = Medium,
     final m_flow_nominal = m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_small=m_flow_small,
-    final homotopyInitialization=homotopyInitialization)
+    final m_flow_small=m_flow_small)
     "Control volume for steady-state energy and mass balance"
     annotation (Placement(transformation(extent={{15,-10}, {35,10}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro(
