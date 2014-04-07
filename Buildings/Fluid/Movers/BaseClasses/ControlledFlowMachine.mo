@@ -50,10 +50,6 @@ equation
   annotation (defaultComponentName="fan",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
-        Line(
-          points={{0,70},{40,70}},
-          color={0,0,0},
-          smooth=Smooth.None),
         Ellipse(
           visible=filteredSpeed,
           extent={{-34,100},{32,40}},

@@ -126,10 +126,9 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-
-class Version_1_6_build1 "Version 1.6 build 1"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    class Version_1_6_build1 "Version 1.6 build 1"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
 <p>
 Version 1.6 build 1 is ... xxx
 This version updates the <code>Buildings</code> library to the
@@ -199,12 +198,21 @@ have been <b style=\"color:blue\">improved</b> in a
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Storage.ExpansionVessel
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Simplified the model to have a constant pressure.
+                       The following non-backward compatible changes 
+                       have been made.
+                       <ol>
+                       <li>The parameter <code>VTot</code> was renamed to <code>V_start</code>.</li>
+                       <li>The following parameters were removed: <code>VGas0</code>,
+                           <code>pMax</code>, <code>energyDynamics</code> and <code>massDynamics</code>.</li>
+                       </ol>
+                       The conversion script should update old instances of 
+                       this model automatically in Dymola. 
     </td>
 </tr>
 </table>
@@ -269,7 +277,7 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_1_6_build1;
+    end Version_1_6_build1;
 
     class Version_1_5_build3 "Version 1.5 build 3"
       extends Modelica.Icons.ReleaseNotes;
@@ -317,7 +325,6 @@ have been fixed:
 </table>
 </html>"));
     end Version_1_5_build3;
-
 
     class Version_1_5_build2 "Version 1.5 build 2"
       extends Modelica.Icons.ReleaseNotes;

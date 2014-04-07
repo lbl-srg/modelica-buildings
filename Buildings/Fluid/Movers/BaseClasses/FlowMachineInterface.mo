@@ -44,7 +44,8 @@ partial model FlowMachineInterface
                                                  final quantity="AngularVelocity",
                                                  final unit="1/min",
                                                  nominal=N_nominal)
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+    annotation (Placement(transformation(extent={{100,40},{120,60}}),
+        iconTransformation(extent={{100,40},{120,60}})));
 
   // "Shaft rotational speed in rpm";
   Real r_N(min=0, start=N_start/N_nominal, unit="1") "Ratio N_actual/N_nominal";
@@ -274,7 +275,7 @@ the simulation stops.");
       d=preDer1,
       cBar=zeros(2),
       kRes=  kRes) * (1-delta)/delta^2;
-  
+
     cBar[2] :=((cha.pressure(
       data=pCur1,
       V_flow=VDelta_flow,
@@ -345,7 +346,7 @@ the simulation stops.");
       d=preDer2,
       cBar=zeros(2),
       kRes=  kRes) * (1-delta)/delta^2;
-  
+
     cBar[2] :=((cha.pressure(
       data=pCur2,
       V_flow=VDelta_flow,
@@ -358,7 +359,6 @@ the simulation stops.");
       d=preDer2,
       cBar=zeros(2),
       kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
-
 
   else  // ----- Curve 3
     curve :=3; // Neither V_flow_max nor dpMax are provided by the user
@@ -410,7 +410,7 @@ the simulation stops.");
       d=preDer3,
       cBar=zeros(2),
       kRes=  kRes) * (1-delta)/delta^2;
-  
+
     cBar[2] :=((cha.pressure(
       data=pCur3,
       V_flow=VDelta_flow,
@@ -575,9 +575,12 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Line(
-          points={{0,70},{40,70}},
+          points={{32,50},{100,50}},
           color={0,0,0},
-          smooth=Smooth.None)}),
+          smooth=Smooth.None),
+        Text(extent={{64,68},{114,54}},
+          lineColor={0,0,127},
+          textString="N")}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}),
             graphics),
