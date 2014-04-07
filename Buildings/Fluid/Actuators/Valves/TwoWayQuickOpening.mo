@@ -11,8 +11,6 @@ model TwoWayQuickOpening "Two way valve with linear flow characteristics"
         delta0)*(1 - l));
   parameter Real alp = 2 "Parameter for valve characteristics, alp>0";
   parameter Real delta0 = 0.01 "Range of significant deviation from power law";
-  parameter Real l(min=1e-10, max=1) = 0.0001
-    "Valve leakage, l=Kv(y=0)/Kv(y=1)";
 protected
    parameter Real alpInv = 1/alp
      "Inverse of alpha";
