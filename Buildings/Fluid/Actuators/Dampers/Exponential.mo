@@ -33,19 +33,36 @@ for consistency within this library.
 For <code>yL &lt; y &lt; yU</code>, the damper characteristics is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  k = exp(a+b (1-y)).
+  k<sub>d</sub>(y) = exp(a+b (1-y)).
 </p>
 <p>
 Outside this range, the damper characteristic is defined by a quadratic polynomial that
 matches the damper resistance at <code>y=0</code> and <code>y=yL</code> or <code>y=yU</code> and 
-<code>y=1</code>, respectively. In addition, the polynomials are such that <code>k(y)</code> is
-differentiable in <code>y</code> and the derivative is continuous.
+<code>y=1</code>, respectively. In addition, the polynomials are such that 
+<i>k<sub>d</sub>(y)</i> is
+differentiable in <i>y</i> and the derivative is continuous.
 </p>
-
+<p>
+The damper characteristics <i>k<sub>d</sub>(y)</i> is then used to
+compute the flow coefficient <i>k(y)</i> as
+<p align=\"center\" style=\"font-style:italic;\">
+k(y) = (2 &rho; &frasl; k<sub>d</sub>(y))<sup>1/2</sup>
+&nbsp; A,
+</p>
+where <i>A</i> is the face area. The flow coefficient <i>k(y)</i>
+is used to compute the mass flow rate versus pressure
+drop relation as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  m = sign(&Delta;p) k(y)  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+</p>
+<p>
+with regularization near the origin.
+</p>
 ASHRAE 825-RP lists the following parameter values as typical:
-<table summary=\"summary\" border=\"1\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
-<td></td><td>opposed blades</td><td>single blades</td>
+<td></td><th>opposed blades</th><th>single blades</th>
 </tr>
 <tr>
 <td>yL</td><td>15/90</td><td>15/90</td>
@@ -76,6 +93,10 @@ ASHRAE Final Report 825-RP, Atlanta, GA.
 </html>", revisions="<html>
 <ul>
 <li>
+April 14, 2014 by Michael Wetter:<br/>
+Improved documentation.
+</li>
+<li>
 September 26, 2013 by Michael Wetter:<br/>
 Moved assignemnt of <code>kDam_default</code> and <code>kThetaSqRt_default</code>
 from <code>initial algorithm</code> to the variable declaration, to avoid a division
@@ -89,7 +110,7 @@ Renamed protected parameters for consistency with the naming conventions.
 June 22, 2008 by Michael Wetter:<br/>
 Extended range of control signal from 0 to 1 by implementing the function 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper\">
-exponentialDamper</a>.
+Buildings.Fluid.Actuators.BaseClasses.exponentialDamper</a>.
 </li>
 <li>
 June 10, 2008 by Michael Wetter:<br/>
