@@ -11,13 +11,15 @@ package UsersGuide "User's Guide"
     Documentation(info="<html>
 <p>
 This library follows the conventions of the 
-<a href=\"modelica://Modelica.UsersGuide.Conventions\">Modelica Standard Library</a>, which are as follows:
+<a href=\"modelica://Modelica.UsersGuide.Conventions\">
+Modelica Standard Library</a>, which are as follows:
 </p>
 
 <p>
 Note, in the html documentation of any Modelica library,
 the headings \"h1, h2, h3\" should not be used,
-because they are utilized from the automatically generated documentation/headings.
+because they are utilized from the automatically generated 
+documentation and headings.
 Additional headings in the html documentation should start with \"h4\".
 </p>
 
@@ -179,6 +181,11 @@ have been <b style=\"color:blue\">improved</b> in a
                        these are conditionally enabled variables and 
                        therefore must not be used in any equation. They
                        are only for output reporting.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.Exponential
+    </td>
+    <td valign=\"top\">Improved documentation of the flow resistance.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
