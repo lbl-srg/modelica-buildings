@@ -48,6 +48,7 @@ compute the flow coefficient <i>k(y)</i> as
 <p align=\"center\" style=\"font-style:italic;\">
 k(y) = (2 &rho; &frasl; k<sub>d</sub>(y))<sup>1/2</sup> A,
 </p>
+<p>
 where <i>A</i> is the face area. The flow coefficient <i>k(y)</i>
 is used to compute the mass flow rate versus pressure
 drop relation as
@@ -58,6 +59,7 @@ drop relation as
 <p>
 with regularization near the origin.
 </p>
+<p>
 ASHRAE 825-RP lists the following parameter values as typical:
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
