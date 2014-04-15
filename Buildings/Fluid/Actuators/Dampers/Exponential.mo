@@ -46,8 +46,7 @@ differentiable in <i>y</i> and the derivative is continuous.
 The damper characteristics <i>k<sub>d</sub>(y)</i> is then used to
 compute the flow coefficient <i>k(y)</i> as
 <p align=\"center\" style=\"font-style:italic;\">
-k(y) = (2 &rho; &frasl; k<sub>d</sub>(y))<sup>1/2</sup>
-&nbsp; A,
+k(y) = (2 &rho; &frasl; k<sub>d</sub>(y))<sup>1/2</sup> A,
 </p>
 where <i>A</i> is the face area. The flow coefficient <i>k(y)</i>
 is used to compute the mass flow rate versus pressure
