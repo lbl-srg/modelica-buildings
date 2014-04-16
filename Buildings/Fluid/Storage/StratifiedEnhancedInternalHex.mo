@@ -129,7 +129,7 @@ protected
 equation
    for j in 1:nSegHexTan loop
      for i in 1:hexSegMult loop
-     connect(indTanHex.port[(j-1)*hexSegMult+i], heaPorVol[nSeg-j+1])
+     connect(indTanHex.port[(j-1)*hexSegMult + i], heaPorVol[nSeg - topHexSeg+j])
       annotation (Line(
        points={{-87,41.8},{-20,41.8},{-20,-2.22045e-16},{0,-2.22045e-16}},
        color={191,0,0},
@@ -189,21 +189,21 @@ equation
             -100},{100,100}}), graphics),
             defaultComponentName = "tan",
             Documentation(info = "<html>
-            This model is an extension of 
+            This model is an extension of
             <a href=\"Buildings.Fluid.Storage.StratifiedEnhanced\">Buildings.Fluid.Storage.StratifiedEnhanced</a>.<br/>
             <p>
-            The modifications consist of adding a heat exchanger 
+            The modifications consist of adding a heat exchanger
             (<a href=\"Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\">
             Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a>) and fluid ports to connect to the heat exchanger.
-            The modifications allow to run a fluid through the tank causing heat transfer to the stored fluid. 
+            The modifications allow to run a fluid through the tank causing heat transfer to the stored fluid.
             A typical example is a storage tank in a solar hot water system.
             </p>
             <p>
-            The heat exchanger model assumes flow through the inside of a helical coil heat exchanger, 
-            and stagnant fluid on the outside. Parameters are used to describe the 
-            heat transfer on the inside of the heat exchanger at nominal conditions, and 
-            geometry of the outside of the heat exchanger. This information is used to compute 
-            an <i>hA</i>-value for each side of the coil. Convection calculations are then performed to identify heat transfer 
+            The heat exchanger model assumes flow through the inside of a helical coil heat exchanger,
+            and stagnant fluid on the outside. Parameters are used to describe the
+            heat transfer on the inside of the heat exchanger at nominal conditions, and
+            geometry of the outside of the heat exchanger. This information is used to compute
+            an <i>hA</i>-value for each side of the coil. Convection calculations are then performed to identify heat transfer
             between the heat transfer fluid and the fluid in the tank.
             </p>
             <p>
