@@ -28,7 +28,7 @@ model ACACTransformer "Test model AC to AC trasformer"
     duration=0.5,
     startTime=0.3,
     offset=0,
-    height=-2000)
+    height=-4000*0.8)
     annotation (Placement(transformation(extent={{70,40},{50,60}})));
   Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer tra_cc(
     Vhigh=220,
@@ -46,6 +46,14 @@ model ACACTransformer "Test model AC to AC trasformer"
     VAbase=4000,
     Vlow=110)
     annotation (Placement(transformation(extent={{-16,-30},{4,-10}})));
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage                 sou1(
+    f=60,
+    definiteReference=true,
+    V=220,
+    Phi=0)                annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-70,10})));
 equation
   connect(sou.terminal, tra_load.terminal_n)
                                             annotation (Line(
@@ -60,16 +68,16 @@ equation
       points={{49,50},{30,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sou.terminal, tra_cc.terminal_n) annotation (Line(
-      points={{-60,50},{-38,50},{-38,10},{-16,10}},
-      color={0,120,120},
-      smooth=Smooth.None));
   connect(tra_cc.terminal_p, shortCircuit.terminal) annotation (Line(
       points={{4,10},{10,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(sou.terminal, tra_void.terminal_n) annotation (Line(
-      points={{-60,50},{-38,50},{-38,-20},{-16,-20}},
+  connect(sou1.terminal, tra_cc.terminal_n) annotation (Line(
+      points={{-60,10},{-16,10}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(sou1.terminal, tra_void.terminal_n) annotation (Line(
+      points={{-60,10},{-38,10},{-38,-20},{-16,-20}},
       color={0,120,120},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

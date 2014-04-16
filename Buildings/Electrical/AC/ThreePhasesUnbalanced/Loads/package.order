@@ -1,6 +1,8 @@
 ResistiveLoadP
 ResistiveLoadP_N
 InductiveLoadP
+InductiveLoadP_N
 CapacitiveLoadP
+CapacitiveLoadP_N
 BaseClasses
 Examples

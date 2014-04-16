@@ -3,8 +3,17 @@ model IEEE34
   extends Modelica.Icons.Example;
   parameter Boolean linear = false
     "This boolean flags allow to linearize the models";
+  parameter Boolean VoltageCTRL = true
+    "This flag enables the voltage control for the PV loads";
+  parameter Modelica.SIunits.Voltage V_nominal = 110;
+  parameter Real Vth = 0.1;
+  parameter Modelica.SIunits.Time Tdelay = 600;
+  parameter Modelica.SIunits.Voltage Vmin = V_nominal*(1-Vth);
+  parameter Modelica.SIunits.Voltage Vmax = V_nominal*(1+Vth);
   Modelica.SIunits.Power P;
   Modelica.SIunits.Power Q;
+  Modelica.SIunits.Energy E(start = 0);
+
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.NetworkN network(
       redeclare
       Buildings.Electrical.Transmission.Benchmark.BenchmarkGrids.IEEE_34           grid)
@@ -12,29 +21,32 @@ model IEEE34
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.ResistiveLoadP_N load[33](
     each P_nominal=1000,
     each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    each V_nominal=230,
     PlugPhase1 = Phase1,
     PlugPhase2 = Phase2,
     PlugPhase3 = Phase3,
-    each linear=linear)
+    each linear=linear,
+    each V_nominal=V_nominal)
     annotation (Placement(transformation(extent={{10,-56},{30,-36}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.ResistiveLoadP_N pv_loads[11](
     each P_nominal=1000,
     each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    each V_nominal=230,
     each linear=linear,
-    PlugPhase1=Phase1_pv,
-    PlugPhase2=Phase2_pv,
-    PlugPhase3=Phase3_pv)
+    PlugPhase1 = Phase1_pv,
+    PlugPhase2 = Phase2_pv,
+    PlugPhase3 = Phase3_pv,
+    each V_nominal = V_nominal,
+    each VoltageCTRL = VoltageCTRL,
+    each Vthresh=Vth,
+    each Tdelay=Tdelay)
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltageN source(
-    f=50,
     Phi=0,
-    V=230)                annotation (Placement(transformation(
+    V=V_nominal,
+    f=50)                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={20,0})));
-  Transmission.Benchmark.DataReader.DataSeries dataSeries(factorPV=0.0)
+  Transmission.Benchmark.DataReader.DataSeries dataSeries
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   /* the connection matrix represents this concept
   
@@ -59,16 +71,18 @@ protected
 
   /* Scheme that shows how the phases are plugged */
   /*                                    1     2     3     4     5     6    7    8     9     10   11    12    13    14   15    16   17    18    19   20   21     22    23    24   25    26   27    28   29    30    31    32    33  */
-  final parameter Boolean Phase1[33] = {true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false};
-  final parameter Boolean Phase2[33] = {false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false};
-  final parameter Boolean Phase3[33] = {false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true,false,false,true};
+  final parameter Boolean Phase1[33] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=33,first=1,Mod=3);
+  final parameter Boolean Phase2[33] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=33,first=2,Mod=3);
+  final parameter Boolean Phase3[33] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=33,first=3,Mod=3);
+
   /* Scheme that shows how the phases are plugged */
   /*                                        1     2     3     4     5     6    7    8     9     10   11    */
-  final parameter Boolean Phase1_pv[11] = {true,false,false,true,false,false,true,false,false,true,false};
-  final parameter Boolean Phase2_pv[11] = {false,true,false,false,true,false,false,true,false,false,true};
-  final parameter Boolean Phase3_pv[11] = {false,false,true,false,false,true,false,false,true,false,false};
+  final parameter Boolean Phase1_pv[11] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=11,first=1,Mod=3);
+  final parameter Boolean Phase2_pv[11] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=11,first=2,Mod=3);
+  final parameter Boolean Phase3_pv[11] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=11,first=3,Mod=3);
 
 equation
+  3600*1000*der(E) = P;
   P = source.Vphase[1].S[1] + source.Vphase[2].S[1] + source.Vphase[3].S[1];
   Q = source.Vphase[1].S[2] + source.Vphase[2].S[2] + source.Vphase[3].S[2];
 
@@ -138,5 +152,4 @@ equation
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics));
-
 end IEEE34;

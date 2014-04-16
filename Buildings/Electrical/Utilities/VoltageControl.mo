@@ -6,10 +6,12 @@ model VoltageControl
     annotation (choicesAllMatching=true);
   parameter Modelica.SIunits.Voltage V_nominal
     "Nominal voltage of the node to be controlled";
-  parameter Real Vthresh(min=0.0, max=1.0) = 0.1
+  parameter Real Vthresh(min=0.0, max=1.0)
     "Threshold that activates voltage ctrl (ratio of nominal voltage)";
   parameter Modelica.SIunits.Time Tdelay = 300
     "Time to wait before plugging the load back";
+  final parameter Modelica.SIunits.Voltage Vmin = V_nominal*(1-Vthresh);
+  final parameter Modelica.SIunits.Voltage Vmax = V_nominal*(1+Vthresh);
   Modelica.Blocks.Interfaces.RealOutput y
     annotation (Placement(transformation(extent={{96,-10},{116,10}})));
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare

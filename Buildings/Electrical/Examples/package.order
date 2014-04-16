@@ -2,4 +2,6 @@ WindTurbineGridConnected
 PVGridConnected
 DemandResponse
 DemandResponseCtrl
+DynamicPhasor
 BaseClasses
+Benchmarks

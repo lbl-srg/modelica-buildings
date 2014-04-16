@@ -4,7 +4,7 @@ model VoltageControl
   Modelica.Blocks.Interfaces.RealInput V "Voltage of the node to be controlled";
   parameter Modelica.SIunits.Voltage V_nominal
     "Nominal voltage of the node to be controlled";
-  parameter Real Vthresh(min=0.0, max=1.0) = 0.1
+  parameter Real Vthresh(min=0.0, max=1.0)
     "Threshold that activates voltage ctrl (ratio of nominal voltage)";
   parameter Modelica.SIunits.Time Tdelay = 300
     "Time to wait before plugging the load back";

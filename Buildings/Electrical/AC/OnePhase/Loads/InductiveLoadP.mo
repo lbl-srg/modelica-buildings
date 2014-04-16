@@ -6,7 +6,9 @@ model InductiveLoadP "Model of an inductive and resistive load"
     V_nominal=220);
 initial equation
   if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
-    psi = Z[2]*{P_nominal/V_nominal, 0}/omega;
+    // psi = Z[2]*{P_nominal/V_nominal, 0}/omega;
+    // Steady state initialization
+    der(psi) = zeros(PhaseSystem.n);
   end if;
 equation
   omega = der(PhaseSystem.thetaRef(terminal.theta));
