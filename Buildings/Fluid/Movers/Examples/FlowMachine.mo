@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.Examples;
-model FlowMachine
+model FlowMachine "Fan with polynomial performance curve"
   extends Modelica.Icons.Example;
 
    package Medium = Buildings.Media.IdealGases.SimpleAir;

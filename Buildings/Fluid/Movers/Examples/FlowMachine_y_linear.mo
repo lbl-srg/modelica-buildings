@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachine_y_linear
-  "Test model for pump with linear characteristic for pressure vs. flow rate"
+  "Pump with linear characteristic for pressure vs. flow rate"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 
