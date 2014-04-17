@@ -1,4 +1,4 @@
-within Buildings.Fluid.Movers.Examples;
+within Buildings.Obsolete.Fluid.Movers.Examples;
 model FlowMachine "Fan with polynomial performance curve"
   extends Modelica.Icons.Example;
 
@@ -9,7 +9,7 @@ model FlowMachine "Fan with polynomial performance curve"
     duration=1.5)
                  annotation (Placement(transformation(extent={{-100,-2},{-80,18}},
           rotation=0)));
-  Buildings.Fluid.Movers.FlowMachinePolynomial fan(
+  Buildings.Obsolete.Fluid.Movers.FlowMachinePolynomial fan(
     D=0.6858,
     a={4.2904,-1.387,4.2293,-3.92920,0.8534},
     b={0.1162,1.5404,-1.4825,0.7664,-0.1971},
@@ -111,6 +111,6 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}})),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/FlowMachine.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/Movers/Examples/FlowMachine.mos"
         "Simulate and plot"));
 end FlowMachine;

@@ -200,6 +200,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachinePolynomial
+    </td>
+    <td valign=\"top\">Moved the model to the package
+                       <code>Buildings.Obsolete</code>, 
+                       as this model is planned to be removed in future versions.
+                       The conversion script should update old instances of 
+                       this model automatically in Dymola.
+                       Users should change their models to use a flow machine from
+                       the package <code>Buildings.Fluid.Movers</code>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Storage.ExpansionVessel
     </td>
     <td valign=\"top\">Simplified the model to have a constant pressure.

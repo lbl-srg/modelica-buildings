@@ -18,3 +18,7 @@ convertModifiers({"Buildings.Fluid.Storage.ExpansionVessel"},
                  {"VGas0", "pMax", "energyDynamics", "massDynamics"}, 
                  fill("",0), true);
 
+convertClass("Buildings.Fluid.Movers.FlowMachinePolynomial",
+             "Buildings.Obsolete.Fluid.Movers.FlowMachinePolynomial");
+convertClass("Buildings.Fluid.Movers.Examples.FlowMachine",
+             "Buildings.Obsolete.Fluid.Movers.Examples.FlowMachine");

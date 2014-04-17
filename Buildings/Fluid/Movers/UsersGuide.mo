@@ -304,15 +304,6 @@ see their base class <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Par
 Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine.</a>
 </p>
 
-<h5>Deprecated model</h5>
-<p>
-The model <a href=\"modelica://Buildings.Fluid.Movers.FlowMachinePolynomial\">
-Buildings.Fluid.Movers.FlowMachinePolynomial</a> is in this package for compatibility 
-with older versions of this library. It is recommended to use the other models as they optionally
-allow use of a medium volume that provides state variables which are needed in some models 
-when the flow rate is zero.
-</p>
-
 <h4>Differences to models in Modelica.Fluid.Machines</h4>
 <p>
 The models with names <code>FlowMachine_*</code> have similar parameters than the

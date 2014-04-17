@@ -1,4 +1,4 @@
-within Buildings.Fluid.Movers;
+within Buildings.Obsolete.Fluid.Movers;
 model FlowMachinePolynomial
   "Fan or pump with head and efficiency declared by a non-dimensional polynomial"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
