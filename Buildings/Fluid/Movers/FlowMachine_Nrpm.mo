@@ -1,8 +1,18 @@
 within Buildings.Fluid.Movers;
 model FlowMachine_Nrpm
   "Fan or pump with ideally controlled speed Nrpm as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine;
-
+  extends Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine(
+  N_nominal=pumpData.N_nominal,
+  hydraulicEfficiency = pumpData.hydraulicEfficiency,
+  motorEfficiency = pumpData.motorEfficiency,
+  pressure =  pumpData.pressure,
+  power = pumpData.power,
+  use_powerCharacteristic = pumpData.use_powerCharacteristic,
+  motorCooledByFluid=pumpData.motorCooledByFluid);
+  replaceable parameter Data.PumpData pumpData constrainedby Data.PumpData
+    "Record containing pump/fan parameters"
+                  annotation (choicesAllMatching=true, Placement(
+        transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Interfaces.RealInput Nrpm(unit="1/min")
     "Prescribed rotational speed"
     annotation (Placement(transformation(
@@ -20,7 +30,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
     connect(filter.y, N_actual) annotation (Line(
-      points={{34.7,88},{38.35,88},{38.35,70},{50,70}},
+      points={{34.7,88},{38.35,88},{38.35,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(filter.y, N_filtered) annotation (Line(
@@ -30,7 +40,7 @@ equation
 
   else
     connect(Nrpm, N_actual) annotation (Line(
-      points={{1.11022e-15,120},{0,120},{0,70},{50,70}},
+      points={{1.11022e-15,120},{0,120},{0,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
@@ -59,6 +69,10 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 17, 2014, by Filip Jorissen:<br/>
+Implemented records for supplying pump/fan parameters
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
