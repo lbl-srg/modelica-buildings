@@ -13,7 +13,7 @@ model FlowMachine_Nrpm
     "Record containing pump/fan parameters"
                   annotation (choicesAllMatching=true, Placement(
         transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Interfaces.RealInput Nrpm(unit="1/min")
+  Modelica.Blocks.Interfaces.RealInput Nrpm(unit="1/min", min=pumpData.N_min, max=pumpData.N_max)
     "Prescribed rotational speed"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},

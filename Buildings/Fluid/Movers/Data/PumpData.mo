@@ -7,7 +7,7 @@ record PumpData "Pump curves and data for a pump or fan"
     "Maximum allowed motor power - not yet used in practice";
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N_min=0.0
     "Minimum rotational speed";
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N_max=N_nominal
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N_max=1e15
     "Maximum rotational speed";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters
     pressure "Volume flow rate vs. total pressure rise";
