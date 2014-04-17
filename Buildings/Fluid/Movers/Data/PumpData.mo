@@ -23,4 +23,14 @@ record PumpData "Pump curves and data for a pump or fan"
     "If true, then motor heat is added to fluid stream";
   parameter Boolean use_powerCharacteristic=false
     "Use powerCharacteristic instead of efficiencyCharacteristic";
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>April 17, 2014
+    by Filip Jorissen:<br/>
+       Initial version
+</li>
+</ul>
+</html>", info="<html>
+Record containing parameters from real pumps or fans. Parameters can be typically found in data sheets.
+</html>"));
 end PumpData;
