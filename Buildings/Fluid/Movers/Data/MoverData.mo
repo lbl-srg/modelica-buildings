@@ -19,7 +19,8 @@ record MoverData "Pump curves and data for a pump or fan"
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     motorEfficiency(r_V={1}, eta={0.7}) "Electric motor efficiency";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters
-    power "Volume flow rate vs. electrical power consumption";
+    power(V_flow={1}, P={1})
+    "Volume flow rate vs. electrical power consumption";
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream";
   parameter Boolean use_powerCharacteristic=false
@@ -32,6 +33,7 @@ record MoverData "Pump curves and data for a pump or fan"
 </li>
 </ul>
 </html>", info="<html>
-Record containing parameters from real pumps or fans. Parameters can be typically found in data sheets.
+<p>Record containing parameters from real pumps or fans. Parameters can be typically found in data sheets. </p>
+<p><br>An example can be found in: <a href=\"modelica://Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data\">Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data</a></p>
 </html>"));
 end MoverData;
