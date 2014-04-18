@@ -1,19 +1,19 @@
 within Buildings.Fluid.Movers.Examples;
-model FlowMachine_Nrpm
+model FlowMachine_Nrpm_Data
   extends Modelica.Icons.Example;
  extends Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow(
-    gain(k=1500),
+    redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
+    gain(k=floMacSta.moverData.N_nominal),
+    m_flow_nominal=floMacSta.moverData.pressure.V_flow[3]*1000,
+    dp_nominal=floMacSta.moverData.pressure.dp[3]/2,
     redeclare Buildings.Fluid.Movers.FlowMachine_Nrpm floMacSta(
       redeclare package Medium = Medium,
-      pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
-               dp={2*dp_nominal,dp_nominal,0}),
-      filteredSpeed=false),
+      filteredSpeed=false,
+      redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6 moverData),
     redeclare Buildings.Fluid.Movers.FlowMachine_Nrpm floMacDyn(
       redeclare package Medium = Medium,
-      pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
-               dp={2*dp_nominal,dp_nominal,0}),
-      filteredSpeed=false));
-
+      filteredSpeed=false,
+      redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6 moverData));
 equation
   connect(gain.y, floMacSta.Nrpm) annotation (Line(
       points={{-25,100},{30,100},{30,92}},
@@ -30,23 +30,13 @@ experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/FlowMachine_Nrpm.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>
-This example demonstrates and tests the use of a flow machine whose mass flow rate is reduced to zero.
-</p>
-<p>
-The fans have been configured as steady-state models.
-This ensures that the actual speed is equal to the input signal.
-</p>
+<p>This example demonstrates and tests the use of a flow machine that uses a MoverData record. The medium has been redeclared to water since this mover is a pump.</p>
 </html>", revisions="<html>
 <ul>
-<li>
-February 14, 2012, by Michael Wetter:<br/>
-Added filter for start-up and shut-down transient.
-</li>
-<li>
-March 24 2010, by Michael Wetter:<br/>
-First implementation.
+<li>April 18, 2014
+    by Filip Jorissen:<br/>
+       Initial version
 </li>
 </ul>
 </html>"));
-end FlowMachine_Nrpm;
+end FlowMachine_Nrpm_Data;
