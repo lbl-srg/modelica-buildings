@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.Data;
-record PumpData "Pump curves and data for a pump or fan"
+record MoverData "Pump curves and data for a pump or fan"
   extends Modelica.Icons.Record;
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
     N_nominal=1500 "Nominal rotational speed for flow characteristic";
@@ -34,4 +34,4 @@ record PumpData "Pump curves and data for a pump or fan"
 </html>", info="<html>
 Record containing parameters from real pumps or fans. Parameters can be typically found in data sheets.
 </html>"));
-end PumpData;
+end MoverData;

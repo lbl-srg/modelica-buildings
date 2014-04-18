@@ -9,10 +9,9 @@ model FlowMachine_Nrpm
   power = pumpData.power,
   use_powerCharacteristic = pumpData.use_powerCharacteristic,
   motorCooledByFluid=pumpData.motorCooledByFluid);
-  replaceable parameter Data.PumpData pumpData constrainedby Data.PumpData
-    "Record containing pump/fan parameters"
-                  annotation (choicesAllMatching=true, Placement(
-        transformation(extent={{-80,60},{-60,80}})));
+  replaceable parameter Data.MoverData moverData constrainedby Data.MoverData
+    "Record containing pump/fan parameters" annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Interfaces.RealInput Nrpm(unit="1/min", min=pumpData.N_min, max=pumpData.N_max)
     "Prescribed rotational speed"
     annotation (Placement(transformation(
