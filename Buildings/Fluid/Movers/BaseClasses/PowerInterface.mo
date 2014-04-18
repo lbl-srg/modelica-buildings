@@ -110,7 +110,7 @@ equation
         Text(extent={{64,100},{114,86}},  textString="P",
           lineColor={0,0,127}),
         Line(
-          points={{32,80},{100,80}},
+          points={{0,80},{100,80}},
           color={0,0,0},
           smooth=Smooth.None)}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
