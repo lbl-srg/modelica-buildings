@@ -118,7 +118,6 @@ model AirHeatMassBalanceMixed
     final prescribedHeatFlowRate = true,
     final nPorts=nPorts,
     m_flow_small=1E-4*abs(m_flow_nominal),
-    homotopyInitialization=homotopyInitialization,
     allowFlowReversal=true) "Room air volume"
     annotation (Placement(transformation(extent={{10,-210},{-10,-190}})));
 

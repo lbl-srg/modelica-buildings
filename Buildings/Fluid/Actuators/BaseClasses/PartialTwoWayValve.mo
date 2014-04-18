@@ -13,9 +13,11 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
   parameter Modelica.SIunits.Pressure dpFixed_nominal(displayUnit="Pa", min=0) = 0
     "Pressure drop of pipe and other resistances that are in series"
      annotation(Dialog(group = "Nominal condition"));
+
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
-  Real phi "Ratio actual to nominal mass flow rate of valve, phi=Kv(y)/Kv(y=1)";
+  input Real phi 
+    "Ratio actual to nominal mass flow rate of valve, phi=Kv(y)/Kv(y=1)";
 protected
  parameter Real kFixed(unit="") = if dpFixed_nominal > Modelica.Constants.small
     then m_flow_nominal / sqrt(dpFixed_nominal) else 0
@@ -25,9 +27,6 @@ protected
  Real k(unit="", min=Modelica.Constants.small)
     "Flow coefficient of valve and pipe in series, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 initial equation
-  // Since the flow model Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
-  // 1/k^2, the parameter l must not be zero.
-  assert(l > 0, "Valve leakage parameter l must be bigger than zero.");
   assert(dpFixed_nominal > -Modelica.Constants.small, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
         + String(dpFixed_nominal) + " Pa.");
 equation
@@ -98,22 +97,6 @@ Partial model for a two way valve. This is the base model for valves
 with different opening characteristics, such as linear, equal percentage
 or quick opening.
 </p>
-<h4>Modelling options</h4>
-<p>
-The following options have been adapted from the valve implementation 
-in <a href=\"modelica://Modelica.Fluid\">
-Modelica.Fluid</a> 
-and are described in 
-<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.ValveParameters\">
-Buildings.Fluid.Actuators.BaseClasses.ValveParameters</a>.
-</p>
-<p>
-In contrast to the model in <a href=\"modelica://Modelica.Fluid\">
-Modelica.Fluid</a>, this model uses the parameter <code>Kv_SI</code>,
-which is the flow coefficient in SI units, i.e., 
-it is the ratio between mass flow rate in <code>kg/s</code> and square root 
-of pressure drop in <code>Pa</code>.
-</p>
 <p>
 To prevent the derivative <code>d/dP (m_flow)</code> to be infinite near
 the origin, this model linearizes the pressure drop versus flow relation
@@ -127,15 +110,50 @@ Because the parameterization contains <code>Kv_SI</code>, the values for
 <code>deltaM</code> and <code>dp_nominal</code> need not be changed if the valve size
 changes.
 </p>
+<p>
+In contrast to the model in <a href=\"modelica://Modelica.Fluid\">
+Modelica.Fluid</a>, this model uses the parameter <code>Kv_SI</code>,
+which is the flow coefficient in SI units, i.e., 
+it is the ratio between mass flow rate in <code>kg/s</code> and square root 
+of pressure drop in <code>Pa</code>.
+</p>
+<h4>Modelling options</h4>
+<p>
+This model allows different parameterization of the flow resistance.
+The different parameterizations are described in
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.ValveParameters\">
+Buildings.Fluid.Actuators.BaseClasses.ValveParameters</a>.
+</p>
 <h4>Implementation</h4>
 <p>
 The two way valve models are implemented using this partial model, as opposed to using
 different functions for the valve opening characteristics, because
 each valve opening characteristics has different parameters.
 </p>
-</html>",
+<h4>Implementation</h4>
+<p>
+Models that extend this model need to provide a binding equation 
+for the flow function <code>phi</code>.
+An example of such a code can be found in
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayLinear\">
+Buildings.Fluid.Actuators.Valves.TwoWayLinear</a>.
+</p>
+</html>", 
 revisions="<html>
 <ul>
+<li>
+April 4, 2014, by Michael Wetter:<br/>
+Added keyword <code>input</code> to variable <code>phi</code>
+to require models that extend this model to provide a binding equation.
+This is done to use the same modeling concept as is used for example in
+<a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
+Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
+</li>
+<li>
+March 27, 2014 by Michael Wetter:<br/>
+Revised model for implementation of new valve model that computes the flow function 
+based on a table.
+</li>
 <li>
 March 20, 2013, by Michael Wetter:<br/>
 Set <code>dp(nominal=6000)</code> as the previous formulation gives an error during model check

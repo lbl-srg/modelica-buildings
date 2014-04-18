@@ -1,5 +1,5 @@
-within Buildings.Fluid.Actuators.Examples;
-model ThreeWayValves
+within Buildings.Fluid.Actuators.Valves.Examples;
+model ThreeWayValves "Three way valves with different opening characteristics"
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.ConstantPropertyLiquidWater
@@ -99,7 +99,7 @@ equation
             -100},{100,100}}),
                         graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/ThreeWayValves.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ThreeWayValves.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
