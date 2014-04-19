@@ -22,3 +22,17 @@ convertClass("Buildings.Fluid.Movers.FlowMachinePolynomial",
              "Buildings.Obsolete.Fluid.Movers.FlowMachinePolynomial");
 convertClass("Buildings.Fluid.Movers.Examples.FlowMachine",
              "Buildings.Obsolete.Fluid.Movers.Examples.FlowMachine");
+
+
+convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
+                "hexTopHeight", "hHex_a");
+convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
+                "hexBotHeight", "hHex_b");
+convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
+                "topHexSeg", "segHex_a");
+convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
+                "botHexSeg", "segHex_b");
+convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex", 
+                "port_a1", "portHex_a");
+convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex", 
+                "port_b1", "portHex_b");
