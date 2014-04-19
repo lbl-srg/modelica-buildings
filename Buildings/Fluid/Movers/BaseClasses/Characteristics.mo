@@ -398,24 +398,34 @@ First implementation.
     input Real r_V(unit="1")
       "Volumetric flow rate divided by nominal flow rate";
     input Real d[:] "Derivatives at support points for spline interpolation";
+    input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
+    input Real delta "Small value for switching implementation around zero rpm";
     output Real eta(min=0, unit="1") "Efficiency";
 
   protected
     Integer n = size(per.r_V, 1) "Number of data points";
+    Real rat "Ratio of r_V/r_N";
     Integer i "Integer to select data interval";
   algorithm
     if n == 1 then
       eta := per.eta[1];
     else
+      // The use of the max function to avoids problems for low speeds
+      // and turned off pumps
+      rat:=r_V/
+              Buildings.Utilities.Math.Functions.smoothMax(
+                x1=r_N,
+                x2=0.1,
+                deltaX=delta);
       i :=1;
       for j in 1:n-1 loop
-         if r_V > per.r_V[j] then
+         if rat > per.r_V[j] then
            i := j;
          end if;
       end for;
       // Extrapolate or interpolate the data
       eta:=Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-                  x=r_V,
+                  x=rat,
                   x1=per.r_V[i],
                   x2=per.r_V[i + 1],
                   y1=per.eta[i],
@@ -447,6 +457,14 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 19, 2014, by Filip Jorissen:<br/>
+Changed polynomial to be evaluated at <code>r_V/r_N</code>
+instead of <code>r_V</code> to properly account for the
+scaling law. See
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/202\">#202</a>
+for a discussion and validation.
+</li>
 <li>
 September 28, 2011, by Michael Wetter:<br/>
 First implementation.
