@@ -1,5 +1,5 @@
-within Buildings.Fluid.Actuators.Examples;
-model TwoWayValvesMotor
+within Buildings.Fluid.Actuators.Valves.Examples;
+model TwoWayValves "Two way valves with different opening characteristics"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 
@@ -11,23 +11,25 @@ model TwoWayValvesMotor
     dpValve_nominal=6000) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{0,20},{20,40}}, rotation=
            0)));
+    Modelica.Blocks.Sources.Ramp y(
+    height=1,
+    duration=1,
+    offset=0) "Control signal"
+                 annotation (Placement(transformation(extent={{-60,60},{-40,80}},
+          rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
     nPorts=3,
-    use_p_in=true,
+    use_p_in=false,
+    p(displayUnit="Pa") = 306000,
     T=293.15)                                       annotation (Placement(
-        transformation(extent={{-60,-20},{-40,0}}, rotation=0)));
+        transformation(extent={{-70,-20},{-50,0}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     nPorts=3,
-    use_p_in=true,
+    p(displayUnit="Pa") = 3E5,
     T=293.15)                                       annotation (Placement(
-        transformation(extent={{70,-20},{50,0}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant PSin(k=3E5)
-      annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant PSou(k=306000)
-      annotation (Placement(transformation(extent={{-100,-12},{-80,8}},
-          rotation=0)));
+        transformation(extent={{72,-20},{52,0}}, rotation=0)));
   Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening valQui(
     redeclare package Medium = Medium,
     l=0.05,
@@ -47,59 +49,50 @@ model TwoWayValvesMotor
     "Valve model, equal percentage opening characteristics"
          annotation (Placement(transformation(extent={{0,-60},{20,-40}},
           rotation=0)));
-  Modelica.Blocks.Sources.TimeTable ySet(table=[0,0; 60,0; 60,1; 120,1; 180,0.5;
-        240,0.5; 300,0; 360,0; 360,0.25; 420,0.25; 480,1; 540,1.5; 600,-0.25])
-    "Set point for actuator" annotation (Placement(transformation(extent={{-100,
-            60},{-80,80}}, rotation=0)));
-  Actuators.Motors.IdealMotor mot(                 tOpe=60) "Motor model"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
-  connect(PSin.y, sin.p_in) annotation (Line(points={{81,70},{86,70},{86,-2},{
-          72,-2}}, color={0,0,127}));
-  connect(PSou.y, sou.p_in)
-    annotation (Line(points={{-79,-2},{-62,-2},{-62,-2}},
-                                                 color={0,0,127}));
-  connect(ySet.y, mot.u)
-    annotation (Line(points={{-79,70},{-62,70}}, color={0,0,127}));
-  connect(mot.y, valEqu.y) annotation (Line(points={{-39,70},{-12,70},{-12,-30},
-          {10,-30},{10,-38}},
-                     color={0,0,127}));
-  connect(mot.y, valQui.y) annotation (Line(points={{-39,70},{-12,70},{-12,10},
-          {10,10},{10,2}},
-                    color={0,0,127}));
-  connect(mot.y, valLin.y) annotation (Line(points={{-39,70},{10,70},{10,44},{
-          10,42}},  color={0,0,127}));
+  connect(y.y, valLin.y) annotation (Line(
+      points={{-39,70},{-12,70},{-12,50},{10,50},{10,42}},
+      color={0,0,127},
+      pattern=LinePattern.None));
+  connect(y.y, valQui.y) annotation (Line(
+      points={{-39,70},{-12,70},{-12,8},{10,8},{10,2}},
+      color={0,0,127},
+      pattern=LinePattern.None));
+  connect(y.y, valEqu.y) annotation (Line(
+      points={{-39,70},{-12,70},{-12,-30},{10,-30},{10,-38}},
+      color={0,0,127},
+      pattern=LinePattern.None));
   connect(sou.ports[1], valLin.port_a) annotation (Line(
-      points={{-40,-7.33333},{-20,-7.33333},{-20,30},{-5.55112e-16,30}},
+      points={{-50,-7.33333},{-27,-7.33333},{-27,30},{-5.55112e-16,30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sou.ports[2], valQui.port_a) annotation (Line(
-      points={{-40,-10},{-5.55112e-16,-10}},
+  connect(valQui.port_a, sou.ports[2]) annotation (Line(
+      points={{-5.55112e-16,-10},{-50,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sou.ports[3], valEqu.port_a) annotation (Line(
-      points={{-40,-12.6667},{-20,-12.6667},{-20,-50},{-5.55112e-16,-50}},
+  connect(valEqu.port_a, sou.ports[3]) annotation (Line(
+      points={{-5.55112e-16,-50},{-26,-50},{-26,-12.6667},{-50,-12.6667}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valLin.port_b, sin.ports[1]) annotation (Line(
-      points={{20,30},{36,30},{36,-7.33333},{50,-7.33333}},
+      points={{20,30},{37,30},{37,-7.33333},{52,-7.33333}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valQui.port_b, sin.ports[2]) annotation (Line(
-      points={{20,-10},{50,-10}},
+      points={{20,-10},{52,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valEqu.port_b, sin.ports[3]) annotation (Line(
-      points={{20,-50},{36,-50},{36,-12.6667},{50,-12.6667}},
+      points={{20,-50},{36,-50},{36,-12.6667},{52,-12.6667}},
       color={0,127,255},
       smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                         graphics),
-experiment(StopTime=600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/TwoWayValvesMotor.mos"
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValves.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -110,11 +103,9 @@ for better visualization of the valve characteristics.
 To use common values, use the default values.
 </p>
 <p>
-All valves are connected to a model of a motor with
-hysteresis. A more efficient implementation that approximates
-a motor but lacks hysteresis would be to
-set the valve parameter <code>filteredOpening=true</code> instead
-of using the motor model.
+The parameter <code>filterOpening</code> is set to <code>false</code>,
+as this model is used to plot the flow at different opening signals
+without taking into account the travel time of the actuator.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -128,4 +119,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end TwoWayValvesMotor;
+end TwoWayValves;

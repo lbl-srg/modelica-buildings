@@ -1,6 +1,5 @@
 within Buildings.Fluid.Actuators.Dampers;
 model MixingBox "Outside air mixing box with interlocked air dampers"
-  extends Buildings.BaseClasses.BaseIconLow;
   extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
   outer Modelica.Fluid.System system "System wide properties";
   replaceable package Medium =
@@ -314,7 +313,12 @@ equation
         Line(
           points={{0,40},{0,10},{0,12}},
           color={0,0,255},
-          smooth=Smooth.None)}),
+          smooth=Smooth.None),
+                             Text(
+          extent={{-50,-84},{48,-132}},
+          lineColor={0,0,255},
+          textString=
+               "%name")}),
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>

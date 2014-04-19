@@ -39,6 +39,9 @@ model PartialSolarCollector "Partial model for solar collectors"
     "Selection of system configuration"
     annotation(Dialog(group="Configuration declarations"));
 
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Shading coefficient"
     annotation(Placement(transformation(extent={{-140,46},{-100,6}},    rotation=0)));
@@ -90,7 +93,6 @@ model PartialSolarCollector "Partial model for solar collectors"
     each final p_start=p_start,
     each final T_start=T_start,
     each m_flow_small=m_flow_small,
-    each homotopyInitialization=homotopyInitialization,
     each final V=(perPar.V*nPanels_internal)/nSeg)
     "Volume of fluid in one segment of the solar collector"
     annotation (Placement(transformation(

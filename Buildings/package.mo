@@ -11,13 +11,15 @@ package UsersGuide "User's Guide"
     Documentation(info="<html>
 <p>
 This library follows the conventions of the 
-<a href=\"modelica://Modelica.UsersGuide.Conventions\">Modelica Standard Library</a>, which are as follows:
+<a href=\"modelica://Modelica.UsersGuide.Conventions\">
+Modelica Standard Library</a>, which are as follows:
 </p>
 
 <p>
 Note, in the html documentation of any Modelica library,
 the headings \"h1, h2, h3\" should not be used,
-because they are utilized from the automatically generated documentation/headings.
+because they are utilized from the automatically generated 
+documentation and headings.
 Additional headings in the html documentation should start with \"h4\".
 </p>
 
@@ -151,12 +153,13 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.TwoWayTable
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Two way valve for which the opening characteristics
+                       is specified by a table.
     </td> 
     </tr>
 </table>
@@ -178,6 +181,11 @@ have been <b style=\"color:blue\">improved</b> in a
                        these are conditionally enabled variables and 
                        therefore must not be used in any equation. They
                        are only for output reporting.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.Exponential
+    </td>
+    <td valign=\"top\">Improved documentation of the flow resistance.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
