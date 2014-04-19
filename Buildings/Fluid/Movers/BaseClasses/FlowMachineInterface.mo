@@ -556,13 +556,13 @@ equation
     etaHyd = 1;
   else
     if homotopyInitialization then
-      etaHyd = homotopy(actual=cha.efficiency(data=hydraulicEfficiency,     r_V=r_V, d=hydDer),
-                        simplified=cha.efficiency(data=hydraulicEfficiency, r_V=1,   d=hydDer));
-      etaMot = homotopy(actual=cha.efficiency(data=motorEfficiency,     r_V=r_V, d=motDer),
-                        simplified=cha.efficiency(data=motorEfficiency, r_V=1,   d=motDer));
+      etaHyd = homotopy(actual=cha.efficiency(data=hydraulicEfficiency,     r_V=r_V, d=hydDer, r_N=r_N, delta=delta),
+                        simplified=cha.efficiency(data=hydraulicEfficiency, r_V=1,   d=hydDer, r_N=r_N, delta=delta));
+      etaMot = homotopy(actual=cha.efficiency(data=motorEfficiency,     r_V=r_V, d=motDer, r_N=r_N, delta=delta),
+                        simplified=cha.efficiency(data=motorEfficiency, r_V=1,   d=motDer, r_N=r_N, delta=delta));
     else
-      etaHyd = cha.efficiency(data=hydraulicEfficiency, r_V=r_V, d=hydDer);
-      etaMot = cha.efficiency(data=motorEfficiency,     r_V=r_V, d=motDer);
+      etaHyd = cha.efficiency(data=hydraulicEfficiency, r_V=r_V, d=hydDer, r_N=r_N, delta=delta);
+      etaMot = cha.efficiency(data=motorEfficiency,     r_V=r_V, d=motDer, r_N=r_N, delta=delta);
     end if;
     // To compute the electrical power, we set a lower bound for eta to avoid
     // a division by zero.
@@ -629,6 +629,14 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 19, 2014, by Filip Jorissen:<br/>
+Passed extra parameters to power() and efficiency()
+to be able to properly evaluate the
+scaling law. See
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/202\">#202</a>
+for a discussion and validation.
+</li>
 <li>
 September 27, 2013, by Michael Wetter:<br/>
 Reformulated <code>data=if (curve == 1) then pCur1 elseif (curve == 2) then pCur2 else pCur3</code>
