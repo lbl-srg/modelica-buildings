@@ -274,7 +274,7 @@ the simulation stops.");
       d=preDer1,
       cBar=zeros(2),
       kRes=  kRes) * (1-delta)/delta^2;
-  
+
     cBar[2] :=((cha.pressure(
       data=pCur1,
       V_flow=VDelta_flow,
@@ -345,7 +345,7 @@ the simulation stops.");
       d=preDer2,
       cBar=zeros(2),
       kRes=  kRes) * (1-delta)/delta^2;
-  
+
     cBar[2] :=((cha.pressure(
       data=pCur2,
       V_flow=VDelta_flow,
@@ -358,7 +358,6 @@ the simulation stops.");
       d=preDer2,
       cBar=zeros(2),
       kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
-
 
   else  // ----- Curve 3
     curve :=3; // Neither V_flow_max nor dpMax are provided by the user
@@ -410,7 +409,7 @@ the simulation stops.");
       d=preDer3,
       cBar=zeros(2),
       kRes=  kRes) * (1-delta)/delta^2;
-  
+
     cBar[2] :=((cha.pressure(
       data=pCur3,
       V_flow=VDelta_flow,
@@ -537,11 +536,11 @@ equation
     // For the homotopy, we want P/V_flow to be bounded as V_flow -> 0 to avoid a very high medium
     // temperature near zero flow.
     if homotopyInitialization then
-      P = homotopy(actual=cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer),
+      P = homotopy(actual=cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer, delta=delta),
                       simplified=VMachine_flow/V_flow_nominal*
-                            cha.power(data=power, V_flow=V_flow_nominal, r_N=1, d=powDer));
+                            cha.power(data=power, V_flow=V_flow_nominal, r_N=1, d=powDer, delta=delta));
     else
-      P = (rho/rho_default)*cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer);
+      P = (rho/rho_default)*cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer, delta=delta);
     end if;
     // To compute the efficiency, we set a lower bound on the electricity consumption.
     // This is needed because WFlo can be close to zero when P is zero, thereby
