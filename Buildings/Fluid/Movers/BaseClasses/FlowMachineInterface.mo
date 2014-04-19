@@ -535,11 +535,11 @@ equation
     // For the homotopy, we want P/V_flow to be bounded as V_flow -> 0 to avoid a very high medium
     // temperature near zero flow.
     if homotopyInitialization then
-      P = homotopy(actual=cha.power(per=per.power, V_flow=VMachine_flow, r_N=r_N, d=powDer),
+      P = homotopy(actual=cha.power(per=per.power, V_flow=VMachine_flow, r_N=r_N, d=powDer, delta=delta),
                       simplified=VMachine_flow/V_flow_nominal*
-                            cha.power(per=per.power, V_flow=V_flow_nominal, r_N=1, d=powDer));
+                            cha.power(per=per.power, V_flow=V_flow_nominal, r_N=1, d=powDer, delta=delta));
     else
-      P = (rho/rho_default)*cha.power(per=per.power, V_flow=VMachine_flow, r_N=r_N, d=powDer);
+      P = (rho/rho_default)*cha.power(per=per.power, V_flow=VMachine_flow, r_N=r_N, d=powDer, delta=delta);
     end if;
     // To compute the efficiency, we set a lower bound on the electricity consumption.
     // This is needed because WFlo can be close to zero when P is zero, thereby

@@ -311,6 +311,7 @@ First implementation.
     input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
     input Real d[:] "Derivatives at support points for spline interpolation";
+    input Real delta "Small value for switching implementation around zero rpm";
     output Modelica.SIunits.Power P "Power consumption";
 
   protected
@@ -330,7 +331,7 @@ First implementation.
               Buildings.Utilities.Math.Functions.smoothMax(
                 x1=r_N,
                 x2=0.1,
-                deltaX=0.05);
+                deltaX=delta);
       // Since the coefficients for the spline were evaluated for
       // rat_nominal = V_flow_nominal/r_N_nominal = V_flow_nominal/1, we use
       // V_flow_nominal below
