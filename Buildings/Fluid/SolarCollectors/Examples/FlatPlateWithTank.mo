@@ -37,12 +37,11 @@ model FlatPlateWithTank
   Buildings.Fluid.Sensors.TemperatureTwoPort TIn(m_flow_nominal=solCol.m_flow_nominal,
     redeclare package Medium = Medium_2) "Temperature sensor"
     annotation (Placement(transformation(extent={{-34,46},{-14,66}})));
-  // fixme. The tank is only 1 meter high. This must be changed.
   Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
    tan(
     nSeg=4,
     redeclare package Medium = Medium,
-    hTan=1,
+    hTan=1.8,
     m_flow_nominal=0.1,
     VTan=1.5,
     dIns=0.07,
@@ -232,7 +231,7 @@ equation
       <ul>
           <li>
             April 18, 2014, by Michael Wetter:<br/>
-            Updated model to use the revised tank.
+            Updated model to use the revised tank and increased the tank height.
           </li>      
           <li>
             March 25, 2014, by Michael Wetter:<br/>
