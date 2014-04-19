@@ -35,8 +35,8 @@ initial equation
   V_flow_max=m_flow_nominal/rho_default;
 equation
   r_V = VMachine_flow/V_flow_max;
-  etaHyd = cha.efficiency(data=hydraulicEfficiency, r_V=r_V, d=hydDer);
-  etaMot = cha.efficiency(data=motorEfficiency,     r_V=r_V, d=motDer);
+  etaHyd = cha.efficiency(data=hydraulicEfficiency, r_V=r_V, d=hydDer, r_N=1, delta=0);
+  etaMot = cha.efficiency(data=motorEfficiency,     r_V=r_V, d=motDer, r_N=1, delta=0);
   dpMachine = -dp;
   VMachine_flow = -port_b.m_flow/rho_in;
   // To compute the electrical power, we set a lower bound for eta to avoid
@@ -78,6 +78,10 @@ the head or the mass flow rate.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 19, 2014, by Filip Jorissen:<br/>
+Set default values for new parameters in efficiency()
+</li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Removed parameter <code>show_V_flow</code>.
