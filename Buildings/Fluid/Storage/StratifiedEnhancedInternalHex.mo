@@ -143,7 +143,7 @@ protected
 
   final parameter Modelica.SIunits.Volume volHexFlu=
     Modelica.Constants.pi * (0.8*dExtHex)^2/4 *lHex
-    "Volume of the heat exchanger. fixme. this needs to be multipled by the lenght of the hex";
+    "Volume of the heat exchanger";
 
   final parameter Integer nSegHexTan = abs(segHex_a-segHex_b) + 1
     "Number of tank segments the heat exchanger resides in";
