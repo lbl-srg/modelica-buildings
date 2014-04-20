@@ -441,11 +441,12 @@ This function computes the fan or pump efficiency for given normalized volume fl
 and performance data. The efficiency is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta; = s(r<sub>V</sub>, d),
+  &eta; = s(r<sub>V</sub>/r<sub>N</sub>, d),
 </p>
 <p>
 where
 <i>&eta;</i> is the efficiency,
+<i>r<sub>N</sub></i> is the normalized fan speed,
 <i>r<sub>V</sub></i> is the normalized volume flow rate, and
 <i>d</i> are performance data for fan or pump efficiency.
 </p>
