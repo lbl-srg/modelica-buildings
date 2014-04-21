@@ -9,7 +9,7 @@ partial model PrescribedFlowMachine
       X=Medium.X_default));
 
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
-      final m_flow_nominal = max(pressure.V_flow)*rho_default,
+      final m_flow_nominal = max(data.pressure.V_flow)*rho_default,
       preSou(final control_m_flow=false));
 
   // Models
@@ -42,7 +42,7 @@ equation
     Documentation(info="<html>
 <p>This is the base model for fans and pumps that take as 
 input a control signal in the form of the pump speed <code>Nrpm</code>
-or the normalized pump speed <code>y=Nrpm/N_nominal</code>.
+or the normalized pump speed <code>y=Nrpm/data.N_nominal</code>.
 </p>
 </html>",
       revisions="<html>

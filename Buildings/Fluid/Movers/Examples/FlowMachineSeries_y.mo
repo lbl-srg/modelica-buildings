@@ -8,7 +8,7 @@ model FlowMachineSeries_y "Two flow machines in series"
 
   Buildings.Fluid.Movers.FlowMachine_y floMac1(
     redeclare package Medium = Medium,
-    pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0}),
+    data(pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0})),
     dynamicBalance=false) "Model of a flow machine"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
@@ -34,10 +34,10 @@ model FlowMachineSeries_y "Two flow machines in series"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Fluid.Movers.FlowMachine_y floMac2(
     redeclare package Medium = Medium,
-    pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0}),
+    data(pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0})),
     dynamicBalance=false) "Model of a flow machine"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Modelica.Blocks.Sources.Step     const1(
+  Modelica.Blocks.Sources.Step const1(
     height=-1,
     offset=1,
     startTime=150)

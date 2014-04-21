@@ -104,19 +104,19 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{372,-146},{352,-166}})));
   Buildings.Fluid.Movers.FlowMachine_y fanSupHot(
     redeclare package Medium = MediumA,
-    pressure(V_flow=mAirHot_flow_nominal/1.2*{0,2}, dp=600*{2,0}),
+    data(pressure(V_flow=mAirHot_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     dynamicBalance=true) "Supply air fan for hot deck"
     annotation (Placement(transformation(extent={{300,-10},{320,10}})));
   Buildings.Fluid.Movers.FlowMachine_y fanSupCol(
     redeclare package Medium = MediumA,
-    pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0}),
+    data(pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     dynamicBalance=true) "Supply air fan for cold deck"
     annotation (Placement(transformation(extent={{302,-160},{322,-140}})));
   Buildings.Fluid.Movers.FlowMachine_y fanRet(
     redeclare package Medium = MediumA,
-    pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0}),
+    data(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     dynamicBalance=true) "Return air fan"
     annotation (Placement(transformation(extent={{360,150},{340,170}})));
@@ -446,7 +446,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={120,-170})));
-  Fluid.Movers.FlowMachine_m_flow pumPreHea(redeclare package Medium = MediumW,
+  Fluid.Movers.FlowMachine_m_flow pumPreHea(
+      redeclare package Medium = MediumW,
       m_flow_nominal=mWatPre_flow_nominal)
     "Pump for preheat coil (to ensure constant flow through the coil)"
     annotation (Placement(transformation(

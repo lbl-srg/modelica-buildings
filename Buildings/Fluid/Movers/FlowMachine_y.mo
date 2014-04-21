@@ -1,8 +1,8 @@
 within Buildings.Fluid.Movers;
 model FlowMachine_y
   "Fan or pump with ideally controlled normalized speed y as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine(
-  final N_nominal=1500 "fix N_nominal as it is used only for scaling");
+  extends Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine(data(
+  final N_nominal =    1500 "fix N_nominal as it is used only for scaling"));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1")
     "Constant normalized rotational speed"
@@ -15,11 +15,11 @@ model FlowMachine_y
         origin={0,120})));
 
 protected
-  Modelica.Blocks.Math.Gain gaiSpe(final k=N_nominal,
+  Modelica.Blocks.Math.Gain gaiSpe(final k=data.N_nominal,
     u(min=0, max=1),
     y(final quantity="AngularVelocity",
       final unit="1/min",
-      nominal=N_nominal)) "Gain for speed input signal"
+      nominal=data.N_nominal)) "Gain for speed input signal"
     annotation (Placement(transformation(extent={{-6,64},{6,76}})));
 equation
   connect(y, gaiSpe.u) annotation (Line(
@@ -39,12 +39,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
     connect(filter.y, N_actual) annotation (Line(
-      points={{34.7,88},{38,88},{38,70},{50,70}},
+      points={{34.7,88},{38,88},{38,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   else
     connect(gaiSpe.y, N_actual) annotation (Line(
-      points={{6.6,70},{50,70}},
+      points={{6.6,70},{58,70},{58,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;

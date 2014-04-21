@@ -4,8 +4,8 @@ model ControlledFlowMachine
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
    preSou(final control_m_flow=control_m_flow));
 
-  extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
-     final use_powerCharacteristic = false,
+  extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(data(
+     final use_powerCharacteristic =      false),
      final rho_default = Medium.density(sta_default));
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
@@ -35,8 +35,8 @@ initial equation
   V_flow_max=m_flow_nominal/rho_default;
 equation
   r_V = VMachine_flow/V_flow_max;
-  etaHyd = cha.efficiency(data=hydraulicEfficiency, r_V=r_V, d=hydDer);
-  etaMot = cha.efficiency(data=motorEfficiency,     r_V=r_V, d=motDer);
+  etaHyd = cha.efficiency(data=data.hydraulicEfficiency, r_V=r_V, d=hydDer);
+  etaMot = cha.efficiency(data=data.motorEfficiency,     r_V=r_V, d=motDer);
   dpMachine = -dp;
   VMachine_flow = -port_b.m_flow/rho_in;
   // To compute the electrical power, we set a lower bound for eta to avoid

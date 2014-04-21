@@ -21,7 +21,10 @@ electrical power draw and efficiency as a function
 of the volume flow rate and the speed.
 These performance curves are described in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
+Buildings.Fluid.Movers.BaseClasses.Characteristics</a>,
+and they are declared in the model parameter
+<a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
+Buildings.Fluid.Movers.Data.Generic</a>.
 </p>
 
 <h5>Models that use performance curves for pressure rise</h5>
@@ -69,8 +72,8 @@ Then, a declaration would be
 <pre>
   Buildings.Fluid.Movers.FlowMachine_y pum(
     redeclare package Medium = Medium,
-    pressure(V_flow={0.0003,0.0006,0.0008},
-             dp    ={45,35,15}*1000))
+    data.pressure(V_flow={0.0003,0.0006,0.0008},
+                  dp    ={45,35,15}*1000))
     \"Circulation pump\";
 </pre>
 
@@ -186,14 +189,14 @@ the hydraulic power input <i>W<sub>hyd</sub></i>, the flow work
 <p>
 The heat dissipated into the medium is as follows: 
 If the motor is cooled by the fluid, as indicated by 
-<code>motorCooledByFluid=true</code>, then the heat dissipated into the medium is
+<code>data.motorCooledByFluid=true</code>, then the heat dissipated into the medium is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q = P<sub>ele</sub> - W<sub>flo</sub>.
 </p>
 
 <p>
-If <code>motorCooledByFluid=false</code>, then the motor is outside the fluid stream,
+If <code>data.motorCooledByFluid=false</code>, then the motor is outside the fluid stream,
 and only the shaft, or hydraulic, work <i>W<sub>hyd</sub></i> enters the thermodynamic
 control volume. Hence,
 </p>
@@ -212,7 +215,7 @@ control volume. Hence,
 <i>Q</i> is the heat released by the motor.
 </p>
 <p>
-If <code>use_powerCharacteristic=true</code>,
+If <code>data.use_powerCharacteristic=true</code>,
 then a set of data points for the power <i>P<sub>ele</sub></i> for different
 volume flow rates at full speed needs to be provided by the user.
 Using the flow work <i>W<sub>flo</sub></i> and the electrical power input
@@ -230,7 +233,7 @@ and <i>&eta;<sub>mot</sub></i> are computed as
   &radic;&eta;<sub>hyd</sub> = &radic;&eta;<sub>mot</sub> = &eta;.
 </p>
 <p>
-However, if <code>use_powerCharacteristic=false</code>, then
+However, if <code>data.use_powerCharacteristic=false</code>, then
 performance data for 
 <i>&eta;<sub>hyd</sub></i> and
  <i>&eta;<sub>mot</sub></i> need to be provided by the user, and hence 
@@ -285,7 +288,7 @@ initialization and time integration of large models.
 
 <h5>Enthalpy change of the component</h5>
 <p>
-If <code>motorCooledByFluid=true</code>, then
+If <code>data.motorCooledByFluid=true</code>, then
 the enthalpy change between the inlet and outlet fluid port is equal 
 to the electrical power <i>P<sub>ele</sub></i> that is consumed by the component.
 Otherwise, it is equal to the hydraulic work <i>W<sub>hyd</sub></i>.
@@ -325,12 +328,18 @@ pressure at <code>port_b</code>.
 The pressure calculations are based on total pressure in Pascals instead of the pump head in meters. 
 This change was done to avoid ambiguities in the parameterization if the models are used as a fan 
 with air as the medium. The original formulation in 
-<a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a> converts head to pressure using the density <code>medium.d</code>. Therefore, for fans, head would be converted to pressure using the density of air. However, for fans, manufacturers typically publish the head in millimeters water (mmH20). Therefore, to avoid confusion when using these models with media other than water, 
+<a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a> converts head 
+to pressure using the density <code>medium.d</code>. Therefore, for fans, 
+head would be converted to pressure using the density of air. However, for fans, 
+manufacturers typically publish the head in millimeters water (mmH20). 
+Therefore, to avoid confusion when using these models with media other than water, 
 we changed the models to use total pressure in Pascals instead of head in meters.
 </li>
 <li>
 The performance data are interpolated using cubic hermite splines instead of polynomials.
-These functions are implemented at <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
+These functions are implemented at 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </li>
 </ul>
 <h4>References</h4>

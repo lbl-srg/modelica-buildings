@@ -105,10 +105,11 @@ model MoistAir
                                       TSup(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Supply air temperature"
     annotation (Placement(transformation(extent={{310,62},{330,82}})));
-  Buildings.Fluid.Movers.FlowMachine_y fan(redeclare package Medium = Medium,
-        pressure(V_flow={0,m_flow_nominal/1.2},
-          dp={2*400,400}),
-        dynamicBalance=false)
+  Buildings.Fluid.Movers.FlowMachine_y fan(
+     redeclare package Medium = Medium,
+     data(pressure(V_flow={0,m_flow_nominal/1.2},
+          dp={2*400,400})),
+          dynamicBalance=false)
     annotation (Placement(transformation(extent={{140,62},{160,82}})));
   Modelica.Blocks.Sources.Constant yFan(k=1) "Fan control signal"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
