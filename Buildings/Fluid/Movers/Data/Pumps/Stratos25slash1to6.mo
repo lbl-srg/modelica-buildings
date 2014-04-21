@@ -28,15 +28,20 @@ Pump curves (H(m_flow) and P(m_flow)) from the data sheets
 are digitized using 
 <a href=\"http://arohatgi.info/WebPlotDigitizer/app/\">web plot digitizer</a>.
 </p>
-<h4><span style=\"color:#008000\">Limitations:</span></h4>
+<h4>Limitations:</h4>
 <ul>
 <li>The pump curve cap at high rpm that can be seen is not enforced 
-by the model.</li>
-<li>The pump curve may be altered slightly to guarantee that dp/dm&lt;0</li>
+by the model.
+</li>
+<li>
+The pump curve may be altered slightly to guarantee that <i>dp/dm&lt;0</i>
+</li>
 </ul>
 <p>
+The figure below illustrates a digitized pump curve.
+</p>
+<p align=\"center\">
 <img alt=\"Pump curve\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Data/stratoscurve.png\"/></p>
-<p>An illustration of a pump curve that is digitized.</p>
 </html>", revisions="<html>
 <ul>
 <li>April 17, 2014
