@@ -2,7 +2,8 @@ within Buildings.Fluid.Movers.Examples.BaseClasses;
 partial model FlowMachine_ZeroFlow
   "Base class to test flow machines with zero flow rate"
 
-  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+  replaceable package Medium =
+      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));

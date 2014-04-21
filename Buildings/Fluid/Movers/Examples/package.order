@@ -1,6 +1,7 @@
 FlowMachine_y
 FlowMachine_y_linear
 FlowMachine_Nrpm
+FlowMachine_Nrpm_Data
 FlowMachine_dp
 FlowMachine_m_flow
 ControlledFlowMachineDynamic
@@ -10,4 +11,3 @@ FlowMachineParallel_y
 FlowMachineSeries_y
 FlowMachine_y_pumpCurves
 BaseClasses
-
