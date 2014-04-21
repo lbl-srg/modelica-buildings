@@ -2,28 +2,32 @@ within Buildings.Fluid.Movers.BaseClasses;
 partial model FlowMachineInterface
   "Partial model with performance curves for fans or pumps"
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
-    hydraulicEfficiency(r_V=moverData.hydraulicEfficiency.r_V, eta=moverData.hydraulicEfficiency.eta),
-    motorEfficiency(r_V=moverData.motorEfficiency.r_V, eta=moverData.motorEfficiency.eta),
-    use_powerCharacteristic = moverData.use_powerCharacteristic,
-    motorCooledByFluid=moverData.motorCooledByFluid,
+    hydraulicEfficiency(r_V=data.hydraulicEfficiency.r_V, eta=data.hydraulicEfficiency.eta),
+    motorEfficiency(r_V=data.motorEfficiency.r_V, eta=data.motorEfficiency.eta),
+    use_powerCharacteristic = data.use_powerCharacteristic,
+    motorCooledByFluid=data.motorCooledByFluid,
     VMachine_flow(nominal=V_flow_nominal, start=V_flow_nominal),
     V_flow_max(nominal=V_flow_nominal, start=V_flow_nominal));
 
   import Modelica.Constants;
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
+  replaceable parameter Data.Generic data constrainedby Data.Generic
+    "Record with performance data" annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{-20,-80},{0,-60}})));
+
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
-    N_nominal = moverData.N_nominal
+    N_nominal = data.N_nominal
     "Nominal rotational speed for flow characteristic"
     annotation(Dialog(group="Characteristics"));
   final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
     pressure.V_flow[size(pressure.V_flow,1)]
     "Nominal volume flow rate, used for homotopy";
-  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure(V_flow=moverData.pressure.V_flow, dp=moverData.pressure.dp)
+  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure(V_flow=data.pressure.V_flow, dp=data.pressure.dp)
     "Volume flow rate vs. total pressure rise"
     annotation(Placement(transformation(extent={{20,-80},{40,-60}})),
                Dialog(group="Characteristics"));
-  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters power(V_flow=moverData.power.V_flow,P=moverData.power.P)
+  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters power(V_flow=data.power.V_flow,P=data.power.P)
     "Volume flow rate vs. electrical power consumption"
     annotation(Placement(transformation(extent={{20,-40},{40,-20}})),
                Dialog(group="Characteristics", enable = use_powerCharacteristic));
@@ -173,10 +177,6 @@ algorithm
   end for;
 end getArrayAsString;
 
-public
-  replaceable parameter Data.MoverData moverData constrainedby Data.MoverData
-    "Record containing pump/fan parameters" annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{-20,-80},{0,-60}})));
 initial algorithm
   // Check validity of data
   assert(size(pressure.V_flow, 1) > 1, "Must have at least two data points for pressure.V_flow.");
