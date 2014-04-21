@@ -32,9 +32,10 @@ are digitized using
 <ul>
 <li>The pump curve cap at high rpm that can be seen is not enforced 
 by the model.</li>
-<li>The pump curve may be altered slightly to guarantee that dp/dm&LT;0</li>
+<li>The pump curve may be altered slightly to guarantee that dp/dm&lt;0</li>
 </ul>
-<p><br><br><img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Data/stratoscurve.png\"/></p>
+<p>
+<img alt=\"Pump curve\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Data/stratoscurve.png\"/></p>
 <p>An illustration of a pump curve that is digitized.</p>
 </html>", revisions="<html>
 <ul>
