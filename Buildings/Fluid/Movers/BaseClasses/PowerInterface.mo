@@ -7,7 +7,7 @@ partial model PowerInterface
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  replaceable parameter Data.Generic data constrainedby Data.Generic
+  replaceable parameter Data.Generic per constrainedby Data.Generic
     "Record with performance data" annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-80},{80,-60}})));
 

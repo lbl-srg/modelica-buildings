@@ -130,7 +130,7 @@ First implementation.
     extends Modelica.Icons.Function;
     input
       Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal
-                                                                                    data
+                                                                                per
       "Pressure performance data";
     input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
@@ -160,7 +160,7 @@ First implementation.
         "Coefficients for polynomial of pressure vs. flow rate";
       input
         Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal
-                                                                                      data
+                                                                                  per
         "Pressure performance data";
       input Integer dimD "Dimension of data vector";
 
@@ -195,7 +195,7 @@ First implementation.
   algorithm
     if r_N >= delta then
        dp := performanceCurve(V_flow=V_flow, r_N=r_N, d=d,
-                              data=data, dimD=dimD);
+                              per=per, dimD=dimD);
     elseif r_N <= delta/2 then
       dp := flowApproximationAtOrigin(r_N=r_N, V_flow=V_flow,
                                       VDelta_flow=  VDelta_flow, dpDelta=dpDelta,
@@ -203,7 +203,7 @@ First implementation.
     else
       dp := Modelica.Fluid.Utilities.regStep(x=r_N-0.75*delta,
                                              y1=performanceCurve(V_flow=V_flow, r_N=r_N, d=d,
-                                                                 data=data, dimD=dimD),
+                                                                 per=per, dimD=dimD),
                                              y2=flowApproximationAtOrigin(r_N=r_N, V_flow=V_flow,
                                                      VDelta_flow=VDelta_flow, dpDelta=dpDelta,
                                                      delta=delta, cBar=cBar),
@@ -293,7 +293,7 @@ First implementation.
 
   function power "Flow vs. electrical power characteristics for fan or pump"
     extends Modelica.Icons.Function;
-    input Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters data
+    input Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters per
       "Pressure performance data";
     input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
@@ -365,7 +365,7 @@ First implementation.
     extends Modelica.Icons.Function;
     input
       Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-      data "Efficiency performance data";
+      per "Efficiency performance data";
     input Real r_V(unit="1")
       "Volumetric flow rate divided by nominal flow rate";
     input Real d[:] "Derivatives at support points for spline interpolation";

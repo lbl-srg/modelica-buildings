@@ -9,11 +9,11 @@ model FlowMachine_Nrpm_Data
     redeclare Buildings.Fluid.Movers.FlowMachine_Nrpm floMacSta(
       redeclare package Medium = Medium,
       filteredSpeed=false,
-      redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6 data),
+      redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6 per),
     redeclare Buildings.Fluid.Movers.FlowMachine_Nrpm floMacDyn(
       redeclare package Medium = Medium,
       filteredSpeed=false,
-      redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6 data));
+      redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6 per));
 equation
   connect(gain.y, floMacSta.Nrpm) annotation (Line(
       points={{-25,100},{30,100},{30,92}},
