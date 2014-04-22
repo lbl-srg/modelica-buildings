@@ -567,7 +567,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Line(
-          points={{32,50},{100,50}},
+          points={{0,50},{100,50}},
           color={0,0,0},
           smooth=Smooth.None),
         Text(extent={{64,68},{114,54}},

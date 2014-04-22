@@ -65,6 +65,18 @@ An equivalent model could be created by deleting the two resistance models
 <pre>
   val(dpValve_nominal=6000, dpFixed={10000, 100}, m_flow_nominal=0.1);
 </pre>
+<h4>Leakage flow rate</h4>
+<p>
+Valves and air dampers should for numerical reasons have a small leakage flow rate.
+This leakage <i>l</i> is a non-dimensional number, defined as
+<i>l=K<sub>v</sub>(y=0) &frasl; =K<sub>v</sub>(y=1)</i>.
+A typical default value is <i>l=0.0001</i>.
+</p>
+<p>
+If <i>l=0</i>, models will issue an error message as
+this can in some situations lead to numerical problems if
+a flow leg becomes decoupled from a reference pressure source.
+</p>
 <h4>Transients of actuators</h4>
 <p>
 This section describes how valves and dampers can be configured

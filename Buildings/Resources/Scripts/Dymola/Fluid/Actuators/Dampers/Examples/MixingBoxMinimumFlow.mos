@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Actuators.Examples.MixingBoxMinimumFlow", stopTime=240, method="dassl", resultFile="MixingBoxMinimumFlow");
+simulateModel("Buildings.Fluid.Actuators.Dampers.Examples.MixingBoxMinimumFlow", stopTime=240, method="dassl", resultFile="MixingBoxMinimumFlow");
 createPlot(id = 5,
  position = {15, 10, 879, 525},
  y = {"mixBox.damOAMin.m_flow", "mixBox.damOA.m_flow", "mixBox.damExh.m_flow", "mixBox.damRec.m_flow"},

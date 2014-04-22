@@ -1,6 +1,7 @@
 within Buildings.Fluid.SolarCollectors.Data;
 record GenericSolarCollector
   "Generic data record providing inputs for specific collector data records"
+  extends Modelica.Icons.Record;
 
   parameter SolarCollectors.Types.Area ATyp "Gross or aperture area";
   parameter Modelica.SIunits.Area A "Area";

@@ -68,6 +68,10 @@ model UTube "Single U-tube borehole heat exchanger"
     annotation(Dialog(group="Borehole"));
   parameter Real B1=-0.605 "Shape coefficient for grout resistance"
     annotation(Dialog(group="Borehole"));
+
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment borHol[nVer](
     redeclare each final package Medium = Medium,
     each final matSoi=matSoi,

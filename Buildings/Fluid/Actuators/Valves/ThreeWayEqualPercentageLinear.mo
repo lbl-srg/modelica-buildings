@@ -49,8 +49,7 @@ for the implementation of the three way valve
 and see
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
 Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>
-for the implementation of the leakage flow or 
-the regularization near the origin.
+for the implementation of the regularization near the origin.
 </p>
 </html>",
 revisions="<html>
