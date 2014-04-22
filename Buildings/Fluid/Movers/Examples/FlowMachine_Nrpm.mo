@@ -5,12 +5,12 @@ model FlowMachine_Nrpm "Fan with zero mass flow rate and speed as input"
     gain(k=1500),
     redeclare Buildings.Fluid.Movers.FlowMachine_Nrpm floMacSta(
       redeclare package Medium = Medium,
-      data(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
                dp={2*dp_nominal,dp_nominal,0})),
       filteredSpeed=false),
     redeclare Buildings.Fluid.Movers.FlowMachine_Nrpm floMacDyn(
       redeclare package Medium = Medium,
-      data(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
                dp={2*dp_nominal,dp_nominal,0})),
       filteredSpeed=false));
 

@@ -72,7 +72,7 @@ Then, a declaration would be
 <pre>
   Buildings.Fluid.Movers.FlowMachine_y pum(
     redeclare package Medium = Medium,
-    data.pressure(V_flow={0.0003,0.0006,0.0008},
+    per.pressure(V_flow={0.0003,0.0006,0.0008},
                   dp    ={45,35,15}*1000))
     \"Circulation pump\";
 </pre>
@@ -189,14 +189,14 @@ the hydraulic power input <i>W<sub>hyd</sub></i>, the flow work
 <p>
 The heat dissipated into the medium is as follows: 
 If the motor is cooled by the fluid, as indicated by 
-<code>data.motorCooledByFluid=true</code>, then the heat dissipated into the medium is
+<code>per.motorCooledByFluid=true</code>, then the heat dissipated into the medium is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q = P<sub>ele</sub> - W<sub>flo</sub>.
 </p>
 
 <p>
-If <code>data.motorCooledByFluid=false</code>, then the motor is outside the fluid stream,
+If <code>per.motorCooledByFluid=false</code>, then the motor is outside the fluid stream,
 and only the shaft, or hydraulic, work <i>W<sub>hyd</sub></i> enters the thermodynamic
 control volume. Hence,
 </p>
@@ -215,7 +215,7 @@ control volume. Hence,
 <i>Q</i> is the heat released by the motor.
 </p>
 <p>
-If <code>data.use_powerCharacteristic=true</code>,
+If <code>per.use_powerCharacteristic=true</code>,
 then a set of data points for the power <i>P<sub>ele</sub></i> for different
 volume flow rates at full speed needs to be provided by the user.
 Using the flow work <i>W<sub>flo</sub></i> and the electrical power input
@@ -233,7 +233,7 @@ and <i>&eta;<sub>mot</sub></i> are computed as
   &radic;&eta;<sub>hyd</sub> = &radic;&eta;<sub>mot</sub> = &eta;.
 </p>
 <p>
-However, if <code>data.use_powerCharacteristic=false</code>, then
+However, if <code>per.use_powerCharacteristic=false</code>, then
 performance data for 
 <i>&eta;<sub>hyd</sub></i> and
  <i>&eta;<sub>mot</sub></i> need to be provided by the user, and hence 
@@ -288,7 +288,7 @@ initialization and time integration of large models.
 
 <h5>Enthalpy change of the component</h5>
 <p>
-If <code>data.motorCooledByFluid=true</code>, then
+If <code>per.motorCooledByFluid=true</code>, then
 the enthalpy change between the inlet and outlet fluid port is equal 
 to the electrical power <i>P<sub>ele</sub></i> that is consumed by the component.
 Otherwise, it is equal to the hydraulic work <i>W<sub>hyd</sub></i>.

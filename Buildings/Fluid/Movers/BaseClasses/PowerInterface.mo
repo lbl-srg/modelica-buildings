@@ -35,10 +35,10 @@ protected
   //Modelica.SIunits.HeatFlowRate QThe_flow "Heat input into the medium";
   parameter Modelica.SIunits.VolumeFlowRate delta_V_flow = 1E-3*V_flow_max
     "Factor used for setting heat input into medium to zero at very small flows";
-  final parameter Real motDer[size(data.motorEfficiency.r_V, 1)](each fixed=false)
+  final parameter Real motDer[size(per.motorEfficiency.r_V, 1)](each fixed=false)
     "Coefficients for polynomial of pressure vs. flow rate"
     annotation (Evaluate=true);
-  final parameter Real hydDer[size(data.hydraulicEfficiency.r_V,1)](each fixed=false)
+  final parameter Real hydDer[size(per.hydraulicEfficiency.r_V,1)](each fixed=false)
     "Coefficients for polynomial of pressure vs. flow rate"
     annotation (Evaluate=true);
 
@@ -48,25 +48,25 @@ protected
 initial algorithm
  // Compute derivatives for cubic spline
  motDer :=
-   if data.use_powerCharacteristic then
-     zeros(size(data.motorEfficiency.r_V, 1))
-   elseif ( size(data.motorEfficiency.r_V, 1) == 1)  then
+   if per.use_powerCharacteristic then
+     zeros(size(per.motorEfficiency.r_V, 1))
+   elseif ( size(per.motorEfficiency.r_V, 1) == 1)  then
        {0}
    else
       Buildings.Utilities.Math.Functions.splineDerivatives(
-      x=data.motorEfficiency.r_V,
-      y=data.motorEfficiency.eta,
-      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=data.motorEfficiency.eta,
+      x=per.motorEfficiency.r_V,
+      y=per.motorEfficiency.eta,
+      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=per.motorEfficiency.eta,
                                                                         strict=false));
   hydDer :=
-     if data.use_powerCharacteristic then
-       zeros(size(data.hydraulicEfficiency.r_V, 1))
-     elseif ( size(data.hydraulicEfficiency.r_V, 1) == 1)  then
+     if per.use_powerCharacteristic then
+       zeros(size(per.hydraulicEfficiency.r_V, 1))
+     elseif ( size(per.hydraulicEfficiency.r_V, 1) == 1)  then
        {0}
      else
        Buildings.Utilities.Math.Functions.splineDerivatives(
-                   x=data.hydraulicEfficiency.r_V,
-                   y=data.hydraulicEfficiency.eta);
+                   x=per.hydraulicEfficiency.r_V,
+                   y=per.hydraulicEfficiency.eta);
 equation
   eta = etaHyd * etaMot;
 //  WFlo = eta * P;
@@ -75,7 +75,7 @@ equation
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd
   etaHyd * WHyd   = WFlo;
   // Heat input into medium
-  QThe_flow +  WFlo = if data.motorCooledByFluid then P else WHyd;
+  QThe_flow +  WFlo = if per.motorCooledByFluid then P else WHyd;
   // At m_flow = 0, the solver may still obtain positive values for QThe_flow.
   // The next statement sets the heat input into the medium to zero for very small flow rates.
   if homotopyInitialization then

@@ -151,7 +151,7 @@ First implementation.
     output Modelica.SIunits.Pressure dp "Pressure raise";
 
   protected
-     Integer dimD(min=2)=size(data.V_flow, 1) "Dimension of data vector";
+     Integer dimD(min=2)=size(per.V_flow, 1) "Dimension of data vector";
 
     function performanceCurve "Performance curve away from the origin"
       input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
@@ -176,17 +176,17 @@ First implementation.
       // rat_nominal = V_flow_nominal/r_N_nominal = V_flow_nominal/1, we use
       // V_flow_nominal below
       for j in 1:dimD-1 loop
-         if rat > data.V_flow[j] then
+         if rat > per.V_flow[j] then
            i := j;
          end if;
       end for;
       // Extrapolate or interpolate the data
       dp:=r_N^2*Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
                   x=rat,
-                  x1=data.V_flow[i],
-                  x2=data.V_flow[i + 1],
-                  y1=data.dp[i],
-                  y2=data.dp[i + 1],
+                  x1=per.V_flow[i],
+                  x2=per.V_flow[i + 1],
+                  y1=per.dp[i],
+                  y2=per.dp[i + 1],
                   y1d=d[i],
                   y2d=d[i+1]);
       annotation(smoothOrder=1);
@@ -301,31 +301,31 @@ First implementation.
     output Modelica.SIunits.Power P "Power consumption";
 
   protected
-     Integer n=size(data.V_flow, 1) "Dimension of data vector";
+     Integer n=size(per.V_flow, 1) "Dimension of data vector";
 
      Modelica.SIunits.VolumeFlowRate rat "Ratio of V_flow/r_N";
      Integer i "Integer to select data interval";
 
   algorithm
     if n == 1 then
-      P := r_N^3*data.P[1];
+      P := r_N^3*per.P[1];
     else
       i :=1;
       // Since the coefficients for the spline were evaluated for
       // rat_nominal = V_flow_nominal/r_N_nominal = V_flow_nominal/1, we use
       // V_flow_nominal below
       for j in 1:n-1 loop
-         if V_flow > data.V_flow[j] then
+         if V_flow > per.V_flow[j] then
            i := j;
          end if;
       end for;
       // Extrapolate or interpolate the data
       P:=r_N^3*Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
                   x=V_flow,
-                  x1=data.V_flow[i],
-                  x2=data.V_flow[i + 1],
-                  y1=data.P[i],
-                  y2=data.P[i + 1],
+                  x1=per.V_flow[i],
+                  x2=per.V_flow[i + 1],
+                  y1=per.P[i],
+                  y2=per.P[i + 1],
                   y1d=d[i],
                   y2d=d[i+1]);
     end if;
@@ -372,25 +372,25 @@ First implementation.
     output Real eta(min=0, unit="1") "Efficiency";
 
   protected
-    Integer n = size(data.r_V, 1) "Number of data points";
+    Integer n = size(per.r_V, 1) "Number of data points";
     Integer i "Integer to select data interval";
   algorithm
     if n == 1 then
-      eta := data.eta[1];
+      eta := per.eta[1];
     else
       i :=1;
       for j in 1:n-1 loop
-         if r_V > data.r_V[j] then
+         if r_V > per.r_V[j] then
            i := j;
          end if;
       end for;
       // Extrapolate or interpolate the data
       eta:=Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
                   x=r_V,
-                  x1=data.r_V[i],
-                  x2=data.r_V[i + 1],
-                  y1=data.eta[i],
-                  y2=data.eta[i + 1],
+                  x1=per.r_V[i],
+                  x2=per.r_V[i + 1],
+                  y1=per.eta[i],
+                  y2=per.eta[i + 1],
                   y1d=d[i],
                   y2d=d[i+1]);
     end if;

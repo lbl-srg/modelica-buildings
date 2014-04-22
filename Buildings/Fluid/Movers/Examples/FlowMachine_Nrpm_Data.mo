@@ -3,9 +3,9 @@ model FlowMachine_Nrpm_Data
   extends Modelica.Icons.Example;
  extends Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow(
     redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
-    gain(k=floMacSta.data.N_nominal),
-    m_flow_nominal=floMacSta.data.pressure.V_flow[3]*1000,
-    dp_nominal=floMacSta.data.pressure.dp[3]/2,
+    gain(k=floMacSta.per.N_nominal),
+    m_flow_nominal=floMacSta.per.pressure.V_flow[3]*1000,
+    dp_nominal=floMacSta.per.pressure.dp[3]/2,
     redeclare Buildings.Fluid.Movers.FlowMachine_Nrpm floMacSta(
       redeclare package Medium = Medium,
       filteredSpeed=false,

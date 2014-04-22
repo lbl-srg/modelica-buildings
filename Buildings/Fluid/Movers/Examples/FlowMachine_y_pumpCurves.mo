@@ -12,7 +12,7 @@ model FlowMachine_y_pumpCurves
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dynamicBalance=false,
-    data(pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
+    per(pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
                   dp=dp_nominal*{0.9, 0.85, 0.6, 0.2})))
     "Declaration of pump model";
 
