@@ -40,8 +40,8 @@ model TwoRoomsWithStorage
 
   Fluid.Movers.FlowMachine_y pumBoi(
     redeclare package Medium = Medium,
-    pressure(V_flow=mBoi_flow_nominal/1000*{0.5, 1},
-             dp=(3000+2000)*{2,1}),
+    per(pressure(V_flow=mBoi_flow_nominal/1000*{0.5, 1},
+                  dp=(3000+2000)*{2,1})),
     dynamicBalance=false)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -49,9 +49,9 @@ model TwoRoomsWithStorage
 
   Fluid.Movers.FlowMachine_y pumRad(
     redeclare package Medium = Medium,
-    pressure(
+    per(pressure(
           V_flow=mRad_flow_nominal/1000*{0,2},
-          dp=dp_nominal*{2,0}),
+          dp=dp_nominal*{2,0})),
     dynamicBalance=false) "Pump that serves the radiators"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,

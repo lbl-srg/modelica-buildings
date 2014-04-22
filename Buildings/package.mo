@@ -11,13 +11,15 @@ package UsersGuide "User's Guide"
     Documentation(info="<html>
 <p>
 This library follows the conventions of the 
-<a href=\"modelica://Modelica.UsersGuide.Conventions\">Modelica Standard Library</a>, which are as follows:
+<a href=\"modelica://Modelica.UsersGuide.Conventions\">
+Modelica Standard Library</a>, which are as follows:
 </p>
 
 <p>
 Note, in the html documentation of any Modelica library,
 the headings \"h1, h2, h3\" should not be used,
-because they are utilized from the automatically generated documentation/headings.
+because they are utilized from the automatically generated 
+documentation and headings.
 Additional headings in the html documentation should start with \"h4\".
 </p>
 
@@ -151,12 +153,13 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.TwoWayTable
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Two way valve for which the opening characteristics
+                       is specified by a table.
     </td> 
     </tr>
 </table>
@@ -180,6 +183,11 @@ have been <b style=\"color:blue\">improved</b> in a
                        are only for output reporting.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.Exponential
+    </td>
+    <td valign=\"top\">Improved documentation of the flow resistance.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -198,6 +206,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachinePolynomial
+    </td>
+    <td valign=\"top\">Moved the model to the package
+                       <code>Buildings.Obsolete</code>, 
+                       as this model is planned to be removed in future versions.
+                       The conversion script should update old instances of 
+                       this model automatically in Dymola.
+                       Users should change their models to use a flow machine from
+                       the package <code>Buildings.Fluid.Movers</code>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Storage.ExpansionVessel

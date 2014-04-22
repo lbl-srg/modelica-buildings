@@ -4,30 +4,12 @@ partial model PowerInterface
 
   import Modelica.Constants;
 
-  parameter Boolean use_powerCharacteristic = false
-    "Use powerCharacteristic (vs. efficiencyCharacteristic)"
-     annotation(Evaluate=true,Dialog(group="Characteristics"));
-
-  parameter Boolean motorCooledByFluid = true
-    "If true, then motor heat is added to fluid stream"
-    annotation(Dialog(group="Characteristics"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-      motorEfficiency(r_V={1}, eta={0.7})
-    "Normalized volume flow rate vs. efficiency"
-    annotation(Placement(transformation(extent={{60,-40},{80,-20}})),
-               Dialog(group="Characteristics"),
-               enable = not use_powerCharacteristic);
-  parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-      hydraulicEfficiency(r_V={1}, eta={0.7})
-    "Normalized volume flow rate vs. efficiency"
-    annotation(Placement(transformation(extent={{60,-80},{80,-60}})),
-               Dialog(group="Characteristics"),
-               enable = not use_powerCharacteristic);
+  replaceable parameter Data.Generic per constrainedby Data.Generic
+    "Record with performance data" annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{60,-80},{80,-60}})));
 
   parameter Modelica.SIunits.Density rho_default
     "Fluid density at medium default state";
@@ -53,10 +35,10 @@ protected
   //Modelica.SIunits.HeatFlowRate QThe_flow "Heat input into the medium";
   parameter Modelica.SIunits.VolumeFlowRate delta_V_flow = 1E-3*V_flow_max
     "Factor used for setting heat input into medium to zero at very small flows";
-  final parameter Real motDer[size(motorEfficiency.r_V, 1)](each fixed=false)
+  final parameter Real motDer[size(per.motorEfficiency.r_V, 1)](each fixed=false)
     "Coefficients for polynomial of pressure vs. flow rate"
     annotation (Evaluate=true);
-  final parameter Real hydDer[size(hydraulicEfficiency.r_V,1)](each fixed=false)
+  final parameter Real hydDer[size(per.hydraulicEfficiency.r_V,1)](each fixed=false)
     "Coefficients for polynomial of pressure vs. flow rate"
     annotation (Evaluate=true);
 
@@ -66,25 +48,25 @@ protected
 initial algorithm
  // Compute derivatives for cubic spline
  motDer :=
-   if use_powerCharacteristic then
-     zeros(size(motorEfficiency.r_V, 1))
-   elseif ( size(motorEfficiency.r_V, 1) == 1)  then
+   if per.use_powerCharacteristic then
+     zeros(size(per.motorEfficiency.r_V, 1))
+   elseif ( size(per.motorEfficiency.r_V, 1) == 1)  then
        {0}
    else
       Buildings.Utilities.Math.Functions.splineDerivatives(
-      x=motorEfficiency.r_V,
-      y=motorEfficiency.eta,
-      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=motorEfficiency.eta,
+      x=per.motorEfficiency.r_V,
+      y=per.motorEfficiency.eta,
+      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=per.motorEfficiency.eta,
                                                                         strict=false));
   hydDer :=
-     if use_powerCharacteristic then
-       zeros(size(hydraulicEfficiency.r_V, 1))
-     elseif ( size(hydraulicEfficiency.r_V, 1) == 1)  then
+     if per.use_powerCharacteristic then
+       zeros(size(per.hydraulicEfficiency.r_V, 1))
+     elseif ( size(per.hydraulicEfficiency.r_V, 1) == 1)  then
        {0}
      else
        Buildings.Utilities.Math.Functions.splineDerivatives(
-                   x=hydraulicEfficiency.r_V,
-                   y=hydraulicEfficiency.eta);
+                   x=per.hydraulicEfficiency.r_V,
+                   y=per.hydraulicEfficiency.eta);
 equation
   eta = etaHyd * etaMot;
 //  WFlo = eta * P;
@@ -93,7 +75,7 @@ equation
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd
   etaHyd * WHyd   = WFlo;
   // Heat input into medium
-  QThe_flow +  WFlo = if motorCooledByFluid then P else WHyd;
+  QThe_flow +  WFlo = if per.motorCooledByFluid then P else WHyd;
   // At m_flow = 0, the solver may still obtain positive values for QThe_flow.
   // The next statement sets the heat input into the medium to zero for very small flow rates.
   if homotopyInitialization then
@@ -110,7 +92,7 @@ equation
         Text(extent={{64,100},{114,86}},  textString="P",
           lineColor={0,0,127}),
         Line(
-          points={{32,80},{100,80}},
+          points={{0,80},{100,80}},
           color={0,0,0},
           smooth=Smooth.None)}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
@@ -132,6 +114,12 @@ to properly guard against division by zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 21, 2014, by Filip Jorisson and Michael Wetter:<br/>
+Changed model to use 
+<a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
+Buildings.Fluid.Movers.Data.Generic</a>.
+</li>
 <li>
 September 17, 2013, by Michael Wetter:<br/>
 Added missing <code>each</code> keyword in declaration of parameters

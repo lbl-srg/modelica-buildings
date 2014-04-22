@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachine_y_pumpCurves
-  "Test model for pump that illustrates the pump curves"
+  "Pumps that illustrates the use of the pump curves"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 
@@ -12,8 +12,8 @@ model FlowMachine_y_pumpCurves
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dynamicBalance=false,
-    pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
-                  dp=dp_nominal*{0.9, 0.85, 0.6, 0.2}))
+    per(pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
+                  dp=dp_nominal*{0.9, 0.85, 0.6, 0.2})))
     "Declaration of pump model";
 
   pumpModel pum(filteredSpeed=false) "Pump"

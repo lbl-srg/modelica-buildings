@@ -82,13 +82,14 @@ model ClosedLoop
     redeclare package Medium = MediumA,
     tau=60,
     dynamicBalance=true,
-    pressure(V_flow={0, m_flow_nominal/1.2*2}, dp={850,0})) "Supply air fan"
+    per(pressure(V_flow={0, m_flow_nominal/1.2*2}, dp={850,0})))
+    "Supply air fan"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
   Buildings.Fluid.Movers.FlowMachine_y fanRet(
     redeclare package Medium = MediumA,
     tau=60,
     dynamicBalance=true,
-    pressure(V_flow=m_flow_nominal/1.2*{0, 2}, dp=1.5*110*{2,0}))
+    per(pressure(V_flow=m_flow_nominal/1.2*{0, 2}, dp=1.5*110*{2,0})))
     "Return air fan"
     annotation (Placement(transformation(extent={{310,110},{290,130}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(

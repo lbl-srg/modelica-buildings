@@ -3,7 +3,7 @@ model ControlledFlowMachine
 
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
-  Modelica.Blocks.Sources.Pulse     y(
+  Modelica.Blocks.Sources.Pulse y(
     startTime=0,
     offset=0,
     amplitude=1,
@@ -29,7 +29,7 @@ model ControlledFlowMachine
         origin={-10,32})));
   Buildings.Fluid.Movers.FlowMachine_y fan1(
     redeclare package Medium = Medium,
-    pressure(final V_flow={0,1.8,3}, dp={1000,600,0}),
+    per(pressure(final V_flow={0,1.8,3}, dp={1000,600,0})),
     dynamicBalance=false)
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   FixedResistances.FixedResistanceDpM dp1(
@@ -73,7 +73,7 @@ model ControlledFlowMachine
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
   Buildings.Fluid.Movers.FlowMachine_Nrpm fan4(
     redeclare package Medium = Medium,
-    pressure(final V_flow={0,1.8,3}, dp={1000,600,0}),
+    per(pressure(final V_flow={0,1.8,3}, dp={1000,600,0})),
     dynamicBalance=false)
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Modelica.Blocks.Math.Gain gain(k=1500) "Converts y to nominal rpm"

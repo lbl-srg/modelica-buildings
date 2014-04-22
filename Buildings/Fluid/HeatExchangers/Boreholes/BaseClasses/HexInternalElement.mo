@@ -10,14 +10,12 @@ model HexInternalElement "Internal part of a borehole"
     vol1(final energyDynamics=energyDynamics,
          final massDynamics=massDynamics,
          final prescribedHeatFlowRate=false,
-         final homotopyInitialization=homotopyInitialization,
          final allowFlowReversal=allowFlowReversal1,
          final V=m2_flow_nominal*tau2/rho2_nominal,
          final m_flow_small=m1_flow_small),
     final vol2(final energyDynamics=energyDynamics,
          final massDynamics=massDynamics,
          final prescribedHeatFlowRate=false,
-         final homotopyInitialization=homotopyInitialization,
          final V=m1_flow_nominal*tau1/rho1_nominal,
          final m_flow_small=m2_flow_small));
 

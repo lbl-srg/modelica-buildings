@@ -90,9 +90,9 @@ equation
           5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-                    graphics={
+  annotation(Icon(coordinateSystem(preserveAspectRatio=true,
+    extent={{-100,-100},{100,100}}),
+    graphics={
         Line(
           visible=not filteredSpeed,
           points={{0,100},{0,40}},

@@ -1,17 +1,18 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachine_y
+  "Fan with zero mass flow rate and control signal y as input"
   extends Modelica.Icons.Example;
  extends Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow(
     gain(k=1),
     redeclare Buildings.Fluid.Movers.FlowMachine_y floMacSta(
       redeclare package Medium = Medium,
-      pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
-               dp={2*dp_nominal,dp_nominal,0}),
+      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+                    dp={2*dp_nominal,dp_nominal,0})),
       filteredSpeed=false),
     redeclare Buildings.Fluid.Movers.FlowMachine_y floMacDyn(
       redeclare package Medium = Medium,
-      pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
-               dp={2*dp_nominal,dp_nominal,0}),
+      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+                    dp={2*dp_nominal,dp_nominal,0})),
       filteredSpeed=false));
 
 equation

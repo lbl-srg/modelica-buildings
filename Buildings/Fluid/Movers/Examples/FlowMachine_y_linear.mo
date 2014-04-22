@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachine_y_linear
-  "Test model for pump with linear characteristic for pressure vs. flow rate"
+  "Pump with linear characteristic for pressure vs. flow rate"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 
@@ -26,7 +26,7 @@ model FlowMachine_y_linear
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dynamicBalance=false,
-    pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0}),
+    per(pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0})),
     filteredSpeed=false) "Pump with fixed pressure raise"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   inner Modelica.Fluid.System system
@@ -55,7 +55,7 @@ model FlowMachine_y_linear
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dynamicBalance=false,
-    pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0}),
+    per(pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0})),
     filteredSpeed=false) "Pump with fixed mass flow rate"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Fluid.Sources.Boundary_pT sou3(

@@ -6,7 +6,6 @@ FlowMachine_dp
 FlowMachine_m_flow
 ControlledFlowMachineDynamic
 ControlledFlowMachine
-FlowMachine
 FlowMachineFeedbackControl
 FlowMachineParallel_y
 FlowMachineSeries_y

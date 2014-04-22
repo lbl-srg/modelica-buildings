@@ -38,8 +38,8 @@ model FlowMachineFeedbackControl "Flow machine with feedback control"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Buildings.Fluid.Movers.FlowMachine_y fan(
       redeclare package Medium = Medium,
-      pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
-               dp={2*dp_nominal,dp_nominal,0}),
+      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+                    dp={2*dp_nominal,dp_nominal,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Fan"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =

@@ -79,8 +79,9 @@ model System4
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-40,30})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(m_flow_nominal=mRad_flow_nominal,
-      redeclare package Medium = MediumW) "Pump for radiator"
+  Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(
+     m_flow_nominal=mRad_flow_nominal,
+     redeclare package Medium = MediumW) "Pump for radiator"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
