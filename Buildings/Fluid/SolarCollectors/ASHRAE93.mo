@@ -2,7 +2,8 @@ within Buildings.Fluid.SolarCollectors;
 model ASHRAE93 "Model of a flat plate solar thermal collector"
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
-    annotation(choicesAllMatching=true);
+    "Performance data" annotation(choicesAllMatching=true,
+    Placement(transformation(extent={{60,-80},{80,-60}})));
 
   BaseClasses.ASHRAESolarGain solGai(
     final B0=per.B0,
