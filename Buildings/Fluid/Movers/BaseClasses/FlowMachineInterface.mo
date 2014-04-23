@@ -263,6 +263,8 @@ the simulation stops.");
     // Linear equations to determine cBar
     // Conditions for r_N=delta, V_flow = VDelta_flow
     // Conditions for r_N=delta, V_flow = 0
+    // used in equation 20 in Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
+    // see function Buildings.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin
     cBar[1] :=cha.pressure(
       data=pCur1,
       V_flow=0,
@@ -334,6 +336,8 @@ the simulation stops.");
     // Linear equations to determine cBar
     // Conditions for r_N=delta, V_flow = VDelta_flow
     // Conditions for r_N=delta, V_flow = 0
+    // used in equation 20 in Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
+    // see function Buildings.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin
     cBar[1] :=cha.pressure(
       data=pCur2,
       V_flow=0,
@@ -398,6 +402,8 @@ the simulation stops.");
     // Linear equations to determine cBar
     // Conditions for r_N=delta, V_flow = VDelta_flow
     // Conditions for r_N=delta, V_flow = 0
+    // used in equation 20 in Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
+    // see function Buildings.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin
     cBar[1] :=cha.pressure(
       data=pCur3,
       V_flow=0,
@@ -633,6 +639,10 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 22, by Filip Jorissen:<br/>
+Added more documentation references to paper
+</li>
 <li>
 September 27, 2013, by Michael Wetter:<br/>
 Reformulated <code>data=if (curve == 1) then pCur1 elseif (curve == 2) then pCur2 else pCur3</code>
