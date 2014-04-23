@@ -254,6 +254,11 @@ a default value for the parameters
 segments to which the heat exchanger ports <code>portHex_a</code> and <code>portHex_b</code>
 are connected.
 </p>
+<p align=\"center\">
+<img alt=\"Image of a storage tank\"
+src=\"modelica://Buildings/Resources/Images/Fluid/Storage/StratifiedHex.png\"
+width=\"479\" height=\"380\"/>
+</p>
 <p>
 Optionally, this model computes a dynamic response of the heat exchanger.
 This can be configured using the parameters
