@@ -3990,10 +3990,6 @@ individual libraries.<br/>
    </td>
    <td valign=\"top\">Package for computing boundary conditions, such as solar irradiation.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.BoundaryConditions.WeatherData.UsersGuide\">BoundaryConditions.WeatherData</a>
-   </td>
-   <td valign=\"top\">Package for reading weather data.</td>
-</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.UsersGuide\">Fluid</a>
    </td>
    <td valign=\"top\">Package for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>
