@@ -9,7 +9,7 @@ partial model PowerInterface
      annotation(Evaluate=true,Dialog(group="Characteristics"));
 
   parameter Boolean motorCooledByFluid = true
-    "If true, then motor heat is added to fluid stream"
+    "If true (and if addPowerToMedium = true), then motor heat is added to fluid stream"
     annotation(Dialog(group="Characteristics"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
