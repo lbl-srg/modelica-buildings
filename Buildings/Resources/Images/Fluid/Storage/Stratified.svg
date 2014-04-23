@@ -16,7 +16,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="StratifiedHex.svg">
+   sodipodi:docname="Stratified.svg">
   <defs
      id="defs4">
     <linearGradient
@@ -93,6 +93,34 @@
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(0.8,0,0,0.8,10,0)" />
     </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-8"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4231-5"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend-7"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4252-7"
+         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -101,9 +129,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.643769"
-     inkscape:cx="271.82685"
-     inkscape:cy="947.93567"
+     inkscape:zoom="7.9814948"
+     inkscape:cx="229.79991"
+     inkscape:cy="926.20201"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -187,51 +215,6 @@
        height="179.214"
        x="210.09973"
        y="122.90879" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 160.55673,227.85193 138.85149,0"
-       id="path5323-0-0-4-5-6"
-       inkscape:connector-curvature="0" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path5433"
-       d="m 160.34493,287.65895 139.15299,0 -69.92045,-16.07232 64.885,-13.43884 -65.89884,-16.97535 69.95415,-12.73151"
-       style="fill:none;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       sodipodi:nodetypes="cccccc" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path5993"
-       d="m 93.22367,228.6591 0,73.40616"
-       style="fill:none;stroke:#000000;stroke-width:0.31250000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow2Lend)" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.3125;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow2Lend)"
-       d="m 111.22367,288.49564 0,13.73308"
-       id="path5995"
-       inkscape:connector-curvature="0" />
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-       x="-284.4696"
-       y="85.976562"
-       id="text3159-8"
-       sodipodi:linespacing="125%"
-       transform="matrix(0,-1,1,0,0,0)"><tspan
-         sodipodi:role="line"
-         x="-284.4696"
-         y="85.976562"
-         id="tspan6025">hHex_a</tspan></text>
-    <text
-       sodipodi:linespacing="125%"
-       id="text6029"
-       y="107.77637"
-       x="-286.11069"
-       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-       xml:space="preserve"
-       transform="matrix(0,-1,1,0,0,0)"><tspan
-         id="tspan6031"
-         y="107.77637"
-         x="-286.11069"
-         sodipodi:role="line">hHex_b</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
@@ -244,43 +227,20 @@
          x="-152.91296"
          y="344.11816"
          id="tspan3165-0">dIns</tspan></text>
-    <text
-       sodipodi:linespacing="125%"
-       id="text3082"
-       y="221.11023"
-       x="121.37012"
-       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-       xml:space="preserve"><tspan
-         id="tspan3084"
-         y="221.11023"
-         x="121.37012"
-         sodipodi:role="line">portHex_a</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-       x="121.37012"
-       y="281.11023"
-       id="text3086"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         x="121.37012"
-         y="281.11023"
-         id="tspan3088">portHex_b</tspan></text>
     <g
-       id="g3880"
-       transform="translate(0,-0.17718656)">
+       id="g3880">
       <path
          inkscape:connector-curvature="0"
          id="path5623-4"
          d="m 347.32627,102.90706 0,19.42139"
-         style="fill:none;stroke:#000000;stroke-width:0.3125;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow2Lend)" />
+         style="fill:none;stroke:#000000;stroke-width:0.31250000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow2Lend)" />
       <path
          inkscape:connector-curvature="0"
          id="path3090"
          d="m 332.60483,102.59456 18.08405,0"
-         style="fill:none;stroke:#000000;stroke-width:0.3125;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         style="fill:none;stroke:#000000;stroke-width:0.31250000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
       <path
-         style="fill:none;stroke:#000000;stroke-width:0.3125;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:none;stroke:#000000;stroke-width:0.31250000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
          d="m 332.60483,122.59456 18.08405,0"
          id="path3092"
          inkscape:connector-curvature="0" />
@@ -330,21 +290,6 @@
          x="-226.91296"
          sodipodi:role="line">hTan</tspan></text>
     <path
-       inkscape:connector-curvature="0"
-       id="path3906"
-       d="m 90.819298,302.59456 93.286682,0"
-       style="fill:#000000;fill-opacity:0;stroke:#000000;stroke-width:0.3125;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-    <path
-       style="fill:#000000;fill-opacity:0;stroke:#000000;stroke-width:0.3125;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 100.37141,287.63408 56.88044,0"
-       id="path3908"
-       inkscape:connector-curvature="0" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path3910"
-       d="m 90.125362,227.63408 67.098418,0"
-       style="fill:#000000;fill-opacity:0;stroke:#000000;stroke-width:0.3125;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-    <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 260.39572,240.1666 0,9.91984 -100.61549,0"
        id="path4842"
@@ -377,9 +322,101 @@
          x="117.37012"
          y="115.11023"
          id="tspan4852">port_a</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:0.625,0.625;stroke-dashoffset:0"
+       d="m 191.36148,210.02477 137.85114,0 0,0 0,0"
+       id="path3036"
+       inkscape:connector-curvature="0"
+       transform="translate(0,62.362183)" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3824"
+       d="m 191.36148,242.38695 137.85114,0 0,0 0,0"
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:0.625, 0.625;stroke-dashoffset:0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:0.625, 0.625;stroke-dashoffset:0"
+       d="m 191.36148,212.38695 137.85114,0 0,0 0,0"
+       id="path3826"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3828"
+       d="m 191.36148,182.38695 137.85114,0 0,0 0,0"
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:0.625, 0.625;stroke-dashoffset:0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:0.625, 0.625;stroke-dashoffset:0"
+       d="m 191.36148,152.38695 137.85114,0 0,0 0,0"
+       id="path3830"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="213.37012"
+       y="297.11023"
+       id="text3832"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="213.37012"
+         y="297.11023"
+         id="tspan3834">segment 6</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3836"
+       y="269.11023"
+       x="213.37012"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         id="tspan3838"
+         y="269.11023"
+         x="213.37012"
+         sodipodi:role="line">segment 5</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="213.37012"
+       y="239.11023"
+       id="text3840"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="213.37012"
+         y="239.11023"
+         id="tspan3842">segment 4</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3844"
+       y="209.11023"
+       x="213.37012"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         id="tspan3846"
+         y="209.11023"
+         x="213.37012"
+         sodipodi:role="line">segment 3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="213.37012"
+       y="179.11023"
+       id="text3848"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="213.37012"
+         y="179.11023"
+         id="tspan3850">segment 2</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3852"
+       y="149.11023"
+       x="213.37012"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         id="tspan3854"
+         y="149.11023"
+         x="213.37012"
+         sodipodi:role="line">segment 1</tspan></text>
     <g
        id="g3036"
-       transform="matrix(0,-1,1,0,207.45096,432.49389)">
+       transform="matrix(0,-1,1,0,207.4858,432.80353)">
       <path
          style="fill:none;stroke:#000000;stroke-width:0.3125;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow2Lend)"
          d="m 347.32627,102.90706 0,19.42139"
@@ -399,13 +436,13 @@
     <text
        sodipodi:linespacing="125%"
        id="text3044"
-       y="79.453972"
-       x="307.78043"
+       y="79.763603"
+       x="307.81528"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
        xml:space="preserve"><tspan
          id="tspan3046"
-         y="79.453972"
-         x="307.78043"
+         y="79.763603"
+         x="307.81528"
          sodipodi:role="line">dIns</tspan></text>
   </g>
 </svg>

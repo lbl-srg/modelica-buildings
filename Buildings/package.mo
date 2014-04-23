@@ -4037,6 +4037,9 @@ individual libraries.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">Fluid.Sensors</a>
    </td>
    <td valign=\"top\">Package with sensors.</td>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">Fluid.Storage</a>
+   </td>
+   <td valign=\"top\">Package with storage tanks and an expansion vessel.</td>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.SolarCollectors.UsersGuide\">Fluid.SolarCollectors</a>
    </td>
    <td valign=\"top\">Package with solar collectors.</td>
