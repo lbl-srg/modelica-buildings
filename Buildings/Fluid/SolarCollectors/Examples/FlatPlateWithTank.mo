@@ -41,15 +41,15 @@ model FlatPlateWithTank
    tan(
     nSeg=4,
     redeclare package Medium = Medium,
-    hTan=1,
+    hTan=1.8,
     m_flow_nominal=0.1,
     VTan=1.5,
     dIns=0.07,
     redeclare package MediumHex = Medium_2,
     CHex=200,
     dExtHex=0.01905,
-    hexTopHeight=0.9,
-    hexBotHeight=0.65,
+    hHex_a=0.9,
+    hHex_b=0.65,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=3000,
     mHex_flow_nominal=3000/20/4200,
@@ -149,11 +149,11 @@ equation
       points={{-50,-16},{-50,-46},{-66,-46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(exp.port_a, tan.port_b1) annotation (Line(
+  connect(exp.port_a, tan.portHex_b) annotation (Line(
       points={{-66,-46},{-4,-46},{-4,-45},{12,-45}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TOut.port_b, tan.port_a1) annotation (Line(
+  connect(TOut.port_b, tan.portHex_a) annotation (Line(
       points={{50,56},{60,56},{60,-16},{8,-16},{8,-38.7},{12,-38.7}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -229,6 +229,10 @@ equation
       </html>",
       revisions="<html>
       <ul>
+          <li>
+            April 18, 2014, by Michael Wetter:<br/>
+            Updated model to use the revised tank and increased the tank height.
+          </li>      
           <li>
             March 25, 2014, by Michael Wetter:<br/>
             Updated model with new expansion vessel.

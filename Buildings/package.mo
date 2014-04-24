@@ -233,6 +233,30 @@ have been <b style=\"color:blue\">improved</b> in a
                        this model automatically in Dymola. 
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+    </td>
+    <td valign=\"top\">Revised the model as the old version required the port<sub>a</sub>
+                       of the heat exchanger to be located higher than port<sub>b</sub>. 
+                       This makes sense if the heat exchanger is used to heat up the tank, 
+                       but not if it is used to cool down a tank, such as in a cooling plant.
+                       The following parameters were changed:
+                       <ol>
+                         <li>Changed <code>hexTopHeight</code> to <code>hHex_a</code>.</li>
+                         <li>Changed <code>hexBotHeight</code> to <code>hHex_b</code>.</li>
+                         <li>Changed <code>topHexSeg</code> to <code>segHex_a</code>,
+                          and made it protected as this is deduced from <code>hHex_a</code>.</li>
+                         <li>Changed <code>botHexSeg</code> to <code>segHex_b</code>,
+                          and made it protected as this is deduced from <code>hHex_b</code>.</li>
+                       </ol>
+                       The names of the following ports have been changed:
+                       <ol>
+                         <li>Changed <code>port_a1</code> to <code>portHex_a</code>.</li>
+                         <li>Changed <code>port_b1</code> to <code>portHex_b</code>.</li>
+                       </ol>
+                       The conversion script should update old instances of 
+                       this model automatically in Dymola for all of the above changes.
+    </td>
+</tr>
 </table>
 <!-- Errors that have been fixed -->
 <p>
@@ -4009,6 +4033,9 @@ individual libraries.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">Fluid.Sensors</a>
    </td>
    <td valign=\"top\">Package with sensors.</td>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">Fluid.Storage</a>
+   </td>
+   <td valign=\"top\">Package with storage tanks and an expansion vessel.</td>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.SolarCollectors.UsersGuide\">Fluid.SolarCollectors</a>
    </td>
    <td valign=\"top\">Package with solar collectors.</td>
