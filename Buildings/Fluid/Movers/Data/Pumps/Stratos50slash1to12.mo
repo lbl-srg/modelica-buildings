@@ -2,7 +2,6 @@ within Buildings.Fluid.Movers.Data.Pumps;
 record Stratos50slash1to12 "Pump data for a Wilo Stratos 50/1-12 pump"
   extends Generic(
     N_nominal=3690,
-    P_max=590,
     N_min=1400,
     N_max=4600,
     use_powerCharacteristic=true,
