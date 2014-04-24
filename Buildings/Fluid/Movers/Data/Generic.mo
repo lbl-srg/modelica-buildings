@@ -3,8 +3,6 @@ record Generic "Generic data record for pumps and fans"
   extends Modelica.Icons.Record;
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
     N_nominal=1500 "Nominal rotational speed for flow characteristic";
-  parameter Modelica.SIunits.Power P_max = 100000
-    "Maximum allowed motor power - not yet used in practice. fixme: why is this here?";
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N_min=0.0
     "Minimum rotational speed. Fixme. Check how this is used";
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N_max=1e15
@@ -33,7 +31,14 @@ record Generic "Generic data record for pumps and fans"
 </li>
 </ul>
 </html>", info="<html>
-<p>Record containing parameters from real pumps or fans. Parameters can be typically found in data sheets. </p>
-<p><br>An example can be found in: <a href=\"modelica://Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data\">Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data</a></p>
+<p>
+Record containing parameters from real pumps or fans. Parameters can be typically found in data sheets. 
+</p>
+<p>
+<br>An example can be found in:
+<a href=\"modelica://Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data\">
+Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data
+</a>
+</p>
 </html>"));
 end Generic;

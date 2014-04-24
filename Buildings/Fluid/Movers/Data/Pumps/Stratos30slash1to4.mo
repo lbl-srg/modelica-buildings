@@ -1,10 +1,10 @@
 within Buildings.Fluid.Movers.Data.Pumps;
-record Stratos25slash1to4 "Pump data for a Wilo Stratos 25/1-4 pump"
+record Stratos30slash1to4 "Pump data for a Wilo Stratos 30/1-4 pump"
   extends Generic(
     N_nominal=1800,
     N_min=1400,
     N_max=2800,
-    use_powerCharacteristic = true,
+    use_powerCharacteristic=true,
     power(V_flow={5.55555555556e-07,0.000402190923318,0.00052269170579,
           0.000643192488263,0.000752738654147,0.000866979655712,
           0.000973395931142,0.00108607198748,0.00115962441315}, P={
@@ -17,7 +17,7 @@ record Stratos25slash1to4 "Pump data for a Wilo Stratos 25/1-4 pump"
           13149.9465241,11681.0695187,9932.40641711,8533.47593583}));
   annotation (Documentation(info="<html>
   <p>Data from: 
-  <a href=\"http://productfinder.wilo.com/en/COM/product/0000000e000379df0002003a/fc_product_datasheet\">
+  <a href=\"http://productfinder.wilo.com/en/COM/product/0000000e000379ac0002003a/fc_product_datasheet\">
   http://productfinder.wilo.com/en/COM/product/0000000e000379df0002003a/fc_product_datasheet
   </a>
   </p>
@@ -27,13 +27,12 @@ record Stratos25slash1to4 "Pump data for a Wilo Stratos 25/1-4 pump"
   </a> 
   for more information about how the data is derived.
   </p>
-  </html>",
-  revisions="<html>
+  </html>", revisions="<html>
 <ul>
-<li>April 17, 2014
+<li>April 22, 2014
     by Filip Jorissen:<br/>
        Initial version
 </li>
 </ul>
 </html>"));
-end Stratos25slash1to4;
+end Stratos30slash1to4;
