@@ -17,9 +17,18 @@ record Stratos50slash1to12 "Pump data for a Wilo Stratos 50/1-12 pump"
           73404.0823485,70722.2584827,66879.2916508,59372.6282882,49547.6683187,
           37985.8558902,27964.6709874}));
   annotation (Documentation(info="<html>
-<p>Data from: <a href=\"http://productfinder.wilo.com/en/COM/product/00000018000029520002003a/fc_product_datasheet\">http://productfinder.wilo.com/en/COM/product/0000000e000379df0002003a/fc_product_datasheet</a></p>
-<p>See <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6\">Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6</a> for more information about how the data is derived.</p>
-</html>", revisions="<html>
+  <p>Data from: 
+  <a href=\"http://productfinder.wilo.com/en/COM/product/00000018000029520002003a/fc_product_datasheet\">
+  http://productfinder.wilo.com/en/COM/product/0000000e000379df0002003a/fc_product_datasheet
+  </a>
+  </p>
+  <p>See 
+  <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6\">
+  Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6
+  </a> 
+  for more information about how the data is derived.
+  </p>
+  </html>", revisions="<html>
 <ul>
 <li>April 22, 2014
     by Filip Jorissen:<br/>
