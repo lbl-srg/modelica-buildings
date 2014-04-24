@@ -33,7 +33,14 @@ record Generic "Generic data record for pumps and fans"
 </li>
 </ul>
 </html>", info="<html>
-<p>Record containing parameters from real pumps or fans. Parameters can be typically found in data sheets. </p>
-<p><br>An example can be found in: <a href=\"modelica://Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data\">Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data</a></p>
+<p>
+Record containing parameters from real pumps or fans. Parameters can be typically found in data sheets. 
+</p>
+<p>
+<br>An example can be found in:
+<a href=\"modelica://Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data\">
+Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data
+</a>
+</p>
 </html>"));
 end Generic;
