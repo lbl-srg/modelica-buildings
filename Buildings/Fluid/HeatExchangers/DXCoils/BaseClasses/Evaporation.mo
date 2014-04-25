@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 model Evaporation
   "Model that computes evaporation of water that accumulated on the coil surface"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
      annotation (choicesAllMatching=true);

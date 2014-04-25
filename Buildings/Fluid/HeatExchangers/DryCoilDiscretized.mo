@@ -252,7 +252,7 @@ equation
           3.8},{-26,3.8},{-26,-60},{-32,-60}}, color={0,127,255}));
   connect(pipMan_a.port_b, hexReg[1].port_a1) annotation (Line(points={{-18,28},
           {-12,28},{-12,16},{-10,16}}, color={0,127,255}));
-  connect(hexReg[nReg].port_b1, pipMan_b.port_b) annotation (Line(points={{10,16},
+  connect(hexReg[nReg].port_a1, pipMan_b.port_b) annotation (Line(points={{-10,16},
           {26,16},{26,60},{32,60}},     color={0,127,255}));
   connect(pipMan_b.port_a, port_b1)
     annotation (Line(points={{52,60},{100,60}}, color={0,127,255}));
@@ -356,6 +356,17 @@ this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 13, 2013, by Michael Wetter:<br/>
+Corrected wrong connection 
+<code>connect(hexReg[nReg].port_b1, pipMan_b.port_b)</code>
+to
+<code>connect(hexReg[nReg].port_a1, pipMan_b.port_b)</code>.
+This closes issue
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/194\">
+https://github.com/lbl-srg/modelica-buildings/issues/194</a>,
+which caused the last register to have no liquid flow.
+</li>
 <li>
 October 8, 2010, by Michael Wetter:<br/>
 Set <code>show_T=false</code> to avoid state events near zero flow.

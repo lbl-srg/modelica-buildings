@@ -97,7 +97,7 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={80,70})));
-  Storage.ExpansionVessel exp(redeclare package Medium = Medium, VTot=2)
+  Storage.ExpansionVessel exp(redeclare package Medium = Medium, V_start=1)
     annotation (Placement(transformation(extent={{104,-80},{124,-60}})));
   FixedResistances.SplitterFixedResistanceDpM spl4(
     redeclare package Medium = Medium,
@@ -265,6 +265,10 @@ and it is used to accomodate for the thermal expansion of the water.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 25, 2014, by Michael Wetter:<br/>
+Updated model with new expansion vessel.
+</li>
 <li>
 March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valve as

@@ -1,7 +1,7 @@
 within Buildings.Utilities.Psychrometrics;
 block WetBul_pTX
   "Block to compute the wet bulb condition for given dry bulb temperature and humidity"
-   extends Modelica.Blocks.Interfaces.BlockIcon;
+   extends Modelica.Blocks.Icons.Block;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
     annotation (choicesAllMatching = true);

@@ -61,6 +61,7 @@ def _runUnitTests():
 #    ut.deleteTemporaryDirectories(False)
 #    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
 #    #print ut.getDataDictionary()
+#    ut.setSinglePackage("Buildings.Controls.Continuous.Examples")
     retVal = ut.run()
     exit(retVal)
 

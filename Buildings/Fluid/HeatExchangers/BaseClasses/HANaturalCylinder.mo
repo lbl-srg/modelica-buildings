@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HANaturalCylinder
   "Calculates an hA value for natural convection around a cylinder"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Partial medium model to be replaced with specific medium";
   parameter Modelica.SIunits.Diameter ChaLen

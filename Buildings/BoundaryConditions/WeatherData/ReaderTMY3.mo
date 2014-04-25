@@ -762,9 +762,43 @@ equation
     Documentation(info="<html>
 <p>
 This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data. 
+The weather data format is the Typical Meteorological Year (TMY3)
+as obtained from the EnergyPlus web site at
+<a href=\"http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm\">
+http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm</a>. These
+data, which are in the EnergyPlus format, need to be converted as described
+in the next paragraph.
 </p>
+<!-- ============================================== -->
+<h4>Adding new weather data</h4>
 <p>
-The following parameters are automatically read from the weather file:
+To add new weather data, proceed as follows:
+</p>
+<ol>
+<li>
+Download the weather data file with the <code>epw</code> extension from
+<a href=\"http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm\">
+http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm</a>.
+</li>
+<li>
+Add the file to <code>Buildings/Resources/weatherdata</code> (or to any directory
+for which you have write permission).
+</li>
+<li>
+On a console window, type<pre>
+  cd Buildings/Resources/weatherdata
+  java -jar ../bin/ConvertWeatherData.jar inputFile.epw
+</pre>
+This will generate the weather data file <code>inputFile.mos</code>, which can be read
+by the model
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+</li>
+</ol>
+<!-- ============================================== -->
+<h4>Location data that are read automatically from the weather data file</h4>
+<p>
+The following location data are automatically read from the weather file:
 </p>
 <ul>
 <li>
@@ -777,6 +811,8 @@ the longitude of the weather station, <code>lon</code>, and
 the time zone relative to Greenwich Mean Time, <code>timZone</code>.
 </li>
 </ul>
+<!-- ============================================== -->
+<h4>Wet bulb temperature</h4>
 <p>
 By default, the data bus contains the wet bulb temperature.
 This introduces a nonlinear equation.
@@ -785,12 +821,32 @@ of this equation.
 To disable the computation of the wet bulb temperature, set
 <code>computeWetBulbTemperature=false</code>.
 </p>
+<!-- ============================================== -->
+<h4>Using constant or user-defined input signals for weather data</h4>
 <p>
 This model has the option of using a constant value, using the data from the weather file, 
-or using data from an input connector for the following variables: 
-atmospheric pressure, relative humidity, dry bulb temperature, 
-global horizontal radiation, diffuse horizontal radiation, wind direction and wind speed.
+or using data from an input connector for the following variables:
 </p>
+<ul>
+<li>
+The atmospheric pressure,
+</li>
+<li>
+the dry bulb temperature,
+</li>
+<li>
+the relative humidity
+</li>
+<li>
+the wind direction,
+</li>
+<li>
+the wind speed, and
+</li>
+<li>
+the global horizontal radiation, direct normal and diffuse horizontal radiation.
+</li>
+</ul>
 <p>
 By default, all data are obtained from the weather data file,
 except for the atmospheric pressure, which is set to the
@@ -938,12 +994,33 @@ For instance, the unit must be
 </ul>
 </li>
 <li>
-<p>
-The ReaderTMY3 should only be used with TMY3 data. It contains a time shift for solar radiation data that is explained below. This time shift needs to be removed if the user may want to use the ReaderTMY3 for other weather data types. 
-</p>
+The ReaderTMY3 should only be used with TMY3 data. It contains a time shift for solar radiation data 
+that is explained below. This time shift needs to be removed if the user may want to 
+use the ReaderTMY3 for other weather data types. 
 </li>
 </ol>
 <h4>Implementation</h4>
+<h5>Start and end data for annual weather data files</h5>
+<p>
+The TMY3 weather data, as well as the EnergyPlus weather data, start at 1:00 AM
+on January 1, and provide hourly data until midnight on December 31.
+Thus, the first entry for temperatures, humidity, wind speed etc. are values
+at 1:00 AM and not at midnight. Furthermore, the TMY3 weather data files can have
+values at midnight of December 31 that may be significantly different from the values
+at 1:00 AM on January 1.
+Since annual simulations require weather data that start at 0:00 on January 1, 
+data need to be provided for this hour. Due to the possibly large change in
+weatherdata between 1:00 AM on January 1 and midnight at December 31, 
+the weather data files in the Buildings library do not use the data entry from 
+midnight at December 31 as the value for <i>t=0</i>. Rather, the
+value from 1:00 AM on January 1 is duplicated and used for 0:00 on January 1.
+To maintain a data record with <i>8760</i> hours, the weather data record from
+midnight at December 31 is deleted.
+These changes in the weather data file are done in the Java program that converts
+EnergyPlus weather data file to Modelica weather data files, and which is described
+below.
+</p>
+<h5>Time shift for solar radiation data</h5>
 <p>
 To read weather data from the TMY3 weather data file, there are
 two data readers in this model. One data reader obtains all data
@@ -960,7 +1037,8 @@ Thus, as the figure below shows, a more accurate interpolation is obtained if
 time is shifted by <i>30</i> minutes prior to reading the weather data.   
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\" border=\"1\" />
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\"
+border=\"1\" />
 </p>
 <h4>References</h4>
 <ul>

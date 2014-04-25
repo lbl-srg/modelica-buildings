@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block Declination "Declination angle"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput nDay(quantity="Time", unit="s")
     "One-based day number in seconds"

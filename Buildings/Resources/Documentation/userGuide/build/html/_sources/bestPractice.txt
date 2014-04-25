@@ -554,7 +554,7 @@ because the ``if-then-else`` construct triggers an event iteration whenever
 
 Numerical solvers
 -----------------
-Dymola 2012 FD01 is configured to use dassl as a default solver with a tolerance of 
+Dymola 2014 FD01 is configured to use dassl as a default solver with a tolerance of 
 1E-4.
 We recommend to change this setting to radau with a tolerance of around
 1E-6, as this generally leads to faster and more robust

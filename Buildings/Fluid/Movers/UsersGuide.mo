@@ -9,6 +9,11 @@ are used for fans or pumps.
 </p>
 
 <h4>Model description</h4>
+<p>A detailed description of the fan and pump models can be
+found in
+<a href=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf\">Wetter (2013)</a>.
+Below, the models are briefly described.
+</p>
 <p>
 The models use 
 performance curves that compute pressure rise, 
@@ -72,7 +77,7 @@ Then, a declaration would be
 <p>
 This will model the following pump curve for the pump input signal <code>y=1</code>.</p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide_pumpCurve.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png\"/>
 </p>
 
 <h5>Models that have idealized perfect controls</h5>
@@ -131,7 +136,7 @@ The figure below shows for a fan with <code>filteredSpeed=true</code>
 and <code>riseTime=30</code> seconds the 
 speed input signal and the actual speed.</p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide_fanSpeedFiltered.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/fanSpeedFiltered.png\"/>
 </p>
 
 <p>
@@ -299,15 +304,6 @@ see their base class <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Par
 Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine.</a>
 </p>
 
-<h5>Deprecated model</h5>
-<p>
-The model <a href=\"modelica://Buildings.Fluid.Movers.FlowMachinePolynomial\">
-Buildings.Fluid.Movers.FlowMachinePolynomial</a> is in this package for compatibility 
-with older versions of this library. It is recommended to use the other models as they optionally
-allow use of a medium volume that provides state variables which are needed in some models 
-when the flow rate is zero.
-</p>
-
 <h4>Differences to models in Modelica.Fluid.Machines</h4>
 <p>
 The models with names <code>FlowMachine_*</code> have similar parameters than the
@@ -337,6 +333,15 @@ The performance data are interpolated using cubic hermite splines instead of pol
 These functions are implemented at <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </li>
 </ul>
+<h4>References</h4>
+<p>
+Michael Wetter.
+<a href=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf\">
+Fan and pump model that has a unique solution for any pressure
+boundary condition and control signal.</a>
+<i>Proc. of the 13th Conference of the International Building Performance
+Simulation Association</i>, p. 3505-3512. Chambery, France. August 2013.
+</p>
 </html>"));
 
 end UsersGuide;

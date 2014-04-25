@@ -1,6 +1,6 @@
 within Buildings.Examples.VAVReheat.Controls;
 block RoomVAV "Controller for room VAV box"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   Buildings.Controls.Continuous.LimPID conHea(
     yMax=1,
     xi_start=0.1,

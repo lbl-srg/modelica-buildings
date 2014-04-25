@@ -1,14 +1,11 @@
 BoreholeSegment
 HexInternalElement
-BoreholeResistance
-InterferenceResistance
-PartialBoreholeResistance
 SingleUTubeBoundaryCondition
 ExtendableArray
-boreholeInternalResistance
-boreholeThermalResistance
+convectionResistance
 exchangeValues
 factorial
 powerSeries
 temperatureDrop
+singleUTubeResistances
 Examples

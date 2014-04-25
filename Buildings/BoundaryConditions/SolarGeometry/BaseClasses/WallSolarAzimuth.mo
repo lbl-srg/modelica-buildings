@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block WallSolarAzimuth
   "Angle measured in a horizontal plane between the projection of the sun's rays and the normal to a vertical surface"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Interfaces.RealInput incAng(quantity="Angle",
                                               unit="rad",

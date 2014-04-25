@@ -1,5 +1,8 @@
 BoreholeSegment
+ConvectionResistance
+ExchangeValues
 Factorial
 HexInternalElement
 SingleUTubeBoundaryCondition
-ExchangeValues
+SingleUTubeResistances
+

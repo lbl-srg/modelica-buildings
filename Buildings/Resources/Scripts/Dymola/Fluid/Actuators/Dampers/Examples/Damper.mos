@@ -1,0 +1,15 @@
+simulateModel("Buildings.Fluid.Actuators.Dampers.Examples.Damper", method="dassl", resultFile="Damper");
+createPlot(id = 4,
+ position = {73, 9, 598, 390},
+ x = "res.y",
+ y = {"res.m_flow"},
+ range = {0.15, 0.6, 11.0, 7.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "Damper.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+

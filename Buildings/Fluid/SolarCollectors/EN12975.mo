@@ -2,7 +2,8 @@ within Buildings.Fluid.SolarCollectors;
 model EN12975 "Model of a concentrating solar collector"
 extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
-    "Performance data"  annotation (choicesAllMatching=true);
+    "Performance data"  annotation(choicesAllMatching=true,
+    Placement(transformation(extent={{60,-80},{80,-60}})));
 
   BaseClasses.EN12975SolarGain solGai(
     final A_c=TotalArea_internal,

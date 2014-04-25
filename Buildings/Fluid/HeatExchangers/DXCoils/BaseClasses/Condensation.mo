@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block Condensation "Calculates rate of condensation"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
      annotation (choicesAllMatching=true);

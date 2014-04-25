@@ -39,16 +39,12 @@ defaultComponentName="tan",
 Documentation(info="<html>
 <p>
 This is a model of a stratified storage tank for thermal energy storage.
-The model is identical to
-<a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
-Buildings.Fluid.Storage.Stratified</a>, 
-except that it adds a correction that reduces the numerical
-dissipation.
-The correction uses a third order upwind scheme to compute the 
-outlet temperatures of the segments in the tank. This model
-is implemented in
-<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
-Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
+</p>
+<p>
+See the 
+<a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">
+Buildings.Fluid.Storage.UsersGuide</a>
+for more information.
 </p>
 <h4>Limitations</h4>
 <p>

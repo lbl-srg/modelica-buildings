@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry;
 block IncidenceAngle "Solar incidence angle on a tilted surface"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";

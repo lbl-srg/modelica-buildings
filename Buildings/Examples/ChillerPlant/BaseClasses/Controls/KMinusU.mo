@@ -1,6 +1,6 @@
 within Buildings.Examples.ChillerPlant.BaseClasses.Controls;
 block KMinusU "Output y=k-u"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   parameter Real k "Sum of u and y";
   Modelica.Blocks.Interfaces.RealInput u "Input" annotation (Placement(

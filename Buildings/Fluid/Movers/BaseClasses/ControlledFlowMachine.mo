@@ -1,12 +1,12 @@
 within Buildings.Fluid.Movers.BaseClasses;
 model ControlledFlowMachine
   "Partial model for fan or pump with ideally controlled mass flow rate or head as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
-   preSou(final control_m_flow=control_m_flow));
-
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
      final use_powerCharacteristic = false,
      final rho_default = Medium.density(sta_default));
+
+  extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+   preSou(final control_m_flow=control_m_flow));
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 //  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
@@ -49,25 +49,7 @@ equation
       smooth=Smooth.None));
   annotation (defaultComponentName="fan",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}), graphics={
-        Line(
-          points={{0,70},{40,70}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Ellipse(
-          visible=filteredSpeed,
-          extent={{-34,100},{32,40}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Text(
-          visible=filteredSpeed,
-          extent={{-22,92},{20,46}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          textString="M",
-          textStyle={TextStyle.Bold})}),
+            100}}), graphics),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}})),
     Documentation(info="<html>

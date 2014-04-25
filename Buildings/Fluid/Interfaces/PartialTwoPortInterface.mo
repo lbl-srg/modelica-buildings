@@ -14,8 +14,6 @@ partial model PartialTwoPortInterface
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Diagnostics
    parameter Boolean show_T = false
@@ -27,25 +25,13 @@ partial model PartialTwoPortInterface
   Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa")
     "Pressure difference between port_a and port_b";
 
-  Medium.ThermodynamicState sta_a=if homotopyInitialization then
-      Medium.setState_phX(port_a.p,
-                          homotopy(actual=noEvent(actualStream(port_a.h_outflow)),
-                                   simplified=inStream(port_a.h_outflow)),
-                          homotopy(actual=noEvent(actualStream(port_a.Xi_outflow)),
-                                   simplified=inStream(port_a.Xi_outflow)))
-    else
+  Medium.ThermodynamicState sta_a=
       Medium.setState_phX(port_a.p,
                           noEvent(actualStream(port_a.h_outflow)),
                           noEvent(actualStream(port_a.Xi_outflow))) if
          show_T "Medium properties in port_a";
 
-  Medium.ThermodynamicState sta_b=if homotopyInitialization then
-      Medium.setState_phX(port_b.p,
-                          homotopy(actual=noEvent(actualStream(port_b.h_outflow)),
-                                   simplified=port_b.h_outflow),
-                          homotopy(actual=noEvent(actualStream(port_b.Xi_outflow)),
-                            simplified=port_b.Xi_outflow))
-    else
+  Medium.ThermodynamicState sta_b=
       Medium.setState_phX(port_b.p,
                           noEvent(actualStream(port_b.h_outflow)),
                           noEvent(actualStream(port_b.Xi_outflow))) if
@@ -80,6 +66,19 @@ Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 7, 2014, by Michael Wetter:<br/>
+Removed the <code>homotopy</code> operator as this is no longer needed.
+</li>
+<li>
+November 10, 2013 by Michael Wetter:<br/>
+In the computation of <code>sta_a</code> and <code>sta_b</code>,
+removed the branch that uses the homotopy operator.
+The rational is that these variables are conditionally enables (because
+of <code>... if show_T</code>. Therefore, the Modelica Language Specification
+does not allow for these variables to be used in any equation. Hence,
+the use of the homotopy operator is not needed here.
+</li>
 <li>
 October 10, 2013 by Michael Wetter:<br/>
 Added <code>noEvent</code> to the computation of the states at the port.

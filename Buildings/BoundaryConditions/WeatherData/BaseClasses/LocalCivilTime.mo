@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block LocalCivilTime "Converts the clock time to local civil time."
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput cloTim(final quantity="Time", final unit=
        "s") "Clock time"
