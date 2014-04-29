@@ -53,7 +53,7 @@ model ExteriorWallTwoWindows
     bouConExt(
     nCon=2,
     linearizeRadiation = false,
-    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed,
+    conMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed,
     lat=0.73268921998722,
     conPar=conPar)
     "Exterior boundary conditions for constructions with a window"
@@ -298,6 +298,11 @@ This model tests the exterior construction with two windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2013, by Michael Wetter:<br/>
+Corrected wrong assignment of parameter in instance <code>bouConExt(conMod=...)</code>
+which was set to an interior instead of an exterior convection model.
+</li>
 <li>
 June 12, 2013, by Michael Wetter:<br/>
 Redesigned model to separate convection from radiation, which is

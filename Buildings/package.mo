@@ -292,7 +292,17 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Corrected error in documentation which stated a wrong default value
                        for the pipe spacing.
     </td>
-</tr>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Rooms.Constructions.Examples.ExteriorWall<br/>
+                           Buildings.Rooms.Constructions.Examples.ExteriorWallWithWindow<br/>
+                           Buildings.Rooms.Constructions.Examples.ExteriorWallTwoWindows
+    </td>
+    <td valign=\"top\">Corrected wrong assignment of parameter in instance <code>bouConExt(conMod=...)</code>
+                       which was set to an interior instead of an exterior convection model.
+    </td>
+    </tr>    
+    
+    
 </table>
 <!-- Github issues -->
 <p>
