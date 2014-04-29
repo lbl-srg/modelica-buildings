@@ -293,7 +293,12 @@ units are wrong or errors in documentation):
                        for the pipe spacing.
     </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Rooms.Constructions.Examples.ExteriorWall<br/>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ()
+    </td>
+    <td valign=\"top\">Added dummy argument to function call of <code>Internal.solve</code>
+                       to avoid a warning during model check in Dymola 2015.
+    </td>
+    </tr>    <tr><td valign=\"top\">Buildings.Rooms.Constructions.Examples.ExteriorWall<br/>
                            Buildings.Rooms.Constructions.Examples.ExteriorWallWithWindow<br/>
                            Buildings.Rooms.Constructions.Examples.ExteriorWallTwoWindows
     </td>
