@@ -313,6 +313,11 @@ units are wrong or errors in documentation):
                        which was set to an interior instead of an exterior convection model.
     </td>
     </tr>    
+<tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Functions.TDewPoi_pW()
+    </td>
+    <td valign=\"top\">Added dummy argument to function call of <code>Internal.solve</code>
+                       to avoid a warning during model check in Dymola 2015.
+    </td>
 </table>
 <!-- Github issues -->
 <p>
