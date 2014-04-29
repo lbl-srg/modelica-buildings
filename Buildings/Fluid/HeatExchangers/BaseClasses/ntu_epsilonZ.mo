@@ -10,7 +10,7 @@ function ntu_epsilonZ
 
 protected
   Real a "Auxiliary variable";
-  Modelica.Media.Common.OneNonLinearEquation.f_nonlinear_Data dummy
+  constant Modelica.Media.Common.OneNonLinearEquation.f_nonlinear_Data dummy
     "Dummy data for nonlinear function call";
 algorithm
   if (flowRegime == f.ParallelFlow) then // parallel flow
