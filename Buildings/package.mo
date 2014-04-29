@@ -298,6 +298,13 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Added dummy argument to function call of <code>Internal.solve</code>
                        to avoid a warning during model check in Dymola 2015.
     </td>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU
+    </td>
+    <td valign=\"top\">Changed <code>assert</code> statement to avoid comparing 
+                       enumeration with an integer, which triggers a warning
+                       in Dymola 2015.
+    </td>
+
     </tr>    <tr><td valign=\"top\">Buildings.Rooms.Constructions.Examples.ExteriorWall<br/>
                            Buildings.Rooms.Constructions.Examples.ExteriorWallWithWindow<br/>
                            Buildings.Rooms.Constructions.Examples.ExteriorWallTwoWindows
@@ -306,8 +313,6 @@ units are wrong or errors in documentation):
                        which was set to an interior instead of an exterior convection model.
     </td>
     </tr>    
-    
-    
 </table>
 <!-- Github issues -->
 <p>
