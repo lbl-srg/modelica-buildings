@@ -278,7 +278,7 @@ However, when the medium model is changed to a model that models
 `Buildings.Media.ConstantPropertyLiquidWater <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater>`_,
 then the density is constant. Consequently, there is no equation that 
 can be used to compute the pressure based on the volume. 
-In this situation, trying to translate the model leads, in Dymola, to the following error message:
+In this situation, attempting to translate the model leads, in Dymola, to the following error message:
 
 .. code-block:: none
 
