@@ -2,6 +2,8 @@ within Buildings.Examples.VAVReheat.ThermalZones;
 model Floor "Model of a floor of the building"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
+  parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
+    "Convective heat transfer model for room-facing surfaces of opaque constructions";
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Real winWalRat(
     min=0.01,
@@ -300,9 +302,18 @@ model Floor "Model of a floor of the building"
   Airflow.Multizone.DoorDiscretizedOpen opeWesCor(redeclare package Medium =
         Medium, wOpe=10) "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Modelica.Blocks.Sources.CombiTimeTable intGaiFra(table=[0,0.05; 3600*8,0.05; 3600*9,0.9;
-        3600*12,0.9; 3600*12,0.8; 3600*13,0.8; 3600*13,1; 3600*17,1; 3600*19,0.1; 3600*24,0.05], extrapolation=
-        Modelica.Blocks.Types.Extrapolation.Periodic)
+  Modelica.Blocks.Sources.CombiTimeTable intGaiFra(
+    table=[0,0.05;
+           3600*8,0.05;
+           3600*9,0.9;
+           3600*12,0.9;
+           3600*12,0.8;
+           3600*13,0.8;
+           3600*13,1;
+           3600*17,1;
+           3600*19,0.1;
+           3600*24,0.05],
+       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Fraction of internal heat gain"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
@@ -316,8 +327,7 @@ model Floor "Model of a floor of the building"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-110,220})));
-  parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
-    "Convective heat transfer model for room-facing surfaces of opaque constructions";
+
 equation
   connect(sou.surf_conBou[1], wes.surf_surBou[2]) annotation (Line(
       points={{170,-40.6667},{170,-54},{62,-54},{62,20},{28.2,20},{28.2,42.5}},
@@ -382,27 +392,27 @@ equation
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, nor.qGai_flow)          annotation (Line(
-      points={{-19,110},{120,110},{120,146},{142,146}},
+      points={{-19,110},{120,110},{120,146},{136,146}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, cor.qGai_flow)          annotation (Line(
-      points={{-19,110},{120,110},{120,66},{142,66}},
+      points={{-19,110},{120,110},{120,66},{136,66}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, sou.qGai_flow)          annotation (Line(
-      points={{-19,110},{120,110},{120,-14},{142,-14}},
+      points={{-19,110},{120,110},{120,-14},{136,-14}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, eas.qGai_flow)          annotation (Line(
-      points={{-19,110},{226,110},{226,86},{302,86}},
+      points={{-19,110},{226,110},{226,86},{296,86}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, wes.qGai_flow)          annotation (Line(
-      points={{-19,110},{-14,110},{-14,66},{10,66}},
+      points={{-19,110},{-14,110},{-14,66},{4,66}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));

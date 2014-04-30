@@ -48,12 +48,10 @@ model System2
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.CombiTimeTable timTab(
       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-      table=[      0, 0;
-              8*3600, 0;
+      smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+      table=[-6*3600, 0;
               8*3600, QRooInt_flow;
-             18*3600, QRooInt_flow;
-             18*3600, 0;
-             24*3600, 0]) "Time table for internal heat gain"
+             18*3600, 0]) "Time table for internal heat gain"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 
 //-------------------------Step 5: Radiator Model-------------------------//
