@@ -25,17 +25,18 @@ The configuration of ``fanS`` causes the fan speed to instantly change from 0 to
 
 .. figure:: img/fanStepSchematics.png
    
-   Schematic diagram of fans that are configured with ``filterSpeed=false`` (``fanS``) and ``filterSpeed=true`` (``fanC``).
+   Schematic diagram of fans that are configured with ``filteredSpeed=false`` (``fanS``) and ``filteredSpeed=true`` (``fanC``).
 
 .. figure:: img/fanStepResponse.png
    
    Mass flow rate of the two fans for a step input signal at 0 seconds.
 
 
-For fans and pumps, the dynamics introduced by the filter can be thought of as approximating the rotational inertia of the fan rotor and the inertia of the fluid in the duct or piping network.
+For fans and pumps, the dynamics introduced by the filter can be thought of as approximating 
+the rotational inertia of the fan rotor and the inertia of the fluid in the duct or piping network.
 The default value is ``raiseTime=30`` seconds.
 
-For actuators, the rise time approximates the travel time of the valve lift.
+For actuators, the raise time approximates the travel time of the valve lift.
 The default value is ``raiseTime=120`` seconds.
 
 .. note:: When changing ``filteredSpeed`` (or ``filteredOpening``),
