@@ -292,7 +292,32 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Corrected error in documentation which stated a wrong default value
                        for the pipe spacing.
     </td>
-</tr>
+    </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ()
+    </td>
+    <td valign=\"top\">Added dummy argument to function call of <code>Internal.solve</code>
+                       to avoid a warning during model check in Dymola 2015.
+    </td>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU
+    </td>
+    <td valign=\"top\">Changed <code>assert</code> statement to avoid comparing 
+                       enumeration with an integer, which triggers a warning
+                       in Dymola 2015.
+    </td>
+
+    </tr>    <tr><td valign=\"top\">Buildings.Rooms.Constructions.Examples.ExteriorWall<br/>
+                           Buildings.Rooms.Constructions.Examples.ExteriorWallWithWindow<br/>
+                           Buildings.Rooms.Constructions.Examples.ExteriorWallTwoWindows
+    </td>
+    <td valign=\"top\">Corrected wrong assignment of parameter in instance <code>bouConExt(conMod=...)</code>
+                       which was set to an interior instead of an exterior convection model.
+    </td>
+    </tr>    
+<tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Functions.TDewPoi_pW()
+    </td>
+    <td valign=\"top\">Added dummy argument to function call of <code>Internal.solve</code>
+                       to avoid a warning during model check in Dymola 2015.
+    </td>
 </table>
 <!-- Github issues -->
 <p>

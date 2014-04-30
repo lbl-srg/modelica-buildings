@@ -114,8 +114,9 @@ initial equation
   elseif (configuration == con.CrossFlowUnmixed) then
     flowRegime_nominal = flo.CrossFlowUnmixed;
   else
-    flowRegime_nominal = 0;
-    assert(configuration > 0 and configuration < 6,
+    // Invalid flow regime. Assign a value to flowRegime_nominal, and stop with an assert
+    flowRegime_nominal = flo.CrossFlowUnmixed;
+    assert(configuration >= con.ParallelFlow and configuration <= con.CrossFlowStream1UnmixedStream2Mixed,
       "Invalid heat exchanger configuration.");
   end if;
   // The equation sorter of Dymola 7.3 does not guarantee that the above assert is tested prior to the
@@ -202,6 +203,12 @@ instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2014 by Michael Wetter:<br/>
+Changed <code>assert</code> statement to avoid comparing
+enumeration with an integer, which triggers a warning
+in Dymola 2015.
+</li>
 <li>
 July 30, 2013 by Michael Wetter:<br/>
 Updated model to use new variable <code>mWat_flow</code>

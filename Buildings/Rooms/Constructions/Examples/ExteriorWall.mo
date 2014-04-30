@@ -11,7 +11,7 @@ model ExteriorWall "Test model for an exterior wall without a window"
   Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions bouConExt(
     nCon=1,
     linearizeRadiation = false,
-    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+    conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
     lat=0.73268921998722,
     conPar=conPar)
     "Exterior boundary conditions for constructions without a window"
@@ -82,6 +82,11 @@ This model tests the exterior construction without windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2013, by Michael Wetter:<br/>
+Corrected wrong assignment of parameter in instance <code>bouConExt(conMod=...)</code>
+which was set to an interior instead of an exterior convection model.
+</li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements

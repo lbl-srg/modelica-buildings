@@ -10,6 +10,8 @@ function ntu_epsilonZ
 
 protected
   Real a "Auxiliary variable";
+  constant Modelica.Media.Common.OneNonLinearEquation.f_nonlinear_Data dummy
+    "Dummy data for nonlinear function call";
 algorithm
   if (flowRegime == f.ParallelFlow) then // parallel flow
     a := Z+1;
@@ -33,7 +35,8 @@ algorithm
     // The function Internal.solve evaluates epsilon_ntuZ at NTU=x_min-1e-10 and NTU=x_max+1e-10
     // when it solves iteratively epsilon_ntuZ for ntu
     // Therefore, we set x_min=1.5*1e-10 to prevent computing NTU^(-0.22)=(-1e-10)^(-0.22).
-    NTU := Internal.solve(y_zero=eps, x_min=1.5*1e-10, x_max=1E6, pressure=Z);
+    NTU := Internal.solve(y_zero=eps, x_min=1.5*1e-10, x_max=1E6, pressure=Z,
+      f_nonlinear_data=dummy);
   elseif (flowRegime == f.CrossFlowCMinUnmixedCMaxMixed) then
     // cross flow, (single pass), CMax mixed, CMin unmixed. (Coil with one row.)
    a := smooth(1, if Z > 0.03 then Z else
@@ -72,6 +75,11 @@ This is handled internally and not exposed to the global solver.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 29, 2013, by Michael Wetter:<br/>
+Added dummy argument to function call of <code>Internal.solve</code>
+to avoid a warning during model check in Dymola 2015.
+</li>
 <li>
 August 10, 2011, by Michael Wetter:<br/>
 Changed implementation to use 
