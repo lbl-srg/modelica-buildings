@@ -7,7 +7,7 @@ Organization of packages
 ------------------------
 
 When developing models, one should distinguish between a library which contains widely applicable models, such as the `Buildings` library, and an application-specific model which may be created for a specific building and is of limited use for other applications. 
-We recommend storing application-specific models outside of the `Buildings` library. This will allow replacing the `Buildings` library with a new version without having to change the application-specific model.
+It is recommended that users store application-specific models outside of the `Buildings` library. This will allow users to replace the `Buildings` library with a new version without having to change the application-specific model.
 If during the course of the development of application-specific models, some models turn out to be of interest for other applications, then they can be contributed to the development of the `Buildings` library, as described in the section :ref:`Development`.
 
 
@@ -495,7 +495,7 @@ Adding dynamics may be achieved using a formulation such as
 		  m_flow_nominal*1E-4);
 		der(T)=(TMed-T)/tau;
 
-where ``tau``>0 is a time constant. See for example
+where ``tau``>0 is a time constant. See, for example,
 `Buildings.Fluid.Sensors.TemperatureTwoPort <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort>`_
 for a robust implementation.
 

@@ -40,7 +40,7 @@ For actuators, the raise time approximates the travel time of the valve lift.
 The default value is ``raiseTime=120`` seconds.
 
 .. note:: When changing ``filteredSpeed`` (or ``filteredOpening``),
-          or when changing the value of ``riseTime``, the dynamic
+          or when changing the value of ``raiseTime``, the dynamic
           response of the closed loop control changes. Therefore,
           control gains may need to be retuned to ensure satisfactory
           closed loop control performance.
@@ -67,14 +67,14 @@ While this is no problem for small models, the iterative solution can lead to hi
 be part of the residual function.
 
 For illustration, consider the simple system shown below in which the flow resistances ``res1`` and ``res2`` compute the mass flow rate as
-:math:`\dot m = k \, \sqrt{\Delta p}` if the parameter ``from_dp`` is set to ``true``, or otherwise the pressure drop between their inlet and outlet as :math:`\Delta p = (\dot m / k)^2`. (Both formulations are implemented using :term:`regularization` near zero.)
+:math:`\dot m = k \, \sqrt{\Delta p}` if the parameter ``from_dp`` is set to ``true``, or otherwise compute the pressure drop between their inlet and outlet as :math:`\Delta p = (\dot m / k)^2`. (Both formulations are implemented using :term:`regularization` near zero.)
 
 .. figure:: img/resistancesSeries.png
    
    Schematic diagram of two flow resistances in series that connect a source and a volume.
 
 Depending on the configuration of the individual component models, simulating this system model may require the iterative solution of a nonlinear equation to compute the mass flow rate or the pressure drop. 
-To avoid a nonlinear equation, you could do any of the below measures.
+To avoid a nonlinear equation, use any of the measures below.
 
  - Set the parameter ``res2(dp_nominal=0)``, and add the pressure drop to the parameter ``dp_nominal`` of the model ``res1``. This will eliminate the equation that computes the flow friction in ``res2``, thereby avoiding a nonlinear equation. The same applies if there are multiple components in series, such as a pre-heat coil, a heating coil and a cooling coil.
  - Set ``from_dp=false`` in all components, which is the default setting. This will cause Modelica to use a function that computes the pressure drop as a function of the mass flow rate. Therefore, a code translator is likely to generate an equation that solves for the mass flow rate, and it then uses the mass flow rate to compute the pressure drop of the components that are connected in series.
