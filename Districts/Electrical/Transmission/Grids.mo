@@ -97,7 +97,7 @@ package Grids
 
      /*
    LEFT HERE TO CHECK CONSISTENCY
-   
+
    LenVec={
    0,48,16,16,40,
    32,16,16,16,16,
@@ -106,7 +106,7 @@ package Grids
    32,32,16,16,16,
    16,16,32,32,16,
    32,16,16,16},
-   
+
     CabTyp={
                ,.PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),
     .PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),

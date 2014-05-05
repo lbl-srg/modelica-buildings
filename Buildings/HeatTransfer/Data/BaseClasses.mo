@@ -46,16 +46,16 @@ package BaseClasses "Base classes for package Data"
 
     annotation (preferredView="info",
     Documentation(info="<html>
-Base record for materials that declares the thermal properties. 
+Base record for materials that declares the thermal properties.
 <br/>
 <p>
 The specific heat capacity can be zero, in which case the material
 will be modeled as a thermal resistor that does not store energy.
 </p>
 <p>
-Note that the thermal resistance is in units of 
+Note that the thermal resistance is in units of
 <i>m<sup>2</sup> K &frasl; W</i> and not <i>K &frasl; W</i>
-because this record does not have the surface area as a parameter. 
+because this record does not have the surface area as a parameter.
 The surface area
 will be defined in the model of the construction that uses this material.
 This allows use of the same material in walls, floors
@@ -119,7 +119,7 @@ First implementation.
       annotation(Evaluate=true);
    annotation (preferredView="info",
     Documentation(info="<html>
-Base record for materials, used in circular geometry or other configurations, that only declares the thermal properties. 
+Base record for materials, used in circular geometry or other configurations, that only declares the thermal properties.
 <br/>
 <p>
 The specific heat capacity can be zero, in which case the material

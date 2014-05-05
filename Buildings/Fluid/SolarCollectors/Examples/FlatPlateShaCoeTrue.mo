@@ -86,11 +86,11 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>   
+    Documentation(info="<html>
       <p>
-        This example demonstrates the use of <code>use_shaCoe_in</code>. Aside from 
+        This example demonstrates the use of <code>use_shaCoe_in</code>. Aside from
         changed use of <code>use_shaCoe_in</code> it is identical to
-        <a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.FlatPlate\"> 
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.FlatPlate\">
         Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
       </p>
     </html>",

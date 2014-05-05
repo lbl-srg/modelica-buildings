@@ -47,7 +47,7 @@ for negative numbers during the solver iterations.
 </li>
 <li>
 June 10, 2008 by Michael Wetter:<br/>
-Introduced new partial base class, 
+Introduced new partial base class,
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
 PartialDamperExponential</a>.
 </li>

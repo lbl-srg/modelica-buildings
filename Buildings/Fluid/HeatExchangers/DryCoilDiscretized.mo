@@ -324,7 +324,7 @@ Model of a discretized coil with no water vapor condensation.
 The coil consists of <code>nReg</code> registers
 that are perpendicular to the air flow path. Each register consists of <code>nPipPar</code>
 parallel pipes, and each pipe can be divided into <code>nPipSeg</code> pipe segments along
-the pipe length. Thus, the smallest element of the coil consists of a pipe 
+the pipe length. Thus, the smallest element of the coil consists of a pipe
 segment. Each pipe segment is modeled by an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
@@ -337,7 +337,7 @@ a mixing volume of length <code>dl</code> is added to the duct connection. This 
 help reducing the dimension of the nonlinear system of equations.
 </p>
 <p>
-The convective heat transfer coefficients can, for each fluid individually, be 
+The convective heat transfer coefficients can, for each fluid individually, be
 computed as a function of the flow rate and/or the temperature,
 or assigned to a constant. This computation is done using an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil\">
@@ -349,7 +349,7 @@ needs to be connected to <code>port_a1</code> and <code>port_b1</code>, and
 the air flow path need to be connected to the other two ports.
 </p>
 <p>
-To model humidity condensation, use the model 
+To model humidity condensation, use the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilDiscretized\">
 Buildings.Fluid.HeatExchangers.WetCoilDiscretized</a> instead of this model, as
 this model computes only sensible heat transfer.
@@ -358,7 +358,7 @@ this model computes only sensible heat transfer.
 <ul>
 <li>
 December 13, 2013, by Michael Wetter:<br/>
-Corrected wrong connection 
+Corrected wrong connection
 <code>connect(hexReg[nReg].port_b1, pipMan_b.port_b)</code>
 to
 <code>connect(hexReg[nReg].port_a1, pipMan_b.port_b)</code>.

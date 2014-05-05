@@ -112,7 +112,7 @@ initial equation
   // Otherwise, the system of ordinary differential equations may be inconsistent.
   if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     assert(massDynamics == energyDynamics, "
-         If 'massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState', then it is 
+         If 'massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState', then it is
          required that 'energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState'.
          Otherwise, the system of equations may not be consistent.
          You need to select other parameter values.");
@@ -228,7 +228,7 @@ The model has zero pressure drop between its ports.
 </p>
 <h4>Implementation</h4>
 <p>
-When extending or instantiating this model, the input 
+When extending or instantiating this model, the input
 <code>fluidVolume</code>, which is the actual volume occupied by the fluid,
 needs to be assigned.
 For most components, this can be set to a parameter.
@@ -244,7 +244,7 @@ Input connectors of the model are
 </ul>
 <p>
 The model can be used as a dynamic model or as a steady-state model.
-However, for a steady-state model with exactly two fluid ports connected, 
+However, for a steady-state model with exactly two fluid ports connected,
 the model
 <a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\">
 Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
@@ -271,7 +271,7 @@ Corrected the syntax error
 <code>Medium.ExtraProperty C[Medium.nC](each nominal=C_nominal)</code>
 to
 <code>Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)</code>
-because <code>C_nominal</code> is a vector. 
+because <code>C_nominal</code> is a vector.
 This syntax error caused a compilation error in OpenModelica.
 </li>
 <li>
@@ -298,9 +298,9 @@ can lead to inconsistent equations.
 <li>
 July 26, 2011 by Michael Wetter:<br/>
 Removed the option to use <code>h_start</code>, as this
-is not needed for building simulation. 
+is not needed for building simulation.
 Also removed the reference to <code>Modelica.Fluid.System</code>.
-Moved parameters and medium to 
+Moved parameters and medium to
 <a href=\"Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 <li>
@@ -328,11 +328,11 @@ Without this value, the ODE solver gives wrong results for concentrations around
 <li>
 March 21, 2010 by Michael Wetter:<br/>
 Changed pressure start value from <code>system.p_start</code>
-to <code>Medium.p_default</code> since HVAC models may have water and 
+to <code>Medium.p_default</code> since HVAC models may have water and
 air, which are typically at different pressures.
 </li>
 <li><i>February 6, 2010</i> by Michael Wetter:<br/>
-Added to <code>Medium.BaseProperties</code> the initialization 
+Added to <code>Medium.BaseProperties</code> the initialization
 <code>X(start=X_start[1:Medium.nX])</code>. Previously, the initialization
 was only done for <code>Xi</code> but not for <code>X</code>, which caused the
 medium to be initialized to <code>reference_X</code>, ignoring the value of <code>X_start</code>.

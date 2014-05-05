@@ -8,7 +8,7 @@ algorithm
 annotation (smoothOrder=1,
 Documentation(info=
 "<html>
-This function computes the buoyancy-driven convective heat transfer coefficient 
+This function computes the buoyancy-driven convective heat transfer coefficient
 for a wall as
 <code>h=1.3*|dT|^0.3333</code>,
 where <code>dT</code> is the solid temperature minus the fluid temperature.

@@ -495,17 +495,17 @@ We configured the controller as
   Buildings.Controls.Continuous.LimPID conPIDBoi(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=0.1,
-    Ti=120,    
+    Ti=120,
     Td=1) \"Controller for valve in boiler loop\";
 </pre>
 <p>
 We set the proportional band to <i>10</i> Kelvin, hence <code>k=0.1</code>.
-We set the integral time constant to <i>120</i> seconds, which is 
+We set the integral time constant to <i>120</i> seconds, which is
 the same time as is required to open or close the valve.
 These settings turn out to give satisfactory closed loop control performance.
-Otherwise, we would need to retune the controller, which is 
+Otherwise, we would need to retune the controller, which is
 usually easiest by configuring the controller as a P-controller, then tuning the
-proportional gain, and finally changing it to a PI-controller and tuning the 
+proportional gain, and finally changing it to a PI-controller and tuning the
 integral time constant.
 </p>
 </li>
@@ -517,7 +517,7 @@ using the model
 <a href=\"modelica://Buildings.Controls.SetPoints.Table\">
 Buildings.Controls.SetPoints.Table</a> to implement
 a set point that shifts as a function of the room temperature.
-This instance is called <code>TSetSup</code> in the 
+This instance is called <code>TSetSup</code> in the
 control sequence shown in the figure below.
 </p>
 <p align=\"center\">
@@ -527,8 +527,8 @@ control sequence shown in the figure below.
 Its configuration is
 </p>
 <pre>
-  Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50; 
-                                          273.15 + 21, 273.15 + 21]) 
+  Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
+                                          273.15 + 21, 273.15 + 21])
                                           \"Setpoint for supply water temperature\";
 </pre>
 </li>
@@ -548,7 +548,7 @@ The figure shows that the return water temperature
 <code>temRet.T</code>
 quickly raises to <i>50</i>&deg;C and the supply water temperature
 <code>temSup.T</code>
-has smaller oscillations compared to 
+has smaller oscillations compared to
 <a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System4\">
 Buildings.Examples.Tutorial.Boiler.System4</a>.
 </p>

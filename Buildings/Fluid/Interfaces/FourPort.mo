@@ -65,7 +65,7 @@ model FourPort "Partial model with four ports"
                      Xi_outflow(each nominal=0.01))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}},
-                          rotation=0), 
+                          rotation=0),
                 iconTransformation(extent={{-90,-70},{-110,-50}})));
 
   annotation (
@@ -76,13 +76,13 @@ model FourPort "Partial model with four ports"
           grid={1,1})),
     Documentation(info="<html>
 <p>
-This model defines an interface for components with four ports. 
+This model defines an interface for components with four ports.
 The parameters <code>allowFlowReversal1</code> and
 <code>allowFlowReversal2</code> may be used by models that extend
 this model to treat flow reversal.
 </p>
 <p>
-This model is identical to 
+This model is identical to
 <a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">
 Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 </p>
@@ -90,7 +90,7 @@ Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 <ul>
 <li>
 September 26, 2013 by Michael Wetter:<br/>
-Added missing <code>each</code> keyword in declaration of nominal value for 
+Added missing <code>each</code> keyword in declaration of nominal value for
 <code>Xi_outflow</code>.
 </li>
 <li>
@@ -100,7 +100,7 @@ was set to <code>h_outflow_b2_start</code> instead of <code>h_outflow_b1_start</
 </li>
 <li>
 February 26, 2010 by Michael Wetter:<br/>
-Added start values for outflowing enthalpy because they 
+Added start values for outflowing enthalpy because they
 are often iteration variables in nonlinear equation systems.
 </li>
 </ul>

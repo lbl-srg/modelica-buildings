@@ -142,23 +142,23 @@ then the convective heat transfer coefficient is
 computed based on wind speed, wind direction and temperature difference.
 </p>
 <p>
-The total convection coefficient <i>h<sub>t</sub></i> is the sum of the 
+The total convection coefficient <i>h<sub>t</sub></i> is the sum of the
 temperature-driven free convection coefficient <i>h<sub>n</sub></i>
 and the wind-driven forced convection coefficient <i>h<sub>f</sub></i>,
 <p align=\"center\" style=\"font-style:italic;\">
  h<sub>t</sub> = h<sub>n</sub> + h<sub>f</sub>
 </p>
-The free convection coefficient <i>h<sub>n</sub></i> is computed in the same way as in 
+The free convection coefficient <i>h<sub>n</sub></i> is computed in the same way as in
 <a href=\"modelica://Buildings.HeatTransfer.Convection.Interior\">
 Buildings.HeatTransfer.Convection.Interior</a>.
 The forced convection coefficient <i>h<sub>f</sub></i>
 is computed based on a correlation by Sparrow, Ramsey, and Mass
-(1979), which is 
+(1979), which is
 <p align=\"center\" style=\"font-style:italic;\">
  h<sub>f</sub> = 2.537 W R &radic;( P v &frasl; A )
 </p>
 <p>
-where <i>W=1</i> for windward surfaces and 
+where <i>W=1</i> for windward surfaces and
 <i>W=0.5</i> for leeward surfaces, with leeward defined as greater than 100 degrees
 from normal incidence,
 <i>R</i> is a surface roughness multiplier,
@@ -196,7 +196,7 @@ Buildings.HeatTransfer.Types.SurfaceRoughness</a>.The coefficients for the surfa
 </ol>
 <h4>References</h4>
 <p>
-Sparrow, E. M., J. W. Ramsey, and E. A. Mass. 1979. Effect of Finite Width on Heat Transfer 
+Sparrow, E. M., J. W. Ramsey, and E. A. Mass. 1979. Effect of Finite Width on Heat Transfer
 and Fluid Flow about an Inclined Rectangular Plate. Journal of Heat Transfer, Vol. 101, p.
 204.
 </p>
@@ -209,7 +209,7 @@ Engineering Research Laboratory, Champaign, IL.
 <ul>
 <li>
 November 29, 2011, by Michael Wetter:<br/>
-Fixed error in assignment of wind-based convection coefficient. 
+Fixed error in assignment of wind-based convection coefficient.
 The old implementation did not take into account the surface roughness.
 Bug fix is due to feedback from Tobias Klingbeil (Fraunhofer ISE).
 </li>

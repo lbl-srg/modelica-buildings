@@ -63,7 +63,7 @@ Model for an ideal heater or cooler with prescribed heat flow rate to the medium
 </p>
 <p>
 This model adds heat in the amount of <code>Q_flow = u Q_flow_nominal</code> to the medium.
-The input signal <code>u</code> and the nominal heat flow rate <code>Q_flow_nominal</code> 
+The input signal <code>u</code> and the nominal heat flow rate <code>Q_flow_nominal</code>
 can be positive or negative.
 </p>
 </html>",

@@ -100,7 +100,7 @@ equation
     Documentation(info="<html>
 This example demonstrates the open loop response of the boiler
 model for a control signal that is first a ramp from <i>0</i>
-to <i>1</i>, followed by a step that switches the boilers off and 
+to <i>1</i>, followed by a step that switches the boilers off and
 then on again.
 The instances of the boiler models are parameterized
 so that <code>boi1</code> is a dynamic model and

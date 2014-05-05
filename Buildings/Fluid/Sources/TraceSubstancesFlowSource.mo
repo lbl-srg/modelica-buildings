@@ -56,8 +56,8 @@ This model can be used to inject trace substances into a system.
 The model adds a mass flow rate to its port with a
 trace substance concentration of <i>1</i>.
 <p>
-A typical use of this model is to add carbon dioxide to room air, since the 
-carbon dioxide concentration is typically so small that it need not be 
+A typical use of this model is to add carbon dioxide to room air, since the
+carbon dioxide concentration is typically so small that it need not be
 added to the room mass balance, and since the mass flow rate can be
 made small compared to the room volume if the medium that leaves this
 component has a carbon dioxide concentration of <i>1</i>.
@@ -65,7 +65,7 @@ component has a carbon dioxide concentration of <i>1</i>.
 <ul>
 <li>
 September 10, 2013, by Michael Wetter:<br/>
-Added missing <code>each</code> in declaration of 
+Added missing <code>each</code> in declaration of
 <code>C_in_internal</code>.
 This eliminates a compilation error in OpenModelica.
 </li>

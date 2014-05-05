@@ -68,7 +68,7 @@ equation
 Documentation(info="<html>
 <p>
 This block implements <a href=\"modelica://Districts.Utilities.Math.Functions.spliceFunction\">
-Districts.Utilities.Math.Functions.spliceFunction</a>, which provides a continuously differentiable transition between two arguments. 
+Districts.Utilities.Math.Functions.spliceFunction</a>, which provides a continuously differentiable transition between two arguments.
 </p>
 </html>",
 revisions="<html>

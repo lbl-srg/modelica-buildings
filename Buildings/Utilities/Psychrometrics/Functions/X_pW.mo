@@ -1,7 +1,7 @@
 within Buildings.Utilities.Psychrometrics.Functions;
 function X_pW "Humidity ratio for given water vapor pressure"
 
-  input Modelica.SIunits.Pressure p_w(displayUnit="Pa", 
+  input Modelica.SIunits.Pressure p_w(displayUnit="Pa",
                                       min=0.003,
                                       nominal=1000)
     "Water vapor pressure";

@@ -28,10 +28,10 @@ block AbsorbedRadiation "Absorbed radiation by window"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
-  output Modelica.SIunits.Power absRad[2, N + 2] "Absorbed interior and exterior radiation. 
-      (absRad[2,1]: exterior shading device, 
+  output Modelica.SIunits.Power absRad[2, N + 2] "Absorbed interior and exterior radiation.
+      (absRad[2,1]: exterior shading device,
       absRad[1,2 to N+1]: glass (unshaded part),
-      absRad[2,2 to N+1]: glass (shaded part),   
+      absRad[2,2 to N+1]: glass (shaded part),
       absRad[2,N+2]: interior shading device)";
 
 protected
@@ -192,7 +192,7 @@ algorithm
   annotation (
     Documentation(info="<html>
 <p>
-The model calculates absorbed solar radiation on the window. 
+The model calculates absorbed solar radiation on the window.
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
 </p>
 <p>
@@ -280,7 +280,7 @@ Separate transmittance and absorbance.
 </li>
 <li>
 December 12, 2010, by Michael Wetter:<br/>
-Replaced record 
+Replaced record
 <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">
 Buildings.HeatTransfer.Data.GlazingSystems</a> with the
 parameters used by this model.

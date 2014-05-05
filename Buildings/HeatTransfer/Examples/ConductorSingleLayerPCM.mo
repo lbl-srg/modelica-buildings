@@ -160,20 +160,20 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example tests the implementation of the phase-change material (PCM) model. 
+This example tests the implementation of the phase-change material (PCM) model.
 </p>
 <p>
 The phase-change material <code>matPCM</code> is exposed to the same boundary
 conditions as the non phase-change material.
 In the construction <code>conPCM2</code>, the phase change is around <i>20.5</i> &deg;C.
-In the construction <code>conPCM</code>, the phase change is around <i>40.5</i> &deg;C, which 
+In the construction <code>conPCM</code>, the phase change is around <i>40.5</i> &deg;C, which
 is above the temperature range simulated in this model.
 Therefore, the same result is expected for the PCM material <code>conPCM</code>
-as is for two conductors in series. 
+as is for two conductors in series.
 Note that in case of using <code>matPCM</code>, the internal energy is
 the dependent variable, whereas in case of two conductors in series, the temperature
-is the dependent variable. However, both models will 
-produce the same results. 
+is the dependent variable. However, both models will
+produce the same results.
 The <code>assert</code> block will stop the simulation
 if there is a difference in heat fluxes.
 </p>

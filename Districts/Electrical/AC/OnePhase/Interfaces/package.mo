@@ -1,5 +1,5 @@
 within Districts.Electrical.AC.OnePhase;
-package Interfaces 
+package Interfaces
   extends Modelica.Icons.InterfacesPackage;
 
 end Interfaces;

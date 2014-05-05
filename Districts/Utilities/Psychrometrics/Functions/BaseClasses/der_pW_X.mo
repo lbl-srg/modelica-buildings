@@ -25,7 +25,7 @@ algorithm
   annotation (
     Documentation(info="<html>
 <p>
-Derivative of function 
+Derivative of function
 <a href=\"modelica:Districts.Utilities.Psychrometrics.Functions.pW_X\">
 Districts.Utilities.Psychrometrics.Functions.pW_X</a>.
 </p>

@@ -94,7 +94,7 @@ equation
             100}}), graphics),
     Documentation(info="<html>
       <p>
-        This examples demonstrates the implementation of 
+        This examples demonstrates the implementation of
         <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain\">
         Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain</a>.
       </p>

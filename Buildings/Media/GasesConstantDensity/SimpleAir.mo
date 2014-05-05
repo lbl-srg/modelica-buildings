@@ -175,7 +175,7 @@ Dummy function that returns <code>0</code>.
 <ul>
 <li>
 August 3, 2011, by Michael Wetter:<br/>
-Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
+Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases.
 For this medium, the function is <code>u=h-p/dStp</code>.
 </li>
 <li>
@@ -207,14 +207,14 @@ end saturationPressure;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This medium model is similar to 
+This medium model is similar to
 <a href=\"modelica://Modelica.Media.Air.SimpleAir\">
 Modelica.Media.Air.SimpleAir</a>, except that the
 gas density is constant.
 </p>
 <p>
 The use of a constant density avoids having pressure as a state variable in mixing volumes. Hence, fast transients
-introduced by a change in pressure are avoided. 
+introduced by a change in pressure are avoided.
 The drawback is that the dimensionality of the coupled
 nonlinear equation system is typically larger for flow
 networks.
@@ -236,7 +236,7 @@ to final to avoid an error when checking models in pedantic mode in Dymola 2014.
 </li>
 <li>
 August 3, 2011, by Michael Wetter:<br/>
-Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
+Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases.
 For this medium, the function is <code>u=h-p/dStp</code>.
 </li>
 <li>
@@ -254,7 +254,7 @@ to allow using the room model with a medium that does not contain water vapor.
 <li>
 August 21, 2008, by Michael Wetter:<br/>
 Replaced <code>d*pStp = p*dStp</code> by
-<code>d/dStp = p/pStp</code> to indicate that division by 
+<code>d/dStp = p/pStp</code> to indicate that division by
 <code>dStp</code> and <code>pStp</code> is allowed.
 </li>
 <li>

@@ -8,10 +8,10 @@ algorithm
 annotation(smoothOrder=1,
             Documentation(info=
 "<html>
-This function computes the buoyancy-driven convective heat transfer coefficient 
+This function computes the buoyancy-driven convective heat transfer coefficient
 for a ceiling as
 <code>h=k*|dT|^0.3333</code>,
-where 
+where
 <code>k=1.51</code> if the fluid is warmer than the ceiling,
 or <code>k=0.76</code> otherwise, and where
 <code>dT</code> is the solid temperature minus the fluid temperature.

@@ -29,12 +29,11 @@ equation
     defaultComponentName="cheTem",
     Documentation(info="<html>
 <p>
-This component checks the value of temperature. 
-If the temperature is outside <code>TMin</code> and <code>TMax</code>, 
+This component checks the value of temperature.
+If the temperature is outside <code>TMin</code> and <code>TMax</code>,
 the simulation will stop with an error.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 October 27, 2011, by Wangda Zuo:<br/>

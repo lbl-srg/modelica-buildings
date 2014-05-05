@@ -31,11 +31,11 @@ annotation (defaultComponentName="senDen",
         Line(points={{70,0},{100,0}}, color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This model outputs the density of the fluid connected to its port. 
+This model outputs the density of the fluid connected to its port.
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 <p>
-Read the 
+Read the
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a>
 prior to using this model with one fluid port.

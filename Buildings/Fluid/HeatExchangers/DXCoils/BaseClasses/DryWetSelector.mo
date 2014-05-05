@@ -107,18 +107,18 @@ This block smoothly transitions the results from the dry coil and
 the wet coil computation.
 The independent variable for the transition is the difference between
 the water mass fractions at the apparatus dew point, as computed by the wet coil model,
-and the coil inlet mass fraction. 
+and the coil inlet mass fraction.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 September 20, 2012 by Michael Wetter:<br/>
-Revised implementation. 
+Revised implementation.
 </li>
 <li>
 August 9, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 

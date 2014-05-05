@@ -109,7 +109,7 @@ experiment(StopTime=1),
     Documentation(info="<html>
 <p>
 This model has been used to validate buoyancy-driven air flow between two volumes.
-The volume <code>volEas</code> is at <i>20</i>&deg;C and the volume 
+The volume <code>volEas</code> is at <i>20</i>&deg;C and the volume
 <code>volOut</code> is at <i>10</i>&deg;C.
 This initial condition induces a clock-wise airflow between the two volumes.
 </p>

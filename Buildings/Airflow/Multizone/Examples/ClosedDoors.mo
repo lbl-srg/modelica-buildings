@@ -130,7 +130,7 @@ This model consists of three volumes that are connected among
 each other through three doors that all have the same geometry.
 All doors are closed, but they are not air-tight.
 Heat is added and removed from <code>volB</code> which induces
-a small air flow through the doors. 
+a small air flow through the doors.
 </p>
 </html>", revisions="<html>
 <ul>

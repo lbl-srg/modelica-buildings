@@ -123,42 +123,42 @@ equation
     defaultComponentName="solGai",
     Documentation(info="<html>
       <p>
-        This component computes the solar heat gain of the solar thermal collector. 
+        This component computes the solar heat gain of the solar thermal collector.
         It only calculates the solar heat gain without considering the heat loss
-        to the environment. This model uses ratings data according to ASHRAE93. 
+        to the environment. This model uses ratings data according to ASHRAE93.
         The solar heat gain is calculated using Equations 555 - 559 in the referenced
         EnergyPlus documentation.
       </p>
       <p>
-        The solar radiation absorbed by the panel is identified using Eq 559 from 
+        The solar radiation absorbed by the panel is identified using Eq 559 from
         the EnergyPlus documentation. It is
       </p>
       <p align=\"center\" style=\"font-style:italic;\">
-        Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;) 
-          K<sub>(&tau;&alpha;)<sub>net</sub></sub> (G<sub>Dir</sub> 
+        Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;)
+          K<sub>(&tau;&alpha;)<sub>net</sub></sub> (G<sub>Dir</sub>
           (1-shaCoe)+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>))
       </p>
       <p>
         where <i>Q<sub>Flow</sub>[i]</i> is the heat gain in each segment, <i>A<sub>
-        c</sub></i> is the area of the collector, <i>nSeg</i> is the user-specified 
-        number of segments in the simulation, <i>F<sub>R</sub>(&tau;&alpha;)</i> is 
+        c</sub></i> is the area of the collector, <i>nSeg</i> is the user-specified
+        number of segments in the simulation, <i>F<sub>R</sub>(&tau;&alpha;)</i> is
         the maximum collector efficiency, <i>K<sub>(&tau;&alpha;)<sub>net></sub>
-        </sub></i> is the incidence angle modifier, <i>G<sub>Dir</sub></i> is the 
-        direct solar radiation, <i>shaCoe</i> is the user-specified shading 
-        coefficient, <i>G<sub>Dif,Sky</sub></i> is the diffuse solar radiation from 
-        the sky, and <i>G<sub>Dif,Gnd</sub></i> is the diffuse radiation from the 
+        </sub></i> is the incidence angle modifier, <i>G<sub>Dir</sub></i> is the
+        direct solar radiation, <i>shaCoe</i> is the user-specified shading
+        coefficient, <i>G<sub>Dif,Sky</sub></i> is the diffuse solar radiation from
+        the sky, and <i>G<sub>Dif,Gnd</sub></i> is the diffuse radiation from the
         ground.
       </p>
       <p>
-        The solar radiation equation indicates that the collector is divided into 
-        multiple segments. The number of segments used in the simulation is specified 
-        by the user (parameter: <code>nSeg</code>). The area of an individual segment 
-        is identified by dividing the collector area by the total number of segments. 
-        The term <code>shaCoe</code> is used to define the percentage of the collector 
+        The solar radiation equation indicates that the collector is divided into
+        multiple segments. The number of segments used in the simulation is specified
+        by the user (parameter: <code>nSeg</code>). The area of an individual segment
+        is identified by dividing the collector area by the total number of segments.
+        The term <code>shaCoe</code> is used to define the percentage of the collector
         that is shaded.
       </p>
       <p>
-        The incidence angle modifier used in the solar radiation equation is found using 
+        The incidence angle modifier used in the solar radiation equation is found using
         Eq 556 from the EnergyPlus documentation. It is
       </p>
       <p align=\"center\" style=\"font-style:italic;\">
@@ -168,25 +168,25 @@ equation
           Dif,Gnd</sub>)
       </p>
       <p>
-        where <i>K<sub>(&tau;&alpha;),net</sub></i> is the net incidence angle modified, 
+        where <i>K<sub>(&tau;&alpha;),net</sub></i> is the net incidence angle modified,
         <i>G<sub>Beam</sub></i> is the beam radiation, <i>K<sub>(&tau;&alpha;),Beam</sub>
         </i> is the incidence angle modifier for beam radiation, <i>G<sub>Dif,Sky</sub></i>
-        is the diffuse radiation from the sky, <i>K<sub>(&tau;&alpha;),Sky</sub></i> is the 
-        incidence angle modifier for radiation from the sky, <i>G<sub>Dif, Gnd</sub></i> is 
-        the diffuse radiation from the ground, and <i>K<sub>(&tau;&alpha;),Gnd</sub></i> is 
+        is the diffuse radiation from the sky, <i>K<sub>(&tau;&alpha;),Sky</sub></i> is the
+        incidence angle modifier for radiation from the sky, <i>G<sub>Dif, Gnd</sub></i> is
+        the diffuse radiation from the ground, and <i>K<sub>(&tau;&alpha;),Gnd</sub></i> is
         the incidence angle modifier for diffuse radiation from the ground.
       </p>
       <p>
-        Each incidence angle modifier is calculated using Eq 555 from the EnergyPlus 
+        Each incidence angle modifier is calculated using Eq 555 from the EnergyPlus
         documentation. It is
       </p>
       <p align=\"center\" style=\"font-style:italic;\">
-        K<sub>(&tau;&alpha;),x</sub>=1+b<sub>0</sub> (1/cos(&theta;)-1)+b<sub>1</sub> 
+        K<sub>(&tau;&alpha;),x</sub>=1+b<sub>0</sub> (1/cos(&theta;)-1)+b<sub>1</sub>
           (1/cos(&theta;)-1)<sup>2</sup>
       </p>
       <p>
-        where x can refer to beam, sky or ground. <i>&theta;</i> is 
-        the incidence angle. For beam radiation <i>&theta;</i> is found via standard 
+        where x can refer to beam, sky or ground. <i>&theta;</i> is
+        the incidence angle. For beam radiation <i>&theta;</i> is found via standard
         geometry. The incidence angle for sky and ground diffuse radiation are found
         using, respectively, Eq 557 and 558 from the EnergyPlus documentation. They are
       </p>
@@ -200,20 +200,20 @@ equation
         is the incidence angle for diffuse radiation from the ground.
       </p>
       <p>
-        These two equations must be evaluated in degrees. The necessary unit conversions are made 
+        These two equations must be evaluated in degrees. The necessary unit conversions are made
         internally.
       </p>
       <p>
-        This model reduces the heat gain rate to 0 W when the fluid temperature is within 1 degree 
-        C of the maximum temperature of the medium model. The calucation is performed using the 
+        This model reduces the heat gain rate to 0 W when the fluid temperature is within 1 degree
+        C of the maximum temperature of the medium model. The calucation is performed using the
         <a href=\"modelica://Buildings.Utilities.Math.Functions.smoothHeaviside\">
-        Buildings.Utilities.Math.Functions.smoothHeaviside</a> function. 
+        Buildings.Utilities.Math.Functions.smoothHeaviside</a> function.
       </p>
     <h4>References</h4>
       <p>
-      <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, 
+      <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>,
         October 13, 2011.<br/>
-      ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of Solar 
+      ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of Solar
         Collectors (ANSI approved)
       </p>
     </html>",

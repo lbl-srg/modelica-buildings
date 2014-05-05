@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.NominalCondition", 
+simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.NominalCondition",
 stopTime=60, method="dassl", resultFile="NominalCondition");
 removePlots();
 createPlot(id = 1,

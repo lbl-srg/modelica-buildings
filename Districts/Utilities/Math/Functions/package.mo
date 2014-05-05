@@ -6,7 +6,7 @@ package Functions "Package with mathematical functions"
 annotation (preferedView="info", Documentation(info="<html>
 <p>
 This package contains functions for commonly used
-mathematical operations. The functions are used in 
+mathematical operations. The functions are used in
 the blocks
 <a href=\"modelica://Districts.Utilities.Math\">
 Districts.Utilities.Math</a>.

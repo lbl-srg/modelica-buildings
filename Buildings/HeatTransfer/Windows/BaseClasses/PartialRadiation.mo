@@ -56,7 +56,7 @@ protected
     "Control signal for shading (0: unshaded; 1: fully shaded)";
 initial equation
   /* Current model assumes that the window only has either an interior or exterior shade.
-     Warn user if it has an interior and exterior shade. 
+     Warn user if it has an interior and exterior shade.
      Allowing both shades at the same time would require rewriting part of the model. */
   assert(not (haveExteriorShade and haveInteriorShade),
     "Window radiation model does not support an exterior and interior shade at the same time.");
@@ -68,7 +68,7 @@ equation
   end if;
   annotation (
     Documentation(info="<html>
-The model calculates solar absorbance on the window. 
+The model calculates solar absorbance on the window.
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
 
 <h4>References</h4>

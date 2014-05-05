@@ -156,7 +156,7 @@ the parameter <code>dynamicBalance</code>, the fluid volume
 is computed using a dynamic balance or a steady-state balance.
 </p>
 <p>
-The parameter <code>addPowerToMedium</code> determines whether 
+The parameter <code>addPowerToMedium</code> determines whether
 any power is added to the fluid. The default is <code>addPowerToMedium=true</code>,
 and hence the outlet enthalpy is higher than the inlet enthalpy if the
 flow device is operating.

@@ -207,7 +207,7 @@ Documentation(info="<html>
 Model of a discretized coil without water vapor condensation.
 The coil consists of two flow paths which are, at the design flow direction,
 in opposite direction to model a counterflow heat exchanger.
-The flow paths are discretized into <code>nEle</code> elements. 
+The flow paths are discretized into <code>nEle</code> elements.
 Each element is modeled by an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
@@ -217,14 +217,14 @@ on the value of the boolean parameters <code>steadyState_1</code> and
 state.
 </p>
 <p>
-The convective heat transfer coefficients can, for each fluid individually, be 
+The convective heat transfer coefficients can, for each fluid individually, be
 computed as a function of the flow rate and/or the temperature,
 or assigned to a constant. This computation is done using an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil</a>.
 </p>
 <p>
-To model humidity condensation, use the model 
+To model humidity condensation, use the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
 Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a> instead of this model, as
 this model computes only sensible heat transfer.

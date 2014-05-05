@@ -36,7 +36,7 @@ Reimplemented model to use integer input as a control signal.
 </li>
 <li>
 August 29, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 

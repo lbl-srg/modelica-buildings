@@ -64,8 +64,8 @@ Documentation(info="<html>
 <p>
 This example uses the basic side fins model with solar angles as input and calculates the fraction of total window area that is exposed to the sun.
 For a detailed description of the solar angles used in the model,
-see to documentation in the package 
-<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry\">Buildings.BoundaryConditions.SolarGeometry</a>. 
+see to documentation in the package
+<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry\">Buildings.BoundaryConditions.SolarGeometry</a>.
 For a detail description of side fin model, see
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.SideFins\">
 Buildings.HeatTransfer.Windows.BaseClasses.SideFins</a>.
@@ -75,20 +75,20 @@ The required data for the solar angle calculations are obtained from the weather
 Solar angles used in this model are:
 <ul>
 <li>
-<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.ZenithAngle\">Buildings.BoundaryConditions.SolarGeometry.ZenithAngle</a>: 
-Angle between sun ray and normal to horizontal surface  
+<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.ZenithAngle\">Buildings.BoundaryConditions.SolarGeometry.ZenithAngle</a>:
+Angle between sun ray and normal to horizontal surface
 </li>
 <li>
-<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle\">Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle</a>: 
-Solar incidence angle on a tilted surface    
+<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle\">Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle</a>:
+Solar incidence angle on a tilted surface
 </li>
 <li>
-<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle</a>: 
+<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle</a>:
 Angle between Sun ray and horizontal surface
 </li>
 <li>
-<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth</a>: 
-Angle measured in horizontal plane between projection of sun's rays and normal to vertical surface 
+<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth</a>:
+Angle measured in horizontal plane between projection of sun's rays and normal to vertical surface
 </li>
 </ul>
 
@@ -105,7 +105,7 @@ measured from the top of the window.
 </li>
 <li>
 Feb 01, 2012, by Kaustubh Phalak<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

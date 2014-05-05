@@ -101,7 +101,7 @@ Added documentation.
 </ul>
 </html>", info="<html>
 <p>
-This model tests the implementation of the 
+This model tests the implementation of the
 PID controller with optional reverse action.
 The model <code>limPIDOri</code> is the original
 implementation of the controller from the Modelica
@@ -109,7 +109,7 @@ Standard Library. The models <code>limPID</code>
 and <code>limPIDRev</code> are the implementations
 from the Buildings library. The model
 <code>limPIDRev</code> is parameterized to have
-reverse action. 
+reverse action.
 The assertion blocks test whether the results
 of all three controllers are identical.
 </p>

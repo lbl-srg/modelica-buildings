@@ -212,12 +212,12 @@ equation
           textString="QAbsNet")}),
     Documentation(info="<html>
 <p>
-Model for the infrared radiative heat balance 
+Model for the infrared radiative heat balance
 of a shade that is at the outside or the room-side of a window.
 The model also includes the absorbed solar radiation.
 </p>
 <p>
-The input port <code>QAbs_flow</code> needs to be connected to the solar radiation 
+The input port <code>QAbs_flow</code> needs to be connected to the solar radiation
 that is absorbed by the shade.
 </p>
 </html>", revisions="<html>

@@ -307,7 +307,7 @@ equation
 This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.<br/>
 <p>
 The model represents an air-based heating system with an ideal heater and an ideal humidifier
-in the supply duct. The heater and humidifier are controlled with a feedback loop that 
+in the supply duct. The heater and humidifier are controlled with a feedback loop that
 tracks the room air temperature and room air humidity. These quantities are simulated
 in the EnergyPlus simulation program through the Building Controls Virtual Test Bed.
 The component <code>bouBCVTB</code> models the boundary between the domain that models the air
@@ -320,13 +320,13 @@ where <code>XY</code> denotes the EnergyPlus version number.
 <ul>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
-Removed the medium declaration in the instance 
+Removed the medium declaration in the instance
 of the model <code>Buildings.Utilities.Psychrometrics.X_pTphi</code> as
 this model no longer allows to replace the medium.
 </li>
 <li>
 January 13, 2012, by Michael Wetter:<br/>
-Updated fan parameters, which were still for version 0.12 of the 
+Updated fan parameters, which were still for version 0.12 of the
 Buildings library and hence caused a translation error with version 1.0 or higher.
 </li>
 <li>
@@ -335,7 +335,7 @@ Changed sensor models from one-port sensors to two port sensors.
 </li>
 <li>
 January 21, 2010 by Michael Wetter:<br/>
-Changed model to include fan instead of having flow driven by two reservoirs at 
+Changed model to include fan instead of having flow driven by two reservoirs at
 different pressure.
 </li>
 <li>

@@ -197,16 +197,16 @@ end saturationPressure;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This medium model is identical to 
+This medium model is identical to
 <a href=\"modelica://Modelica.Media.Air.SimpleAir\">
-Modelica.Media.Air.SimpleAir</a>, except the 
-equation <code>d = p/(R*T)</code> has been replaced with 
-<code>d/dStp = p/pStp</code> where 
+Modelica.Media.Air.SimpleAir</a>, except the
+equation <code>d = p/(R*T)</code> has been replaced with
+<code>d/dStp = p/pStp</code> where
 <code>pStd</code> and <code>dStp</code> are constants for a reference
 temperature and density.
 </p>
 <p>
-This new formulation often leads to smaller systems of nonlinear equations 
+This new formulation often leads to smaller systems of nonlinear equations
 because pressure and temperature are decoupled, at the expense of accuracy.
 </p>
 <p>
@@ -227,7 +227,7 @@ when models are checked in Dymola 2014 in the pedenatic mode.
 </li>
 <li>
 August 3, 2011, by Michael Wetter:<br/>
-Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
+Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases.
 For this medium, the function is <code>u=h-pStd/dStp</code>.
 </li>
 <li>
@@ -237,7 +237,7 @@ to allow using the room model with a medium that does not contain water vapor.
 </li><li>
 August 21, 2008, by Michael Wetter:<br/>
 Replaced <code>d*pStp = p*dStp</code> by
-<code>d/dStp = p/pStp</code> to indicate that division by 
+<code>d/dStp = p/pStp</code> to indicate that division by
 <code>dStp</code> and <code>pStp</code> is allowed.
 </li>
 <li>

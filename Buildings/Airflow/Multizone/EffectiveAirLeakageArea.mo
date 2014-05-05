@@ -87,12 +87,12 @@ reported with the test results.
 <h4>References</h4>
 <UL>
 <LI>
-<B>ASHRAE, 1997.</B> 
-<i>ASHRAE Fundamentals</i>, 
+<B>ASHRAE, 1997.</B>
+<i>ASHRAE Fundamentals</i>,
 American Society of Heating, Refrigeration and Air-Conditioning
 Engineers, 1997.
 <LI>
-<B>Dols and Walton, 2002.</B> 
+<B>Dols and Walton, 2002.</B>
 W. Stuart Dols and George N. Walton, <I>CONTAMW 2.0 User Manual,
 Multizone Airflow and Contaminant Transport Analysis Software</I>,
 Building and Fire Research Laboratory,

@@ -80,7 +80,7 @@ connected to a AC circuit.
 </p>
 <p>
 The total solar irradiation is computed based on a weather data file
-for San Francisco, CA. 
+for San Francisco, CA.
 The PV is connected to a circuit that has resistance which may emulate a load, and an AC/DC converter.
 The AC/DC converter converts 12 Volts AC to 380 Volts DC.
 The block called <code>grid</code> has an output connector <code>P</code>

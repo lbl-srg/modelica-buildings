@@ -322,7 +322,7 @@ Changed model to use new implementation of
 <a href=\"modelica://Buildings.HeatTransfer.Radiosity.OutdoorRadiosity\">
 Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
 This change leads to the use of the same equations for the radiative
-heat transfer between window and ambient as is used for 
+heat transfer between window and ambient as is used for
 the opaque constructions.
 </li>
 <li>

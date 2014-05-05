@@ -19,7 +19,7 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-10
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the implementation of 
+This model tests the implementation of
 <a href=\"modelica://Districts.Utilities.Math.IntegerReplicator\">
 Districts.Utilities.Math.IntegerReplicator</a>.
 </p>

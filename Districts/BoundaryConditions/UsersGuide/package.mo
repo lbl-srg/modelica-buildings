@@ -11,7 +11,7 @@ The calculations follow the description in Wetter (2004), Appendix A.4.2.</p>
 <p align=\"center\"><img src=\"modelica://Districts/Resources/Images/BoundaryConditions/zen_sun.png\"/> </p>
 <p align=\"center\"><img src=\"modelica://Districts/Resources/Images/BoundaryConditions/zen_pla.png\"/> </p>
 <p>
-For the surface azimuth and tilt, the enumerations 
+For the surface azimuth and tilt, the enumerations
 <a href=\"modelica://Districts.BoundaryConditions.Types.Azimuth\">
 Districts.BoundaryConditions.Types.Azimuth</a>
 and

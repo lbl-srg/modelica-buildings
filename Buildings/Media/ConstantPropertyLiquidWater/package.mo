@@ -24,7 +24,7 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
 
 
   annotation (preferredView="info", Documentation(info="<html>
-This medium model is identical to 
+This medium model is identical to
 <a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
 Modelica.Media.Water.ConstantPropertyLiquidWater</a>, except for the following
 points:<br/>clear
@@ -61,7 +61,7 @@ Fixed wrong hyperlink in the documentation.
 </li>
 <li>
 October 2, 2008, by Michael Wetter:<br/>
-Changed base class to 
+Changed base class to
 <a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleMedium\">
 Buildings.Media.Interfaces.PartialSimpleMedium</a> to allow compressibility
 to break algebraic equation systems (at the expense of stiffness).

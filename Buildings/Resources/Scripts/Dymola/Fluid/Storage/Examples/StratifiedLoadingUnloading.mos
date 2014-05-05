@@ -1,7 +1,7 @@
 simulateModel("Buildings.Fluid.Storage.Examples.StratifiedLoadingUnloading", stopTime=14400, method="dassl", resultFile="StratifiedLoadingUnloading");
 createPlot(id = 1,
  position = {10, 30, 719, 600},
- filename = "StratifiedLoadingUnloading.mat", 
+ filename = "StratifiedLoadingUnloading.mat",
  y = {"tanEnh.vol[1].T", "tanEnh.vol[2].T", "tanEnh.vol[3].T", "tanEnh.vol[4].T", "tanEnh.vol[5].T", "tanEnh.vol[6].T", "tanEnh.vol[7].T"},
  range = {0, 15000.0, 55.0, 15.0},
  autoscale = true,

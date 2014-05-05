@@ -44,7 +44,7 @@ equation
             -100},{100,100}}),                                     graphics), Documentation(info="<html>
 <p>
 This model illustrates a generator, an inductive load and a grid connection.
-The power output of the generator is equal to its input signal, which is 
+The power output of the generator is equal to its input signal, which is
 a ramp function.
 The output <code>grid.P</code> shows
 the actual and apparent power, the power factor and

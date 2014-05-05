@@ -65,8 +65,7 @@ This component computes the solar incidence angle on a tilted surface.
 For a definition of the parameters, see the User's Guide
 <a href=\"modelica://Districts.BoundaryConditions.UsersGuide\">Districts.BoundaryConditions.UsersGuide</a>.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 November 30, 2011, by Michael Wetter:<br/>

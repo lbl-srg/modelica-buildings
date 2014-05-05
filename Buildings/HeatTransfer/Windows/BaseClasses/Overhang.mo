@@ -196,35 +196,35 @@ fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses
 defaultComponentName="overhang",
 Documentation(info="<html>
 <p>
-For a window with an overhang, this block outputs the fraction of 
+For a window with an overhang, this block outputs the fraction of
 the area that is exposed to the sun.
-This models can also be used for doors with an overhang. 
+This models can also be used for doors with an overhang.
 </p>
 <p>
-Input to this block are the 
-wall solar azimuth angle and the altitude angle of the sun. 
+Input to this block are the
+wall solar azimuth angle and the altitude angle of the sun.
 These angles can be calculated using blocks from the package
 <a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses\">
-Buildings.BoundaryConditions.SolarGeometry.BaseClasses</a>. 
+Buildings.BoundaryConditions.SolarGeometry.BaseClasses</a>.
 </p>
 <p>
-The overhang can be asymmetrical (i.e. <code>wR &ne; wL</code>) 
-about the vertical centerline 
+The overhang can be asymmetrical (i.e. <code>wR &ne; wL</code>)
+about the vertical centerline
 of the window.
 The overhang must completely cover the window (i.e.,
-<code>wL &ge; 0</code> and 
-<code>wR &ge; 0</code>). 
+<code>wL &ge; 0</code> and
+<code>wR &ge; 0</code>).
 <code>wL</code> and <code>wR</code> are measured from the left and right edge of the window.
 </p>
 <p>
-The surface azimuth <code>azi</code> is as defined in 
+The surface azimuth <code>azi</code> is as defined in
 <a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
 Buildings.HeatTransfer.Types.Azimuth</a>.
 </p>
 <h4>Implementation</h4>
 <p>
-The method of super position is used to calculate the window shaded area. 
-The area below the overhang is divided as shown in the figure. 
+The method of super position is used to calculate the window shaded area.
+The area below the overhang is divided as shown in the figure.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangSuperPosition.png\" />
@@ -237,16 +237,16 @@ are shown in the figure below:
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangVariables.png\" />
 </p>
 <p>
-The rectangles <i>DEGI, AEGH, CFGI</i> and <i>BFGH</i> have the same geometric configuration 
+The rectangles <i>DEGI, AEGH, CFGI</i> and <i>BFGH</i> have the same geometric configuration
 with respect to the overhang.
-Thus, the same algorithm can be used to calculate the shaded portion in these areas. 
-A single equation in the <code>for</code> loop improves the total calculation time, 
-as compared to <code>if-then-else</code> 
-conditions, considering the various shapes of the shaded portions. 
-To find the shaded area in window <i>ABCD</i>, the shaded portion of <i>AEGD</i> and <i>CFGI</i> 
+Thus, the same algorithm can be used to calculate the shaded portion in these areas.
+A single equation in the <code>for</code> loop improves the total calculation time,
+as compared to <code>if-then-else</code>
+conditions, considering the various shapes of the shaded portions.
+To find the shaded area in window <i>ABCD</i>, the shaded portion of <i>AEGD</i> and <i>CFGI</i>
 should be subtracted from that of <i>DEGI</i> and <i>BFGH</i>.
-This shaded area of the window is then divided by the total window area 
-to calculate the shaded fraction of the window. 
+This shaded area of the window is then divided by the total window area
+to calculate the shaded fraction of the window.
 </p>
 </html>",
 revisions="<html>
@@ -273,7 +273,7 @@ Revised implementation.
 </li>
 <li>
 Feb 01, 2012, by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

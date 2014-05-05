@@ -12,7 +12,7 @@ or data exchange as part of a hardware-in-the-loop simulation in which
 Python is used to communicate with hardware.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">
 Buildings.Utilities.IO.Python27.UsersGuide</a>
 for instruction.

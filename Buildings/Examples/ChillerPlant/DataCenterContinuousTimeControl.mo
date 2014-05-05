@@ -9,7 +9,7 @@ model DataCenterContinuousTimeControl
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is the chilled water plant with continuous time control.
-The trim and response logic is approximated by a PI controller which 
+The trim and response logic is approximated by a PI controller which
 significantly reduces computing time. The model is described at
 <a href=\"Buildings.Examples.ChillerPlant\">
 Buildings.Examples.ChillerPlant</a>.

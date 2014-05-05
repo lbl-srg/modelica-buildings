@@ -28,7 +28,7 @@ defaultComponentName="cooCoi",
 Model of a discretized coil with water vapor condensation.
 The coil consists of two flow paths which are, at the design flow direction,
 in opposite direction to model a counterflow heat exchanger.
-The flow paths are discretized into <code>nEle</code> elements. 
+The flow paths are discretized into <code>nEle</code> elements.
 Each element is modeled by an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
@@ -38,7 +38,7 @@ on the value of the boolean parameters <code>steadyState_1</code> and
 state.
 </p>
 <p>
-The convective heat transfer coefficients can, for each fluid individually, be 
+The convective heat transfer coefficients can, for each fluid individually, be
 computed as a function of the flow rate and/or the temperature,
 or assigned to a constant. This computation is done using an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil\">
@@ -53,7 +53,7 @@ the air flow path needs to be connected to the other two ports.
 The mass transfer from the fluid 2 to the metal is computed using a similarity law between
 heat and mass transfer, as implemented by the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange\">
-Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange</a>. 
+Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange</a>.
 </p>
 <p>
 This model can only be used with medium models that
@@ -67,7 +67,7 @@ Buildings.Media.PerfectGases.MoistAir</a> and
 Modelica.Media.Air.MoistAir</a>.
 </p>
 <p>
-To model this coil for conditions without humidity condensation, use the model 
+To model this coil for conditions without humidity condensation, use the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
 Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </p>

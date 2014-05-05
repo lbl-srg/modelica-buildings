@@ -20,8 +20,7 @@ equation
 <p>
 This component computes the angle between the equatorial plane and the solar beam.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 Dec 7, 2010, by Michael Wetter:<br/>

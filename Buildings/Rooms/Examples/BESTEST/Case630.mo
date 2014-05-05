@@ -29,7 +29,7 @@ Diagram(coordinateSystem(
     Documentation(info="<html>
 <p>
 This model is case 630 of the BESTEST validation suite.
-Case 630 differs from case 620 in that the 
+Case 630 differs from case 620 in that the
 windows on the west and east walls have an overhang and side fins.
 </p>
 </html>",

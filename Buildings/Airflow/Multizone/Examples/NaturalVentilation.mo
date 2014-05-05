@@ -96,7 +96,7 @@ experiment(StopTime=7200),
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model illustrates buoyancy-driven natural ventilation between 
+This model illustrates buoyancy-driven natural ventilation between
 two volumes of air.
 The volume <code>volA</code> can be considered as the volume of a room,
 and the volume <code>volOut</code> is parameterized to be very large to emulate

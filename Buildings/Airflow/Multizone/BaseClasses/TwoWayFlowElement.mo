@@ -98,7 +98,7 @@ equation
 This is a partial model for models that describe the bi-directional
 air flow through large openings.
 <P>
-Models that extend this model need to compute 
+Models that extend this model need to compute
 <code>mAB_flow</code> and <code>mBA_flow</code>,
 or alternatively <code>VAB_flow</code> and <code>VBA_flow</code>,
 and the face area <code>area</code>.

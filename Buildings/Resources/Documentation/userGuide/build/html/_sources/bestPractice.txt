@@ -6,7 +6,7 @@ This section explains to library users best practice in creating new system mode
 Organization of packages
 ------------------------
 
-When developing models, one should distinguish between a library which contains widely applicable models, such as the `Buildings` library, and an application-specific model which may be created for a specific building and is of limited use for other applications. 
+When developing models, one should distinguish between a library which contains widely applicable models, such as the `Buildings` library, and an application-specific model which may be created for a specific building and is of limited use for other applications.
 We recommend storing application-specific models outside of the `Buildings` library. This will allow replacing the `Buildings` library with a new version without having to change the application-specific model.
 If during the course of the development of application-specific models, some models turn out to be of interest for other applications, then they can be contributed to the development of the `Buildings` library, as described in the section :ref:`Development`.
 
@@ -27,7 +27,7 @@ Suppose that both models have a parameter ``m_flow_nominal`` for the nominal mas
 Rather than setting these parameters individually to a numeric value, it is recommended to propagate the parameter to the top-level of the model. Thus, instead of using the declaration
 
 .. code-block:: modelica
-   
+
    Pump pum(m_flow_nominal=0.1) "Pump";
    TemperatureSensor sen(m_flow_nominal=0.1) "Sensor";
 
@@ -35,7 +35,7 @@ we recommend to use
 
 .. code-block:: modelica
 
-   Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1 
+   Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1
                                  "Nominal mass flow rate";
    Pump pum(m_flow_nominal=m_flow_nominal) "Pump";
    TemperatureSensor sen(m_flow_nominal=m_flow_nominal) "Sensor";
@@ -82,10 +82,10 @@ Consider a model consisting of a mass flow source ``Modelica.Fluid.Sources.MassF
 a fixed boundary condition ``Buildings.Fluid.Sources.FixedBoundary``, connected in series as shown in the figure below. Note that the instance ``bou`` implements an equation that sets the medium pressure at its port, i.e., the port pressure ``bou.ports.p`` is fixed.
 
 .. figure:: img/MixingVolumeInitialization.png
-   
+
    Schematic diagram of a flow source, a fluid volume, and a pressure source.
 
-The volume allows configuring balance equations for energy and mass in four different ways. 
+The volume allows configuring balance equations for energy and mass in four different ways.
 Let :math:`p(\cdot)` be the pressure of the volume,
 :math:`p_0` be the parameter for the initial pressure,
 :math:`m(\cdot)` be the mass contained in the volume,
@@ -94,30 +94,30 @@ Let :math:`p(\cdot)` be the pressure of the volume,
 :math:`t_0` be the initial time.
 Then, the equations for the mass balance of the fluid volume can be configured as shown in the table below.
 
-+--------------------------+--------------------------------+--------------------------------+---------------------------------------------+  
++--------------------------+--------------------------------+--------------------------------+---------------------------------------------+
 | Parameter                | Initialization problem         | Initialization problem         | Equation used during time stepping          |
-+--------------------------+--------------------------------+--------------------------------+---------------------------------------------+  
++--------------------------+--------------------------------+--------------------------------+---------------------------------------------+
 | ``massDynamics``         | if :math:`\rho = \rho(p)`      | if :math:`\rho \not = \rho(p)` |                                             |
 +==========================+================================+================================+=============================================+
 |``DynamicsFreeInitial``   | Unspecified                    | Unspecified                    | :math:`dm(t)/dt = \sum_{i=1}^N \dot m_i(t)` |
-+--------------------------+--------------------------------+--------------------------------+---------------------------------------------+  
++--------------------------+--------------------------------+--------------------------------+---------------------------------------------+
 |``FixedInitial``          | :math:`p(t_0)=p_0`             | Unspecified                    | :math:`dm(t)/dt = \sum_{i=1}^N \dot m_i(t)` |
-+--------------------------+--------------------------------+--------------------------------+---------------------------------------------+  
++--------------------------+--------------------------------+--------------------------------+---------------------------------------------+
 |``SteadyStateInitial``    | :math:`dp(t_0)/dt = 0`         | Unspecified                    | :math:`dm(t)/dt = \sum_{i=1}^N \dot m_i(t)` |
-+--------------------------+--------------------------------+--------------------------------+---------------------------------------------+  
++--------------------------+--------------------------------+--------------------------------+---------------------------------------------+
 |``SteadyState``           | Unspecified                    | Unspecified                    | :math:`0 =  \sum_{i=1}^N \dot m_i(t)`       |
-+--------------------------+--------------------------------+--------------------------------+---------------------------------------------+  
++--------------------------+--------------------------------+--------------------------------+---------------------------------------------+
 
 *Unspecified* means that no equation is declared for the initial value
 :math:`p(t_0)`. In this situation, there can be two cases:
 
-1. If a system model sets the pressure in the above model 
+1. If a system model sets the pressure in the above model
    ``vol.p=vol.ports.p=bou.ports.p`` due to the connection
    between them, then
    :math:`p(t_0)` of the volume is equal to ``bou.ports.p``.
 2. If a system model does not set the pressure (i.e., if ``vol`` and ``bou``
-   are not connected to each other), then the pressure starts 
-   at the value ``p(start=Medium.p_default)``, where ``Medium`` is the 
+   are not connected to each other), then the pressure starts
+   at the value ``p(start=Medium.p_default)``, where ``Medium`` is the
    name of the instance of the medium model.
 
 Since the model ``Buildings.Fluid.Sources.FixedBoundary`` fixes the pressure at its port, the initial conditions :math:`p(t_0)=p_0` and :math:`dp(t_0)/dt = 0` lead to an overspecified system for the model shown above. To avoid such situation, use different initial conditions, or add a flow resistance between the mixing volume and the pressure source. The flow resistance introduces an equation that relates the pressure of the mixing volume and the pressure source as a function of the mass flow rate, thereby removing the inconsistency.
@@ -128,28 +128,28 @@ Since the model ``Buildings.Fluid.Sources.FixedBoundary`` fixes the pressure at 
    can lead to very fast transients when the simulation starts. Such transients can cause numerical problems
    for differential equation solvers.
 
-Similarly, for the energy balance, 
+Similarly, for the energy balance,
 let :math:`U(\cdot)` be the energy stored in the volume,
 :math:`T(\cdot)` be the temperature of the volume,
-:math:`m_i(\cdot)` be the mass flow rate that carries the specific enthalpy per unit mass 
+:math:`m_i(\cdot)` be the mass flow rate that carries the specific enthalpy per unit mass
 :math:`h_i(\cdot)` across the i-th fluid connector of the volume, and let
 :math:`Q(\cdot)` be the heat flow at the heat port of the volume.
 Then, the energy balance can be configured as shown in the table below.
 
 +------------------------+-----------------------------------------+-------------------------------------------------------------------+
-| Parameter              | Initialization problem                  | Equation used during time stepping                                | 
-| ``energyDynamics``     |                                         |                                                                   | 
+| Parameter              | Initialization problem                  | Equation used during time stepping                                |
+| ``energyDynamics``     |                                         |                                                                   |
 +========================+=========================================+===================================================================+
-|``DynamicsFreeInitial`` |  Unspecified                            | :math:`dU(t)/dt = \sum_{i=1}^N \dot m_i(t) \, h_i(t) + \dot Q(t)` | 
+|``DynamicsFreeInitial`` |  Unspecified                            | :math:`dU(t)/dt = \sum_{i=1}^N \dot m_i(t) \, h_i(t) + \dot Q(t)` |
 +------------------------+-----------------------------------------+-------------------------------------------------------------------+
-|``FixedInitial``        |  :math:`T(t_0)=T_0`                     | :math:`dU(t)/dt = \sum_{i=1}^N \dot m_i(t) \, h_i(t) + \dot Q(t)` | 
+|``FixedInitial``        |  :math:`T(t_0)=T_0`                     | :math:`dU(t)/dt = \sum_{i=1}^N \dot m_i(t) \, h_i(t) + \dot Q(t)` |
 +------------------------+-----------------------------------------+-------------------------------------------------------------------+
-|``SteadyStateInitial``  |  :math:`dT(t_0)/dt = 0`                 | :math:`dU(t)/dt = \sum_{i=1}^N \dot m_i(t) \, h_i(t) + \dot Q(t)` | 
+|``SteadyStateInitial``  |  :math:`dT(t_0)/dt = 0`                 | :math:`dU(t)/dt = \sum_{i=1}^N \dot m_i(t) \, h_i(t) + \dot Q(t)` |
 +------------------------+-----------------------------------------+-------------------------------------------------------------------+
-|``SteadyState``         |  Unspecified                            | :math:`0 = \sum_{i=1}^N \dot m_i(t) \, h_i(t) + \dot Q(t)`        | 
+|``SteadyState``         |  Unspecified                            | :math:`0 = \sum_{i=1}^N \dot m_i(t) \, h_i(t) + \dot Q(t)`        |
 +------------------------+-----------------------------------------+-------------------------------------------------------------------+
 
-*Unspecified* means that no equation is declared for 
+*Unspecified* means that no equation is declared for
 :math:`T(t_0)`. In this situation, there can be two cases:
 
 1. If a system model sets the temperature (i.e. if in the model
@@ -157,39 +157,39 @@ Then, the energy balance can be configured as shown in the table below.
    then
    :math:`T(t_0)` of the volume would be equal to the temperature connected
    to this port.
-2. If a system model does not set the temperature, then the temperature starts 
-   at the value ``T(start=Medium.T_default)``, where ``Medium`` is the 
+2. If a system model does not set the temperature, then the temperature starts
+   at the value ``T(start=Medium.T_default)``, where ``Medium`` is the
    medium model.
 
 
 .. note::
 
-   1. Selecting ``SteadyState`` for the energy balance and 
+   1. Selecting ``SteadyState`` for the energy balance and
       *not* ``SteadyState`` for the mass balance
-      can lead to inconsistent equations. The model will check for this situation 
+      can lead to inconsistent equations. The model will check for this situation
       and stop the translation with an error message.
-      To see why the equations are inconsistent, 
-      consider a volume with two fluid ports 
-      and no heat port. Then, it is possible 
-      that :math:`\dot m_1(t) \not = 0` and :math:`\dot m_2(t) = 0`, 
-      since :math:`dm(t)/dt =  \dot m_1(t) + \dot m_2(t)`. 
+      To see why the equations are inconsistent,
+      consider a volume with two fluid ports
+      and no heat port. Then, it is possible
+      that :math:`\dot m_1(t) \not = 0` and :math:`\dot m_2(t) = 0`,
+      since :math:`dm(t)/dt =  \dot m_1(t) + \dot m_2(t)`.
       However, the energy balance equation is
-      :math:`0 = \sum_{i=1}^2 \dot m_i(t) \, h_i(t) + \dot Q(t)`, 
+      :math:`0 = \sum_{i=1}^2 \dot m_i(t) \, h_i(t) + \dot Q(t)`,
       with :math:`\dot Q(t) = 0` because there is no heat port.
       Therefore, we obtain :math:`0 = \dot m_1(t) \, h_1(t)`,
       which is inconsistent.
    2. Unlike the case with the pressure initialization, the temperature in
       the model ``bou`` does not lead to ``vol.T = bou.T`` at initial time,
-      because physics allows the temperatures in ``bou`` and ``vol`` to 
+      because physics allows the temperatures in ``bou`` and ``vol`` to
       be different.
 
 
-The equations for the mass fraction dynamics (such as the 
-water vapor concentration), 
+The equations for the mass fraction dynamics (such as the
+water vapor concentration),
 and the trace substance dynamics (such as carbon dioxide concentration),
 are similar to the energy equations.
 
-Let 
+Let
 :math:`X(\cdot)` be the mass of the species in the volume,
 :math:`m(t_0)` be the initial mass of the volume,
 :math:`x_0` be the user-selected species concentration in the volume,
@@ -198,16 +198,16 @@ Let
 Then, the substance dynamics can be configured as shown in the table below.
 
 +------------------------+-----------------------------------------+--------------------------------------------------------------------+
-| Parameter              | Initialization problem                  | Equation used during time stepping                                 | 
+| Parameter              | Initialization problem                  | Equation used during time stepping                                 |
 | ``massDynamics``       |                                         |                                                                    |
 +========================+=========================================+====================================================================+
-|``DynamicsFreeInitial`` |  Unspecified                            | :math:`dX(t)/dt = \sum_{i=1}^N  \dot m_i(t) \, x_i(t) + \dot X(t)` | 
+|``DynamicsFreeInitial`` |  Unspecified                            | :math:`dX(t)/dt = \sum_{i=1}^N  \dot m_i(t) \, x_i(t) + \dot X(t)` |
 +------------------------+-----------------------------------------+--------------------------------------------------------------------+
-|``FixedInitial``        |  :math:`X(t_0)= m(t_0) \, x_0`          | :math:`dX(t)/dt = \sum_{i=1}^N  \dot m_i(t) \, x_i(t) + \dot X(t)` | 
+|``FixedInitial``        |  :math:`X(t_0)= m(t_0) \, x_0`          | :math:`dX(t)/dt = \sum_{i=1}^N  \dot m_i(t) \, x_i(t) + \dot X(t)` |
 +------------------------+-----------------------------------------+--------------------------------------------------------------------+
-|``SteadyStateInitial``  |  :math:`dX(t_0)/dt = 0`                 | :math:`dX(t)/dt = \sum_{i=1}^N  \dot m_i(t) \, x_i(t) + \dot X(t)` | 
+|``SteadyStateInitial``  |  :math:`dX(t_0)/dt = 0`                 | :math:`dX(t)/dt = \sum_{i=1}^N  \dot m_i(t) \, x_i(t) + \dot X(t)` |
 +------------------------+-----------------------------------------+--------------------------------------------------------------------+
-|``SteadyState``         |  Unspecified                            | :math:`0 = \sum_{i=1}^N  \dot m_i(t) \, x_i(t) + \dot X(t)`        | 
+|``SteadyState``         |  Unspecified                            | :math:`0 = \sum_{i=1}^N  \dot m_i(t) \, x_i(t) + \dot X(t)`        |
 +------------------------+-----------------------------------------+--------------------------------------------------------------------+
 
 The equations for the trace substance dynamics are identical to the equations for the substance dynamics, if
@@ -225,15 +225,15 @@ In Modelica, connecting fluid ports as shown below leads to ideal mixing at the 
 In some situation, such as the configuration below, connecting multiple connectors to a fluid port represents the physical phenomena that was intended to model.
 
 .. figure:: img/fluidJunctionMixing.png
-   
+
    Connection of three components without explicitly introducing a mixer or splitter model.
 
 However, in more complex flow configurations, one may want to explicitly control what branches of a piping or duct network mix. This may be achieved by using an instance of the model
-`SplitterFixedResistanceDpM <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM>`_ as shown in the left figure below, which is the test model 
+`SplitterFixedResistanceDpM <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM>`_ as shown in the left figure below, which is the test model
 `BoilerPolynomialClosedLoop <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop>`_
 
 .. figure:: img/fluidJunctionMixingSplitter.png
-   
+
    Correct (left) and wrong (right) connection of components with use of a mixer or splitter model.
 
 In the figure on the left, the mixing points have been correctly defined by use of the three-way model that mixes or splits flow. By setting the nominal pressure drop of the mixer or splitter model to zero, the mixer or splitter model can be simplified so that no equation for the flow resistance is introduced. In addition, in the branch of the splitter that connects to the valve, a pressure drop can be modelled, which then affects the valve authority.
@@ -242,10 +242,10 @@ However, in the figure on the right, the flow that leaves port A is mixing at po
 
 Use of sensors in fluid flow systems
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-When selecting a sensor model, a distinction needs to be made whether the measured quantity depends on the direction of the flow or not. If the quantity depends on the flow direction, such as temperature or relative humidity, then sensors with two ports from the 
+When selecting a sensor model, a distinction needs to be made whether the measured quantity depends on the direction of the flow or not. If the quantity depends on the flow direction, such as temperature or relative humidity, then sensors with two ports from the
 `Buildings.Fluid.Sensors <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors>`_ library should be used. These sensors have a more efficient implementation than sensors with one port for situations where the flow reverses its direction.
-The proper use sensors is described in the 
-`User's Guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_UsersGuide.html>`_ of the 
+The proper use sensors is described in the
+`User's Guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_UsersGuide.html>`_ of the
 `Buildings.Fluid.Sensors <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors>`_ package.
 
 
@@ -259,13 +259,13 @@ This section explains how to set a reference pressure for incompressible fluids.
 Consider the flow circuit shown below that consists of a pump or fan, a flow resistance and a volume.
 
 .. figure:: img/flowCircuitNoExpansion.png
-   
-   Schematic diagram of a flow circuit without means 
-   to set a reference pressure, or to account for 
+
+   Schematic diagram of a flow circuit without means
+   to set a reference pressure, or to account for
    thermal expansion of the fluid.
 
 When this model is used with a medium model that models
-:term:`compressible flow`, such as 
+:term:`compressible flow`, such as
 the medium model `Buildings.Media.IdealGases.SimpleAir <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir>`_,
 then the model is well defined because the gas medium implements the
 equation :math:`p=\rho \, R \, T`,
@@ -276,8 +276,8 @@ However, when the medium model is changed to a model that models
 :term:`incompressible flow`, such as
 `Buildings.Media.GasesConstantDensity.SimpleAir <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_GasesConstantDensity_SimpleAir.html#Buildings.Media.GasesConstantDensity.SimpleAir>`_ or
 `Buildings.Media.ConstantPropertyLiquidWater <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater>`_,
-then the density is constant. Consequently, there is no equation that 
-can be used to compute the pressure based on the volume. 
+then the density is constant. Consequently, there is no equation that
+can be used to compute the pressure based on the volume.
 In this situation, trying to translate the model leads, in Dymola, to the following error message:
 
 .. code-block:: none
@@ -288,21 +288,21 @@ In this situation, trying to translate the model leads, in Dymola, to the follow
    The number of scalar Real unknown elements are 58.
    The number of scalar Real equation elements are 58.
 
-Similarly, if the medium model `Modelica.Media.Water.WaterIF97OnePhase_ph <http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_Media_Water_WaterIF97OnePhase_ph.html#Modelica.Media.Water.WaterIF97OnePhase_ph>`_ is used, 
-which models density as a function of pressure and enthalpy, then 
+Similarly, if the medium model `Modelica.Media.Water.WaterIF97OnePhase_ph <http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_Media_Water_WaterIF97OnePhase_ph.html#Modelica.Media.Water.WaterIF97OnePhase_ph>`_ is used,
+which models density as a function of pressure and enthalpy, then
 the model is well-defined, but the pressure increases the longer the pump runs.
-The reason is that the pump adds heat to the water. When the water temperature 
+The reason is that the pump adds heat to the water. When the water temperature
 increases from :math:`20^\circ \mathrm C` to :math:`40^\circ \mathrm C`,
 the pressure increases from :math:`1 \, \mathrm{bars}` to :math:`150 \, \mathrm{bars}`.
 
-To avoid this singularity or increase in pressure, 
-a model that imposes a pressure source and that can account for the expansion of the fluid needs to be used. 
+To avoid this singularity or increase in pressure,
+a model that imposes a pressure source and that can account for the expansion of the fluid needs to be used.
 For example, you may use
 `Buildings.Fluid.Storage.ExpansionVessel <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel>`_
 to form the system model shown below.
 
 .. figure:: img/flowCircuitWithExpansionVessel.png
-   
+
    Schematic diagram of a flow circuit with expansion vessel that
    adds a pressure source and accounts for the thermal expansion
    of the medium.
@@ -310,18 +310,18 @@ to form the system model shown below.
 Alternatively, you may use
 `Buildings.Fluid.Sources.FixedBoundary <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary>`_, which sets the pressure to a constant value
 and adds or removes fluid as needed to maintain the pressure.
-The model `Buildings.Fluid.Sources.FixedBoundary <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary>`_ usually leads to simpler equations than 
+The model `Buildings.Fluid.Sources.FixedBoundary <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary>`_ usually leads to simpler equations than
 `Buildings.Fluid.Storage.ExpansionVessel <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel>`_.
-Note that the medium that flows out of the fluid port of 
+Note that the medium that flows out of the fluid port of
 `Buildings.Fluid.Sources.FixedBoundary <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary>`_
-is at a fixed temperature, while the model 
+is at a fixed temperature, while the model
 `Buildings.Fluid.Storage.ExpansionVessel <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel>`_ conserves energy.
 However, since the thermal expansion of the fluid is usually small, this effect can be neglected in most building HVAC applications.
 
 .. figure:: img/flowCircuitWithBoundary.png
-   
+
    Schematic diagram of a flow circuit with a boundary model that adds
-   a fixed pressure source and accounts for any thermal expansion 
+   a fixed pressure source and accounts for any thermal expansion
    of the medium.
 
 
@@ -330,14 +330,14 @@ However, since the thermal expansion of the fluid is usually small, this effect 
    In each water circuit, there must be one, and only one, instance of
    `Buildings.Fluid.Storage.ExpansionVessel
    <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel>`_,
-   or instance of 
+   or instance of
    `Buildings.Fluid.Sources.FixedBoundary
    <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary>`_.
-   If there is no such device, then the absolute pressure 
+   If there is no such device, then the absolute pressure
    may not be defined, or it may raise to an unrealistically large
    value if the medium density changes.
    If there is more than one such device, then there are multiple
-   points in the system that set the reference static pressure. 
+   points in the system that set the reference static pressure.
    This will affect the distribution of the mass flow rate.
 
 
@@ -345,10 +345,10 @@ Nominal Values
 ~~~~~~~~~~~~~~
 
 Most components have a parameters for the nominal operating conditions.
-These parameters have names that end in ``_nominal`` and they should be set to the values that the component typically 
+These parameters have names that end in ``_nominal`` and they should be set to the values that the component typically
 have if they are run at full load or design conditions. Depending on the model, these
 parameters are used differently, and the respective model documentation or code
-should be consulted for details. However, the table below shows typical use of 
+should be consulted for details. However, the table below shows typical use of
 parameters in various model to help the user understand how they are used.
 
 
@@ -408,7 +408,7 @@ Start values of iteration variables
 When computing numerical solutions to systems of nonlinear equations, a Newton-based solver is typically used. Such solvers have a higher success of convergence if good start values are provided for the iteration variables. In Dymola, to see what start values are used, one can enter on the simulation tab the command
 
 .. code-block:: none
-   
+
    Advanced.LogStartValuesForIterationVariables = true;
 
 Then, when a model is translated, for example using
@@ -417,7 +417,7 @@ Then, when a model is translated, for example using
 
    translateModel("Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop");
 
-an output of the form 
+an output of the form
 
 .. code-block:: none
 
@@ -436,9 +436,9 @@ operation such as :math:`x>y`, where :math:`x` and :math:`y` are variables of ty
 changes its value. In this situation,
 an event occurs and the solver determines a small interval in time in which
 the relation changes its value. Determining this time interval
-often requires an iterative solution, which can significantly 
+often requires an iterative solution, which can significantly
 increase the computing time if the iteration require
-the evaluation of a large system of equations. 
+the evaluation of a large system of equations.
 An example where such an event occurs is the relation
 
 .. code-block:: modelica
@@ -455,42 +455,42 @@ or, equivalently,
 
 		T_in = if port_a.m_flow > 0 then port_a.T else port_b.T;
 
-When simulating a model that contains such code, a time integrator 
+When simulating a model that contains such code, a time integrator
 will iterate to find the time instant where ``port_a.m_flow`` crosses zero.
 If the modeling assumptions allow approximating this equation in
 a neighborhood around ``port_a.m_flow=0``, then replacing this equation
-with an approximation that does not require an event iteration can 
-reduce computing time. For example, the above equation could be 
+with an approximation that does not require an event iteration can
+reduce computing time. For example, the above equation could be
 approximated as
 
 .. code-block:: modelica
 
 		T = Modelica.Fluid.Utilities.regStep(
-		  port_a.m_flow, T_a_inflow, T_b_inflow, 
+		  port_a.m_flow, T_a_inflow, T_b_inflow,
 		  m_flow_nominal*1E-4);
-		
+
 
 where ``m_flow_nominal`` is a parameter that is set to a value that
 is close to the mass flow rate that the model has at full load.
-If the magnitude of the flow rate is larger than 1E-4 times the 
+If the magnitude of the flow rate is larger than 1E-4 times the
 typical flow rate, the approximate equation is the same as the exact equation,
 and below that value, an approximation is used. However, for such small
-flow rates, not much energy is transported and hence the error introduced 
+flow rates, not much energy is transported and hence the error introduced
 by the approximation is generally negligible.
 
 
 In some cases, adding dynamics to the model can further improve
 the computing time, because the return value of the function
 `Modelica.Fluid.Utilities.regStep() <http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_Fluid_Utilities.html#Modelica.Fluid.Utilities.regStep>`_
-above can change abruptly if its argument ``port_a.m_flow`` oscillates in the range of 
+above can change abruptly if its argument ``port_a.m_flow`` oscillates in the range of
 ``+/- 1E-4*m_flow_nominal``,
 for example due to :term:`numerical noise`.
 Adding dynamics may be achieved using a formulation such as
 
 .. code-block:: modelica
-		
+
 		TMed = Modelica.Fluid.Utilities.regStep(
-		  port_a.m_flow, T_a_inflow, T_b_inflow, 
+		  port_a.m_flow, T_a_inflow, T_b_inflow,
 		  m_flow_nominal*1E-4);
 		der(T)=(TMed-T)/tau;
 
@@ -505,24 +505,24 @@ Controls
 --------
 
 .. figure:: img/controlHysteresis.png
-   
+
    Schematic diagram of a controller that switches a coil on and off.
    In the top configuration, the hysteresis avoids numerical problems
-   (and short-cycling) if the control input remains close to the 
+   (and short-cycling) if the control input remains close to the
    set point. The bottom configuration can cause the integration to
    stall if the input signal to the threshold block is the solution
    of an iterative solver and remains around 293.15 Kelvin.
 
 When implementing an on/off controller, always use a controller with
 hysteresis such as shown in the top configuration of the model above.
-If no hysteresis is used, then numerical problems can occur if the 
+If no hysteresis is used, then numerical problems can occur if the
 variable that is input to the controller depends on a variable
 that is computed by an iterative algorithm.
 Examples of a iterative algorithms are nonlinear equation solvers
 or time integration algorithms with variable step size (such as
 the radau and dassl solver in Dymola).
 The problem is caused as follows:
-Let :math:`T(t) \in \Re` be the input into a controller, such as 
+Let :math:`T(t) \in \Re` be the input into a controller, such as
 a room air temperature.
 If :math:`T(t)` is the state variable computed by solving a differential equation,
 or if :math:`T(t)` depends on a variable that needs to be solved for iteratively,
@@ -530,10 +530,10 @@ then :math:`T(t)` can only be approximated by some approximation
 :math:`T^*(\epsilon, t)`, where
 :math:`\epsilon` is the solver tolerance. Even if the system is at
 an equilibrium, the solver can cause the value of :math:`T^*(\epsilon, t)`
-to slightly change from one iteration to another. Hence, 
+to slightly change from one iteration to another. Hence,
 :math:`T^*(\epsilon, t)` can exhibit what is called numerical noise.
 Now, if :math:`T^*(\epsilon, t)` is used to switch a heater on and off
-whenever it crosses at set point temperature, and if 
+whenever it crosses at set point temperature, and if
 :math:`T(t)` happens to be at an equilibrium near the set point temperature,
 then the heater can switch on and off rapidly due to the numerical noise.
 This can cause the time integration to stall.
@@ -544,7 +544,7 @@ To illustrate this problem, try to simulate
 
   model Unstable
     Real x(start=0.1);
-  equation 
+  equation
     der(x) = if x > 0 then -1 else 1;
   end Unstable;
 
@@ -554,7 +554,7 @@ because the ``if-then-else`` construct triggers an event iteration whenever
 
 Numerical solvers
 -----------------
-Dymola 2014 FD01 is configured to use dassl as a default solver with a tolerance of 
+Dymola 2014 FD01 is configured to use dassl as a default solver with a tolerance of
 1E-4.
 We recommend to change this setting to radau with a tolerance of around
 1E-6, as this generally leads to faster and more robust
@@ -565,8 +565,8 @@ Most ordinary differential equation solvers only control the local
 integration error and not the global integration error.
 As a rule of thumb, the global integration error is one
 order of magnitude larger than the local integration error.
-However, the actual magnitude of the global integration error 
-depends on the stability of the differential equation. 
+However, the actual magnitude of the global integration error
+depends on the stability of the differential equation.
 As an extreme case, if a system is chaotic
 and uncontrolled, then the global integration error will grow rapidly.
 

@@ -207,10 +207,10 @@ equation
 <p>
 This model illustrates use of a battery connected to an DC voltage source
 and a constant load.
-The battery is charged every night at 23:00 until it is full. 
+The battery is charged every night at 23:00 until it is full.
 At 14:00, it is discharged until it is empty.
 This control is implemented using a finite state machine.
-The charging and discharing power is assumed to be controlled to 
+The charging and discharing power is assumed to be controlled to
 a constant value of <i>10,000</i> Watts.
 </p>
 </html>",

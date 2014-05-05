@@ -41,7 +41,7 @@ Documentation(info="<html>
 This is a model of a stratified storage tank for thermal energy storage.
 </p>
 <p>
-See the 
+See the
 <a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">
 Buildings.Fluid.Storage.UsersGuide</a>
 for more information.
@@ -58,11 +58,11 @@ Revised the implementation to reduce the temperature overshoot.
 </li>
 <li>
 June 23, 2010 by Michael Wetter and Wangda Zuo:<br/>
-Changed model that is used to correct the numerical diffusion. 
-The previous version used the model from Stefan Wischhusen, 
+Changed model that is used to correct the numerical diffusion.
+The previous version used the model from Stefan Wischhusen,
 <a href=\"http://www.modelica.org/events/modelica2006/Proceedings/sessions/Session3a2.pdf\">
 An Enhanced Discretization Method for Storage
-Tank Models within Energy Systems</a>, 
+Tank Models within Energy Systems</a>,
 <i>Modelica Conference</i>,
 Vienna, Austria, September 2006. However, for situations where there is a strong stratification,
 this model can lead to a large overshoot in tank temperatures, leading to a violation of the

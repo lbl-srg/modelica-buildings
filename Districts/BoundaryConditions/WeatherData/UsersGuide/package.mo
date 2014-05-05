@@ -43,10 +43,10 @@ Thus, the first entry for temperatures, humidity, wind speed etc. are values
 at 1:00 AM and not at midnight. Furthermore, the TMY3 weather data files can have
 values at midnight of December 31 that may be significantly different from the values
 at 1:00 AM on January 1.
-Since annual simulations require weather data that start at 0:00 on January 1, 
+Since annual simulations require weather data that start at 0:00 on January 1,
 data need to be provided for this hour. Due to the possibly large change in
-weatherdata between 1:00 AM on January 1 and midnight at December 31, 
-the weather data files in the Buildings library do not use the data entry from 
+weatherdata between 1:00 AM on January 1 and midnight at December 31,
+the weather data files in the Buildings library do not use the data entry from
 midnight at December 31 as the value for <i>t=0</i>. Rather, the
 value from 1:00 AM on January 1 is duplicated and used for 0:00 on January 1.
 To maintain a data record with <i>8760</i> hours, the weather data record from

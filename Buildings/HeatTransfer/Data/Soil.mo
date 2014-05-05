@@ -8,7 +8,7 @@ package Soil
      "<html>
 <p>
 Generic record for solid materials used as soil.
-The material is characterized by its 
+The material is characterized by its
 thermal conductivity, mass density and specific
 heat capacity.
 </p>
@@ -51,13 +51,13 @@ Documentation(
 info="<html>
 <p>
 Package with records for solid materials.
-The material is characterized by its 
+The material is characterized by its
 thermal conductivity, mass density and specific
 heat capacity.
 </p>
 <p>
 These properties are used to compute heat conduction in circular coordinates.
-Hence, as opposed to 
+Hence, as opposed to
 <a href=\"modelica://Buildings.HeatTransfer.Data.Solids\">
 Buildings.HeatTransfer.Data.Solids</a>,
 they do not include the material thickness and the generation of the

@@ -39,7 +39,7 @@ algorithm
       Documentation(info="<html>
 <p>
 This function computes at the support points <i>T<sub>d</sub></i> the derivatives
-<i>dT/du</i> of the cubic hermite spline approximation to the 
+<i>dT/du</i> of the cubic hermite spline approximation to the
 temperature vs. specific internal energy relation.
 These derivatives are then used by the function
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u\">

@@ -32,7 +32,7 @@ equation
 <p>
 This model tests the TMY3 data reader.
 The instance <code>weaDat</code> obtains all weather data from the weather file,
-whereas the instance <code>weaDatInpCon</code> obtains the global horizontal and 
+whereas the instance <code>weaDatInpCon</code> obtains the global horizontal and
 the diffuse horizontal solar radiation from its input connectors.
 </p>
 </html>"));

@@ -65,7 +65,7 @@ This section describes step by step how we implemented the model.
 <ol>
 <li>
 <p>
-First, we dragged 
+First, we dragged
 <a href=\"modelica://Modelica.Fluid.System\">
 Modelica.Fluid.System</a> into the model and keep its name at
 its default setting, which is <code>system</code>.
@@ -93,7 +93,7 @@ have water as a medium. Because we do not anticipate saturated air, we used
 the medium model
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated\">
 Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</a>
-instead of 
+instead of
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
 Buildings.Media.GasesPTDecoupled.MoistAir</a>
 as the latter is computationally more expensive.
@@ -109,7 +109,7 @@ We also defined the system-level parameters
   parameter Modelica.SIunits.Volume V=6*10*3 \"Room volume\";
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
     \"Nominal mass flow rate\";
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 1000 
+  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 1000
     \"Internal heat gains of the room\";
 </pre>
 <p>
@@ -124,19 +124,19 @@ when revising the model.
 </li>
 <li>
 <p>
-To model the room air, approximated as a completely mixed volume of air, 
+To model the room air, approximated as a completely mixed volume of air,
 an instance of
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>
 has been used, as this model can be used with dry air or moist air.
 The medium model has been set to <code>MediumA</code>, and the nominal mass
 flow rate is set to <code>mA_flow_nominal</code>.
-The nominal mass flow rate is used for numerical reasons and should be set 
+The nominal mass flow rate is used for numerical reasons and should be set
 to the approximate order of magnitude. It only has an effect if the mass flow
 rate is near zero and what \"near zero\" means depends on the magnitude of
 <code>m_flow_nominal</code>, as it is used for the default value of the parameter
 <code>m_flow_small</code> on the <code>Assumptions</code> tag of the model.
-See also 
+See also
 <a href=\"modelica://Buildings.Fluid.UsersGuide\">
 Buildings.Fluid.UsersGuide</a>
 for an explanation of the purpose of <code>m_flow_small</code>.
@@ -148,7 +148,7 @@ Since we need to increase the heat capacity of the room air to approximate
 energy storage in furniture and building constructions, we connected the instance
 <code>heaCap</code> to the heat port of the room air.
 The model <code>heaCap</code> models energy storage. We set its capacity to
-<i>C=2*V*1.2*1006</i> J/K. This will increase the total heat capacity 
+<i>C=2*V*1.2*1006</i> J/K. This will increase the total heat capacity
 of the room air by a factor of three.
 </p>
 </li>
@@ -156,7 +156,7 @@ of the room air by a factor of three.
 <p>
 We used the instance <code>heaCon</code> to model the heat conductance to the ambient.
 Since our room should have a heat loss of <i>10</i> kW at a temperature difference
-of <i>30</i> Kelvin, we set the conductance to 
+of <i>30</i> Kelvin, we set the conductance to
 <i>G=10000 &frasl; 30</i> W/K.
 </p>
 </li>
@@ -182,14 +182,14 @@ following analytical solutions:
 <ol>
 <li>
 At steady-state, the temperature difference to the outside should be
-<i>&Delta; T = Q&#775; &frasl; UA = 1000/(10000/30) = 3</i> Kelvin, which 
+<i>&Delta; T = Q&#775; &frasl; UA = 1000/(10000/30) = 3</i> Kelvin, which
 corresponds to a room temperature of <i>-7</i>&deg;C.
 </li>
 <li>
 It can be shown that the time constant of the room is
 <i>&tau; = C &frasl; UA = 1950</i> seconds, where
 <i>C</i> is the heat capacity of the room air and the thermal storage element
-that is connected to it, and 
+that is connected to it, and
 <i>G</i> is the heat conductance.
 </li>
 </ol>
@@ -199,7 +199,7 @@ Both analytical values agree with the simulation results shown in the above figu
 <!-- Notes -->
 <h4>Notes</h4>
 <p>
-For a more realistic model of a room, the model 
+For a more realistic model of a room, the model
 <a href=\"modelica://Buildings.Rooms.MixedAir\">
 Buildings.Rooms.MixedAir</a>
 could have been used.

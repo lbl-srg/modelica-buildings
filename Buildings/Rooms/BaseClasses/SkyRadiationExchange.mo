@@ -85,9 +85,9 @@ equation
           lineColor={0,0,127},
           textString="QIR_flow")}),
         Documentation(info = "<html>
-This model computes the infrared radiative heat flow 
+This model computes the infrared radiative heat flow
 between exterior building surfaces and the ambient. The ambient consists
-of the sky black-body radiation and the outdoor temperature 
+of the sky black-body radiation and the outdoor temperature
 (which is used as an approximation to the surface temperature of
 the ground and neighboring buildings).
 </html>",

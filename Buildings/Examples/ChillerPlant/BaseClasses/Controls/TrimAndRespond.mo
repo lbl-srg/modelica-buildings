@@ -88,7 +88,7 @@ equation
    The control sequence is as follows:
 </p>
 <ul>
-  <li>If <code>u &ge; 0</code>, then <code>y = y + nActInc</code>,</li> 
+  <li>If <code>u &ge; 0</code>, then <code>y = y + nActInc</code>,</li>
   <li>If <code>u &lt; 0</code>, then <code>y = y - yDec</code>.</li>
 </ul>
 </html>", revisions="<html>

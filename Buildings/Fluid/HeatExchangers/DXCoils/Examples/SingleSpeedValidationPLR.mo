@@ -449,12 +449,12 @@ equation
             Documentation(info="<html>
 <p>
 This model validates the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\">
 Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>.
 </p>
-<p> 
-The difference in results of 
-<i>T<sub>Out</sub></i> and 
+<p>
+The difference in results of
+<i>T<sub>Out</sub></i> and
 <i>X<sub>Out</sub></i>
 at the beginning and end of the simulation is because the mass flow rate is zero.
 For zero mass flow rate, EnergyPlus assumes steady state condition,
@@ -465,10 +465,10 @@ are equal to the state variables of the model.
 The EnergyPlus results were generated using the example file <code>DXCoilSystemAuto.idf</code>
 from EnergyPlus 7.1.
 <p>
-The EnergyPlus results were generated using the example file 
+The EnergyPlus results were generated using the example file
 <code>DXCoilSystemAuto.idf</code> from EnergyPlus 7.1.
-On the summer design day, the PLR is below 1. 
-A similar effect has been achieved in this example by turning on the coil only for the period 
+On the summer design day, the PLR is below 1.
+A similar effect has been achieved in this example by turning on the coil only for the period
 during which it run in EnergyPlus.
 This results in on-off cycle and fluctuating results.
 To compare the results, the Modelica outputs are averaged over <i>3600</i> seconds,
@@ -477,7 +477,7 @@ and the EnergyPlus outputs are used with a zero order delay to avoid the time sh
 <p>
 Note that EnergyPlus mass fractions (<code>X</code>) are in mass of water vapor per mass of dry air,
 whereas Modelica uses the total mass as a reference. Hence, the EnergyPlus values
-are corrected by dividing them by 
+are corrected by dividing them by
 <code>1+X</code>.
 </p>
 </html>",
@@ -489,7 +489,7 @@ Modified example to avoid having to access protected data.
 </li>
 <li>
 August 20, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

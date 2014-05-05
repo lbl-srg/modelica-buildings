@@ -116,9 +116,9 @@ of the IEA EBC Annex 60 project.
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td><i>y</i></td>
-  <td>0</td>  <td>0.1667</td>  <td>0.3333</td>  <td>0.5</td>  <td>0.6667</td>  <td>1</td>   
+  <td>0</td>  <td>0.1667</td>  <td>0.3333</td>  <td>0.5</td>  <td>0.6667</td>  <td>1</td>
 </tr>
-<tr><td><i>K<sub>v</sub></i></td> 
+<tr><td><i>K<sub>v</sub></i></td>
   <td>0</td>  <td>0.19</td>  <td>0.35</td>  <td>0.45</td>  <td>0.5</td>  <td>0.65</td>       </tr>
 </table>
 <p>

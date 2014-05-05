@@ -186,7 +186,7 @@ equation
     Documentation(info="<html>
 <p>
 Partial model for boundary conditions for convection and radiation for a window surface with or without shade,
-that is outside or inside the room. 
+that is outside or inside the room.
 </p>
 <p>
 This allows using the model as a base class for windows with inside shade, outside shade, or no shade.

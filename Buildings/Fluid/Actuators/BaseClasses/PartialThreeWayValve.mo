@@ -158,11 +158,11 @@ equation
 <p>
 Partial model of a three way valve. This is the base model for valves
 with different opening characteristics, such as linear, equal percentage
-or quick opening. The three way valve model consists of a mixer where 
+or quick opening. The three way valve model consists of a mixer where
 valves are placed in two of the flow legs. The third flow leg
-has no friction. 
+has no friction.
 The flow coefficient <code>Kv</code> for flow from <code>port_1 -> port_2</code> is
-a parameter. 
+a parameter.
 The flow coefficient for the bypass flow from <code>port_3 -> port_2</code>
 is computed as
 </p>
@@ -170,15 +170,15 @@ is computed as
          Kv(port_3 -> port_2)
   fraK = ----------------------
          Kv(port_1 -> port_2)
-</pre> 
+</pre>
 <p>
 where <code>0 &lt; fraK &le; 1</code> is a parameter with a default value
 of <code>fraK=0.7</code>.
 </p>
 <p>
-Since this model uses two way valves to construct a three way valve, see 
+Since this model uses two way valves to construct a three way valve, see
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
-Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a> 
+Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>
 for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
@@ -204,7 +204,7 @@ Removed duplicate declaration of <code>m_flow_nominal</code>.
 February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
 and added new parameter <code>dpFixed_nominal=0</code>.
-See 
+See
 <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
 Buildings.Fluid.Actuators.UsersGuide</a>.
 </li>

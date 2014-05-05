@@ -69,7 +69,7 @@ equation
         Text(
           extent={{-145,140},{155,100}},
           lineColor={0,0,255},
-          textString="%name")}),                          
+          textString="%name")}),
     Documentation(info="<html>
 <p>
 Model to compute the convective heat transfer inside a straight pipe.
@@ -78,8 +78,7 @@ using the function
 <a href=\"modelica://Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_KC\">
 Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_KC</a>.
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>

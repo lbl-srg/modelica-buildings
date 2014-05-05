@@ -600,7 +600,7 @@ revisions="<html>
 <li>
 January 24, 2013, by Michael Wetter:<br/>
 Increased parameter <code>startTime</code> of the assert block
-and set initial conditions to 
+and set initial conditions to
 <code>Modelica.Fluid.Types.Dynamics.FixedInitial</code>.
 </li>
 <li>

@@ -513,7 +513,7 @@ The weather data reader is implemented using
 </p>
 <pre>
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=\"modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos\") 
+    filNam=\"modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos\")
     \"Weather data reader\";
 </pre>
 <p>
@@ -546,10 +546,10 @@ response shown below should be seen.
 </p>
 <p>
 The figure shows that the boiler temperature is regulated between
-<i>70</i>&deg;C and 
+<i>70</i>&deg;C and
 <i>90</i>&deg;C,
-that 
-the boiler inlet temperature is above 
+that
+the boiler inlet temperature is above
 <i>60</i>&deg;C,
 and that the room temperature and the supply water temperature are
 maintained at their set point.

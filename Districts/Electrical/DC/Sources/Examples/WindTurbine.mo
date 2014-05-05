@@ -66,7 +66,7 @@ equation
     Documentation(info="<html>
 <p>
 This model illustrates the use of the wind turbine model which is connected to a DC voltage source and a resistance.
-This voltage source may be a DC grid to which the 
+This voltage source may be a DC grid to which the
 circuit is connected.
 Wind data for San Francisco, CA, are used.
 The turbine cut-in wind speed is <i>3.5</i> m/s,

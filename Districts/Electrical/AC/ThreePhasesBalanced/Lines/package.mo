@@ -1,5 +1,5 @@
 within Districts.Electrical.AC.ThreePhasesBalanced;
-package Lines 
+package Lines
   extends Modelica.Icons.Package;
 
 

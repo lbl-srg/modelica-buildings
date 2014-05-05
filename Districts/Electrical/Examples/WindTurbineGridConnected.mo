@@ -46,7 +46,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(info="<html>
 <p>
-This model illustrates the use of the wind turbine model, 
+This model illustrates the use of the wind turbine model,
 connected to an alternate current grid
 using an AC/DC converter.
 Wind data for San Francisco, CA, are used.

@@ -5,8 +5,7 @@ connector Terminal_p "AC1ph terminal ('positive')"
   annotation (defaultComponentName = "term_p",
   Documentation(info="<html>
 <p>Electric connector with a vector of 'pin's, positive.</p>
-</html>
-"),
+</html>"),
   Window(
     x=0.45,
     y=0.01,

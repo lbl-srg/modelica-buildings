@@ -76,7 +76,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actu
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Test model for two way valves. 
+Test model for two way valves.
 The instance <code>valTab</code> has a linear opening characteristics
 based on a table, while <code>valLin</code> also has a linear opening
 characteristics that is directly implemented in the model.
@@ -86,7 +86,7 @@ than <code>valTab</code> as <code>valLin</code> is a more efficient
 implementation.
 </p>
 <p>
-This test demonstrates that both valves have, as expected, the same 
+This test demonstrates that both valves have, as expected, the same
 mass flow rate for the whole range of the opening signal.
 </p>
 <p>

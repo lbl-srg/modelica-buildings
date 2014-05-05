@@ -9,7 +9,7 @@ model Generator "Model of a generator"
 Model of an inductive generator.
 </p>
 <p>
-This model must be used with 
+This model must be used with
 <a href=\"modelica://Districts.Electrical.AC.Sources.Grid\">
 Districts.Electrical.AC.Sources.Grid</a>
 or with a voltage source from the package

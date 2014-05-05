@@ -314,7 +314,7 @@ manufacturers that follow the European Norm EN 442-2.
 However, to allow for varying mass flow rates, the transferred heat is computed
 using a discretization along the water flow path, and heat is exchanged between
 each compartment and a uniform room air and radiation temperature.
-This discretization is different from the computation in EN 442-2, which 
+This discretization is different from the computation in EN 442-2, which
 may yield water outlet temperatures that are below
 the room temperature at low mass flow rates.
 Furthermore, rather than using only one room temperature, this model uses
@@ -331,7 +331,7 @@ from the radiator to the room is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q<sup>i</sup><sub>c</sub> = sign(T<sup>i</sup>-T<sub>a</sub>)
-     (1-f<sub>r</sub>) UA &frasl; N |T<sup>i</sup>-T<sub>a</sub>|<sup>n</sup> 
+     (1-f<sub>r</sub>) UA &frasl; N |T<sup>i</sup>-T<sub>a</sub>|<sup>n</sup>
   <br/> <br/>
   Q<sup>i</sup><sub>r</sub> = sign(T<sup>i</sup>-T<sub>r</sub>)
      f<sub>r</sub> UA &frasl; N |T<sup>i</sup>-T<sub>r</sub>|<sup>n</sup>
@@ -353,13 +353,13 @@ and exponent for heat transfer.
 <p>
 The parameter <code>energyDynamics</code> (in the Assumptions tab),
 determines whether the model computes the dynamic or the steady-state response.
-For the transient response, heat storage is computed using a 
-finite volume approach for the 
+For the transient response, heat storage is computed using a
+finite volume approach for the
 water and the metal mass, which are both assumed to be at the same
-temperature. 
+temperature.
 </p>
 <p>
-The default parameters for the heat capacities are valid for a flat plate radiator without fins, 
+The default parameters for the heat capacities are valid for a flat plate radiator without fins,
 with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
@@ -371,7 +371,7 @@ Removed conditional statement in the declaration of the parameter
 </li>
 <li>
 September 26, 2013 by Michael Wetter:<br/>
-Reformulated implementation to avoid mixing textual and graphical 
+Reformulated implementation to avoid mixing textual and graphical
 declarations in the <code>equation</code> section.
 </li>
 <li>

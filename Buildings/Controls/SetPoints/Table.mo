@@ -2,7 +2,7 @@ within Buildings.Controls.SetPoints;
 model Table
   "Model for a set point that is interpolated based on a user-specified table"
   extends Modelica.Blocks.Interfaces.SISO;
-  parameter Real table[:,2]=fill(0.0, 1, 2) 
+  parameter Real table[:,2]=fill(0.0, 1, 2)
     "Table matrix ( e.g., table=[u1, y1; u2, y2; u3, y3])";
 
   parameter Real offset=0 "Offset of output signal";
@@ -44,15 +44,15 @@ This block can be used to schedule a set-point by using piecewise linear functio
 For example, the instances
 </p>
 <pre>
-Buildings.Controls.SetPoints.Table tabLinExt(constantExtrapolation=false, 
-                                             table=[20, 0.0; 
-                                                    22, 0.5; 
-                                                    25, 0.5; 
+Buildings.Controls.SetPoints.Table tabLinExt(constantExtrapolation=false,
+                                             table=[20, 0.0;
+                                                    22, 0.5;
+                                                    25, 0.5;
                                                     26, 1.0]);
-Buildings.Controls.SetPoints.Table tabConExt(constantExtrapolation=true, 
-                                             table=[20, 0.0; 
-                                                    22, 0.5; 
-                                                    25, 0.5; 
+Buildings.Controls.SetPoints.Table tabConExt(constantExtrapolation=true,
+                                             table=[20, 0.0;
+                                                    22, 0.5;
+                                                    25, 0.5;
                                                     26, 1.0]);
 </pre>
 <p>
@@ -63,8 +63,8 @@ will cause the following output:
 </p>
 <p>
 For the default setting <code>constantExtrapolation=true</code>, the
-block outputs 
-<code>y=y1+offset</code> for <code>u &le; u1</code>, and 
+block outputs
+<code>y=y1+offset</code> for <code>u &le; u1</code>, and
 <code>y=yMax+offset</code> for <code>u &ge; uMax</code>.
 Otherwise, the table is linearly extrapolated with a constant derivative.
 </p>

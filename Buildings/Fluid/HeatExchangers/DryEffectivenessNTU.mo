@@ -171,8 +171,8 @@ equation
 defaultComponentName="hex",
     Documentation(info="<html>
 <p>
-Model of a heat exchanger without humidity condensation. 
-This model transfers heat in the amount of 
+Model of a heat exchanger without humidity condensation.
+This model transfers heat in the amount of
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q = Q<sub>max</sub>  &epsilon;<br/>
@@ -181,7 +181,7 @@ This model transfers heat in the amount of
 <p>
 where
 <i>Q<sub>max</sub></i> is the maximum heat that can be transferred,
-<i>&epsilon;</i> is the heat transfer effectiveness, 
+<i>&epsilon;</i> is the heat transfer effectiveness,
 <i>NTU</i> is the Number of Transfer Units,
 <i>Z</i> is the ratio of minimum to maximum capacity flow rate and
 <i>flowRegime</i> is the heat exchanger flow regime.

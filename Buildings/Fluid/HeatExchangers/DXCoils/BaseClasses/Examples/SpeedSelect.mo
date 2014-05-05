@@ -65,9 +65,9 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates working of SpeedSelect block 
+This example illustrates working of SpeedSelect block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect</a>. 
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect</a>.
 </p>
 </html>",
 revisions="<html>
@@ -79,7 +79,7 @@ to be parameters does not imply that the whole record has the variability of a p
 </li>
 <li>
 August 29, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

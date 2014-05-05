@@ -30,8 +30,7 @@ equation
 <p>
 This component constrains the interpolated wind direction between <i>0</i> and <i>360</i> degree.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 October 27, 2011, by Wangda Zuo:<br/>

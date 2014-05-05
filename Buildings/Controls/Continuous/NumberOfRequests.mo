@@ -43,7 +43,7 @@ defaultComponentName="numReq",
 Documentation(info="<html>
 <p>
 Block that outputs the number of inputs that exceed a threshold.
-The parameter <code>kind</code> is used to determine the kind of the 
+The parameter <code>kind</code> is used to determine the kind of the
 inequality. The table below shows the allowed settings.
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\" summary=\"Allowed parameter settings.\">

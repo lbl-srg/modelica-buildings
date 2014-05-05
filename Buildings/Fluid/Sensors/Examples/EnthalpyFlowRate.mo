@@ -87,7 +87,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sens
 <p>
 This example tests the enthalpy flow rate sensor and the
 specific enthalpy sensor.
-The model compares the output of the enthalpy flow rate sensor with 
+The model compares the output of the enthalpy flow rate sensor with
 the product of the output of the enthalpy and the mass flow rate sensor.
 </p>
 </html>", revisions="<html>

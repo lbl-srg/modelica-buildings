@@ -74,7 +74,7 @@ algorithm
     Documentation(info="<html>
 Block that exchanges data with a Python function.<br/>
 <p>
-For each element in the input vector <code>uR[nDblWri]</code>, 
+For each element in the input vector <code>uR[nDblWri]</code>,
 the value of the flag <code>flaDblWri[nDblWri]</code> determines whether
 the current value, the average over the sampling interval or the integral
 over the sampling interval is sent to Python. The following three options are allowed:
@@ -119,7 +119,7 @@ Integral of uR[i] over the sampling interval
 <ul>
 <li>
 February 5, 2013, by Michael Wetter:<br/>
-First implementation, 
+First implementation,
 based on
 <a href=\"modelica://Buildings.Utilities.IO.BCVTB.BCVTB\">
 Buildings.Utilities.IO.BCVTB.BCVTB</a>.

@@ -59,16 +59,16 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates calculation of sensible heat ratio in block 
+This example illustrates calculation of sensible heat ratio in block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio</a>. 
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 Aug 9, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

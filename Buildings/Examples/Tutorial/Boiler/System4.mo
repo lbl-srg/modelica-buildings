@@ -476,14 +476,14 @@ Next, for the boiler on/off control, we use again a hysteresis block
 </p>
 <pre>
   Modelica.Blocks.Logical.Hysteresis hysTBoi(uLow=273.15 + 70,
-                                             uHigh=273.15 + 90) 
+                                             uHigh=273.15 + 90)
     \"Hysteresis for on/off of boiler\";
 </pre>
 <p>
 The output of the hysteresis block is sent to the instance
 <code>not3</code>, which negates its input signal.
 The output signal of the <code>not3</code> instance is then sent to the
-<code>and2</code> block, which ensures that the boiler is only 
+<code>and2</code> block, which ensures that the boiler is only
 on when the pumps are on and the temperature is below
 <i>70</i>&deg;C, and that the boiler is off if its temperature reaches <i>90</i>&deg;C.
 Therefore, the boiler control sequence is as shown below.
@@ -495,7 +495,7 @@ Therefore, the boiler control sequence is as shown below.
 </ol>
 <!-- ============================================== -->
 <p>
-This completes the closed loop control of the boiler and the pumps. 
+This completes the closed loop control of the boiler and the pumps.
 When simulating the model
 for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
@@ -505,7 +505,7 @@ response shown below should be seen.
 </p>
 <p>
 The figure shows that the return water temperature
-<code>temRet.T</code> is below 
+<code>temRet.T</code> is below
 <i>50</i>&deg;C for quite some time when the system heats up.
 Furthermore, the supply water temperature
 <code>temSup.T</code> is oscillating with the boiler temperature.

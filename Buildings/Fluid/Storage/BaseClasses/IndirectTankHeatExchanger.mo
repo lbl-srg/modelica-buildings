@@ -260,7 +260,7 @@ equation
           For example, the heat exchanger in a storage tank which is part of a solar thermal system.
           </p>
           <p>
-          This component models the fluid in the heat exchanger, convection between the fluid and 
+          This component models the fluid in the heat exchanger, convection between the fluid and
           the heat exchanger, and convection from the heat exchanger to the surrounding fluid.
           </p>
           <p>
@@ -270,9 +270,9 @@ equation
           Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder</a>.
           </p>
           <p>
-          The fluid ports are intended to be connected to a circulated heat transfer fluid 
+          The fluid ports are intended to be connected to a circulated heat transfer fluid
           while the heat port is intended to be connected to a stagnant fluid.
-          </p>          
+          </p>
           </html>",
           revisions = "<html>
           <ul>

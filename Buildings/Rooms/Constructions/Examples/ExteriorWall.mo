@@ -94,7 +94,7 @@ to be parameters does not imply that the whole record has the variability of a p
 </li>
 <li>
 March 7, 2012, by Michael Wetter:<br/>
-Updated example to use new data model 
+Updated example to use new data model
 <a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstruction\">
 Buildings.Rooms.BaseClasses.ParameterConstruction</a>
 in model for boundary conditions.

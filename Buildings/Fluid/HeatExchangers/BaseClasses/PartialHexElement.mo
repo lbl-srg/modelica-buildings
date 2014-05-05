@@ -69,8 +69,8 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-Element of a heat exchanger 
-with dynamics of the fluids and the solid. 
+Element of a heat exchanger
+with dynamics of the fluids and the solid.
 The <i>hA</i> value for both fluids is an input.
 The driving force for the heat transfer is the temperature difference
 between the fluid volumes and the solid.
@@ -84,11 +84,11 @@ Suppose the metal temperature is governed by
   + (hA)<sub>2</sub> (T<sub>2</sub> - T)
 </p>
 <p>
-where <i>hA</i> are the convective heat transfer coefficients times 
+where <i>hA</i> are the convective heat transfer coefficients times
 heat transfer area that also take
 into account heat conduction in the heat exchanger fins and
 <i>T<sub>1</sub></i> and <i>T<sub>2</sub></i> are the medium temperatures.
-Assuming <i>(hA)<sub>1</sub>=(hA)<sub>2</sub></i>, 
+Assuming <i>(hA)<sub>1</sub>=(hA)<sub>2</sub></i>,
 this equation can be rewritten as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -97,8 +97,8 @@ this equation can be rewritten as
 
 </p>
 <p>
-where <i>(UA)<sub>0</sub></i> is the <i>UA</i> value at nominal conditions. 
-Hence we set the heat capacity of the metal 
+where <i>(UA)<sub>0</sub></i> is the <i>UA</i> value at nominal conditions.
+Hence we set the heat capacity of the metal
 to
 </p>
 <p align=\"center\" style=\"font-style:italic;\">

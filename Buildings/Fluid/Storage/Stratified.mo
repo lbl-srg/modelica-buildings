@@ -226,7 +226,7 @@ Documentation(info="<html>
 This is a model of a stratified storage tank.
 </p>
 <p>
-See the 
+See the
 <a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">
 Buildings.Fluid.Storage.UsersGuide</a>
 for more information.
@@ -249,14 +249,14 @@ Changed default start values for temperature and pressure.
 <li>
 October 25, 2009 by Michael Wetter:<br/>
 Changed computation of heat transfer through top (and bottom) of tank. Now,
-the thermal resistance of the fluid is not taken into account, i.e., the 
+the thermal resistance of the fluid is not taken into account, i.e., the
 top (and bottom) element is assumed to be mixed.
 <li>
 October 23, 2009 by Michael Wetter:<br/>
-Fixed bug in computing heat conduction of top and bottom segment. 
-In the previous version, 
+Fixed bug in computing heat conduction of top and bottom segment.
+In the previous version,
 for computing the heat conduction between the top (or bottom) segment and
-the outside, 
+the outside,
 the whole thickness of the water volume was used
 instead of only half the thickness.
 </li>

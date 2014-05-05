@@ -78,10 +78,10 @@ equation
         "Simulate and Plot"),
 Documentation(info="<html>
 <p>
-This model provides an example of how the 
+This model provides an example of how the
 <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
-Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> model can be used. 
-A constant water draw is taken from the tank while a constant flow of hot water 
+Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> model can be used.
+A constant water draw is taken from the tank while a constant flow of hot water
 is passed through the heat exchanger to heat the water in the tank.
 <br/>
 </p>

@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model EpsilonNTUZ "Test model for the functions epsilon_ntuZ and ntu_epsilonZ"
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
   import f = Buildings.Fluid.Types.HeatExchangerFlowRegime;
   Real epsilon[5] "Heat exchanger effectiveness";
   Real eps[5] "Heat exchanger effectiveness";

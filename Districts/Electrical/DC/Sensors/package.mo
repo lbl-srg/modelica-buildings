@@ -1,4 +1,4 @@
 within Districts.Electrical.DC;
-package Sensors 
+package Sensors
 extends Modelica.Icons.SensorsPackage;
 end Sensors;

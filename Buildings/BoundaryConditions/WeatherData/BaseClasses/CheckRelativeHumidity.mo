@@ -25,8 +25,7 @@ equation
 <p>
 This component constrains the value of relative humidity to a range of <i>[0, 1]</i>.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 October 27, 2011, by Wangda Zuo:<br/>

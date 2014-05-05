@@ -7,12 +7,12 @@ equation
   annotation (Icon(graphics={Text(
           extent={{-88,40},{92,-32}},
           lineColor={160,160,164},
-          textString="biquadratic()")}),     
+          textString="biquadratic()")}),
 Documentation(info="<html>
 <p>
 This block computes
 <p align=\"center\" style=\"font-style:italic;\">
-  y =   a<sub>1</sub> + a<sub>2</sub>  x<sub>1</sub> 
+  y =   a<sub>1</sub> + a<sub>2</sub>  x<sub>1</sub>
         + a<sub>3</sub>  x<sub>1</sub><sup>2</sup>
         + a<sub>4</sub>  x<sub>2</sub> + a<sub>5</sub>  x<sub>2</sub><sup>2</sup>
         + a<sub>6</sub>  x<sub>1</sub>  x<sub>2</sub>

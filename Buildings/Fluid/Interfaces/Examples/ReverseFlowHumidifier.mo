@@ -193,9 +193,9 @@ If the results differ, then an assert is triggered.
 October 9, 2013, by Michael Wetter:<br/>
 Replaced
 <code>Modelica.Fluid.Sources.FixedBoundary</code>
-with 
+with
 <code>Buildings.Fluid.Sources.FixedBoundary</code>
-as otherwise, the pedantic model check fails in 
+as otherwise, the pedantic model check fails in
 Dymola 2014 FD01 beta3.
 </li>
 <li>
@@ -203,8 +203,8 @@ July 5, 2013, by Michael Wetter:<br/>
 Changed one instance of <code>Modelica.Fluid.Sources.MassFlowSource_T</code>,
 that was connected to the two fluid streams,
 to two instances, each having half the mass flow rate.
-This is required for the model to work with Modelica 3.2.1 due to the 
-change introduced in 
+This is required for the model to work with Modelica 3.2.1 due to the
+change introduced in
 ticket <a href=\"https://trac.modelica.org/Modelica/ticket/739\">#739</a>.
 </li>
 <li>

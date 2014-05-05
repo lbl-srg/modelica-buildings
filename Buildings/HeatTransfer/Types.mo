@@ -11,12 +11,12 @@ package Types "Package with type definitions"
   annotation (Documentation(info="<html>
 <p>
 This enumeration is used to define the surface roughness
-which may be used to compute the convective heat transfer coefficients of 
+which may be used to compute the convective heat transfer coefficients of
 building construction.
 </p>
 <p>
 The surface roughness will be used to compute the
-wind-driven convective heat transfer coefficient in 
+wind-driven convective heat transfer coefficient in
 <a href=\"modelica://Buildings.HeatTransfer.Convection.Exterior\">
 Buildings.HeatTransfer.Convection.Exterior</a>.
 The possible surface roughness are
@@ -97,7 +97,7 @@ First implementation.
 <p>
  Enumeration to define the azimuth of a surface for the room model.
  For example, if an exterior wall is South oriented, i.e., its outside-facing
-surface is towards South, use 
+surface is towards South, use
  <code>Buildings.HeatTransfer.Types.Azimuth.S</code>.
 </p>
 </html>",

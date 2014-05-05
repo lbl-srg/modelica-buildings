@@ -11,7 +11,7 @@ This package contains type definitions that are used
 in the radiant slab model.
 </p>
 <p>
-The enumeration <code>RadiantSystemType</code> is used 
+The enumeration <code>RadiantSystemType</code> is used
 in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance</a>
@@ -19,8 +19,7 @@ to select the equation for a fictitious resistance
 between the pipes and an average temperature of the plane
 that contains the pipes.
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>

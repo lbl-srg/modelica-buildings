@@ -84,7 +84,7 @@ Documentation(info="<html>
 <p>
 Model for the convective heat transfer between a window shade, a window surface
 and the room air.
-This model is applicable for the room-facing surface of a window system and 
+This model is applicable for the room-facing surface of a window system and
 can be used with the model
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Window\">
 Buildings.HeatTransfer.Windows.Window</a>.

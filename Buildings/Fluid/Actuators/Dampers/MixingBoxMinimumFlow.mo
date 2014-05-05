@@ -160,7 +160,7 @@ February 24, 2010 by Michael Wetter:<br/>
 Changed implementation of flow resistance. Instead of using a
 fixed resistance and a damper model in series, only one model is used
 that internally adds these two resistances. This leads to smaller systems
-of nonlinear equations. This new implementation extends 
+of nonlinear equations. This new implementation extends
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.MixingBox\">
 Buildings.Fluid.Actuators.Dampers.MixingBox</a>.
 </li>

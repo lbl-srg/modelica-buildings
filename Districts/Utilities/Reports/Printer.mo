@@ -107,7 +107,7 @@ The parameter <code>configuration</code> controls the printing as follows:
 <li>
 May 27, 2011 by Michael Wetter:<br/>
 Changed parameter <code>precision</code> to <code>significantDigits</code>
-and <code>minimumWidth</code> to <code>minimumLength</code> to use the same 
+and <code>minimumWidth</code> to <code>minimumLength</code> to use the same
 terminology as the Modelica Standard Library.
 </li>
 <li>

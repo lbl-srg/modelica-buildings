@@ -42,11 +42,11 @@ equation
     Documentation(info="<html>
 <p>
 This model describes boundary conditions for
-pressure, enthalpy, and species concentration that can be obtained 
+pressure, enthalpy, and species concentration that can be obtained
 from weather data. The model is identical to
 <a href=\"modelica://Buildings.Fluid.Sources.Outside\">
 Buildings.Fluid.Sources.Outside</a>,
-except that it allows adding the wind pressure to the 
+except that it allows adding the wind pressure to the
 pressure at the fluid port <code>ports</code>.
 </p>
 <p>
@@ -63,7 +63,7 @@ where
 <i>&rho;</i> is the fluid density.
 If <code>use_Cp_in=true</code>, then the
 wind pressure coefficient is obtained from the input connector
-<code>Cp_in</code>. Otherwise, it is set to the parameter 
+<code>Cp_in</code>. Otherwise, it is set to the parameter
 <code>Cp</code>.
 </p>
 </html>",

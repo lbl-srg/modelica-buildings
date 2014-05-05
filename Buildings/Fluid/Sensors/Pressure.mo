@@ -30,7 +30,7 @@ equation
           textString="p")}),
     Documentation(info="<html>
 <p>
-This model outputs the absolute pressure of the fluid connected to its port. 
+This model outputs the absolute pressure of the fluid connected to its port.
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 </html>",

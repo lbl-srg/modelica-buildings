@@ -40,7 +40,7 @@ protected
 initial equation
  Modelica.Utilities.Streams.print("The model Buildings.Fluid.Movers.FlowMachinePolynomial is deprecated.
  It will be removed in future releases.
- You should use Buildings.Fluid.Movers.FlowMachine_y 
+ You should use Buildings.Fluid.Movers.FlowMachine_y
  instead of Buildings.Fluid.Movers.FlowMachinePolynomial.");
  // check slope of polynomial outside the domain [mNorMin_flow, mNorMax_flow]
  pNorMin1 = Buildings.Fluid.Utilities.extendedPolynomial(

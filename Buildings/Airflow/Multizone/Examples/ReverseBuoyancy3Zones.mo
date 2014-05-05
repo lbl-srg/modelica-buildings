@@ -247,7 +247,7 @@ However, the initial temperatures are such that at the start of the
 simulation, the flow direction between the three rooms reverses direction.
 </p>
 <p>
-At the start of the simulation, 
+At the start of the simulation,
 the outdoor temperature is <i>15</i>&deg;C,
 and the temperatures of the volumes are
 <i>20</i>&deg;C at the top,

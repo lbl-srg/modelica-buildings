@@ -298,7 +298,7 @@ This model computes the infrared radiative heat transfer between the interior
 surfaces of a room. Each opaque surface emits radiation according to
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  E<sup>i</sup> = &sigma; &nbsp; A<sup>i</sup> &nbsp; &epsilon;<sup>i</sup> &nbsp; 
+  E<sup>i</sup> = &sigma; &nbsp; A<sup>i</sup> &nbsp; &epsilon;<sup>i</sup> &nbsp;
 (T<sup>i</sup>)<sup>4</sup>,
 </p>
 <p>
@@ -323,16 +323,16 @@ The incoming radiation at surface <i>i</i> is
   G<sup>i</sup> = -&sum;<sub>j</sub> &nbsp; F<sup>j,i</sup> &nbsp; J<sup>j</sup>
 </p>
 <p>
-where 
-<i>F<sup>j,i</sup></i> 
+where
+<i>F<sup>j,i</sup></i>
 is the view factor from surface
-<i>j</i> to surface <i>i</i>, 
-<i>J<sup>j</sup></i> 
+<i>j</i> to surface <i>i</i>,
+<i>J<sup>j</sup></i>
 is the radiosity leaving surface <i>j</i>
 and the sum is over all surfaces.
 For opaque surfaces, it follows from the first law
 that the radiosity
-<i>J<sup>i</sup></i> 
+<i>J<sup>i</sup></i>
 is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -349,8 +349,8 @@ For each surface <i>i</i>, the heat balance is
   0 = Q<sup>i</sup> + J<sup>i</sup> + G<sup>i</sup>.
 </p>
 <p>
-For opaque surfaces, the heat flow rate 
-<i>Q<sup>i</sup></i> 
+For opaque surfaces, the heat flow rate
+<i>Q<sup>i</sup></i>
 is set to be equal to the heat flow rate at the heat port.
 For the glass of the windows, the radiosity outflow at the connector is
 set to the radiosity
@@ -371,12 +371,12 @@ See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1
 </li>
 <li>
 April 18, 2013, by Michael Wetter:<br/>
-Removed <code>cardinality</code> function as this is 
+Removed <code>cardinality</code> function as this is
 deprecated in the MSL specification and not correctly implemented in omc.
 </li>
 <li>
 February 10, 2012 by Wangda Zuo:<br/>
-Fixed a bug for linearization of T4. 
+Fixed a bug for linearization of T4.
 </li>
 <li>
 April 21, 2011 by Michael Wetter:<br/>

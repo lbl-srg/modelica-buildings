@@ -60,7 +60,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/
         "Simulate and plot"),
     Documentation(info="<html>
 This examples is a unit test for the wet bulb computation.
-The model on the top uses the accurate computation of the 
+The model on the top uses the accurate computation of the
 wet bulb temperature, whereas the model below uses the approximate
 computation of the wet bulb temperature.
 </html>", revisions="<html>

@@ -24,11 +24,11 @@ Documentation(info="<html>
 <p>
 Three way valve with linear opening characteristic.
 </p><p>
-This model is based on the partial valve models 
+This model is based on the partial valve models
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
 Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a> and
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
-Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>. 
+Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>.
 See
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
 Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>
@@ -45,7 +45,7 @@ revisions="<html>
 February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
 and added new parameter <code>dpFixed_nominal</code>.
-See 
+See
 <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
 Buildings.Fluid.Actuators.UsersGuide</a>.
 </li>

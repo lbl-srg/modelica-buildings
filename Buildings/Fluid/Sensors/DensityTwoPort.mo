@@ -74,13 +74,13 @@ annotation (defaultComponentName="senDen",
         Line(points={{70,0},{100,0}}, color={0,128,255})}),
   Documentation(info="<html>
 <p>
-This model outputs the density of the fluid flowing from 
+This model outputs the density of the fluid flowing from
 <code>port_a</code> to <code>port_b</code>.
 </p>
-<p> 
+<p>
 The sensor is ideal, i.e., it does not influence the fluid.
 If the parameter <code>tau</code> is non-zero, then its output
-is computed using a first order differential equation. 
+is computed using a first order differential equation.
 Setting <code>tau=0</code> is <i>not</i> recommend. See
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
@@ -90,7 +90,7 @@ revisions="<html>
 <ul>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
-Revised implementation to add dynamics in such a way that 
+Revised implementation to add dynamics in such a way that
 the time constant increases as the mass flow rate tends to zero.
 This significantly improves the numerics.
 </li>

@@ -109,7 +109,7 @@ The negative values indicate that at the nominal conditions, fluid is leaving th
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png\"/>
 </p>
 <p>
-Optionally, at the fluid junction, a control volume can be modelled. 
+Optionally, at the fluid junction, a control volume can be modelled.
 This is implemented using the model
 <a href=\"modelica://Buildings.Fluid.Delays.DelayFirstOrder\">
 Buildings.Fluid.Delays.DelayFirstOrder</a>.
@@ -122,7 +122,7 @@ The control volume has the size
   V = sum(abs(m_flow_nominal[:])/3)*tau/rho_nominal
 </pre>
 <p>
-where <code>tau</code> is a parameter and <code>rho_nominal</code> is the density 
+where <code>tau</code> is a parameter and <code>rho_nominal</code> is the density
 of the medium in the volume at nominal condition.
 Setting <code>dynamicBalance=true</code> can help reducing the size of the nonlinear
 system of equations.
@@ -140,7 +140,7 @@ to avoid flow reversal in large flow networks where such a setting may be useful
 </li>
 <li>
 June 11, 2008 by Michael Wetter:<br/>
-Based class on 
+Based class on
 <a href=\"modelica://Buildings.Fluid.BaseClasses.PartialThreeWayFixedResistance\">
 PartialThreeWayFixedResistance</a>.
 </li>

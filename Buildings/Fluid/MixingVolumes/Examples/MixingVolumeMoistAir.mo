@@ -171,7 +171,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Mixi
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests 
+This model tests
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir\">
 Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
 After an initial transient, the temperature and humidity of the volume
@@ -181,8 +181,8 @@ stabilizes.
 <ul>
 <li>
 February 11, 2014 by Michael Wetter:<br/>
-Changed 
-<code>HWat_flow(y=vol1.HWat_flow</code> to 
+Changed
+<code>HWat_flow(y=vol1.HWat_flow</code> to
 <code>QLat_flow(y=vol1.QLat_flow.y)</code>
 and
 <code>QWat</code> to <code>QLat</code>.

@@ -38,7 +38,7 @@ package MoistAir
     final standardOrderComponents=true)
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
-     other quantities can be computed in a recursive sequence. 
+     other quantities can be computed in a recursive sequence.
      If other variables are selected as states, static state selection
      is no longer possible and non-linear algebraic equations occur.
       */
@@ -122,7 +122,7 @@ required from medium model \""     + mediumName + "\".");
     annotation (Documentation(info="<html>
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use
-the implementation of <code>T_phX</code> provided by this package as opposed to the 
+the implementation of <code>T_phX</code> provided by this package as opposed to the
 implementation provided by its parent package.
 </html>"));
   end setState_phX;
@@ -338,16 +338,16 @@ end T_phX;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This is a medium model that is identical to 
+This is a medium model that is identical to
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
-Buildings.Media.PerfectGases.MoistAir</a>, except the 
-equation <code>d = p/(R*T)</code> has been replaced with 
-<code>d/dStp = p/pStp</code> where 
+Buildings.Media.PerfectGases.MoistAir</a>, except the
+equation <code>d = p/(R*T)</code> has been replaced with
+<code>d/dStp = p/pStp</code> where
 <code>pStd</code> and <code>dStp</code> are constants for a reference
 temperature and density.
 </p>
 <p>
-This new formulation often leads to smaller systems of nonlinear equations 
+This new formulation often leads to smaller systems of nonlinear equations
 because pressure and temperature are decoupled, at the expense of accuracy.
 </p>
 </html>", revisions="<html>
@@ -369,7 +369,7 @@ during model check and translation.
 </li>
 <li>
 August 3, 2011, by Michael Wetter:<br/>
-Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
+Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases.
 For this medium, the function is <code>u=h-pStd/dStp</code>.
 </li>
 <li>
@@ -382,26 +382,26 @@ Fixed implementation of derivative functions.
 </li>
 <li>
 August 28, 2008, by Michael Wetter:<br/>
-Referenced <code>spliceFunction</code> from package 
+Referenced <code>spliceFunction</code> from package
 <a href=\"modelica://Buildings.Utilities.Math\">Buildings.Utilities.Math</a>
 to avoid duplicate code.
 </li>
 <li>
 August 21, 2008, by Michael Wetter:<br/>
 Replaced <code>d*pStp = p*dStp</code> by
-<code>d/dStp = p/pStp</code> to indicate that division by 
+<code>d/dStp = p/pStp</code> to indicate that division by
 <code>dStp</code> and <code>pStp</code> is allowed.
 </li>
 <li>
 August 22, 2008, by Michael Wetter:<br/>
-Changed function 
+Changed function
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir.density\">
 density</a> so that it uses <code>rho=p/pStd*rhoStp</code>
 instead of the ideal gas law.
 </li>
 <li>
 August 18, 2008, by Michael Wetter:<br/>
-Changed function 
+Changed function
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir.T_phX\">
 T_phX</a> so that it uses the implementation of
 <a href=\"Buildings.Media.PerfectGases.MoistAir.T_phX\">

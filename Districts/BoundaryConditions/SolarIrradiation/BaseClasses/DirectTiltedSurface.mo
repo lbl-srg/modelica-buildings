@@ -22,8 +22,7 @@ algorithm
 <p>
 This component computes the direct solar irradiation on a tilted surface.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 May 24, 2010, by Wangda Zuo:<br/>

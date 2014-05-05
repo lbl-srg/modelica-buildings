@@ -62,11 +62,10 @@ equation
     Documentation(info="<html>
 <p>
 This component computes the direct solar irradiation on a tilted surface.
-For a definition of the parameters, see the 
+For a definition of the parameters, see the
 <a href=\"modelica://Districts.BoundaryConditions.UsersGuide\">User's Guide</a>.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 December 12, 2010, by Michael Wetter:<br/>

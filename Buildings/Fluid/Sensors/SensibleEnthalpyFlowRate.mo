@@ -102,27 +102,27 @@ between its fluid ports. In particular, if the total enthalpy flow rate is
   H&#775;<sub>tot</sub> = H&#775;<sub>sen</sub> + H&#775;<sub>lat</sub>,
 </p>
 <p>
-where 
-<i>H&#775;<sub>sen</sub> = m&#775; (1-X<sub>w</sub>) c<sub>p,air</sub></i>, 
-then this sensor outputs <i>H&#775; = H&#775;<sub>sen</sub></i>. 
+where
+<i>H&#775;<sub>sen</sub> = m&#775; (1-X<sub>w</sub>) c<sub>p,air</sub></i>,
+then this sensor outputs <i>H&#775; = H&#775;<sub>sen</sub></i>.
 </p>
 
 <p>
 If the parameter <code>tau</code> is non-zero, then the measured
-specific sensible enthalpy <i>h<sub>out</sub></i> that is used to 
-compute the sensible enthalpy flow rate 
-<i>H&#775;<sub>sen</sub> = m&#775; h<sub>out</sub></i> 
-is computed using a first order differential equation. 
+specific sensible enthalpy <i>h<sub>out</sub></i> that is used to
+compute the sensible enthalpy flow rate
+<i>H&#775;<sub>sen</sub> = m&#775; h<sub>out</sub></i>
+is computed using a first order differential equation.
 See <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 
 <p>
-For a sensor that measures 
+For a sensor that measures
 <i>H&#775;<sub>tot</sub></i>, use
 <a href=\"modelica://Buildings.Fluid.Sensors.EnthalpyFlowRate\">
 Buildings.Fluid.Sensors.EnthalpyFlowRate</a>.<br/>
-For a sensor that measures 
+For a sensor that measures
 <i>H&#775;<sub>lat</sub></i>, use
 <a href=\"modelica://Buildings.Fluid.Sensors.LatentEnthalpyFlowRate\">
 Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
@@ -144,7 +144,7 @@ OpenModelica.
 </li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
-Removed default value <code>tau=0</code> as the base class 
+Removed default value <code>tau=0</code> as the base class
 already sets <code>tau=1</code>.
 This change was made so that all sensors use the same default value.
 </li>
@@ -158,7 +158,7 @@ by the user.
 </li>
 <li>
 November 3, 2011, by Michael Wetter:<br/>
-Moved <code>der(h_out) := 0;</code> from the initial algorithm section to 
+Moved <code>der(h_out) := 0;</code> from the initial algorithm section to
 the initial equation section
 as this assignment does not conform to the Modelica specification.
 </li>
@@ -170,7 +170,7 @@ cannot differentiate the model when reducing the index of the DAE.
 </li>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
-Revised implementation to add dynamics in such a way that 
+Revised implementation to add dynamics in such a way that
 the time constant increases as the mass flow rate tends to zero.
 This can improve the numerics.
 </li>

@@ -226,7 +226,7 @@ Documentation(info = "<html>
 This is a model of a stratified storage tank for thermal energy storage with built-in heat exchanger.
 </p>
 <p>
-See the 
+See the
 <a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">
 Buildings.Fluid.Storage.UsersGuide</a>
 for more information.
@@ -245,8 +245,8 @@ Without this function, this parameter can take on zero, which is wrong
 because the Modelica uses one-based arrays.
 
 Revised the model as the old version required the port<sub>a</sub>
-of the heat exchanger to be located higher than port<sub>b</sub>. 
-This makes sense if the heat exchanger is used to heat up the tank, 
+of the heat exchanger to be located higher than port<sub>b</sub>.
+This makes sense if the heat exchanger is used to heat up the tank,
 but not if it is used to cool down a tank, such as in a cooling plant.
 The following parameters were changed:
 <ol>
@@ -262,7 +262,7 @@ The names of the following ports have been changed:
 <li>Changed <code>port_a1</code> to <code>portHex_a</code>.</li>
 <li>Changed <code>port_b1</code> to <code>portHex_b</code>.</li>
 </ol>
-The conversion script should update old instances of 
+The conversion script should update old instances of
 this model automatically in Dymola for all of the above changes.
 </li>
 <li>

@@ -152,6 +152,5 @@ equation
      </li>
 </ul>
 <p><b>Note</b>: Each model using <b>System</b> must use it with an <b>inner</b> declaration and instance name <b>system</b> in order that it can be accessed from all objects in the model.<br/>When dragging the 'System' from the package browser into the diagram layer, declaration and instance name are automatically generated.</p>
-</html>
-"));
+</html>"));
 end System;

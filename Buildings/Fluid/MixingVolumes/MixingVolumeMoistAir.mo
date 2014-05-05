@@ -95,11 +95,11 @@ equation
                        Icon(graphics),
 defaultComponentName="vol",
 Documentation(info="<html>
-Model for an ideally mixed fluid volume and the ability 
-to store mass and energy. The volume is fixed, 
+Model for an ideally mixed fluid volume and the ability
+to store mass and energy. The volume is fixed,
 and latent and sensible heat can be exchanged.
 <p>
-This model represents the same physics as 
+This model represents the same physics as
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>, but in addition, it allows
 adding or subtracting water in liquid phase.
@@ -107,8 +107,8 @@ The mass flow rate of the added or subtracted water is
 specified at the port <code>mWat_flow</code>.
 The water flow rate is assumed to be added or subtracted at the
 temperature of the input port <code>TWat</code>.
-Adding water causes a change in 
-enthalpy and species concentration in the volume. 
+Adding water causes a change in
+enthalpy and species concentration in the volume.
 </p>
 <p>
 Note that this model can only be used with medium models that include water
@@ -123,7 +123,7 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 <ul>
 <ul>
 February 11, 2014 by Michael Wetter:<br/>
-Redesigned implementation of latent and sensible heat flow rates 
+Redesigned implementation of latent and sensible heat flow rates
 as port of the correction of issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/197\">#197</a>.
 </li>
@@ -172,7 +172,7 @@ Improved the code that searches for the index of 'water' in the medium model.
 <li>
 May 29, 2010 by Michael Wetter:<br/>
 Rewrote computation of index of water substance.
-For the old formulation, Dymola 7.4 failed to differentiate the 
+For the old formulation, Dymola 7.4 failed to differentiate the
 model when trying to reduce the index of the DAE.
 </li>
 <li>

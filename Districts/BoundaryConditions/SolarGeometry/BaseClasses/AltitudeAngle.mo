@@ -16,13 +16,12 @@ equation
               "modelica://Districts/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/AltitudeAngle.png")}),
     defaultComponentName="altAng", Documentation(info="<html>
 <p>
-This block computes the altitude angle of the sun with respect to a horizontal surface. 
-The altitude angle is the angle between the sun ray and the projection of the ray 
+This block computes the altitude angle of the sun with respect to a horizontal surface.
+The altitude angle is the angle between the sun ray and the projection of the ray
 on a horizontal surface.
 It is the complementory angle to the zenith angle.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 Feb 01, 2012, by Kaustubh Phalak<br/>

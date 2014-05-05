@@ -32,7 +32,7 @@ revisions="<html>
 <ul>
 <li>
 April 18, 2013, by Michael Wetter:<br/>
-Removed <code>cardinality</code> function as this is 
+Removed <code>cardinality</code> function as this is
 deprecated in the MSL specification and not correctly implemented in omc.
 </li>
 <li>

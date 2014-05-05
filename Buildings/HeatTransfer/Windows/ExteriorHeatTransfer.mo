@@ -207,7 +207,7 @@ defaultComponentName="extHeaTra",
 <p>
 Model for the convective heat transfer between a window shade, a window surface
 and the room air.
-This model is applicable for the outside-facing surface of a window system and 
+This model is applicable for the outside-facing surface of a window system and
 can be used with the model
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Window\">
 Buildings.HeatTransfer.Windows.Window</a>.
@@ -223,7 +223,7 @@ Changed model to use new implementation of
 <a href=\"modelica://Buildings.HeatTransfer.Radiosity.OutdoorRadiosity\">
 Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
 This change leads to the use of the same equations for the radiative
-heat transfer between window and ambient as is used for 
+heat transfer between window and ambient as is used for
 the opaque constructions.
 </li>
 <li>

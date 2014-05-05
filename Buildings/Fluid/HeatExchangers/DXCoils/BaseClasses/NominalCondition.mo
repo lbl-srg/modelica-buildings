@@ -41,24 +41,24 @@ record NominalCondition
  Documentation(info="<html>
 <p>
 This block calculates inlet and outlet fluid parameters at the nominal condition.
-These parameters are required to determine the apparatus dew point at the nominal condition. 
+These parameters are required to determine the apparatus dew point at the nominal condition.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 October 9, 2013 by Michael Wetter:<br/>
-Changed protected parameter <code>Cp_nominal</code> to public, and 
+Changed protected parameter <code>Cp_nominal</code> to public, and
 hidded its result. The use of a protected parameter is not valid Modelica
 syntax.
 </li>
 <li>
 September 20, 2012 by Michael Wetter:<br/>
-Reimplemented class as a record. 
+Reimplemented class as a record.
 </li>
 <li>
 April 9, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 

@@ -15,8 +15,7 @@ expandable connector SolarSubBus "Data bus that stores solar position"
 <p>
 This component is an expandable connector that is used to implement a bus that contains the solar position.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 February 25, 2012, by Michael Wetter:<br/>

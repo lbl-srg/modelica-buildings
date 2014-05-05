@@ -138,7 +138,7 @@ to facilitate the separation of the convective and radiative model.
 July 17, 2012, by Michael Wetter:<br/>
 Added validity check of surface areas.
 This helped catching a bug in an early implementation of BESTEST Case960
-in which the extending class set <code>nConExtWin=0</code>, 
+in which the extending class set <code>nConExtWin=0</code>,
 but did not set the area to zero.
 Because the radiation balance model computes exchange among
 <code>NConExtWin=max(nConExtWin, 1)</code> areas, its result was wrong.
@@ -146,7 +146,7 @@ Because the radiation balance model computes exchange among
 <li>
 November 6, 2011, by Michael Wetter:<br/>
 Changed parameters that contain radiative properties from final to non-final, as
-they need to be overwritten by 
+they need to be overwritten by
 <a href=\"modelica://Buildings.Rooms.BaseClasses.SolarRadiationExchange\">
 Buildings.Rooms.BaseClasses.SolarRadiationExchange</a>.
 </li>

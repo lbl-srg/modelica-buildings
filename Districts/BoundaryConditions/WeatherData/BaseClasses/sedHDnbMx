@@ -19,8 +19,7 @@ This component converts the relative humidity from percentage to real.
 Input is the relative humidity in percentage, as this is the data
 format that is used in the Typical Meteorological Year weather data.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 October 27, 2011, by Wangda Zuo:<br>

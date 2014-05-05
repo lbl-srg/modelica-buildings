@@ -34,7 +34,7 @@ model OneOpenDoor "Model with one open and one closed door"
   Modelica.Blocks.Math.Gain Gain1(k=100) annotation (Placement(transformation(
           extent={{-20,60},{0,80}}, rotation=0)));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(redeclare
-      package Medium = Medium, LClo=20*1E-4) "Discretized door" 
+      package Medium = Medium, LClo=20*1E-4) "Discretized door"
       annotation (
       Placement(transformation(extent={{10,-44},{30,-24}}, rotation=0)));
   Modelica.Blocks.Sources.Ramp ramp(

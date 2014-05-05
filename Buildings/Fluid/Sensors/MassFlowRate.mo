@@ -28,12 +28,11 @@ annotation (defaultComponentName="senMasFlo",
         Line(points={{-100,0},{-70,0}}, color={0,128,255})}),
   Documentation(info="<html>
 <p>
-This model outputs the mass flow rate flowing from 
-<code>port_a</code> to <code>port_b</code>. 
+This model outputs the mass flow rate flowing from
+<code>port_a</code> to <code>port_b</code>.
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>

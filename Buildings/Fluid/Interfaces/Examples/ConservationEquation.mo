@@ -103,7 +103,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Inte
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-Model that tests the conservation equations that are used 
+Model that tests the conservation equations that are used
 for the heat and mass balance.
 </p>
 </html>",

@@ -55,7 +55,7 @@ Renamed protected parameters for consistency with naming convention.
 October 8, 2011 by Michael Wetter:<br/>
 Added <code>noEvent(...)</code> to
 <code>Q_flow[i] = k*smooth(1, if dT[i]>0 then dT[i]^2 else 0);</code>
-since the equation returns the same value to the left and right of 
+since the equation returns the same value to the left and right of
 <code>dT[i]>0</code>.
 </li>
 <li>

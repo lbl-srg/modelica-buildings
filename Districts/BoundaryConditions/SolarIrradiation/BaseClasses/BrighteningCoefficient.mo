@@ -117,8 +117,7 @@ equation
 <p>
 This component computes the circumsolar and horizon brightening coefficients.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 May 25, 2010, by Wangda Zuo:<br/>

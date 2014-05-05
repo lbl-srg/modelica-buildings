@@ -25,8 +25,7 @@ equation
 <p>
 This component ensures that the wind speed is non-negative.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 July 14, 2010, by Wangda Zuo:<br/>

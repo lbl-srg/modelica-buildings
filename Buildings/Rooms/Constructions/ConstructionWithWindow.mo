@@ -382,14 +382,14 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-This model is used to compute heat transfer through constructions with windows inside the 
+This model is used to compute heat transfer through constructions with windows inside the
 room model.
 </p>
 <p>
 The model consists of the following two main submodels:
 <ul>
 <li>
-The instance <code>opa</code>, which uses the model 
+The instance <code>opa</code>, which uses the model
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
 Buildings.HeatTransfer.Conduction.MultiLayer</a> to compute
 the heat transfer through the opaque part of the construction.

@@ -6,7 +6,7 @@ package Math "Library with functions such as for smoothing"
 annotation (preferedView="info", Documentation(info="<html>
 <p>
 This package contains blocks and functions for commonly used
-mathematical operations. 
+mathematical operations.
 The classes in this package augment the classes
 <a href=\"modelica://Modelica.Blocks\">
 Modelica.Blocks</a>.

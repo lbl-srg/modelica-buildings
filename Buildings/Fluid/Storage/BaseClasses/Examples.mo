@@ -68,12 +68,11 @@ package Examples "Examples for BaseClasses models"
         This model provides an example of how the <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\"> Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a> model is used. In the model water flows from a flow source through the heat exchanger to a low
          pressure environment. The stagnant fluid on the outside of the heat exchanger is modeled as a constant temperature.<br/>
          </p>
-         </html>
-        ",revisions="<html>
+         </html>",revisions="<html>
         <ul>
         <li>
         Mar 27, 2013 by Peter Grant:<br/>
-        First implementation        
+        First implementation
         </li>
 	</ul>
         </html>"));

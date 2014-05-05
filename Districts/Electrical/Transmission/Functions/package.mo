@@ -1,5 +1,5 @@
 within Districts.Electrical.Transmission;
-package Functions 
+package Functions
   extends Modelica.Icons.Package;
 
 end Functions;

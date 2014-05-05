@@ -54,8 +54,7 @@ algorithm
 <p>
 This component computes the solar azimuth angle.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 July 5, 2012, by Michael Wetter:<br/>

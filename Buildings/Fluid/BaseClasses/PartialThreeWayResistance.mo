@@ -124,13 +124,13 @@ equation
      extent=[40,-10; 60,10],
     Documentation(info="<html>
 <p>
-Partial model for flow resistances with three ports such as a 
+Partial model for flow resistances with three ports such as a
 flow mixer/splitter or a three way valve.
 </p>
 <p>
 If <code>dynamicBalance=true</code>, then at the junction of the three flows,
 a mixing volume will be present. This will introduce a dynamic energy and momentum
-balance, which often breaks algebraic loops. 
+balance, which often breaks algebraic loops.
 The time constant of the mixing volume is determined by the parameter <code>tau</code>.
 </html>", revisions="<html>
 <ul>
@@ -141,7 +141,7 @@ to <code>Medium.p_default</code>.
 </li>
 <li>
 September 18, 2008 by Michael Wetter:<br/>
-Replaced splitter model with a fluid port since the 
+Replaced splitter model with a fluid port since the
 splitter model in Modelica.Fluid 1.0 beta does not transport
 <code>mC_flow</code>.
 <li>

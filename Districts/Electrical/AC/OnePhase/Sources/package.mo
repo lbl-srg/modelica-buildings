@@ -1,5 +1,5 @@
 within Districts.Electrical.AC.OnePhase;
-package Sources 
+package Sources
   extends Modelica.Icons.SourcesPackage;
 
 end Sources;

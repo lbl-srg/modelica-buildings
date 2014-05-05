@@ -18,7 +18,7 @@ Partial duct manifold for a heat exchanger.
 </p>
 <p>
 This model defines the duct connection to a heat exchanger.
-It is extended by other models that model the flow connection 
+It is extended by other models that model the flow connection
 between the ports with and without flow friction.
 </p>
 </html>",

@@ -117,23 +117,23 @@ algorithm
 annotation (Documentation(info="<html>
 <p>
 This function computes the angular variation and the hemispherical integration of the transmittance and reflectance for one uncoated glass pane.
-The equations are mainly based on Finlayson et al. (1990) and Fuler et al. (1991) with some modifications. 
+The equations are mainly based on Finlayson et al. (1990) and Fuler et al. (1991) with some modifications.
 </p>
 <h4>Implementation</h4>
 <p>
-Step 1: Compute the reflectivity at normal incidence 
+Step 1: Compute the reflectivity at normal incidence
 </p>
 <table summary=\"summary\">
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-   &rho;(0) = {&beta; &minus; sqrt[&beta;<sup>2</sup> &minus; 4(2 &minus; R(0))R(0)]} 
-      &frasl; 
+   &rho;(0) = {&beta; &minus; sqrt[&beta;<sup>2</sup> &minus; 4(2 &minus; R(0))R(0)]}
+      &frasl;
    [2(2&minus;R(0))],
 </p></td>
 <td>(1)</td>
 </tr>
 </table>
-where 
+where
 <table summary=\"summary\">
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
@@ -149,14 +149,14 @@ Step 2: Compute the spectral absorption coefficient &alpha; and spectral index o
 <table summary=\"summary\">
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-  &alpha; = 4 &pi; &kappa;<sub>&lambda;</sub> &frasl;  &lambda; 
+  &alpha; = 4 &pi; &kappa;<sub>&lambda;</sub> &frasl;  &lambda;
   = - ln[(R(0) &minus; &rho;(0)) &frasl; (&rho;(0)T(0))] &frasl; d,
 </p></td>
 <td>(3)</td>
 </tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-  n = (1 + sqrt(&rho;(0)) &frasl; 
+  n = (1 + sqrt(&rho;(0)) &frasl;
         (1 &minus; sqrt(&rho;(0))).
 </p></td>
 <td>(4)</td>
@@ -164,12 +164,12 @@ Step 2: Compute the spectral absorption coefficient &alpha; and spectral index o
 </table>
 
 <p>
-Step 3: For each angle of incidence measured in air &phi; (0 &lt; &phi; &lt; 90) 
+Step 3: For each angle of incidence measured in air &phi; (0 &lt; &phi; &lt; 90)
 </p>
 <table summary=\"summary\">
 <tr>
 <td> a. Compute the angle of incidence measured in glass &phi;'</td>
-</tr> 
+</tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
   &phi;' = asin(sin&phi; &frasl;  n).
@@ -181,14 +181,14 @@ Step 3: For each angle of incidence measured in air &phi; (0 &lt; &phi; &lt; 90)
 </tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-&rho;<sub>1</sub>(&phi;)=[(n cos&phi; &minus; cos&phi;') &frasl; 
+&rho;<sub>1</sub>(&phi;)=[(n cos&phi; &minus; cos&phi;') &frasl;
 (n cos&phi; + cos&phi;')] <sup>2</sup>,
 </p></td>
 <td>(6)</td>
 </tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-&rho;<sub>2</sub>(&phi;)=[(n cos&phi;' &minus; cos&phi;) &frasl; 
+&rho;<sub>2</sub>(&phi;)=[(n cos&phi;' &minus; cos&phi;) &frasl;
 (n cos&phi;' + cos&phi;)] <sup>2</sup>.
 </p></td>
 <td>(7)</td>
@@ -256,16 +256,16 @@ R(&phi;)= (R<sub>1</sub>(&phi;) + R<sub>2</sub>(&phi;)) / 2.
 Step 4: T(90)=0, R(90)=1. (16)
 
 <h4>Limitations</h4>
-WINDOW program calculates the angular property for each wave length based on the spectral data. 
-It uses different <code>R<sub>&lambda;</sub>(0)</code> and <code>T<sub>&lambda;</sub>(0)</code> for each wave length. 
-Then it integrates the properties over the wave length to get averaged property of <code>R(0)</code> and <code>T(0)</code>. 
-<p> 
-The current window model in the Buildings library uses averaged <code>R(0)</code> and <code>T(0)</code> directly. 
+WINDOW program calculates the angular property for each wave length based on the spectral data.
+It uses different <code>R<sub>&lambda;</sub>(0)</code> and <code>T<sub>&lambda;</sub>(0)</code> for each wave length.
+Then it integrates the properties over the wave length to get averaged property of <code>R(0)</code> and <code>T(0)</code>.
+<p>
+The current window model in the Buildings library uses averaged <code>R(0)</code> and <code>T(0)</code> directly.
 It can generate the same results as WINDOW for a single pane window and multi-pane window with the same glass.
 However, the results may be slightly different for multi-pane window with different glasses.
 The reason is that different glasses may have different angular properties for the same wave length.
-To precisely calculate the angular properties of the entire window system, one has to calculate the property for each wave length and integrate them as WINDOW does. 
-For more details, see the paper of Nouidui et al. (2012). 
+To precisely calculate the angular properties of the entire window system, one has to calculate the property for each wave length and integrate them as WINDOW does.
+For more details, see the paper of Nouidui et al. (2012).
 
 <h4>References</h4>
 <p>

@@ -175,7 +175,7 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-Register of a heat exchanger with dynamics on the fluids and the solid. 
+Register of a heat exchanger with dynamics on the fluids and the solid.
 The register represents one array of pipes that are perpendicular to the
 air stream.
 The <i>hA</i> value for both fluids is an input.

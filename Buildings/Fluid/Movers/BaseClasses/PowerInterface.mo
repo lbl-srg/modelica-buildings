@@ -118,7 +118,7 @@ equation
             graphics),
     Documentation(info="<html>
 <p>This is an interface that implements the functions to compute the power draw and the
-heat dissipation of fans and pumps. It is used by the model 
+heat dissipation of fans and pumps. It is used by the model
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
 </p>
@@ -153,7 +153,7 @@ Renamed protected parameters for consistency with the naming conventions.
     Changed model so that it is based on total pressure in Pascals instead of the pump head in meters.
     This change is needed if the device is used with air as a medium. The original formulation in Modelica.Fluid
     converts head to pressure using the density medium.d. Therefore, for fans, head would be converted to pressure
-    using the density of air. However, for fans, manufacturers typically publish the head in 
+    using the density of air. However, for fans, manufacturers typically publish the head in
     millimeters water (mmH20). Therefore, to avoid confusion and to make this model applicable for any medium,
     the model has been changed to use total pressure in Pascals instead of head in meters.
 </li>

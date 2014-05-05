@@ -127,7 +127,7 @@ a translation warning in OpenModelica.
 </li>
 <li>
 August 30, 2013 by Michael Wetter:<br/>
-Renamed example and added an instance of 
+Renamed example and added an instance of
 <a href=\"modelica://Buildings.Fluid.Sensors.TraceSubstancesTwoPort\">
 Buildings.Fluid.Sensors.TraceSubstancesTwoPort</a>.
 </li>

@@ -277,9 +277,9 @@ experiment(StopTime=3600),
 <p>
 This model is similar than
 <a href=\"modelica://Buildings.Airflow.Multizone.Examples.Validation3Rooms\">
-Buildings.Airflow.Multizone.Examples.Validation3Rooms</a> but it has four 
+Buildings.Airflow.Multizone.Examples.Validation3Rooms</a> but it has four
 instead of three rooms.
-The outdoor conditions are held constant at <i>10</i>&deg;C and 
+The outdoor conditions are held constant at <i>10</i>&deg;C and
 atmospheric pressure.
 All four rooms are at different temperatures, with the rooms on the bottom
 floor being initially at a higher temperature than the rooms on the bottom floor.

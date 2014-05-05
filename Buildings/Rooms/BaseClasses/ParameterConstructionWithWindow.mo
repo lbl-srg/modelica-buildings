@@ -49,7 +49,7 @@ Documentation(info="<html>
 This data record is used to set the parameters of constructions that do have a window.
 </p>
 <p>
-The surface azimuth is defined in 
+The surface azimuth is defined in
 <a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
 Buildings.HeatTransfer.Types.Azimuth</a>
 and the surface tilt is defined in <a href=\"modelica://Buildings.HeatTransfer.Types.Tilt\">

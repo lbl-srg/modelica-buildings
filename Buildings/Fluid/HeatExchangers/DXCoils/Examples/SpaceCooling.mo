@@ -627,10 +627,10 @@ equation
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p>
-This model illustrates the use of the DX coil models with 
+This model illustrates the use of the DX coil models with
 single speed compressor, multi-stage compressor, and variable
 speed compressor.
-The three systems all have the same simple model for a room, 
+The three systems all have the same simple model for a room,
 and the same HVAC components, except for the coil.
 The top system has a DX coil with single speed compressor
 and on/off control with dead-band.
@@ -644,7 +644,7 @@ All coils are controlled based on the respective room air temperature.
 The plot below shows how room air temperatures and humidity levels
 are controlled with the respective coils.
 The single speed coil has the highest room air humidity level because
-during its off-time, water that accumulated on the coil evaporates 
+during its off-time, water that accumulated on the coil evaporates
 into the air stream.
 This effect is smaller for the coil with two compressor stages
 and for the coil with variable compressor speed, as both of these coils
@@ -655,7 +655,7 @@ switch off less frequent.
 </p>
 <h4>Implementation</h4>
 <p>
-The model is based on 
+The model is based on
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </p>

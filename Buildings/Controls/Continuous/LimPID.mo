@@ -16,16 +16,16 @@ protected
 defaultComponentName="conPID",
 Documentation(info="<html>
 <p>
-This model is identical to 
+This model is identical to
 <a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">
 Modelica.Blocks.Continuous.LimPID</a> except
 that it can be configured to have a reverse action.
 </p>
 <p>
 If the parameter <code>reverseAction=false</code> (the default),
-then <code>u_m &lt; u_s</code> increases the controller output, 
+then <code>u_m &lt; u_s</code> increases the controller output,
 otherwise the controller output is decreased.
-Thus, 
+Thus,
 </p>
 <ul>
 <li>

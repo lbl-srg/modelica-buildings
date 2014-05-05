@@ -160,7 +160,7 @@ equation
     Documentation(info="<html>
 This test model compares two tank models. The only difference between
 the two tank models is that one uses the third order upwind discretization
-scheme that reduces numerical diffusion that is induced when connecting 
+scheme that reduces numerical diffusion that is induced when connecting
 volumes in series.
 </html>"),
     experiment(StopTime=14400));

@@ -29,7 +29,7 @@ __Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/Utilities/
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the implementation of 
+This model tests the implementation of
 <a href=\"modelica://Districts.Utilities.Math.Splice\">
 Districts.Utilities.Math.Splice</a>
 </p>

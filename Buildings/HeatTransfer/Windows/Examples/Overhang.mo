@@ -38,7 +38,7 @@ equation
       points={{1,30},{10,30},{10,16},{18,16}},
       color={0,0,127},
       smooth=Smooth.None));
- annotation (Diagram(graphics), 
+ annotation (Diagram(graphics),
 experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/Overhang.mos"
         "Simulate and plot"),
@@ -48,9 +48,9 @@ This example demonstrates the use of the overhang model.
 It calculates the fraction of total window area that is exposed to the sun.
 </p>
 <p>
-A similar example of an overhang model with more basic components is implemented in 
+A similar example of an overhang model with more basic components is implemented in
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang\">
-Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang</a>. 
+Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang</a>.
 </p>
 </html>",
 revisions="<html>
@@ -62,7 +62,7 @@ measured from the corner of the window instead of the centerline.
 </li>
 <li>
 Feb 01, 2012, by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

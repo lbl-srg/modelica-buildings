@@ -4,7 +4,7 @@ package TestConditionalConstructions "Package that tests if constructions can be
 
 
 annotation (Documentation(info="<html>
-The thermal zone model 
+The thermal zone model
 <a href=\"Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>
 allows the conditional declaration of constructions for
 exterior walls without windows, for exterior walls with windows,

@@ -1,4 +1,4 @@
 within Districts.Electrical;
-package Types 
+package Types
 extends Modelica.Icons.Library;
 end Types;

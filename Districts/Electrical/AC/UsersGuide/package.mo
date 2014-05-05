@@ -6,7 +6,7 @@ package UsersGuide "User's Guide"
     annotation (preferedView="info",
 Documentation(info="<html>
 <p>
-The library 
+The library
 <a href=\"modelica://Districts.Electrical.AC\">Districts.Electrical.AC</a>
 models alternate current electrical systems. The frequency is modeled as quasi-stationary,
 assuming a perfect sine wave with no higher harmonics.

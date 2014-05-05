@@ -26,7 +26,7 @@ algorithm
   end if;
     annotation (smoothOrder=1, Documentation(info="<html>
 <p>
-Function to provide a once continuously differentiable approximation 
+Function to provide a once continuously differentiable approximation
 to <i>exp(- |x| )</i>
 in the interval <i>|x| < &delta;</i> for some positive <i>&delta;</i>
 </p>
@@ -35,7 +35,7 @@ in the interval <i>|x| < &delta;</i> for some positive <i>&delta;</i>
 <li>
 October 30, 2008, by Michael Wetter:<br/>
 First implementation.
-Implemented to reduce chattering in 
+Implemented to reduce chattering in
 <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.Stratifier\"</a>
 Buildings.Fluid.Storage.BaseClasses.Stratifier</a>.
 </li>

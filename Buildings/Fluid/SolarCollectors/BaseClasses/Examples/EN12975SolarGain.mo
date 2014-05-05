@@ -86,7 +86,7 @@ equation
             100}}), graphics),
     Documentation(info="<html>
       <p>
-        This examples demonstrates the implementation of 
+        This examples demonstrates the implementation of
         <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain\">
         Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain</a>.
       </p>

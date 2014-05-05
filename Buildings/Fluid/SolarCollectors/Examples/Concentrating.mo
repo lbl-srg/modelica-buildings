@@ -83,10 +83,10 @@ equation
   annotation (
     Documentation(info="<html>
       <p>
-        This model demonstrates the implementation of 
+        This model demonstrates the implementation of
         <a href=\"modelica://Buildings.Fluid.SolarCollectors.EN12975\">
         Buildings.Fluid.SolarCollectors.EN12975</a>.
-        In it water is passed through the solar thermal collector while 
+        In it water is passed through the solar thermal collector while
         being heated by the sun in the San Francisco, CA, USA climate.
       </p>
     </html>",

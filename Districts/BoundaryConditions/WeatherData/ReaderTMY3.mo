@@ -780,7 +780,7 @@ equation
           textString="HDirNor")}),
     Documentation(info="<html>
 <p>
-This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data. 
+This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data.
 This model does not compute the wet bulb temperature.
 For a similar data reader that computes the wet bulb temperature, use
 <a href=\"modelica://Districts.BoundaryConditions.WeatherData.ReaderTMY3\">
@@ -801,9 +801,9 @@ the time zone relative to Greenwich Mean Time, <code>timZone</code>.
 </li>
 </ul>
 <p>
-This model has the option of using a constant value, using the data from the weather file, 
-or using data from an input connector for the following variables: 
-atmospheric pressure, relative humidity, dry bulb temperature, 
+This model has the option of using a constant value, using the data from the weather file,
+or using data from an input connector for the following variables:
+atmospheric pressure, relative humidity, dry bulb temperature,
 global horizontal radiation, diffuse horizontal radiation, wind direction and wind speed.
 </p>
 <p>
@@ -917,7 +917,7 @@ and allows the following configurations:
 <p>
 In HVAC systems, when the fan is off, changes in atmospheric pressure can cause small air flow rates
 in the duct system due to change in pressure and hence in the mass of air that is stored
-in air volumes (such as in fluid junctions or in the room model). 
+in air volumes (such as in fluid junctions or in the room model).
 This may increase computing time. Therefore, the default value for the atmospheric pressure is set to a constant.
 Furthermore, if the initial pressure of air volumes are different
 from the atmospheric pressure, then fast pressure transients can happen in the first few seconds of the simulation.
@@ -929,24 +929,24 @@ For medium models for moist air and dry air, the default is
 </li>
 <li>
 <p>
-Different units apply depending on whether data are obtained from a file, or 
+Different units apply depending on whether data are obtained from a file, or
 from a parameter or an input connector:
 <ul>
 <li>
-When using TMY3 data from a file (e.g. <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos</code>), the units must be the same as the original TMY3 file used by EnergyPlus (e.g. 
-<code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw</code>). 
-The TMY3 data used by EnergyPlus are in both SI units and non-SI units. 
+When using TMY3 data from a file (e.g. <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos</code>), the units must be the same as the original TMY3 file used by EnergyPlus (e.g.
+<code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw</code>).
+The TMY3 data used by EnergyPlus are in both SI units and non-SI units.
 If <code>Resources/bin/ConvertWeatherData.jar</code> is used to convert the <code>.epw</code> file to an <code>.mos</code> file, the units of the TMY3 data are preserved and the file can be directly
-used by this data reader. 
+used by this data reader.
 The data reader will automatically convert units to the SI units used by Modelica.
-For example, the dry bulb temperature <code>TDryBul</code> in TMY3 is in degree Celsius. 
-The data reader will automatically convert the data to Kelvin. 
+For example, the dry bulb temperature <code>TDryBul</code> in TMY3 is in degree Celsius.
+The data reader will automatically convert the data to Kelvin.
 The wind direction <code>winDir</code> in TMY3 is degrees and will be automatically converted to radians.
 </li>
 <li>
 When using data from a parameter or from an input connector,
-the data must be in the SI units used by Modelica. 
-For instance, the unit must be 
+the data must be in the SI units used by Modelica.
+For instance, the unit must be
 <code>Pa</code> for pressure,
 <code>K</code> for temperature,
 <code>W/m2</code> for solar radiations and
@@ -957,7 +957,7 @@ For instance, the unit must be
 </li>
 <li>
 <p>
-The ReaderTMY3 should only be used with TMY3 data. It contains a time shift for solar radiation data that is explained below. This time shift needs to be removed if the user may want to use the ReaderTMY3 for other weather data types. 
+The ReaderTMY3 should only be used with TMY3 data. It contains a time shift for solar radiation data that is explained below. This time shift needs to be removed if the user may want to use the ReaderTMY3 for other weather data types.
 </p>
 </li>
 </ol>
@@ -969,14 +969,14 @@ two data readers in this model. One data reader obtains all data
 except solar radiation, and the other data reader reads only the
 solar radiation data, shifted by <i>30</i> minutes.
 The reason for this time shift is as follows:
-The TMY3 weather data file contains for solar radiation the 
+The TMY3 weather data file contains for solar radiation the
 \"...radiation received
 on a horizontal surface during
 the 60-minute period ending at
 the timestamp.\"
 
-Thus, as the figure below shows, a more accurate interpolation is obtained if 
-time is shifted by <i>30</i> minutes prior to reading the weather data.   
+Thus, as the figure below shows, a more accurate interpolation is obtained if
+time is shifted by <i>30</i> minutes prior to reading the weather data.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Districts/Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\" border=\"1\">
@@ -986,13 +986,12 @@ time is shifted by <i>30</i> minutes prior to reading the weather data.
 <p>
 <ul>
 <li>
-Wilcox S. and W. Marion. <i>Users Manual for TMY3 Data Sets</i>. 
+Wilcox S. and W. Marion. <i>Users Manual for TMY3 Data Sets</i>.
 Technical Report, NREL/TP-581-43156, revised May 2008.
 </li>
 </ul>
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 January 12, 2012, by Michael Wetter:<br/>
@@ -1005,14 +1004,14 @@ Added computation of the wet bulb temperature.
 Computing the wet bulb temperature introduces a nonlinear
 equation. As we have not observed an increase in computing time
 because of computing the wet bulb temperature, it is computed
-by default. By setting the parameter 
+by default. By setting the parameter
 <code>computeWetBulbTemperature=false</code>, the computation of the
 wet bulb temperature can be removed.
 Revised documentation.
 </li>
 <li>
 August 11, 2012, by Wangda Zuo:<br/>
-Renamed <code>radHor</code> to <code>radHorIR</code> and 
+Renamed <code>radHor</code> to <code>radHorIR</code> and
 improved the optional inputs for radiation data.
 </li>
 <li>
@@ -1033,13 +1032,13 @@ shading model.
 </li>
 <li>
 November 29, 2011, by Michael Wetter:<br/>
-Fixed wrong display unit for <code>pAtm_in_internal</code> and 
+Fixed wrong display unit for <code>pAtm_in_internal</code> and
 made propagation of parameter final.
 </li>
 <li>
 October 27, 2011, by Wangda Zuo:<br/>
 1. Added optional connectors for dry bulb temperature, relative humidity, wind speed, wind direction, global horizontal radiation, diffuse horizontal radiation.<br/>
-2. Separate the unit convertion for TMY3 data and data validity check. 
+2. Separate the unit convertion for TMY3 data and data validity check.
 </li>
 <li>
 October 3, 2011, by Michael Wetter:<br/>
@@ -1055,8 +1054,8 @@ Delete the wet bulb temperature since it may cause numerical problem.
 </li>
 <li>
 March 7, 2011, by Wangda Zuo:<br/>
-Added wet bulb temperature. Changed reader to read only needed columns. 
-Added explanation for 30 minutes shift for radiation data.  
+Added wet bulb temperature. Changed reader to read only needed columns.
+Added explanation for 30 minutes shift for radiation data.
 </li>
 <li>
 March 5, 2011, by Michael Wetter:<br/>
