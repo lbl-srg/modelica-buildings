@@ -91,8 +91,5 @@ First implementation.
           points={{-20,-36},{28,6},{28,-6},{-20,-48},{-20,-36}},
           lineColor={0,0,0},
           smooth=Smooth.None,
-          fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-            graphics));
+          fillPattern=FillPattern.Solid)}));
 end VAVBoxExponential;

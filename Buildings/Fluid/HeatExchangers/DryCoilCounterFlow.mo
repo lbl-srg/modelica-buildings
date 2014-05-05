@@ -66,33 +66,32 @@ model DryCoilCounterFlow
     final airSideTemperatureDependent=airSideTemperatureDependent,
     final airSideFlowDependent=airSideFlowDependent,
     r_nominal=r_nominal) "Model for convective heat transfer coefficient"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 protected
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_1(redeclare package Medium
       = Medium1,
     allowFlowReversal=allowFlowReversal1,
     m_flow_nominal=m1_flow_nominal) "Temperature sensor"
                                       annotation (Placement(transformation(
-          extent={{-58,54},{-48,66}}, rotation=0)));
+          extent={{-58,54},{-48,66}})));
   Buildings.Fluid.Sensors.MassFlowRate masFloSen_1(redeclare package Medium =
         Medium1) "Mass flow rate sensor" annotation (Placement(transformation(
-          extent={{-80,54},{-68,66}}, rotation=0)));
+          extent={{-80,54},{-68,66}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_2(redeclare package Medium
       = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     m_flow_nominal=m2_flow_nominal) "Temperature sensor"
                                       annotation (Placement(transformation(
-          extent={{58,-66},{44,-54}}, rotation=0)));
+          extent={{58,-66},{44,-54}})));
   Buildings.Fluid.Sensors.MassFlowRate masFloSen_2(redeclare package Medium =
         Medium2) "Mass flow rate sensor" annotation (Placement(transformation(
-          extent={{82,-66},{70,-54}}, rotation=0)));
+          extent={{82,-66},{70,-54}})));
   Modelica.Blocks.Math.Gain gai_1(k=1/nEle)
     "Gain medium-side 1 to take discretization into account" annotation (
-      Placement(transformation(extent={{-18,84},{-6,96}}, rotation=0)));
+      Placement(transformation(extent={{-18,84},{-6,96}})));
   Modelica.Blocks.Math.Gain gai_2(k=1/nEle)
     "Gain medium-side 2 to take discretization into account" annotation (
-      Placement(transformation(extent={{-18,62},{-6,74}}, rotation=0)));
+      Placement(transformation(extent={{-18,62},{-6,74}})));
 
   replaceable BaseClasses.HexElementSensible ele[nEle]
   constrainedby BaseClasses.PartialHexElement(

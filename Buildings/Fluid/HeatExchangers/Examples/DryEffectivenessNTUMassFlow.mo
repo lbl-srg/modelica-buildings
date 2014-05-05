@@ -23,7 +23,7 @@ model DryEffectivenessNTUMassFlow
     T_a1_nominal=T_a1_nominal,
     T_a2_nominal=T_a2_nominal,
     show_T=true)             annotation (Placement(transformation(extent={{40,20},
-            {60,40}},     rotation=0)));
+            {60,40}})));
 
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
                                                      redeclare package Medium

@@ -247,9 +247,6 @@ equation
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/Shade.mos"
         "Simulate and plot"),
-              Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-160,
-            -160},{160,160}}),
-                      graphics),
     Documentation(info="<html>
 This model tests the shading device. Note that the temperature of the shading device changes
 slightly as the shade control signal changes (i.e., as the shade is lowered).

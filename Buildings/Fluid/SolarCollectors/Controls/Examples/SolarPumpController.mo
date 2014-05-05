@@ -25,7 +25,7 @@ equation
       points={{-39,-10},{-20,-10},{-20,6},{-8,6}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), __Dymola_Commands(file=
+  annotation ( __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Controls/Examples/SolarPumpController.mos"
         "Simulate and Plot"),
     Documentation(info="<html>

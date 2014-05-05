@@ -188,8 +188,5 @@ First implementation.
         Text(
           extent={{-230,210},{-174,148}},
           lineColor={0,0,127},
-          textString="uSha")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,
-            240}}),
-            graphics));
+          textString="uSha")}));
 end InfraredRadiationGainDistribution;

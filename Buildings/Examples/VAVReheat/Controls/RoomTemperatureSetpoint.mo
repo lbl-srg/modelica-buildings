@@ -46,9 +46,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}), graphics),
-                                Icon(graphics={
+  annotation (                                Icon(graphics={
         Text(
           extent={{-92,90},{-52,70}},
           lineColor={0,0,255},

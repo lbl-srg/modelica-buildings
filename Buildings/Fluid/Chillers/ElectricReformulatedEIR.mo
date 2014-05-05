@@ -224,6 +224,5 @@ September 17, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end ElectricReformulatedEIR;

@@ -17,8 +17,7 @@ model DoorDiscretizedOperable
   parameter Real mOpe = 0.5 "|Open aperture|Flow exponent for door";
   parameter Real mClo= 0.65 "|Closed aperture|Flow exponent for crack";
   Modelica.Blocks.Interfaces.RealInput y "Opening signal, 0=closed, 1=open"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},rotation=
-           0), iconTransformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}}), iconTransformation(extent={{-120,-10},{-100,10}})));
 protected
  parameter Modelica.SIunits.Area AOpe=wOpe*hOpe "Open aperture area";
  parameter Modelica.SIunits.Area AClo(fixed=false) "Closed aperture area";
@@ -54,8 +53,7 @@ equation
       dp_turbulent=dp_turbulent);
   end for;
 
-  annotation (Diagram(graphics),
-                       Icon(graphics={
+  annotation (                       Icon(graphics={
         Text(
           extent={{-118,34},{-98,16}},
           lineColor={0,0,127},

@@ -75,7 +75,6 @@ model System5
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temRoo
     "Room temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={-40,30})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(m_flow_nominal=mRad_flow_nominal,
       redeclare package Medium = MediumW) "Pump for radiator"

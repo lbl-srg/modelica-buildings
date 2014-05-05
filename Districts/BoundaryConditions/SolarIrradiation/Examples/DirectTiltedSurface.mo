@@ -75,10 +75,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
     __Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DirectTiltedSurface.mos"
         "Simulate and plot"),
-    Icon(graphics),
     Documentation(info="<html>
 <p>
 This model tests the direct solar irradiation received on a ceiling, a wall and a floor.

@@ -8,12 +8,12 @@ model InternalFlowConvection "Convective heat transfer in pipes"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a solid
     "Heat port at solid interface"
    annotation (
-      Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0),
+      Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-114,-10},{-94,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b fluid
     "Heat port at fluid interface"
    annotation (
-      Placement(transformation(extent={{90,-10},{110,10}}, rotation=0),
+      Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{86,-10},{106,10}})));
   parameter Modelica.SIunits.Area A "Pipe inside surface area";
   parameter

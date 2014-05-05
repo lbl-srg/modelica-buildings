@@ -13,7 +13,6 @@ model OnlyConstructionBoundary "Test model for room model"
   Buildings.HeatTransfer.Sources.FixedTemperature TBou1[nConBou](each T=288.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={110,-70})));
 equation
   connect(TBou1.port, roo.surf_conBou) annotation (Line(

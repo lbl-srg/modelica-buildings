@@ -112,10 +112,7 @@ equation
       points={{-119,50},{-110,50},{-110,28.3333},{-82.8333,28.3333}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,
-            -200},{140,140}}),
-                      graphics),
-experiment(StopTime=3600),
+  annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/AirHeatMassBalance.mos"
         "Simulate and plot"));
 end AirHeatMassBalance;

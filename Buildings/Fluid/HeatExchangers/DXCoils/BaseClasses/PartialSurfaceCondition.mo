@@ -15,8 +15,7 @@ partial block PartialSurfaceCondition
   final parameter Modelica.SIunits.AngularVelocity maxSpe(displayUnit="1/min")= datCoi.sta[nSta].spe
     "Maximum rotational speed";
   Modelica.Blocks.Interfaces.RealInput speRat "Speed index"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput Q_flow(
     quantity="Power",
     unit="W") "Cooling capacity of the coil"
@@ -31,14 +30,11 @@ partial block PartialSurfaceCondition
   annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealInput XEvaIn
     "Evaporator inlet air mass fraction"
-  annotation (Placement(transformation(extent={{-120,-60},{-100,-40}},
-                                                                    rotation=
-            0)));                         //(start=0.005, min=0, max=1.0)
+  annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));                         //(start=0.005, min=0, max=1.0)
   Modelica.Blocks.Interfaces.RealInput hEvaIn(
     quantity="SpecificEnergy",
     unit="J/kg") "Evaporator air inlet specific enthalpy"
-  annotation (Placement(transformation(extent={{-120,-90},{-100,-70}},rotation=
-            0)));
+  annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   output Real bypass(
     start=0.25,
     min=0,
@@ -155,5 +151,5 @@ First implementation.
 </li>
 </ul>
 
-</html>"), Icon(graphics));
+</html>"));
 end PartialSurfaceCondition;

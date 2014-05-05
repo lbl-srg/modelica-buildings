@@ -28,9 +28,9 @@ model Concentrating "Example showing the use of Concentrating"
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     nPorts=1) "Inlet for fluid flow"
-    annotation (Placement(transformation(extent={{92,-20},{72,0}},rotation=0)));
+    annotation (Placement(transformation(extent={{92,-20},{72,0}})));
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
-        transformation(extent={{60,60},{80,80}}, rotation=0)));
+        transformation(extent={{60,60},{80,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
@@ -98,8 +98,6 @@ equation
         </li>
       </ul>
     </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/Concentrating.mos"
         "Simulate and Plot"));

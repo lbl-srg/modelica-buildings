@@ -5,7 +5,6 @@ model PVSimple "Example for the PVSimple model with constant load"
   Districts.Electrical.DC.Sources.PVSimple     pv(A=10) "PV module"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={50,40})));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-92,-40},{-72,-20}})));
@@ -76,11 +75,8 @@ equation
       points={{20,40},{40,40}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
-            -100},{100,140}}),      graphics),
-    experiment(StopTime=172800, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput,
-    Documentation(info="<html>
+  annotation (    experiment(StopTime=172800, Tolerance=1e-05),
+Documentation(info="<html>
 <p>
 This model illustrates the use of the photovoltaic model.
 The total solar irradiation is computed based

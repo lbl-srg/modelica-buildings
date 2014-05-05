@@ -88,6 +88,4 @@ equation
       points={{19,50},{4.44089e-16,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),        graphics));
 end ParallelLoads;

@@ -39,16 +39,14 @@ model FourPort "Partial model with four ports"
                      h_outflow(nominal=1E5, start=h_outflow_a1_start),
                      Xi_outflow(each nominal=0.01))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}},
-            rotation=0)));
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
                      redeclare package Medium = Medium1,
                      m_flow(max=if allowFlowReversal1 then +Constants.inf else 0),
                      h_outflow(nominal=1E5, start=h_outflow_b1_start),
                      Xi_outflow(each nominal=0.01))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{110,50},{90,70}},  rotation=
-             0), iconTransformation(extent={{110,50},{90,70}})));
+    annotation (Placement(transformation(extent={{110,50},{90,70}}), iconTransformation(extent={{110,50},{90,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
                      redeclare package Medium = Medium2,
@@ -56,16 +54,14 @@ model FourPort "Partial model with four ports"
                      h_outflow(nominal=1E5,start=h_outflow_a2_start),
                      Xi_outflow(each nominal=0.01))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{90,-70},{110,-50}},
-            rotation=0)));
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
                      redeclare package Medium = Medium2,
                      m_flow(max=if allowFlowReversal2 then +Constants.inf else 0),
                      h_outflow(nominal=1E5, start=h_outflow_b2_start),
                      Xi_outflow(each nominal=0.01))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{-90,-70},{-110,-50}},
-                          rotation=0),
+    annotation (Placement(transformation(extent={{-90,-70},{-110,-50}}),
                 iconTransformation(extent={{-90,-70},{-110,-50}})));
 
   annotation (

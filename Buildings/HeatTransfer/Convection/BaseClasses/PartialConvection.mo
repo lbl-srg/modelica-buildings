@@ -9,10 +9,10 @@ partial model PartialConvection "Partial model for heat convection"
   Modelica.SIunits.TemperatureDifference dT(start=0) "= solid.T - fluid.T";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a solid
                               annotation (Placement(transformation(extent={{-110,
-            -10},{-90,10}},      rotation=0)));
+            -10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b fluid
                               annotation (Placement(transformation(extent={{90,-10},
-            {110,10}},         rotation=0)));
+            {110,10}})));
 
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
     annotation (Dialog(enable= not (conMod == Buildings.HeatTransfer.Types.InteriorConvection.fixed)));

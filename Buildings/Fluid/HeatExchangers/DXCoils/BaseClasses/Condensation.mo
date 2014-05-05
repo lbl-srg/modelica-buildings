@@ -8,7 +8,7 @@ block Condensation "Calculates rate of condensation"
     start=278.15,
     unit="K",
     displayUnit="degC") "Dew point temperature"
-   annotation (Placement(transformation(extent={{-120,-70},{-100,-50}},rotation=0)));
+   annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealInput Q_flow(
     max=0,
     unit="W") "Heat flow"
@@ -75,5 +75,5 @@ First implementation.
           lineColor={0,0,255},
           smooth=Smooth.None,
           fillColor={0,0,255},
-          fillPattern=FillPattern.Solid)}), Diagram(graphics));
+          fillPattern=FillPattern.Solid)}));
 end Condensation;

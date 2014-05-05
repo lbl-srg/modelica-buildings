@@ -238,9 +238,7 @@ equation
       points={{10,10},{40,10},{40,10},{70,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},
-            {200,200}}),       graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomialClosedLoop.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomialClosedLoop.mos"
         "Simulate and plot"),
     experiment(
       StopTime=14400,

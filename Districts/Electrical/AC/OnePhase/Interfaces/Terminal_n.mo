@@ -6,11 +6,6 @@ connector Terminal_n "AC1ph terminal ('negative')"
   Documentation(info="<html>
 <p>Electric connector with a vector of 'pin's, positive.</p>
 </html>"),
-  Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
   Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

@@ -55,7 +55,6 @@ model ChillerSetPointControl
   Buildings.Fluid.Sources.FixedBoundary sin1(redeclare package Medium = Medium1,
       nPorts=1) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={174,88})));
   Buildings.Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium1,
@@ -68,7 +67,6 @@ model ChillerSetPointControl
   Modelica.Blocks.Sources.Constant const(k=273.15 + 20) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-182,30})));
   Buildings.Controls.Continuous.LimPID limPID(
     reverseAction=true,
@@ -78,7 +76,6 @@ model ChillerSetPointControl
     Ti=0.01,
     Td=10) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-150,30})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
         MediumAir, m_flow_nominal=999)
@@ -112,14 +109,12 @@ model ChillerSetPointControl
   Buildings.Fluid.Sources.FixedBoundary sin2(redeclare package Medium =
         MediumAir, nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-116,-72})));
   Modelica.Blocks.Sources.Sine sine(
     amplitude=5,
     offset=273.15 + 25,
     freqHz=1/20000) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={114,-92})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(y_start=273.15 + 10, T=chi.tau1
         /2) annotation (Placement(transformation(extent={{0,20},{20,40}})));

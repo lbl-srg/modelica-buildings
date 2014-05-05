@@ -581,9 +581,6 @@ equation
         Text(extent={{64,68},{114,54}},
           lineColor={0,0,127},
           textString="N")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}),
-            graphics),
     Documentation(info="<html>
 <p>
 This is an interface that implements the functions to compute the head, power draw

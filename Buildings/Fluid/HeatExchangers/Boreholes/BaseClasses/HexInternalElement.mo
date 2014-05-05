@@ -59,14 +59,12 @@ model HexInternalElement "Internal part of a borehole"
     T(final start=TFil_start)) "Heat capacity of the filling material" annotation (
       Placement(transformation(
         extent={{-90,36},{-70,16}},
-        rotation=0,
         origin={72,2})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(
     final C=Co_fil/2,
     T(final start=TFil_start)) "Heat capacity of the filling material" annotation (
       Placement(transformation(
         extent={{-90,-36},{-70,-16}},
-        rotation=0,
         origin={72,8})));
 
 protected
@@ -292,7 +290,5 @@ First implementation.
 </li>
 </ul>
 </p>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end HexInternalElement;

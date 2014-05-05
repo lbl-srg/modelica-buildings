@@ -119,7 +119,6 @@ model LinearRegressionCampus
     commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35())
     "Distribution line"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={250,-20})));
   Districts.BuildingLoads.LinearRegression buiB(fileName="modelica://Districts/Resources/Data/BuildingLoads/Examples/smallOffice_1.txt",
     V_nominal_AC=VDis,
@@ -223,8 +222,7 @@ equation
       points={{-100,2.22045e-16},{-4,2.22045e-16},{-4,0},{100,0}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
             preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
           graphics={
           Rectangle(extent={{-80,12},{80,-12}}, lineColor={0,0,0}),
@@ -424,9 +422,7 @@ equation
       points={{-70,-29},{-70,-110},{356,-110}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
-            -120},{420,220}}), graphics),
-    experiment(
+  annotation (    experiment(
       StartTime=345600,
       StopTime=950400,
       Tolerance=1e-06,

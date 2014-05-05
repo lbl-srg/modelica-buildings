@@ -44,7 +44,7 @@ model PartialSolarCollector "Partial model for solar collectors"
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Shading coefficient"
-    annotation(Placement(transformation(extent={{-140,46},{-100,6}},    rotation=0)));
+    annotation(Placement(transformation(extent={{-140,46},{-100,6}})));
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nSeg](
     T(each start =   T_start), each C=(C*nPanels_internal)/nSeg) if
@@ -84,7 +84,7 @@ model PartialSolarCollector "Partial model for solar collectors"
     use_dh=false,
     deltaM=deltaM,
     final dp_nominal=dp_nominal_final) "Flow resistance"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}},rotation=0)));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](
     each nPorts=2,
     redeclare package Medium = Medium,
@@ -190,10 +190,6 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-            graphics),
-    Icon(graphics),
     defaultComponentName="solCol",
     Documentation(info="<html>
       <p>

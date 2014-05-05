@@ -108,6 +108,5 @@ First implementation.
         Line(
           points={{54,42},{46,34}},
           color={0,0,0},
-          smooth=Smooth.None)}),
-    Diagram(graphics));
+          smooth=Smooth.None)}));
 end SpeedShift;

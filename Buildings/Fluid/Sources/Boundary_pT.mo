@@ -33,22 +33,18 @@ model Boundary_pT
                 Dialog(enable = (not use_C_in) and Medium.nC > 0));
   Modelica.Blocks.Interfaces.RealInput p_in if              use_p_in
     "Prescribed boundary pressure"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput T_in if         use_T_in
     "Prescribed boundary temperature"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX] if
                                                         use_X_in
     "Prescribed boundary composition"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if
                                                         use_C_in
     "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 protected
   Modelica.Blocks.Interfaces.RealInput p_in_internal
     "Needed to connect to conditional connector";

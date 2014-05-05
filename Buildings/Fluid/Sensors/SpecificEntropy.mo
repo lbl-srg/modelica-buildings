@@ -5,8 +5,7 @@ model SpecificEntropy "Ideal one port specific entropy sensor"
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)")
     "Specific entropy in port medium"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
   s = Medium.specificEntropy(state=Medium.setState_phX(

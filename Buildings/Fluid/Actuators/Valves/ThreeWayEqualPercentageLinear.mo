@@ -18,10 +18,7 @@ equation
   connect(y_actual, res1.y) annotation (Line(points={{50,70},{84,70},{84,32},{
           -50,32},{-50,12}},
         color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Text(
           extent={{-72,24},{-34,-20}},
           lineColor={255,255,255},

@@ -6,7 +6,6 @@ model PVGridConnected
   Districts.Electrical.DC.Sources.PVSimple     pv(A=10) "PV module"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={-10,40})));
   Districts.Electrical.DC.Loads.Resistor    res(R=0.5)
     annotation (Placement(transformation(extent={{2,-10},{-18,10}})));
@@ -69,11 +68,8 @@ equation
       points={{64,4.44089e-16},{80,4.44089e-16},{80,20}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
-            -100},{100,140}}),      graphics),
-    experiment(StopTime=172800, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput,
-    Documentation(info="<html>
+  annotation (    experiment(StopTime=172800, Tolerance=1e-05),
+Documentation(info="<html>
 <p>
 This model illustrates the use of the photovoltaic model
 connected to a AC circuit.

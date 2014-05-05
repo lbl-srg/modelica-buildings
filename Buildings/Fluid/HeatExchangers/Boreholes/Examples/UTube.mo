@@ -14,7 +14,7 @@ model UTube "Model that tests the borehole model"
     redeclare parameter Buildings.HeatTransfer.Data.Soil.Sandstone matSoi,
     TExt0_start=283.15,
     TFil0_start=283.15) "Borehole heat exchanger"
-    annotation (Placement(transformation(extent={{-16,-36},{16,-4}},rotation=0)));
+    annotation (Placement(transformation(extent={{-16,-36},{16,-4}})));
       inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Sources.Boundary_ph sin(nPorts=1, redeclare package Medium = Medium) "Sink"

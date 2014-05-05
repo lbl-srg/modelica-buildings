@@ -8,20 +8,17 @@ partial model PartialThreeWayResistance
         Medium, m_flow(min=if (portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Entering) then
                 0.0 else -Modelica.Constants.inf, max=if (portFlowDirection_1
            == Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf))
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_2(redeclare package Medium =
         Medium, m_flow(min=if (portFlowDirection_2 == Modelica.Fluid.Types.PortFlowDirection.Entering) then
                 0.0 else -Modelica.Constants.inf, max=if (portFlowDirection_2
            == Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf))
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_3(
     redeclare package Medium=Medium,
     m_flow(min=if (portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Entering) then 0.0 else -Modelica.Constants.inf,
     max=if (portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf))
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}},
-    rotation=0)));
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
   parameter Boolean from_dp = true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -30,12 +27,11 @@ partial model PartialThreeWayResistance
   replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res1(redeclare
       package Medium = Medium, allowFlowReversal=true)
     "Partial model, to be replaced with a fluid component"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res2(redeclare
       package Medium = Medium, allowFlowReversal=true)
     "Partial model, to be replaced with a fluid component"
-    annotation (Placement(transformation(extent={{60,-10},{40,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{60,-10},{40,10}})));
   replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res3(redeclare
       package Medium = Medium, allowFlowReversal=true)
     "Partial model, to be replaced with a fluid component"
@@ -115,13 +111,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   end if;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                            graphics),
-     extent=[40,-10; 60,10],
+  annotation (     extent=[40,-10; 60,10],
     Documentation(info="<html>
 <p>
 Partial model for flow resistances with three ports such as a

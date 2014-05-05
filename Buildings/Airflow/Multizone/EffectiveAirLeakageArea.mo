@@ -11,8 +11,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
 
   parameter Modelica.SIunits.Area L(min=0) "Effective leakage area";
 
-  annotation (Diagram(graphics),
-                       Icon(graphics={
+  annotation (                       Icon(graphics={
         Rectangle(
           extent={{-50,48},{50,-42}},
           lineColor={0,0,255},

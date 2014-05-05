@@ -125,8 +125,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(
@@ -152,6 +150,5 @@ First implementation.
         Text(
           extent={{60,-30},{104,-52}},
           lineColor={0,0,127},
-          textString="F2")}),
-    Diagram(graphics));
+          textString="F2")}));
 end BrighteningCoefficient;

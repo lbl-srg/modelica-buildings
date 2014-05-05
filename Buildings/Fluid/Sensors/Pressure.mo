@@ -5,8 +5,7 @@ model Pressure "Ideal pressure sensor"
   Modelica.Blocks.Interfaces.RealOutput p(final quantity="Pressure",
                                           final unit="Pa",
                                           min=0) "Pressure at port"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   p = port.p;
   annotation (defaultComponentName="senPre",

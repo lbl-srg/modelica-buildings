@@ -11,7 +11,6 @@ model WindTurbineGridConnected
            25, 1000], h=10) "Wind turbine"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={-50,0})));
   Districts.Electrical.AC.OnePhase.Sources.Grid
     grid(V=380, f=60, Phi=0)
@@ -43,8 +42,7 @@ equation
       points={{24,4.44089e-16},{40,4.44089e-16},{40,28}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This model illustrates the use of the wind turbine model,
 connected to an alternate current grid
@@ -65,6 +63,5 @@ First implementation.
     Commands(file=
           "modelica://Districts/Resources/Scripts/Dymola/Electrical/Examples/WindTurbineGridConnected.mos"
         "Simulate and plot"),
-    experiment(StopTime=259200, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput);
+    experiment(StopTime=259200, Tolerance=1e-05));
 end WindTurbineGridConnected;

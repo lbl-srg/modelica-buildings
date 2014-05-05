@@ -76,11 +76,8 @@ equation
       points={{110,50},{120,50},{120,60}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{140,100}}), graphics),
-    experiment(StopTime=86400, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput,
-    Commands(file=
+  annotation (    experiment(StopTime=86400, Tolerance=1e-05),
+Commands(file=
           "modelica://Districts/Resources/Scripts/Dymola/BuildingLoads/Examples/TimeSeries.mos"
         "Simulate and plot"));
 end TimeSeries;

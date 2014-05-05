@@ -134,10 +134,10 @@ scaM_flow*(5.196+2.8428+1.0044+0.9612+0.3624+0.1584);
     annotation (extent=[192,110; 212,90], rotation=90);
   Modelica.Blocks.Interfaces.RealOutput p_rel "Relative pressure signal"
                                                 annotation (extent=[300,110;
-        320,90],                                                                         rotation=0);
+        320,90]);
   Modelica.Blocks.Interfaces.RealOutput yDam[6] "VAV damper positions"
                                                 annotation (extent=[300,70; 320,
-        50],                                                                             rotation=0);
+        50]);
   Buildings.Fluid.Sensors.Pressure pRoo(redeclare package Medium = Medium)
     "Room pressure"
     annotation (extent=[234,140; 254,160], Placement(transformation(extent={{
@@ -146,7 +146,7 @@ scaM_flow*(5.196+2.8428+1.0044+0.9612+0.3624+0.1584);
       Placement(transformation(extent={{262,160},{282,180}})));
   Modelica.Blocks.Interfaces.RealOutput dPRoo "Room pressurization"
                                                 annotation (extent=[300,180;
-        320,160],                                                                        rotation=0);
+        320,160]);
 equation
   connect(spl38.port_2, roo50.portSup) annotation (points=[231,120; 280.125,120;
         280.125,30], style(color=69, rgbcolor={0,127,255}));
@@ -520,8 +520,5 @@ July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Coordsys(extent=[-100,-100; 300,200],
-      grid=[2,2],
-      scale=2));
+</html>"));
 end Suite;

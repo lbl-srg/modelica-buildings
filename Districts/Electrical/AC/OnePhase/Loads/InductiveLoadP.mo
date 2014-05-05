@@ -56,7 +56,6 @@ equation
           pattern=LinePattern.None),
           Line(points={{0,0},{12,1.46953e-15}},
                                          color={0,0,0},
-          origin={0,0},
           rotation=180),
           Line(points={{-6.85214e-44,-8.39117e-60},{10,1.22461e-15}},
                                          color={0,0,0},
@@ -76,9 +75,7 @@ equation
         Text(
           extent={{-120,80},{120,40}},
           lineColor={0,120,120},
-          textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
+          textString="%name")}),    Documentation(info="<html>
 <p>
 Model of an inductive load. It may be used to model an inductive motor.
 </p>

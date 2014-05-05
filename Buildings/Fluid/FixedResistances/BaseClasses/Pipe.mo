@@ -36,7 +36,7 @@ model Pipe
     final ReC=ReC,
     final homotopyInitialization=homotopyInitialization) "Flow resistance"
                                  annotation (Placement(transformation(extent={{-30,-10},
-            {-10,10}}, rotation=0)));
+            {-10,10}})));
   Buildings.Fluid.MixingVolumes.MixingVolume[nSeg] vol(
     redeclare each final package Medium = Medium,
     each energyDynamics=energyDynamics,
@@ -53,7 +53,7 @@ model Pipe
     each final m_flow_small=m_flow_small,
     each final allowFlowReversal=allowFlowReversal) "Volume for pipe fluid"
                                                   annotation (Placement(
-        transformation(extent={{-1,-18},{19,-38}}, rotation=0)));
+        transformation(extent={{-1,-18},{19,-38}})));
 
 protected
   parameter Modelica.SIunits.Volume VPipe=Modelica.Constants.pi*(diameter/2.0)^

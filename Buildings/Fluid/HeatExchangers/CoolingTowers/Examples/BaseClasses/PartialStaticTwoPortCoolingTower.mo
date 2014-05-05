@@ -18,13 +18,13 @@ partial model PartialStaticTwoPortCoolingTower
     dp_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     show_T=true) "Cooling tower"
-    annotation (Placement(transformation(extent={{24,-60},{44,-40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{24,-60},{44,-40}})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pum(redeclare package Medium =
         Medium_W, m_flow_nominal=mWat_flow_nominal,
     dynamicBalance=false,
     filteredSpeed=false) "Pump for chilled water loop"
                           annotation (Placement(transformation(extent={{-40,-60},
-            {-20,-40}}, rotation=0)));
+            {-20,-40}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -38,15 +38,12 @@ partial model PartialStaticTwoPortCoolingTower
     annotation (Placement(transformation(extent={{20,-200},{40,-180}})));
   Modelica.Blocks.Sources.Constant TSwi(k=273.15 + 22)
     "Switch temperature for switching tower pump on"
-    annotation (Placement(transformation(extent={{-80,-206},{-60,-186}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-80,-206},{-60,-186}})));
   Modelica.Blocks.Sources.Constant zer(k=0) "Zero flow rate"
-    annotation (Placement(transformation(extent={{-20,-230},{0,-210}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-20,-230},{0,-210}})));
   Modelica.Blocks.Sources.Constant mWat_flow(k=mWat_flow_nominal)
     "Water flow rate"
-    annotation (Placement(transformation(extent={{-20,-168},{0,-148}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-20,-168},{0,-148}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(nPorts=3,
     redeclare package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
@@ -119,7 +116,4 @@ equation
       points={{82,-120},{32.6667,-120}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,
-            -260},{140,100}}),
-                      graphics));
 end PartialStaticTwoPortCoolingTower;

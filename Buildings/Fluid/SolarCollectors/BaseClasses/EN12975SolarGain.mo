@@ -18,7 +18,7 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
     "Medium in the system";
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Time varying input for the shading coefficient"
-    annotation(Placement(transformation(extent={{-140,-60},{-100,-20}}, rotation=0)));
+    annotation(Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
   Modelica.Blocks.Interfaces.RealInput HSkyDifTil(
     unit="W/m2", quantity="RadiantEnergyFluenceRate")
@@ -143,9 +143,5 @@ equation
           First implementation
         </li>
       </ul>
-    </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-            graphics),
-    Icon(graphics));
+    </html>"));
 end EN12975SolarGain;

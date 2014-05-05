@@ -7,7 +7,6 @@ model ParallelInductor
                                                      source(f=50, V=220)
     "Voltage source"        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-70,10})));
   Districts.Electrical.AC.OnePhase.Loads.InductiveLoadP
                                              dynRL(
@@ -39,9 +38,6 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics),
     Documentation(info="<html>
 <p>
 This model illustrates the use of the load models.

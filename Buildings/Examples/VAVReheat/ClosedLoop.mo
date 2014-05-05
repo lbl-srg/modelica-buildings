@@ -927,8 +927,6 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-400},{1400,
-            600}}),      graphics),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model

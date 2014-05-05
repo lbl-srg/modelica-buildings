@@ -31,13 +31,13 @@ model Evaporation
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
     "Water flow rate added into the medium"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
   Modelica.Blocks.Interfaces.RealInput TWat(final quantity="ThermodynamicTemperature",
                                             final unit = "K",
                                             displayUnit = "degC")
     "Temperature of liquid that is drained from or injected into volume"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}},  rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
 
   Modelica.Blocks.Interfaces.RealInput mAir_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
@@ -553,10 +553,7 @@ August 21, 2012 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),
-                   graphics),
-    Icon(graphics={
+</html>"),    Icon(graphics={
         Rectangle(
           extent={{-96,94},{96,-98}},
           fillPattern=FillPattern.Sphere,

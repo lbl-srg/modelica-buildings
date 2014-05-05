@@ -326,10 +326,7 @@ equation
       points={{121,-1},{128,-1},{128,56},{50,56},{50,79}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{340,200}}),
-                         graphics),
-experiment(StopTime=1.0),
+  annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/Window.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

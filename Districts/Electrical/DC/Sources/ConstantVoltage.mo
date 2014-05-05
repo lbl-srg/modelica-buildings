@@ -39,6 +39,5 @@ equation
         Text(
           extent={{-150,60},{150,100}},
           lineColor={0,0,255},
-          textString="V=%V")}),   Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics));
+          textString="V=%V")}));
 end ConstantVoltage;

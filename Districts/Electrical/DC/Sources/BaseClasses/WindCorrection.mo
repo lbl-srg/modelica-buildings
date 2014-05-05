@@ -34,8 +34,7 @@ equation
           lineColor={0,128,0},
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid,
-          textString="vLoc")}),             Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),Documentation(info="<html>
+          textString="vLoc")}),Documentation(info="<html>
 <p>
 This model calculates the wind velocity at the location as a function of the height over ground. The equation is based on Gash (1991).
 

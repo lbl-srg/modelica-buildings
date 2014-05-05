@@ -51,12 +51,10 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
   // Heat ports
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon
     "Heat port for convective heat transfer with room air temperature"
-    annotation (Placement(transformation(extent={{-30,62},{-10,82}},
-                                 rotation=0)));
+    annotation (Placement(transformation(extent={{-30,62},{-10,82}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRad
     "Heat port for radiative heat transfer with room radiation temperature"
-    annotation (Placement(transformation(extent={{10,62},{30,82}},
-                                 rotation=0)));
+    annotation (Placement(transformation(extent={{10,62},{30,82}})));
 
   Fluid.MixingVolumes.MixingVolume[nEle] vol(
     redeclare each package Medium = Medium,
@@ -69,8 +67,7 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
     each final T_start=T_start,
     each final X_start=X_start,
     each final C_start=C_start) "Volume for fluid stream"
-    annotation (Placement(transformation(extent={{-9,0},{11,-20}},
-                          rotation=0)));
+    annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
 protected
    parameter Modelica.SIunits.SpecificHeatCapacity cp_nominal=
       Medium.specificHeatCapacityCp(
@@ -253,9 +250,7 @@ equation
       points={{72,-80},{86,-80},{86,50},{20,50},{20,72}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-            {100,100}}),
-                      graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Ellipse(
           extent={{-20,22},{20,-20}},
           fillColor={127,0,0},

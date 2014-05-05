@@ -135,8 +135,7 @@ equation
       points={{-59,-50},{-28,-50},{-28,-5},{59,-5}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-experiment(StopTime=3600),
+  annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/ApparatusDryPoint.mos"
         "Simulate and plot"),
           Documentation(info="<html>

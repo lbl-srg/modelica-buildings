@@ -71,8 +71,6 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{150,
-            100}}), graphics),
     __Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/SolarAzimuth.mos"
         "Simulate and plot"));
 end SolarAzimuth;

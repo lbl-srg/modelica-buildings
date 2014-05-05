@@ -6,8 +6,7 @@ model Orifice "Orifice"
 
   parameter Real CD=0.65 "|Orifice characteristics|Discharge coefficient";
 
-  annotation (Diagram(graphics),
-                       Icon(graphics={
+  annotation (                       Icon(graphics={
         Rectangle(
           extent={{-100,8},{100,-8}},
           lineColor={0,0,255},

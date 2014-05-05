@@ -6,8 +6,7 @@ partial block PartialSolarIrradiation
   Modelica.Blocks.Interfaces.RealOutput H(
      final quantity="RadiantEnergyFluenceRate",
      final unit="W/m2") "Radiation per unit area"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-        rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -30,8 +29,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

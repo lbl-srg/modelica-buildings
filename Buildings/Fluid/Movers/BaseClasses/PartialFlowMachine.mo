@@ -140,9 +140,6 @@ equation
           fillPattern=FillPattern.Solid,
           textString="M",
           textStyle={TextStyle.Bold})}),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}),
-            graphics),
     Documentation(info="<html>
 <p>This is the base model for fans and pumps.
 It provides an interface

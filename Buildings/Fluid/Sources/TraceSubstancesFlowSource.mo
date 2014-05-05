@@ -14,8 +14,7 @@ model TraceSubstancesFlowSource
                 Dialog(enable = not use_m_flow_in));
   Modelica.Blocks.Interfaces.RealInput m_flow_in if
        use_m_flow_in "Prescribed mass flow rate for extra property"
-    annotation (Placement(transformation(extent={{-141,-20},{-101,20}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-141,-20},{-101,20}})));
 
 protected
   Modelica.Blocks.Interfaces.RealInput m_flow_in_internal
@@ -82,10 +81,7 @@ September 18, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+</html>"),                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
           extent={{20,60},{100,-60}},

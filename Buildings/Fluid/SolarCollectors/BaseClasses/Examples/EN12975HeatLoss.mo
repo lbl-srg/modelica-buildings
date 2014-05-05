@@ -56,8 +56,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
       <p>
         This examples demonstrates the implementation of
@@ -75,6 +73,5 @@ equation
   </html>"),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975HeatLoss.mos"
-        "Simulate and Plot"),
-    Icon(graphics));
+        "Simulate and Plot"));
 end EN12975HeatLoss;

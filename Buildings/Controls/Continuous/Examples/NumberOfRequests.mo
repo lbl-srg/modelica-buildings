@@ -5,12 +5,11 @@ model NumberOfRequests
   Buildings.Controls.Continuous.NumberOfRequests numReq(
     nin=2,
     threShold=0,
-    kind=0) annotation (Placement(transformation(extent={{0,20},{20,40}},
-          rotation=0)));
+    kind=0) annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.Sine sine(freqHz=2)
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Pulse pulse(period=0.25)
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}},rotation=0)));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 equation
   connect(sine.y, numReq.u[1]) annotation (Line(points={{-39,-10},{-19.5,-10},{
           -19.5,29},{-2,29}}, color={0,0,127}));

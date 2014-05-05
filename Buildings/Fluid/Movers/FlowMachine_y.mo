@@ -53,8 +53,6 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={Text(extent={{10,124},{102,102}},textString=
               "y_in [0, 1]")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}),     graphics),
     Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed normalized speed.

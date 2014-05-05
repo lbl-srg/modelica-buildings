@@ -10,13 +10,13 @@ model IdealMotor "Ideal motor model with hysteresis"
   Modelica.Blocks.Logical.Hysteresis uppHys(final uLow=0, uHigh=delta,
     final pre_y_start=false)
                        annotation (Placement(transformation(extent={{-60,20},{
-            -40,40}}, rotation=0)));
+            -40,40}})));
   Modelica.Blocks.Logical.Hysteresis lowHys(uLow=-delta, final uHigh=0,
     final pre_y_start=true) "Lower hysteresis"
                                          annotation (Placement(transformation(
-          extent={{-60,-40},{-40,-20}}, rotation=0)));
+          extent={{-60,-40},{-40,-20}})));
   Modelica.Blocks.Logical.Switch uppSwi annotation (Placement(transformation(
-          extent={{0,20},{20,40}}, rotation=0)));
+          extent={{0,20},{20,40}})));
   Modelica.Blocks.Continuous.LimIntegrator int(
     final y_start=y_start,
     final k=1,
@@ -25,24 +25,22 @@ model IdealMotor "Ideal motor model with hysteresis"
     initType=Modelica.Blocks.Types.Init.InitialState,
     limitsAtInit=true,
     y(stateSelect=StateSelect.always)) "Integrator for valve opening position"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 protected
   final Modelica.Blocks.Sources.Constant zer(final k=0) "Zero signal"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Sources.Constant vOpe(final k=1/tOpe) "Opening speed"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Modelica.Blocks.Sources.Constant vClo(final k=-1/tClo) "Closing speed"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Modelica.Blocks.Logical.Switch lowSwi annotation (Placement(transformation(
-          extent={{0,-40},{20,-20}}, rotation=0)));
+          extent={{0,-40},{20,-20}})));
   Modelica.Blocks.Math.Add add annotation (Placement(transformation(extent={{32,
-            -10},{52,10}}, rotation=0)));
+            -10},{52,10}})));
   Modelica.Blocks.Math.Feedback feeBac "Feedback to compute position error"
                                          annotation (Placement(transformation(
-          extent={{-90,-10},{-70,10}}, rotation=0)));
+          extent={{-90,-10},{-70,10}})));
 equation
   connect(zer.y, uppSwi.u3) annotation (Line(points={{-19,6.10623e-016},{-14,
           6.10623e-016},{-14,22},{-2,22}}, color={0,0,127}));

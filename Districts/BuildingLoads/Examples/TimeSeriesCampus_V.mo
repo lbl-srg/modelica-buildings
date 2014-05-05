@@ -22,9 +22,7 @@ equation
       points={{441,16},{444,16},{444,0},{428,0},{428,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
-            -140},{460,220}}), graphics),
-    experiment(
+  annotation (    experiment(
       StartTime=345600,
       StopTime=950400,
       Tolerance=1e-06,

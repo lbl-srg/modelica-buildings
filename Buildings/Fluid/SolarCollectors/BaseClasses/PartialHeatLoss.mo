@@ -79,9 +79,5 @@ equation
           First implementation
         </li>
       </ul>
-    </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-            graphics),
-    Icon(graphics));
+    </html>"));
 end PartialHeatLoss;

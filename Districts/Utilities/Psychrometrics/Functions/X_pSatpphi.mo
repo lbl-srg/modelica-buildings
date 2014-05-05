@@ -16,8 +16,6 @@ algorithm
   annotation (
     smoothOrder=99,
     Inline=true,
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
 <p>
 Function to compute the water vapor concentration based on

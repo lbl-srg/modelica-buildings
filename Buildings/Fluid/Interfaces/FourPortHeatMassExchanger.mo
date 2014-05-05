@@ -81,7 +81,7 @@ model FourPortHeatMassExchanger
     final C_start=C1_start,
     final C_nominal=C1_nominal) "Volume for fluid 1"
                                annotation (Placement(transformation(extent={{-10,70},
-            {10,50}},         rotation=0)));
+            {10,50}})));
 
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2
     constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(

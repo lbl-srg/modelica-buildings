@@ -51,8 +51,7 @@ model TwoPortHeatMassExchanger
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start) "Volume for fluid stream"
-     annotation (Placement(transformation(extent={{-9,0},{11,-20}},
-         rotation=0)));
+     annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
 
   Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro(
     redeclare package Medium = Medium,

@@ -36,7 +36,7 @@ model PipeManifoldFixedResistance
     each ReC=ReC,
     each use_dh=use_dh,
     each linearized=linearized) "Fixed resistance for each duct"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   for i in 1:nPipPar loop
     connect(port_a, fixRes[i].port_a) annotation (Line(points={{-100,
@@ -46,8 +46,7 @@ equation
             6.10623e-016},{52,6.10623e-016},{52,5.55112e-016},{100,5.55112e-016}},
           color={0,127,255}));
   end for;
-annotation (Diagram(graphics),
-Documentation(info="<html>
+annotation (Documentation(info="<html>
 <p>
 Pipe manifold with a fixed flow resistance.
 </p>

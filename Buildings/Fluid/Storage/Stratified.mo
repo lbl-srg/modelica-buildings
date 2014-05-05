@@ -52,69 +52,65 @@ model Stratified "Model of a stratified tank for thermal energy storage"
     each nPorts=nPorts,
     each m_flow_nominal = m_flow_nominal) "Tank segment"
                               annotation (Placement(transformation(extent={{6,-16},
-            {26,4}},       rotation=0)));
+            {26,4}})));
   Sensors.EnthalpyFlowRate hA_flow(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Enthalpy flow rate at port a"
-    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Sensors.EnthalpyFlowRate[nSeg-1] hVol_flow(redeclare package Medium = Medium,
       each m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}},  rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Sensors.EnthalpyFlowRate hB_flow(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Enthalpy flow rate at port b"
-    annotation (Placement(transformation(extent={{50,-90},{70,-70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
   BaseClasses.Buoyancy buo(
     redeclare package Medium = Medium,
     V=VTan,
     nSeg=nSeg,
     tau=tau) "Model to prevent unstable tank stratification"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   parameter Modelica.SIunits.Time tau=1
     "Time constant for mixing due to temperature inversion";
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[
                                                  nSeg - 1] conFlu(each G=
         conFluSeg) "Thermal conductance in fluid between the segments"
-    annotation (Placement(transformation(extent={{-56,4},{-42,18}},  rotation=0)));
+    annotation (Placement(transformation(extent={{-56,4},{-42,18}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[
                                                  nSeg] conWal(
      each G=2*Modelica.Constants.pi*kIns*hSeg/Modelica.Math.log((rTan+dIns)/rTan))
     "Thermal conductance through tank wall"
-    annotation (Placement(transformation(extent={{10,34},{20,46}}, rotation=0)));
+    annotation (Placement(transformation(extent={{10,34},{20,46}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conTop(
      G=conTopSeg) "Thermal conductance through tank top"
-    annotation (Placement(transformation(extent={{10,54},{20,66}}, rotation=0)));
+    annotation (Placement(transformation(extent={{10,54},{20,66}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conBot(
      G=conTopSeg) "Thermal conductance through tank bottom"
-    annotation (Placement(transformation(extent={{10,14},{20,26}}, rotation=0)));
+    annotation (Placement(transformation(extent={{10,14},{20,26}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] heaPorVol
     "Heat port of fluid volumes"
-    annotation (Placement(transformation(extent={{-6,-6},{6,6}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-6,-6},{6,6}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorSid
     "Heat port tank side (outside insulation)"
-                    annotation (Placement(transformation(extent={{50,-6},{62,6}},
-          rotation=0)));
+                    annotation (Placement(transformation(extent={{50,-6},{62,6}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSid[
                                                          nSeg]
     "Heat flow at wall of tank (outside insulation)"
-    annotation (Placement(transformation(extent={{30,34},{42,46}}, rotation=0)));
+    annotation (Placement(transformation(extent={{30,34},{42,46}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorTop
     "Heat port tank top (outside insulation)"
-                    annotation (Placement(transformation(extent={{14,68},{26,80}},
-          rotation=0)));
+                    annotation (Placement(transformation(extent={{14,68},{26,80}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloTop
     "Heat flow at top of tank (outside insulation)"
-    annotation (Placement(transformation(extent={{30,54},{42,66}}, rotation=0)));
+    annotation (Placement(transformation(extent={{30,54},{42,66}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorBot
     "Heat port tank bottom (outside insulation). Leave unconnected for adiabatic condition"
                     annotation (Placement(transformation(extent={{14,-80},{26,
-            -68}}, rotation=0)));
+            -68}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloBot
     "Heat flow at bottom of tank (outside insulation)"
-    annotation (Placement(transformation(extent={{30,14},{42,26}}, rotation=0)));
+    annotation (Placement(transformation(extent={{30,14},{42,26}})));
   Modelica.Blocks.Interfaces.RealOutput Ql_flow
     "Heat loss of tank (positive if heat flows from tank to ambient)"
-    annotation (Placement(transformation(extent={{100,62},{120,82}}, rotation=0)));
+    annotation (Placement(transformation(extent={{100,62},{120,82}})));
 
 protected
   constant Integer nPorts = 2 "Number of ports of volume";
@@ -133,11 +129,10 @@ protected
   Modelica.Blocks.Routing.Multiplex3 mul(
     n1=1,
     n2=nSeg,
-    n3=1) annotation (Placement(transformation(extent={{62,44},{70,54}},
-          rotation=0)));
+    n3=1) annotation (Placement(transformation(extent={{62,44},{70,54}})));
   Modelica.Blocks.Math.Sum sum1(nin=nSeg + 2)
                                           annotation (Placement(transformation(
-          extent={{78,42},{90,56}}, rotation=0)));
+          extent={{78,42},{90,56}})));
 public
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=nSeg)
     "Connector to assign multiple heat ports to one heat port"
@@ -386,8 +381,5 @@ Icon(graphics={
         Line(
           points={{22,-74},{70,-74},{70,72}},
           color={127,0,0},
-          pattern=LinePattern.Dot)}),
-                            Diagram(coordinateSystem(preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}),
-                                    graphics));
+          pattern=LinePattern.Dot)}));
 end Stratified;

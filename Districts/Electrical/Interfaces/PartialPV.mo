@@ -115,10 +115,6 @@ equation
           extent={{102,107},{124,81}},
           lineColor={0,0,127},
           textString="P")}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
     Documentation(revisions="<html>
 <ul>
 <li>

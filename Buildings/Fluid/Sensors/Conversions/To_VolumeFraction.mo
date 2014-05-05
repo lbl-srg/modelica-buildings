@@ -6,10 +6,9 @@ model To_VolumeFraction "Conversion from mass fraction to volume fraction"
     "Molar mass of bulk medium";
 
   Modelica.Blocks.Interfaces.RealInput m "Mass fraction"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealOutput V "Volume fraction"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
  parameter Real con = MMBul/MMMea

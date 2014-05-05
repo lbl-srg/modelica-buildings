@@ -77,7 +77,6 @@ model System2
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temRoo
     "Room temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={-40,30})));
 
 //------------------------Step 5: Pump for radiator-----------------------//

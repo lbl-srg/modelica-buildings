@@ -39,6 +39,5 @@ Implementation is based on <code>Modelica.Fluid</code>.
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
-        grid={1,1})),
-    Icon(graphics));
+        grid={1,1})));
 end PartialFlowSensor;

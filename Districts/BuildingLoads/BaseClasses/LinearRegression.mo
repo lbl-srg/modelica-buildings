@@ -105,10 +105,7 @@ equation
       points={{10,38},{10,30},{26,30},{26,10},{21,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
+  annotation (    Documentation(info="<html>
 This is the low-level implementation for the linear regression model used by
 <a href=\"modelica://Districts.BuildingLoads.LinearRegression\">
 Districts.BuildingLoads.LinearRegression</a>.

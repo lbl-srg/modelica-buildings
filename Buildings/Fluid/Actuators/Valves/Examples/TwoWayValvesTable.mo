@@ -7,8 +7,7 @@ model TwoWayValvesTable "Two way valve with linear opening characteristics"
     height=1,
     duration=1,
     offset=0) "Control signal"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     nPorts=2,
@@ -16,14 +15,14 @@ model TwoWayValvesTable "Two way valve with linear opening characteristics"
     p(displayUnit="Pa") = 306000,
     T=293.15) "Boundary condition for flow source"
     annotation (Placement(
-        transformation(extent={{-80,8},{-60,28}},  rotation=0)));
+        transformation(extent={{-80,8},{-60,28}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=2,
     p(displayUnit="Pa") = 3E5,
     T=293.15) "Boundary condition for flow sink"
     annotation (Placement(
-        transformation(extent={{60,8},{40,28}},  rotation=0)));
+        transformation(extent={{60,8},{40,28}})));
   Valves.TwoWayTable valTab(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
@@ -31,8 +30,7 @@ model TwoWayValvesTable "Two way valve with linear opening characteristics"
     dpValve_nominal=6000,
     flowCharacteristics=Buildings.Fluid.Actuators.Valves.Data.Linear(),
     from_dp=true) "Valve model with opening characteristics based on a table"
-         annotation (Placement(transformation(extent={{-10,10},{10,30}},
-          rotation=0)));
+         annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   TwoWayLinear valLin(
     filteredOpening=false,
     redeclare package Medium = Medium,
@@ -68,10 +66,7 @@ equation
       points={{10,-20},{28,-20},{28,16},{40,16}},
       color={0,127,255},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-experiment(StopTime=1.0),
+    annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvesTable.mos"
         "Simulate and plot"),
     Documentation(info="<html>

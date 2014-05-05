@@ -47,6 +47,4 @@ equation
       points={{-60,-10},{-40,-10},{-40,-68},{-20,-68}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 end TestImpedance;

@@ -40,9 +40,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics),
 Commands(file=
           "modelica://Districts/Resources/Scripts/Dymola/Electrical/AC/AC1ph/Sensors/Examples/GeneralizedSensor.mos"
         "Simulate and plot"));

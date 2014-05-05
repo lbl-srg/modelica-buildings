@@ -84,7 +84,6 @@ protected
      final m=nSeg) "Connector to assign multiple heat ports to one heat port"
     annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
-        rotation=0,
         origin={40,-86})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector colAllToOne1(
      final m=nSeg) "Connector to assign multiple heat ports to one heat port"

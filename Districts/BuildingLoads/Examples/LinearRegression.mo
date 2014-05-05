@@ -64,8 +64,5 @@ equation
       points={{40,20},{80,20}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{140,100}}), graphics),
-    experiment(StopTime=86400, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput);
+  annotation (    experiment(StopTime=86400, Tolerance=1e-05));
 end LinearRegression;

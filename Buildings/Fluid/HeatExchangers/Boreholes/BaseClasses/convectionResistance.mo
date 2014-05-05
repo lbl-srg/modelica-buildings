@@ -42,7 +42,7 @@ algorithm
            delta=0.01*m_flow_nominal*k);
   R := 1/(2*Modelica.Constants.pi*rTub*hSeg*h);
 
-  annotation (Diagram(graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This model computes the convection resistance in the pipes of a borehole segment
 with heigth <i>h<sub>Seg</sub></i>.

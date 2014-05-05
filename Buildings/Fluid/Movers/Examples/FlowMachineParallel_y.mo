@@ -27,8 +27,7 @@ model FlowMachineParallel_y "Two flow machines in parallel"
     redeclare package Medium = Medium,
     use_p_in=false,
     nPorts=2,
-    T=293.15) annotation (Placement(transformation(extent={{-92,48},{-72,68}},
-          rotation=0)));
+    T=293.15) annotation (Placement(transformation(extent={{-92,48},{-72,68}})));
 
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpIn(
     redeclare package Medium = Medium,

@@ -29,9 +29,9 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     nPorts=2) "Outlet for water flow"
-    annotation (Placement(transformation(extent={{80,0},{60,20}},rotation=0)));
+    annotation (Placement(transformation(extent={{80,0},{60,20}})));
   inner Modelica.Fluid.System system(p_ambient=101325)
-    annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
@@ -123,8 +123,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
       <p>
         This model uses <code>TotalArea</code> instead of <code>nPanels</code> to
@@ -143,6 +141,5 @@ equation
     </html>"),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateTotalArea.mos"
-        "Simulate and Plot"),
-    Icon(graphics));
+        "Simulate and Plot"));
 end FlatPlateTotalArea;

@@ -7,7 +7,7 @@ model FixedApproach "Cooling tower with constant approach temperature"
   Modelica.Blocks.Interfaces.RealInput TAir(min=0, unit="K")
     "Entering air dry or wet bulb temperature"
      annotation (Placement(transformation(
-          extent={{-140,20},{-100,60}}, rotation=0)));
+          extent={{-140,20},{-100,60}})));
 equation
   TAppAct=TApp;
   TAirHT=TAir;
@@ -19,9 +19,6 @@ equation
           extent={{-98,70},{-64,32}},
           lineColor={0,0,127},
           textString="TAir")}),
-                          Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}),
-                                  graphics),
     Documentation(info="<html>
 <p>
 Model for a steady-state or dynamic cooling tower with constant approach temperature.

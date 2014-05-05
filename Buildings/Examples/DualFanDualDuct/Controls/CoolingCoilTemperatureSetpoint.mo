@@ -30,8 +30,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}),       graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Text(
           extent={{44,16},{90,-18}},
           lineColor={0,0,255},

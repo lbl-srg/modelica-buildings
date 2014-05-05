@@ -8,16 +8,14 @@ model RoomLeakage "Room leakage model"
     redeclare package Medium = Medium,
     dp_nominal=50,
     m_flow_nominal=VRoo*1.2/3600) "Resistance model" annotation (Placement(
-        transformation(extent={{20,-10},{40,10}}, rotation=0)));
+        transformation(extent={{20,-10},{40,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
-        Medium) annotation (Placement(transformation(extent={{90,-10},{110,10}},
-          rotation=0)));
+        Medium) annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Fluid.Sources.Outside_CpLowRise
                         amb(redeclare package Medium = Medium, nPorts=1,
     s=s,
     azi=azi)
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium = Medium,

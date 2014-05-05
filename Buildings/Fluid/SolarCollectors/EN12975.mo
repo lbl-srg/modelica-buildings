@@ -73,9 +73,7 @@ equation
       points={{-8,-16},{-28,-16},{-28,40},{-22,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-    extent={{-100,-100},{100,100}}), graphics),
-    defaultComponentName="solCol",
+  annotation (    defaultComponentName="solCol",
     Documentation(info="<html>
       <h4>Overview</h4>
         <p>

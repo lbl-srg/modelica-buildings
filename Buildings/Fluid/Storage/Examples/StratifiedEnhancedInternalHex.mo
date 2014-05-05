@@ -20,14 +20,12 @@ model StratifiedEnhancedInternalHex
     T=353.15) "Water from solar collector"
               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-70,4})));
   Buildings.Fluid.Sources.Boundary_pT toSolCol(
     redeclare package Medium = Medium,
     nPorts=1,
     T=283.15) "Water to solar collector" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-68,-26})));
   Buildings.Fluid.Sources.MassFlowSource_T bouCol(
     redeclare package Medium = Medium,
@@ -72,8 +70,7 @@ equation
       points={{-60,40},{-32,40},{-32,10},{-22,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), __Dymola_Commands(file=
+  annotation ( __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedEnhancedInternalHex.mos"
         "Simulate and Plot"),
 Documentation(info="<html>

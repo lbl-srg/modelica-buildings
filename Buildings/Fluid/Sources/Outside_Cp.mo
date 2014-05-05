@@ -12,8 +12,7 @@ model Outside_Cp
 
   Modelica.Blocks.Interfaces.RealInput Cp_in(unit="1") if
      use_Cp_in "Prescribed wind pressure coefficient"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.SIunits.Pressure pWin(displayUnit="Pa")
     "Change in pressure due to wind force";
 

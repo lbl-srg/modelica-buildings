@@ -74,7 +74,6 @@ equation
 
   end if;
   annotation (
-    Icon(graphics),
     defaultComponentName="pip",
     Documentation(info="<html>
 <p>

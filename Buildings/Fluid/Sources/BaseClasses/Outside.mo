@@ -12,8 +12,7 @@ partial model Outside
                 Dialog(enable = (not use_C_in) and Medium.nC > 0));
   Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if use_C_in
     "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-120,-18},{-80,22}})));

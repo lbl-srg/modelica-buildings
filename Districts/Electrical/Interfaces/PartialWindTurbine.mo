@@ -74,7 +74,6 @@ protected
     final n=nWin) "Correction for wind"
   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-60,20})));
 
 initial equation
@@ -100,9 +99,7 @@ equation
       points={{13,20},{60,20},{60,60},{110,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+  annotation (    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
           extent={{-100,102},{100,-98}},

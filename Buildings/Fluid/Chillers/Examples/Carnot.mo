@@ -50,13 +50,11 @@ model Carnot "Test model for chiller based on Carnot efficiency"
       = Medium1)                                     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={70,40})));
   Buildings.Fluid.Sources.FixedBoundary sin2(nPorts=1, redeclare package Medium
       = Medium2)                                     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-50,-20})));
   Modelica.Blocks.Sources.Ramp uCom(
     height=-1,

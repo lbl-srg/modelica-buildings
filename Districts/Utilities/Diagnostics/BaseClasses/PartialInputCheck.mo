@@ -10,12 +10,10 @@ protected
 public
   Modelica.Blocks.Interfaces.RealInput u1
     "Value to check, equal to 0 if unconnected"
-       annotation (Placement(transformation(extent={{-140,40},{-100,80}},
-          rotation=0)));
+       annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput u2
     "Value to check, equal to 0 if unconnected"
-       annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
-          rotation=0)));
+       annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 initial equation
   t0 = time + startTime;
 equation
@@ -28,8 +26,7 @@ equation
   annotation (Icon(graphics={Text(
           extent={{-62,-38},{54,-68}},
           lineColor={0,0,255},
-          textString="%threShold")}),         Diagram(graphics),
-Documentation(info="<html>
+          textString="%threShold")}),Documentation(info="<html>
 <p>
 Partial model that can be used to check whether its
 inputs satisfy a certain condition such as equality within

@@ -61,19 +61,16 @@ partial model PartialThreeWayValve "Partial three way valve"
 
 protected
   Modelica.Blocks.Math.Feedback inv "Inversion of control signal"
-    annotation (Placement(transformation(extent={{-74,40},{-62,52}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-74,40},{-62,52}})));
   Modelica.Blocks.Sources.Constant uni(final k=1)
     "Outputs one for bypass valve"
-    annotation (Placement(transformation(extent={{-92,40},{-80,52}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-92,40},{-80,52}})));
 equation
 
   connect(uni.y, inv.u1)
     annotation (Line(points={{-79.4,46},{-72.8,46}},
                      color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+  annotation (                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Line(
           points={{0,70},{40,70}},

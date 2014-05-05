@@ -36,10 +36,10 @@ model CenterOfGlass "Model for center of glass of a window construction"
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glass_a
     "Heat port connected to the outside facing surface of the glass"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glass_b
     "Heat port connected to the room-facing surface of the glass"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}},rotation=0)));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   parameter Boolean linearize=false "Set to true to linearize emissive power";
   Modelica.Blocks.Interfaces.RealInput QAbs_flow[size(glass, 1)](each unit="W", each

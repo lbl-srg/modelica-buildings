@@ -7,7 +7,6 @@ model ParallelResistors
                                                      source(f=50, V=220)
     "Voltage source"        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-70,10})));
   Modelica.Blocks.Sources.Ramp load(duration=0.5, startTime=0.2,
     height=2000,
@@ -19,7 +18,6 @@ model ParallelResistors
     mode=Districts.Electrical.Types.Assumption.VariableZ_P_input,
     V_nominal=220) "Resistive load"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-22,10})));
   Districts.Electrical.AC.OnePhase.Loads.ResistiveLoadP
                        R1(
@@ -27,7 +25,6 @@ model ParallelResistors
     mode=Districts.Electrical.Types.Assumption.FixedZ_steady_state,
     V_nominal=220) "Resistive load"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-22,-10})));
 equation
   connect(source.terminal, R.terminal) annotation (Line(
@@ -43,9 +40,6 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics),
     Documentation(info="<html>
 <p>
 This model illustrates the use of the load models.

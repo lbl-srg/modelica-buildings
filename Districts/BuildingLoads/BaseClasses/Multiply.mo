@@ -38,9 +38,7 @@ algorithm
             {100,100}}), graphics={Text(
           extent={{-80,50},{68,-28}},
           lineColor={0,0,255},
-          textString="y=A+B*u")}), Diagram(coordinateSystem(preserveAspectRatio=
-           false, extent={{-100,-100},{100,100}}), graphics),
-          Documentation(info="<html>
+          textString="y=A+B*u")}),          Documentation(info="<html>
 This block implements the matrix-vector multiplication of
 <a href=\"modelica://Districts.BuildingLoads.BaseClasses.LinearRegression\">
 Districts.BuildingLoads.BaseClasses.LinearRegression</a>.

@@ -60,8 +60,7 @@ model SplitterFixedResistanceDpM
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  annotation (Diagram(graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+  annotation (                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Polygon(
           points={{-100,-46},{-32,-40},{-32,-100},{30,-100},{30,-36},{100,-30},

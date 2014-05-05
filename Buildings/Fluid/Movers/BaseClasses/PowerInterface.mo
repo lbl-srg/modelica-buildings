@@ -34,8 +34,7 @@ partial model PowerInterface
 
   Modelica.Blocks.Interfaces.RealOutput P(quantity="Modelica.SIunits.Power",
    unit="W") "Electrical power consumed"
-  annotation (Placement(transformation(extent={{100,70},{120,90}},
-        rotation=0)));
+  annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
   Modelica.SIunits.Power WHyd
     "Hydraulic power input (converted to flow work and heat)";
@@ -113,9 +112,6 @@ equation
           points={{0,80},{100,80}},
           color={0,0,0},
           smooth=Smooth.None)}),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}),
-            graphics),
     Documentation(info="<html>
 <p>This is an interface that implements the functions to compute the power draw and the
 heat dissipation of fans and pumps. It is used by the model

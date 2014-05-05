@@ -136,7 +136,7 @@ equation
       points={{61,60},{70,60},{70,30},{-50,30},{-50,8},{-32,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Polygon(
           points={{-80,94},{-88,72},{-72,72},{-80,94}},
           lineColor={192,192,192},

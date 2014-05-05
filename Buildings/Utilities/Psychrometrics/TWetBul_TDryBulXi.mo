@@ -15,24 +15,20 @@ block TWetBul_TDryBulXi
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Dry bulb temperature"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Interfaces.RealInput p(  final quantity="Pressure",
                                            final unit="Pa",
                                            min = 0) "Pressure"
-    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}},
-                                                                       rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput Xi[Medium.nXi]
     "Species concentration at dry bulb temperature"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
 protected
   constant Modelica.Media.IdealGases.Common.DataRecord dryair = Modelica.Media.IdealGases.Common.SingleGasesData.Air;
@@ -88,9 +84,6 @@ equation
   end if;
 
 annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}),
-          graphics),
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
         Ellipse(

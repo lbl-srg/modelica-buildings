@@ -34,7 +34,7 @@ Fluid.Sources.Boundary_pT sou_1(
     use_T_in=false,
     p=101340,
     T=303.15) "Flow source" annotation (Placement(transformation(extent={{-60,40},
-            {-40,60}}, rotation=0)));
+            {-40,60}})));
  Fluid.Sources.Boundary_pT sin_2(
 redeclare package Medium = Medium,
     use_p_in=false,
@@ -42,7 +42,7 @@ redeclare package Medium = Medium,
     nPorts=1,
     p=101330,
     T=283.15) "Flow sink" annotation (Placement(transformation(extent={{-60,10},
-            {-40,30}},  rotation=0)));
+            {-40,30}})));
 equation
   connect(sou_1.ports[1], seg.port_a1) annotation (Line(
       points={{-40,50},{20,50},{20,12},{18.8,12}},

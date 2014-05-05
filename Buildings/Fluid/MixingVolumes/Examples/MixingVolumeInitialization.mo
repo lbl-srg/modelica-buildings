@@ -8,32 +8,30 @@ model MixingVolumeInitialization "Test model for mixing volume initialization"
     p=101330,
     nPorts=1,
     T=293.15)                                       annotation (Placement(
-        transformation(extent={{-60,10},{-40,30}}, rotation=0)));
+        transformation(extent={{-60,10},{-40,30}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium =
         Medium,
     p=101320,
     nPorts=1,
     T=293.15)                                       annotation (Placement(
-        transformation(extent={{120,10},{100,30}}, rotation=0)));
+        transformation(extent={{120,10},{100,30}})));
   Modelica.Fluid.Pipes.StaticPipe pipe1(
     redeclare package Medium = Medium,
     length=1,
     diameter=0.25,
-    flowModel(m_flow_nominal=2)) annotation (Placement(transformation(extent={{-20,10},{0,30}},
-          rotation=0)));
+    flowModel(m_flow_nominal=2)) annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Modelica.Fluid.Pipes.StaticPipe pipe2(
     redeclare package Medium = Medium,
     length=1,
     diameter=0.25,
-    flowModel(m_flow_nominal=2)) annotation (Placement(transformation(extent={{60,10},{80,30}},
-          rotation=0)));
+    flowModel(m_flow_nominal=2)) annotation (Placement(transformation(extent={{60,10},{80,30}})));
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
     V=0.1,
     nPorts=2,
     m_flow_nominal=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{20,20},{40,40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
@@ -53,9 +51,7 @@ equation
       points={{80,20},{100,20}},
       color={0,127,255},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{180,100}}),      graphics),
-experiment(StopTime=0.001),
+    annotation (experiment(StopTime=0.001),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeInitialization.mos"
         "Simulate and plot"),
     Documentation(info="<html>

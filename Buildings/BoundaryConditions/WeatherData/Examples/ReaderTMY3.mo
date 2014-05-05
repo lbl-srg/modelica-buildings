@@ -25,8 +25,7 @@ equation
       points={{-59,-50},{-40,-50},{-40,-57.6},{-21,-57.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-experiment(StopTime=8640000),
+  annotation (experiment(StopTime=8640000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Examples/ReaderTMY3.mos"
         "Simulate and plot"),
     Documentation(info="<html>

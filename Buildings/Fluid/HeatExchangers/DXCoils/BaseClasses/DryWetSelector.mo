@@ -158,6 +158,5 @@ First implementation.
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="%name")}),
-    Diagram(graphics));
+          textString="%name")}));
 end DryWetSelector;

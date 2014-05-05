@@ -122,15 +122,13 @@ equation
       points={{70,20},{110,20},{110,60}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(extent={{-180,-160},{140,100}},
-          preserveAspectRatio=false), graphics), Icon(coordinateSystem(extent={{-180,
+  annotation ( Icon(coordinateSystem(extent={{-180,
             -160},{140,100}})),
     experiment(
       StopTime=604800,
       Tolerance=1e-05,
       __Dymola_Algorithm="Radau"),
-    __Dymola_experimentSetupOutput,
-    Commands(file=
+Commands(file=
           "modelica://Districts/Resources/Scripts/Dymola/Examples/DataCenterRenewables.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

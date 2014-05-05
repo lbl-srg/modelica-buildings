@@ -1146,8 +1146,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-400},{1400,
-            600}}),      graphics),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model

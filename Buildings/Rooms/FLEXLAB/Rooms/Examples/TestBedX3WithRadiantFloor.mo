@@ -83,7 +83,6 @@ model TestBedX3WithRadiantFloor
   Buildings.Fluid.Sources.Boundary_pT airOutCloA(redeclare package Medium = Air,
       nPorts=1) "Air outlet from the closet in test cell X3A"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-154,134})));
   Modelica.Blocks.Sources.CombiTimeTable airConCloB(
     tableOnFile=true,
@@ -107,7 +106,6 @@ model TestBedX3WithRadiantFloor
   Buildings.Fluid.Sources.Boundary_pT airOutCloB(redeclare package Medium = Air,
       nPorts=1) "Air outlet from the closet in test cell X3B"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-18,134})));
   Modelica.Blocks.Sources.CombiTimeTable airConA(
     table=[0,0.1,293.15; 86400,0.1,293.15],
@@ -213,7 +211,6 @@ model TestBedX3WithRadiantFloor
   Buildings.HeatTransfer.Sources.PrescribedTemperature preT2      annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-240,-42})));
   Buildings.Fluid.Sources.Boundary_pT airOutEleB(redeclare package Medium = Air,
       nPorts=1) "Air outlet from the electrical room in test cell X3B"
@@ -910,8 +907,7 @@ equation
       points={{184,-80},{184,-26},{98.2,-26},{98.2,30.75}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
-            -300},{300,300}}), graphics), __Dymola_Commands(file=
+  annotation ( __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/TestBedX3WithRadiantFloor.mos"
         "Simulate and Plot"),
         Documentation(info="<html>

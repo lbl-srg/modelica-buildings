@@ -4,30 +4,22 @@ block InputPower "Electrical power consumed by the unit"
    Modelica.Blocks.Interfaces.RealInput Q_flow(
     quantity="Power",
     unit="W") "Cooling capacity of the coil"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput EIR "Energy input ratio"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput SHR(min=0, max=1) "Sensible heat ratio"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
-                                                                      rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Modelica.Blocks.Interfaces.RealOutput P(
     quantity="Power",
     unit="W") "Electrical power consumed by the unit"
-    annotation (Placement(transformation(extent={{100,50},{120,70}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.RealOutput QSen_flow(quantity="Power", unit="W")
     "Sensible heat flow rate"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealOutput QLat_flow(quantity="Power", unit="W")
     "Latent heat flow rate"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}},
-                                                                     rotation=
-            0)));
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 equation
   P = -EIR*Q_flow;
   QSen_flow = Q_flow * SHR;

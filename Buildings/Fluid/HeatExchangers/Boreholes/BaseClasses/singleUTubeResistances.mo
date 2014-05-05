@@ -127,7 +127,7 @@ algorithm
   //Conduction resistance in grout from pipe wall to capacity in grout
   RCondGro := x*Rg + RCondPipe;
 
-  annotation (Diagram(graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This model computes the thermal resistances of a
 single-U-tube borehole using the method of Bauer et al. (2011).

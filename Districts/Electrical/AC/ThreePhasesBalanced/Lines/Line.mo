@@ -5,8 +5,7 @@ model Line
       redeclare Interfaces.Terminal_p terminal_p,
       redeclare TwoPortRL lineRL,
       final useC = false);
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Ellipse(
           extent={{-70,10},{-50,-10}},
           lineColor={0,0,0},

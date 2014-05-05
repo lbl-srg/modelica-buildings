@@ -4,14 +4,12 @@ block X_pW "Humidity ratio for given water vapor pressure"
     Districts.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
   Modelica.Blocks.Interfaces.RealOutput X_w(min=0, max=1, nominal=0.01)
     "Species concentration at dry bulb temperature"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput p_w(final quantity="Pressure",
                                            final unit="Pa",
                                            displayUnit="Pa",
                                            min = 0) "Water vapor pressure"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   output Modelica.SIunits.MassFraction x_w(min=0, max=1, nominal=0.01, start=0.001)
     "Water mass fraction per mass of dry air";
 equation
@@ -19,9 +17,6 @@ equation
   x_w = X_w/(1-X_w);
   annotation (
 defaultComponentName="humRat",
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}),
-            graphics),
     Documentation(info="<html>
 <p>
 Block to compute the humidity ratio for a given water vapor partial pressure.

@@ -11,29 +11,24 @@ block WetBul_pTX
     final quantity="Temperature",
     final unit="K",
     min=0) "Dry bulb temperature"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Interfaces.RealInput XDryBul(
     start=0.01,
     final quantity="Temperature",
     final unit="1",
     min=0) "Dry bulb temperature"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-                                                                      rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Modelica.Blocks.Interfaces.RealInput p(  final quantity="Pressure",
                                            final unit="Pa",
                                            min = 0) "Pressure"
-    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}},
-                                                                       rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
     final quantity="Temperature",
     final unit="K",
     min=0) "Wet bulb temperature"
-    annotation (Placement(transformation(extent={{100,70},{120,90}}, rotation=0)));
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
   Modelica.Blocks.Interfaces.RealOutput XWetBul(
     min=0,
@@ -41,7 +36,7 @@ block WetBul_pTX
     start=0.012,
     unit="1",
     nominal=0.01) "Water vapor mass fraction at wet bulb temperature"
-  annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
+  annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   constant Modelica.SIunits.SpecificHeatCapacity cpAir=
@@ -60,8 +55,6 @@ equation
   TWetBul = (TDryBul * ((1-XDryBul) * cpAir + XDryBul * cpSte) + (XDryBul-XWetBul) * h_fg)/
             ( (1-XWetBul)*cpAir + XWetBul * cpSte);
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
 <p>
 Block to compute the temperature and mass fraction at the wet bulb condition

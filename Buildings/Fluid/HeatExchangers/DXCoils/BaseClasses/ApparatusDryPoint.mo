@@ -89,6 +89,5 @@ First implementation.
 </li>
 </ul>
 
-</html>"),
-    Diagram(graphics));
+</html>"));
 end ApparatusDryPoint;

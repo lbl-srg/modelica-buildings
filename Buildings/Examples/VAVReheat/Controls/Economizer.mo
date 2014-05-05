@@ -7,24 +7,19 @@ block Economizer "Controller for economizer"
     "Minimum outside air volume flow rate";
   Modelica.Blocks.Interfaces.RealInput TSupHeaSet
     "Supply temperature setpoint for heating"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}},
-        rotation=0), iconTransformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent={{-140,-40},{-100,0}})));
   Modelica.Blocks.Interfaces.RealInput TSupCooSet
     "Supply temperature setpoint for cooling"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
-        rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealInput TMix "Measured mixed air temperature"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}},
-        rotation=0), iconTransformation(extent={{-140,80},{-100,120}})));
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}}), iconTransformation(extent={{-140,80},{-100,120}})));
   ControlBus controlBus
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
   Modelica.Blocks.Interfaces.RealInput VOut_flow
     "Measured outside air flow rate"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}},
-        rotation=0), iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput TRet "Return air temperature"
-    annotation (Placement(transformation(extent={{-140,140},{-100,180}},
-        rotation=0), iconTransformation(extent={{-140,140},{-100,180}})));
+    annotation (Placement(transformation(extent={{-140,140},{-100,180}}), iconTransformation(extent={{-140,140},{-100,180}})));
   Modelica.Blocks.Math.Gain gain(k=1/VOut_flow_min) "Normalize mass flow rate"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Buildings.Controls.Continuous.LimPID conV_flow(
@@ -41,8 +36,7 @@ block Economizer "Controller for economizer"
   parameter Modelica.SIunits.Time Ti "Time constant of Integrator block";
   Modelica.Blocks.Interfaces.RealOutput yOA
     "Control signal for outside air damper"
-    annotation (Placement(transformation(extent={{200,70},{220,90}},
-        rotation=0), iconTransformation(extent={{200,70},{220,90}})));
+    annotation (Placement(transformation(extent={{200,70},{220,90}}), iconTransformation(extent={{200,70},{220,90}})));
   Modelica.Blocks.Routing.Extractor extractor(nin=6)
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
   Modelica.Blocks.Sources.Constant closed(k=0) "Signal to close OA damper"

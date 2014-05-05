@@ -18,8 +18,7 @@ model MoistAirInterface
     "Difference between total and sensible enthalpy flow rate"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Modelica.Blocks.Interfaces.RealInput phi "Medium relative humidity"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Utilities.Psychrometrics.X_pTphi masFra(use_p_in=false)
     "Mass fraction"
     annotation (Placement(transformation(extent={{-60,-64},{-40,-44}})));
@@ -68,7 +67,7 @@ equation
       points={{-39,-54},{-20,-54},{-20,-30},{-72,-30},{-72,-4},{-62,-4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
                    extent={{-100,-100},{100,100}}), graphics={Text(
           extent={{32,104},{102,78}},
           lineColor={0,0,0},

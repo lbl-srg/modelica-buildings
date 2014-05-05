@@ -126,7 +126,5 @@ equation
         First implementation
       </li>
     </ul>
-  </html>"),
-    Diagram(graphics),
-    Icon(graphics));
+  </html>"));
 end EN12975HeatLoss;

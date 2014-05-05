@@ -23,8 +23,7 @@ package BaseClasses "Model with base classes"
             -130,-240}},
         color={0,0,127},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,
-              -300},{400,300}}),      graphics), Icon(coordinateSystem(
+    annotation ( Icon(coordinateSystem(
             preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
           graphics={Rectangle(
             extent={{-100,100},{100,-100}},
@@ -212,8 +211,7 @@ First implementation.
         points={{96.4,0},{110,0}},
         color={0,0,127},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),      graphics), Documentation(info="<html>
+    annotation ( Documentation(info="<html>
 <p>
 Block for a battery controller. The battery is charged during night if its charge is below
 a threshold. It remains charging until it is full.
@@ -295,14 +293,11 @@ First implementation.
           color={0,0,127},
           smooth=Smooth.None));
       annotation (
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-                {100,100}}), graphics),
         experiment(
           StopTime=604800,
           Tolerance=1e-05,
           __Dymola_Algorithm="Radau"),
-        __Dymola_experimentSetupOutput,
-        Commands(file=
+Commands(file=
               "modelica://Districts/Resources/Scripts/Dymola/Examples/BaseClasses/Examples/BatteryControl.mos"
             "Simulate and plot"),
         Documentation(revisions="<html>

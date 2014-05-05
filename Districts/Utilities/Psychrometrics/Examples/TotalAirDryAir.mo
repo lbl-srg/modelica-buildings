@@ -8,8 +8,7 @@ model TotalAirDryAir
     duration=1,
     height=(0.01 - 0.1),
     offset=0.1) "Humidity concentration"
-                 annotation (Placement(transformation(extent={{-80,0},{-60,20}},
-                   rotation=0)));
+                 annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   ToTotalAir toTotalAir
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   ToDryAir toDryAir
@@ -35,8 +34,5 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation(__Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TotalAirDryAir.mos"
-        "Simulate and plot"),                                                                                                    Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-                                                                     graphics),
-              Diagram);
+        "Simulate and plot"),              Diagram);
 end TotalAirDryAir;

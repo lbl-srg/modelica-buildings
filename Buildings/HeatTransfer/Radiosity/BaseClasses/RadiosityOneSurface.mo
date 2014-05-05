@@ -10,8 +10,7 @@ partial model RadiosityOneSurface
   Buildings.HeatTransfer.Interfaces.RadiosityOutflow JOut "Outgoing radiosity"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
-  annotation (Diagram(graphics), Icon(graphics),
-           Documentation(info="<html>
+  annotation (           Documentation(info="<html>
 Partial model for a device with one surface.
 </html>", revisions="<html>
 <ul>

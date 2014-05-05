@@ -13,7 +13,6 @@ model InductiveLoadP "Model of an inductive and resistive load"
                                    Rectangle(extent={{-100,100},{100,-100}},
             lineColor={255,255,255}),
         Ellipse(extent={{-10,-10},{10,10}},
-          origin={0,0},
           rotation=360),
         Ellipse(extent={{30,-10},{50,10}}),
         Ellipse(extent={{10,-10},{30,10}}),
@@ -110,9 +109,7 @@ model InductiveLoadP "Model of an inductive and resistive load"
           Line(points={{-6.85214e-44,-8.39117e-60},{10,1.22461e-15}},
                                          color={0,0,0},
           origin={-66,-52},
-          rotation=180)}),       Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
+          rotation=180)}),    Documentation(info="<html>
 <p>
 Model of an inductive load. It may be used to model an inductive motor.
 </p>

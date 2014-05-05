@@ -71,8 +71,6 @@ equation
       points={{-120,8.88178e-16},{-95,8.88178e-16},{-95,0},{-70,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 end lightingController;
 equation
   connect(setPoint.y[1], feedback.u1) annotation (Line(
@@ -93,9 +91,7 @@ equation
       points={{-21,0},{-2,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-            Documentation(info="<html>
+  annotation (            Documentation(info="<html>
             <p>
             This example demonstrates how a Python script and model of a controller
             can be used to control experiments in the FLEXLAB test cells. It uses

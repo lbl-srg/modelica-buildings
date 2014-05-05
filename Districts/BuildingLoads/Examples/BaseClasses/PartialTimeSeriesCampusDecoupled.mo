@@ -166,7 +166,6 @@ partial model PartialTimeSeriesCampusDecoupled
     wireMaterial=Districts.Electrical.Transmission.Materials.Material.Cu)
     "Distribution line"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={290,-20})));
 
   Districts.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor
@@ -230,7 +229,6 @@ public
       definiteReference=true)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={360,-20})));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{340,-52},{360,-32}})));
@@ -421,6 +419,4 @@ equation
       points={{350,-32},{350,-20}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
-            -140},{460,220}}), graphics));
 end PartialTimeSeriesCampusDecoupled;

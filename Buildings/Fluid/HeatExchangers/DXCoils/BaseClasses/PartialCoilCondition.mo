@@ -76,7 +76,7 @@ equation
       points={{-15,60},{-60,60},{-60,100},{-110,100}},
       color={255,127,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This partial block is the base class for
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil\">
@@ -92,6 +92,5 @@ August 1, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics));
+</html>"));
 end PartialCoilCondition;

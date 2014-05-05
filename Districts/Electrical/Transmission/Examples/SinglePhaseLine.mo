@@ -44,6 +44,4 @@ equation
       points={{-30,28},{-10,28}},
       color={0,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 end SinglePhaseLine;

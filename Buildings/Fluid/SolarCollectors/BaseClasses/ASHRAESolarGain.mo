@@ -21,7 +21,7 @@ block ASHRAESolarGain
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Shading coefficient"
-    annotation(Placement(transformation(extent={{-140,-70},{-100,-30}}, rotation=0)));
+    annotation(Placement(transformation(extent={{-140,-70},{-100,-30}})));
    Modelica.Blocks.Interfaces.RealInput TFlu[nSeg](
    unit = "K",
    displayUnit="degC",
@@ -224,9 +224,5 @@ equation
           First implementation
         </li>
       </ul>
-    </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-            graphics),
-    Icon(graphics));
+    </html>"));
 end ASHRAESolarGain;

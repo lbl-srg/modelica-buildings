@@ -58,9 +58,7 @@ package Examples "Examples for BaseClasses models"
         points={{20,8},{-7.89333,8}},
         color={191,0,0},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics),
-                                  __Dymola_Commands(file=
+    annotation (                                  __Dymola_Commands(file=
             "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/BaseClasses/Examples/IndirectTankHeatExchanger.mos"
           "Simulate and Plot"),
           Documentation(info="<html>

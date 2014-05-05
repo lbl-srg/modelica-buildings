@@ -32,10 +32,6 @@ equation
           extent={{-150,-12},{-50,-62}},
           lineColor={0,0,255},
           textString="-")}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
     Documentation(revisions="<html>
 <ul>
 <li>

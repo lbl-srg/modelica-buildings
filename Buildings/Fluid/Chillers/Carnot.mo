@@ -45,8 +45,7 @@ model Carnot
     annotation (Dialog(group="Efficiency"));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
-    annotation (Placement(transformation(extent={{-140,70},{-100,110}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
   Real etaPL "Efficiency due to part load of compressor (etaPL(y=1)=1";
   Real COP(min=0) "Coefficient of performance";
   Real COPCar(min=0) "Carnot efficiency";

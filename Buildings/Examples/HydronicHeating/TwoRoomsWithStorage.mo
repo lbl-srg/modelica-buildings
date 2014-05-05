@@ -44,7 +44,6 @@ model TwoRoomsWithStorage
              dp=(3000+2000)*{2,1}),
     dynamicBalance=false)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={70,-120})));
 
   Fluid.Movers.FlowMachine_y pumRad(
@@ -359,7 +358,6 @@ model TwoRoomsWithStorage
     m_flow_nominal=6*4*3*1.2*0.3/3600,
     dp_nominal=10) "Pressure drop at facade"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={330,216})));
   HeatTransfer.Conduction.MultiLayer parWal(A=4*3, layers=matLayPar)
     "Partition wall between the two rooms" annotation (Placement(transformation(
@@ -372,7 +370,6 @@ model TwoRoomsWithStorage
     m_flow_nominal=6*4*3*1.2*0.3/3600,
     dp_nominal=10) "Pressure drop at facade"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={330,474})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumA,
@@ -570,9 +567,7 @@ model TwoRoomsWithStorage
 <p>
 This block computes a control signal for free cooling and for mechanical cooling.
 </p>
-</html>"),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}}), graphics));
+</html>"));
   end CoolingControl;
   Fluid.Actuators.Dampers.Exponential damHex(
     redeclare package Medium = MediumA,
@@ -1145,10 +1140,7 @@ equation
       points={{170,472},{170,478},{154,478},{154,540},{121,540}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,
-            -200},{700,600}}),
-                         graphics),
-Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 This example demonstrates the implementation of a building that has the following properties:</p>
 <p>

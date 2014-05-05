@@ -3,21 +3,15 @@ block IntegerReplicator "Integer signal replicator"
   extends Modelica.Blocks.Icons.IntegerBlock;
   parameter Integer nout=1 "Number of outputs";
   Modelica.Blocks.Interfaces.IntegerInput u "Connector of integer input signal"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-            rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.IntegerOutput y[nout]
     "Connector of integer output signals"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-            rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   y = fill(u, nout);
   annotation (
     defaultComponentName="intRep",
-    Window(
-      x=0.15,
-      y=0.16,
-      width=0.63,
-      height=0.59), Icon(coordinateSystem(
+ Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
         grid={2,2}), graphics={

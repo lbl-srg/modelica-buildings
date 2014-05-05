@@ -1067,7 +1067,5 @@ June 25, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-200,-300},{300,
-            300}}), graphics));
+</html>"));
 end ReaderTMY3;

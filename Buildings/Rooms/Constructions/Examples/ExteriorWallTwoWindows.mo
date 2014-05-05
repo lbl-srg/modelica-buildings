@@ -290,8 +290,6 @@ equation
 experiment(StopTime=1209600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Constructions/Examples/ExteriorWallTwoWindows.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-200},{200,
-            100}}), graphics),
     Documentation(info="<html>
 <p>
 This model tests the exterior construction with two windows.

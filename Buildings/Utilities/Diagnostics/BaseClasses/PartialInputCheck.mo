@@ -9,11 +9,9 @@ protected
   parameter Modelica.SIunits.Time t0( fixed=false) "Simulation start time";
 public
   Modelica.Blocks.Interfaces.RealInput u1 "Value to check"
-       annotation (Placement(transformation(extent={{-140,40},{-100,80}},
-          rotation=0)));
+       annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput u2 "Value to check"
-       annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
-          rotation=0)));
+       annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 initial equation
   t0 = time + startTime;
 

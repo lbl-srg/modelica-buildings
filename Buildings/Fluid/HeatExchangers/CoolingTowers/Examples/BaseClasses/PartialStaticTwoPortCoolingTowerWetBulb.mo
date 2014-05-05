@@ -8,7 +8,7 @@ model PartialStaticTwoPortCoolingTowerWetBulb
 
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi wetBulTem(
     redeclare package Medium = Medium_A) "Model for wet bulb temperature"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 equation
   connect(weaBus.pAtm, wetBulTem.p) annotation (Line(
       points={{-60,50},{-50,50},{-50,42},{-21,42}},
@@ -34,7 +34,4 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
-            -260},{140,100}}),
-                      graphics));
 end PartialStaticTwoPortCoolingTowerWetBulb;
