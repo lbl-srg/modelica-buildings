@@ -24,12 +24,11 @@ equation
       points={{-39,50},{-20.5,50},{-20.5,16},{-2,16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-__Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/Utilities/Math/Examples/Splice.mos"
+  annotation (__Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/Utilities/Math/Examples/Splice.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the implementation of 
+This model tests the implementation of
 <a href=\"modelica://Districts.Utilities.Math.Splice\">
 Districts.Utilities.Math.Splice</a>
 </p>

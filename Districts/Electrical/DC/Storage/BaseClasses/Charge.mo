@@ -41,6 +41,4 @@ equation
     level=AssertionLevel.warning);
   end when;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics));
 end Charge;

@@ -35,8 +35,7 @@ equation
       points={{-6,10},{20,10}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),        graphics), Documentation(
+  annotation ( Documentation(
             info="<html>
 <p>
 This test model illustrates use of a transformer from 3 phase AC to DC circuit.

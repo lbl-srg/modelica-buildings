@@ -20,7 +20,7 @@ model SimplifiedRoom "Simplified data center room"
     final T_start=293.15,
     m_flow_nominal=m_flow_nominal) "Volume of air in the room"
                                                       annotation (Placement(
-        transformation(extent={{41,-20},{61,-40}}, rotation=0)));
+        transformation(extent={{41,-20},{61,-40}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b airPorts[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(

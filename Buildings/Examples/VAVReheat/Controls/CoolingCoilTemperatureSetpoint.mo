@@ -11,8 +11,7 @@ block CoolingCoilTemperatureSetpoint "Set point scheduler for cooling coil"
           TCooOn else TCooOff) "Supply air temperature setpoint for cooling"
     annotation (Placement(transformation(extent={{-22,-50},{-2,-30}})));
   Modelica.Blocks.Interfaces.RealInput TSetHea "Set point for heating coil"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-        rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.Constant dTMin(k=1)

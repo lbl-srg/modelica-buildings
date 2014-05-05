@@ -19,8 +19,7 @@ partial model EffectivenessNTUMassFlow
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     T=T_a2_nominal)
-              annotation (Placement(transformation(extent={{-42,14},{-22,34}},
-          rotation=0)));
+              annotation (Placement(transformation(extent={{-42,14},{-22,34}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou_2(
     redeclare package Medium = Medium2,
     T=T_a2_nominal,
@@ -29,21 +28,19 @@ partial model EffectivenessNTUMassFlow
     use_X_in=true,
     m_flow=m2_flow_nominal,
     use_m_flow_in=true)                 annotation (Placement(transformation(
-          extent={{138,14},{118,34}}, rotation=0)));
+          extent={{138,14},{118,34}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium1,
     use_p_in=false,
     p=300000,
     T=T_a1_nominal)
-              annotation (Placement(transformation(extent={{140,50},{120,70}},
-          rotation=0)));
+              annotation (Placement(transformation(extent={{140,50},{120,70}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou_1(
     redeclare package Medium = Medium1,
     use_m_flow_in=true,
     use_T_in=false,
     T=T_a1_nominal)
-                   annotation (Placement(transformation(extent={{-2,52},{18,72}},
-                  rotation=0)));
+                   annotation (Placement(transformation(extent={{-2,52},{18,72}})));
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -58,13 +55,11 @@ partial model EffectivenessNTUMassFlow
   Modelica.Blocks.Sources.TimeTable mWatGai(
     table=[0,1; 3600*0.1,1; 3600*0.2,0.01; 3600*0.3,0.01])
     "Gain for water mass flow rate"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}},   rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.TimeTable mAirGai(
     table=[0,1; 3600*0.5,1; 3600*0.6,-1; 3600*0.7,0; 3600*1,0])
     "Gain for air mass flow rate"
-    annotation (Placement(transformation(extent={{-80,100},{-60,120}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Modelica.Blocks.Math.Gain mAir_flow(k=m2_flow_nominal) "Air mass flow rate"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
 equation

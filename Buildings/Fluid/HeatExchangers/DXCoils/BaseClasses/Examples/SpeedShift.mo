@@ -81,15 +81,14 @@ equation
       points={{21,10},{32,10},{32,8},{40,8}},
       color={255,127,0},
       smooth=Smooth.None));
-annotation (Diagram(graphics),
-experiment(StopTime=3600),
+annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/SpeedShift.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates working of SpeedShift block 
+This example illustrates working of SpeedShift block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedShift\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedShift</a>. 
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedShift</a>.
 </p>
 </html>",
 revisions="<html>
@@ -101,7 +100,7 @@ to be parameters does not imply that the whole record has the variability of a p
 </li>
 <li>
 August 8, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

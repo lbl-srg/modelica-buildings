@@ -24,10 +24,10 @@ model SingleLayerCylinder "Heat conduction in a cylinder"
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     "Heat port at surface a" annotation (Placement(transformation(extent={{-110,-10},
-            {-90,10}}, rotation=0)));
+            {-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
     "Heat port at surface b" annotation (Placement(transformation(extent={{90,-10},{
-            110,10}}, rotation=0)));
+            110,10}})));
 
   Modelica.SIunits.Temperature T[nSta](start=
      {TInt_start+ (TExt_start-TInt_start)/Modelica.Math.log(r_b/r_a)
@@ -167,20 +167,20 @@ If the heat capacity of the material is non-zero, then this model computes trans
 computes a numerical approximation to the solution of the heat equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-   &rho; c ( &part; T(r,t) &frasl; &part;t ) = 
+   &rho; c ( &part; T(r,t) &frasl; &part;t ) =
     k ( &part;&sup2; T(r,t) &frasl; &part;r&sup2; + 1 &frasl; r &nbsp;  &part; T(r,t) &frasl; &part;r ),
 </p>
 <p>
-where 
+where
 <i>&rho;</i>
 is the mass density,
 <i>c</i>
 is the specific heat capacity per unit mass,
 <i>T</i>
 is the temperature at location <i>r</i> and time <i>t</i> and
-<i>k</i> is the heat conductivity. 
-At the locations <i>r=r<sub>a</sub></i> and <i>r=r<sub>b</sub></i>, 
-the temperature and heat flow rate are equal to the 
+<i>k</i> is the heat conductivity.
+At the locations <i>r=r<sub>a</sub></i> and <i>r=r<sub>b</sub></i>,
+the temperature and heat flow rate are equal to the
 temperature and heat flow rate of the heat ports.
 </p>
 <p>
@@ -198,9 +198,9 @@ where
 </p>
 <h4>Implementation</h4>
 <p>
-To spatially discretize the heat equation, the construction is 
-divided into compartments with <code>material.nSta &ge; 1</code> state variables. 
-The state variables are connected to each other through thermal conductors. 
+To spatially discretize the heat equation, the construction is
+divided into compartments with <code>material.nSta &ge; 1</code> state variables.
+The state variables are connected to each other through thermal conductors.
 There is also a thermal conductor
 between the surfaces and the outermost state variables. Thus, to obtain
 the surface temperature, use <code>port_a.T</code> (or <code>port_b.T</code>)

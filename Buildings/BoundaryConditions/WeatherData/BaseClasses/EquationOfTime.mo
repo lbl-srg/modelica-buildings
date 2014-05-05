@@ -23,8 +23,7 @@ equation
 <p>
 This component computes the difference between solar noon and noon of local civic time.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 May 13, 2010, by Wangda Zuo:<br/>

@@ -39,7 +39,7 @@ Documentation(info="<html>
 <p>
 This function computes the opening characteristics of an equal percentage valve.
 </p><p>
-The function is used by the model 
+The function is used by the model
 <a href=\"modelica://Buildings.Fluid.Actuators.TwoWayValveEqualPercentage\">
 TwoWayValveEqualPercentage</a>.
 </p><p>

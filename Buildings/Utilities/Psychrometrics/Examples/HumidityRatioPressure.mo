@@ -6,16 +6,15 @@ model HumidityRatioPressure "Unit test for humidity ratio model"
   Buildings.Utilities.Psychrometrics.pW_X vapPre(
                          use_p_in=true) "Model for humidity ratio"
                           annotation (Placement(transformation(extent={{0,0},{
-            20,20}}, rotation=0)));
+            20,20}})));
     Modelica.Blocks.Sources.Ramp XHumDryAir(
     duration=1,
     height=(0.0133 - 0.2),
     offset=0.2) "Humidity concentration in [kg/kg dry air]"
-                 annotation (Placement(transformation(extent={{-80,-20},{-60,0}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.Constant p(k=101325) "Pressure"
                                     annotation (Placement(transformation(extent={{-80,20},
-            {-60,40}},          rotation=0)));
+            {-60,40}})));
   Buildings.Utilities.Psychrometrics.X_pW humRat(
                             use_p_in=true)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));

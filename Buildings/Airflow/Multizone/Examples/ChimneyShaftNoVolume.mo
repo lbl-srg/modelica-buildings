@@ -14,7 +14,7 @@ model ChimneyShaftNoVolume
     p_start=101325,
     nPorts=3) "Air volume of a room"
      annotation (Placement(transformation(extent={{20,-60},
-            {40,-40}},   rotation=0)));
+            {40,-40}})));
   Buildings.Airflow.Multizone.Orifice oriChiTop(
     m=0.5,
     redeclare package Medium = Medium,
@@ -50,8 +50,7 @@ model ChimneyShaftNoVolume
     redeclare package Medium = Medium,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop,
     h=1.5) "Model for stack effect outside the room"
-    annotation (Placement(transformation(extent={{100,-1},{120,19}},  rotation=
-            0)));
+    annotation (Placement(transformation(extent={{100,-1},{120,19}})));
   Buildings.Airflow.Multizone.Orifice oriChiBot(
     m=0.5,
     redeclare package Medium = Medium,
@@ -77,7 +76,6 @@ model ChimneyShaftNoVolume
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
     "Temperature sensor" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-80,0})));
   Modelica.Blocks.Math.Gain gain(k=3000)
     annotation (Placement(transformation(extent={{-28,20},{-8,40}})));
@@ -91,8 +89,7 @@ model ChimneyShaftNoVolume
     redeclare package Medium = Medium,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom,
     h=1.5) "Model for stack effect inside the room"
-    annotation (Placement(transformation(extent={{100,-59},{120,-39}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{100,-59},{120,-39}})));
 
 equation
   connect(TSet.y, con.u_s) annotation (Line(
@@ -171,14 +168,14 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This model demonstrate buoyancy-induced air flow 
+This model demonstrate buoyancy-induced air flow
 through a vertical shaft.
 On the right, there are two flow paths that are connected
 to a volume, which is kept at 20&deg;C through a feedback
-controller, and to the ambient, which is at 
+controller, and to the ambient, which is at
 0&deg;C.
 The flow path on the very right consists of an orifice
-and two models that compute the pressure difference 
+and two models that compute the pressure difference
 <i>&Delta;p</i>
 between
 the bottom and top of the medium column using <i>&Delta;p=h &rho; g</i>,
@@ -188,7 +185,7 @@ where
 <i>g</i> is the gravity constant.
 </p>
 <p>
-The top model is parameterized to use the 
+The top model is parameterized to use the
 density from the ambient,
 whereas the bottom model is parameterized to use
 the density from the room volume, regardless of
@@ -201,13 +198,13 @@ and a roof with a leakage on the right. The chimney height starts
 <i>1.5</i> m below the roof, and ends <i>1.5</i> m above the roof.
 </p>
 <p>
-The flow boundary condition of the model 
-<code>boundary</code> is such that at the start 
+The flow boundary condition of the model
+<code>boundary</code> is such that at the start
 of the simulation, air flows from <code>boundary</code>
 to <code>roo</code> until <i>t=600</i> seconds. Then, the flow rate
-is set to zero until <i>t=1800</i> seconds. 
+is set to zero until <i>t=1800</i> seconds.
 Since the shaft <code>sha</code> is filled with
-20&deg;C air, there is a circulation in the clock-wise 
+20&deg;C air, there is a circulation in the clock-wise
 direction; up the shaft, and down the other flow path.
 Next, until <i>t=2400</i> seconds, air is extracted from
 the volume <code>roo</code>, and then the flow rate

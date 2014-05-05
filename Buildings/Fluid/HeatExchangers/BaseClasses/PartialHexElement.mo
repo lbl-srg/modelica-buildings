@@ -44,11 +44,10 @@ model PartialHexElement "Element of a heat exchanger 2"
         rotation=90)));
   Modelica.Thermal.HeatTransfer.Components.Convection con1(dT(min=-200))
     "Convection (and conduction) on fluid side 1"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.Thermal.HeatTransfer.Components.Convection con2(dT(min=-200))
     "Convection (and conduction) on fluid side 2"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
   connect(Gc_1, con1.Gc) annotation (Line(points={{-40,100},{-40,40},{-50,40},{
           -50,30}}, color={0,0,127}));
@@ -69,8 +68,8 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-Element of a heat exchanger 
-with dynamics of the fluids and the solid. 
+Element of a heat exchanger
+with dynamics of the fluids and the solid.
 The <i>hA</i> value for both fluids is an input.
 The driving force for the heat transfer is the temperature difference
 between the fluid volumes and the solid.
@@ -84,11 +83,11 @@ Suppose the metal temperature is governed by
   + (hA)<sub>2</sub> (T<sub>2</sub> - T)
 </p>
 <p>
-where <i>hA</i> are the convective heat transfer coefficients times 
+where <i>hA</i> are the convective heat transfer coefficients times
 heat transfer area that also take
 into account heat conduction in the heat exchanger fins and
 <i>T<sub>1</sub></i> and <i>T<sub>2</sub></i> are the medium temperatures.
-Assuming <i>(hA)<sub>1</sub>=(hA)<sub>2</sub></i>, 
+Assuming <i>(hA)<sub>1</sub>=(hA)<sub>2</sub></i>,
 this equation can be rewritten as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -97,8 +96,8 @@ this equation can be rewritten as
 
 </p>
 <p>
-where <i>(UA)<sub>0</sub></i> is the <i>UA</i> value at nominal conditions. 
-Hence we set the heat capacity of the metal 
+where <i>(UA)<sub>0</sub></i> is the <i>UA</i> value at nominal conditions.
+Hence we set the heat capacity of the metal
 to
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -156,10 +155,7 @@ March 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                   graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+</html>"),    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-84,114},{-62,86}},
           lineColor={0,0,255},

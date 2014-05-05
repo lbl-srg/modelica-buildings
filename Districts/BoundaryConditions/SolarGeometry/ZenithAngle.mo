@@ -46,12 +46,11 @@ This component computes the zenith angle, which is the angle between the earth s
 For a definition of the parameters, see the User's Guide
 <a href=\"modelica://Districts.BoundaryConditions.UsersGuide\">Districts.BoundaryConditions.UsersGuide</a>.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 February 25, 2012, by Michael Wetter:<br/>
-Changed model to get declination angle and 
+Changed model to get declination angle and
 solar hour angle from weather bus.
 </li>
 <li>
@@ -60,8 +59,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

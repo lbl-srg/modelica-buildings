@@ -26,6 +26,4 @@ equation
       end if;
     end if;
   end if;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 end PartialSource;

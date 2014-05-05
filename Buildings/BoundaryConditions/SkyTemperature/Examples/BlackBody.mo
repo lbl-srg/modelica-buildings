@@ -47,6 +47,5 @@ equation
   annotation (
 experiment(StopTime=86400),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SkyTemperature/Examples/BlackBody.mos"
-        "Simulate and plot"),
-    Icon(graphics));
+        "Simulate and plot"));
 end BlackBody;

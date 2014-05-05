@@ -140,15 +140,12 @@ equation
       points={{-39,6.10623e-16},{20,6.10623e-16},{20,-68},{56,-68},{56,-42}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(extent={{-120,-160},{120,140}},
-          preserveAspectRatio=false),
-                      graphics),
-experiment(StopTime=7200),
+  annotation (experiment(StopTime=7200),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/EvaporationPulse.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates the evaporation of water vapor that 
+This example illustrates the evaporation of water vapor that
 accumulated on the coil.
 Input to the model is a pulse signal that switches the coil on and off.
 The two instances have a different frequency of the on and off signal
@@ -160,7 +157,7 @@ revisions="<html>
 <ul>
 <li>
 August 23, 2012 by Michael Wetter:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

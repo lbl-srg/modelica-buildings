@@ -3,15 +3,13 @@ block pW_TDewPoi
   "Model to compute the water vapor pressure for a given dew point temperature of moist air"
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealOutput p_w "Water vapor partial pressure"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput T(final quantity="ThermodynamicTemperature",
                                          final unit="K",
                                          min = 0,
                                          displayUnit="degC")
     "Dew point temperature"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
 equation
  p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(T=T);
@@ -22,21 +20,21 @@ equation
 Block to compute the water vapor pressure for a given dew point temperature.
 </p>
 <p>
-The correlation used in this model is valid for dew point temperatures between 
+The correlation used in this model is valid for dew point temperatures between
 <code>0 degC</code> and <code>200 degC</code>. It is the correlation from 2005
 ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
-Peppers has been used, but this equation yielded about 15 Kelvin lower dew point 
+Peppers has been used, but this equation yielded about 15 Kelvin lower dew point
 temperatures.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 December 7, 2011 by Michael Wetter:<br/>
-Changed function call from 
+Changed function call from
 <code>p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=T);</code>
-to 
+to
 <code>p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(T=T);</code>
-as the first version sometimes triggered warnings when the solver attempts negative 
+as the first version sometimes triggered warnings when the solver attempts negative
 temperatures. The accuracy of the two implementation does not change much in the
 region of interest for building HVAC applications.
 </li>

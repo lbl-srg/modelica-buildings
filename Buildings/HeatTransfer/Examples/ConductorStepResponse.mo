@@ -125,9 +125,9 @@ experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorStepResponse.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-This example illustrates modeling of multi-layer materials. It also tests if the 
-multi-layer material computes the same heat transfer with its boundary condition 
-as two instances of a single layer material. 
+This example illustrates modeling of multi-layer materials. It also tests if the
+multi-layer material computes the same heat transfer with its boundary condition
+as two instances of a single layer material.
 The insulation and the brick are computed using transient heat conduction.
 The <code>assert</code> block will stop the simulation if the heat exchange with the boundary
 condition differs.

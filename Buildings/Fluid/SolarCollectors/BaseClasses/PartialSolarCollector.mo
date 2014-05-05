@@ -44,7 +44,7 @@ model PartialSolarCollector "Partial model for solar collectors"
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Shading coefficient"
-    annotation(Placement(transformation(extent={{-140,46},{-100,6}},    rotation=0)));
+    annotation(Placement(transformation(extent={{-140,46},{-100,6}})));
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nSeg](
     T(each start =   T_start), each C=(C*nPanels_internal)/nSeg) if
@@ -84,7 +84,7 @@ model PartialSolarCollector "Partial model for solar collectors"
     use_dh=false,
     deltaM=deltaM,
     final dp_nominal=dp_nominal_final) "Flow resistance"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}},rotation=0)));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](
     each nPorts=2,
     redeclare package Medium = Medium,
@@ -190,32 +190,28 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-            graphics),
-    Icon(graphics),
     defaultComponentName="solCol",
     Documentation(info="<html>
       <p>
         This component is a partial model of a solar thermal collector. It can be
-        expanded to create solar collector models based on either ASHRAE93 or 
+        expanded to create solar collector models based on either ASHRAE93 or
         EN12975 ratings data.
       </p>
     <h4>Notice</h4>
       <p>
-        1. As mentioned in the reference, the SRCC incident angle modifier equation 
+        1. As mentioned in the reference, the SRCC incident angle modifier equation
         coefficients are only valid for incident angles of 60 degrees or less.
-        Because these curves behave poorly for angles greater than 60 degrees 
+        Because these curves behave poorly for angles greater than 60 degrees
         the model does not calculatue either direct or diffuse solar radiation gains
         when the incidence angle is greater than 60 degrees. <br/>
-        2. By default, the estimated heat capacity of the collector without fluid is 
+        2. By default, the estimated heat capacity of the collector without fluid is
         calculated based on the dry mass and the specific heat capacity of copper.
       </p>
     <h4>References</h4>
       <p>
-      <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, 
+      <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>,
         October 13, 2011.<br/>
-      CEN 2006, European Standard 12975-1:2006, European Committee for Standardization 
+      CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
       </p>
     </html>",
     revisions="<html>

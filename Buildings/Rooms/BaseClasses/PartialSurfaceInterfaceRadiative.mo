@@ -24,9 +24,7 @@ protected
   parameter Modelica.SIunits.Emissivity epsSurBou[NSurBou] = surBou.absIR
     "Absorptivity of surface models of constructions that are modeled outside of this room";
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,
-            -240},{240,240}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=true,
+  annotation ( Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-240,-240},{240,240}}),
                                       graphics={
         Text(

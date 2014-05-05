@@ -19,9 +19,9 @@ equation
   port.C_outflow = zeros(Medium.nC);
   annotation (Documentation(info="<html>
 <p>
-Partial component to model an absolute sensor. 
+Partial component to model an absolute sensor.
 The component can be used for pressure sensor models.
-Use for other properties such as temperature or density is discouraged, because the enthalpy at the connector can have different meanings, depending on the connection topology. For these properties, use 
+Use for other properties such as temperature or density is discouraged, because the enthalpy at the connector can have different meanings, depending on the connection topology. For these properties, use
 <a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor\">
 Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
 </p>
@@ -34,13 +34,5 @@ First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
-    Icon(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics));
+</html>"));
 end PartialAbsoluteSensor;

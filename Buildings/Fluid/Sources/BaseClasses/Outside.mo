@@ -12,8 +12,7 @@ partial model Outside
                 Dialog(enable = (not use_C_in) and Medium.nC > 0));
   Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if use_C_in
     "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-120,-18},{-80,22}})));
@@ -87,14 +86,14 @@ equation
     Documentation(info="<html>
 <p>
 This is the base class for models that describes boundary conditions for
-pressure, enthalpy, and species concentration that can be obtained 
+pressure, enthalpy, and species concentration that can be obtained
 from weather data, and that may be modified based on the wind pressure.
 </p>
-<p>If the parameter <code>use_C_in</code> is <code>false</code> (default option), 
+<p>If the parameter <code>use_C_in</code> is <code>false</code> (default option),
 the <code>C</code> parameter
-is used as the trace substance for flow that leaves the component, and the 
-<code>C_in</code> input connector is disabled; if <code>use_C_in</code> is <code>true</code>, 
-then the <code>C</code> parameter is ignored, and the value provided by the input connector is used instead.</p> 
+is used as the trace substance for flow that leaves the component, and the
+<code>C_in</code> input connector is disabled; if <code>use_C_in</code> is <code>true</code>,
+then the <code>C</code> parameter is ignored, and the value provided by the input connector is used instead.</p>
 <p>
 Note that boundary temperature,
 mass fractions and trace substances have only an effect if the mass flow

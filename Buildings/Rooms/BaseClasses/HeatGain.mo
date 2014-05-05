@@ -12,7 +12,7 @@ model HeatGain "Model to convert internal heat gain signals"
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a QCon_flow
     "Convective heat gain"    annotation (Placement(transformation(extent={{90,-10},
-            {110,10}},         rotation=0), iconTransformation(extent={{90,-10},
+            {110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
 
 public
@@ -74,7 +74,7 @@ This model computes the radiant, convective and latent heat flow.
 Input into this model are these three components in units of [W/m2].
 The inputs need to be positive quantities if heat or moisture is added
 to the room.
-The outputs are 
+The outputs are
 <ul>
 <li>
 the radiant heat flow in Watts,
@@ -87,14 +87,14 @@ the water vapor released into the air.
 </li>
 </ul>
 If the medium model does not contain water vapor, then
-the water vapor released into the air is zero, i.e., 
+the water vapor released into the air is zero, i.e.,
 the mass flow rate at the fluid port is equal to zero.
 </html>",
         revisions="<html>
 <ul>
 <li>
 December 6, 2011, by Michael Wetter:<br/>
-Fixed sign error in convective heat gain that is assigned to 
+Fixed sign error in convective heat gain that is assigned to
 <code>QCon_flow.Q_flow</code>.
 This closes ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/46\">issue 46</a>.
 </li>
@@ -150,7 +150,7 @@ First implementation.
 This is a dummy model that is required to implement the room
 model with a variable number of surface models.
 The model is required since arrays of models, such as used for the surfaces
-that model the construction outside of the room, 
+that model the construction outside of the room,
 must have at least one element, unless the whole array
 is conditionally removed if its size is zero.
 However, conditionally removing the surface models does not work in this
@@ -169,6 +169,5 @@ June 8 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end HeatGain;

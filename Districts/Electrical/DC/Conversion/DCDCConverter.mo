@@ -59,9 +59,7 @@ equation
     i_n = conversionFactor*i_p/(eta - 2);
   end if;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
                                       graphics={
         Line(
@@ -153,7 +151,7 @@ where <i>|P<sub>DC2</sub>|</i> is the power transmitted on the second DC side.
 </p>
 <h4>Note:</h4>
 <p>
-This model is derived from 
+This model is derived from
 <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealDCDCConverter\">
 Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealDCDCConverter</a>.
 </p>

@@ -290,8 +290,6 @@ equation
 experiment(StopTime=1209600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Constructions/Examples/ExteriorWallTwoWindows.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-200},{200,
-            100}}), graphics),
     Documentation(info="<html>
 <p>
 This model tests the exterior construction with two windows.
@@ -307,12 +305,12 @@ which was set to an interior instead of an exterior convection model.
 June 12, 2013, by Michael Wetter:<br/>
 Redesigned model to separate convection from radiation, which is
 required for the implementation of a CFD model.
-Corrected wrong connection to frame heat transfer. The previous implementation accounted 
+Corrected wrong connection to frame heat transfer. The previous implementation accounted
 twice for the convective resistance of the frame on the room-side.
 </li>
 <li>
 March 7, 2012, by Michael Wetter:<br/>
-Updated example to use new data model 
+Updated example to use new data model
 <a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow\">
 Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow</a>
 in model for boundary conditions.

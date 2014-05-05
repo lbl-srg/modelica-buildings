@@ -76,9 +76,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-            graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
          graphics={
@@ -158,15 +155,15 @@ equation
     <h4>Notice</h4>
       <ul>
         <li>
-          As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC 
-          incident angle modifier equation coefficients are only valid for 
-          incident angles of 60 degrees or less. Because these curves behave 
-          poorly for angles greater than 60 degrees the model does not 
+          As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC
+          incident angle modifier equation coefficients are only valid for
+          incident angles of 60 degrees or less. Because these curves behave
+          poorly for angles greater than 60 degrees the model does not
           calculate either direct or diffuse solar radiation gains when the
-          incidence angle is greater than 60 degrees.  
+          incidence angle is greater than 60 degrees.
         </li>
         <li>
-          By default, the estimated heat capacity of the collector without 
+          By default, the estimated heat capacity of the collector without
           fluid is calculated based on the dry mass and the specific heat
           capacity of copper.
         </li>

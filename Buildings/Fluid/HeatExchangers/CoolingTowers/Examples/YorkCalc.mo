@@ -9,8 +9,7 @@ model YorkCalc
 
   Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)
     "Setpoint for leaving temperature"
-                 annotation (Placement(transformation(extent={{-60,-20},{-40,0}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Controls.Continuous.LimPID conFan(
     k=1,
     Ti=60,
@@ -34,10 +33,7 @@ equation
       points={{45,-56},{54,-56},{54,-32},{-10,-32},{-10,-22}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-260},
-            {140,100}}),
-                      graphics),
-experiment(StartTime=15552000, StopTime=15724800),
+  annotation(experiment(StartTime=15552000, StopTime=15724800),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Examples/YorkCalc.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-180},{100,
@@ -46,7 +42,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
 This example illustrates the use of the cooling tower model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a>.
-Heat is injected into the volume <code>vol</code>. An on/off controller 
+Heat is injected into the volume <code>vol</code>. An on/off controller
 switches the cooling loop water pump on or off based on the temperature of
 this volume.
 The cooling tower outlet temperature is controlled to track a fixed temperature.

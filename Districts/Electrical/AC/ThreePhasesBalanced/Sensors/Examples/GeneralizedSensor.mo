@@ -32,8 +32,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
 Commands(file=
           "modelica://Districts/Resources/Scripts/Dymola/Electrical/AC/AC3ph/Sensors/Examples/GeneralizedSensor.mos"
         "Simulate and plot"));

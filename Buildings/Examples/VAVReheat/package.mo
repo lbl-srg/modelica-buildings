@@ -3,5 +3,4 @@ package VAVReheat "Variable air volume flow system with terminal reheat and five
   extends Modelica.Icons.ExamplesPackage;
 
 
-annotation ();
 end VAVReheat;

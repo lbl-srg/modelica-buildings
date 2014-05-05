@@ -12,17 +12,13 @@ equation
     x=Districts.Utilities.Psychrometrics.Functions.pW_TDewPoi(  T=time*uniCon);
     der(y)=der(x);
     assert(abs(x-y) < 1E-2, "Model has an error");
-   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       __Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/DewPointTemperatureDerivativeCheck.mos"
+   annotation(                       __Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/DewPointTemperatureDerivativeCheck.mos"
         "Simulate and plot"),
       experiment(
         StartTime=273.15,
         StopTime=473.15,
         Algorithm="Euler"),
-      experimentSetupOutput,
-      Documentation(info="<html>
+Documentation(info="<html>
 <p>
 This example checks whether the function derivative
 is implemented correctly. If the derivative implementation

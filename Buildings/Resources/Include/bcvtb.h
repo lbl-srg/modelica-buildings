@@ -6,22 +6,22 @@
 ///         using BSD sockets.
 ///
 /// \author Michael Wetter,
-///         Simulation Research Group, 
+///         Simulation Research Group,
 ///         LBNL,
 ///         MWetter@lbl.gov
 ///
 /// \date   2009-05-04
 ///
-/// This file provides methods that allow a Modelica 
+/// This file provides methods that allow a Modelica
 /// simulation environment to
 /// establish a socket connection. The methods that
 /// need to be called are
-/// \c establishModelicaClient() at the start of the 
+/// \c establishModelicaClient() at the start of the
 /// simulation, and then \c exchangeModelicaClient
-/// in each time step. After the simulation, 
-/// \c closeModelicaClient should be called to close the 
+/// in each time step. After the simulation,
+/// \c closeModelicaClient should be called to close the
 /// socket.
-/// 
+///
 ///
 /// \sa establishModelicaClient
 /// \sa exchangeModelicaClient
@@ -65,7 +65,7 @@ int establishModelicaClient(const char *const docname);
 ///\param nBooRea Number of boolean values to read.
 ///\sa int establishclientsocket(uint16_t *portNo)
 ///\return The exit value of \c send or \c read, or a negative value if an error occured.
-int exchangeModelicaClient(int sockfd, 
+int exchangeModelicaClient(int sockfd,
 			   int flaWri, int *flaRea,
 			   double simTimWri,
 			   double* dblValWri, size_t nDblWri,
@@ -128,7 +128,7 @@ modification, are permitted provided that the following conditions are met:
    3. Neither the name of the University of California, Lawrence
       Berkeley National Laboratory, U.S. Dept. of Energy nor the names
       of its contributors may be used to endorse or promote products
-      derived from this software without specific prior written permission. 
+      derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
 IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED

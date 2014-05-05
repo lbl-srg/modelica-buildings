@@ -9,27 +9,25 @@ model MixingVolume
     startTime=0.5,
     height=-10,
     offset=101330)
-                 annotation (Placement(transformation(extent={{-100,60},{-80,80}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium, T=293.15,
     use_p_in=true,
     nPorts=3)                                       annotation (Placement(
-        transformation(extent={{-70,48},{-50,68}}, rotation=0)));
+        transformation(extent={{-70,48},{-50,68}})));
   Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     nPorts=3,
     use_p_in=false,
     p=101325,
     T=283.15)                                       annotation (Placement(
-        transformation(extent={{130,48},{110,68}}, rotation=0)));
+        transformation(extent={{130,48},{110,68}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{-36,50},{-16,70}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-36,50},{-16,70}})));
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
     V=0.1,
@@ -37,29 +35,25 @@ model MixingVolume
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=2)
-          annotation (Placement(transformation(extent={{0,10},{20,30}},
-          rotation=0)));
+          annotation (Placement(transformation(extent={{0,10},{20,30}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{80,50},{100,70}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{80,50},{100,70}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res11(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{-40,0},{-20,20}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res12(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{80,0},{100,20}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Modelica.Fluid.Vessels.ClosedVolume vol(
     redeclare package Medium = Medium,
     V=0.1,
@@ -68,18 +62,17 @@ model MixingVolume
     use_portsData=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-         annotation (Placement(transformation(extent={{0,60},{22,80}}, rotation=
-           0)));
+         annotation (Placement(transformation(extent={{0,60},{22,80}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality
-    annotation (Placement(transformation(extent={{160,72},{180,92}},rotation=0)));
+    annotation (Placement(transformation(extent={{160,72},{180,92}})));
   Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium
       = Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
-          extent={{40,50},{60,70}}, rotation=0)));
+          extent={{40,50},{60,70}})));
   Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium
       = Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
-          extent={{40,0},{60,20}},  rotation=0)));
+          extent={{40,0},{60,20}})));
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
     redeclare package Medium = Medium,
     V=0.1,
@@ -87,35 +80,29 @@ model MixingVolume
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=2)
-          annotation (Placement(transformation(extent={{0,-82},{20,-62}},
-          rotation=0)));
+          annotation (Placement(transformation(extent={{0,-82},{20,-62}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res21(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{-40,-92},{-20,-72}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-40,-92},{-20,-72}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res22(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{80,-92},{100,-72}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{80,-92},{100,-72}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality1
-    annotation (Placement(transformation(extent={{156,10},{176,30}},   rotation=
-           0)));
+    annotation (Placement(transformation(extent={{156,10},{176,30}})));
   Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium
       = Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
-          extent={{40,-92},{60,-72}}, rotation=0)));
+          extent={{40,-92},{60,-72}})));
     Modelica.Blocks.Sources.Constant zero(k=0)
-      annotation (Placement(transformation(extent={{-40,-30},{-20,-10}},
-          rotation=0)));
+      annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
     Modelica.Blocks.Sources.Constant TLiq(k=283.15)
-      annotation (Placement(transformation(extent={{-40,-60},{-20,-40}},
-          rotation=0)));
+      annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
@@ -199,9 +186,7 @@ equation
       points={{50,21},{50,40},{146,40},{146,76},{158,76}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{180,100}}),      graphics),
-experiment(StopTime=2),
+    annotation (experiment(StopTime=2),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolume.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -209,7 +194,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Mixi
 This model tests the implementation of the mixing volumes.
 It compares the results from the mixing volume of the Modelica
 Standard Library with the implementation in the <code>Buildings</code>
-library. If the changes are bigger than a prescribed limit, 
+library. If the changes are bigger than a prescribed limit,
 the simulation stops with an error.
 </p>
 </html>", revisions="<html>
@@ -218,7 +203,7 @@ the simulation stops with an error.
 October 24, 2013, by Michael Wetter:<br/>
 Set <code>vol(h_start=45300.945)</code>.
 This avoids a cyclic assignment of <code>vol.T_start</code>
-and <code>vol.h_start</code> in 
+and <code>vol.h_start</code> in
 <code>Modelica.Fluid.Vessels.ClosedVolume</code>.
 </li>
 <li>

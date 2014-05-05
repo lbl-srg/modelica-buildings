@@ -215,16 +215,16 @@ dissatisfaction) by predicting the percentage of people likely to feel too hot o
 cold in the given thermal environment.
 </p>
 <p>
-The Predicted Mean Vote (PMV) model combines four physical variables 
-(air temperature, air velocity, mean radiant temperature, and relative humidity), 
-and two personal variables (clothing insulation and activity level) 
-into an index that can be used to predict the average thermal sensation 
-of a large group of people. 
+The Predicted Mean Vote (PMV) model combines four physical variables
+(air temperature, air velocity, mean radiant temperature, and relative humidity),
+and two personal variables (clothing insulation and activity level)
+into an index that can be used to predict the average thermal sensation
+of a large group of people.
 </p>
 <p>
-To determine appropriate thermal conditions, practitioners refer to standards such 
-as ASHRAE Standard 55 (ASHRAE, 1992) and ISO Standard 7730 (ISO, 1994). 
-These standards define temperature ranges that should result in thermal satisfaction 
+To determine appropriate thermal conditions, practitioners refer to standards such
+as ASHRAE Standard 55 (ASHRAE, 1992) and ISO Standard 7730 (ISO, 1994).
+These standards define temperature ranges that should result in thermal satisfaction
 for at least 80% of occupants in a space.
 </p>
 <h4> PMV thermal sensation scale</h4>
@@ -233,17 +233,17 @@ The PMV index predicts the mean value of the votes of a large group of
 people on the following 7-point thermal sensation scale:
 </p>
 <table summary=\"summary\" border=\"1\">
-<TR><TD>Cold  </TD><TD>  Cool  </TD><TD>  Slightly cool  </TD><TD>  Neutral  </TD><TD>  Slightly warm  </TD><TD>  Warm   </TD><TD>  Hot </TD></TR> 
-<TR><TD>-3 </TD><TD> -2 </TD><TD> -1 </TD><TD> 0 </TD><TD> +1 </TD><TD> +2 </TD><TD> +3 </TD></TR> 
+<TR><TD>Cold  </TD><TD>  Cool  </TD><TD>  Slightly cool  </TD><TD>  Neutral  </TD><TD>  Slightly warm  </TD><TD>  Warm   </TD><TD>  Hot </TD></TR>
+<TR><TD>-3 </TD><TD> -2 </TD><TD> -1 </TD><TD> 0 </TD><TD> +1 </TD><TD> +2 </TD><TD> +3 </TD></TR>
 </table>
 
 <h4>Operative temperature</h4>
 <p>
 For a given space there exists an optimum operative temperature corresponding to PMV=0 (neutral).
-The operative temperature is defined as: The uniform temperature of an imaginary black enclosure 
-in which an occupant would exchange the same amount of heat by radiation plus convection 
+The operative temperature is defined as: The uniform temperature of an imaginary black enclosure
+in which an occupant would exchange the same amount of heat by radiation plus convection
 as in the actual nonuniform environment.
-The operative temperature is computed as the average of the air temperature 
+The operative temperature is computed as the average of the air temperature
 and the mean radiant temperature, weighted by their respective heat transfer coefficients
 (see ASHRAE Fundamentals, 1997, page 8.3, eq (8)).
 </p>
@@ -279,7 +279,7 @@ pSte = <i>0</i> to <i>2700</i> Pa
 
 <h4>Insulation for clothing ensembles</h4>
 <p>
-Clothing is defined in terms of clo units.  Clo is a unit used to express the thermal insulation provided by garments and clothing ensembles, 
+Clothing is defined in terms of clo units.  Clo is a unit used to express the thermal insulation provided by garments and clothing ensembles,
 where <i>1</i> clo = <i>0.155</i> (m^2*K/W) (ASHRAE 55-92).
 </p>
 <p>
@@ -306,7 +306,7 @@ The following table is obtained from ASHRAE page 8.8
 
 <h4> Metabolic rates</h4>
 <p>
-One met is defined as <i>58.2</i> Watts per square meter which is equal to the energy produced 
+One met is defined as <i>58.2</i> Watts per square meter which is equal to the energy produced
 per unit surface area of a seated person at rest.</p>
 <p>The following table is obtained from ASHRAE page 8.6.</p>
 <TABLE summary=\"summary\" border=\"1\">
@@ -336,7 +336,7 @@ per unit surface area of a seated person at rest.</p>
 <TR><TD>Calisthenics</TD><TD>  175-235</TD></TR>
 <TR><TD>Basketball</TD><TD>  290-440</TD></TR>
 <TR><TD>Wrestling</TD><TD>  410-505</TD></TR>
-</TABLE> 
+</TABLE>
 <br/>
 <h4>References</h4>
 
@@ -346,9 +346,9 @@ ASHRAE Handbook, Fundamentals (SI Edition).
 Chapter 8, Thermal Comfort; pages 8.1-8.26; Atlanta, USA, 1997.
 </li>
 <li>
-International Standards Organization (ISO). 
-Moderate Thermal Environments: Determination of the PMV and PPD Indices 
-and Specification of the Conditions for Thermal Comfort (ISO 7730). 
+International Standards Organization (ISO).
+Moderate Thermal Environments: Determination of the PMV and PPD Indices
+and Specification of the Conditions for Thermal Comfort (ISO 7730).
 Geneva, Switzerland: ISO. 1994.
 </li>
 <li>
@@ -447,6 +447,5 @@ rather than computing it in model, added model to UTC library.
           points={{-44,30},{-30,24},{-22,10},{-18,-14},{-6,-20},{2,-20},{8,-16},
               {12,-12},{16,6},{24,24},{38,30}},
           color={255,0,0},
-          smooth=Smooth.None)}),
-    Diagram(graphics));
+          smooth=Smooth.None)}));
 end Fanger;

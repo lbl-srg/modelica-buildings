@@ -13,54 +13,52 @@ model TraceSubstances "Test model for the extra property sensor"
     m_flow_nominal=1E-6,
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
-    annotation (Placement(transformation(extent={{74,50}, {94,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{74,50}, {94,70}})));
   Sources.TraceSubstancesFlowSource sou(
     redeclare package Medium = Medium,
     nPorts=2,
     use_m_flow_in=true) "CO2 mass flow source"
-    annotation (Placement(transformation(extent={{-2,30},{18,50}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-2,30},{18,50}})));
   Modelica.Blocks.Sources.Constant step(k=8.18E-6) "CO2 mass flow rate"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Fluid.Sensors.TraceSubstances senVol(
     redeclare package Medium = Medium) "Sensor at volume"
-    annotation (Placement(transformation(extent={{100,50},{120,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Buildings.Fluid.Sensors.TraceSubstances senSou(
     redeclare package Medium = Medium,
     substanceName="CO2") "Sensor at source"
-    annotation (Placement(transformation(extent={{24,90},{44,110}}, rotation=0)));
+    annotation (Placement(transformation(extent={{24,90},{44,110}})));
   Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal)
     "Fresh air mass flow rate"
-    annotation (Placement(transformation(extent={{-80,-14},{-60,6}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-80,-14},{-60,6}})));
   Buildings.Fluid.Sources.MassFlowSource_T mSou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1) "Fresh air supply"
-    annotation (Placement(transformation(extent={{0,-22},{20,-2}}, rotation=0)));
+    annotation (Placement(transformation(extent={{0,-22},{20,-2}})));
   Modelica.Blocks.Math.Gain gain(k=-1) "Gain for exhaust air mass flow rate"
     annotation (Placement(transformation(
-          extent={{-40,-54},{-20,-34}}, rotation=0)));
+          extent={{-40,-54},{-20,-34}})));
   Buildings.Fluid.Sources.MassFlowSource_T mSin(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1) "Exhaust air"
-    annotation (Placement(transformation(extent={{0,-62},{20,-42}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{0,-62},{20,-42}})));
   Buildings.Fluid.Sensors.Conversions.To_VolumeFraction masFraSou(
     MMMea=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM)
     "Conversion of mass ratio to volume ratio"
-    annotation (Placement(transformation(extent={{140,90},{160,110}},  rotation=
-           0)));
+    annotation (Placement(transformation(extent={{140,90},{160,110}})));
   Buildings.Fluid.Sensors.Conversions.To_VolumeFraction masFraVol(
     MMMea=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM)
     "Conversion of mass ratio to volume ratio"
-    annotation (Placement(transformation(extent={{140,50},{160,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{140,50},{160,70}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSub(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal) "Sensor at exhaust air"
     annotation (Placement(transformation(extent={{64,-62},{44,-42}})));
 
   inner Modelica.Fluid.System system   annotation (Placement(transformation(
-          extent={{-100,-100},{-80,-80}}, rotation=0)));
+          extent={{-100,-100},{-80,-80}})));
 
 equation
   connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{0,-4}}, color={0,0,127}));
@@ -104,8 +102,6 @@ equation
 experiment(StopTime=7200),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TraceSubstances.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{180,
-            180}}), graphics),
     Documentation(info="<html>
 <p>
 This example tests the sensors that measure trace substances.
@@ -127,7 +123,7 @@ a translation warning in OpenModelica.
 </li>
 <li>
 August 30, 2013 by Michael Wetter:<br/>
-Renamed example and added an instance of 
+Renamed example and added an instance of
 <a href=\"modelica://Buildings.Fluid.Sensors.TraceSubstancesTwoPort\">
 Buildings.Fluid.Sensors.TraceSubstancesTwoPort</a>.
 </li>

@@ -12,10 +12,7 @@ equation
     x=Buildings.Utilities.Psychrometrics.Functions.pW_X(X_w=time*uniCon,p=101525);
     der(y)=der(x);
     assert(abs(x-y) < 1E-2, "Model has an error");
-   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/WaterVaporPressureDerivativeCheck.mos"
+   annotation(                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/WaterVaporPressureDerivativeCheck.mos"
         "Simulate and plot"),
       experiment(
         StartTime=0,

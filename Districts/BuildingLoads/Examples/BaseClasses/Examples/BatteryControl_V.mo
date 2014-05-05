@@ -37,8 +37,5 @@ equation
       __Dymola_Algorithm="Radau"),
       Commands(file=
           "modelica://Districts/Resources/Scripts/Dymola/BuildingLoads/Examples/BaseClasses/Examples/BatteryControl_V.mos"
-        "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
-    __Dymola_experimentSetupOutput);
+        "Simulate and plot"));
 end BatteryControl_V;

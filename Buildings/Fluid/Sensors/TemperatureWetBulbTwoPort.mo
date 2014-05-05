@@ -64,9 +64,6 @@ equation
     T = TMedWetBul;
   end if;
 annotation (defaultComponentName="senWetBul",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-          graphics),
     Icon(graphics={
         Line(points={{-100,0},{92,0}}, color={0,128,255}),
         Ellipse(
@@ -106,7 +103,7 @@ annotation (defaultComponentName="senWetBul",
 This sensor outputs the wet bulb temperature of the medium in the flow
 between its fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
 If the parameter <code>tau</code> is non-zero, then its output
-is computed using a first order differential equation. 
+is computed using a first order differential equation.
 Setting <code>tau=0</code> is <i>not</i> recommend. See
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
@@ -121,7 +118,7 @@ to use consistent start values within this model.
 </li>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
-Revised implementation to add dynamics in such a way that 
+Revised implementation to add dynamics in such a way that
 the time constant increases as the mass flow rate tends to zero.
 This significantly improves the numerics.
 </li>
@@ -136,7 +133,7 @@ Renamed output port to have the same interfaces as the dry bulb temperature sens
 <li>
 May 5, 2008, by Michael Wetter:<br/>
 First implementation.
-Implementation is based on 
+Implementation is based on
 <a href=\"modelica://Buildings.Fluid.Sensors.Temperature\">Buildings.Fluid.Sensors.Temperature</a>.
 </li>
 </ul>

@@ -56,9 +56,7 @@ equation
   v_dc = terminal_p.v[2];
   sum(terminal_p.i) + i_dc = 0;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
                                       graphics={
         Line(
@@ -140,7 +138,7 @@ Furthermore, reactive power at the QS side is set to 0.
 </p>
 <h4>Note:</h4>
 <p>
-This model is derived from 
+This model is derived from
 <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter\">
 Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>.
 </p>

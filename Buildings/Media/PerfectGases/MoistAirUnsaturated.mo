@@ -34,7 +34,7 @@ package MoistAirUnsaturated
     final standardOrderComponents=true)
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
-     other quantities can be computed in a recursive sequence. 
+     other quantities can be computed in a recursive sequence.
      If other variables are selected as states, static state selection
      is no longer possible and non-linear algebraic equations occur.
       */
@@ -117,7 +117,7 @@ required from medium model \""     + mediumName + "\".");
     annotation (Documentation(info="<html>
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use
-the implementation of <code>T_phX</code> provided by this package as opposed to the 
+the implementation of <code>T_phX</code> provided by this package as opposed to the
 implementation provided by <a href=\"Buildings.Media.PerfectGases.MoistAir.setState_pTX\">
 Buildings.Media.PerfectGases.MoistAir.setState_pTX</a>.
 </html>"));
@@ -432,21 +432,21 @@ end T_phX;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This is a medium model that is similar to 
+This is a medium model that is similar to
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
-Buildings.Media.PerfectGases.MoistAir</a> but 
-in this model, the air must not be saturated. If the air is saturated, 
+Buildings.Media.PerfectGases.MoistAir</a> but
+in this model, the air must not be saturated. If the air is saturated,
 use the medium model
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
 Buildings.Media.PerfectGases.MoistAir</a> instead of this one.
 </p>
 <p>
 This medium model has been added to allow an explicit computation of
-the function 
+the function
 <code>T_phX</code> so that it is once differentiable in <code>h</code>
 with a continuous derivative. This allows obtaining an analytic
 expression for the Jacobian, and therefore simplifies the computation
-of initial conditions that can be numerically challenging for 
+of initial conditions that can be numerically challenging for
 thermo-fluid systems.
 </html>", revisions="<html>
 <ul>

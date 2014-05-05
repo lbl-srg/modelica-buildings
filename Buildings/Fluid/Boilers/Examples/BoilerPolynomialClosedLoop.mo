@@ -238,9 +238,7 @@ equation
       points={{10,10},{40,10},{40,10},{70,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},
-            {200,200}}),       graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomialClosedLoop.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomialClosedLoop.mos"
         "Simulate and plot"),
     experiment(
       StopTime=14400,
@@ -250,13 +248,13 @@ equation
     Documentation(info="<html>
 <p>
 This model illustrates how to use a boiler model
-with closed loop control. 
+with closed loop control.
 The controller modulates the boiler temperature between
 60&deg;C and 80&deg;C.
 A three-way valve mixes recirculated water with boiler water
 to regulate the temperature of the volume at a constant temperature
 of 40&deg;C.
-There is also a bypass in the boiler loop to ensure circulation when the 
+There is also a bypass in the boiler loop to ensure circulation when the
 valve position is such that it only recirculates water from the load.
 The bypass between valve and pump mixes recirculated water, thereby
 allowing the valve to work over a larger operating range.

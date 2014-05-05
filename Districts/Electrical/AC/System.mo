@@ -69,11 +69,6 @@ equation
   defaultComponentPrefixes="inner",
   missingInnerMessage="No \"system\" component is defined.
     Drag PowerSystems.System into the top level of your model.",
-  Window(
-    x=0.13,
-    y=0.1,
-    width=0.81,
-    height=0.83),
   Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
@@ -110,10 +105,6 @@ equation
           extent={{-100,-70},{100,-100}},
           lineColor={176,0,0},
           textString=                          "ini:%ini  sim:%sim")}),
-  Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics),
   Documentation(info="<html>
 <p>The model <b>System</b> represents a global reference for the following purposes:</p>
 <p>It allows the choice of </p>
@@ -152,6 +143,5 @@ equation
      </li>
 </ul>
 <p><b>Note</b>: Each model using <b>System</b> must use it with an <b>inner</b> declaration and instance name <b>system</b> in order that it can be accessed from all objects in the model.<br/>When dragging the 'System' from the package browser into the diagram layer, declaration and instance name are automatically generated.</p>
-</html>
-"));
+</html>"));
 end System;

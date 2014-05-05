@@ -17,8 +17,6 @@ algorithm
   annotation (
     smoothOrder=99,
     Inline=true,
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
 <p>
 Function to compute the humidity ratio for a given water vapor partial pressure.
@@ -42,7 +40,5 @@ August 7, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end X_pW;

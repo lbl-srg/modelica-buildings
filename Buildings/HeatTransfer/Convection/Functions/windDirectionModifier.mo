@@ -27,7 +27,7 @@ Function that outputs <i>1</i> if the incidence angle is below 100 degrees, and
 The implementation is once continuously differentiable in its input arguments.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.HeatTransfer.Examples.ExteriorConvection\">
 Buildings.HeatTransfer.Examples.ExteriorConvection</a>
 for an example that uses this function.

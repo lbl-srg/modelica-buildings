@@ -120,15 +120,14 @@ equation
       points={{1,30},{10,30},{10,10},{19,10}},
       color={255,127,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-experiment(StopTime=3600),
+  annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/DryCoil.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates working of DryCoil block 
+This example illustrates working of DryCoil block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil</a>. 
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil</a>.
 </p>
 </html>",
 revisions="<html>
@@ -140,7 +139,7 @@ to be parameters does not imply that the whole record has the variability of a p
 </li>
 <li>
 April 10, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

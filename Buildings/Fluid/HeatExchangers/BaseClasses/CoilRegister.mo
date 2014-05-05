@@ -47,31 +47,28 @@ model CoilRegister "Register for a heat exchanger"
     each deltaM2=deltaM2,
     each dp1_nominal=dp1_nominal,
     each dp2_nominal=dp2_nominal) "Element of a heat exchanger"
-    annotation (Placement(transformation(extent={{-10,20},{10,40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a[nPipPar] port_a1(
         redeclare each package Medium = Medium1,
         each m_flow(start=0, min=if allowFlowReversal1 then -Constants.inf else 0))
     "Fluid connector a for medium 1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b[nPipPar] port_b1(
         redeclare each package Medium = Medium1,
         each m_flow(start=0, max=if allowFlowReversal1 then +Constants.inf else 0))
     "Fluid connector b for medium 1 (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,50},{90,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{110,50},{90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a[nPipPar,nPipSeg] port_a2(
         redeclare each package Medium = Medium2,
         each m_flow(start=0, min=if allowFlowReversal2 then -Constants.inf else 0))
     "Fluid connector a for medium 2 (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{90,-70},{110,-50}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b[nPipPar,nPipSeg] port_b2(
         redeclare each package Medium = Medium2,
         each m_flow(start=0, max=if allowFlowReversal2 then +Constants.inf else 0))
     "Fluid connector b for medium 2 (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-90,-72},{-110,-52}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-90,-72},{-110,-52}})));
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal
     "Thermal conductance at nominal flow, used to compute time constant"
@@ -127,10 +124,10 @@ model CoilRegister "Register for a heat exchanger"
 protected
   Modelica.Blocks.Math.Gain gai_1(k=1/nEle)
     "Gain medium-side 1 to take discretization into account"
-    annotation (Placement(transformation(extent={{-34,48},{-22,62}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-34,48},{-22,62}})));
   Modelica.Blocks.Math.Gain gai_2(k=1/nEle)
     "Gain medium-side 2 to take discretization into account"
-    annotation (Placement(transformation(extent={{24,-76},{12,-62}}, rotation=0)));
+    annotation (Placement(transformation(extent={{24,-76},{12,-62}})));
 equation
   Q1_flow = sum(ele[i,j].Q1_flow for i in 1:nPipPar, j in 1:nPipSeg);
   Q2_flow = sum(ele[i,j].Q2_flow for i in 1:nPipPar, j in 1:nPipSeg);
@@ -175,7 +172,7 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-Register of a heat exchanger with dynamics on the fluids and the solid. 
+Register of a heat exchanger with dynamics on the fluids and the solid.
 The register represents one array of pipes that are perpendicular to the
 air stream.
 The <i>hA</i> value for both fluids is an input.
@@ -196,10 +193,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-extent=[-20,80; 0,100], Diagram(coordinateSystem(preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}),
-                                graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+extent=[-20,80; 0,100],    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
@@ -251,5 +245,5 @@ extent=[-20,80; 0,100], Diagram(coordinateSystem(preserveAspectRatio=true,
           extent={{-80,112},{-58,84}},
           lineColor={0,0,255},
           textString="h")}),
-    Placement(transformation(extent={{-20,80},{0,100}}, rotation=0)));
+    Placement(transformation(extent={{-20,80},{0,100}})));
 end CoilRegister;

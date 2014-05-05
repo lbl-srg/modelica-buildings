@@ -129,5 +129,4 @@ partial package PartialPhaseSystem "Base package of all phase systems"
   end activePower;
 
 
-  annotation (Icon(graphics));
 end PartialPhaseSystem;

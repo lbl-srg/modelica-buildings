@@ -41,14 +41,12 @@ partial model PartialElectric
     nPorts=1)                           annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={70,40})));
   Buildings.Fluid.Sources.FixedBoundary sin2(
     redeclare package Medium = Medium2,
     nPorts=1)                           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-70,-20})));
   Modelica.Blocks.Sources.Ramp TSet(
     duration=3600,
@@ -134,5 +132,4 @@ equation
       points={{-40,-20},{-60,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
 end PartialElectric;

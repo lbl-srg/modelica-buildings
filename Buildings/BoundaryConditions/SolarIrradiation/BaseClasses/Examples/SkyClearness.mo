@@ -55,6 +55,5 @@ equation
   annotation (
 experiment(StartTime=100000, StopTime=300000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/BaseClasses/Examples/SkyClearness.mos"
-        "Simulate and plot"),
-    Icon(graphics));
+        "Simulate and plot"));
 end SkyClearness;

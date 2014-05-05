@@ -179,10 +179,7 @@ equation
   annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/BoundaryHeatTransfer.mos"
-        "Simulate and plot"), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}),
-                                      graphics),
-    Documentation(revisions="<html>
+        "Simulate and plot"),    Documentation(revisions="<html>
 <ul>
 <li>
 June 27, 2013, by Michael Wetter:<br/>

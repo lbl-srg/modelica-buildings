@@ -17,15 +17,13 @@ model FlowMachineFeedbackControl "Flow machine with feedback control"
     startTime=0,
     amplitude=0.5,
     period=15*60) "Input signal"
-                 annotation (Placement(transformation(extent={{-80,100},{-60,120}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
     p=system.p_ambient,
     T=293.15,
-    nPorts=2) annotation (Placement(transformation(extent={{-82,10},{-62,30}},
-          rotation=0)));
+    nPorts=2) annotation (Placement(transformation(extent={{-82,10},{-62,30}})));
   FixedResistances.FixedResistanceDpM dp1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,

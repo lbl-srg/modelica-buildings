@@ -180,8 +180,8 @@ The supply and return fans are controlled to provide a constant static
 pressure.
 </p>
 <p>
-Note that this example does not control the room temperature and 
-the heat flow through the building envelope. It only implements the 
+Note that this example does not control the room temperature and
+the heat flow through the building envelope. It only implements the
 CO<sub>2</sub> source and the damper and fan control to maintain
 a CO<sub>2</sub> concentration in the room below 700 PPM.
 </p>

@@ -18,6 +18,4 @@ model PartialTwoPort
       package PhaseSystem =
         PhaseSystem_p) "Generalised terminal"
     annotation (Placement(transformation(extent={{92,-8},{108,8}})));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 end PartialTwoPort;

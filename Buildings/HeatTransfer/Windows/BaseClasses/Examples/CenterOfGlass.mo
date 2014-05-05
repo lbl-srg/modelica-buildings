@@ -249,9 +249,6 @@ equation
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/CenterOfGlass.mos"
         "Simulate and plot"),
-              Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-160,-160},
-            {160,160}}),
-                      graphics),
     Documentation(info="<html>
 This model tests the heat transfer for the center of the glass, with and without a shading device.
 </html>", revisions="<html>

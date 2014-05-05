@@ -5,10 +5,7 @@ model TestMoistAir
      redeclare package Medium =
           Buildings.Media.GasesConstantDensity.MoistAir);
 
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                          graphics),
-experiment(StopTime=1.0),
+      annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/GasesConstantDensity/Examples/TestMoistAir.mos"
         "Simulate and plot"),
     Documentation(info="<html>

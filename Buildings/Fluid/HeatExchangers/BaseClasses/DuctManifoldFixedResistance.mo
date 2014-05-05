@@ -36,7 +36,7 @@ model DuctManifoldFixedResistance
     each ReC=ReC,
     each use_dh=use_dh,
     each linearized=linearized) "Fixed resistance for each duct"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   parameter Modelica.SIunits.Length dl = 0.3 "Length of mixing volume";
   Fluid.MixingVolumes.MixingVolume vol(redeclare package Medium = Medium,
     final V=dh*dh*dl,
@@ -45,7 +45,7 @@ model DuctManifoldFixedResistance
     final massDynamics=energyDynamics,
     m_flow_nominal=m_flow_nominal)
                        annotation (Placement(transformation(extent={{-60,0},{
-            -40,20}}, rotation=0)));
+            -40,20}})));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume"
@@ -65,10 +65,7 @@ equation
           127,255}));
   connect(fixRes.port_b, port_b) annotation (Line(points={{20,0},{56,0},{56,0},
           {100,0}},                                            color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 Duct manifold with a fixed flow resistance.
 </p>

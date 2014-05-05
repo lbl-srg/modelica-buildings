@@ -27,16 +27,14 @@ model HexInternalElement
     nPorts=1,
     use_T_in=false,
     p=101340,
-    T=303.15) annotation (Placement(transformation(extent={{-60,-10},{-40,10}},
-          rotation=0)));
+    T=303.15) annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium,
     nPorts=1,
     use_p_in=false,
     use_T_in=false,
     p=101330,
-    T=283.15) annotation (Placement(transformation(extent={{-60,-40},{-40,-20}},
-          rotation=0)));
+    T=283.15) annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(sou_1.ports[1], hex.port_a1) annotation (Line(
       points={{-40,6.66134e-16},{-16,6.66134e-16},{-16,1.22125e-15},{10,
@@ -59,7 +57,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
             100}})),
     Documentation(info="<html>
 This example illustrates modeling the internal part of a borehole heat exchanger.
-The borehole is constitued with two pipes that are symetricaly spaced in the borehole. 
+The borehole is constitued with two pipes that are symetricaly spaced in the borehole.
 </html>", revisions="<html>
 <ul>
 <li>

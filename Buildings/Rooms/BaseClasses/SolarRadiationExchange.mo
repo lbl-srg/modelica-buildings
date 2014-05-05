@@ -237,9 +237,7 @@ equation
 
   annotation (
 preferredView="info",
-Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},
-            {240,240}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=true,
+ Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-240,-240},{240,240}}),
                                       graphics={
         Line(
@@ -274,14 +272,14 @@ Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},
 <p>
 This model computes the distribution of the solar radiation gain
 to the room surfaces.
-Let 
-<i>N<sup>w</sup></i> 
+Let
+<i>N<sup>w</sup></i>
 denote the number of windows,
-<i>N<sup>f</sup></i> 
+<i>N<sup>f</sup></i>
 the number of floor elements and
-<i>N<sup>n</sup></i> 
+<i>N<sup>n</sup></i>
 the number of non-floor elements such as ceiling, wall and window elements.
-Input to the model are the solar radiosities 
+Input to the model are the solar radiosities
 <i>J<sup>i</sup>, i &isin; {1, &hellip; , N<sup>w</sup>}</i>,
 that were transmitted through the window.
 The total incoming solar radiation is therefore
@@ -291,24 +289,24 @@ H = &sum;<sub>i=1</sub><sup>N<sup>w</sup></sup> J<sub>in</sub><sup>i</sup>
 </p>
 <p>
 It is assumed that <i>H</i> first hits the floor where some of it is absorbed,
-and some of it is diffusely reflected to all other surfaces. Only the first 
+and some of it is diffusely reflected to all other surfaces. Only the first
 reflection is taken into account and the location of the floor patch
 relative to the window is neglected.
 </p>
-<p>Hence, the radiation that is 
+<p>Hence, the radiation that is
 absorbed by each floor patch <i>i &isin; {1, &hellip;, N<sup>f</sup>}</i>,
 and may be partially transmitted in
 the unusual case that the floor contains a window, is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
- Q<sup>i</sup> = H &nbsp; (&epsilon;<sup>i</sup>+&tau;<sup>i</sup>) &nbsp; A<sup>i</sup> 
+ Q<sup>i</sup> = H &nbsp; (&epsilon;<sup>i</sup>+&tau;<sup>i</sup>) &nbsp; A<sup>i</sup>
 &frasl; &sum;<sub>j=1</sub><sup>N<sup>f</sup></sup> &nbsp; A<sup>j</sup>.
 </p>
 The sum of the radiation that is reflected by the floor is therefore
 <p align=\"center\" style=\"font-style:italic;\">
- J<sup>f</sup> = H &nbsp; 
+ J<sup>f</sup> = H &nbsp;
 &sum;<sub>i=1</sub><sup>N<sup>f</sup></sup>
-(1-&epsilon;<sup>i</sup>-&tau;<sup>i</sup>) &nbsp; A<sup>i</sup> 
+(1-&epsilon;<sup>i</sup>-&tau;<sup>i</sup>) &nbsp; A<sup>i</sup>
 &frasl; &sum;<sub>j=1</sub><sup>N<sup>f</sup></sup> &nbsp; A<sup>j</sup>.
 </p>
 <p>
@@ -323,10 +321,10 @@ A<sup>i</sup> &nbsp; (&epsilon;<sup>i</sup>+&tau;<sup>i</sup>)
 A<sup>k</sup> &nbsp; (&epsilon;<sup>k</sup>+&tau;<sup>k</sup>)
 </p>
 <p>
-For opaque surfaces, the heat flow rate 
-<i>Q<sup>i</sup></i> 
+For opaque surfaces, the heat flow rate
+<i>Q<sup>i</sup></i>
 is set to be equal to the heat flow rate at the heat port.
-For the glass of the windows, the heat flow rate 
+For the glass of the windows, the heat flow rate
 <i>Q<sup>i</sup></i> is set to the radiosity
 <i>J<sub>out</sub><sup>i</sup></i>
 that will strike the glass or the window shade as diffuse solar

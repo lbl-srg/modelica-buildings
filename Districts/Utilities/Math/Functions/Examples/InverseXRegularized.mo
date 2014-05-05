@@ -10,9 +10,6 @@ equation
   x=2*time-1;
   xInv = if ( abs(x) > 0.1)   then 1 / x else 0;
   y = Districts.Utilities.Math.Functions.inverseXRegularized(x=x, delta=delta);
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                     graphics),
-                      __Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXRegularized.mos"
+  annotation(                      __Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXRegularized.mos"
         "Simulate and plot"));
 end InverseXRegularized;

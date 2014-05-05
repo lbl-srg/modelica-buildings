@@ -223,7 +223,7 @@ quantities are assumed to be constant.
   end density_phX;
 
   annotation (Documentation(info="<html>
-This medium model is identical to 
+This medium model is identical to
 <a href=\"modelica://Modelica.Media.Interfaces.PartialSimpleMedium\">
 Modelica.Media.Interfaces.PartialSimpleMedium</a>, but it allows
 to define a compressibility of the medium.
@@ -250,7 +250,7 @@ as this is now handled in the model
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>. The reason for this change is
 that the assignment is different for steady-state and dynamic balance.
-In the previous implementation, this assignment can cause steady-state models to 
+In the previous implementation, this assignment can cause steady-state models to
 be differentiated in order to obtain <code>T</code> as a state. This resulted
 in some cases in large coupled systems of equations that can be avoided
 if the <code>stateSelect</code> is not set to <code>StateSelect.prefer</code>

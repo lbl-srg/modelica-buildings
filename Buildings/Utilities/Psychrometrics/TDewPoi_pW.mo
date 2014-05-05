@@ -3,17 +3,14 @@ block TDewPoi_pW
   "Model to compute the dew point temperature for given water vapor pressure of moist air"
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput p_w "Water vapor partial pressure"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-                                                                      rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealOutput T(start=278.15,
                                          final quantity="ThermodynamicTemperature",
                                          final unit="K",
                                          min = 0,
                                          displayUnit="degC")
     "Dew point temperature"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
  p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=T);
@@ -24,10 +21,10 @@ equation
 Dew point temperature calculation for moist air above freezing temperature.
 </p>
 <p>
-The correlation used in this model is valid for dew point temperatures between 
+The correlation used in this model is valid for dew point temperatures between
 <code>0 degC</code> and <code>200 degC</code>. It is the correlation from 2005
 ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
-Peppers has been used, but this equation yielded about 15 Kelvin lower dew point 
+Peppers has been used, but this equation yielded about 15 Kelvin lower dew point
 temperatures.
 </p>
 </html>", revisions="<html>

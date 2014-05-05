@@ -36,11 +36,8 @@ equation
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}})),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}),
-            graphics),
     Documentation(info="<html>
-<p>This is the base model for fans and pumps that take as 
+<p>This is the base model for fans and pumps that take as
 input a control signal in the form of the pump speed <code>Nrpm</code>
 or the normalized pump speed <code>y=Nrpm/N_nominal</code>.
 </p>

@@ -100,12 +100,10 @@ model MixedAirFreeResponse "Free response of room model"
   Buildings.HeatTransfer.Sources.FixedTemperature TSoi[nConBou](each T=283.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={110,-10})));
   Buildings.HeatTransfer.Sources.FixedTemperature TBou[nSurBou](each T=288.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={150,-50})));
   HeatTransfer.Conduction.MultiLayer conOut[nSurBou](
     redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 layers,
@@ -165,9 +163,7 @@ equation
       points={{51,30},{34,30},{34,10},{20,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {200,200}}),
-                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/MixedAirFreeResponse.mos"
+  annotation ( __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/MixedAirFreeResponse.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This model illustrates the use of the room model

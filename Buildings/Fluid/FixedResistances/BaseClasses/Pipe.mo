@@ -36,7 +36,7 @@ model Pipe
     final ReC=ReC,
     final homotopyInitialization=homotopyInitialization) "Flow resistance"
                                  annotation (Placement(transformation(extent={{-30,-10},
-            {-10,10}}, rotation=0)));
+            {-10,10}})));
   Buildings.Fluid.MixingVolumes.MixingVolume[nSeg] vol(
     redeclare each final package Medium = Medium,
     each energyDynamics=energyDynamics,
@@ -53,7 +53,7 @@ model Pipe
     each final m_flow_small=m_flow_small,
     each final allowFlowReversal=allowFlowReversal) "Volume for pipe fluid"
                                                   annotation (Placement(
-        transformation(extent={{-1,-18},{19,-38}}, rotation=0)));
+        transformation(extent={{-1,-18},{19,-38}})));
 
 protected
   parameter Modelica.SIunits.Volume VPipe=Modelica.Constants.pi*(diameter/2.0)^
@@ -102,7 +102,7 @@ equation
 <p>
 Model of a pipe with flow resistance and optional heat storage.
 This model can be used for modeling the heat exchange between the pipe and environment.
-The model consists of a flow resistance 
+The model consists of a flow resistance
 <a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
 Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>
 and <code>nSeg</code> mixing volumes

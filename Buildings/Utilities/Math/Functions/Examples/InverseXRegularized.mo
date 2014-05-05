@@ -11,9 +11,6 @@ equation
   xInv = if ( abs(x) > 0.1)   then 1 / x else 0;
   y = Buildings.Utilities.Math.Functions.inverseXRegularized(x=x, delta=delta);
 
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                     graphics),
-experiment(StopTime=1.0),
+  annotation(experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXRegularized.mos" "Simulate and plot"));
 end InverseXRegularized;

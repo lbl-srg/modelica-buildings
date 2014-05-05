@@ -1,4 +1,4 @@
 within Districts.Electrical.Transmission;
-package Base 
+package Base
 extends Modelica.Icons.BasesPackage;
 end Base;

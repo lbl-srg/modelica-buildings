@@ -265,9 +265,6 @@ equation
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/GlassLayer.mos"
         "Simulate and plot"),
-              Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-160,
-            -160},{160,160}}),
-                      graphics),
     Documentation(info="<html>
 This model tests one glas layer.
 </html>", revisions="<html>

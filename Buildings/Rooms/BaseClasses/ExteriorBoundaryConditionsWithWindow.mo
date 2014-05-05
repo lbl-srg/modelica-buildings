@@ -79,18 +79,16 @@ model ExteriorBoundaryConditionsWithWindow
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[nCon]
     "Heat port at unshaded glass of exterior-facing surface"
                                                     annotation (Placement(transformation(extent={{-310,
-            -90},{-290,-70}},
-                       rotation=0), iconTransformation(extent={{-310,-90},{-290,
+            -90},{-290,-70}}), iconTransformation(extent={{-310,-90},{-290,
             -70}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[nCon] if
        haveShade "Heat port at shaded glass of exterior-facing surface"
-    annotation (Placement(transformation(extent={{-310,-130},{-290,-110}}, rotation=0),
+    annotation (Placement(transformation(extent={{-310,-130},{-290,-110}}),
         iconTransformation(extent={{-310,-130},{-290,-110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra[nCon](T(each nominal=
           300, each start=283.15))
     "Heat port at frame of exterior-facing surface"                                   annotation (Placement(transformation(extent={{-310,
-            -270},{-290,-250}},
-                       rotation=0), iconTransformation(extent={{-310,-270},{-290,
+            -270},{-290,-250}}), iconTransformation(extent={{-310,-270},{-290,
             -250}})));
   Modelica.Blocks.Math.Add HTotConExtWinFra[nCon](
      final k1=conPar[:].fFra .* conPar[:].glaSys.absSolFra .* conPar[:].AWin,
@@ -293,8 +291,6 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.Dash)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-300,-300},{300,
-            300}}), graphics),
     Documentation(info="<html>
 This model computes the boundary conditions for the outside-facing surface of
 opaque constructions and of windows.
@@ -322,7 +318,7 @@ Changed model to use new implementation of
 <a href=\"modelica://Buildings.HeatTransfer.Radiosity.OutdoorRadiosity\">
 Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
 This change leads to the use of the same equations for the radiative
-heat transfer between window and ambient as is used for 
+heat transfer between window and ambient as is used for
 the opaque constructions.
 </li>
 <li>

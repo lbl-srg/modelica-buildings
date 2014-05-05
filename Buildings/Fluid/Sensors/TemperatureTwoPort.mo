@@ -54,9 +54,6 @@ equation
     T = TMed;
   end if;
 annotation (defaultComponentName="senTem",
-  Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}),
-          graphics),
     Icon(graphics={
         Line(points={{-100,0},{92,0}}, color={0,128,255}),
         Ellipse(
@@ -94,31 +91,30 @@ annotation (defaultComponentName="senTem",
     Documentation(info="<html>
 <p>
 This model outputs the temperature of the medium in the flow
-between its fluid ports. The sensor does not influence the fluid. 
+between its fluid ports. The sensor does not influence the fluid.
 If the parameter <code>tau</code> is non-zero, then its output
-is computed using a first order differential equation. 
+is computed using a first order differential equation.
 Setting <code>tau=0</code> is <i>not</i> recommend. See
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
-Revised implementation to add dynamics in such a way that 
+Revised implementation to add dynamics in such a way that
 the time constant increases as the mass flow rate tends to zero.
 This significantly improves the numerics.
 </li>
 <li>
 February 26, 2010 by Michael Wetter:<br/>
 Set start attribute for temperature output. Prior to this change,
-the output was 0 at initial time, which caused the plot of the output to 
+the output was 0 at initial time, which caused the plot of the output to
 use 0 Kelvin as the lower value of the ordinate.
 </li>
 <li>
 September 10, 2008, by Michael Wetter:<br/>
-First implementation, based on 
+First implementation, based on
 <a href=\"modelica://Buildings.Fluid.Sensors.Temperature\">Buildings.Fluid.Sensors.Temperature</a>.
 </li>
 </ul>

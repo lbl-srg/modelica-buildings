@@ -23,8 +23,7 @@ equation
 <p>
 This component ensures that the ceiling height is at least <i>0</i> meters.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 July 14, 2010, by Wangda Zuo:<br/>

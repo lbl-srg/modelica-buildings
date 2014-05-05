@@ -1,5 +1,5 @@
 within Districts.Electrical.AC.OnePhase;
-package Examples 
+package Examples
   extends Modelica.Icons.ExamplesPackage;
 
 end Examples;

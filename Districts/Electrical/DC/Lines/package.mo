@@ -1,5 +1,5 @@
 within Districts.Electrical.DC;
-package Lines 
+package Lines
   extends Modelica.Icons.Package;
 
 

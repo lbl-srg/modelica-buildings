@@ -76,15 +76,12 @@ equation
       points={{-100,0},{-80,0},{-80,-10},{-8,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-defaultComponentName="intConSha",
+  annotation (defaultComponentName="intConSha",
 Documentation(info="<html>
 <p>
 Model for the convective heat transfer between a window shade, a window surface
 and the room air.
-This model is applicable for the room-facing surface of a window system and 
+This model is applicable for the room-facing surface of a window system and
 can be used with the model
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Window\">
 Buildings.HeatTransfer.Windows.Window</a>.

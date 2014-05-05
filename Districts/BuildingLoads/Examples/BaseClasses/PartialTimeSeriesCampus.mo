@@ -201,7 +201,6 @@ partial model PartialTimeSeriesCampus
     wireMaterial=Districts.Electrical.Transmission.Materials.Material.Cu)
     "Distribution line"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={290,-20})));
 
   Districts.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor
@@ -544,7 +543,6 @@ equation
       points={{390,-40},{400,-40},{400,-20},{418,-20}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
-            -180},{460,220}}), graphics), Icon(coordinateSystem(extent={{-240,-180},
+  annotation ( Icon(coordinateSystem(extent={{-240,-180},
             {460,220}})));
 end PartialTimeSeriesCampus;

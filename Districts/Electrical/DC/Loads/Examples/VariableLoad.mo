@@ -67,9 +67,7 @@ equation
       points={{20,50},{40,50}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-            Commands(file=
+  annotation (            Commands(file=
           "modelica://Districts/Resources/Scripts/Dymola/Electrical/DC/Loads/Examples/VariableLoad.mos"
         "Simulate and plot"));
 end VariableLoad;

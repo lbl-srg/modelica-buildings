@@ -13,6 +13,4 @@ equation
   v_p = PhaseSystem_p.systemVoltage(terminal_p.v);
   v_n = PhaseSystem_n.systemVoltage(terminal_n.v);
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 end PartialConversion;

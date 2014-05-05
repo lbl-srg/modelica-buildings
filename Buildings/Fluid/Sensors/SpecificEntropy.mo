@@ -5,8 +5,7 @@ model SpecificEntropy "Ideal one port specific entropy sensor"
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)")
     "Specific entropy in port medium"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
   s = Medium.specificEntropy(state=Medium.setState_phX(
@@ -28,17 +27,16 @@ annotation (defaultComponentName="senSpeEnt",
         Line(points={{70,0},{100,0}}, color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This model outputs the specific entropy of the fluid connected to its port. 
+This model outputs the specific entropy of the fluid connected to its port.
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
-Read the 
+Read the
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a>
 prior to using this model with one fluid port.
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>

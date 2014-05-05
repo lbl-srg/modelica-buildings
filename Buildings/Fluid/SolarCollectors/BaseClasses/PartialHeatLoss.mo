@@ -64,12 +64,12 @@ equation
     defaultComponentName="heaLos",
     Documentation(info="<html>
       <p>
-        This component is a partial model used as the base for 
+        This component is a partial model used as the base for
         <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss\">
-        Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a> and 
+        Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a> and
         <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
-        Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>. It contains the 
-        input, output and parameter declarations which are common to both models. More 
+        Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>. It contains the
+        input, output and parameter declarations which are common to both models. More
         detailed information is available in the documentation for the extending classes.
       </p>
     </html>", revisions="<html>
@@ -79,9 +79,5 @@ equation
           First implementation
         </li>
       </ul>
-    </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-            graphics),
-    Icon(graphics));
+    </html>"));
 end PartialHeatLoss;

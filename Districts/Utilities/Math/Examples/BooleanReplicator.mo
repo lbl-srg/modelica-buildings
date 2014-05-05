@@ -12,14 +12,11 @@ equation
       points={{-19,10},{-2,10}},
       color={255,0,255},
       smooth=Smooth.None));
-annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                    graphics),
-            __Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/Utilities/Math/Examples/BooleanReplicator.mos"
+annotation (            __Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/Utilities/Math/Examples/BooleanReplicator.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the implementation of 
+This model tests the implementation of
 <a href=\"modelica://Districts.Utilities.Math.BooleanReplicator\">
 Districts.Utilities.Math.BooleanReplicator</a>.
 </p>

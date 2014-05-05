@@ -11,8 +11,7 @@ equation
           textString="smoothMin()"), Text(
           extent={{-66,-50},{76,-120}},
           lineColor={0,0,255},
-          textString="dX=%deltaX%")}),        Diagram(graphics),
-Documentation(info="<html>
+          textString="dX=%deltaX%")}),Documentation(info="<html>
 <p>
 Once continuously differentiable approximation to the <i>max(.,.)</i> function.
 </p>

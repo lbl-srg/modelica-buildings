@@ -54,8 +54,7 @@ algorithm
 <p>
 This component computes the solar azimuth angle.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 July 5, 2012, by Michael Wetter:<br/>
@@ -71,8 +70,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,100}}),
-                    graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},
@@ -91,7 +88,5 @@ First implementation.
           lineColor={0,0,127},
           textString="decAng"),
         Bitmap(extent={{-90,90},{90,-92}}, fileName=
-              "modelica://Districts/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/SolarAzimuth.png")}),
-    Icon(graphics),
-    Diagram(graphics));
+              "modelica://Districts/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/SolarAzimuth.png")}));
 end SolarAzimuth;

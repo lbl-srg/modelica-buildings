@@ -7,7 +7,7 @@ extends Modelica.Icons.SourcesPackage;
 
     parameter Modelica.SIunits.Temperature T "Fixed temperature at port";
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
-              -10},{110,10}}, rotation=0)));
+              -10},{110,10}})));
   equation
     port.T = T;
     annotation (
@@ -45,8 +45,7 @@ extends Modelica.Icons.SourcesPackage;
 This model defines a fixed temperature T at its port in Kelvin,
 i.e., it defines a fixed temperature as a boundary condition.
 </p>
-</HTML>
-"),   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
+</html>"),   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
               100,100}}), graphics={
           Rectangle(
             extent={{-100,100},{100,-101}},
@@ -74,9 +73,9 @@ i.e., it defines a fixed temperature as a boundary condition.
   "Variable temperature boundary condition in Kelvin"
 
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
-              -10},{110,10}}, rotation=0)));
+              -10},{110,10}})));
     Modelica.Blocks.Interfaces.RealInput T annotation (Placement(transformation(
-            extent={{-140,-20},{-100,20}}, rotation=0)));
+            extent={{-140,-20},{-100,20}})));
   equation
     port.T = T;
     annotation (
@@ -113,8 +112,7 @@ to the model. The effect is that an instance of this model acts as
 an infinite reservoir able to absorb or generate as much energy
 as required to keep the temperature at the specified value.
 </p>
-</HTML>
-"),   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
+</html>"),   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
               100,100}}), graphics={
           Rectangle(
             extent={{-100,100},{100,-100}},
@@ -142,7 +140,7 @@ as required to keep the temperature at the specified value.
     parameter Modelica.SIunits.HeatFlowRate Q_flow
     "Fixed heat flow rate at port";
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
-              -10},{110,10}}, rotation=0)));
+              -10},{110,10}})));
   equation
     port.Q_flow = -Q_flow;
     annotation (
@@ -237,7 +235,7 @@ Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a>.
           extent={{20,-20},{-20,20}},
           rotation=180)));
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
-              -10},{110,10}}, rotation=0)));
+              -10},{110,10}})));
   equation
     port.Q_flow = -Q_flow;
     annotation (
@@ -293,8 +291,7 @@ Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>, except that
 the parameters <code>alpha</code> and <code>T_ref</code> have
 been deleted as these can cause division by zero in some fluid flow models.
 </p>
-</HTML>
-",revisions="<html>
+</html>",revisions="<html>
 <ul>
 <li>
 March 29 2011, by Michael Wetter:<br/>

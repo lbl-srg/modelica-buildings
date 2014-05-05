@@ -8,8 +8,7 @@ model MassFraction_pTphi "Unit test for dew point temperature calculation"
     offset=0,
     duration=0.5,
     height=1) "Relative humidity"
-                 annotation (Placement(transformation(extent={{-80,-60},{-60,-40}},
-                   rotation=0)));
+                 annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Utilities.Psychrometrics.X_pTphi masFra1
     "Mass fraction computation"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
@@ -18,11 +17,9 @@ model MassFraction_pTphi "Unit test for dew point temperature calculation"
     offset=283.15,
     duration=0.5,
     startTime=0.5) "Temperature"
-                 annotation (Placement(transformation(extent={{-80,-20},{-60,0}},
-                   rotation=0)));
+                 annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     Modelica.Blocks.Sources.Constant P(k=101325) "Pressure"
-                 annotation (Placement(transformation(extent={{-80,20},{-60,40}},
-                   rotation=0)));
+                 annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Utilities.Psychrometrics.X_pTphi masFra2(use_p_in=false)
     "Mass fraction computation"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));

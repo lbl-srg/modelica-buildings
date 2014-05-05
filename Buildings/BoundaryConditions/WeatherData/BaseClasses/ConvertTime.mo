@@ -28,12 +28,11 @@ equation
 <p>
 This component converts the simulation time to calendar time in a scale of 1 year (365 days).
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 September 27, 2011, by Wangda Zuo, Michael Wetter:<br/>
-Modify it to convert negative value of time. 
+Modify it to convert negative value of time.
 Use the when-then to allow dymola differentiating this model when conducting index reduction which is not allowed in previous implementation.
 </li>
 <li>

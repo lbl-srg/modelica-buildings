@@ -8,8 +8,7 @@ model BatteryControl_S
         iconTransformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
     "Powerflow of battery"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-        rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Modelica_StateGraph2.Step discharge(
       nOut=2,
@@ -161,8 +160,7 @@ equation
       points={{11,-70},{58,-70}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,180}}), graphics), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
             preserveAspectRatio=false),
           graphics={
           Text(

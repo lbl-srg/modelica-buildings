@@ -34,8 +34,7 @@ equation
   port_a2.C_outflow = inStream(port_b2.C_outflow);
   port_b2.C_outflow = inStream(port_a2.C_outflow);
 
-  annotation (Diagram(graphics),
-                       Icon(graphics={
+  annotation (                       Icon(graphics={
         Line(points={{-86,-46},{0,-34},{88,-52}}, color={0,0,127}),
         Line(points={{-92,50},{0,34},{84,48}},    color={0,0,127}),
         Polygon(

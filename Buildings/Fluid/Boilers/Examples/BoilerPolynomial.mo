@@ -90,9 +90,7 @@ equation
       points={{-59,-20},{-50,-20},{-50,-52},{-14,-52}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}), graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomial.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomial.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
@@ -100,7 +98,7 @@ equation
     Documentation(info="<html>
 This example demonstrates the open loop response of the boiler
 model for a control signal that is first a ramp from <i>0</i>
-to <i>1</i>, followed by a step that switches the boilers off and 
+to <i>1</i>, followed by a step that switches the boilers off and
 then on again.
 The instances of the boiler models are parameterized
 so that <code>boi1</code> is a dynamic model and

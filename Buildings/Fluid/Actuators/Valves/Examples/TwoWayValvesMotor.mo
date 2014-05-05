@@ -10,33 +10,30 @@ model TwoWayValvesMotor
     m_flow_nominal=2,
     filteredOpening=false,
     dpValve_nominal=6000) "Valve model, linear opening characteristics"
-         annotation (Placement(transformation(extent={{0,20},{20,40}}, rotation=
-           0)));
+         annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
     nPorts=3,
     use_p_in=true,
     T=293.15)                                       annotation (Placement(
-        transformation(extent={{-60,-20},{-40,0}}, rotation=0)));
+        transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     nPorts=3,
     use_p_in=true,
     T=293.15)                                       annotation (Placement(
-        transformation(extent={{70,-20},{50,0}}, rotation=0)));
+        transformation(extent={{70,-20},{50,0}})));
     Modelica.Blocks.Sources.Constant PSin(k=3E5)
-      annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
+      annotation (Placement(transformation(extent={{60,60},{80,80}})));
     Modelica.Blocks.Sources.Constant PSou(k=306000)
-      annotation (Placement(transformation(extent={{-100,-12},{-80,8}},
-          rotation=0)));
+      annotation (Placement(transformation(extent={{-100,-12},{-80,8}})));
   Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening valQui(
     redeclare package Medium = Medium,
     l=0.05,
     m_flow_nominal=2,
     filteredOpening=false,
     dpValve_nominal=6000) "Valve model, quick opening characteristics"
-         annotation (Placement(transformation(extent={{0,-20},{20,0}}, rotation=
-           0)));
+         annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valEqu(
     redeclare package Medium = Medium,
     l=0.05,
@@ -46,14 +43,13 @@ model TwoWayValvesMotor
     filteredOpening=false,
     dpValve_nominal=6000)
     "Valve model, equal percentage opening characteristics"
-         annotation (Placement(transformation(extent={{0,-60},{20,-40}},
-          rotation=0)));
+         annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Modelica.Blocks.Sources.TimeTable ySet(table=[0,0; 60,0; 60,1; 120,1; 180,0.5;
         240,0.5; 300,0; 360,0; 360,0.25; 420,0.25; 480,1; 540,1.5; 600,-0.25])
     "Set point for actuator" annotation (Placement(transformation(extent={{-100,
-            60},{-80,80}}, rotation=0)));
+            60},{-80,80}})));
   Actuators.Motors.IdealMotor mot(                 tOpe=60) "Motor model"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
@@ -96,15 +92,12 @@ equation
       points={{20,-50},{36,-50},{36,-12.6667},{50,-12.6667}},
       color={0,127,255},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-experiment(StopTime=600),
+    annotation (experiment(StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvesMotor.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Test model for two way valves. Note that the 
+Test model for two way valves. Note that the
 leakage flow rate has been set to a large value
 and the rangeability to a small value
 for better visualization of the valve characteristics.

@@ -20,8 +20,7 @@ equation
   JOut_2 = (1-u)* JIn;
   annotation (
 defaultComponentName="radSpl",
-    Documentation(info="
-<html>
+    Documentation(info="<html>
 <p>
 This blocks splits the incoming radiosity into two fluxes according to
 </p>
@@ -30,12 +29,11 @@ This blocks splits the incoming radiosity into two fluxes according to
   J<sub>Out,2</sub> = (1-u)  J<sub>In</sub>.
 </p>
 <p>
-This block may be used to split the radiosity flux into a fraction that 
+This block may be used to split the radiosity flux into a fraction that
 strikes the shaded part of a window, and a fraction that strikes the
 non-shaded part.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 June 27, 2013, by Michael Wetter:<br/>

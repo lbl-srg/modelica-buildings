@@ -55,8 +55,5 @@ equation
 <p>
 This is a constant voltage source, specifying the complex voltage by the RMS voltage and the phase shift.
 </p>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics));
+</html>"));
 end FixedVoltage;

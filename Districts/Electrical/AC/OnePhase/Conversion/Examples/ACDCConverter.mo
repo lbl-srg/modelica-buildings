@@ -19,7 +19,6 @@ model ACDCConverter "Test model AC to DC converter"
     V=120,
     phi=0)                annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-62,10})));
   Districts.Electrical.DC.Loads.Conductor   load(P_nominal=200, mode=Districts.Electrical.Types.Assumption.VariableZ_P_input)
                                                           annotation (Placement(
@@ -50,10 +49,8 @@ equation
       points={{69,-10},{60,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), experiment(Tolerance=1e-05),
-    __Dymola_experimentSetupOutput,
-    Documentation(info="<html>
+  annotation ( experiment(Tolerance=1e-05),
+Documentation(info="<html>
 <p>
 This model illustrates the use of a model that converts AC voltage to DC voltage.
 </p>

@@ -150,7 +150,7 @@ equation
         grid={1,1})),
     Documentation(info="<html>
 <p>
-This model transports fluid between its two ports, without storing mass or energy. 
+This model transports fluid between its two ports, without storing mass or energy.
 It implements a steady-state conservation equation for energy and mass fractions.
 The model has zero pressure drop between its ports.
 </p>
@@ -202,7 +202,7 @@ Removed unrequired parameter <code>i_w</code>.
 </li>
 <li>
 May 7, 2013 by Michael Wetter:<br/>
-Removed <code>for</code> loops for species balance and trace substance balance, 
+Removed <code>for</code> loops for species balance and trace substance balance,
 as they cause the error <code>Error: Operand port_a.Xi_outflow[1] to operator inStream is not a stream variable.</code>
 in OpenModelica.
 </li>
@@ -214,7 +214,7 @@ and added min and max attributes for <code>XiOut</code>.
 <li>
 June 22, 2012 by Michael Wetter:<br/>
 Reformulated implementation with <code>m_flowInv</code> to use <code>port_a.m_flow * ...</code>
-if <code>use_safeDivision=false</code>. This avoids a division by zero if 
+if <code>use_safeDivision=false</code>. This avoids a division by zero if
 <code>port_a.m_flow=0</code>.
 </li>
 <li>
@@ -224,10 +224,10 @@ Revised base classes for conservation equations in <code>Buildings.Fluid.Interfa
 <li>
 December 14, 2011 by Michael Wetter:<br/>
 Changed assignment of <code>hOut</code>, <code>XiOut</code> and
-<code>COut</code> to no longer declare that it is continuous. 
-The declaration of continuity, i.e, the 
+<code>COut</code> to no longer declare that it is continuous.
+The declaration of continuity, i.e, the
 <code>smooth(0, if (port_a.m_flow >= 0) then ...</code> declaration,
-was required for Dymola 2012 to simulate, but it is no longer needed 
+was required for Dymola 2012 to simulate, but it is no longer needed
 for Dymola 2012 FD01.
 </li>
 <li>
@@ -238,8 +238,8 @@ Changed assignment of <code>hOut</code>, <code>XiOut</code> and
 <li>
 August 4, 2011, by Michael Wetter:<br/>
 Moved linearized pressure drop equation from the function body to the equation
-section. With the previous implementation, 
-the symbolic processor may not rearrange the equations, which can lead 
+section. With the previous implementation,
+the symbolic processor may not rearrange the equations, which can lead
 to coupled equations instead of an explicit solution.
 </li>
 <li>
@@ -253,9 +253,9 @@ Added <code>homotopy</code> operator.
 <li>
 August 19, 2010, by Michael Wetter:<br/>
 Fixed bug in energy and moisture balance that affected results if a component
-adds or removes moisture to the air stream. 
+adds or removes moisture to the air stream.
 In the old implementation, the enthalpy and species
-outflow at <code>port_b</code> was multiplied with the mass flow rate at 
+outflow at <code>port_b</code> was multiplied with the mass flow rate at
 <code>port_a</code>. The old implementation led to small errors that were proportional
 to the amount of moisture change. For example, if the moisture added by the component
 was <code>0.005 kg/kg</code>, then the error was <code>0.5%</code>.
@@ -264,7 +264,7 @@ With the new implementation, the energy and moisture balance is exact.
 </li>
 <li>
 March 22, 2010, by Michael Wetter:<br/>
-Added constant <code>sensibleOnly</code> to 
+Added constant <code>sensibleOnly</code> to
 simplify species balance equation.
 </li>
 <li>

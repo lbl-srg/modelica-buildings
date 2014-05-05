@@ -42,31 +42,31 @@ Documentation(info="<html>
 <p>
 This function interpolates data for intermediate compressor speeds
 using cubic hermite splines with linear extrapolation.
-To avoid linear extrapolation below minimum standard speed, 
-the origin is added to the modified arrays. 
+To avoid linear extrapolation below minimum standard speed,
+the origin is added to the modified arrays.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 August 24, 2012, by Michael Wetter:<br/>
-Moved function from 
+Moved function from
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</code>
-to 
+to
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions</code>
-because the package 
+because the package
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</code>
-already contains a block called 
+already contains a block called
 <code>SpeedShift</code> which gives a clash in file names on file systems
 that do not distinguish between upper and lower case letters.
 </li>
 <li>
 August 9, 2012, by Kaustubh Phalak:<br/>
-Origin added in support points to avoid linear extrapolation below standard rotational speed. 
+Origin added in support points to avoid linear extrapolation below standard rotational speed.
 </li>
 <li>
 August 1, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

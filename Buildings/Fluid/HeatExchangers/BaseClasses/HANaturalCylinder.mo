@@ -134,13 +134,11 @@ equation
   Nusselt = nusselt(k=k, Pr=Pr, Ra=Ra);
   h = Nusselt * k/ChaLen;
   hA = h*A;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-            defaultComponentName="hNat",
+  annotation (            defaultComponentName="hNat",
             Documentation(info="<html>
             <p>
             This model calculates the convection coefficient <i>h</i> for natural convection
-            from a cylinder submerged in fluid. <i>h</i> is calcualted using Eq 9.34 from 
+            from a cylinder submerged in fluid. <i>h</i> is calcualted using Eq 9.34 from
             Incropera and DeWitt (1996).
             Output of the block is the <i>hA</i> value.
             </p>
@@ -152,8 +150,8 @@ equation
             (9/16)</sup>)<sup>(8/27)</sup>)<sup>2</sup>);
             </p>
             <p>
-            where <i>Nu<sub>D</sub></i> is the Nusselt number, <i>Ra<sub>D</sub></i> is the 
-            Rayleigh number and 
+            where <i>Nu<sub>D</sub></i> is the Nusselt number, <i>Ra<sub>D</sub></i> is the
+            Rayleigh number and
             <i>Pr</i> is the Prandtl number.<br/>
             This correclation is accurate for <i>Ra<sub>D</sub></i> less than 10<sup>12</sup>.
             </p>
@@ -169,16 +167,16 @@ equation
             </p>
             <h4>References</h4>
             <p>
-            Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David 
+            Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David
             DeWitt, John Wiley and Sons, 1996
             </p>
             </html>", revisions="<html>
 <ul>
 <li>
 May 10, 2013 by Michael Wetter:<br/>
-Revised implementation to use <code>hA_nominal</code> as a parameter, and compute the 
+Revised implementation to use <code>hA_nominal</code> as a parameter, and compute the
 associated surface area <code>A</code>. This revision was required to have a consistent
-computation of the the <code>hA</code> values inside and outside of the coil in the 
+computation of the the <code>hA</code> values inside and outside of the coil in the
 heat exchanger model of the water tank.
 </li>
 <li>

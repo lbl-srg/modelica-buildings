@@ -66,33 +66,32 @@ model DryCoilCounterFlow
     final airSideTemperatureDependent=airSideTemperatureDependent,
     final airSideFlowDependent=airSideFlowDependent,
     r_nominal=r_nominal) "Model for convective heat transfer coefficient"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 protected
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_1(redeclare package Medium
       = Medium1,
     allowFlowReversal=allowFlowReversal1,
     m_flow_nominal=m1_flow_nominal) "Temperature sensor"
                                       annotation (Placement(transformation(
-          extent={{-58,54},{-48,66}}, rotation=0)));
+          extent={{-58,54},{-48,66}})));
   Buildings.Fluid.Sensors.MassFlowRate masFloSen_1(redeclare package Medium =
         Medium1) "Mass flow rate sensor" annotation (Placement(transformation(
-          extent={{-80,54},{-68,66}}, rotation=0)));
+          extent={{-80,54},{-68,66}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_2(redeclare package Medium
       = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     m_flow_nominal=m2_flow_nominal) "Temperature sensor"
                                       annotation (Placement(transformation(
-          extent={{58,-66},{44,-54}}, rotation=0)));
+          extent={{58,-66},{44,-54}})));
   Buildings.Fluid.Sensors.MassFlowRate masFloSen_2(redeclare package Medium =
         Medium2) "Mass flow rate sensor" annotation (Placement(transformation(
-          extent={{82,-66},{70,-54}}, rotation=0)));
+          extent={{82,-66},{70,-54}})));
   Modelica.Blocks.Math.Gain gai_1(k=1/nEle)
     "Gain medium-side 1 to take discretization into account" annotation (
-      Placement(transformation(extent={{-18,84},{-6,96}}, rotation=0)));
+      Placement(transformation(extent={{-18,84},{-6,96}})));
   Modelica.Blocks.Math.Gain gai_2(k=1/nEle)
     "Gain medium-side 2 to take discretization into account" annotation (
-      Placement(transformation(extent={{-18,62},{-6,74}}, rotation=0)));
+      Placement(transformation(extent={{-18,62},{-6,74}})));
 
   replaceable BaseClasses.HexElementSensible ele[nEle]
   constrainedby BaseClasses.PartialHexElement(
@@ -207,7 +206,7 @@ Documentation(info="<html>
 Model of a discretized coil without water vapor condensation.
 The coil consists of two flow paths which are, at the design flow direction,
 in opposite direction to model a counterflow heat exchanger.
-The flow paths are discretized into <code>nEle</code> elements. 
+The flow paths are discretized into <code>nEle</code> elements.
 Each element is modeled by an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
@@ -217,14 +216,14 @@ on the value of the boolean parameters <code>steadyState_1</code> and
 state.
 </p>
 <p>
-The convective heat transfer coefficients can, for each fluid individually, be 
+The convective heat transfer coefficients can, for each fluid individually, be
 computed as a function of the flow rate and/or the temperature,
 or assigned to a constant. This computation is done using an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil</a>.
 </p>
 <p>
-To model humidity condensation, use the model 
+To model humidity condensation, use the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
 Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a> instead of this model, as
 this model computes only sensible heat transfer.

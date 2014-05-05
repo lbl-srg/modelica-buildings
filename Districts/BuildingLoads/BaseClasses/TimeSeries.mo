@@ -113,10 +113,7 @@ equation
       points={{-120,-80},{-42,-80}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
+  annotation (    Documentation(info="<html>
 <p>
 This is the low-level implementation for reading the time series
 that contains the building load. It is used by by

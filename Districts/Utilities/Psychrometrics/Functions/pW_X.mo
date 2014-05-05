@@ -18,8 +18,6 @@ algorithm
     Inline=true,
     smoothOrder=99,
     derivative=BaseClasses.der_pW_X,
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
 <p>
 Function to compute the water vapor partial pressure for a given humidity ratio.
@@ -43,7 +41,5 @@ August 7, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end pW_X;

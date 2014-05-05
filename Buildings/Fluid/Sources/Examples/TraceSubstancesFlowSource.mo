@@ -10,22 +10,21 @@ model TraceSubstancesFlowSource
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
                           annotation (Placement(transformation(extent={{100,108},
-            {120,128}},rotation=0)));
+            {120,128}})));
   Sources.TraceSubstancesFlowSource sou(redeclare package Medium = Medium,
       use_m_flow_in=true,
     nPorts=1)
-    annotation (Placement(transformation(extent={{-46,98},{-26,118}},rotation=0)));
+    annotation (Placement(transformation(extent={{-46,98},{-26,118}})));
   Modelica.Blocks.Sources.Step step(          startTime=0.5,
     height=-2,
     offset=2)
-    annotation (Placement(transformation(extent={{-92,30},{-72,50}},  rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
   FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)
     "Resistance, used to check if species are transported between ports"
-    annotation (Placement(transformation(extent={{60,70},{82,90}},  rotation=0)));
+    annotation (Placement(transformation(extent={{60,70},{82,90}})));
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
     V=100,
@@ -33,16 +32,14 @@ model TraceSubstancesFlowSource
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
                           annotation (Placement(transformation(extent={{100,80},
-            {120,100}},rotation=0)));
+            {120,100}})));
   Sources.TraceSubstancesFlowSource sou1(
                                       redeclare package Medium = Medium,
       use_m_flow_in=true)
-    annotation (Placement(transformation(extent={{-46,70},{-26,90}},  rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-46,70},{-26,90}})));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu(threShold=1E-4)
     "Assert that both volumes have the same concentration"
-    annotation (Placement(transformation(extent={{210,128},{230,148}},
-                                                                     rotation=0)));
+    annotation (Placement(transformation(extent={{210,128},{230,148}})));
   MixingVolumes.MixingVolume vol2(
     redeclare package Medium = Medium,
     p_start=Medium.p_default,
@@ -51,7 +48,7 @@ model TraceSubstancesFlowSource
     nPorts=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
                           annotation (Placement(transformation(extent={{90,-20},
-            {110,0}},  rotation=0)));
+            {110,0}})));
   MixingVolumes.MixingVolume vol3(
     redeclare package Medium = Medium,
     p_start=Medium.p_default,
@@ -60,11 +57,11 @@ model TraceSubstancesFlowSource
     nPorts=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
                           annotation (Placement(transformation(extent={{88,-60},
-            {108,-40}},rotation=0)));
+            {108,-40}})));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu1(
                                                      threShold=1E-4)
     "Assert that both volumes have the same concentration"
-    annotation (Placement(transformation(extent={{210,0},{230,20}},rotation=0)));
+    annotation (Placement(transformation(extent={{210,0},{230,20}})));
   MixingVolumes.MixingVolume vol4(
     redeclare package Medium = Medium,
     nPorts=4,
@@ -73,46 +70,40 @@ model TraceSubstancesFlowSource
     m_flow_nominal=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
                           annotation (Placement(transformation(extent={{-16,-40},
-            {4,-20}},  rotation=0)));
+            {4,-20}})));
   Sources.TraceSubstancesFlowSource sou2(
                                       redeclare package Medium = Medium,
       use_m_flow_in=true)
-    annotation (Placement(transformation(extent={{-48,-50},{-28,-30}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-48,-50},{-28,-30}})));
   Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
     p=101325,
     nPorts=1,
-    T=293.15) annotation (Placement(transformation(extent={{-62,-80},{-42,-60}},
-          rotation=0)));
+    T=293.15) annotation (Placement(transformation(extent={{-62,-80},{-42,-60}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=2,
     p=101320,
     T=293.15) "Sink boundary conditions"
-              annotation (Placement(transformation(extent={{188,-50},{168,-30}},
-          rotation=0)));
+              annotation (Placement(transformation(extent={{188,-50},{168,-30}})));
   FixedResistances.FixedResistanceDpM res1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)
     "Resistance, used to check if species are transported between ports"
-    annotation (Placement(transformation(extent={{126,-30},{148,-10}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{126,-30},{148,-10}})));
   FixedResistances.FixedResistanceDpM res2(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)
     "Resistance, used to check if species are transported between ports"
-    annotation (Placement(transformation(extent={{126,-70},{148,-50}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{126,-70},{148,-50}})));
   FixedResistances.FixedResistanceDpM res3(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)
     "Resistance, used to check if species are transported between ports"
-    annotation (Placement(transformation(extent={{-28,-80},{-6,-60}},  rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-28,-80},{-6,-60}})));
   inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Sensors.TraceSubstances C(redeclare package Medium = Medium)
@@ -132,15 +123,13 @@ model TraceSubstancesFlowSource
     m_flow_nominal=1,
     dp_nominal=1)
     "Resistance, used to check if species are transported between ports"
-    annotation (Placement(transformation(extent={{58,-30},{80,-10}},  rotation=
-            0)));
+    annotation (Placement(transformation(extent={{58,-30},{80,-10}})));
   FixedResistances.FixedResistanceDpM res6(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)
     "Resistance, used to check if species are transported between ports"
-    annotation (Placement(transformation(extent={{58,-70},{80,-50}},  rotation=
-            0)));
+    annotation (Placement(transformation(extent={{58,-70},{80,-50}})));
 equation
   connect(res3.port_b, vol4.ports[2])
                                      annotation (Line(points={{-6,-70},{-6,-40},
@@ -241,9 +230,7 @@ equation
       points={{80,-20},{92,-20},{92,-20},{102.667,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{240,180}}), graphics),
-            experiment(StopTime=600),
+    annotation (            experiment(StopTime=600),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/TraceSubstancesFlowSource.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -253,7 +240,7 @@ The source is a step function of <i>2</i> kg/s CO<sub>2</sub> from <i>t=0</i> se
 to <i>t=0.5</i> second.
 The sensors <code>C</code> and <code>C1</code> measure the same concentration that initially increases
 and then remains constant as there is no flow through the volumes <code>vol</code> and <code>vol1</code>.
-The sensors 
+The sensors
 <code>C2</code> and
 <code>C3</code> first meaure an increase in concentration, which then decays to zero
 as there is a mass flow rate with zero CO<sub>2</sub> from the source <code>bou</code> to the sink <code>sin</code>.

@@ -61,8 +61,7 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
     nPorts=2,
     m_flow=2*m_flow_nominal,
     T=293.15) "Source" annotation (Placement(transformation(extent={{-80,40},{
-            -60,60}},
-                  rotation=0)));
+            -60,60}})));
 equation
   connect(senTem1.T, con1.u_m) annotation (Line(
       points={{50,111},{50,138}},
@@ -114,8 +113,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{200,
-            200}}), graphics),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/HeaterCoolerPrescribed.mos"
         "Simulate and plot"),

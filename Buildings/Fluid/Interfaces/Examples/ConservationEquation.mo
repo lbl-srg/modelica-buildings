@@ -33,14 +33,13 @@ extends Modelica.Icons.Example;
     p=101325,
     T=283.15)
       annotation (Placement(
-        transformation(extent={{80,-68},{60,-48}}, rotation=0)));
+        transformation(extent={{80,-68},{60,-48}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
     from_dp=true,
     redeclare package Medium = Medium,
     m_flow_nominal=0.01,
     dp_nominal=100) "Flow resistance"
-      annotation (Placement(transformation(extent={{20,-10},{40,10}},
-          rotation=0)));
+      annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T bou(
     nPorts=2,
     redeclare package Medium = Medium,
@@ -51,8 +50,7 @@ extends Modelica.Icons.Example;
     redeclare package Medium = Medium,
     m_flow_nominal=0.01,
     dp_nominal=100) "Flow resistance"
-             annotation (Placement(transformation(extent={{20,-70},{40,-50}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
@@ -103,7 +101,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Inte
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-Model that tests the conservation equations that are used 
+Model that tests the conservation equations that are used
 for the heat and mass balance.
 </p>
 </html>",
@@ -114,7 +112,5 @@ September 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end ConservationEquation;

@@ -51,8 +51,7 @@ model TwoPortHeatMassExchanger
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start) "Volume for fluid stream"
-     annotation (Placement(transformation(extent={{-9,0},{11,-20}},
-         rotation=0)));
+     annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
 
   Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro(
     redeclare package Medium = Medium,
@@ -85,7 +84,7 @@ initial algorithm
  Received tau = " + String(tau) + "\n");
   assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau > Modelica.Constants.eps,
-"The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.          
+"The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
  Set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
 
@@ -109,7 +108,7 @@ equation
         grid={1,1})),
     Documentation(info="<html>
 <p>
-This component transports one fluid stream. 
+This component transports one fluid stream.
 It provides the basic model for implementing dynamic and steady-state
 models that exchange heat and water vapor with the fluid stream.
 The model also computes the pressure drop due to the flow resistance.
@@ -118,7 +117,7 @@ of the pressure drop can be avoided.
 The variable <code>vol.heatPort.T</code> always has the value of
 the temperature of the medium that leaves the component.
 For the actual temperatures at the port, the variables <code>sta_a.T</code>
-and <code>sta_b.T</code> can be used. These two variables are provided by 
+and <code>sta_b.T</code> can be used. These two variables are provided by
 the base class
 <a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
 Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
@@ -145,7 +144,7 @@ Buildings.Fluid.Boilers.BoilerPolynomial</a>.
 
 <h4>Implementation</h4>
 <p>
-The variable names follow the conventions used in 
+The variable names follow the conventions used in
 <a href=\"modelica://Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX\">
 Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </a>.
@@ -201,7 +200,7 @@ Added homotopy operator.
 <li>
 March 21, 2010 by Michael Wetter:<br/>
 Changed pressure start value from <code>system.p_start</code>
-to <code>Medium.p_default</code> since HVAC models may have water and 
+to <code>Medium.p_default</code> since HVAC models may have water and
 air, which are typically at different pressures.
 </li>
 <li>

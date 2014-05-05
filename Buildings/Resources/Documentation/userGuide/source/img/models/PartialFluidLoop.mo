@@ -17,7 +17,6 @@ equation
       points={{4.44089e-16,-40},{20,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-60},
-            {80,60}}),         graphics), Icon(coordinateSystem(extent={{-80,
+  annotation ( Icon(coordinateSystem(extent={{-80,
             -60},{80,60}})));
 end PartialFluidLoop;

@@ -48,7 +48,7 @@ package BaseClasses "Base classes for package Data"
 
     annotation (preferredView="info",
     Documentation(info="<html>
-This is the base record for chiller models. 
+This is the base record for chiller models.
 </html>",
   revisions="<html>
 <ul>
@@ -87,8 +87,8 @@ First implementation.
 
   annotation(preferredView="info",
   Documentation(info="<html>
-This package contains the common parameters that are used 
-to specify the performance data 
+This package contains the common parameters that are used
+to specify the performance data
 for the chiller models
 <a href=\"Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>

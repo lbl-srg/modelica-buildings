@@ -72,10 +72,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{200,160}}),
-                      graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,160}})),
+  annotation (    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,160}})),
     Documentation(revisions="<html>
 <ul>
 <li>

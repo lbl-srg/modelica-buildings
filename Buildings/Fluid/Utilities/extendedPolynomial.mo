@@ -28,15 +28,15 @@ if x < xMin then
   end if;
   annotation (Documentation(info="<html>
 For <i>x</i> between the bounds <i>x<sub>min</sub> &lt; x &lt; x<sub>max</sub></i>,
-this function defines a polynomial 
+this function defines a polynomial
 <p align=\"center\" style=\"font-style:italic;\">
  y = &sum;<sub>i=1</sub><sup>n</sup> c<sub>i</sub> x<sup>i-1</sup>
 </p>
-where <i>n &gt; 1</i> and <i>x<sub>min</sub>, x<sub>max</sub></i> 
+where <i>n &gt; 1</i> and <i>x<sub>min</sub>, x<sub>max</sub></i>
 are parameters.
 For <i>x &lt; x<sub>min</sub></i> and <i>x &gt; x<sub>max</sub></i>,
 the polynomial is replaced by a linear function
-in such a way that the first derivative is continuous everywhere. 
+in such a way that the first derivative is continuous everywhere.
 </html>", revisions="<html>
 <ul>
 <li>

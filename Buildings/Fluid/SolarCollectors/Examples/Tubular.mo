@@ -28,10 +28,9 @@ model Tubular "Example showing the use of Tubular"
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     nPorts=1) "Inlet for fluid flow" annotation (Placement(transformation(extent={{100,-20},
-            {80,0}},
-          rotation=0)));
+            {80,0}})));
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
-        transformation(extent={{68,60},{88,80}}, rotation=0)));
+        transformation(extent={{68,60},{88,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
@@ -86,7 +85,7 @@ equation
         "Simulate and Plot"),
     Documentation(info="<html>
       <p>
-        This example models a tubular solar thermal collector. It uses the 
+        This example models a tubular solar thermal collector. It uses the
         <a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\">
         Buildings.Fluid.SolarCollectors.ASHRAE93</a> model and references
         data in the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.Tubular\">
@@ -100,7 +99,5 @@ equation
           First implementation
         </li>
       </ul>
-    </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,
-      extent={{-100,-100},{100,100}}), graphics));
+    </html>"));
 end Tubular;

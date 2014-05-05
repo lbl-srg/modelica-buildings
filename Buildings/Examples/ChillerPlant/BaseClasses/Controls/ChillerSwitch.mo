@@ -56,19 +56,18 @@ equation
 The controls for enabling/disabling chiller are as follows:
 <ul>
 <li>
-The chiller is enabled when 
+The chiller is enabled when
 <p align=\"left\" style=\"font-style:italic;\">
   T<sub>Chi_CHWST</sub> &gt; T<sub>ChiSet</sub> + T<sub>DeaBan</sub> </p>
   </li>
 <li>
-The chiller is disabled when 
+The chiller is disabled when
 <p align=\"left\" style=\"font-style:italic;\">
   T<sub>Chi_CHWST</sub> &le; T<sub>ChiSet</sub></p>
 </li>
 </ul>
-where <i>T<sub>Chi_CHWST</sub></i> is chiller chilled water supply temperature, <i>T<sub>ChiSet</sub></i> is set temperature for chilled water leaving chiller, and <i>T<sub>DeaBan</sub></i> is dead band to prevent short cycling. 
-</html>
-", revisions="<html>
+where <i>T<sub>Chi_CHWST</sub></i> is chiller chilled water supply temperature, <i>T<sub>ChiSet</sub></i> is set temperature for chilled water leaving chiller, and <i>T<sub>DeaBan</sub></i> is dead band to prevent short cycling.
+</html>", revisions="<html>
 <ul>
 <li>
 July 20, 2011, by Wangda Zuo:<br/>

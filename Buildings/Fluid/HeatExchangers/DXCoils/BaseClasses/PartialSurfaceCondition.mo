@@ -15,8 +15,7 @@ partial block PartialSurfaceCondition
   final parameter Modelica.SIunits.AngularVelocity maxSpe(displayUnit="1/min")= datCoi.sta[nSta].spe
     "Maximum rotational speed";
   Modelica.Blocks.Interfaces.RealInput speRat "Speed index"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput Q_flow(
     quantity="Power",
     unit="W") "Cooling capacity of the coil"
@@ -31,14 +30,11 @@ partial block PartialSurfaceCondition
   annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealInput XEvaIn
     "Evaporator inlet air mass fraction"
-  annotation (Placement(transformation(extent={{-120,-60},{-100,-40}},
-                                                                    rotation=
-            0)));                         //(start=0.005, min=0, max=1.0)
+  annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));                         //(start=0.005, min=0, max=1.0)
   Modelica.Blocks.Interfaces.RealInput hEvaIn(
     quantity="SpecificEnergy",
     unit="J/kg") "Evaporator air inlet specific enthalpy"
-  annotation (Placement(transformation(extent={{-120,-90},{-100,-70}},rotation=
-            0)));
+  annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   output Real bypass(
     start=0.25,
     min=0,
@@ -106,16 +102,16 @@ algorithm
   annotation (Documentation(info="<html>
 <p>
 This partial block is the base class for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint</a> and
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint</a>.
 </p>
 <p>
 This block calculates the <i>UA/c<sub>p</sub></i> value, the bypass factor and the
 enthalpy difference across the coil.
 It uses the function
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift</a>
 for intermediate compressor speeds.
 </p>
@@ -139,21 +135,21 @@ Revised implementation.
 </li>
 <li>
 August 24, 2012, by Michael Wetter:<br/>
-Moved function from 
+Moved function from
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</code>
-to 
+to
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions</code>
-because the package 
+because the package
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</code>
-already contains a block called 
+already contains a block called
 <code>SpeedShift</code> which gives a clash in file names on file systems
 that do not distinguish between upper and lower case letters.
 </li>
 <li>
 August 1, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 
-</html>"), Icon(graphics));
+</html>"));
 end PartialSurfaceCondition;

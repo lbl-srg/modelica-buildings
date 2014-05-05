@@ -128,9 +128,9 @@ Diagram(coordinateSystem(
 <li>
 July 15, 2012, by Michael Wetter:<br/>
 Changed computation of power to use hourly averaged power
-instead of instantaneous power in order to avoid peaks 
+instead of instantaneous power in order to avoid peaks
 after set point changes.
-This is required because the Modelica model is solved using a 
+This is required because the Modelica model is solved using a
 continuous time solver, whereas the BESTEST reference results
 were obtained using simulators with discrete time steps.
 Changed base class to be

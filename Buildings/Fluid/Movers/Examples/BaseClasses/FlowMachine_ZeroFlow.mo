@@ -17,15 +17,13 @@ partial model FlowMachine_ZeroFlow
     duration=0.5,
     startTime=0.25,
     height=-1) "Input signal"
-                 annotation (Placement(transformation(extent={{-90,90},{-70,110}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
     p=system.p_ambient,
     T=293.15,
-    nPorts=4) annotation (Placement(transformation(extent={{-88,-46},{-68,-26}},
-          rotation=0)));
+    nPorts=4) annotation (Placement(transformation(extent={{-88,-46},{-68,-26}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpSta(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,

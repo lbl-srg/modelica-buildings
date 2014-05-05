@@ -1,5 +1,5 @@
 within Districts.Electrical.Transmission;
-package Materials 
+package Materials
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 end Materials;

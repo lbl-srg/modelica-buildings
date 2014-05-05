@@ -46,7 +46,7 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>
-This function returns <code>true</code> if its argument is 
+This function returns <code>true</code> if its argument is
 monotonic increasing or decreasing, and <code>false</code> otherwise.
 If <code>strict=true</code>, then strict monotonicity is tested,
 otherwise weak monotonicity is tested.

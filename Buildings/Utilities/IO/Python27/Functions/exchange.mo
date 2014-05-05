@@ -72,7 +72,7 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>
-This function is a wrapper for 
+This function is a wrapper for
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.BaseClasses.exchange\">
 Buildings.Utilities.IO.Python27.Functions.BaseClasses.exchange</a>.
 It adds the directory <code>modelica://Buildings/Resources/Python-Sources</code>
@@ -80,10 +80,10 @@ to the environment variable <code>PYTHONPATH</code>
 prior to calling the function that exchanges data with Python.
 After the function call, the <code>PYTHONPATH</code> is set back to what
 it used to be when entering this function.
-See 
+See
 <a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">
 Buildings.Utilities.IO.Python27.UsersGuide</a>
-for instructions, and 
+for instructions, and
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples\">
 Buildings.Utilities.IO.Python27.Functions.Examples</a>
 for examples.

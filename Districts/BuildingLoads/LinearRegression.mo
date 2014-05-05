@@ -248,8 +248,8 @@ double tab1(\"number_of_time_stamps\", 47)
 # This data format is used to feed the coefficients from the reduced order model
 # to the load model in Modelica.
 #
-# The equation is 
-#    y = B0 + B1 * u, 
+# The equation is
+#    y = B0 + B1 * u,
 # where y has the following components:
 #  y1: QCoo, cooling provided at the cooling coil in Watts
 #  y2: QHea, heating provided at the heating coil in Watts
@@ -292,8 +292,5 @@ April 22, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics));
+</html>"));
 end LinearRegression;

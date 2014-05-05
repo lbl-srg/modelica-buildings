@@ -115,10 +115,6 @@ equation
           extent={{102,107},{124,81}},
           lineColor={0,0,127},
           textString="P")}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -143,7 +139,7 @@ where <i>A</i> is the panel area,
 <i>&eta;</i> is the panel efficiency and
 <i>G</i> is the total solar irradiation.
 This power is equal to <i>P = v &nbsp; i</i>,
-where <i>v</i> is the voltage across the panel and 
+where <i>v</i> is the voltage across the panel and
 <i>i</i> is the current that flows through the panel.
 </p>
 <p>

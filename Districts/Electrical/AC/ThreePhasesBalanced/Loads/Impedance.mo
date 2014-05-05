@@ -124,14 +124,14 @@ equation
           smooth=Smooth.None)}),
           Documentation(info="<html>
 <p>
-Model of a load that is characterized by its resistance, 
+Model of a load that is characterized by its resistance,
 inductance or capacitance.
 </p>
 <p>
 If <code>inductive=true</code>, then the
 inductance is a parameter, otherwise
 the capacitance is a parameter.
-The parameter <code>star</code> is used to 
+The parameter <code>star</code> is used to
 configure the model as a star or triangle circuit.
 </p>
 </html>", revisions="<html>

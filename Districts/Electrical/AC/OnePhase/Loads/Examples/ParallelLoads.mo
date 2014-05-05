@@ -8,13 +8,11 @@ model ParallelLoads
         Districts.Electrical.Types.Assumption.VariableZ_P_input)
     "Variable inductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,50})));
   Districts.Electrical.AC.OnePhase.Sources.FixedVoltage
                                                      source(f=50, V=220)
     "Voltage source"        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-70,10})));
   Modelica.Blocks.Sources.Ramp load(duration=0.5, startTime=0.2)
     annotation (Placement(transformation(extent={{68,0},{48,20}})));
@@ -22,25 +20,21 @@ model ParallelLoads
                                RL(P_nominal=1e3)
     "Constant inductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,30})));
   Districts.Electrical.AC.OnePhase.Loads.CapacitiveLoadP varRC(
                                                               P_nominal=1e3, mode=
         Districts.Electrical.Types.Assumption.VariableZ_y_input)
     "Variable conductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,10})));
   Districts.Electrical.AC.OnePhase.Loads.CapacitiveLoadP
                                 RC(P_nominal=1e3, mode=Districts.Electrical.Types.Assumption.FixedZ_steady_state)
     "Constant conductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,-10})));
   Districts.Electrical.AC.OnePhase.Loads.ResistiveLoadP
                        R(P_nominal=1e3) "Resistive load"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,-30})));
   Modelica.Blocks.Sources.Ramp load1(             startTime=0.2,
     height=2000,
@@ -78,9 +72,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics),
     Documentation(info="<html>
 <p>
 This model illustrates the use of the load models.
@@ -102,6 +93,5 @@ First implementation.
     Commands(file=
           "modelica://Districts/Resources/Scripts/Dymola/Electrical/AC/Loads/Examples/ParallelLoads.mos"
         "Simulate and plot"),
-    experiment,
-    __Dymola_experimentSetupOutput);
+    experiment);
 end ParallelLoads;

@@ -54,7 +54,7 @@ equation
       points={{43.1,-10},{58,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), __Dymola_Commands(file=
+  annotation ( __Dymola_Commands(file=
           "modelica://Districts/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/CheckTemperature.mos"
         "Simulate and plot"));
 end CheckTemperature;

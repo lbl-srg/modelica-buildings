@@ -3,12 +3,12 @@ model Biquadratic "Test model for biquadratic function"
   import Districts;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x1(duration=1)
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Ramp x2(
     height=2,
     duration=1,
     offset=2)
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Districts.Utilities.Math.Biquadratic biquadratic(a={1,2,3,4,5,6})
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
@@ -21,10 +21,7 @@ equation
       points={{-59,30},{-50,30},{-50,44},{-42,44}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
-            {100,100}}),
-                     graphics),
-                      __Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/Utilities/Math/Examples/Biquadratic.mos"
+  annotation(                      __Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/Utilities/Math/Examples/Biquadratic.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

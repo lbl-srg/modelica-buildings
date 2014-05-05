@@ -42,9 +42,7 @@ equation
       points={{0,60},{-40,60},{-40,30}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-            Commands(file=
+  annotation (            Commands(file=
           "modelica://Districts/Resources/Scripts/Dymola/Electrical/DC/Loads/Examples/Resistor.mos"
         "Simulate and plot"),
     Documentation(info="<html>

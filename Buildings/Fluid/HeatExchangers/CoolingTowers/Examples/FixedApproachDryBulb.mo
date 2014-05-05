@@ -11,10 +11,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-260},
-            {140,100}}),
-                      graphics),
-experiment(StartTime=15552000, StopTime=15984000),
+  annotation(experiment(StartTime=15552000, StopTime=15984000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Examples/FixedApproachDryBulb.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-180},{100,
@@ -24,7 +21,7 @@ This example illustrates the use of the cooling tower model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach</a>, using
 the outdoor dry-bulb temperature as the potential for heat transfer.
-Heat is injected into the volume <code>vol</code>. An on/off controller 
+Heat is injected into the volume <code>vol</code>. An on/off controller
 switches the cooling loop water pump on or off based on the temperature of
 this volume.
 The cooling tower outlet temperature has a fixed approach temperature to the

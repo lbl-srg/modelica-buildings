@@ -117,8 +117,7 @@ equation
 <p>
 This component computes the circumsolar and horizon brightening coefficients.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 May 25, 2010, by Wangda Zuo:<br/>
@@ -126,8 +125,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(
@@ -153,6 +150,5 @@ First implementation.
         Text(
           extent={{60,-30},{104,-52}},
           lineColor={0,0,127},
-          textString="F2")}),
-    Diagram(graphics));
+          textString="F2")}));
 end BrighteningCoefficient;

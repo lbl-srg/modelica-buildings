@@ -39,8 +39,6 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={Text(extent={{20,126},{118,104}},textString=
               "N_in [rpm]")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}),     graphics),
     Documentation(info="<html>
 This model describes a fan or pump with prescribed speed in revolutions per minute.
 The head is computed based on the performance curve that take as an argument
@@ -52,7 +50,7 @@ the actual volume flow rate divided by the maximum possible volume flow rate, or
 based on the motor performance curves.
 <br/>
 <p>
-See the 
+See the
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
 User's Guide</a> for more information.
 </p>
@@ -76,7 +74,7 @@ Revised implementation to allow zero flow rate.
 </li>
 <li>October 1, 2009,
     by Michael Wetter:<br/>
-       Model added to the Buildings library. 
+       Model added to the Buildings library.
 </li>
 <li><i>31 Oct 2005</i>
     by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br/>

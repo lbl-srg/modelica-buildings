@@ -15,8 +15,7 @@ expandable connector Bus "Data bus that stores weather data"
 <p>
 This component is an expandable connector that is used to implement a bus that contains the weather data.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 June 25, 2010, by Wangda Zuo:<br/>

@@ -10,11 +10,9 @@ partial model FluidInterface
   parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
   Modelica.Blocks.Interfaces.RealInput m_flow_in if     use_m_flow_in
     "Prescribed mass flow rate"
-    annotation (Placement(transformation(extent={{-120,60},{-80,100}},
-          rotation=0), iconTransformation(extent={{-120,60},{-80,100}})));
+    annotation (Placement(transformation(extent={{-120,60},{-80,100}}), iconTransformation(extent={{-120,60},{-80,100}})));
   Modelica.Blocks.Interfaces.RealInput T_in "Prescribed boundary temperature"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
    parameter Boolean use_m_flow_in = false
     "Get the mass flow rate from the input connector"

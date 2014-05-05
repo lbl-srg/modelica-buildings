@@ -11,7 +11,7 @@ model Buoyancy
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] heatPort
     "Heat input into the volumes"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   Modelica.SIunits.HeatFlowRate[nSeg-1] Q_flow
     "Heat flow rate from segment i+1 to i";
@@ -55,7 +55,7 @@ Renamed protected parameters for consistency with naming convention.
 October 8, 2011 by Michael Wetter:<br/>
 Added <code>noEvent(...)</code> to
 <code>Q_flow[i] = k*smooth(1, if dT[i]>0 then dT[i]^2 else 0);</code>
-since the equation returns the same value to the left and right of 
+since the equation returns the same value to the left and right of
 <code>dT[i]>0</code>.
 </li>
 <li>
@@ -113,8 +113,5 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
-          fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-            graphics));
+          fillPattern=FillPattern.Solid)}));
 end Buoyancy;

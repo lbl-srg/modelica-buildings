@@ -13,14 +13,12 @@ model GeneratorLoadGrid "Generator with a load and grid connection"
                                    sou(f=60, Phi=0.17453292519943)
     "Gas turbine"   annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
-        rotation=0,
         origin={-30,-10})));
   Districts.Electrical.AC.OnePhase.Loads.InductiveLoadP
                                                      res(P_nominal=5e3,
     mode=Districts.Electrical.Types.Assumption.FixedZ_steady_state,
     V_nominal=220) "Resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={30,-10})));
   Modelica.Blocks.Sources.Ramp ramp(
     height=1e4,
@@ -40,11 +38,10 @@ equation
       points={{20,-10},{10,-10},{10,40}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),                                     graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This model illustrates a generator, an inductive load and a grid connection.
-The power output of the generator is equal to its input signal, which is 
+The power output of the generator is equal to its input signal, which is
 a ramp function.
 The output <code>grid.P</code> shows
 the actual and apparent power, the power factor and

@@ -48,10 +48,7 @@ partial block PartialRegression "Partial model for regression of building load"
     "Total building gas consumption" annotation (Placement(transformation(extent={
             {100,-80},{120,-60}}), iconTransformation(extent={{100,-80},{120,-60}})));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
-          Documentation(info="<html>
+  annotation (          Documentation(info="<html>
 This is a partial class that declares the input and output signals
 for the linear regression model.
 </html>", revisions="<html>

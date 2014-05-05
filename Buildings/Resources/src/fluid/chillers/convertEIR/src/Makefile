@@ -15,7 +15,7 @@ HTMLDIR = ../doc/
 ## Compiler settings
 JC = javac
 #JCFLAGS = -Xlint
-JCFLAGS = 
+JCFLAGS =
 JJ = jar
 JFLAGS = cfm
 
@@ -25,14 +25,14 @@ SRCS =  convertEIR/BiCubicCurve.java convertEIR/BiQuadraticCurve.java convertEIR
 
 OBJS =  convertEIR/BiCubicCurve.class convertEIR/BiQuadraticCurve.class convertEIR/ElectricEIR.class \
         convertEIR/ICurve.class convertEIR/ConvertEIRData.class convertEIR/Parser.class \
-        convertEIR/ParserResultObject.class convertEIR/QuadraticCurve.class convertEIR/ReformElectricEIR.class 
+        convertEIR/ParserResultObject.class convertEIR/QuadraticCurve.class convertEIR/ReformElectricEIR.class
 
 JARS =  ConvertEIRData.jar
 
 #######################################################
 all: clean doc
 	$(JC) $(JCFLAGS) $(SRCS)
-	$(JJ) $(JFLAGS) $(JARS) Manifest.txt $(OBJS) $(SRCS) 
+	$(JJ) $(JFLAGS) $(JARS) Manifest.txt $(OBJS) $(SRCS)
 	$(JJ) -i $(JARS)
 	rm $(OBJS)
 	mv $(JARS) $(BINDIR)
@@ -42,12 +42,12 @@ doc:	cleandoc
 	javadoc -d $(HTMLDIR) $(SRCS)
 	@echo "==== Documents created"
 
-cleandoc: 
+cleandoc:
 	rm -rf $(HTMLDIR)/*.html $(HTMLDIR)/package-list
 	@echo "==== Clean of document directory finished"
 
 clean: cleandoc
-	rm -f $(PROG) 
-	rm -f $(BINDIR)/$(PROG) 
+	rm -f $(PROG)
+	rm -f $(BINDIR)/$(PROG)
 	@echo "==== Clean of directory finished"
 

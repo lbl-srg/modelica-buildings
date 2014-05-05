@@ -11,55 +11,48 @@ model Validation3Rooms
     V=2.5*5*5*1,
     nPorts=5,
     m_flow_nominal=0.001)  annotation (Placement(transformation(extent={{80,-20},
-            {100,0}},   rotation=0)));
+            {100,0}})));
 
   Buildings.Airflow.Multizone.Orifice oriOutBot(
     redeclare package Medium = Medium,
     A=0.01,
-    m=0.5) annotation (Placement(transformation(extent={{142,-90},{162,-70}},
-          rotation=0)));
+    m=0.5) annotation (Placement(transformation(extent={{142,-90},{162,-70}})));
   Buildings.Airflow.Multizone.MediumColumn colOutTop(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
-    annotation (Placement(transformation(extent={{191,-8},{211,12}},rotation=0)));
+    annotation (Placement(transformation(extent={{191,-8},{211,12}})));
   Buildings.Airflow.Multizone.Orifice oriOutTop(
     redeclare package Medium = Medium,
     A=0.01,
-    m=0.5) annotation (Placement(transformation(extent={{141,10},{161,30}},
-          rotation=0)));
+    m=0.5) annotation (Placement(transformation(extent={{141,10},{161,30}})));
   Buildings.Airflow.Multizone.MediumColumn colEasInTop(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
-    annotation (Placement(transformation(extent={{121,-10},{141,10}},
-                                                                   rotation=0)));
+    annotation (Placement(transformation(extent={{121,-10},{141,10}})));
   Fluid.Sources.FixedBoundary volOut(
     redeclare package Medium = Medium,
     nPorts=2,
     p(displayUnit="Pa") = 101325,
     T=283.15) annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-          rotation=0,
-        origin={231,-30})));
+          origin={231,-30})));
 
   Buildings.Airflow.Multizone.MediumColumn colEasInBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
-    annotation (Placement(transformation(extent={{122,-70},{142,-50}},
-                                                                     rotation=0)));
+    annotation (Placement(transformation(extent={{122,-70},{142,-50}})));
   Buildings.Airflow.Multizone.MediumColumn colOutBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
-    annotation (Placement(transformation(extent={{190,-68},{210,-48}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{190,-68},{210,-48}})));
   Buildings.Airflow.Multizone.MediumColumn colWesBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
-    annotation (Placement(transformation(extent={{-70,9},{-50,29}},   rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-70,9},{-50,29}})));
   Buildings.Airflow.Multizone.Orifice oriWesTop(
     redeclare package Medium = Medium,
     m=0.5,
@@ -72,8 +65,7 @@ model Validation3Rooms
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
-    annotation (Placement(transformation(extent={{-70,71},{-50,91}},   rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-70,71},{-50,91}})));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(
     redeclare package Medium = Medium,
     LClo=20*1E-4,
@@ -86,7 +78,7 @@ model Validation3Rooms
     hB=3/2,
     dp_turbulent(displayUnit="Pa") = 0.01) "Discretized door"
                                annotation (Placement(transformation(extent={{-1,-55},
-            {19,-35}},       rotation=0)));
+            {19,-35}})));
   Fluid.MixingVolumes.MixingVolume volWes(
     redeclare package Medium = Medium,
     T_start=273.15 + 25,
@@ -94,16 +86,14 @@ model Validation3Rooms
     p_start=101325,
     V=2.5*5*5,
     m_flow_nominal=0.001)  annotation (Placement(transformation(extent={{-100,
-            -30},{-80,-10}},
-                         rotation=0)));
+            -30},{-80,-10}})));
   Modelica.Blocks.Sources.Constant open(k=1) annotation (Placement(
-        transformation(extent={{-40,-21},{-20,-1}},  rotation=0)));
+        transformation(extent={{-40,-21},{-20,-1}})));
   Buildings.Airflow.Multizone.MediumColumn col1EasBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
-    annotation (Placement(transformation(extent={{100,9},{120,29}},
-                                                                  rotation=0)));
+    annotation (Placement(transformation(extent={{100,9},{120,29}})));
   Buildings.Airflow.Multizone.Orifice oriEasTop(
     redeclare package Medium = Medium,
     m=0.5,
@@ -115,15 +105,14 @@ model Validation3Rooms
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
-    annotation (Placement(transformation(extent={{100,71},{120,91}},
-                                                                   rotation=0)));
+    annotation (Placement(transformation(extent={{100,71},{120,91}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volTop(
     redeclare package Medium = Medium,
     T_start=273.15 + 20,
     V=2.5*5*10*1,
     nPorts=2,
     m_flow_nominal=0.001)  annotation (Placement(transformation(extent={{-20,120},
-            {0,140}},        rotation=0)));
+            {0,140}})));
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-180,200},{-160,220}})));

@@ -2,14 +2,14 @@ within Buildings.Controls.Continuous.Examples;
 model SignalRanker "Example model for signal ranker"
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Sine sine(freqHz=2)
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Pulse pulse(period=0.25)
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.Continuous.SignalRanker sigRan(
                                                   nin=3)
-    annotation (Placement(transformation(extent={{-20,20},{0,40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Sources.ExpSine expSine(freqHz=10, damping=1)
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 equation
   connect(sine.y, sigRan.u[1])       annotation (Line(points={{-39,-10},{-32,
           -10},{-32,28.6667},{-22,28.6667}},
@@ -27,7 +27,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/C
 <p>
 Example that demonstrates the use of the signal ranker model.
 The figure below shows the input and output signals of the block.
-Note that 
+Note that
 <code>sigRan.y[1] &ge; sigRan.y[2] &ge; sigRan.y[3]</code>.
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerU.png\" border=\"1\" alt=\"Input to signal ranker.\"/><br/>

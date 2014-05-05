@@ -326,10 +326,7 @@ equation
       points={{121,-1},{128,-1},{128,56},{50,56},{50,79}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{340,200}}),
-                         graphics),
-experiment(StopTime=1.0),
+  annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/Window.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
@@ -349,7 +346,7 @@ to be parameters does not imply that the whole record has the variability of a p
 <p>
 This model demonstrates the implementation of a window model.
 On the left hand side is a model for the combined convective and radiative heat
-transfer on the outside facing side of the window. 
+transfer on the outside facing side of the window.
 In the top middle is the window model, and below is a model that
 computes the solar radiation balance of the window. Output of the solar
 radiation balance model are the absorbed solar heat flow rates, which are
@@ -357,7 +354,7 @@ input to the heat balance models.
 On the right hand side are models for the inside surface heat balance.
 As opposed to the outside surface heat balance models, these models are
 implemented using separate components for the radiative balance and for the convective
-balance. This has been done to allow separating radiation from convection, 
+balance. This has been done to allow separating radiation from convection,
 which is required when the room model is used with room air heat balance models
 that use computational fluid dynamics.
 </p>

@@ -10,10 +10,10 @@ model HexElementSensible
     Documentation(info="<html>
 <p>
 Element of a heat exchanger with humidity condensation and
-with dynamics of the fluids and the solid. 
+with dynamics of the fluids and the solid.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement</a>
 for a description of the physics.
@@ -53,9 +53,5 @@ March 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),
-                   graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end HexElementSensible;

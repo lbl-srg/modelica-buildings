@@ -398,6 +398,4 @@ equation
       points={{-34,-80},{-34,-58},{-8,-58},{-8,-40},{2,-40}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 end DClines;

@@ -60,8 +60,7 @@ equation
       points={{43,20},{68,20},{68,8.88178e-16},{60,8.88178e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Polygon(

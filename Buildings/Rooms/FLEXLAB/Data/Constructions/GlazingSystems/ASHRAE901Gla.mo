@@ -5,7 +5,7 @@ record ASHRAE901Gla =
    Buildings.HeatTransfer.Data.Glasses.ID101()},
   final gas = {Buildings.HeatTransfer.Data.Gases.Air(x=0.0127)},
   UFra=1.4,
-  final nLay=2) "XGL-1 window constuction used in cells 3A, 3B and RA. ASHRAE 90.1 
+  final nLay=2) "XGL-1 window constuction used in cells 3A, 3B and RA. ASHRAE 90.1
      minimally compliant"
   annotation (Documentation(info="<html>
   <p>
@@ -13,7 +13,7 @@ record ASHRAE901Gla =
   compliant per the ASHRAE 90.1 specification.
   </p>
   <p>
-  Note: This model is not yet completed, and is currently a placeholder. See 
+  Note: This model is not yet completed, and is currently a placeholder. See
   <a href=\"modelica://Buildings.Rooms.FLEXLAB.UsersGuide\">
   Buildings.Rooms.FLEXLAB.UsersGuide</a> for more information.
   </p>

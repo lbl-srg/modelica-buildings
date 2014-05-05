@@ -131,7 +131,6 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     columns=2:5)
     "Inlet air conditions for the connected electrical room (y[1] = m_flow, y[4] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-58,-38})));
 
   Modelica.Blocks.Sources.CombiTimeTable airConClo(
@@ -142,7 +141,6 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     columns=2:5)
     "Inlet air conditions for the connected closet (y[1] = m_flow, y[4] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-2,112})));
 
   Buildings.Fluid.Sources.MassFlowSource_T airInEle(
@@ -151,7 +149,6 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     redeclare package Medium = Air,
     nPorts=1) "Inlet air conditions (from AHU) for the electrical room"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-6,-42})));
   Buildings.Fluid.Sources.Boundary_pT airOutEle(nPorts=1, redeclare package
       Medium = Air) "Air outlet from the electrical room"
@@ -167,7 +164,6 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
   Buildings.Fluid.Sources.Boundary_pT airOutClo(
     redeclare package Medium = Air, nPorts=1) "Air outlet from the closet"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={50,80})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiClo(
     table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)
@@ -490,18 +486,16 @@ equation
       points={{-208,4},{-208,14},{-93.8,14},{-93.8,44.75}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
-            -210},{200,200}}), graphics),
-          Documentation(info = "<html>
+  annotation (          Documentation(info = "<html>
           <p>
           This model demonstrates one potential simulation using the models available in
           <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
-          Buildings.Rooms.FLEXLAB.Rooms.X3A</a>. This example simulates test cell 
-          X3A when it is conditioned with a radiant slab. This example model includes 
-          heat transfer between the test cell, the outdoor environment, the radiant slab 
-          conditioning the test cell, the connected electrical room and closet, and the 
+          Buildings.Rooms.FLEXLAB.Rooms.X3A</a>. This example simulates test cell
+          X3A when it is conditioned with a radiant slab. This example model includes
+          heat transfer between the test cell, the outdoor environment, the radiant slab
+          conditioning the test cell, the connected electrical room and closet, and the
           neighboring test cells.
-          </p>              
+          </p>
           <p>
           The connections between the test cell and the external models are described in the following table.
           Only models not included in the X3A package are included. For documentation describing the connections
@@ -520,7 +514,7 @@ equation
           <td>Outdoor weather</td>
           <td>weaDat.weaBus</td>
           <td>X3A.weaBus</td>
-          </tr>          
+          </tr>
           <tr>
           <td>TNei</td>
           <td>Neighboring test cells (X2B and X3B)</td>
@@ -528,7 +522,7 @@ equation
           X3B: X3A.preTem2.port[2]</td>
           <td>X2B: X3A.surf_conBou[1]<br/>
           X3B: X3A.surf_conBou[2]</td>
-          </tr>          
+          </tr>
           <tr>
           <td>sla4A1</td>
           <td>Radiant slab serving the north portion of X3A</td>
@@ -540,19 +534,19 @@ equation
           <td>Radiant slab serving the north-central portion of X3A</td>
           <td>sla4A2.surf_a</td>
           <td>X3A.surf_surBou[2]</td>
-          </tr>       
+          </tr>
           <tr>
           <td>sla4A3</td>
           <td>Radiant slab serving the south-central portion of X3A</td>
           <td>sla4A3.surf_a</td>
           <td>X3A.surf_surBou[3]</td>
-          </tr>           
+          </tr>
           <tr>
           <td>sla4A4</td>
           <td>Radiant slab serving the south portion of X3A</td>
           <td>sla4A4.surf_a</td>
           <td>X3A.surf_surBou[4]</td>
-          </tr>            
+          </tr>
           <tr>
           <td>shaPos</td>
           <td>Table describing the position of the window shade</td>
@@ -582,7 +576,7 @@ equation
           The connections between the closet and external models are described in the following table.
           Only connections to models not included in the X3A package are described.
           </p>
-          <table border=\"1\" summary = \"Summary of connections to the closet model\">      
+          <table border=\"1\" summary = \"Summary of connections to the closet model\">
           <tr>
           <th>External model name</th>
           <th>External model significance</th>
@@ -651,11 +645,11 @@ equation
           </tr>
           </table>
           <p>
-          The radiant slab is modeled using an instance of 
+          The radiant slab is modeled using an instance of
           <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
           Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>. All of the inputs
           used to define the radiant slab are taken from the architectural drawings. The following
-          table describes the connections between models used in the radiant slab. The connection 
+          table describes the connections between models used in the radiant slab. The connection
           to X3A is not included because it was previously described.
           </p>
           <table border=\"1\" summary = \"Summary of connections to the radiant slab model\">
@@ -670,36 +664,36 @@ equation
           <td>Inlet for service fluid flow. Currently connects to a prescribed flow described
           in a table</td>
           <td>watIn.ports[1]</td>
-          <td>sla.port_a</td>          
+          <td>sla.port_a</td>
           </tr>
           <tr>
           <td>preT</td>
           <td>Ground temperature beneath the radiant slab construction. Currently connects to
           a prescribed temperature defined in a table</td>
           <td>preT.port</td>
-          <td>sla.surf_b</td>          
+          <td>sla.surf_b</td>
           </tr>
           <tr>
           <td>watOut</td>
           <td>Outlet for service fluid flow</td>
           <td>watOut.ports[1]</td>
-          <td>sla.port_b</td>          
+          <td>sla.port_b</td>
           </tr>
           </table>
           <p>
-          The model only simulates the space conditions, the effects of the radiant slab, and the 
-          heat transfer between the rooms. The air handling unit, chilled water plant, shade control, 
-          internal gains, and ground temperature are all modeled by reading data from tables. 
-          Currently the ventilation air is read from an external data file, via the model 
+          The model only simulates the space conditions, the effects of the radiant slab, and the
+          heat transfer between the rooms. The air handling unit, chilled water plant, shade control,
+          internal gains, and ground temperature are all modeled by reading data from tables.
+          Currently the ventilation air is read from an external data file, via the model
           <code>airCon</code>, while the others use tables described in the data reader model. The table
-          below shows the name of data input files in the model, what physical phenomena the data file 
+          below shows the name of data input files in the model, what physical phenomena the data file
           describes, the physical quantity of each data file output, and the source of the data.
           </p>
           <table border =\"1\" summary = \"Description of data table models\">
           <tr>
           <th>Model name</th>
           <th>Quantity described</th>
-          <th>Data source</th>          
+          <th>Data source</th>
           <th>y[1] significance</th>
           <th>y[2] significance</th>
           <th>y[3] significance</th>
@@ -714,7 +708,7 @@ equation
           <tr>
           <td>intGai</td>
           <td>Internal gains</td>
-          <td>Table in model</td>          
+          <td>Table in model</td>
           <td>Radiant heat</td>
           <td>Convective heat</td>
           <td>Latent heat</td>
@@ -723,7 +717,7 @@ equation
           <tr>
           <td>airCon</td>
           <td>Ventilation air from air handling unit</td>
-          <td>External text file</td>          
+          <td>External text file</td>
           <td>Mass flow rate</td>
           <td></td>
           <td></td>
@@ -733,7 +727,7 @@ equation
           <tr>
           <td>watCon</td>
           <td>Conditioning water from central plant</td>
-          <td>Table in model</td>          
+          <td>Table in model</td>
           <td>Mass flow rate</td>
           <td>Temperature</td>
           <td></td>
@@ -741,7 +735,7 @@ equation
           <tr>
           <td>TGro</td>
           <td>Ground temperature</td>
-          <td>Table in model</td>          
+          <td>Table in model</td>
           <td>Temperature</td>
           <td></td>
           <td></td>
@@ -767,7 +761,7 @@ equation
           <td>Ventilation air from AHU in the electrical room</td>
           <td>External text file</td>
           <td></td>
-          <td></td>          
+          <td></td>
           <td>Mass flow rate</td>
           <td>Temperature</td>
           </tr>
@@ -805,7 +799,7 @@ equation
           The ventilation air flow rates used during occupied hours in this example were calculated using
           the assumption of 4 air changes per hour (ACH). It is assumed that there is
           no ventilation flow during unoccupied hours.
-          </p>          
+          </p>
           </html>",
           revisions = "<html>
           <ul>

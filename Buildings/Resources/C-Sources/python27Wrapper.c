@@ -1,6 +1,6 @@
 // Exchange values with Python.
 // Any argument that starts with 'n', such as nDblWri, may be zero.
-// If there is an error, then this function calls 
+// If there is an error, then this function calls
 // ModelicaFormatError(...) which terminates the computation.
 // The arguments are as follows:
 //  moduleName - Name of the Python module.

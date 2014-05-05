@@ -9,7 +9,7 @@ Medium models in this package use a constant mass density.
 </p>
 <p>
 The use of a constant density avoids having pressure as a state variable in mixing volumes. Hence, fast transients
-introduced by a change in pressure are avoided. 
+introduced by a change in pressure are avoided.
 The drawback is that the dimensionality of the coupled
 nonlinear equation system is typically larger for flow
 networks.
@@ -21,7 +21,7 @@ Note that models in this package implement the equation for the internal energy 
   u = h - p &frasl; &rho;<sub>stp</sub>,
 </p>
 <p>
-where 
+where
 <i>u</i> is the internal energy per unit mass,
 <i>h</i> is the enthalpy per unit mass,
 <i>p</i> is the static pressure and

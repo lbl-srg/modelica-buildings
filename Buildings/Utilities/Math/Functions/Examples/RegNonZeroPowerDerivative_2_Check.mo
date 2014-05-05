@@ -15,10 +15,7 @@ equation
   der(y)=der(x);
   assert(abs(x-y) < 1E-2, "Model has an error");
 
- annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                    graphics),
-experiment(StartTime=-1, StopTime=1.0),
+ annotation(experiment(StartTime=-1, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>

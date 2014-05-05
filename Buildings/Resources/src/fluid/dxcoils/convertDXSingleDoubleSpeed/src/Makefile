@@ -24,7 +24,7 @@ SRCS =  convertDXSingleDoubleSpeed/BiQuadraticCurve.java convertDXSingleDoubleSp
 	convertDXSingleDoubleSpeed/Parser.java convertDXSingleDoubleSpeed/ParserResultObject.java \
 	convertDXSingleDoubleSpeed/QuadraticCurve.java convertDXSingleDoubleSpeed/DXCoilPerformance.java \
         convertDXSingleDoubleSpeed/DXDoubleSpeed.java \
-		
+
 
 OBJS =  convertDXSingleDoubleSpeed/BiQuadraticCurve.class convertDXSingleDoubleSpeed/DXSingleSpeed.class\
         convertDXSingleDoubleSpeed/ICurve.class convertDXSingleDoubleSpeed/ConvertDXData.class \

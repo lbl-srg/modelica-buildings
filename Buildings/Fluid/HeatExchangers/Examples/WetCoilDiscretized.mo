@@ -31,56 +31,53 @@ model WetCoilDiscretized
         T_a2_nominal,
         T_b2_nominal),
     show_T=true)         annotation (Placement(transformation(extent={{8,-4},{
-            28,16}}, rotation=0)));
+            28,16}})));
   Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
       package Medium = Medium2,
     use_p_in=false,
     p=101325,
     T=303.15,
     nPorts=1)             annotation (Placement(transformation(extent={{-58,-10},
-            {-38,10}}, rotation=0)));
+            {-38,10}})));
     Modelica.Blocks.Sources.Ramp PIn(
     duration=60,
     height=-200,
     startTime=120,
     offset=101525)
-                 annotation (Placement(transformation(extent={{60,-40},{80,-20}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(                       redeclare
       package Medium = Medium2,
     use_p_in=true,
     nPorts=1,
     use_T_in=false,
     T=293.15)             annotation (Placement(transformation(extent={{90,-10},
-            {70,10}},  rotation=0)));
+            {70,10}})));
     Modelica.Blocks.Sources.Ramp TWat(
     duration=60,
     height=15,
     offset=273.15 + 5,
     startTime=120) "Water temperature"
-                 annotation (Placement(transformation(extent={{-90,34},{-70,54}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-90,34},{-70,54}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium1,
     p=300000,
     T=293.15,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{90,30},
-            {70,50}},rotation=0)));
+            {70,50}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     p=300000 + 5000,
     use_T_in=true,
     T=293.15,
     nPorts=1)             annotation (Placement(transformation(extent={{-60,30},
-            {-40,50}}, rotation=0)));
+            {-40,50}})));
     Modelica.Blocks.Sources.Ramp PSin_1(
     duration=60,
     height=5000,
     startTime=240,
     offset=300000)
-                 annotation (Placement(transformation(extent={{40,62},{60,82}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{40,62},{60,82}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
@@ -111,10 +108,7 @@ equation
           6.66134e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                     graphics),
-experiment(StopTime=360),
+  annotation(experiment(StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilDiscretized.mos"
         "Simulate and plot"));
 end WetCoilDiscretized;

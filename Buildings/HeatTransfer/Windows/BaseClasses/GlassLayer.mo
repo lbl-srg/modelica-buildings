@@ -20,11 +20,11 @@ model GlassLayer "Model for a glass layer of a window assembly"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=293.15, nominal=293.15))
     "Heat port at surface a"
     annotation (Placement(transformation(extent={{-110,-10},
-            {-90,10}}, rotation=0)));
+            {-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=293.15, nominal=293.15))
     "Heat port at surface b"
     annotation (Placement(transformation(extent={{90,-10},{
-            110,10}}, rotation=0)));
+            110,10}})));
   Modelica.Blocks.Interfaces.RealInput QAbs_flow(unit="W", quantity="Power")
     "Solar radiation absorbed by glass" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -74,8 +74,7 @@ equation
   // other surface.
   JOut_a = E_a + rhoIR_a * JIn_a + tauIR * JIn_b;
   JOut_b = E_b + rhoIR_b * JIn_b + tauIR * JIn_a;
-  annotation (Diagram(graphics),
-    Icon(graphics={
+  annotation (    Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

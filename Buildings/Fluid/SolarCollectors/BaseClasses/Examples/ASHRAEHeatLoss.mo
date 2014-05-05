@@ -7,7 +7,7 @@ model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
     annotation (choicesAllMatching=true);
   inner Modelica.Fluid.System system(p_ambient=101325)
     annotation (Placement(
-        transformation(extent={{60,60},{80,80}}, rotation=0)));
+        transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.Sine TEnv(
     freqHz=0.01,
     offset=273.15 + 10,
@@ -56,11 +56,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
       <p>
-        This examples demonstrates the implementation of 
+        This examples demonstrates the implementation of
         <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss\">
         Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a>.
       </p>
@@ -75,6 +73,5 @@ equation
     </html>"),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/ASHRAEHeatLoss.mos"
-        "Simulate and Plot"),
-    Icon(graphics));
+        "Simulate and Plot"));
 end ASHRAEHeatLoss;

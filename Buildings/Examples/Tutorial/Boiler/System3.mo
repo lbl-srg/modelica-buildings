@@ -79,7 +79,6 @@ model System3
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temRoo
     "Room temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={-40,30})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(m_flow_nominal=mRad_flow_nominal,
       redeclare package Medium = MediumW) "Pump for radiator"
@@ -395,21 +394,21 @@ as these will be replaced by the boiler loop.
 </li>
 <li>
 <p>
-We made various instances of 
+We made various instances of
 <a href=\"modelica://Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM\">
 Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a>
 to model flow splitter and mixers.
-We also made an instance of 
+We also made an instance of
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear\">
 Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear</a>
 to model the three-way valves, and
-an instance of 
+an instance of
 <a href=\"modelica://Buildings.Fluid.Boilers.BoilerPolynomial\">
 Buildings.Fluid.Boilers.BoilerPolynomial</a>
 to model the boiler.
 </p>
 <p>
-Note that we also made an instance of 
+Note that we also made an instance of
 <a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
 Buildings.Fluid.Sources.FixedBoundary</a>,
 which we called <code>preSou</code>.
@@ -425,19 +424,19 @@ Next, we parameterized the medium of all these components by
 setting it to <code>MediumW</code>.
 </p>
 <p>
-Since the nominal mass flow rate for the 
+Since the nominal mass flow rate for the
 boiler loop is required by several models, we introduced
 the following system-level parameters, where
-<code>TBoiRet_min</code> will be used to avoid 
+<code>TBoiRet_min</code> will be used to avoid
 condensation in the boiler:
 </p>
 <pre>
-  parameter Modelica.SIunits.Temperature TBoiSup_nominal = 273.15+80 
+  parameter Modelica.SIunits.Temperature TBoiSup_nominal = 273.15+80
     \"Boiler nominal supply water temperature\";
-  parameter Modelica.SIunits.Temperature TBoiRet_min = 273.15+50 
+  parameter Modelica.SIunits.Temperature TBoiRet_min = 273.15+50
     \"Boiler minimum return water temperature\";
   parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal=
-    Q_flow_nominal/4200/(TBoiSup_nominal-TBoiRet_min) 
+    Q_flow_nominal/4200/(TBoiSup_nominal-TBoiRet_min)
     \"Boiler nominal mass flow rate\";
 </pre>
 </li>
@@ -468,7 +467,7 @@ For its mass flow rate, we introduced the parameter
 </p>
 <pre>
   parameter Modelica.SIunits.MassFlowRate mRadVal_flow_nominal=
-    Q_flow_nominal/4200/(TBoiSup_nominal-TRadRet_nominal) 
+    Q_flow_nominal/4200/(TBoiSup_nominal-TRadRet_nominal)
     \"Radiator nominal mass flow rate\";
 </pre>
 <p>
@@ -483,7 +482,7 @@ This allowed us to configure the valve as
 </pre>
 <p>
 where <code>l={0.01,0.01}</code> is a valve leakage of 1%
-and <code>dpValve_nominal=6000</code> is the pressure drop of the valve 
+and <code>dpValve_nominal=6000</code> is the pressure drop of the valve
 if it is fully open
 and if the mass flow rate is equal to <code>m_flow_nominal</code>.
 It is recommended to set the valve leakage to a non-zero value to avoid numerical problems.
@@ -492,7 +491,7 @@ A non-zero value also represent a more realistic situation, as most valves have 
 </li>
 <li>
 <p>
-For the bypass between the valve and the radiator, we note that the 
+For the bypass between the valve and the radiator, we note that the
 mass flow rate is equal to <code>mRad_flow_nomial - mRadVal_flow_nominal</code>.
 This is a fixed bypass that is used to allow the valve to work across
 its full range.
@@ -510,13 +509,13 @@ Hence, its parameters are
 </pre>
 <p>
 Note the negative values, which are used for the ports where the medium is
-outflowing at nominal conditions. 
+outflowing at nominal conditions.
 See also the documentation of the model
 <a href=\"modelica://Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM\">
 Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a>.
 </p>
 <p>
-We also set the pressure drop of 
+We also set the pressure drop of
 port 3 of <code>mix</code>
 to the same value as the pressure drop of the valve in order
 to balance the flows. In practice, this can be done by using a
@@ -526,7 +525,7 @@ balance valve, whose pressure drop we lumped into the component
 </li>
 <li>
 <p>
-Next, we set the pressure drops and flow rates of all flow splitters and mixers. 
+Next, we set the pressure drops and flow rates of all flow splitters and mixers.
 For the flow splitters and mixers that are connected to another flow splitter or mixer which
 already computes the pressure drop of the connecting flow leg, we set the nominal pressure drop
 to zero. This will remove the equation for the pressure drop calculation.
@@ -541,11 +540,11 @@ for the valves, pumps and boilers.
 This is implemented using the block
 <a href=\"modelica://Modelica.Blocks.Sources.Constant\">
 Modelica.Blocks.Sources.Constant</a>.
-Using open-loop signals allows testing the model prior to 
+Using open-loop signals allows testing the model prior to
 adding the complexity of closed loop control.
 To avoid that the boiler overheats, we set its control input to
-<code>0.5</code>. Otherwise, the boiler temperature would raise quickly 
-when the radiator pump is off, and the simulation would stop 
+<code>0.5</code>. Otherwise, the boiler temperature would raise quickly
+when the radiator pump is off, and the simulation would stop
 with an error message that says that its medium temperature is
 outside the allowed range.
 </p>
@@ -565,7 +564,7 @@ The figure shows that the room temperature is around
 <i>5</i>&deg;C when the internal heat gain is zero,
 i.e., it is at the average of the outside temperature
 and the room design temperature.
-Since the boiler control signal is <i>0.5</i>, 
+Since the boiler control signal is <i>0.5</i>,
 this indicates that the model is correct.
 </p>
 </html>", revisions="<html>

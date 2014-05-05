@@ -4,5 +4,5 @@ model UnoccupiedOn "Controller for unoccupied on state"
   annotation (Icon(graphics={Line(
           points={{-66,-60},{78,82}},
           color={0,0,255},
-          smooth=Smooth.None)}),           Diagram(graphics));
+          smooth=Smooth.None)}));
 end UnoccupiedOn;

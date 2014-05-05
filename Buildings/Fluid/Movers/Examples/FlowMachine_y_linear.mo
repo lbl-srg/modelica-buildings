@@ -13,15 +13,13 @@ model FlowMachine_y_linear
     duration=0.5,
     startTime=0.25,
     height=-1) "Input signal"
-                 annotation (Placement(transformation(extent={{-80,120},{-60,140}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
     p=300000,
     T=293.15,
-    nPorts=1) annotation (Placement(transformation(extent={{-62,80},{-42,100}},
-          rotation=0)));
+    nPorts=1) annotation (Placement(transformation(extent={{-62,80},{-42,100}})));
   Buildings.Fluid.Movers.FlowMachine_y pumFixDp(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -49,8 +47,7 @@ model FlowMachine_y_linear
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=m_flow_nominal*0.01,
-    T=293.15) annotation (Placement(transformation(extent={{-62,40},{-42,60}},
-          rotation=0)));
+    T=293.15) annotation (Placement(transformation(extent={{-62,40},{-42,60}})));
   Buildings.Fluid.Movers.FlowMachine_y pumFixM_flow(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -104,7 +101,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Move
     Documentation(info="<html>
 <p>
 This example demonstrates and tests the use of a flow machine whose speed is reduced to zero.
-In the top model, the pressure drop across the pump is constant, and in the bottom model, 
+In the top model, the pressure drop across the pump is constant, and in the bottom model,
 the mass flow rate across the pump is constant.
 In the top model, a small flow resistance has been added since a pump with zero speed cannot
 produce a non-zero pressure raise. For this operating region, the pressure drop ensures that

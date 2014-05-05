@@ -69,15 +69,14 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (Diagram(graphics),
-experiment(StopTime=86400),
+  annotation (experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/Overhang.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
 This example uses the basic overhang model with solar angles as input and calculates the fraction of total window area that is exposed to the sun.
-For a detail description of the solar angles used in the model, see 
-<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry\">Buildings.BoundaryConditions.SolarGeometry</a>. 
+For a detail description of the solar angles used in the model, see
+<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry\">Buildings.BoundaryConditions.SolarGeometry</a>.
 For a detailed description of the overhang block, see
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Overhang\">Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 The required data for the solar angle calculations is obtained from weather data.
@@ -86,20 +85,20 @@ The required data for the solar angle calculations is obtained from weather data
 Solar angles used in this model are:
 <ul>
 <li>
-<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.ZenithAngle\">Buildings.BoundaryConditions.SolarGeometry.ZenithAngle</a>: 
-Angle between sun ray and normal to horizontal surface  
+<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.ZenithAngle\">Buildings.BoundaryConditions.SolarGeometry.ZenithAngle</a>:
+Angle between sun ray and normal to horizontal surface
 </li>
 <li>
-<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle\">Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle</a>: 
-Solar incidence angle on a tilted surface    
+<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle\">Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle</a>:
+Solar incidence angle on a tilted surface
 </li>
 <li>
-<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle</a>: 
+<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle</a>:
 Angle between Sun ray and horizontal surface
 </li>
 <li>
-<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth</a>: 
-Angle measured in horizontal plane between projection of sun's rays and normal to vertical surface 
+<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth</a>:
+Angle measured in horizontal plane between projection of sun's rays and normal to vertical surface
 </li>
 </ul>
 
@@ -112,11 +111,11 @@ revisions="<html>
 <ul>
 <li>
 July 5, 2012, by Michael Wetter<br/>
-Changed parameters to test non-symmetric overhang. 
+Changed parameters to test non-symmetric overhang.
 </li>
 <li>
 Feb 01, 2012, by Kaustubh Phalak<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

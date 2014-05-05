@@ -20,7 +20,7 @@ record FP_TRNSYSValidation =
     annotation(Documentation(info="<html>
       <p>
         Default values in the TRNSYS Simualtion Studio SDHW example.
-        No value for <code>dp_nominal</code> was provided in TRNSYS, so 1000 
+        No value for <code>dp_nominal</code> was provided in TRNSYS, so 1000
         was used as a placeholder.<br/>
       </p>
     </html>"));

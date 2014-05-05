@@ -7,5 +7,4 @@ PhaseSystem.Voltage v[PhaseSystem.n] "voltage vector";
 flow PhaseSystem.Current i[PhaseSystem.n] "current vector";
 PhaseSystem.ReferenceAngle theta[PhaseSystem.m] if PhaseSystem.m > 0
     "optional vector of phase angles";
-  annotation (Icon(graphics));
 end Terminal;

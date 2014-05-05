@@ -13,7 +13,6 @@ model ACline
     l=250,
     commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu50())
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-30,70})));
   Loads.InductiveLoadP
                loadRL(                mode=Districts.Electrical.Types.Assumption.FixedZ_steady_state,
@@ -21,7 +20,6 @@ model ACline
     P_nominal=5000)                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={50,70})));
   Line line1(
     V_nominal=380,
@@ -30,7 +28,6 @@ model ACline
     l=250,
     commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu50())
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,70})));
   Sources.FixedVoltage V1(
     f=50,
@@ -44,7 +41,6 @@ model ACline
     commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu35(),
     l=500)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-10,30})));
   Loads.InductiveLoadP
                loadRL1(               mode=Districts.Electrical.Types.Assumption.FixedZ_steady_state,
@@ -52,7 +48,6 @@ model ACline
     P_nominal=5000)                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={50,30})));
   Line line3(
     V_nominal=380,
@@ -61,7 +56,6 @@ model ACline
     l=500,
     commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu25())
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-10,40})));
   Sources.FixedVoltage V2(
     f=50,
@@ -75,7 +69,6 @@ model ACline
     l=250,
     commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu50())
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-30,-30})));
   Loads.InductiveLoadP
                loadRL2(
@@ -83,7 +76,6 @@ model ACline
     V_nominal=380)                    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={50,-30})));
   Line line5(
     V_nominal=380,
@@ -92,7 +84,6 @@ model ACline
     commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu25(),
     l=250)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,-30})));
   Loads.InductiveLoadP
                loadRL3(
@@ -100,7 +91,6 @@ model ACline
     V_nominal=380)                    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={50,0})));
   Line line6(
     V_nominal=380,
@@ -109,7 +99,6 @@ model ACline
     commercialCable=Districts.Electrical.Transmission.CommercialCables.Cu25(),
     l=250)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,0})));
 equation
   connect(line.terminal_n, V.terminal) annotation (Line(
@@ -162,6 +151,4 @@ equation
       points={{0,0},{-20,0},{-20,-30},{-5.55112e-16,-30}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),        graphics));
 end ACline;
