@@ -188,6 +188,16 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Improved documentation of the flow resistance.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br/>
+    </td>
+    <td valign=\"top\">Added the option to use a constant, an input signal or the weather file as the source
+                       for the ceiling height, the total sky cover, the opaque sky cover, the dew point temperature, 
+                       and the infrared horizontal radiation <code>HInfHor</code>.
+    </td>
+</tr>    
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
