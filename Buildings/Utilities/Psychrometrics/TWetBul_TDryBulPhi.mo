@@ -37,20 +37,16 @@ block TWetBul_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
 
 protected
-  constant Modelica.Media.IdealGases.Common.DataRecord dryair = Modelica.Media.IdealGases.Common.SingleGasesData.Air;
-  constant Modelica.Media.IdealGases.Common.DataRecord steam = Modelica.Media.IdealGases.Common.SingleGasesData.H2O;
-  constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
+  constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
   Modelica.SIunits.MassFraction XiDryBul
     "Water vapor mass fraction at dry bulb state";
   Modelica.SIunits.MassFraction XiSat "Water vapor mass fraction at saturation";
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-     Buildings.Media.PerfectGases.Common.SingleGasData.Air.cp
+  constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
     "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=
-     Buildings.Media.PerfectGases.Common.SingleGasData.H2O.cp
+  constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
     "Specific heat capacity of water vapor";
   constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
     "Specific heat capacity of water vapor";
@@ -66,14 +62,14 @@ equation
     XiSat    = 0;
     XiDryBul = 0;
   else
-    XiSat   = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=   Medium.saturationPressureLiquid(Tsat=TWetBul),
+    XiSat  = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
     XiDryBul =Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      p=p,
-      pSat=Medium.saturationPressureLiquid(Tsat=TDryBul),
-      phi=phi);
+      p=     p,
+      pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TDryBul),
+      phi=   phi);
     TWetBul = (TDryBul * ((1-XiDryBul) * cpAir + XiDryBul * cpSte) + (XiDryBul-XiSat) * h_fg)/
             ( (1-XiSat)*cpAir + XiSat * cpSte);
     TDryBul_degC = 0;
@@ -168,6 +164,14 @@ DOI: 10.1175/JAMC-D-11-0143.1
 ",
 revisions="<html>
 <ul>
+<li>
+November 20, 2013 by Michael Wetter:<br/>
+Updated model to use
+<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressure()</code>
+and
+<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
+as these functions have been moved from the medium to the psychrometrics package.
+</li>
 <li>
 October 1, 2012 by Michael Wetter:<br/>
 First implementation.
