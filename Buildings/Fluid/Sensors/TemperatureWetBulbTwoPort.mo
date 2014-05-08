@@ -53,7 +53,7 @@ equation
     Xi = port_b.Xi_outflow;
   end if;
   // Compute wet bulb temperature
-  wetBulMod.TDryBul = Medium.T_phX(p=port_a.p, h=h, X=cat(1,Xi,{1-sum(Xi)}));
+  wetBulMod.TDryBul = Medium.temperature_phX(p=port_a.p, h=h, X=cat(1,Xi,{1-sum(Xi)}));
   wetBulMod.Xi = Xi;
   wetBulMod.p  = port_a.p;
   TMedWetBul = wetBulMod.TWetBul;
