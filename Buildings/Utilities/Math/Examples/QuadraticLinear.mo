@@ -1,6 +1,5 @@
 within Buildings.Utilities.Math.Examples;
 model QuadraticLinear "Test model for quadraticLinear function "
-  import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x1(duration=1)
     annotation (Placement(transformation(extent={{-60,10},{-40,30}}, rotation=0)));

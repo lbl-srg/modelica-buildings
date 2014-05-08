@@ -1,6 +1,5 @@
 within Buildings.Utilities.Math.Examples;
 model SmoothExponential "Test model for smoothExponential function "
-  import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x1(duration=1,
     height=2,

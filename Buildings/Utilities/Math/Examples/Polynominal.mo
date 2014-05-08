@@ -1,6 +1,5 @@
 within Buildings.Utilities.Math.Examples;
 model Polynominal "Test model for ploynominal function "
-  import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x1(duration=1)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}},rotation=0)));
