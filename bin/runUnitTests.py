@@ -54,7 +54,7 @@ def _setEnvironmentVariables(var, value):
         os.environ[var] = value
 
 def _runUnitTests():
-    import buildingspy.development.unittest as u
+    import buildingspy.development.regressiontest as u
     ut = u.Tester()
     ut.batchMode(batch)
 #    ut.setNumberOfThreads(1)
