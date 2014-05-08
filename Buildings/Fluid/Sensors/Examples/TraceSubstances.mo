@@ -36,12 +36,8 @@ model TraceSubstances "Test model for the extra property sensor"
     use_m_flow_in=true,
     nPorts=1) "Fresh air supply"
     annotation (Placement(transformation(extent={{0,-22},{20,-2}}, rotation=0)));
-  Modelica.Blocks.Math.Gain gain(k=-1) "Gain for exhaust air mass flow rate"
-    annotation (Placement(transformation(
-          extent={{-40,-54},{-20,-34}}, rotation=0)));
-  Buildings.Fluid.Sources.MassFlowSource_T mSin(
+  Sources.FixedBoundary mSin(
     redeclare package Medium = Medium,
-    use_m_flow_in=true,
     nPorts=1) "Exhaust air"
     annotation (Placement(transformation(extent={{0,-62},{20,-42}},
           rotation=0)));
@@ -64,10 +60,6 @@ model TraceSubstances "Test model for the extra property sensor"
 
 equation
   connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{0,-4}}, color={0,0,127}));
-  connect(m_flow.y, gain.u) annotation (Line(points={{-59,-4},{-50,-4},{-50,-44},
-          {-42,-44}}, color={0,0,127}));
-  connect(gain.y, mSin.m_flow_in) annotation (Line(points={{-19,-44},{0,-44}},
-        color={0,0,127}));
   connect(senSou.C, masFraSou.m) annotation (Line(points={{45,100},{45,100},{139,
           100}}, color={0,0,127}));
   connect(senVol.C, masFraVol.m) annotation (Line(points={{121,60},{139,60}},
@@ -120,6 +112,13 @@ to the outside air concentration.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 27, 2013 by Michael Wetter:<br/>
+Changed sink model from a prescribed flow source to a pressure 
+boundary condition. This is required for the new air model,
+which is incompressible. Otherwise, there will be no pressure reference
+in the system.
+</li>
 <li>
 September 10, 2013 by Michael Wetter:<br/>
 Changed initialization of volume to fixed initial values to avoid
