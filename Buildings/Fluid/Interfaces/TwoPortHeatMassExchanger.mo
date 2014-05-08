@@ -6,7 +6,6 @@ model TwoPortHeatMassExchanger
     port_b(h_outflow(start=h_outflow_start)));
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true);
-  import Modelica.Constants;
 
   parameter Modelica.SIunits.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
@@ -91,7 +90,7 @@ initial algorithm
 
 equation
   connect(vol.ports[2], port_b) annotation (Line(
-      points={{1,0},{27.25,0},{27.25,0},{51.5,0},{51.5,0},{100,0}},
+      points={{1,0},{100,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a, preDro.port_a) annotation (Line(
@@ -99,7 +98,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(preDro.port_b, vol.ports[1]) annotation (Line(
-      points={{-40,0},{-30.25,0},{-30.25,0},{-20.5,0},{-20.5,0},{1,0}},
+      points={{-40,0},{1,0}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
@@ -152,6 +151,10 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2013, by Michael Wetter:<br/>
+Removed <code>import Modelica.Constants</code> statement.
+</li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Removed parameter <code>show_V_flow</code>.

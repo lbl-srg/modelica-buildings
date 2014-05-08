@@ -132,7 +132,23 @@ its class name ends with the string <code>Beta</code>.
       extends Modelica.Icons.ReleaseNotes;
         annotation (Documentation(info="<html>
 <p>
-Version 1.6 build 1 is ... xxx
+Version 1.6 build 1 is ... xxx.
+</p>
+<p>
+This is the first version of the <code>Buildings</code> library
+that contains models from the 
+<a href=\"https://github.com/iea-annex60/modelica-annex60\">
+IEA EBC Annex 60 library</a>,
+a Modelica library for building and community energy systems that is
+collaboratively developed within the project
+<a href=\"http://iea-annex60.org\">
+New generation computational tools for building and community energy systems 
+based on the Modelica and Functional Mockup Interface standards</a>,
+a project that is conducted under the 
+Energy in Buildings and Communities Programme (EBC) of the
+International Energy Agency (IEA).
+</p>
+<p>
 This version updates the <code>Buildings</code> library to the
 Modelica Standard Library 3.2.1 and to <code>Modelica_StateGraph2</code> 2.0.2.
 </p>
@@ -160,6 +176,52 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Two way valve for which the opening characteristics
                        is specified by a table.
+    </td> 
+    </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Examples.Average
+                       Buildings.Utilities.Math.Examples.InverseXRegularized
+                       Buildings.Utilities.Math.Examples.Polynominal
+                       Buildings.Utilities.Math.Examples.PowerLinearized
+                       Buildings.Utilities.Math.Examples.QuadraticLinear
+                       Buildings.Utilities.Math.Examples.RegNonZeroPower
+                       Buildings.Utilities.Math.Examples.SmoothExponential
+                       Buildings.Utilities.Math.Functions.average
+                       Buildings.Utilities.Math.Functions.booleanReplicator
+                       Buildings.Utilities.Math.Functions.Examples.IsMonotonic
+                       Buildings.Utilities.Math.Functions.Examples.TrapezoidalIntegration
+                       Buildings.Utilities.Math.Functions.integerReplicator
+                       Buildings.Utilities.Math.InverseXRegularized
+                       Buildings.Utilities.Math.Polynominal
+                       Buildings.Utilities.Math.PowerLinearized
+                       Buildings.Utilities.Math.QuadraticLinear
+                       Buildings.Utilities.Math.RegNonZeroPower
+                       Buildings.Utilities.Math.SmoothExponential
+                       Buildings.Utilities.Math.TrapezoidalIntegration
+    </td>
+    <td valign=\"top\">Various functions and blocks for mathematical operations.
+    </td> 
+    </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Psychrometrics</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Examples.SaturationPressureLiquid
+                       Buildings.Utilities.Psychrometrics.Examples.SaturationPressure
+                       Buildings.Utilities.Psychrometrics.Examples.SublimationPressureIce
+                       Buildings.Utilities.Psychrometrics.Functions.BaseClasses.der_saturationPressureLiquid
+                       Buildings.Utilities.Psychrometrics.Functions.BaseClasses.der_sublimationPressureIce
+                       Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.SaturationPressureDerivativeCheck
+                       Buildings.Utilities.Psychrometrics.Functions.Examples.SaturationPressure
+                       Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid
+                       Buildings.Utilities.Psychrometrics.Functions.saturationPressure
+                       Buildings.Utilities.Psychrometrics.Functions.sublimationPressureIce
+                       Buildings.Utilities.Psychrometrics.SaturationPressureLiquid
+                       Buildings.Utilities.Psychrometrics.SaturationPressure
+                       Buildings.Utilities.Psychrometrics.SublimationPressureIce
+    </td>
+    <td valign=\"top\">Various functions and blocks for psychrometric calculations.
     </td> 
     </tr>
 </table>

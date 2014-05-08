@@ -63,6 +63,10 @@ This example tests the specific enthalpy sensors.
 </html>", revisions="<html>
 <ul>
 <li>
+May 8, 2014, by Michael Wetter:<br/>
+Set species concentration to the default value of the medium.
+</li>
+<li>
 August 31, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>

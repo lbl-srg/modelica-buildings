@@ -1,6 +1,6 @@
 within Buildings.Fluid.Interfaces;
 model FourPort "Partial model with four ports"
-  import Modelica.Constants;
+
   outer Modelica.Fluid.System system "System wide properties";
 
   replaceable package Medium1 =
@@ -35,7 +35,7 @@ model FourPort "Partial model with four ports"
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
                      redeclare package Medium = Medium1,
-                     m_flow(min=if allowFlowReversal1 then -Constants.inf else 0),
+                     m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
                      h_outflow(nominal=1E5, start=h_outflow_a1_start),
                      Xi_outflow(each nominal=0.01))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
@@ -43,7 +43,7 @@ model FourPort "Partial model with four ports"
             rotation=0)));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
                      redeclare package Medium = Medium1,
-                     m_flow(max=if allowFlowReversal1 then +Constants.inf else 0),
+                     m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
                      h_outflow(nominal=1E5, start=h_outflow_b1_start),
                      Xi_outflow(each nominal=0.01))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
@@ -52,7 +52,7 @@ model FourPort "Partial model with four ports"
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
                      redeclare package Medium = Medium2,
-                     m_flow(min=if allowFlowReversal2 then -Constants.inf else 0),
+                     m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
                      h_outflow(nominal=1E5,start=h_outflow_a2_start),
                      Xi_outflow(each nominal=0.01))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
@@ -60,12 +60,12 @@ model FourPort "Partial model with four ports"
             rotation=0)));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
                      redeclare package Medium = Medium2,
-                     m_flow(max=if allowFlowReversal2 then +Constants.inf else 0),
+                     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
                      h_outflow(nominal=1E5, start=h_outflow_b2_start),
                      Xi_outflow(each nominal=0.01))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}},
-                          rotation=0), 
+                          rotation=0),
                 iconTransformation(extent={{-90,-70},{-110,-50}})));
 
   annotation (
@@ -88,6 +88,10 @@ Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2013, by Michael Wetter:<br/>
+Removed <code>import Modelica.Constants</code> statement.
+</li>
 <li>
 September 26, 2013 by Michael Wetter:<br/>
 Added missing <code>each</code> keyword in declaration of nominal value for 

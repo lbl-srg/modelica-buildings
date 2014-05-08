@@ -8,7 +8,6 @@ model FourPortHeatMassExchanger
     final h_outflow_b2_start = h2_outflow_start);
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true, final computeFlowResistance2=true);
-  import Modelica.Constants;
 
   parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow"
      annotation (Evaluate=true, Dialog(tab = "Dynamics", group="Nominal condition"));
@@ -214,6 +213,10 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2013, by Michael Wetter:<br/>
+Removed <code>import Modelica.Constants</code> statement.
+</li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Removed parameter <code>show_V_flow</code>.
