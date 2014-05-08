@@ -970,19 +970,20 @@ the opaque sky cover pressure,
 the dry bulb temperature,
 </li>
 <li>
-The dew point temperature,
+the dew point temperature,
 </li>
 <li>
-the relative humidity
+the relative humidity,
 </li>
 <li>
 the wind direction,
 </li>
 <li>
-the wind speed, and
+the wind speed,
 </li>
 <li>
-the global horizontal radiation, direct normal and diffuse horizontal radiation.
+the global horizontal radiation, direct normal and diffuse horizontal radiation,
+and
 </li>
 <li>
 the infrared horizontal radiation.
