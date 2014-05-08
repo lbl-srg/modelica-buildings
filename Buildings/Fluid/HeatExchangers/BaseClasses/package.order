@@ -7,7 +7,6 @@ HADryCoil
 HANaturalCylinder
 HexElementLatent
 HexElementSensible
-Internal
 MassExchange
 PartialDuctManifold
 PartialDuctPipeManifold
@@ -26,3 +25,4 @@ lmtd
 ntu_epsilonZ
 prandtlNumberWater
 Examples
+Internal
