@@ -7,11 +7,12 @@ HADryCoil
 HANaturalCylinder
 HexElementLatent
 HexElementSensible
+Internal
 MassExchange
-PartialEffectiveness
-PartialHexElement
 PartialDuctManifold
 PartialDuctPipeManifold
+PartialEffectiveness
+PartialHexElement
 PartialPipeManifold
 PipeManifoldFixedResistance
 PipeManifoldNoResistance
@@ -21,8 +22,7 @@ dynamicViscosityWater
 epsilon_C
 epsilon_ntuZ
 isobaricExpansionCoefficientWater
-ntu_epsilonZ
 lmtd
+ntu_epsilonZ
 prandtlNumberWater
-Internal
 Examples
