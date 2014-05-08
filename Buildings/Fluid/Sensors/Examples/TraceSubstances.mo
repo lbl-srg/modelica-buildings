@@ -53,11 +53,17 @@ model TraceSubstances "Test model for the extra property sensor"
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSub(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal) "Sensor at exhaust air"
-    annotation (Placement(transformation(extent={{64,-62},{44,-42}})));
+    annotation (Placement(transformation(extent={{50,-62},{30,-42}})));
 
   inner Modelica.Fluid.System system   annotation (Placement(transformation(
           extent={{-100,-100},{-80,-80}}, rotation=0)));
 
+  FixedResistances.FixedResistanceDpM res(
+    redeclare package Medium = Medium,
+    dp_nominal=10,
+    m_flow_nominal=0.005,
+    linearized=true)
+    annotation (Placement(transformation(extent={{60,-62},{80,-42}})));
 equation
   connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{0,-4}}, color={0,0,127}));
   connect(senSou.C, masFraSou.m) annotation (Line(points={{45,100},{45,100},{139,
@@ -73,7 +79,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(mSin.ports[1], senTraSub.port_b) annotation (Line(
-      points={{20,-52},{44,-52}},
+      points={{20,-52},{30,-52}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[2], vol.ports[1]) annotation (Line(
@@ -84,12 +90,16 @@ equation
       points={{20,-12},{83,-12},{83,50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTraSub.port_a, vol.ports[3]) annotation (Line(
-      points={{64,-52},{85,-52},{85,50}},
+  connect(res.port_a, senTraSub.port_a) annotation (Line(
+      points={{60,-52},{50,-52}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(vol.ports[4], senVol.port) annotation (Line(
-      points={{87,50},{86,50},{86,40},{110,40},{110,50}},
+  connect(res.port_b, vol.ports[3]) annotation (Line(
+      points={{80,-52},{85,-52},{85,50}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senVol.port, vol.ports[4]) annotation (Line(
+      points={{110,50},{110,40},{87,40},{87,50}},
       color={0,127,255},
       smooth=Smooth.None));
     annotation (
@@ -112,6 +122,11 @@ to the outside air concentration.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 8, 2014, by Michael Wetter:<br/>
+Added a pressure drop element, as otherwise the initialization problem 
+is overspecified for incompressible media.
+</li>
 <li>
 November 27, 2013 by Michael Wetter:<br/>
 Changed sink model from a prescribed flow source to a pressure 
