@@ -66,5 +66,12 @@ The resulting plot should look as shown below, where for better visibility, the 
 Notice that the red curve is monotone increasing.
 </p>
 <p align=\"center\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png\"/></p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 8, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end CubicHermite;

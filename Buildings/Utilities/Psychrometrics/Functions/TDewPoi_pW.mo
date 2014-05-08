@@ -1,20 +1,16 @@
 within Buildings.Utilities.Psychrometrics.Functions;
 function TDewPoi_pW
   "Function to compute the water vapor partial pressure for a given dew point temperature of moist air"
-
+  extends Modelica.Icons.Function;
   input Modelica.SIunits.Pressure p_w(displayUnit="Pa", min=200)
     "Water vapor partial pressure";
   output Modelica.SIunits.Temperature T "Dew point temperature";
 
-protected
-  constant Modelica.Media.Common.OneNonLinearEquation.f_nonlinear_Data dummy
-    "Dummy argument for nonlinear function solver";
 algorithm
   T := Internal.solve(
     y_zero=p_w,
     x_min=200,
-    x_max=400,
-    f_nonlinear_data=  dummy);
+    x_max=400);
   annotation (
     Documentation(info="<html>
 <p>
@@ -29,11 +25,6 @@ temperatures.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-April 29, 2014 by Michael Wetter:<br/>
-Added dummy argument to <code>Internal.solve</code> to avoid a warning
-in Dymola 2015.
-</li>
 <li>
 March 9, 2012 by Michael Wetter:<br/>
 Added <code>smoothOrder=99</code> and <code>displayUnit</code> for pressure.
