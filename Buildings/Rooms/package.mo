@@ -12,7 +12,7 @@ and through the building envelope.
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
       graphics={
       Rectangle(
-        extent={{-64,34},{68,-74}},
+        extent={{-64,34},{64,-74}},
         lineColor={150,150,150},
         fillPattern=FillPattern.Solid,
         fillColor={150,150,150}),

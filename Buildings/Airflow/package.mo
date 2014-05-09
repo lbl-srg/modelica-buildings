@@ -16,43 +16,42 @@ Buildings.Fluid</a>.
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
       graphics={
       Rectangle(
-        extent={{-72,66},{76,-80}},
+        extent={{-72,66},{68,-74}},
         lineColor={95,95,95},
         fillPattern=FillPattern.Solid,
         fillColor={95,95,95}),
       Rectangle(
-        extent={{-22.5,7},{22.5,-7}},
+        extent={{-24,9},{24,-9}},
         lineColor={255,255,255},
         fillPattern=FillPattern.Solid,
         fillColor={255,255,255},
-        origin={3.5,57},
+        origin={0,57},
         rotation=180),
       Rectangle(
-        extent={{-52,48},{54,-62}},
+        extent={{-50,48},{46,-56}},
         lineColor={255,255,255},
         fillPattern=FillPattern.Solid,
         fillColor={255,255,255}),
       Rectangle(
-        extent={{-23.5,8},{23.5,-8}},
+        extent={{-24,11},{24,-11}},
         lineColor={255,255,255},
         fillPattern=FillPattern.Solid,
         fillColor={255,255,255},
-        origin={-61.5,-2},
+        origin={-61,0},
         rotation=270),
       Polygon(
-        points={{-82,2},{-42,2},{-42,14},{-22,-4},{-42,-22},{-42,-10},{-82,-10},
-            {-82,2}},
+        points={{-84,6},{-44,6},{-44,18},{-24,0},{-44,-18},{-44,-6},{-84,-6},{
+            -84,6}},
         lineColor={0,0,0},
         smooth=Smooth.None,
         fillPattern=FillPattern.Solid,
         fillColor={0,0,0}),
       Polygon(
         points={{-30,6},{10,6},{10,18},{30,0},{10,-18},{10,-6},{-30,-6},{-30,6}},
-
         lineColor={0,0,0},
         smooth=Smooth.None,
         fillPattern=FillPattern.Solid,
         fillColor={0,0,0},
-        origin={4,58},
+        origin={0,62},
         rotation=90)}));
 end Airflow;

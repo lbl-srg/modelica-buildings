@@ -14,7 +14,7 @@ Buildings.Fluid.Sources</a>.
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
       graphics={
         Ellipse(
-        extent={{-82,80},{0,-2}},
+        extent={{-76,80},{6,-2}},
         lineColor={255,255,255},
         lineThickness=1,
         fillPattern=FillPattern.Sphere,
@@ -36,9 +36,9 @@ Buildings.Fluid.Sources</a>.
         color={95, 95, 95},
         smooth=Smooth.None),
       Polygon(
-        points={{74,6},{64,0},{50,-18},{82,-24},{84,-50},{26,-52},{-6,-54},{-72,
-            -52},{-72,-22},{-52,-10},{-42,10},{-78,34},{-44,52},{40,56},{86,42},
-            {74,6}},
+        points={{64,6},{50,-2},{40,-18},{70,-24},{78,-52},{26,-52},{-6,-54},{
+            -72,-52},{-72,-22},{-52,-10},{-42,10},{-78,34},{-44,52},{40,56},{76,
+            40},{64,6}},
         lineColor={150,150,150},
         lineThickness=0.1,
         fillPattern=FillPattern.Sphere,
