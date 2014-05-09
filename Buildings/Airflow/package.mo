@@ -21,14 +21,14 @@ Buildings.Fluid</a>.
         fillPattern=FillPattern.Solid,
         fillColor={95,95,95}),
       Rectangle(
-        extent={{-24,9},{24,-9}},
+        extent={{-24,10},{24,-10}},
         lineColor={255,255,255},
         fillPattern=FillPattern.Solid,
         fillColor={255,255,255},
-        origin={0,57},
+        origin={0,56},
         rotation=180),
       Rectangle(
-        extent={{-50,48},{46,-56}},
+        extent={{-50,46},{46,-56}},
         lineColor={255,255,255},
         fillPattern=FillPattern.Solid,
         fillColor={255,255,255}),
