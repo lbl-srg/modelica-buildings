@@ -1,6 +1,7 @@
 within Buildings.Electrical.Interfaces;
 partial model GeneralizedSensor
   "Partial model representing a generalized sensor that measures: Voltage, Current and Power"
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(

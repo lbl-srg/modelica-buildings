@@ -1,6 +1,6 @@
 within Buildings.Electrical.Interfaces;
 model PartialTwoPort
-  "Partial model for a generic two port systems. It does not contain any constraint or relationship between the two ports"
+  "Partial model of a generic two port systems with phase systems"
   replaceable package PhaseSystem_p =
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem
@@ -19,6 +19,10 @@ model PartialTwoPort
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(revisions="<html>
 <ul>
+<li>
+May 15, 2014, by Marco Bonvini:<br/>
+Created documentation.
+</li>
 <li>
 October 31, 2013, by Marco Bonvini:<br/>
 Model included into the Buildings library.

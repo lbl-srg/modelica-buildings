@@ -18,6 +18,10 @@ equation
             -100},{100,100}}), graphics), Documentation(revisions="<html>
 <ul>
 <li>
+May 15, 2014, by Marco Bonvini:<br/>
+Created documentation.
+</li>
+<li>
 October 31, 2013, by Marco Bonvini:<br/>
 Model included into the Buildings library.
 </li>
