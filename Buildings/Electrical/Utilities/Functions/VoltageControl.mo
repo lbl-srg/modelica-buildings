@@ -27,7 +27,7 @@ equation
 
 algorithm
   when
-      (connected and (V > V_nominal*(1+Vthresh) or V < V_nominal*(1-Vthresh))) then
+      (connected and (V > V_nominal*(1+Vthresh))) then
     Tswitch := time;
     connected := false;
   end when;

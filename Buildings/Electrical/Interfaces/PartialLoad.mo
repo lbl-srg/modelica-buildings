@@ -43,6 +43,7 @@ partial model PartialLoad "Partial model for a generic load"
       replaceable package PhaseSystem = PhaseSystem) "Generalised terminal"
     annotation (Placement(transformation(extent={{-108,-8},{-92,8}}),
         iconTransformation(extent={{-108,-8},{-92,8}})));
+
 protected
   Modelica.Blocks.Interfaces.RealInput y_
     "Hidden value of the input load for the conditional connector";

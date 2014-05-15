@@ -230,5 +230,4 @@ equation
           lineColor={0,0,0},
           lineThickness=1,
           fillPattern=FillPattern.Solid)}));
-
 end singleFeeder_Nnodes;

@@ -5,7 +5,7 @@ model IEEE34
     "This boolean flags allow to linearize the models";
   parameter Boolean VoltageCTRL = true
     "This flag enables the voltage control for the PV loads";
-  parameter Modelica.SIunits.Voltage V_nominal = 110;
+  parameter Modelica.SIunits.Voltage V_nominal = 230;
   parameter Real Vth = 0.1;
   parameter Modelica.SIunits.Time Tdelay = 600;
   parameter Modelica.SIunits.Voltage Vmin = V_nominal*(1-Vth);
@@ -16,7 +16,7 @@ model IEEE34
 
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.NetworkN network(
       redeclare
-      Buildings.Electrical.Transmission.Benchmark.BenchmarkGrids.IEEE_34           grid)
+      Buildings.Electrical.Transmission.Benchmark.BenchmarkGrids.IEEE_34_weak            grid)
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.ResistiveLoadP_N load[33](
     each P_nominal=1000,
@@ -55,6 +55,7 @@ model IEEE34
      ...
      Pv profile 11 -> to node 32+1
   */
+  parameter Real vals[11] = 0.33*{0.1, 0.1, 0.1, 0.1, 0.5, 0.5, 0.5, 0.5, 0.9, 0.9, 0.9};
 protected
   final parameter Integer connMatrix[11,2]=
     [1,1;
@@ -77,9 +78,13 @@ protected
 
   /* Scheme that shows how the phases are plugged */
   /*                                        1     2     3     4     5     6    7    8     9     10   11    */
-  final parameter Boolean Phase1_pv[11] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=11,first=1,Mod=3);
-  final parameter Boolean Phase2_pv[11] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=11,first=2,Mod=3);
-  final parameter Boolean Phase3_pv[11] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=11,first=3,Mod=3);
+  //parameter Boolean Phase1_pv[11] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=11,first=1,Mod=3);
+  //parameter Boolean Phase2_pv[11] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=11,first=2,Mod=3);
+  //parameter Boolean Phase3_pv[11] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=11,first=3,Mod=3);
+
+  parameter Boolean Phase1_pv[11] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseFromRndSeq(N=11, min=0.0, max=1/3, val=vals);
+  parameter Boolean Phase2_pv[11] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseFromRndSeq(N=11, min=1/3, max=2/3, val=vals);
+  parameter Boolean Phase3_pv[11] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseFromRndSeq(N=11, min=2/3, max=1.0, val=vals);
 
 equation
   3600*1000*der(E) = P;
@@ -131,17 +136,17 @@ equation
 
     // Each PV lode is plugged to a specific phase: 1, 2 or 3
     // and read the data from a specific data series
-    if mod(i,3)==1 then
+    if Phase1_pv[i] and not Phase2_pv[i] and not Phase3_pv[i] then
       connect(dataSeries.pv[connMatrix[i,2]], pv_loads[i].Pow1) annotation (Line(
       points={{61,4},{42,4},{42,46},{30,46}},
       color={0,0,127},
       smooth=Smooth.None));
-    elseif mod(i,3)==2 then
+    elseif not Phase1_pv[i] and Phase2_pv[i] and not Phase3_pv[i] then
       connect(dataSeries.pv[connMatrix[i,2]], pv_loads[i].Pow2) annotation (Line(
       points={{61,4},{42,4},{42,40},{30,40}},
       color={0,0,127},
       smooth=Smooth.None));
-    else
+    elseif not Phase1_pv[i] and not Phase2_pv[i] and Phase3_pv[i] then
       connect(dataSeries.pv[connMatrix[i,2]], pv_loads[i].Pow3) annotation (Line(
       points={{61,4},{42,4},{42,34},{30,34}},
       color={0,0,127},
