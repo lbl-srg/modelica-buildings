@@ -28,5 +28,9 @@ October 31, 2013, by Marco Bonvini:<br/>
 Model included into the Buildings library.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This is a partial model of a coponent with two electic terminals. It represents a common interface extendable by other models.
+</p>
 </html>"));
 end PartialTwoPort;

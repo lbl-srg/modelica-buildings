@@ -18,7 +18,7 @@ model PartialPVOriented "Partial model of a PV system with orientation"
           PhaseSystem),
     A=A,
     fAct=fAct,
-    eta=eta) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    eta=eta) "PV panel model" annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   BoundaryConditions.SolarIrradiation.DiffusePerez           HDifTil(
     til=til,
     lat=lat,

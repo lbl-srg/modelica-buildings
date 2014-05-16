@@ -26,5 +26,11 @@ October 31, 2013, by Marco Bonvini:<br/>
 Model included into the Buildings library.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This partial model extends the base <a href=\"Buildings.Electrical.Interfaces.PartialTwoPort\">Buildings.Electrical.Interfaces.PartialTwoPort</a>
+model and includes variables like <code>v_p</code> and <code>i_p</code> that represents the voltage and the 
+current at the <code>terminal_p</code>. These variable are used in conversion models like transformers or AC/DC converters.
+</p>
 </html>"));
 end PartialConversion;
