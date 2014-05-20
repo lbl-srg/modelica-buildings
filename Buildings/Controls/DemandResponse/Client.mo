@@ -7,6 +7,15 @@ model Client "Demand response client"
   final parameter Integer nSam = integer(floor((tCycle+1E-4)/tSample))
     "Number of samples in a day";
 
+  Buildings.Controls.Interfaces.DayTypeInput typeOfDay
+    "If true, this day remains an event day until midnight" annotation (
+      Placement(transformation(extent={{-120,90},{-100,70}}),
+        iconTransformation(extent={{-120,90},{-100,70}})));
+
+  Modelica.Blocks.Interfaces.BooleanInput isEventDay
+    "If true, this day remains an event day until midnight"
+    annotation (Placement(transformation(extent={{-120,50},{-100,30}}),
+        iconTransformation(extent={{-120,50},{-100,30}})));
    Modelica.Blocks.Interfaces.RealInput PCon(unit="W")
     "Consumed electrical power"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -17,7 +26,7 @@ model Client "Demand response client"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Modelica.Blocks.Interfaces.RealOutput PPre(unit="W")
-    "Predicted power consumption for current hour"
+    "Predicted power consumption for the current time interval"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Modelica.StateGraph.InitialStep initialStep
@@ -77,7 +86,8 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(comBasLin.PCon, PCon) annotation (Line(
-      points={{18,42},{-94,42},{-94,1.11022e-15},{-120,1.11022e-15}},
+      points={{19,42},{-20,42},{-20,36},{-94,36},{-94,1.11022e-15},{-120,
+          1.11022e-15}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(comBasLin.PPre,nor. PCon) annotation (Line(
@@ -140,6 +150,14 @@ equation
   connect(switch1.u3, she.PPre) annotation (Line(
       points={{38,-78},{-40,-78},{-40,-38},{-31,-38}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(isEventDay, comBasLin.isEventDay) annotation (Line(
+      points={{-110,40},{-90,40},{-90,54},{19,54}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(comBasLin.typeOfDay, typeOfDay) annotation (Line(
+      points={{19,58},{-92,58},{-92,80},{-110,80}},
+      color={0,127,0},
       smooth=Smooth.None));
   annotation (                                 Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),

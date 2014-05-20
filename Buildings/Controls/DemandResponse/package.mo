@@ -1,4 +1,4 @@
-within Buildings;
+within Buildings.Controls;
 package DemandResponse "Package with models for demand response controllers"
   extends Modelica.Icons.Package;
 annotation (
