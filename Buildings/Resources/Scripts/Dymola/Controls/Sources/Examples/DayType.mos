@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.Sources.Examples.DayType", startTime=-1.8144e+06, stopTime=1.8144e+06, method="dassl", resultFile="DayType");
+createPlot(id=3, position={55, 50, 1093, 833}, 
+y={"dayTypMon.y", "dayTypSat.y", "dayTypTwoWeeks.y"}, 
+range={-1900000.0, 1900000.0, 0.9500000000000001, 2.0500000000000003}, autoscale=true, autoerase=true, autoreplot=true, description=false, grid=true, color=true, online=false, filename="DayType.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}});
+
