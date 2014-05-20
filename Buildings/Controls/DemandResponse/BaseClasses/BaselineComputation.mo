@@ -24,6 +24,23 @@ protected
   Boolean historyComplete[Types.nDayTypes]
     "Flage, set to true when all history terms are built up for the given day type";
   Boolean firstCall "Set to true after first call";
+
+  Boolean _isEventDay
+    "Flag, switched to true when block gets an isEvenDay=true signal, and remaining true until midnight";
+  function baseline
+    input Modelica.SIunits.Power P[:]
+      "Vector of power consumed in each interval of the current time of day";
+    input Integer k "Number of history terms that have already been stored";
+    output Modelica.SIunits.Power y "Baseline power consumption";
+  algorithm
+    Modelica.Utilities.Streams.print("baseline k = " + String(k));
+    if k == 0 then
+      y := 0;
+    else
+      y :=sum(P[i] for i in 1:k)/k;
+    end if;
+  end baseline;
+
 initial equation
    P = zeros(Types.nDayTypes, nSam, nHis);
    iSam = 1;
@@ -34,31 +51,40 @@ initial equation
    firstCall = true;
 equation
   der(E) = PCon;
-  PPre = P[typeOfDay, iSam, iHis[typeOfDay]];
-
 algorithm
   when localActive then
     // Shift power consumption by one time unit
     if iSam == nSam then
-      iSam := 1;
-      if iHis[typeOfDay] == nHis then
-        iHis[typeOfDay] := 1;
-        historyComplete[typeOfDay] := true;
+      iSam :=1;
+      if pre(iHis[typeOfDay]) == nHis then
+        iHis[typeOfDay] :=1;
+        historyComplete[typeOfDay] :=true;
       else
-        iHis[typeOfDay] :=iHis[typeOfDay] + 1;
-        historyComplete[typeOfDay] :=historyComplete[typeOfDay];
+        iHis[typeOfDay] :=pre(iHis[typeOfDay]) + 1;
+        historyComplete[typeOfDay] :=pre(historyComplete[typeOfDay]);
       end if;
     else
-      iSam := if pre(firstCall) then iSam else iSam + 1;
-      iHis[typeOfDay] := iHis[typeOfDay];
-      historyComplete[typeOfDay] :=historyComplete[typeOfDay];
+      iSam :=if pre(firstCall) then pre(iSam) else pre(iSam) + 1;
+      iHis[typeOfDay] :=pre(iHis[typeOfDay]);
+      historyComplete[typeOfDay] :=pre(historyComplete[typeOfDay]);
     end if;
-    firstCall :=false;
+    if pre(firstCall) then
+      firstCall :=false;
+    else
+      firstCall :=false;
+    end if;
     // Update the history terms with the average power of the time interval.
-    P[pre(typeOfDay), pre(iSam), pre(iHis[typeOfDay])] := if (time-pre(tLast)) < 1E-5 then 0 else pre(E)/(time - pre(tLast));
+    P[pre(typeOfDay), pre(iSam), pre(iHis[typeOfDay])] :=if (time - pre(tLast)) < 1E-5 then 0
+       else pre(E)/(time - pre(tLast));
     // Initialized the energy consumed since the last sampling
     reinit(E, 0);
     tLast :=time;
+
+    // Compute the baseline prediction for the current hour,
+    // with k being equal to the number of stored history terms.
+    PPre :=baseline(P={P[typeOfDay, iSam, i] for i in 1:nHis},
+                    k=if historyComplete[typeOfDay] then nHis else pre(iHis[typeOfDay])-1);
+
   end when;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
