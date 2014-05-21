@@ -50,5 +50,38 @@ equation
             100}}),                                                                    graphics),
           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/DemandResponse/Examples/SineInput.mos"
         "Simulate and plot"),
-            experiment(StopTime=1.8144e+06));
+            experiment(StopTime=1.8144e+06),
+    Documentation(info="<html>
+<p>
+Model that demonstrates and tests the demand response model.
+Input to the model is a sinusoidal consumed electrical power
+which has been discretized using a sampler.
+Because of this discretization and because of the periodicity
+of the input signal, the demand response client will be able to 
+predict the load exactly.
+The demand response client also takes as an input signal
+the day type, a demand response signal and a load sheding signal.
+Every seventh day, there is a demand response signal. 
+</p>
+<p>
+After at least one initial working day and non-working days at 
+which no demand response is requested, the predicted power
+<code>client.PPre</code> exactly matches the consumed power 
+<code>client.PCon</code>, which is input to the model,
+if no demand response is requested.
+For the time intervals during which a demand response is requested,
+the predicted power is lower than the input signal <code>client.PCon</code>.
+</p>
+<p>
+This model has been added to the library to verify and demonstrate the correct implementation
+of the demand response client based on a simple scenario.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 20, 2014 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SineInput;

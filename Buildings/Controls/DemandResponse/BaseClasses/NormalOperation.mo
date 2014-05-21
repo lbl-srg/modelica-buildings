@@ -16,5 +16,18 @@ equation
           extent={{-70,64},{74,-54}},
           lineColor={0,0,255},
           textString="N")}),  Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics));
+          extent={{-100,-100},{100,100}}), graphics),
+    Documentation(info="<html>
+<p>
+Block that outputs the currently consumed electrical power,
+which is equal to its input signal.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 20, 2014 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end NormalOperation;

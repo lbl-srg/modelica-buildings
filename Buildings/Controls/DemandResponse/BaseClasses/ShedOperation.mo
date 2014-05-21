@@ -17,5 +17,17 @@ equation
           extent={{-70,64},{74,-54}},
           lineColor={0,0,255},
           textString="SH")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics));
+          extent={{-100,-100},{100,100}}), graphics),
+    Documentation(info="<html>
+<p>
+fixme: this is only a place holder.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 20, 2014 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ShedOperation;
