@@ -12,98 +12,27 @@ block BaselineComputation "Computes the baseline consumption"
     annotation (Placement(transformation(extent={{-120,50},{-100,30}}),
         iconTransformation(extent={{-120,50},{-100,30}})));
   parameter Integer nHis(min=1) = 10 "Number of history terms to be stored";
-  discrete Modelica.SIunits.Power P[Types.nDayTypes, nSam, nHis]
-    "Baseline power consumption";
-  Modelica.SIunits.Energy E "Consumed energy since last sample";
-
 protected
-  Modelica.SIunits.Time tLast "Time at which last sample occured";
-  Integer iSam "Index for power of the current sampling interval";
-  Integer iHis[Types.nDayTypes, nSam]
-    "Index for power of the current sampling history, for the currrent time interval";
-  Boolean historyComplete[Types.nDayTypes, nSam]
-    "Flage, set to true when all history terms are built up for the given day type and given time interval";
-  Boolean firstCall "Set to true after first call";
-
-  discrete Boolean _isEventDay
-    "Flag, switched to true when block gets an isEvenDay=true signal, and remaining true until midnight";
-  function baseline
-    input Modelica.SIunits.Power P[:]
-      "Vector of power consumed in each interval of the current time of day";
-    input Integer k "Number of history terms that have already been stored";
-    output Modelica.SIunits.Power y "Baseline power consumption";
-  algorithm
-    if k == 0 then
-      y := 0;
-    else
-      y :=sum(P[i] for i in 1:k)/k;
-    end if;
-  end baseline;
-
-initial equation
-   P = zeros(Types.nDayTypes, nSam, nHis);
-   iSam = 1;
-   iHis = ones(Types.nDayTypes, nSam);
-   for i in 1:Types.nDayTypes loop
-     for k in 1:nSam loop
-       historyComplete[i,k] = false;
-     end for;
-   end for;
-   firstCall = true;
-   _isEventDay = false;
+  Baseline basLin(final nSam=nSam, final nHis=nHis)
+    "Model that computes the base line"
+    annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
 equation
-  der(E) = PCon;
-algorithm
-  when localActive then
-    // Set flag for event day.
-    _isEventDay :=if pre(_isEventDay) and (not iSam == nSam) then true else isEventDay;
-    // Update iHis, which points to where the last interval's power
-    // consumption will be stored.
-    if pre(iHis[pre(typeOfDay), pre(iSam)]) == nHis then
-      historyComplete[pre(typeOfDay), pre(iSam)] :=true;
-      iHis[pre(typeOfDay), pre(iSam)] :=1;
-    end if;
-
-    // Update iSam
-    if pre(iSam) == nSam then
-      // We reached midnight. Reset iSam so that it points to the first sampling interval.
-      iSam :=1;
-    else
-      // Increment iSam
-      iSam :=if pre(firstCall) then pre(iSam) else pre(iSam) + 1;
-    end if;
-    // Set flag for first call to false.
-    if pre(firstCall) then
-      firstCall :=false;
-    end if;
-    // Update the history terms with the average power of the time interval,
-    // unless we have an event day.
-    // If we received a signal that there is an event day, then
-    // store the power consumption during the interval immediately before the signal,
-    // and then don't store any more results until the first interval after midnight past.
-    // We use the pre() operator because the past sampling interval can still be
-    // stored if we switch right now to an event day.
-    if not pre(_isEventDay) then
-      if (time - pre(tLast)) > 1E-5 then
-        P[pre(typeOfDay), pre(iSam), pre(iHis[pre(typeOfDay), pre(iSam)])] := pre(E)/(time - pre(tLast));
-        iHis[pre(typeOfDay), pre(iSam)] := mod(pre(iHis[pre(typeOfDay), pre(iSam)]), nHis)+1;
-      end if;
-    end if;
-    if not _isEventDay then
-      // Initialized the energy consumed since the last sampling
-      reinit(E, 0);
-      tLast :=time;
-    end if;
-
-    // Compute the baseline prediction for the current hour,
-    // with k being equal to the number of stored history terms.
-    // If in a later implementation, we want more terms into the future, then
-    // a loop should be added over for i = iSam...upper_bound, whereas
-    // the loop needs to wrap around nSam.
-    PPre :=baseline(P={P[typeOfDay, iSam, i] for i in 1:nHis},
-                    k=if pre(historyComplete[typeOfDay, iSam]) then nHis else pre(iHis[typeOfDay, iSam])-1);
-
-  end when;
+  connect(basLin.typeOfDay, typeOfDay) annotation (Line(
+      points={{-14,10},{-60,10},{-60,80},{-110,80}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(isEventDay, basLin.isEventDay) annotation (Line(
+      points={{-110,40},{-64,40},{-64,5},{-14,5}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(basLin.PCon, PCon) annotation (Line(
+      points={{-14,6.66134e-16},{-62,6.66134e-16},{-62,-90},{-120,-90}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(basLin.PPre, PPre) annotation (Line(
+      points={{9,6.66134e-16},{56,6.66134e-16},{56,-80},{110,-80}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
                    graphics={Text(
