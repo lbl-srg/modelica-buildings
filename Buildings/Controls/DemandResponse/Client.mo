@@ -2,9 +2,13 @@ within Buildings.Controls.DemandResponse;
 model Client "Demand response client"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 
-  parameter Modelica.SIunits.Time tCycle = 24*3600 "Cycle time";
-  parameter Modelica.SIunits.Time tSample=3600 "Sample period";
-  final parameter Integer nSam = integer(floor((tCycle+1E-4)/tSample))
+  parameter Modelica.SIunits.Time tPeriod = 24*3600 "Period, generally one day";
+  parameter Modelica.SIunits.Time tSample=3600
+    "Sample period, generally 900 or 3600 seconds";
+  parameter Integer nHis(min=1) = 10
+    "Number of history terms to be stored for baseline computation";
+
+  final parameter Integer nSam = integer(floor((tPeriod+1E-4*tSample)/tSample))
     "Number of samples in a day";
 
   Buildings.Controls.Interfaces.DayTypeInput typeOfDay
@@ -30,13 +34,13 @@ model Client "Demand response client"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Modelica.StateGraph.InitialStep initialStep
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.StateGraph.Transition transition
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  DemandResponse.BaseClasses.BaselineComputation comBasLin(       nSam=nSam, nIn=3)
-    "Compute the baseline"
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+  DemandResponse.BaseClasses.BaselineComputation comBasLin(       nSam=nSam, nIn=3,
+    nHis=nHis) "Compute the baseline"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.StateGraph.Transition t1 "State transition" annotation (Placement(
         transformation(
@@ -70,11 +74,11 @@ model Client "Demand response client"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 equation
   connect(initialStep.outPort[1], transition.inPort) annotation (Line(
-      points={{-59.5,70},{-34,70}},
+      points={{-59.5,80},{-34,80}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(transition.outPort, comBasLin.inPort[1]) annotation (Line(
-      points={{-28.5,70},{6,70},{6,50.5},{19,50.5},{19,50.6667}},
+      points={{-28.5,80},{6,80},{6,50.5},{19,50.5},{19,50.6667}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(t1.inPort, comBasLin.outPort[1]) annotation (Line(
@@ -165,5 +169,32 @@ equation
     Icon(graphics={                      Text(
           extent={{-70,54},{74,-64}},
           lineColor={0,0,255},
-          textString="DR")}));
+          textString="DR")}),
+    Documentation(info="<html>
+<p>
+Model for a demand response client.
+This model takes as a parameter the sampling time, which is generally
+1 hour or 15 minutes.
+Input to the model are the currently consumed power, the week of the day,
+which is of type
+<a href=\"modelica://Buildings.Controls.Types.Day\">
+Buildings.Controls.Types.Day</a>,
+a boolean signal that indicates whether it is an event day,
+and a signal that if <code>true</code>, causes the load to be shed.
+Output of the model is the prediction of the power that will be consumed
+in the current sampling interval, i.e., generally in the next 1 hour or the
+next 15 minutes.
+</p>
+<p>
+The baseload prediction is computed in
+<a href=\"modelica://Buildings.Controls.DemandResponse.BaseClasses.BaselineComputation\">
+Buildings.Controls.DemandResponse.BaseClasses.BaselineComputation</a>.
+</html>", revisions="<html>
+<ul>
+<li>
+March 20, 2014 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Client;
