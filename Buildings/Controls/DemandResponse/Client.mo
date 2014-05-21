@@ -39,7 +39,9 @@ model Client "Demand response client"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.StateGraph.Transition transition
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  DemandResponse.BaseClasses.BaselineComputation comBasLin(       nSam=nSam, nIn=3,
+  BaseClasses.BaselinePrediction comBasLin(
+    nSam=nSam,
+    nIn=3,
     nHis=nHis) "Compute the baseline"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.StateGraph.Transition t1 "State transition" annotation (Placement(

@@ -1,5 +1,5 @@
 within Buildings.Controls.DemandResponse.BaseClasses;
-block BaselineComputation "Computes the baseline consumption"
+block BaselinePrediction "Predicts the baseline consumption"
   extends Buildings.Controls.DemandResponse.BaseClasses.PartialDemandResponse;
 
   Buildings.Controls.Interfaces.DayTypeInput typeOfDay
@@ -13,8 +13,8 @@ block BaselineComputation "Computes the baseline consumption"
         iconTransformation(extent={{-120,50},{-100,30}})));
   parameter Integer nHis(min=1) = 10 "Number of history terms to be stored";
 protected
-  Baseline basLin(final nSam=nSam, final nHis=nHis)
-    "Model that computes the base line"
+  .Buildings.Controls.DemandResponse.BaselinePrediction basLin(final nSam=nSam,
+      final nHis=nHis) "Model that computes the base line"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
 equation
   connect(basLin.typeOfDay, typeOfDay) annotation (Line(
@@ -73,4 +73,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
-end BaselineComputation;
+end BaselinePrediction;

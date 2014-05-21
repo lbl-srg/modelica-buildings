@@ -1,5 +1,5 @@
 within Buildings.Controls.DemandResponse;
-block Baseline "Block that computes the baseline consumption"
+block BaselinePrediction "Block that computes the baseline consumption"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Integer nSam = 24
     "Number of intervals in a day for which baseline is computed";
@@ -162,4 +162,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
-end Baseline;
+end BaselinePrediction;
