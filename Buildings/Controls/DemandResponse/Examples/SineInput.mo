@@ -5,7 +5,7 @@ model SineInput
   // fixme: scaling factor for easier debugging
   parameter Modelica.SIunits.Time tPeriod = 24*3600 "Period";
   parameter Modelica.SIunits.Time tSample = 3600 "Sampling period";
-  Client client(tSample=tSample, tPeriod=24*3600) "Demand response client"
+  BaselinePrediction baseLoad "Baseload prediction"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   replaceable Modelica.Blocks.Sources.Cosine PCon(
     amplitude=0.5,
@@ -25,24 +25,20 @@ model SineInput
     "Sampler to turn PCon into a piece-wise constant signal. This makes it easier to verify the results"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation
-  connect(client.isEventDay, client.shed) annotation (Line(
-      points={{19,4},{0,4},{0,-6},{18,-6}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(PCon.y, sampler.u) annotation (Line(
       points={{-59,-30},{-42,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sampler.y, client.PCon) annotation (Line(
+  connect(sampler.y, baseLoad.PCon) annotation (Line(
       points={{-19,-30},{0,-30},{0,6.66134e-16},{18,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dayType.y, client.typeOfDay) annotation (Line(
-      points={{-19,10},{0,10},{0,8},{19,8}},
+  connect(dayType.y, baseLoad.typeOfDay) annotation (Line(
+      points={{-19,10},{18,10}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(tri.y, client.shed) annotation (Line(
-      points={{-19,50},{-10,50},{-10,4},{0,4},{0,-6},{18,-6}},
+  connect(baseLoad.isEventDay, tri.y) annotation (Line(
+      points={{18,5},{0,5},{0,50},{-19,50}},
       color={255,0,255},
       smooth=Smooth.None));
   annotation (
@@ -57,24 +53,21 @@ Model that demonstrates and tests the demand response model.
 Input to the model is a sinusoidal consumed electrical power
 which has been discretized using a sampler.
 Because of this discretization and because of the periodicity
-of the input signal, the demand response client will be able to 
+of the input signal, the baseline prediction model will be able to 
 predict the load exactly.
-The demand response client also takes as an input signal
-the day type, a demand response signal and a load sheding signal.
+The baseline prediction model also takes as an input signal
+the day type, and a demand response signal.
 Every seventh day, there is a demand response signal. 
 </p>
 <p>
 After at least one initial working day and non-working days at 
 which no demand response is requested, the predicted power
 <code>client.PPre</code> exactly matches the consumed power 
-<code>client.PCon</code>, which is input to the model,
-if no demand response is requested.
-For the time intervals during which a demand response is requested,
-the predicted power is lower than the input signal <code>client.PCon</code>.
+<code>client.PCon</code>.
 </p>
 <p>
 This model has been added to the library to verify and demonstrate the correct implementation
-of the demand response client based on a simple scenario.
+of the baseline prediction model based on a simple input scenario.
 </p>
 </html>", revisions="<html>
 <ul>

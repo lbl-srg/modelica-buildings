@@ -1,7 +1,7 @@
 simulateModel("Buildings.Controls.DemandResponse.Examples.SineInput", stopTime=1.8144e+06, method="dassl", resultFile="DR_SineInput");
 createPlot(id=2, position={51, 26, 753, 391}, 
-y={"client.PCon", "client.PPre"}, 
+y={"baseLoad.PCon", "baseLoad.PPre"}, 
 range={0.0, 1900000.0, -0.5, 1.5}, autoscale=true, autoerase=true, autoreplot=true, description=false, grid=true, color=true, online=false, filename="SineInput.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}});
 createPlot(id=2, position={51, 26, 753, 192}, 
-y={"client.typeOfDay", "client.isEventDay"}, 
+y={"baseLoad.typeOfDay", "baseLoad.isEventDay"}, 
 range={0.0, 1900000.0, -1.0, 3.0}, autoscale=true, autoerase=true, autoreplot=true, description=false, grid=true, color=true, online=false, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}});

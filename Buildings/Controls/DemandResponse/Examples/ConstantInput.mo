@@ -15,7 +15,7 @@ except that the input <code>client.PCon</code> is a constant signal.
 </p>
 <p>
 This model has been added to the library to verify and demonstrate the correct implementation
-of the demand response client based on a simple scenario.
+of the baseline prediction model based on a simple input scenario.
 </p>
 </html>", revisions="<html>
 <ul>
