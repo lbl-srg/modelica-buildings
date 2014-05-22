@@ -1,8 +1,15 @@
 within Buildings.Controls.DemandResponse;
 block BaselinePrediction "Block that computes the baseline consumption"
   extends Modelica.Blocks.Icons.DiscreteBlock;
+
   parameter Integer nSam = 24
     "Number of intervals in a day for which baseline is computed";
+
+  parameter Integer nHis(min=1) = 10 "Number of history terms to be stored";
+
+  parameter Buildings.Controls.DemandResponse.Types.PredictionModel
+    predictionModel = Types.PredictionModel.WeatherRegression
+    "Load prediction model";
 
   Modelica.Blocks.Interfaces.RealInput TOut(unit="K") "Outside air temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
@@ -16,7 +23,7 @@ block BaselinePrediction "Block that computes the baseline consumption"
     "Predicted power consumption for the current time interval"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.Interfaces.DayTypeInput typeOfDay
+  Buildings.Controls.Interfaces.DayTypeInput typeOfDay(fixed=true,start=Buildings.Controls.Types.Day.WorkingDay)
     "If true, this day remains an event day until midnight" annotation (
       Placement(transformation(extent={{-140,120},{-100,80}}),
         iconTransformation(extent={{-140,120},{-100,80}})));
@@ -24,23 +31,6 @@ block BaselinePrediction "Block that computes the baseline consumption"
   Modelica.Blocks.Interfaces.BooleanInput isEventDay
     "If true, this day remains an event day until midnight"
     annotation (Placement(transformation(extent={{-140,70},{-100,30}})));
-  parameter Integer nHis(min=1) = 10 "Number of history terms to be stored";
-
-  parameter Buildings.Controls.DemandResponse.Types.PredictionModel
-    predictionModel = Types.PredictionModel.WeatherRegression
-    "Load prediction model";
-
-  discrete Modelica.SIunits.Power P[Buildings.Controls.Types.nDayTypes,nSam,nHis]
-    "Baseline power consumption";
-  // The temperature history is set to a zero array if it is not needed.
-  // This significantly reduces the size of the code that needs to be compiled.
-  discrete Modelica.SIunits.Temperature T[
-   if predictionModel == Types.PredictionModel.WeatherRegression then Buildings.Controls.Types.nDayTypes else 0,
-   if predictionModel == Types.PredictionModel.WeatherRegression then nSam else 0,
-   if predictionModel == Types.PredictionModel.WeatherRegression then nHis else 0]
-    "Temperature history";
-
-  Modelica.SIunits.Energy E "Consumed energy since last sample";
 
 protected
   parameter Modelica.SIunits.Time samplePeriod=86400/nSam
@@ -49,15 +39,29 @@ protected
     "Time when the simulation started";
   output Boolean sampleTrigger "True, if sample time instant";
 
-  Modelica.SIunits.Time tLast "Time at which last sample occured";
-  Integer iSam "Index for power of the current sampling interval";
-  Integer iHis[Buildings.Controls.Types.nDayTypes,nSam]
+  output Modelica.SIunits.Time tLast "Time at which last sample occured";
+  output Integer iSam "Index for power of the current sampling interval";
+
+  discrete output Modelica.SIunits.Power P[Buildings.Controls.Types.nDayTypes,nSam,nHis]
+    "Baseline power consumption";
+  // The temperature history is set to a zero array if it is not needed.
+  // This significantly reduces the size of the code that needs to be compiled.
+
+  discrete output Modelica.SIunits.Temperature T[
+   if predictionModel == Types.PredictionModel.WeatherRegression then Buildings.Controls.Types.nDayTypes else 0,
+   if predictionModel == Types.PredictionModel.WeatherRegression then nSam else 0,
+   if predictionModel == Types.PredictionModel.WeatherRegression then nHis else 0]
+    "Temperature history";
+
+  output Modelica.SIunits.Energy E "Consumed energy since last sample";
+
+  output Integer iHis[Buildings.Controls.Types.nDayTypes,nSam]
     "Index for power of the current sampling history, for the currrent time interval";
-  Boolean historyComplete[Buildings.Controls.Types.nDayTypes,nSam]
+  output Boolean historyComplete[Buildings.Controls.Types.nDayTypes,nSam]
     "Flage, set to true when all history terms are built up for the given day type and given time interval";
   output Boolean firstCall "Set to true after first call";
 
-  discrete Boolean _isEventDay
+  discrete output Boolean _isEventDay
     "Flag, switched to true when block gets an isEvenDay=true signal, and remaining true until midnight";
 
 initial equation
@@ -66,7 +70,11 @@ initial equation
     nSam,
     nHis);
    iSam = 1;
+  T = zeros(size(T,1), size(T,2), size(T,3));
+  E = 0;
+  tLast = time;
   iHis = ones(Buildings.Controls.Types.nDayTypes, nSam);
+  //typeOfDay = Buildings.Controls.Types.Day.WorkingDay;
   for i in 1:Buildings.Controls.Types.nDayTypes loop
      for k in 1:nSam loop
        historyComplete[i,k] = false;
