@@ -38,11 +38,11 @@ model ClientLBNL90
   Modelica.Blocks.Math.Add errorWeather(k2=-1)
     "Difference between predicted minus actual load"
     annotation (Placement(transformation(extent={{40,-54},{60,-34}})));
-  Modelica.Blocks.Math.Gain relErrAverage(k=1/45000)
-    "Relative error, normalized by the baseline consumption"
+  Modelica.Blocks.Math.Gain relErrAverage(k=1/400000)
+    "Relative error, normalized by a value that is close to the peak power consumption"
     annotation (Placement(transformation(extent={{70,6},{90,26}})));
-  Modelica.Blocks.Math.Gain relErrWeather(k=1/45000)
-    "Relative error, normalized by the baseline consumption"
+  Modelica.Blocks.Math.Gain relErrWeather(k=1/400000)
+    "Relative error, normalized by a value that is close to the peak power consumption"
     annotation (Placement(transformation(extent={{72,-54},{92,-34}})));
 equation
   connect(clientAverage.isEventDay, clientAverage.shed) annotation (Line(
