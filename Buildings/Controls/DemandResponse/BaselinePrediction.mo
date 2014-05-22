@@ -27,11 +27,17 @@ block BaselinePrediction "Block that computes the baseline consumption"
   parameter Integer nHis(min=1) = 10 "Number of history terms to be stored";
 
   parameter Buildings.Controls.DemandResponse.Types.PredictionModel
-    predictionModel = Types.WeatherRegression "Load prediction model";
+    predictionModel = Types.PredictionModel.WeatherRegression
+    "Load prediction model";
 
   discrete Modelica.SIunits.Power P[Buildings.Controls.Types.nDayTypes,nSam,nHis]
     "Baseline power consumption";
-  discrete Modelica.SIunits.Temperature T[Buildings.Controls.Types.nDayTypes,nSam,nHis]
+  // The temperature history is set to a zero array if it is not needed.
+  // This significantly reduces the size of the code that needs to be compiled.
+  discrete Modelica.SIunits.Temperature T[
+   if predictionModel == Types.PredictionModel.WeatherRegression then Buildings.Controls.Types.nDayTypes else 0,
+   if predictionModel == Types.PredictionModel.WeatherRegression then nSam else 0,
+   if predictionModel == Types.PredictionModel.WeatherRegression then nHis else 0]
     "Temperature history";
 
   Modelica.SIunits.Energy E "Consumed energy since last sample";
@@ -106,7 +112,9 @@ algorithm
     if not pre(_isEventDay) then
       if (time - pre(tLast)) > 1E-5 then
         P[pre(typeOfDay), pre(iSam), pre(iHis[pre(typeOfDay), pre(iSam)])] := pre(E)/(time - pre(tLast));
-        T[pre(typeOfDay), pre(iSam), pre(iHis[pre(typeOfDay), pre(iSam)])] := pre(TOut);
+        if predictionModel == Types.PredictionModel.WeatherRegression then
+          T[pre(typeOfDay), pre(iSam), pre(iHis[pre(typeOfDay), pre(iSam)])] := pre(TOut);
+        end if;
         iHis[pre(typeOfDay), pre(iSam)] := mod(pre(iHis[pre(typeOfDay), pre(iSam)]), nHis)+1;
       end if;
     end if;
