@@ -1,3 +1,4 @@
-SineInput
-ConstantInput
 ClientLBNL90
+ConstantInput
+LinearInput
+SineInput

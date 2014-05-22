@@ -8,7 +8,11 @@ model Client "Demand response client"
   parameter Integer nHis(min=1) = 10
     "Number of history terms to be stored for baseline computation";
 
-  final parameter Integer nSam = integer(floor((tPeriod+1E-4*tSample)/tSample))
+  parameter Buildings.Controls.DemandResponse.Types.PredictionModel
+    predictionModel = Types.PredictionModel.WeatherRegression
+    "Load prediction model";
+
+  final parameter Integer nSam = integer((tPeriod+1E-4*tSample)/tSample)
     "Number of samples in a day";
 
   Buildings.Controls.Interfaces.DayTypeInput typeOfDay
@@ -22,12 +26,18 @@ model Client "Demand response client"
         iconTransformation(extent={{-120,50},{-100,30}})));
    Modelica.Blocks.Interfaces.RealInput PCon(unit="W")
     "Consumed electrical power"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
 
   Modelica.Blocks.Interfaces.BooleanInput shed
-    "Signal, true if load needs to be shed"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+    "Signal, true if load needs to be shed at the current time"
+    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}}),
+        iconTransformation(extent={{-120,-50},{-100,-30}})));
+
+  Modelica.Blocks.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
+    "Outside air temperature"
+   annotation (Placement(transformation(extent={{-120,-90},{-100,-70}}),
+        iconTransformation(extent={{-120,-90},{-100,-70}})));
 
   Modelica.Blocks.Interfaces.RealOutput PPre(unit="W")
     "Predicted power consumption for the current time interval"
@@ -40,9 +50,10 @@ model Client "Demand response client"
   Modelica.StateGraph.Transition transition
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   BaseClasses.BaselinePrediction comBasLin(
-    nSam=nSam,
+    final nSam=nSam,
     nIn=3,
-    nHis=nHis) "Compute the baseline"
+    final nHis=nHis,
+    final predictionModel=predictionModel) "Compute the baseline"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.StateGraph.Transition t1 "State transition" annotation (Placement(
         transformation(
@@ -92,8 +103,7 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(comBasLin.PCon, PCon) annotation (Line(
-      points={{19,42},{-20,42},{-20,36},{-94,36},{-94,1.11022e-15},{-120,
-          1.11022e-15}},
+      points={{19,46},{-64,46},{-64,36},{-94,36},{-94,4.44089e-16},{-110,4.44089e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(comBasLin.PPre,nor. PCon) annotation (Line(
@@ -146,7 +156,7 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(shed, t3.condition) annotation (Line(
-      points={{-120,-60},{-80,-60},{-80,-10},{-2,-10},{-2,-18}},
+      points={{-110,-40},{-80,-40},{-80,-10},{-2,-10},{-2,-18}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(switch1.u1, she.PCon) annotation (Line(
@@ -165,6 +175,10 @@ equation
       points={{19,58},{-92,58},{-92,80},{-110,80}},
       color={0,127,0},
       smooth=Smooth.None));
+  connect(comBasLin.TOut, TOut) annotation (Line(
+      points={{19,42},{-60,42},{-60,-80},{-110,-80}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (                                 Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
       experiment(StopTime=7200),
@@ -177,8 +191,8 @@ equation
 Model for a demand response client.
 This model takes as a parameter the sampling time, which is generally
 1 hour or 15 minutes.
-Input to the model are the currently consumed power, the week of the day,
-which is of type
+Input to the model are the currently consumed power, the current temperature,
+the week of the day, which is of type
 <a href=\"modelica://Buildings.Controls.Types.Day\">
 Buildings.Controls.Types.Day</a>,
 a boolean signal that indicates whether it is an event day,

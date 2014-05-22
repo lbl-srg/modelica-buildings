@@ -1,45 +1,49 @@
 within Buildings.Controls.DemandResponse.Examples;
 model SineInput
   "Demand response client with sinusoidal input for actual power consumption"
-  extends Modelica.Icons.Example;
+  extends
+    Buildings.Controls.DemandResponse.Examples.BaseClasses.PartialSimpleTestCase;
   // fixme: scaling factor for easier debugging
-  parameter Modelica.SIunits.Time tPeriod = 24*3600 "Period";
-  parameter Modelica.SIunits.Time tSample = 3600 "Sampling period";
-  BaselinePrediction baseLoad "Baseload prediction"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  replaceable Modelica.Blocks.Sources.Cosine PCon(
+  Modelica.Blocks.Sources.Cosine PCon(
     amplitude=0.5,
     offset=0.5,
     freqHz=1/tPeriod,
-    phase=3.1415926535898) constrainedby Modelica.Blocks.Interfaces.SO
-    "Measured power consumption"
+    phase=3.1415926535898) "Measured power consumption"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Modelica.Blocks.Sources.BooleanPulse  tri(
-    startTime=0.5*tPeriod,
-    width=4/24*100/7,
-    period=7*tPeriod) "Sample trigger"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Sources.DayType dayType "Outputs the type of the day"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Modelica.Blocks.Discrete.Sampler sampler(samplePeriod=tSample)
     "Sampler to turn PCon into a piece-wise constant signal. This makes it easier to verify the results"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+  Modelica.Blocks.Sources.Constant TOffSet(k=293.15)
+    "Offset for outside air temperature"
+    annotation (Placement(transformation(extent={{-80,-96},{-60,-76}})));
+  Modelica.Blocks.Math.Gain gain(k=10)
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+  Modelica.Blocks.Math.Add add
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 equation
   connect(PCon.y, sampler.u) annotation (Line(
       points={{-59,-30},{-42,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sampler.y, baseLoad.PCon) annotation (Line(
-      points={{-19,-30},{0,-30},{0,6.66134e-16},{18,6.66134e-16}},
+  connect(add.u2, TOffSet.y) annotation (Line(
+      points={{-2,-86},{-59,-86}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dayType.y, baseLoad.typeOfDay) annotation (Line(
-      points={{-19,10},{18,10}},
-      color={0,127,0},
+  connect(gain.y, add.u1) annotation (Line(
+      points={{-19,-60},{-12,-60},{-12,-74},{-2,-74}},
+      color={0,0,127},
       smooth=Smooth.None));
-  connect(baseLoad.isEventDay, tri.y) annotation (Line(
-      points={{18,5},{0,5},{0,50},{-19,50}},
-      color={255,0,255},
+  connect(gain.u, PCon.y) annotation (Line(
+      points={{-42,-60},{-50,-60},{-50,-30},{-59,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(baseLoad.PCon, sampler.y) annotation (Line(
+      points={{38,0},{26,0},{26,-30},{-19,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(add.y, baseLoad.TOut) annotation (Line(
+      points={{21,-80},{32,-80},{32,-6},{38,-6}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

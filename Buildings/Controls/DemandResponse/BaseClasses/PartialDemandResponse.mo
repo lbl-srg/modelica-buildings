@@ -7,8 +7,8 @@ block PartialDemandResponse
 
   Modelica.Blocks.Interfaces.RealInput PCon(unit="W")
     "Currently consumed electrical power"
-    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
-        iconTransformation(extent={{-120,-90},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
+        iconTransformation(extent={{-120,-50},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealOutput PPre(unit="W")
     "Predicted power consumption for the current time interval"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));

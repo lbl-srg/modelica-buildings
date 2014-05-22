@@ -2,3 +2,6 @@ BaselinePrediction
 ShedOperation
 NormalOperation
 PartialDemandResponse
+average
+weatherRegression
+partialBaselinePrediction

@@ -5,10 +5,14 @@ model ClientLBNL90
   // fixme: scaling factor for easier debugging
   parameter Modelica.SIunits.Time tPeriod = 24*3600 "Period";
   parameter Modelica.SIunits.Time tSample = 900 "Sampling period";
-  Client client(tSample=tSample, tPeriod=24*3600) "Demand response client"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+  Client clientAverage(
+    tSample=tSample,
+    tPeriod=24*3600,
+    predictionModel=Buildings.Controls.DemandResponse.Types.PredictionModel.Average)
+    "Demand response client"
+    annotation (Placement(transformation(extent={{8,40},{28,60}})));
   Sources.DayType dayType "Outputs the type of the day"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-52,60},{-32,80}})));
   Modelica.Blocks.Sources.CombiTimeTable bui90(
     tableOnFile=true,
     tableName="b90",
@@ -17,42 +21,97 @@ model ClientLBNL90
     fileName=ModelicaServices.ExternalReferences.loadResource(
       "modelica://Buildings/Resources/Data/Controls/DemandResponse/Examples/B90_DR_Data.mos"),
     columns={2,3,4}) "LBNL building 90 data"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-92,0},{-72,20}})));
 
   Modelica.Blocks.Logical.GreaterThreshold drSig(threshold=0.5)
     "Demand response signal"
-    annotation (Placement(transformation(extent={{-40,-6},{-20,14}})));
-  Modelica.Blocks.Math.Add err(k2=-1)
+    annotation (Placement(transformation(extent={{-52,34},{-32,54}})));
+  Modelica.Blocks.Math.Add errorAverage(k2=-1)
     "Difference between predicted minus actual load"
-    annotation (Placement(transformation(extent={{60,-34},{80,-14}})));
+    annotation (Placement(transformation(extent={{40,6},{60,26}})));
+  Client clientWeather(
+    tSample=tSample,
+    tPeriod=24*3600,
+    predictionModel=Buildings.Controls.DemandResponse.Types.PredictionModel.WeatherRegression)
+    "Demand response client with weather regression model"
+    annotation (Placement(transformation(extent={{8,-20},{28,0}})));
+  Modelica.Blocks.Math.Add errorWeather(k2=-1)
+    "Difference between predicted minus actual load"
+    annotation (Placement(transformation(extent={{40,-54},{60,-34}})));
+  Modelica.Blocks.Math.Gain relErrAverage(k=1/45000)
+    "Relative error, normalized by the baseline consumption"
+    annotation (Placement(transformation(extent={{70,6},{90,26}})));
+  Modelica.Blocks.Math.Gain relErrWeather(k=1/45000)
+    "Relative error, normalized by the baseline consumption"
+    annotation (Placement(transformation(extent={{72,-54},{92,-34}})));
 equation
-  connect(client.isEventDay, client.shed) annotation (Line(
-      points={{19,4},{0,4},{0,-6},{18,-6}},
+  connect(clientAverage.isEventDay, clientAverage.shed) annotation (Line(
+      points={{7,54},{-12,54},{-12,46},{7,46}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(dayType.y, client.typeOfDay) annotation (Line(
-      points={{-19,30},{0,30},{0,8},{19,8}},
+  connect(dayType.y, clientAverage.typeOfDay) annotation (Line(
+      points={{-31,70},{-12,70},{-12,58},{7,58}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(bui90.y[2], client.PCon) annotation (Line(
-      points={{-59,-30},{-12,-30},{-12,0},{18,0}},
+  connect(bui90.y[2], clientAverage.PCon) annotation (Line(
+      points={{-71,10},{-24,10},{-24,50},{7,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(drSig.u, bui90.y[3]) annotation (Line(
-      points={{-42,4},{-52,4},{-52,-30},{-59,-30}},
+      points={{-54,44},{-64,44},{-64,10},{-71,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(drSig.y, client.shed) annotation (Line(
-      points={{-19,4},{0,4},{0,-6},{18,-6}},
+  connect(drSig.y, clientAverage.shed) annotation (Line(
+      points={{-31,44},{-12,44},{-12,46},{7,46}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(client.PPre, err.u1) annotation (Line(
-      points={{41,0},{48,0},{48,-18},{58,-18}},
+  connect(clientAverage.PPre, errorAverage.u1) annotation (Line(
+      points={{29,50},{34,50},{34,22},{38,22}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(err.u2, client.PCon) annotation (Line(
-      points={{58,-30},{-12,-30},{-12,0},{18,0},{18,6.66134e-16}},
+  connect(errorAverage.u2, clientAverage.PCon) annotation (Line(
+      points={{38,10},{-24,10},{-24,50},{7,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(clientWeather.isEventDay, clientWeather.shed) annotation (Line(
+      points={{7,-6},{-12,-6},{-12,-14},{7,-14}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(dayType.y, clientWeather.typeOfDay) annotation (Line(
+      points={{-31,70},{-12,70},{-12,-2},{7,-2}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(bui90.y[2], clientWeather.PCon) annotation (Line(
+      points={{-71,10},{-24,10},{-24,-10},{7,-10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(drSig.y, clientWeather.shed) annotation (Line(
+      points={{-31,44},{-12,44},{-12,-14},{7,-14}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(clientWeather.PPre, errorWeather.u1) annotation (Line(
+      points={{29,-10},{34,-10},{34,-38},{38,-38}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(errorWeather.u2, clientWeather.PCon) annotation (Line(
+      points={{38,-50},{-24,-50},{-24,-10},{7,-10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(clientAverage.TOut, bui90.y[1]) annotation (Line(
+      points={{7,42},{-8,42},{-8,10},{-71,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(clientWeather.TOut, bui90.y[1]) annotation (Line(
+      points={{7,-18},{-8,-18},{-8,10},{-71,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(relErrAverage.u, errorAverage.y) annotation (Line(
+      points={{68,16},{61,16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(relErrWeather.u, errorWeather.y) annotation (Line(
+      points={{70,-44},{61,-44}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
