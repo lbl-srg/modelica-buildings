@@ -48,7 +48,7 @@ This model computes the convection resistance in the pipes of a borehole segment
 with heigth <i>h<sub>Seg</sub></i>.
 </p>
 <p>
-The correlation of Dittus-Boelter is used to find the convection heat transfer coefficient as
+The correlation of Dittus-Boelter (1930) is used to find the convection heat transfer coefficient as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   Nu = 0.023 &nbsp; Re<sup>0.8</sup> &nbsp; Pr<sup>n</sup>,
@@ -61,7 +61,16 @@ We selected <i>n=0.35</i>, as the reference uses <i>n=0.4</i> for heating and
 <i>n=0.3</i> for cooling.
 Dittus-Boelter&apos;s correlation is valid for turbulent flow in cylindrical smooth pipe.
 </p>
-<!-- fixme: Dittus-Boelter requires a reference -->
++<h4>References</h4>
+<p>
+Dittus P.W. and L.M.K Boelter, (1930).
+<a href=\"http://dx.doi.org/10.1016/0735-1933(85)90003-X\">
+Heat transfer in automobile radiators
+of the tubular type</a>.
+<i>Univ Calif Pub Eng</i>, 2(13):443-461.
+(Reprinted in Int. J. Comm. Heat Mass Transf. 12 (1985), 3:22).
+DOI:10.1016/0735-1933(85)90003-X.
+</p>
 </html>", revisions="<html>
 <p>
 <ul>
