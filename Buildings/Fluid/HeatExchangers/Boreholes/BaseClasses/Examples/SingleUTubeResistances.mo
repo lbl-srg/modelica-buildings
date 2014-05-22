@@ -35,7 +35,6 @@ model SingleUTubeResistances "Model that tests the resistances in the borehole"
   parameter Real x(fixed=false) "Capacity location";
 
 initial algorithm
-   // fixme: Verify that Rgg is positive in this example.
   (Rgb, Rgg, RCondGro, x) :=
     Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances(
     hSeg=hSeg,
