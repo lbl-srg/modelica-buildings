@@ -39,6 +39,7 @@ protected
     "Time when the simulation started";
   output Boolean sampleTrigger "True, if sample time instant";
 
+  output Modelica.SIunits.Energy ELast "Energy at the last sample";
   output Modelica.SIunits.Time tLast "Time at which last sample occured";
   output Integer iSam "Index for power of the current sampling interval";
 
@@ -72,6 +73,7 @@ initial equation
    iSam = 1;
   T = zeros(size(T,1), size(T,2), size(T,3));
   E = 0;
+  ELast = 0;
   tLast = time;
   iHis = ones(Buildings.Controls.Types.nDayTypes, nSam);
   //typeOfDay = Buildings.Controls.Types.Day.WorkingDay;
@@ -119,7 +121,7 @@ algorithm
     // stored if we switch right now to an event day.
     if not pre(_isEventDay) then
       if (time - pre(tLast)) > 1E-5 then
-        P[pre(typeOfDay), pre(iSam), pre(iHis[pre(typeOfDay), pre(iSam)])] := pre(E)/(time - pre(tLast));
+        P[pre(typeOfDay), pre(iSam), pre(iHis[pre(typeOfDay), pre(iSam)])] := (pre(E)-pre(ELast))/(time - pre(tLast));
         if predictionModel == Types.PredictionModel.WeatherRegression then
           T[pre(typeOfDay), pre(iSam), pre(iHis[pre(typeOfDay), pre(iSam)])] := pre(TOut);
         end if;
@@ -128,8 +130,8 @@ algorithm
     end if;
     if not _isEventDay then
       // Initialized the energy consumed since the last sampling
-      reinit(E, 0);
-      tLast :=time;
+      ELast := pre(E);
+      tLast := time;
     end if;
 
     // Compute the baseline prediction for the current hour,
