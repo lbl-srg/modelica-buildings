@@ -1,5 +1,5 @@
 within Buildings.Electrical.PhaseSystems;
-package TwoConductor "Two conductors for Spot DC_AC1ph components"
+package TwoConductor "Two conductors for DC components"
   extends PartialPhaseSystem(phaseSystemName="TwoConductor", n=2, m=0);
 
 
