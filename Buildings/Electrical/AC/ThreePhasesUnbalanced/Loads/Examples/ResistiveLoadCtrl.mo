@@ -29,8 +29,8 @@ model ResistiveLoadCtrl
     V_nominal=110,
     mode=Buildings.Electrical.Types.CableMode.commercial,
     voltageLevel=Buildings.Electrical.Types.VoltageLevel.Low,
-    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu25
-        ()) annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
+    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu25())
+            annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
   ResistiveLoadP_N load(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     PlugPhase1=true,
@@ -47,8 +47,8 @@ model ResistiveLoadCtrl
     V_nominal=110,
     mode=Buildings.Electrical.Types.CableMode.commercial,
     voltageLevel=Buildings.Electrical.Types.VoltageLevel.Low,
-    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu25
-        ()) annotation (Placement(transformation(extent={{-46,-40},{-26,-20}})));
+    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu25())
+            annotation (Placement(transformation(extent={{-46,-40},{-26,-20}})));
 equation
   connect(const.y, load_ctrl.Pow3)      annotation (Line(
       points={{69,4.44089e-16},{60,4.44089e-16},{60,-6},{12,-6}},

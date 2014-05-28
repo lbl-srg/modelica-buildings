@@ -20,8 +20,7 @@ model Dynamic "Example that illustrates the use of dynamic loads"
   Buildings.Electrical.AC.OnePhase.Lines.Line              line(
     mode=Buildings.Electrical.Types.CableMode.commercial,
     l=100,
-    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu50
-        ())
+    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu50())
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP
                                              Load2(
@@ -33,14 +32,12 @@ model Dynamic "Example that illustrates the use of dynamic loads"
   Buildings.Electrical.AC.OnePhase.Lines.Line              line1(
     mode=Buildings.Electrical.Types.CableMode.commercial,
     l=500,
-    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu50
-        ())
+    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu50())
     annotation (Placement(transformation(extent={{-32,0},{-12,20}})));
   Buildings.Electrical.AC.OnePhase.Lines.Line              line2(
     mode=Buildings.Electrical.Types.CableMode.commercial,
     l=200,
-    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu50
-        ())
+    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu50())
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP Load3(
     pf=0.8,
