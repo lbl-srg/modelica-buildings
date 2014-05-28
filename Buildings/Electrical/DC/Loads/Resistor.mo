@@ -22,14 +22,28 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-Model of a linear resistor.
+Model of a linear DC resistor that can vary with respect to temperature.
 </p>
+<p>
+The model implements the Ohm's law
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+V = R(T) &sdot; i
+</p>
+<p>
+where the resistance <i>R(T)</i> can vary depending on the temperature <i>T</i>.
+</p>
+
 </html>",
  revisions="<html>
 <ul>
 <li>
 February 1, 2013, by Thierry S. Nouidui:<br/>
 First implementation.
+</li>
+<li>
+May 28, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
 </li>
 </ul>
 </html>"),

@@ -1,5 +1,5 @@
 within Buildings.Electrical.DC.Loads.Examples;
-model LinearizedLoad "Example model for resistor"
+model LinearizedLoad "Example model to check the linearized load model"
   import Buildings;
   extends Modelica.Icons.Example;
   Real error = (sen_nlin.S[1] - sen_lin.S[1])*100/sen_nlin.S[1];

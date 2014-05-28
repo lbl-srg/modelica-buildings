@@ -3,13 +3,16 @@ model Conductor "Model of a generic DC load"
     extends Buildings.Electrical.Interfaces.PartialLoad(redeclare package
       PhaseSystem = PhaseSystems.TwoConductor, redeclare Interfaces.Terminal_n
       terminal);
-    Modelica.SIunits.Voltage absDV;
+protected
+    Modelica.SIunits.Voltage absDV
+    "Absolute value of the voltage difference between the two conductors (used by the linearized model)";
 equation
+
   absDV = abs(terminal.v[1]-terminal.v[2]);
 
   if linear then
-    //terminal.i[1] + P*(2/(1.1*V_nominal) - (terminal.v[1]-terminal.v[2])/(1.1*V_nominal)^2) = 0;
 
+    // Linearized version of the model
     if absDV <= (8/9)*V_nominal then
       terminal.i[1] + P*(2/(0.8*V_nominal) - (terminal.v[1]-terminal.v[2])/(0.8*V_nominal)^2) = 0;
     elseif absDV >= (12/11)*V_nominal then
@@ -19,28 +22,119 @@ equation
     end if;
 
   else
+    // Full nonlinear version of the model
     PhaseSystem.activePower(terminal.v, terminal.i) + P = 0;
   end if;
+
+  // Since the connector is a two conductor, the sum of the currents ar the terminal
+  // is null
   sum(i) = 0;
   annotation (
     Documentation(info="<html>
 <p>
-Model of a constant conductive load.
+Model of a generic DC load. The load can be either constant or variable depending on the value of the 
+parameter <code>mode</code>.<br/>
+See the model <a href=\"modelica://Buildings.Electrical.Interfaces.PartialLoad\">Buildings.Electrical.Interfaces.PartialLoad</a>
+for more information.
+</p>
+
+<p>
+The model computes the current drawn from teh load based on the following equation
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+P = V &sdot; i
 </p>
 <p>
-The model computes the power as
-<code>P_nominal = v &nbsp; i</code>,
-where <i>v</i> is the voltage and <i>i</i> is the current.
+where <i>P</i> is the power, <i>V</i> is the voltage and <i>i</i> is the current.<br/>
+If the component consumes power, then <i>P &lt; 0</i>.
+If it feeds power into the electrical grid, then <i>P &gt; 0</i>.
+</p>
+
+<h4>Linearization</h4>
+<p>
+Consider the simple DC circuit shown in the Figure below
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/DC/Loads/simpleLoad.png\"/>
 </p>
 <p>
-If the component consumes power, then <code>P_nominal &lt; 0</code>.
-If it feeds power into the electrical grid, then <code>P_nominal &gt; 0</code>.
+where <i>V<sub>S</sub></i> is a constant voltage source, and <i>R</i> is the line resistance. 
+The load has a voltage <i>V</i> across its electrical pins and a current <i>i</i> is flowing through it.<br/>
+If the power consumption drawn by the load is prescribed by the variable <i>P<sub>LOAD</sub></i>,
+ the equation that describes the circuit is
 </p>
+<p align=\"center\" style=\"font-style:italic;\">
+V<sub>S</sub> - R &sdot; i - P<sub>LOAD</sub>/i = 0
+</p>
+<p>
+The unknown variable <i>i</i> appears into a nonlinear equation. This means that in order to compute the current 
+that is drawn by the load, a nonlinear equation has to be solved. If the number of loads increases (as typically 
+happens in real case examples) the number of nonlinear equations to be solved increases too, and the resulting system 
+of nonlinear equations can slow down the simulation. It is possible to avoid such a problem introducing a linearized 
+model.
+</p>
+
+<p>
+The first step to linearize the load model is to define its nominal voltage conditions <i>V<sub>nom</sub></i>, around which linearizing the equation.<br/>
+The constitutive equation of the load can be linearized around the nominal voltage condition <i>V<sub>nom</sub></i> as
+</p>
+
+<p align=\"center\" style=\"font-style:italic;\">
+i = P<sub>LOAD</sub>/V = P<sub>LOAD</sub>/V<sub>nom</sub> + (V - V<sub>nom</sub>)[&part; (P<sub>LOAD</sub>/V)/ &part;V ]<sub>V = V<sub>nom</sub></sub> 
++ &#8338;((V - V<sub>nom</sub>)<sup>2</sup>)
+</p>
+
+<p>
+that leads to the final linearized formulation
+</p>
+
+<p align=\"center\" style=\"font-style:italic;\">
+i &#8771; P<sub>LOAD</sub> (2/V<sub>nom</sub> - V/V<sub>nom</sub><sup>2</sup>)
+</p>
+
+<p>
+The linearized formulation approximates the load power consumption (or production), if the voltage of the load
+does not differ from the nominal voltage. A further approximation has been introduced to improve the
+apprizimation of the linearized model even if the voltage is far from the nominal condition.<br/>
+This piecewise linearized approximation instead of approximating the model just in the neighbor of the nominal
+voltage <i>V<sub>nom</sub></i>, introduces two new points where the model is approximated: <i>0.8 &sdot; V<sub>nom</sub></i>
+and <i>1.2 &sdot; V<sub>nom</sub></i>.
+</p>
+
+<p>
+<table summary=\"equations\" border = \"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collape;\">
+<tr><th>Equation</th><th>Condition</th></tr>
+<tr>
+<td>i &#8771; P<sub>LOAD</sub> (2/(0.8 &sdot; V<sub>nom</sub>) - V/(0.8 &sdot; V<sub>nom</sub><sup>2</sup>))</td>
+<td>V &lt; 8/9&sdot; V<sub>nom</sub></td>
+</tr>
+
+<tr>
+<td>i &#8771; P<sub>LOAD</sub> (2/(1.2 &sdot; V<sub>nom</sub>) - V/(1.2 &sdot; V<sub>nom</sub><sup>2</sup>))</td>
+<td>V &ge; 12/11&sdot; V<sub>nom</sub></td>
+</tr>
+
+<tr>
+<td>i &#8771; P<sub>LOAD</sub> (2/V<sub>nom</sub> - V/V<sub>nom</sub><sup>2</sup>)</td>
+<td>Otherwise</td>
+</tr>
+</table>
+</p>
+
+
 </html>", revisions="<html>
 <ul>
 <li>
 February 1, 2013, by Thierry S. Nouidui:<br/>
 First implementation.
+</li>
+<li>
+January 2014, by Marco Bonvini:<br/>
+Added linearized version of the model.
+</li>
+<li>
+May 28, 2014, by Marco Bonvini:<br/>
+Added and revised documentation.
 </li>
 </ul>
 </html>"),
@@ -64,7 +158,7 @@ First implementation.
             lineColor={0,0,0},
             textString="G=%G")}),
     Diagram(coordinateSystem(
-        preserveAspectRatio=true,
+        preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
         grid={2,2}), graphics={
           Line(points={{-96,0},{-70,0}}, color={0,0,255}),
