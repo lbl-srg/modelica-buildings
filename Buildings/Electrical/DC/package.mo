@@ -1,12 +1,27 @@
 within Buildings.Electrical;
-package DC "Package for analog direct current electrical circuits"
+package DC "Package for analog direct current (DC) electrical circuits"
   extends Modelica.Icons.Package;
+
+
+
+
+
+
+
 
 
   annotation (Documentation(info="<html>
 <p>
-Package with models for direct current systems.
+Package with models for direct current (DC) systems.<br/>
+The models contained in this package use the phase system <a href=\"modelica://Buildings.Electrical.PhaseSystems.TwoConductor\">Buildings.Electrical.PhaseSystems.TwoConductor</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 28, 2014, by Marco Bonvini:<br/>
+Added User's guide.
+</li>
+</ul>
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
           {100,100}}), graphics={
       Line(

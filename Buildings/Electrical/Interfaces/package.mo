@@ -20,4 +20,13 @@ package Interfaces "This package contains interfaces and generalized partial mod
 
 
 
+
+annotation (Documentation(revisions="<html>
+<ul>
+<li>
+May 15, 2014, by Marco Bonvini:<br/>
+Added User's guide.
+</li>
+</ul>
+</html>"));
 end Interfaces;
