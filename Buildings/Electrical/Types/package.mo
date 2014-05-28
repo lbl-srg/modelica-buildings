@@ -2,7 +2,6 @@ within Buildings.Electrical;
 package Types "This package contains new types used within the Electrical package"
 extends Modelica.Icons.Library;
 
-
 annotation (Documentation(revisions="<html>
 <ul>
 <li>
