@@ -39,7 +39,7 @@ package OnePhase "Single phase two connectors AC system"
 
 
   redeclare function divide
-  "Multiply two complex numbers represented by vectors x[2] and y[2]"
+  "Divide two complex numbers represented by vectors x[2] and y[2]"
     extends Modelica.Icons.Function;
     input Real x[2];
     input Real y[2];

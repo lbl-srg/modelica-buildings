@@ -14,6 +14,7 @@ model ACACTransformerFull
     "Rms voltage on side 2 of the transformer (secondary side)";
   parameter Modelica.SIunits.ApparentPower VAbase
     "Nominal power of the transformer";
+  parameter Modelica.SIunits.Frequency f(start=60) "Nominal frequency";
   parameter Buildings.Electrical.Types.PerUnit R1(min=0)
     "Resistance on side 1 of the transformer (pu)";
   parameter Buildings.Electrical.Types.PerUnit L1(min=0)
@@ -22,18 +23,30 @@ model ACACTransformerFull
     "Resistance on side 2 of the transformer (pu)";
   parameter Buildings.Electrical.Types.PerUnit L2(min=0)
     "Inductance on side 2 of the transformer (pu)";
+  parameter Boolean magEffects = false
+    "If =true introduce magnetization effects"
+    annotation(evaluate=true, Dialog(group="Magnetization"));
+  parameter Buildings.Electrical.Types.PerUnit Rm(min=0)
+    "Magnetization resistance (pu)" annotation(evaluate=true, Dialog(group="Magnetization", enable = magEffects));
+  parameter Buildings.Electrical.Types.PerUnit Lm(min=0)
+    "Magnetization inductance (pu)" annotation(evaluate=true, Dialog(group="Magnetization", enable = magEffects));
   parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
   Modelica.SIunits.Efficiency eta "Efficiency of the transformer";
   Modelica.SIunits.Power LossPower[2] "Loss power";
-//protected
-  Real N = Vhigh/Vlow "Winding ratio";
-  Modelica.SIunits.Impedance Zbase_high = Vhigh^2/VAbase
+protected
+  parameter Modelica.SIunits.AngularVelocity omega_n = 2*Modelica.Constants.pi*f;
+  parameter Real N = Vhigh/Vlow "Winding ratio";
+  parameter Modelica.SIunits.Resistance Rbase_high = Vhigh^2/VAbase
     "Base impedance of the primary side";
-  Modelica.SIunits.Impedance Zbase_low = Vlow^2/VAbase
+  parameter Modelica.SIunits.Resistance Rbase_low = Vlow^2/VAbase
     "Base impedance of the secondary side";
-  Modelica.SIunits.Impedance Z1[2] = Zbase_high*{R1, omega*L1};
-  Modelica.SIunits.Impedance Z2[2] = Zbase_low*{R2, omega*L2};
+  Modelica.SIunits.Impedance Z1[2] = {Rbase_high*R1, omega*L1*Rbase_high/omega_n};
+  Modelica.SIunits.Impedance Z2[2] = {Rbase_low*R2, omega*L2*Rbase_high/omega_n};
+  Modelica.SIunits.Impedance Zrm[2] = {Rbase_high*Rm, 0}
+    "Magnetization impedance - resistance";
+  Modelica.SIunits.Impedance Zlm[2] = {0, omega*Lm*Rbase_high/omega_n}
+    "Magnetization impedance - impedence";
   Modelica.SIunits.Voltage V1[2] "Voltage at the winding - primary side";
   Modelica.SIunits.Voltage V2[2] "Voltage at the winding - secondary side";
   Modelica.SIunits.Power Pow_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
@@ -42,7 +55,8 @@ model ACACTransformerFull
     "Apparent power terminal p";
   Modelica.SIunits.Power Sn = sqrt(Pow_n[1]^2 + Pow_n[2]^2)
     "Apparent power terminal n";
-  Modelica.SIunits.AngularVelocity omega;
+  Modelica.SIunits.AngularVelocity omega "Angular velocity";
+  Modelica.SIunits.Current Im[2] "Magnetization current";
 equation
   assert(sqrt(Pow_p[1]^2 + Pow_p[2]^2) <= VAbase*1.01,"The load power of transformer is higher than VAbase");
 
@@ -57,8 +71,17 @@ equation
 
   // Ideal transformation
   V2 = V1/N;
-  terminal_p.i[1] + terminal_n.i[1]*N = 0;
-  terminal_p.i[2] + terminal_n.i[2]*N = 0;
+  terminal_p.i[1] + (terminal_n.i[1] - Im[1])*N = 0;
+  terminal_p.i[2] + (terminal_n.i[2] - Im[2])*N = 0;
+
+  // Magnetization current
+  if magEffects then
+    Im = Buildings.Electrical.PhaseSystems.OnePhase.divide(V1, Zrm) +
+         Buildings.Electrical.PhaseSystems.OnePhase.divide(V1, Zlm);
+  else
+    Im[1] = 0;
+    Im[2] = 0;
+  end if;
 
   // Losses due to the impedance - primary side
   terminal_n.v = V1 + Buildings.Electrical.PhaseSystems.OnePhase.product(
