@@ -15,8 +15,8 @@ block BaselinePrediction "Block that computes the baseline consumption"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Modelica.Blocks.Interfaces.RealInput PCon(unit="W")
-    "Currently consumed electrical power"
+  Modelica.Blocks.Interfaces.RealInput ECon(unit="J")
+    "Consumed electrical energy"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput PPre(unit="W")
@@ -54,8 +54,6 @@ protected
    if predictionModel == Types.PredictionModel.WeatherRegression then nHis else 0]
     "Temperature history";
 
-  output Modelica.SIunits.Energy E "Consumed energy since last sample";
-
   output Integer iHis[Buildings.Controls.Types.nDayTypes,nSam]
     "Index for power of the current sampling history, for the currrent time interval";
   output Boolean historyComplete[Buildings.Controls.Types.nDayTypes,nSam]
@@ -72,7 +70,6 @@ initial equation
     nHis);
    iSam = 1;
   T = zeros(size(T,1), size(T,2), size(T,3));
-  E = 0;
   ELast = 0;
   tLast = time;
   iHis = ones(Buildings.Controls.Types.nDayTypes, nSam);
@@ -86,7 +83,6 @@ initial equation
    _isEventDay = false;
    simStart = time;// fixme: this should be a multiple of samplePeriod
 equation
-  der(E) = PCon;
   sampleTrigger = sample(simStart, samplePeriod);
 
 algorithm
@@ -121,7 +117,7 @@ algorithm
     // stored if we switch right now to an event day.
     if not pre(_isEventDay) then
       if (time - pre(tLast)) > 1E-5 then
-        P[pre(typeOfDay), pre(iSam), pre(iHis[pre(typeOfDay), pre(iSam)])] := (pre(E)-pre(ELast))/(time - pre(tLast));
+        P[pre(typeOfDay), pre(iSam), pre(iHis[pre(typeOfDay), pre(iSam)])] := (ECon-pre(ELast))/(time - pre(tLast));
         if predictionModel == Types.PredictionModel.WeatherRegression then
           T[pre(typeOfDay), pre(iSam), pre(iHis[pre(typeOfDay), pre(iSam)])] := pre(TOut);
         end if;
@@ -130,7 +126,7 @@ algorithm
     end if;
     if not _isEventDay then
       // Initialized the energy consumed since the last sampling
-      ELast := pre(E);
+      ELast := ECon;
       tLast := time;
     end if;
 

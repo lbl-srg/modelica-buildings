@@ -36,7 +36,7 @@ equation
       points={{-110,40},{-64,40},{-64,5},{-14,5}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(basLin.PCon, PCon) annotation (Line(
+  connect(basLin.ECon, ECon) annotation (Line(
       points={{-14,6.66134e-16},{-62,6.66134e-16},{-62,-50},{-120,-50}},
       color={0,0,127},
       smooth=Smooth.None));

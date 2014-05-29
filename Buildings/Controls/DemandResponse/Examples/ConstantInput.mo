@@ -13,6 +13,9 @@ model ConstantInput
     annotation (Placement(transformation(extent={{-80,-96},{-60,-76}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+  Modelica.Blocks.Continuous.Integrator integrator
+    "Integrator to compute energy from power"
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 equation
   connect(add.u2,TOffSet. y) annotation (Line(
       points={{-2,-86},{-59,-86}},
@@ -30,8 +33,12 @@ equation
       points={{-42,-60},{-50,-60},{-50,-30},{-59,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(PCon.y, baseLoad.PCon) annotation (Line(
-      points={{-59,-30},{20,-30},{20,0},{38,0}},
+  connect(PCon.y, integrator.u) annotation (Line(
+      points={{-59,-30},{-22,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(integrator.y, baseLoad.ECon) annotation (Line(
+      points={{1,-30},{12,-30},{12,0},{38,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

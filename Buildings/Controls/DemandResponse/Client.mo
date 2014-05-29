@@ -24,7 +24,7 @@ model Client "Demand response client"
     "If true, this day remains an event day until midnight"
     annotation (Placement(transformation(extent={{-120,50},{-100,30}}),
         iconTransformation(extent={{-120,50},{-100,30}})));
-   Modelica.Blocks.Interfaces.RealInput PCon(unit="W")
+   Modelica.Blocks.Interfaces.RealInput ECon(unit="J")
     "Consumed electrical power"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
@@ -102,11 +102,11 @@ equation
       points={{70,18.5},{70,-30},{41,-30}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(comBasLin.PCon, PCon) annotation (Line(
+  connect(comBasLin.ECon, ECon) annotation (Line(
       points={{19,46},{-64,46},{-64,36},{-94,36},{-94,4.44089e-16},{-110,4.44089e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(comBasLin.PPre,nor. PCon) annotation (Line(
+  connect(comBasLin.PPre, nor.PCon) annotation (Line(
       points={{41,42},{50,42},{50,-38},{42,-38}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -191,7 +191,7 @@ equation
 Model for a demand response client.
 This model takes as a parameter the sampling time, which is generally
 1 hour or 15 minutes.
-Input to the model are the currently consumed power, the current temperature,
+Input to the model are the consumed energy, the current temperature,
 the week of the day, which is of type
 <a href=\"modelica://Buildings.Controls.Types.Day\">
 Buildings.Controls.Types.Day</a>,

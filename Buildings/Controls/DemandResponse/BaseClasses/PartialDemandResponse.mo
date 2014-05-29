@@ -1,12 +1,12 @@
 within Buildings.Controls.DemandResponse.BaseClasses;
-block PartialDemandResponse
+partial block PartialDemandResponse
   "Partial block that declares common data for demand response models"
   extends Modelica.StateGraph.Step;
   parameter Integer nSam = 24
     "Number of intervals in a day for which baseline is computed";
 
-  Modelica.Blocks.Interfaces.RealInput PCon(unit="W")
-    "Currently consumed electrical power"
+  Modelica.Blocks.Interfaces.RealInput ECon(unit="J")
+    "Consumed electrical energy"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealOutput PPre(unit="W")

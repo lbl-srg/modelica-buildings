@@ -9,56 +9,56 @@ model LinearInput
     height=10,
     duration=1.8144e+06,
     offset=283.15) "Outside temperature"
-    annotation (Placement(transformation(extent={{-92,-80},{-72,-60}})));
+    annotation (Placement(transformation(extent={{-92,-90},{-72,-70}})));
   Modelica.Blocks.Sources.Constant POffSet(k=1) "Offset for power"
-    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-  Modelica.Blocks.Math.Add add(k2=0.2)
-    annotation (Placement(transformation(extent={{-30,-36},{-10,-16}})));
+    annotation (Placement(transformation(extent={{-90,-24},{-70,-4}})));
+  Modelica.Blocks.Math.Add PCon(k2=0.2) "Consumed power"
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Blocks.Math.UnitConversions.To_degC to_degC
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Modelica.Blocks.Math.Add err(k2=-1) "Prediction error"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
-  Modelica.Blocks.Discrete.Sampler PSam(samplePeriod=tSample)
-    "Sampler to turn PCon into a piece-wise constant signal. This makes it easier to verify the results"
-    annotation (Placement(transformation(extent={{0,-36},{20,-16}})));
   Modelica.Blocks.Discrete.Sampler TSam(samplePeriod=tSample)
     "Sampler to turn TOut into a piece-wise constant signal. This makes it easier to verify the results"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+  Modelica.Blocks.Continuous.Integrator integrator
+    "Integrator to compute energy from power"
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 equation
-  connect(POffSet.y, add.u1) annotation (Line(
-      points={{-69,-20},{-32,-20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(to_degC.u, TOut.y) annotation (Line(
-      points={{-62,-40},{-66,-40},{-66,-70},{-71,-70}},
+  connect(POffSet.y, PCon.u1) annotation (Line(
+      points={{-69,-14},{-62,-14}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(baseLoad.PPre, err.u1) annotation (Line(
       points={{61,0},{64,0},{64,-24},{68,-24}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(add.y, PSam.u) annotation (Line(
-      points={{-9,-26},{-2,-26}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(PSam.y, baseLoad.PCon) annotation (Line(
-      points={{21,-26},{28,-26},{28,8.88178e-16},{38,8.88178e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(PSam.y, err.u2) annotation (Line(
-      points={{21,-26},{44,-26},{44,-36},{68,-36}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TOut.y, TSam.u) annotation (Line(
-      points={{-71,-70},{-2,-70}},
+      points={{-71,-80},{-62,-80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSam.y, baseLoad.TOut) annotation (Line(
-      points={{21,-70},{32,-70},{32,-6},{38,-6}},
+      points={{-39,-80},{32,-80},{32,-6},{38,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(add.u2, to_degC.y) annotation (Line(
-      points={{-32,-32},{-36,-32},{-36,-40},{-39,-40}},
+  connect(PCon.y, integrator.u) annotation (Line(
+      points={{-39,-20},{-2,-20}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(integrator.y, baseLoad.ECon) annotation (Line(
+      points={{21,-20},{24,-20},{24,0},{38,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(err.u2, PCon.y) annotation (Line(
+      points={{68,-36},{-28,-36},{-28,-20},{-39,-20}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(to_degC.u, TSam.y) annotation (Line(
+      points={{-22,-60},{-32,-60},{-32,-80},{-39,-80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(to_degC.y, PCon.u2) annotation (Line(
+      points={{1,-60},{12,-60},{12,-40},{-70,-40},{-70,-26},{-62,-26}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
