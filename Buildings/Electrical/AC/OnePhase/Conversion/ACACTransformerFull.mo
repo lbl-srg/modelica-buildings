@@ -34,7 +34,7 @@ model ACACTransformerFull
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
   Modelica.SIunits.Efficiency eta "Efficiency of the transformer";
   Modelica.SIunits.Power LossPower[2] "Loss power";
-protected
+//protected
   parameter Modelica.SIunits.AngularVelocity omega_n = 2*Modelica.Constants.pi*f;
   parameter Real N = Vhigh/Vlow "Winding ratio";
   parameter Modelica.SIunits.Resistance Rbase_high = Vhigh^2/VAbase
@@ -42,7 +42,7 @@ protected
   parameter Modelica.SIunits.Resistance Rbase_low = Vlow^2/VAbase
     "Base impedance of the secondary side";
   Modelica.SIunits.Impedance Z1[2] = {Rbase_high*R1, omega*L1*Rbase_high/omega_n};
-  Modelica.SIunits.Impedance Z2[2] = {Rbase_low*R2, omega*L2*Rbase_high/omega_n};
+  Modelica.SIunits.Impedance Z2[2] = {Rbase_low*R2, omega*L2*Rbase_low/omega_n};
   Modelica.SIunits.Impedance Zrm[2] = {Rbase_high*Rm, 0}
     "Magnetization impedance - resistance";
   Modelica.SIunits.Impedance Zlm[2] = {0, omega*Lm*Rbase_high/omega_n}

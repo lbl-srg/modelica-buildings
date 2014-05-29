@@ -48,7 +48,9 @@ model ACACTransformerFull
     R2=0.01,
     L2=0.01,
     f=60,
-    magEffects=true)
+    magEffects=false,
+    Rm=100,
+    Lm=100)
     annotation (Placement(transformation(extent={{-16,0},{4,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance shortCircuit(R=1e-8)
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
@@ -62,7 +64,9 @@ model ACACTransformerFull
     R2=0.01,
     L2=0.01,
     f=60,
-    magEffects=false)
+    magEffects=false,
+    Rm=100,
+    Lm=100)
     annotation (Placement(transformation(extent={{-16,-30},{4,-10}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage                 sou1(
     f=60,
