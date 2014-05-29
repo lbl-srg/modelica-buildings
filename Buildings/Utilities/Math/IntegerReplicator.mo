@@ -1,6 +1,6 @@
 within Buildings.Utilities.Math;
 block IntegerReplicator "Integer signal replicator"
-  extends Modelica.Blocks.Interfaces.IntegerBlockIcon;
+  extends Modelica.Blocks.Icons.IntegerBlock;
   parameter Integer nout=1 "Number of outputs";
   Modelica.Blocks.Interfaces.IntegerInput u "Connector of integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
@@ -10,7 +10,7 @@ block IntegerReplicator "Integer signal replicator"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
             rotation=0)));
 equation
-  y = fill(u, nout);
+  y = Buildings.Utilities.Math.Functions.integerReplicator(u=u, nout=nout);
   annotation (
     defaultComponentName="intRep",
     Window(
@@ -39,15 +39,10 @@ equation
 This block replicates the integer input signal to an array of <code>nout</code> identical output signals.
 </p>
 </html>", revisions="<html>
-<ul>
-<li>
-August 31, 2012, by Michael Wetter:<br/>
-Revised documentation.
-</li>
-<li>
-July 27, 2012, by Kaustubh Phalak:<br/>
-First implementation.
-</li>
-</ul>
+<p><ul>
+<li>November 28, 2013, by Marcus Fuchs:<br/>Changed block to use Functions.integerReplicator. </li>
+<li>August 31, 2012, by Michael Wetter:<br/>Revised documentation. </li>
+<li>July 27, 2012, by Kaustubh Phalak:<br/>First implementation. </li>
+</ul></p>
 </html>"));
 end IntegerReplicator;

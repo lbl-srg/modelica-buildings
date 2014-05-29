@@ -1,7 +1,7 @@
 within Buildings.Controls.Continuous;
 block NumberOfRequests
   "Outputs the number of signals that are above/below a certain threshold"
-   extends Modelica.Blocks.Interfaces.BlockIcon;
+   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nin "Number of inputs";
   parameter Real threShold = 0 "Threshold";

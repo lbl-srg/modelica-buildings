@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckWindDirection "Constrains the wind direction to [0, 2*pi] degree"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput nIn(
     final quantity="Angle",

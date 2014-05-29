@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.Examples;
-model FlowMachineSeries_y "Test model for two flow machines in series"
+model FlowMachineSeries_y "Two flow machines in series"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 

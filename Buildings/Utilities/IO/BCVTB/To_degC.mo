@@ -1,6 +1,6 @@
 within Buildings.Utilities.IO.BCVTB;
 block To_degC "Converts Kelvin to Celsius"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Interfaces.RealInput Kelvin(final quantity="ThermodynamicTemperature",
                                               final unit = "K", displayUnit = "degC", min=0)

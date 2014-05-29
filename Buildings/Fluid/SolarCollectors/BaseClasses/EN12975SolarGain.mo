@@ -1,6 +1,6 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   extends SolarCollectors.BaseClasses.PartialParameters;
 
   parameter Real B0 "1st incident angle modifer coefficient";

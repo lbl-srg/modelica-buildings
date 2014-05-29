@@ -7,8 +7,9 @@ This section describes the development of the `Buildings` library.
 
 Contributing
 ------------
-We welcome contributions of new models and suggestions for how to improve the library.
-Models that are contributed need to follow the following guidelines, as this is needed to integrate them in the library, make them accessible to users and further maintain them:
+Contributions of new models and suggestions for how to improve the library are
+welcome.
+Models that are contributed need to adhere to the following guidelines, as this is needed to integrate them in the library, make them accessible to users and further maintain them:
 
  * They should be of general interest to other users and well documented and tested.
  * They need to follow the coding conventions described in
@@ -93,9 +94,9 @@ the equation by a linear model of the form
 When implementing the pressure drop model, also provide means to
 
 1. use homotopy, which should be used by default, and
-2. disable the pressure drop model.
+2. disable the pressure-drop model.
 
-Disabling the pressure drop model allows, for example, a user to 
+Disabling the pressure-drop model allows, for example, a user to 
 set in a series connection of a heating coil and a cooling coil
 the pressure drop of the heating coil to zero, and
 to lump the pressure drop of the heating coil into the pressure drop model 

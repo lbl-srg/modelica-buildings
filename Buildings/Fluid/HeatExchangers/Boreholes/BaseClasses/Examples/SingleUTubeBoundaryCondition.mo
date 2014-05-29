@@ -5,12 +5,12 @@ model SingleUTubeBoundaryCondition
   parameter Modelica.SIunits.HeatFlowRate  Q_flow=-50
     "Heat flow rate extracted at center of cylinder";
   Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition
-                                                TBouSte(
-  final rExt=3,
-  final samplePeriod=604800,
-    hSeg=1,
-    redeclare final Buildings.HeatTransfer.Data.Soil.Sandstone matSoi,
-    TExt_start=293.15) "Boundary condition"
+      TBouSte(
+      final rExt=3,
+      final samplePeriod=604800,
+      hSeg=1,
+      redeclare final Buildings.HeatTransfer.Data.Soil.Sandstone matSoi,
+      TExt_start=293.15) "Boundary condition"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
  Modelica.Blocks.Sources.Step step(
     height=Q_flow,

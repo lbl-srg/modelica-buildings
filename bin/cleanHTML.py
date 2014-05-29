@@ -9,11 +9,11 @@ import os, string, fnmatch, os.path, sys
 from os import listdir
 from os.path import isfile, join
 
-def validateLine(line):
+def validateLine(line, filNam):
     li = ['home/mwetter', 'dymola/Modelica']
     for s in li:
         if s in line:
-            print "*** Error: Invalid string '%s' in html file." % s
+            print "*** Error: Invalid string '%s' in file '%s'." % (s, filNam)
 # --------------------------
 # Global settings
 LIBHOME=os.path.abspath(".")
@@ -45,6 +45,6 @@ for fil in files:
     filObj=open(filNam, 'w')
     for lin in lines:
         # Check if line contains a wrong string
-        validateLine(lin)
+        validateLine(lin, filNam)
         filObj.write(lin)
     filObj.close()

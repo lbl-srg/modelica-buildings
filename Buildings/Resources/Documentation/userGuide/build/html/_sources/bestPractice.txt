@@ -7,7 +7,7 @@ Organization of packages
 ------------------------
 
 When developing models, one should distinguish between a library which contains widely applicable models, such as the `Buildings` library, and an application-specific model which may be created for a specific building and is of limited use for other applications. 
-We recommend storing application-specific models outside of the `Buildings` library. This will allow replacing the `Buildings` library with a new version without having to change the application-specific model.
+It is recommended that users store application-specific models outside of the `Buildings` library. This will allow users to replace the `Buildings` library with a new version without having to change the application-specific model.
 If during the course of the development of application-specific models, some models turn out to be of interest for other applications, then they can be contributed to the development of the `Buildings` library, as described in the section :ref:`Development`.
 
 
@@ -278,7 +278,7 @@ However, when the medium model is changed to a model that models
 `Buildings.Media.ConstantPropertyLiquidWater <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater>`_,
 then the density is constant. Consequently, there is no equation that 
 can be used to compute the pressure based on the volume. 
-In this situation, trying to translate the model leads, in Dymola, to the following error message:
+In this situation, attempting to translate the model leads, in Dymola, to the following error message:
 
 .. code-block:: none
 
@@ -288,16 +288,16 @@ In this situation, trying to translate the model leads, in Dymola, to the follow
    The number of scalar Real unknown elements are 58.
    The number of scalar Real equation elements are 58.
 
-Similarly, if the medium model `Modelica.Media.Water.WaterIF97OnePhase_ph <http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_Media_Water_WaterIF97OnePhase_ph.html#Modelica.Media.Water.WaterIF97OnePhase_ph>`_ is used, 
-which models density as a function of pressure and enthalpy, then 
+Similarly, if the medium model `Modelica.Media.Water.WaterIF97OnePhase_ph <http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_Media_Water_WaterIF97OnePhase_ph.html#Modelica.Media.Water.WaterIF97OnePhase_ph>`_, 
+which models density as a function of pressure and enthalpy, is used, then 
 the model is well-defined, but the pressure increases the longer the pump runs.
 The reason is that the pump adds heat to the water. When the water temperature 
 increases from :math:`20^\circ \mathrm C` to :math:`40^\circ \mathrm C`,
 the pressure increases from :math:`1 \, \mathrm{bars}` to :math:`150 \, \mathrm{bars}`.
 
 To avoid this singularity or increase in pressure, 
-a model that imposes a pressure source and that can account for the expansion of the fluid needs to be used. 
-For example, you may use
+use a model that imposes a pressure source and that accounts for the expansion of the fluid. 
+For example, use
 `Buildings.Fluid.Storage.ExpansionVessel <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel>`_
 to form the system model shown below.
 
@@ -345,8 +345,9 @@ Nominal Values
 ~~~~~~~~~~~~~~
 
 Most components have a parameters for the nominal operating conditions.
-These parameters have names that end in ``_nominal`` and they should be set to the values that the component typically 
-have if they are run at full load or design conditions. Depending on the model, these
+These parameters have names that end in ``_nominal`` and they should be set to the values that 
+the component typically 
+has if it is operated at full load or design conditions. Depending on the model, these
 parameters are used differently, and the respective model documentation or code
 should be consulted for details. However, the table below shows typical use of 
 parameters in various model to help the user understand how they are used.
@@ -494,12 +495,13 @@ Adding dynamics may be achieved using a formulation such as
 		  m_flow_nominal*1E-4);
 		der(T)=(TMed-T)/tau;
 
-where ``tau``>0 is a time constant. See for example
+where ``tau``>0 is a time constant. See, for example,
 `Buildings.Fluid.Sensors.TemperatureTwoPort <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort>`_
 for a robust implementation.
 
 .. note::
-   In the package `Buildings.Utilities.Math <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math>`_ the functions and blocks whose names start with ``smooth`` can be used to avoid events.
+   In the package `Buildings.Utilities.Math <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math>`_ 
+   the functions and blocks whose names start with ``smooth`` can be used to avoid events.
 
 Controls
 --------
@@ -554,7 +556,7 @@ because the ``if-then-else`` construct triggers an event iteration whenever
 
 Numerical solvers
 -----------------
-Dymola 2012 FD01 is configured to use dassl as a default solver with a tolerance of 
+Dymola 2014 FD01 is configured to use dassl as a default solver with a tolerance of 
 1E-4.
 We recommend to change this setting to radau with a tolerance of around
 1E-6, as this generally leads to faster and more robust

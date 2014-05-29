@@ -14,5 +14,20 @@ equation
             -100},{100,100}}),
                      graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PowerLinearized.mos" "Simulate and plot"));
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PowerLinearized.mos"
+        "Simulate and plot"),
+Documentation(info="<html>
+<p>
+This example tests the implementation of
+<a href=\"modelica://Buildings.Utilities.Math.Functions.powerLinearized\">
+Buildings.Utilities.Math.Functions.powerLinearized</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 8, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PowerLinearized;

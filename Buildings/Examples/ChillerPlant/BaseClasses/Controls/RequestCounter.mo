@@ -1,6 +1,6 @@
 within Buildings.Examples.ChillerPlant.BaseClasses.Controls;
 block RequestCounter "Count the number of actuators that have request"
-  extends Modelica.Blocks.Interfaces.BlockIcon annotation (Icon(Text(
+  extends Modelica.Blocks.Icons.Block annotation (Icon(Text(
         extent=[-48, 48; 54, -32],
         style(color=3, rgbcolor={0,0,255}),
         string="max")));

@@ -107,8 +107,12 @@ equation
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
-        Text(extent={{64,86},{114,72}},   textString="P",
-          lineColor={0,0,127})}),
+        Text(extent={{64,100},{114,86}},  textString="P",
+          lineColor={0,0,127}),
+        Line(
+          points={{0,80},{100,80}},
+          color={0,0,0},
+          smooth=Smooth.None)}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}),
             graphics),

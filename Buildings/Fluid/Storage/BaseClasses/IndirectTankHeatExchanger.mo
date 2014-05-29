@@ -43,6 +43,9 @@ model IndirectTankHeatExchanger
     "Formulation of mass balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port[nSeg]
     "Heat port connected to water inside the tank"
     annotation (Placement(transformation(extent={{-10,-160},{10,-140}}),

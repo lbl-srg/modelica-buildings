@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Radiosity;
 block Constant "Generate constant radiosity signal"
   parameter Real k(min=0, start=0)
     "Radiosity that leaves this component (k &ge; 0)";
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   Interfaces.RadiosityOutflow JOut annotation (Placement(transformation(extent={
             {100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));

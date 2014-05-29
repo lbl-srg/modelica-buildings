@@ -1,7 +1,7 @@
 within Buildings.Examples.VAVReheat.Controls;
 model MixedAirTemperatureSetpoint
   "Mixed air temperature setpoint for economizer"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Routing.Extractor TSetMix(nin=6)
     "Mixed air setpoint temperature extractor"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));

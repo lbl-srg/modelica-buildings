@@ -11,13 +11,15 @@ package UsersGuide "User's Guide"
     Documentation(info="<html>
 <p>
 This library follows the conventions of the 
-<a href=\"modelica://Modelica.UsersGuide.Conventions\">Modelica Standard Library</a>, which are as follows:
+<a href=\"modelica://Modelica.UsersGuide.Conventions\">
+Modelica Standard Library</a>, which are as follows:
 </p>
 
 <p>
 Note, in the html documentation of any Modelica library,
 the headings \"h1, h2, h3\" should not be used,
-because they are utilized from the automatically generated documentation/headings.
+because they are utilized from the automatically generated 
+documentation and headings.
 Additional headings in the html documentation should start with \"h4\".
 </p>
 
@@ -126,12 +128,27 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-
-class Version_1_6_build1 "Version 1.6 build 1"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    class Version_1_6_build1 "Version 1.6 build 1"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
 <p>
-Version 1.6 build 1 is ... xxx
+Version 1.6 build 1 is ... xxx.
+</p>
+<p>
+This is the first version of the <code>Buildings</code> library
+that contains models from the 
+<a href=\"https://github.com/iea-annex60/modelica-annex60\">
+IEA EBC Annex 60 library</a>,
+a Modelica library for building and community energy systems that is
+collaboratively developed within the project
+<a href=\"http://iea-annex60.org\">
+New generation computational tools for building and community energy systems 
+based on the Modelica and Functional Mockup Interface standards</a>,
+a project that is conducted under the 
+Energy in Buildings and Communities Programme (EBC) of the
+International Energy Agency (IEA).
+</p>
+<p>
 This version updates the <code>Buildings</code> library to the
 Modelica Standard Library 3.2.1 and to <code>Modelica_StateGraph2</code> 2.0.2.
 </p>
@@ -146,21 +163,70 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </td>
     </tr>
 </table>
+</p>
 <!-- New components for existing libraries -->
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.TwoWayTable
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Two way valve for which the opening characteristics
+                       is specified by a table.
+    </td> 
+    </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Examples.Average
+                       Buildings.Utilities.Math.Examples.InverseXRegularized
+                       Buildings.Utilities.Math.Examples.Polynominal
+                       Buildings.Utilities.Math.Examples.PowerLinearized
+                       Buildings.Utilities.Math.Examples.QuadraticLinear
+                       Buildings.Utilities.Math.Examples.RegNonZeroPower
+                       Buildings.Utilities.Math.Examples.SmoothExponential
+                       Buildings.Utilities.Math.Functions.average
+                       Buildings.Utilities.Math.Functions.booleanReplicator
+                       Buildings.Utilities.Math.Functions.Examples.IsMonotonic
+                       Buildings.Utilities.Math.Functions.Examples.TrapezoidalIntegration
+                       Buildings.Utilities.Math.Functions.integerReplicator
+                       Buildings.Utilities.Math.InverseXRegularized
+                       Buildings.Utilities.Math.Polynominal
+                       Buildings.Utilities.Math.PowerLinearized
+                       Buildings.Utilities.Math.QuadraticLinear
+                       Buildings.Utilities.Math.RegNonZeroPower
+                       Buildings.Utilities.Math.SmoothExponential
+                       Buildings.Utilities.Math.TrapezoidalIntegration
+    </td>
+    <td valign=\"top\">Various functions and blocks for mathematical operations.
+    </td> 
+    </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Psychrometrics</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Examples.SaturationPressureLiquid
+                       Buildings.Utilities.Psychrometrics.Examples.SaturationPressure
+                       Buildings.Utilities.Psychrometrics.Examples.SublimationPressureIce
+                       Buildings.Utilities.Psychrometrics.Functions.BaseClasses.der_saturationPressureLiquid
+                       Buildings.Utilities.Psychrometrics.Functions.BaseClasses.der_sublimationPressureIce
+                       Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.SaturationPressureDerivativeCheck
+                       Buildings.Utilities.Psychrometrics.Functions.Examples.SaturationPressure
+                       Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid
+                       Buildings.Utilities.Psychrometrics.Functions.saturationPressure
+                       Buildings.Utilities.Psychrometrics.Functions.sublimationPressureIce
+                       Buildings.Utilities.Psychrometrics.SaturationPressureLiquid
+                       Buildings.Utilities.Psychrometrics.SaturationPressure
+                       Buildings.Utilities.Psychrometrics.SublimationPressureIce
+    </td>
+    <td valign=\"top\">Various functions and blocks for psychrometric calculations.
     </td> 
     </tr>
 </table>
+</p>
 <!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
@@ -181,6 +247,21 @@ have been <b style=\"color:blue\">improved</b> in a
                        are only for output reporting.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.Exponential
+    </td>
+    <td valign=\"top\">Improved documentation of the flow resistance.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br/>
+    </td>
+    <td valign=\"top\">Added the option to use a constant, an input signal or the weather file as the source
+                       for the ceiling height, the total sky cover, the opaque sky cover, the dew point temperature, 
+                       and the infrared horizontal radiation <code>HInfHor</code>.
+    </td>
+</tr>    
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -190,6 +271,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 </table>
+</p>
 <!-- Non-backward compatible changes to existing components -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
@@ -198,30 +280,80 @@ have been <b style=\"color:blue\">improved</b> in a
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachinePolynomial
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Moved the model to the package
+                       <code>Buildings.Obsolete</code>, 
+                       as this model is planned to be removed in future versions.
+                       The conversion script should update old instances of 
+                       this model automatically in Dymola.
+                       Users should change their models to use a flow machine from
+                       the package <code>Buildings.Fluid.Movers</code>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.ExpansionVessel
+    </td>
+    <td valign=\"top\">Simplified the model to have a constant pressure.
+                       The following non-backward compatible changes 
+                       have been made.
+                       <ol>
+                       <li>The parameter <code>VTot</code> was renamed to <code>V_start</code>.</li>
+                       <li>The following parameters were removed: <code>VGas0</code>,
+                           <code>pMax</code>, <code>energyDynamics</code> and <code>massDynamics</code>.</li>
+                       </ol>
+                       The conversion script should update old instances of 
+                       this model automatically in Dymola. 
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+    </td>
+    <td valign=\"top\">Revised the model as the old version required the port<sub>a</sub>
+                       of the heat exchanger to be located higher than port<sub>b</sub>. 
+                       This makes sense if the heat exchanger is used to heat up the tank, 
+                       but not if it is used to cool down a tank, such as in a cooling plant.
+                       The following parameters were changed:
+                       <ol>
+                         <li>Changed <code>hexTopHeight</code> to <code>hHex_a</code>.</li>
+                         <li>Changed <code>hexBotHeight</code> to <code>hHex_b</code>.</li>
+                         <li>Changed <code>topHexSeg</code> to <code>segHex_a</code>,
+                          and made it protected as this is deduced from <code>hHex_a</code>.</li>
+                         <li>Changed <code>botHexSeg</code> to <code>segHex_b</code>,
+                          and made it protected as this is deduced from <code>hHex_b</code>.</li>
+                       </ol>
+                       The names of the following ports have been changed:
+                       <ol>
+                         <li>Changed <code>port_a1</code> to <code>portHex_a</code>.</li>
+                         <li>Changed <code>port_b1</code> to <code>portHex_b</code>.</li>
+                       </ol>
+                       The conversion script should update old instances of 
+                       this model automatically in Dymola for all of the above changes.
     </td>
 </tr>
 </table>
+</p>
 <!-- Errors that have been fixed -->
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes.UTube
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Reimplemented the resistor network inside the borehole
+                       as the old implementation led to too slow a transient
+                       response. This change also led to the removal of the
+                       parameters <code>B0</code> and <code>B1</code>
+                       as the new implementation does not require them.
     </td>
 </tr>
 </table>
+</p>
 <!-- Uncritical errors -->
 <p>
 The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
@@ -237,8 +369,34 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Corrected error in documentation which stated a wrong default value
                        for the pipe spacing.
     </td>
-</tr>
+    </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ()
+    </td>
+    <td valign=\"top\">Added dummy argument to function call of <code>Internal.solve</code>
+                       to avoid a warning during model check in Dymola 2015.
+    </td>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU
+    </td>
+    <td valign=\"top\">Changed <code>assert</code> statement to avoid comparing 
+                       enumeration with an integer, which triggers a warning
+                       in Dymola 2015.
+    </td>
+
+    </tr>    <tr><td valign=\"top\">Buildings.Rooms.Constructions.Examples.ExteriorWall<br/>
+                           Buildings.Rooms.Constructions.Examples.ExteriorWallWithWindow<br/>
+                           Buildings.Rooms.Constructions.Examples.ExteriorWallTwoWindows
+    </td>
+    <td valign=\"top\">Corrected wrong assignment of parameter in instance <code>bouConExt(conMod=...)</code>
+                       which was set to an interior instead of an exterior convection model.
+    </td>
+    </tr>    
+<tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Functions.TDewPoi_pW()
+    </td>
+    <td valign=\"top\">Added dummy argument to function call of <code>Internal.solve</code>
+                       to avoid a warning during model check in Dymola 2015.
+    </td>
 </table>
+</p>
 <!-- Github issues -->
 <p>
 The following
@@ -246,12 +404,12 @@ The following
 have been fixed:
 </p>
 <table border=\"1\" summary=\"github issues\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">#xxx</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/196\">#196</a>
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Change capacity location in borehole grout.
     </td>
 </tr>
 </table>
@@ -264,8 +422,54 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_1_6_build1;
+    end Version_1_6_build1;
 
+    class Version_1_5_build3 "Version 1.5 build 3"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (preferredView="info",
+        Documentation(info="<html>
+<p>
+Version 1.5 build 3 is a maintenance release that corrects an error in
+<a href=\"modelica://Buildings.Fluid.MassExchangers.HumidifierPrescribed\">
+Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
+It is fully compatible with version 1.5 build 2.
+</p>
+<!-- Errors that have been fixed -->
+<p>
+The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+that can lead to wrong simulation results):
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.MassExchangers.HumidifierPrescribed
+    </td>
+    <td valign=\"top\">
+           Corrected the enthalpy balance, which caused the latent heat flow rate to be added
+           twice to the fluid stream.
+           This closes issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/197\">#197</a>.
+    </td>
+</tr>
+</table>
+<!-- Github issues -->
+<p>
+The following
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
+have been fixed:
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>HumidifierPrescribed accounts twice for latent heat gain</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/197\">#197</a>
+    </td>
+    <td valign=\"top\">This issue has been addressed by correcting the latent heat added to the
+                       fluid stream.
+    </td>
+</tr>
+</table>
+</html>"));
+    end Version_1_5_build3;
 
     class Version_1_5_build2 "Version 1.5 build 2"
       extends Modelica.Icons.ReleaseNotes;
@@ -3507,6 +3711,9 @@ on the Buildings library.
 </p>
 <ul>
 <li> 
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build3\">Version 1.5 build3</a>(February 12, 2014)
+</li>
+<li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build2\">Version 1.5 build2</a>(December 13, 2013)
 </li>
 <li> 
@@ -3632,6 +3839,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Markus Nurschinger, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Xiufeng Pang, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Damien Picard, KU Leuven, Belgium
 </li>
 <li>Kaustubh Phalak, Lawrence Berkeley National Laboratory, USA
 </li>
@@ -3931,6 +4140,9 @@ individual libraries.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">Fluid.Sensors</a>
    </td>
    <td valign=\"top\">Package with sensors.</td>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">Fluid.Storage</a>
+   </td>
+   <td valign=\"top\">Package with storage tanks and an expansion vessel.</td>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.SolarCollectors.UsersGuide\">Fluid.SolarCollectors</a>
    </td>
    <td valign=\"top\">Package with solar collectors.</td>
@@ -3969,10 +4181,11 @@ version="1.6",
 versionBuild=0,
 versionDate="2013-10-24",
 dateModified = "2013-10-24",
-uses(Modelica(version="3.2")),
+uses(Modelica(version="3.2.1")),
 uses(Modelica_StateGraph2(version="2.0.2")),
 conversion(
- noneFromVersion="1.5",
+ from(version="1.5",
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.5_to_1.6.mos"),
  from(version="1.4",
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.4_to_1.5.mos"),
  noneFromVersion="1.3",

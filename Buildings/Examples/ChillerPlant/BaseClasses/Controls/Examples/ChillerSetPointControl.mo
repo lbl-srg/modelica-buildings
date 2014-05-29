@@ -92,9 +92,10 @@ model ChillerSetPointControl
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={134,-9})));
-  Buildings.Fluid.Storage.ExpansionVessel expVesChi(VTot=1, redeclare package
-      Medium = Medium2)
-    annotation (Placement(transformation(extent={{134,26},{154,46}})));
+  Buildings.Fluid.Storage.ExpansionVessel expVesChi(
+    V_start=1,
+    redeclare package Medium = Medium2)
+    annotation (Placement(transformation(extent={{124,26},{144,46}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k=true)
     annotation (Placement(transformation(extent={{-180,62},{-160,82}})));
   Modelica.Blocks.Math.Gain gain(k=mCHW_flow_nominal)
@@ -147,7 +148,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(chi.port_a2, expVesChi.port_a) annotation (Line(
-      points={{104,22},{144,22},{144,26}},
+      points={{104,22},{134,22},{134,26}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(booleanConstant1.y, chi.on) annotation (Line(
@@ -216,6 +217,10 @@ equation
             100}})),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 25, 2014, by Michael Wetter:<br/>
+Updated model with new expansion vessel.
+</li>
 <li>
 October 17, 2012, by Wangda Zuo:<br/>
 Revised for the new trim and respond control.

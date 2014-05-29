@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block SolarTime "Solar time"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput locTim(quantity="Time", unit="s")
     "Local time" annotation (Placement(transformation(extent={{-140,-74},{-100,

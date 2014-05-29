@@ -1,6 +1,6 @@
 within Buildings.Examples.VAVReheat.Controls;
 block CoolingCoilTemperatureSetpoint "Set point scheduler for cooling coil"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
   parameter Modelica.SIunits.Temperature TCooOn=273.15+12
     "Cooling setpoint during on";

@@ -359,8 +359,9 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{300,200}})),
+            -60},{300,200}})),
                        Icon(
+      coordinateSystem(extent={{-100,-60},{300,200}}),
       Rectangle(extent=[-98,-38; 284,-42],   style(
           color=69,
           gradient=2,
@@ -520,8 +521,5 @@ July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Coordsys(extent=[-100,-100; 300,200],
-      grid=[2,2],
-      scale=2));
+</html>"));
 end Suite;

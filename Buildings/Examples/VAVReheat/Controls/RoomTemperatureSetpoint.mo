@@ -1,6 +1,6 @@
 within Buildings.Examples.VAVReheat.Controls;
 block RoomTemperatureSetpoint "Set point scheduler for room temperature"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
   parameter Modelica.SIunits.Temperature THeaOn=293.15
     "Heating setpoint during on";

@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachine_y_pumpCurves
-  "Test model for pump that illustrates the pump curves"
+  "Pumps that illustrates the use of the pump curves"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 
