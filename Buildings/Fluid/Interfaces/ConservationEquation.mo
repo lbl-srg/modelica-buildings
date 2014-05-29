@@ -88,8 +88,7 @@ protected
    Medium.setState_pTX(
      T=T_start,
      p=p_start,
-     X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass"
-  annotation (Evaluate=true);
+     X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass";
 
   // Parameter that is used to construct the vector mXi_flow
   final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
@@ -257,6 +256,10 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 February 11, 2014 by Michael Wetter:<br/>
 Improved documentation for <code>Q_flow</code> input.

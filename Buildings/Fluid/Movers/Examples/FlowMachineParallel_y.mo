@@ -1,6 +1,7 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachineParallel_y "Two flow machines in parallel"
   extends Modelica.Icons.Example;
+
   package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
@@ -13,7 +14,7 @@ model FlowMachineParallel_y "Two flow machines in parallel"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Buildings.Fluid.Movers.FlowMachine_y floMac1(
     redeclare package Medium = Medium,
-    pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0}),
+    pressure(V_flow={0, m_flow_nominal/rho_nominal}, dp={2*4*1000, 0}),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Model of a flow machine"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
@@ -40,16 +41,11 @@ model FlowMachineParallel_y "Two flow machines in parallel"
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000) "Pressure drop"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Sources.Constant const2(k=1)
+  Modelica.Blocks.Sources.Constant const2(k=1) "Constant source"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
-  parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default) "Start state";
-  parameter Modelica.SIunits.Density rho_nominal=Medium.density(
-     state_start) "Density, used to compute fluid mass"
-                                           annotation (Evaluate=true);
+  parameter Modelica.SIunits.Density rho_nominal=1000
+    "Density, used to compute fluid mass";
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpIn2(
@@ -59,7 +55,7 @@ model FlowMachineParallel_y "Two flow machines in parallel"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Fluid.Movers.FlowMachine_y floMac2(
     redeclare package Medium = Medium,
-    pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0}),
+    pressure(V_flow={0, m_flow_nominal/rho_nominal}, dp={2*4*1000, 0}),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Model of a flow machine"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
@@ -68,7 +64,7 @@ model FlowMachineParallel_y "Two flow machines in parallel"
     dp_nominal=1000,
     m_flow_nominal=0.5*m_flow_nominal) "Pressure drop"
     annotation (Placement(transformation(extent={{58,0},{78,20}})));
-  Modelica.Blocks.Sources.Step     const1(
+  Modelica.Blocks.Sources.Step const1(
     height=-1,
     offset=1,
     startTime=150)
@@ -136,6 +132,12 @@ As its speed is reduced, the mass flow rate changes its direction in such a way 
 at the top has reverse flow.
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>,
+and set <code>rho_nominal</code> to a constant to avoid a non-literal
+nominal value for <code>V_flow_max</code> and <code>VMachine_flow</code>.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
