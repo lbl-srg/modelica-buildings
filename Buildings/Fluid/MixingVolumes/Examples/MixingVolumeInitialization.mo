@@ -55,7 +55,8 @@ equation
       smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
-experiment(StopTime=0.001),
+experiment(StopTime=0.001,
+           Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeInitialization.mos"
         "Simulate and plot"),
     Documentation(info="<html>
