@@ -21,7 +21,8 @@ model VariableLoad "Example using variable loads models"
     offset=0)
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
   Conductor loa3(              mode=Types.Assumption.VariableZ_P_input,
-    V_nominal=12) "Load"
+    V_nominal=12,
+    P_nominal=0) "Load"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Modelica.Blocks.Sources.Ramp varLoad_P(
     duration=0.5,
