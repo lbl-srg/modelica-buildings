@@ -669,6 +669,11 @@ than a prescribed threshold.</p>
 revisions="<html>
 <ul>
 <li>
+May 30, 2014, by Michael Wetter:<br/>
+Changed initialization of mass dynamics to avoid overspecified system
+of equations if the medium model is incompressible.
+</li>
+<li>
 October 9, 2013, by Michael Wetter:<br/>
 Introduced protected model <code>Humidifier</code> so that states at
 the fluid ports can be computed without having to use a conditionally
