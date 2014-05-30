@@ -11,7 +11,8 @@ model HumidifierPrescribed
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,92},{-34,112}}, rotation=0)));
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature"
@@ -69,7 +70,8 @@ model HumidifierPrescribed
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,12},{-34,32}}, rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_2(
@@ -152,7 +154,8 @@ model HumidifierPrescribed
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,-110},{-34,-90}}, rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_1(
@@ -182,7 +185,8 @@ model HumidifierPrescribed
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,-190},{-34,-170}}, rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_6(
