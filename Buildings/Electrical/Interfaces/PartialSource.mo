@@ -16,14 +16,12 @@ partial model PartialSource "Partial model of a generic source"
 protected
   function j = PhaseSystem.j;
 equation
-  if PhaseSystem.m > 0 then
-    if potentialReference then
+  if potentialReference then
       if definiteReference then
         Connections.root(terminal.theta);
       else
         Connections.potentialRoot(terminal.theta);
       end if;
-    end if;
   end if;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(revisions="<html>

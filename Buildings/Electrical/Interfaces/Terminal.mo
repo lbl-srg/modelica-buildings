@@ -6,7 +6,7 @@ replaceable package PhaseSystem = PhaseSystems.PartialPhaseSystem
   annotation (choicesAllMatching=true);
 PhaseSystem.Voltage v[PhaseSystem.n] "Voltage vector";
 flow PhaseSystem.Current i[PhaseSystem.n] "Current vector";
-PhaseSystem.ReferenceAngle theta[PhaseSystem.m] if PhaseSystem.m > 0
+PhaseSystem.ReferenceAngle theta[PhaseSystem.m]
     "Optional vector of phase angles";
   annotation (Icon(graphics), Documentation(revisions="<html>
 <ul>
