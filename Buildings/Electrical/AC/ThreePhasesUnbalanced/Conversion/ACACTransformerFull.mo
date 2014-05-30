@@ -1,43 +1,59 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion;
-model ACACTransformer
+model ACACTransformerFull
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverter(
-    redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv1(
+    redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull conv1(
       Vhigh=Vhigh/sqrt(3),
       Vlow=Vlow/sqrt(3),
       VAbase=VAbase,
-      XoverR=XoverR,
-      Zperc=Zperc,
+      R1=R1,L1=L1,R2=R2,L2=L2,
+      magEffects=magEffects,
+      Rm=Rm,Lm=Lm,
       ground_1=ground_1,
       ground_2=ground_2),
-    redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv2(
+    redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull conv2(
       Vhigh=Vhigh/sqrt(3),
       Vlow=Vlow/sqrt(3),
       VAbase=VAbase,
-      XoverR=XoverR,
-      Zperc=Zperc,
+      R1=R1,L1=L1,R2=R2,L2=L2,
+      magEffects=magEffects,
+      Rm=Rm,Lm=Lm,
       ground_1=ground_1,
       ground_2=ground_2),
-    redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv3(
+    redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull conv3(
       Vhigh=Vhigh/sqrt(3),
       Vlow=Vlow/sqrt(3),
       VAbase=VAbase,
-      XoverR=XoverR,
-      Zperc=Zperc,
+      R1=R1,L1=L1,R2=R2,L2=L2,
+      magEffects=magEffects,
+      Rm=Rm,Lm=Lm,
       ground_1=ground_1,
       ground_2=ground_2));
+
   parameter Modelica.SIunits.Voltage Vhigh
     "Rms voltage on side 1 of the transformer (primary side)";
   parameter Modelica.SIunits.Voltage Vlow
     "Rms voltage on side 2 of the transformer (secondary side)";
   parameter Modelica.SIunits.ApparentPower VAbase
     "Nominal power of the transformer";
-  parameter Real XoverR
-    "Ratio between the complex and real components of the impedance (XL/R)";
-  parameter Real Zperc "Short circuit impedance";
-  parameter Boolean ground_1 = false "Connect side 1 of transformer to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
-  parameter Boolean ground_2 = true "Connect side 2 of transformer to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
-equation
+  parameter Modelica.SIunits.Frequency f(start=60) "Nominal frequency";
+  parameter Buildings.Electrical.Types.PerUnit R1(min=0)
+    "Resistance on side 1 of the transformer (pu)";
+  parameter Buildings.Electrical.Types.PerUnit L1(min=0)
+    "Inductance on side 1 of the transformer (pu)";
+  parameter Buildings.Electrical.Types.PerUnit R2(min=0)
+    "Resistance on side 2 of the transformer (pu)";
+  parameter Buildings.Electrical.Types.PerUnit L2(min=0)
+    "Inductance on side 2 of the transformer (pu)";
+  parameter Boolean magEffects = false
+    "If =true introduce magnetization effects"
+    annotation(evaluate=true, Dialog(group="Magnetization"));
+  parameter Buildings.Electrical.Types.PerUnit Rm(min=0)
+    "Magnetization resistance (pu)" annotation(evaluate=true, Dialog(group="Magnetization", enable = magEffects));
+  parameter Buildings.Electrical.Types.PerUnit Lm(min=0)
+    "Magnetization inductance (pu)" annotation(evaluate=true, Dialog(group="Magnetization", enable = magEffects));
+  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
+  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
@@ -201,4 +217,4 @@ equation
           extent={{-20,60},{-4,48}},
           lineColor={0,120,120},
           textString="L")}));
-end ACACTransformer;
+end ACACTransformerFull;

@@ -34,7 +34,7 @@ model ACACTransformerFull
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
   Modelica.SIunits.Efficiency eta "Efficiency of the transformer";
   Modelica.SIunits.Power LossPower[2] "Loss power";
-//protected
+protected
   parameter Modelica.SIunits.AngularVelocity omega_n = 2*Modelica.Constants.pi*f;
   parameter Real N = Vhigh/Vlow "Winding ratio";
   parameter Modelica.SIunits.Resistance Rbase_high = Vhigh^2/VAbase
@@ -114,7 +114,7 @@ equation
           lineColor={0,120,120},
           textString="%name"),
         Text(
-          extent={{-130,60},{-70,20}},
+          extent={{-140,60},{-80,20}},
           lineColor={11,193,87},
           textString="1"),
         Text(
@@ -126,7 +126,7 @@ equation
           lineColor={0,120,120},
           textString="AC"),
         Text(
-          extent={{74,60},{134,20}},
+          extent={{80,60},{140,20}},
           lineColor={0,120,120},
           textString="2"),
         Line(
@@ -164,97 +164,92 @@ equation
               255,255,255}),
           smooth=Smooth.Bezier),
         Line(
-          points={{-92,40},{-86,40},{-84,44},{-80,36},{-76,44},{-72,36},{-68,44},
-              {-64,36},{-62,40},{-58,40}},
+          points={{-100,40},{-94,40},{-92,44},{-88,36},{-84,44},{-80,36},{-76,44},
+              {-72,36},{-70,40},{-64,40}},
           color={0,127,127},
           smooth=Smooth.None),
-          Line(
-          points={{-6.85214e-44,-8.39117e-60},{-54,-6.61288e-15}},
-          color={0,127,127},
-          origin={-62,40},
-          rotation=180),
         Ellipse(
-          extent={{-50,46},{-38,34}},
+          extent={{-64,46},{-52,34}},
           lineColor={0,127,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-38,46},{-26,34}},
+          extent={{-52,46},{-40,34}},
           lineColor={0,127,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-26,46},{-14,34}},
+          extent={{-40,46},{-28,34}},
           lineColor={0,127,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-50,40},{-14,28}},
+          extent={{-64,40},{-26,28}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Line(
-          points={{-8,40},{-8,20}},
+          points={{0,40},{0,20}},
           color={0,127,127},
           smooth=Smooth.None),
         Ellipse(
-          extent={{-14,20},{-2,8}},
+          extent={{-6,20},{6,8}},
           lineColor={0,127,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-14,8},{-2,-4}},
+          extent={{-6,8},{6,-4}},
           lineColor={0,127,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-14,-4},{-2,-16}},
+          extent={{-6,-4},{6,-16}},
           lineColor={0,127,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-18,20},{-8,-16}},
+          extent={{-10,20},{0,-16}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Line(
-          points={{-8,-16},{-8,-40}},
+          points={{0,-16},{0,-40}},
           color={0,127,127},
           smooth=Smooth.None),
         Line(
-          points={{-8,-40},{-98,-40}},
+          points={{0,-40},{-90,-40}},
           color={0,127,127},
           smooth=Smooth.None),
         Line(
-          points={{6,40},{6,20}},
+          points={{14,40},{14,20}},
           color={0,127,127},
           smooth=Smooth.None),
         Ellipse(
-          extent={{12,20},{0,8}},
+          extent={{20,20},{8,8}},
           lineColor={0,127,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{12,8},{0,-4}},
+          extent={{20,8},{8,-4}},
           lineColor={0,127,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{12,-4},{0,-16}},
+          extent={{20,-4},{8,-16}},
           lineColor={0,127,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{16,20},{6,-16}},
+          extent={{24,20},{14,-16}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Line(
-          points={{6,-16},{6,-40}},
+          points={{14,-16},{14,-40}},
           color={0,127,127},
           smooth=Smooth.None),
         Line(
-          points={{98,-40},{6,-40}},
+          points={{100,-40},{14,-40}},
           color={0,127,127},
           smooth=Smooth.None),
         Text(
@@ -262,47 +257,105 @@ equation
           lineColor={0,120,120},
           textString="R"),
         Text(
-          extent={{-40,60},{-24,48}},
+          extent={{-54,60},{-38,48}},
           lineColor={0,120,120},
           textString="L"),
         Line(
-          points={{58,40},{64,40},{66,44},{70,36},{74,44},{78,36},{82,44},{86,36},
-              {88,40},{92,40}},
+          points={{66,40},{72,40},{74,44},{78,36},{82,44},{86,36},{90,44},{94,36},
+              {96,40},{100,40}},
           color={0,127,127},
           smooth=Smooth.None),
           Line(
           points={{-6.85214e-44,-8.39117e-60},{-54,-6.61288e-15}},
           color={0,127,127},
-          origin={6,40},
+          origin={14,40},
           rotation=180),
         Ellipse(
-          extent={{18,46},{30,34}},
+          extent={{26,46},{38,34}},
           lineColor={0,127,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{30,46},{42,34}},
+          extent={{38,46},{50,34}},
           lineColor={0,127,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{42,46},{54,34}},
+          extent={{50,46},{62,34}},
           lineColor={0,127,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{18,40},{54,28}},
+          extent={{26,40},{62,28}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{68,60},{84,48}},
+          extent={{76,60},{92,48}},
           lineColor={0,120,120},
           textString="R"),
         Text(
-          extent={{28,60},{44,48}},
+          extent={{36,60},{52,48}},
           lineColor={0,120,120},
-          textString="L")}),
+          textString="L"),
+        Line(
+          points={{-26,-1},{-10,-1},{-9,4},{-5,-4},{-1,4},{3,-4},{7,4},{10,-5},{
+              12,-1},{22,-1}},
+          color={0,127,127},
+          smooth=Smooth.None,
+          origin={-45,2},
+          rotation=90),
+        Ellipse(
+          extent={{-36,18},{-24,6}},
+          lineColor={0,127,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-36,6},{-24,-6}},
+          lineColor={0,127,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-36,-6},{-24,-18}},
+          lineColor={0,127,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-40,18},{-30,-18}},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+          Line(
+          points={{-6.85214e-44,-8.39117e-60},{-28,-2.09669e-15}},
+          color={0,127,127},
+          origin={-28,40},
+          rotation=180),
+          Line(
+          points={{-6.85214e-44,-8.39117e-60},{-1.53415e-16,-6}},
+          color={0,127,127},
+          origin={-30,18},
+          rotation=180),
+          Line(
+          points={{-6.85214e-44,-8.39117e-60},{-1.53415e-16,-6}},
+          color={0,127,127},
+          origin={-30,-24},
+          rotation=180),
+        Line(
+          points={{-44,24},{-20,24},{-20,40}},
+          color={0,127,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-44,-24},{-20,-24},{-20,-40}},
+          color={0,127,127},
+          smooth=Smooth.None),
+        Text(
+          extent={{-70,22},{-54,10}},
+          lineColor={0,120,120},
+          textString="Rm"),
+        Text(
+          extent={{-70,-8},{-54,-20}},
+          lineColor={0,120,120},
+          textString="Lm")}),
     Documentation(info="<html>
 <p>
 This is an AC AC converter, based on a power balance between both QS circuit sides.
