@@ -10,27 +10,27 @@ model Line
     T_ref=T_ref,
     M=M,
     V_nominal=V_nominal,
-    mode=modelMode,
-    R=R,
-    L=L)
+    R=R/3,
+    L=L/3,
+    mode=modelMode)
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   OnePhase.Lines.TwoPortRL phase2(
     useHeatPort=true,
     T_ref=T_ref,
     M=M,
     V_nominal=V_nominal,
-    mode=modelMode,
-    R=R,
-    L=L)
+    R=R/3,
+    L=L/3,
+    mode=modelMode)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   OnePhase.Lines.TwoPortRL phase3(
     useHeatPort=true,
     T_ref=T_ref,
     M=M,
     V_nominal=V_nominal,
-    mode=modelMode,
-    R=R,
-    L=L)
+    R=R/3,
+    L=L/3,
+    mode=modelMode)
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation
 
