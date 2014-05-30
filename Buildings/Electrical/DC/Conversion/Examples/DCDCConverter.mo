@@ -14,7 +14,8 @@ model DCDCConverter "Test model DC to DC converter"
       eta=0.9)
     annotation (Placement(transformation(extent={{-46,22},{-26,42}})));
   Buildings.Electrical.DC.Loads.Conductor conductor(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-      V_nominal=60)
+      V_nominal=60,
+    P_nominal=10e3)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.Ramp varLoad_P(
     duration=0.5,

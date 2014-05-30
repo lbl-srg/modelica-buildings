@@ -7,8 +7,9 @@ model WindTurbine
       Buildings.Electrical.DC.Interfaces.Terminal_p
                                                  terminal);
 protected
-  Loads.Conductor                       con(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
-    "Conductor, used to interface power with electrical circuit"
+  Loads.Conductor                       con(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    P_nominal=0,
+    V_nominal=0) "Conductor, used to interface power with electrical circuit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(con.terminal, terminal) annotation (Line(

@@ -4,8 +4,9 @@ model PVSimple "Simple PV model"
       PhaseSystem = PhaseSystems.TwoConductor, redeclare Interfaces.Terminal_p
       terminal);
 protected
-   Loads.Conductor con(mode=Types.Assumption.VariableZ_P_input)
-    "Conductor, used to interface power with electrical circuit"
+   Loads.Conductor con(mode=Types.Assumption.VariableZ_P_input,
+    P_nominal=0,
+    V_nominal=0) "Conductor, used to interface power with electrical circuit"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(con.terminal, terminal)  annotation (Line(

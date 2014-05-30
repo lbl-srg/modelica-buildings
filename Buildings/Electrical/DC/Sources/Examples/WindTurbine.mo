@@ -19,7 +19,7 @@ model WindTurbine "Example for the WindTurbine model"
     annotation (Placement(transformation(extent={{6,76},{26,96}})));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-  Buildings.Electrical.DC.Loads.Resistor    res(R=0.5)
+  Buildings.Electrical.DC.Loads.Resistor    res(R=0.5, V_nominal=12)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=12) "Voltage source"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));

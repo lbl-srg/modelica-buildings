@@ -2,7 +2,7 @@ within Buildings.Electrical.DC.Loads.Examples;
 model Resistor "Example model for resistor"
   import Buildings;
   extends Modelica.Icons.Example;
-  Buildings.Electrical.DC.Loads.Resistor res2(R=2) "Resistor"
+  Buildings.Electrical.DC.Loads.Resistor res2(R=2, V_nominal=12) "Resistor"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Sources.ConstantVoltage sou(V=12) "Voltage source"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
@@ -12,7 +12,7 @@ model Resistor "Example model for resistor"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Sensors.GeneralizedSensor sen
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Electrical.DC.Loads.Resistor res1(R=2) "Resistor"
+  Buildings.Electrical.DC.Loads.Resistor res1(R=2, V_nominal=12) "Resistor"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Sensors.GeneralizedSensor sen1
     annotation (Placement(transformation(extent={{0,50},{20,70}})));

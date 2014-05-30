@@ -10,6 +10,7 @@ model TwoPortResistance "Model of a resistance"
 
 equation
   //terminal_p.v - terminal_n.v = terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual);
+
   terminal_p.v[1] - terminal_n.v[1] = terminal_p.i[1]*R_actual;
   terminal_p.v[2] = terminal_n.v[2];
   annotation (Diagram(graphics={

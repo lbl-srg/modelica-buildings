@@ -6,7 +6,8 @@ model LinearizedLoad "Example model to check the linearized load model"
   Buildings.Electrical.DC.Loads.Conductor NonlinearLoad(
     linear=false,
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    V_nominal=100) "Resistor"
+    V_nominal=100,
+    P_nominal=0) "Resistor"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
   Sources.ConstantVoltage sou(V=100) "Voltage source"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
@@ -19,7 +20,8 @@ model LinearizedLoad "Example model to check the linearized load model"
   Buildings.Electrical.DC.Loads.Conductor LinearLoad(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     V_nominal=100,
-    linear=true) "Resistor"
+    linear=true,
+    P_nominal=0) "Resistor"
     annotation (Placement(transformation(extent={{30,20},{50,40}})));
   Sensors.GeneralizedSensor sen_lin
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
