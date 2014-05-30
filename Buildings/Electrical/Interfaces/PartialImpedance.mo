@@ -113,6 +113,7 @@ The model has a single generalized electric terminal of type
 <a href=\"modelica://Buildings.Electrical.Interfaces.Terminal\">Buildings.Electrical.Interfaces.Terminal</a>
 that can be redeclared.<br/>
 The impedance can be of different types:
+</p>
 <ol>
 <li>resistive,</li>
 <li>inductive,</li>
@@ -120,7 +121,6 @@ The impedance can be of different types:
 <li>capacitive.</li>
 <li>resistive + capacitive.</li>
 </ol>
-</p>
 <p>
 The values of the resistance <code>R</code>, capacitance <code>C</code> and inductance <code>L</code> can be
 specified as parameters of the model.
@@ -130,8 +130,8 @@ The values of the resistance <code>R</code>, capacitance <code>C</code> and indu
 specified by using the input variables <code>y_R</code>, <code>y_C</code>, and <code>y_L</code> that are Real and comprises between [0,1].<br/>
 These input values are enabled by the boolean flags <code>useVariableR</code>, <code>useVariableL</code>, and <code>useVariableC</code>.
 </p>
-<p>
 <h5>Example</h5>
+<p>
 If the flag <code>useVariableR = True</code>, the value of <code>R</code> is computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">

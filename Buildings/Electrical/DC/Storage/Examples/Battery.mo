@@ -2,7 +2,8 @@ within Buildings.Electrical.DC.Storage.Examples;
 model Battery "Test model for battery"
   import Buildings;
   extends Modelica.Icons.Example;
-  Buildings.Electrical.DC.Storage.Battery     bat(EMax=40e3*3600) "Battery"
+  Buildings.Electrical.DC.Storage.Battery     bat(EMax=40e3*3600, V_nominal=12)
+    "Battery"
     annotation (Placement(transformation(extent={{120,10},{140,30}})));
   Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=12) "Voltage source"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},

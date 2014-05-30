@@ -101,7 +101,6 @@ voltage <i>V<sub>nom</sub></i>, introduces two new points where the model is app
 and <i>1.2 &sdot; V<sub>nom</sub></i>.
 </p>
 
-<p>
 <table summary=\"equations\" border = \"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collape;\">
 <tr><th>Equation</th><th>Condition</th></tr>
 <tr>
@@ -119,8 +118,6 @@ and <i>1.2 &sdot; V<sub>nom</sub></i>.
 <td>Otherwise</td>
 </tr>
 </table>
-</p>
-
 
 </html>", revisions="<html>
 <ul>

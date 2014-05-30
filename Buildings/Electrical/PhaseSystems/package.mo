@@ -23,6 +23,8 @@ approach is to use the same connector for different electrical domains.<br/>
 Each connector will have a replaceable package that inherit from <a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a> 
 depending on the type of system to represent.<br/>
 The electrical systems represented are:
+</p>
+
 <ul>
 <li>DC systems,</li>
 <li>DC systems with two conductors,</li>
@@ -31,15 +33,15 @@ The electrical systems represented are:
 <li>3 Phases balanced AC systems,</li>
 <li>3 Phases unbalanced AC systems (dq0 representation).</li>
 </ul>
-</p>
-</p>
+
 <p>
 This approach has been used by the following Modelica libraries:
+</p>
+
 <ul>
 <li><a href=\"http://www.modelon.com/products/modelica-libraries/electric-power-library\">Electric Power Library</a> developed by Modelon,</li>
 <li><a href=\"https://github.com/modelica/PowerSystems\">Power Systems Library</a> developed by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Rüdiger Franke</a> (ABB).</li>
 </ul>
-</p>
 
 <p>
 More details about the phase system packages can be found in <a href=\"#RuedigerEtAl2014\">Franke and Wierssman (2014)</a>.
