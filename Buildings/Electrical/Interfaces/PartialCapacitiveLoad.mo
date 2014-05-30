@@ -1,7 +1,7 @@
 within Buildings.Electrical.Interfaces;
 partial model PartialCapacitiveLoad "Partial model of a capacitive load"
   extends PartialLoad;
-  parameter Real pf(min=0, max=1) = 0.8 "Power factor"  annotation(evaluate=true,Dialog(group="Nominal conditions"));
+  parameter Real pf(min=0, max=1) = 0.8 "Power factor"  annotation(Evaluate=true,Dialog(group="Nominal conditions"));
 protected
   function j = PhaseSystem.j;
   Modelica.SIunits.ElectricCharge q[2](each stateSelect=StateSelect.prefer)

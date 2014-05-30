@@ -5,9 +5,9 @@ model PartialPVOriented "Partial model of a PV system with orientation"
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Angle til "Surface tilt" annotation(evaluate=true,Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Angle lat "Latitude" annotation(evaluate=true,Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Angle azi "Surface Azimith" annotation(evaluate=true,Dialog(group="Orientation"));
+  parameter Modelica.SIunits.Angle til "Surface tilt" annotation(Evaluate=true,Dialog(group="Orientation"));
+  parameter Modelica.SIunits.Angle lat "Latitude" annotation(Evaluate=true,Dialog(group="Orientation"));
+  parameter Modelica.SIunits.Angle azi "Surface Azimith" annotation(Evaluate=true,Dialog(group="Orientation"));
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
       package PhaseSystem = PhaseSystem) "Generalised terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));

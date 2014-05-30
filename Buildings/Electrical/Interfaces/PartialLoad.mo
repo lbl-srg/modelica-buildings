@@ -6,17 +6,17 @@ partial model PartialLoad "Partial model for a generic load"
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
   parameter Boolean linear = false
-    "If =true introduce a linearization in the load model"                                                    annotation(evaluate=true,Dialog(group="Modelling assumption"));
+    "If =true introduce a linearization in the load model"                                                    annotation(Evaluate=true,Dialog(group="Modelling assumption"));
   parameter Buildings.Electrical.Types.Assumption mode(
     min=Assumption.FixedZ_steady_state,
     max=Assumption.VariableZ_y_input)=Assumption.FixedZ_steady_state
     "Parameter that specifies the type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
                                                                                                         annotation(Evaluate=true,Dialog(group="Modelling assumption"));
   parameter Modelica.SIunits.Power P_nominal(start=0)
-    "Nominal power (negative if consumed, positive if generated)"  annotation(evaluate=true,Dialog(group="Nominal conditions",
+    "Nominal power (negative if consumed, positive if generated)"  annotation(Evaluate=true,Dialog(group="Nominal conditions",
         enable = mode <> Assumption.VariableZ_P_input));
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)
-    "Nominal voltage (V_nominal >= 0)"  annotation(evaluate=true, Dialog(group="Nominal conditions", enable = (mode==Assumptionm.FixedZ_dynamic or linear)));
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
+    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions", enable = (mode==Assumptionm.FixedZ_dynamic or linear)));
   Modelica.SIunits.Voltage v[:](start = PhaseSystem.phaseVoltages(V_nominal)) = terminal.v
     "Voltage vector";
   Modelica.SIunits.Current i[:](start = PhaseSystem.phaseCurrents(0.0)) = terminal.i
