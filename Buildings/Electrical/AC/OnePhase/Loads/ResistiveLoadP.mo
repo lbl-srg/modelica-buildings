@@ -3,7 +3,7 @@ model ResistiveLoadP "Model of a resistive load"
   extends Buildings.Electrical.Interfaces.PartialLoad(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal,
-    V_nominal=220);
+    V_nominal=110);
 equation
 
   if linear then

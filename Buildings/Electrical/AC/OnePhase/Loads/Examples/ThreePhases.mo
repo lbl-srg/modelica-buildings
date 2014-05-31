@@ -2,11 +2,9 @@ within Buildings.Electrical.AC.OnePhase.Loads.Examples;
 model ThreePhases
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage Va(
-    f=50,
-    V=220,
-    Phi=0,
-    definiteReference=true)
-           annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    definiteReference=true,
+    f=60,
+    V=110) annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Za(
     inductive=true,
     L=1/(2*Modelica.Constants.pi*50),

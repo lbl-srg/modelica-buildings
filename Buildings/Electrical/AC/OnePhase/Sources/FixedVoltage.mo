@@ -3,9 +3,11 @@ model FixedVoltage "Fixed 1 phase AC voltage source"
   extends Buildings.Electrical.Interfaces.PartialSource(redeclare package
       PhaseSystem = PhaseSystems.OnePhase, redeclare Interfaces.Terminal_p
       terminal);
-  parameter Modelica.SIunits.Frequency f(start=50) "Frequency of the source";
-  parameter Modelica.SIunits.Voltage V(start=220) "RMS voltage of the source";
-  parameter Modelica.SIunits.Angle Phi(start=0) "Phase shift of the source";
+  parameter Modelica.SIunits.Frequency f(start=60) = 60
+    "Frequency of the source";
+  parameter Modelica.SIunits.Voltage V(start=220) = 110
+    "RMS voltage of the source";
+  parameter Modelica.SIunits.Angle Phi(start=0) = 0 "Phase shift of the source";
   Modelica.SIunits.Angle thetaRel;
 equation
   if Connections.isRoot(terminal.theta) then

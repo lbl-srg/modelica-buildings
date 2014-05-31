@@ -8,13 +8,16 @@ partial model PartialTwoPortRLC
                                                                                 annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature M = 507.65
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))" annotation(Evaluate=true);
-  parameter Modelica.SIunits.Capacitance C(start=0) "Capacity" annotation(evaluate=true);
-  parameter Modelica.SIunits.Inductance L(start=0) "Inductance" annotation(evaluate=true);
+  parameter Modelica.SIunits.Capacitance C(start=0) "Capacity";
+  parameter Modelica.SIunits.Inductance L(start=0) "Inductance";
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)=100
-    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
+    "Nominal voltage (V_nominal >= 0)"  annotation(Dialog(group="Nominal conditions"));
   Modelica.SIunits.Resistance R_actual
-    "Actual resistance = R*(M + T_heatPort)/(M + T_ref) " annotation(evaluate=true);
+    "Actual resistance = R*(M + T_heatPort)/(M + T_ref) ";
 equation
+  Connections.branch(terminal_p.theta, terminal_n.theta);
+  terminal_p.theta = terminal_n.theta;
+
   assert(R_actual>=0, "The value of R_actual must be positive, check reference and actual temperatures");
 
   R_actual = R*(M + Modelica.SIunits.Conversions.to_degC(T_heatPort))/(M + Modelica.SIunits.Conversions.to_degC(T_ref));

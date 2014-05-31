@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.OnePhase.Sources.Examples;
 model VariablePowerSource
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Sources.Generator generator(      Phi(displayUnit="deg") = 0.26179938779915, f=50)
+  Buildings.Electrical.AC.OnePhase.Sources.Generator generator(      Phi(displayUnit="deg") = 0.26179938779915, f=60)
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Modelica.Blocks.Sources.Sine generation(
     offset=200,
@@ -12,10 +12,8 @@ model VariablePowerSource
   Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP RL(mode=Types.Assumption.VariableZ_y_input,
       P_nominal=-300)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Electrical.AC.OnePhase.Sources.Grid grid(
-    f=50,
-    Phi=0,
-    V=220) annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  Buildings.Electrical.AC.OnePhase.Sources.Grid grid(f=60, V=110)
+           annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Sources.Trapezoid load(
     rising=2,
     width=3,

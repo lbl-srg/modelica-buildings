@@ -3,26 +3,26 @@ partial model PartialLoadN
   import Buildings;
   extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
   parameter Boolean linear = false
-    "If =true introduce a linearization in the load"                                                    annotation(evaluate=true,Dialog(group="Modelling assumption"));
+    "If =true introduce a linearization in the load"                                                    annotation(Dialog(group="Modelling assumption"));
   parameter Buildings.Electrical.Types.Assumption mode(
     min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Assumption.VariableZ_y_input)=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
     "Parameters that specifies the mode of the load (e.g., steady state, dynamic, prescribed power consumption, etc.)"
-                                                                                                        annotation(evaluate=true,Dialog(group="Modelling assumption"));
+                                                                                                        annotation(Dialog(group="Modelling assumption"));
 
   parameter Modelica.SIunits.Power P_nominal(start=0)
-    "Nominal power (negative if consumed, positive if generated)"  annotation(evaluate=true, Dialog(group="Nominal conditions",
+    "Nominal power (negative if consumed, positive if generated)"  annotation(Dialog(group="Nominal conditions",
         enable = mode <> Assumption.VariableZ_P_input));
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)
-    "Nominal voltage (V_nominal >= 0)"  annotation(evaluate=true, Dialog(group="Nominal conditions", enable = (mode==Assumptionm.FixedZ_dynamic or linear)));
+    "Nominal voltage (V_nominal >= 0)"  annotation(Dialog(group="Nominal conditions", enable = (mode==Assumptionm.FixedZ_dynamic or linear)));
 
   parameter Boolean VoltageCTRL = false "This flag enables the voltage control"
-                                                                                annotation(evaluate=true, Dialog(group="Voltage CTRL"));
+                                                                                annotation(Evaluate=true, Dialog(group="Voltage CTRL"));
   parameter Real Vthresh(min=0.0, max=1.0) = 0.1
-    "Threshold that activates voltage ctrl (ratio of nominal voltage)" annotation(evaluate=true, Dialog(group="Voltage CTRL",
+    "Threshold that activates voltage ctrl (ratio of nominal voltage)" annotation(Dialog(group="Voltage CTRL",
         enable = VoltageCTRL));
   parameter Modelica.SIunits.Time Tdelay = 300
-    "Time to wait before plugging the load again after disconnection" annotation(evaluate=true, Dialog(group="Voltage CTRL",
+    "Time to wait before plugging the load again after disconnection" annotation(Dialog(group="Voltage CTRL",
         enable = VoltageCTRL));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_n
                        terminal_p

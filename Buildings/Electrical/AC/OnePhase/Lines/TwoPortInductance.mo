@@ -7,12 +7,10 @@ model TwoPortInductance
           PhaseSystem_n),
     redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
           PhaseSystem_p));
-
+  parameter Buildings.Electrical.Types.Assumption mode(min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state, max=Buildings.Electrical.Types.Assumption.VariableZ_y_input) = Buildings.Electrical.Types.Assumption.FixedZ_steady_state                                                      annotation(Evaluate=true,Dialog(group="Modelling assumption"));
+protected
   Modelica.SIunits.AngularVelocity omega;
-  parameter Buildings.Electrical.Types.Assumption mode(min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state, max=Buildings.Electrical.Types.Assumption.VariableZ_y_input) = Buildings.Electrical.Types.Assumption.FixedZ_steady_state                                                      annotation(evaluate=true,Dialog(group="Modelling assumption"));
 equation
-  Connections.branch(terminal_p.theta, terminal_n.theta);
-  terminal_p.theta = terminal_n.theta;
 
   omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));
 

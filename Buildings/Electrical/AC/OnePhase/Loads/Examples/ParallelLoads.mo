@@ -10,7 +10,7 @@ model ParallelLoads
         rotation=0,
         origin={10,50})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage
-                                                     source(f=50, V=220)
+                                                     source(f=60, V=110)
     "Voltage source"        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

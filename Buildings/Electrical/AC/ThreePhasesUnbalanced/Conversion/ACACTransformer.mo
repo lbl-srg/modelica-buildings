@@ -35,8 +35,8 @@ model ACACTransformer
   parameter Real XoverR
     "Ratio between the complex and real components of the impedance (XL/R)";
   parameter Real Zperc "Short circuit impedance";
-  parameter Boolean ground_1 = false "Connect side 1 of transformer to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
-  parameter Boolean ground_2 = true "Connect side 2 of transformer to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
+  parameter Boolean ground_1 = false "Connect side 1 of transformer to ground" annotation(Dialog(tab = "Ground", group="side 1"));
+  parameter Boolean ground_2 = true "Connect side 2 of transformer to ground" annotation(Dialog(tab = "Ground", group="side 2"));
 equation
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

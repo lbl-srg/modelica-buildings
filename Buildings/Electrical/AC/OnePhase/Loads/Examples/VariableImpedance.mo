@@ -1,10 +1,8 @@
 within Buildings.Electrical.AC.OnePhase.Loads.Examples;
 model VariableImpedance "Test with a variable impedance"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage V(
-    f=50,
-    V=220,
-    Phi=0) annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage V(f=60, V=110)
+           annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Z_L(
     R=0,
     inductive=true,

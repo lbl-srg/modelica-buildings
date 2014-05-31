@@ -14,12 +14,14 @@ model ACACConverter "AC AC converter single phase systems"
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * 'abs'(v2QS)";
   Modelica.SIunits.Power LossPower[2] "Loss power";
-  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
-  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
+  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
+  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
 protected
   Modelica.SIunits.Power Pow_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
   Modelica.SIunits.Power Pow_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
 equation
+
+  // Ideal transformation
   terminal_p.v = conversionFactor*terminal_n.v;
 
   /* Easier way to look at the next expression 
@@ -35,7 +37,7 @@ equation
   terminal_p.i[2] = terminal_n.i[2]/conversionFactor*Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), Pow_p[1], deltax=0.1);
   LossPower = Pow_p + Pow_n;
 
-  //TODO: do we need to do anything for the phase or should we assume the phase remains the same?
+  // The two sides have the same reference angle
   terminal_p.theta = terminal_n.theta;
 
   if ground_1 then

@@ -21,6 +21,8 @@ protected
   Modelica.SIunits.Power Pow_p;
   Modelica.SIunits.Power Pow_n;
 equation
+  Connections.potentialRoot(terminal_n.theta);
+  Connections.potentialRoot(terminal_p.theta);
 
   if not ground_1 then
     i1 = 0;

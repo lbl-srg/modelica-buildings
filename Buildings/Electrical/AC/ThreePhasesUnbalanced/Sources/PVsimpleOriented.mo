@@ -5,9 +5,9 @@ model PVsimpleOriented
     redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase1,
     redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase2,
     redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase3);
-  parameter Modelica.SIunits.Angle til "Surface tilt" annotation(evaluate=true,Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Angle lat "Latitude" annotation(evaluate=true,Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Angle azi "Surface Azimith" annotation(evaluate=true,Dialog(group="Orientation"));
+  parameter Modelica.SIunits.Angle til "Surface tilt" annotation(Dialog(group="Orientation"));
+  parameter Modelica.SIunits.Angle lat "Latitude" annotation(Dialog(group="Orientation"));
+  parameter Modelica.SIunits.Angle azi "Surface Azimith" annotation(Dialog(group="Orientation"));
   BoundaryConditions.SolarIrradiation.DiffusePerez           HDifTil(
     til=til,
     lat=lat,
@@ -21,7 +21,7 @@ model PVsimpleOriented
   Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-72,78})));
+        origin={-78,78})));
   BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data" annotation (
      Placement(transformation(extent={{30,90},{50,110}}),  iconTransformation(
           extent={{-10,80},{10,100}})));
@@ -43,15 +43,15 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(HDirTil.H, G.u1) annotation (Line(
-      points={{7,57},{-14,57},{-14,82},{-56,82},{-56,72},{-60,72}},
+      points={{7,57},{-14,57},{-14,76},{-58,76},{-58,72},{-66,72}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDifTil.H, G.u2) annotation (Line(
-      points={{-11,84},{-60,84}},
+      points={{-11,84},{-66,84}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(G.y, G_int) annotation (Line(
-      points={{-83,78},{-94,78},{-94,20},{-66,20}},
+      points={{-89,78},{-94,78},{-94,20},{-80,20}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

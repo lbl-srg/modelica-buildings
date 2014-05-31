@@ -8,8 +8,6 @@ model TwoPortResistance
     redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
           PhaseSystem_p));
 equation
-  Connections.branch(terminal_p.theta, terminal_n.theta);
-  terminal_p.theta = terminal_n.theta;
 
   terminal_p.v - terminal_n.v = terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual);
 

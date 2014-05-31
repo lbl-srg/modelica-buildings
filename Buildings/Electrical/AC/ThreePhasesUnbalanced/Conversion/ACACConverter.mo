@@ -21,8 +21,8 @@ model ACACConverter
     "Ratio of QS rms voltage on side 2 / QS rms voltage on side 1";
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * 'abs'(v2QS)";
-  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
-  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
+  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Dialog(tab = "Ground", group="side 1"));
+  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Dialog(tab = "Ground", group="side 2"));
 equation
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

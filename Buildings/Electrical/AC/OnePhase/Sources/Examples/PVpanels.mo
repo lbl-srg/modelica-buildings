@@ -4,10 +4,8 @@ model PVpanels
   Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP RL(mode=Types.Assumption.VariableZ_y_input,
       P_nominal=-2000)
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Electrical.AC.OnePhase.Sources.Grid grid(
-    f=50,
-    Phi=0,
-    V=220) annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+  Buildings.Electrical.AC.OnePhase.Sources.Grid grid(f=60, V=110)
+           annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant  load(k=0.5)
     annotation (Placement(transformation(extent={{78,-50},{58,-30}})));
   BoundaryConditions.SolarIrradiation.DiffusePerez           HDifTil(

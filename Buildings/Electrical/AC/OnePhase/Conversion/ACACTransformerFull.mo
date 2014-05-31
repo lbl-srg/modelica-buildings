@@ -25,13 +25,13 @@ model ACACTransformerFull
     "Inductance on side 2 of the transformer (pu)";
   parameter Boolean magEffects = false
     "If =true introduce magnetization effects"
-    annotation(evaluate=true, Dialog(group="Magnetization"));
+    annotation(Evaluate=true, Dialog(group="Magnetization"));
   parameter Buildings.Electrical.Types.PerUnit Rm(min=0)
-    "Magnetization resistance (pu)" annotation(evaluate=true, Dialog(group="Magnetization", enable = magEffects));
+    "Magnetization resistance (pu)" annotation(Evaluate=true, Dialog(group="Magnetization", enable = magEffects));
   parameter Buildings.Electrical.Types.PerUnit Lm(min=0)
-    "Magnetization inductance (pu)" annotation(evaluate=true, Dialog(group="Magnetization", enable = magEffects));
-  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
-  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
+    "Magnetization inductance (pu)" annotation(Evaluate=true, Dialog(group="Magnetization", enable = magEffects));
+  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
+  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
   Modelica.SIunits.Efficiency eta "Efficiency of the transformer";
   Modelica.SIunits.Power LossPower[2] "Loss power";
 protected
@@ -94,7 +94,7 @@ equation
   // Loss of power
   LossPower = Pow_p + Pow_n;
 
-  //fixme: do we need to do anything for the phase or should we assume the phase remains the same?
+  // The two sides have the same reference angle
   terminal_p.theta = terminal_n.theta;
 
   if ground_1 then

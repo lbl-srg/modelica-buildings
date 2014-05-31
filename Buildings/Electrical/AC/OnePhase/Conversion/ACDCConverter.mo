@@ -13,8 +13,8 @@ model ACDCConverter "AC DC converter"
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * pDC";
   Modelica.SIunits.Power LossPower "Loss power";
-  parameter Boolean ground_AC = false "Connect AC side of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="AC side"));
-  parameter Boolean ground_DC = true "Connect DC side of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="DC side"));
+  parameter Boolean ground_AC = false "Connect AC side of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="AC side"));
+  parameter Boolean ground_DC = true "Connect DC side of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="DC side"));
 protected
   PhaseSystem_p.Current i_dc "DC current";
   PhaseSystem_p.Voltage v_dc "DC voltage";
@@ -40,9 +40,12 @@ equation
 
   if ground_DC then
     v_dc = 0;
+    Connections.root(terminal_p.theta);
   else
     i_dc = 0;
+    Connections.potentialRoot(terminal_p.theta);
   end if;
+
   v_dc = terminal_p.v[2];
   sum(terminal_p.i) + i_dc = 0;
 

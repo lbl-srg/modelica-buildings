@@ -21,8 +21,8 @@ model ACDCConverter
     "Ratio of QS rms voltage on side 2 / QS rms voltage on side 1";
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * 'abs'(v2QS)";
-  parameter Boolean ground_AC = false "Connect AC side of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="AC side"));
-  parameter Boolean ground_DC = true "Connect DC side of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="DC side"));
+  parameter Boolean ground_AC = false "Connect AC side of converter to ground" annotation(Dialog(tab = "Ground", group="AC side"));
+  parameter Boolean ground_DC = true "Connect DC side of converter to ground" annotation(Dialog(tab = "Ground", group="DC side"));
 equation
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

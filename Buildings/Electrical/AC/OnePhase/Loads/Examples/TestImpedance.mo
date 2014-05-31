@@ -1,10 +1,8 @@
 within Buildings.Electrical.AC.OnePhase.Loads.Examples;
 model TestImpedance
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage V(
-    f=50,
-    V=220,
-    Phi=0) annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage V(f=60, V=110)
+           annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Z1(R=0,
     inductive=true,
     L=1/(2*Modelica.Constants.pi*50),

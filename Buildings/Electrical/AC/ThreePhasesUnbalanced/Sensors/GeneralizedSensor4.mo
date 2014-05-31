@@ -36,9 +36,9 @@ model GeneralizedSensor4
 equation
 
   for i in 1:4 loop
-    V[i]   = terminal_n.phase[i].PhaseSystem.systemVoltage(terminal_n.phase[i].v);
-    I[i]   = terminal_n.phase[i].PhaseSystem.systemCurrent(terminal_n.phase[i].i);
-    S[i,:] = terminal_n.phase[i].PhaseSystem.phasePowers_vi(v=terminal_n.phase[i].v, i=terminal_n.phase[i].i);
+    V[i]   = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal_n.phase[i].v);
+    I[i]   = Buildings.Electrical.PhaseSystems.OnePhase.systemCurrent(terminal_n.phase[i].i);
+    S[i,:] = Buildings.Electrical.PhaseSystems.OnePhase.phasePowers_vi(v=terminal_n.phase[i].v, i=terminal_n.phase[i].i);
   end for;
 
   connect(terminal_n, terminal_p) annotation (Line(

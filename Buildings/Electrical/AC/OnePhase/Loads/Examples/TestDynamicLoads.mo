@@ -7,7 +7,7 @@ model TestDynamicLoads "Example that illustrates the use of dynamic loads"
   parameter Real g = 0;
   parameter Real b = 0;
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage
-                                                     source(f=50, V=220)
+                                                     source(f=60, V=110)
     "Voltage source"        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

@@ -3,7 +3,7 @@ package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
 
-    annotation (preferedView="info",
+    annotation (
 Documentation(info="<html>
 <p>
 The library 

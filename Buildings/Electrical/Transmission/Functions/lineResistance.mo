@@ -17,6 +17,7 @@ algorithm
     Modelica.Utilities.Streams.print("Warning: the voltage level does not match one of the three available: Low, Medium or High " +
         String(level) + ". A Low level has been choose as default.");
     R := cable_low.RCha*Length;
-  end if
+  end if;
+
 annotation(Inline = true);
 end lineResistance;

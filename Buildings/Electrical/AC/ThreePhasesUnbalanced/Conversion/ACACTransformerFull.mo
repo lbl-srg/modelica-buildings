@@ -47,13 +47,13 @@ model ACACTransformerFull
     "Inductance on side 2 of the transformer (pu)";
   parameter Boolean magEffects = false
     "If =true introduce magnetization effects"
-    annotation(evaluate=true, Dialog(group="Magnetization"));
+    annotation(Dialog(group="Magnetization"));
   parameter Buildings.Electrical.Types.PerUnit Rm(min=0)
-    "Magnetization resistance (pu)" annotation(evaluate=true, Dialog(group="Magnetization", enable = magEffects));
+    "Magnetization resistance (pu)" annotation(Dialog(group="Magnetization", enable = magEffects));
   parameter Buildings.Electrical.Types.PerUnit Lm(min=0)
-    "Magnetization inductance (pu)" annotation(evaluate=true, Dialog(group="Magnetization", enable = magEffects));
-  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
-  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
+    "Magnetization inductance (pu)" annotation(Dialog(group="Magnetization", enable = magEffects));
+  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Dialog(tab = "Ground", group="side 1"));
+  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Dialog(tab = "Ground", group="side 2"));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={

@@ -3,6 +3,8 @@ partial model PartialTwoPortInductance
   extends Interfaces.PartialTwoPort;
   parameter Modelica.SIunits.Inductance L(start=1) "Inductance" annotation(Evaluate=true);
 equation
+  Connections.branch(terminal_p.theta, terminal_n.theta);
+  terminal_p.theta = terminal_n.theta;
 
   terminal_p.i = - terminal_n.i;
 

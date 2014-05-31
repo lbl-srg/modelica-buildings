@@ -12,28 +12,28 @@ partial model PartialImpedance
       choice=true "Inductive",
       choice=false "Capacitive",
       __Dymola_radioButtons=true));
-  parameter Modelica.SIunits.Resistance R(start = 1,min=0) "Resistance"
+  parameter Modelica.SIunits.Resistance R(start = 1,min=0) = 1 "Resistance"
     annotation (Dialog(enable= not useVariableR));
-  parameter Modelica.SIunits.Inductance L(start=0, min=0) "Inductance"
+  parameter Modelica.SIunits.Inductance L(start=0, min=0) = 0 "Inductance"
     annotation (Dialog(enable=inductive and (not useVariableL)));
-  parameter Modelica.SIunits.Capacitance C(start=0,min=0) "Capacitance"  annotation (Dialog(enable=(not inductive) and (not useVariableC)));
+  parameter Modelica.SIunits.Capacitance C(start=0,min=0) = 0 "Capacitance"  annotation (Dialog(enable=(not inductive) and (not useVariableC)));
   parameter Boolean useVariableR = false
     "if true R is specified by an input variable" annotation(Evaluate=true, Dialog(tab = "Variable load", group="Resistance"));
-  parameter Modelica.SIunits.Resistance Rmin(start = R, min=Modelica.Constants.eps)
+  parameter Modelica.SIunits.Resistance Rmin(start = R, min=Modelica.Constants.eps) = 1e-4
     "Minimum value of the resistance" annotation(Evaluate=true, Dialog(enable = useVariableR, tab = "Variable load", group="Resistance"));
-  parameter Modelica.SIunits.Resistance Rmax(start = R, min=Modelica.Constants.eps)
+  parameter Modelica.SIunits.Resistance Rmax(start = R, min=Modelica.Constants.eps) = 1e2
     "Maximum value of the resistance" annotation(Evaluate=true, Dialog(enable = useVariableR, tab = "Variable load", group="Resistance"));
   parameter Boolean useVariableC = false
     "if true C is specified by an input variable" annotation(Evaluate=true, Dialog(tab = "Variable load", group="Capacitance"));
-  parameter Modelica.SIunits.Capacitance Cmin(start = C, min=Modelica.Constants.eps)
+  parameter Modelica.SIunits.Capacitance Cmin(start = C, min=Modelica.Constants.eps) = 1e-4
     "Minimum value of the capacitance" annotation(Evaluate=true, Dialog(enable = useVariableC, tab = "Variable load", group="Capacitance"));
-  parameter Modelica.SIunits.Capacitance Cmax(start = C, min=Modelica.Constants.eps)
+  parameter Modelica.SIunits.Capacitance Cmax(start = C, min=Modelica.Constants.eps) = 1e2
     "Maximum value of the capacitance" annotation(Evaluate=true, Dialog(enable = useVariableC, tab = "Variable load", group="Capacitance"));
   parameter Boolean useVariableL = false
     "if true L is specified by an input variable" annotation(Evaluate=true, Dialog(tab = "Variable load", group="Inductance"));
-  parameter Modelica.SIunits.Inductance Lmin(start = L, min=Modelica.Constants.eps)
+  parameter Modelica.SIunits.Inductance Lmin(start = L, min=Modelica.Constants.eps) = 1e-4
     "Minimum value of the inductance" annotation(Evaluate=true, Dialog(enable = useVariableL, tab = "Variable load", group="Inductance"));
-  parameter Modelica.SIunits.Inductance Lmax(start = L, min=Modelica.Constants.eps)
+  parameter Modelica.SIunits.Inductance Lmax(start = L, min=Modelica.Constants.eps) = 1e2
     "Maximum value of the inductance" annotation(Evaluate=true, Dialog(enable = useVariableL, tab = "Variable load", group="Inductance"));
   Modelica.Blocks.Interfaces.RealInput y_R(min=0, max=1) if useVariableR
     "Input that sepecify variable R"

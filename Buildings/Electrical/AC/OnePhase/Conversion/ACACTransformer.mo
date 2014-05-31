@@ -18,9 +18,9 @@ model ACACTransformer "AC AC transformer for single phase systems"
   parameter Real Zperc "Short circuit impedance";
   Modelica.SIunits.Efficiency eta "Efficiency of the transformer";
   Modelica.SIunits.Power LossPower[2] "Loss power";
-  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(evaluate=true,Dialog(tab = "Ground", group="side 1"));
-  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(evaluate=true, Dialog(tab = "Ground", group="side 2"));
-//protected
+  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
+  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
+protected
   Real N = Vhigh/Vlow "Winding ratio";
   Modelica.SIunits.Current Ihigh = VAbase/Vhigh
     "Nominal current on primary side";
@@ -66,7 +66,7 @@ equation
   // Loss of power
   LossPower = Pow_p + Pow_n;
 
-  //fixme: do we need to do anything for the phase or should we assume the phase remains the same?
+  // The two sides have the same reference angle
   terminal_p.theta = terminal_n.theta;
 
   if ground_1 then

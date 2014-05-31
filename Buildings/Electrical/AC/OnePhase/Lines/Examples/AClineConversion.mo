@@ -32,7 +32,8 @@ model AClineConversion
     commercialCable_low=Transmission.LowVoltageCables.Cu25(),
     l=200)
     annotation (Placement(transformation(extent={{2,-10},{22,10}})));
-  Conversion.ACDCConverter ACDC(conversionFactor=60/380, eta=0.9)
+  Conversion.ACDCConverter ACDC(conversionFactor=60/380, eta=0.9,
+    ground_DC=true)
     annotation (Placement(transformation(extent={{-28,-40},{-8,-20}})));
   DC.Loads.Conductor                        load(
     P_nominal=200,

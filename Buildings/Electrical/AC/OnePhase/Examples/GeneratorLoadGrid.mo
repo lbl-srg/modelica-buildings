@@ -55,7 +55,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Commands(file=
+    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/Examples/GeneratorLoadGrid.mos"
         "Simulate and plot"));
 end GeneratorLoadGrid;

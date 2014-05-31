@@ -11,8 +11,8 @@ model LineN
     M=M,
     V_nominal=V_nominal,
     mode=modelMode,
-    R=R/4,
-    L=L/4)
+    R=R/3,
+    L=L/3)
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   OnePhase.Lines.TwoPortRL phase2(
     useHeatPort=true,
@@ -20,8 +20,8 @@ model LineN
     M=M,
     V_nominal=V_nominal,
     mode=modelMode,
-    R=R/4,
-    L=L/4)
+    R=R/3,
+    L=L/3)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   OnePhase.Lines.TwoPortRL phase3(
     useHeatPort=true,
@@ -29,8 +29,8 @@ model LineN
     M=M,
     V_nominal=V_nominal,
     mode=modelMode,
-    R=R/4,
-    L=L/4)
+    R=R/3,
+    L=L/3)
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   OnePhase.Lines.TwoPortRL neutral(
     useHeatPort=true,
@@ -38,8 +38,8 @@ model LineN
     M=M,
     V_nominal=V_nominal,
     mode=modelMode,
-    R=R/4,
-    L=L/4)
+    R=R/3,
+    L=L/3)
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
 

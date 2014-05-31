@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces;
 connector Terminal4_p
-  Buildings.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_p phase[4];
+  Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p phase[4];
   annotation (Icon(graphics={                Polygon(
               points={{-100,110},{-100,70},{100,70},{100,110},{-100,110}},
               lineColor={0,120,120},

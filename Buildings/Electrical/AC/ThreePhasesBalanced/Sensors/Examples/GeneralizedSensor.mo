@@ -34,7 +34,7 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics),
-Commands(file=
+__Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/AC3ph/Sensors/Examples/GeneralizedSensor.mos"
         "Simulate and plot"));
 end GeneralizedSensor;

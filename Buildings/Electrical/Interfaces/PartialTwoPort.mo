@@ -16,9 +16,6 @@ model PartialTwoPort
         replaceable package PhaseSystem=PhaseSystem_n), redeclare replaceable
       Buildings.Electrical.Interfaces.Terminal                                                 terminal_p(redeclare
         replaceable package PhaseSystem=PhaseSystem_p));
-equation
-  Connections.branch(terminal_p.theta, terminal_n.theta);
-  terminal_p.theta = terminal_n.theta;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(revisions="<html>
 <ul>

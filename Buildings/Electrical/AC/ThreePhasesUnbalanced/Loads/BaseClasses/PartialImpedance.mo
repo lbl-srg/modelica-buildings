@@ -80,23 +80,23 @@ partial model PartialImpedance
     annotation (Dialog(enable=inductive and (not useVariableL)));
   parameter Modelica.SIunits.Capacitance C(start=0,min=0) "Capacitance"  annotation (Dialog(enable=(not inductive) and (not useVariableC)));
   parameter Boolean useVariableR = true
-    "if true R is specified by an input variable" annotation(evaluate=true, Dialog(tab = "Variable load", group="Resistance"));
+    "if true R is specified by an input variable" annotation(Dialog(tab = "Variable load", group="Resistance"));
   parameter Modelica.SIunits.Resistance Rmin(start = R, min=Modelica.Constants.eps)
-    "Minimum value of the resistance" annotation(evaluate=true, Dialog(enable = useVariableR, tab = "Variable load", group="Resistance"));
+    "Minimum value of the resistance" annotation(Dialog(enable = useVariableR, tab = "Variable load", group="Resistance"));
   parameter Modelica.SIunits.Resistance Rmax(start = R, min=Modelica.Constants.eps)
-    "Maximum value of the resistance" annotation(evaluate=true, Dialog(enable = useVariableR, tab = "Variable load", group="Resistance"));
+    "Maximum value of the resistance" annotation(Dialog(enable = useVariableR, tab = "Variable load", group="Resistance"));
   parameter Boolean useVariableC = true
-    "if true C is specified by an input variable" annotation(evaluate=true, Dialog(tab = "Variable load", group="Capacitance"));
+    "if true C is specified by an input variable" annotation(Dialog(tab = "Variable load", group="Capacitance"));
   parameter Modelica.SIunits.Capacitance Cmin(start = C, min=Modelica.Constants.eps)
-    "Minimum value of the capacitance" annotation(evaluate=true, Dialog(enable = useVariableC, tab = "Variable load", group="Capacitance"));
+    "Minimum value of the capacitance" annotation(Dialog(enable = useVariableC, tab = "Variable load", group="Capacitance"));
   parameter Modelica.SIunits.Capacitance Cmax(start = C, min=Modelica.Constants.eps)
-    "Maximum value of the capacitance" annotation(evaluate=true, Dialog(enable = useVariableC, tab = "Variable load", group="Capacitance"));
+    "Maximum value of the capacitance" annotation(Dialog(enable = useVariableC, tab = "Variable load", group="Capacitance"));
   parameter Boolean useVariableL = true
-    "if true L is specified by an input variable" annotation(evaluate=true, Dialog(tab = "Variable load", group="Inductance"));
+    "if true L is specified by an input variable" annotation(Dialog(tab = "Variable load", group="Inductance"));
   parameter Modelica.SIunits.Inductance Lmin(start = L, min=Modelica.Constants.eps)
-    "Minimum value of the inductance" annotation(evaluate=true, Dialog(enable = useVariableL, tab = "Variable load", group="Inductance"));
+    "Minimum value of the inductance" annotation(Dialog(enable = useVariableL, tab = "Variable load", group="Inductance"));
   parameter Modelica.SIunits.Inductance Lmax(start = L, min=Modelica.Constants.eps)
-    "Maximum value of the inductance" annotation(evaluate=true, Dialog(enable = useVariableL, tab = "Variable load", group="Inductance"));
+    "Maximum value of the inductance" annotation(Dialog(enable = useVariableL, tab = "Variable load", group="Inductance"));
   Modelica.Blocks.Interfaces.RealInput y_R(min=0, max=1) if useVariableR
     "Input that sepecify variable R"
     annotation (Placement(transformation(
@@ -141,10 +141,6 @@ equation
       smooth=Smooth.None));
     connect(y_C, load2.y_C) annotation (Line(
         points={{0,100},{0,70},{-20,70},{-20,24},{0,24},{0,10}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(y_L, load2.y_C) annotation (Line(
-        points={{40,100},{40,20},{4,20},{4,10},{6.66134e-16,10}},
         color={0,0,127},
         smooth=Smooth.None));
   end if;
@@ -194,6 +190,10 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
 
+  connect(load2.y_L, y_L) annotation (Line(
+      points={{4,10},{4,20},{40,20},{40,100}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));

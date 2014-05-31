@@ -12,38 +12,44 @@ model Dynamic "Example that illustrates the use of dynamic loads"
                                              Load1(
     pf=0.8,
     V_nominal=220,
-    P_nominal=-60000,
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)
+    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
+    P_nominal=-60e3)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={6,-36})));
   Buildings.Electrical.AC.OnePhase.Lines.Line              line(
     mode=Buildings.Electrical.Types.CableMode.commercial,
     l=100,
-    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu50())
+    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu50(),
+    V_nominal=220,
+    P_nominal=180e3)
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP
                                              Load2(
     pf=0.8,
     V_nominal=220,
-    P_nominal=-50000,
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)
+    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
+    P_nominal=-50e3)
     annotation (Placement(transformation(extent={{26,-24},{46,-4}})));
   Buildings.Electrical.AC.OnePhase.Lines.Line              line1(
     mode=Buildings.Electrical.Types.CableMode.commercial,
     l=500,
-    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu50())
+    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu50(),
+    V_nominal=220,
+    P_nominal=100e3)
     annotation (Placement(transformation(extent={{-32,0},{-12,20}})));
   Buildings.Electrical.AC.OnePhase.Lines.Line              line2(
     mode=Buildings.Electrical.Types.CableMode.commercial,
     l=200,
-    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu50())
+    commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu50(),
+    V_nominal=220,
+    P_nominal=50e3)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP Load3(
     pf=0.8,
     V_nominal=220,
     mode=Buildings.Electrical.Types.Assumption.VariableZ_y_input,
-    P_nominal=-30000)
+    P_nominal=-30e3)
     annotation (Placement(transformation(extent={{48,0},{68,20}})));
   Modelica.Blocks.Sources.TimeTable timeTable(
     offset=0,

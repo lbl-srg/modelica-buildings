@@ -11,6 +11,9 @@ partial model PartialTwoPortResistance
   Modelica.SIunits.Resistance R_actual
     "Actual resistance = R*(M + T_heatPort)/(M + T_ref) ";
 equation
+  Connections.branch(terminal_p.theta, terminal_n.theta);
+  terminal_p.theta = terminal_n.theta;
+
   assert(R_actual>=0, "The value of R_actual must be positive, check reference and actual temperatures");
 
   R_actual = R*(M + Modelica.SIunits.Conversions.to_degC(T_heatPort))/(M + Modelica.SIunits.Conversions.to_degC(T_ref));

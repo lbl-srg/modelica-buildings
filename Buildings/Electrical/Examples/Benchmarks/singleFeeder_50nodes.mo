@@ -7,7 +7,7 @@ model singleFeeder_50nodes
     connMatrix=[1,1; 5,5; 6,6; 10,10; 14,14; 18,18; 19,19; 22,22; 27,27; 29,29;
         31,31; 32,32; 34,34; 39,39; 43,36; 44,35; 49,30],
     network(redeclare
-        Buildings.Electrical.Transmission.Benchmark.BenchmarkGrids.SingleFeeder_20nodes
+        Buildings.Electrical.Transmission.Benchmark.BenchmarkGrids.SingleFeeder_50nodes
         grid));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

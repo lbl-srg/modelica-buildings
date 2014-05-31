@@ -8,7 +8,7 @@ model PVGridConnected
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-10,40})));
-  Buildings.Electrical.DC.Loads.Resistor    res(R=0.5)
+  Buildings.Electrical.DC.Loads.Resistor    res(R=0.5, V_nominal=12)
     annotation (Placement(transformation(extent={{2,-10},{-18,10}})));
   Buildings.Electrical.AC.OnePhase.Sources.Grid
                grid(
@@ -95,7 +95,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Commands(file=
+    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/Examples/PVGridConnected.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-140,-100},{100,140}})));

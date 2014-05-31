@@ -13,7 +13,8 @@ model GridDCLoad "Model of a DC load connected to the grid"
       conversionFactor=12/380, eta=0.9,
     ground_AC=false)
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
-  Buildings.Electrical.DC.Loads.Resistor    resistor(R=1) annotation (Placement(
+  Buildings.Electrical.DC.Loads.Resistor    resistor(R=1, V_nominal=12)
+                                                          annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -49,7 +50,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Commands(file=
+    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/Examples/GridDCLoad.mos"
         "Simulate and plot"));
 end GridDCLoad;

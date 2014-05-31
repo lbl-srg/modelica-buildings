@@ -37,6 +37,8 @@ model GeneralizedSensor "Sensor for power, voltage and current"
         rotation=270,
         origin={-60,-90})));
 equation
+  Connections.branch(terminal_p.theta, terminal_n.theta);
+  terminal_p.theta = terminal_n.theta;
 
   V = Buildings.Electrical.PhaseSystems.TwoConductor.systemVoltage(terminal_n.v);
   I = Buildings.Electrical.PhaseSystems.TwoConductor.systemCurrent(terminal_n.i);

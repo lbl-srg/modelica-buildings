@@ -62,7 +62,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Commands(file=
+    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/Examples/WindTurbineGridConnected.mos"
         "Simulate and plot"),
     experiment(StopTime=259200, Tolerance=1e-05),
