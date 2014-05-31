@@ -8,15 +8,15 @@ model FixedResistanceDpM
                        deltaM * m_flow_nominal_pos
          else 0);
   parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
-       annotation(Evaluate=true, Dialog(enable = not linearized));
+       annotation(Dialog(enable = not linearized));
   parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter"
-       annotation(Evaluate=true, Dialog(enable = use_dh and not linearized));
+       annotation(Dialog(enable = use_dh and not linearized));
   parameter Real ReC(min=0)=4000
     "Reynolds number where transition to turbulent starts"
-       annotation(Evaluate=true, Dialog(enable = use_dh and not linearized));
+       annotation(Dialog(enable = use_dh and not linearized));
   parameter Real deltaM(min=0.01) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
-       annotation(Evaluate=true, Dialog(enable = not use_dh and not linearized));
+       annotation(Dialog(enable = not use_dh and not linearized));
 
   final parameter Real k(unit="") = if computeFlowResistance then
         m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
@@ -186,6 +186,10 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Removed parameter <code>show_V_flow</code>.

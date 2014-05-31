@@ -3,7 +3,7 @@ model Window "Model for a window"
 
   parameter Buildings.HeatTransfer.Data.GlazingSystems.Generic glaSys
     "Glazing system"
-    annotation (Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{150,174},
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{150,174},
             {170,194}})));
   parameter Modelica.SIunits.Area A "Heat transfer area";
   parameter Real fFra(min=0, max=1)=0.1 "Fraction of frame";
@@ -460,6 +460,10 @@ Validation of the window model of the Modelica Buildings library.</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 December 19, 2011, by Wangda Zuo:<br/>
 Add a warning note to remind users that the model does not count wave length dependence for calculation.

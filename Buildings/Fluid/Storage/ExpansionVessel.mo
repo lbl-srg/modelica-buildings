@@ -19,8 +19,7 @@ protected
       p=p_start,
       X=X_start[1:Medium.nXi]) "Medium state at start values";
   final parameter Modelica.SIunits.Density rho_start=Medium.density(
-   state=state_start) "Density, used to compute start and guess values"
-  annotation (Evaluate=true);
+   state=state_start) "Density, used to compute start and guess values";
 
   Modelica.SIunits.Energy H "Internal energy of fluid";
   Modelica.SIunits.Mass[Medium.nXi] mXi
@@ -109,6 +108,10 @@ of equations, which may result in faster simulation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 March 25, 2014 by Michael Wetter:<br/>
 Revised the model to use a constant pressure rather than a constant volume of

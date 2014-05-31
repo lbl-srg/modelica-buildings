@@ -39,16 +39,12 @@ protected
     "Small value for Nusselt number, used for smoothing";
   Real deltaRa(min=0.01) = 100
     "Small value for Rayleigh number, used for smoothing";
-  final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt"
-    annotation (Evaluate=true);
-  final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt"
-    annotation (Evaluate=true);
+  final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt";
+  final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt";
   final parameter Boolean isVertical = abs(cosTil) < 10E-10
-    "Flag, true if the window is in a wall"
-    annotation (Evaluate=true);
+    "Flag, true if the window is in a wall";
   final parameter Boolean isHorizontal = abs(sinTil) < 10E-10
-    "Flag, true if the window is horizontal"
-    annotation (Evaluate=true);
+    "Flag, true if the window is horizontal";
   // Quantities that are only used in linearized model
 
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hCon0(fixed=false)
@@ -190,6 +186,10 @@ of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 April 2, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.

@@ -63,12 +63,10 @@ protected
 
   // Density at medium default values, used to compute the size of control volumes
   parameter Modelica.SIunits.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute fluid mass"
-  annotation (Evaluate=true);
+    state=state_default) "Density, used to compute fluid mass";
   // Density at start values, used to compute initial values and start guesses
   parameter Modelica.SIunits.Density rho_start=Medium.density(
-   state=state_start) "Density, used to compute start and guess values"
-  annotation (Evaluate=true);
+   state=state_start) "Density, used to compute start and guess values";
 
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
@@ -168,6 +166,10 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 February 11, 2014 by Michael Wetter:<br/>
 Removed <code>Q_flow</code> and added <code>QSen_flow</code>.

@@ -4,7 +4,7 @@ record PartialParameterConstruction "Partial record for constructions"
   replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Material properties of opaque construction"
     annotation(Dialog(group="Opaque construction"),
-               Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{146,258},
+               choicesAllMatching=true, Placement(transformation(extent={{146,258},
             {166,278}})));
   parameter Modelica.SIunits.Angle til "Surface tilt";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
