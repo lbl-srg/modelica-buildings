@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.OnePhase.Lines;
 model Network "Single phase AC network"
   extends Buildings.Electrical.Transmission.Base.PartialNetwork(
     redeclare Interfaces.Terminal_p terminal,
-    redeclare Transmission.Grids.TestGrid2Nodes grid,
+    redeclare replaceable Transmission.Grids.TestGrid2Nodes grid,
     redeclare Line lines(commercialCable_low=grid.cables, each useC=useC, each modelMode=modelMode));
   parameter Boolean useC = false
     "Select if choosing the capacitive effect of the cable or not"
