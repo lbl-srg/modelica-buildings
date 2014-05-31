@@ -12,7 +12,7 @@ partial model Slab "Base class for radiant slab"
 
   parameter HeatTransfer.Data.OpaqueConstructions.Generic layers(nLay(min=2))
     "Definition of the construction, which must have at least two material layers"
-    annotation (Dialog(group="Construction"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{-20,60},
+    annotation (Dialog(group="Construction"), choicesAllMatching=true, Placement(transformation(extent={{-20,60},
             {0,80}})));
   parameter Boolean steadyStateInitial=false
     "=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start, T_c_start and T_b_start"
@@ -41,6 +41,10 @@ This partial model is used to construct radiant slab models with one circuit or 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 June 27, 2012, by Michael Wetter:<br/>
 First implementation.

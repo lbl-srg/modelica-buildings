@@ -6,8 +6,7 @@ partial block HumidityRatioVaporPressure
     annotation(Evaluate=true, HideResult=true);
 
   parameter Modelica.SIunits.Pressure p = 101325 "Fixed value of pressure"
-    annotation (Evaluate = true,
-                Dialog(enable = not use_p_in));
+    annotation (Dialog(enable = not use_p_in));
   Modelica.Blocks.Interfaces.RealInput p_in(final quantity="Pressure",
                                          final unit="Pa",
                                          min = 0) if  use_p_in
@@ -39,6 +38,10 @@ and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 April 14, 2009 by Michael Wetter:<br/>
 First implementation.

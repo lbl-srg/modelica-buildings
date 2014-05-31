@@ -21,8 +21,7 @@ partial model FluidInterface
     annotation(Evaluate=true, HideResult=true);
   parameter Modelica.SIunits.MassFlowRate m_flow = 0
     "Fixed mass flow rate going out of the fluid port"
-    annotation (Evaluate = true,
-                Dialog(enable = not use_m_flow_in));
+    annotation (Dialog(enable = not use_m_flow_in));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate, used for regularization near zero flow"
@@ -130,6 +129,10 @@ interfacing fluid flow systems with the BCVTB interface.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 April 5, 2011, by Michael Wetter:<br/>
 Added nominal values that are needed by the sensor.

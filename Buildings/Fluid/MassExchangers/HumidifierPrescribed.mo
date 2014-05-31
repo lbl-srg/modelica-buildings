@@ -11,8 +11,7 @@ model HumidifierPrescribed
 
   parameter Modelica.SIunits.Temperature T = 293.15
     "Temperature of water that is added to the fluid stream (used if use_T_in=false)"
-    annotation (Evaluate = true,
-                Dialog(enable = not use_T_in));
+    annotation (Dialog(enable = not use_T_in));
 
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
     "Water mass flow rate at u=1, positive for humidification";
@@ -122,6 +121,10 @@ in the species vector.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 February 11, 2014 by Michael Wetter:<br/>
 Corrected issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/197\">#197</a>
