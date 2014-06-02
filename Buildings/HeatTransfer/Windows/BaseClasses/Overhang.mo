@@ -54,7 +54,7 @@ protected
     "Vertical distance between overhang and shadow lower edge";
   Modelica.SIunits.Length y2[4]
     "Window height (vertical distance corresponding to x2)";
-  Real shdwTrnglRtio "ratio of y1 and x1";
+  Real shdwTrnglRtio "Ratio of y1 and x1";
   Modelica.SIunits.Area area[4]
     "Shaded areas of the sections used in superposition";
   Modelica.SIunits.Area shdArea "Shaded area calculated from equations";
@@ -97,13 +97,22 @@ equation
     tmpW[2] = w;
     tmpW[3] = w;
     tmpW[4] = w + wWin;
-
     y1*Modelica.Math.cos(verAzi) = dep*Modelica.Math.tan(alt);
     x1 = dep*Modelica.Math.tan(verAzi);
-    shdwTrnglRtio*x1 = y1;
+    //shdwTrnglRtio*x1 = y1;
+    shdwTrnglRtio = y1/x1;
     for i in 1:4 loop
       y2[i] = tmpH[i];
-      x2[i]*y1 = x1*tmpH[i];
+      // For the equation below, Dymola generated the following code in MixedAirFreeResponse.
+      // This led to a division by zero as y1 crosses zero. The problem occured in an
+      // FMU simulation. Therefore, we guard against division by zero when computing
+      // x2[i].
+      //  roo.bouConExtWin.sha[1].ove.x2[1] := roo.bouConExtWin.sha[1].ove.x1*
+      //  roo.bouConExtWin.sha[1].ove.tmpH[1]/roo.bouConExtWin.sha[1].ove.y1;
+      // x2[i]*y1 = x1*tmpH[i];
+
+      x2[i] = x1*tmpH[i]/Buildings.Utilities.Math.Functions.smoothMax(
+        x1=y1, x2=1E-8*hWin, deltaX=1E-9*hWin);
       area[i] = Buildings.Utilities.Math.Functions.smoothMin(
         x1=y1,
         x2=y2[i],
