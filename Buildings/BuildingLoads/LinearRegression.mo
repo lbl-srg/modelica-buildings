@@ -32,7 +32,7 @@ extends Modelica.Icons.UnderConstruction;
     annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
   Buildings.Electrical.DC.Interfaces.Terminal_p terminal_dc(redeclare package
       PhaseSystem = Buildings.Electrical.PhaseSystems.TwoConductor)
-    "Generalised terminal"
+    "Generalized terminal"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Blocks.Math.Add add(k2=-1)
     annotation (Placement(transformation(extent={{10,-32},{30,-12}})));

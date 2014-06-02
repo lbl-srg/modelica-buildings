@@ -15,7 +15,7 @@ model VoltageControl
   Modelica.Blocks.Interfaces.RealOutput y
     annotation (Placement(transformation(extent={{96,-10},{116,10}})));
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
-      replaceable package PhaseSystem = PhaseSystem) "Generalised terminal"
+      replaceable package PhaseSystem = PhaseSystem) "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Buildings.Electrical.Utilities.Functions.VoltageControl ctrl(V_nominal=V_nominal, Vthresh=Vthresh, Tdelay=Tdelay);
 equation

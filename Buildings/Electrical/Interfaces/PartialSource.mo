@@ -11,7 +11,7 @@ partial model PartialSource "Partial model of a generic source"
   Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(terminal.v, terminal.i);
   Modelica.SIunits.Angle phi = PhaseSystem.phase(terminal.v) - PhaseSystem.phase(-terminal.i);
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
-      replaceable package PhaseSystem = PhaseSystem) "Generalised terminal"
+      replaceable package PhaseSystem = PhaseSystem) "Generalized terminal"
     annotation (Placement(transformation(extent={{92,-8},{108,8}})));
 protected
   function j = PhaseSystem.j;

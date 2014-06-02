@@ -44,7 +44,7 @@ partial model PartialLoad "Partial model for a generic load"
         origin={100,0})));
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
       replaceable package PhaseSystem = PhaseSystem)
-    "Generalised electric terminal"
+    "Generalized electric terminal"
     annotation (Placement(transformation(extent={{-108,-8},{-92,8}}),
         iconTransformation(extent={{-108,-8},{-92,8}})));
 

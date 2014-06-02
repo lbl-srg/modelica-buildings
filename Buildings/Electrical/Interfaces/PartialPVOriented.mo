@@ -9,7 +9,7 @@ model PartialPVOriented "Partial model of a PV system with orientation"
   parameter Modelica.SIunits.Angle lat "Latitude" annotation(Evaluate=true,Dialog(group="Orientation"));
   parameter Modelica.SIunits.Angle azi "Surface Azimith" annotation(Evaluate=true,Dialog(group="Orientation"));
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
-      package PhaseSystem = PhaseSystem) "Generalised terminal"
+      package PhaseSystem = PhaseSystem) "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   replaceable PartialPV panel(
     redeclare package PhaseSystem = PhaseSystem,
