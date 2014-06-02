@@ -12,29 +12,44 @@ partial model PartialImpedance
       choice=true "Inductive",
       choice=false "Capacitive",
       __Dymola_radioButtons=true));
+      // fixme: useVariableR, useVariableL and useVariableC need to be renamed to
+      //        use_R_in, use_L_in and use_C_in to use consistent naming with MSL.
+      //        See also Buildings.Fluid.Sources.Boundary_pT
   parameter Modelica.SIunits.Resistance R(start = 1,min=0) = 1 "Resistance"
     annotation (Dialog(enable= not useVariableR));
   parameter Modelica.SIunits.Inductance L(start=0, min=0) = 0 "Inductance"
     annotation (Dialog(enable=inductive and (not useVariableL)));
-  parameter Modelica.SIunits.Capacitance C(start=0,min=0) = 0 "Capacitance"  annotation (Dialog(enable=(not inductive) and (not useVariableC)));
-  parameter Boolean useVariableR = false
-    "if true R is specified by an input variable" annotation(Evaluate=true, Dialog(tab = "Variable load", group="Resistance"));
+  parameter Modelica.SIunits.Capacitance C(start=0,min=0) = 0 "Capacitance"
+  annotation (Dialog(enable=(not inductive) and (not useVariableC)));
+  parameter Boolean useVariableR = false "if true, R is specified by an input"
+     annotation(Evaluate=true, Dialog(tab = "Variable load", group="Resistance"));
+  // fixme: Rename Rmin to RMin and Rmax to RMax (and the same for C and L)
+  //        to use the naming convention of the other models. See for example Fluid/Chillers/Data/ElectricEIR.mo
+
   parameter Modelica.SIunits.Resistance Rmin(start = R, min=Modelica.Constants.eps) = 1e-4
-    "Minimum value of the resistance" annotation(Evaluate=true, Dialog(enable = useVariableR, tab = "Variable load", group="Resistance"));
+    "Minimum value of the resistance"
+    annotation(Evaluate=true, Dialog(enable = useVariableR, tab = "Variable load", group="Resistance"));
   parameter Modelica.SIunits.Resistance Rmax(start = R, min=Modelica.Constants.eps) = 1e2
-    "Maximum value of the resistance" annotation(Evaluate=true, Dialog(enable = useVariableR, tab = "Variable load", group="Resistance"));
-  parameter Boolean useVariableC = false
-    "if true C is specified by an input variable" annotation(Evaluate=true, Dialog(tab = "Variable load", group="Capacitance"));
+    "Maximum value of the resistance"
+    annotation(Evaluate=true, Dialog(enable = useVariableR, tab = "Variable load", group="Resistance"));
+  parameter Boolean useVariableC = false "if true, C is specified by an input"
+    annotation(Evaluate=true, Dialog(tab = "Variable load", group="Capacitance"));
   parameter Modelica.SIunits.Capacitance Cmin(start = C, min=Modelica.Constants.eps) = 1e-4
-    "Minimum value of the capacitance" annotation(Evaluate=true, Dialog(enable = useVariableC, tab = "Variable load", group="Capacitance"));
+    "Minimum value of the capacitance"
+    annotation(Evaluate=true, Dialog(enable = useVariableC, tab = "Variable load", group="Capacitance"));
+  // fixme: Removed the value of Cmax, Lmax and Rmax, as typical values can change
+  //        by a few orders of magntitude depending on the application.
   parameter Modelica.SIunits.Capacitance Cmax(start = C, min=Modelica.Constants.eps) = 1e2
-    "Maximum value of the capacitance" annotation(Evaluate=true, Dialog(enable = useVariableC, tab = "Variable load", group="Capacitance"));
-  parameter Boolean useVariableL = false
-    "if true L is specified by an input variable" annotation(Evaluate=true, Dialog(tab = "Variable load", group="Inductance"));
+    "Maximum value of the capacitance"
+    annotation(Evaluate=true, Dialog(enable = useVariableC, tab = "Variable load", group="Capacitance"));
+  parameter Boolean useVariableL = false "if true, L is specified by an input"
+     annotation(Evaluate=true, Dialog(tab = "Variable load", group="Inductance"));
   parameter Modelica.SIunits.Inductance Lmin(start = L, min=Modelica.Constants.eps) = 1e-4
-    "Minimum value of the inductance" annotation(Evaluate=true, Dialog(enable = useVariableL, tab = "Variable load", group="Inductance"));
+    "Minimum value of the inductance"
+    annotation(Evaluate=true, Dialog(enable = useVariableL, tab = "Variable load", group="Inductance"));
   parameter Modelica.SIunits.Inductance Lmax(start = L, min=Modelica.Constants.eps) = 1e2
-    "Maximum value of the inductance" annotation(Evaluate=true, Dialog(enable = useVariableL, tab = "Variable load", group="Inductance"));
+    "Maximum value of the inductance"
+    annotation(Evaluate=true, Dialog(enable = useVariableL, tab = "Variable load", group="Inductance"));
   Modelica.Blocks.Interfaces.RealInput y_R(min=0, max=1) if useVariableR
     "Input that sepecify variable R"
     annotation (Placement(transformation(
@@ -53,6 +68,7 @@ partial model PartialImpedance
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={40,100})));
+  // fixme: add comments
 protected
   Modelica.Blocks.Interfaces.RealOutput y_R_int;
   Modelica.Blocks.Interfaces.RealOutput y_C_int;
@@ -108,34 +124,42 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(info="<html>
 <p>
-This model represents a generalized interface for an impedance. 
+This model represents a generalized interface for an impedance.
+</p>
+<p>
 The model has a single generalized electric terminal of type 
-<a href=\"modelica://Buildings.Electrical.Interfaces.Terminal\">Buildings.Electrical.Interfaces.Terminal</a>
-that can be redeclared.<br/>
+<a href=\"modelica://Buildings.Electrical.Interfaces.Terminal\">
+Buildings.Electrical.Interfaces.Terminal</a>
+that can be redeclared.
 The impedance can be of different types:
 </p>
 <ol>
 <li>resistive,</li>
 <li>inductive,</li>
-<li>resistive + inductive,</li>
-<li>capacitive.</li>
-<li>resistive + capacitive.</li>
+<li>resistive and inductive,</li>
+<li>capacitive, and</li>
+<li>resistive and capacitive.</li>
 </ol>
 <p>
-The values of the resistance <code>R</code>, capacitance <code>C</code> and inductance <code>L</code> can be
+The values of the resistance <code>R</code>, capacitance <code>C</code> and 
+inductance <code>L</code> can be
 specified as parameters of the model.
 </p>
 <p>
-The values of the resistance <code>R</code>, capacitance <code>C</code> and inductance <code>L</code> can also be
-specified by using the input variables <code>y_R</code>, <code>y_C</code>, and <code>y_L</code> that are Real and comprises between [0,1].<br/>
-These input values are enabled by the boolean flags <code>useVariableR</code>, <code>useVariableL</code>, and <code>useVariableC</code>.
+The values of the resistance <code>R</code>, capacitance <code>C</code> 
+and inductance <code>L</code> can also be
+specified by using the input variables <code>y_R</code>, <code>y_C</code>, 
+and <code>y_L</code> that are Real values between <i>[0,1]</i>.<br/>
+These input values are enabled by the boolean flags <code>useVariableR</code>, 
+<code>useVariableL</code>, and 
+<code>useVariableC</code>.
 </p>
 <h5>Example</h5>
 <p>
-If the flag <code>useVariableR = True</code>, the value of <code>R</code> is computed as
+If the flag <code>useVariableR = true</code>, the value of <code>R</code> is computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-R = R<sub>MIN</sub> + y<sub>R</sub> * (R<sub>MAX</sub> - R<sub>MIN</sub>)
+R = R<sub>min</sub> + y<sub>R</sub> (R<sub>max</sub> - R<sub>min</sub>)
 </p>
 </html>", revisions="<html>
 <ul>
