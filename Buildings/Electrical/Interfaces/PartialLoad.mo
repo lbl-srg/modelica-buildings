@@ -51,9 +51,9 @@ partial model PartialLoad "Partial model for a generic load"
         iconTransformation(extent={{-108,-8},{-92,8}})));
 
 protected
-  Modelica.Blocks.Interfaces.RealInput y_
+  Modelica.Blocks.Interfaces.RealInput y_internal
     "Hidden value of the input load for the conditional connector";
-  Modelica.Blocks.Interfaces.RealInput Pow_
+  Modelica.Blocks.Interfaces.RealInput P_internal
     "Hidden value of the input power for the conditional connector";
   Real load(min=eps, max=1)
     "Internal representation of control signal, used to avoid singularity";
@@ -62,25 +62,25 @@ protected
   constant Real oneEps = 1-eps
     "Small number used to avoid a singularity if the power is zero";
 equation
-  assert(y_>=0 and y_<=1+eps, "The power load fraction P (input of the model) must be within [0,1]");
+  assert(y_internal>=0 and y_internal<=1+eps, "The power load fraction P (input of the model) must be within [0,1]");
 
   // Connection between the conditional and inner connector
-  connect(y,y_);
-  connect(Pow,Pow_);
+  connect(y,y_internal);
+  connect(Pow,P_internal);
 
   // If the power is fixed, inner connector value is equal to 1
   if mode==Assumption.FixedZ_steady_state or mode==Assumption.FixedZ_dynamic then
-    y_   = 1;
-    Pow_ = P_nominal;
+    y_internal   = 1;
+    P_internal = P_nominal;
   elseif mode==Assumption.VariableZ_y_input then
-    Pow_ = 0;
+    P_internal = 0;
   elseif mode==Assumption.VariableZ_P_input then
-    y_ = 1;
+    y_internal = 1;
   end if;
 
   // Value of the load, depending on the type: fixed or variable
   if mode==Assumption.VariableZ_y_input then
-    load = eps + oneEps*y_;
+    load = eps + oneEps*y_internal;
   else
     load = 1;
   end if;
@@ -89,7 +89,7 @@ equation
   if mode==Assumption.FixedZ_steady_state or mode==Assumption.FixedZ_dynamic then
     P = P_nominal;
   elseif mode==Assumption.VariableZ_P_input then
-    P = Pow_;
+    P = P_internal;
   else
     P = P_nominal*load;
   end if;

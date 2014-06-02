@@ -70,12 +70,12 @@ partial model PartialImpedance
         origin={40,100})));
   // fixme: add comments
 protected
-  Modelica.Blocks.Interfaces.RealOutput y_R_int;
-  Modelica.Blocks.Interfaces.RealOutput y_C_int;
-  Modelica.Blocks.Interfaces.RealOutput y_L_int;
-  Modelica.SIunits.Resistance R_;
-  Modelica.SIunits.Inductance L_;
-  Modelica.SIunits.Capacitance C_;
+  Modelica.Blocks.Interfaces.RealOutput y_R_internal;
+  Modelica.Blocks.Interfaces.RealOutput y_C_internal;
+  Modelica.Blocks.Interfaces.RealOutput y_L_internal;
+  Modelica.SIunits.Resistance R_internal;
+  Modelica.SIunits.Inductance L_internal;
+  Modelica.SIunits.Capacitance C_internal;
 equation
   // These assertions ensures that if the variable R, L or C is computed using the inputs
   // the parameters min and max are sorted
@@ -84,41 +84,41 @@ equation
   assert((not useVariableC) or Cmin < Cmax, "The value of Cmin has to be lower than Cmax");
 
   // Connections to internal connectors
-  connect(y_R, y_R_int);
-  connect(y_C, y_C_int);
-  connect(y_L, y_L_int);
+  connect(y_R, y_R_internal);
+  connect(y_C, y_C_internal);
+  connect(y_L, y_L_internal);
 
   // default assignment when connectors are conditionally removed
   if not useVariableR then
-    y_R_int = 0;
+    y_R_internal = 0;
   end if;
 
   if not useVariableC then
-    y_C_int = 0;
+    y_C_internal = 0;
   end if;
 
   if not useVariableL then
-    y_L_int = 0;
+    y_L_internal = 0;
   end if;
 
   // Retrieve the value of the R,L,C either if fixed or
   // varying
   if not useVariableR then
-    R_ = R;
+    R_internal = R;
   else
-    R_ = Rmin + y_R_int*(Rmax - Rmin);
+    R_internal = Rmin + y_R_internal*(Rmax - Rmin);
   end if;
 
   if not useVariableC then
-    C_ = C;
+    C_internal = C;
   else
-    C_ = Cmin + y_C_int*(Cmax - Cmin);
+    C_internal = Cmin + y_C_internal*(Cmax - Cmin);
   end if;
 
   if not useVariableL then
-    L_ = L;
+    L_internal = L;
   else
-    L_ = Lmin + y_L_int*(Lmax - Lmin);
+    L_internal = Lmin + y_L_internal*(Lmax - Lmin);
   end if;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
