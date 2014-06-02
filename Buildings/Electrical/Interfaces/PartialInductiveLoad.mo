@@ -22,14 +22,15 @@ Model included into the Buildings library.
 </html>", info="<html>
 <p>
 This is a model of a generic inductive load. This model is an extension of the base load model
-<a href=\"Buildings.Electrical.Interfaces.PartialLoad\">Buildings.Electrical.Interfaces.PartialLoad</a>.
+<a href=\"Buildings.Electrical.Interfaces.PartialLoad\">
+Buildings.Electrical.Interfaces.PartialLoad</a>.
 </p>
 <p>
 This model assumes a fixed power factor <code>pf</code> that is used to compute the reactive power 
 <code>Q</code> given the active power <code>P</code>
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q = P * tan(arccos(pf))
+Q = P  tan(arccos(pf))
 </p>
 </html>"));
 end PartialInductiveLoad;
