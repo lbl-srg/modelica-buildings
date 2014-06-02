@@ -1,5 +1,6 @@
 within Buildings.Electrical.Interfaces;
-partial model PartialGround "Partial model of a ground component"
+model PartialGround
+  "Partial model of a ground component. fixme: Rename model as it is not a partial model. It has as many eqns and vars"
   replaceable package PhaseSystem =
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
