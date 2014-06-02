@@ -91,6 +91,8 @@ algorithm
     _isEventDay :=if pre(_isEventDay) and (not iSam == nSam) then true else isEventDay;
     // Update iHis, which points to where the last interval's power
     // consumption will be stored.
+    // fixme: accessing an array element with an enumeration
+    //        is not valid Modelica.
     if pre(iHis[pre(typeOfDay), pre(iSam)]) == nHis then
       historyComplete[pre(typeOfDay), pre(iSam)] :=true;
       iHis[pre(typeOfDay), pre(iSam)] :=1;
