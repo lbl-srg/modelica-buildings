@@ -238,7 +238,7 @@ and the outside temperature that is used for the heat conductance
 <code>TOut</code>.
 </p>
 <p>
-In this model, the duct pressure loss is not modelled
+In this model, the duct pressure loss is not modeled
 explicitly, but rather lumped into the pressure drops of the
 heat exchangers.
 </p>

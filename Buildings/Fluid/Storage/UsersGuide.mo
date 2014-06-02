@@ -45,7 +45,7 @@ Note, however, that all heat conduction elements through the tank wall (but not 
 heat port <code>heaPorSid</code>. Thus, not connecting
 <code>heaPorSid</code> means an adiabatic boundary condition in the sense 
 that <code>heaPorSid.Q_flow = 0</code>. This, however, still allows heat to flow
-through the tank walls, modelled by <code>conWal</code>, from one fluid volume
+through the tank walls, modeled by <code>conWal</code>, from one fluid volume
 to another one.
 </p>
 </td>
