@@ -13,11 +13,13 @@ equation
   terminal.v = zeros(PhaseSystem.n);
   annotation (Documentation(info="<html>
 <p>
-Given a generic electric connector <a href=\"modelica://Buildings.Electrical.Interfaces.Terminal\">Buildings.Electrical.Interfaces.Terminal</a> this
+Given a generic electric connector 
+<a href=\"modelica://Buildings.Electrical.Interfaces.Terminal\">
+Buildings.Electrical.Interfaces.Terminal</a> this
 model imposes the following condition on the voltage <code>V[PhaseSystem.n]</code>
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-<b>V</b> = <span style=\"text-decoration: overline;\">0</span>
+<b>V</b> = <span style=\"text-decoration: overline;\">0</span>,
 </p>
 <p>
 where <span style=\"text-decoration: overline;\">0</span> is a null vector of length <code>PhaseSystem.n</code>.
