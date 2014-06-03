@@ -63,16 +63,16 @@ can be found in <a href=\"#RuedigerEtAl2014\">Franke and Wiesmann (2014)</a>.
 <h4>References</h4>
 <p>
 <a NAME=\"Olsson2008\"/>
-Hans Olsson, Martin Otter, Sven Erik Mattson, Hilding Elmqvist<br/>
+Hans Olsson, Martin Otter, Sven Erik Mattson and Hilding Elmqvist.<br/>
 <a href=\"http://elib-v3.dlr.de/55892/1/otter2008-modelica-balanced-models.pdf\">
-Balanced Models in Modelica 3.0 for Increased Model Quality </a><br/>
+Balanced Models in Modelica 3.0 for Increased Model Quality</a>.<br/>
 Proc. of the 7th Modelica Conference, Bielefeld, Germany, March 2008.<br/>
 </p>
 <p>
 <a NAME=\"RuedigerEtAl2014\"/>
 Rüdiger Franke and Hansjürg Wiesmann.<br/>
 <a href=\"https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf\">
-Flexible modeling of electrical power systems - the Modelica PowerSystems library</a><br/>
+Flexible modeling of electrical power systems - the Modelica PowerSystems library</a>.<br/>
 Proc. of the 10th Modelica Conference, Lund, Sweden, March 2014. 
 </p>
 </html>"));
