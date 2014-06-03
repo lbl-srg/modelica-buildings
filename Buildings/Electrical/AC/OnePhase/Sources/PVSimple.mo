@@ -51,8 +51,10 @@ This model computes the active power as <i>P=A &nbsp; f<sub>act</sub> &nbsp; &et
 where <i>A</i> is the panel area,
 <i>f<sub>act</sub></i> is the fraction of the aperture area,
 <i>&eta;</i> is the panel efficiency,
-<i>G</i> is the total solar irradiation (direct + diffuse), and
-<i>&eta;<sub>DCAC</sub></i> is the efficiency of the conversion between DC and AC.
+<i>G</i> is the total solar irradiation, which is the
+sum of direct and diffuse irradiation, and
+<i>&eta;<sub>DCAC</sub></i> is the efficiency of the conversion 
+between DC and AC.
 The model takes into account the location and the orientation of the PV panel, specified by the surface tilt, latitude and azimuth.
 </p>
 <p>
