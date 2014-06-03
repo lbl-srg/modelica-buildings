@@ -76,9 +76,9 @@ S.C = P<sub>actual</sub>
 </p>
 
 <p>
-<b>N.B.</b>Note that the input power <i>P</i> has to be controlled in order 
+<b>Note:</b>The input power <i>P</i> has to be controlled in order 
 to avoid the state of charge <code>SOC</code>
-The state of charge falling outside the range between 0 and 1.
+exceeding the range between 0 and 1.
 </p>
 
 </html>", revisions="<html>
