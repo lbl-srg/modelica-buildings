@@ -53,7 +53,7 @@ where <i>A</i> is the panel area,
 <i>&eta;</i> is the panel efficiency,
 <i>G</i> is the total solar irradiation (direct + diffuse), and
 <i>&eta;<sub>DCAC</sub></i> is the efficiency of the conversion between DC and AC.
-The model takes into account the location and the orientation of the PV panel, specified by the surface tilt, latitude and azimith.
+The model takes into account the location and the orientation of the PV panel, specified by the surface tilt, latitude and azimuth.
 </p>
 <p>
 This active power is equal to <i>P</i>, while the reactive power is equal to <i>Q = P &nbsp; tan(acos(pf)) </i>

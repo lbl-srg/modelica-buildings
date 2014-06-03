@@ -50,7 +50,7 @@ P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G
 where <i>A</i> is the panel area,
 <i>f<sub>act</sub></i> is the fraction of the aperture area,
 <i>&eta;</i> is the panel efficiency and
-<i>G</i> is the total solar irradiation (direct + diffuse). The model takes into account the location and the orientation of the PV panel, specified by the surface tilt, latitude and azimith.
+<i>G</i> is the total solar irradiation (direct + diffuse). The model takes into account the location and the orientation of the PV panel, specified by the surface tilt, latitude and azimuth.
 </p>
 <p>
 This power is equal to <i>P = v &nbsp; i</i>,
