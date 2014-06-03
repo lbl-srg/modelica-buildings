@@ -1,5 +1,5 @@
 within Buildings.Electrical.DC.Lines;
-model TwoPortResistance "Model of a resistance"
+model TwoPortResistance "Model of a two port DC resistance"
   extends Buildings.Electrical.Transmission.Base.PartialTwoPortResistance(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
@@ -9,8 +9,8 @@ model TwoPortResistance "Model of a resistance"
           PhaseSystem_p));
 
 equation
-  //terminal_p.v - terminal_n.v = terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual);
-
+  // Voltage drop on the resistance lumped on connection between terminals
+  // p.v[1] and n.v[1]
   terminal_p.v[1] - terminal_n.v[1] = terminal_p.i[1]*R_actual;
   terminal_p.v[2] = terminal_n.v[2];
   annotation (Diagram(graphics={
@@ -33,5 +33,28 @@ equation
           extent={{-70,30},{70,-30}},
           lineColor={0,0,255},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+    Documentation(info="<html>
+<p>
+This model represents a resistance that connect two DC interfaces. This model can be used
+to represent a cable in a DC grid.
+</p>
+<p>
+The model represents the lumped resistance as shown in figure
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/DC/Lines/twoPortR.png\"/>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 2, 2014, by Marco Bonvini:<br/>
+revised documentation.
+</li>
+<li>
+October 31, 2013, by Marco Bonvini:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end TwoPortResistance;

@@ -42,7 +42,7 @@ for more information.
 The model computes the current drawn from teh load based on the following equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-P = V &sdot; i
+P = V i
 </p>
 <p>
 where <i>P</i> is the power, <i>V</i> is the voltage and <i>i</i> is the current.<br/>
@@ -64,7 +64,7 @@ If the power consumption drawn by the load is prescribed by the variable <i>P<su
  the equation that describes the circuit is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-V<sub>S</sub> - R &sdot; i - P<sub>LOAD</sub>/i = 0
+V<sub>S</sub> - R i - P<sub>LOAD</sub>/i = 0
 </p>
 <p>
 The unknown variable <i>i</i> appears into a nonlinear equation. This means that in order to compute the current 
@@ -97,19 +97,19 @@ The linearized formulation approximates the load power consumption (or productio
 does not differ from the nominal voltage. A further approximation has been introduced to improve the
 apprizimation of the linearized model even if the voltage is far from the nominal condition.<br/>
 This piecewise linearized approximation instead of approximating the model just in the neighbor of the nominal
-voltage <i>V<sub>nom</sub></i>, introduces two new points where the model is approximated: <i>0.8 &sdot; V<sub>nom</sub></i>
-and <i>1.2 &sdot; V<sub>nom</sub></i>.
+voltage <i>V<sub>nom</sub></i>, introduces two new points where the model is approximated: <i>0.8 V<sub>nom</sub></i>
+and <i>1.2 V<sub>nom</sub></i>.
 </p>
 
 <table summary=\"equations\" border = \"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collape;\">
 <tr><th>Equation</th><th>Condition</th></tr>
 <tr>
-<td>i &#8771; P<sub>LOAD</sub> (2/(0.8 &sdot; V<sub>nom</sub>) - V/(0.8 &sdot; V<sub>nom</sub><sup>2</sup>))</td>
+<td>i &#8771; P<sub>LOAD</sub> (2/(0.8 V<sub>nom</sub>) - V/(0.8 V<sub>nom</sub><sup>2</sup>))</td>
 <td>V &lt; 8/9&sdot; V<sub>nom</sub></td>
 </tr>
 
 <tr>
-<td>i &#8771; P<sub>LOAD</sub> (2/(1.2 &sdot; V<sub>nom</sub>) - V/(1.2 &sdot; V<sub>nom</sub><sup>2</sup>))</td>
+<td>i &#8771; P<sub>LOAD</sub> (2/(1.2  V<sub>nom</sub>) - V/(1.2 V<sub>nom</sub><sup>2</sup>))</td>
 <td>V &ge; 12/11&sdot; V<sub>nom</sub></td>
 </tr>
 

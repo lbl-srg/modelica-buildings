@@ -1,6 +1,10 @@
 within Buildings.Electrical.DC.Sources.BaseClasses;
 block WindCorrection "Block for wind correction"
   extends Modelica.Blocks.Interfaces.BlockIcon;
+  parameter Modelica.SIunits.Height h "Height over ground";
+  parameter Modelica.SIunits.Height hRef
+    "Reference height for wind measurement";
+  parameter Real n(min=0) = 0.4 "Height exponent for wind profile calculation";
   Modelica.Blocks.Interfaces.RealOutput vLoc( unit="m/s")
     "Wind velocity at the location"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -8,10 +12,6 @@ block WindCorrection "Block for wind correction"
     "Wind velocity at the reference height"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
         iconTransformation(extent={{-142,-20},{-102,20}})));
- parameter Modelica.SIunits.Height h "Height over ground";
- parameter Modelica.SIunits.Height hRef "Reference height for wind measurement";
- parameter Real n(min=0) = 0.4 "Height exponent for wind profile calculation";
-
 equation
   vLoc=vRef * (h / hRef)^n;
   annotation (
@@ -40,7 +40,13 @@ equation
 This model calculates the wind velocity at the location as a function of the height over ground. The equation is based on Gash (1991).
 
 The model computes the wind velocity <i>vLoc</i> as
-<i>vLoc = vRef * (h / hRef)<sup>n</sup> </i>,
+</p>
+
+<p align=\"center\" style=\"font-style:italic;\">
+vLoc = vRef * (h / hRef)<sup>n</sup> 
+</p>
+
+<p>
 where <i>vRef</i> is the wind velocity at the reference height, <i>h</i> is the height over ground, <i>hRef</i> 
 is the reference height, and <i>n</i> is the height exponent for wind calculation.
 </p>
@@ -51,6 +57,10 @@ Gasch, R. 1991. Windkraftanlagen. Grundlagen und Entwurf (German). Teubner, Stut
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 2, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 February 7, 2013, by Michael Wetter:<br/>
 Removed <code>final</code> keyword for parameters to allow users to adjust them,

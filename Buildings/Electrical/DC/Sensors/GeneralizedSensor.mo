@@ -28,7 +28,7 @@ model GeneralizedSensor "Sensor for power, voltage and current"
         origin={60,-90})));
   Modelica.Blocks.Interfaces.RealOutput S[PhaseSystems.TwoConductor.n](
                                           each final quantity="Power",
-                                          each final unit="W") "Phase powers"             annotation (Placement(
+                                          each final unit="W") "Power"             annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

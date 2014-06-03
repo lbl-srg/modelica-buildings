@@ -59,8 +59,8 @@ equation
     Documentation(info="<html>
 <p>
 This model illustrates the use of the photovoltaic model.
-The total solar irradiation is computed based
-on a weather data file. 
+The total solar irradiation is computed internally by the PV
+model through a connection to the weather bus. 
 The PV is connected to a circuit that has a constant voltage
 source and a resistance.
 This voltage source may be a DC grid to which the 

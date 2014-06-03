@@ -6,11 +6,11 @@ model DCDCConverter "Test model DC to DC converter"
     mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
     P_nominal=-2000,
     V_nominal=60)
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=120)
     "Voltage source"
     annotation (Placement(transformation(extent={{-100,22},{-80,42}})));
-  Buildings.Electrical.DC.Conversion.DCDCConverter conDCDC(conversionFactor=0.5,
+  Buildings.Electrical.DC.Conversion.DCDCConverter conDCDC(Vhigh=120, Vlow=60,
       eta=0.9)
     annotation (Placement(transformation(extent={{-46,22},{-26,42}})));
   Buildings.Electrical.DC.Loads.Conductor conductor(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
@@ -31,11 +31,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conDCDC.terminal_p, resistor.terminal) annotation (Line(
-      points={{-26,32},{-4,32},{-4,50},{40,50}},
+      points={{-26,32},{-10,32},{-10,60},{20,60}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(conDCDC.terminal_p, conductor.terminal) annotation (Line(
-      points={{-26,32},{-4,32},{-4,0},{20,0}},
+      points={{-26,32},{-10,32},{-10,0},{20,0}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(sou.terminal, sen.terminal_n) annotation (Line(
@@ -56,6 +56,10 @@ This model illustrates the use of a model that converts DC voltage to DC voltage
 </html>",
       revisions="<html>
 <ul>
+<li>
+June 2, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
+</li>
 <li>
 January 29, 2013, by Thierry S. Nouidui:<br/>
 First implementation.

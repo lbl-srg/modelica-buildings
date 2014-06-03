@@ -28,13 +28,21 @@ Model of a linear DC resistor that can vary with respect to temperature.
 The model implements the Ohm's law
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-V = R(T) &sdot; i
+V = R(T) i
 </p>
 <p>
-where the resistance <i>R(T)</i> can vary depending on the temperature <i>T</i>.
+where the resistance <i>R(T)</i> vary depending on the temperature <i>T</i> as
 </p>
-
-</html>",
+<p align=\"center\" style=\"font-style:italic;\">
+R(T) = R (1 + &alpha; (T - T<sub>ref</sub>)
+</p>
+<p>
+where the resistance <i>R</i> is the reference value of the resistance, <i>&alpha;</i> is the
+linear temperature coefficient, and <i>T<sub>ref</sub></i> is the referemnce temperature.
+The temperature <i>T</i> can be the temperature of the heat port if <code>useHeatPort = true</code>.
+</p>
+</html>
+",
  revisions="<html>
 <ul>
 <li>

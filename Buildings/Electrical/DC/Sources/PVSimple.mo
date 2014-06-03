@@ -49,23 +49,28 @@ First implementation.
 Model of a simple photovoltaic array.
 </p>
 <p>
-<b>N.B.</b> This model takes as input the total solar irradiation on the panel. This has to be computed converting the incoming radiation to take tilt and azimuth into account.
+<b>N.B.</b> This model takes as input the total solar irradiation on the panel. This has to be 
+computed converting the incoming radiation to take tilt and azimuth into account.
 </p>
 <p>
 The electrical connector is a DC interfaces.
 </p>
 <p>
-This model computes the power as <i>P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G</i>,
-where <i>A</i> is the panel area,
-<i>f<sub>act</sub></i> is the fraction of the aperture area,
-<i>&eta;</i> is the panel efficiency and
-<i>G</i> is the total solar irradiation.
-This power is equal to <i>P = v &nbsp; i</i>,
-where <i>v</i> is the voltage across the panel and 
+This model computes the power as 
+</p>
+
+<p align=\"center\" style=\"font-style:italic;\">
+P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G
+</p>
+
+<p>
+where <i>A</i> is the panel area, <i>f<sub>act</sub></i> is the fraction of the aperture area,
+<i>&eta;</i> is the panel efficiency and <i>G</i> is the total solar irradiation.
+This power is equal to <i>P = v &nbsp; i</i>, where <i>v</i> is the voltage across the panel and 
 <i>i</i> is the current that flows through the panel.
 </p>
 <p>
-To avoid a large voltage across the panel, it is recommended to use this model together
+To avoid a large voltage drop the panel electric connector, it is recommended to use this model together
 with a model that prescribes the voltage.
 See
 <a href=\"modelica://Buildings.Electrical.DC.Sources.Examples.PVSimple\">

@@ -64,5 +64,24 @@ equation
         Line(
           points={{96,0},{60,0}},
           color={0,0,0},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+June 2, 2014, by Marco Bonvini:<br/>
+revised documentation.
+</li>
+<li>
+October 31, 2013, by Marco Bonvini:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model represents a DC cable. The model is based on 
+<a href=\"Buildings.Electrical.DC.Lines.TwoPortRCLine\">Buildings.Electrical.DC.Lines.TwoPortRCLine</a>
+and provides functionalities to parametrize the values of <i>R</i> and <i>C</i> either
+using commercial cable options or by using default values.
+</p>
+</html>"));
 end Line;

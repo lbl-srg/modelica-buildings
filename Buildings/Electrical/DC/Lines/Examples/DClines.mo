@@ -2,16 +2,15 @@ within Buildings.Electrical.DC.Lines.Examples;
 model DClines
   "Example model to test the possible combinations between line and load models"
   extends Modelica.Icons.Example;
-  parameter Boolean useC = false;
-  parameter Boolean linearLoads = true;
-  parameter Real L = 10;
+  parameter Boolean linearLoads = true
+    "Flag that selects between linearized or nonlinear load models";
+  parameter Real L = 10 "Lenght of each cable";
   Real Sloads "Sum of the power consumed by the loads";
   Line line(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{-2,70},{18,90}})));
@@ -22,19 +21,19 @@ model DClines
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{-32,70},{-12,90}})));
+
   Line line2(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{-34,30},{-14,50}})));
+
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Loads.Conductor load1(              mode=Types.Assumption.VariableZ_y_input,
@@ -75,37 +74,37 @@ model DClines
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{2,30},{22,50}})));
+
   Line line4(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
+
   Line line5(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{2,12},{22,32}})));
+
   Line line0(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{-64,70},{-44,90}})));
+
   Modelica.Blocks.Sources.Trapezoid
                                varLoad2(
     startTime=1800,
@@ -121,10 +120,10 @@ model DClines
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{-34,-10},{-14,10}})));
+
   Loads.Conductor load5(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
@@ -152,28 +151,28 @@ model DClines
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{2,-10},{22,10}})));
+
   Line line8(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{2,-28},{22,-8}})));
+
   Line line9(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{-34,-50},{-14,-30}})));
+
   Loads.Conductor load7(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
@@ -201,28 +200,28 @@ model DClines
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{2,-50},{22,-30}})));
+
   Line line11(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{2,-68},{22,-48}})));
+
   Line line12(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{-34,-90},{-14,-70}})));
+
   Loads.Conductor load9(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
@@ -250,19 +249,19 @@ model DClines
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    useC=useC,
     l=L,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{2,-90},{22,-70}})));
+
   Line line14(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
     l=100,
-    useC=useC,
     voltageLevel=Types.VoltageLevel.Low)
     annotation (Placement(transformation(extent={{2,-108},{22,-88}})));
+
 equation
   Sloads = load1.S[1] + load2.S[1] +load3.S[1] +load4.S[1] +load5.S[1] +load6.S[1] +load7.S[1] +load8.S[1] +load9.S[1] +load10.S[1];
   connect(load1.terminal, line.terminal_p) annotation (Line(
@@ -426,5 +425,18 @@ equation
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/DClines.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This model shows a DC grid with 10 loads and 16 cables.
+Each cable is of length <code>L = 10 [m]</code>, a parameter that can be modified.
+Each load can be either a full nonlinear model otherwise replaced by the 
+linearized version by changing the value of the boolean parameter <code>linearLoads = false</code>.
+</p>
+<p>
+This model can be used to test the how the linearized loads are affected by the voltage drop
+caused by the lines. The longer is the distance between the load and the source,
+the bigger is the voltage drop and thus the error introduced by the linearization.
+</p>
+</html>"));
 end DClines;

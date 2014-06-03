@@ -1,5 +1,5 @@
 within Buildings.Electrical.DC.Lines;
-model TwoPortRCLine "Model of a RC system"
+model TwoPortRCLine "Model of a two port DC resistance and capacity (T-model)"
   extends Buildings.Electrical.Transmission.Base.PartialTwoPortRLC(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
@@ -38,8 +38,37 @@ equation
           Line(points={{-90,0},{-70,0}}, color={0,0,255}),
           Line(points={{70,0},{90,0}},   color={0,0,255}),
         Rectangle(
-          extent={{-70,30},{70,-30}},
+          extent={{-70,32},{70,-28}},
           lineColor={0,0,255},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+    Documentation(info="<html>
+<p>
+This model represents a series of two resistances and a capacitance that connect two DC interfaces.
+This model can be used to represent a cable in a DC grid.
+</p>
+<p>
+The model represents the lumped resistances and capacity (T-model) as shown in figure
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/DC/Lines/twoPortRC.png\"/>
+</p>
+<p>
+As can be seen in the figure the resistance <i>R</i> is split in two halves and the capacity is put in the middle.
+The capacitance in the middle is optional and can be selected using the
+boolean flag <code>useC = true</code>. The model is either dynamic or static depending on the
+presence of the capacitive effect.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 2, 2014, by Marco Bonvini:<br/>
+revised documentation.
+</li>
+<li>
+October 31, 2013, by Marco Bonvini:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end TwoPortRCLine;

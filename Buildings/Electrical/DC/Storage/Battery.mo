@@ -5,7 +5,7 @@ model Battery "Simple model of a battery"
     "Efficiency during charging";
  parameter Real etaDis(min=0, max=1, unit="1") = 0.9
     "Efficiency during discharging";
- parameter Real SOC_start=0.1 "Initial charge";
+ parameter Real SOC_start(min=0, max=1, unit="1")=0.1 "Initial state of charge";
  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
     "Maximum available charge";
   Modelica.Blocks.Interfaces.RealInput P(unit="W")
@@ -16,7 +16,8 @@ model Battery "Simple model of a battery"
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,100})));
-  Modelica.Blocks.Interfaces.RealOutput SOC "State of charge"
+  Modelica.Blocks.Interfaces.RealOutput SOC(min=0, max=1, unit="1")
+    "State of charge"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Buildings.Electrical.DC.Interfaces.Terminal_p
                                              terminal(redeclare package
@@ -136,7 +137,8 @@ Simple model of a battery.
 <p>
 This model takes as an input the power that should be stored in the battery (if <i>P &gt; 0</i>)
 or that should be extracted from the battery.
-The model computes a fictitious conductance <i>G</i> such that
+The model uses a fictitious conductance 
+(see <a href=\"modelica://Buildings.Electrical.DC.Loads.Conductor\">Buildings.Electrical.DC.Loads.Conductor</a>) <i>G</i> such that
 <i>P = u &nbsp; i</i> and <i>i = u &nbsp; G,</i> where
 <i>u</i> is the voltage difference across the pins and
 <i>i</i> is the current at the positive pin.
@@ -153,6 +155,10 @@ and that the state of charge remains between zero and one.
 </html>",
         revisions="<html>
 <ul>
+<li>
+June 2, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 January 8, 2013, by Michael Wetter:<br/>
 First implementation.

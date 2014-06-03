@@ -39,7 +39,14 @@ This model takes as an input the information provided by the weather bus: direct
 The electrical connector is a DC interfaces.
 </p>
 <p>
-This model computes the power as <i>P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G</i>,
+This model computes the power as 
+</p>
+
+<p align=\"center\" style=\"font-style:italic;\">
+P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G
+</p>
+
+<p>
 where <i>A</i> is the panel area,
 <i>f<sub>act</sub></i> is the fraction of the aperture area,
 <i>&eta;</i> is the panel efficiency and
@@ -51,11 +58,11 @@ where <i>v</i> is the voltage across the panel and
 <i>i</i> is the current that flows through the panel.
 </p>
 <p>
-To avoid a large voltage across the panel, it is recommended to use this model together
+To avoid a large voltage drop the panel electric connector, it is recommended to use this model together
 with a model that prescribes the voltage.
 See
-<a href=\"modelica://Buildings.Electrical.DC.Sources.Examples.PVSimple\">
-Buildings.Electrical.DC.Sources.Examples.PVSimple</a>.
+<a href=\"modelica://Buildings.Electrical.DC.Sources.Examples.PVSimpleOriented\">
+Buildings.Electrical.DC.Sources.Examples.PVSimpleOriented</a>.
 </p>
 </html>"));
 end PVSimpleOriented;

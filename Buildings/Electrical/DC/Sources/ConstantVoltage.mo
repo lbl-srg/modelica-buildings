@@ -39,5 +39,17 @@ equation
           extent={{-150,60},{150,100}},
           lineColor={0,0,255},
           textString="V=%V")}),   Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics));
+          extent={{-100,-100},{100,100}}), graphics),
+    Documentation(info="<html>
+<p>
+This model represents a simple DC voltage source with constant voltage (e.g. a battery).
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 6, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>"));
 end ConstantVoltage;

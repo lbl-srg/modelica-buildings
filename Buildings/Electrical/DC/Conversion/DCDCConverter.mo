@@ -7,16 +7,16 @@ model DCDCConverter "DC DC converter"
           PhaseSystem_n),
     redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
           PhaseSystem_p));
-  // fixme: add example. Consider adding a constant loss therm for
-
-  parameter Real conversionFactor
-    "Ratio of DC voltage on side 2 / DC voltage on side 1";
-  parameter Real eta(min=0, max=1)
-    "Converter efficiency, pLoss = (1-eta) * pDC2";
-  parameter Boolean ground_1 = true "Connect side 1 of converter to ground" annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
+  parameter Modelica.SIunits.Voltage Vhigh
+    "DC voltage on side 1 of the transformer (primary side)";
+  parameter Modelica.SIunits.Voltage Vlow
+    "DC voltage on side 2 of the transformer (secondary side)";
+  parameter Real eta(min=0, max=1) "Converter efficiency";
+  parameter Boolean ground_1 = true "Connect side 1 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
   Modelica.SIunits.Power LossPower "Loss power";
 protected
+  parameter Real conversionFactor = Vlow/Vhigh;
   Real i1,i2,v1,v2;
   Modelica.SIunits.Power Pow_p;
   Modelica.SIunits.Power Pow_n;
@@ -86,9 +86,9 @@ equation
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-100,-60},{100,-92}},
+          extent={{-120,-60},{-2,-90}},
           lineColor={0,0,255},
-          textString="%conversionFactor"),
+          textString="%Vhigh"),
         Text(
           extent={{-100,-100},{100,-132}},
           lineColor={0,0,255},
@@ -140,25 +140,34 @@ equation
           points={{94,-112},{108,-112}},
           color=DynamicSelect({0,0,255}, if ground_2 then {0,0,255} else {255,255,
               255}),
-          smooth=Smooth.None)}),
+          smooth=Smooth.None),
+        Text(
+          extent={{2,-60},{120,-90}},
+          lineColor={0,0,255},
+          textString="%Vlow")}),
     Documentation(info="<html>
 <p>
 This is an DC DC converter, based on a power balance between DC and DC side.
 The paramater <i>conversionFactor</i> defines the ratio between the two averaged DC voltages
 The loss of the converter is proportional to the power transmitted to the second DC side.
-The parameter <code>eps</code> is the efficiency of the transfer.
+The parameter <code>eta</code> is the efficiency of the transfer.
 The loss is computed as
-<i>P<sub>loss</sub> = (1-&eta;) |P<sub>DC2</sub>|</i>,
-where <i>|P<sub>DC2</sub>|</i> is the power transmitted on the second DC side.
+<p align=\"center\" style=\"font-style:italic;\">
+P<sub>loss</sub> = (1-&eta;) P<sub>DC</sub>
 </p>
-<h4>Note:</h4>
 <p>
-This model is derived from 
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealDCDCConverter\">
-Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealDCDCConverter</a>.
+where <i>P<sub>DC</sub></i> is the power transmitted. This model is symmetric and the power
+can be transmitted in both directions. The loss is computed depending on the direction
+of the power flow. 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 2, 2014, by Marco Bonvini:<br/>
+Revised model and documentation. Changed parameter sof the model, 
+now the user specify <code>Vhigh</code> and <code>Vlow</code>
+instead of <code>conversionFactor</code>.
+</li>
 <li>
 January 28, 2012, by Thierry S. Nouidui:<br/>
 First implementation.

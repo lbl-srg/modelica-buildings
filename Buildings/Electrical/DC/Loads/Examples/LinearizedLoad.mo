@@ -2,7 +2,10 @@ within Buildings.Electrical.DC.Loads.Examples;
 model LinearizedLoad "Example model to check the linearized load model"
   import Buildings;
   extends Modelica.Icons.Example;
-  Real error = (sen_nlin.S[1] - sen_lin.S[1])*100/sen_nlin.S[1];
+  Real error = (sen_nlin.S[1] - sen_lin.S[1])*100/sen_nlin.S[1]
+    "Percentage of error between the linearized and actual power consumption";
+  Real deltaV = LinearLoad.V_nominal - sen_lin.V
+    "Voltage distance between nominal condition and actual voltage";
   Buildings.Electrical.DC.Loads.Conductor NonlinearLoad(
     linear=false,
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
@@ -82,11 +85,19 @@ equation
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Loads/Examples/LinearizedLoad.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>
-This example demonstrates the use of the resistor model.
-</p>
+<p>This example demonstrates the use of a linealized load model <a href=\"modelica://Buildings.Electrical.DC.Loads.Conductor\">Buildings.Electrical.DC.Loads.Conductor</a>. </p>
+<p>Both loads are connected to the same DC voltage source through a resistive element that represents a line. The loads consume the same amount of power that is specified by the input ramp signal. </p>
+<p>The nonlinear conductor model <code>NonlinearLoad</code> consumes exactly the amount of power specified by the input <code>NonlinearLoad.Pow</code>. </p>
+<p>The linearized conductor model <code>LinearizedLoad</code> does not consumes the amount of power specified by the input <code>LinearizedLoad.Pow</code>. The voltage at the load deviates from the nominal value when the power consumption increases. Since the model is approximated in a neighbor of the nominal voltage, moving from that point introduces approximation errors. The plot below shows the error introduced with such an approximation. </p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Electrical/DC/Loads/Examples/DCload_approx.png\" alt=\"image\"/> </p>
+<p>The linearized load is tested over a voltage variation of about 30 % of the nominal voltage and within this range
+the maximum error is 1.23457 % that occurs when the voltage deviation is 11.11 %.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 2, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 August 16, 2013, by Michael Wetter:<br/>
 First implementation.

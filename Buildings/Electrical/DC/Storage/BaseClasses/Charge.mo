@@ -1,16 +1,15 @@
 within Buildings.Electrical.DC.Storage.BaseClasses;
 model Charge "Model to compute the battery charge"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
- parameter Real etaCha(min=0, max=1, unit="1") = 0.9
+  extends Modelica.Blocks.Icons.Block;
+  parameter Real etaCha(min=0, max=1, unit="1") = 0.9
     "Efficiency during charging";
- parameter Real etaDis(min=0, max=1, unit="1") = 0.9
+  parameter Real etaDis(min=0, max=1, unit="1") = 0.9
     "Efficiency during discharging";
- parameter Modelica.SIunits.Energy EMax(displayUnit="kWh")
+  parameter Real SOC_start(min=0, max=1, unit="1")=0.1
+    "Initial state of charge";
+  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
     "Maximum available charge";
- //Modelica.SIunits.Energy E(min=0, displayUnit="kWh") "Actual charge";
   Modelica.SIunits.Power PAct "Actual power";
-  parameter Real SOC_start(start = SOC_start, min=0, max=1, unit="1")=0
-    "Initial charge";
   Modelica.Blocks.Interfaces.RealInput P(final quantity="Power",
                                          final unit="W") annotation (Placement(transformation(
           extent={{-140,-20},{-100,20}}),iconTransformation(extent={{-140,-20},{
@@ -21,7 +20,6 @@ model Charge "Model to compute the battery charge"
 protected
   Boolean underCharged "Flag, true if battery is undercharged";
   Boolean overCharged "Flag, true if battery is overcharged";
-
 initial equation
   pre(underCharged) = SOC_start < 0;
   pre(overCharged)  = SOC_start > 1;
@@ -43,5 +41,52 @@ equation
   end when;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics));
+            {100,100}}), graphics), Documentation(info="<html>
+<p>
+This model represents the charge/discharge mechanism of a battery.
+</p>
+<p>
+This model two parameters <i>&eta;<sub>CHA</sub></i> and <i>&eta;<sub>DIS</sub></i> that represent 
+the efficiency during the charge and discharge of the battery.
+</p>
+<p>
+The model given the power <i>P</i> that should be provide or taken from the battery
+and compute the actual power flowing through the battery as
+</p>
+
+<table summary=\"equations\" border = \"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collape;\">
+<tr><th>Equation</th><th>Condition</th></tr>
+<tr>
+<td>P<sub>actual</sub> = P &eta;<sub>CHA</sub></td>
+<td>P &ge; 0</td>
+</tr>
+<tr>
+<td>P<sub>actual</sub> = P (2 - &eta;<sub>DIS</sub>)</td>
+<td>P &lt; 0</td>
+</tr>
+</table>
+
+<p>
+The actual power is then used to compute the variation of the state of charge <code>SOC</code>.
+The state of charge is the state variable of this model and is a real value between 0 and 1.
+</p>
+
+<p align=\"center\" style=\"font-style:italic;\">
+S.C = P<sub>actual</sub>
+</p>
+
+<p>
+<b>N.B.</b>Note that the input power <i>P</i> has to be controlled in order 
+to avoid the state of charge <code>SOC</code>
+The state of charge falling outside the range between 0 and 1.
+</p>
+
+</html>", revisions="<html>
+<ul>
+<li>
+June 2, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>"));
 end Charge;
