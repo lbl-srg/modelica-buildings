@@ -1,7 +1,6 @@
 within Buildings.Electrical.Interfaces;
 model PartialWindTurbine
   "Partial model of a wind turbine with power output based on table as a function of wind speed"
-  import Buildings;
   extends Buildings.Electrical.Interfaces.PartialWindTurbineBase;
   replaceable package PhaseSystem =
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem
@@ -9,9 +8,8 @@ model PartialWindTurbine
     "Phase system"
     annotation (choicesAllMatching=true);
 
-  replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
-      package PhaseSystem =
-        PhaseSystem) "Generalized terminal"
+  replaceable Buildings.Electrical.Interfaces.Terminal terminal(
+    redeclare package PhaseSystem = PhaseSystem) "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds per(
@@ -163,7 +161,8 @@ For example, the following specification (with default <code>scale=1</code>) of 
            25, 1000]) \"Wind turbine\";
 </pre>
 <p>
-yields the performance shown below. In this example, the cut-in wind speed is <i>3.5</i> meters per second,
+yields the performance shown below. In this example, the cut-in wind speed is 
+<i>3.5</i> meters per second,
 and the cut-out wind speed is <i>25</i> meters per second,
 as entered by the first and last entry of the wind speed column.
 Below and above these wind speeds, the generated power is zero.
@@ -179,7 +178,7 @@ First implementation.
 </li>
 <li>
 October 31, 2013, by Marco Bonvini:<br/>
-Models included in the Buildings library. Modified the info.
+Models included in the Buildings library. Modified the information section.
 </li>
 </ul>
 </html>"));
