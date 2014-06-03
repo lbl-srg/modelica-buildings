@@ -1,7 +1,9 @@
 within Buildings.Electrical.Interfaces;
 partial model PartialInductiveLoad "Partial model of an inductive load"
   extends PartialLoad;
-  parameter Real pf(min=0, max=1) = 0.8 "Power factor"  annotation(Evaluate=true,Dialog(group="Nominal conditions"));
+  parameter Real pf(min=0, max=1) = 0.8 "Power factor"
+  annotation(Dialog(group="Nominal conditions"));
+  // fixme: Add comments to all variables.
 protected
   function j = PhaseSystem.j;
   Modelica.SIunits.MagneticFlux psi[2](each stateSelect=StateSelect.prefer);
@@ -22,14 +24,15 @@ Model included into the Buildings library.
 </html>", info="<html>
 <p>
 This is a model of a generic inductive load. This model is an extension of the base load model
-<a href=\"Buildings.Electrical.Interfaces.PartialLoad\">Buildings.Electrical.Interfaces.PartialLoad</a>.
+<a href=\"Buildings.Electrical.Interfaces.PartialLoad\">
+Buildings.Electrical.Interfaces.PartialLoad</a>.
 </p>
 <p>
 This model assumes a fixed power factor <code>pf</code> that is used to compute the reactive power 
 <code>Q</code> given the active power <code>P</code>
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q = P * tan(arccos(pf))
+Q = P  tan(arccos(pf))
 </p>
 </html>"));
 end PartialInductiveLoad;

@@ -5,6 +5,9 @@ package UserGuide "User's guide"
 <p>
 The package <b>Buildings.Electrical</b> contains models for electric DC and AC systems.
 </p>
+<p>
+fixme: The user's guide should explain the design and use of the package.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

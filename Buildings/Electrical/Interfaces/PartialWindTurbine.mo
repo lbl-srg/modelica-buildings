@@ -11,7 +11,7 @@ model PartialWindTurbine
 
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
       package PhaseSystem =
-        PhaseSystem) "Generalised terminal"
+        PhaseSystem) "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds per(

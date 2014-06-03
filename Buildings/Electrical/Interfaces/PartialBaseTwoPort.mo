@@ -1,5 +1,6 @@
 within Buildings.Electrical.Interfaces;
-partial model PartialBaseTwoPort "Partial model of a generic two port system"
+model PartialBaseTwoPort
+  "Partial model of a generic two port system. fixme: this is not partial"
 
   replaceable Buildings.Electrical.Interfaces.BaseTerminal terminal_n
     "Electric terminal side p"

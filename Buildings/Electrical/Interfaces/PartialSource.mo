@@ -1,5 +1,6 @@
 within Buildings.Electrical.Interfaces;
-partial model PartialSource "Partial model of a generic source"
+model PartialSource
+  "Partial model of a generic source. fixme: this model is not partial"
   replaceable package PhaseSystem =
       Buildings.Electrical.PhaseSystems.OnePhase constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
@@ -8,10 +9,12 @@ partial model PartialSource "Partial model of a generic source"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
   parameter Boolean definiteReference = false "Serve as definite root"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
+  // fixme: Add comments to all variables.
   Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(terminal.v, terminal.i);
   Modelica.SIunits.Angle phi = PhaseSystem.phase(terminal.v) - PhaseSystem.phase(-terminal.i);
-  replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
-      replaceable package PhaseSystem = PhaseSystem) "Generalised terminal"
+  replaceable Buildings.Electrical.Interfaces.Terminal terminal(
+    redeclare replaceable package PhaseSystem = PhaseSystem)
+    "Generalized terminal"
     annotation (Placement(transformation(extent={{92,-8},{108,8}})));
 protected
   function j = PhaseSystem.j;
@@ -40,11 +43,13 @@ Model included into the Buildings library.
 This model represents a generic source.
 </p>
 <p>
-In case the phase system adopted has <code>PhaseSystem.m > 0</code> and thus the connectors are over determined, 
+In case the phase system adopted has <code>PhaseSystem.m &gt; 0</code> and 
+thus the connectors are over determined, 
 the source can be selected to serve as reference point.
 The parameters <code>potentialReference</code> and <code>definiteReference</code> are used to define if the
 source model should be selected as source for the reference angles or not.
-More information about overdetermined connectors can be found in <a href=\"#Olsson2008\">Olsson Et Al. (2008)</a>.
+More information about overdetermined connectors can be found 
+in <a href=\"#Olsson2008\">Olsson Et Al. (2008)</a>.
 </p>
 
 <h4>References</h4>
@@ -55,7 +60,5 @@ Hans Olsson, Martin Otter, Sven Erik Mattson, Hilding Elmqvist<br/>
 Balanced Models in Modelica 3.0 for Increased Model Quality </a><br/>
 Proc. of the 7th Modelica Conference, Bielefeld, Germany, March 2008.
 </p>
-
-
 </html>"));
 end PartialSource;

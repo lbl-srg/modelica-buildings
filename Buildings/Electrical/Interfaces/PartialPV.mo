@@ -15,7 +15,7 @@ model PartialPV "Partial model of a PV system"
         rotation=270,
         origin={0,120})));
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
-      package PhaseSystem = PhaseSystem) "Generalised terminal"
+      package PhaseSystem = PhaseSystem) "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
   Modelica.Blocks.Sources.RealExpression solarPower(y=A*fAct*eta*G)

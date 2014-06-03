@@ -22,7 +22,7 @@ model Battery "Simple model of a battery"
   Buildings.Electrical.DC.Interfaces.Terminal_p
                                              terminal(redeclare package
       PhaseSystem = Buildings.Electrical.PhaseSystems.TwoConductor)
-    "Generalised terminal"
+    "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
   Buildings.Electrical.DC.Storage.BaseClasses.Charge cha(

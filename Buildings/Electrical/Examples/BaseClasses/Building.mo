@@ -16,7 +16,7 @@ model Building
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-30})));
-  AC.OnePhase.Interfaces.Terminal_n node "Generalised terminal"
+  AC.OnePhase.Interfaces.Terminal_n node "Generalized terminal"
     annotation (Placement(transformation(extent={{-108,-10},{-88,10}})));
 
   parameter Modelica.SIunits.Voltage V_distrib_n=15000

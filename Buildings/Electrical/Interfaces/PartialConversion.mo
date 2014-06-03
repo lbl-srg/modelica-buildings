@@ -1,6 +1,6 @@
 within Buildings.Electrical.Interfaces;
 model PartialConversion
-  "Partial model representing a generic two port system for conversion"
+  "Model representing a generic two port system for conversion"
   extends Buildings.Electrical.Interfaces.PartialTwoPort;
   Modelica.SIunits.Voltage v_p "Voltage drop between the two positive pins";
   Modelica.SIunits.Voltage v_n "Voltage drop between the two negative pins";
@@ -28,9 +28,13 @@ Model included into the Buildings library.
 </ul>
 </html>", info="<html>
 <p>
-This partial model extends the base <a href=\"Buildings.Electrical.Interfaces.PartialTwoPort\">Buildings.Electrical.Interfaces.PartialTwoPort</a>
-model and includes variables like <code>v_p</code> and <code>i_p</code> that represents the voltage and the 
-current at the <code>terminal_p</code>. These variable are used in conversion models like transformers or AC/DC converters.
+This model extends the base 
+<a href=\"Buildings.Electrical.Interfaces.PartialTwoPort\">
+Buildings.Electrical.Interfaces.PartialTwoPort</a>
+model and declares variables like 
+<code>v_p</code> and <code>i_p</code> that represents the voltage and the 
+current at the <code>terminal_p</code>. 
+These variables are used in conversion models such as transformers and AC/DC converters.
 </p>
 </html>"));
 end PartialConversion;
