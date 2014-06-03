@@ -1,10 +1,11 @@
 within Buildings.Electrical.Interfaces;
-model PartialPV "Partial model of a PV system"
+model PartialPV "Base model for a PV system"
   extends Buildings.Electrical.Interfaces.PartialPvBase;
   replaceable package PhaseSystem =
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
+
   Modelica.Blocks.Interfaces.RealInput G(unit="W/m2")
     "Total solar irradiation per unit area"
      annotation (Placement(transformation(
@@ -14,16 +15,19 @@ model PartialPV "Partial model of a PV system"
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
-  replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
-      package PhaseSystem = PhaseSystem) "Generalized terminal"
+
+  replaceable Buildings.Electrical.Interfaces.Terminal terminal(
+    redeclare package PhaseSystem = PhaseSystem) "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+
 protected
   Modelica.Blocks.Sources.RealExpression solarPower(y=A*fAct*eta*G)
     annotation (Placement(transformation(extent={{91,-10},{71,10}})));
+
 equation
   assert(solarPower.y>=0, "Solar power must be positive");
   connect(solarPower.y, P) annotation (Line(
-      points={{70,6.66134e-16},{59,6.66134e-16},{59,0},{50,0},{50,70},{110,70}},
+      points={{70,0},{59,0},{59,0},{50,0},{50,70},{110,70}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -118,7 +122,7 @@ First implementation.
 </li>
 <li>
 October 31, 2013, by Marco Bonvini:<br/>
-Models included in the Buildings library. Modified the info.
+Models included in the Buildings library. Modified the information section.
 </li>
 </ul>
 </html>",
@@ -127,17 +131,18 @@ Models included in the Buildings library. Modified the info.
 Partial model of a simple photovoltaic array.
 </p>
 <p>
-<b>N.B.</b> This model takes as input the total solar irradiation on the panel. This has to be computed converting the incoming radiation to take tilt and azimuth into account.
-</p>
-<p>
-The electrical connector is a general electrical interfaces.
-</p>
-<p>
 This model computes the power as <i>P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G</i>,
 where <i>A</i> is the panel area,
 <i>f<sub>act</sub></i> is the fraction of the aperture area,
 <i>&eta;</i> is the panel efficiency and
 <i>G</i> is the total solar irradiation.
+</p>
+<p>
+<b>Note:</b> This model takes as input the total solar irradiation on the panel.
+This has to be computed converting the incoming radiation to take tilt and azimuth into account.
+</p>
+<p>
+The electrical connector is a general electrical interface.
 </p>
 </html>"));
 end PartialPV;
