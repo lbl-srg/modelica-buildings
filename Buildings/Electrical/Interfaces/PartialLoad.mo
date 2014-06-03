@@ -123,7 +123,11 @@ can change depending on the value of the parameter <code>mode</code>, which is o
 </p>
 <p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><th>mode</th>       <th>Description</th>  <th>Explanation</th>   </tr>
+<tr>
+<th>Mode</th>
+<th>Description</th>
+<th>Explanation</th>
+</tr>
 <!-- ************ -->
 <tr>
 <td>Buildings.Electrical.Types.Assumption.FixedZ_steady_state</td>

@@ -7,7 +7,6 @@ model PartialConversion
   Modelica.SIunits.Current i_p "Current flowing through the positive pins";
   Modelica.SIunits.Current i_n "Current flowing through the negative pins";
 equation
-
   i_p = PhaseSystem_p.systemCurrent(terminal_p.i);
   i_n = PhaseSystem_n.systemCurrent(terminal_n.i);
 
@@ -15,7 +14,8 @@ equation
   v_n = PhaseSystem_n.systemVoltage(terminal_n.v);
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(revisions="<html>
+            -100},{100,100}})),
+Documentation(revisions="<html>
 <ul>
 <li>
 May 15, 2014, by Marco Bonvini:<br/>
@@ -23,17 +23,19 @@ Created documentation.
 </li>
 <li>
 October 31, 2013, by Marco Bonvini:<br/>
-Model included into the Buildings library.
+Model included in the Buildings library.
 </li>
 </ul>
 </html>", info="<html>
 <p>
-This model extends the base 
+This model extends the base class
 <a href=\"Buildings.Electrical.Interfaces.PartialTwoPort\">
 Buildings.Electrical.Interfaces.PartialTwoPort</a>
-model and declares variables like 
+model and declares the variables 
 <code>v_p</code> and <code>i_p</code> that represents the voltage and the 
-current at the <code>terminal_p</code>. 
+current at the <code>terminal_p</code>, and the variables
+<code>v_n</code> and <code>i_n</code> that represents the voltage and the 
+current at the <code>terminal_n</code>. 
 These variables are used in conversion models such as transformers and AC/DC converters.
 </p>
 </html>"));
