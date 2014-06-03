@@ -16,7 +16,7 @@ equation
     annotation (Line(points={{5.55112e-16,12},{40,12}}, smooth=Smooth.None));
   connect(sen.terminal_n, sou.terminal)
     annotation (Line(points={{-20,12},{-40,12}}, smooth=Smooth.None));
-  connect(sou.npin, ground.p) annotation (Line(
+  connect(sou.n, ground.p) annotation (Line(
       points={{-60,12},{-60,0}},
       color={0,0,255},
       smooth=Smooth.None));

@@ -193,7 +193,7 @@ equation
       points={{106,-10},{106,-20},{88,-20}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sou.npin, ground.p) annotation (Line(
+  connect(sou.n, ground.p) annotation (Line(
       points={{68,-20},{68,-40}},
       color={0,0,255},
       smooth=Smooth.None));

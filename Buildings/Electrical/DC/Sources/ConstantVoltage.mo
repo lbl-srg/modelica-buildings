@@ -4,12 +4,12 @@ model ConstantVoltage "Model of a constant DC voltage source"
     redeclare package PhaseSystem = PhaseSystems.TwoConductor,
     redeclare Interfaces.Terminal_p terminal);
   parameter Modelica.SIunits.Voltage V(start=1) "Value of constant voltage";
-  Modelica.Electrical.Analog.Interfaces.NegativePin npin "Negative pin"
+  Modelica.Electrical.Analog.Interfaces.NegativePin n "Negative pin"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 equation
   terminal.v[1] = V;
-  terminal.v[2] = npin.v;
-  sum(terminal.i) + npin.i = 0;
+  terminal.v[2] = n.v;
+  sum(terminal.i) + n.i = 0;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Line(points={{-40,0},{40,0}},  color={0,0,0},
