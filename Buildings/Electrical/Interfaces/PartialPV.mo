@@ -17,7 +17,7 @@ model PartialPV "Base model for a PV system"
         origin={0,120})));
 
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(
-    redeclare package PhaseSystem = PhaseSystem) "Generalized terminal"
+    redeclare final package PhaseSystem = PhaseSystem) "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
 protected

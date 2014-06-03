@@ -10,10 +10,12 @@ model PartialSource
   parameter Boolean definiteReference = false "Serve as definite root"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
   // fixme: Add comments to all variables.
-  Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(terminal.v, terminal.i);
-  Modelica.SIunits.Angle phi = PhaseSystem.phase(terminal.v) - PhaseSystem.phase(-terminal.i);
+  Modelica.SIunits.Power S[PhaseSystem.n]=
+    PhaseSystem.phasePowers_vi(terminal.v, terminal.i);
+  Modelica.SIunits.Angle phi=
+    PhaseSystem.phase(terminal.v) - PhaseSystem.phase(-terminal.i);
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(
-    redeclare replaceable package PhaseSystem = PhaseSystem)
+    redeclare final replaceable package PhaseSystem = PhaseSystem)
     "Generalized terminal"
     annotation (Placement(transformation(extent={{92,-8},{108,8}})));
 protected

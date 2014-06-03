@@ -20,8 +20,6 @@ model PartialPVOriented "Base model of a PV system with orientation"
 
   replaceable PartialPV panel(
     redeclare final package PhaseSystem = PhaseSystem,
-    redeclare final Buildings.Electrical.Interfaces.Terminal terminal(
-      redeclare final package PhaseSystem = PhaseSystem),
     final A=A,
     final fAct=fAct,
     final eta=eta) "PV panel model" annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

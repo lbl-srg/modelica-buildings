@@ -15,8 +15,7 @@ model PartialTwoPort "Model of a generic two port component with phase systems"
 
   extends Buildings.Electrical.Interfaces.PartialBaseTwoPort(
     redeclare replaceable Buildings.Electrical.Interfaces.Terminal                                                                   terminal_n(redeclare
-        replaceable package PhaseSystem =
-                                      PhaseSystem_n),
+        replaceable package PhaseSystem = PhaseSystem_n),
     redeclare replaceable Buildings.Electrical.Interfaces.Terminal
       terminal_p(redeclare replaceable package PhaseSystem=PhaseSystem_p));
 
