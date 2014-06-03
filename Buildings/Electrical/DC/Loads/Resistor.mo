@@ -14,7 +14,7 @@ model Resistor "Ideal linear electrical resistor"
   Modelica.SIunits.Resistance R_actual
     "Actual resistance = R*(1 + alpha*(T_heatPort - T_ref))";
 equation
-  assert((1 + alpha*(T_heatPort - T_ref)) >= Modelica.Constants.eps, "Temperature outside scope of model!");
+  assert((1 + alpha*(T_heatPort - T_ref)) >= Modelica.Constants.eps, "Temperature outside of scope of model");
   R_actual = R*(1 + alpha*(T_heatPort - T_ref));
   PhaseSystem.systemVoltage(v) = R_actual*PhaseSystem.systemCurrent(i);
   LossPower = PhaseSystem.activePower(v,i);
@@ -28,13 +28,13 @@ Model of a linear DC resistor that can vary with respect to temperature.
 The model implements the Ohm's law
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-V = R(T) i
+V = R(T) i.
 </p>
 <p>
-where the resistance <i>R(T)</i> vary depending on the temperature <i>T</i> as
+The resistance <i>R(T)</i> varies depending on the temperature <i>T</i> as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-R(T) = R (1 + &alpha; (T - T<sub>ref</sub>)
+R(T) = R (1 + &alpha; (T - T<sub>ref</sub>),
 </p>
 <p>
 where the resistance <i>R</i> is the reference value of the resistance, <i>&alpha;</i> is the

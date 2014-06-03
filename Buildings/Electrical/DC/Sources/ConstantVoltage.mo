@@ -1,8 +1,8 @@
 within Buildings.Electrical.DC.Sources;
 model ConstantVoltage "Model of a constant DC voltage source"
-  extends Buildings.Electrical.Interfaces.PartialSource(redeclare package
-      PhaseSystem = PhaseSystems.TwoConductor, redeclare Interfaces.Terminal_p
-      terminal);
+  extends Buildings.Electrical.Interfaces.PartialSource(
+    redeclare package PhaseSystem = PhaseSystems.TwoConductor,
+    redeclare Interfaces.Terminal_p terminal);
   parameter Modelica.SIunits.Voltage V(start=1) "Value of constant voltage";
   Modelica.Electrical.Analog.Interfaces.NegativePin npin "Negative pin"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
