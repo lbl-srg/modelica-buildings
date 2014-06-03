@@ -1,8 +1,9 @@
 within Buildings.Electrical.DC.Sources;
 model PVSimpleOriented "Simple PV model with orientation"
-  extends Buildings.Electrical.Interfaces.PartialPVOriented(redeclare package
-      PhaseSystem = PhaseSystems.TwoConductor, redeclare Interfaces.Terminal_p
-      terminal, redeclare Buildings.Electrical.DC.Sources.PVSimple panel);
+  extends Buildings.Electrical.Interfaces.PartialPVOriented(
+    redeclare package PhaseSystem = PhaseSystems.TwoConductor,
+    redeclare Interfaces.Terminal_p terminal,
+    redeclare Buildings.Electrical.DC.Sources.PVSimple panel);
 
   annotation (
     Icon(coordinateSystem(
@@ -30,13 +31,9 @@ First implementation.
 </li>
 </ul>
 </html>",
-        info="<html>
+info="<html>
 <p>
 Model of a simple photovoltaic array.
-</p>
-<p>
-This model takes as an input the information provided by the weather bus: direct and diffuse solar radiation.
-The electrical connector is a DC interfaces.
 </p>
 <p>
 This model computes the power as 
@@ -67,6 +64,10 @@ with a model that prescribes the voltage.
 See
 <a href=\"modelica://Buildings.Electrical.DC.Sources.Examples.PVSimpleOriented\">
 Buildings.Electrical.DC.Sources.Examples.PVSimpleOriented</a>.
+</p>
+<p>
+This model takes as an input the direct and diffuse solar radiation from
+the weather data bus.
 </p>
 </html>"));
 end PVSimpleOriented;

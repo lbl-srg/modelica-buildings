@@ -1,15 +1,16 @@
 within Buildings.Electrical.DC.Sources;
 model WindTurbine
   "Wind turbine with power output based on table as a function of wind speed"
-  import Buildings;
-  extends Buildings.Electrical.Interfaces.PartialWindTurbine(redeclare package
-      PhaseSystem = Buildings.Electrical.PhaseSystems.TwoConductor, redeclare
-      Buildings.Electrical.DC.Interfaces.Terminal_p
-                                                 terminal);
+  extends Buildings.Electrical.Interfaces.PartialWindTurbine(
+    redeclare package PhaseSystem =
+        Buildings.Electrical.PhaseSystems.TwoConductor,
+    redeclare Buildings.Electrical.DC.Interfaces.Terminal_p terminal);
 protected
-  Loads.Conductor                       con(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+  Loads.Conductor con(
+    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     P_nominal=0,
-    V_nominal=0) "Conductor, used to interface power with electrical circuit"
+    V_nominal=0)
+    "Conductor, used to interface the power with the electrical circuit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(con.terminal, terminal) annotation (Line(

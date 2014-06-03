@@ -42,7 +42,7 @@ equation
           extent={{-100,-100},{100,100}}), graphics),
     Documentation(info="<html>
 <p>
-This model represents a simple DC voltage source with constant voltage (e.g. a battery).
+This model represents a simple DC voltage source with constant voltage.
 </p>
 </html>", revisions="<html>
 <ul>

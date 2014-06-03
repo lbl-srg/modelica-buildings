@@ -37,7 +37,8 @@ equation
           textString="vLoc")}),             Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),Documentation(info="<html>
 <p>
-This model calculates the wind velocity at the location as a function of the height over ground. The equation is based on Gash (1991).
+This model calculates the wind velocity at the location as a function of the height over ground.
+The equation is based on Gash (1991).
 
 The model computes the wind velocity <i>vLoc</i> as
 </p>
