@@ -49,7 +49,7 @@ First implementation.
 Model of a simple photovoltaic array.
 </p>
 <p>
-<b>N.B.</b> This model takes as input the total solar irradiation on the panel. This has to be 
+<b>Note:</b> This model takes as input the total solar irradiation on the panel. This has to be 
 computed converting the incoming radiation to take tilt and azimuth into account.
 </p>
 <p>

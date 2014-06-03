@@ -50,7 +50,10 @@ P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G
 where <i>A</i> is the panel area,
 <i>f<sub>act</sub></i> is the fraction of the aperture area,
 <i>&eta;</i> is the panel efficiency and
-<i>G</i> is the total solar irradiation (direct + diffuse). The model takes into account the location and the orientation of the PV panel, specified by the surface tilt, latitude and azimith.
+<i>G</i> is the total solar irradiation, which is the sum
+of direct and diffuse irradiation. 
+The model takes into account the location and the orientation of the PV panel, 
+specified by the surface tilt, latitude and azimuth.
 </p>
 <p>
 This power is equal to <i>P = v &nbsp; i</i>,
@@ -58,7 +61,8 @@ where <i>v</i> is the voltage across the panel and
 <i>i</i> is the current that flows through the panel.
 </p>
 <p>
-To avoid a large voltage drop the panel electric connector, it is recommended to use this model together
+To avoid a large voltage drop the panel electric connector, 
+it is recommended to use this model together
 with a model that prescribes the voltage.
 See
 <a href=\"modelica://Buildings.Electrical.DC.Sources.Examples.PVSimpleOriented\">

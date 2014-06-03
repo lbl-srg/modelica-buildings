@@ -1,38 +1,45 @@
 within Buildings.Electrical.Interfaces;
-model PartialPVOriented "Partial model of a PV system with orientation"
+model PartialPVOriented "Base model of a PV system with orientation"
   extends Buildings.Electrical.Interfaces.PartialPvBase;
+
   replaceable package PhaseSystem =
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Angle til "Surface tilt" annotation(Evaluate=true,Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Angle lat "Latitude" annotation(Evaluate=true,Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Angle azi "Surface Azimith" annotation(Evaluate=true,Dialog(group="Orientation"));
-  replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
-      package PhaseSystem = PhaseSystem) "Generalized terminal"
+
+  parameter Modelica.SIunits.Angle til "Surface tilt"
+    annotation(Evaluate=true,Dialog(group="Orientation"));
+  parameter Modelica.SIunits.Angle lat "Latitude"
+    annotation(Evaluate=true,Dialog(group="Orientation"));
+  parameter Modelica.SIunits.Angle azi "Surface Azimith"
+    annotation(Evaluate=true,Dialog(group="Orientation"));
+
+  replaceable Buildings.Electrical.Interfaces.Terminal terminal(
+    redeclare final package PhaseSystem = PhaseSystem) "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+
   replaceable PartialPV panel(
-    redeclare package PhaseSystem = PhaseSystem,
-    redeclare Buildings.Electrical.Interfaces.Terminal terminal(redeclare
-        package PhaseSystem =
-          PhaseSystem),
-    A=A,
-    fAct=fAct,
-    eta=eta) "PV panel model" annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  BoundaryConditions.SolarIrradiation.DiffusePerez           HDifTil(
-    til=til,
-    lat=lat,
-    azi=azi) "Diffuse irradiation on tilted surface"
+    redeclare final package PhaseSystem = PhaseSystem,
+    final A=A,
+    final fAct=fAct,
+    final eta=eta) "PV panel model" annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+  BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
+    final til=til,
+    final lat=lat,
+    final azi=azi) "Diffuse irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-66,62},{-46,82}})));
-  BoundaryConditions.SolarIrradiation.DirectTiltedSurface           HDirTil(
-    til=til,
-    lat=lat,
-    azi=azi) "Direct irradiation on tilted surface"
+  BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
+    final til=til,
+    final lat=lat,
+    final azi=azi) "Direct irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-66,35},{-46,55}})));
+
   Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,30})));
+
   BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data" annotation (
      Placement(transformation(extent={{-10,80},{10,100}}), iconTransformation(
           extent={{-10,80},{10,100}})));
@@ -165,15 +172,18 @@ First implementation.
 Partial model of a simple photovoltaic array.
 </p>
 <p>
-This model takes as an input the information provided by the weather bus: direct and diffuse solar radiation.
-The electrical connector is a DC interfaces.
+This model takes as an input the
+direct and diffuse solar radiation from the weather data bus.
 </p>
 <p>
 This model computes the power as <i>P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G</i>,
 where <i>A</i> is the panel area,
 <i>f<sub>act</sub></i> is the fraction of the aperture area,
 <i>&eta;</i> is the panel efficiency and
-<i>G</i> is the total solar irradiation (direct + diffuse). The model takes into account the location and the orientation of the PV panel, specified by the surface tilt, latitude and azimith.
+<i>G</i> is the total solar irradiation, which is the sum of
+direct and diffuse irradiation. 
+The model takes into account the location and the orientation of the PV panel, 
+specified by the surface tilt, latitude and azimuth.
 </p>
 </html>"));
 end PartialPVOriented;

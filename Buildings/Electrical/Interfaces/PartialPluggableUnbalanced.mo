@@ -1,10 +1,7 @@
 within Buildings.Electrical.Interfaces;
-partial model PartialPluggableUnbalanced
-  "Partial interface for undalanced loads"
-  parameter Boolean PlugPhase1 = true
-    "This flag indicates if the load on phase 1 is connected or not";
-  parameter Boolean PlugPhase2 = true
-    "This flag indicates if the load on phase 2 is connected or not";
-  parameter Boolean PlugPhase3 = true
-    "This flag indicates if the load on phase 3 is connected or not";
+record PartialPluggableUnbalanced "Partial interface for unbalanced loads"
+  parameter Boolean PlugPhase1 = true "If true, phase 1 is connected";
+  parameter Boolean PlugPhase2 = true "If true, phase 2 is connected";
+  parameter Boolean PlugPhase3 = true "If true, phase 3 is connected";
+    // fixme: this requires an info and revision section.
 end PartialPluggableUnbalanced;

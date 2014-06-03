@@ -1,7 +1,8 @@
 within Buildings.Electrical.Interfaces;
-partial model GeneralizedSensor
-  "Partial model representing a generalized sensor that measures: Voltage, Current and Power"
-
+partial class GeneralizedSensor
+  "Icon representing a generalized sensor that measures voltage, current and power"
+  // fixme: This needs to be moved to a package Buildings/Electrical/Icons.
+  //        See for example Modelica.Math.Icons.
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(
@@ -65,8 +66,7 @@ partial model GeneralizedSensor
           extent={{-100,-100},{100,100}}), graphics),
     Documentation(info="<html>
 <p>
-This is the base class for ideal sensors that measure power, voltage and current.
-The two components of the power <i>S</i> are the active and reactive power.
+This is the icon for ideal sensors that measure power, voltage and current.
 </p>
 </html>", revisions="<html>
 <ul>
