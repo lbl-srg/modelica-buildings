@@ -4,7 +4,6 @@ package PhaseSystems "Phase systems used in power connectors"
   import SI = Modelica.SIunits;
   import Modelica.Constants.pi;
 
-
   annotation (Icon(graphics={Line(
           points={{-70,-52},{50,-52}},
           color={95,95,95},
@@ -12,26 +11,31 @@ package PhaseSystems "Phase systems used in power connectors"
           points={{-70,8},{-58,28},{-38,48},{-22,28},{-10,8},{2,-12},{22,-32},{
               40,-12},{50,8}},
           color={95,95,95},
-          smooth=Smooth.Bezier)}), Documentation(info="<html>
+          smooth=Smooth.Bezier)}), 
+preferredView="info", 
+Documentation(info="<html>
 <p>
-This package contains a list of packages that represent different type of electric systems.<br/>
-Each package inherit from <a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.<br/>
+This package contains a list of packages that represent different type of electric systems.
+Each package inherits from <a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">
+Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
 </p>
 <p>
-The packages represent various type of electrical systems. The basic idea behind this 
-approach is to use the same connector for different electrical domains.<br/>
-Each connector will have a replaceable package that inherit from <a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a> 
-depending on the type of system to represent.<br/>
+The packages represent various types of electrical systems. The basic idea behind this 
+approach is to use the same connector for different electrical domains.
+Each connector has a replaceable package that inherits from 
+<a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">
+Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a> 
+depending on the type of electrical system.
 The electrical systems represented are:
 </p>
 
 <ul>
 <li>DC systems,</li>
 <li>DC systems with two conductors,</li>
-<li>1 Phase AC systems,</li>
-<li>3 Phases resistive balanced AC systems,</li>
-<li>3 Phases balanced AC systems,</li>
-<li>3 Phases unbalanced AC systems (dq0 representation).</li>
+<li>1 phase AC systems,</li>
+<li>3 phases resistive balanced AC systems,</li>
+<li>3 phases balanced AC systems,</li>
+<li>3 phases unbalanced AC systems (dq0 representation).</li>
 </ul>
 
 <p>
@@ -39,12 +43,14 @@ This approach has been used by the following Modelica libraries:
 </p>
 
 <ul>
-<li><a href=\"http://www.modelon.com/products/modelica-libraries/electric-power-library\">Electric Power Library</a> developed by Modelon,</li>
-<li><a href=\"https://github.com/modelica/PowerSystems\">Power Systems Library</a> developed by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Rüdiger Franke</a> (ABB).</li>
+<li><a href=\"http://www.modelon.com/products/modelica-libraries/electric-power-library\">Electric Power Library</a>,
+developed by Modelon,</li>
+<li><a href=\"https://github.com/modelica/PowerSystems\">Power Systems Library</a>,
+developed by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Rüdiger Franke</a> (ABB).</li>
 </ul>
 
 <p>
-More details about the phase system packages can be found in <a href=\"#RuedigerEtAl2014\">Franke and Wierssman (2014)</a>.
+More details about the phase system packages can be found in <a href=\"#RuedigerEtAl2014\">Franke and Wiesmann (2014)</a>.
 </p>
 <h4>References</h4>
 <p>
