@@ -9,17 +9,17 @@ model PartialLoad
   parameter Boolean linear = false "If true, the load model is linearized"
     annotation(Evaluate=true,Dialog(group="Modelling assumption"));
   parameter Buildings.Electrical.Types.Assumption mode(
-    min=Assumption.FixedZ_steady_state,
-    max=Assumption.VariableZ_y_input)=Assumption.FixedZ_steady_state
+    min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+    max=Buildings.Electrical.Types.Assumption.VariableZ_y_input)=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
     "Parameter that specifies the type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation(Evaluate=true,Dialog(group="Modelling assumption"));
   // fixme: Why has P_nominal the start attribute set? I don't see why this is needed.
   parameter Modelica.SIunits.Power P_nominal(start=0)
     "Nominal power (negative if consumed, positive if generated)"
     annotation(Evaluate=true,Dialog(group="Nominal conditions",
-        enable = mode <> Assumption.VariableZ_P_input));
+        enable = mode <> Buildings.Electrical.Types.Assumption.VariableZ_P_input));
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
-    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions", enable = (mode==Assumptionm.FixedZ_dynamic or linear)));
+    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions", enable = (mode==Buildings.Electrical.Types.Assumptionm.FixedZ_dynamic or linear)));
   Modelica.SIunits.Voltage v[:](start = PhaseSystem.phaseVoltages(V_nominal)) = terminal.v
     "Voltage vector";
   Modelica.SIunits.Current i[:](start = PhaseSystem.phaseCurrents(0.0)) = terminal.i
@@ -29,7 +29,7 @@ model PartialLoad
   Modelica.SIunits.Power P
     "Power of the load (negative if consumed, positive if fed into the electrical grid)";
 
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1") if mode==Assumption.VariableZ_y_input
+  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1") if (mode == Buildings.Electrical.Types.Assumption.VariableZ_y_input)
     "Fraction of the nominal power consumed" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -37,7 +37,7 @@ model PartialLoad
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,0})));
-  Modelica.Blocks.Interfaces.RealInput Pow(unit="W") if mode==Assumption.VariableZ_P_input
+  Modelica.Blocks.Interfaces.RealInput Pow(unit="W") if (mode == Buildings.Electrical.Types.Assumption.VariableZ_P_input)
     "Power consumed" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
