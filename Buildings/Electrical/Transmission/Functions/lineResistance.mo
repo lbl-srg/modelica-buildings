@@ -31,7 +31,7 @@ Added User's guide.
 </html>", info="<html>
 <p>
 This function computes the overall resistance of a cable.
-There are two different ways to compute the overall resistanc eof the cable,
+There are two different ways to compute the overall resistance of the cable
  depending on the voltage level.
 </p>
 
