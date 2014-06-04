@@ -1,6 +1,5 @@
 within Buildings.Electrical.Transmission.Grids;
-record IEEE_34_AL120
-  "IEEE 34 Bus Grid District 1 (AL120,AL70,Al35) - freestanding"
+record IEEE_34_AL120 "Grid model inspired to the IEEE 34 Node test feeder"
   extends Buildings.Electrical.Transmission.Grids.PartialGrid(
     Nnodes=34,
     Nlinks=33,
@@ -51,7 +50,18 @@ record IEEE_34_AL120
     
    */
   annotation (Documentation(info="<html>
-<p>Schematic of the IEEE-34 grid</p>
+<p> This model represents a grid inspired to the IEEE 34 node test feeder.
+In this example the cables type and length have been modified in order to 
+represent a typical distribution feeder.</p>
+<p>There are three type of cables in the grid: AL120, AL70, and Al35.
+</p>
 <p><img alt=\"alt-image\" src=\"modelica://Buildings/Resources/Images/Electrical/Transmission/Grids/IEEE_34.png\"/></p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 3, 2014, by Marco Bonvini:<br/>
+Added User's guide.
+</li>
+</ul>
 </html>"));
 end IEEE_34_AL120;

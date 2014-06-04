@@ -1,5 +1,6 @@
 within Buildings.Electrical.Transmission.Base;
-partial model PartialBaseLine "Base cable line dispersion model"
+partial model PartialBaseLine
+  "Partial cable line dispersion parametrization model"
   parameter Modelica.SIunits.Length l(min=0) "Length of the line";
   parameter Modelica.SIunits.Power P_nominal(min=0) "Nominal power of the line";
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)
@@ -12,7 +13,6 @@ partial model PartialBaseLine "Base cable line dispersion model"
     "Select between steady state and dynamic model"
     annotation(Evaluate=true, Dialog(tab="Model", group="Assumptions", enable = useC), choices(choice=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
         "Steady state", choice=Buildings.Electrical.Types.Assumption.FixedZ_dynamic "Dynamic"));
-
   parameter Boolean useExtTemp = false
     "If true, enables the input for the temperature of the cable" annotation(Evaluate = true, Dialog(tab="Model", group="Thermal"));
   parameter Modelica.SIunits.Temperature Tcable = T_ref
@@ -52,7 +52,6 @@ partial model PartialBaseLine "Base cable line dispersion model"
   final parameter Modelica.SIunits.Capacitance C=
   Functions.lineCapacitance(                                  l, voltageLevel, commercialCable_low, commercialCable_med)
     "Capacitance of the cable" annotation(Evaluate = True);
-
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature cableTemp
     "Temperature of the cable"
     annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
@@ -62,11 +61,11 @@ partial model PartialBaseLine "Base cable line dispersion model"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,30})));
-protected
-  Modelica.Blocks.Interfaces.RealInput T_in;
 public
   Modelica.Blocks.Sources.RealExpression cableTemperature(y=T_in)
     annotation (Placement(transformation(extent={{-92,12},{-72,32}})));
+protected
+  Modelica.Blocks.Interfaces.RealInput T_in;
 equation
   assert(L>=0 and R>=0 and C>=0, "The parameters R,L,C must be positive! check cable properties and size");
   connect(T_in, T);
@@ -85,5 +84,58 @@ equation
           Text(
             extent={{-150,-19},{150,-59}},
             lineColor={0,0,0},
-          textString="%name")}));
+          textString="%name")}),
+    Documentation(info="<html>
+<p>
+This partial model contains the parameters and variable needed to parametrized 
+generic cable. The parameters of the cable (resistance, inductance and capacitance)
+are computed in two different ways depending on the <code>mode</code>.
+</p>
+<p>
+The model has two parameters <code>useC</code> and <code>modelMode</code> that can
+be used to change the behaviour of the model. It is possible to include the effects
+of a capacity or select if the model should be dynamic or steady state. More information
+are available in the line models that extends this partial model.
+</p>
+
+<h4>Commercial cable mode</h4>
+<p>
+When <code>mode = commercial</code> the user can select the type of cable from a list
+of commercially available cables. The cables are divided in two different categories:
+</p>
+<ul>
+<li>Low voltage,</li>
+<li>Medium voltage, and</li>
+<li>High voltage.</li>
+</ul>
+<p>
+The details and type of cables can be found in
+<a href=\"modelica://Buildings.Electrical.Transmission.LowVoltageCables\">
+Buildings.Electrical.Transmission.LowVoltageCables</a> and 
+<a href=\"modelica://Buildings.Electrical.Transmission.MediumVoltageCables\">
+Buildings.Electrical.Transmission.MediumVoltageCables</a>.
+</p>
+
+<h4>Automatic cable mode</h4>
+<p>
+When <code>mode = automatic</code> the type of cable is automatically selected
+depending on the value of the following parameters: <code>V_nominal</code>, and
+<code>P_nominal</code>.
+</p>
+
+<h4>Note:</h4>
+<p>
+More details about the functions that compute the type of cable and its  
+properties can be found in <a href=\"modelica://Buildings.Electrical.Transmission.Functions\">
+Buildings.Electrical.Transmission.Functions</a>.
+</p>
+
+</html>", revisions="<html>
+<ul>
+<li>
+June 3, 2014, by Marco Bonvini:<br/>
+Added User's guide.
+</li>
+</ul>
+</html>"));
 end PartialBaseLine;
