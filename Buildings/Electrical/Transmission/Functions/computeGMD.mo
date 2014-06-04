@@ -14,5 +14,19 @@ June 3, 2014, by Marco Bonvini:<br/>
 Added User's guide.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This function computes the Geometric Mean Distance of a cable.
+</p>
+<p>
+The GMD is computed as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+GMD = (d<sub>1</sub> d<sub>2</sub> d<sub>3</sub>)<sup>1/3</sup>
+</p>
+<p>
+where <i>d<sub>1</sub></i>, <i>d<sub>2</sub></i>, and <i>d<sub>3</sub></i> are
+ the distances between the conductors.
+</p>
 </html>"));
 end computeGMD;
