@@ -4,12 +4,13 @@ model GeneralizedSensor "Sensor for power, voltage and current"
   extends Buildings.Electrical.Interfaces.PartialTwoPort(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
-    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
-          PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
-          PhaseSystem_p));
+    redeclare Interfaces.Terminal_n terminal_n(
+      redeclare package PhaseSystem = PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(
+      redeclare package PhaseSystem = PhaseSystem_p));
   Modelica.Blocks.Interfaces.RealOutput V(final quantity="ElectricPotential",
-                                          final unit="V") "Voltage"           annotation (Placement(
+                                          final unit="V") "Voltage"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -18,7 +19,8 @@ model GeneralizedSensor "Sensor for power, voltage and current"
         rotation=270,
         origin={0,-90})));
   Modelica.Blocks.Interfaces.RealOutput I(final quantity="ElectricCurrent",
-                                          final unit="A") "Current"           annotation (Placement(
+                                          final unit="A") "Current"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -26,9 +28,14 @@ model GeneralizedSensor "Sensor for power, voltage and current"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-90})));
+  // fixme: Wouldn't it make more sense to declare S as a scalar for DC
+  //        systems? It seems odd to have a vector with two components,
+  //        where we know that one component is always zero.
+  //        I suggest that this is changed to ...RealOutput S(...)
   Modelica.Blocks.Interfaces.RealOutput S[PhaseSystems.TwoConductor.n](
                                           each final quantity="Power",
-                                          each final unit="W") "Power"             annotation (Placement(
+                                          each final unit="W") "Power"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

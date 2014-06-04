@@ -3,10 +3,10 @@ model TwoPortResistance "Model of a two port DC resistance"
   extends Buildings.Electrical.Transmission.Base.PartialTwoPortResistance(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
-    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
-          PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
-          PhaseSystem_p));
+    redeclare Interfaces.Terminal_n terminal_n(
+      redeclare package PhaseSystem = PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(
+      redeclare package PhaseSystem = PhaseSystem_p));
 
 equation
   // Voltage drop on the resistance lumped on connection between terminals
@@ -40,7 +40,7 @@ This model represents a resistance that connect two DC interfaces. This model ca
 to represent a cable in a DC grid.
 </p>
 <p>
-The model represents the lumped resistance as shown in figure
+The model represents the lumped resistance as shown in the figure below.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/DC/Lines/twoPortR.png\"/>
@@ -49,7 +49,7 @@ The model represents the lumped resistance as shown in figure
 <ul>
 <li>
 June 2, 2014, by Marco Bonvini:<br/>
-revised documentation.
+Revised documentation.
 </li>
 <li>
 October 31, 2013, by Marco Bonvini:<br/>

@@ -16,10 +16,12 @@ model DCDCConverter "DC DC converter"
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
   Modelica.SIunits.Power LossPower "Loss power";
 protected
-  parameter Real conversionFactor = VLow/VHigh;
+  parameter Real conversionFactor = VLow/VHigh
+    "Ratio of high versus low voltage";
+  // fixme: use SIunits, and add comments to all variables, also the protected ones
   Real i1,i2,v1,v2;
-  Modelica.SIunits.Power P_p;
-  Modelica.SIunits.Power P_n;
+  Modelica.SIunits.Power P_p "Power at terminal p";
+  Modelica.SIunits.Power P_n "Power at terminal n";
 equation
   Connections.potentialRoot(terminal_n.theta);
   Connections.potentialRoot(terminal_p.theta);
@@ -43,7 +45,7 @@ equation
   sum(terminal_n.i) + i1 = 0;
   sum(terminal_p.i) + i2 = 0;
 
-  //voltage relation
+  // Voltage relation
   v_p = v_n*conversionFactor;
 
   // OLD equations that take into account the power at the secondary
