@@ -6,8 +6,7 @@ model DCDCConverter "Test model DC to DC converter"
     P_nominal=-2000,
     V_nominal=60)
     annotation (Placement(transformation(extent={{38,30},{58,50}})));
-  Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=120)
-    "Voltage source"
+  Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=120) "Voltage source"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Electrical.DC.Conversion.DCDCConverter conDCDC(VHigh=120, VLow=60,
       eta=0.9)
