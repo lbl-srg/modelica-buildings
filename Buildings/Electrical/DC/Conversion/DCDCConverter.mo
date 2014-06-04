@@ -7,16 +7,16 @@ model DCDCConverter "DC DC converter"
       redeclare package PhaseSystem = PhaseSystem_n),
     redeclare Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p));
-  parameter Modelica.SIunits.Voltage Vhigh
+  parameter Modelica.SIunits.Voltage VHigh
     "DC voltage on side 1 of the transformer (primary side)";
-  parameter Modelica.SIunits.Voltage Vlow
+  parameter Modelica.SIunits.Voltage VLow
     "DC voltage on side 2 of the transformer (secondary side)";
   parameter Real eta(min=0, max=1) "Converter efficiency";
   parameter Boolean ground_1 = true "Connect side 1 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
   Modelica.SIunits.Power LossPower "Loss power";
 protected
-  parameter Real conversionFactor = Vlow/Vhigh;
+  parameter Real conversionFactor = VLow/VHigh;
   Real i1,i2,v1,v2;
   Modelica.SIunits.Power P_p;
   Modelica.SIunits.Power P_n;
@@ -88,7 +88,7 @@ equation
         Text(
           extent={{-120,-60},{-2,-90}},
           lineColor={0,0,255},
-          textString="%Vhigh"),
+          textString="%VHigh"),
         Text(
           extent={{-100,-100},{100,-132}},
           lineColor={0,0,255},
@@ -144,7 +144,7 @@ equation
         Text(
           extent={{2,-60},{120,-90}},
           lineColor={0,0,255},
-          textString="%Vlow")}),
+          textString="%VLow")}),
     Documentation(info="<html>
 <p>
 This is a DC/DC converter, based on a power balance between the two DC sides.
@@ -165,7 +165,7 @@ of the power flow.
 <li>
 June 2, 2014, by Marco Bonvini:<br/>
 Revised model and documentation. Changed parameter sof the model, 
-now the user specify <code>Vhigh</code> and <code>Vlow</code>
+now the user specify <code>VHigh</code> and <code>VLow</code>
 instead of <code>conversionFactor</code>.
 </li>
 <li>

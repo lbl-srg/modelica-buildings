@@ -7,11 +7,11 @@ model ACACTransformer "AC AC transformer for single phase systems"
           PhaseSystem_n),
     redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
           PhaseSystem_p));
-  parameter Modelica.SIunits.Voltage Vhigh
+  parameter Modelica.SIunits.Voltage VHigh
     "Rms voltage on side 1 of the transformer (primary side)";
-  parameter Modelica.SIunits.Voltage Vlow
+  parameter Modelica.SIunits.Voltage VLow
     "Rms voltage on side 2 of the transformer (secondary side)";
-  parameter Modelica.SIunits.ApparentPower VAbase
+  parameter Modelica.SIunits.ApparentPower VABase
     "Nominal power of the transformer";
   parameter Real XoverR
     "Ratio between the complex and real components of the impedance (XL/R)";
@@ -21,19 +21,19 @@ model ACACTransformer "AC AC transformer for single phase systems"
   parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
 protected
-  Real N = Vhigh/Vlow "Winding ratio";
-  Modelica.SIunits.Current Ihigh = VAbase/Vhigh
+  Real N = VHigh/VLow "Winding ratio";
+  Modelica.SIunits.Current IHigh = VABase/VHigh
     "Nominal current on primary side";
-  Modelica.SIunits.Current Ilow = VAbase/Vlow
+  Modelica.SIunits.Current ILow = VABase/VLow
     "Nominal current on secondary side";
-  Modelica.SIunits.Current Isc_high = Ihigh/Zperc
+  Modelica.SIunits.Current IscHigh = IHigh/Zperc
     "Short circuit current on primary side";
-  Modelica.SIunits.Current Isc_low = Ilow/Zperc
+  Modelica.SIunits.Current IscLow = ILow/Zperc
     "Short circuit current on secondary side";
-  Modelica.SIunits.Impedance Zp = Vhigh/Isc_high
+  Modelica.SIunits.Impedance Zp = VHigh/IscHigh
     "Impedance of the primary side";
   Modelica.SIunits.Impedance Z1[2] = {Zp*cos(atan(XoverR)), Zp*sin(atan(XoverR))};
-  Modelica.SIunits.Impedance Zs = Vlow/Isc_low
+  Modelica.SIunits.Impedance Zs = VLow/IscLow
     "Impedance of the secondary side";
   Modelica.SIunits.Impedance Z2[2] = {Zs*cos(atan(XoverR)), Zs*sin(atan(XoverR))};
   Modelica.SIunits.Voltage V1[2] "Voltage at the winding - primary side";
@@ -45,7 +45,7 @@ protected
   Modelica.SIunits.Power Sn = sqrt(P_n[1]^2 + P_n[2]^2)
     "Apparent power terminal n";
 equation
-  assert(sqrt(P_p[1]^2 + P_p[2]^2) <= VAbase*1.01,"The load power of transformer is higher than VAbase");
+  assert(sqrt(P_p[1]^2 + P_p[2]^2) <= VABase*1.01,"The load power of transformer is higher than VABase");
 
   // Efficiency
   eta = Buildings.Utilities.Math.Functions.smoothMin(

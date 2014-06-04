@@ -8,11 +8,11 @@ model ACACTransformerFull
           PhaseSystem_n),
     redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
           PhaseSystem_p));
-  parameter Modelica.SIunits.Voltage Vhigh
+  parameter Modelica.SIunits.Voltage VHigh
     "Rms voltage on side 1 of the transformer (primary side)";
-  parameter Modelica.SIunits.Voltage Vlow
+  parameter Modelica.SIunits.Voltage VLow
     "Rms voltage on side 2 of the transformer (secondary side)";
-  parameter Modelica.SIunits.ApparentPower VAbase
+  parameter Modelica.SIunits.ApparentPower VABase
     "Nominal power of the transformer";
   parameter Modelica.SIunits.Frequency f(start=60) "Nominal frequency";
   parameter Buildings.Electrical.Types.PerUnit R1(min=0)
@@ -36,16 +36,16 @@ model ACACTransformerFull
   Modelica.SIunits.Power LossPower[2] "Loss power";
 protected
   parameter Modelica.SIunits.AngularVelocity omega_n = 2*Modelica.Constants.pi*f;
-  parameter Real N = Vhigh/Vlow "Winding ratio";
-  parameter Modelica.SIunits.Resistance Rbase_high = Vhigh^2/VAbase
+  parameter Real N = VHigh/VLow "Winding ratio";
+  parameter Modelica.SIunits.Resistance RBaseHigh = VHigh^2/VABase
     "Base impedance of the primary side";
-  parameter Modelica.SIunits.Resistance Rbase_low = Vlow^2/VAbase
+  parameter Modelica.SIunits.Resistance RBaseLow = VLow^2/VABase
     "Base impedance of the secondary side";
-  Modelica.SIunits.Impedance Z1[2] = {Rbase_high*R1, omega*L1*Rbase_high/omega_n};
-  Modelica.SIunits.Impedance Z2[2] = {Rbase_low*R2, omega*L2*Rbase_low/omega_n};
-  Modelica.SIunits.Impedance Zrm[2] = {Rbase_high*Rm, 0}
+  Modelica.SIunits.Impedance Z1[2] = {RBaseHigh*R1, omega*L1*RBaseHigh/omega_n};
+  Modelica.SIunits.Impedance Z2[2] = {RBaseLow*R2, omega*L2*RBaseLow/omega_n};
+  Modelica.SIunits.Impedance Zrm[2] = {RBaseHigh*Rm, 0}
     "Magnetization impedance - resistance";
-  Modelica.SIunits.Impedance Zlm[2] = {0, omega*Lm*Rbase_high/omega_n}
+  Modelica.SIunits.Impedance Zlm[2] = {0, omega*Lm*RBaseHigh/omega_n}
     "Magnetization impedance - impedence";
   Modelica.SIunits.Voltage V1[2] "Voltage at the winding - primary side";
   Modelica.SIunits.Voltage V2[2] "Voltage at the winding - secondary side";
@@ -58,7 +58,7 @@ protected
   Modelica.SIunits.AngularVelocity omega "Angular velocity";
   Modelica.SIunits.Current Im[2] "Magnetization current";
 equation
-  assert(sqrt(P_p[1]^2 + P_p[2]^2) <= VAbase*1.01,"The load power of transformer is higher than VAbase");
+  assert(sqrt(P_p[1]^2 + P_p[2]^2) <= VABase*1.01,"The load power of transformer is higher than VABase");
 
   // Angular velocity
   omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));

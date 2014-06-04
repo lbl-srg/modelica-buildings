@@ -10,7 +10,7 @@ model DCDCConverter "Test model DC to DC converter"
   Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=120)
     "Voltage source"
     annotation (Placement(transformation(extent={{-100,22},{-80,42}})));
-  Buildings.Electrical.DC.Conversion.DCDCConverter conDCDC(Vhigh=120, Vlow=60,
+  Buildings.Electrical.DC.Conversion.DCDCConverter conDCDC(VHigh=120, VLow=60,
       eta=0.9)
     annotation (Placement(transformation(extent={{-46,22},{-26,42}})));
   Buildings.Electrical.DC.Loads.Conductor conductor(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
