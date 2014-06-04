@@ -49,24 +49,24 @@ protected
     "Magnetization impedance - impedence";
   Modelica.SIunits.Voltage V1[2] "Voltage at the winding - primary side";
   Modelica.SIunits.Voltage V2[2] "Voltage at the winding - secondary side";
-  Modelica.SIunits.Power Pow_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
-  Modelica.SIunits.Power Pow_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
-  Modelica.SIunits.Power Sp = sqrt(Pow_p[1]^2 + Pow_p[2]^2)
+  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
+  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
+  Modelica.SIunits.Power Sp = sqrt(P_p[1]^2 + P_p[2]^2)
     "Apparent power terminal p";
-  Modelica.SIunits.Power Sn = sqrt(Pow_n[1]^2 + Pow_n[2]^2)
+  Modelica.SIunits.Power Sn = sqrt(P_n[1]^2 + P_n[2]^2)
     "Apparent power terminal n";
   Modelica.SIunits.AngularVelocity omega "Angular velocity";
   Modelica.SIunits.Current Im[2] "Magnetization current";
 equation
-  assert(sqrt(Pow_p[1]^2 + Pow_p[2]^2) <= VAbase*1.01,"The load power of transformer is higher than VAbase");
+  assert(sqrt(P_p[1]^2 + P_p[2]^2) <= VAbase*1.01,"The load power of transformer is higher than VAbase");
 
   // Angular velocity
   omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));
 
   // Efficiency
   eta = Buildings.Utilities.Math.Functions.smoothMin(
-        x1=  sqrt(Pow_p[1]^2 + Pow_p[2]^2) / (sqrt(Pow_n[1]^2 + Pow_n[2]^2) + 1e-6),
-        x2=  sqrt(Pow_n[1]^2 + Pow_n[2]^2) / (sqrt(Pow_p[1]^2 + Pow_p[2]^2) + 1e-6),
+        x1=  sqrt(P_p[1]^2 + P_p[2]^2) / (sqrt(P_n[1]^2 + P_n[2]^2) + 1e-6),
+        x2=  sqrt(P_n[1]^2 + P_n[2]^2) / (sqrt(P_p[1]^2 + P_p[2]^2) + 1e-6),
         deltaX=  0.01);
 
   // Ideal transformation
@@ -92,7 +92,7 @@ equation
     terminal_p.i, Z2);
 
   // Loss of power
-  LossPower = Pow_p + Pow_n;
+  LossPower = P_p + P_n;
 
   // The two sides have the same reference angle
   terminal_p.theta = terminal_n.theta;

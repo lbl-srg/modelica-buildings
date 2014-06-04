@@ -3,10 +3,10 @@ model DCDCConverter "DC DC converter"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
-    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
-          PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
-          PhaseSystem_p));
+    redeclare Interfaces.Terminal_n terminal_n(
+      redeclare package PhaseSystem = PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(
+      redeclare package PhaseSystem = PhaseSystem_p));
   parameter Modelica.SIunits.Voltage Vhigh
     "DC voltage on side 1 of the transformer (primary side)";
   parameter Modelica.SIunits.Voltage Vlow
@@ -18,8 +18,8 @@ model DCDCConverter "DC DC converter"
 protected
   parameter Real conversionFactor = Vlow/Vhigh;
   Real i1,i2,v1,v2;
-  Modelica.SIunits.Power Pow_p;
-  Modelica.SIunits.Power Pow_n;
+  Modelica.SIunits.Power P_p;
+  Modelica.SIunits.Power P_n;
 equation
   Connections.potentialRoot(terminal_n.theta);
   Connections.potentialRoot(terminal_p.theta);
@@ -35,8 +35,8 @@ equation
     v2 = 0;
   end if;
 
-  Pow_p = PhaseSystem_p.activePower(terminal_p.v, terminal_p.i);
-  Pow_n = PhaseSystem_n.activePower(terminal_n.v, terminal_n.i);
+  P_p = PhaseSystem_p.activePower(terminal_p.v, terminal_p.i);
+  P_n = PhaseSystem_n.activePower(terminal_n.v, terminal_n.i);
 
   v1 = terminal_n.v[2];
   v2 = terminal_p.v[2];
@@ -48,11 +48,11 @@ equation
 
   // OLD equations that take into account the power at the secondary
   // power balance
-  // LossPower = (1-eta) * abs(Pow_p);
-  // Pow_n + Pow_p - LossPower = 0;
+  // LossPower = (1-eta) * abs(P_p);
+  // P_n + P_p - LossPower = 0;
 
   // Symmetric and linear version
-  LossPower = Pow_p + Pow_n;
+  LossPower = P_p + P_n;
   if i_n >=0 then
     i_p = i_n/conversionFactor/(eta - 2);
   else
@@ -147,13 +147,13 @@ equation
           textString="%Vlow")}),
     Documentation(info="<html>
 <p>
-This is an DC DC converter, based on a power balance between DC and DC side.
-The paramater <i>conversionFactor</i> defines the ratio between the two averaged DC voltages
-The loss of the converter is proportional to the power transmitted to the second DC side.
+This is a DC/DC converter, based on a power balance between the two DC sides.
+The paramater <i>conversionFactor</i> defines the ratio between the two averaged DC voltages.
+The loss of the converter is proportional to the power transmitted at the second DC side.
 The parameter <code>eta</code> is the efficiency of the transfer.
 The loss is computed as
 <p align=\"center\" style=\"font-style:italic;\">
-P<sub>loss</sub> = (1-&eta;) P<sub>DC</sub>
+P<sub>loss</sub> = (1-&eta;) P<sub>DC</sub>,
 </p>
 <p>
 where <i>P<sub>DC</sub></i> is the power transmitted. This model is symmetric and the power
