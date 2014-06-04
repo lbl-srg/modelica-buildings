@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Lines;
 model Network "Single phase AC network"
-  extends Buildings.Electrical.Transmission.Base.PartialNetwork(
+  extends Buildings.Electrical.Transmission.BaseClasses.PartialNetwork(
     redeclare Interfaces.Terminal_p terminal,
     redeclare replaceable Transmission.Grids.TestGrid2Nodes grid,
     redeclare Line lines(commercialCable_low=grid.cables, each use_C=use_C, each modelMode=modelMode));

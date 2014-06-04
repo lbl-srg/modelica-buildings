@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Lines;
 model TwoPortRL
-  extends Buildings.Electrical.Transmission.Base.PartialTwoPortRLC(
+  extends Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =

@@ -1,12 +1,11 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model NetworkN
-  extends Transmission.Base.PartialNetwork(
+  extends Transmission.BaseClasses.PartialNetwork(
     redeclare
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_p         terminal,
     redeclare Transmission.Grids.TestGrid2Nodes grid,
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.LineN lines(commercialCable_low=grid.cables));
-    Modelica.SIunits.Voltage Vabs[3,grid.Nnodes]
-    "RMS voltage of the grid nodes";
+    Modelica.SIunits.Voltage Vabs[3,grid.Nnodes] "RMS voltage of the grid nodes";
 equation
   for i in 1:grid.Nlinks loop
     connect(lines[i].terminal_p, terminal[grid.FromTo[i,1]]);

@@ -1,4 +1,4 @@
-within Buildings.Electrical.Transmission.Base;
+within Buildings.Electrical.Transmission.BaseClasses;
 partial model PartialBaseLine
   "Partial cable line dispersion parametrization model"
   parameter Modelica.SIunits.Length l(min=0) "Length of the line";

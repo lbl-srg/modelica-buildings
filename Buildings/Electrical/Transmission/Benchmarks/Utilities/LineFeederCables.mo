@@ -2,11 +2,11 @@ within Buildings.Electrical.Transmission.Benchmarks.Utilities;
 function LineFeederCables
   "This functions returns a vector of cables for the feeder"
   input Integer Nlinks "Number of links in the feeder";
-  input Buildings.Electrical.Transmission.Base.BaseCable cable_0
+  input Buildings.Electrical.Transmission.BaseClasses.BaseCable cable_0
     "Cable for the initial link";
-  input Buildings.Electrical.Transmission.Base.BaseCable cable_i
+  input Buildings.Electrical.Transmission.BaseClasses.BaseCable cable_i
     "Cable for the other links";
-  output Buildings.Electrical.Transmission.Base.BaseCable cables[Nlinks]
+  output Buildings.Electrical.Transmission.BaseClasses.BaseCable cables[Nlinks]
     "Array that contains the characteristics of each cable";
 algorithm
   cables[1] := cable_0;

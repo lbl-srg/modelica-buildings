@@ -1,8 +1,10 @@
 within Buildings.Electrical.AC.OnePhase.Lines.Examples;
 model AC_InHomeGrid
   extends Modelica.Icons.Example;
-  Network network(redeclare
-      Buildings.Electrical.Transmission.Grids.GridInHome_AL70                       grid,
+  Network network(
+    redeclare
+      Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.GridInHome_AL70
+      grid,
     modelMode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
     use_C=false)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
@@ -19,8 +21,7 @@ model AC_InHomeGrid
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={30,10})));
-  Transmission.Benchmark.DataSeries_v2
-                                    dataSeries
+  Transmission.Benchmarks.DataSeries_v2 dataSeries
     annotation (Placement(transformation(extent={{80,30},{60,50}})));
 protected
   final parameter Integer connectionMatrix[16,2]=[1,1; 2,5; 3,6; 4,9; 5,11; 6,14; 7,17; 8,18; 9,19; 10,20; 11,24; 12,27; 13,28; 14,29; 15,32; 16,33];

@@ -7,7 +7,7 @@ record PartialGrid "Partial model that represents a generalized grid"
     "Indexes [i,1]->[i,2] of the nodes connected by link i";
   parameter Modelica.SIunits.Length L[Nlinks,1](each min=0)
     "Length of the cable";
-  Buildings.Electrical.Transmission.Base.BaseCable cables[Nlinks]
+  Buildings.Electrical.Transmission.BaseClasses.BaseCable cables[Nlinks]
     "Array that contains the characteristics of each cable";
   annotation (Documentation(info="<html>
 <p>

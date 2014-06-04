@@ -1,7 +1,7 @@
 within Buildings.Electrical.Transmission.LowVoltageCables;
 record Cable "Low Voltage Cable Type"
   extends Modelica.Icons.MaterialProperty;
-  extends Buildings.Electrical.Transmission.Base.BaseCable(
+  extends Buildings.Electrical.Transmission.BaseClasses.BaseCable(
     final size="",
     final Rdc=0.0,
     final d=0.0,

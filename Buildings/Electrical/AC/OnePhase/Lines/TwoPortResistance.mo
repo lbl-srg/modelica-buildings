@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Lines;
 model TwoPortResistance
-  extends Buildings.Electrical.Transmission.Base.PartialTwoPortResistance(
+  extends Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =

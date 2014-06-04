@@ -1,5 +1,5 @@
 within Buildings.Electrical.Transmission;
-package Base "Package that contains partial line models"
+package BaseClasses "Package that contains partial models for lines and cables"
   extends Modelica.Icons.BasesPackage;
 
 
@@ -14,4 +14,4 @@ Added User's guide.
 This package contains partial models that describe electric
 lines and cables.
 </html>"));
-end Base;
+end BaseClasses;
