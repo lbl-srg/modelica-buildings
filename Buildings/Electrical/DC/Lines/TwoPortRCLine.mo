@@ -8,6 +8,7 @@ model TwoPortRCLine "Model of a two port DC resistance and capacity (T-model)"
     redeclare Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p),
     final L=0);
+  // fixme: this model requires a unit test to be added.
   parameter Boolean use_C = false
     "Set to true to add a capacitance in the center of the line"
     annotation(Dialog(tab="Model", group="Assumptions"));

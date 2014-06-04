@@ -3,20 +3,20 @@ model Line "Model of a DC electrical line"
   extends Buildings.Electrical.Transmission.Base.PartialLine(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
-    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
-          PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
-          PhaseSystem_p),
+    redeclare Interfaces.Terminal_n terminal_n(
+      redeclare package PhaseSystem = PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(
+      redeclare package PhaseSystem = PhaseSystem_p),
     final modelMode=Types.Assumption.FixedZ_steady_state);
 
   TwoPortRCLine lineRC(
-    useHeatPort=true,
-    R=R,
-    V_nominal=V_nominal,
-    T_ref=T_ref,
-    M=M,
-    C=C,
-    use_C=use_C)
+    final useHeatPort=true,
+    final R=R,
+    final V_nominal=V_nominal,
+    final T_ref=T_ref,
+    final M=M,
+    final C=C,
+    final use_C=use_C)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
 equation
   connect(terminal_n, lineRC.terminal_n) annotation (Line(
@@ -79,9 +79,10 @@ First implementation.
 </html>", info="<html>
 <p>
 This model represents a DC cable. The model is based on 
-<a href=\"Buildings.Electrical.DC.Lines.TwoPortRCLine\">Buildings.Electrical.DC.Lines.TwoPortRCLine</a>
+<a href=\"Buildings.Electrical.DC.Lines.TwoPortRCLine\">
+Buildings.Electrical.DC.Lines.TwoPortRCLine</a>
 and provides functionalities to parametrize the values of <i>R</i> and <i>C</i> either
-using commercial cable options or by using default values.
+using commercial cables or using default values.
 </p>
 </html>"));
 end Line;

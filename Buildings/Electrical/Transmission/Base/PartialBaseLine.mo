@@ -7,14 +7,16 @@ partial model PartialBaseLine
     "Nominal voltage of the line";
 
   parameter Boolean use_C = false
-    "Select if choosing the capacitive effect of the cable or not"
+    "Set to true to add a capacitance in the center of the line"
     annotation(Evaluate=true, Dialog(tab="Model", group="Assumptions"));
   parameter Buildings.Electrical.Types.Assumption modelMode=Types.Assumption.FixedZ_steady_state
     "Select between steady state and dynamic model"
     annotation(Evaluate=true, Dialog(tab="Model", group="Assumptions", enable = use_C), choices(choice=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
         "Steady state", choice=Buildings.Electrical.Types.Assumption.FixedZ_dynamic "Dynamic"));
+  // fixme: rename to use_T
   parameter Boolean useExtTemp = false
     "If true, enables the input for the temperature of the cable" annotation(Evaluate = true, Dialog(tab="Model", group="Thermal"));
+  // fixme: rename to TCable
   parameter Modelica.SIunits.Temperature Tcable = T_ref
     "Fixed temperature of the cable" annotation(Evaluate=true, Dialog(tab="Model", group="Thermal", enable = not useExtTemp));
 

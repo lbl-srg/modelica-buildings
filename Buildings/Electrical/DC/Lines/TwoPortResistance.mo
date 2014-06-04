@@ -7,7 +7,7 @@ model TwoPortResistance "Model of a two port DC resistance"
       redeclare package PhaseSystem = PhaseSystem_n),
     redeclare Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p));
-
+      // fixme: this model requires a unit test to be added.
 equation
   // Voltage drop on the resistance lumped on connection between terminals
   // p.v[1] and n.v[1]
