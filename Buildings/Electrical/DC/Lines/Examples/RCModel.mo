@@ -81,6 +81,13 @@ The capacitance <i>C</i> see an equivalent Thevenin's resistance that is equal t
 <p>
 thus the duration of transient period is about 10 seconds.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 4, 2014, by Marco Bonvini:<br/>
+Added model, documentation and results for regression test.
+</li>
+</ul>
 </html>"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/RCmodel.mos"
         "Simulate and plot"));

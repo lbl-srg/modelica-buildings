@@ -37,6 +37,13 @@ In this example the resistance connects an ideal constant voltage source with
 a short circuit. The current flowing through the circuit depends just
 on the value of the two port resistance.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 4, 2014, by Marco Bonvini:<br/>
+Added model, documentation and results for regression test.
+</li>
+</ul>
 </html>"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/Resistance.mos"
         "Simulate and plot"));
