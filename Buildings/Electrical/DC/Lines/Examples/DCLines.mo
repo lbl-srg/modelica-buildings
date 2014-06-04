@@ -1,13 +1,8 @@
 within Buildings.Electrical.DC.Lines.Examples;
-model DClines
+model DCLines
   "Example model to test the possible combinations between line and load models"
   extends Modelica.Icons.Example;
-  // fixme: Rename this model to DCLines.
-  // fixme: We also need a unit test that uses linearLoads=false. I don't think
-  //        we have full code coverage without this additional test. Full
-  //        code coverage is needed to make sure that we detect any change that
-  //        may lead to different results.
-  parameter Boolean linearLoads = true
+  parameter Boolean linearLoads = false
     "Flag that selects between linearized or nonlinear load models";
   parameter Real L = 10 "Lenght of each cable";
   Modelica.SIunits.Power Sloads = load1.S[1] + load2.S[1] +load3.S[1] +load4.S[1] +
@@ -430,7 +425,7 @@ equation
   annotation (experiment(StopTime=4000,Tolerance=1e-06),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/DClines.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/DCLines.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -446,4 +441,4 @@ caused by the lines. The longer the distance between the load and the source,
 the bigger is the voltage drop and thus the error introduced by the linearization.
 </p>
 </html>"));
-end DClines;
+end DCLines;

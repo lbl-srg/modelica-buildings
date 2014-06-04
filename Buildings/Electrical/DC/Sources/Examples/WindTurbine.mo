@@ -7,7 +7,8 @@ model WindTurbine "Example for the WindTurbine model"
            5.5,   100;
            12, 900;
            14, 1000;
-           25, 1000], h=10) "Wind turbine"
+           25, 1000], h=10,
+    V_nominal=12) "Wind turbine"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

@@ -18,8 +18,8 @@ model DCDCConverter "DC DC converter"
 protected
   parameter Real conversionFactor = VLow/VHigh
     "Ratio of high versus low voltage";
-  // fixme: use SIunits, and add comments to all variables, also the protected ones
-  Real i1,i2,v1,v2;
+  Modelica.SIunits.Current i1,i2;
+  Modelica.SIunits.Voltage v1,v2;
   Modelica.SIunits.Power P_p "Power at terminal p";
   Modelica.SIunits.Power P_n "Power at terminal n";
 equation

@@ -7,7 +7,8 @@ protected
    Loads.Conductor con(
     mode=Types.Assumption.VariableZ_P_input,
     P_nominal=0,
-    V_nominal=0) "Conductor, used to interface power with electrical circuit"
+    V_nominal=V_nominal)
+    "Conductor, used to interface power with electrical circuit"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(con.terminal, terminal)  annotation (Line(

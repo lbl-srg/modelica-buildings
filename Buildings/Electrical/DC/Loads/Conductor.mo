@@ -23,7 +23,8 @@ equation
 
   else
     // Full nonlinear version of the model
-    PhaseSystem.activePower(terminal.v, terminal.i) + P = 0;
+    // PhaseSystem.activePower(terminal.v, terminal.i) + P = 0;
+    i[1] = - homotopy(actual= P/(v[1] - v[2]),  simplified= P*(2/V_nominal - (v[1]-v[2])/V_nominal^2));
   end if;
 
   // Since the connector is a two conductor, the sum of the currents at the terminal
