@@ -1,5 +1,5 @@
 within Buildings.Electrical.Transmission.Grids;
-record PartialGrid "Partial model representing a grid"
+record PartialGrid "Partial model that represents a generalized grid"
   extends Modelica.Icons.MaterialProperty;
   parameter Integer Nnodes "Number of nodes of the grid";
   parameter Integer Nlinks "Number of links connecting the nodes";
@@ -9,4 +9,29 @@ record PartialGrid "Partial model representing a grid"
     "Length of the cable";
   Buildings.Electrical.Transmission.Base.BaseCable cables[Nlinks]
     "Array that contains the characteristics of each cable";
+  annotation (Documentation(info="<html>
+<p>
+This abstract grid model specifies the topology of the network by:
+</p>
+<ul>
+<li>number of nodes,</li>
+<li>number of links,</li>
+<li>length of links,</li>
+<li>relationships between links and nodes.</li>
+</ul>
+<p>
+The picture below describes the meaning of the
+values contained in the matrices.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/Transmission/Grids/partialGrid.png\"/>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 3, 2014, by Marco Bonvini:<br/>
+Added User's guide.
+</li>
+</ul>
+</html>"));
 end PartialGrid;

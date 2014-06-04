@@ -1,5 +1,5 @@
 within Buildings.Electrical.Transmission.Base;
-record BaseCable
+record BaseCable "Record that contains the properties of a generic cable"
   parameter Buildings.Electrical.Transmission.Materials.Material material
     "Material of the cable";
   parameter Modelica.SIunits.Current Amp(start=0.0)=0.0
@@ -20,4 +20,17 @@ record BaseCable
     "Geometrical Mean Radius of the cable";
   parameter Modelica.SIunits.Length GMD(start=0.0)
     "Geometrical Mean Diameter of the cable";
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+June 3, 2014, by Marco Bonvini:<br/>
+Added User's guide.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This record contains all the properties that are specified for a commercial
+cable.
+</p>
+</html>"));
 end BaseCable;

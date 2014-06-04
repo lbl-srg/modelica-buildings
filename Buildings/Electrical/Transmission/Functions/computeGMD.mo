@@ -7,5 +7,12 @@ function computeGMD
   output Modelica.SIunits.Length GMD "Geometric Mean Distance";
 algorithm
   GMD := (d1*d2*d3)^(1.0/3.0);
-annotation(Inline = true);
+annotation(Inline = true, Documentation(revisions="<html>
+<ul>
+<li>
+June 3, 2014, by Marco Bonvini:<br/>
+Added User's guide.
+</li>
+</ul>
+</html>"));
 end computeGMD;

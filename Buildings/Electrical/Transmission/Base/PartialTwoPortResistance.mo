@@ -1,13 +1,13 @@
 within Buildings.Electrical.Transmission.Base;
 partial model PartialTwoPortResistance
+  "Partial model of a resistive element that link two electric connectors"
   extends Interfaces.PartialTwoPort;
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
   parameter Modelica.SIunits.Resistance R(start=1)
-    "Resistance at temperature T_ref" annotation(Evaluate=true);
-  parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature"
-                                                                                annotation(Evaluate=true);
+    "Resistance at temperature T_ref";
+  parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature";
   parameter Modelica.SIunits.Temperature M = 507.65
-    "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))" annotation(Evaluate=true);
+    "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))";
   Modelica.SIunits.Resistance R_actual
     "Actual resistance = R*(M + T_heatPort)/(M + T_ref) ";
 equation
@@ -38,5 +38,28 @@ equation
           extent={{-70,30},{70,-30}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+June 3, 2014, by Marco Bonvini:<br/>
+Added User's guide.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+Partial model of a resistance that link two generalized electric connectors.
+</p>
+<p>
+The model computes a resistance <i>R(T)</i> that vary depending on the temperature <i>T</i> as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+R(T) = R<sub>ref</sub> (M + T)/(M + T<sub>ref</sub>)
+</p>
+<p>
+where the resistance <i>R<sub>ref</sub></i> is the reference value of the resistance, <i>M</i> is the
+ temperature coefficient of the cable material, and <i>T<sub>ref</sub></i> is the referemnce temperature.
+The temperature <i>T</i> can be the temperature of the heat port if <code>useHeatPort = true</code>.
+</p>
+</html>"));
 end PartialTwoPortResistance;

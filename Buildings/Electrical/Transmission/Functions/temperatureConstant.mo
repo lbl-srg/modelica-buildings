@@ -31,5 +31,12 @@ algorithm
     M := 234.5 + 273.15;
   end if;
 
-annotation(Inline = true);
+annotation(Inline = true, Documentation(revisions="<html>
+<ul>
+<li>
+June 3, 2014, by Marco Bonvini:<br/>
+Added User's guide.
+</li>
+</ul>
+</html>"));
 end temperatureConstant;

@@ -16,7 +16,7 @@ record GridInHome_AL70 "Simplified grid for benchmarking (AL70)"
             LowVoltageCables.PvcAl70(),LowVoltageCables.PvcAl70(),
             LowVoltageCables.PvcAl70(),LowVoltageCables.PvcAl70(),
             LowVoltageCables.PvcAl70(),LowVoltageCables.PvcAl70()});
-
+    extends Modelica.Icons.UnderConstruction;
   annotation (Documentation(info="<html>
 <p>Schematic of the grid</p>
 <p><img alt=\"alt-image\" src=\"modelica://Buildings/Resources/Images/Electrical/Transmission/Grids/IEEE_34.png\"/></p>
