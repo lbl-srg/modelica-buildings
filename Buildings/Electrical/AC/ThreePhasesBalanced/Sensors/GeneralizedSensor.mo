@@ -62,5 +62,12 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+            100}}), graphics={
+        Text(
+          extent={{-120,-42},{0,-82}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="S")}));
 end GeneralizedSensor;

@@ -32,14 +32,11 @@ model GeneralizedSensor "Sensor for power, voltage and current"
   //        systems? It seems odd to have a vector with two components,
   //        where we know that one component is always zero.
   //        I suggest that this is changed to ...RealOutput S(...)
-  Modelica.Blocks.Interfaces.RealOutput S[PhaseSystems.TwoConductor.n](
-                                          each final quantity="Power",
-                                          each final unit="W") "Power"
-    annotation (Placement(
-        transformation(
+  Modelica.Blocks.Interfaces.RealOutput P(each final quantity="Power", each final
+            unit="W") "Power" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-60,-50}),iconTransformation(
+        origin={-60,-50}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-60,-90})));
@@ -49,7 +46,7 @@ equation
 
   V = Buildings.Electrical.PhaseSystems.TwoConductor.systemVoltage(terminal_n.v);
   I = Buildings.Electrical.PhaseSystems.TwoConductor.systemCurrent(terminal_n.i);
-  S = Buildings.Electrical.PhaseSystems.TwoConductor.phasePowers_vi(v=terminal_n.v, i=terminal_n.i);
+  P = Buildings.Electrical.PhaseSystems.TwoConductor.activePower(v=terminal_n.v, i=terminal_n.i);
 
   connect(terminal_n, terminal_p) annotation (Line(
       points={{-100,0},{100,0}},
@@ -72,5 +69,13 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+            100}}), graphics),
+    Icon(graphics={
+        Text(
+          extent={{-120,-42},{0,-82}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="P")}));
 end GeneralizedSensor;

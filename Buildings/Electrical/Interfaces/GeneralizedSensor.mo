@@ -19,13 +19,6 @@ partial class GeneralizedSensor
           points={{-92,0},{-70,0}},
           color={0,0,0},
           smooth=Smooth.None),
-        Text(
-          extent={{-120,-42},{0,-82}},
-          lineColor={0,0,0},
-          lineThickness=1,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="S"),
         Polygon(
           points={{-0.48,33.6},{18,28},{18,59.2},{-0.48,33.6}},
           lineColor={0,0,0},

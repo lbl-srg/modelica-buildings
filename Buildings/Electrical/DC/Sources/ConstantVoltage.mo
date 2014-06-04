@@ -51,7 +51,6 @@ June 3, 2014, by Michael Wetter:<br/>
 Set <code>final potentialReference=true</code> and
 <code>final definiteReference=false</code> as this
 model is for a DC voltage.
-<!-- fixme: Marco, please review this change. I think this is OK, and it leads to fewer parameters. -->
 </li>
 <li>
 June 6, 2014, by Marco Bonvini:<br/>

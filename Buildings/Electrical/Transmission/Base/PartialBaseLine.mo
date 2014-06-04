@@ -13,12 +13,10 @@ partial model PartialBaseLine
     "Select between steady state and dynamic model"
     annotation(Evaluate=true, Dialog(tab="Model", group="Assumptions", enable = use_C), choices(choice=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
         "Steady state", choice=Buildings.Electrical.Types.Assumption.FixedZ_dynamic "Dynamic"));
-  // fixme: rename to use_T
-  parameter Boolean useExtTemp = false
+  parameter Boolean use_T = false
     "If true, enables the input for the temperature of the cable" annotation(Evaluate = true, Dialog(tab="Model", group="Thermal"));
-  // fixme: rename to TCable
-  parameter Modelica.SIunits.Temperature Tcable = T_ref
-    "Fixed temperature of the cable" annotation(Evaluate=true, Dialog(tab="Model", group="Thermal", enable = not useExtTemp));
+  parameter Modelica.SIunits.Temperature TCable = T_ref
+    "Fixed temperature of the cable" annotation(Evaluate=true, Dialog(tab="Model", group="Thermal", enable = not use_T));
 
   parameter Buildings.Electrical.Types.CableMode mode=Types.CableMode.automatic
     "Select if choosing the cable automatically or between a list of commercial options"
@@ -57,8 +55,7 @@ partial model PartialBaseLine
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature cableTemp
     "Temperature of the cable"
     annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
-  Modelica.Blocks.Interfaces.RealInput T if useExtTemp
-    "Temperature of the cable"                                                    annotation (
+  Modelica.Blocks.Interfaces.RealInput T if use_T "Temperature of the cable"      annotation (
      Placement(transformation(extent={{-42,28},{-2,68}}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -72,8 +69,8 @@ equation
   assert(L>=0 and R>=0 and C>=0, "The parameters R,L,C must be positive! check cable properties and size");
   connect(T_in, T);
 
-  if not useExtTemp then
-    T_in = Tcable;
+  if not use_T then
+    T_in = TCable;
   end if;
 
   connect(cableTemperature.y, cableTemp.T) annotation (Line(
