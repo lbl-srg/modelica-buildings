@@ -3,15 +3,6 @@ package Functions "Package that contains functions to compute cable properties"
   extends Modelica.Icons.Package;
 
 
-
-
-
-
-
-
-
-
-
 annotation (Documentation(revisions="<html>
 <ul>
 <li>

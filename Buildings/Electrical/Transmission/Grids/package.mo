@@ -3,9 +3,6 @@ package Grids "Package that contains different types of grids"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 
-
-
-
 annotation (Documentation(revisions="<html>
 <ul>
 <li>
