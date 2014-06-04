@@ -1,5 +1,6 @@
 within Buildings.Electrical.Transmission.Functions;
-function selectCable_med
+function selectCable_med "This function is used to automatically select the 
+    type of cable for medium voltages"
   input Modelica.SIunits.Power P_nominal "Rated power";
   input Modelica.SIunits.Voltage V_nominal "Rated voltage";
   output Buildings.Electrical.Transmission.MediumVoltageCables.Cable cable "Cable";

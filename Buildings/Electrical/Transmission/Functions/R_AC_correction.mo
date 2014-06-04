@@ -1,6 +1,6 @@
 within Buildings.Electrical.Transmission.Functions;
 function R_AC_correction
-  "Function that corrects the value of the DC resistance for AC systems at 60 Hz"
+  "This function computes the correction factor of the DC resistance for AC systems at 60 Hz"
   input String size "Size of the commercial cable (AWG or kcmil)";
   input Buildings.Electrical.Transmission.Materials.Material material
     "Material of the cable";

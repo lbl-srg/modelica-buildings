@@ -1,5 +1,5 @@
 within Buildings.Electrical.Transmission.Functions;
-function lineInductance
+function lineInductance "This function computes the inductance of the cable"
   input Modelica.SIunits.Length Length "Length of the cable";
   input Buildings.Electrical.Types.VoltageLevel level "Voltage level";
   input Buildings.Electrical.Transmission.LowVoltageCables.Cable cable_low
