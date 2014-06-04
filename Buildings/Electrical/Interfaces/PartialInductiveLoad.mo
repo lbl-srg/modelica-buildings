@@ -3,13 +3,14 @@ partial model PartialInductiveLoad "Partial model of an inductive load"
   extends PartialLoad;
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"
   annotation(Dialog(group="Nominal conditions"));
-  // fixme: Add comments to all variables.
 protected
-  function j = PhaseSystem.j;
-  Modelica.SIunits.MagneticFlux psi[2](each stateSelect=StateSelect.prefer);
-  Modelica.SIunits.Impedance Z[2];
-  Modelica.SIunits.AngularVelocity omega;
-  Modelica.SIunits.Power Q = P*tan(acos(pf));
+  function j = PhaseSystem.j "J operator that rotates of 90 degrees";
+  Modelica.SIunits.MagneticFlux psi[2](each stateSelect=StateSelect.prefer)
+    "Magnetic flux";
+  Modelica.SIunits.Impedance Z[2] "Impedance of the load";
+  Modelica.SIunits.AngularVelocity omega "Angular frequency";
+  Modelica.SIunits.Power Q = P*tan(acos(pf))
+    "Reactive power (positive because inductive load)";
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

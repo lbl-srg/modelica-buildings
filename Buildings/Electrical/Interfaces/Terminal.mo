@@ -1,8 +1,7 @@
 within Buildings.Electrical.Interfaces;
 connector Terminal "Generalized electric terminal"
   extends Buildings.Electrical.Interfaces.BaseTerminal;
-replaceable package PhaseSystem = PhaseSystems.PartialPhaseSystem
-    "Phase system"
+replaceable package PhaseSystem = PhaseSystems.PartialPhaseSystem "Phase system"
   annotation (choicesAllMatching=true);
 PhaseSystem.Voltage v[PhaseSystem.n] "Voltage vector";
 flow PhaseSystem.Current i[PhaseSystem.n] "Current vector";

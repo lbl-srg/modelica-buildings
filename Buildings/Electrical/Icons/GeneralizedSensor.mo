@@ -1,8 +1,6 @@
-within Buildings.Electrical.Interfaces;
+within Buildings.Electrical.Icons;
 partial class GeneralizedSensor
   "Icon representing a generalized sensor that measures voltage, current and power"
-  // fixme: This needs to be moved to a package Buildings/Electrical/Icons.
-  //        See for example Modelica.Math.Icons.
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(

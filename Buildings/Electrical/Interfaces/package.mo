@@ -2,6 +2,7 @@ within Buildings.Electrical;
 package Interfaces "This package contains interfaces and partial models that are inherited by other components"
   extends Modelica.Icons.InterfacesPackage;
 
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains basic classes that are used to build
