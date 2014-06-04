@@ -16,7 +16,7 @@ model Line "Model of a DC electrical line"
     T_ref=T_ref,
     M=M,
     C=C,
-    useC=useC)
+    use_C=use_C)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
 equation
   connect(terminal_n, lineRC.terminal_n) annotation (Line(
