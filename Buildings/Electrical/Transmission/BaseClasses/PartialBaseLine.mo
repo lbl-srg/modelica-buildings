@@ -64,7 +64,8 @@ public
   Modelica.Blocks.Sources.RealExpression cableTemperature(y=T_in)
     annotation (Placement(transformation(extent={{-92,12},{-72,32}})));
 protected
-  Modelica.Blocks.Interfaces.RealInput T_in;
+  Modelica.Blocks.Interfaces.RealInput T_in
+    "Internal variable for conditional temperature";
 equation
   assert(L>=0 and R>=0 and C>=0, "The parameters R,L,C must be positive! check cable properties and size");
   connect(T_in, T);
