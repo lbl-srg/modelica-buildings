@@ -6,15 +6,17 @@ partial model PartialBaseLine
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)
     "Nominal voltage of the line";
 
-  parameter Boolean useC = false
-    "Select if choosing the capacitive effect of the cable or not"
+  parameter Boolean use_C = false
+    "Set to true to add a capacitance in the center of the line"
     annotation(Evaluate=true, Dialog(tab="Model", group="Assumptions"));
   parameter Buildings.Electrical.Types.Assumption modelMode=Types.Assumption.FixedZ_steady_state
     "Select between steady state and dynamic model"
-    annotation(Evaluate=true, Dialog(tab="Model", group="Assumptions", enable = useC), choices(choice=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
+    annotation(Evaluate=true, Dialog(tab="Model", group="Assumptions", enable = use_C), choices(choice=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
         "Steady state", choice=Buildings.Electrical.Types.Assumption.FixedZ_dynamic "Dynamic"));
+  // fixme: rename to use_T
   parameter Boolean useExtTemp = false
     "If true, enables the input for the temperature of the cable" annotation(Evaluate = true, Dialog(tab="Model", group="Thermal"));
+  // fixme: rename to TCable
   parameter Modelica.SIunits.Temperature Tcable = T_ref
     "Fixed temperature of the cable" annotation(Evaluate=true, Dialog(tab="Model", group="Thermal", enable = not useExtTemp));
 
@@ -92,7 +94,7 @@ generic cable. The parameters of the cable (resistance, inductance and capacitan
 are computed in two different ways depending on the <code>mode</code>.
 </p>
 <p>
-The model has two parameters <code>useC</code> and <code>modelMode</code> that can
+The model has two parameters <code>use_C</code> and <code>modelMode</code> that can
 be used to change the behaviour of the model. It is possible to include the effects
 of a capacity or select if the model should be dynamic or steady state. More information
 are available in the line models that extends this partial model.

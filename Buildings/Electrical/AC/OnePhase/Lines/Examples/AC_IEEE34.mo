@@ -3,7 +3,7 @@ model AC_IEEE34
   extends Modelica.Icons.Example;
   Network network(redeclare Transmission.Grids.IEEE_34_AL120 grid,
     modelMode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-    useC=false)
+    use_C=false)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Loads.InductiveLoadP load[33](
       each P_nominal=1000,

@@ -2,10 +2,17 @@ within Buildings.Electrical.DC.Lines.Examples;
 model DClines
   "Example model to test the possible combinations between line and load models"
   extends Modelica.Icons.Example;
+  // fixme: Rename this model to DCLines.
+  // fixme: We also need a unit test that uses linearLoads=false. I don't think
+  //        we have full code coverage without this additional test. Full
+  //        code coverage is needed to make sure that we detect any change that
+  //        may lead to different results.
   parameter Boolean linearLoads = true
     "Flag that selects between linearized or nonlinear load models";
   parameter Real L = 10 "Lenght of each cable";
-  Real Sloads "Sum of the power consumed by the loads";
+  Modelica.SIunits.Power Sloads = load1.S[1] + load2.S[1] +load3.S[1] +load4.S[1] +
+                load5.S[1] +load6.S[1] +load7.S[1] +load8.S[1] +load9.S[1] +
+                load10.S[1] "Sum of the power consumed by the loads";
   Line line(
     P_nominal=500,
     V_nominal=50,
@@ -263,7 +270,6 @@ model DClines
     annotation (Placement(transformation(extent={{2,-108},{22,-88}})));
 
 equation
-  Sloads = load1.S[1] + load2.S[1] +load3.S[1] +load4.S[1] +load5.S[1] +load6.S[1] +load7.S[1] +load8.S[1] +load9.S[1] +load10.S[1];
   connect(load1.terminal, line.terminal_p) annotation (Line(
       points={{30,80},{18,80}},
       color={0,0,255},
@@ -417,7 +423,7 @@ equation
       points={{-34,-80},{-34,-58},{-8,-58},{-8,-40},{2,-40}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(E.npin, ground.p) annotation (Line(
+  connect(E.n, ground.p) annotation (Line(
       points={{-90,80},{-90,70}},
       color={0,0,255},
       smooth=Smooth.None));
@@ -429,13 +435,14 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical
     Documentation(info="<html>
 <p>
 This model shows a DC grid with 10 loads and 16 cables.
-Each cable is of length <code>L = 10 [m]</code>, a parameter that can be modified.
-Each load can be either a full nonlinear model otherwise replaced by the 
-linearized version by changing the value of the boolean parameter <code>linearLoads = false</code>.
+Each cable is of length <i>l = 10</i> meters, a parameter that can be modified.
+Each load can be either be a full nonlinear model, or be replaced by the 
+linearized version. The parameter <code>linearLoads = false</code>
+can be used to switch between linear and nonlinear implementation.
 </p>
 <p>
-This model can be used to test the how the linearized loads are affected by the voltage drop
-caused by the lines. The longer is the distance between the load and the source,
+This model can be used to test how the linearized loads are affected by the voltage drop
+caused by the lines. The longer the distance between the load and the source,
 the bigger is the voltage drop and thus the error introduced by the linearization.
 </p>
 </html>"));

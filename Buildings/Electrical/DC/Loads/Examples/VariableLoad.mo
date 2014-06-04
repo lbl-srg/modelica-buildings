@@ -66,7 +66,7 @@ equation
       points={{20,50},{40,50}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sou.npin, gro.p) annotation (Line(
+  connect(sou.n, gro.p) annotation (Line(
       points={{-80,30},{-80,18}},
       color={0,0,255},
       smooth=Smooth.None));
@@ -78,15 +78,17 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example shows how to use three different tipes of load models.
-Each load is of type <a href=\"modelica://Buildings.Electrical.DC.Loads.Conductor\">Buildings.Electrical.DC.Loads.Conductor</a>. 
+This example shows how to use three different types of load models.
+Each load is of type <a href=\"modelica://Buildings.Electrical.DC.Loads.Conductor\">
+Buildings.Electrical.DC.Loads.Conductor</a>. 
 </p>
 <p>
 The first load <code>loa1</code>consumes a constant amount of power.
 The second and the third loads (<code>loa2</code> and <code>loa3</code>) consume a variable amount of power.
-The load <code>loa2</code> has a variable input <code>y</code> comprises between 0 and 1 that specify the portion of 
+The load <code>loa2</code> has a variable input <code>y</code> between 0 and 1 that specifies the portion of 
 nominal power that is consumed.
-The load <code>loa3</code> has a variable input <code>Pow</code> that represents the actual power consumed (or produced by the load).
+The load <code>loa3</code> has a variable input <code>Pow</code> that represents the actual power consumed 
+(or produced) by the load.
 </p>
 </html>", revisions="<html>
 <ul>

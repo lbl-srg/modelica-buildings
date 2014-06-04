@@ -5,14 +5,14 @@ model ACACTransformerFull
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull
                                                               tra_load(
-    Vhigh=220,
-    Vlow=110,
+    VHigh=220,
+    VLow=110,
     R1=0.0001,
     L1=0.0001,
     R2=0.0001,
     L2=0.0001,
     f=60,
-    VAbase=4000,
+    VABase=4000,
     magEffects=true,
     Rm=10,
     Lm=10)
@@ -40,9 +40,9 @@ model ACACTransformerFull
     annotation (Placement(transformation(extent={{70,40},{50,60}})));
   Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull
                                                               tra_cc(
-    Vhigh=220,
-    VAbase=4000,
-    Vlow=110,
+    VHigh=220,
+    VABase=4000,
+    VLow=110,
     R1=0.01,
     L1=0.01,
     R2=0.01,
@@ -56,9 +56,9 @@ model ACACTransformerFull
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
   Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull
                                                               tra_void(
-    Vhigh=220,
-    VAbase=4000,
-    Vlow=110,
+    VHigh=220,
+    VABase=4000,
+    VLow=110,
     R1=0.01,
     L1=0.01,
     R2=0.01,

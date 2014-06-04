@@ -18,11 +18,11 @@ partial model DemandResponseBase
     V=45000)
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   AC.OnePhase.Conversion.ACACTransformer acac(
-    Vlow=15000,
-    Vhigh=45000,
+    VLow=15000,
+    VHigh=45000,
     XoverR=8,
     Zperc=0.02,
-    VAbase=2.0*(P1 + P2 + P3))
+    VABase=2.0*(P1 + P2 + P3))
     annotation (Placement(transformation(extent={{-72,-10},{-52,10}})));
   BaseClasses.Cable line1(               l=80, V_nominal=15000)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));

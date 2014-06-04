@@ -1,6 +1,5 @@
 within Buildings.Electrical.DC.Storage;
 model Battery "Simple model of a battery"
-  import Buildings;
  parameter Real etaCha(min=0, max=1, unit="1") = 0.9
     "Efficiency during charging";
  parameter Real etaDis(min=0, max=1, unit="1") = 0.9
@@ -8,7 +7,9 @@ model Battery "Simple model of a battery"
  parameter Real SOC_start(min=0, max=1, unit="1")=0.1 "Initial state of charge";
  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
     "Maximum available charge";
-  Modelica.Blocks.Interfaces.RealInput P(unit="W")
+ parameter Modelica.SIunits.Voltage V_nominal
+    "Nominal voltage (V_nominal >= 0)";
+ Modelica.Blocks.Interfaces.RealInput P(unit="W")
     "Power stored in battery (if positive), or extracted from battery (if negative)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=270,
@@ -26,21 +27,19 @@ model Battery "Simple model of a battery"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
   Buildings.Electrical.DC.Storage.BaseClasses.Charge cha(
-    EMax=EMax,
-    SOC_start=SOC_start,
-    etaCha=etaCha,
-    etaDis=etaDis) "Charge model"
+    final EMax=EMax,
+    final SOC_start=SOC_start,
+    final etaCha=etaCha,
+    final etaDis=etaDis) "Charge model"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Loads.Conductor                                       bat(
-    P_nominal=0,
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    V_nominal=V_nominal) "Power exchanged with battery pack"
+  Loads.Conductor bat(
+    final P_nominal=0,
+    final mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    final V_nominal=V_nominal) "Power exchanged with battery pack"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-public
-  Modelica.Blocks.Math.Gain gain(k=-1)
+  Modelica.Blocks.Math.Gain gain(final k=-1)
     annotation (Placement(transformation(extent={{22,10},{42,30}})));
-  parameter Modelica.SIunits.Voltage V_nominal
-    "Nominal voltage (V_nominal >= 0)";
+
 equation
   connect(cha.SOC, SOC)    annotation (Line(
       points={{61,60},{110,60}},

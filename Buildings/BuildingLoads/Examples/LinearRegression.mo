@@ -61,7 +61,7 @@ equation
       points={{40,20},{80,20}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(souDC.npin, ground.p) annotation (Line(
+  connect(souDC.n, ground.p) annotation (Line(
       points={{100,20},{110,20},{110,4.44089e-16}},
       color={0,0,255},
       smooth=Smooth.None));

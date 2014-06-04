@@ -79,7 +79,7 @@ equation
       points={{75,10},{60,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(E.npin, ground.p) annotation (Line(
+  connect(E.n, ground.p) annotation (Line(
       points={{-80,10},{-80,0}},
       color={0,0,255},
       smooth=Smooth.None));

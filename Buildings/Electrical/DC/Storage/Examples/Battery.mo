@@ -1,6 +1,5 @@
 within Buildings.Electrical.DC.Storage.Examples;
 model Battery "Test model for battery"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Electrical.DC.Storage.Battery     bat(EMax=40e3*3600, V_nominal=12)
     "Battery"
@@ -193,14 +192,13 @@ equation
       points={{106,-10},{106,-20},{88,-20}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sou.npin, ground.p) annotation (Line(
+  connect(sou.n, ground.p) annotation (Line(
       points={{68,-20},{68,-40}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,
             -100},{180,120}}),      graphics),
     experiment(StopTime=432000),
-    __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Storage/Examples/Battery.mos"
         "Simulate and plot"),

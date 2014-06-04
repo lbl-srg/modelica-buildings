@@ -7,6 +7,7 @@ package PartialPhaseSystem "Base package of all phase systems"
   constant Integer m "Number of reference angles";
 
 
+
   replaceable partial function j "Return vector rotated by 90 degrees"
     extends Modelica.Icons.Function;
     input Real x[n];
@@ -14,7 +15,8 @@ package PartialPhaseSystem "Base package of all phase systems"
   end j;
 
 
-  replaceable function jj "Vectorized version of j"
+  replaceable partial function jj "Vectorized version of j"
+    extends Modelica.Icons.Function;
     input Real[:,:] xx "array of voltage or current vectors";
     output Real[size(xx,1),size(xx,2)] yy "array of rotated vectors";
   algorithm
@@ -26,7 +28,7 @@ package PartialPhaseSystem "Base package of all phase systems"
   end jj;
 
 
-  replaceable function rotate
+  replaceable partial function rotate
   "Rotate a vector of an angle Theta (anti-counterclock)"
     extends Modelica.Icons.Function;
     input Real x[n];
@@ -35,7 +37,7 @@ package PartialPhaseSystem "Base package of all phase systems"
   end rotate;
 
 
-  replaceable function product "Multiply two vectors"
+  replaceable partial function product "Multiply two vectors"
       extends Modelica.Icons.Function;
       input Real x[n];
       input Real y[n];
@@ -43,7 +45,7 @@ package PartialPhaseSystem "Base package of all phase systems"
   end product;
 
 
-  replaceable function divide "Divide two vectors"
+  replaceable partial function divide "Divide two vectors"
       extends Modelica.Icons.Function;
       input Real x[n];
       input Real y[n];
@@ -53,6 +55,7 @@ package PartialPhaseSystem "Base package of all phase systems"
 
   replaceable partial function thetaRel
   "Return absolute angle of rotating system as offset to thetaRef"
+    extends Modelica.Icons.Function;
     input SI.Angle theta[m];
     output SI.Angle thetaRel;
   end thetaRel;
@@ -60,6 +63,7 @@ package PartialPhaseSystem "Base package of all phase systems"
 
   replaceable partial function thetaRef
   "Return absolute angle of rotating reference system"
+    extends Modelica.Icons.Function;
     input SI.Angle theta[m];
     output SI.Angle thetaRef;
   end thetaRef;
@@ -129,5 +133,10 @@ package PartialPhaseSystem "Base package of all phase systems"
   end activePower;
 
 
-  annotation (Icon(graphics));
+annotation (Documentation(info="<html>
+<p>
+This package declares the functions that are used to implement
+the different phase systems.
+</p>
+</html>"));
 end PartialPhaseSystem;

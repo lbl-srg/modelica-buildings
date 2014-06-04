@@ -3,38 +3,38 @@ model ACACTransformerFull
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverter(
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull conv1(
-      Vhigh=Vhigh/sqrt(3),
-      Vlow=Vlow/sqrt(3),
-      VAbase=VAbase,
+      VHigh=VHigh/sqrt(3),
+      VLow=VLow/sqrt(3),
+      VABase=VABase,
       R1=R1,L1=L1,R2=R2,L2=L2,
       magEffects=magEffects,
       Rm=Rm,Lm=Lm,
       ground_1=ground_1,
       ground_2=ground_2),
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull conv2(
-      Vhigh=Vhigh/sqrt(3),
-      Vlow=Vlow/sqrt(3),
-      VAbase=VAbase,
+      VHigh=VHigh/sqrt(3),
+      VLow=VLow/sqrt(3),
+      VABase=VABase,
       R1=R1,L1=L1,R2=R2,L2=L2,
       magEffects=magEffects,
       Rm=Rm,Lm=Lm,
       ground_1=ground_1,
       ground_2=ground_2),
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull conv3(
-      Vhigh=Vhigh/sqrt(3),
-      Vlow=Vlow/sqrt(3),
-      VAbase=VAbase,
+      VHigh=VHigh/sqrt(3),
+      VLow=VLow/sqrt(3),
+      VABase=VABase,
       R1=R1,L1=L1,R2=R2,L2=L2,
       magEffects=magEffects,
       Rm=Rm,Lm=Lm,
       ground_1=ground_1,
       ground_2=ground_2));
 
-  parameter Modelica.SIunits.Voltage Vhigh
+  parameter Modelica.SIunits.Voltage VHigh
     "Rms voltage on side 1 of the transformer (primary side)";
-  parameter Modelica.SIunits.Voltage Vlow
+  parameter Modelica.SIunits.Voltage VLow
     "Rms voltage on side 2 of the transformer (secondary side)";
-  parameter Modelica.SIunits.ApparentPower VAbase
+  parameter Modelica.SIunits.ApparentPower VABase
     "Nominal power of the transformer";
   parameter Modelica.SIunits.Frequency f(start=60) "Nominal frequency";
   parameter Buildings.Electrical.Types.PerUnit R1(min=0)

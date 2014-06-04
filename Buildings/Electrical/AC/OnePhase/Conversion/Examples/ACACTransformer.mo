@@ -3,10 +3,10 @@ model ACACTransformer "Test model AC to AC trasformer"
   import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer tra_load(
-    Vhigh=220,
+    VHigh=220,
     Zperc=0.03,
-    VAbase=4000,
-    Vlow=110,
+    VABase=4000,
+    VLow=110,
     XoverR=8)
     annotation (Placement(transformation(extent={{-18,40},{2,60}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage                 sou(
@@ -31,20 +31,20 @@ model ACACTransformer "Test model AC to AC trasformer"
     height=-4000*0.8)
     annotation (Placement(transformation(extent={{70,40},{50,60}})));
   Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer tra_cc(
-    Vhigh=220,
+    VHigh=220,
     XoverR=8,
     Zperc=0.03,
-    VAbase=4000,
-    Vlow=110)
+    VABase=4000,
+    VLow=110)
     annotation (Placement(transformation(extent={{-16,0},{4,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance shortCircuit(R=1e-8)
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
   Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer tra_void(
-    Vhigh=220,
+    VHigh=220,
     XoverR=8,
     Zperc=0.03,
-    VAbase=4000,
-    Vlow=110)
+    VABase=4000,
+    VLow=110)
     annotation (Placement(transformation(extent={{-16,-30},{4,-10}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage                 sou1(
     f=60,

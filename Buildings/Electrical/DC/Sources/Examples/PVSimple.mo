@@ -24,7 +24,8 @@ model PVSimple "Example for the PVSimple model with constant load"
     azi=-0.78539816339745) "Direct irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-      computeWetBulbTemperature=false, filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+      computeWetBulbTemperature=false,
+      filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-128,90},{-108,110}})));
   Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
@@ -72,7 +73,7 @@ equation
       points={{20,40},{40,40}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sou.npin, ground.p) annotation (Line(
+  connect(sou.n, ground.p) annotation (Line(
       points={{-82,0},{-82,-20}},
       color={0,0,255},
       smooth=Smooth.None));

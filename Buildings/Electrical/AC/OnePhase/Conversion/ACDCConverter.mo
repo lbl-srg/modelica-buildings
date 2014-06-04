@@ -18,21 +18,21 @@ model ACDCConverter "AC DC converter"
 protected
   PhaseSystem_p.Current i_dc "DC current";
   PhaseSystem_p.Voltage v_dc "DC voltage";
-  Modelica.SIunits.Power Pow_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
-  Modelica.SIunits.Power Pow_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
+  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
+  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
 equation
   //voltage relation
   v_p = v_n*conversionFactor;
 
   /* Easier way to lool at the next expression
   if i_p<=0 then
-    LossPower = - Pow_p[1]*(1-eta);
+    LossPower = - P_p[1]*(1-eta);
   else
-    LossPower = - Pow_n[1]*(1-eta);
+    LossPower = - P_n[1]*(1-eta);
   end if;
   */
-  LossPower = (1-eta)*Buildings.Utilities.Math.Functions.spliceFunction(Pow_p[1], Pow_n[1], i_p, deltax=0.1);
-  Pow_n + Pow_p = {LossPower, 0};
+  LossPower = (1-eta)*Buildings.Utilities.Math.Functions.spliceFunction(P_p[1], P_n[1], i_p, deltax=0.1);
+  P_n + P_p = {LossPower, 0};
 
   if ground_AC then
     Connections.potentialRoot(terminal_n.theta);

@@ -4,7 +4,7 @@ model AC_InHomeGrid
   Network network(redeclare
       Buildings.Electrical.Transmission.Grids.GridInHome_AL70                       grid,
     modelMode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-    useC=false)
+    use_C=false)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Loads.ResistiveLoadP load[20](
       each P_nominal=1000,

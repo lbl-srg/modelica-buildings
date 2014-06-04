@@ -1,10 +1,11 @@
 within Buildings.Electrical.DC.Sources;
 model PVSimple "Simple PV model"
-  extends Buildings.Electrical.Interfaces.PartialPV(redeclare package
-      PhaseSystem = PhaseSystems.TwoConductor, redeclare Interfaces.Terminal_p
-      terminal);
+  extends Buildings.Electrical.Interfaces.PartialPV(
+    redeclare package PhaseSystem = PhaseSystems.TwoConductor,
+    redeclare Interfaces.Terminal_p terminal);
 protected
-   Loads.Conductor con(mode=Types.Assumption.VariableZ_P_input,
+   Loads.Conductor con(
+    mode=Types.Assumption.VariableZ_P_input,
     P_nominal=0,
     V_nominal=0) "Conductor, used to interface power with electrical circuit"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -49,13 +50,6 @@ First implementation.
 Model of a simple photovoltaic array.
 </p>
 <p>
-<b>Note:</b> This model takes as input the total solar irradiation on the panel. This has to be 
-computed converting the incoming radiation to take tilt and azimuth into account.
-</p>
-<p>
-The electrical connector is a DC interfaces.
-</p>
-<p>
 This model computes the power as 
 </p>
 
@@ -75,6 +69,10 @@ with a model that prescribes the voltage.
 See
 <a href=\"modelica://Buildings.Electrical.DC.Sources.Examples.PVSimple\">
 Buildings.Electrical.DC.Sources.Examples.PVSimple</a>.
+</p>
+<p>
+<b>Note:</b> This model takes as input the total solar irradiation on the panel. This has to be 
+computed converting the incoming radiation to take tilt and azimuth into account.
 </p>
 </html>"));
 end PVSimple;

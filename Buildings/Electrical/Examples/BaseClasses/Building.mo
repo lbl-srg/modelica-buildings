@@ -25,10 +25,10 @@ model Building
     "Nominal voltage of the building";
   parameter Real pf=0.8 "Power factor";
   parameter Modelica.SIunits.Area A "Net surface area";
-  AC.OnePhase.Conversion.ACACTransformer trasformer(Vhigh=V_distrib_n, Vlow=V_building_n,
+  AC.OnePhase.Conversion.ACACTransformer trasformer(VHigh=V_distrib_n, VLow=V_building_n,
     XoverR=8,
     Zperc=0.003,
-    VAbase=2.0*P_nominal)
+    VABase=2.0*P_nominal)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   parameter Modelica.SIunits.Power P_nominal

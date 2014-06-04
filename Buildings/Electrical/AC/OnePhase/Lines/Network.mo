@@ -3,13 +3,13 @@ model Network "Single phase AC network"
   extends Buildings.Electrical.Transmission.Base.PartialNetwork(
     redeclare Interfaces.Terminal_p terminal,
     redeclare replaceable Transmission.Grids.TestGrid2Nodes grid,
-    redeclare Line lines(commercialCable_low=grid.cables, each useC=useC, each modelMode=modelMode));
-  parameter Boolean useC = false
+    redeclare Line lines(commercialCable_low=grid.cables, each use_C=use_C, each modelMode=modelMode));
+  parameter Boolean use_C = false
     "Select if choosing the capacitive effect of the cable or not"
     annotation(Dialog(tab="Model", group="Assumptions"));
   parameter Buildings.Electrical.Types.Assumption modelMode=Types.Assumption.FixedZ_steady_state
     "Select between steady state and dynamic model"
-    annotation(Dialog(tab="Model", group="Assumptions", enable = useC), choices(choice=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
+    annotation(Dialog(tab="Model", group="Assumptions", enable = use_C), choices(choice=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
         "Steady state", choice=Buildings.Electrical.Types.Assumption.FixedZ_dynamic "Dynamic"));
   Modelica.SIunits.Voltage Vabs[grid.Nnodes] "RMS voltage of the grid nodes";
 equation

@@ -57,7 +57,7 @@ equation
       points={{30,30},{10,30}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sou.npin, gro.p) annotation (Line(
+  connect(sou.n, gro.p) annotation (Line(
       points={{-90,0},{-90,-12}},
       color={0,0,255},
       smooth=Smooth.None));

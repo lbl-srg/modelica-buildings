@@ -3,23 +3,25 @@ model DCDCConverter "DC DC converter"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
-    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
-          PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
-          PhaseSystem_p));
-  parameter Modelica.SIunits.Voltage Vhigh
+    redeclare Interfaces.Terminal_n terminal_n(
+      redeclare package PhaseSystem = PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(
+      redeclare package PhaseSystem = PhaseSystem_p));
+  parameter Modelica.SIunits.Voltage VHigh
     "DC voltage on side 1 of the transformer (primary side)";
-  parameter Modelica.SIunits.Voltage Vlow
+  parameter Modelica.SIunits.Voltage VLow
     "DC voltage on side 2 of the transformer (secondary side)";
   parameter Real eta(min=0, max=1) "Converter efficiency";
   parameter Boolean ground_1 = true "Connect side 1 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
   Modelica.SIunits.Power LossPower "Loss power";
 protected
-  parameter Real conversionFactor = Vlow/Vhigh;
+  parameter Real conversionFactor = VLow/VHigh
+    "Ratio of high versus low voltage";
+  // fixme: use SIunits, and add comments to all variables, also the protected ones
   Real i1,i2,v1,v2;
-  Modelica.SIunits.Power Pow_p;
-  Modelica.SIunits.Power Pow_n;
+  Modelica.SIunits.Power P_p "Power at terminal p";
+  Modelica.SIunits.Power P_n "Power at terminal n";
 equation
   Connections.potentialRoot(terminal_n.theta);
   Connections.potentialRoot(terminal_p.theta);
@@ -35,24 +37,24 @@ equation
     v2 = 0;
   end if;
 
-  Pow_p = PhaseSystem_p.activePower(terminal_p.v, terminal_p.i);
-  Pow_n = PhaseSystem_n.activePower(terminal_n.v, terminal_n.i);
+  P_p = PhaseSystem_p.activePower(terminal_p.v, terminal_p.i);
+  P_n = PhaseSystem_n.activePower(terminal_n.v, terminal_n.i);
 
   v1 = terminal_n.v[2];
   v2 = terminal_p.v[2];
   sum(terminal_n.i) + i1 = 0;
   sum(terminal_p.i) + i2 = 0;
 
-  //voltage relation
+  // Voltage relation
   v_p = v_n*conversionFactor;
 
   // OLD equations that take into account the power at the secondary
   // power balance
-  // LossPower = (1-eta) * abs(Pow_p);
-  // Pow_n + Pow_p - LossPower = 0;
+  // LossPower = (1-eta) * abs(P_p);
+  // P_n + P_p - LossPower = 0;
 
   // Symmetric and linear version
-  LossPower = Pow_p + Pow_n;
+  LossPower = P_p + P_n;
   if i_n >=0 then
     i_p = i_n/conversionFactor/(eta - 2);
   else
@@ -88,7 +90,7 @@ equation
         Text(
           extent={{-120,-60},{-2,-90}},
           lineColor={0,0,255},
-          textString="%Vhigh"),
+          textString="%VHigh"),
         Text(
           extent={{-100,-100},{100,-132}},
           lineColor={0,0,255},
@@ -144,16 +146,16 @@ equation
         Text(
           extent={{2,-60},{120,-90}},
           lineColor={0,0,255},
-          textString="%Vlow")}),
+          textString="%VLow")}),
     Documentation(info="<html>
 <p>
-This is an DC DC converter, based on a power balance between DC and DC side.
-The paramater <i>conversionFactor</i> defines the ratio between the two averaged DC voltages
-The loss of the converter is proportional to the power transmitted to the second DC side.
+This is a DC/DC converter, based on a power balance between the two DC sides.
+The paramater <i>conversionFactor</i> defines the ratio between the two averaged DC voltages.
+The loss of the converter is proportional to the power transmitted at the second DC side.
 The parameter <code>eta</code> is the efficiency of the transfer.
 The loss is computed as
 <p align=\"center\" style=\"font-style:italic;\">
-P<sub>loss</sub> = (1-&eta;) P<sub>DC</sub>
+P<sub>loss</sub> = (1-&eta;) P<sub>DC</sub>,
 </p>
 <p>
 where <i>P<sub>DC</sub></i> is the power transmitted. This model is symmetric and the power
@@ -165,7 +167,7 @@ of the power flow.
 <li>
 June 2, 2014, by Marco Bonvini:<br/>
 Revised model and documentation. Changed parameter sof the model, 
-now the user specify <code>Vhigh</code> and <code>Vlow</code>
+now the user specify <code>VHigh</code> and <code>VLow</code>
 instead of <code>conversionFactor</code>.
 </li>
 <li>

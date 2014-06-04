@@ -17,15 +17,15 @@ model ACACConverter "AC AC converter single phase systems"
   parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
 protected
-  Modelica.SIunits.Power Pow_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
-  Modelica.SIunits.Power Pow_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
+  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
+  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
 equation
 
   // Ideal transformation
   terminal_p.v = conversionFactor*terminal_n.v;
 
   /* Easier way to look at the next expression 
-  if Pow_p[1]<=0 then
+  if P_p[1]<=0 then
     terminal_p.i[1] = terminal_n.i[1]/conversionFactor/(eta-2);
     terminal_p.i[2] = terminal_n.i[2]/conversionFactor/(eta-2);
   else
@@ -33,9 +33,9 @@ equation
     terminal_p.i[2] = terminal_n.i[2]/conversionFactor*(eta-2);
   end if;
   */
-  terminal_p.i[1] = terminal_n.i[1]/conversionFactor*Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), Pow_p[1], deltax=0.1);
-  terminal_p.i[2] = terminal_n.i[2]/conversionFactor*Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), Pow_p[1], deltax=0.1);
-  LossPower = Pow_p + Pow_n;
+  terminal_p.i[1] = terminal_n.i[1]/conversionFactor*Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), P_p[1], deltax=0.1);
+  terminal_p.i[2] = terminal_n.i[2]/conversionFactor*Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), P_p[1], deltax=0.1);
+  LossPower = P_p + P_n;
 
   // The two sides have the same reference angle
   terminal_p.theta = terminal_n.theta;

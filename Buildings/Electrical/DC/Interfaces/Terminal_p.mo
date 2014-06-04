@@ -6,4 +6,5 @@ connector Terminal_p "Terminal p for DC electrical systems"
           lineColor={0,0,255},
           fillColor=DynamicSelect({0,0,255}, if PhaseSystem.phaseSystemName=="TwoConductor" then {255,0,255} else {255,255,255}),
           fillPattern=FillPattern.Solid)}));
+          // fixme: isn't PhaseSystem.phaseSystemName=="TwoConductor" always true?
 end Terminal_p;

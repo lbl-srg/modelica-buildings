@@ -20,5 +20,9 @@ annotation (Icon(graphics={
       Line(
         points={{54,-10},{28,-10}},
         color={0,0,0},
-        smooth=Smooth.None)}));
+        smooth=Smooth.None)}), Documentation(info="<html>
+<p>
+This package contains models for lines for DC circuits.
+</p>
+</html>"));
 end Lines;
