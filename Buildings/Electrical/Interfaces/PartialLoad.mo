@@ -13,8 +13,7 @@ model PartialLoad
     max=Buildings.Electrical.Types.Assumption.VariableZ_y_input)=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
     "Parameter that specifies the type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation(Evaluate=true,Dialog(group="Modelling assumption"));
-  // fixme: Why has P_nominal the start attribute set? I don't see why this is needed.
-  parameter Modelica.SIunits.Power P_nominal(start=0)
+  parameter Modelica.SIunits.Power P_nominal
     "Nominal power (negative if consumed, positive if generated)"
     annotation(Evaluate=true,Dialog(group="Nominal conditions",
         enable = mode <> Buildings.Electrical.Types.Assumption.VariableZ_P_input));
