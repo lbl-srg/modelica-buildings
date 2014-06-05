@@ -1,5 +1,6 @@
 within Buildings.Electrical.Transmission.Functions;
-function selectCable_low
+function selectCable_low "This function is used to automatically select the 
+    type of cable for low voltages"
   input Modelica.SIunits.Power P_nominal "Rated power";
   input Modelica.SIunits.Voltage V_nominal "Rated voltage";
   output Buildings.Electrical.Transmission.LowVoltageCables.Cable cable "Cable";

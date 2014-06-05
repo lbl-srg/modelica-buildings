@@ -9,16 +9,16 @@ protected
   Loads.Conductor con(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     P_nominal=0,
-    V_nominal=0)
+    V_nominal=V_nominal)
     "Conductor, used to interface the power with the electrical circuit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(con.terminal, terminal) annotation (Line(
-      points={{60,0},{-100,0}},
+      points={{60,6.66134e-16},{-20,6.66134e-16},{-20,0},{-100,0}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(gain.y, con.Pow) annotation (Line(
-      points={{23,30},{94,30},{94,0},{80,0}},
+      points={{23,30},{94,30},{94,6.66134e-16},{80,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

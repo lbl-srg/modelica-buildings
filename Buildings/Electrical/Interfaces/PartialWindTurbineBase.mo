@@ -13,8 +13,7 @@ partial model PartialWindTurbineBase
   parameter Modelica.SIunits.Height hRef = 10
     "Reference height for wind measurement"
     annotation (Dialog(group="Wind correction"));
- parameter Real nWin(min=0) = 0.4
-    "Height exponent for wind profile calculation"
+ parameter Real nWin(min=0) = 0.4 "Height exponent for wind profile calculation"
    annotation (Dialog(group="Wind correction"));
 
   parameter Boolean tableOnFile=false
@@ -29,7 +28,8 @@ partial model PartialWindTurbineBase
   parameter String tableName="NoName"
     "Table name on file or in function usertab (see documentation)";
   parameter String fileName="NoName" "File where matrix is stored";
-
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
+    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
   Modelica.Blocks.Interfaces.RealInput vWin(unit="m/s") "Steady wind speed"
      annotation (Placement(transformation(
         origin={0,120},

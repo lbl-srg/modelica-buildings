@@ -2,6 +2,7 @@ within Buildings.Electrical.PhaseSystems;
 package ThreePhase_dq "AC system, symmetrically loaded three phases"
   extends PartialPhaseSystem(phaseSystemName="ThreePhase_dq", n=2, m=1);
 
+
   redeclare function extends j "Return vector rotated by 90 degrees"
   algorithm
     y := {-x[2], x[1]};

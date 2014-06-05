@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model LineN
-  extends Buildings.Electrical.Transmission.Base.PartialBaseLine;
+  extends Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine;
   Interfaces.Terminal4_n terminal_n
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.Terminal4_p terminal_p

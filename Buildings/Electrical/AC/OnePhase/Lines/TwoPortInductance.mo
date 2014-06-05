@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Lines;
 model TwoPortInductance
-  extends Buildings.Electrical.Transmission.Base.PartialTwoPortInductance(
+  extends Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortInductance(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =

@@ -2,6 +2,7 @@ within Buildings.Electrical.PhaseSystems;
 package OnePhase "Single phase two connectors AC system"
   extends PartialPhaseSystem(phaseSystemName="OnePhase", n=2, m=1);
 
+
   redeclare function extends j "Return vector rotated by 90 degrees"
   algorithm
     y := {-x[2], x[1]};

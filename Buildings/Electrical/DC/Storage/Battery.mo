@@ -7,8 +7,7 @@ model Battery "Simple model of a battery"
  parameter Real SOC_start(min=0, max=1, unit="1")=0.1 "Initial state of charge";
  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
     "Maximum available charge";
- parameter Modelica.SIunits.Voltage V_nominal
-    "Nominal voltage (V_nominal >= 0)";
+ parameter Modelica.SIunits.Voltage V_nominal "Nominal voltage (V_nominal >= 0)";
  Modelica.Blocks.Interfaces.RealInput P(unit="W")
     "Power stored in battery (if positive), or extracted from battery (if negative)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},

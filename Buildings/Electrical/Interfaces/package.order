@@ -1,6 +1,6 @@
 BaseTerminal
 Terminal
-PartialGround
+Ground
 PartialLoad
 PartialImpedance
 PartialInductiveLoad
@@ -9,9 +9,8 @@ PartialSource
 PartialBaseTwoPort
 PartialTwoPort
 PartialConversion
-GeneralizedSensor
 PartialPvBase
-PartialRenewableAcDc
+PartialAcDcParameters
 PartialPV
 PartialPVOriented
 PartialWindTurbineBase

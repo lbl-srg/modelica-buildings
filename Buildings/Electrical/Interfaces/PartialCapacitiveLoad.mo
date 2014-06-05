@@ -3,14 +3,14 @@ partial model PartialCapacitiveLoad "Partial model of a capacitive load"
   extends PartialLoad;
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"
   annotation(Dialog(group="Nominal conditions"));
-  // fixme: Add comments to all variables.
 protected
-  function j = PhaseSystem.j;
+  function j = PhaseSystem.j "J operator that rotates of 90 degrees";
   Modelica.SIunits.ElectricCharge q[2](each stateSelect=StateSelect.prefer)
     "Electric charge";
   Modelica.SIunits.Admittance[2] Y "Admittance";
   Modelica.SIunits.AngularVelocity omega "Angular velocity";
-  Modelica.SIunits.Power Q = P*tan(-acos(pf));
+  Modelica.SIunits.Power Q = P*tan(-acos(pf))
+    "Reactive power (negative because capacitive load)";
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

@@ -1,6 +1,6 @@
 within Buildings.Electrical.Transmission.Functions;
 function temperatureConstant
-  "Function that returns the temperature constant of the material (used to determine the temperature dependence of the resistivity)"
+  "This function returns the temperature constant of the material (used to determine the temperature dependence of the resistivity)"
   input Buildings.Electrical.Types.VoltageLevel voltageLevel "Voltage level";
   input Buildings.Electrical.Transmission.LowVoltageCables.Cable cable_low
     "Type of cable (if low voltage)";

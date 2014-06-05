@@ -13,6 +13,8 @@ model PartialPVOriented "Base model of a PV system with orientation"
     annotation(Evaluate=true,Dialog(group="Orientation"));
   parameter Modelica.SIunits.Angle azi "Surface Azimith"
     annotation(Evaluate=true,Dialog(group="Orientation"));
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
+    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
 
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(
     redeclare final package PhaseSystem = PhaseSystem) "Generalized terminal"

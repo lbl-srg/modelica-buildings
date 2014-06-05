@@ -2,7 +2,8 @@ within Buildings.Electrical.DC.Sources.Examples;
 model PVSimple "Example for the PVSimple model with constant load"
   import Buildings;
   extends Modelica.Icons.Example;
-  Buildings.Electrical.DC.Sources.PVSimple     pv(A=10) "PV module"
+  Buildings.Electrical.DC.Sources.PVSimple     pv(A=10, V_nominal=12)
+    "PV module"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

@@ -4,7 +4,6 @@ connector Terminal_p "Terminal p for DC electrical systems"
   annotation (Icon(graphics={  Polygon(
           points={{-120,0},{0,-120},{120,0},{0,120},{-120,0}},
           lineColor={0,0,255},
-          fillColor=DynamicSelect({0,0,255}, if PhaseSystem.phaseSystemName=="TwoConductor" then {255,0,255} else {255,255,255}),
+          fillColor={0,0,255},
           fillPattern=FillPattern.Solid)}));
-          // fixme: isn't PhaseSystem.phaseSystemName=="TwoConductor" always true?
 end Terminal_p;

@@ -3,13 +3,6 @@ package DC "Package for analog direct current (DC) electrical circuits"
   extends Modelica.Icons.Package;
 
 
-
-
-
-
-
-
-
   annotation (Documentation(info="<html>
 <p>
 Package with models for direct current (DC) systems.<br/>

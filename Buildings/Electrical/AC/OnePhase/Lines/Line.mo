@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Lines;
 model Line
-  extends Buildings.Electrical.Transmission.Base.PartialLine(
+  extends Buildings.Electrical.Transmission.BaseClasses.PartialLine(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =

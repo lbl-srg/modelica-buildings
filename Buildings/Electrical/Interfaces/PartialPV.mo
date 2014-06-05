@@ -5,7 +5,8 @@ model PartialPV "Base model for a PV system"
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
-
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
+    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
   Modelica.Blocks.Interfaces.RealInput G(unit="W/m2")
     "Total solar irradiation per unit area"
      annotation (Placement(transformation(

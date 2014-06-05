@@ -5,12 +5,6 @@ package PhaseSystems "Phase systems used in power connectors"
   import Modelica.Constants.pi;
 
 
-
-
-
-
-
-
   annotation (Icon(graphics={Line(
           points={{-70,-52},{50,-52}},
           color={95,95,95},

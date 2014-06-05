@@ -1,6 +1,6 @@
 within Buildings.Electrical.DC.Lines;
 model Line "Model of a DC electrical line"
-  extends Buildings.Electrical.Transmission.Base.PartialLine(
+  extends Buildings.Electrical.Transmission.BaseClasses.PartialLine(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
     redeclare Interfaces.Terminal_n terminal_n(

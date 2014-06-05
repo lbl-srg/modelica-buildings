@@ -1,9 +1,10 @@
 within Buildings.Electrical.Transmission.Functions;
 function R_AC_correction
-  "Function that corrects the value of the DC resistance for AC systems at 60 Hz"
-  input String size;
-  input Buildings.Electrical.Transmission.Materials.Material material;
-  output Real correction;
+  "This function computes the correction factor of the DC resistance for AC systems at 60 Hz"
+  input String size "Size of the commercial cable (AWG or kcmil)";
+  input Buildings.Electrical.Transmission.Materials.Material material
+    "Material of the cable";
+  output Real correction "Correction factor";
 algorithm
   if material == Buildings.Electrical.Transmission.Materials.Material.Al then
     if size == "1/0" then
@@ -102,5 +103,185 @@ June 3, 2014, by Marco Bonvini:<br/>
 Added User's guide.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This function computes a correction factor for adapting the DC resistance
+of when working with AC voltages. The correction factor assumes <i>f = 60 Hz</i>.
+</p>
+<p>
+The correction is based on the type of cabel (AWG or kcmil) and the material.
+</p>
+<p>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr>
+<th>Type (AWG or kcmil)</th>
+<th>Material</th>
+<th>Correction factor</th>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1/0</td><td>Aluminium</td><td>1.0</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>2/0</td><td>Aluminium</td><td>1.001</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>3/0</td><td>Aluminium</td><td>1.001</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>4/0</td><td>Aluminium</td><td>1.001</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>250</td><td>Aluminium</td><td>1.002</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>300</td><td>Aluminium</td><td>1.003</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>350</td><td>Aluminium</td><td>1.004</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>400</td><td>Aluminium</td><td>1.005</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>500</td><td>Aluminium</td><td>1.007</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>600</td><td>Aluminium</td><td>1.010</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>700</td><td>Aluminium</td><td>1.013</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>750</td><td>Aluminium</td><td>1.015</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>800</td><td>Aluminium</td><td>1.017</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1000</td><td>Aluminium</td><td>1.026</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1250</td><td>Aluminium</td><td>1.040</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1500</td><td>Aluminium</td><td>1.058</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1750</td><td>Aluminium</td><td>1.079</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>2000</td><td>Aluminium</td><td>1.100</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>2500</td><td>Aluminium</td><td>1.142</td>
+</tr>
+</table>
+</p>
+
+<p>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr>
+<th>Type (AWG or kcmil)</th>
+<th>Material</th>
+<th>Correction factor</th>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1/0</td><td>Copper</td><td>1.0</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>2/0</td><td>Copper</td><td>1.001</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>3/0</td><td>Copper</td><td>1.002</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>4/0</td><td>Copper</td><td>1.004</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>250</td><td>Copper</td><td>1.005</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>300</td><td>Copper</td><td>1.006</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>350</td><td>Copper</td><td>1.009</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>400</td><td>Copper</td><td>1.011</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>500</td><td>Copper</td><td>1.018</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>600</td><td>Copper</td><td>1.025</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>700</td><td>Copper</td><td>1.034</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>750</td><td>Copper</td><td>1.039</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>800</td><td>Copper</td><td>1.044</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1000</td><td>Copper</td><td>1.067</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1250</td><td>Copper</td><td>1.102</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1500</td><td>Copper</td><td>1.142</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1750</td><td>Copper</td><td>1.185</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>2000</td><td>Copper</td><td>1.233</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>2500</td><td>Copper</td><td>1.326</td>
+</tr>
+</table>
+</p>
+
 </html>"));
 end R_AC_correction;

@@ -7,7 +7,8 @@ model PVSimpleOriented
                                                pv(A=10,
     til=0.34906585039887,
     lat=0.65798912800186,
-    azi=-0.78539816339745) "PV module"
+    azi=-0.78539816339745,
+    V_nominal=12) "PV module"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

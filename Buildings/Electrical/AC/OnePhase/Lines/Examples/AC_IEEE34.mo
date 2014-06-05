@@ -19,7 +19,7 @@ model AC_IEEE34
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={30,10})));
-  Transmission.Benchmark.DataSeries dataSeries(factorB=4.0)
+  Transmission.Benchmarks.DataSeries dataSeries(factorB=4.0)
     annotation (Placement(transformation(extent={{80,30},{60,50}})));
   Loads.CapacitiveLoadP PVloads[16](
     each pf=0.9,
