@@ -8,8 +8,8 @@ model GeneratorLoadGrid "Generator with a load and grid connection"
     V=220,
     Phi=0.5235987755983)
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Sources.Generator                sou(f=60, Phi=0.17453292519943)
-    "Gas turbine"   annotation (Placement(transformation(
+  Sources.Generator                sou(f=60, Phi=0.17453292519943) "Gas turbine"
+                    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-30,-10})));

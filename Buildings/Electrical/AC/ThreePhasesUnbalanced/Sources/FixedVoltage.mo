@@ -13,10 +13,10 @@ model FixedVoltage
     "Phase shift between the phase voltages";
   OnePhase.Sources.FixedVoltage Vphase[3](
     each f=f,
-    each V=V,
     potentialReference={potentialReference, potentialReference, potentialReference},
     definiteReference={definiteReference, false, false},
-    Phi={Phi,Phi - angle120,Phi + angle120})
+    Phi={Phi,Phi - angle120,Phi + angle120},
+    each V=V/sqrt(3))
              annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 equation
 

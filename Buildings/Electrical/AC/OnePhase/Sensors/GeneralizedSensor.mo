@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Sensors;
 model GeneralizedSensor "Sensor for power, voltage and current"
-  extends Buildings.Electrical.Interfaces.GeneralizedSensor;
+  extends Buildings.Electrical.Icons.GeneralizedSensor;
   extends Buildings.Electrical.Interfaces.PartialTwoPort(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,

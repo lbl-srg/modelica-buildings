@@ -2,6 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 package Examples
   extends Modelica.Icons.ExamplesPackage;
   model ACline
+    extends Modelica.Icons.Example;
 
     Sources.FixedVoltage fixedVoltage(
       f=50,
@@ -34,11 +35,18 @@ package Examples
               -100},{100,100}}), graphics));
   end ACline;
 
+  model MatrixRLCLine
+    "Model of a AC three phase unbalanced line with matrix representation"
+    extends Modelica.Icons.Example;
+
+  end MatrixRLCLine;
+
   model AC_InHomeGrid
     extends Modelica.Icons.Example;
     parameter Boolean linear = false;
     Network network(redeclare
-        Buildings.Electrical.Transmission.Grids.GridInHome_AL70 grid)
+        Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.GridInHome_AL70
+        grid)
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
     Loads.ResistiveLoadP load[20](
       each P_nominal=1000,
@@ -56,8 +64,7 @@ package Examples
           extent={{-10,-10},{10,10}},
           rotation=180,
           origin={30,10})));
-    Transmission.Benchmark.DataSeries_v2
-                                      dataSeries
+    Transmission.Benchmarks.DataSeries_v2 dataSeries
       annotation (Placement(transformation(extent={{80,30},{60,50}})));
     /*                                    1     2     3     4     5     6    7    8     9     10   11    12    13    14   15    16   17    18    19   20    */
   protected
@@ -104,9 +111,9 @@ package Examples
   model AC_InHomeGridN
     extends Modelica.Icons.Example;
     parameter Boolean linear = false;
-    NetworkN network(
-                    redeclare
-        Buildings.Electrical.Transmission.Grids.GridInHome_AL70 grid)
+    NetworkN network(redeclare
+        Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.GridInHome_AL70
+        grid)
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
     Loads.ResistiveLoadP_N
                          load[20](
@@ -125,8 +132,7 @@ package Examples
           extent={{-10,-10},{10,10}},
           rotation=180,
           origin={30,10})));
-    Transmission.Benchmark.DataSeries_v2
-                                      dataSeries
+    Transmission.Benchmarks.DataSeries_v2 dataSeries
       annotation (Placement(transformation(extent={{80,30},{60,50}})));
     /*                                    1     2     3     4     5     6    7    8     9     10   11    12    13    14   15    16   17    18    19   20    */
   protected
@@ -198,8 +204,7 @@ package Examples
           extent={{-10,-10},{10,10}},
           rotation=180,
           origin={30,10})));
-    Transmission.Benchmark.DataSeries_v2
-                                      dataSeries
+    Transmission.Benchmarks.DataSeries_v2 dataSeries
       annotation (Placement(transformation(extent={{80,30},{60,50}})));
     /*                                    1     2     3     4     5     6    7    8     9     10   11    12    13    14   15    16   17    18    19   20   21     22    23    24   25    26   27    28   29    30    31    32    33  */
   protected

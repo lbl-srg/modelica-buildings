@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.OnePhase.Storage;
 model Battery "Simple model of a battery"
  import Buildings;
- extends Buildings.Electrical.Interfaces.PartialRenewableAcDc;
+ extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
  parameter Real etaCha(min=0, max=1, unit="1") = 0.9
     "Efficiency during charging";
  parameter Real etaDis(min=0, max=1, unit="1") = 0.9

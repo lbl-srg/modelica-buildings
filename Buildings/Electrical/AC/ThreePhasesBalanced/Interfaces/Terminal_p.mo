@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Interfaces;
 connector Terminal_p "AC3ph balanced terminal ('positive')"
-  extends Buildings.Electrical.Interfaces.Terminal(redeclare package
-      PhaseSystem = PhaseSystems.OnePhase);
+  extends Buildings.Electrical.Interfaces.Terminal(redeclare package PhaseSystem
+      =             PhaseSystems.OnePhase);
   annotation (defaultComponentName = "term_p",
   Documentation(info="<html>
 <p>Electric connector with a vector of 'pin's, positive.</p>

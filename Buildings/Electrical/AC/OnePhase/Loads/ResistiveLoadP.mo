@@ -3,7 +3,7 @@ model ResistiveLoadP "Model of a resistive load"
   extends Buildings.Electrical.Interfaces.PartialLoad(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal,
-    V_nominal=110);
+    V_nominal=120);
 equation
 
   if linear then
@@ -42,6 +42,9 @@ The model computes the power as
 <i>P = real(v &sdot; i<sup>*</sup>)</i>,
 where <i>i<sup>*</sup></i> is the complex conjugate of the current.
 Complex voltage and complex current are related as <i>v = R &nbsp; i</i>.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/OnePhase/Loads/NonlinearLoadMap.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

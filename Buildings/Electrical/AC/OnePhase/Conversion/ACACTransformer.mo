@@ -30,11 +30,9 @@ protected
     "Short circuit current on primary side";
   Modelica.SIunits.Current IscLow = ILow/Zperc
     "Short circuit current on secondary side";
-  Modelica.SIunits.Impedance Zp = VHigh/IscHigh
-    "Impedance of the primary side";
+  Modelica.SIunits.Impedance Zp = VHigh/IscHigh "Impedance of the primary side";
   Modelica.SIunits.Impedance Z1[2] = {Zp*cos(atan(XoverR)), Zp*sin(atan(XoverR))};
-  Modelica.SIunits.Impedance Zs = VLow/IscLow
-    "Impedance of the secondary side";
+  Modelica.SIunits.Impedance Zs = VLow/IscLow "Impedance of the secondary side";
   Modelica.SIunits.Impedance Z2[2] = {Zs*cos(atan(XoverR)), Zs*sin(atan(XoverR))};
   Modelica.SIunits.Voltage V1[2] "Voltage at the winding - primary side";
   Modelica.SIunits.Voltage V2[2] "Voltage at the winding - secondary side";
@@ -45,7 +43,7 @@ protected
   Modelica.SIunits.Power Sn = sqrt(P_n[1]^2 + P_n[2]^2)
     "Apparent power terminal n";
 equation
-  assert(sqrt(P_p[1]^2 + P_p[2]^2) <= VABase*1.01,"The load power of transformer is higher than VABase");
+  //assert(sqrt(P_p[1]^2 + P_p[2]^2) <= VABase*1.01,"The load power of transformer is higher than VABase");
 
   // Efficiency
   eta = Buildings.Utilities.Math.Functions.smoothMin(
