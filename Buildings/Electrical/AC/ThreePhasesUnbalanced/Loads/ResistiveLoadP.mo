@@ -3,8 +3,7 @@ model ResistiveLoadP
   extends BaseClasses.PartialLoad(
   redeclare Buildings.Electrical.AC.OnePhase.Loads.ResistiveLoadP load1,
   redeclare Buildings.Electrical.AC.OnePhase.Loads.ResistiveLoadP load2,
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.ResistiveLoadP load3,
-  redeclare Buildings.Electrical.AC.OnePhase.Basics.Ground ground);
+  redeclare Buildings.Electrical.AC.OnePhase.Loads.ResistiveLoadP load3);
 equation
 
   annotation (Icon(graphics={      Rectangle(extent={{-100,100},{100,-100}},

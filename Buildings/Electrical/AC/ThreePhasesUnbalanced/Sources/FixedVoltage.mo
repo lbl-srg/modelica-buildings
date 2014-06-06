@@ -14,9 +14,9 @@ model FixedVoltage
   OnePhase.Sources.FixedVoltage Vphase[3](
     each f=f,
     each V=V,
-    Phi={Phi, Phi + angle120, Phi + 2*angle120},
     potentialReference={potentialReference, potentialReference, potentialReference},
-    definiteReference={definiteReference, false, false})
+    definiteReference={definiteReference, false, false},
+    Phi={Phi,Phi - angle120,Phi + angle120})
              annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 equation
 

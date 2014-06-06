@@ -16,8 +16,7 @@ partial model PartialLoadN
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)
     "Nominal voltage (V_nominal >= 0)"  annotation(Dialog(group="Nominal conditions", enable = (mode==Assumptionm.FixedZ_dynamic or linear)));
 
-  parameter Boolean VoltageCTRL = false "This flag enables the voltage control"
-                                                                                annotation(Evaluate=true, Dialog(group="Voltage CTRL"));
+  parameter Boolean VoltageCTRL = false "This flag enables the voltage control" annotation(Evaluate=true, Dialog(group="Voltage CTRL"));
   parameter Real Vthresh(min=0.0, max=1.0) = 0.1
     "Threshold that activates voltage ctrl (ratio of nominal voltage)" annotation(Dialog(group="Voltage CTRL",
         enable = VoltageCTRL));

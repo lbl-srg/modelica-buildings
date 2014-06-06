@@ -2,6 +2,9 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model PartialLoad
   import Buildings;
   extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
+  parameter Buildings.Electrical.Types.LoadConnection loadConn=
+    Buildings.Electrical.Types.LoadConnection.wye_to_wyeg
+    "Type of load connection (Yg or D)";
   parameter Boolean linear = false
     "If =true introduce a linearization in the load" annotation(Dialog(group="Modelling assumption"));
   parameter Buildings.Electrical.Types.Assumption mode(
@@ -97,21 +100,13 @@ partial model PartialLoad
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,-60})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Connection3to4_n
-                             connection3to4
-    annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
-  replaceable Buildings.Electrical.Interfaces.PartialGround ground(
-    redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Electrical.AC.OnePhase.Interfaces.Terminal_n terminal)
-    annotation (Placement(transformation(extent={{-70,-80},{-50,-60}})));
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToDelta
+    wyeToDelta if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta)
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToWyeGround
+    wyeToWyeGround if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 equation
-
-  Connections.branch(connection3to4.terminal4.phase[1].theta, connection3to4.terminal4.phase[4].theta);
-  connection3to4.terminal4.phase[1].theta = connection3to4.terminal4.phase[4].theta;
-  for i in 1:3 loop
-    Connections.branch(connection3to4.terminal3.phase[i].theta, connection3to4.terminal4.phase[i].theta);
-    connection3to4.terminal3.phase[i].theta = connection3to4.terminal4.phase[i].theta;
-  end for;
 
   if mode==Buildings.Electrical.Types.Assumption.VariableZ_y_input then
     if PlugPhase1 then
@@ -155,34 +150,50 @@ equation
     end if;
   end if;
 
-  connect(connection3to4.terminal3, terminal_p) annotation (Line(
-      points={{-80,6.66134e-16},{-86,6.66134e-16},{-86,4.44089e-16},{-100,4.44089e-16}},
+  if PlugPhase1 then
+    connect(wyeToWyeGround.wyeg.phase[1], load1.terminal) annotation (Line(
+      points={{-60,-10},{-20,-10},{-20,40},{-10,40}},
       color={0,120,120},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+        pattern=LinePattern.Dash));
+    connect(wyeToDelta.delta.phase[1], load1.terminal) annotation (Line(
+        points={{-60,10},{-36,10},{-36,40},{-10,40}},
+        color={0,120,120},
+        smooth=Smooth.None));
+  end if;
   if PlugPhase2 then
-    connect(connection3to4.terminal4.phase[2], load2.terminal) annotation (Line(
-      points={{-60,6.66134e-16},{-36,6.66134e-16},{-36,0},{-10,0}},
+    connect(wyeToWyeGround.wyeg.phase[2], load2.terminal) annotation (Line(
+      points={{-60,-10},{-20,-10},{-20,0},{-10,0}},
       color={0,120,120},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+        pattern=LinePattern.Dash));
+    connect(wyeToDelta.delta.phase[2], load2.terminal) annotation (Line(
+        points={{-60,10},{-36,10},{-36,0},{-10,0}},
+        color={0,120,120},
+        smooth=Smooth.None));
   end if;
   if PlugPhase3 then
-    connect(connection3to4.terminal4.phase[3], load3.terminal) annotation (Line(
-      points={{-60,6.66134e-16},{-40,6.66134e-16},{-40,-40},{-10,-40}},
+    connect(wyeToWyeGround.wyeg.phase[3], load3.terminal) annotation (Line(
+      points={{-60,-10},{-20,-10},{-20,-40},{-10,-40}},
       color={0,120,120},
-      smooth=Smooth.None));
-  end if;
-  if PlugPhase1 then
-    connect(connection3to4.terminal4.phase[1], load1.terminal) annotation (Line(
-      points={{-60,6.66134e-16},{-40,6.66134e-16},{-40,40},{-10,40}},
-      color={0,120,120},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+        pattern=LinePattern.Dash));
+    connect(wyeToDelta.delta.phase[3], load3.terminal) annotation (Line(
+        points={{-60,10},{-36,10},{-36,-40},{-10,-40}},
+        color={0,120,120},
+        smooth=Smooth.None));
   end if;
 
-  connect(connection3to4.terminal4.phase[4], ground.terminal) annotation (Line(
-      points={{-60,6.66134e-16},{-60,-60}},
+  connect(terminal_p, wyeToDelta.wye) annotation (Line(
+      points={{-100,0},{-86,0},{-86,10},{-80,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+  connect(terminal_p, wyeToWyeGround.wye) annotation (Line(
+      points={{-100,0},{-86,0},{-86,-10},{-80,-10}},
+      color={0,120,120},
+      smooth=Smooth.None));
+
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),       graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
 end PartialLoad;
