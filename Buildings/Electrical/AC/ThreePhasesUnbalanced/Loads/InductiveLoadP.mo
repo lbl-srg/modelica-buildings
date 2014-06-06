@@ -1,11 +1,63 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
 model InductiveLoadP
   extends BaseClasses.PartialLoad(
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load1(pf=pf),
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load2(pf=pf),
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load3(pf=pf));
-  parameter Real pf(min=0, max=1) = 0.8 "Power factor"  annotation(Dialog(group="Nominal conditions"));
-  annotation (Icon(graphics={
+  redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load1(pf=pf,
+        use_pf_in=use_pf_in),
+  redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load2(pf=pf,
+        use_pf_in=use_pf_in),
+  redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load3(pf=pf,
+        use_pf_in=use_pf_in));
+  parameter Boolean use_pf_in = false "If true the pf is defined by an input"
+    annotation(Dialog(group="Modelling assumption"));
+  parameter Real pf(min=0, max=1) = 0.8 "Power factor"
+  annotation(Dialog(group="Nominal conditions"));
+  Modelica.Blocks.Interfaces.RealInput pf_in_1(
+    min=0,
+    max=1,
+    unit="1") if (use_pf_in and PlugPhase1) "Power factor" annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={74,-86}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-60,-100})));
+  Modelica.Blocks.Interfaces.RealInput pf_in_2(
+    min=0,
+    max=1,
+    unit="1") if (use_pf_in and PlugPhase2) "Power factor" annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={46,-86}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-100})));
+  Modelica.Blocks.Interfaces.RealInput pf_in_3(
+    min=0,
+    max=1,
+    unit="1") if (use_pf_in and PlugPhase3) "Power factor" annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={18,-86}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={62,-100})));
+
+equation
+  connect(pf_in_1, load1.pf_in) annotation (Line(
+      points={{74,-86},{74,46},{10,46}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pf_in_2, load2.pf_in) annotation (Line(
+      points={{46,-86},{46,6},{10,6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pf_in_3, load3.pf_in) annotation (Line(
+      points={{18,-86},{18,-34},{10,-34}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),
+                   graphics={
         Rectangle(
           extent={{-80,80},{80,-80}},
           lineColor={0,0,0},
@@ -128,5 +180,6 @@ model InductiveLoadP
           Line(points={{-6.85214e-44,-8.39117e-60},{10,1.22461e-15}},
                                          color={0,0,0},
           origin={-66,-52},
-          rotation=180)}));
+          rotation=180)}), Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}), graphics));
 end InductiveLoadP;

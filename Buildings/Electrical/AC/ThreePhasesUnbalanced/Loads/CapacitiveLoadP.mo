@@ -1,10 +1,40 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
 model CapacitiveLoadP
   extends BaseClasses.PartialLoad(
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load1(pf=pf),
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load2(pf=pf),
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load3(pf=pf));
-  parameter Real pf(min=0, max=1) = 0.8 "Power factor"  annotation(Dialog(group="Nominal conditions"));
+  redeclare Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load1(pf=pf,
+        use_pf_in=use_pf_in),
+  redeclare Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load2(pf=pf,
+        use_pf_in=use_pf_in),
+  redeclare Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load3(pf=pf,
+        use_pf_in=use_pf_in));
+  parameter Boolean use_pf_in = false "If true the pf is defined by an input"
+    annotation(Dialog(group="Modelling assumption"));
+  parameter Real pf(min=0, max=1) = 0.8 "Power factor"
+  annotation(Dialog(group="Nominal conditions"));
+  Modelica.Blocks.Interfaces.RealInput pf_in(
+    min=0,
+    max=1,
+    unit="1") if (use_pf_in) "Power factor"
+                   annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={30,-80}),  iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={40,-100})));
+equation
+  connect(pf_in, load1.pf_in) annotation (Line(
+      points={{30,-80},{30,46},{10,46}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pf_in, load2.pf_in) annotation (Line(
+      points={{30,-80},{30,6},{10,6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pf_in, load3.pf_in) annotation (Line(
+      points={{30,-80},{30,-34},{10,-34}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-80,80},{80,-80}},
@@ -118,5 +148,6 @@ model CapacitiveLoadP
           points={{0,0},{32,3.91873e-15}},
           color={0,0,0},
           origin={10,-52},
-          rotation=180)}));
+          rotation=180)}), Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}), graphics));
 end CapacitiveLoadP;
