@@ -6,7 +6,6 @@ model InductiveLoadP "Model of an inductive and resistive load"
     V_nominal=120);
 initial equation
   if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
-    // psi = Z[2]*{P_nominal/V_nominal, 0}/omega;
     // Steady state initialization
     der(psi) = zeros(PhaseSystem.n);
   end if;
@@ -19,7 +18,7 @@ equation
     Z[1] = -pf*(V_nominal^2)/(P_nominal/pf);
     Z[2] = -sqrt(1-pf^2)*(V_nominal^2)/(P_nominal/pf);
 
-    // Dynamic of the system
+    // Dynamics of the system
     der(psi) + omega*j(psi) + Z[1]*i = v;
 
     // Magnetic flux
@@ -93,8 +92,8 @@ A parameter or input to the model is the real power <i>P</i>, and a parameter
 is the power factor <i>pf=cos(&phi;)</i>.
 In this model, current lags voltage, as is the case for an inductive motor.
 For a capacitive load, use
-<a href=\"modelica://Buildings.Electrical.AC.Loads.CapacitorResistor\">
-Buildings.Electrical.AC.Loads.SinglePhase.CapacitorResistor</a>.
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP\">
+Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP</a>.
 </p>
 <p>
 The model computes the phase angle of the power <i>&phi;</i>

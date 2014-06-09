@@ -22,7 +22,7 @@ equation
     // Electric charge
     q = Y[2]*{v[1], v[2]}/omega;
 
-    // Dynamic of the system
+    // Dynamics of the system
     der(q) + omega*j(q) + Y[1]*v = i;
 
   else
@@ -90,8 +90,8 @@ A parameter or input to the model is the real power <i>P</i>, and a parameter
 is the power factor <i>pf=cos(&phi;)</i>.
 In this model, current leads voltage, as is the case for a capacitor bank.
 For an inductive load, use
-<a href=\"modelica://Buildings.Electrical.AC.Loads.InductorResistor\">
-Buildings.Electrical.AC.Loads.InductorResistor</a>.</p>
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP\">
+Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP</a>.</p>
 <p>
 The model computes the phase angle of the power <i>&phi;</i>
 and assigns the complex power <i>S = -P/pf &ang; &phi;</i>.
