@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Sources;
 model PVSimpleOriented "Simple PV model with orientation"
-  extends Buildings.Electrical.Interfaces.PartialRenewableAcDc;
+  extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
   extends Buildings.Electrical.Interfaces.PartialPVOriented(redeclare package
       PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase, redeclare
       Interfaces.Terminal_p terminal, redeclare

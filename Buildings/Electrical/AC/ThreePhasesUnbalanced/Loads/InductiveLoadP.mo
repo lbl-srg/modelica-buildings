@@ -3,8 +3,7 @@ model InductiveLoadP
   extends BaseClasses.PartialLoad(
   redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load1(pf=pf),
   redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load2(pf=pf),
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load3(pf=pf),
-  redeclare Buildings.Electrical.AC.OnePhase.Basics.Ground ground);
+  redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load3(pf=pf));
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"  annotation(Dialog(group="Nominal conditions"));
   annotation (Icon(graphics={
         Rectangle(

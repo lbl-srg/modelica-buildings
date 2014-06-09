@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.OnePhase.Sources;
 model PVSimple
   import Buildings;
-  extends Buildings.Electrical.Interfaces.PartialRenewableAcDc;
+  extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
   extends Buildings.Electrical.Interfaces.PartialPV(redeclare package
       PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase, redeclare
       Interfaces.Terminal_p terminal);

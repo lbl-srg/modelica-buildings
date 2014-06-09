@@ -5,27 +5,27 @@ model ACACTransformer
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv1(
       VHigh=VHigh/sqrt(3),
       VLow=VLow/sqrt(3),
-      VABase=VABase,
       XoverR=XoverR,
       Zperc=Zperc,
       ground_1=ground_1,
-      ground_2=ground_2),
+      ground_2=ground_2,
+      VABase=VABase/3),
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv2(
       VHigh=VHigh/sqrt(3),
       VLow=VLow/sqrt(3),
-      VABase=VABase,
       XoverR=XoverR,
       Zperc=Zperc,
       ground_1=ground_1,
-      ground_2=ground_2),
+      ground_2=ground_2,
+      VABase=VABase/3),
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv3(
       VHigh=VHigh/sqrt(3),
       VLow=VLow/sqrt(3),
-      VABase=VABase,
       XoverR=XoverR,
       Zperc=Zperc,
       ground_1=ground_1,
-      ground_2=ground_2));
+      ground_2=ground_2,
+      VABase=VABase/3));
   parameter Modelica.SIunits.Voltage VHigh
     "Rms voltage on side 1 of the transformer (primary side)";
   parameter Modelica.SIunits.Voltage VLow

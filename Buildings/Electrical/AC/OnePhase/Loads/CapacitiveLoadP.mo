@@ -3,7 +3,7 @@ model CapacitiveLoadP "Model of a capacitive and resistive load"
   extends Buildings.Electrical.Interfaces.PartialCapacitiveLoad(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal,
-    V_nominal=110);
+    V_nominal=120);
 initial equation
   if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
     // q = Y[2]*{V_nominal, 0}/omega;
