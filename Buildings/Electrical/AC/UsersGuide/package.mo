@@ -2,8 +2,7 @@ within Buildings.Electrical.AC;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
-
-    annotation (
+    annotation (preferredView="info",
 Documentation(info="<html>
 <p>
 The package 
@@ -85,7 +84,6 @@ A.M. Stankovi, B.C. Lesieutre, T. Aydin.<br/>
 <a href=\"http://www.ece.neu.edu/faculty/stankovic/Jour_papers/pwrs299im.pdf\">
 <i>IEEE Transactions on Power Systems</i>, 14(1), Feb. 1999, pp. 9-14.<br/>
 </p>
-
 
 </html>"));
 end UsersGuide;
