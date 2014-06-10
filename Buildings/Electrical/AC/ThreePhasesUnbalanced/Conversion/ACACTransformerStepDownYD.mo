@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion;
-model ACACTransformerYD
+model ACACTransformerStepDownYD
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYD(
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepDownYD(
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv1(
       VHigh=VHigh/sqrt(3),
       XoverR=XoverR,
@@ -9,7 +9,7 @@ model ACACTransformerYD
       ground_1=ground_1,
       ground_2=ground_2,
       VABase=VABase/3,
-      VLow=VLow/sqrt(3)),
+      VLow=VLow),
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv2(
       VHigh=VHigh/sqrt(3),
       XoverR=XoverR,
@@ -17,7 +17,7 @@ model ACACTransformerYD
       ground_1=ground_1,
       ground_2=ground_2,
       VABase=VABase/3,
-      VLow=VLow/sqrt(3)),
+      VLow=VLow),
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv3(
       VHigh=VHigh/sqrt(3),
       XoverR=XoverR,
@@ -25,7 +25,7 @@ model ACACTransformerYD
       ground_1=ground_1,
       ground_2=ground_2,
       VABase=VABase/3,
-      VLow=VLow/sqrt(3)));
+      VLow=VLow));
   parameter Modelica.SIunits.Voltage VHigh
     "Rms voltage on side 1 of the transformer (primary side)";
   parameter Modelica.SIunits.Voltage VLow
@@ -215,7 +215,19 @@ equation
           points={{40,-10},{60,20},{80,-10},{40,-10}},
           color={0,120,120},
           smooth=Smooth.None,
-          thickness=0.5)}),
+          thickness=0.5),
+        Line(
+          points={{0,100},{32,68}},
+          color={0,120,120},
+          smooth=Smooth.None),
+        Polygon(
+          points={{0,-6},{6,6},{-6,0},{0,-6}},
+          lineColor={0,120,120},
+          smooth=Smooth.None,
+          fillColor={0,120,120},
+          fillPattern=FillPattern.Solid,
+          origin={34,66},
+          rotation=-90)}),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -224,4 +236,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ACACTransformerYD;
+end ACACTransformerStepDownYD;
