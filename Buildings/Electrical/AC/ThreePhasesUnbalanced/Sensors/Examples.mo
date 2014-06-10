@@ -26,6 +26,13 @@ package Examples
         color={0,120,120},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-              -100,-100},{100,100}}), graphics));
+              -100,-100},{100,100}}), graphics), Documentation(revisions="<html>
+<ul>
+<li>
+June 6, 2014, by Marco Bonvini:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
   end Probes;
 end Examples;

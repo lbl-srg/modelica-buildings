@@ -1,21 +1,8 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors;
 model ProbeDelta
   "Model of a probe that measures voltage magnitude and angle (Delta configuration)"
-  extends Icons.GeneralizedProbe;
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480) = 480
-    "RMS Nominal voltage (V_nominal >= 0)";
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n term
-    "Electrical connector"                                                                        annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-90})));
-  Modelica.Blocks.Interfaces.RealOutput V[3](unit="1") "Voltage in per unit" annotation (Placement(
-        transformation(extent={{60,20},{80,40}}), iconTransformation(extent={{60,
-            20},{80,40}})));
-  Modelica.Blocks.Interfaces.RealOutput theta[3](unit="deg") "Angle" annotation (Placement(
-        transformation(extent={{60,-40},{80,-20}}), iconTransformation(extent={{60,
-            -40},{80,-20}})));
+  extends
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses.GeneralizedProbe;
   Interfaces.WyeToDelta     wyeToDelta
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
