@@ -16,9 +16,9 @@ equation
   delta.phase[2].v[:] = wye.phase[2].v[:] - wye.phase[3].v[:];
   delta.phase[3].v[:] = wye.phase[3].v[:] - wye.phase[1].v[:];
 
-  wye.phase[1].i[:] + delta.phase[3].i[:] = delta.phase[1].i[:];
-  wye.phase[2].i[:] + delta.phase[1].i[:] = delta.phase[2].i[:];
-  wye.phase[3].i[:] + delta.phase[2].i[:] = delta.phase[3].i[:];
+  -wye.phase[1].i[:] + delta.phase[3].i[:] = delta.phase[1].i[:];
+  -wye.phase[2].i[:] + delta.phase[1].i[:] = delta.phase[2].i[:];
+  -wye.phase[3].i[:] + delta.phase[2].i[:] = delta.phase[3].i[:];
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics), Icon(coordinateSystem(

@@ -4,9 +4,9 @@ model ACDCConverter "AC DC converter"
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
-          PhaseSystem_n),
+          PhaseSystem_n, i[:](start = zeros(PhaseSystem_n.n), stateSelect = StateSelect.prefer)),
     redeclare DC.Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem
-        = PhaseSystem_p));
+        = PhaseSystem_p, i[:](start = zeros(PhaseSystem_p.n), stateSelect = StateSelect.prefer)));
   // fixme: add example. Consider adding a constant loss therm for
   // parasitic losses
   parameter Real conversionFactor "Ratio of DC voltage / QS rms voltage";
@@ -138,6 +138,12 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2014, by Marco Bonvini:<br/>
+Revised implementation and added <code>stateSelect</code> statement to use
+the current <code>i[:]</code> on the connectors as iteration variable for the
+initialization problem.
+</li>
 <li>
 January 4, 2013, by Michael Wetter:<br/>
 First implementation.

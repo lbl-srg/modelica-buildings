@@ -20,7 +20,7 @@ partial model PartialLoad
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
-    V_nominal=V_nominal,
+    V_nominal=(if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg then V_nominal else V_nominal/sqrt(3)),
     linear=linear,
     mode=mode) if PlugPhase1
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
@@ -28,7 +28,7 @@ partial model PartialLoad
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
-    V_nominal=V_nominal,
+    V_nominal=(if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg then V_nominal else V_nominal/sqrt(3)),
     linear=linear,
     mode=mode) if PlugPhase2
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -36,7 +36,7 @@ partial model PartialLoad
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
-    V_nominal=V_nominal,
+    V_nominal=(if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg then V_nominal else V_nominal/sqrt(3)),
     linear=linear,
     mode=mode) if PlugPhase3
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));

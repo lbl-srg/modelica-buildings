@@ -1,12 +1,31 @@
-within Buildings.Electrical.AC.OnePhase.Conversion;
-model ACACTransformer "AC AC transformer for single phase systems"
-  extends Buildings.Electrical.Interfaces.PartialConversion(
-    redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
-    redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
-          PhaseSystem_n, i[:](start = zeros(PhaseSystem_n.n), stateSelect = StateSelect.prefer)),
-    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
-          PhaseSystem_p, i[:](start = zeros(PhaseSystem_p.n), stateSelect = StateSelect.prefer)));
+within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion;
+model ACACTransformerStepDownDY
+  extends
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepDownDY(
+    redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv1(
+      VHigh=VHigh,
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=-VLow/sqrt(3)),
+    redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv2(
+      VHigh=VHigh,
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=-VLow/sqrt(3)),
+    redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv3(
+      VHigh=VHigh,
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=-VLow/sqrt(3)));
   parameter Modelica.SIunits.Voltage VHigh
     "Rms voltage on side 1 of the transformer (primary side)";
   parameter Modelica.SIunits.Voltage VLow
@@ -16,71 +35,14 @@ model ACACTransformer "AC AC transformer for single phase systems"
   parameter Real XoverR
     "Ratio between the complex and real components of the impedance (XL/R)";
   parameter Real Zperc "Short circuit impedance";
-  Modelica.SIunits.Efficiency eta "Efficiency of the transformer";
-  Modelica.SIunits.Power LossPower[2] "Loss power";
-  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
-  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
-protected
-  Real N = VHigh/VLow "Winding ratio";
-  Modelica.SIunits.Current IHigh = VABase/VHigh
-    "Nominal current on primary side";
-  Modelica.SIunits.Current ILow = VABase/VLow
-    "Nominal current on secondary side";
-  Modelica.SIunits.Current IscHigh = IHigh/Zperc
-    "Short circuit current on primary side";
-  Modelica.SIunits.Current IscLow = ILow/Zperc
-    "Short circuit current on secondary side";
-  Modelica.SIunits.Impedance Zp = VHigh/IscHigh "Impedance of the primary side";
-  Modelica.SIunits.Impedance Z1[2] = {Zp*cos(atan(XoverR)), Zp*sin(atan(XoverR))};
-  Modelica.SIunits.Impedance Zs = VLow/IscLow "Impedance of the secondary side";
-  Modelica.SIunits.Impedance Z2[2] = {Zs*cos(atan(XoverR)), Zs*sin(atan(XoverR))};
-  Modelica.SIunits.Voltage V1[2](start = PhaseSystem_n.phaseVoltages(VHigh))
-    "Voltage at the winding - primary side";
-  Modelica.SIunits.Voltage V2[2](start = PhaseSystem_p.phaseVoltages(VLow))
-    "Voltage at the winding - secondary side";
-  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
-  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
-  Modelica.SIunits.Power Sp = sqrt(P_p[1]^2 + P_p[2]^2)
-    "Apparent power terminal p";
-  Modelica.SIunits.Power Sn = sqrt(P_n[1]^2 + P_n[2]^2)
-    "Apparent power terminal n";
+  parameter Boolean ground_1 = false "Connect side 1 of transformer to ground" annotation(Dialog(tab = "Ground", group="side 1"));
+  parameter Boolean ground_2 = true "Connect side 2 of transformer to ground" annotation(Dialog(tab = "Ground", group="side 2"));
 equation
-  //assert(sqrt(P_p[1]^2 + P_p[2]^2) <= VABase*1.01,"The load power of transformer is higher than VABase");
-
-  // Efficiency
-  eta = Buildings.Utilities.Math.Functions.smoothMin(
-        x1=  sqrt(P_p[1]^2 + P_p[2]^2) / (sqrt(P_n[1]^2 + P_n[2]^2) + 1e-6),
-        x2=  sqrt(P_n[1]^2 + P_n[2]^2) / (sqrt(P_p[1]^2 + P_p[2]^2) + 1e-6),
-        deltaX=  0.01);
-
-  // Ideal transformation
-  V2 = V1/N;
-  terminal_p.i[1] + terminal_n.i[1]*N = 0;
-  terminal_p.i[2] + terminal_n.i[2]*N = 0;
-
-  // Losses due to the impedance
-  terminal_n.v = V1 + Buildings.Electrical.PhaseSystems.OnePhase.product(
-    terminal_n.i, Z1);
-  V2 = terminal_p.v;
-
-  // Loss of power
-  LossPower = P_p + P_n;
-
-  // The two sides have the same reference angle
-  terminal_p.theta = terminal_n.theta;
-
-  if ground_1 then
-    Connections.potentialRoot(terminal_n.theta);
-  end if;
-  if ground_2 then
-    Connections.root(terminal_p.theta);
-  end if;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}),
-                                      graphics={
+            -100},{100,100}}), graphics), Icon(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                                               graphics={
         Text(
           extent={{-100,-60},{100,-92}},
           lineColor={0,120,120},
@@ -240,36 +202,40 @@ equation
         Text(
           extent={{-20,60},{-4,48}},
           lineColor={0,120,120},
-          textString="L")}),
-    Documentation(info="<html>
-<p>
-This is an AC AC converter, based on a power balance between both QS circuit sides.
-The paramater <i>conversionFactor</i> defines the ratio between averaged the QS rms voltages.
-The loss of the converter is proportional to the power transmitted at the second circuit side.
-The parameter <code>eps</code> is the efficiency of the transfer.
-The loss is computed as
-<i>P<sub>loss</sub> = (1-&eta;) |P<sub>DC</sub>|</i>,
-where <i>|P<sub>DC</sub>|</i> is the power transmitted on the second circuit side.
-Furthermore, reactive power on both QS side are set to 0.
-</p>
-<h4>Note:</h4>
-<p>
-This model is derived from 
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter\">
-Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>.
-</p>
-</html>", revisions="<html>
+          textString="L"),
+        Line(
+          points={{60,26},{60,6},{46,-8}},
+          color={0,120,120},
+          smooth=Smooth.None,
+          thickness=0.5),
+        Line(
+          points={{60,6},{74,-8}},
+          color={0,120,120},
+          smooth=Smooth.None,
+          thickness=0.5),
+        Line(
+          points={{-52,-6},{-32,24},{-12,-6},{-52,-6}},
+          color={0,120,120},
+          smooth=Smooth.None,
+          thickness=0.5),
+        Line(
+          points={{0,100},{32,68}},
+          color={0,120,120},
+          smooth=Smooth.None),
+        Polygon(
+          points={{0,-6},{6,6},{-6,0},{0,-6}},
+          lineColor={0,120,120},
+          smooth=Smooth.None,
+          fillColor={0,120,120},
+          fillPattern=FillPattern.Solid,
+          origin={34,66},
+          rotation=-90)}),
+    Documentation(revisions="<html>
 <ul>
 <li>
-June 9, 2014, by Marco Bonvini:<br/>
-Revised implementation and added <code>stateSelect</code> statement to use
-the current <code>i[:]</code> on the connectors as iteration variable for the
-initialization problem.
-</li>
-<li>
-January 29, 2012, by Thierry S. Nouidui:<br/>
+June 6, 2014, by Marco Bonvini:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end ACACTransformer;
+end ACACTransformerStepDownDY;
