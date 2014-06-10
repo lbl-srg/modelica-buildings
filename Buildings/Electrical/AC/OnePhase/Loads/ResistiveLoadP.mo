@@ -43,6 +43,7 @@ The model computes the power as
 where <i>i<sup>*</sup></i> is the complex conjugate of the current.
 Complex voltage and complex current are related as <i>v = R &nbsp; i</i>.
 </p>
+<p>fixme: The figure is nice, but it needs an explanation.
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/OnePhase/Loads/NonlinearLoadMap.png\"/>
 </p>

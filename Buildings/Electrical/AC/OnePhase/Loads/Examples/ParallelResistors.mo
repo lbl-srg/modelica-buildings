@@ -2,6 +2,10 @@ within Buildings.Electrical.AC.OnePhase.Loads.Examples;
 model ParallelResistors
   "Example that illustrates the use of the load models at constant voltage"
   import Buildings;
+  // fixme: In the whole package,
+  //   1. remove all "import Buildings; statements
+  //   2. add comments to all instances of models, parameters, ...
+  //   3. Correct indentations.
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage
                                                      source(f=60, V=110)
@@ -49,6 +53,8 @@ equation
                     graphics),
     Documentation(info="<html>
 <p>
+fixme: This info section is for a different model.
+
 This model illustrates the use of the load models.
 The first two lines are inductive loads, followed by two capacitive loads and a resistive load.
 At time equal to <i>1</i> second, all loads consume the same actual power as specified by the

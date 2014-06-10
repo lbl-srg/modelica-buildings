@@ -33,8 +33,10 @@ equation
       i[2] = -homotopy(actual= (v[2]*P - v[1]*Q)/(V_nominal^2), simplified=0.0);
     else
       //PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, Q);
-      i[1] = -homotopy(actual=(v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2), simplified=(v[2]*Q + v[1]*P)/(V_nominal^2));
-      i[2] = -homotopy(actual=(v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2), simplified=(v[2]*P - v[1]*Q)/(V_nominal^2));
+      i[1] = -homotopy(actual=(v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2),
+                       simplified=(v[2]*Q + v[1]*P)/(V_nominal^2));
+      i[2] = -homotopy(actual=(v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2),
+                       simplified=(v[2]*P - v[1]*Q)/(V_nominal^2));
     end if;
 
     Y = {0, 0};
