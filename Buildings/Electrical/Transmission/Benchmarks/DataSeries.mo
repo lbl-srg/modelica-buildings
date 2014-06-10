@@ -25,15 +25,20 @@ model DataSeries "Benchmark data"
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Modelica.Blocks.Interfaces.RealOutput pv[16]
-    "Connector of Real output signals" annotation (Placement(transformation(
-          extent={{80,30},{100,50}}), iconTransformation(extent={{80,30},{100,50}})));
+    "fixme: update comment to something more descriptive.Connector of Real output signals"
+                                                                                           annotation (Placement(transformation(
+          extent={{100,30},{120,50}}),iconTransformation(extent={{100,30},{120,
+            50}})));
   Modelica.Blocks.Interfaces.RealOutput bldg[33]
-    "Connector of Real output signals" annotation (Placement(transformation(
-          extent={{80,-50},{100,-30}}), iconTransformation(extent={{80,-50},{100,
-            -30}})));
+    "fixme: update comment to something more descriptive.Connector of Real output signals"
+                                                                                           annotation (Placement(transformation(
+          extent={{100,-50},{120,-30}}),iconTransformation(extent={{100,-50},{
+            120,-30}})));
   Modelica.Blocks.Math.Gain b_factor[33](each k=-factorB)
+    "Gain to scale building power"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Modelica.Blocks.Math.Gain pv_factor[16](each k=factorPV)
+    "Gain to scale PV power"
     annotation (Placement(transformation(extent={{22,30},{42,50}})));
 equation
   connect(node_loads.y,b_factor. u) annotation (Line(
@@ -41,7 +46,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(b_factor.y, bldg) annotation (Line(
-      points={{41,-40},{90,-40}},
+      points={{41,-40},{110,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pv_loads.y, pv_factor.u) annotation (Line(
@@ -49,7 +54,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(pv_factor.y, pv) annotation (Line(
-      points={{43,40},{90,40}},
+      points={{43,40},{110,40}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

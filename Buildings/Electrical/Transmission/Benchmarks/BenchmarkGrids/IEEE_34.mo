@@ -63,7 +63,8 @@ record IEEE_34 "IEEE 34 Bus Grid District 1 (AL120,AL70,Al35) - freestanding"
     
    */
   annotation (Documentation(info="<html>
-<p>Schematic of the IEEE-34 grid</p>
+<p>Schematic of the IEEE-34 grid.
+fixme: Explain the difference between the three IEEE 34 grids.</p>
 <p><img alt=\"alt-image\" src=\"modelica://Buildings/Resources/Images/Electrical/Transmission/Grids/IEEE_34.png\"/></p>
 </html>"));
 end IEEE_34;

@@ -1,6 +1,6 @@
 within Buildings.Electrical.Transmission.Functions;
 function lineCapacitance "This function computes the capacitance of the cable"
-  input Modelica.SIunits.Length Length "Length of the cable";
+  input Modelica.SIunits.Length l "Length of the cable";
   input Buildings.Electrical.Types.VoltageLevel level "Voltage level";
   input Buildings.Electrical.Transmission.LowVoltageCables.Generic cable_low
     "Type of cable (if low voltage)";
@@ -20,10 +20,13 @@ algorithm
   if level == Buildings.Electrical.Types.VoltageLevel.Low then
     C := 0.0;//(1/omega)*Length;
   elseif level == Buildings.Electrical.Types.VoltageLevel.Medium then
-    C := Length*2*Modelica.Constants.pi*Modelica.Constants.epsilon_0/log(GMD/r);
+    C := l*2*Modelica.Constants.pi*Modelica.Constants.epsilon_0/log(GMD/r);
   elseif level == Buildings.Electrical.Types.VoltageLevel.High then
-    C := Length*2*Modelica.Constants.pi*Modelica.Constants.epsilon_0/log(GMD/r);
+    C := l*2*Modelica.Constants.pi*Modelica.Constants.epsilon_0/log(GMD/r);
   else
+    // fixme: use an assertion with AssertionLevel.warning. This way, a tool can report
+    // the message to the appropriate logger.
+    // See Buildings.Electrical.Transmission.Functions.selectCable_low()
     Modelica.Utilities.Streams.print("Warning: the voltage level does not match one of the three available: Low, Medium or High " +
         String(level) + ". A Low level has been choose as default.");
   end if;
@@ -44,22 +47,22 @@ There are two different ways to compute the overall inductance of the cable
 
 <h4>Low voltage level</h4>
 <p>
-When the voltage level is low the cables do not consider the capacitive effect thus
+When the voltage level is low, the cables do not consider the capacitive effect. Hence,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-C = 0
+C = 0.
 </p>
 
 <h4>Medium and High voltage level</h4>
 <p>
-When the voltage level is medium or high the cables have geometric parameters that can 
-be used to compute the capacity
+When the voltage level is medium or high, the cables have geometric parameters that can 
+be used to compute the capacity as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-C = L<sub>CABLE</sub> 2 &pi; &epsilon;<sub>0</sub>/log(GMD/r)
+C = l<sub>CABLE</sub> 2 &pi; &epsilon;<sub>0</sub>/log(GMD/r),
 </p>
 <p>
-where <i>L<sub>CABLE</sub></i> is the length of the cable,
+where <i>l<sub>CABLE</sub></i> is the length of the cable,
 <i>&epsilon;<sub>0</sub></i> is the dielectric constant of the air, <i>GMD</i> 
 is the geometric mean distance, and <i>r = d/2</i> where <i>d</i> is the inner
 diameter of the cable.

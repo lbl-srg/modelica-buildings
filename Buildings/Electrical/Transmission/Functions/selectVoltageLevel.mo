@@ -5,6 +5,9 @@ function selectVoltageLevel
   output Buildings.Electrical.Types.VoltageLevel level "Type of voltage level";
 algorithm
   if V<=0 then
+    // fixme: use an assertion with AssertionLevel.warning. This way, a tool can report
+    // the message to the appropriate logger.
+    // See Buildings.Electrical.Transmission.Functions.selectCable_low()
     Modelica.Utilities.Streams.print("Error: the nominal voltage should be positive " +
         String(V) + " A. The voltage level cannot be choose, selected Low as default.");
     level := Buildings.Electrical.Types.VoltageLevel.Low;
@@ -24,9 +27,8 @@ Added User's guide.
 </ul>
 </html>", info="<html>
 <p>
-This function given an input voltage determines which type
-of voltage level is associated to it. There are three voltage
-levels: low, medium and high.
+This function computes the voltage level for a given voltage.
+The computation is as follows:
 </p>
 <p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">

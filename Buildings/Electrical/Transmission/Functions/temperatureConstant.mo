@@ -28,6 +28,9 @@ algorithm
   elseif material == Buildings.Electrical.Transmission.Types.Material.Cu then
     M := 234.5 + 273.15;
   else
+    // fixme: use an assertion with AssertionLevel.warning. This way, a tool can report
+    // the message to the appropriate logger.
+    // See Buildings.Electrical.Transmission.Functions.selectCable_low()
     Modelica.Utilities.Streams.print("Warning: the material is not known, missing the temperature constant " +
         String(material) + " A. The material cannot be choose, selected Copper as default.");
     M := 234.5 + 273.15;
@@ -45,16 +48,16 @@ Added User's guide.
 This function computes the temperature coefficient of a cable.
 </p>
 <p>
-This temperature coefficient of a cable <i>M</i> is used to
-compute how the resistance of a cable <i>R(T)</i> vary depending on the temperature <i>T</i>.
+The temperature coefficient of a cable <i>M</i> is used to
+compute how the resistance of a cable <i>R(T)</i> varies with the temperature <i>T</i>.
 The variation is defined as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-R(T) = R<sub>ref</sub> (M + T)/(M + T<sub>ref</sub>)
+R(T) = R<sub>ref</sub> (M + T)/(M + T<sub>ref</sub>),
 </p>
 <p>
 where the resistance <i>R<sub>ref</sub></i> is the reference value of the resistance, <i>M</i> is the
- temperature coefficient of the cable material, and <i>T<sub>ref</sub></i> is the referemnce temperature.
+ temperature coefficient of the cable material, and <i>T<sub>ref</sub></i> is the reference temperature.
 </p>
 <p>
 The temperature coefficient depends on the material of the cable.

@@ -1,6 +1,11 @@
 within Buildings.Electrical.Transmission.Grids;
 record PartialGrid "Partial model that represents a generalized grid"
   extends Modelica.Icons.MaterialProperty;
+  // fixme: The following renaming needs to be done.
+  // Nnodes -> nNodes (use camel case, and lower case as it is an instance, not a class name)
+  // Nlinks -> nLinks
+  // FromTo -> fromTo (lower case as it is an instance and not a class name)
+  // L      -> l  (see also Buildings.Electrical.DC.Lines.Line, which uses l and not L)
   parameter Integer Nnodes "Number of nodes of the grid";
   parameter Integer Nlinks "Number of links connecting the nodes";
   parameter Integer FromTo[Nlinks,2]
