@@ -3,7 +3,7 @@ function selectCable_med "This function is used to automatically select the
     type of cable for medium voltages"
   input Modelica.SIunits.Power P_nominal "Rated power";
   input Modelica.SIunits.Voltage V_nominal "Rated voltage";
-  output Buildings.Electrical.Transmission.MediumVoltageCables.Cable cable "Cable";
+  output Buildings.Electrical.Transmission.MediumVoltageCables.Generic cable "Cable";
 protected
   parameter Real safety_factor = 1.2;
   Modelica.SIunits.Current I_nominal = safety_factor*P_nominal/V_nominal

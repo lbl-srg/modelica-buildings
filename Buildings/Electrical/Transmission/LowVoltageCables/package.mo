@@ -8,8 +8,8 @@ annotation (Documentation(info="<html>
 This package contains records of physical properties for low
 voltage commercial cables. New cables can be added by extending the
 base record
-<a href=\"modelia://Buildings.Electrical.Transmission.LowVoltageCables.Cable\">
-Buildings.Electrical.Transmission.LowVoltageCables.Cable</a>.
+<a href=\"modelia://Buildings.Electrical.Transmission.LowVoltageCables.Generic\">
+Buildings.Electrical.Transmission.LowVoltageCables.Generic</a>.
 </p>
 <p>
 For low voltage cables, only the characteristic resistance and reactance are

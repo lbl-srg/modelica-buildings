@@ -2,9 +2,9 @@ within Buildings.Electrical.Transmission.Functions;
 function temperatureConstant
   "This function returns the temperature constant of the material (used to determine the temperature dependence of the resistivity)"
   input Buildings.Electrical.Types.VoltageLevel voltageLevel "Voltage level";
-  input Buildings.Electrical.Transmission.LowVoltageCables.Cable cable_low
+  input Buildings.Electrical.Transmission.LowVoltageCables.Generic cable_low
     "Type of cable (if low voltage)";
-  input Buildings.Electrical.Transmission.MediumVoltageCables.Cable cable_med
+  input Buildings.Electrical.Transmission.MediumVoltageCables.Generic cable_med
     "Type of cable (if medium voltage)";
   output Modelica.SIunits.Temperature M "Temperature constant of the material";
 protected

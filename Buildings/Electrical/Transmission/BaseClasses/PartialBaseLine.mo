@@ -27,13 +27,13 @@ partial model PartialBaseLine
     annotation(Evaluate=true, Dialog(tab="Tech. specification", group="Manual mode", enable = mode == Buildings.Electrical.Types.CableMode.commercial),
                choicesAllMatching = true);
 
-  parameter Buildings.Electrical.Transmission.LowVoltageCables.Cable commercialCable_low=
+  parameter Buildings.Electrical.Transmission.LowVoltageCables.Generic commercialCable_low=
       Functions.selectCable_low(P_nominal, V_nominal)
     "List of Low voltage commercial cables"
     annotation(Evaluate=true, Dialog(tab="Tech. specification", group="Manual mode", enable = mode == Buildings.Electrical.Types.CableMode.commercial),
                choicesAllMatching = true);
 
-  parameter Buildings.Electrical.Transmission.MediumVoltageCables.Cable commercialCable_med=
+  parameter Buildings.Electrical.Transmission.MediumVoltageCables.Generic commercialCable_med=
       Functions.selectCable_med(P_nominal, V_nominal)
     "List of Medium Voltage commercial cables"
     annotation(Evaluate=true, Dialog(tab="Tech. specification", group="Manual mode", enable = mode == Buildings.Electrical.Types.CableMode.commercial),

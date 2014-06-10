@@ -1,6 +1,6 @@
 within Buildings.Electrical.Transmission.MediumVoltageCables;
 record Annealed_Al_10 "Annealed Al cable - AWG 1/0"
-  extends Buildings.Electrical.Transmission.MediumVoltageCables.Cable(
+  extends Buildings.Electrical.Transmission.MediumVoltageCables.Generic(
     material=Types.Material.Al,
     size="1/0",
     Rdc=0.551181e-3,

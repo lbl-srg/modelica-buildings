@@ -1,6 +1,6 @@
 within Buildings.Electrical.Transmission.LowVoltageCables;
 record PvcAl50 "Aluminum cable 50 mm^2"
-  extends Buildings.Electrical.Transmission.LowVoltageCables.Cable(
+  extends Buildings.Electrical.Transmission.LowVoltageCables.Generic(
     material=Types.Material.Al,
     RCha=0.641e-003,
     XCha=0.073e-003);

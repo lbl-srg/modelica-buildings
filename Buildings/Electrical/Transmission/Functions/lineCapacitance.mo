@@ -2,9 +2,9 @@ within Buildings.Electrical.Transmission.Functions;
 function lineCapacitance "This function computes the capacitance of the cable"
   input Modelica.SIunits.Length Length "Length of the cable";
   input Buildings.Electrical.Types.VoltageLevel level "Voltage level";
-  input Buildings.Electrical.Transmission.LowVoltageCables.Cable cable_low
+  input Buildings.Electrical.Transmission.LowVoltageCables.Generic cable_low
     "Type of cable (if low voltage)";
-  input Buildings.Electrical.Transmission.MediumVoltageCables.Cable cable_med
+  input Buildings.Electrical.Transmission.MediumVoltageCables.Generic cable_med
     "Type of cable (if medium voltage)";
   output Modelica.SIunits.Capacitance C "Capacity of the cable";
 protected

@@ -8,8 +8,8 @@ annotation (Documentation(info="<html>
 This package contains records of physical properties of medium 
 voltage commercial cables. New cables can be added by extending the 
 base record 
-<a href=\"modelia://Buildings.Electrical.Transmission.MediumVoltageCables.Cable\">
-Buildings.Electrical.Transmission.MediumVoltageCables.Cable</a>.
+<a href=\"modelia://Buildings.Electrical.Transmission.MediumVoltageCables.Generic\">
+Buildings.Electrical.Transmission.MediumVoltageCables.Generic</a>.
 </p>
 </html>", revisions="<html>
 <ul>

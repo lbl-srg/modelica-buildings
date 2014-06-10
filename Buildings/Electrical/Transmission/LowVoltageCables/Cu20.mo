@@ -1,6 +1,6 @@
 within Buildings.Electrical.Transmission.LowVoltageCables;
 record Cu20 "Cu cable 20 mm^2"
-  extends Buildings.Electrical.Transmission.LowVoltageCables.Cable(
+  extends Buildings.Electrical.Transmission.LowVoltageCables.Generic(
     material=Types.Material.Cu,
     Amp=95,
     RCha=0.905e-003,
