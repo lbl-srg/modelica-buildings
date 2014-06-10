@@ -1,4 +1,4 @@
-within Buildings.Electrical.Transmission.Materials;
+within Buildings.Electrical.Transmission.Types;
 type Material = enumeration(
     Cu "Copper",
     Al "Aluminium") "Material of the cable" annotation (Documentation(revisions="<html>
@@ -10,7 +10,7 @@ Added User's guide.
 </ul>
 </html>", info="<html>
 <p>
-Record of materials that can be used 
-to produce cable (e.g., Copper, Aluminium, etc.).
+Enumeration for materials that can be used 
+for cables.
 </p>
 </html>"));

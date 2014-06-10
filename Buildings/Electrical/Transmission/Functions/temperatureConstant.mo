@@ -8,7 +8,7 @@ function temperatureConstant
     "Type of cable (if medium voltage)";
   output Modelica.SIunits.Temperature M "Temperature constant of the material";
 protected
-  Buildings.Electrical.Transmission.Materials.Material material;
+  Buildings.Electrical.Transmission.Types.Material material;
 algorithm
 
   // Select the cable depending on the voltage level of the line
@@ -19,13 +19,13 @@ algorithm
   else
     Modelica.Utilities.Streams.print("Warning: the voltage level should be Low or Medium " +
         String(voltageLevel) + " A. The material cannot be choose, selected Copper as default.");
-    material := Buildings.Electrical.Transmission.Materials.Material.Cu;
+    material := Buildings.Electrical.Transmission.Types.Material.Cu;
   end if;
 
   // Depending on the material define the constant
-  if material == Buildings.Electrical.Transmission.Materials.Material.Al then
+  if material == Buildings.Electrical.Transmission.Types.Material.Al then
     M := 228.1 + 273.15;
-  elseif material == Buildings.Electrical.Transmission.Materials.Material.Cu then
+  elseif material == Buildings.Electrical.Transmission.Types.Material.Cu then
     M := 234.5 + 273.15;
   else
     Modelica.Utilities.Streams.print("Warning: the material is not known, missing the temperature constant " +

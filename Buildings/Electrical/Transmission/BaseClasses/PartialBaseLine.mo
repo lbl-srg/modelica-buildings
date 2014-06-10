@@ -9,7 +9,7 @@ partial model PartialBaseLine
   parameter Boolean use_C = false
     "Set to true to add a capacitance in the center of the line"
     annotation(Evaluate=true, Dialog(tab="Model", group="Assumptions"));
-  parameter Buildings.Electrical.Types.Assumption modelMode=Types.Assumption.FixedZ_steady_state
+  parameter Buildings.Electrical.Types.Assumption modelMode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
     "Select between steady state and dynamic model"
     annotation(Evaluate=true, Dialog(tab="Model", group="Assumptions", enable = use_C), choices(choice=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
         "Steady state", choice=Buildings.Electrical.Types.Assumption.FixedZ_dynamic "Dynamic"));
@@ -18,7 +18,7 @@ partial model PartialBaseLine
   parameter Modelica.SIunits.Temperature TCable = T_ref
     "Fixed temperature of the cable" annotation(Evaluate=true, Dialog(tab="Model", group="Thermal", enable = not use_T));
 
-  parameter Buildings.Electrical.Types.CableMode mode=Types.CableMode.automatic
+  parameter Buildings.Electrical.Types.CableMode mode=Buildings.Electrical.Types.CableMode.automatic
     "Select if choosing the cable automatically or between a list of commercial options"
     annotation(Evaluate=true, Dialog(tab="Tech. specification", group="Auto/Manual mode"), choicesAllMatching=true);
 
@@ -39,9 +39,11 @@ partial model PartialBaseLine
     annotation(Evaluate=true, Dialog(tab="Tech. specification", group="Manual mode", enable = mode == Buildings.Electrical.Types.CableMode.commercial),
                choicesAllMatching = true);
 
-  final parameter Modelica.SIunits.Temperature T_ref = if voltageLevel==Types.VoltageLevel.Low                      then commercialCable_low.Tref else commercialCable_med.Tref
+  final parameter Modelica.SIunits.Temperature T_ref=
+    if voltageLevel==Buildings.Electrical.Types.VoltageLevel.Low
+      then commercialCable_low.Tref else commercialCable_med.Tref
     "Reference temperature of the line" annotation(Evaluate=True);
-  final parameter Modelica.SIunits.Temperature M = Functions.temperatureConstant(                                  voltageLevel, commercialCable_low, commercialCable_med)
+  final parameter Modelica.SIunits.Temperature M = Functions.temperatureConstant(voltageLevel, commercialCable_low, commercialCable_med)
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))";
   final parameter Modelica.SIunits.Resistance R=
   Functions.lineResistance(                                  l, voltageLevel, commercialCable_low, commercialCable_med)

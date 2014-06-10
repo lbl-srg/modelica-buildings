@@ -84,7 +84,7 @@ partial model PartialTimeSeriesCampus
     V_nominal=VDCDis_nominal,
     mode=Buildings.Electrical.Types.CableMode.commercial,
     commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cable(
-    material=Buildings.Electrical.Transmission.Materials.Material.Cu,
+    material=Buildings.Electrical.Transmission.Types.Material.Cu,
     RCha=0.1*0.181e-003,
     XCha=0.1*0.072e-003)) "DC line model";
 
