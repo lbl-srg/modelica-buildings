@@ -1,5 +1,8 @@
 ACACConverter
 ACACTransformer
+ACACTransformerYD
+ACACTransformerStepDownDY
+ACACTransformerStepUpDY
 ACACTransformerFull
 ACDCConverter
 BaseClasses

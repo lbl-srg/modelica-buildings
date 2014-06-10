@@ -39,6 +39,39 @@ package Examples
     "Model of a AC three phase unbalanced line with matrix representation"
     extends Modelica.Icons.Example;
 
+    Sources.FixedVoltage fixedVoltage(
+      f=50,
+      V=380,
+      Phi=0,
+      angle120(displayUnit="rad"))
+             annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    TwoPortMatrixRL line(
+      Z12={0,0},
+      Z13={0,0},
+      Z23={0,0},
+      Z11={0,0},
+      Z22={0,0},
+      Z33={0,0})
+      annotation (Placement(transformation(extent={{-34,0},{-14,20}})));
+    Loads.ResistiveLoadP load(
+      P_nominal=-5000,
+      V_nominal=380,
+      loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_delta,
+      PlugPhase1=false,
+      PlugPhase2=false,
+      PlugPhase3=true)
+      annotation (Placement(transformation(extent={{10,0},{30,20}})));
+  equation
+    connect(fixedVoltage.terminal, line.terminal_n) annotation (Line(
+        points={{-60,10},{-34,10}},
+        color={0,120,120},
+        smooth=Smooth.None));
+    connect(line.terminal_p, load.terminal_p) annotation (Line(
+        points={{-14,10},{10,10}},
+        color={0,120,120},
+        smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
+              -100,-100},{100,100}}), graphics));
   end MatrixRLCLine;
 
   model AC_InHomeGrid
