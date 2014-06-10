@@ -7,6 +7,8 @@ model TwoPortMatrixRL
   Interfaces.Terminal_p terminal_p
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
+    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Impedance Z11[2] = {1,1}
     "Element [1,1] of impedance matrix";
   parameter Modelica.SIunits.Impedance Z12[2] = {1,1}
@@ -28,6 +30,33 @@ model TwoPortMatrixRL
 protected
   function product = Buildings.Electrical.PhaseSystems.OnePhase.product
     "Product between complex quantities";
+  Modelica.SIunits.Current i1[2](
+    start = zeros(Buildings.Electrical.PhaseSystems.OnePhase.n),
+    stateSelect = StateSelect.prefer) = terminal_n.phase[1].i;
+  Modelica.SIunits.Current i2[2](
+    start = zeros(Buildings.Electrical.PhaseSystems.OnePhase.n),
+    stateSelect = StateSelect.prefer) = terminal_n.phase[2].i;
+  Modelica.SIunits.Current i3[2](
+    start = zeros(Buildings.Electrical.PhaseSystems.OnePhase.n),
+    stateSelect = StateSelect.prefer) = terminal_n.phase[3].i;
+  Modelica.SIunits.Voltage v1_n[2](
+    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3)),
+    stateSelect = StateSelect.never) = terminal_n.phase[1].v;
+  Modelica.SIunits.Voltage v2_n[2](
+    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3)),
+    stateSelect = StateSelect.never) = terminal_n.phase[2].v;
+  Modelica.SIunits.Voltage v3_n[2](
+    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3)),
+    stateSelect = StateSelect.never) = terminal_n.phase[3].v;
+  Modelica.SIunits.Voltage v1_p[2](
+    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3)),
+    stateSelect = StateSelect.never) = terminal_p.phase[1].v;
+  Modelica.SIunits.Voltage v2_p[2](
+    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3)),
+    stateSelect = StateSelect.never) = terminal_p.phase[2].v;
+  Modelica.SIunits.Voltage v3_p[2](
+    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3)),
+    stateSelect = StateSelect.never) = terminal_p.phase[3].v;
 equation
 
   // Link the connectors to propagate the overdetermined variable
@@ -40,15 +69,9 @@ equation
   end for;
 
   // Voltage drop caused by the impedance matrix
-  terminal_n.phase[1].v - terminal_p.phase[1].v = product(Z11, terminal_n.phase[1].i)
-                                                + product(Z12, terminal_n.phase[2].i)
-                                                + product(Z13, terminal_n.phase[3].i);
-  terminal_n.phase[2].v - terminal_p.phase[2].v = product(Z21, terminal_n.phase[1].i)
-                                                + product(Z22, terminal_n.phase[2].i)
-                                                + product(Z23, terminal_n.phase[3].i);
-  terminal_n.phase[3].v - terminal_p.phase[3].v = product(Z31, terminal_n.phase[1].i)
-                                                + product(Z32, terminal_n.phase[2].i)
-                                                + product(Z33, terminal_n.phase[3].i);
+  v1_n - v1_p = product(Z11, i1) + product(Z12, i2) + product(Z13, i3);
+  v2_n - v2_p = product(Z21, i1) + product(Z22, i2) + product(Z23, i3);
+  v3_n - v3_p = product(Z31, i1) + product(Z32, i2) + product(Z33, i3);
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
