@@ -9,7 +9,8 @@ record Generic "Generic data record for pumps and fans"
     "Maximum rotational speed";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters
     pressure(V_flow={0.5, 1}, dp={2,1})
-    "Volume flow rate vs. total pressure rise";
+    "Volume flow rate vs. total pressure rise"
+    annotation(Evaluate=true);
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     hydraulicEfficiency(r_V={1}, eta={0.7}) "Hydraulic efficiency";
@@ -25,9 +26,22 @@ record Generic "Generic data record for pumps and fans"
     "Use powerCharacteristic instead of efficiencyCharacteristic";
   annotation (Documentation(revisions="<html>
 <ul>
+<li>June 16, 2014 by Michael Wetter:<br/>
+Set <code>Evaluate=true</code> annotation for <code>pressure</code> to avoid
+the translation warning
+<pre>
+The parameter per.pressure.V_flow has some elements
+per.pressure.V_flow[2]
+
+which were fixed to constants,
+since they control structural properties such as sizes of arrays.
+</pre>
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/209#issuecomment-46109021\">
+https://github.com/lbl-srg/modelica-buildings/issues/209#issuecomment-46109021</a>.
+</li>
 <li>April 17, 2014
     by Filip Jorissen:<br/>
-       Initial version
+       Initial version.
 </li>
 </ul>
 </html>", info="<html>
