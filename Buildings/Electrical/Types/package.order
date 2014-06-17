@@ -5,3 +5,4 @@ VoltageLevel
 CharacteristicReactance
 CharacteristicResistance
 LoadConnection
+InitMode

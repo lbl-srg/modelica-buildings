@@ -7,12 +7,17 @@ model ResistiveLoadP "Model of a resistive load"
 equation
 
   if linear then
-    i[1] = -homotopy(actual=  v[1]*P/V_nominal^2, simplified=0);
-    i[2] = -homotopy(actual=  v[2]*P/V_nominal^2, simplified=0);
+    i[1] = -homotopy(actual=  v[1]*P/V_nominal^2, simplified=0.0);
+    i[2] = -homotopy(actual=  v[2]*P/V_nominal^2, simplified=0.0);
   else
     //PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, 0.0);
-    i[1] = -homotopy(actual= v[1]*P/(v[1]^2 + v[2]^2),  simplified= v[1]*P/V_nominal^2);
-    i[2] = -homotopy(actual= v[2]*P/(v[1]^2 + v[2]^2),  simplified= v[2]*P/V_nominal^2);
+    if initMode == Buildings.Electrical.Types.InitMode.zero_current then
+      i[1] = -homotopy(actual= v[1]*P/(v[1]^2 + v[2]^2),  simplified= 0.0);
+      i[2] = -homotopy(actual= v[2]*P/(v[1]^2 + v[2]^2),  simplified= 0.0);
+    else
+      i[1] = -homotopy(actual= v[1]*P/(v[1]^2 + v[2]^2),  simplified= v[1]*P/V_nominal^2);
+      i[2] = -homotopy(actual= v[2]*P/(v[1]^2 + v[2]^2),  simplified= v[2]*P/V_nominal^2);
+    end if;
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
@@ -48,6 +53,11 @@ Complex voltage and complex current are related as <i>v = R &nbsp; i</i>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>June 17, 2014, by Marco Bonvini:<br/>
+Adde parameter <code>initMode</code> that can be used to 
+select the assumption to be used during initialization phase
+by the homotopy operator.
+</li>
 <li>
 January 2, 2012, by Michael Wetter:<br/>
 First implementation.
