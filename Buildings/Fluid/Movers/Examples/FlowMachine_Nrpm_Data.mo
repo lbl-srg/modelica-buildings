@@ -23,6 +23,7 @@ equation
       points={{-25,100},{10,100},{10,30},{30,30},{30,12}},
       color={0,0,127},
       smooth=Smooth.None));
+  // fixme: This file references the wrong .mos script.
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{160,
             160}}), graphics),

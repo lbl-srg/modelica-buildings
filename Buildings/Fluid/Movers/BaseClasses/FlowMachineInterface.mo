@@ -163,8 +163,8 @@ initial algorithm
   assert(size(per.pressure.V_flow, 1) > 1, "Must have at least two data points for pressure.V_flow.");
   assert(Buildings.Utilities.Math.Functions.isMonotonic(x=per.pressure.V_flow, strict=true) and
   per.pressure.V_flow[1] > -Modelica.Constants.eps,
-  "The volume flow rate for the fan pressure rise must be a strictly decreasing sequence
-  with the first element being non-zero.
+  "The fan pressure rise must be a strictly decreasing sequence with respect to the volume flow rate,
+  with the first element for the fan pressure raise being non-zero.
 The following performance data have been entered:
 " + getArrayAsString(per.pressure.V_flow, "pressure.V_flow"));
 
