@@ -132,7 +132,8 @@ its class name ends with the string <code>Beta</code>.
       extends Modelica.Icons.ReleaseNotes;
         annotation (Documentation(info="<html>
 <p>
-Version 1.6 build 1 is ... xxx.
+Version 1.6 build 1 updates the <code>Buildings</code> library to the
+Modelica Standard Library 3.2.1 and to <code>Modelica_StateGraph2</code> 2.0.2.
 </p>
 <p>
 This is the first version of the <code>Buildings</code> library
@@ -141,28 +142,14 @@ that contains models from the
 IEA EBC Annex 60 library</a>,
 a Modelica library for building and community energy systems that is
 collaboratively developed within the project
-<a href=\"http://iea-annex60.org\">
-New generation computational tools for building and community energy systems 
-based on the Modelica and Functional Mockup Interface standards</a>,
+<a href=\"http://www.iea-annex60.org\">
+\"New generation computational tools for building and community energy systems 
+based on the Modelica and Functional Mockup Interface standards\"</a>,
 a project that is conducted under the 
 Energy in Buildings and Communities Programme (EBC) of the
 International Energy Agency (IEA).
 </p>
-<p>
-This version updates the <code>Buildings</code> library to the
-Modelica Standard Library 3.2.1 and to <code>Modelica_StateGraph2</code> 2.0.2.
-</p>
 <!-- New libraries -->
-<p>
-The following <b style=\"color:blue\">new libraries</b> have been added:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
-</table>
 <!-- New components for existing libraries -->
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
@@ -260,14 +247,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        and the infrared horizontal radiation <code>HInfHor</code>.
     </td>
 </tr>    
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <p>
@@ -407,14 +386,6 @@ have been fixed:
     </td>
 </tr>
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li> 
-xxx
-</li>
-</ul>
 </html>"));
     end Version_1_6_build1;
 
@@ -4168,9 +4139,9 @@ end UsersGuide;
 annotation (
 preferredView="info",
 version="1.6",
-versionBuild=0,
-versionDate="2013-10-24",
-dateModified = "2013-10-24",
+versionBuild=1,
+versionDate="2014-06-19",
+dateModified = "2014-06-19",
 uses(Modelica(version="3.2.1")),
 uses(Modelica_StateGraph2(version="2.0.2")),
 conversion(
