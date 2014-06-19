@@ -1,0 +1,421 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Actuators.Dampers.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+</head>
+<body>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Actuators.Dampers.Examples"></a><a href="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers"
+>Buildings.Fluid.Actuators.Dampers</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers"
+>
+Buildings.Fluid.Actuators.Dampers</a>.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Actuators9a2ebc3fa8e511d1amperS.png" alt="Buildings.Fluid.Actuators.Dampers.Examples.Damper" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Actuators_Dampers_Examples.html#Buildings.Fluid.Actuators.Dampers.Examples.Damper"
+>Damper</a>
+</td>
+<td>Damper with constant pressure difference and varying control signal</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Actuators9a2ebc3fa8e511d1amperS.png" alt="Buildings.Fluid.Actuators.Dampers.Examples.MixingBox" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Actuators_Dampers_Examples.html#Buildings.Fluid.Actuators.Dampers.Examples.MixingBox"
+>MixingBox</a>
+</td>
+<td>Mixing box with constant pressure difference and varying control signal</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Actuators9a2ebc3fa8e511d1amperS.png" alt="Buildings.Fluid.Actuators.Dampers.Examples.MixingBoxMinimumFlow" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Actuators_Dampers_Examples.html#Buildings.Fluid.Actuators.Dampers.Examples.MixingBoxMinimumFlow"
+>MixingBoxMinimumFlow</a>
+</td>
+<td>Mixing box with minimum flow rate, with constant pressure difference and varying control signal</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Actuators9a2ebc3fa8e511d1amperS.png" alt="Buildings.Fluid.Actuators.Dampers.Examples.VAVBoxExponential" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Actuators_Dampers_Examples.html#Buildings.Fluid.Actuators.Dampers.Examples.VAVBoxExponential"
+>VAVBoxExponential</a>
+</td>
+<td>VAV box with constant pressure difference and varying control signal</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Damper<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Actuators9a2ebc3fa8e511d1amperI.png" alt="Buildings.Fluid.Actuators.Dampers.Examples.Damper" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Actuators.Dampers.Examples.Damper"></a><a href="Buildings_Fluid_Actuators_Dampers_Examples.html#Buildings.Fluid.Actuators.Dampers.Examples"
+>Buildings.Fluid.Actuators.Dampers.Examples</a>.Damper</h2>
+<p>
+<b>Damper with constant pressure difference and varying control signal</b>
+<br>
+<br><img src="Buildings.Fluid.Actuators9a2ebc3fa8e511d1amperD.png" alt="Buildings.Fluid.Actuators.Dampers.Examples.Damper">
+</p>
+<h3>Information</h3>
+
+<p>
+Test model for the air damper.
+The air damper is connected to models for constant inlet and outlet
+pressures. The control signal of the damper is a ramp.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> Damper <span style="color: #006400">
+  &quot;Damper with constant pressure difference and varying control signal&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue">package</span> Medium = <a href="Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir"
+>Buildings.Media.IdealGases.SimpleAir</a>;
+
+  <a href="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.Exponential"
+>Buildings.Fluid.Actuators.Dampers.Exponential</a> res(
+    A=1,
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = Medium,
+    m_flow_nominal=1,
+    filteredOpening=false);
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> yRam(
+    duration=0.3,
+    offset=0,
+    startTime=0.2,
+    height=1);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(             <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium
+      = Medium,
+    nPorts=1,
+    p(displayUnit=&quot;Pa&quot;) = 101335,
+    T=293.15);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(             <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium
+      = Medium,
+    nPorts=1,
+    p(displayUnit=&quot;Pa&quot;) = 101325,
+    T=293.15);
+  <span style="color: blue">inner </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</a> system;
+<span style="color: blue">equation </span>
+  <span style="color: red">connect</span>(yRam.y, res.y);
+  <span style="color: red">connect</span>(sou.ports[1], res.port_a);
+  <span style="color: red">connect</span>(sin.ports[1], res.port_b);
+<span style="color: blue">end </span>Damper;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MixingBox<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Actuators9a2ebc3fa8e511d1amperI.png" alt="Buildings.Fluid.Actuators.Dampers.Examples.MixingBox" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Actuators.Dampers.Examples.MixingBox"></a><a href="Buildings_Fluid_Actuators_Dampers_Examples.html#Buildings.Fluid.Actuators.Dampers.Examples"
+>Buildings.Fluid.Actuators.Dampers.Examples</a>.MixingBox</h2>
+<p>
+<b>Mixing box with constant pressure difference and varying control signal</b>
+<br>
+<br><img src="Buildings.Fluid.Actuators85b4971bfa5358ffngBoxD.png" alt="Buildings.Fluid.Actuators.Dampers.Examples.MixingBox">
+</p>
+<h3>Information</h3>
+
+<p>
+Test model for the economizer mixing box.
+The economizer mixing box is exposed to time varying pressure boundary
+conditions and input signals.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> MixingBox <span style="color: #006400">
+  &quot;Mixing box with constant pressure difference and varying control signal&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+ <span style="color: blue">package</span> Medium = <a href="Buildings_Media_GasesConstantDensity_SimpleAir.html#Buildings.Media.GasesConstantDensity.SimpleAir"
+>Buildings.Media.GasesConstantDensity.SimpleAir</a> <span style="color: #006400">
+    &quot;Medium in the component&quot;</span>;
+
+  <a href="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.MixingBox"
+>Dampers.MixingBox</a> mixBox(
+    AOut=0.7,
+    AExh=1,
+    ARec=1,
+    mOut_flow_nominal=1,
+    dpOut_nominal=20,
+    mRec_flow_nominal=1,
+    dpRec_nominal=20,
+    mExh_flow_nominal=1,
+    dpExh_nominal=20,
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = Medium) <span style="color: #006400">&quot;mixing box&quot;</span>;
+    <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> bouIn(             <span style="color: blue">redeclare </span><span style="color: blue">package</span>
+      Medium = Medium, T=273.15 + 10,
+    use_p_in=true,
+    nPorts=2);
+    <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> bouSup(             <span style="color: blue">redeclare </span><span style="color: blue">package</span>
+      Medium = Medium, T=273.15 + 26,
+    use_p_in=true,
+    nPorts=1);
+    <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> bouRet(             <span style="color: blue">redeclare </span><span style="color: blue">package</span>
+      Medium = Medium, T=273.15 + 20,
+    use_p_in=true,
+    nPorts=1);
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> PAtm(k=101325);
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> PSup(
+    offset=101320,
+    height=-10,
+    startTime=0,
+    duration=20);
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> PRet(
+    height=10,
+    offset=101330,
+    duration=20,
+    startTime=20);
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+>Modelica.Blocks.Sources.Step</a> yDam(
+    height=1,
+    offset=0,
+    startTime=60);
+
+  <span style="color: blue">inner </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</a> system;
+<span style="color: blue">equation </span>
+  <span style="color: red">connect</span>(yDam.y, mixBox.y);
+  <span style="color: red">connect</span>(bouIn.p_in, PAtm.y);
+  <span style="color: red">connect</span>(PRet.y, bouRet.p_in);
+  <span style="color: red">connect</span>(bouSup.p_in, PSup.y);
+  <span style="color: red">connect</span>(bouIn.ports[1], mixBox.port_Out);
+  <span style="color: red">connect</span>(bouIn.ports[2], mixBox.port_Exh);
+  <span style="color: red">connect</span>(bouSup.ports[1], mixBox.port_Sup);
+  <span style="color: red">connect</span>(bouRet.ports[1], mixBox.port_Ret);
+<span style="color: blue">end </span>MixingBox;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MixingBoxMinimumFlow<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Actuators9a2ebc3fa8e511d1amperI.png" alt="Buildings.Fluid.Actuators.Dampers.Examples.MixingBoxMinimumFlow" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Actuators.Dampers.Examples.MixingBoxMinimumFlow"></a><a href="Buildings_Fluid_Actuators_Dampers_Examples.html#Buildings.Fluid.Actuators.Dampers.Examples"
+>Buildings.Fluid.Actuators.Dampers.Examples</a>.MixingBoxMinimumFlow</h2>
+<p>
+<b>Mixing box with minimum flow rate, with constant pressure difference and varying control signal</b>
+<br>
+<br><img src="Buildings.Fluid.Actuators064766fd8a36d968mFlowD.png" alt="Buildings.Fluid.Actuators.Dampers.Examples.MixingBoxMinimumFlow">
+</p>
+<h3>Information</h3>
+
+<p>
+Test model for the economizer mixing box that has a flow leg for the
+minimum outside air intake.
+The economizer mixing box is exposed to time varying pressure boundary
+conditions and input signals.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> MixingBoxMinimumFlow <span style="color: #006400">
+  &quot;Mixing box with minimum flow rate, with constant pressure difference and varying control signal&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+ <span style="color: blue">package</span> Medium = <a href="Buildings_Media_GasesConstantDensity_SimpleAir.html#Buildings.Media.GasesConstantDensity.SimpleAir"
+>Buildings.Media.GasesConstantDensity.SimpleAir</a> <span style="color: #006400">
+    &quot;Medium in the component&quot;</span>;
+
+  <a href="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow"
+>Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow</a> mixBox(
+    AOutMin=0.3,
+    AOut=0.7,
+    AExh=1,
+    ARec=1,
+    mOutMin_flow_nominal=0.3,
+    dpOutMin_nominal=20,
+    mOut_flow_nominal=1,
+    dpOut_nominal=20,
+    mRec_flow_nominal=1,
+    dpRec_nominal=20,
+    mExh_flow_nominal=1,
+    dpExh_nominal=20,
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = Medium) <span style="color: #006400">&quot;mixing box&quot;</span>;
+    <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> bouIn(             <span style="color: blue">redeclare </span><span style="color: blue">package</span>
+      Medium = Medium, T=273.15 + 10,
+    use_p_in=true,
+    nPorts=3);
+    <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> bouSup(             <span style="color: blue">redeclare </span><span style="color: blue">package</span>
+      Medium = Medium, T=273.15 + 26,
+    use_p_in=true,
+    nPorts=1);
+    <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> bouRet(             <span style="color: blue">redeclare </span><span style="color: blue">package</span>
+      Medium = Medium, T=273.15 + 20,
+    use_p_in=true,
+    nPorts=1);
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> PAtm(k=101325);
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> yDamMin(k=0.5);
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> PSup(
+    offset=101320,
+    height=-10,
+    startTime=0,
+    duration=20);
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> PRet(
+    height=10,
+    offset=101330,
+    duration=20,
+    startTime=20);
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+>Modelica.Blocks.Sources.Step</a> yDam(
+    height=0.1,
+    offset=0.45,
+    startTime=60);
+
+  <span style="color: blue">inner </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</a> system;
+<span style="color: blue">equation </span>
+  <span style="color: red">connect</span>(yDamMin.y, mixBox.yOutMin);
+  <span style="color: red">connect</span>(yDam.y, mixBox.y);
+  <span style="color: red">connect</span>(bouIn.p_in, PAtm.y);
+  <span style="color: red">connect</span>(PRet.y, bouRet.p_in);
+  <span style="color: red">connect</span>(bouSup.p_in, PSup.y);
+  <span style="color: red">connect</span>(bouIn.ports[1], mixBox.port_OutMin);
+  <span style="color: red">connect</span>(bouIn.ports[2], mixBox.port_Out);
+  <span style="color: red">connect</span>(bouIn.ports[3], mixBox.port_Exh);
+  <span style="color: red">connect</span>(bouSup.ports[1], mixBox.port_Sup);
+  <span style="color: red">connect</span>(bouRet.ports[1], mixBox.port_Ret);
+<span style="color: blue">end </span>MixingBoxMinimumFlow;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VAVBoxExponential<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Actuators9a2ebc3fa8e511d1amperI.png" alt="Buildings.Fluid.Actuators.Dampers.Examples.VAVBoxExponential" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Actuators.Dampers.Examples.VAVBoxExponential"></a><a href="Buildings_Fluid_Actuators_Dampers_Examples.html#Buildings.Fluid.Actuators.Dampers.Examples"
+>Buildings.Fluid.Actuators.Dampers.Examples</a>.VAVBoxExponential</h2>
+<p>
+<b>VAV box with constant pressure difference and varying control signal</b>
+<br>
+<br><img src="Buildings.Fluid.Actuators84a3ae8b00077703ntialD.png" alt="Buildings.Fluid.Actuators.Dampers.Examples.VAVBoxExponential">
+</p>
+<h3>Information</h3>
+
+<p>
+Test model for the variable air volume flow box.
+The model has two flow legs, both are connected to models for constant inlet and outlet
+pressures.
+The top flow leg has a flow resistance and an air damper, and
+the bottom flow leg combines both of these resistances into one model.
+Both flow legs have identical mass flow rates, except at very small 
+flow rates. The reason for this difference is that the equations 
+are regularized for numerical reasons, and combining the two components
+within one component leads to a slightly different equation for the
+regularization.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> VAVBoxExponential <span style="color: #006400">
+  &quot;VAV box with constant pressure difference and varying control signal&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+ <span style="color: blue">package</span> Medium = <a href="Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir"
+>Buildings.Media.IdealGases.SimpleAir</a>;
+
+  <a href="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.Exponential"
+>Buildings.Fluid.Actuators.Dampers.Exponential</a> dam(
+         <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = Medium, A=1.8,
+    m_flow_nominal=2);
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+>Modelica.Blocks.Sources.Step</a> yDam(
+    height=-1,
+    offset=1,
+    startTime=60);
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> P(
+    height=-10,
+    offset=101330,
+    startTime=0,
+    duration=60);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(             <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium
+      =        Medium, T=273.15 + 20,
+    nPorts=2,
+    use_p_in=true);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(             <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium
+      =        Medium, T=273.15 + 20,
+    nPorts=2,
+    use_p_in=true);
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> PAtm(k=101325);
+  <a href="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.VAVBoxExponential"
+>Buildings.Fluid.Actuators.Dampers.VAVBoxExponential</a> vav(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = Medium,
+    dp_nominal=5,
+    A=1.8,
+    m_flow_nominal=2);
+    <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> res(
+    from_dp=true,
+    m_flow_nominal=2,
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = Medium,
+    dp_nominal=5 - 0.45*2^2/1.2/1.8^2/2);
+  <span style="color: blue">inner </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</a> system;
+<span style="color: blue">equation </span>
+  <span style="color: red">connect</span>(yDam.y,dam. y);
+  <span style="color: red">connect</span>(P.y, sou.p_in);
+  <span style="color: red">connect</span>(PAtm.y, sin.p_in);
+  <span style="color: red">connect</span>(yDam.y, vav.y);
+  <span style="color: red">connect</span>(res.port_b, dam.port_a);
+  <span style="color: red">connect</span>(sou.ports[1], res.port_a);
+  <span style="color: red">connect</span>(sou.ports[2], vav.port_a);
+  <span style="color: red">connect</span>(dam.port_b, sin.ports[1]);
+  <span style="color: red">connect</span>(sin.ports[2], vav.port_b);
+<span style="color: blue">end </span>VAVBoxExponential;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 10:54:46 2014.
+</address>
+</body>
+</html>

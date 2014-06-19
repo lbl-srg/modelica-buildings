@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Obsolete.Fluid.Movers.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with obsolete models for examples of flow machines&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+</head>
+<body>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Obsolete.Fluid.Movers.Examples"></a><a href="Buildings_Obsolete_Fluid_Movers.html#Buildings.Obsolete.Fluid.Movers"
+>Buildings.Obsolete.Fluid.Movers</a>.Examples</h2>
+<p>
+<b>Package with obsolete models for examples of flow machines</b><br>
+</p>
+<h3>Information</h3>
+
+This package contains obsolete models that are planned to be removed.
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Fluid.c02bbb42a8ebc5c5chineS.png" alt="Buildings.Obsolete.Fluid.Movers.Examples.FlowMachine" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Fluid_Movers_Examples.html#Buildings.Obsolete.Fluid.Movers.Examples.FlowMachine"
+>FlowMachine</a>
+</td>
+<td>Fan with polynomial performance curve</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlowMachine<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Fluid.c02bbb42a8ebc5c5chineI.png" alt="Buildings.Obsolete.Fluid.Movers.Examples.FlowMachine" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Fluid.Movers.Examples.FlowMachine"></a><a href="Buildings_Obsolete_Fluid_Movers_Examples.html#Buildings.Obsolete.Fluid.Movers.Examples"
+>Buildings.Obsolete.Fluid.Movers.Examples</a>.FlowMachine</h2>
+<p>
+<b>Fan with polynomial performance curve</b>
+<br>
+<br><img src="Buildings.Obsolete.Fluid.c02bbb42a8ebc5c5chineD.png" alt="Buildings.Obsolete.Fluid.Movers.Examples.FlowMachine">
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> FlowMachine <span style="color: #006400">&quot;Fan with polynomial performance curve&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+   <span style="color: blue">package</span> Medium = <a href="Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir"
+>Buildings.Media.IdealGases.SimpleAir</a>;
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> P(
+    height=-1500,
+    offset=101325,
+    duration=1.5);
+  <a href="Buildings_Obsolete_Fluid_Movers.html#Buildings.Obsolete.Fluid.Movers.FlowMachinePolynomial"
+>Buildings.Obsolete.Fluid.Movers.FlowMachinePolynomial</a> fan(
+    D=0.6858,
+    a={4.2904,-1.387,4.2293,-3.92920,0.8534},
+    b={0.1162,1.5404,-1.4825,0.7664,-0.1971},
+    mNorMin_flow=1,
+    mNorMax_flow=2,
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = Medium,
+    m_flow_nominal=10);
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> N(k=22.3333);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(             <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium
+      = Medium,
+    use_p_in=true,
+    T=293.15,
+    nPorts=1);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(             <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium
+      = Medium,
+    use_p_in=true,
+    T=293.15,
+    nPorts=1);
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> PAtm(k=101325);
+  <a href="Buildings_Utilities_Reports.html#Buildings.Utilities.Reports.Printer"
+>Buildings.Utilities.Reports.Printer</a> printer(
+    nin=6,
+    header=&quot;time dp dpNorm mNorm m_flow power&quot;,
+    samplePeriod=0.1);
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> fan_mFlow(y=fan.m_flow);
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> simTim2(y=time);
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> fan_dp(y=fan.dp);
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> fan_dpNor(y=fan.pNor);
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> fan_mNor(y=fan.mNor_flow);
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> fan_PSha(y=fan.PSha);
+  <span style="color: blue">inner </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</a> system;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a>
+                                      TIn(<span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = Medium,
+      m_flow_nominal=10);
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a>
+                                      TOut(<span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = Medium,
+      m_flow_nominal=10);
+<span style="color: blue">equation </span>
+
+  <span style="color: red">connect</span>(simTim2.y, printer.x[1]);
+  <span style="color: red">connect</span>(fan_dp.y, printer.x[2]);
+  <span style="color: red">connect</span>(fan_dpNor.y, printer.x[3]);
+  <span style="color: red">connect</span>(fan_mNor.y, printer.x[4]);
+  <span style="color: red">connect</span>(fan_PSha.y, printer.x[6]);
+  <span style="color: red">connect</span>(fan_mFlow.y, printer.x[5]);
+  <span style="color: red">connect</span>(N.y, fan.N_in);
+  <span style="color: red">connect</span>(P.y, sou.p_in);
+  <span style="color: red">connect</span>(PAtm.y, sin.p_in);
+  <span style="color: red">connect</span>(sou.ports[1], TIn.port_a);
+  <span style="color: red">connect</span>(TIn.port_b, fan.port_a);
+  <span style="color: red">connect</span>(fan.port_b, TOut.port_a);
+  <span style="color: red">connect</span>(TOut.port_b, sin.ports[1]);
+<span style="color: blue">end </span>FlowMachine;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 11:07:17 2014.
+</address>
+</body>
+</html>

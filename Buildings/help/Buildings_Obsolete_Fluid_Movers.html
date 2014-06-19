@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Obsolete.Fluid.Movers</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with obsolete models for flow machines&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+</head>
+<body>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Movers<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Obsolete.Fluid.Movers"></a><a href="Buildings_Obsolete_Fluid.html#Buildings.Obsolete.Fluid"
+>Buildings.Obsolete.Fluid</a>.Movers</h2>
+<p>
+<b>Package with obsolete models for flow machines</b><br>
+</p>
+<h3>Information</h3>
+
+This package contains obsolete models that are planned to be removed.
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Fluid.49c34cc3585436dfomialS.png" alt="Buildings.Obsolete.Fluid.Movers.FlowMachinePolynomial" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Fluid_Movers.html#Buildings.Obsolete.Fluid.Movers.FlowMachinePolynomial"
+>FlowMachinePolynomial</a>
+</td>
+<td>Fan or pump with head and efficiency declared by a non-dimensional polynomial</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Fluid.Movers.ExamplesS.png" alt="Buildings.Obsolete.Fluid.Movers.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Fluid_Movers_Examples.html#Buildings.Obsolete.Fluid.Movers.Examples"
+>Examples</a>
+</td>
+<td>Package with obsolete models for examples of flow machines</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlowMachinePolynomial<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Fluid.49c34cc3585436dfomialI.png" alt="Buildings.Obsolete.Fluid.Movers.FlowMachinePolynomial" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Fluid.Movers.FlowMachinePolynomial"></a><a href="Buildings_Obsolete_Fluid_Movers.html#Buildings.Obsolete.Fluid.Movers"
+>Buildings.Obsolete.Fluid.Movers</a>.FlowMachinePolynomial</h2>
+<p>
+<b>Fan or pump with head and efficiency declared by a non-dimensional polynomial</b>
+<br>
+<br><img src="Buildings.Obsolete.Fluid.49c34cc3585436dfomialD.png" alt="Buildings.Obsolete.Fluid.Movers.FlowMachinePolynomial">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a model of a flow machine (pump or fan).
+</p>
+<p>
+The normalized pressure difference is computed using a function of the normalized mass flow rate. The function is a polynomial for which a user needs to supply the coefficients and two values that determine for what flow rate the polynomial is linearly extended.
+</p>
+<p>
+<b>Note:</b> This model is here for compatibility with older versions of this library.
+For new models, use instead <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y"
+>
+Buildings.Fluid.Movers.FlowMachine_y</a>.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+>Buildings.Fluid.Interfaces.PartialTwoPortInterface</a> (Partial model transporting fluid between two ports without storing mass or energy), <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.ObsoleteModel"
+>Modelica.Icons.ObsoleteModel</a> (Icon for classes that are obsolete and will be removed in later versions).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>D</td><td>&nbsp;</td><td>Diameter [m]</td></tr>
+<tr><td>Real</td><td>a[:]</td><td>&nbsp;</td><td>Polynomial coefficients for pressure=p(mNor_flow)</td></tr>
+<tr><td>Real</td><td>b[:]</td><td>&nbsp;</td><td>Polynomial coefficients for etaSha=p(mNor_flow)</td></tr>
+<tr><td>Real</td><td>mNorMin_flow</td><td>&nbsp;</td><td>Lowest valid normalized mass flow rate</td></tr>
+<tr><td>Real</td><td>mNorMax_flow</td><td>&nbsp;</td><td>Highest valid normalized mass flow rate</td></tr>
+<tr><td>Real</td><td>scaM_flow</td><td>1</td><td>Factor used to scale the mass flow rate of the fan (used for quickly adjusting fan size)</td></tr>
+<tr><td>Real</td><td>scaDp</td><td>1</td><td>Factor used to scale the pressure increase of the fan (used for quickly adjusting fan size)</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>system.allowFlowReversal</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>N_in</td><td>Prescribed rotational speed</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> FlowMachinePolynomial <span style="color: #006400">
+  &quot;Fan or pump with head and efficiency declared by a non-dimensional polynomial&quot;</span>
+  <span style="color: blue">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+>Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>;
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.ObsoleteModel"
+>Modelica.Icons.ObsoleteModel</a>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> N_in <span style="color: #006400">&quot;Prescribed rotational speed&quot;</span>;
+
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> D <span style="color: #006400">&quot;Diameter&quot;</span>;
+  <span style="color: blue">parameter </span>Real[:] a <span style="color: #006400">&quot;Polynomial coefficients for pressure=p(mNor_flow)&quot;</span>;
+  <span style="color: blue">parameter </span>Real[:] b <span style="color: #006400">&quot;Polynomial coefficients for etaSha=p(mNor_flow)&quot;</span>;
+  <span style="color: blue">parameter </span>Real mNorMin_flow <span style="color: #006400">&quot;Lowest valid normalized mass flow rate&quot;</span>;
+  <span style="color: blue">parameter </span>Real mNorMax_flow <span style="color: #006400">&quot;Highest valid normalized mass flow rate&quot;</span>;
+  <span style="color: blue">parameter </span>Real scaM_flow = 1 <span style="color: #006400">
+    &quot;Factor used to scale the mass flow rate of the fan (used for quickly adjusting fan size)&quot;</span>;
+  <span style="color: blue">parameter </span>Real scaDp = 1 <span style="color: #006400">
+    &quot;Factor used to scale the pressure increase of the fan (used for quickly adjusting fan size)&quot;</span>;
+
+  Real pNor(min=0) <span style="color: #006400">&quot;Normalized pressure&quot;</span>;
+  Real mNor_flow(start=mNorMax_flow) <span style="color: #006400">&quot;Normalized mass flow rate&quot;</span>;
+  Real etaSha(min=0, max=1) <span style="color: #006400">&quot;Efficiency, flow work divided by shaft power&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> PSha <span style="color: #006400">&quot;Power input at shaft&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Density"
+>Medium.Density</a> rho <span style="color: #006400">&quot;Medium density&quot;</span>;
+<span style="color: blue">protected </span>
+  <span style="color: blue">parameter </span>Real pNorMin1(fixed=false) <span style="color: #006400">
+    &quot;Normalized pressure, used to test slope of polynomial outside [xMin, xMax]&quot;</span>;
+  <span style="color: blue">parameter </span>Real pNorMin2(fixed=false) <span style="color: #006400">
+    &quot;Normalized pressure, used to test slope of polynomial outside [xMin, xMax]&quot;</span>;
+  <span style="color: blue">parameter </span>Real pNorMax1(fixed=false) <span style="color: #006400">
+    &quot;Normalized pressure, used to test slope of polynomial outside [xMin, xMax]&quot;</span>;
+  <span style="color: blue">parameter </span>Real pNorMax2(fixed=false) <span style="color: #006400">
+    &quot;Normalized pressure, used to test slope of polynomial outside [xMin, xMax]&quot;</span>;
+
+<span style="color: blue">initial </span><span style="color: blue">equation </span>
+ <span style="color: red">Modelica.Utilities.Streams.print</span>(&quot;The model Buildings.Fluid.Movers.FlowMachinePolynomial is deprecated.
+ It will be removed in future releases.
+ You should use Buildings.Fluid.Movers.FlowMachine_y 
+ instead of Buildings.Fluid.Movers.FlowMachinePolynomial.&quot;);
+ <span style="color: #006400">// check slope of polynomial outside the domain [mNorMin_flow, mNorMax_flow]</span>
+ pNorMin1 =<span style="color: red"> Buildings.Fluid.Utilities.extendedPolynomial</span>(
+                                        c=a, x=mNorMin_flow/2, xMin=mNorMin_flow, xMax=mNorMax_flow);
+ pNorMin2 =<span style="color: red"> Buildings.Fluid.Utilities.extendedPolynomial</span>(
+                                        c=a, x=mNorMin_flow, xMin=mNorMin_flow, xMax=mNorMax_flow);
+ pNorMax1 =<span style="color: red"> Buildings.Fluid.Utilities.extendedPolynomial</span>(
+                                        c=a, x=mNorMax_flow, xMin=mNorMin_flow, xMax=mNorMax_flow);
+ pNorMax2 =<span style="color: red"> Buildings.Fluid.Utilities.extendedPolynomial</span>(
+                                        c=a, x=mNorMax_flow*2, xMin=mNorMin_flow, xMax=mNorMax_flow);
+ <span style="color: red">assert</span>(pNorMin1&gt;pNorMin2,
+    &quot;Slope of pump pressure polynomial is non-negative for mNor_flow &lt; mNorMin_flow. Check parameter a.&quot;);
+ <span style="color: red">assert</span>(pNorMax1&gt;pNorMax2,
+    &quot;Slope of pump pressure polynomial is non-negative for mNorMax_flow &lt; mNor_flow. Check parameter a.&quot;);
+
+<span style="color: blue">equation </span>
+  <span style="color: #006400">// For computing the density, we assume that the fan operates in the design flow direction.</span>
+  rho =<span style="color: red"> Medium.density</span>(
+     <span style="color: red">Medium.setState_phX</span>(port_a.p,<span style="color: red"> inStream</span>(port_a.h_outflow),<span style="color: red"> inStream</span>(port_a.Xi_outflow)));
+
+  -dp = scaDp     * pNor      * rho * D*D   * N_in * N_in;
+  m_flow = scaM_flow * mNor_flow * rho * D*D*D * N_in;
+  pNor =<span style="color: red"> Buildings.Fluid.Utilities.extendedPolynomial</span>(
+                                        c=a, x=mNor_flow, xMin=mNorMin_flow, xMax=mNorMax_flow);
+  etaSha =<span style="color: red"> max</span>(0.1,<span style="color: red"> Buildings.Fluid.Utilities.polynomial</span>(
+                                                      c=b, x=mNor_flow));
+  etaSha * PSha = -dp * m_flow / rho;<span style="color: #006400"> // dp&lt;0 and m_flow&gt;0 for normal operation</span>
+
+  <span style="color: #006400">// Energy balance (no storage, no heat loss/gain)</span>
+  PSha = -m_flow*(port_a.h_outflow-<span style="color: red">inStream</span>(port_b.h_outflow));
+  PSha = m_flow*(port_b.h_outflow-<span style="color: red">inStream</span>(port_a.h_outflow));
+
+  <span style="color: #006400">// Mass balance (no storage)</span>
+  port_a.m_flow + port_b.m_flow = 0;
+
+  <span style="color: #006400">// Transport of substances</span>
+  port_a.Xi_outflow =<span style="color: red"> inStream</span>(port_b.Xi_outflow);
+  port_b.Xi_outflow =<span style="color: red"> inStream</span>(port_a.Xi_outflow);
+
+  port_a.C_outflow =<span style="color: red"> inStream</span>(port_b.C_outflow);
+  port_b.C_outflow =<span style="color: red"> inStream</span>(port_a.C_outflow);
+
+<span style="color: blue">end </span>FlowMachinePolynomial;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 11:07:16 2014.
+</address>
+</body>
+</html>
