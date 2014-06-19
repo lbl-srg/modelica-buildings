@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -13,7 +15,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -178,12 +180,12 @@ To avoid a nonlinear equation, use any of the measures below.</p>
 </div>
 <p>Suppose the parameters are</p>
 <div class="highlight-modelica"><div class="highlight"><pre><span class="nc">Buildings.Fluid.FixedResistances.FixedResistanceDpM</span> <span class="n">res</span><span class="p">(</span>
-  <span class="k">redeclare</span> <span class="k">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
+  <span class="k">redeclare</span> <span class="nc">package</span> <span class="n">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
   <span class="n">m_flow_nominal</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
   <span class="n">dp_nominal</span><span class="o">=</span><span class="mi">10000</span><span class="p">);</span>
 
 <span class="nc">Buildings.Fluid.Actuators.Valves.TwoWayLinear</span> <span class="n">val</span><span class="p">(</span>
-  <span class="k">redeclare</span> <span class="k">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
+  <span class="k">redeclare</span> <span class="nc">package</span> <span class="n">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
   <span class="n">m_flow_nominal</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
   <span class="n">dpValve_nominal</span><span class="o">=</span><span class="mi">5000</span><span class="p">);</span>
 </pre></div>
@@ -195,7 +197,7 @@ To avoid a nonlinear equation, use any of the measures below.</p>
 </div>
 <p>If the valve is configured as</p>
 <div class="highlight-modelica"><div class="highlight"><pre><span class="nc">Buildings.Fluid.Actuators.Valves.TwoWayLinear</span> <span class="n">val</span><span class="p">(</span>
-  <span class="k">redeclare</span> <span class="k">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
+  <span class="k">redeclare</span> <span class="nc">package</span> <span class="n">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
   <span class="n">m_flow_nominal</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
   <span class="n">dpValve_nominal</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
   <span class="n">dpFixed_nominal</span><span class="o">=</span><span class="mi">10000</span><span class="p">);</span>
@@ -219,13 +221,12 @@ Thus, the composite model has the same <a class="reference internal" href="gloss
 <div class="section" id="avoiding-overspecified-initialization-problems">
 <h2>3.5. Avoiding overspecified initialization problems<a class="headerlink" href="#avoiding-overspecified-initialization-problems" title="Permalink to this headline">¶</a></h2>
 <p>If in thermofluid flow systems, Dymola fails to translate a model with the error message:</p>
-<div class="highlight-python"><div class="highlight"><pre>Error: The initialization problem is overspecified for variables
+<div class="highlight-python"><pre>Error: The initialization problem is overspecified for variables
 of element type Real
 The initial equation
 ...
 refers to variables, which are all knowns.
-To correct it you can remove this equation.
-</pre></div>
+To correct it you can remove this equation.</pre>
 </div>
 <p>then the initialization problem is overspecified. To avoid this, set</p>
 <div class="highlight-modelica"><div class="highlight"><pre><span class="n">energyDynamics</span> <span class="o">=</span> <span class="nc">Modelica.Fluid.Types.Dynamics.DynamicsFreeInitial</span><span class="p">;</span>
@@ -265,7 +266,7 @@ See also the section <a class="reference internal" href="bestPractice.html#refer
     </div>
     <div class="footer">
         &copy; Copyright 2012-2013, The Regents of the University of California (through Lawrence Berkeley National Laboratory).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

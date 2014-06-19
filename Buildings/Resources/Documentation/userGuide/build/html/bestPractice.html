@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -13,7 +15,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -145,19 +147,19 @@ Rather than setting these parameters individually to a numeric value, it is reco
 </div>
 <p>This allows to change the value of <tt class="docutils literal"><span class="pre">m_flow_nominal</span></tt> at one location, and then have the value be propagated to all models that reference it. The effort for the additional declaration typically pays off as changes to the model are easier and more robust.</p>
 <p>Propagating parameters and packages is particularly important for medium definitions. This allows the user to change the medium declaration at one location and then have it propagated to all models that reference it. This can be done by using the declaration</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="k">replaceable</span> <span class="k">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="nc">Modelica.Media.Interfaces.PartialMedium</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="k">replaceable</span> <span class="nc">package</span> <span class="n">Medium</span> <span class="o">=</span> <span class="nc">Modelica.Media.Interfaces.PartialMedium</span>
   <span class="s">&quot;Medium model for air&quot;</span> <span class="k">annotation</span> <span class="p">(</span><span class="n">choicesAllMatching</span><span class="o">=</span><span class="k">true</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Here, the optional annotation <tt class="docutils literal"><span class="pre">annotation</span> <span class="pre">(choicesAllMatching=true)</span></tt> is added which causes a GUI to show a drop-down menu with all medium models that extend from <tt class="docutils literal"><span class="pre">Modelica.Media.Interfaces.PartialMedium</span></tt>.</p>
 <p>If the above sensor requires a medium model, which is likely the case, its declaration would be</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="n">TemperatureSensor</span> <span class="n">sen</span><span class="p">(</span><span class="k">redeclare</span> <span class="k">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="n">TemperatureSensor</span> <span class="n">sen</span><span class="p">(</span><span class="k">redeclare</span> <span class="nc">package</span> <span class="n">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
                       <span class="n">m_flow_nominal</span><span class="o">=</span><span class="n">m_flow_nominal</span><span class="p">)</span> <span class="s">&quot;Sensor&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>At the top-level of a system-model, one would set the <tt class="docutils literal"><span class="pre">Medium</span></tt> package to an actual media, such as by using</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="k">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="nc">Buildings.Media.PerfectGases.MoistAir</span> <span class="s">&quot;Medium model&quot;</span><span class="p">;</span>
-<span class="n">TemperatureSensor</span> <span class="n">sen</span><span class="p">(</span><span class="k">redeclare</span> <span class="k">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="nc">package</span> <span class="n">Medium</span> <span class="o">=</span> <span class="nc">Buildings.Media.PerfectGases.MoistAir</span> <span class="s">&quot;Medium model&quot;</span><span class="p">;</span>
+<span class="n">TemperatureSensor</span> <span class="n">sen</span><span class="p">(</span><span class="k">redeclare</span> <span class="nc">package</span> <span class="n">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
                       <span class="n">m_flow_nominal</span><span class="o">=</span><span class="n">m_flow_nominal</span><span class="p">)</span> <span class="s">&quot;Sensor&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -679,7 +681,7 @@ whenever it crosses at set point temperature, and if
 then the heater can switch on and off rapidly due to the numerical noise.
 This can cause the time integration to stall.</p>
 <p>To illustrate this problem, try to simulate</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="k">model</span> <span class="nc">Unstable</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="nc">model</span> <span class="n">Unstable</span>
   <span class="nb">Real</span> <span class="n">x</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mf">0.1</span><span class="p">);</span>
 <span class="k">equation</span>
   <span class="nb">der</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span><span class="p">;</span>
@@ -737,7 +739,7 @@ and uncontrolled, then the global integration error will grow rapidly.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2012-2013, The Regents of the University of California (through Lawrence Berkeley National Laboratory).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
