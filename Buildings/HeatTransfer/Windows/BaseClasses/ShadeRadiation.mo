@@ -24,7 +24,7 @@ model ShadeRadiation
 
   parameter Modelica.SIunits.Temperature T0=293.15
     "Temperature used to linearize radiative heat transfer"
-    annotation (Dialog(enable=linearize), Evaluate=true);
+    annotation (Dialog(enable=linearize));
 
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
@@ -80,8 +80,7 @@ protected
       start=293.15) "Internal connector for shade temperature";
 
  final parameter Real T03(min=0, final unit="K3")=T0^3
-    "3rd power of temperature T0"
- annotation(Evaluate=true);
+    "3rd power of temperature T0";
  Real T4(min=1E8, start=293.15^4, nominal=1E10, final unit="K4")
     "4th power of temperature";
  Modelica.SIunits.RadiantPower E_air "Emissive power of surface that faces air";
@@ -222,6 +221,10 @@ that is absorbed by the shade.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 June 11, 2013, by Michael Wetter:<br/>
 Redesigned model to separate convection from radiation, which is

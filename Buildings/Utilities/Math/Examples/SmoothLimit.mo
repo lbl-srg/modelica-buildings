@@ -22,7 +22,9 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the implementation of smooth limit function.
+This model tests the implementation of 
+<a href=\"modelica://Buildings.Utilities.Math.SmoothLimit\">
+Buildings.Utilities.Math.SmoothLimit</a>.
 </p>
 </html>", revisions="<html>
 <ul>

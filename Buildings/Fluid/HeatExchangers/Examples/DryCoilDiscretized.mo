@@ -31,7 +31,10 @@ model DryCoilDiscretized
         T_b2_nominal),
     dp2_nominal=200,
     dp1_nominal=5000,
-    show_T=true)               annotation (Placement(transformation(extent={{8,-4},{
+    show_T=true,
+    energyDynamics1=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    energyDynamics2=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+                               annotation (Placement(transformation(extent={{8,-4},{
             28,16}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
       package Medium = Medium2, T=303.15,

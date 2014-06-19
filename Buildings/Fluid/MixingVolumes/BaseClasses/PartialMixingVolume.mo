@@ -12,8 +12,6 @@ partial model PartialMixingVolume
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean allowFlowReversal = system.allowFlowReversal
     "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -28,7 +26,7 @@ partial model PartialMixingVolume
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port connected to outflowing medium"
+    "Heat port for sensible heat input"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.SIunits.Temperature T "Temperature of the fluid";
   Modelica.SIunits.Pressure p "Pressure of the fluid";
@@ -43,8 +41,7 @@ protected
     redeclare final package Medium=Medium,
     final m_flow_nominal = m_flow_nominal,
     final allowFlowReversal = allowFlowReversal,
-    final m_flow_small = m_flow_small,
-    final homotopyInitialization = homotopyInitialization) if
+    final m_flow_small = m_flow_small) if
         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
         annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Fluid.Interfaces.ConservationEquation dynBal(
@@ -66,12 +63,10 @@ protected
 
   // Density at medium default values, used to compute the size of control volumes
   parameter Modelica.SIunits.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute fluid mass"
-  annotation (Evaluate=true);
+    state=state_default) "Density, used to compute fluid mass";
   // Density at start values, used to compute initial values and start guesses
   parameter Modelica.SIunits.Density rho_start=Medium.density(
-   state=state_start) "Density, used to compute start and guess values"
-  annotation (Evaluate=true);
+   state=state_start) "Density, used to compute start and guess values";
 
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
@@ -89,8 +84,6 @@ protected
       traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Flag, true if the model has two ports only and uses a steady state balance"
     annotation (Evaluate=true);
-  Modelica.SIunits.HeatFlowRate Q_flow
-    "Heat flow across boundaries or energy source/sink";
   // Outputs that are needed to assign the medium properties
   Modelica.Blocks.Interfaces.RealOutput hOut_internal(unit="J/kg")
     "Internal connector for leaving temperature of the component";
@@ -99,6 +92,9 @@ protected
   Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
 
+  Modelica.Blocks.Sources.RealExpression QSen_flow(y=heatPort.Q_flow)
+    "Block to set sensible heat input into volume"
+    annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
 equation
   ///////////////////////////////////////////////////////////////////////////
   // asserts
@@ -109,7 +105,8 @@ equation
   ports[1].m_flow = " + String(ports[1].m_flow) + "
 ");
   end if;
-  // actual definition of port variables
+  // Actual definition of port variables.
+  //
   // If the model computes the energy and mass balances as steady-state,
   // and if it has only two ports,
   // then we use the same base class as for all other steady state models.
@@ -144,7 +141,6 @@ equation
   C = COut_internal;
   // Port properties
   heatPort.T = T;
-  heatPort.Q_flow = Q_flow;
 
   annotation (
 defaultComponentName="vol",
@@ -170,6 +166,17 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+February 11, 2014 by Michael Wetter:<br/>
+Removed <code>Q_flow</code> and added <code>QSen_flow</code>.
+This was done to clarify what is sensible and total heat flow rate
+as part of the correction of issue 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/197\">#197</a>.
+</li>
 <li>
 October 8, 2013 by Michael Wetter:<br/>
 Removed propagation of <code>show_V_flow</code>

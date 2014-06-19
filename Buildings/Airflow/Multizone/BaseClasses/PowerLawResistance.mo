@@ -17,6 +17,9 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
   parameter Modelica.SIunits.Length lWet=sqrt(A)
     "Wetted perimeter used for Reynolds number calculation";
 
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Modelica.SIunits.VolumeFlowRate V_flow
     "Volume flow rate through the component";
   Modelica.SIunits.Velocity v(nominal=1) "Average velocity";

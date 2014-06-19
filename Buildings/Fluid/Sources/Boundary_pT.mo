@@ -16,21 +16,17 @@ model Boundary_pT
     annotation(Evaluate=true, HideResult=true);
   parameter Medium.AbsolutePressure p = Medium.p_default
     "Fixed value of pressure"
-    annotation (Evaluate = true,
-                Dialog(enable = not use_p_in));
+    annotation (Dialog(enable = not use_p_in));
   parameter Medium.Temperature T = Medium.T_default
     "Fixed value of temperature"
-    annotation (Evaluate = true,
-                Dialog(enable = not use_T_in));
+    annotation (Dialog(enable = not use_T_in));
   parameter Medium.MassFraction X[Medium.nX] = Medium.X_default
     "Fixed value of composition"
-    annotation (Evaluate = true,
-                Dialog(enable = (not use_X_in) and Medium.nXi > 0));
+    annotation (Dialog(enable = (not use_X_in) and Medium.nXi > 0));
   parameter Medium.ExtraProperty C[Medium.nC](
        quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Fixed values of trace substances"
-    annotation (Evaluate=true,
-                Dialog(enable = (not use_C_in) and Medium.nC > 0));
+    annotation (Dialog(enable = (not use_C_in) and Medium.nC > 0));
   Modelica.Blocks.Interfaces.RealInput p_in if              use_p_in
     "Prescribed boundary pressure"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}},
@@ -161,6 +157,10 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation.

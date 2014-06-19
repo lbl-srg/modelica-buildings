@@ -5,25 +5,22 @@ model MixingVolume
 protected
   Modelica.Blocks.Sources.Constant masExc(k=0)
     "Block to set mass exchange in volume"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Sources.RealExpression heaInp(y=heatPort.Q_flow)
-    "Block to set heat input into volume"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
-  connect(heaInp.y, steBal.Q_flow) annotation (Line(
-      points={{-59,90},{-30,90},{-30,18},{-22,18}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(heaInp.y, dynBal.Q_flow) annotation (Line(
-      points={{-59,90},{28,90},{28,16},{38,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(masExc.y, dynBal.mWat_flow) annotation (Line(
-      points={{-59,70},{20,70},{20,12},{38,12}},
+      points={{-59,60},{20,60},{20,12},{38,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(masExc.y, steBal.mWat_flow) annotation (Line(
-      points={{-59,70},{-40,70},{-40,14},{-22,14}},
+      points={{-59,60},{-40,60},{-40,14},{-22,14}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QSen_flow.y, steBal.Q_flow) annotation (Line(
+      points={{-59,88},{-30,88},{-30,18},{-22,18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QSen_flow.y, dynBal.Q_flow) annotation (Line(
+      points={{-59,88},{28,88},{28,16},{38,16}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -92,6 +89,11 @@ Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
 
 </html>", revisions="<html>
 <ul>
+February 11, 2014 by Michael Wetter:<br/>
+Redesigned implementation of latent and sensible heat flow rates 
+as port of the correction of issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/197\">#197</a>.
+</li>
 <li>
 February 7, 2012 by Michael Wetter:<br/>
 Revised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.
@@ -172,6 +174,6 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
           extent={{-152,100},{148,140}},
           textString="%name",
           lineColor={0,0,255})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics));
 end MixingVolume;

@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial block PartialCoilInterface "Partial block for DX coil"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
   Modelica.Blocks.Interfaces.IntegerInput stage

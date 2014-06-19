@@ -74,9 +74,10 @@ model Manifold "Test model for coil manifold"
     nPipPar=nPipPar,
     nPipSeg=nPipSeg,
     m_flow_nominal=5,
-    dp_nominal=10,
     linearized=false,
-    mStart_flow_a=5)
+    mStart_flow_a=5,
+    dp_nominal=10,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
             annotation (Placement(transformation(extent={{-32,-76},{-12,-56}},
           rotation=0)));
   Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldNoResistance

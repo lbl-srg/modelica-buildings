@@ -68,6 +68,10 @@ model UTube "Single U-tube borehole heat exchanger"
     annotation(Dialog(group="Borehole"));
   parameter Real B1=-0.605 "Shape coefficient for grout resistance"
     annotation(Dialog(group="Borehole"));
+
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment borHol[nVer](
     redeclare each final package Medium = Medium,
     each final matSoi=matSoi,
@@ -80,8 +84,6 @@ model UTube "Single U-tube borehole heat exchanger"
     each final xC=xC,
     each final eTub=eTub,
     each final kTub=kTub,
-    each final B0=B0,
-    each final B1=B1,
     each final nSta=nHor,
     each final m_flow_nominal=m_flow_nominal,
     each final m_flow_small=m_flow_small,
@@ -206,8 +208,8 @@ The heat transfer in the borehole is computed using a convective heat transfer c
 that depends on the fluid velocity, a heat resistance between the two pipes, and
 a heat resistance between the pipes and the circumference of the borehole.
 The heat capacity of the fluid, and the heat capacity of the grout, is taken into account.
-All thermal mass is assumed to be at the two bulk temperatures of the down-flowing 
-and up-flowing fluid.
+The thermal resistance and capacity network inside the borehole is computed according
+to Bauer et al., (2011).
 </p>
 <p>
 The heat transfer in the soil is computed using transient heat conduction in cylindrical
@@ -269,6 +271,19 @@ of the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.TemperatureBoundaryCondition\">
 Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.TemperatureBoundaryCondition</a> which computes
 the far-field temperature boundary condition.
+The thermal resistor and capacitor network is computed in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances\">
+Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances</a>.
+</p>
+<h4>References</h4>
+<p>
+D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch.
+<i>
+<a href=\"http://dx.doi.org/10.1002/er.1689\">
+Thermal resistance and capacity models for borehole heat exchangers
+</a>
+</i>.
+International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>

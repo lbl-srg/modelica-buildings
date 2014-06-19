@@ -1,7 +1,7 @@
 within Buildings.Fluid.SolarCollectors.Controls.BaseClasses;
 model GCritCalc "Model calculating the critical insolation level"
 
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Real slope(unit="W/(m2.K)") "Slope from ratings data";
   parameter Real y_intercept "y_intercept from ratings data";

@@ -56,6 +56,9 @@ partial model PartialThreeWayValve "Partial three way valve"
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Advanced"));
 
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
 protected
   Modelica.Blocks.Math.Feedback inv "Inversion of control signal"
     annotation (Placement(transformation(extent={{-74,40},{-62,52}}, rotation=0)));

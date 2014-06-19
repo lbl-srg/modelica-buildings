@@ -1,5 +1,6 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachine_m_flow
+  "Fan with zero mass flow rate and mass flow rate as input"
   extends Modelica.Icons.Example;
  extends Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow(
     gain(k=m_flow_nominal),

@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckRadiation "Ensure that the radiation is not smaller than 0"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput HIn(final quantity=
         "RadiantEnergyFluenceRate", final unit="W/m2") "Input radiation"

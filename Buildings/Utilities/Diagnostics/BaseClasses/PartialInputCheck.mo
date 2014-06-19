@@ -1,6 +1,6 @@
 within Buildings.Utilities.Diagnostics.BaseClasses;
 block PartialInputCheck "Assert when condition is violated"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Time startTime = 0
     "Start time for activating the assert";
   parameter Real threShold(min=0)=1E-2 "Threshold for equality comparison";

@@ -41,15 +41,15 @@ model FlatPlateWithTank
    tan(
     nSeg=4,
     redeclare package Medium = Medium,
-    hTan=1,
+    hTan=1.8,
     m_flow_nominal=0.1,
     VTan=1.5,
     dIns=0.07,
     redeclare package MediumHex = Medium_2,
     CHex=200,
     dExtHex=0.01905,
-    hexTopHeight=0.9,
-    hexBotHeight=0.65,
+    hHex_a=0.9,
+    hHex_b=0.65,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=3000,
     mHex_flow_nominal=3000/20/4200,
@@ -97,14 +97,12 @@ model FlatPlateWithTank
       extent={{-10,-10},{10,10}},
       rotation=90,
       origin={-50,-6})));
-  Buildings.Fluid.Storage.ExpansionVessel exp(redeclare package Medium =
-    Medium_2, VTot=0.1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Expansion tank in the system"
+  Buildings.Fluid.Storage.ExpansionVessel exp(
+    redeclare package Medium = Medium_2, V_start=0.1) "Expansion tank"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
-      rotation=90,
-      origin={-60,-48})));
+      rotation=0,
+      origin={-66,-36})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TTan
     "Temperature in the tank water that surrounds the heat exchanger"
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
@@ -148,14 +146,14 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pum.port_a, exp.port_a) annotation (Line(
-      points={{-50,-16},{-50,-48}},
+      points={{-50,-16},{-50,-46},{-66,-46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(exp.port_a, tan.port_b1) annotation (Line(
-      points={{-50,-48},{-4,-48},{-4,-45},{12,-45}},
+  connect(exp.port_a, tan.portHex_b) annotation (Line(
+      points={{-66,-46},{-4,-46},{-4,-45},{12,-45}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TOut.port_b, tan.port_a1) annotation (Line(
+  connect(TOut.port_b, tan.portHex_a) annotation (Line(
       points={{50,56},{60,56},{60,-16},{8,-16},{8,-38.7},{12,-38.7}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -230,7 +228,15 @@ equation
           </p>
       </html>",
       revisions="<html>
-        <ul>
+      <ul>
+          <li>
+            April 18, 2014, by Michael Wetter:<br/>
+            Updated model to use the revised tank and increased the tank height.
+          </li>      
+          <li>
+            March 25, 2014, by Michael Wetter:<br/>
+            Updated model with new expansion vessel.
+          </li>
           <li>
             Mar 27, 2013 by Peter Grant:<br/>
             First implementation

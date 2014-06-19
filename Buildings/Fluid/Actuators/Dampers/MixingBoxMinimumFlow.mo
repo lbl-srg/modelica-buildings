@@ -112,10 +112,6 @@ equation
       points={{-42,68},{-12,68},{-12,58},{58,58},{58,54}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(yOutMin_actual, yOutMin_actual) annotation (Line(
-      points={{-42,68},{-47,68},{-47,64},{-52,64},{-52,68},{-42,68}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),

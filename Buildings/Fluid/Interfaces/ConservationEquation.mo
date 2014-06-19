@@ -51,7 +51,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   input Modelica.SIunits.Volume fluidVolume "Volume";
 
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
-    "Heat transfered into the medium"
+    "Sensible plus latent heat flow rate transfered into the medium"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
     "Moisture mass flow rate added to the medium"
@@ -88,8 +88,7 @@ protected
    Medium.setState_pTX(
      T=T_start,
      p=p_start,
-     X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass"
-  annotation (Evaluate=true);
+     X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass";
 
   // Parameter that is used to construct the vector mXi_flow
   final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
@@ -231,8 +230,7 @@ The model has zero pressure drop between its ports.
 When extending or instantiating this model, the input 
 <code>fluidVolume</code>, which is the actual volume occupied by the fluid,
 needs to be assigned.
-For most components, this can be set to a parameter. However, for components such as 
-expansion vessels, the fluid volume can change in time.
+For most components, this can be set to a parameter.
 </p>
 Input connectors of the model are
 <ul>
@@ -252,14 +250,20 @@ Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
 provides a more efficient implementation.
 </p>
 <p>
-For models that instantiates this model, see
+For a model that instantiates this model, see
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
-Buildings.Fluid.MixingVolumes.MixingVolume</a> and
-<a href=\"modelica://Buildings.Fluid.Storage.ExpansionVessel\">
-Buildings.Fluid.Storage.ExpansionVessel</a>.
+Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+February 11, 2014 by Michael Wetter:<br/>
+Improved documentation for <code>Q_flow</code> input.
+</li>
 <li>
 September 17, 2013 by Michael Wetter:<br/>
 Added start value for <code>hOut</code>.

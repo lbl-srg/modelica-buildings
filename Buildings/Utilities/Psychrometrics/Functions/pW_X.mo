@@ -1,6 +1,6 @@
 within Buildings.Utilities.Psychrometrics.Functions;
 function pW_X "Water vapor pressure for given humidity ratio"
-
+  extends Modelica.Icons.Function;
   input Modelica.SIunits.MassFraction X_w(
     min=0,
     max=1,

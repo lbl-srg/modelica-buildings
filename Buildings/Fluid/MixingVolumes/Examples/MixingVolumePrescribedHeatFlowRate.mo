@@ -41,7 +41,7 @@ model MixingVolumePrescribedHeatFlowRate
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant const(k=0)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 equation

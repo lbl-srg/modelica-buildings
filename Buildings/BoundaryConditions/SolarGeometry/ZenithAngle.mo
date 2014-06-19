@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry;
 block ZenithAngle "Zenith angle"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   parameter Modelica.SIunits.Angle lat "Latitude";
   Modelica.Blocks.Interfaces.RealOutput y(

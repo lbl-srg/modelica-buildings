@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
 block SkyBrightness "Sky brightness"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput relAirMas "Relative Air Mass"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));

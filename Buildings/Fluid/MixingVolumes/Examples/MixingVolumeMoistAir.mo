@@ -39,9 +39,9 @@ model MixingVolumeMoistAir
   Modelica.Blocks.Continuous.Integrator QSen "Sensible heat transfer"
     annotation (Placement(transformation(extent={{140,100},{160,120}}, rotation=
            0)));
-  Modelica.Blocks.Continuous.Integrator QWat "Enthalpy of extracted water"
+  Modelica.Blocks.Continuous.Integrator QLat "Enthalpy of extracted water"
     annotation (Placement(transformation(extent={{140,60},{160,80}}, rotation=0)));
-  Modelica.Blocks.Sources.RealExpression HWat_flow(y=vol1.HWat_flow)
+  Modelica.Blocks.Sources.RealExpression QLat_flow(y=vol1.QLat_flow.y)
     "MoistAir heat flow rate" annotation (Placement(transformation(extent={{112,
             60},{132,80}}, rotation=0)));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
@@ -103,7 +103,7 @@ equation
     annotation (Line(points={{56,130},{64,130}}, color={191,0,0}));
   connect(heatFlowSensor.Q_flow, QSen.u) annotation (Line(points={{74,120},{74,
           110},{138,110}}, color={0,0,127}));
-  connect(HWat_flow.y,QWat. u) annotation (Line(points={{133,70},{138,70}},
+  connect(QLat_flow.y,QLat. u) annotation (Line(points={{133,70},{138,70}},
         color={0,0,127}));
   connect(TSet.y, PI.u_s)
     annotation (Line(points={{-59,130},{-42,130}}, color={0,0,127}));
@@ -166,7 +166,8 @@ equation
       smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -160},{180,160}}),      graphics),
-experiment(StopTime=600),
+experiment(StopTime=600,
+           Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -179,6 +180,14 @@ stabilizes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2014 by Michael Wetter:<br/>
+Changed 
+<code>HWat_flow(y=vol1.HWat_flow</code> to 
+<code>QLat_flow(y=vol1.QLat_flow.y)</code>
+and
+<code>QWat</code> to <code>QLat</code>.
+</li>
 <li>
 October 12, 2009 by Michael Wetter:<br/>
 First implementation.

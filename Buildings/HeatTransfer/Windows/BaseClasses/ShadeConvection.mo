@@ -60,8 +60,7 @@ equation
     TSha = (air.T+glass.T)/2;
   end if;
 
-  annotation (Evaluate=true,
-              Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -178,6 +177,10 @@ of Glazing Systems with Shading Devices.<br/>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 June 11, 2013, by Michael Wetter:<br/>
 Redesigned model to separate convection from radiation, which is

@@ -1,7 +1,7 @@
 within Buildings.Utilities.Psychrometrics.Functions.BaseClasses;
 partial function pW_TDewPoi_amb
   "Partial function to compute the water vapor partial pressure for a given dew point temperature of moist air and its inverse"
-
+  extends Modelica.Icons.Function;
 protected
   constant Modelica.SIunits.Temperature T1=283.15 "First support point";
   constant Modelica.SIunits.Temperature T2=293.15 "Second support point";

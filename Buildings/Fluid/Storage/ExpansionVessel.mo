@@ -1,101 +1,90 @@
 within Buildings.Fluid.Storage;
-model ExpansionVessel "Pressure expansion vessel with fixed gas cushion"
- extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
- parameter Modelica.SIunits.Volume VTot
-    "Total volume of vessel (water and gas side)";
- parameter Modelica.SIunits.Volume VGas0 = VTot/2 "Initial volume of gas";
+model ExpansionVessel "Expansion vessel with fixed pressure"
+ extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+   final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+   final massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+ parameter Modelica.SIunits.Volume V_start(start=1)
+    "Volume of liquid stored in the vessel at the start of the simulation";
+ parameter Modelica.SIunits.Pressure p = Medium.p_default
+    "Constant pressure of the expansion vessel";
 
-//////////////////////////////////////////////////////////////
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = Medium) "Fluid port"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Modelica.SIunits.Mass m "Mass of liquid in the vessel";
 
-  parameter Modelica.SIunits.Pressure pMax = 5E5
-    "Maximum pressure before simulation stops with an error";
-
- Modelica.SIunits.Volume VLiq "Volume of liquid in the vessel";
-  // We set m(start=(VTot-VGas0)*1000, stateSelect=StateSelect.always)
-  // since the mass accumulated in the volume should be a state.
-  // This often leads to smaller systems of equations.
 protected
-  Buildings.Fluid.Interfaces.ConservationEquation vol(
-    redeclare final package Medium = Medium,
-    m(start=(VTot-VGas0)*1000, stateSelect=StateSelect.always),
-    final nPorts=1,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    final p_start=p_start,
-    final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start,
-    final C_nominal=C_nominal,
-    final fluidVolume = VLiq)
-    "Model for mass and energy balance of water in expansion vessel"
-    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
-  Modelica.Blocks.Sources.Constant heaInp(final k=0)
-    "Block to set heat input into volume"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  final parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
+      T=T_start,
+      p=p_start,
+      X=X_start[1:Medium.nXi]) "Medium state at start values";
+  final parameter Modelica.SIunits.Density rho_start=Medium.density(
+   state=state_start) "Density, used to compute start and guess values";
 
-  Modelica.Blocks.Sources.Constant masExc(final k=0)
-    "Block to set mass exchange in volume"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  Modelica.SIunits.Energy H "Internal energy of fluid";
+  Modelica.SIunits.Mass[Medium.nXi] mXi
+    "Masses of independent components in the fluid";
+  Modelica.SIunits.Mass[Medium.nC] mC "Masses of trace substances in the fluid";
+  Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
+    "Trace substance mixture content";
+
+initial equation
+  m = V_start * rho_start;
+  H = m*Medium.specificInternalEnergy(
+          Medium.setState_pTX(p=p_start, T=T_start, X= X_start[1:Medium.nXi]));
+  mXi = m*X_start[1:Medium.nXi];
+  mC = m*C_start[1:Medium.nC];
 equation
-  assert(port_a.p < pMax, "Pressure exceeds maximum pressure.\n" +
-       "You may need to increase VTot of the ExpansionVessel.");
+  assert(m > 1.0E-8,
+    "Expansion vessel is undersized. You need to increase the value of the parameter V_start.");
+  // Conservation equations
+  der(m)   = port_a.m_flow;
+  der(H)   = port_a.m_flow * actualStream(port_a.h_outflow);
+  der(mXi) = port_a.m_flow * actualStream(port_a.Xi_outflow);
+  der(mC)  = port_a.m_flow * actualStream(port_a.C_outflow);
+  // Properties of outgoing flow.
+  // The port pressure is set to a constant value.
+  port_a.p          = p_start;
+  m*port_a.h_outflow  = H;
+  m*port_a.Xi_outflow = mXi;
+  m*port_a.C_outflow  = mC;
 
-  // Water content and pressure
-  port_a.p * (VTot-VLiq) = p_start * VGas0;
-
-  connect(heaInp.y, vol.Q_flow) annotation (Line(
-      points={{-59,70},{-20,70},{-20,-4},{-12,-4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(port_a, vol.ports[1]) annotation (Line(
-      points={{5.55112e-16,-100},{5.55112e-16,-60},{6.66134e-16,-60},{
-          6.66134e-16,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(masExc.y, vol.mWat_flow) annotation (Line(
-      points={{-59,40},{-40,40},{-40,-8},{-12,-8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}), graphics={
-        Ellipse(
-          extent={{-96,-96},{96,96}},
-          lineColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-40,-94},{40,96}},
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
         Text(
           extent={{-148,98},{152,138}},
           textString="%name",
-          lineColor={0,0,255})}),
+          lineColor={0,0,255}),
+        Rectangle(
+          extent={{-80,80},{80,-80}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-68,70},{70,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-68,18},{-68,18},{-54,32},{-28,16},{0,30},{26,16},{46,32},{
+              70,18},{70,18},{70,-70},{70,-70},{-68,-70},{-68,-70},{-68,18}},
+          lineColor={0,0,255},
+          smooth=Smooth.Bezier,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{2,-80},{-2,-90}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid)}),
 defaultComponentName="exp",
 Documentation(info="<html>
 <p>
-This is a model of a pressure expansion vessel. The vessel has a fixed total volume. 
-A fraction of the volume is occupied by a fixed mass of gas, and the other fraction is occupied 
-by the liquid that flows through the port.
-The pressure <code>p</code> in the vessel is
-</p>
-<pre>
- VGas0 * p_start = (VTot-VLiquid) * p
-</pre>
-<p>
-where <code>VGas0</code> is the initial volume occupied by the gas, 
-<code>p_start</code> is the initial pressure,
-<code>VTot</code> is the total volume of the vessel and
-<code>VLiquid</code> is the amount of liquid in the vessel.
-</p>
-<p>
-Optionally, a heat port can be activated by setting <code>use_HeatTransfer=true</code>.
-This heat port connects directly to the liquid. The gas does not participate in the energy 
-balance.
+This is a model of a pressure expansion vessel. The vessel has a constant pressure
+that is equal to the value of the parameter <code>p_start</code>.
+The model takes into account the energy and mass balance of the medium.
+It has no heat exchange with the ambient.
 </p>
 <p>
 The expansion vessel needs to be used in closed loops that contain
@@ -119,6 +108,15 @@ of equations, which may result in faster simulation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+March 25, 2014 by Michael Wetter:<br/>
+Revised the model to use a constant pressure rather than a constant volume of
+water and gas. This leads to a simpler model.
+</li>
 <li>
 August 1, 2013 by Michael Wetter:<br/>
 Updated model to use new connector <code>mWat_flow</code>.

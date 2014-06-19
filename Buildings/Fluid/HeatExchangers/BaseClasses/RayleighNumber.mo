@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model RayleighNumber
   "Calculates the Rayleigh number for a given fluid and characteristic length"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
    replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Fluid medium model";
   parameter Modelica.SIunits.Diameter ChaLen "Characteristic length";

@@ -20,7 +20,7 @@ model ConstructionWithWindow
 
  replaceable parameter HeatTransfer.Data.GlazingSystems.Generic glaSys
     "Material properties of glazing system"
-    annotation (Dialog(group="Glazing system"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{140,80},
+    annotation (Dialog(group="Glazing system"), choicesAllMatching=true, Placement(transformation(extent={{140,80},
             {160,100}})));
 
   HeatTransfer.Windows.Window win(
@@ -376,6 +376,10 @@ equation
 defaultComponentName="conWin",
 Documentation(revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 December 6 2010, by Michael Wetter:<br/>
 First implementation.

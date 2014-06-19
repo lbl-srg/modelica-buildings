@@ -11,7 +11,8 @@ model HeaterCoolerPrescribed
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{-14,90},{6,110}},   rotation=0)));
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature"
@@ -68,7 +69,8 @@ model HeaterCoolerPrescribed
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                                   annotation (Placement(
         transformation(extent={{-14,-30},{6,-10}}, rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_2(
@@ -121,7 +123,8 @@ model HeaterCoolerPrescribed
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{-10,-190},{10,-170}}, rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_1(
@@ -150,7 +153,8 @@ model HeaterCoolerPrescribed
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{-10,-330},{10,-310}},  rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_6(
@@ -597,6 +601,11 @@ Documentation(info="<html>
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Changed initialization of mass dynamics to avoid overspecified system
+of equations if the medium model is incompressible.
+</li>
 <li>
 January 24, 2013, by Michael Wetter:<br/>
 Increased parameter <code>startTime</code> of the assert block

@@ -1,10 +1,7 @@
 within Buildings.Utilities.Psychrometrics;
 block WetBul_pTX
   "Block to compute the wet bulb condition for given dry bulb temperature and humidity"
-   extends Modelica.Blocks.Interfaces.BlockIcon;
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
-    annotation (choicesAllMatching = true);
+   extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     start=303,
@@ -44,17 +41,15 @@ block WetBul_pTX
   annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
 
 protected
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-     Buildings.Media.PerfectGases.Common.SingleGasData.Air.cp
+  constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
     "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=
-     Buildings.Media.PerfectGases.Common.SingleGasData.H2O.cp
+  constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
     "Specific heat capacity of water vapor";
   constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
     "Specific heat capacity of water vapor";
 equation
   XWetBul   = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=   Medium.saturationPressureLiquid(Tsat=TWetBul),
+      pSat=   Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
   TWetBul = (TDryBul * ((1-XDryBul) * cpAir + XDryBul * cpSte) + (XDryBul-XWetBul) * h_fg)/
@@ -70,6 +65,15 @@ for a given dry bulb state.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 20, 2013 by Michael Wetter:<br/>
+Removed package <code>Medium</code>.
+Updated model to use
+<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressure()</code>
+and
+<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
+as these functions have been moved from the medium to the psychrometrics package.
+</li>
 <li>
 October 2, 2010 by Michael Wetter:<br/>
 First implementation.

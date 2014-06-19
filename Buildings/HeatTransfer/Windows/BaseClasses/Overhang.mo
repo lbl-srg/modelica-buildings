@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 block Overhang
   "For a window with an overhang, outputs the fraction of the area that is sun exposed"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   extends Buildings.Rooms.BaseClasses.Overhang;
 
   Modelica.Blocks.Interfaces.RealInput verAzi(quantity="Angle", unit="rad", displayUnit="deg")

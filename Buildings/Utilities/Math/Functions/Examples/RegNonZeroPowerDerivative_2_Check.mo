@@ -19,8 +19,9 @@ equation
             -100},{100,100}}),
                     graphics),
 experiment(StartTime=-1, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mos" "Simulate and plot"),
-    Documentation(info="<html>
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mos"
+        "Simulate and plot"),
+Documentation(info="<html>
 <p>
 This example checks whether the function derivative
 is implemented correctly. If the derivative implementation
