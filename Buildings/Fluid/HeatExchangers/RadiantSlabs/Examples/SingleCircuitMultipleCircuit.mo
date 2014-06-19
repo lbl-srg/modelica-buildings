@@ -23,7 +23,9 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
     disPip=0.2,
     A=A,
-    nSeg=nSeg) "Slabe with embedded pipes"
+    nSeg=nSeg,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{-14,10},{6,30}})));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
@@ -72,7 +74,9 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
     disPip=0.2,
     A=A,
-    nSeg=nSeg) "Slabe with embedded pipes"
+    nSeg=nSeg,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conBel2(G=20*A)
@@ -91,7 +95,9 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
     nSeg=nSeg,
     nCir=nCir,
     A=nCir*A,
-    m_flow_nominal=nCir*m_flow_nominal) "Slabe with embedded pipes"
+    m_flow_nominal=nCir*m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conAbo3(G=nCir*20*A)

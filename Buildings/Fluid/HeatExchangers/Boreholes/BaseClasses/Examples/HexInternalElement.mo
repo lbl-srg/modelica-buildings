@@ -20,6 +20,7 @@ model HexInternalElement
     hSeg=20,
     redeclare parameter Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite matFil,
     redeclare parameter Buildings.HeatTransfer.Data.Soil.Sandstone matSoi,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TFil_start=283.15)
              annotation (Placement(transformation(extent={{10,-16},{30,4}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(

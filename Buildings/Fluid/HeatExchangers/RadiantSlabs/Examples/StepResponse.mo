@@ -27,7 +27,9 @@ model StepResponse "Model that tests the radiant slab"
     pipe=pipe,
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
     disPip=0.2,
-    A=A) "Slabe with embedded pipes"
+    A=A,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=

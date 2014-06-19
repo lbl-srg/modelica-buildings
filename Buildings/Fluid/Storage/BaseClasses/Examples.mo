@@ -18,6 +18,7 @@ package Examples "Examples for BaseClasses models"
       redeclare package Medium = Medium,
       redeclare package MediumHex = Medium,
       dp_nominal=10000,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       TTan_nominal=293.15,
       THex_nominal=323.15) "Heat exchanger"
                         annotation (Placement(transformation(

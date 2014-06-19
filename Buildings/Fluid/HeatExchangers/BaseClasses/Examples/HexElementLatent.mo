@@ -71,10 +71,10 @@ model HexElementLatent
     redeclare package Medium2 = Medium_A,
     dp1_nominal=5,
     dp2_nominal=5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     energyDynamics1=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    energyDynamics2=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                    annotation (Placement(transformation(extent={{10,-10},{30,
+    energyDynamics2=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+                    annotation (Placement(transformation(extent={{12,-10},{32,
             10}}, rotation=0)));
   Modelica.Blocks.Sources.Constant TDb1(k=303.15) "Drybulb temperature"
     annotation (Placement(transformation(extent={{-100,-26},{-80,-6}},
@@ -117,22 +117,22 @@ equation
       color={0,0,127},
       pattern=LinePattern.None));
   connect(hex.port_b1, res_12.port_a)
-                                     annotation (Line(points={{30,6},{48,6}},
+                                     annotation (Line(points={{32,6},{48,6}},
                         color={0,127,255}));
   connect(res_22.port_a, hex.port_b2)
                                      annotation (Line(points={{-4,-20},{2,-20},
-          {2,-6},{10,-6}}, color={0,127,255}));
+          {2,-6},{12,-6}}, color={0,127,255}));
   connect(TDb1.y, sin_2.T_in) annotation (Line(points={{-79,-16},{-70.5,-16},{
           -62,-16}},
         color={0,0,127}));
-  connect(res_11.port_b, hex.port_a1) annotation (Line(points={{-4,6},{0,6},{10,
-          6}},            color={0,127,255}));
-  connect(hex.port_a2, res_21.port_b) annotation (Line(points={{30,-6},{40,-6},
+  connect(res_11.port_b, hex.port_a1) annotation (Line(points={{-4,6},{12,6}},
+                          color={0,127,255}));
+  connect(hex.port_a2, res_21.port_b) annotation (Line(points={{32,-6},{40,-6},
           {40,-20},{50,-20}}, color={0,127,255}));
-  connect(hACon.y, hex.Gc_1) annotation (Line(points={{1,70},{16,70},{16,10}},
+  connect(hACon.y, hex.Gc_1) annotation (Line(points={{1,70},{18,70},{18,10}},
         color={0,0,127}));
-  connect(hACon.y, hex.Gc_2) annotation (Line(points={{1,70},{8,70},{8,-16},{24,
-          -16},{24,-10}}, color={0,0,127}));
+  connect(hACon.y, hex.Gc_2) annotation (Line(points={{1,70},{8,70},{8,-16},{26,
+          -16},{26,-10}}, color={0,0,127}));
   connect(sou_2.ports[1], res_21.port_a) annotation (Line(
       points={{60,-70},{80,-70},{80,-20},{70,-20}},
       color={0,127,255},
