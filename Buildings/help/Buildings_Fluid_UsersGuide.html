@@ -1,55 +1,46 @@
-<HTML>
-<HEAD>
-<TITLE>Buildings.Fluid.UsersGuide</TITLE>
-<META name="HTML-Generator" content="Dymola">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.UsersGuide</title>
+<meta name="HTML-Generator" content="Dymola">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<META name="description" content="&quot;User&#39;s Guide&quot;">
+<meta name="description" content="&quot;User&#39;s Guide&quot;">
 <style type="text/css">
-*       { font-size: 10pt; font-family: Arial,sans-serif; }
-pre     { font-size:  9pt; font-family: Courier,monospace;}
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
 h4      { font-size: 10pt; font-weight: bold; color: green; }
 h3      { font-size: 11pt; font-weight: bold; color: green; }
 h2      { font-size: 13pt; font-weight: bold; color: green; }
-address {                  font-weight: normal} 
-td      { solid #000; vertical-align:top; }
-th      { solid #000; vertical-align:top; font-weight: bold; }
-table   { solid #000; border-collapse: collapse;}
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
 </style>
-<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
-</HEAD>
+</head>
 <body>
-<!-- --- header ------ -->
-<div class="headerStyle">
-<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
-</div>
-<div class="headerLinks">
-<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
-</div>
-<!-- --- end header -- -->
-</P>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE UsersGuide<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.Fluid.UsersGuide"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
->Buildings.Fluid</A>.UsersGuide</H2>
-<B>User&#39;s Guide</B>
-<P></P>
-<P></P><H3>Information</H3>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE UsersGuide<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.UsersGuide"></a><a href="Buildings_Fluid.html#Buildings.Fluid"
+>Buildings.Fluid</a>.UsersGuide</h2>
+<p>
+<b>User&#39;s Guide</b><br>
+</p>
+<h3>Information</h3>
 
 <p>
 The package <code>Buildings.Fluid</code> consists of models
 for pressure driven mass flow rate and for heat and moisture
 exchange in fluid flow networks.
 </p>
-
 <p>
 The models have the same interface as models of the package
-<A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid.html#Modelica.Fluid"
 >Modelica.Fluid</a>, 
 but have in general a simpler set of parameters that may be better 
 suited if the models are used in early design of building systems. 
 For example, in addition to the detailed pipe model from 
-<A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid.html#Modelica.Fluid"
 >Modelica.Fluid</a>,
 this package also contains models for which a user has to specify 
 the mass flow and pressure drop at a nominal flow rate, 
@@ -95,7 +86,7 @@ This functional form has been used as in building HVAC systems, a more exact
 computation of the pressure drop would require detailed knowledge of the duct or pipe
 dimensions and the flow bends and junctions. This information is often not available during
 early design. However, if a more detailed pressure drop calculation is required, then models from
-<A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid.html#Modelica.Fluid"
 >
 Modelica.Fluid</a> can be used in conjuction with models from the <code>Buildings</code> library.
 </p>
@@ -162,7 +153,7 @@ where <i>m(t)</i> is the mass of the control volume,
 <li>
 If a system model sets the pressure, such as if the volume is connected
 to a model that sets the pressure, e.g.,
-<A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+<a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
 >
 Buildings.Fluid.Sources.FixedBoundary</a>,
 then due to the connection between the models, the
@@ -272,7 +263,7 @@ parameters in various model to help the user understand how they are used.
       to define a point on the flow rate versus pressure drop curve. For other
       mass flow rates, the pressure drop is typically adjusted using similarity laws.
       See
-      <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+      <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
 >
       Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>.
   </td>
@@ -328,17 +319,41 @@ parameters in various model to help the user understand how they are used.
       value for <code>tau</code>, and where generally applicable values can be used, 
       components already set a default value for <code>tau</code>.
       See for example
-      <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.WetCoilDiscretized"
+      <a href="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.WetCoilDiscretized"
 >
       Buildings.Fluid.HeatExchangers.WetCoilDiscretized</a>.
   </td>
 </tr>
 </table>
 
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
->Modelica.Icons.Information</A> (Icon for general information packages).
-<HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:15:01 2014.
-</address></BODY>
-</HTML>
+<h4>Implementation</h4>
+<p>
+The models are implemented using base classes from 
+<a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
+>
+Buildings.Fluid.Interfaces</a>
+and from 
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces"
+>
+Modelica.Fluid.Interfaces</a>.
+This allows models to be fully compatible with 
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid.html#Modelica.Fluid"
+>
+Modelica.Fluid</a>, and it allows the implementation of
+component models that reuse base classes for heat transfer, mass transfer and 
+flow resistance.
+The class inheritance is as follows:
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Fluid/UsersGuide/a60.png"/>
+</p>
+
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 10:54:44 2014.
+</address>
+</body>
+</html>

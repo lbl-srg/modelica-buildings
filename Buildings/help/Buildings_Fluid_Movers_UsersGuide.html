@@ -1,40 +1,32 @@
-<HTML>
-<HEAD>
-<TITLE>Buildings.Fluid.Movers.UsersGuide</TITLE>
-<META name="HTML-Generator" content="Dymola">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Movers.UsersGuide</title>
+<meta name="HTML-Generator" content="Dymola">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<META name="description" content="&quot;User&#39;s Guide&quot;">
+<meta name="description" content="&quot;User&#39;s Guide&quot;">
 <style type="text/css">
-*       { font-size: 10pt; font-family: Arial,sans-serif; }
-pre     { font-size:  9pt; font-family: Courier,monospace;}
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
 h4      { font-size: 10pt; font-weight: bold; color: green; }
 h3      { font-size: 11pt; font-weight: bold; color: green; }
 h2      { font-size: 13pt; font-weight: bold; color: green; }
-address {                  font-weight: normal} 
-td      { solid #000; vertical-align:top; }
-th      { solid #000; vertical-align:top; font-weight: bold; }
-table   { solid #000; border-collapse: collapse;}
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
 </style>
-<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
-</HEAD>
+</head>
 <body>
-<!-- --- header ------ -->
-<div class="headerStyle">
-<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
-</div>
-<div class="headerLinks">
-<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
-</div>
-<!-- --- end header -- -->
-</P>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE UsersGuide<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.Fluid.Movers.UsersGuide"></A><A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
->Buildings.Fluid.Movers</A>.UsersGuide</H2>
-<B>User&#39;s Guide</B>
-<P></P>
-<P></P><H3>Information</H3>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE UsersGuide<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Movers.UsersGuide"></a><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
+>Buildings.Fluid.Movers</a>.UsersGuide</h2>
+<p>
+<b>User&#39;s Guide</b><br>
+</p>
+<h3>Information</h3>
 
 <p>
 This package contains models for fans and pumps. The same models
@@ -42,13 +34,18 @@ are used for fans or pumps.
 </p>
 
 <h4>Model description</h4>
+<p>A detailed description of the fan and pump models can be
+found in
+<a href="../Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf">Wetter (2013)</a>.
+Below, the models are briefly described.
+</p>
 <p>
 The models use 
 performance curves that compute pressure rise, 
 electrical power draw and efficiency as a function 
 of the volume flow rate and the speed.
 These performance curves are described in
-<A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics"
+<a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics"
 >
 Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </p>
@@ -56,10 +53,10 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 <h5>Models that use performance curves for pressure rise</h5>
 <p>
 The models
-<A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y"
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y"
 >
 Buildings.Fluid.Movers.FlowMachine_y</a> and
-<A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_Nrpm"
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_Nrpm"
 >
 Buildings.Fluid.Movers.FlowMachine_Nrpm</a>
 take as an input either a control signal between <i>0</i> and <i>1</i>, or the
@@ -69,7 +66,7 @@ This pressure rise is computed using user-provided list of operating points that
 defines the fan or pump curve at full speed.
 For other speeds, similarity laws are used to scale the performance curves, as
 described in 
-<A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure"
+<a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure"
 >
 Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>.
 </p>
@@ -109,15 +106,15 @@ Then, a declaration would be
 <p>
 This will model the following pump curve for the pump input signal <code>y=1</code>.</p>
 <p align="center">
-<img alt="image" src="../Resources/Images/Fluid/Movers/UsersGuide_pumpCurve.png"/>
+<img alt="image" src="../Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png"/>
 </p>
 
 <h5>Models that have idealized perfect controls</h5>
 <p>
-The models <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_dp"
+The models <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_dp"
 >
 Buildings.Fluid.Movers.FlowMachine_dp</a> and
-<A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
 >
 Buildings.Fluid.Movers.FlowMachine_m_flow</a>
 take as an input the pressure difference or the mass flow rate.
@@ -170,7 +167,7 @@ The figure below shows for a fan with <code>filteredSpeed=true</code>
 and <code>riseTime=30</code> seconds the 
 speed input signal and the actual speed.</p>
 <p align="center">
-<img alt="image" src="../Resources/Images/Fluid/Movers/UsersGuide_fanSpeedFiltered.png"/>
+<img alt="image" src="../Resources/Images/Fluid/Movers/UsersGuide/fanSpeedFiltered.png"/>
 </p>
 
 <p>
@@ -194,7 +191,7 @@ When changing the value of <code>filteredSpeed</code>, the control gains
 may need to be retuned. 
 We now present values control parameters that seem to work in most cases.
 Suppose there is a closed loop control with a PI-controller 
-<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+<a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
 >
 Buildings.Controls.Continuous.LimPID</a>
 and a fan or pump, configured with <code>filteredOpening=true</code> and <code>riseTime=30</code> seconds.
@@ -284,10 +281,10 @@ maximum volume flow rate <code>V_flow_max</code>,
 which is the volume flow rate at full speed and zero pressure rise.
 The maximum flow rate <code>V_flow_max</code> is obtained as follows:
 The models 
-<A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y"
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y"
 >
 Buildings.Fluid.Movers.FlowMachine_y</a> and
-<A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_Nrpm"
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_Nrpm"
 >
 Buildings.Fluid.Movers.FlowMachine_Nrpm</a> set
 </p>
@@ -297,10 +294,10 @@ Buildings.Fluid.Movers.FlowMachine_Nrpm</a> set
 
 <p>
 where <code>r_N</code> is the ratio of actual to nominal speed.
-Since <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_dp"
+Since <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_dp"
 >
 Buildings.Fluid.Movers.FlowMachine_dp</a> and
-<A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
 >
 Buildings.Fluid.Movers.FlowMachine_m_flow</a>
 do not have a flow versus pressure performance curve, the parameter
@@ -339,25 +336,15 @@ will be underestimated, in particular for fans.
 <h5>Further description</h5>
 <p>
 For a detailed description of the models with names <code>FlowMachine_*</code>,
-see their base class <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine"
+see their base class <a href="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine"
 >
 Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine.</a>
-</p>
-
-<h5>Deprecated model</h5>
-<p>
-The model <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachinePolynomial"
->
-Buildings.Fluid.Movers.FlowMachinePolynomial</a> is in this package for compatibility 
-with older versions of this library. It is recommended to use the other models as they optionally
-allow use of a medium volume that provides state variables which are needed in some models 
-when the flow rate is zero.
 </p>
 
 <h4>Differences to models in Modelica.Fluid.Machines</h4>
 <p>
 The models with names <code>FlowMachine_*</code> have similar parameters than the
-models in the package <A HREF="../../msl/3.2/help/Modelica_Fluid_Machines.html#Modelica.Fluid.Machines"
+models in the package <a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Machines.html#Modelica.Fluid.Machines"
 >Modelica.Fluid.Machines</a>. 
 However, the models in this package differ primarily in the following points:
 </p>
@@ -376,20 +363,31 @@ pressure at <code>port_b</code>.
 The pressure calculations are based on total pressure in Pascals instead of the pump head in meters. 
 This change was done to avoid ambiguities in the parameterization if the models are used as a fan 
 with air as the medium. The original formulation in 
-<A HREF="../../msl/3.2/help/Modelica_Fluid_Machines.html#Modelica.Fluid.Machines"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Machines.html#Modelica.Fluid.Machines"
 >Modelica.Fluid.Machines</a> converts head to pressure using the density <code>medium.d</code>. Therefore, for fans, head would be converted to pressure using the density of air. However, for fans, manufacturers typically publish the head in millimeters water (mmH20). Therefore, to avoid confusion when using these models with media other than water, 
 we changed the models to use total pressure in Pascals instead of head in meters.
 </li>
 <li>
 The performance data are interpolated using cubic hermite splines instead of polynomials.
-These functions are implemented at <A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics"
+These functions are implemented at <a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics"
 >Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </li>
 </ul>
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
->Modelica.Icons.Information</A> (Icon for general information packages).
-<HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:16:44 2014.
-</address></BODY>
-</HTML>
+<h4>References</h4>
+<p>
+Michael Wetter.
+<a href="../Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf">
+Fan and pump model that has a unique solution for any pressure
+boundary condition and control signal.</a>
+<i>Proc. of the 13th Conference of the International Building Performance
+Simulation Association</i>, p. 3505-3512. Chambery, France. August 2013.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 10:56:42 2014.
+</address>
+</body>
+</html>

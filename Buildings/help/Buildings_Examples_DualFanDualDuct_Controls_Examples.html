@@ -1,99 +1,101 @@
-<HTML>
-<HEAD>
-<TITLE>Buildings.Examples.DualFanDualDuct.Controls.Examples</TITLE>
-<META name="HTML-Generator" content="Dymola">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Examples.DualFanDualDuct.Controls.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<META name="description" content="&quot;Example models to test the components&quot;">
+<meta name="description" content="&quot;Example models to test the components&quot;">
 <style type="text/css">
-*       { font-size: 10pt; font-family: Arial,sans-serif; }
-pre     { font-size:  9pt; font-family: Courier,monospace;}
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
 h4      { font-size: 10pt; font-weight: bold; color: green; }
 h3      { font-size: 11pt; font-weight: bold; color: green; }
 h2      { font-size: 13pt; font-weight: bold; color: green; }
-address {                  font-weight: normal} 
-td      { solid #000; vertical-align:top; }
-th      { solid #000; vertical-align:top; font-weight: bold; }
-table   { solid #000; border-collapse: collapse;}
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
 </style>
-<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
-</HEAD>
+</head>
 <body>
-<!-- --- header ------ -->
-<div class="headerStyle">
-<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
-</div>
-<div class="headerLinks">
-<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
-</div>
-<!-- --- end header -- -->
-</P>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.Examples.DualFanDualDuct.Controls.Examples"></A><A HREF="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls"
->Buildings.Examples.DualFanDualDuct.Controls</A>.Examples</H2>
-<B>Example models to test the components</B>
-<P></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
->Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
-<TR><TH >Name</TH><TH>Description</TH></TR>
-<TR><TD><IMG SRC="Buildings.Examples.DualFaa40b6bd217db1eaangBoxS.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_DualFanDualDuct_Controls_Examples.html#Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox"
->RoomMixingBox</A>
-</TD><TD>Test model for room mixing box</TD></TR>
-</TABLE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE RoomMixingBox<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Examples.DualFaa40b6bd217db1eaangBoxI.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox"></A><A HREF="Buildings_Examples_DualFanDualDuct_Controls_Examples.html#Buildings.Examples.DualFanDualDuct.Controls.Examples"
->Buildings.Examples.DualFanDualDuct.Controls.Examples</A>.RoomMixingBox</H2>
-<B>Test model for room mixing box</B><p></P>
-<IMG SRC="Buildings.Examples.DualFaa40b6bd217db1eaangBoxD.png" ALT="Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox">
-<P></P><H3>Information</H3>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
->Modelica.Icons.Example</A> (Icon for runnable examples).
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> RoomMixingBox <font color="darkgreen">&quot;Test model for room mixing box&quot;</font>
-<font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
->Modelica.Icons.Example</A>;
-<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls.RoomMixingBox"
->Buildings.Examples.DualFanDualDuct.Controls.RoomMixingBox</A> conMix(m_flow_min=1) <font color="darkgreen">
-    &quot;Controller for mixing box&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A> TH(k=273.15 + 20);
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A> TC(k=273.15 + 26);
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
->Modelica.Blocks.Sources.Trapezoid</A> TRoo(
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Examples.DualFanDualDuct.Controls.Examples"></a><a href="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls"
+>Buildings.Examples.DualFanDualDuct.Controls</a>.Examples</h2>
+<p>
+<b>Example models to test the components</b><br>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.DualFaa40b6bd217db1eaangBoxS.png" alt="Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_DualFanDualDuct_Controls_Examples.html#Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox"
+>RoomMixingBox</a>
+</td>
+<td>Test model for room mixing box</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE RoomMixingBox<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Examples.DualFaa40b6bd217db1eaangBoxI.png" alt="Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox"></a><a href="Buildings_Examples_DualFanDualDuct_Controls_Examples.html#Buildings.Examples.DualFanDualDuct.Controls.Examples"
+>Buildings.Examples.DualFanDualDuct.Controls.Examples</a>.RoomMixingBox</h2>
+<p>
+<b>Test model for room mixing box</b>
+<br>
+<br><img src="Buildings.Examples.DualFaa40b6bd217db1eaangBoxD.png" alt="Buildings.Examples.DualFanDualDuct.Controls.Examples.RoomMixingBox">
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> RoomMixingBox <span style="color: #006400">&quot;Test model for room mixing box&quot;</span>
+<span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls.RoomMixingBox"
+>Buildings.Examples.DualFanDualDuct.Controls.RoomMixingBox</a> conMix(m_flow_min=1) <span style="color: #006400">
+    &quot;Controller for mixing box&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TH(k=273.15 + 20);
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TC(k=273.15 + 26);
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
+>Modelica.Blocks.Sources.Trapezoid</a> TRoo(
     amplitude=15,
     rising=900,
     width=900,
     falling=900,
     period=3600,
-    offset=273.15 + 15) <font color="darkgreen">&quot;Room temperature&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
->Modelica.Blocks.Sources.Trapezoid</A> m_flow(
+    offset=273.15 + 15) <span style="color: #006400">&quot;Room temperature&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
+>Modelica.Blocks.Sources.Trapezoid</a> m_flow(
     rising=900,
     width=900,
     falling=900,
     period=3600,
     amplitude=2,
     offset=0,
-    startTime=3600) <font color="darkgreen">&quot;Mass flow rate&quot;</font>;</textblock>
-<font color="blue">equation </font>
+    startTime=3600) <span style="color: #006400">&quot;Mass flow rate&quot;</span>;
+<span style="color: blue">equation </span>
 
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TH.y, conMix.TRooSetHea);
-  <font color="red">connect</font>(TC.y, conMix.TRooSetCoo);
-  <font color="red">connect</font>(TRoo.y, conMix.TRoo);
-  <font color="red">connect</font>(m_flow.y, conMix.mAir_flow);</textblock>
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>RoomMixingBox;
-</PRE>
-<HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:24:38 2014.
-</address></BODY>
-</HTML>
+  <span style="color: red">connect</span>(TH.y, conMix.TRooSetHea);
+  <span style="color: red">connect</span>(TC.y, conMix.TRooSetCoo);
+  <span style="color: red">connect</span>(TRoo.y, conMix.TRoo);
+  <span style="color: red">connect</span>(m_flow.y, conMix.mAir_flow);
+<span style="color: blue">end </span>RoomMixingBox;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 11:04:52 2014.
+</address>
+</body>
+</html>

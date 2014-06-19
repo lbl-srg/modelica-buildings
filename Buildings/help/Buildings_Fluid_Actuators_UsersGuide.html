@@ -1,40 +1,32 @@
-<HTML>
-<HEAD>
-<TITLE>Buildings.Fluid.Actuators.UsersGuide</TITLE>
-<META name="HTML-Generator" content="Dymola">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Actuators.UsersGuide</title>
+<meta name="HTML-Generator" content="Dymola">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<META name="description" content="&quot;User&#39;s Guide&quot;">
+<meta name="description" content="&quot;User&#39;s Guide&quot;">
 <style type="text/css">
-*       { font-size: 10pt; font-family: Arial,sans-serif; }
-pre     { font-size:  9pt; font-family: Courier,monospace;}
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
 h4      { font-size: 10pt; font-weight: bold; color: green; }
 h3      { font-size: 11pt; font-weight: bold; color: green; }
 h2      { font-size: 13pt; font-weight: bold; color: green; }
-address {                  font-weight: normal} 
-td      { solid #000; vertical-align:top; }
-th      { solid #000; vertical-align:top; font-weight: bold; }
-table   { solid #000; border-collapse: collapse;}
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
 </style>
-<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
-</HEAD>
+</head>
 <body>
-<!-- --- header ------ -->
-<div class="headerStyle">
-<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
-</div>
-<div class="headerLinks">
-<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
-</div>
-<!-- --- end header -- -->
-</P>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE UsersGuide<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.Fluid.Actuators.UsersGuide"></A><A HREF="Buildings_Fluid_Actuators.html#Buildings.Fluid.Actuators"
->Buildings.Fluid.Actuators</A>.UsersGuide</H2>
-<B>User&#39;s Guide</B>
-<P></P>
-<P></P><H3>Information</H3>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE UsersGuide<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Actuators.UsersGuide"></a><a href="Buildings_Fluid_Actuators.html#Buildings.Fluid.Actuators"
+>Buildings.Fluid.Actuators</a>.UsersGuide</h2>
+<p>
+<b>User&#39;s Guide</b><br>
+</p>
+<h3>Information</h3>
 
 <h4>Pressure drop of valves</h4>
 <p>
@@ -94,6 +86,18 @@ An equivalent model could be created by deleting the two resistance models
 <pre>
   val(dpValve_nominal=6000, dpFixed={10000, 100}, m_flow_nominal=0.1);
 </pre>
+<h4>Leakage flow rate</h4>
+<p>
+Valves and air dampers should for numerical reasons have a small leakage flow rate.
+This leakage <i>l</i> is a non-dimensional number, defined as
+<i>l=K<sub>v</sub>(y=0) &frasl; =K<sub>v</sub>(y=1)</i>.
+A typical default value is <i>l=0.0001</i>.
+</p>
+<p>
+If <i>l=0</i>, models will issue an error message as
+this can in some situations lead to numerical problems if
+a flow leg becomes decoupled from a reference pressure source.
+</p>
 <h4>Transients of actuators</h4>
 <p>
 This section describes how valves and dampers can be configured
@@ -105,7 +109,7 @@ influence the flow network.
 <h5>Approximation using a 2nd order filter</h5>
 <p>
 The valves and dampers in the package 
-<A HREF="Buildings_Fluid_Actuators.html#Buildings.Fluid.Actuators"
+<a href="Buildings_Fluid_Actuators.html#Buildings.Fluid.Actuators"
 >
 Buildings.Fluid.Actuators</a>
 all have a parameter <code>filteredOpening</code>.
@@ -137,7 +141,7 @@ is changed, control gains may need to be retuned.
 </p>
 <p>
 For example, suppose there is a closed loop control with a PI-controller 
-<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+<a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
 >
 Buildings.Controls.Continuous.LimPID</a>
 and a valve, configured with <code>filteredOpening=true</code> and <code>riseTime=120</code> seconds.
@@ -189,7 +193,7 @@ easier to solve when a controller switches.
 <h5>Approximation using a motor model with hysteresis</h5>
 <p>
 The model
-<A HREF="Buildings_Fluid_Actuators_Motors.html#Buildings.Fluid.Actuators.Motors.IdealMotor"
+<a href="Buildings_Fluid_Actuators_Motors.html#Buildings.Fluid.Actuators.Motors.IdealMotor"
 >
 Buildings.Fluid.Actuators.Motors.IdealMotor</a>
 models a motor with hysteresis.
@@ -197,10 +201,12 @@ It is more detailed than the above approximation.
 However, it can significantly increase computing time
 because it generates a state event whenever the valve position changes.
 </p>
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
->Modelica.Icons.Information</A> (Icon for general information packages).
-<HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:15:01 2014.
-</address></BODY>
-</HTML>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 10:54:44 2014.
+</address>
+</body>
+</html>

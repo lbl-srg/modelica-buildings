@@ -1,75 +1,85 @@
-<HTML>
-<HEAD>
-<TITLE>Buildings.Controls.SetPoints</TITLE>
-<META name="HTML-Generator" content="Dymola">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Controls.SetPoints</title>
+<meta name="HTML-Generator" content="Dymola">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<META name="description" content="&quot;Package with models for control set points&quot;">
+<meta name="description" content="&quot;Package with models for control set points&quot;">
 <style type="text/css">
-*       { font-size: 10pt; font-family: Arial,sans-serif; }
-pre     { font-size:  9pt; font-family: Courier,monospace;}
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
 h4      { font-size: 10pt; font-weight: bold; color: green; }
 h3      { font-size: 11pt; font-weight: bold; color: green; }
 h2      { font-size: 13pt; font-weight: bold; color: green; }
-address {                  font-weight: normal} 
-td      { solid #000; vertical-align:top; }
-th      { solid #000; vertical-align:top; font-weight: bold; }
-table   { solid #000; border-collapse: collapse;}
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
 </style>
-<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
-</HEAD>
+</head>
 <body>
-<!-- --- header ------ -->
-<div class="headerStyle">
-<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
-</div>
-<div class="headerLinks">
-<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
-</div>
-<!-- --- end header -- -->
-</P>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE SetPoints<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.Controls.SetPoints"></A><A HREF="Buildings_Controls.html#Buildings.Controls"
->Buildings.Controls</A>.SetPoints</H2>
-<B>Package with models for control set points</B>
-<P></P>
-<P></P><H3>Information</H3>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SetPoints<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Controls.SetPoints"></a><a href="Buildings_Controls.html#Buildings.Controls"
+>Buildings.Controls</a>.SetPoints</h2>
+<p>
+<b>Package with models for control set points</b><br>
+</p>
+<h3>Information</h3>
 
 This package contains components models to compute set points of control systems.
 For additional models, see also 
-<A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous"
 >
 Modelica.Blocks.Continuous</a>.
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
->Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
-<TR><TH >Name</TH><TH>Description</TH></TR>
-<TR><TD><IMG SRC="Buildings.Controls.SetPoi004acb778f1ba78aResetS.png" ALT="Buildings.Controls.SetPoints.HotWaterTemperatureReset" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.HotWaterTemperatureReset"
->HotWaterTemperatureReset</A>
-</TD><TD>Block to compute the supply and return set point of heating systems</TD></TR>
-<TR><TD><IMG SRC="Buildings.Controls.SetPoia9379402f2a3200eeduleS.png" ALT="Buildings.Controls.SetPoints.OccupancySchedule" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.OccupancySchedule"
->OccupancySchedule</A>
-</TD><TD>Occupancy schedule with look-ahead</TD></TR>
-<TR><TD><IMG SRC="Buildings.Controls.SetPoints.TableS.png" ALT="Buildings.Controls.SetPoints.Table" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.Table"
->Table</A>
-</TD><TD>Model for a set point that is interpolated based on a user-specified table</TD></TR>
-<TR><TD><IMG SRC="Buildings.Controls.SetPoints.ExamplesS.png" ALT="Buildings.Controls.SetPoints.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_SetPoints_Examples.html#Buildings.Controls.SetPoints.Examples"
->Examples</A>
-</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
-</TABLE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE HotWaterTemperatureReset<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Controls.SetPoi004acb778f1ba78aResetI.png" ALT="Buildings.Controls.SetPoints.HotWaterTemperatureReset" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Controls.SetPoints.HotWaterTemperatureReset"></A><A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints"
->Buildings.Controls.SetPoints</A>.HotWaterTemperatureReset</H2>
-<B>Block to compute the supply and return set point of heating systems</B><p></P>
-<IMG SRC="Buildings.Controls.SetPoi004acb778f1ba78aResetD.png" ALT="Buildings.Controls.SetPoints.HotWaterTemperatureReset">
-<P></P><H3>Information</H3>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.SetPoi004acb778f1ba78aResetS.png" alt="Buildings.Controls.SetPoints.HotWaterTemperatureReset" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.HotWaterTemperatureReset"
+>HotWaterTemperatureReset</a>
+</td>
+<td>Block to compute the supply and return set point of heating systems</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.SetPoia9379402f2a3200eeduleS.png" alt="Buildings.Controls.SetPoints.OccupancySchedule" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.OccupancySchedule"
+>OccupancySchedule</a>
+</td>
+<td>Occupancy schedule with look-ahead</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.SetPoints.TableS.png" alt="Buildings.Controls.SetPoints.Table" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.Table"
+>Table</a>
+</td>
+<td>Model for a set point that is interpolated based on a user-specified table</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.SetPoints.ExamplesS.png" alt="Buildings.Controls.SetPoints.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_SetPoints_Examples.html#Buildings.Controls.SetPoints.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE HotWaterTemperatureReset<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Controls.SetPoi004acb778f1ba78aResetI.png" alt="Buildings.Controls.SetPoints.HotWaterTemperatureReset" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Controls.SetPoints.HotWaterTemperatureReset"></a><a href="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints"
+>Buildings.Controls.SetPoints</a>.HotWaterTemperatureReset</h2>
+<p>
+<b>Block to compute the supply and return set point of heating systems</b>
+<br>
+<br><img src="Buildings.Controls.SetPoi004acb778f1ba78aResetD.png" alt="Buildings.Controls.SetPoints.HotWaterTemperatureReset">
+</p>
+<h3>Information</h3>
 
 <p>
 This block computes the set point temperatures for the
@@ -88,121 +98,123 @@ the outside air temperature is greater than
 In such a situation, set <code>dTOutHeaBal=20-12=8</code> Kelvin to 
 shift the heating curve.
 </p>
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
->Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD>Real</TD><TD>m</TD><TD>1.3</TD><TD>Exponent for heat transfer</TD></TR>
-<TR><TD>Boolean</TD><TD>use_TRoo_in</TD><TD>false</TD><TD>Get the room temperature set point from the input connector</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Temperature</A></TD><TD>TRoo</TD><TD>293.15</TD><TD>Fixed value of room temperature set point [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
->TemperatureDifference</A></TD><TD>dTOutHeaBal</TD><TD>8</TD><TD>Offset for heating curve [K]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal conditions</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Temperature</A></TD><TD>TSup_nominal</TD><TD>&nbsp;</TD><TD>Supply temperature [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Temperature</A></TD><TD>TRet_nominal</TD><TD>&nbsp;</TD><TD>Return temperature [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Temperature</A></TD><TD>TRoo_nominal</TD><TD>293.15</TD><TD>Room temperature [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Temperature</A></TD><TD>TOut_nominal</TD><TD>&nbsp;</TD><TD>Outside temperature [K]</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>TRoo_in</TD><TD>Room air temperature set point [K]</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>TOut</TD><TD>Outside temperature [K]</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>TSup</TD><TD>Setpoint for supply temperature [K]</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>TRet</TD><TD>Setpoint for return temperature [K]</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">block</font> HotWaterTemperatureReset <font color="darkgreen">
-  &quot;Block to compute the supply and return set point of heating systems&quot;</font>
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
->Modelica.Blocks.Interfaces.BlockIcon</A>;
 
-  <font color="blue">parameter </font>Real m = 1.3 <font color="darkgreen">&quot;Exponent for heat transfer&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Modelica.SIunits.Temperature</A> TSup_nominal <font color="darkgreen">&quot;Supply temperature&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Modelica.SIunits.Temperature</A> TRet_nominal <font color="darkgreen">&quot;Return temperature&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Modelica.SIunits.Temperature</A> TRoo_nominal = 293.15 <font color="darkgreen">
-    &quot;Room temperature&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Modelica.SIunits.Temperature</A> TOut_nominal <font color="darkgreen">&quot;Outside temperature&quot;</font>;
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>m</td><td>1.3</td><td>Exponent for heat transfer</td></tr>
+<tr><td>Boolean</td><td>use_TRoo_in</td><td>false</td><td>Get the room temperature set point from the input connector</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TRoo</td><td>293.15</td><td>Fixed value of room temperature set point [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTOutHeaBal</td><td>8</td><td>Offset for heating curve [K]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TSup_nominal</td><td>&nbsp;</td><td>Supply temperature [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TRet_nominal</td><td>&nbsp;</td><td>Return temperature [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TRoo_nominal</td><td>293.15</td><td>Room temperature [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TOut_nominal</td><td>&nbsp;</td><td>Outside temperature [K]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TRoo_in</td><td>Room air temperature set point [K]</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TOut</td><td>Outside temperature [K]</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>TSup</td><td>Setpoint for supply temperature [K]</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>TRet</td><td>Setpoint for return temperature [K]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">block</span> HotWaterTemperatureReset <span style="color: #006400">
+  &quot;Block to compute the supply and return set point of heating systems&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
 
-  <font color="blue">parameter </font>Boolean use_TRoo_in = false <font color="darkgreen">
-    &quot;Get the room temperature set point from the input connector&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Modelica.SIunits.Temperature</A> TRoo = 293.15 <font color="darkgreen">
-    &quot;Fixed value of room temperature set point&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
->Modelica.SIunits.TemperatureDifference</A> dTOutHeaBal(displayUnit=&quot;K&quot;) = 8 <font color="darkgreen">
-    &quot;Offset for heating curve&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> TRoo_in(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
-                                               <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="blue">if </font>
-          use_TRoo_in <font color="darkgreen">&quot;Room air temperature set point&quot;</font>;</textblock>
+  <span style="color: blue">parameter </span>Real m = 1.3 <span style="color: #006400">&quot;Exponent for heat transfer&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TSup_nominal <span style="color: #006400">&quot;Supply temperature&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TRet_nominal <span style="color: #006400">&quot;Return temperature&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TRoo_nominal = 293.15 <span style="color: #006400">
+    &quot;Room temperature&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TOut_nominal <span style="color: #006400">&quot;Outside temperature&quot;</span>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> TOut(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
-                                            <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
-    &quot;Outside temperature&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> TSup(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
-                                            <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
-    &quot;Setpoint for supply temperature&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> TRet(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
-                                            <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
-    &quot;Setpoint for return temperature&quot;</font>;</textblock>
+  <span style="color: blue">parameter </span>Boolean use_TRoo_in = false <span style="color: #006400">
+    &quot;Get the room temperature set point from the input connector&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TRoo = 293.15 <span style="color: #006400">
+    &quot;Fixed value of room temperature set point&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</a> dTOutHeaBal(displayUnit=&quot;K&quot;) = 8 <span style="color: #006400">
+    &quot;Offset for heating curve&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TRoo_in(<span style="color: blue">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+                                               <span style="color: blue">final </span>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <span style="color: blue">if </span>
+          use_TRoo_in <span style="color: #006400">&quot;Room air temperature set point&quot;</span>;
 
-<font color="blue">protected </font>
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> TRoo_in_internal(<font color="blue">final </font>quantity=&quot;ThermodynamicTemperature&quot;,
-                                                        <font color="blue">final </font>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <font color="darkgreen">
-    &quot;Needed to connect to conditional connector&quot;</font>;
-  Real qRel <font color="darkgreen">&quot;Relative heating load = Q_flow/Q_flow_nominal&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Modelica.SIunits.Temperature</A> TOutOffSet <font color="darkgreen">
-    &quot;Effective outside temperature for heat transfer (takes into account room heat gains)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Modelica.SIunits.Temperature</A> TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal <font color="darkgreen">
-    &quot;Effective outside temperature for heat transfer at nominal conditions (takes into account room heat gains)&quot;</font>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TOut(<span style="color: blue">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+                                            <span style="color: blue">final </span>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <span style="color: #006400">
+    &quot;Outside temperature&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> TSup(<span style="color: blue">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+                                            <span style="color: blue">final </span>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <span style="color: #006400">
+    &quot;Setpoint for supply temperature&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> TRet(<span style="color: blue">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+                                            <span style="color: blue">final </span>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <span style="color: #006400">
+    &quot;Setpoint for return temperature&quot;</span>;
 
-<font color="blue">equation </font>
-  <font color="red">connect</font>(TRoo_in, TRoo_in_internal);
-  <font color="blue">if </font><font color="blue">not </font>use_TRoo_in<font color="blue"> then</font>
+<span style="color: blue">protected </span>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TRoo_in_internal(<span style="color: blue">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+                                                        <span style="color: blue">final </span>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <span style="color: #006400">
+    &quot;Needed to connect to conditional connector&quot;</span>;
+  Real qRel <span style="color: #006400">&quot;Relative heating load = Q_flow/Q_flow_nominal&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TOutOffSet <span style="color: #006400">
+    &quot;Effective outside temperature for heat transfer (takes into account room heat gains)&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal <span style="color: #006400">
+    &quot;Effective outside temperature for heat transfer at nominal conditions (takes into account room heat gains)&quot;</span>;
+
+<span style="color: blue">equation </span>
+  <span style="color: red">connect</span>(TRoo_in, TRoo_in_internal);
+  <span style="color: blue">if </span><span style="color: blue">not </span>use_TRoo_in<span style="color: blue"> then</span>
     TRoo_in_internal = TRoo;
-  <font color="blue">end if</font>;
+  <span style="color: blue">end if</span>;
  TOutOffSet = TOut + dTOutHeaBal;
- <font color="darkgreen">// Relative heating load, compared to nominal conditions</font>
- qRel =<font color="red"> max</font>(0, (TRoo_in_internal-TOutOffSet)/(TRoo_nominal-TOutOffSet_nominal));
+ <span style="color: #006400">// Relative heating load, compared to nominal conditions</span>
+ qRel =<span style="color: red"> max</span>(0, (TRoo_in_internal-TOutOffSet)/(TRoo_nominal-TOutOffSet_nominal));
  TSup = TRoo_in_internal
           + ((TSup_nominal+TRet_nominal)/2-TRoo_nominal) * qRel^(1/m)
           + (TSup_nominal-TRet_nominal)/2 * qRel;
  TRet = TSup - qRel * (TSup_nominal-TRet_nominal);
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>HotWaterTemperatureReset;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE OccupancySchedule<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Controls.SetPoia9379402f2a3200eeduleI.png" ALT="Buildings.Controls.SetPoints.OccupancySchedule" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Controls.SetPoints.OccupancySchedule"></A><A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints"
->Buildings.Controls.SetPoints</A>.OccupancySchedule</H2>
-<B>Occupancy schedule with look-ahead</B><p></P>
-<IMG SRC="Buildings.Controls.SetPoia9379402f2a3200eeduleD.png" ALT="Buildings.Controls.SetPoints.OccupancySchedule">
-<P></P><H3>Information</H3>
+<span style="color: blue">end </span>HotWaterTemperatureReset;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE OccupancySchedule<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Controls.SetPoia9379402f2a3200eeduleI.png" alt="Buildings.Controls.SetPoints.OccupancySchedule" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Controls.SetPoints.OccupancySchedule"></a><a href="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints"
+>Buildings.Controls.SetPoints</a>.OccupancySchedule</h2>
+<p>
+<b>Occupancy schedule with look-ahead</b>
+<br>
+<br><img src="Buildings.Controls.SetPoia9379402f2a3200eeduleD.png" alt="Buildings.Controls.SetPoints.OccupancySchedule">
+</p>
+<h3>Information</h3>
 
 <p>
 This model outputs whether the building is currently occupied,
@@ -223,187 +235,189 @@ and from <i>14:00</i> to <i>19:00</i>. This will be repeated periodically.
 The parameter <code>periodicity</code> defines the periodicity.
 The period always starts at <i>t=0</i> seconds.
 </p>
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
->Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD>Real</TD><TD>occupancy[:]</TD><TD>3600*{7,19}</TD><TD>Occupancy table, each entry switching occupancy on or off</TD></TR>
-<TR><TD>Boolean</TD><TD>firstEntryOccupied</TD><TD>true</TD><TD>Set to true if first entry in occupancy denotes a changed from unoccupied to occupied</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>period</TD><TD>86400</TD><TD>End time of periodicity [s]</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>tNexNonOcc</TD><TD>Time until next non-occupancy</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>tNexOcc</TD><TD>Time until next occupancy</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
->BooleanOutput</A></TD><TD>occupied</TD><TD>Outputs true if occupied at current time</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">block</font> OccupancySchedule <font color="darkgreen">&quot;Occupancy schedule with look-ahead&quot;</font>
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
->Modelica.Blocks.Interfaces.BlockIcon</A>;
 
-  <font color="blue">parameter </font>Real occupancy[:]=3600*{7, 19} <font color="darkgreen">
-    &quot;Occupancy table, each entry switching occupancy on or off&quot;</font>;
-  <font color="blue">parameter </font>Boolean firstEntryOccupied = true <font color="darkgreen">
-    &quot;Set to true if first entry in occupancy denotes a changed from unoccupied to occupied&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Modelica.SIunits.Time</A> period =   86400 <font color="darkgreen">&quot;End time of periodicity&quot;</font>;
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>occupancy[:]</td><td>3600*{7,19}</td><td>Occupancy table, each entry switching occupancy on or off</td></tr>
+<tr><td>Boolean</td><td>firstEntryOccupied</td><td>true</td><td>Set to true if first entry in occupancy denotes a changed from unoccupied to occupied</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>period</td><td>86400</td><td>End time of periodicity [s]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>tNexNonOcc</td><td>Time until next non-occupancy</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>tNexOcc</td><td>Time until next occupancy</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+>BooleanOutput</a></td><td>occupied</td><td>Outputs true if occupied at current time</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">block</span> OccupancySchedule <span style="color: #006400">&quot;Occupancy schedule with look-ahead&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> tNexNonOcc <font color="darkgreen">
-    &quot;Time until next non-occupancy&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> tNexOcc <font color="darkgreen">&quot;Time until next occupancy&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
->Modelica.Blocks.Interfaces.BooleanOutput</A> occupied <font color="darkgreen">
-    &quot;Outputs true if occupied at current time&quot;</font>;</textblock>
+  <span style="color: blue">parameter </span>Real occupancy[:]=3600*{7, 19} <span style="color: #006400">
+    &quot;Occupancy table, each entry switching occupancy on or off&quot;</span>;
+  <span style="color: blue">parameter </span>Boolean firstEntryOccupied = true <span style="color: #006400">
+    &quot;Set to true if first entry in occupancy denotes a changed from unoccupied to occupied&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> period =   86400 <span style="color: #006400">&quot;End time of periodicity&quot;</span>;
 
-<font color="blue">protected </font>
-  <font color="blue">final </font><font color="blue">parameter </font>Integer nRow =<font color="red"> size</font>(occupancy,1) <font color="darkgreen">
-    &quot;Number of rows in the schedule&quot;</font>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> tNexNonOcc <span style="color: #006400">
+    &quot;Time until next non-occupancy&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> tNexOcc <span style="color: #006400">&quot;Time until next occupancy&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+>Modelica.Blocks.Interfaces.BooleanOutput</a> occupied <span style="color: #006400">
+    &quot;Outputs true if occupied at current time&quot;</span>;
 
-  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Modelica.SIunits.Time</A> offSet=<font color="red">integer</font>(time/period)*period <font color="darkgreen">
-    &quot;Time off-set, in multiples of period, that is used to switch the time when doing the table lookup&quot;</font>;
-  <font color="blue">output </font>Integer nexStaInd <font color="darkgreen">&quot;Next index when occupancy starts&quot;</font>;
-  <font color="blue">output </font>Integer nexStoInd <font color="darkgreen">&quot;Next index when occupancy stops&quot;</font>;
+<span style="color: blue">protected </span>
+  <span style="color: blue">final </span><span style="color: blue">parameter </span>Integer nRow =<span style="color: red"> size</span>(occupancy,1) <span style="color: #006400">
+    &quot;Number of rows in the schedule&quot;</span>;
 
-  <font color="blue">output </font>Integer iPerSta <font color="darkgreen">
-    &quot;Counter for the period in which the next occupancy starts&quot;</font>;
-  <font color="blue">output </font>Integer iPerSto <font color="darkgreen">
-    &quot;Counter for the period in which the next occupancy stops&quot;</font>;
+  <span style="color: blue">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> offSet=<span style="color: red">integer</span>(time/period)*period <span style="color: #006400">
+    &quot;Time off-set, in multiples of period, that is used to switch the time when doing the table lookup&quot;</span>;
+  <span style="color: blue">output </span>Integer nexStaInd <span style="color: #006400">&quot;Next index when occupancy starts&quot;</span>;
+  <span style="color: blue">output </span>Integer nexStoInd <span style="color: #006400">&quot;Next index when occupancy stops&quot;</span>;
 
-  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Modelica.SIunits.Time</A> tOcc <font color="darkgreen">&quot;Time when next occupancy starts&quot;</font>;
-  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Modelica.SIunits.Time</A> tNonOcc <font color="darkgreen">&quot;Time when next non-occupancy starts&quot;</font>;
+  <span style="color: blue">output </span>Integer iPerSta <span style="color: #006400">
+    &quot;Counter for the period in which the next occupancy starts&quot;</span>;
+  <span style="color: blue">output </span>Integer iPerSto <span style="color: #006400">
+    &quot;Counter for the period in which the next occupancy stops&quot;</span>;
 
-<textblock type="model" expanded="false" path="Buildings.Controls.SetPoints.OccupancySchedule.switchInteger"><font color="blue">encapsulated </font><font color="blue">function</font> switchInteger
-  <font color="blue">input </font>Integer x1;
-  <font color="blue">input </font>Integer x2;
-  <font color="blue">output </font>Integer y1;
-  <font color="blue">output </font>Integer y2;
-<font color="blue">algorithm </font>
+  <span style="color: blue">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> tOcc <span style="color: #006400">&quot;Time when next occupancy starts&quot;</span>;
+  <span style="color: blue">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> tNonOcc <span style="color: #006400">&quot;Time when next non-occupancy starts&quot;</span>;
+
+<span style="color: blue">encapsulated </span><span style="color: blue">function</span> switchInteger
+  <span style="color: blue">input </span>Integer x1;
+  <span style="color: blue">input </span>Integer x2;
+  <span style="color: blue">output </span>Integer y1;
+  <span style="color: blue">output </span>Integer y2;
+<span style="color: blue">algorithm </span>
   y1:=x2;
   y2:=x1;
-<font color="blue">end </font>switchInteger</textblock>;
+<span style="color: blue">end </span>switchInteger;
 
-<textblock type="model" expanded="false" path="Buildings.Controls.SetPoints.OccupancySchedule.switchReal"><font color="blue">encapsulated </font><font color="blue">function</font> switchReal
-  <font color="blue">input </font>Real x1;
-  <font color="blue">input </font>Real x2;
-  <font color="blue">output </font>Real y1;
-  <font color="blue">output </font>Real y2;
-<font color="blue">algorithm </font>
+<span style="color: blue">encapsulated </span><span style="color: blue">function</span> switchReal
+  <span style="color: blue">input </span>Real x1;
+  <span style="color: blue">input </span>Real x2;
+  <span style="color: blue">output </span>Real y1;
+  <span style="color: blue">output </span>Real y2;
+<span style="color: blue">algorithm </span>
   y1:=x2;
   y2:=x1;
-<font color="blue">end </font>switchReal</textblock>;
+<span style="color: blue">end </span>switchReal;
 
-<font color="blue">initial </font><font color="blue">algorithm </font>
-  <font color="darkgreen">// Check parameters for correctness</font>
- <font color="red">assert</font>(<font color="red">mod</font>(nRow, 2) &lt; 0.1,
+<span style="color: blue">initial </span><span style="color: blue">algorithm </span>
+  <span style="color: #006400">// Check parameters for correctness</span>
+ <span style="color: red">assert</span>(<span style="color: red">mod</span>(nRow, 2) &lt; 0.1,
    &quot;The parameter \&quot;occupancy\&quot; must have an even number of elements.\n&quot;);
- <font color="red">assert</font>(0 &lt; occupancy[1],
+ <span style="color: red">assert</span>(0 &lt; occupancy[1],
    &quot;The first element of \&quot;occupancy\&quot; must be bigger than zero.&quot;
-   + &quot;\n   Received occupancy[1] = &quot; +<font color="red"> String</font>(occupancy[1]));
- <font color="red">assert</font>(period &gt; occupancy[nRow],
+   + &quot;\n   Received occupancy[1] = &quot; +<span style="color: red"> String</span>(occupancy[1]));
+ <span style="color: red">assert</span>(period &gt; occupancy[nRow],
    &quot;The parameter \&quot;period\&quot; must be greater than the last element of \&quot;occupancy\&quot;.&quot;
-   + &quot;\n   Received period      = &quot; +<font color="red"> String</font>(period)
-   + &quot;\n            occupancy[&quot; +<font color="red"> String</font>(nRow) +
-     &quot;] = &quot; +<font color="red"> String</font>(occupancy[nRow]));
-  <font color="blue">for </font>i<font color="blue"> in </font>1:nRow-1<font color="blue"> loop</font>
-    <font color="red">assert</font>(occupancy[i] &lt; occupancy[i+1],
+   + &quot;\n   Received period      = &quot; +<span style="color: red"> String</span>(period)
+   + &quot;\n            occupancy[&quot; +<span style="color: red"> String</span>(nRow) +
+     &quot;] = &quot; +<span style="color: red"> String</span>(occupancy[nRow]));
+  <span style="color: blue">for </span>i<span style="color: blue"> in </span>1:nRow-1<span style="color: blue"> loop</span>
+    <span style="color: red">assert</span>(occupancy[i] &lt; occupancy[i+1],
       &quot;The elements of the parameter \&quot;occupancy\&quot; must be strictly increasing.&quot;);
-  <font color="blue">end for</font>;
+  <span style="color: blue">end for</span>;
 
- <font color="darkgreen">// Initialize variables</font>
- iPerSta   :=<font color="red"> integer</font>(time/period);
+ <span style="color: #006400">// Initialize variables</span>
+ iPerSta   :=<span style="color: red"> integer</span>(time/period);
  iPerSto   := iPerSta;
 
- <font color="darkgreen">// First, assume that the first entry is occupied</font>
+ <span style="color: #006400">// First, assume that the first entry is occupied</span>
  nexStaInd := 1;
  nexStoInd := 2;
- <font color="darkgreen">// nRow is an even number</font>
- <font color="blue">for </font>i<font color="blue"> in </font>1:2:nRow-1<font color="blue"> loop</font>
-   <font color="blue">if </font>time &gt;= occupancy[i] + iPerSta*period<font color="blue"> then</font>
+ <span style="color: #006400">// nRow is an even number</span>
+ <span style="color: blue">for </span>i<span style="color: blue"> in </span>1:2:nRow-1<span style="color: blue"> loop</span>
+   <span style="color: blue">if </span>time &gt;= occupancy[i] + iPerSta*period<span style="color: blue"> then</span>
      nexStaInd := i+2;
-   <font color="blue">end if</font>;
- <font color="blue">end for</font>;
- <font color="blue">for </font>i<font color="blue"> in </font>2:2:nRow<font color="blue"> loop</font>
-   <font color="blue">if </font>time &gt;= occupancy[i] + iPerSto*period<font color="blue"> then</font>
+   <span style="color: blue">end if</span>;
+ <span style="color: blue">end for</span>;
+ <span style="color: blue">for </span>i<span style="color: blue"> in </span>2:2:nRow<span style="color: blue"> loop</span>
+   <span style="color: blue">if </span>time &gt;= occupancy[i] + iPerSto*period<span style="color: blue"> then</span>
      nexStoInd := i+2;
-   <font color="blue">end if</font>;
- <font color="blue">end for</font>;
- <font color="blue">if </font>nexStaInd &gt; nRow<font color="blue"> then</font>
+   <span style="color: blue">end if</span>;
+ <span style="color: blue">end for</span>;
+ <span style="color: blue">if </span>nexStaInd &gt; nRow<span style="color: blue"> then</span>
     nexStaInd := 1;
     iPerSta :=iPerSta + 1;
- <font color="blue">end if</font>;
- <font color="blue">if </font>nexStoInd &gt; nRow<font color="blue"> then</font>
+ <span style="color: blue">end if</span>;
+ <span style="color: blue">if </span>nexStoInd &gt; nRow<span style="color: blue"> then</span>
     nexStoInd := 2;
     iPerSto :=iPerSto + 1;
- <font color="blue">end if</font>;
+ <span style="color: blue">end if</span>;
  tOcc    := occupancy[nexStaInd]+iPerSta*period;
  tNonOcc := occupancy[nexStoInd]+iPerSto*period;
  occupied := tNonOcc &lt; tOcc;
 
- <font color="darkgreen">// Now, correct if the first entry is vaccant instead of occupied</font>
- <font color="blue">if </font><font color="blue">not </font>firstEntryOccupied<font color="blue"> then</font>
-   (nexStaInd, nexStoInd) :=<font color="red"> switchInteger</font>(nexStaInd, nexStoInd);
-   (iPerSta, iPerSto)     :=<font color="red"> switchInteger</font>(iPerSta,   iPerSto);
-   (tOcc, tNonOcc)        :=<font color="red"> switchReal</font>(tOcc,      tNonOcc);
-   occupied := <font color="blue">not </font>occupied;
- <font color="blue">end if</font>;
+ <span style="color: #006400">// Now, correct if the first entry is vaccant instead of occupied</span>
+ <span style="color: blue">if </span><span style="color: blue">not </span>firstEntryOccupied<span style="color: blue"> then</span>
+   (nexStaInd, nexStoInd) :=<span style="color: red"> switchInteger</span>(nexStaInd, nexStoInd);
+   (iPerSta, iPerSto)     :=<span style="color: red"> switchInteger</span>(iPerSta,   iPerSto);
+   (tOcc, tNonOcc)        :=<span style="color: red"> switchReal</span>(tOcc,      tNonOcc);
+   occupied := <span style="color: blue">not </span>occupied;
+ <span style="color: blue">end if</span>;
 
-<font color="blue">algorithm </font>
-  <font color="blue">when </font>time &gt;=<font color="red"> pre</font>(tOcc)<font color="blue"> then</font>
+<span style="color: blue">algorithm </span>
+  <span style="color: blue">when </span>time &gt;=<span style="color: red"> pre</span>(tOcc)<span style="color: blue"> then</span>
     nexStaInd :=nexStaInd + 2;
-    occupied := <font color="blue">not </font>occupied;
-    <font color="darkgreen">// Wrap index around</font>
-    <font color="blue">if </font>nexStaInd &gt; nRow<font color="blue"> then</font>
-       nexStaInd := <font color="blue">if </font>firstEntryOccupied<font color="blue"> then </font>1<font color="blue"> else </font>2;
+    occupied := <span style="color: blue">not </span>occupied;
+    <span style="color: #006400">// Wrap index around</span>
+    <span style="color: blue">if </span>nexStaInd &gt; nRow<span style="color: blue"> then</span>
+       nexStaInd := <span style="color: blue">if </span>firstEntryOccupied<span style="color: blue"> then </span>1<span style="color: blue"> else </span>2;
        iPerSta :=iPerSta + 1;
-    <font color="blue">end if</font>;
+    <span style="color: blue">end if</span>;
     tOcc := occupancy[nexStaInd] + iPerSta*period;
-  <font color="blue">end when</font>;
+  <span style="color: blue">end when</span>;
 
-  <font color="darkgreen">// Changed the index that computes the time until the next non-occupancy</font>
-  <font color="blue">when </font>time &gt;=<font color="red"> pre</font>(tNonOcc)<font color="blue"> then</font>
+  <span style="color: #006400">// Changed the index that computes the time until the next non-occupancy</span>
+  <span style="color: blue">when </span>time &gt;=<span style="color: red"> pre</span>(tNonOcc)<span style="color: blue"> then</span>
     nexStoInd :=nexStoInd + 2;
-    occupied := <font color="blue">not </font>occupied;
-    <font color="darkgreen">// Wrap index around</font>
-    <font color="blue">if </font>nexStoInd &gt; nRow<font color="blue"> then</font>
-       nexStoInd := <font color="blue">if </font>firstEntryOccupied<font color="blue"> then </font>2<font color="blue"> else </font>1;
+    occupied := <span style="color: blue">not </span>occupied;
+    <span style="color: #006400">// Wrap index around</span>
+    <span style="color: blue">if </span>nexStoInd &gt; nRow<span style="color: blue"> then</span>
+       nexStoInd := <span style="color: blue">if </span>firstEntryOccupied<span style="color: blue"> then </span>2<span style="color: blue"> else </span>1;
        iPerSto :=iPerSto + 1;
-    <font color="blue">end if</font>;
+    <span style="color: blue">end if</span>;
     tNonOcc := occupancy[nexStoInd] + iPerSto*period;
-  <font color="blue">end when</font>;
+  <span style="color: blue">end when</span>;
 
  tNexOcc    := tOcc-time;
  tNexNonOcc := tNonOcc-time;
- <font color="red">assert</font>(tNexOcc &gt; -1e-3<font color="blue"> and </font>tNexOcc &lt; period+1E-3, &quot;tNexOcc must be non-zero and smaller than period.
-   Received tNexOcc = &quot; +<font color="red"> String</font>(tNexOcc));
- <font color="red">assert</font>(tNexNonOcc &gt; -1e-3<font color="blue"> and </font>tNexOcc &lt; period+1E-3, &quot;tNexNonOcc must be non-zero and smaller than period.
-   Received tNexNonOcc = &quot; +<font color="red"> String</font>(tNexNonOcc));
+ <span style="color: red">assert</span>(tNexOcc &gt; -1e-3<span style="color: blue"> and </span>tNexOcc &lt; period+1E-3, &quot;tNexOcc must be non-zero and smaller than period.
+   Received tNexOcc = &quot; +<span style="color: red"> String</span>(tNexOcc));
+ <span style="color: red">assert</span>(tNexNonOcc &gt; -1e-3<span style="color: blue"> and </span>tNexOcc &lt; period+1E-3, &quot;tNexNonOcc must be non-zero and smaller than period.
+   Received tNexNonOcc = &quot; +<span style="color: red"> String</span>(tNexNonOcc));
 
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>OccupancySchedule;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE Table<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Controls.SetPoints.TableI.png" ALT="Buildings.Controls.SetPoints.Table" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Controls.SetPoints.Table"></A><A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints"
->Buildings.Controls.SetPoints</A>.Table</H2>
-<B>Model for a set point that is interpolated based on a user-specified table</B><p></P>
-<IMG SRC="Buildings.Controls.SetPoints.TableD.png" ALT="Buildings.Controls.SetPoints.Table">
-<P></P><H3>Information</H3>
+<span style="color: blue">end </span>OccupancySchedule;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Table<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Controls.SetPoints.TableI.png" alt="Buildings.Controls.SetPoints.Table" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Controls.SetPoints.Table"></a><a href="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints"
+>Buildings.Controls.SetPoints</a>.Table</h2>
+<p>
+<b>Model for a set point that is interpolated based on a user-specified table</b>
+<br>
+<br><img src="Buildings.Controls.SetPoints.TableD.png" alt="Buildings.Controls.SetPoints.Table">
+</p>
+<h3>Information</h3>
 
 <p>
 This block can be used to schedule a set-point by using piecewise linear functions.
@@ -437,61 +451,62 @@ Otherwise, the table is linearly extrapolated with a constant derivative.
 <p>
 Note that the first column must be strictly increasing.
 </p>
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
->Modelica.Blocks.Interfaces.SISO</A> (Single Input Single Output continuous control block).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD>Real</TD><TD>table[:, 2]</TD><TD>fill(0.0, 1, 2)</TD><TD>Table matrix ( e.g., table=[u1, y1; u2, y2; u3, y3])</TD></TR>
-<TR><TD>Real</TD><TD>offset</TD><TD>0</TD><TD>Offset of output signal</TD></TR>
-<TR><TD>Boolean</TD><TD>constantExtrapolation</TD><TD>true</TD><TD>If true, then y=y1 for u&lt;u1, and y=yMax for u&gt;uMax</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>u</TD><TD>Connector of Real input signal</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> Table <font color="darkgreen">
-  &quot;Model for a set point that is interpolated based on a user-specified table&quot;</font>
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
->Modelica.Blocks.Interfaces.SISO</A>;
-  <font color="blue">parameter </font>Real table[:,2]=<font color="red">fill</font>(0.0, 1, 2) <font color="darkgreen">
-    &quot;Table matrix ( e.g., table=[u1, y1; u2, y2; u3, y3])&quot;</font>;
 
-  <font color="blue">parameter </font>Real offset=0 <font color="darkgreen">&quot;Offset of output signal&quot;</font>;
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>table[:, 2]</td><td>fill(0.0, 1, 2)</td><td>Table matrix ( e.g., table=[u1, y1; u2, y2; u3, y3])</td></tr>
+<tr><td>Real</td><td>offset</td><td>0</td><td>Offset of output signal</td></tr>
+<tr><td>Boolean</td><td>constantExtrapolation</td><td>true</td><td>If true, then y=y1 for u&lt;u1, and y=yMax for u&gt;uMax</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u</td><td>Connector of Real input signal</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> Table <span style="color: #006400">
+  &quot;Model for a set point that is interpolated based on a user-specified table&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a>;
+  <span style="color: blue">parameter </span>Real table[:,2]=<span style="color: red">fill</span>(0.0, 1, 2) <span style="color: #006400">
+    &quot;Table matrix ( e.g., table=[u1, y1; u2, y2; u3, y3])&quot;</span>;
 
-  <font color="blue">parameter </font>Boolean constantExtrapolation = true <font color="darkgreen">
-    &quot;If true, then y=y1 for u&lt;u1, and y=yMax for u&gt;uMax&quot;</font>;
+  <span style="color: blue">parameter </span>Real offset=0 <span style="color: #006400">&quot;Offset of output signal&quot;</span>;
 
-<font color="blue">protected </font>
-  <font color="blue">final </font><font color="blue">parameter </font>Integer nCol = <font color="blue">if </font>constantExtrapolation<font color="blue"> then </font>
-                        <font color="red">size</font>(table,1)+2<font color="blue"> else </font>
-                        <font color="red">size</font>(table,1) <font color="darkgreen">&quot;Number of columns&quot;</font>;
-  <font color="blue">final </font><font color="blue">parameter </font>Real[nCol,2] offsetVector = [<font color="red">zeros</font>(nCol), offset*<font color="red">ones</font>(nCol)] <font color="darkgreen">
-    &quot;Vector to take offset of output signal into account&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Tables.html#Modelica.Blocks.Tables.CombiTable1D"
->Modelica.Blocks.Tables.CombiTable1D</A> tab(
+  <span style="color: blue">parameter </span>Boolean constantExtrapolation = true <span style="color: #006400">
+    &quot;If true, then y=y1 for u&lt;u1, and y=yMax for u&gt;uMax&quot;</span>;
+
+<span style="color: blue">protected </span>
+  <span style="color: blue">final </span><span style="color: blue">parameter </span>Integer nCol = <span style="color: blue">if </span>constantExtrapolation<span style="color: blue"> then </span>
+                        <span style="color: red">size</span>(table,1)+2<span style="color: blue"> else </span>
+                        <span style="color: red">size</span>(table,1) <span style="color: #006400">&quot;Number of columns&quot;</span>;
+  <span style="color: blue">final </span><span style="color: blue">parameter </span>Real[nCol,2] offsetVector = [<span style="color: red">zeros</span>(nCol), offset*<span style="color: red">ones</span>(nCol)] <span style="color: #006400">
+    &quot;Vector to take offset of output signal into account&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Tables.html#Modelica.Blocks.Tables.CombiTable1D"
+>Modelica.Blocks.Tables.CombiTable1D</a> tab(
     tableOnFile=false,
-    <font color="blue">final </font>table= (<font color="blue">if </font>constantExtrapolation<font color="blue"> then </font>
-                    <font color="red">cat</font>(1, [table[1,1]-1, table[1,2]],
+    <span style="color: blue">final </span>table= (<span style="color: blue">if </span>constantExtrapolation<span style="color: blue"> then </span>
+                    <span style="color: red">cat</span>(1, [table[1,1]-1, table[1,2]],
                            table,
-                           [table[<font color="blue">end</font>,1]+1, table[<font color="blue">end</font>,2]])<font color="blue"> else </font>
+                           [table[<span style="color: blue">end</span>,1]+1, table[<span style="color: blue">end</span>,2]])<span style="color: blue"> else </span>
                     table)
-                  +offsetVector) <font color="darkgreen">&quot;Table used for interpolation&quot;</font>;</textblock>
-<font color="blue">equation </font>
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(u, tab.u[1]);</textblock>
+                  +offsetVector) <span style="color: #006400">&quot;Table used for interpolation&quot;</span>;
+<span style="color: blue">equation </span>
+  <span style="color: red">connect</span>(u, tab.u[1]);
 
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(tab.y[1], y);</textblock>
+  <span style="color: red">connect</span>(tab.y[1], y);
 
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Table;
-</PRE>
-<HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:15:00 2014.
-</address></BODY>
-</HTML>
+<span style="color: blue">end </span>Table;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 10:54:43 2014.
+</address>
+</body>
+</html>

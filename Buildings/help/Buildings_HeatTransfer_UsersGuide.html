@@ -1,45 +1,37 @@
-<HTML>
-<HEAD>
-<TITLE>Buildings.HeatTransfer.UsersGuide</TITLE>
-<META name="HTML-Generator" content="Dymola">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.HeatTransfer.UsersGuide</title>
+<meta name="HTML-Generator" content="Dymola">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<META name="description" content="&quot;User&#39;s Guide&quot;">
+<meta name="description" content="&quot;User&#39;s Guide&quot;">
 <style type="text/css">
-*       { font-size: 10pt; font-family: Arial,sans-serif; }
-pre     { font-size:  9pt; font-family: Courier,monospace;}
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
 h4      { font-size: 10pt; font-weight: bold; color: green; }
 h3      { font-size: 11pt; font-weight: bold; color: green; }
 h2      { font-size: 13pt; font-weight: bold; color: green; }
-address {                  font-weight: normal} 
-td      { solid #000; vertical-align:top; }
-th      { solid #000; vertical-align:top; font-weight: bold; }
-table   { solid #000; border-collapse: collapse;}
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
 </style>
-<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
-</HEAD>
+</head>
 <body>
-<!-- --- header ------ -->
-<div class="headerStyle">
-<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
-</div>
-<div class="headerLinks">
-<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
-</div>
-<!-- --- end header -- -->
-</P>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE UsersGuide<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.HeatTransfer.UsersGuide"></A><A HREF="Buildings_HeatTransfer.html#Buildings.HeatTransfer"
->Buildings.HeatTransfer</A>.UsersGuide</H2>
-<B>User&#39;s Guide</B>
-<P></P>
-<P></P><H3>Information</H3>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE UsersGuide<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.UsersGuide"></a><a href="Buildings_HeatTransfer.html#Buildings.HeatTransfer"
+>Buildings.HeatTransfer</a>.UsersGuide</h2>
+<p>
+<b>User&#39;s Guide</b><br>
+</p>
+<h3>Information</h3>
 
 The package <code>Buildings.HeatTransfer</code> consists of models
 for heat transfer.
 The models have the same interface as models of the package
-<A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer.html#Modelica.Thermal.HeatTransfer"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer.html#Modelica.Thermal.HeatTransfer"
 >Modelica.Thermal.HeatTransfer</a>.
 <br/>
 
@@ -54,16 +46,16 @@ The models that compute heat transfer in solids consist of data records for
 the materials and of models that compute the heat transfer.
 The data records are composed hierarchically and consist of
 data records that define material properties with thermal storage
-(<A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
+(<a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
 >
 Buildings.HeatTransfer.Data.Solids</a>)
 and of material properties of thermal resistors with no heat storage
-(<A HREF="Buildings_HeatTransfer_Data_Resistances.html#Buildings.HeatTransfer.Data.Resistances"
+(<a href="Buildings_HeatTransfer_Data_Resistances.html#Buildings.HeatTransfer.Data.Resistances"
 >
 Buildings.HeatTransfer.Data.Resistances</a>).
 These records are used to assemble layers that define
 the thermal properties of constructions
-(<A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions"
+(<a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions"
 >
 Buildings.HeatTransfer.Data.OpaqueConstructions</a>).
 </p>
@@ -71,7 +63,7 @@ Buildings.HeatTransfer.Data.OpaqueConstructions</a>).
 This layer definition is then used in models that compute the heat conduction.
 Like the materials, these models are assembled hierarchically.
 The simplest model is
-<A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.SingleLayer"
+<a href="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.SingleLayer"
 >
 Buildings.HeatTransfer.Conduction.SingleLayer</a>
 for heat conduction through a single layer of material.
@@ -92,11 +84,11 @@ The boundary conditions for
 this model are the temperatures and heat flow rates at the material interface.
 </p>
 <p>
-The model <A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.SingleLayer"
+The model <a href="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.SingleLayer"
 >
 Buildings.HeatTransfer.Conduction.SingleLayer</a>
 is then used to construct the heat conductor 
-<A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.MultiLayer"
+<a href="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.MultiLayer"
 >
 Buildings.HeatTransfer.Conduction.MultiLayer</a>
 that has multiple layers of material. 
@@ -107,7 +99,7 @@ this model are its surface temperatures and heat flow rates.
 </p>
 <p>
 To model convective heat transfer, instances of the model
-<A HREF="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection"
+<a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection"
 >
 Buildings.HeatTransfer.Convection</a> are used, which allow
 using a convective heat transfer coefficient that is fixed
@@ -166,7 +158,7 @@ Alternatively, to model the insulation in steady-state, we can set its heat capa
 <p>
 Instead of specifying a material with specific heat capacity and setting <code>c=0</code>,
 materials from the library 
-<A HREF="Buildings_HeatTransfer_Data_Resistances.html#Buildings.HeatTransfer.Data.Resistances"
+<a href="Buildings_HeatTransfer_Data_Resistances.html#Buildings.HeatTransfer.Data.Resistances"
 >
 Buildings.HeatTransfer.Data.Resistances</a> can be used. 
 For example, for a floor with carpet, the declaration would be
@@ -192,10 +184,12 @@ or
 <p>
 Both definitions are identical.
 </p>
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
->Modelica.Icons.Information</A> (Icon for general information packages).
-<HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:17:26 2014.
-</address></BODY>
-</HTML>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 10:57:27 2014.
+</address>
+</body>
+</html>

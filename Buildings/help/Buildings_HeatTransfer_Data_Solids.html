@@ -1,40 +1,32 @@
-<HTML>
-<HEAD>
-<TITLE>Buildings.HeatTransfer.Data.Solids</TITLE>
-<META name="HTML-Generator" content="Dymola">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.HeatTransfer.Data.Solids</title>
+<meta name="HTML-Generator" content="Dymola">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<META name="description" content="&quot;Package with solid material, characterized by thermal conductance, density and specific heat capacity&quot;">
+<meta name="description" content="&quot;Package with solid material, characterized by thermal conductance, density and specific heat capacity&quot;">
 <style type="text/css">
-*       { font-size: 10pt; font-family: Arial,sans-serif; }
-pre     { font-size:  9pt; font-family: Courier,monospace;}
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
 h4      { font-size: 10pt; font-weight: bold; color: green; }
 h3      { font-size: 11pt; font-weight: bold; color: green; }
 h2      { font-size: 13pt; font-weight: bold; color: green; }
-address {                  font-weight: normal} 
-td      { solid #000; vertical-align:top; }
-th      { solid #000; vertical-align:top; font-weight: bold; }
-table   { solid #000; border-collapse: collapse;}
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
 </style>
-<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
-</HEAD>
+</head>
 <body>
-<!-- --- header ------ -->
-<div class="headerStyle">
-<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
-</div>
-<div class="headerLinks">
-<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
-</div>
-<!-- --- end header -- -->
-</P>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE Solids<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.HeatTransfer.Data.Solids"></A><A HREF="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
->Buildings.HeatTransfer.Data</A>.Solids</H2>
-<B>Package with solid material, characterized by thermal conductance, density and specific heat capacity</B>
-<P></P>
-<P></P><H3>Information</H3>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Solids<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Data.Solids"></a><a href="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
+>Buildings.HeatTransfer.Data</a>.Solids</h2>
+<p>
+<b>Package with solid material, characterized by thermal conductance, density and specific heat capacity</b><br>
+</p>
+<h3>Information</h3>
 
 <p>
 Package with records for solid materials.
@@ -47,11 +39,11 @@ These material records automatically compute the spatial grid
 that is used to compute transient heat conduction.
 In building materials, the thermal diffusivity of adjacent layer materials can differ by an order of magnitude. If the spatial grid generation were not to account for the material properties, then the time rate of change of the different temperature nodes would be significantly different from each other.
 Therefore, records in the packages
-<A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
+<a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
 >
 Buildings.HeatTransfer.Data.Solids</a>
 and
-<A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM"
+<a href="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM"
 >
 Buildings.HeatTransfer.Data.SolidsPCM</a>
 generate the spatial grid so that under the assumption of equal heat transfer, each node temperature has a similar time rate of change.
@@ -126,40 +118,63 @@ Finally, we divide the material layer in compartments of length
 <i>&Delta; = x &frasl; N<sub>x</sub></i>.
 </p>
 
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
->Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
-<P></P><H3>Package Content</H3>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
-<TR><TH >Name</TH><TH>Description</TH></TR>
-<TR><TD><IMG SRC="Buildings.HeatTransfer.Daac3903090d2e36efnericS.png" ALT="Buildings.HeatTransfer.Data.Solids.Generic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
->Generic</A>
-</TD><TD>Thermal properties of solids with heat storage</TD></TR>
-<TR><TD><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickS.png" ALT="Buildings.HeatTransfer.Data.Solids.Brick" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Brick"
->Brick</A>
-</TD><TD>Brick (k=0.89)</TD></TR>
-<TR><TD><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickS.png" ALT="Buildings.HeatTransfer.Data.Solids.Concrete" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Concrete"
->Concrete</A>
-</TD><TD>Concrete (k=1.4)</TD></TR>
-<TR><TD><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickS.png" ALT="Buildings.HeatTransfer.Data.Solids.InsulationBoard" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.InsulationBoard"
->InsulationBoard</A>
-</TD><TD>Insulation board (k=0.03)</TD></TR>
-<TR><TD><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickS.png" ALT="Buildings.HeatTransfer.Data.Solids.GypsumBoard" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.GypsumBoard"
->GypsumBoard</A>
-</TD><TD>Gypsum board (k=0.58)</TD></TR>
-<TR><TD><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickS.png" ALT="Buildings.HeatTransfer.Data.Solids.Plywood" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Plywood"
->Plywood</A>
-</TD><TD>Plywood (k=0.12)</TD></TR>
-</TABLE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE Generic<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.HeatTransfer.Daac3903090d2e36efnericI.png" ALT="Buildings.HeatTransfer.Data.Solids.Generic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.HeatTransfer.Data.Solids.Generic"></A><A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
->Buildings.HeatTransfer.Data.Solids</A>.Generic</H2>
-<B>Thermal properties of solids with heat storage</B><p></P>
-<P></P><H3>Information</H3>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+>Modelica.Icons.MaterialPropertiesPackage</a> (Icon for package containing property classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Daac3903090d2e36efnericS.png" alt="Buildings.HeatTransfer.Data.Solids.Generic" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
+>Generic</a>
+</td>
+<td>Thermal properties of solids with heat storage</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Data.Solids.BrickS.png" alt="Buildings.HeatTransfer.Data.Solids.Brick" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Brick"
+>Brick</a>
+</td>
+<td>Brick (k=0.89)</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Data.Solids.BrickS.png" alt="Buildings.HeatTransfer.Data.Solids.Concrete" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Concrete"
+>Concrete</a>
+</td>
+<td>Concrete (k=1.4)</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Data.Solids.BrickS.png" alt="Buildings.HeatTransfer.Data.Solids.InsulationBoard" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.InsulationBoard"
+>InsulationBoard</a>
+</td>
+<td>Insulation board (k=0.03)</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Data.Solids.BrickS.png" alt="Buildings.HeatTransfer.Data.Solids.GypsumBoard" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.GypsumBoard"
+>GypsumBoard</a>
+</td>
+<td>Gypsum board (k=0.58)</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Data.Solids.BrickS.png" alt="Buildings.HeatTransfer.Data.Solids.Plywood" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Plywood"
+>Plywood</a>
+</td>
+<td>Plywood (k=0.12)</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Generic<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Daac3903090d2e36efnericI.png" alt="Buildings.HeatTransfer.Data.Solids.Generic" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.Solids.Generic"></a><a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
+>Buildings.HeatTransfer.Data.Solids</a>.Generic</h2>
+<p>
+<b>Thermal properties of solids with heat storage</b>
+</p>
+<h3>Information</h3>
 
 <p>
 Generic record for solid materials.
@@ -167,223 +182,229 @@ The material is characterized by its
 thermal conductivity, mass density and specific
 heat capacity.
 </p>
-<P></P>
-Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
->Buildings.HeatTransfer.Data.BaseClasses.Material</A> (Thermal properties of materials w/o storage).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Material thickness [m]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
->ThermalConductivity</A></TD><TD>k</TD><TD>&nbsp;</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
->SpecificHeatCapacity</A></TD><TD>c</TD><TD>&nbsp;</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Density</A></TD><TD>d</TD><TD>&nbsp;</TD><TD>Mass density [kg/m3]</TD></TR>
-<TR><TD>Real</TD><TD>R</TD><TD>x/k</TD><TD>Thermal resistance of a unit area of material [m2.K/W]</TD></TR>
-<TR><TD>Integer</TD><TD>nStaRef</TD><TD>3</TD><TD>Number of state variables in a reference material of 0.2 m concrete</TD></TR>
-<TR><TD>Boolean</TD><TD>steadyState</TD><TD>(c == 0 or d == 0)</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Properties for phase change material</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Temperature</A></TD><TD>TSol</TD><TD>293.15</TD><TD>Solidus temperature, used only for PCM. [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Temperature</A></TD><TD>TLiq</TD><TD>293.15</TD><TD>Liquidus temperature, used only for PCM [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
->SpecificInternalEnergy</A></TD><TD>LHea</TD><TD>0</TD><TD>Latent heat of phase change [J/kg]</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD>Integer</TD><TD>nSta</TD><TD>max(1, integer(ceil(nStaReal...</TD><TD>Actual number of state variables in material</TD></TR>
-<TR><TD>Real</TD><TD>piRef</TD><TD>331.4</TD><TD>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</TD></TR>
-<TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
-<TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">record</font> Generic <font color="darkgreen">&quot;Thermal properties of solids with heat storage&quot;</font>
-    <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
->Buildings.HeatTransfer.Data.BaseClasses.Material</A>(<font color="blue">final </font>R=x/k,
-                                                             <font color="blue">final </font>TSol=293.15,
-                                                             <font color="blue">final </font>TLiq=293.15,
-                                                             <font color="blue">final </font>LHea=0,
-                                                             <font color="blue">final </font>phasechange=false);
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Generic;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE Brick<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickI.png" ALT="Buildings.HeatTransfer.Data.Solids.Brick" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.HeatTransfer.Data.Solids.Brick"></A><A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
->Buildings.HeatTransfer.Data.Solids</A>.Brick</H2>
-<B>Brick (k=0.89)</B><p></P>
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Material thickness [m]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
->ThermalConductivity</A></TD><TD>k</TD><TD>0.89</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
->SpecificHeatCapacity</A></TD><TD>c</TD><TD>790</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Density</A></TD><TD>d</TD><TD>1920</TD><TD>Mass density [kg/m3]</TD></TR>
-<TR><TD>Integer</TD><TD>nStaRef</TD><TD>3</TD><TD>Number of state variables in a reference material of 0.2 m concrete</TD></TR>
-<TR><TD>Boolean</TD><TD>steadyState</TD><TD>(c == 0 or d == 0)</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD>Integer</TD><TD>nSta</TD><TD>max(1, integer(ceil(nStaReal...</TD><TD>Actual number of state variables in material</TD></TR>
-<TR><TD>Real</TD><TD>piRef</TD><TD>331.4</TD><TD>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</TD></TR>
-<TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
-<TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">record</font> Brick = <A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
->Buildings.HeatTransfer.Data.Solids.Generic</A> (
+
+<p>Extends from <a href="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
+>Buildings.HeatTransfer.Data.BaseClasses.Material</a> (Thermal properties of materials w/o storage).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>x</td><td>&nbsp;</td><td>Material thickness [m]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>k</td><td>&nbsp;</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>c</td><td>&nbsp;</td><td>Specific heat capacity [J/(kg.K)]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>d</td><td>&nbsp;</td><td>Mass density [kg/m3]</td></tr>
+<tr><td>Real</td><td>R</td><td>x/k</td><td>Thermal resistance of a unit area of material [m2.K/W]</td></tr>
+<tr><td>Integer</td><td>nStaRef</td><td>3</td><td>Number of state variables in a reference material of 0.2 m concrete</td></tr>
+<tr><td>Boolean</td><td>steadyState</td><td>(c == 0 or d == 0)</td><td>Flag, if true, then material is computed using steady-state heat conduction</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Properties for phase change material</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TSol</td><td>293.15</td><td>Solidus temperature, used only for PCM. [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TLiq</td><td>293.15</td><td>Liquidus temperature, used only for PCM [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+>SpecificInternalEnergy</a></td><td>LHea</td><td>0</td><td>Latent heat of phase change [J/kg]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Integer</td><td>nSta</td><td>max(1, integer(ceil(nStaReal...</td><td>Actual number of state variables in material</td></tr>
+<tr><td>Real</td><td>piRef</td><td>331.4</td><td>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</td></tr>
+<tr><td>Real</td><td>piMat</td><td>if steadyState then piRef el...</td><td>Ratio x/sqrt(alpha)</td></tr>
+<tr><td>Real</td><td>nStaReal</td><td>nStaRef*piMat/piRef</td><td>Number of states as a real number</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">record</span> Generic <span style="color: #006400">&quot;Thermal properties of solids with heat storage&quot;</span>
+    <span style="color: blue">extends </span><a href="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
+>Buildings.HeatTransfer.Data.BaseClasses.Material</a>(<span style="color: blue">final </span>R=x/k,
+                                                             <span style="color: blue">final </span>TSol=293.15,
+                                                             <span style="color: blue">final </span>TLiq=293.15,
+                                                             <span style="color: blue">final </span>LHea=0,
+                                                             <span style="color: blue">final </span>phasechange=false);
+<span style="color: blue">end </span>Generic;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Brick<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Data.Solids.BrickI.png" alt="Buildings.HeatTransfer.Data.Solids.Brick" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.Solids.Brick"></a><a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
+>Buildings.HeatTransfer.Data.Solids</a>.Brick</h2>
+<p>
+<b>Brick (k=0.89)</b>
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>x</td><td>&nbsp;</td><td>Material thickness [m]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>k</td><td>0.89</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>c</td><td>790</td><td>Specific heat capacity [J/(kg.K)]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>d</td><td>1920</td><td>Mass density [kg/m3]</td></tr>
+<tr><td>Integer</td><td>nStaRef</td><td>3</td><td>Number of state variables in a reference material of 0.2 m concrete</td></tr>
+<tr><td>Boolean</td><td>steadyState</td><td>(c == 0 or d == 0)</td><td>Flag, if true, then material is computed using steady-state heat conduction</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Integer</td><td>nSta</td><td>max(1, integer(ceil(nStaReal...</td><td>Actual number of state variables in material</td></tr>
+<tr><td>Real</td><td>piRef</td><td>331.4</td><td>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</td></tr>
+<tr><td>Real</td><td>piMat</td><td>if steadyState then piRef el...</td><td>Ratio x/sqrt(alpha)</td></tr>
+<tr><td>Real</td><td>nStaReal</td><td>nStaRef*piMat/piRef</td><td>Number of states as a real number</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">record</span> Brick = <a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
+>Buildings.HeatTransfer.Data.Solids.Generic</a> (
     k=0.89,
     d=1920,
-    c=790) <font color="darkgreen">&quot;Brick (k=0.89)&quot;</font>;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE Concrete<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickI.png" ALT="Buildings.HeatTransfer.Data.Solids.Concrete" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.HeatTransfer.Data.Solids.Concrete"></A><A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
->Buildings.HeatTransfer.Data.Solids</A>.Concrete</H2>
-<B>Concrete (k=1.4)</B><p></P>
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Material thickness [m]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
->ThermalConductivity</A></TD><TD>k</TD><TD>1.4</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
->SpecificHeatCapacity</A></TD><TD>c</TD><TD>840</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Density</A></TD><TD>d</TD><TD>2240</TD><TD>Mass density [kg/m3]</TD></TR>
-<TR><TD>Integer</TD><TD>nStaRef</TD><TD>3</TD><TD>Number of state variables in a reference material of 0.2 m concrete</TD></TR>
-<TR><TD>Boolean</TD><TD>steadyState</TD><TD>(c == 0 or d == 0)</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD>Integer</TD><TD>nSta</TD><TD>max(1, integer(ceil(nStaReal...</TD><TD>Actual number of state variables in material</TD></TR>
-<TR><TD>Real</TD><TD>piRef</TD><TD>331.4</TD><TD>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</TD></TR>
-<TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
-<TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">record</font> Concrete = <A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
->Buildings.HeatTransfer.Data.Solids.Generic</A> (
+    c=790) <span style="color: #006400">&quot;Brick (k=0.89)&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Concrete<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Data.Solids.BrickI.png" alt="Buildings.HeatTransfer.Data.Solids.Concrete" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.Solids.Concrete"></a><a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
+>Buildings.HeatTransfer.Data.Solids</a>.Concrete</h2>
+<p>
+<b>Concrete (k=1.4)</b>
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>x</td><td>&nbsp;</td><td>Material thickness [m]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>k</td><td>1.4</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>c</td><td>840</td><td>Specific heat capacity [J/(kg.K)]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>d</td><td>2240</td><td>Mass density [kg/m3]</td></tr>
+<tr><td>Integer</td><td>nStaRef</td><td>3</td><td>Number of state variables in a reference material of 0.2 m concrete</td></tr>
+<tr><td>Boolean</td><td>steadyState</td><td>(c == 0 or d == 0)</td><td>Flag, if true, then material is computed using steady-state heat conduction</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Integer</td><td>nSta</td><td>max(1, integer(ceil(nStaReal...</td><td>Actual number of state variables in material</td></tr>
+<tr><td>Real</td><td>piRef</td><td>331.4</td><td>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</td></tr>
+<tr><td>Real</td><td>piMat</td><td>if steadyState then piRef el...</td><td>Ratio x/sqrt(alpha)</td></tr>
+<tr><td>Real</td><td>nStaReal</td><td>nStaRef*piMat/piRef</td><td>Number of states as a real number</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">record</span> Concrete = <a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
+>Buildings.HeatTransfer.Data.Solids.Generic</a> (
     k=1.4,
     d=2240,
-    c=840) <font color="darkgreen">&quot;Concrete (k=1.4)&quot;</font>;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE InsulationBoard<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickI.png" ALT="Buildings.HeatTransfer.Data.Solids.InsulationBoard" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.HeatTransfer.Data.Solids.InsulationBoard"></A><A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
->Buildings.HeatTransfer.Data.Solids</A>.InsulationBoard</H2>
-<B>Insulation board (k=0.03)</B><p></P>
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Material thickness [m]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
->ThermalConductivity</A></TD><TD>k</TD><TD>0.03</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
->SpecificHeatCapacity</A></TD><TD>c</TD><TD>1200</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Density</A></TD><TD>d</TD><TD>40</TD><TD>Mass density [kg/m3]</TD></TR>
-<TR><TD>Integer</TD><TD>nStaRef</TD><TD>3</TD><TD>Number of state variables in a reference material of 0.2 m concrete</TD></TR>
-<TR><TD>Boolean</TD><TD>steadyState</TD><TD>(c == 0 or d == 0)</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD>Integer</TD><TD>nSta</TD><TD>max(1, integer(ceil(nStaReal...</TD><TD>Actual number of state variables in material</TD></TR>
-<TR><TD>Real</TD><TD>piRef</TD><TD>331.4</TD><TD>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</TD></TR>
-<TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
-<TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">record</font> InsulationBoard = <A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
->Buildings.HeatTransfer.Data.Solids.Generic</A> (
+    c=840) <span style="color: #006400">&quot;Concrete (k=1.4)&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE InsulationBoard<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Data.Solids.BrickI.png" alt="Buildings.HeatTransfer.Data.Solids.InsulationBoard" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.Solids.InsulationBoard"></a><a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
+>Buildings.HeatTransfer.Data.Solids</a>.InsulationBoard</h2>
+<p>
+<b>Insulation board (k=0.03)</b>
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>x</td><td>&nbsp;</td><td>Material thickness [m]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>k</td><td>0.03</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>c</td><td>1200</td><td>Specific heat capacity [J/(kg.K)]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>d</td><td>40</td><td>Mass density [kg/m3]</td></tr>
+<tr><td>Integer</td><td>nStaRef</td><td>3</td><td>Number of state variables in a reference material of 0.2 m concrete</td></tr>
+<tr><td>Boolean</td><td>steadyState</td><td>(c == 0 or d == 0)</td><td>Flag, if true, then material is computed using steady-state heat conduction</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Integer</td><td>nSta</td><td>max(1, integer(ceil(nStaReal...</td><td>Actual number of state variables in material</td></tr>
+<tr><td>Real</td><td>piRef</td><td>331.4</td><td>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</td></tr>
+<tr><td>Real</td><td>piMat</td><td>if steadyState then piRef el...</td><td>Ratio x/sqrt(alpha)</td></tr>
+<tr><td>Real</td><td>nStaReal</td><td>nStaRef*piMat/piRef</td><td>Number of states as a real number</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">record</span> InsulationBoard = <a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
+>Buildings.HeatTransfer.Data.Solids.Generic</a> (
     k=0.03,
     d=40,
-    c=1200) <font color="darkgreen">&quot;Insulation board (k=0.03)&quot;</font>;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE GypsumBoard<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickI.png" ALT="Buildings.HeatTransfer.Data.Solids.GypsumBoard" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.HeatTransfer.Data.Solids.GypsumBoard"></A><A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
->Buildings.HeatTransfer.Data.Solids</A>.GypsumBoard</H2>
-<B>Gypsum board (k=0.58)</B><p></P>
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Material thickness [m]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
->ThermalConductivity</A></TD><TD>k</TD><TD>0.16</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
->SpecificHeatCapacity</A></TD><TD>c</TD><TD>1090</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Density</A></TD><TD>d</TD><TD>800</TD><TD>Mass density [kg/m3]</TD></TR>
-<TR><TD>Integer</TD><TD>nStaRef</TD><TD>3</TD><TD>Number of state variables in a reference material of 0.2 m concrete</TD></TR>
-<TR><TD>Boolean</TD><TD>steadyState</TD><TD>(c == 0 or d == 0)</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD>Integer</TD><TD>nSta</TD><TD>max(1, integer(ceil(nStaReal...</TD><TD>Actual number of state variables in material</TD></TR>
-<TR><TD>Real</TD><TD>piRef</TD><TD>331.4</TD><TD>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</TD></TR>
-<TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
-<TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">record</font> GypsumBoard = <A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
->Buildings.HeatTransfer.Data.Solids.Generic</A> (
+    c=1200) <span style="color: #006400">&quot;Insulation board (k=0.03)&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE GypsumBoard<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Data.Solids.BrickI.png" alt="Buildings.HeatTransfer.Data.Solids.GypsumBoard" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.Solids.GypsumBoard"></a><a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
+>Buildings.HeatTransfer.Data.Solids</a>.GypsumBoard</h2>
+<p>
+<b>Gypsum board (k=0.58)</b>
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>x</td><td>&nbsp;</td><td>Material thickness [m]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>k</td><td>0.16</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>c</td><td>1090</td><td>Specific heat capacity [J/(kg.K)]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>d</td><td>800</td><td>Mass density [kg/m3]</td></tr>
+<tr><td>Integer</td><td>nStaRef</td><td>3</td><td>Number of state variables in a reference material of 0.2 m concrete</td></tr>
+<tr><td>Boolean</td><td>steadyState</td><td>(c == 0 or d == 0)</td><td>Flag, if true, then material is computed using steady-state heat conduction</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Integer</td><td>nSta</td><td>max(1, integer(ceil(nStaReal...</td><td>Actual number of state variables in material</td></tr>
+<tr><td>Real</td><td>piRef</td><td>331.4</td><td>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</td></tr>
+<tr><td>Real</td><td>piMat</td><td>if steadyState then piRef el...</td><td>Ratio x/sqrt(alpha)</td></tr>
+<tr><td>Real</td><td>nStaReal</td><td>nStaRef*piMat/piRef</td><td>Number of states as a real number</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">record</span> GypsumBoard = <a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
+>Buildings.HeatTransfer.Data.Solids.Generic</a> (
     k=0.16,
     d=800,
-    c=1090) <font color="darkgreen">&quot;Gypsum board (k=0.58)&quot;</font>;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE Plywood<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.HeatTransfer.Data.Solids.BrickI.png" ALT="Buildings.HeatTransfer.Data.Solids.Plywood" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.HeatTransfer.Data.Solids.Plywood"></A><A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
->Buildings.HeatTransfer.Data.Solids</A>.Plywood</H2>
-<B>Plywood (k=0.12)</B><p></P>
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Material thickness [m]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
->ThermalConductivity</A></TD><TD>k</TD><TD>0.12</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
->SpecificHeatCapacity</A></TD><TD>c</TD><TD>1210</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Density</A></TD><TD>d</TD><TD>540</TD><TD>Mass density [kg/m3]</TD></TR>
-<TR><TD>Integer</TD><TD>nStaRef</TD><TD>3</TD><TD>Number of state variables in a reference material of 0.2 m concrete</TD></TR>
-<TR><TD>Boolean</TD><TD>steadyState</TD><TD>(c == 0 or d == 0)</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD>Integer</TD><TD>nSta</TD><TD>max(1, integer(ceil(nStaReal...</TD><TD>Actual number of state variables in material</TD></TR>
-<TR><TD>Real</TD><TD>piRef</TD><TD>331.4</TD><TD>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</TD></TR>
-<TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
-<TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">record</font> Plywood = <A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
->Buildings.HeatTransfer.Data.Solids.Generic</A> (
+    c=1090) <span style="color: #006400">&quot;Gypsum board (k=0.58)&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Plywood<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Data.Solids.BrickI.png" alt="Buildings.HeatTransfer.Data.Solids.Plywood" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.Solids.Plywood"></a><a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
+>Buildings.HeatTransfer.Data.Solids</a>.Plywood</h2>
+<p>
+<b>Plywood (k=0.12)</b>
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>x</td><td>&nbsp;</td><td>Material thickness [m]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>k</td><td>0.12</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>c</td><td>1210</td><td>Specific heat capacity [J/(kg.K)]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>d</td><td>540</td><td>Mass density [kg/m3]</td></tr>
+<tr><td>Integer</td><td>nStaRef</td><td>3</td><td>Number of state variables in a reference material of 0.2 m concrete</td></tr>
+<tr><td>Boolean</td><td>steadyState</td><td>(c == 0 or d == 0)</td><td>Flag, if true, then material is computed using steady-state heat conduction</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Integer</td><td>nSta</td><td>max(1, integer(ceil(nStaReal...</td><td>Actual number of state variables in material</td></tr>
+<tr><td>Real</td><td>piRef</td><td>331.4</td><td>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</td></tr>
+<tr><td>Real</td><td>piMat</td><td>if steadyState then piRef el...</td><td>Ratio x/sqrt(alpha)</td></tr>
+<tr><td>Real</td><td>nStaReal</td><td>nStaRef*piMat/piRef</td><td>Number of states as a real number</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">record</span> Plywood = <a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids.Generic"
+>Buildings.HeatTransfer.Data.Solids.Generic</a> (
     k=0.12,
     d=540,
-    c=1210) <font color="darkgreen">&quot;Plywood (k=0.12)&quot;</font>;
-</PRE>
-<HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:17:50 2014.
-</address></BODY>
-</HTML>
+    c=1210) <span style="color: #006400">&quot;Plywood (k=0.12)&quot;</span>;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 10:57:52 2014.
+</address>
+</body>
+</html>

@@ -1,40 +1,32 @@
-<HTML>
-<HEAD>
-<TITLE>Buildings.Rooms.UsersGuide</TITLE>
-<META name="HTML-Generator" content="Dymola">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Rooms.UsersGuide</title>
+<meta name="HTML-Generator" content="Dymola">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<META name="description" content="&quot;User&#39;s Guide&quot;">
+<meta name="description" content="&quot;User&#39;s Guide&quot;">
 <style type="text/css">
-*       { font-size: 10pt; font-family: Arial,sans-serif; }
-pre     { font-size:  9pt; font-family: Courier,monospace;}
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
 h4      { font-size: 10pt; font-weight: bold; color: green; }
 h3      { font-size: 11pt; font-weight: bold; color: green; }
 h2      { font-size: 13pt; font-weight: bold; color: green; }
-address {                  font-weight: normal} 
-td      { solid #000; vertical-align:top; }
-th      { solid #000; vertical-align:top; font-weight: bold; }
-table   { solid #000; border-collapse: collapse;}
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
 </style>
-<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
-</HEAD>
+</head>
 <body>
-<!-- --- header ------ -->
-<div class="headerStyle">
-<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
-</div>
-<div class="headerLinks">
-<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
-</div>
-<!-- --- end header -- -->
-</P>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE UsersGuide<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.Rooms.UsersGuide"></A><A HREF="Buildings_Rooms.html#Buildings.Rooms"
->Buildings.Rooms</A>.UsersGuide</H2>
-<B>User&#39;s Guide</B>
-<P></P>
-<P></P><H3>Information</H3>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE UsersGuide<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Rooms.UsersGuide"></a><a href="Buildings_Rooms.html#Buildings.Rooms"
+>Buildings.Rooms</a>.UsersGuide</h2>
+<p>
+<b>User&#39;s Guide</b><br>
+</p>
+<h3>Information</h3>
 
 <p>
 The package <b>Buildings.Rooms</b> contains models for heat transfer 
@@ -44,16 +36,16 @@ a multi-zone building model.
 To compute the air exchange between rooms and between a room
 and the exterior, the room models can be connected to 
 multi-zone air exchange models from the package
-<A HREF="Buildings_Airflow.html#Buildings.Airflow"
+<a href="Buildings_Airflow.html#Buildings.Airflow"
 >
 Buildings.Airflow</a>.
 The room models can also be linked to models of HVAC systems
 that are composed of the components in the package
-<A HREF="Buildings_Fluid.html#Buildings.Fluid"
+<a href="Buildings_Fluid.html#Buildings.Fluid"
 >
 Buildings.Fluid</a>.
 </p>
-<p>The model <A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+<p>The model <a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
 >Buildings.Rooms.MixedAir</a> is 
 a model of a room with completely mixed air.
 The room can have any number of constructions and surfaces that participate in the 
@@ -61,7 +53,7 @@ heat exchange through convection, conduction, infrared radiation and solar radia
 <h4>Physical description</h4>
 <p>
 A description of the model assumptions and the implemention and validation of this room model can be found in 
-<A HREF="Buildings_Rooms_UsersGuide.html#WetterEtAl2011"
+<a href="Buildings_Rooms_UsersGuide.html#WetterEtAl2011"
 >Wetter et al. (2011)</a>.
 Note that this paper describes a previous version of the room model. 
 The equations have not changed. However, what is shown in Figure 2 in the paper has in this version
@@ -73,7 +65,7 @@ The room models the following physical processes:
 <li>
 Transient or steady-state heat conduction through opaque surfaces, using
 the model
-<A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.MultiLayer"
+<a href="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.MultiLayer"
 >
 Buildings.HeatTransfer.Conduction.MultiLayer</a>
 </li>
@@ -81,15 +73,15 @@ Buildings.HeatTransfer.Conduction.MultiLayer</a>
 Heat transfer through glazing system, taking into account
 solar radiation, infrared radiation, heat conduction and heat convection.
 The solar radiation is modeled using
-<A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation"
+<a href="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation"
 >
 Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation</a>.
 The overall heat transfer is modeled using the model
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.Window"
+<a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.Window"
 >
 Buildings.HeatTransfer.Windows.Window</a>
 for the glass assembly, and the models
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.ExteriorHeatTransfer"
+<a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.ExteriorHeatTransfer"
 >
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>
 and
@@ -98,10 +90,10 @@ Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>
 for the exterior and interior heat transfer.
 A window can have both, an overhang and a side fin.
 Overhangs and side fins are modeled using
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.Overhang"
+<a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.Overhang"
 >
 Buildings.HeatTransfer.Windows.Overhang</a> and
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.SideFins"
+<a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.SideFins"
 >
 Buildings.HeatTransfer.Windows.SideFins</a>, respectively.
 These models compute the reduction in direct solar irradiation 
@@ -111,7 +103,7 @@ due to the external shading device.
 Convective heat transfer between the outside air and outside-facing surfaces using
 either a wind-speed, wind-direction and temperature-dependent heat transfer coefficient,
 or using a constant heat transfer coefficient, as described in
-<A HREF="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Exterior"
+<a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Exterior"
 >
 Buildings.HeatTransfer.Convection.Exterior</a>.
 </li>
@@ -123,25 +115,25 @@ These effects are modeled as follows:
 <ol>
 <li>
 The model 
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed"
+<a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed"
 >
 Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed</a>
 is used to compute heat convection between the room air
 and the surface of opaque constructions. It is also used to compute the
 heat and mass balance of the room air.
 This model is a composite model that contains 
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective"
+<a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective"
 >
 Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective</a> to compute the convective
 heat balance of the window and a shade, if present.
 The convective heat transfer coefficient can be selected to be
 either temperature-dependent or constant.
 The convective heat transfer is computed using
-<A HREF="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Interior"
+<a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Interior"
 >
 Buildings.HeatTransfer.Convection.Interior</a>.
 The heat and mass balance of the room air is computed using
-<A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+<a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
 >
 Buildings.Fluid.MixingVolumes.MixingVolume</a>,
 which assumes the room air to be completely mixed.
@@ -152,7 +144,7 @@ such as CO<sub>2</sub>, can be modeled transiently.
 The latent heat gain of the room, which is a user-input,
 is converted to a moisture source using
 the model
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.HeatGain"
+<a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.HeatGain"
 >
 Buildings.Rooms.BaseClasses.HeatGain</a>.
 </li>
@@ -160,14 +152,14 @@ Buildings.Rooms.BaseClasses.HeatGain</a>.
 The radiant heat gains in the infrared spectrum are also a user
 input. They are distributed to the room enclosing surfaces using
 the model
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution"
+<a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution"
 >
 Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution</a>.
 </li>
 <li>
 The infrared radiative heat exchange between the room enclosing
 surfaces is modeled in
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.InfraredRadiationExchange"
+<a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.InfraredRadiationExchange"
 >
 Buildings.Rooms.BaseClasses.InfraredRadiationExchange</a>.
 This model takes into account the absorptivity of the surfaces and
@@ -177,7 +169,7 @@ into account the location of the surfaces.
 </li>
 <li>
 The solar radiation exchange is modeled in
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.SolarRadiationExchange"
+<a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.SolarRadiationExchange"
 >
 Buildings.Rooms.BaseClasses.SolarRadiationExchange</a>.
 The assumptions in this model is that all solar radiation
@@ -198,14 +190,14 @@ make an instance of the room model in your model,
 </li>
 <li>
 make instances of constructions from the package 
-<A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions"
+<a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions"
 >
 Buildings.HeatTransfer.Data.OpaqueConstructions</a> to model opaque constructions such as walls, floors,
 ceilings and roofs,
 </li>
 <li>
 make an instance of constructions from the package 
-<A HREF="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems"
+<a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems"
 >
 Buildings.HeatTransfer.Data.GlazingSystems</a> to model glazing systems, and
 </li>
@@ -219,7 +211,7 @@ Entering parameters may be easiest in a textual editor.
 <p>
 In the here presented example, we assume we made several instances
 of data records for the construction material by dragging them from 
-the package <A HREF="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
+the package <a href="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
 >
 Buildings.HeatTransfer.Data</a> to create the following list of declarations:
 </p>
@@ -259,7 +251,7 @@ Note that construction layers are assembled from the outside to the room-side. T
 Before we explain how to declare and parametrize a room model, 
 we explain the different models that can be used to compute heat transfer through the room enclosing surfaces
 and constructions. The room model 
-<A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+<a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
 >Buildings.Rooms.MixedAir</a> contains the constructions shown
 in the table below. 
 The first row of the table lists the name of the data record that is used by the user
@@ -276,7 +268,7 @@ The forth column describes the main applicability of the model.
 <th>Description of the model</th></tr>
 <tr>
 <td>
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+<a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
 >
 datConExt</a>
 </td>
@@ -284,7 +276,7 @@ datConExt</a>
 modConExt
 </td>
 <td>
-<A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.Construction"
+<a href="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.Construction"
 >Buildings.Rooms.Constructions.Construction</a>
 </td>
 <td>
@@ -293,7 +285,7 @@ Exterior constructions that have no window.
 </tr>
 <tr>
 <td>
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow"
+<a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow"
 >
 datConExtWin</a>
 </td>
@@ -301,7 +293,7 @@ datConExtWin</a>
 modConExtWin
 </td>
 <td>
-<A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.ConstructionWithWindow"
+<a href="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.ConstructionWithWindow"
 >Buildings.Rooms.Constructions.ConstructionWithWindow</a>
 </td>
 <td>
@@ -317,7 +309,7 @@ Windows can also have an overhang, side fins, both (overhang and sidefins) or no
 </tr>
 <tr>
 <td>
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+<a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
 >
 datConPar</a>
 </td>
@@ -325,7 +317,7 @@ datConPar</a>
 modConPar
 </td>
 <td>
-<A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.Construction"
+<a href="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.Construction"
 >Buildings.Rooms.Constructions.Construction</a>
 </td>
 <td>
@@ -337,7 +329,7 @@ of the same construction.
 </tr>
 <tr>
 <td>
-<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+<a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
 >
 datConBou</a>
 </td>
@@ -345,7 +337,7 @@ datConBou</a>
 modConBou
 </td>
 <td>
-<A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.Construction"
+<a href="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.Construction"
 >Buildings.Rooms.Constructions.Construction</a>
 </td>
 <td>
@@ -359,7 +351,7 @@ to model a floor inside this room and connect to other side of this floor model 
 </tr>
 <tr>
 <td>
-<A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"
+<a href="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"
 >
 surBou</a>
 </td>
@@ -367,7 +359,7 @@ surBou</a>
 N/A
 </td>
 <td>
-<A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"
+<a href="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"
 >Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic</a>
 </td>
 <td>
@@ -506,7 +498,7 @@ its declaration would be
 <p>
 This line can be placed below the declaration of <code>wWin</code>.
 This would instanciate the model
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.Overhang"
+<a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.Overhang"
 >
 Buildings.HeatTransfer.Windows.Overhang</a> to model the overhang. See this class for a picture of the above dimensions.
 </p>
@@ -523,7 +515,7 @@ then its declaration would be
 </pre>
 <p>
 This would instanciate the model
-<A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.SideFins"
+<a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.SideFins"
 >
 Buildings.HeatTransfer.Windows.SideFins</a> to model the side fins. See this class for a picture of the above dimensions.
 </p>
@@ -629,10 +621,12 @@ Michael Wetter, Wangda Zuo and Thierry Stephane Nouidui.<br/>
 Modeling of Heat Transfer in Rooms in the Modelica "Buildings" Library.</a><br/>
 Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 2011. 
 </p>
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Information"
->Modelica.Icons.Information</A> (Icon for general information packages).
-<HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:18:08 2014.
-</address></BODY>
-</HTML>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 10:58:12 2014.
+</address>
+</body>
+</html>

@@ -1,225 +1,99 @@
-<HTML>
-<HEAD>
-<TITLE>Buildings.Fluid.Movers</TITLE>
-<META name="HTML-Generator" content="Dymola">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Movers</title>
+<meta name="HTML-Generator" content="Dymola">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<META name="description" content="&quot;Package with fan and pump models&quot;">
+<meta name="description" content="&quot;Package with fan and pump models&quot;">
 <style type="text/css">
-*       { font-size: 10pt; font-family: Arial,sans-serif; }
-pre     { font-size:  9pt; font-family: Courier,monospace;}
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
 h4      { font-size: 10pt; font-weight: bold; color: green; }
 h3      { font-size: 11pt; font-weight: bold; color: green; }
 h2      { font-size: 13pt; font-weight: bold; color: green; }
-address {                  font-weight: normal} 
-td      { solid #000; vertical-align:top; }
-th      { solid #000; vertical-align:top; font-weight: bold; }
-table   { solid #000; border-collapse: collapse;}
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
 </style>
-<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
-</HEAD>
+</head>
 <body>
-<!-- --- header ------ -->
-<div class="headerStyle">
-<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
-</div>
-<div class="headerLinks">
-<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
-</div>
-<!-- --- end header -- -->
-</P>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE Movers<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.Fluid.Movers"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
->Buildings.Fluid</A>.Movers</H2>
-<B>Package with fan and pump models</B>
-<P></P>
-<P></P><H3>Information</H3>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Movers<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Movers"></a><a href="Buildings_Fluid.html#Buildings.Fluid"
+>Buildings.Fluid</a>.Movers</h2>
+<p>
+<b>Package with fan and pump models</b><br>
+</p>
+<h3>Information</h3>
 
 This package contains components models for fans and pumps.
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
->Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
-<TR><TH >Name</TH><TH>Description</TH></TR>
-<TR><TD><IMG SRC="Buildings.Fluid.Movers.UsersGuideS.png" ALT="Buildings.Fluid.Movers.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
->UsersGuide</A>
-</TD><TD>User&#39;s Guide</TD></TR>
-<TR><TD><IMG SRC="Buildings.Fluid.Movers.FlowMachine_yS.png" ALT="Buildings.Fluid.Movers.FlowMachine_y" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y"
->FlowMachine_y</A>
-</TD><TD>Fan or pump with ideally controlled normalized speed y as input signal</TD></TR>
-<TR><TD><IMG SRC="Buildings.Fluid.Movers.FlowMachine_yS.png" ALT="Buildings.Fluid.Movers.FlowMachine_Nrpm" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_Nrpm"
->FlowMachine_Nrpm</A>
-</TD><TD>Fan or pump with ideally controlled speed Nrpm as input signal</TD></TR>
-<TR><TD><IMG SRC="Buildings.Fluid.Movers.FlowMachine_dpS.png" ALT="Buildings.Fluid.Movers.FlowMachine_dp" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_dp"
->FlowMachine_dp</A>
-</TD><TD>Fan or pump with ideally controlled head dp as input signal</TD></TR>
-<TR><TD><IMG SRC="Buildings.Fluid.Movers.FlowMachine_dpS.png" ALT="Buildings.Fluid.Movers.FlowMachine_m_flow" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
->FlowMachine_m_flow</A>
-</TD><TD>Fan or pump with ideally controlled mass flow rate as input signal</TD></TR>
-<TR><TD><IMG SRC="Buildings.Fluid.Movers.Fl4a02980ce06174d6omialS.png" ALT="Buildings.Fluid.Movers.FlowMachinePolynomial" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachinePolynomial"
->FlowMachinePolynomial</A>
-</TD><TD>Fan or pump with head and efficiency declared by a non-dimensional polynomial</TD></TR>
-<TR><TD><IMG SRC="Buildings.Fluid.Movers.ExamplesS.png" ALT="Buildings.Fluid.Movers.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
->Examples</A>
-</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
-<TR><TD><IMG SRC="Buildings.Fluid.Movers.BaseClassesS.png" ALT="Buildings.Fluid.Movers.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses"
->BaseClasses</A>
-</TD><TD>Package with base classes for Buildings.Fluid.Movers</TD></TR>
-</TABLE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE FlowMachine_y<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Fluid.Movers.FlowMachine_yI.png" ALT="Buildings.Fluid.Movers.FlowMachine_y" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Fluid.Movers.FlowMachine_y"></A><A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
->Buildings.Fluid.Movers</A>.FlowMachine_y</H2>
-<B>Fan or pump with ideally controlled normalized speed y as input signal</B><p></P>
-<IMG SRC="Buildings.Fluid.Movers.FlowMachine_yD.png" ALT="Buildings.Fluid.Movers.FlowMachine_y">
-<P></P><H3>Information</H3>
 
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.UsersGuideS.png" alt="Buildings.Fluid.Movers.UsersGuide" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
+>UsersGuide</a>
+</td>
+<td>User&#39;s Guide</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.FlowMachine_NrpmS.png" alt="Buildings.Fluid.Movers.FlowMachine_Nrpm" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_Nrpm"
+>FlowMachine_Nrpm</a>
+</td>
+<td>Fan or pump with ideally controlled speed Nrpm as input signal</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.FlowMachine_dpS.png" alt="Buildings.Fluid.Movers.FlowMachine_dp" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_dp"
+>FlowMachine_dp</a>
+</td>
+<td>Fan or pump with ideally controlled head dp as input signal</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.FlowMachine_dpS.png" alt="Buildings.Fluid.Movers.FlowMachine_m_flow" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
+>FlowMachine_m_flow</a>
+</td>
+<td>Fan or pump with ideally controlled mass flow rate as input signal</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.FlowMachine_yS.png" alt="Buildings.Fluid.Movers.FlowMachine_y" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y"
+>FlowMachine_y</a>
+</td>
+<td>Fan or pump with ideally controlled normalized speed y as input signal</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.ExamplesS.png" alt="Buildings.Fluid.Movers.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.BaseClassesS.png" alt="Buildings.Fluid.Movers.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for Buildings.Fluid.Movers</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlowMachine_Nrpm<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.FlowMachine_NrpmI.png" alt="Buildings.Fluid.Movers.FlowMachine_Nrpm" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.FlowMachine_Nrpm"></a><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
+>Buildings.Fluid.Movers</a>.FlowMachine_Nrpm</h2>
 <p>
-This model describes a fan or pump with prescribed normalized speed.
-The input connector provides the normalized rotational speed (between 0 and 1).
-The head is computed based on the performance curve that take as an argument
-the actual volume flow rate divided by the maximum flow rate and the relative
-speed of the fan.
-The efficiency of the device is computed based
-on the efficiency curves that take as an argument
-the actual volume flow rate divided by the maximum possible volume flow rate, or
-based on the motor performance curves.
+<b>Fan or pump with ideally controlled speed Nrpm as input signal</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.FlowMachine_NrpmD.png" alt="Buildings.Fluid.Movers.FlowMachine_Nrpm">
 </p>
-<p>
-See the 
-<A HREF="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
->
-User's Guide</a> for more information.
-</p>
-<P></P>
-Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine"
->Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine</A> (Partial model for fan or pump with speed (y or Nrpm) as input signal).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD>Boolean</TD><TD>addPowerToMedium</TD><TD>true</TD><TD>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Characteristics</TD></TR>
-<TR><TD>Boolean</TD><TD>use_powerCharacteristic</TD><TD>false</TD><TD>Use powerCharacteristic (vs. efficiencyCharacteristic)</TD></TR>
-<TR><TD>Boolean</TD><TD>motorCooledByFluid</TD><TD>true</TD><TD>If true, then motor heat is added to fluid stream</TD></TR>
-<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
->efficiencyParameters</A></TD><TD>motorEfficiency</TD><TD>&nbsp;</TD><TD>Normalized volume flow rate vs. efficiency</TD></TR>
-<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
->efficiencyParameters</A></TD><TD>hydraulicEfficiency</TD><TD>&nbsp;</TD><TD>Normalized volume flow rate vs. efficiency</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
->AngularVelocity_rpm</A></TD><TD>N_nominal</TD><TD>1500</TD><TD>Nominal rotational speed for flow characteristic [1/min]</TD></TR>
-<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
->flowParameters</A></TD><TD>pressure</TD><TD>&nbsp;</TD><TD>Volume flow rate vs. total pressure rise</TD></TR>
-<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters"
->powerParameters</A></TD><TD>power</TD><TD>&nbsp;</TD><TD>Volume flow rate vs. electrical power consumption</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD>Real</TD><TD>r_V.start</TD><TD>1</TD><TD>Ratio V_flow/V_flow_max [1]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Filtered speed</TD></TR>
-<TR><TD>Boolean</TD><TD>filteredSpeed</TD><TD>true</TD><TD>= true, if speed is filtered with a 2nd order CriticalDamping filter</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>riseTime</TD><TD>30</TD><TD>Rise time of the filter (time to reach 99.6 % of the speed) [s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
->Init</A></TD><TD>init</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (no init/steady state/initial state/initial output)</TD></TR>
-<TR><TD>Real</TD><TD>N_start</TD><TD>0</TD><TD>Initial value of speed</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
->Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
->Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
-<TR><TD>Boolean</TD><TD>dynamicBalance</TD><TD>true</TD><TD>Set to true to use a dynamic balance, which often leads to smaller systems of equations</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>tau</TD><TD>1</TD><TD>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
->AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
->MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
->ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
->ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
-<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>P</TD><TD>Electrical power consumed [W]</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>N_actual</TD><TD>[1/min]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
->HeatPort_a</A></TD><TD>heatPort</TD><TD>Heat dissipation to environment</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>y</TD><TD>Constant normalized rotational speed [1]</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> FlowMachine_y <font color="darkgreen">
-  &quot;Fan or pump with ideally controlled normalized speed y as input signal&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine"
->Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine</A>(
-  <font color="blue">final </font>N_nominal=1500 <font color="darkgreen">&quot;fix N_nominal as it is used only for scaling&quot;</font>);
-
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> y(min=0, max=1, unit=&quot;1&quot;) <font color="darkgreen">
-    &quot;Constant normalized rotational speed&quot;</font>;</textblock>
-
-<textblock type="annotcomp" expanded="false"><font color="blue">protected </font>
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
->Modelica.Blocks.Math.Gain</A> gaiSpe(<font color="blue">final </font>k=N_nominal,
-    u(min=0, max=1),
-    y(<font color="blue">final </font>quantity=&quot;AngularVelocity&quot;,
-      <font color="blue">final </font>unit=&quot;1/min&quot;,
-      nominal=N_nominal)) <font color="darkgreen">&quot;Gain for speed input signal&quot;</font>;</textblock>
-<font color="blue">equation </font>
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(y, gaiSpe.u);</textblock>
-
-<textblock type="annotconnect" expanded="false">  <font color="red"> connect</font>(filter.y, N_filtered);</textblock>
-
-  <font color="blue">if </font>filteredSpeed<font color="blue"> then</font>
-<textblock type="annotconnect" expanded="false">    <font color="red">connect</font>(gaiSpe.y, filter.u);
-    <font color="red">connect</font>(filter.y, N_actual);</textblock>
-  <font color="blue">else</font>
-<textblock type="annotconnect" expanded="false">    <font color="red">connect</font>(gaiSpe.y, N_actual);</textblock>
-  <font color="blue">end if</font>;
-
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>FlowMachine_y;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE FlowMachine_Nrpm<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Fluid.Movers.FlowMachine_yI.png" ALT="Buildings.Fluid.Movers.FlowMachine_Nrpm" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Fluid.Movers.FlowMachine_Nrpm"></A><A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
->Buildings.Fluid.Movers</A>.FlowMachine_Nrpm</H2>
-<B>Fan or pump with ideally controlled speed Nrpm as input signal</B><p></P>
-<IMG SRC="Buildings.Fluid.Movers.FlowMachine_NrpmD.png" ALT="Buildings.Fluid.Movers.FlowMachine_Nrpm">
-<P></P><H3>Information</H3>
+<h3>Information</h3>
 
 This model describes a fan or pump with prescribed speed in revolutions per minute.
 The head is computed based on the performance curve that take as an argument
@@ -232,124 +106,126 @@ based on the motor performance curves.
 <br/>
 <p>
 See the 
-<A HREF="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
+<a href="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
 >
 User's Guide</a> for more information.
 </p>
-<P></P>
-Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine"
->Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine</A> (Partial model for fan or pump with speed (y or Nrpm) as input signal).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD>Boolean</TD><TD>addPowerToMedium</TD><TD>true</TD><TD>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Characteristics</TD></TR>
-<TR><TD>Boolean</TD><TD>use_powerCharacteristic</TD><TD>false</TD><TD>Use powerCharacteristic (vs. efficiencyCharacteristic)</TD></TR>
-<TR><TD>Boolean</TD><TD>motorCooledByFluid</TD><TD>true</TD><TD>If true, then motor heat is added to fluid stream</TD></TR>
-<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
->efficiencyParameters</A></TD><TD>motorEfficiency</TD><TD>&nbsp;</TD><TD>Normalized volume flow rate vs. efficiency</TD></TR>
-<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
->efficiencyParameters</A></TD><TD>hydraulicEfficiency</TD><TD>&nbsp;</TD><TD>Normalized volume flow rate vs. efficiency</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
->AngularVelocity_rpm</A></TD><TD>N_nominal</TD><TD>1500</TD><TD>Nominal rotational speed for flow characteristic [1/min]</TD></TR>
-<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
->flowParameters</A></TD><TD>pressure</TD><TD>&nbsp;</TD><TD>Volume flow rate vs. total pressure rise</TD></TR>
-<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters"
->powerParameters</A></TD><TD>power</TD><TD>&nbsp;</TD><TD>Volume flow rate vs. electrical power consumption</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD>Real</TD><TD>r_V.start</TD><TD>1</TD><TD>Ratio V_flow/V_flow_max [1]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Filtered speed</TD></TR>
-<TR><TD>Boolean</TD><TD>filteredSpeed</TD><TD>true</TD><TD>= true, if speed is filtered with a 2nd order CriticalDamping filter</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>riseTime</TD><TD>30</TD><TD>Rise time of the filter (time to reach 99.6 % of the speed) [s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
->Init</A></TD><TD>init</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (no init/steady state/initial state/initial output)</TD></TR>
-<TR><TD>Real</TD><TD>N_start</TD><TD>0</TD><TD>Initial value of speed</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
->Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
->Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
-<TR><TD>Boolean</TD><TD>dynamicBalance</TD><TD>true</TD><TD>Set to true to use a dynamic balance, which often leads to smaller systems of equations</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>tau</TD><TD>1</TD><TD>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
->AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
->MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
->ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
->ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
-<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>P</TD><TD>Electrical power consumed [W]</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>N_actual</TD><TD>[1/min]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
->HeatPort_a</A></TD><TD>heatPort</TD><TD>Heat dissipation to environment</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>Nrpm</TD><TD>Prescribed rotational speed [1/min]</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> FlowMachine_Nrpm <font color="darkgreen">
-  &quot;Fan or pump with ideally controlled speed Nrpm as input signal&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine"
->Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> Nrpm(unit=&quot;1/min&quot;) <font color="darkgreen">
-    &quot;Prescribed rotational speed&quot;</font>;</textblock>
+<p>Extends from <a href="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine"
+>Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine</a> (Partial model for fan or pump with speed (y or Nrpm) as input signal).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>addPowerToMedium</td><td>true</td><td>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Characteristics</td></tr>
+<tr><td>Boolean</td><td>use_powerCharacteristic</td><td>false</td><td>Use powerCharacteristic (vs. efficiencyCharacteristic)</td></tr>
+<tr><td>Boolean</td><td>motorCooledByFluid</td><td>true</td><td>If true, then motor heat is added to fluid stream</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>motorEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>hydraulicEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
+>AngularVelocity_rpm</a></td><td>N_nominal</td><td>1500</td><td>Nominal rotational speed for flow characteristic [1/min]</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
+>flowParameters</a></td><td>pressure</td><td>&nbsp;</td><td>Volume flow rate vs. total pressure rise</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters"
+>powerParameters</a></td><td>power</td><td>&nbsp;</td><td>Volume flow rate vs. electrical power consumption</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td>Real</td><td>r_V.start</td><td>1</td><td>Ratio V_flow/V_flow_max [1]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Filtered speed</td></tr>
+<tr><td>Boolean</td><td>filteredSpeed</td><td>true</td><td>= true, if speed is filtered with a 2nd order CriticalDamping filter</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>riseTime</td><td>30</td><td>Rise time of the filter (time to reach 99.6 % of the speed) [s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Init</a></td><td>init</td><td>Modelica.Blocks.Types.Init.I...</td><td>Type of initialization (no init/steady state/initial state/initial output)</td></tr>
+<tr><td>Real</td><td>N_start</td><td>0</td><td>Initial value of speed</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Boolean</td><td>dynamicBalance</td><td>true</td><td>Set to true to use a dynamic balance, which often leads to smaller systems of equations</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tau</td><td>1</td><td>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>system.allowFlowReversal</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Electrical power consumed [W]</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>N_actual</td><td>[1/min]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heatPort</td><td>Heat dissipation to environment</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>Nrpm</td><td>Prescribed rotational speed [1/min]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> FlowMachine_Nrpm <span style="color: #006400">
+  &quot;Fan or pump with ideally controlled speed Nrpm as input signal&quot;</span>
+  <span style="color: blue">extends </span><a href="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine"
+>Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine</a>;
 
-<font color="blue">equation </font>
-  <font color="blue">if </font>filteredSpeed<font color="blue"> then</font>
-<textblock type="annotconnect" expanded="false">    <font color="red">connect</font>(Nrpm, filter.u);
-    <font color="red">connect</font>(filter.y, N_actual);
-    <font color="red">connect</font>(filter.y, N_filtered);</textblock>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> Nrpm(unit=&quot;1/min&quot;) <span style="color: #006400">
+    &quot;Prescribed rotational speed&quot;</span>;
 
-  <font color="blue">else</font>
-<textblock type="annotconnect" expanded="false">    <font color="red">connect</font>(Nrpm, N_actual);</textblock>
-  <font color="blue">end if</font>;
+<span style="color: blue">equation </span>
+  <span style="color: blue">if </span>filteredSpeed<span style="color: blue"> then</span>
+    <span style="color: red">connect</span>(Nrpm, filter.u);
+    <span style="color: red">connect</span>(filter.y, N_actual);
+    <span style="color: red">connect</span>(filter.y, N_filtered);
 
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>FlowMachine_Nrpm;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE FlowMachine_dp<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Fluid.Movers.FlowMachine_yI.png" ALT="Buildings.Fluid.Movers.FlowMachine_dp" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Fluid.Movers.FlowMachine_dp"></A><A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
->Buildings.Fluid.Movers</A>.FlowMachine_dp</H2>
-<B>Fan or pump with ideally controlled head dp as input signal</B><p></P>
-<IMG SRC="Buildings.Fluid.Movers.FlowMachine_dpD.png" ALT="Buildings.Fluid.Movers.FlowMachine_dp">
-<P></P><H3>Information</H3>
+  <span style="color: blue">else</span>
+    <span style="color: red">connect</span>(Nrpm, N_actual);
+  <span style="color: blue">end if</span>;
+
+<span style="color: blue">end </span>FlowMachine_Nrpm;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlowMachine_dp<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.FlowMachine_dpI.png" alt="Buildings.Fluid.Movers.FlowMachine_dp" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.FlowMachine_dp"></a><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
+>Buildings.Fluid.Movers</a>.FlowMachine_dp</h2>
+<p>
+<b>Fan or pump with ideally controlled head dp as input signal</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.FlowMachine_dpD.png" alt="Buildings.Fluid.Movers.FlowMachine_dp">
+</p>
+<h3>Information</h3>
 
 <p>
 This model describes a fan or pump with prescribed head.
@@ -369,171 +245,173 @@ full speed.
 </p>
 <p>
 See the 
-<A HREF="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
+<a href="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
 >
 User's Guide</a> for more information.
 </p>
-<P></P>
-Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine"
->Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine</A> (Partial model for fan or pump with ideally controlled mass flow rate or head as input signal).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD>Boolean</TD><TD>addPowerToMedium</TD><TD>true</TD><TD>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</TD></TR>
-<TR><TD>Boolean</TD><TD>control_m_flow</TD><TD>false</TD><TD>= false to control head instead of m_flow</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
-<TR><TD>Real</TD><TD>r_V.start</TD><TD>1</TD><TD>Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Characteristics</TD></TR>
-<TR><TD>Boolean</TD><TD>motorCooledByFluid</TD><TD>true</TD><TD>If true, then motor heat is added to fluid stream</TD></TR>
-<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
->efficiencyParameters</A></TD><TD>motorEfficiency</TD><TD>&nbsp;</TD><TD>Normalized volume flow rate vs. efficiency</TD></TR>
-<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
->efficiencyParameters</A></TD><TD>hydraulicEfficiency</TD><TD>&nbsp;</TD><TD>Normalized volume flow rate vs. efficiency</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
->Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
->Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
-<TR><TD>Boolean</TD><TD>dynamicBalance</TD><TD>true</TD><TD>Set to true to use a dynamic balance, which often leads to smaller systems of equations</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>tau</TD><TD>1</TD><TD>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Filtered speed</TD></TR>
-<TR><TD>Boolean</TD><TD>filteredSpeed</TD><TD>true</TD><TD>= true, if speed is filtered with a 2nd order CriticalDamping filter</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>riseTime</TD><TD>30</TD><TD>Rise time of the filter (time to reach 99.6 % of the speed) [s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
->Init</A></TD><TD>init</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (no init/steady state/initial state/initial output)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp_start</TD><TD>0</TD><TD>Initial value of pressure raise [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp_nominal</TD><TD>10000</TD><TD>Nominal pressure raise, used to normalize filter [Pa]</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
->AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
->MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
->ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
->ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
-<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
->HeatPort_a</A></TD><TD>heatPort</TD><TD>Heat dissipation to environment</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>P</TD><TD>Electrical power consumed [W]</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>dp_in</TD><TD>Prescribed pressure rise [Pa]</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>dp_actual</TD><TD>[Pa]</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> FlowMachine_dp <font color="darkgreen">
-  &quot;Fan or pump with ideally controlled head dp as input signal&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine"
->Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine</A>(
-  <font color="blue">final </font>control_m_flow = false,
+
+<p>Extends from <a href="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine"
+>Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine</a> (Partial model for fan or pump with ideally controlled mass flow rate or head as input signal).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>addPowerToMedium</td><td>true</td><td>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</td></tr>
+<tr><td>Boolean</td><td>control_m_flow</td><td>false</td><td>= false to control head instead of m_flow</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Characteristics</td></tr>
+<tr><td>Boolean</td><td>motorCooledByFluid</td><td>true</td><td>If true, then motor heat is added to fluid stream</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>motorEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>hydraulicEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr><td>Real</td><td>r_V.start</td><td>1</td><td>Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Boolean</td><td>dynamicBalance</td><td>true</td><td>Set to true to use a dynamic balance, which often leads to smaller systems of equations</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tau</td><td>1</td><td>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Filtered speed</td></tr>
+<tr><td>Boolean</td><td>filteredSpeed</td><td>true</td><td>= true, if speed is filtered with a 2nd order CriticalDamping filter</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>riseTime</td><td>30</td><td>Rise time of the filter (time to reach 99.6 % of the speed) [s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Init</a></td><td>init</td><td>Modelica.Blocks.Types.Init.I...</td><td>Type of initialization (no init/steady state/initial state/initial output)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_start</td><td>0</td><td>Initial value of pressure raise [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>10000</td><td>Nominal pressure raise, used to normalize filter [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>system.allowFlowReversal</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Electrical power consumed [W]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heatPort</td><td>Heat dissipation to environment</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>dp_in</td><td>Prescribed pressure rise [Pa]</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>dp_actual</td><td>[Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> FlowMachine_dp <span style="color: #006400">
+  &quot;Fan or pump with ideally controlled head dp as input signal&quot;</span>
+  <span style="color: blue">extends </span><a href="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine"
+>Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine</a>(
+  <span style="color: blue">final </span>control_m_flow = false,
   preSou(
       dp_start=dp_start,
       m_flow_small=m_flow_small));
 
-  <font color="darkgreen">// Classes used to implement the filtered speed</font>
-  <font color="blue">parameter </font>Boolean filteredSpeed=true <font color="darkgreen">
-    &quot;= true, if speed is filtered with a 2nd order CriticalDamping filter&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Modelica.SIunits.Time</A> riseTime=30 <font color="darkgreen">
-    &quot;Rise time of the filter (time to reach 99.6 % of the speed)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
->Modelica.Blocks.Types.Init</A> init=Modelica.Blocks.Types.Init.InitialOutput <font color="darkgreen">
-    &quot;Type of initialization (no init/steady state/initial state/initial output)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Modelica.SIunits.Pressure</A> dp_start(min=0, displayUnit=&quot;Pa&quot;)=0 <font color="darkgreen">
-    &quot;Initial value of pressure raise&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Modelica.SIunits.Pressure</A> dp_nominal(min=0, displayUnit=&quot;Pa&quot;)=10000 <font color="darkgreen">
-    &quot;Nominal pressure raise, used to normalize filter&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> dp_in(min=0, <font color="blue">final </font>unit=&quot;Pa&quot;) <font color="darkgreen">
-    &quot;Prescribed pressure rise&quot;</font>;</textblock>
+  <span style="color: #006400">// Classes used to implement the filtered speed</span>
+  <span style="color: blue">parameter </span>Boolean filteredSpeed=true <span style="color: #006400">
+    &quot;= true, if speed is filtered with a 2nd order CriticalDamping filter&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> riseTime=30 <span style="color: #006400">
+    &quot;Rise time of the filter (time to reach 99.6 % of the speed)&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Modelica.Blocks.Types.Init</a> init=Modelica.Blocks.Types.Init.InitialOutput <span style="color: #006400">
+    &quot;Type of initialization (no init/steady state/initial state/initial output)&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_start(min=0, displayUnit=&quot;Pa&quot;)=0 <span style="color: #006400">
+    &quot;Initial value of pressure raise&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal(min=0, displayUnit=&quot;Pa&quot;)=10000 <span style="color: #006400">
+    &quot;Nominal pressure raise, used to normalize filter&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> dp_in(min=0, <span style="color: blue">final </span>unit=&quot;Pa&quot;) <span style="color: #006400">
+    &quot;Prescribed pressure rise&quot;</span>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> dp_actual(min=0, <font color="blue">final </font>unit=&quot;Pa&quot;);</textblock>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> dp_actual(min=0, <span style="color: blue">final </span>unit=&quot;Pa&quot;);
 
-<textblock type="annotcomp" expanded="false"><font color="blue">protected </font>
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
->Modelica.Blocks.Math.Gain</A> gain(<font color="blue">final </font>k=-1);
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Filter"
->Modelica.Blocks.Continuous.Filter</A> filter(
+<span style="color: blue">protected </span>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> gain(<span style="color: blue">final </span>k=-1);
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Filter"
+>Modelica.Blocks.Continuous.Filter</a> filter(
      order=2,
      f_cut=5/(2*Modelica.Constants.pi*riseTime),
-     <font color="blue">final </font>init=init,
-     <font color="blue">final </font>y_start=dp_start,
-     u_nominal=<font color="red">abs</font>(dp_nominal),
-     x(<font color="blue">each </font>stateSelect=StateSelect.always),
-     u(<font color="blue">final </font>unit=&quot;Pa&quot;),
-     y(<font color="blue">final </font>unit=&quot;Pa&quot;),
-     <font color="blue">final </font>analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-     <font color="blue">final </font>filterType=Modelica.Blocks.Types.FilterType.LowPass) <font color="blue">if </font>filteredSpeed <font color="darkgreen">
-    &quot;Second order filter to approximate transient of rotor, and to improve numerics&quot;</font>;</textblock>
+     <span style="color: blue">final </span>init=init,
+     <span style="color: blue">final </span>y_start=dp_start,
+     u_nominal=<span style="color: red">abs</span>(dp_nominal),
+     x(<span style="color: blue">each </span>stateSelect=StateSelect.always),
+     u(<span style="color: blue">final </span>unit=&quot;Pa&quot;),
+     y(<span style="color: blue">final </span>unit=&quot;Pa&quot;),
+     <span style="color: blue">final </span>analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+     <span style="color: blue">final </span>filterType=Modelica.Blocks.Types.FilterType.LowPass) <span style="color: blue">if </span>filteredSpeed <span style="color: #006400">
+    &quot;Second order filter to approximate transient of rotor, and to improve numerics&quot;</span>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> dp_filtered(min=0, <font color="blue">final </font>unit=&quot;Pa&quot;) <font color="blue">if </font>
-     filteredSpeed <font color="darkgreen">&quot;Filtered pressure&quot;</font>;</textblock>
-<font color="blue">equation </font>
-  <font color="red">assert</font>(dp_in &gt;= -Modelica.Constants.eps,
-    &quot;dp_in cannot be negative. Obtained dp_in = &quot; +<font color="red"> String</font>(dp_in));
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> dp_filtered(min=0, <span style="color: blue">final </span>unit=&quot;Pa&quot;) <span style="color: blue">if </span>
+     filteredSpeed <span style="color: #006400">&quot;Filtered pressure&quot;</span>;
+<span style="color: blue">equation </span>
+  <span style="color: red">assert</span>(dp_in &gt;= -Modelica.Constants.eps,
+    &quot;dp_in cannot be negative. Obtained dp_in = &quot; +<span style="color: red"> String</span>(dp_in));
 
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(dp_in, gain.u);</textblock>
+  <span style="color: red">connect</span>(dp_in, gain.u);
 
-  <font color="blue">if </font>filteredSpeed<font color="blue"> then</font>
-<textblock type="annotconnect" expanded="false">    <font color="red">connect</font>(gain.y, filter.u);
-    <font color="red">connect</font>(filter.y, dp_actual);
-    <font color="red">connect</font>(filter.y, dp_filtered);</textblock>
-  <font color="blue">else</font>
-<textblock type="annotconnect" expanded="false">    <font color="red">connect</font>(gain.y, dp_actual);</textblock>
-  <font color="blue">end if</font>;
+  <span style="color: blue">if </span>filteredSpeed<span style="color: blue"> then</span>
+    <span style="color: red">connect</span>(gain.y, filter.u);
+    <span style="color: red">connect</span>(filter.y, dp_actual);
+    <span style="color: red">connect</span>(filter.y, dp_filtered);
+  <span style="color: blue">else</span>
+    <span style="color: red">connect</span>(gain.y, dp_actual);
+  <span style="color: blue">end if</span>;
 
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(dp_actual, preSou.dp_in);</textblock>
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>FlowMachine_dp;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE FlowMachine_m_flow<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Fluid.Movers.FlowMachine_yI.png" ALT="Buildings.Fluid.Movers.FlowMachine_m_flow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Fluid.Movers.FlowMachine_m_flow"></A><A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
->Buildings.Fluid.Movers</A>.FlowMachine_m_flow</H2>
-<B>Fan or pump with ideally controlled mass flow rate as input signal</B><p></P>
-<IMG SRC="Buildings.Fluid.Movers.Flf8e290cf7e0ae8d8_flowD.png" ALT="Buildings.Fluid.Movers.FlowMachine_m_flow">
-<P></P><H3>Information</H3>
+  <span style="color: red">connect</span>(dp_actual, preSou.dp_in);
+<span style="color: blue">end </span>FlowMachine_dp;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlowMachine_m_flow<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.FlowMachine_dpI.png" alt="Buildings.Fluid.Movers.FlowMachine_m_flow" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.FlowMachine_m_flow"></a><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
+>Buildings.Fluid.Movers</a>.FlowMachine_m_flow</h2>
+<p>
+<b>Fan or pump with ideally controlled mass flow rate as input signal</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Flf8e290cf7e0ae8d8_flowD.png" alt="Buildings.Fluid.Movers.FlowMachine_m_flow">
+</p>
+<h3>Information</h3>
 
 <p>
 This model describes a fan or pump with prescribed mass flow rate.
@@ -543,309 +421,298 @@ the actual volume flow rate divided by the maximum possible volume flow rate.
 </p>
 <p>
 See the 
-<A HREF="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
+<a href="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
 >
 User's Guide</a> for more information.
 </p>
-<P></P>
-Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine"
->Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine</A> (Partial model for fan or pump with ideally controlled mass flow rate or head as input signal).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD>Boolean</TD><TD>addPowerToMedium</TD><TD>true</TD><TD>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</TD></TR>
-<TR><TD>Boolean</TD><TD>control_m_flow</TD><TD>true</TD><TD>= false to control head instead of m_flow</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
-<TR><TD>Real</TD><TD>r_V.start</TD><TD>1</TD><TD>Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Characteristics</TD></TR>
-<TR><TD>Boolean</TD><TD>motorCooledByFluid</TD><TD>true</TD><TD>If true, then motor heat is added to fluid stream</TD></TR>
-<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
->efficiencyParameters</A></TD><TD>motorEfficiency</TD><TD>&nbsp;</TD><TD>Normalized volume flow rate vs. efficiency</TD></TR>
-<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
->efficiencyParameters</A></TD><TD>hydraulicEfficiency</TD><TD>&nbsp;</TD><TD>Normalized volume flow rate vs. efficiency</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
->Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
->Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
-<TR><TD>Boolean</TD><TD>dynamicBalance</TD><TD>true</TD><TD>Set to true to use a dynamic balance, which often leads to smaller systems of equations</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>tau</TD><TD>1</TD><TD>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Filtered speed</TD></TR>
-<TR><TD>Boolean</TD><TD>filteredSpeed</TD><TD>true</TD><TD>= true, if speed is filtered with a 2nd order CriticalDamping filter</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>riseTime</TD><TD>30</TD><TD>Rise time of the filter (time to reach 99.6 % of the speed) [s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
->Init</A></TD><TD>init</TD><TD>Modelica.Blocks.Types.Init.I...</TD><TD>Type of initialization (no init/steady state/initial state/initial output)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow_start</TD><TD>0</TD><TD>Initial value of mass flow rate [kg/s]</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
->AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
->MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
->ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
->ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
-<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
->HeatPort_a</A></TD><TD>heatPort</TD><TD>Heat dissipation to environment</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>P</TD><TD>Electrical power consumed [W]</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>m_flow_in</TD><TD>Prescribed mass flow rate [kg/s]</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>m_flow_actual</TD><TD>Actual mass flow rate [kg/s]</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> FlowMachine_m_flow <font color="darkgreen">
-  &quot;Fan or pump with ideally controlled mass flow rate as input signal&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine"
->Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine</A>(
-  <font color="blue">final </font>control_m_flow=true, preSou(m_flow_start=m_flow_start, m_flow_small=
+
+<p>Extends from <a href="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine"
+>Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine</a> (Partial model for fan or pump with ideally controlled mass flow rate or head as input signal).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>addPowerToMedium</td><td>true</td><td>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</td></tr>
+<tr><td>Boolean</td><td>control_m_flow</td><td>true</td><td>= false to control head instead of m_flow</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Characteristics</td></tr>
+<tr><td>Boolean</td><td>motorCooledByFluid</td><td>true</td><td>If true, then motor heat is added to fluid stream</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>motorEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>hydraulicEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr><td>Real</td><td>r_V.start</td><td>1</td><td>Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Boolean</td><td>dynamicBalance</td><td>true</td><td>Set to true to use a dynamic balance, which often leads to smaller systems of equations</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tau</td><td>1</td><td>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Filtered speed</td></tr>
+<tr><td>Boolean</td><td>filteredSpeed</td><td>true</td><td>= true, if speed is filtered with a 2nd order CriticalDamping filter</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>riseTime</td><td>30</td><td>Rise time of the filter (time to reach 99.6 % of the speed) [s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Init</a></td><td>init</td><td>Modelica.Blocks.Types.Init.I...</td><td>Type of initialization (no init/steady state/initial state/initial output)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_start</td><td>0</td><td>Initial value of mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>system.allowFlowReversal</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Electrical power consumed [W]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heatPort</td><td>Heat dissipation to environment</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>m_flow_in</td><td>Prescribed mass flow rate [kg/s]</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>m_flow_actual</td><td>Actual mass flow rate [kg/s]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> FlowMachine_m_flow <span style="color: #006400">
+  &quot;Fan or pump with ideally controlled mass flow rate as input signal&quot;</span>
+  <span style="color: blue">extends </span><a href="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine"
+>Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine</a>(
+  <span style="color: blue">final </span>control_m_flow=true, preSou(m_flow_start=m_flow_start, m_flow_small=
           m_flow_small));
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> m_flow_in(<font color="blue">final </font>unit=&quot;kg/s&quot;,
-                                                 nominal=m_flow_nominal) <font color="darkgreen">
-    &quot;Prescribed mass flow rate&quot;</font>;</textblock>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> m_flow_in(<span style="color: blue">final </span>unit=&quot;kg/s&quot;,
+                                                 nominal=m_flow_nominal) <span style="color: #006400">
+    &quot;Prescribed mass flow rate&quot;</span>;
 
-  <font color="darkgreen">// Classes used to implement the filtered speed</font>
-  <font color="blue">parameter </font>Boolean filteredSpeed=true <font color="darkgreen">
-    &quot;= true, if speed is filtered with a 2nd order CriticalDamping filter&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Modelica.SIunits.Time</A> riseTime=30 <font color="darkgreen">
-    &quot;Rise time of the filter (time to reach 99.6 % of the speed)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
->Modelica.Blocks.Types.Init</A> init=Modelica.Blocks.Types.Init.InitialOutput <font color="darkgreen">
-    &quot;Type of initialization (no init/steady state/initial state/initial output)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->Modelica.SIunits.MassFlowRate</A> m_flow_start(min=0)=0 <font color="darkgreen">
-    &quot;Initial value of mass flow rate&quot;</font>;
+  <span style="color: #006400">// Classes used to implement the filtered speed</span>
+  <span style="color: blue">parameter </span>Boolean filteredSpeed=true <span style="color: #006400">
+    &quot;= true, if speed is filtered with a 2nd order CriticalDamping filter&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> riseTime=30 <span style="color: #006400">
+    &quot;Rise time of the filter (time to reach 99.6 % of the speed)&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Modelica.Blocks.Types.Init</a> init=Modelica.Blocks.Types.Init.InitialOutput <span style="color: #006400">
+    &quot;Type of initialization (no init/steady state/initial state/initial output)&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_start(min=0)=0 <span style="color: #006400">
+    &quot;Initial value of mass flow rate&quot;</span>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> m_flow_actual(<font color="blue">final </font>unit=&quot;kg/s&quot;,
-                                                       nominal=m_flow_nominal) <font color="darkgreen">
-    &quot;Actual mass flow rate&quot;</font>;</textblock>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> m_flow_actual(<span style="color: blue">final </span>unit=&quot;kg/s&quot;,
+                                                       nominal=m_flow_nominal) <span style="color: #006400">
+    &quot;Actual mass flow rate&quot;</span>;
 
-<textblock type="annotcomp" expanded="false"><font color="blue">protected </font>
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Filter"
->Modelica.Blocks.Continuous.Filter</A> filter(
+<span style="color: blue">protected </span>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Filter"
+>Modelica.Blocks.Continuous.Filter</a> filter(
      order=2,
      f_cut=5/(2*Modelica.Constants.pi*riseTime),
-     <font color="blue">final </font>init=init,
-     <font color="blue">final </font>y_start=m_flow_start,
+     <span style="color: blue">final </span>init=init,
+     <span style="color: blue">final </span>y_start=m_flow_start,
      u_nominal=m_flow_nominal,
-     x(<font color="blue">each </font>stateSelect=StateSelect.always),
-     u(<font color="blue">final </font>unit=&quot;kg/s&quot;),
-     y(<font color="blue">final </font>unit=&quot;kg/s&quot;),
-     <font color="blue">final </font>analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-     <font color="blue">final </font>filterType=Modelica.Blocks.Types.FilterType.LowPass) <font color="blue">if </font>
-        filteredSpeed <font color="darkgreen">
-    &quot;Second order filter to approximate transient of rotor, and to improve numerics&quot;</font>;</textblock>
+     x(<span style="color: blue">each </span>stateSelect=StateSelect.always),
+     u(<span style="color: blue">final </span>unit=&quot;kg/s&quot;),
+     y(<span style="color: blue">final </span>unit=&quot;kg/s&quot;),
+     <span style="color: blue">final </span>analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+     <span style="color: blue">final </span>filterType=Modelica.Blocks.Types.FilterType.LowPass) <span style="color: blue">if </span>
+        filteredSpeed <span style="color: #006400">
+    &quot;Second order filter to approximate transient of rotor, and to improve numerics&quot;</span>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> m_flow_filtered(<font color="blue">final </font>unit=&quot;kg/s&quot;) <font color="blue">if </font>
-     filteredSpeed <font color="darkgreen">&quot;Filtered mass flow rate&quot;</font>;</textblock>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> m_flow_filtered(<span style="color: blue">final </span>unit=&quot;kg/s&quot;) <span style="color: blue">if </span>
+     filteredSpeed <span style="color: #006400">&quot;Filtered mass flow rate&quot;</span>;
 
-<font color="blue">equation </font>
-  <font color="blue">if </font>filteredSpeed<font color="blue"> then</font>
-<textblock type="annotconnect" expanded="false">    <font color="red">connect</font>(m_flow_in, filter.u);
-    <font color="red">connect</font>(filter.y, m_flow_actual);</textblock>
-  <font color="blue">else</font>
-<textblock type="annotconnect" expanded="false">    <font color="red">connect</font>(m_flow_in, m_flow_actual);</textblock>
-  <font color="blue">end if</font>;
-<textblock type="annotconnect" expanded="false">  <font color="red">  connect</font>(filter.y, m_flow_filtered);
-  <font color="red">      connect</font>(m_flow_actual, preSou.m_flow_in);</textblock>
+<span style="color: blue">equation </span>
+  <span style="color: blue">if </span>filteredSpeed<span style="color: blue"> then</span>
+    <span style="color: red">connect</span>(m_flow_in, filter.u);
+    <span style="color: red">connect</span>(filter.y, m_flow_actual);
+  <span style="color: blue">else</span>
+    <span style="color: red">connect</span>(m_flow_in, m_flow_actual);
+  <span style="color: blue">end if</span>;
+  <span style="color: red">  connect</span>(filter.y, m_flow_filtered);
+  <span style="color: red">      connect</span>(m_flow_actual, preSou.m_flow_in);
 
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>FlowMachine_m_flow;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE FlowMachinePolynomial<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Fluid.Movers.Fl4a02980ce06174d6omialI.png" ALT="Buildings.Fluid.Movers.FlowMachinePolynomial" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Fluid.Movers.FlowMachinePolynomial"></A><A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
->Buildings.Fluid.Movers</A>.FlowMachinePolynomial</H2>
-<B>Fan or pump with head and efficiency declared by a non-dimensional polynomial</B><p></P>
-<IMG SRC="Buildings.Fluid.Movers.Fl4a02980ce06174d6omialD.png" ALT="Buildings.Fluid.Movers.FlowMachinePolynomial">
-<P></P><H3>Information</H3>
+<span style="color: blue">end </span>FlowMachine_m_flow;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlowMachine_y<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.FlowMachine_yI.png" alt="Buildings.Fluid.Movers.FlowMachine_y" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.FlowMachine_y"></a><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
+>Buildings.Fluid.Movers</a>.FlowMachine_y</h2>
+<p>
+<b>Fan or pump with ideally controlled normalized speed y as input signal</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.FlowMachine_yD.png" alt="Buildings.Fluid.Movers.FlowMachine_y">
+</p>
+<h3>Information</h3>
 
 <p>
-This is a model of a flow machine (pump or fan).
+This model describes a fan or pump with prescribed normalized speed.
+The input connector provides the normalized rotational speed (between 0 and 1).
+The head is computed based on the performance curve that take as an argument
+the actual volume flow rate divided by the maximum flow rate and the relative
+speed of the fan.
+The efficiency of the device is computed based
+on the efficiency curves that take as an argument
+the actual volume flow rate divided by the maximum possible volume flow rate, or
+based on the motor performance curves.
 </p>
 <p>
-The normalized pressure difference is computed using a function of the normalized mass flow rate. The function is a polynomial for which a user needs to supply the coefficients and two values that determine for what flow rate the polynomial is linearly extended.
-</p>
-<p>
-<b>Note:</b> This model is here for compatibility with older versions of this library.
-For new models, use instead <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y"
+See the 
+<a href="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
 >
-Buildings.Fluid.Movers.FlowMachine_y</a>.
+User's Guide</a> for more information.
 </p>
-<P></P>
-Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
->Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.ObsoleteModel"
->Modelica.Icons.ObsoleteModel</A> (Icon for classes that are obsolete and will be removed in later versions).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>D</TD><TD>&nbsp;</TD><TD>Diameter [m]</TD></TR>
-<TR><TD>Real</TD><TD>a[:]</TD><TD>&nbsp;</TD><TD>Polynomial coefficients for pressure=p(mNor_flow)</TD></TR>
-<TR><TD>Real</TD><TD>b[:]</TD><TD>&nbsp;</TD><TD>Polynomial coefficients for etaSha=p(mNor_flow)</TD></TR>
-<TR><TD>Real</TD><TD>mNorMin_flow</TD><TD>&nbsp;</TD><TD>Lowest valid normalized mass flow rate</TD></TR>
-<TR><TD>Real</TD><TD>mNorMax_flow</TD><TD>&nbsp;</TD><TD>Highest valid normalized mass flow rate</TD></TR>
-<TR><TD>Real</TD><TD>scaM_flow</TD><TD>1</TD><TD>Factor used to scale the mass flow rate of the fan (used for quickly adjusting fan size)</TD></TR>
-<TR><TD>Real</TD><TD>scaDp</TD><TD>1</TD><TD>Factor used to scale the pressure increase of the fan (used for quickly adjusting fan size)</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
-<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>N_in</TD><TD>Prescribed rotational speed</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> FlowMachinePolynomial <font color="darkgreen">
-  &quot;Fan or pump with head and efficiency declared by a non-dimensional polynomial&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
->Buildings.Fluid.Interfaces.PartialTwoPortInterface</A>;
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.ObsoleteModel"
->Modelica.Icons.ObsoleteModel</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> N_in <font color="darkgreen">&quot;Prescribed rotational speed&quot;</font>;</textblock>
+<p>Extends from <a href="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine"
+>Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine</a> (Partial model for fan or pump with speed (y or Nrpm) as input signal).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>addPowerToMedium</td><td>true</td><td>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Characteristics</td></tr>
+<tr><td>Boolean</td><td>use_powerCharacteristic</td><td>false</td><td>Use powerCharacteristic (vs. efficiencyCharacteristic)</td></tr>
+<tr><td>Boolean</td><td>motorCooledByFluid</td><td>true</td><td>If true, then motor heat is added to fluid stream</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>motorEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>hydraulicEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
+>AngularVelocity_rpm</a></td><td>N_nominal</td><td>1500</td><td>Nominal rotational speed for flow characteristic [1/min]</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
+>flowParameters</a></td><td>pressure</td><td>&nbsp;</td><td>Volume flow rate vs. total pressure rise</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters"
+>powerParameters</a></td><td>power</td><td>&nbsp;</td><td>Volume flow rate vs. electrical power consumption</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td>Real</td><td>r_V.start</td><td>1</td><td>Ratio V_flow/V_flow_max [1]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Filtered speed</td></tr>
+<tr><td>Boolean</td><td>filteredSpeed</td><td>true</td><td>= true, if speed is filtered with a 2nd order CriticalDamping filter</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>riseTime</td><td>30</td><td>Rise time of the filter (time to reach 99.6 % of the speed) [s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Init</a></td><td>init</td><td>Modelica.Blocks.Types.Init.I...</td><td>Type of initialization (no init/steady state/initial state/initial output)</td></tr>
+<tr><td>Real</td><td>N_start</td><td>0</td><td>Initial value of speed</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Boolean</td><td>dynamicBalance</td><td>true</td><td>Set to true to use a dynamic balance, which often leads to smaller systems of equations</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tau</td><td>1</td><td>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>system.allowFlowReversal</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Electrical power consumed [W]</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>N_actual</td><td>[1/min]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heatPort</td><td>Heat dissipation to environment</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>y</td><td>Constant normalized rotational speed [1]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> FlowMachine_y <span style="color: #006400">
+  &quot;Fan or pump with ideally controlled normalized speed y as input signal&quot;</span>
+  <span style="color: blue">extends </span><a href="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine"
+>Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine</a>(
+  <span style="color: blue">final </span>N_nominal=1500 <span style="color: #006400">&quot;fix N_nominal as it is used only for scaling&quot;</span>);
 
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Modelica.SIunits.Length</A> D <font color="darkgreen">&quot;Diameter&quot;</font>;
-  <font color="blue">parameter </font>Real[:] a <font color="darkgreen">&quot;Polynomial coefficients for pressure=p(mNor_flow)&quot;</font>;
-  <font color="blue">parameter </font>Real[:] b <font color="darkgreen">&quot;Polynomial coefficients for etaSha=p(mNor_flow)&quot;</font>;
-  <font color="blue">parameter </font>Real mNorMin_flow <font color="darkgreen">&quot;Lowest valid normalized mass flow rate&quot;</font>;
-  <font color="blue">parameter </font>Real mNorMax_flow <font color="darkgreen">&quot;Highest valid normalized mass flow rate&quot;</font>;
-  <font color="blue">parameter </font>Real scaM_flow = 1 <font color="darkgreen">
-    &quot;Factor used to scale the mass flow rate of the fan (used for quickly adjusting fan size)&quot;</font>;
-  <font color="blue">parameter </font>Real scaDp = 1 <font color="darkgreen">
-    &quot;Factor used to scale the pressure increase of the fan (used for quickly adjusting fan size)&quot;</font>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> y(min=0, max=1, unit=&quot;1&quot;) <span style="color: #006400">
+    &quot;Constant normalized rotational speed&quot;</span>;
 
-  Real pNor(min=0) <font color="darkgreen">&quot;Normalized pressure&quot;</font>;
-  Real mNor_flow(start=mNorMax_flow) <font color="darkgreen">&quot;Normalized mass flow rate&quot;</font>;
-  Real etaSha(min=0, max=1) <font color="darkgreen">&quot;Efficiency, flow work divided by shaft power&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
->Modelica.SIunits.Power</A> PSha <font color="darkgreen">&quot;Power input at shaft&quot;</font>;
+<span style="color: blue">protected </span>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> gaiSpe(<span style="color: blue">final </span>k=N_nominal,
+    u(min=0, max=1),
+    y(<span style="color: blue">final </span>quantity=&quot;AngularVelocity&quot;,
+      <span style="color: blue">final </span>unit=&quot;1/min&quot;,
+      nominal=N_nominal)) <span style="color: #006400">&quot;Gain for speed input signal&quot;</span>;
+<span style="color: blue">equation </span>
+  <span style="color: red">connect</span>(y, gaiSpe.u);
 
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
->Medium.Density</A> rho <font color="darkgreen">&quot;Medium density&quot;</font>;
-<font color="blue">protected </font>
-  <font color="blue">parameter </font>Real pNorMin1(fixed=false) <font color="darkgreen">
-    &quot;Normalized pressure, used to test slope of polynomial outside [xMin, xMax]&quot;</font>;
-  <font color="blue">parameter </font>Real pNorMin2(fixed=false) <font color="darkgreen">
-    &quot;Normalized pressure, used to test slope of polynomial outside [xMin, xMax]&quot;</font>;
-  <font color="blue">parameter </font>Real pNorMax1(fixed=false) <font color="darkgreen">
-    &quot;Normalized pressure, used to test slope of polynomial outside [xMin, xMax]&quot;</font>;
-  <font color="blue">parameter </font>Real pNorMax2(fixed=false) <font color="darkgreen">
-    &quot;Normalized pressure, used to test slope of polynomial outside [xMin, xMax]&quot;</font>;
+  <span style="color: red"> connect</span>(filter.y, N_filtered);
 
-<font color="blue">initial </font><font color="blue">equation </font>
- <font color="red">Modelica.Utilities.Streams.print</font>(&quot;The model Buildings.Fluid.Movers.FlowMachinePolynomial is deprecated.
- It will be removed in future releases.
- You should use Buildings.Fluid.Movers.FlowMachine_y 
- instead of Buildings.Fluid.Movers.FlowMachinePolynomial.&quot;);
- <font color="darkgreen">// check slope of polynomial outside the domain [mNorMin_flow, mNorMax_flow]</font>
- pNorMin1 =<font color="red"> Buildings.Fluid.Utilities.extendedPolynomial</font>(
-                                        c=a, x=mNorMin_flow/2, xMin=mNorMin_flow, xMax=mNorMax_flow);
- pNorMin2 =<font color="red"> Buildings.Fluid.Utilities.extendedPolynomial</font>(
-                                        c=a, x=mNorMin_flow, xMin=mNorMin_flow, xMax=mNorMax_flow);
- pNorMax1 =<font color="red"> Buildings.Fluid.Utilities.extendedPolynomial</font>(
-                                        c=a, x=mNorMax_flow, xMin=mNorMin_flow, xMax=mNorMax_flow);
- pNorMax2 =<font color="red"> Buildings.Fluid.Utilities.extendedPolynomial</font>(
-                                        c=a, x=mNorMax_flow*2, xMin=mNorMin_flow, xMax=mNorMax_flow);
- <font color="red">assert</font>(pNorMin1&gt;pNorMin2,
-    &quot;Slope of pump pressure polynomial is non-negative for mNor_flow &lt; mNorMin_flow. Check parameter a.&quot;);
- <font color="red">assert</font>(pNorMax1&gt;pNorMax2,
-    &quot;Slope of pump pressure polynomial is non-negative for mNorMax_flow &lt; mNor_flow. Check parameter a.&quot;);
+  <span style="color: blue">if </span>filteredSpeed<span style="color: blue"> then</span>
+    <span style="color: red">connect</span>(gaiSpe.y, filter.u);
+    <span style="color: red">connect</span>(filter.y, N_actual);
+  <span style="color: blue">else</span>
+    <span style="color: red">connect</span>(gaiSpe.y, N_actual);
+  <span style="color: blue">end if</span>;
 
-<font color="blue">equation </font>
-  <font color="darkgreen">// For computing the density, we assume that the fan operates in the design flow direction.</font>
-  rho =<font color="red"> Medium.density</font>(
-     <font color="red">Medium.setState_phX</font>(port_a.p,<font color="red"> inStream</font>(port_a.h_outflow),<font color="red"> inStream</font>(port_a.Xi_outflow)));
-
-  -dp = scaDp     * pNor      * rho * D*D   * N_in * N_in;
-  m_flow = scaM_flow * mNor_flow * rho * D*D*D * N_in;
-  pNor =<font color="red"> Buildings.Fluid.Utilities.extendedPolynomial</font>(
-                                        c=a, x=mNor_flow, xMin=mNorMin_flow, xMax=mNorMax_flow);
-  etaSha =<font color="red"> max</font>(0.1,<font color="red"> Buildings.Fluid.Utilities.polynomial</font>(
-                                                      c=b, x=mNor_flow));
-  etaSha * PSha = -dp * m_flow / rho;<font color="darkgreen"> // dp&lt;0 and m_flow&gt;0 for normal operation</font>
-
-  <font color="darkgreen">// Energy balance (no storage, no heat loss/gain)</font>
-  PSha = -m_flow*(port_a.h_outflow-<font color="red">inStream</font>(port_b.h_outflow));
-  PSha = m_flow*(port_b.h_outflow-<font color="red">inStream</font>(port_a.h_outflow));
-
-  <font color="darkgreen">// Mass balance (no storage)</font>
-  port_a.m_flow + port_b.m_flow = 0;
-
-  <font color="darkgreen">// Transport of substances</font>
-  port_a.Xi_outflow =<font color="red"> inStream</font>(port_b.Xi_outflow);
-  port_b.Xi_outflow =<font color="red"> inStream</font>(port_a.Xi_outflow);
-
-  port_a.C_outflow =<font color="red"> inStream</font>(port_b.C_outflow);
-  port_b.C_outflow =<font color="red"> inStream</font>(port_a.C_outflow);
-
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>FlowMachinePolynomial;
-</PRE>
-<HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:16:44 2014.
-</address></BODY>
-</HTML>
+<span style="color: blue">end </span>FlowMachine_y;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 10:56:42 2014.
+</address>
+</body>
+</html>

@@ -1,44 +1,36 @@
-<HTML>
-<HEAD>
-<TITLE>Buildings.Media.GasesPTDecoupled.SimpleAir</TITLE>
-<META name="HTML-Generator" content="Dymola">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Media.GasesPTDecoupled.SimpleAir</title>
+<meta name="HTML-Generator" content="Dymola">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<META name="description" content="&quot;Package with dry air model that decouples pressure and temperature&quot;">
+<meta name="description" content="&quot;Package with dry air model that decouples pressure and temperature&quot;">
 <style type="text/css">
-*       { font-size: 10pt; font-family: Arial,sans-serif; }
-pre     { font-size:  9pt; font-family: Courier,monospace;}
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
 h4      { font-size: 10pt; font-weight: bold; color: green; }
 h3      { font-size: 11pt; font-weight: bold; color: green; }
 h2      { font-size: 13pt; font-weight: bold; color: green; }
-address {                  font-weight: normal} 
-td      { solid #000; vertical-align:top; }
-th      { solid #000; vertical-align:top; font-weight: bold; }
-table   { solid #000; border-collapse: collapse;}
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
 </style>
-<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
-</HEAD>
+</head>
 <body>
-<!-- --- header ------ -->
-<div class="headerStyle">
-<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
-</div>
-<div class="headerLinks">
-<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
-</div>
-<!-- --- end header -- -->
-</P>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE SimpleAir<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir"></A><A HREF="Buildings_Media_GasesPTDecoupled.html#Buildings.Media.GasesPTDecoupled"
->Buildings.Media.GasesPTDecoupled</A>.SimpleAir</H2>
-<B>Package with dry air model that decouples pressure and temperature</B>
-<P></P>
-<P></P><H3>Information</H3>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SimpleAir<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Media.GasesPTDecoupled.SimpleAir"></a><a href="Buildings_Media_GasesPTDecoupled.html#Buildings.Media.GasesPTDecoupled"
+>Buildings.Media.GasesPTDecoupled</a>.SimpleAir</h2>
+<p>
+<b>Package with dry air model that decouples pressure and temperature</b><br>
+</p>
+<h3>Information</h3>
 
 <p>
 This medium model is identical to 
-<A HREF="../../msl/3.2/help/Modelica_Media_Air_SimpleAir.html#Modelica.Media.Air.SimpleAir"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Air_SimpleAir.html#Modelica.Media.Air.SimpleAir"
 >
 Modelica.Media.Air.SimpleAir</a>, except the 
 equation <code>d = p/(R*T)</code> has been replaced with 
@@ -52,711 +44,1124 @@ because pressure and temperature are decoupled, at the expense of accuracy.
 </p>
 <p>
 As in
-<A HREF="../../msl/3.2/help/Modelica_Media_Air_SimpleAir.html#Modelica.Media.Air.SimpleAir"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Air_SimpleAir.html#Modelica.Media.Air.SimpleAir"
 >
 Modelica.Media.Air.SimpleAir</a>, the
 specific enthalpy h and specific internal energy u are only
 a function of temperature T and all other provided medium
 quantities are constant.
 </p>
-<P></P>
-Extends from <A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium"
->Buildings.Media.Interfaces.PartialSimpleIdealGasMedium</A> (Medium model of Ideal gas with constant cp and cv. All other quantities, e.g., transport properties, are constant.).
-<P></P><H3>Package Content</H3>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
-<TR><TH >Name</TH><TH>Description</TH></TR>
-<TR><TD>fluidConstants=FluidConstants(iupacName={&quot;simple air&quot;}, casRegistryNumber={&quot;not a real substance&quot;}, chemicalFormula={&quot;N2, O2&quot;}, structureFormula={&quot;N2, O2&quot;}, molarMass=Modelica.Media.IdealGases.Common.SingleGasesData.N2.MM)</TD><TD>constant data for the fluid</TD></TR>
-<TR><TD>pStp=101325</TD><TD>Pressure for which dStp is defined</TD></TR>
-<TR><TD>dStp=1.2</TD><TD>Fluid density at pressure pStp</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.GasesPTDea21fac4ffbd8c916rtiesS.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties"
->BaseProperties</A>
-</TD><TD>Basic medium properties</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXS.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.setState_dTX" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.setState_dTX"
->setState_dTX</A>
-</TD><TD>Return thermodynamic state from d, T, and X or Xi</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXS.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.density" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.density"
->density</A>
-</TD><TD>return density of ideal gas</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXS.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.specificInternalEnergy" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.specificInternalEnergy"
->specificInternalEnergy</A>
-</TD><TD>Return specific internal energy</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXS.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.specificEntropy" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.specificEntropy"
->specificEntropy</A>
-</TD><TD>Return specific entropy</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXS.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.enthalpyOfCondensingGas" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.enthalpyOfCondensingGas"
->enthalpyOfCondensingGas</A>
-</TD><TD>Enthalpy of steam per unit mass of steam</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXS.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.saturationPressure" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.saturationPressure"
->saturationPressure</A>
-</TD><TD>Return saturation pressure of condensing fluid</TD></TR>
-<TR><TH COLSPAN="2">Inherited</TH></TR>
-<TR><TD>cp_const</TD><TD>Constant specific heat capacity at constant pressure</TD></TR>
-<TR><TD>cv_const=cp_const - R_gas</TD><TD>Constant specific heat capacity at constant volume</TD></TR>
-<TR><TD>R_gas</TD><TD>medium specific gas constant</TD></TR>
-<TR><TD>MM_const</TD><TD>Molar mass</TD></TR>
-<TR><TD>eta_const</TD><TD>Constant dynamic viscosity</TD></TR>
-<TR><TD>lambda_const</TD><TD>Constant thermal conductivity</TD></TR>
-<TR><TD>T_min</TD><TD>Minimum temperature valid for medium model</TD></TR>
-<TR><TD>T_max</TD><TD>Maximum temperature valid for medium model</TD></TR>
-<TR><TD>T0=reference_T</TD><TD>Zero enthalpy temperature</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface9697fb6ea613ab2cStateS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
->ThermodynamicState</A>
-</TD><TD>Thermodynamic state of ideal gas</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface9697fb6ea613ab2cStateS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.FluidConstants" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.FluidConstants"
->FluidConstants</A>
-</TD><TD>fluid constants</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setState_pTX" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setState_pTX"
->setState_pTX</A>
-</TD><TD>Return thermodynamic state from p, T, and X or Xi</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setState_phX" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setState_phX"
->setState_phX</A>
-</TD><TD>Return thermodynamic state from p, h, and X or Xi</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setState_psX" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setState_psX"
->setState_psX</A>
-</TD><TD>Return thermodynamic state from p, s, and X or Xi</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setSmoothState" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setSmoothState"
->setSmoothState</A>
-</TD><TD>Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.pressure" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.pressure"
->pressure</A>
-</TD><TD>Return pressure of ideal gas</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.temperature" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.temperature"
->temperature</A>
-</TD><TD>Return temperature of ideal gas</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy"
->specificEnthalpy</A>
-</TD><TD>Return specific enthalpy</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificGibbsEnergy" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificGibbsEnergy"
->specificGibbsEnergy</A>
-</TD><TD>Return specific Gibbs energy</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificHelmholtzEnergy" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificHelmholtzEnergy"
->specificHelmholtzEnergy</A>
-</TD><TD>Return specific Helmholtz energy</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.dynamicViscosity" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.dynamicViscosity"
->dynamicViscosity</A>
-</TD><TD>Return dynamic viscosity</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.thermalConductivity" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.thermalConductivity"
->thermalConductivity</A>
-</TD><TD>Return thermal conductivity</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificHeatCapacityCp" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificHeatCapacityCp"
->specificHeatCapacityCp</A>
-</TD><TD>Return specific heat capacity at constant pressure</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificHeatCapacityCv" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificHeatCapacityCv"
->specificHeatCapacityCv</A>
-</TD><TD>Return specific heat capacity at constant volume</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isentropicExponent" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isentropicExponent"
->isentropicExponent</A>
-</TD><TD>Return isentropic exponent</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.velocityOfSound" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.velocityOfSound"
->velocityOfSound</A>
-</TD><TD>Return velocity of sound </TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy_pTX" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy_pTX"
->specificEnthalpy_pTX</A>
-</TD><TD>Return specific enthalpy from p, T, and X or Xi</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.temperature_phX" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.temperature_phX"
->temperature_phX</A>
-</TD><TD>Return temperature from p, h, and X or Xi</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_phX" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_phX"
->density_phX</A>
-</TD><TD>Return density from p, h, and X or Xi</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isentropicEnthalpy" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isentropicEnthalpy"
->isentropicEnthalpy</A>
-</TD><TD>Return isentropic enthalpy</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isobaricExpansionCoefficient" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isobaricExpansionCoefficient"
->isobaricExpansionCoefficient</A>
-</TD><TD>Returns overall the isobaric expansion coefficient beta</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isothermalCompressibility" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isothermalCompressibility"
->isothermalCompressibility</A>
-</TD><TD>Returns overall the isothermal compressibility factor</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_derp_T" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_derp_T"
->density_derp_T</A>
-</TD><TD>Returns the partial derivative of density with respect to pressure at constant temperature</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_derT_p" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_derT_p"
->density_derT_p</A>
-</TD><TD>Returns the partial derivative of density with respect to temperature at constant pressure</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_derX" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_derX"
->density_derX</A>
-</TD><TD>Returns the partial derivative of density with respect to mass fractions at constant pressure and temperature</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" ALT="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.molarMass" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.molarMass"
->molarMass</A>
-</TD><TD>Returns the molar mass of the medium</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" ALT="Modelica.Media.Interfaces.PartialPureSubstance.setState_pT" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.setState_pT"
->setState_pT</A>
-</TD><TD>Return thermodynamic state from p and T</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" ALT="Modelica.Media.Interfaces.PartialPureSubstance.setState_ph" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.setState_ph"
->setState_ph</A>
-</TD><TD>Return thermodynamic state from p and h</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" ALT="Modelica.Media.Interfaces.PartialPureSubstance.setState_ps" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.setState_ps"
->setState_ps</A>
-</TD><TD>Return thermodynamic state from p and s</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" ALT="Modelica.Media.Interfaces.PartialPureSubstance.setState_dT" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.setState_dT"
->setState_dT</A>
-</TD><TD>Return thermodynamic state from d and T</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" ALT="Modelica.Media.Interfaces.PartialPureSubstance.density_ph" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.density_ph"
->density_ph</A>
-</TD><TD>Return density from p and h</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" ALT="Modelica.Media.Interfaces.PartialPureSubstance.temperature_ph" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.temperature_ph"
->temperature_ph</A>
-</TD><TD>Return temperature from p and h</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" ALT="Modelica.Media.Interfaces.PartialPureSubstance.pressure_dT" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.pressure_dT"
->pressure_dT</A>
-</TD><TD>Return pressure from d and T</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" ALT="Modelica.Media.Interfaces.PartialPureSubstance.specificEnthalpy_dT" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.specificEnthalpy_dT"
->specificEnthalpy_dT</A>
-</TD><TD>Return specific enthalpy from d and T</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" ALT="Modelica.Media.Interfaces.PartialPureSubstance.specificEnthalpy_ps" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.specificEnthalpy_ps"
->specificEnthalpy_ps</A>
-</TD><TD>Return specific enthalpy from p and s</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" ALT="Modelica.Media.Interfaces.PartialPureSubstance.temperature_ps" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.temperature_ps"
->temperature_ps</A>
-</TD><TD>Return temperature from p and s</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" ALT="Modelica.Media.Interfaces.PartialPureSubstance.density_ps" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.density_ps"
->density_ps</A>
-</TD><TD>Return density from p and s</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" ALT="Modelica.Media.Interfaces.PartialPureSubstance.specificEnthalpy_pT" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.specificEnthalpy_pT"
->specificEnthalpy_pT</A>
-</TD><TD>Return specific enthalpy from p and T</TD></TR>
-<TR><TD><IMG SRC="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" ALT="Modelica.Media.Interfaces.PartialPureSubstance.density_pT" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.density_pT"
->density_pT</A>
-</TD><TD>Return density from p and T</TD></TR>
-<TR><TD>ThermoStates</TD><TD>Enumeration type for independent variables</TD></TR>
-<TR><TD>mediumName=&quot;unusablePartialMedium&quot;</TD><TD>Name of the medium</TD></TR>
-<TR><TD>substanceNames={mediumName}</TD><TD>Names of the mixture substances. Set substanceNames={mediumName} if only one substance.</TD></TR>
-<TR><TD>extraPropertiesNames=fill(&quot;&quot;, 0)</TD><TD>Names of the additional (extra) transported properties. Set extraPropertiesNames=fill(&quot;&quot;,0) if unused</TD></TR>
-<TR><TD>singleState</TD><TD>= true, if u and d are not a function of pressure</TD></TR>
-<TR><TD>reducedX=true</TD><TD>= true if medium contains the equation sum(X) = 1.0; set reducedX=true if only one substance (see docu for details)</TD></TR>
-<TR><TD>fixedX=false</TD><TD>= true if medium contains the equation X = reference_X</TD></TR>
-<TR><TD>reference_p=101325</TD><TD>Reference pressure of Medium: default 1 atmosphere</TD></TR>
-<TR><TD>reference_T=298.15</TD><TD>Reference temperature of Medium: default 25 deg Celsius</TD></TR>
-<TR><TD>reference_X=fill(1/nX, nX)</TD><TD>Default mass fractions of medium</TD></TR>
-<TR><TD>p_default=101325</TD><TD>Default value for pressure of medium (for initialization)</TD></TR>
-<TR><TD>T_default=Modelica.SIunits.Conversions.from_degC(20)</TD><TD>Default value for temperature of medium (for initialization)</TD></TR>
-<TR><TD>h_default=specificEnthalpy_pTX(p_default, T_default, X_default)</TD><TD>Default value for specific enthalpy of medium (for initialization)</TD></TR>
-<TR><TD>X_default=reference_X</TD><TD>Default value for mass fractions of medium (for initialization)</TD></TR>
-<TR><TD>nS=size(substanceNames, 1)</TD><TD>Number of substances</TD></TR>
-<TR><TD>nX=nS</TD><TD>Number of mass fractions</TD></TR>
-<TR><TD>nXi=if fixedX then 0 else if reducedX then nS - 1 else nS</TD><TD>Number of structurally independent mass fractions (see docu for details)</TD></TR>
-<TR><TD>nC=size(extraPropertiesNames, 1)</TD><TD>Number of extra (outside of standard mass-balance) transported properties</TD></TR>
-<TR><TD>C_nominal=1.0e-6*ones(nC)</TD><TD>Default for the nominal values for the extra properties</TD></TR>
-<TR><TD><IMG SRC="Modelica.Media.Interfaces717f7df7541be96dtionsS.png" ALT="Modelica.Media.Interfaces.PartialMedium.prandtlNumber" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.prandtlNumber"
->prandtlNumber</A>
-</TD><TD>Return the Prandtl number</TD></TR>
-<TR><TD><IMG SRC="Modelica.Media.Interfaces66de202835bffc19umberS.png" ALT="Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp"
->heatCapacity_cp</A>
-</TD><TD>alias for deprecated name</TD></TR>
-<TR><TD><IMG SRC="Modelica.Media.Interfaces66de202835bffc19umberS.png" ALT="Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv"
->heatCapacity_cv</A>
-</TD><TD>alias for deprecated name</TD></TR>
-<TR><TD><IMG SRC="Modelica.Media.Interfaces66de202835bffc19umberS.png" ALT="Modelica.Media.Interfaces.PartialMedium.beta" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.beta"
->beta</A>
-</TD><TD>alias for isobaricExpansionCoefficient for user convenience</TD></TR>
-<TR><TD><IMG SRC="Modelica.Media.Interfaces66de202835bffc19umberS.png" ALT="Modelica.Media.Interfaces.PartialMedium.kappa" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.kappa"
->kappa</A>
-</TD><TD>alias of isothermalCompressibility for user convenience</TD></TR>
-<TR><TD><IMG SRC="Modelica.Media.Interfaces66de202835bffc19umberS.png" ALT="Modelica.Media.Interfaces.PartialMedium.density_derp_h" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derp_h"
->density_derp_h</A>
-</TD><TD>Return density derivative w.r.t. pressure at const specific enthalpy</TD></TR>
-<TR><TD><IMG SRC="Modelica.Media.Interfaces66de202835bffc19umberS.png" ALT="Modelica.Media.Interfaces.PartialMedium.density_derh_p" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derh_p"
->density_derh_p</A>
-</TD><TD>Return density derivative w.r.t. specific enthalpy at constant pressure</TD></TR>
-<TR><TD><IMG SRC="Modelica.Media.Interfaces66de202835bffc19umberS.png" ALT="Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX"
->specificEntropy_pTX</A>
-</TD><TD>Return specific enthalpy from p, T, and X or Xi</TD></TR>
-<TR><TD><IMG SRC="Modelica.Media.Interfaces66de202835bffc19umberS.png" ALT="Modelica.Media.Interfaces.PartialMedium.density_pTX" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_pTX"
->density_pTX</A>
-</TD><TD>Return density from p, T, and X or Xi</TD></TR>
-<TR><TD><IMG SRC="Modelica.Media.Interfaces66de202835bffc19umberS.png" ALT="Modelica.Media.Interfaces.PartialMedium.temperature_psX" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.temperature_psX"
->temperature_psX</A>
-</TD><TD>Return temperature from p,s, and X or Xi</TD></TR>
-<TR><TD><IMG SRC="Modelica.Media.Interfaces66de202835bffc19umberS.png" ALT="Modelica.Media.Interfaces.PartialMedium.density_psX" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_psX"
->density_psX</A>
-</TD><TD>Return density from p, s, and X or Xi</TD></TR>
-<TR><TD><IMG SRC="Modelica.Media.Interfaces66de202835bffc19umberS.png" ALT="Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_psX" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_psX"
->specificEnthalpy_psX</A>
-</TD><TD>Return specific enthalpy from p, s, and X or Xi</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
->AbsolutePressure</A>
-</TD><TD>Type for absolute pressure with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
->Density</A>
-</TD><TD>Type for density with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DynamicViscosity"
->DynamicViscosity</A>
-</TD><TD>Type for dynamic viscosity with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.EnthalpyFlowRate"
->EnthalpyFlowRate</A>
-</TD><TD>Type for enthalpy flow rate with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A>
-</TD><TD>Type for mass flow rate with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
->MassFraction</A>
-</TD><TD>Type for mass fraction with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MoleFraction"
->MoleFraction</A>
-</TD><TD>Type for mole fraction with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass"
->MolarMass</A>
-</TD><TD>Type for molar mass with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarVolume"
->MolarVolume</A>
-</TD><TD>Type for molar volume with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsentropicExponent"
->IsentropicExponent</A>
-</TD><TD>Type for isentropic exponent with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy"
->SpecificEnergy</A>
-</TD><TD>Type for specific energy with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificInternalEnergy"
->SpecificInternalEnergy</A>
-</TD><TD>Type for specific internal energy with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy"
->SpecificEnthalpy</A>
-</TD><TD>Type for specific enthalpy with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy"
->SpecificEntropy</A>
-</TD><TD>Type for specific entropy with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity"
->SpecificHeatCapacity</A>
-</TD><TD>Type for specific heat capacity with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SurfaceTension"
->SurfaceTension</A>
-</TD><TD>Type for surface tension with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A>
-</TD><TD>Type for temperature with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermalConductivity"
->ThermalConductivity</A>
-</TD><TD>Type for thermal conductivity with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.PrandtlNumber"
->PrandtlNumber</A>
-</TD><TD>Type for Prandtl number with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.VelocityOfSound"
->VelocityOfSound</A>
-</TD><TD>Type for velocity of sound with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
->ExtraProperty</A>
-</TD><TD>Type for unspecified, mass-specific property transported by flow</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.CumulativeExtraProperty"
->CumulativeExtraProperty</A>
-</TD><TD>Type for conserved integral of unspecified, mass specific property</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraPropertyFlowRate"
->ExtraPropertyFlowRate</A>
-</TD><TD>Type for flow rate of unspecified, mass-specific property</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsobaricExpansionCoefficient"
->IsobaricExpansionCoefficient</A>
-</TD><TD>Type for isobaric expansion coefficient with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DipoleMoment"
->DipoleMoment</A>
-</TD><TD>Type for dipole moment with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByPressure"
->DerDensityByPressure</A>
-</TD><TD>Type for partial derivative of density with resect to pressure with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByEnthalpy"
->DerDensityByEnthalpy</A>
-</TD><TD>Type for partial derivative of density with resect to enthalpy with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerEnthalpyByPressure"
->DerEnthalpyByPressure</A>
-</TD><TD>Type for partial derivative of enthalpy with resect to pressure with medium specific attributes</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByTemperature"
->DerDensityByTemperature</A>
-</TD><TD>Type for partial derivative of density with resect to temperature with medium specific attributes</TD></TR>
-<TR><TD><IMG SRC="Modelica.Media.Interfaces03b134744f80ad1doicesS.png" ALT="Modelica.Media.Interfaces.PartialMedium.Choices" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium_Choices.html#Modelica.Media.Interfaces.PartialMedium.Choices"
->Choices</A>
-</TD><TD>Types, constants to define menu choices</TD></TR>
-</TABLE>
-<P></p><H3>Types and constants</H3>
-<PRE>  <font color="blue">constant </font><A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.FluidConstants"
->FluidConstants</A>[nS] fluidConstants=
-    <font color="red">FluidConstants</font>(iupacName={&quot;simple air&quot;},
+
+<p>Extends from <a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium"
+>Buildings.Media.Interfaces.PartialSimpleIdealGasMedium</a> (Medium model of Ideal gas with constant cp and cv. All other quantities, e.g., transport properties, are constant.).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>fluidConstants=FluidConstants(iupacName={&quot;simple air&quot;}, casRegistryNumber={&quot;not a real substance&quot;}, chemicalFormula={&quot;N2, O2&quot;}, structureFormula={&quot;N2, O2&quot;}, molarMass=Modelica.Media.IdealGases.Common.SingleGasesData.N2.MM)</td>
+<td>constant data for the fluid</td>
+</tr>
+<tr>
+<td>pStp=101325</td>
+<td>Pressure for which dStp is defined</td>
+</tr>
+<tr>
+<td>dStp=1.2</td>
+<td>Fluid density at pressure pStp</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.GasesPTDea21fac4ffbd8c916rtiesS.png" alt="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties"
+>BaseProperties</a>
+</td>
+<td>Basic medium properties</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXS.png" alt="Buildings.Media.GasesPTDecoupled.SimpleAir.setState_dTX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.setState_dTX"
+>setState_dTX</a>
+</td>
+<td>Return thermodynamic state from d, T, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXS.png" alt="Buildings.Media.GasesPTDecoupled.SimpleAir.density" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.density"
+>density</a>
+</td>
+<td>return density of ideal gas</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXS.png" alt="Buildings.Media.GasesPTDecoupled.SimpleAir.specificInternalEnergy" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.specificInternalEnergy"
+>specificInternalEnergy</a>
+</td>
+<td>Return specific internal energy</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXS.png" alt="Buildings.Media.GasesPTDecoupled.SimpleAir.specificEntropy" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.specificEntropy"
+>specificEntropy</a>
+</td>
+<td>Return specific entropy</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXS.png" alt="Buildings.Media.GasesPTDecoupled.SimpleAir.enthalpyOfCondensingGas" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.enthalpyOfCondensingGas"
+>enthalpyOfCondensingGas</a>
+</td>
+<td>Enthalpy of steam per unit mass of steam</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXS.png" alt="Buildings.Media.GasesPTDecoupled.SimpleAir.saturationPressure" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.saturationPressure"
+>saturationPressure</a>
+</td>
+<td>Return saturation pressure of condensing fluid</td>
+</tr>
+<tr>
+<th colspan="2">Inherited</th>
+</tr>
+<tr>
+<td>cp_const</td>
+<td>Constant specific heat capacity at constant pressure</td>
+</tr>
+<tr>
+<td>cv_const=cp_const - R_gas</td>
+<td>Constant specific heat capacity at constant volume</td>
+</tr>
+<tr>
+<td>R_gas</td>
+<td>medium specific gas constant</td>
+</tr>
+<tr>
+<td>MM_const</td>
+<td>Molar mass</td>
+</tr>
+<tr>
+<td>eta_const</td>
+<td>Constant dynamic viscosity</td>
+</tr>
+<tr>
+<td>lambda_const</td>
+<td>Constant thermal conductivity</td>
+</tr>
+<tr>
+<td>T_min</td>
+<td>Minimum temperature valid for medium model</td>
+</tr>
+<tr>
+<td>T_max</td>
+<td>Maximum temperature valid for medium model</td>
+</tr>
+<tr>
+<td>T0=reference_T</td>
+<td>Zero enthalpy temperature</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface9697fb6ea613ab2cStateS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
+>ThermodynamicState</a>
+</td>
+<td>Thermodynamic state of ideal gas</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface9697fb6ea613ab2cStateS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.FluidConstants" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.FluidConstants"
+>FluidConstants</a>
+</td>
+<td>fluid constants</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setState_pTX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setState_pTX"
+>setState_pTX</a>
+</td>
+<td>Return thermodynamic state from p, T, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setState_phX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setState_phX"
+>setState_phX</a>
+</td>
+<td>Return thermodynamic state from p, h, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setState_psX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setState_psX"
+>setState_psX</a>
+</td>
+<td>Return thermodynamic state from p, s, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setSmoothState" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setSmoothState"
+>setSmoothState</a>
+</td>
+<td>Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.pressure" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.pressure"
+>pressure</a>
+</td>
+<td>Return pressure of ideal gas</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.temperature" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.temperature"
+>temperature</a>
+</td>
+<td>Return temperature of ideal gas</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy"
+>specificEnthalpy</a>
+</td>
+<td>Return specific enthalpy</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificGibbsEnergy" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificGibbsEnergy"
+>specificGibbsEnergy</a>
+</td>
+<td>Return specific Gibbs energy</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificHelmholtzEnergy" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificHelmholtzEnergy"
+>specificHelmholtzEnergy</a>
+</td>
+<td>Return specific Helmholtz energy</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.dynamicViscosity" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.dynamicViscosity"
+>dynamicViscosity</a>
+</td>
+<td>Return dynamic viscosity</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.thermalConductivity" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.thermalConductivity"
+>thermalConductivity</a>
+</td>
+<td>Return thermal conductivity</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificHeatCapacityCp" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificHeatCapacityCp"
+>specificHeatCapacityCp</a>
+</td>
+<td>Return specific heat capacity at constant pressure</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificHeatCapacityCv" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificHeatCapacityCv"
+>specificHeatCapacityCv</a>
+</td>
+<td>Return specific heat capacity at constant volume</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isentropicExponent" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isentropicExponent"
+>isentropicExponent</a>
+</td>
+<td>Return isentropic exponent</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.velocityOfSound" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.velocityOfSound"
+>velocityOfSound</a>
+</td>
+<td>Return velocity of sound </td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy_pTX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy_pTX"
+>specificEnthalpy_pTX</a>
+</td>
+<td>Return specific enthalpy from p, T, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.temperature_phX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.temperature_phX"
+>temperature_phX</a>
+</td>
+<td>Return temperature from p, h, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_phX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_phX"
+>density_phX</a>
+</td>
+<td>Return density from p, h, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isentropicEnthalpy" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isentropicEnthalpy"
+>isentropicEnthalpy</a>
+</td>
+<td>Return isentropic enthalpy</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isobaricExpansionCoefficient" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isobaricExpansionCoefficient"
+>isobaricExpansionCoefficient</a>
+</td>
+<td>Returns overall the isobaric expansion coefficient beta</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isothermalCompressibility" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.isothermalCompressibility"
+>isothermalCompressibility</a>
+</td>
+<td>Returns overall the isothermal compressibility factor</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_derp_T" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_derp_T"
+>density_derp_T</a>
+</td>
+<td>Returns the partial derivative of density with respect to pressure at constant temperature</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_derT_p" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_derT_p"
+>density_derT_p</a>
+</td>
+<td>Returns the partial derivative of density with respect to temperature at constant pressure</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_derX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.density_derX"
+>density_derX</a>
+</td>
+<td>Returns the partial derivative of density with respect to mass fractions at constant pressure and temperature</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface1b686345260b45ffe_pTXS.png" alt="Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.molarMass" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.molarMass"
+>molarMass</a>
+</td>
+<td>Returns the molar mass of the medium</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" alt="Modelica.Media.Interfaces.PartialPureSubstance.setState_pT" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.setState_pT"
+>setState_pT</a>
+</td>
+<td>Return thermodynamic state from p and T</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" alt="Modelica.Media.Interfaces.PartialPureSubstance.setState_ph" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.setState_ph"
+>setState_ph</a>
+</td>
+<td>Return thermodynamic state from p and h</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" alt="Modelica.Media.Interfaces.PartialPureSubstance.setState_ps" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.setState_ps"
+>setState_ps</a>
+</td>
+<td>Return thermodynamic state from p and s</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" alt="Modelica.Media.Interfaces.PartialPureSubstance.setState_dT" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.setState_dT"
+>setState_dT</a>
+</td>
+<td>Return thermodynamic state from d and T</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" alt="Modelica.Media.Interfaces.PartialPureSubstance.density_ph" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.density_ph"
+>density_ph</a>
+</td>
+<td>Return density from p and h</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" alt="Modelica.Media.Interfaces.PartialPureSubstance.temperature_ph" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.temperature_ph"
+>temperature_ph</a>
+</td>
+<td>Return temperature from p and h</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" alt="Modelica.Media.Interfaces.PartialPureSubstance.pressure_dT" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.pressure_dT"
+>pressure_dT</a>
+</td>
+<td>Return pressure from d and T</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" alt="Modelica.Media.Interfaces.PartialPureSubstance.specificEnthalpy_dT" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.specificEnthalpy_dT"
+>specificEnthalpy_dT</a>
+</td>
+<td>Return specific enthalpy from d and T</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" alt="Modelica.Media.Interfaces.PartialPureSubstance.specificEnthalpy_ps" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.specificEnthalpy_ps"
+>specificEnthalpy_ps</a>
+</td>
+<td>Return specific enthalpy from p and s</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" alt="Modelica.Media.Interfaces.PartialPureSubstance.temperature_ps" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.temperature_ps"
+>temperature_ps</a>
+</td>
+<td>Return temperature from p and s</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" alt="Modelica.Media.Interfaces.PartialPureSubstance.density_ps" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.density_ps"
+>density_ps</a>
+</td>
+<td>Return density from p and s</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" alt="Modelica.Media.Interfaces.PartialPureSubstance.specificEnthalpy_pT" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.specificEnthalpy_pT"
+>specificEnthalpy_pT</a>
+</td>
+<td>Return specific enthalpy from p and T</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Interface2e59617549ad48fae_pTXS.png" alt="Modelica.Media.Interfaces.PartialPureSubstance.density_pT" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialPureSubstance.html#Modelica.Media.Interfaces.PartialPureSubstance.density_pT"
+>density_pT</a>
+</td>
+<td>Return density from p and T</td>
+</tr>
+<tr>
+<td>ThermoStates</td>
+<td>Enumeration type for independent variables</td>
+</tr>
+<tr>
+<td>mediumName=&quot;unusablePartialMedium&quot;</td>
+<td>Name of the medium</td>
+</tr>
+<tr>
+<td>substanceNames={mediumName}</td>
+<td>Names of the mixture substances. Set substanceNames={mediumName} if only one substance.</td>
+</tr>
+<tr>
+<td>extraPropertiesNames=fill(&quot;&quot;, 0)</td>
+<td>Names of the additional (extra) transported properties. Set extraPropertiesNames=fill(&quot;&quot;,0) if unused</td>
+</tr>
+<tr>
+<td>singleState</td>
+<td>= true, if u and d are not a function of pressure</td>
+</tr>
+<tr>
+<td>reducedX=true</td>
+<td>= true if medium contains the equation sum(X) = 1.0; set reducedX=true if only one substance (see docu for details)</td>
+</tr>
+<tr>
+<td>fixedX=false</td>
+<td>= true if medium contains the equation X = reference_X</td>
+</tr>
+<tr>
+<td>reference_p=101325</td>
+<td>Reference pressure of Medium: default 1 atmosphere</td>
+</tr>
+<tr>
+<td>reference_T=298.15</td>
+<td>Reference temperature of Medium: default 25 deg Celsius</td>
+</tr>
+<tr>
+<td>reference_X=fill(1/nX, nX)</td>
+<td>Default mass fractions of medium</td>
+</tr>
+<tr>
+<td>p_default=101325</td>
+<td>Default value for pressure of medium (for initialization)</td>
+</tr>
+<tr>
+<td>T_default=Modelica.SIunits.Conversions.from_degC(20)</td>
+<td>Default value for temperature of medium (for initialization)</td>
+</tr>
+<tr>
+<td>h_default=specificEnthalpy_pTX(p_default, T_default, X_default)</td>
+<td>Default value for specific enthalpy of medium (for initialization)</td>
+</tr>
+<tr>
+<td>X_default=reference_X</td>
+<td>Default value for mass fractions of medium (for initialization)</td>
+</tr>
+<tr>
+<td>nS=size(substanceNames, 1)</td>
+<td>Number of substances</td>
+</tr>
+<tr>
+<td>nX=nS</td>
+<td>Number of mass fractions</td>
+</tr>
+<tr>
+<td>nXi=if fixedX then 0 else if reducedX then nS - 1 else nS</td>
+<td>Number of structurally independent mass fractions (see docu for details)</td>
+</tr>
+<tr>
+<td>nC=size(extraPropertiesNames, 1)</td>
+<td>Number of extra (outside of standard mass-balance) transported properties</td>
+</tr>
+<tr>
+<td>C_nominal=1.0e-6*ones(nC)</td>
+<td>Default for the nominal values for the extra properties</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfacesf7d8e3af2ad6146be_psXS.png" alt="Modelica.Media.Interfaces.PartialMedium.prandtlNumber" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.prandtlNumber"
+>prandtlNumber</a>
+</td>
+<td>Return the Prandtl number</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces66de202835bffc19umberS.png" alt="Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp"
+>heatCapacity_cp</a>
+</td>
+<td>Alias for deprecated name</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces66de202835bffc19umberS.png" alt="Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv"
+>heatCapacity_cv</a>
+</td>
+<td>Alias for deprecated name</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces66de202835bffc19umberS.png" alt="Modelica.Media.Interfaces.PartialMedium.beta" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.beta"
+>beta</a>
+</td>
+<td>Alias for isobaricExpansionCoefficient for user convenience</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces66de202835bffc19umberS.png" alt="Modelica.Media.Interfaces.PartialMedium.kappa" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.kappa"
+>kappa</a>
+</td>
+<td>Alias of isothermalCompressibility for user convenience</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces66de202835bffc19umberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derp_h" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derp_h"
+>density_derp_h</a>
+</td>
+<td>Return density derivative w.r.t. pressure at const specific enthalpy</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces66de202835bffc19umberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derh_p" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derh_p"
+>density_derh_p</a>
+</td>
+<td>Return density derivative w.r.t. specific enthalpy at constant pressure</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces66de202835bffc19umberS.png" alt="Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX"
+>specificEntropy_pTX</a>
+</td>
+<td>Return specific enthalpy from p, T, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces66de202835bffc19umberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_pTX" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_pTX"
+>density_pTX</a>
+</td>
+<td>Return density from p, T, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces66de202835bffc19umberS.png" alt="Modelica.Media.Interfaces.PartialMedium.temperature_psX" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.temperature_psX"
+>temperature_psX</a>
+</td>
+<td>Return temperature from p,s, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces66de202835bffc19umberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_psX" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_psX"
+>density_psX</a>
+</td>
+<td>Return density from p, s, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces66de202835bffc19umberS.png" alt="Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_psX" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_psX"
+>specificEnthalpy_psX</a>
+</td>
+<td>Return specific enthalpy from p, s, and X or Xi</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a>
+</td>
+<td>Type for mass flow rate with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a>
+</td>
+<td>Type for absolute pressure with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Density"
+>Density</a>
+</td>
+<td>Type for density with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DynamicViscosity"
+>DynamicViscosity</a>
+</td>
+<td>Type for dynamic viscosity with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.EnthalpyFlowRate"
+>EnthalpyFlowRate</a>
+</td>
+<td>Type for enthalpy flow rate with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a>
+</td>
+<td>Type for mass fraction with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MoleFraction"
+>MoleFraction</a>
+</td>
+<td>Type for mole fraction with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MolarMass"
+>MolarMass</a>
+</td>
+<td>Type for molar mass with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MolarVolume"
+>MolarVolume</a>
+</td>
+<td>Type for molar volume with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.IsentropicExponent"
+>IsentropicExponent</a>
+</td>
+<td>Type for isentropic exponent with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnergy"
+>SpecificEnergy</a>
+</td>
+<td>Type for specific energy with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificInternalEnergy"
+>SpecificInternalEnergy</a>
+</td>
+<td>Type for specific internal energy with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a>
+</td>
+<td>Type for specific enthalpy with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEntropy"
+>SpecificEntropy</a>
+</td>
+<td>Type for specific entropy with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificHeatCapacity"
+>SpecificHeatCapacity</a>
+</td>
+<td>Type for specific heat capacity with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SurfaceTension"
+>SurfaceTension</a>
+</td>
+<td>Type for surface tension with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a>
+</td>
+<td>Type for temperature with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ThermalConductivity"
+>ThermalConductivity</a>
+</td>
+<td>Type for thermal conductivity with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.PrandtlNumber"
+>PrandtlNumber</a>
+</td>
+<td>Type for Prandtl number with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.VelocityOfSound"
+>VelocityOfSound</a>
+</td>
+<td>Type for velocity of sound with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a>
+</td>
+<td>Type for unspecified, mass-specific property transported by flow</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.CumulativeExtraProperty"
+>CumulativeExtraProperty</a>
+</td>
+<td>Type for conserved integral of unspecified, mass specific property</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraPropertyFlowRate"
+>ExtraPropertyFlowRate</a>
+</td>
+<td>Type for flow rate of unspecified, mass-specific property</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.IsobaricExpansionCoefficient"
+>IsobaricExpansionCoefficient</a>
+</td>
+<td>Type for isobaric expansion coefficient with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DipoleMoment"
+>DipoleMoment</a>
+</td>
+<td>Type for dipole moment with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DerDensityByPressure"
+>DerDensityByPressure</a>
+</td>
+<td>Type for partial derivative of density with respect to pressure with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DerDensityByEnthalpy"
+>DerDensityByEnthalpy</a>
+</td>
+<td>Type for partial derivative of density with respect to enthalpy with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DerEnthalpyByPressure"
+>DerEnthalpyByPressure</a>
+</td>
+<td>Type for partial derivative of enthalpy with respect to pressure with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DerDensityByTemperature"
+>DerDensityByTemperature</a>
+</td>
+<td>Type for partial derivative of density with respect to temperature with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DerTemperatureByPressure"
+>DerTemperatureByPressure</a>
+</td>
+<td>Type for partial derivative of temperature with respect to pressure with medium specific attributes</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces31ea5bf09dbefe85rtiesS.png" alt="Modelica.Media.Interfaces.Types.SaturationProperties" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SaturationProperties"
+>SaturationProperties</a>
+</td>
+<td>Saturation properties of two phase medium</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces31ea5bf09dbefe85rtiesS.png" alt="Modelica.Media.Interfaces.Types.FluidLimits" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.FluidLimits"
+>FluidLimits</a>
+</td>
+<td>Validity limits for fluid model</td>
+</tr>
+<tr>
+<td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.FixedPhase"
+>FixedPhase</a>
+</td>
+<td>Phase of the fluid: 1 for 1-phase, 2 for two-phase, 0 for not known, e.g., interactive use</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces.Types.BasicS.png" alt="Modelica.Media.Interfaces.Types.Basic" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types_Basic.html#Modelica.Media.Interfaces.Types.Basic"
+>Basic</a>
+</td>
+<td>The most basic version of a record used in several degrees of detail</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces.Types.BasicS.png" alt="Modelica.Media.Interfaces.Types.IdealGas" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types_IdealGas.html#Modelica.Media.Interfaces.Types.IdealGas"
+>IdealGas</a>
+</td>
+<td>The ideal gas version of a record used in several degrees of detail</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces.Types.BasicS.png" alt="Modelica.Media.Interfaces.Types.TwoPhase" width="20" height="20" align="top">&nbsp;<a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types_TwoPhase.html#Modelica.Media.Interfaces.Types.TwoPhase"
+>TwoPhase</a>
+</td>
+<td>The two phase fluid version of a record used in several degrees of detail</td>
+</tr>
+</table>
+<h3>Types and constants</h3>
+<pre>  <span style="color: blue">constant </span><a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.FluidConstants"
+>FluidConstants</a>[nS] fluidConstants=
+    <span style="color: red">FluidConstants</span>(iupacName={&quot;simple air&quot;},
                    casRegistryNumber={&quot;not a real substance&quot;},
                    chemicalFormula={&quot;N2, O2&quot;},
                    structureFormula={&quot;N2, O2&quot;},
-                   molarMass=Modelica.Media.IdealGases.Common.SingleGasesData.N2.MM) <font color="darkgreen">
-  &quot;constant data for the fluid&quot;</font>;</PRE><P></p>
-<PRE>   <font color="blue">constant </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
->AbsolutePressure</A> pStp = 101325 <font color="darkgreen">&quot;Pressure for which dStp is defined&quot;</font>;</PRE><P></p>
-<PRE>   <font color="blue">constant </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
->Density</A> dStp = 1.2 <font color="darkgreen">&quot;Fluid density at pressure pStp&quot;</font>;</PRE><P></p>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE BaseProperties<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Media.GasesPTDea21fac4ffbd8c916rtiesI.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
->Buildings.Media.GasesPTDecoupled.SimpleAir</A>.BaseProperties</H2>
-<B>Basic medium properties</B><p></P>
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD>Boolean</TD><TD>preferredMediumStates</TD><TD>false</TD><TD>= true if StateSelect.prefer shall be used for the independent property variables of the medium</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">redeclare </font><font color="blue">replaceable </font><font color="blue">model</font> BaseProperties <font color="darkgreen">&quot;Basic medium properties&quot;</font>
-  <font color="darkgreen"> // declarations from Modelica.Media.Interfaces.PartialMedium</font>
-   <A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputAbsolutePressure"
->InputAbsolutePressure</A> p <font color="darkgreen">&quot;Absolute pressure of medium&quot;</font>;
-   <A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputMassFraction"
->InputMassFraction</A>[nXi] Xi(start=reference_X[1:nXi]) <font color="darkgreen">
-    &quot;Structurally independent mass fractions&quot;</font>;
-   <A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputSpecificEnthalpy"
->InputSpecificEnthalpy</A> h <font color="darkgreen">&quot;Specific enthalpy of medium&quot;</font>;
-   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
->Density</A> d <font color="darkgreen">&quot;Density of medium&quot;</font>;
-   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A> T <font color="darkgreen">&quot;Temperature of medium&quot;</font>;
-   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
->MassFraction</A>[nX] X(start=reference_X) <font color="darkgreen">
-    &quot;Mass fractions (= (component mass)/total mass  m_i/m)&quot;</font>;
-   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificInternalEnergy"
->SpecificInternalEnergy</A> u <font color="darkgreen">&quot;Specific internal energy of medium&quot;</font>;
-   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity"
->SpecificHeatCapacity</A> R <font color="darkgreen">&quot;Gas constant (of mixture if applicable)&quot;</font>;
-   <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass"
->MolarMass</A> MM <font color="darkgreen">&quot;Molar mass (of mixture or single fluid)&quot;</font>;
-   <A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
->ThermodynamicState</A> state <font color="darkgreen">&quot;thermodynamic state record for optional functions&quot;</font>;
-   <font color="blue">parameter </font>Boolean preferredMediumStates=false <font color="darkgreen">
-    &quot;= true if StateSelect.prefer shall be used for the independent property variables of the medium&quot;</font>;
-   <font color="blue">final </font><font color="blue">parameter </font>Boolean standardOrderComponents = true <font color="darkgreen">
-    &quot;if true, and reducedX = true, the last element of X will be computed from the other ones&quot;</font>;
-   <A HREF="../../msl/3.2/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.Temperature_degC"
->SI.Conversions.NonSIunits.Temperature_degC</A> T_degC=
-       <font color="red">Modelica.SIunits.Conversions.to_degC</font>(T) <font color="darkgreen">
-    &quot;Temperature of medium in [degC]&quot;</font>;
-   <A HREF="../../msl/3.2/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.Pressure_bar"
->SI.Conversions.NonSIunits.Pressure_bar</A> p_bar=
-    <font color="red">Modelica.SIunits.Conversions.to_bar</font>(p) <font color="darkgreen">
-    &quot;Absolute pressure of medium in [bar]&quot;</font>;
+                   molarMass=Modelica.Media.IdealGases.Common.SingleGasesData.N2.MM) <span style="color: #006400">
+  &quot;constant data for the fluid&quot;</span>;</pre>
+<pre>   <span style="color: blue">constant </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a> pStp = 101325 <span style="color: #006400">&quot;Pressure for which dStp is defined&quot;</span>;</pre>
+<pre>   <span style="color: blue">constant </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Density"
+>Density</a> dStp = 1.2 <span style="color: #006400">&quot;Fluid density at pressure pStp&quot;</span>;</pre>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BaseProperties<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Media.GasesPTDea21fac4ffbd8c916rtiesI.png" alt="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties"></a><a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
+>Buildings.Media.GasesPTDecoupled.SimpleAir</a>.BaseProperties</h2>
+<p>
+<b>Basic medium properties</b>
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>preferredMediumStates</td><td>false</td><td>= true if StateSelect.prefer shall be used for the independent property variables of the medium</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">redeclare </span><span style="color: blue">replaceable </span><span style="color: blue">model</span> BaseProperties <span style="color: #006400">&quot;Basic medium properties&quot;</span>
+  <span style="color: #006400"> // declarations from Modelica.Media.Interfaces.PartialMedium</span>
+   <a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputAbsolutePressure"
+>InputAbsolutePressure</a> p <span style="color: #006400">&quot;Absolute pressure of medium&quot;</span>;
+   <a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputMassFraction"
+>InputMassFraction</a>[nXi] Xi(start=reference_X[1:nXi]) <span style="color: #006400">
+    &quot;Structurally independent mass fractions&quot;</span>;
+   <a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputSpecificEnthalpy"
+>InputSpecificEnthalpy</a> h <span style="color: #006400">&quot;Specific enthalpy of medium&quot;</span>;
+   <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Density"
+>Density</a> d <span style="color: #006400">&quot;Density of medium&quot;</span>;
+   <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a> T <span style="color: #006400">&quot;Temperature of medium&quot;</span>;
+   <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a>[nX] X(start=reference_X) <span style="color: #006400">
+    &quot;Mass fractions (= (component mass)/total mass  m_i/m)&quot;</span>;
+   <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificInternalEnergy"
+>SpecificInternalEnergy</a> u <span style="color: #006400">&quot;Specific internal energy of medium&quot;</span>;
+   <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificHeatCapacity"
+>SpecificHeatCapacity</a> R <span style="color: #006400">&quot;Gas constant (of mixture if applicable)&quot;</span>;
+   <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MolarMass"
+>MolarMass</a> MM <span style="color: #006400">&quot;Molar mass (of mixture or single fluid)&quot;</span>;
+   <a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
+>ThermodynamicState</a> state <span style="color: #006400">&quot;thermodynamic state record for optional functions&quot;</span>;
+   <span style="color: blue">parameter </span>Boolean preferredMediumStates=false <span style="color: #006400">
+    &quot;= true if StateSelect.prefer shall be used for the independent property variables of the medium&quot;</span>;
+   <span style="color: blue">final </span><span style="color: blue">parameter </span>Boolean standardOrderComponents = true <span style="color: #006400">
+    &quot;if true, and reducedX = true, the last element of X will be computed from the other ones&quot;</span>;
+   <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.Temperature_degC"
+>SI.Conversions.NonSIunits.Temperature_degC</a> T_degC=
+       <span style="color: red">Modelica.SIunits.Conversions.to_degC</span>(T) <span style="color: #006400">
+    &quot;Temperature of medium in [degC]&quot;</span>;
+   <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.Pressure_bar"
+>SI.Conversions.NonSIunits.Pressure_bar</a> p_bar=
+    <span style="color: red">Modelica.SIunits.Conversions.to_bar</span>(p) <span style="color: #006400">
+    &quot;Absolute pressure of medium in [bar]&quot;</span>;
 
-  <font color="darkgreen"> // Local connector definition, used for equation balancing check</font>
-   <font color="blue">connector</font> InputAbsolutePressure = <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
->SI.AbsolutePressure</A> <font color="darkgreen">
-    &quot;Pressure as input signal connector&quot;</font>;
-   <font color="blue">connector</font> InputSpecificEnthalpy = <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SI.SpecificEnthalpy</A> <font color="darkgreen">
-    &quot;Specific enthalpy as input signal connector&quot;</font>;
-   <font color="blue">connector</font> InputMassFraction = <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->SI.MassFraction</A> <font color="darkgreen">
-    &quot;Mass fraction as input signal connector&quot;</font>;
+  <span style="color: #006400"> // Local connector definition, used for equation balancing check</span>
+   <span style="color: blue">connector</span> InputAbsolutePressure = <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>SI.AbsolutePressure</a> <span style="color: #006400">
+    &quot;Pressure as input signal connector&quot;</span>;
+   <span style="color: blue">connector</span> InputSpecificEnthalpy = <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SI.SpecificEnthalpy</a> <span style="color: #006400">
+    &quot;Specific enthalpy as input signal connector&quot;</span>;
+   <span style="color: blue">connector</span> InputMassFraction = <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>SI.MassFraction</a> <span style="color: #006400">
+    &quot;Mass fraction as input signal connector&quot;</span>;
 
-  <font color="darkgreen"> // own declarations</font>
+  <span style="color: #006400"> // own declarations</span>
 
-<font color="blue">equation </font>
-   <font color="blue">if </font>standardOrderComponents<font color="blue"> then</font>
+<span style="color: blue">equation </span>
+   <span style="color: blue">if </span>standardOrderComponents<span style="color: blue"> then</span>
      Xi = X[1:nXi];
 
-       <font color="blue">if </font>fixedX<font color="blue"> then</font>
+       <span style="color: blue">if </span>fixedX<span style="color: blue"> then</span>
          X = reference_X;
-       <font color="blue">end if</font>;
-       <font color="blue">if </font>reducedX<font color="blue"> and </font><font color="blue">not </font>fixedX<font color="blue"> then</font>
-         X[nX] = 1 -<font color="red"> sum</font>(Xi);
-       <font color="blue">end if</font>;
-       <font color="blue">for </font>i<font color="blue"> in </font>1:nX<font color="blue"> loop</font>
-      <font color="red">   assert</font>(X[i] &gt;= -1.e-5<font color="blue"> and </font>X[i] &lt;= 1 + 1.e-5, &quot;Mass fraction X[&quot; +
-                <font color="red">String</font>(i) + &quot;] = &quot; +<font color="red"> String</font>(X[i]) + &quot;of substance &quot;
+       <span style="color: blue">end if</span>;
+       <span style="color: blue">if </span>reducedX<span style="color: blue"> and </span><span style="color: blue">not </span>fixedX<span style="color: blue"> then</span>
+         X[nX] = 1 -<span style="color: red"> sum</span>(Xi);
+       <span style="color: blue">end if</span>;
+       <span style="color: blue">for </span>i<span style="color: blue"> in </span>1:nX<span style="color: blue"> loop</span>
+      <span style="color: red">   assert</span>(X[i] &gt;= -1.e-5<span style="color: blue"> and </span>X[i] &lt;= 1 + 1.e-5, &quot;Mass fraction X[&quot; +
+                <span style="color: red">String</span>(i) + &quot;] = &quot; +<span style="color: red"> String</span>(X[i]) + &quot;of substance &quot;
                 + substanceNames[i] + &quot;\nof medium &quot; + mediumName + &quot; is not in the range 0..1&quot;);
-       <font color="blue">end for</font>;
+       <span style="color: blue">end for</span>;
 
-   <font color="blue">end if</font>;
+   <span style="color: blue">end if</span>;
 
-  <font color="red"> assert</font>(p &gt;= 0.0, &quot;Pressure (= &quot; +<font color="red"> String</font>(p) + &quot; Pa) of medium \&quot;&quot; +
-     mediumName + &quot;\&quot; is negative\n(Temperature = &quot; +<font color="red"> String</font>(T) + &quot; K)&quot;);
+  <span style="color: red"> assert</span>(p &gt;= 0.0, &quot;Pressure (= &quot; +<span style="color: red"> String</span>(p) + &quot; Pa) of medium \&quot;&quot; +
+     mediumName + &quot;\&quot; is negative\n(Temperature = &quot; +<span style="color: red"> String</span>(T) + &quot; K)&quot;);
 
-  <font color="darkgreen"> // new medium equations</font>
-   h =<font color="red"> specificEnthalpy_pTX</font>(p,T,X);
-  <font color="darkgreen"> // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.</font>
-  <font color="darkgreen"> // u = h-R*T;</font>
+  <span style="color: #006400"> // new medium equations</span>
+   h =<span style="color: red"> specificEnthalpy_pTX</span>(p,T,X);
+  <span style="color: #006400"> // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.</span>
+  <span style="color: #006400"> // u = h-R*T;</span>
 
-  <font color="darkgreen"> // However, in this medium, the gas law is d/dStp=p/pStp, from which follows using h=u+pv that</font>
-  <font color="darkgreen"> // u= h-p*v = h-p/d = h-pStp/dStp</font>
+  <span style="color: #006400"> // However, in this medium, the gas law is d/dStp=p/pStp, from which follows using h=u+pv that</span>
+  <span style="color: #006400"> // u= h-p*v = h-p/d = h-pStp/dStp</span>
    u = h-pStp/dStp;
    R = R_gas;
-  <font color="darkgreen"> //    d = p/(R*T);</font>
+  <span style="color: #006400"> //    d = p/(R*T);</span>
    d/dStp = p/pStp;
 
    MM = MM_const;
    state.T = T;
    state.p = p;
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>BaseProperties;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE setState_dTX<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.setState_dTX" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.setState_dTX"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
->Buildings.Media.GasesPTDecoupled.SimpleAir</A>.setState_dTX</H2>
-<B>Return thermodynamic state from d, T, and X or Xi</B><p></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A> (Icon for functions).
-<P><H3>Inputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
->Density</A></TD><TD>d</TD><TD>&nbsp;</TD><TD>Density [kg/m3]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A></TD><TD>T</TD><TD>&nbsp;</TD><TD>Temperature [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
->MassFraction</A></TD><TD>X[:]</TD><TD>fill(0, 0)</TD><TD>Mass fractions [kg/kg]</TD></TR>
-</TABLE>
-<P><H3>Outputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
->ThermodynamicState</A></TD><TD>state</TD><TD>&nbsp;</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">redeclare </font><font color="blue">function</font> setState_dTX <font color="darkgreen">
-  &quot;Return thermodynamic state from d, T, and X or Xi&quot;</font>
-   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A>;
-   <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
->Density</A> d <font color="darkgreen">&quot;Density&quot;</font>;
-   <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A> T <font color="darkgreen">&quot;Temperature&quot;</font>;
-   <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
->MassFraction</A> X[:] =<font color="red"> fill</font>(0,0) <font color="darkgreen">&quot;Mass fractions&quot;</font>;
-   <font color="blue">output </font><A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
->ThermodynamicState</A> state;
-<font color="blue">algorithm </font>
-   state :=<font color="red"> ThermodynamicState</font>(p=d/dStp*pStp,T=T);
-<font color="blue">end </font>setState_dTX;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE density<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.density" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.density"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
->Buildings.Media.GasesPTDecoupled.SimpleAir</A>.density</H2>
-<B>return density of ideal gas</B><p></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A> (Icon for functions).
-<P><H3>Inputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
->ThermodynamicState</A></TD><TD>state</TD><TD>&nbsp;</TD><TD>Thermodynamic state record</TD></TR>
-</TABLE>
-<P><H3>Outputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
->Density</A></TD><TD>d</TD><TD>Density [kg/m3]</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">redeclare </font><font color="blue">function</font> density <font color="darkgreen">&quot;return density of ideal gas&quot;</font>
-   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A>;
-   <font color="blue">input </font><A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
->ThermodynamicState</A> state <font color="darkgreen">&quot;Thermodynamic state record&quot;</font>;
-   <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density"
->Density</A> d <font color="darkgreen">&quot;Density&quot;</font>;
-<font color="blue">algorithm </font>
+<span style="color: blue">end </span>BaseProperties;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE setState_dTX<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" alt="Buildings.Media.GasesPTDecoupled.SimpleAir.setState_dTX" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Media.GasesPTDecoupled.SimpleAir.setState_dTX"></a><a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
+>Buildings.Media.GasesPTDecoupled.SimpleAir</a>.setState_dTX</h2>
+<p>
+<b>Return thermodynamic state from d, T, and X or Xi</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Density"
+>Density</a></td><td>d</td><td>&nbsp;</td><td>Density [kg/m3]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>Temperature [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X[:]</td><td>fill(0, 0)</td><td>Mass fractions [kg/kg]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">redeclare </span><span style="color: blue">function</span> setState_dTX <span style="color: #006400">
+  &quot;Return thermodynamic state from d, T, and X or Xi&quot;</span>
+   <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+   <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Density"
+>Density</a> d <span style="color: #006400">&quot;Density&quot;</span>;
+   <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a> T <span style="color: #006400">&quot;Temperature&quot;</span>;
+   <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a> X[:] =<span style="color: red"> fill</span>(0,0) <span style="color: #006400">&quot;Mass fractions&quot;</span>;
+   <span style="color: blue">output </span><a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
+>ThermodynamicState</a> state;
+<span style="color: blue">algorithm </span>
+   state :=<span style="color: red"> ThermodynamicState</span>(p=d/dStp*pStp,T=T);
+<span style="color: blue">end </span>setState_dTX;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE density<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" alt="Buildings.Media.GasesPTDecoupled.SimpleAir.density" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Media.GasesPTDecoupled.SimpleAir.density"></a><a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
+>Buildings.Media.GasesPTDecoupled.SimpleAir</a>.density</h2>
+<p>
+<b>return density of ideal gas</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Density"
+>Density</a></td><td>d</td><td>Density [kg/m3]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">redeclare </span><span style="color: blue">function</span> density <span style="color: #006400">&quot;return density of ideal gas&quot;</span>
+   <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+   <span style="color: blue">input </span><a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
+>ThermodynamicState</a> state <span style="color: #006400">&quot;Thermodynamic state record&quot;</span>;
+   <span style="color: blue">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Density"
+>Density</a> d <span style="color: #006400">&quot;Density&quot;</span>;
+<span style="color: blue">algorithm </span>
    d := dStp*state.p/pStp;
-<font color="blue">end </font>density;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE specificInternalEnergy<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.specificInternalEnergy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.specificInternalEnergy"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
->Buildings.Media.GasesPTDecoupled.SimpleAir</A>.specificInternalEnergy</H2>
-<B>Return specific internal energy</B><p></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A> (Icon for functions).
-<P><H3>Inputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
->ThermodynamicState</A></TD><TD>state</TD><TD>&nbsp;</TD><TD>thermodynamic state record</TD></TR>
-</TABLE>
-<P><H3>Outputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy"
->SpecificEnergy</A></TD><TD>u</TD><TD>Specific internal energy [J/kg]</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">redeclare </font><font color="blue">function</font> specificInternalEnergy <font color="darkgreen">
-  &quot;Return specific internal energy&quot;</font>
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A>;
-  <font color="blue">input </font><A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
->ThermodynamicState</A> state <font color="darkgreen">&quot;thermodynamic state record&quot;</font>;
-  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy"
->SpecificEnergy</A> u <font color="darkgreen">&quot;Specific internal energy&quot;</font>;
-<font color="blue">algorithm </font>
-  u :=<font color="red"> specificEnthalpy</font>(state) - pStp/dStp;
-<font color="blue">end </font>specificInternalEnergy;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE specificEntropy<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.specificEntropy" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.specificEntropy"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
->Buildings.Media.GasesPTDecoupled.SimpleAir</A>.specificEntropy</H2>
-<B>Return specific entropy</B><p></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A> (Icon for functions).
-<P><H3>Inputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
->ThermodynamicState</A></TD><TD>state</TD><TD>&nbsp;</TD><TD>Thermodynamic state record</TD></TR>
-</TABLE>
-<P><H3>Outputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy"
->SpecificEntropy</A></TD><TD>s</TD><TD>Specific entropy [J/(kg.K)]</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">redeclare </font><font color="blue">replaceable </font><font color="blue">function</font> specificEntropy <font color="darkgreen">
-  &quot;Return specific entropy&quot;</font>
-   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A>;
-   <font color="blue">input </font><A HREF="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
->ThermodynamicState</A> state <font color="darkgreen">&quot;Thermodynamic state record&quot;</font>;
-   <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy"
->SpecificEntropy</A> s <font color="darkgreen">&quot;Specific entropy&quot;</font>;
-<font color="blue">algorithm </font>
-   s := cp_const*<font color="red">Modelica.Math.log</font>(state.T/T0);<font color="darkgreen">// - R_gas*Modelica.Math.log(state.p/reference_p);</font>
-<font color="blue">end </font>specificEntropy;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE enthalpyOfCondensingGas<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.enthalpyOfCondensingGas" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.enthalpyOfCondensingGas"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
->Buildings.Media.GasesPTDecoupled.SimpleAir</A>.enthalpyOfCondensingGas</H2>
-<B>Enthalpy of steam per unit mass of steam</B><p></P>
-<P></P><H3>Information</H3>
+<span style="color: blue">end </span>density;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificInternalEnergy<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" alt="Buildings.Media.GasesPTDecoupled.SimpleAir.specificInternalEnergy" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Media.GasesPTDecoupled.SimpleAir.specificInternalEnergy"></a><a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
+>Buildings.Media.GasesPTDecoupled.SimpleAir</a>.specificInternalEnergy</h2>
+<p>
+<b>Return specific internal energy</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnergy"
+>SpecificEnergy</a></td><td>u</td><td>Specific internal energy [J/kg]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">redeclare </span><span style="color: blue">function</span> specificInternalEnergy <span style="color: #006400">
+  &quot;Return specific internal energy&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue">input </span><a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
+>ThermodynamicState</a> state <span style="color: #006400">&quot;thermodynamic state record&quot;</span>;
+  <span style="color: blue">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnergy"
+>SpecificEnergy</a> u <span style="color: #006400">&quot;Specific internal energy&quot;</span>;
+<span style="color: blue">algorithm </span>
+  u :=<span style="color: red"> specificEnthalpy</span>(state) - pStp/dStp;
+<span style="color: blue">end </span>specificInternalEnergy;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificEntropy<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" alt="Buildings.Media.GasesPTDecoupled.SimpleAir.specificEntropy" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Media.GasesPTDecoupled.SimpleAir.specificEntropy"></a><a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
+>Buildings.Media.GasesPTDecoupled.SimpleAir</a>.specificEntropy</h2>
+<p>
+<b>Return specific entropy</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEntropy"
+>SpecificEntropy</a></td><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">redeclare </span><span style="color: blue">replaceable </span><span style="color: blue">function</span> specificEntropy <span style="color: #006400">
+  &quot;Return specific entropy&quot;</span>
+   <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+   <span style="color: blue">input </span><a href="Buildings_Media_Interfaces_PartialSimpleIdealGasMedium.html#Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.ThermodynamicState"
+>ThermodynamicState</a> state <span style="color: #006400">&quot;Thermodynamic state record&quot;</span>;
+   <span style="color: blue">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEntropy"
+>SpecificEntropy</a> s <span style="color: #006400">&quot;Specific entropy&quot;</span>;
+<span style="color: blue">algorithm </span>
+   s := cp_const*<span style="color: red">Modelica.Math.log</span>(state.T/T0);<span style="color: #006400">// - R_gas*Modelica.Math.log(state.p/reference_p);</span>
+<span style="color: blue">end </span>specificEntropy;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE enthalpyOfCondensingGas<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" alt="Buildings.Media.GasesPTDecoupled.SimpleAir.enthalpyOfCondensingGas" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Media.GasesPTDecoupled.SimpleAir.enthalpyOfCondensingGas"></a><a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
+>Buildings.Media.GasesPTDecoupled.SimpleAir</a>.enthalpyOfCondensingGas</h2>
+<p>
+<b>Enthalpy of steam per unit mass of steam</b>
+</p>
+<h3>Information</h3>
 
 Dummy function that returns <code>0</code>.
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A> (Icon for functions).
-<P><H3>Inputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A></TD><TD>T</TD><TD>&nbsp;</TD><TD>Temperature [K]</TD></TR>
-</TABLE>
-<P><H3>Outputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h</TD><TD>Steam enthalpy [J/kg]</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">replaceable </font><font color="blue">function</font> enthalpyOfCondensingGas <font color="darkgreen">
-  &quot;Enthalpy of steam per unit mass of steam&quot;</font>
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A>;
-  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A> T <font color="darkgreen">&quot;Temperature&quot;</font>;
-  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy"
->SpecificEnthalpy</A> h <font color="darkgreen">&quot;Steam enthalpy&quot;</font>;
-<font color="blue">algorithm </font>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>Temperature [K]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h</td><td>Steam enthalpy [J/kg]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">replaceable </span><span style="color: blue">function</span> enthalpyOfCondensingGas <span style="color: #006400">
+  &quot;Enthalpy of steam per unit mass of steam&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a> T <span style="color: #006400">&quot;Temperature&quot;</span>;
+  <span style="color: blue">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a> h <span style="color: #006400">&quot;Steam enthalpy&quot;</span>;
+<span style="color: blue">algorithm </span>
   h := 0;
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>enthalpyOfCondensingGas;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE saturationPressure<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" ALT="Buildings.Media.GasesPTDecoupled.SimpleAir.saturationPressure" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.saturationPressure"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
->Buildings.Media.GasesPTDecoupled.SimpleAir</A>.saturationPressure</H2>
-<B>Return saturation pressure of condensing fluid</B><p></P>
-<P></P><H3>Information</H3>
+<span style="color: blue">end </span>enthalpyOfCondensingGas;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE saturationPressure<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Media.GasesPTDe4ca08f9b9ed37d24e_dTXI.png" alt="Buildings.Media.GasesPTDecoupled.SimpleAir.saturationPressure" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Media.GasesPTDecoupled.SimpleAir.saturationPressure"></a><a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
+>Buildings.Media.GasesPTDecoupled.SimpleAir</a>.saturationPressure</h2>
+<p>
+<b>Return saturation pressure of condensing fluid</b>
+</p>
+<h3>Information</h3>
 
 Dummy function that returns <code>0</code>.
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A> (Icon for functions).
-<P><H3>Inputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A></TD><TD>Tsat</TD><TD>&nbsp;</TD><TD>Saturation temperature [K]</TD></TR>
-</TABLE>
-<P><H3>Outputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
->AbsolutePressure</A></TD><TD>psat</TD><TD>Saturation pressure [Pa]</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">replaceable </font><font color="blue">function</font> saturationPressure <font color="darkgreen">
-  &quot;Return saturation pressure of condensing fluid&quot;</font>
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A>;
-  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A> Tsat <font color="darkgreen">&quot;Saturation temperature&quot;</font>;
-  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
->AbsolutePressure</A> psat <font color="darkgreen">&quot;Saturation pressure&quot;</font>;
-<font color="blue">algorithm </font>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>Tsat</td><td>&nbsp;</td><td>Saturation temperature [K]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>psat</td><td>Saturation pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">replaceable </span><span style="color: blue">function</span> saturationPressure <span style="color: #006400">
+  &quot;Return saturation pressure of condensing fluid&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a> Tsat <span style="color: #006400">&quot;Saturation temperature&quot;</span>;
+  <span style="color: blue">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a> psat <span style="color: #006400">&quot;Saturation pressure&quot;</span>;
+<span style="color: blue">algorithm </span>
   psat := 0;
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>saturationPressure;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE InputAbsolutePressure<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputAbsolutePressure"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties"
->Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties</A>.InputAbsolutePressure</H2>
-<B>Pressure as input signal connector</B><p></P>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">connector</font> InputAbsolutePressure = <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
->SI.AbsolutePressure</A> <font color="darkgreen">
-  &quot;Pressure as input signal connector&quot;</font>;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE InputMassFraction<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputMassFraction"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties"
->Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties</A>.InputMassFraction</H2>
-<B>Mass fraction as input signal connector</B><p></P>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">connector</font> InputMassFraction = <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->SI.MassFraction</A> <font color="darkgreen">
-  &quot;Mass fraction as input signal connector&quot;</font>;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE InputSpecificEnthalpy<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputSpecificEnthalpy"></A><A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties"
->Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties</A>.InputSpecificEnthalpy</H2>
-<B>Specific enthalpy as input signal connector</B><p></P>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">connector</font> InputSpecificEnthalpy = <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SI.SpecificEnthalpy</A> <font color="darkgreen">
-  &quot;Specific enthalpy as input signal connector&quot;</font>;
-</PRE>
-<HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:17:56 2014.
-</address></BODY>
-</HTML>
+<span style="color: blue">end </span>saturationPressure;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE InputAbsolutePressure<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputAbsolutePressure"></a><a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties"
+>Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties</a>.InputAbsolutePressure</h2>
+<p>
+<b>Pressure as input signal connector</b>
+</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">connector</span> InputAbsolutePressure = <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>SI.AbsolutePressure</a> <span style="color: #006400">
+  &quot;Pressure as input signal connector&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE InputMassFraction<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputMassFraction"></a><a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties"
+>Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties</a>.InputMassFraction</h2>
+<p>
+<b>Mass fraction as input signal connector</b>
+</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">connector</span> InputMassFraction = <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>SI.MassFraction</a> <span style="color: #006400">
+  &quot;Mass fraction as input signal connector&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE InputSpecificEnthalpy<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties.InputSpecificEnthalpy"></a><a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties"
+>Buildings.Media.GasesPTDecoupled.SimpleAir.BaseProperties</a>.InputSpecificEnthalpy</h2>
+<p>
+<b>Specific enthalpy as input signal connector</b>
+</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">connector</span> InputSpecificEnthalpy = <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SI.SpecificEnthalpy</a> <span style="color: #006400">
+  &quot;Specific enthalpy as input signal connector&quot;</span>;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 10:57:59 2014.
+</address>
+</body>
+</html>

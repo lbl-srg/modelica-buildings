@@ -1,100 +1,134 @@
-<HTML>
-<HEAD>
-<TITLE>Buildings.Airflow.Multizone</TITLE>
-<META name="HTML-Generator" content="Dymola">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Airflow.Multizone</title>
+<meta name="HTML-Generator" content="Dymola">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<META name="description" content="&quot;Package with models for multizone airflow and contaminant transport&quot;">
+<meta name="description" content="&quot;Package with models for multizone airflow and contaminant transport&quot;">
 <style type="text/css">
-*       { font-size: 10pt; font-family: Arial,sans-serif; }
-pre     { font-size:  9pt; font-family: Courier,monospace;}
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
 h4      { font-size: 10pt; font-weight: bold; color: green; }
 h3      { font-size: 11pt; font-weight: bold; color: green; }
 h2      { font-size: 13pt; font-weight: bold; color: green; }
-address {                  font-weight: normal} 
-td      { solid #000; vertical-align:top; }
-th      { solid #000; vertical-align:top; font-weight: bold; }
-table   { solid #000; border-collapse: collapse;}
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
 </style>
-<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
-</HEAD>
+</head>
 <body>
-<!-- --- header ------ -->
-<div class="headerStyle">
-<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
-</div>
-<div class="headerLinks">
-<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
-</div>
-<!-- --- end header -- -->
-</P>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE Multizone<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.Airflow.Multizone"></A><A HREF="Buildings_Airflow.html#Buildings.Airflow"
->Buildings.Airflow</A>.Multizone</H2>
-<B>Package with models for multizone airflow and contaminant transport</B>
-<P></P>
-<P></P><H3>Information</H3>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Multizone<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Airflow.Multizone"></a><a href="Buildings_Airflow.html#Buildings.Airflow"
+>Buildings.Airflow</a>.Multizone</h2>
+<p>
+<b>Package with models for multizone airflow and contaminant transport</b><br>
+</p>
+<h3>Information</h3>
 
 This package provides
 models to compute the airflow and contaminant transport between different rooms and between
 a room and the exterior environment.
-See the <A HREF="Buildings_Airflow_Multizone_UsersGuide.html#Buildings.Airflow.Multizone.UsersGuide"
+See the <a href="Buildings_Airflow_Multizone_UsersGuide.html#Buildings.Airflow.Multizone.UsersGuide"
 >
 User's Guide</a> for more information.
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
->Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
-<TR><TH >Name</TH><TH>Description</TH></TR>
-<TR><TD><IMG SRC="Buildings.Airflow.Multizone.UsersGuideS.png" ALT="Buildings.Airflow.Multizone.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Airflow_Multizone_UsersGuide.html#Buildings.Airflow.Multizone.UsersGuide"
->UsersGuide</A>
-</TD><TD>User&#39;s Guide</TD></TR>
-<TR><TD><IMG SRC="Buildings.Airflow.Multizo429dd7a2e1448ad2dOpenS.png" ALT="Buildings.Airflow.Multizone.DoorDiscretizedOpen" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.DoorDiscretizedOpen"
->DoorDiscretizedOpen</A>
-</TD><TD>Door model using discretization along height coordinate</TD></TR>
-<TR><TD><IMG SRC="Buildings.Airflow.Multizo24c8885cacdf11a3rableS.png" ALT="Buildings.Airflow.Multizone.DoorDiscretizedOperable" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.DoorDiscretizedOperable"
->DoorDiscretizedOperable</A>
-</TD><TD>Door model using discretization along height coordinate</TD></TR>
-<TR><TD><IMG SRC="Buildings.Airflow.Multizo90b343542b5dabb1eAreaS.png" ALT="Buildings.Airflow.Multizone.EffectiveAirLeakageArea" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.EffectiveAirLeakageArea"
->EffectiveAirLeakageArea</A>
-</TD><TD>Effective air leakage area</TD></TR>
-<TR><TD><IMG SRC="Buildings.Airflow.Multizone.MediumColumnS.png" ALT="Buildings.Airflow.Multizone.MediumColumn" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
->MediumColumn</A>
-</TD><TD>Vertical shaft with no friction and no storage of heat and mass</TD></TR>
-<TR><TD><IMG SRC="Buildings.Airflow.Multizo04c266c67ac23223namicS.png" ALT="Buildings.Airflow.Multizone.MediumColumnDynamic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumnDynamic"
->MediumColumnDynamic</A>
-</TD><TD>Vertical shaft with no friction and storage of heat and mass</TD></TR>
-<TR><TD><IMG SRC="Buildings.Airflow.Multizone.OrificeS.png" ALT="Buildings.Airflow.Multizone.Orifice" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
->Orifice</A>
-</TD><TD>Orifice</TD></TR>
-<TR><TD><IMG SRC="Buildings.Airflow.Multizo8d72ccaa8cc04067w_ACSS.png" ALT="Buildings.Airflow.Multizone.ZonalFlow_ACS" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.ZonalFlow_ACS"
->ZonalFlow_ACS</A>
-</TD><TD>Zonal flow with input air change per second</TD></TR>
-<TR><TD><IMG SRC="Buildings.Airflow.Multizo838a391f29e8fbf7_flowS.png" ALT="Buildings.Airflow.Multizone.ZonalFlow_m_flow" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.ZonalFlow_m_flow"
->ZonalFlow_m_flow</A>
-</TD><TD>Zonal flow with input air change per second</TD></TR>
-<TR><TD><IMG SRC="Buildings.Airflow.Multizone.ExamplesS.png" ALT="Buildings.Airflow.Multizone.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Airflow_Multizone_Examples.html#Buildings.Airflow.Multizone.Examples"
->Examples</A>
-</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
-<TR><TD><IMG SRC="Buildings.Airflow.Multizone.BaseClassesS.png" ALT="Buildings.Airflow.Multizone.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses"
->BaseClasses</A>
-</TD><TD>Package with base classes for Buildings.Airflow.Multizone</TD></TR>
-<TR><TD><IMG SRC="Buildings.Airflow.Multizone.TypesS.png" ALT="Buildings.Airflow.Multizone.Types" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Airflow_Multizone_Types.html#Buildings.Airflow.Multizone.Types"
->Types</A>
-</TD><TD>Package with type definitions</TD></TR>
-</TABLE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE DoorDiscretizedOpen<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Airflow.Multizo429dd7a2e1448ad2dOpenI.png" ALT="Buildings.Airflow.Multizone.DoorDiscretizedOpen" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Airflow.Multizone.DoorDiscretizedOpen"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
->Buildings.Airflow.Multizone</A>.DoorDiscretizedOpen</H2>
-<B>Door model using discretization along height coordinate</B><p></P>
-<IMG SRC="Buildings.Airflow.Multizo429dd7a2e1448ad2dOpenD.png" ALT="Buildings.Airflow.Multizone.DoorDiscretizedOpen">
-<P></P><H3>Information</H3>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Airflow.Multizone.UsersGuideS.png" alt="Buildings.Airflow.Multizone.UsersGuide" width="20" height="20" align="top">&nbsp;<a href="Buildings_Airflow_Multizone_UsersGuide.html#Buildings.Airflow.Multizone.UsersGuide"
+>UsersGuide</a>
+</td>
+<td>User&#39;s Guide</td>
+</tr>
+<tr>
+<td><img src="Buildings.Airflow.Multizo429dd7a2e1448ad2dOpenS.png" alt="Buildings.Airflow.Multizone.DoorDiscretizedOpen" width="20" height="20" align="top">&nbsp;<a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.DoorDiscretizedOpen"
+>DoorDiscretizedOpen</a>
+</td>
+<td>Door model using discretization along height coordinate</td>
+</tr>
+<tr>
+<td><img src="Buildings.Airflow.Multizo24c8885cacdf11a3rableS.png" alt="Buildings.Airflow.Multizone.DoorDiscretizedOperable" width="20" height="20" align="top">&nbsp;<a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.DoorDiscretizedOperable"
+>DoorDiscretizedOperable</a>
+</td>
+<td>Door model using discretization along height coordinate</td>
+</tr>
+<tr>
+<td><img src="Buildings.Airflow.Multizo90b343542b5dabb1eAreaS.png" alt="Buildings.Airflow.Multizone.EffectiveAirLeakageArea" width="20" height="20" align="top">&nbsp;<a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.EffectiveAirLeakageArea"
+>EffectiveAirLeakageArea</a>
+</td>
+<td>Effective air leakage area</td>
+</tr>
+<tr>
+<td><img src="Buildings.Airflow.Multizone.MediumColumnS.png" alt="Buildings.Airflow.Multizone.MediumColumn" width="20" height="20" align="top">&nbsp;<a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
+>MediumColumn</a>
+</td>
+<td>Vertical shaft with no friction and no storage of heat and mass</td>
+</tr>
+<tr>
+<td><img src="Buildings.Airflow.Multizo04c266c67ac23223namicS.png" alt="Buildings.Airflow.Multizone.MediumColumnDynamic" width="20" height="20" align="top">&nbsp;<a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumnDynamic"
+>MediumColumnDynamic</a>
+</td>
+<td>Vertical shaft with no friction and storage of heat and mass</td>
+</tr>
+<tr>
+<td><img src="Buildings.Airflow.Multizone.OrificeS.png" alt="Buildings.Airflow.Multizone.Orifice" width="20" height="20" align="top">&nbsp;<a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
+>Orifice</a>
+</td>
+<td>Orifice</td>
+</tr>
+<tr>
+<td><img src="Buildings.Airflow.Multizo8d72ccaa8cc04067w_ACSS.png" alt="Buildings.Airflow.Multizone.ZonalFlow_ACS" width="20" height="20" align="top">&nbsp;<a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.ZonalFlow_ACS"
+>ZonalFlow_ACS</a>
+</td>
+<td>Zonal flow with input air change per second</td>
+</tr>
+<tr>
+<td><img src="Buildings.Airflow.Multizo838a391f29e8fbf7_flowS.png" alt="Buildings.Airflow.Multizone.ZonalFlow_m_flow" width="20" height="20" align="top">&nbsp;<a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.ZonalFlow_m_flow"
+>ZonalFlow_m_flow</a>
+</td>
+<td>Zonal flow with input air change per second</td>
+</tr>
+<tr>
+<td><img src="Buildings.Airflow.Multizone.ExamplesS.png" alt="Buildings.Airflow.Multizone.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Airflow_Multizone_Examples.html#Buildings.Airflow.Multizone.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Airflow.Multizone.BaseClassesS.png" alt="Buildings.Airflow.Multizone.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for Buildings.Airflow.Multizone</td>
+</tr>
+<tr>
+<td><img src="Buildings.Airflow.Multizone.TypesS.png" alt="Buildings.Airflow.Multizone.Types" width="20" height="20" align="top">&nbsp;<a href="Buildings_Airflow_Multizone_Types.html#Buildings.Airflow.Multizone.Types"
+>Types</a>
+</td>
+<td>Package with type definitions</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DoorDiscretizedOpen<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Airflow.Multizo429dd7a2e1448ad2dOpenI.png" alt="Buildings.Airflow.Multizone.DoorDiscretizedOpen" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Airflow.Multizone.DoorDiscretizedOpen"></a><a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
+>Buildings.Airflow.Multizone</a>.DoorDiscretizedOpen</h2>
+<p>
+<b>Door model using discretization along height coordinate</b>
+<br>
+<br><img src="Buildings.Airflow.Multizo429dd7a2e1448ad2dOpenD.png" alt="Buildings.Airflow.Multizone.DoorDiscretizedOpen">
+</p>
+<h3>Information</h3>
 
 <p>
 This model describes the bi-directional air flow through an open door.
@@ -107,105 +141,103 @@ An orifice equation is used to compute the flow for each compartment.
 <p>
 In this model, the door is always open.
 Use the model 
-<A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.DoorDiscretizedOperable"
+<a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.DoorDiscretizedOperable"
 >
 Buildings.Airflow.Multizone.DoorDiscretizedOperable</a>
 for a door that can either be open or closed.
 </p>
-<P></P>
-Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized"
->Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</A> (Door model using discretization along height coordinate).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD>Boolean</TD><TD>forceErrorControlOnFlow</TD><TD>true</TD><TD>Flag to force error control on m_flow. Set to true if interested in flow rate</TD></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->PartialMedium</A></TD><TD>&nbsp;</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
->Velocity</A></TD><TD>vZer</TD><TD>0.001</TD><TD>Minimum velocity to prevent zero flow. Recommended: 0.001 [m/s]</TD></TR>
-<TR><TD>Integer</TD><TD>nCom</TD><TD>10</TD><TD>Number of compartments for the discretization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp_turbulent</TD><TD>0.01</TD><TD>Pressure difference where laminar and turbulent flow relation coincide. Recommended: 0.01 [Pa]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m1_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a1 to port_b1 (m1_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp1.start</TD><TD>0</TD><TD>Pressure difference between port_a1 and port_b1 [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m2_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a2 to port_b2 (m2_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp2.start</TD><TD>0</TD><TD>Pressure difference between port_a2 and port_b2 [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Density</A></TD><TD>rho_a1_inflow.start</TD><TD>1.2</TD><TD>Density of air flowing in from port_a1 [kg/m3]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Density</A></TD><TD>rho_a2_inflow.start</TD><TD>1.2</TD><TD>Density of air flowing in from port_a2 [kg/m3]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Geometry</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>wOpe</TD><TD>0.9</TD><TD>Width of opening [m]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>hOpe</TD><TD>2.1</TD><TD>Height of opening [m]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>hA</TD><TD>2.7/2</TD><TD>Height of reference pressure zone A [m]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>hB</TD><TD>2.7/2</TD><TD>Height of reference pressure zone B [m]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Orifice characteristics</TD></TR>
-<TR><TD>Real</TD><TD>CD</TD><TD>0.65</TD><TD>Discharge coefficient</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_a1_start</TD><TD>Medium1.h_default</TD><TD>Start value for enthalpy flowing out of port a1 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_b1_start</TD><TD>Medium1.h_default</TD><TD>Start value for enthalpy flowing out of port b1 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_a2_start</TD><TD>Medium2.h_default</TD><TD>Start value for enthalpy flowing out of port a2 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_b2_start</TD><TD>Medium2.h_default</TD><TD>Start value for enthalpy flowing out of port b2 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m1_flow_small</TD><TD>1E-4*abs(m1_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a1</TD><TD>Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b1</TD><TD>Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a2</TD><TD>Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> DoorDiscretizedOpen <font color="darkgreen">
-  &quot;Door model using discretization along height coordinate&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized"
->Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</A>;
 
-<font color="blue">protected </font>
-  <font color="blue">constant </font>Real mFixed = 0.5 <font color="darkgreen">&quot;Fixed value for flow coefficient&quot;</font>;
-  <font color="blue">constant </font>Real gamma(min=1) = 1.5 <font color="darkgreen">
-    &quot;Normalized flow rate where dphi(0)/dpi intersects phi(1)&quot;</font>;
-  <font color="blue">constant </font>Real a = gamma <font color="darkgreen">
-    &quot;Polynomial coefficient for regularized implementation of flow resistance&quot;</font>;
-  <font color="blue">constant </font>Real b = 1/8*mFixed^2 - 3*gamma - 3/2*mFixed + 35.0/8 <font color="darkgreen">
-    &quot;Polynomial coefficient for regularized implementation of flow resistance&quot;</font>;
-  <font color="blue">constant </font>Real c = -1/4*mFixed^2 + 3*gamma + 5/2*mFixed - 21.0/4 <font color="darkgreen">
-    &quot;Polynomial coefficient for regularized implementation of flow resistance&quot;</font>;
-  <font color="blue">constant </font>Real d = 1/8*mFixed^2 - gamma - mFixed + 15.0/8 <font color="darkgreen">
-    &quot;Polynomial coefficient for regularized implementation of flow resistance&quot;</font>;
-<font color="blue">equation </font>
+<p>Extends from <a href="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized"
+>Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</a> (Door model using discretization along height coordinate).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Boolean</td><td>forceErrorControlOnFlow</td><td>true</td><td>Flag to force error control on m_flow. Set to true if interested in flow rate</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>&nbsp;</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+>Velocity</a></td><td>vZer</td><td>0.001</td><td>Minimum velocity to prevent zero flow. Recommended: 0.001 [m/s]</td></tr>
+<tr><td>Integer</td><td>nCom</td><td>10</td><td>Number of compartments for the discretization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_turbulent</td><td>0.01</td><td>Pressure difference where laminar and turbulent flow relation coincide. Recommended: 0.01 [Pa]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m1_flow.start</td><td>0</td><td>Mass flow rate from port_a1 to port_b1 (m1_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp1.start</td><td>0</td><td>Pressure difference between port_a1 and port_b1 [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m2_flow.start</td><td>0</td><td>Mass flow rate from port_a2 to port_b2 (m2_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp2.start</td><td>0</td><td>Pressure difference between port_a2 and port_b2 [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>rho_a1_inflow.start</td><td>1.2</td><td>Density of air flowing in from port_a1 [kg/m3]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>rho_a2_inflow.start</td><td>1.2</td><td>Density of air flowing in from port_a2 [kg/m3]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Geometry</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>wOpe</td><td>0.9</td><td>Width of opening [m]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>hOpe</td><td>2.1</td><td>Height of opening [m]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>hA</td><td>2.7/2</td><td>Height of reference pressure zone A [m]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>hB</td><td>2.7/2</td><td>Height of reference pressure zone B [m]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Orifice characteristics</td></tr>
+<tr><td>Real</td><td>CD</td><td>0.65</td><td>Discharge coefficient</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_a1_start</td><td>Medium1.h_default</td><td>Start value for enthalpy flowing out of port a1 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_b1_start</td><td>Medium1.h_default</td><td>Start value for enthalpy flowing out of port b1 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_a2_start</td><td>Medium2.h_default</td><td>Start value for enthalpy flowing out of port a2 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_b2_start</td><td>Medium2.h_default</td><td>Start value for enthalpy flowing out of port b2 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m1_flow_small</td><td>1E-4*abs(m1_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m2_flow_small</td><td>1E-4*abs(m2_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a1</td><td>Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b1</td><td>Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a2</td><td>Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b2</td><td>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> DoorDiscretizedOpen <span style="color: #006400">
+  &quot;Door model using discretization along height coordinate&quot;</span>
+  <span style="color: blue">extends </span><a href="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized"
+>Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</a>;
+
+<span style="color: blue">protected </span>
+  <span style="color: blue">constant </span>Real mFixed = 0.5 <span style="color: #006400">&quot;Fixed value for flow coefficient&quot;</span>;
+  <span style="color: blue">constant </span>Real gamma(min=1) = 1.5 <span style="color: #006400">
+    &quot;Normalized flow rate where dphi(0)/dpi intersects phi(1)&quot;</span>;
+  <span style="color: blue">constant </span>Real a = gamma <span style="color: #006400">
+    &quot;Polynomial coefficient for regularized implementation of flow resistance&quot;</span>;
+  <span style="color: blue">constant </span>Real b = 1/8*mFixed^2 - 3*gamma - 3/2*mFixed + 35.0/8 <span style="color: #006400">
+    &quot;Polynomial coefficient for regularized implementation of flow resistance&quot;</span>;
+  <span style="color: blue">constant </span>Real c = -1/4*mFixed^2 + 3*gamma + 5/2*mFixed - 21.0/4 <span style="color: #006400">
+    &quot;Polynomial coefficient for regularized implementation of flow resistance&quot;</span>;
+  <span style="color: blue">constant </span>Real d = 1/8*mFixed^2 - gamma - mFixed + 15.0/8 <span style="color: #006400">
+    &quot;Polynomial coefficient for regularized implementation of flow resistance&quot;</span>;
+<span style="color: blue">equation </span>
   m=mFixed;
   A = wOpe*hOpe;
-  kVal = CD*dA*<font color="red">sqrt</font>(2/rho_default);
-  <font color="darkgreen">// orifice equation</font>
-  <font color="blue">for </font>i<font color="blue"> in </font>1:nCom<font color="blue"> loop</font>
-    dV_flow[i] =<font color="red"> Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</font>(
+  kVal = CD*dA*<span style="color: red">sqrt</span>(2/rho_default);
+  <span style="color: #006400">// orifice equation</span>
+  <span style="color: blue">for </span>i<span style="color: blue"> in </span>1:nCom<span style="color: blue"> loop</span>
+    dV_flow[i] =<span style="color: red"> Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</span>(
       k=kVal,
       dp=dpAB[i],
       m=mFixed,
@@ -214,20 +246,23 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
       c=c,
       d=d,
       dp_turbulent=dp_turbulent);
-  <font color="blue">end for</font>;
+  <span style="color: blue">end for</span>;
 
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>DoorDiscretizedOpen;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE DoorDiscretizedOperable<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Airflow.Multizo24c8885cacdf11a3rableI.png" ALT="Buildings.Airflow.Multizone.DoorDiscretizedOperable" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Airflow.Multizone.DoorDiscretizedOperable"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
->Buildings.Airflow.Multizone</A>.DoorDiscretizedOperable</H2>
-<B>Door model using discretization along height coordinate</B><p></P>
-<IMG SRC="Buildings.Airflow.Multizo24c8885cacdf11a3rableD.png" ALT="Buildings.Airflow.Multizone.DoorDiscretizedOperable">
-<P></P><H3>Information</H3>
+<span style="color: blue">end </span>DoorDiscretizedOpen;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DoorDiscretizedOperable<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Airflow.Multizo24c8885cacdf11a3rableI.png" alt="Buildings.Airflow.Multizone.DoorDiscretizedOperable" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Airflow.Multizone.DoorDiscretizedOperable"></a><a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
+>Buildings.Airflow.Multizone</a>.DoorDiscretizedOperable</h2>
+<p>
+<b>Door model using discretization along height coordinate</b>
+<br>
+<br><img src="Buildings.Airflow.Multizo24c8885cacdf11a3rableD.png" alt="Buildings.Airflow.Multizone.DoorDiscretizedOperable">
+</p>
+<h3>Information</h3>
 
 <p>
 This model describes the bi-directional air flow through an open door.
@@ -246,161 +281,162 @@ Use the model
 <a href="modelica://Buildings.Airflow.Multizone.Crack">
 Buildings.Airflow.Multizone.Crack
 </a> for a door that is always closed.
-<P></P>
-Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized"
->Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</A> (Door model using discretization along height coordinate).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD>Boolean</TD><TD>forceErrorControlOnFlow</TD><TD>true</TD><TD>Flag to force error control on m_flow. Set to true if interested in flow rate</TD></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->PartialMedium</A></TD><TD>&nbsp;</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
->Velocity</A></TD><TD>vZer</TD><TD>0.001</TD><TD>Minimum velocity to prevent zero flow. Recommended: 0.001 [m/s]</TD></TR>
-<TR><TD>Integer</TD><TD>nCom</TD><TD>10</TD><TD>Number of compartments for the discretization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp_turbulent</TD><TD>0.01</TD><TD>Pressure difference where laminar and turbulent flow relation coincide. Recommended: 0.01 [Pa]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m1_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a1 to port_b1 (m1_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp1.start</TD><TD>0</TD><TD>Pressure difference between port_a1 and port_b1 [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m2_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a2 to port_b2 (m2_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp2.start</TD><TD>0</TD><TD>Pressure difference between port_a2 and port_b2 [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Density</A></TD><TD>rho_a1_inflow.start</TD><TD>1.2</TD><TD>Density of air flowing in from port_a1 [kg/m3]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Density</A></TD><TD>rho_a2_inflow.start</TD><TD>1.2</TD><TD>Density of air flowing in from port_a2 [kg/m3]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Geometry</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>wOpe</TD><TD>0.9</TD><TD>Width of opening [m]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>hOpe</TD><TD>2.1</TD><TD>Height of opening [m]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>hA</TD><TD>2.7/2</TD><TD>Height of reference pressure zone A [m]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>hB</TD><TD>2.7/2</TD><TD>Height of reference pressure zone B [m]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Orifice characteristics</TD></TR>
-<TR><TD>Real</TD><TD>CD</TD><TD>0.65</TD><TD>Discharge coefficient</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Closed aperture rating conditions</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dpCloRat</TD><TD>4</TD><TD>Pressure drop at rating condition [Pa]</TD></TR>
-<TR><TD>Real</TD><TD>CDCloRat</TD><TD>1</TD><TD>Discharge coefficient</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Closed aperture</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
->Area</A></TD><TD>LClo</TD><TD>&nbsp;</TD><TD>Effective leakage area [m2]</TD></TR>
-<TR><TD>Real</TD><TD>CDClo</TD><TD>0.65</TD><TD>Discharge coefficient</TD></TR>
-<TR><TD>Real</TD><TD>mClo</TD><TD>0.65</TD><TD>Flow exponent for crack</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Open aperture</TD></TR>
-<TR><TD>Real</TD><TD>CDOpe</TD><TD>0.65</TD><TD>Discharge coefficient</TD></TR>
-<TR><TD>Real</TD><TD>mOpe</TD><TD>0.5</TD><TD>Flow exponent for door</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_a1_start</TD><TD>Medium1.h_default</TD><TD>Start value for enthalpy flowing out of port a1 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_b1_start</TD><TD>Medium1.h_default</TD><TD>Start value for enthalpy flowing out of port b1 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_a2_start</TD><TD>Medium2.h_default</TD><TD>Start value for enthalpy flowing out of port a2 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_b2_start</TD><TD>Medium2.h_default</TD><TD>Start value for enthalpy flowing out of port b2 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m1_flow_small</TD><TD>1E-4*abs(m1_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a1</TD><TD>Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b1</TD><TD>Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a2</TD><TD>Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>y</TD><TD>Opening signal, 0=closed, 1=open</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> DoorDiscretizedOperable <font color="darkgreen">
-  &quot;Door model using discretization along height coordinate&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized"
->Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</A>;
 
-   <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Modelica.SIunits.Pressure</A> dpCloRat(min=0)=4 <font color="darkgreen">
-    &quot;|Closed aperture rating conditions|Pressure drop at rating condition&quot;</font>;
-  <font color="blue">parameter </font>Real CDCloRat(min=0, max=1)=1 <font color="darkgreen">
-    &quot;|Closed aperture rating conditions|Discharge coefficient&quot;</font>;
+<p>Extends from <a href="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized"
+>Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</a> (Door model using discretization along height coordinate).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Boolean</td><td>forceErrorControlOnFlow</td><td>true</td><td>Flag to force error control on m_flow. Set to true if interested in flow rate</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>&nbsp;</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+>Velocity</a></td><td>vZer</td><td>0.001</td><td>Minimum velocity to prevent zero flow. Recommended: 0.001 [m/s]</td></tr>
+<tr><td>Integer</td><td>nCom</td><td>10</td><td>Number of compartments for the discretization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_turbulent</td><td>0.01</td><td>Pressure difference where laminar and turbulent flow relation coincide. Recommended: 0.01 [Pa]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m1_flow.start</td><td>0</td><td>Mass flow rate from port_a1 to port_b1 (m1_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp1.start</td><td>0</td><td>Pressure difference between port_a1 and port_b1 [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m2_flow.start</td><td>0</td><td>Mass flow rate from port_a2 to port_b2 (m2_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp2.start</td><td>0</td><td>Pressure difference between port_a2 and port_b2 [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>rho_a1_inflow.start</td><td>1.2</td><td>Density of air flowing in from port_a1 [kg/m3]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>rho_a2_inflow.start</td><td>1.2</td><td>Density of air flowing in from port_a2 [kg/m3]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Geometry</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>wOpe</td><td>0.9</td><td>Width of opening [m]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>hOpe</td><td>2.1</td><td>Height of opening [m]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>hA</td><td>2.7/2</td><td>Height of reference pressure zone A [m]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>hB</td><td>2.7/2</td><td>Height of reference pressure zone B [m]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Orifice characteristics</td></tr>
+<tr><td>Real</td><td>CD</td><td>0.65</td><td>Discharge coefficient</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Closed aperture rating conditions</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dpCloRat</td><td>4</td><td>Pressure drop at rating condition [Pa]</td></tr>
+<tr><td>Real</td><td>CDCloRat</td><td>1</td><td>Discharge coefficient</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Closed aperture</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>LClo</td><td>&nbsp;</td><td>Effective leakage area [m2]</td></tr>
+<tr><td>Real</td><td>CDClo</td><td>0.65</td><td>Discharge coefficient</td></tr>
+<tr><td>Real</td><td>mClo</td><td>0.65</td><td>Flow exponent for crack</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Open aperture</td></tr>
+<tr><td>Real</td><td>CDOpe</td><td>0.65</td><td>Discharge coefficient</td></tr>
+<tr><td>Real</td><td>mOpe</td><td>0.5</td><td>Flow exponent for door</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_a1_start</td><td>Medium1.h_default</td><td>Start value for enthalpy flowing out of port a1 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_b1_start</td><td>Medium1.h_default</td><td>Start value for enthalpy flowing out of port b1 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_a2_start</td><td>Medium2.h_default</td><td>Start value for enthalpy flowing out of port a2 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_b2_start</td><td>Medium2.h_default</td><td>Start value for enthalpy flowing out of port b2 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m1_flow_small</td><td>1E-4*abs(m1_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m2_flow_small</td><td>1E-4*abs(m2_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a1</td><td>Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b1</td><td>Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a2</td><td>Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b2</td><td>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>y</td><td>Opening signal, 0=closed, 1=open</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> DoorDiscretizedOperable <span style="color: #006400">
+  &quot;Door model using discretization along height coordinate&quot;</span>
+  <span style="color: blue">extends </span><a href="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized"
+>Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</a>;
 
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
->Modelica.SIunits.Area</A> LClo(min=0) <font color="darkgreen">
-    &quot;|Closed aperture|Effective leakage area&quot;</font>;
+   <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dpCloRat(min=0)=4 <span style="color: #006400">
+    &quot;|Closed aperture rating conditions|Pressure drop at rating condition&quot;</span>;
+  <span style="color: blue">parameter </span>Real CDCloRat(min=0, max=1)=1 <span style="color: #006400">
+    &quot;|Closed aperture rating conditions|Discharge coefficient&quot;</span>;
 
-  <font color="blue">parameter </font>Real CDOpe=0.65 <font color="darkgreen">&quot;|Open aperture|Discharge coefficient&quot;</font>;
-  <font color="blue">parameter </font>Real CDClo=0.65 <font color="darkgreen">&quot;|Closed aperture|Discharge coefficient&quot;</font>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> LClo(min=0) <span style="color: #006400">
+    &quot;|Closed aperture|Effective leakage area&quot;</span>;
 
-  <font color="blue">parameter </font>Real mOpe = 0.5 <font color="darkgreen">&quot;|Open aperture|Flow exponent for door&quot;</font>;
-  <font color="blue">parameter </font>Real mClo= 0.65 <font color="darkgreen">&quot;|Closed aperture|Flow exponent for crack&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> y <font color="darkgreen">&quot;Opening signal, 0=closed, 1=open&quot;</font>;</textblock>
-<font color="blue">protected </font>
- <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
->Modelica.SIunits.Area</A> AOpe=wOpe*hOpe <font color="darkgreen">&quot;Open aperture area&quot;</font>;
- <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
->Modelica.SIunits.Area</A> AClo(fixed=false) <font color="darkgreen">&quot;Closed aperture area&quot;</font>;
+  <span style="color: blue">parameter </span>Real CDOpe=0.65 <span style="color: #006400">&quot;|Open aperture|Discharge coefficient&quot;</span>;
+  <span style="color: blue">parameter </span>Real CDClo=0.65 <span style="color: #006400">&quot;|Closed aperture|Discharge coefficient&quot;</span>;
 
- Real kOpe <font color="darkgreen">&quot;Open aperture flow coefficient, k = V_flow/ dp^m&quot;</font>;
- Real kClo <font color="darkgreen">&quot;Closed aperture flow coefficient, k = V_flow/ dp^m&quot;</font>;
+  <span style="color: blue">parameter </span>Real mOpe = 0.5 <span style="color: #006400">&quot;|Open aperture|Flow exponent for door&quot;</span>;
+  <span style="color: blue">parameter </span>Real mClo= 0.65 <span style="color: #006400">&quot;|Closed aperture|Flow exponent for crack&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> y <span style="color: #006400">&quot;Opening signal, 0=closed, 1=open&quot;</span>;
+<span style="color: blue">protected </span>
+ <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> AOpe=wOpe*hOpe <span style="color: #006400">&quot;Open aperture area&quot;</span>;
+ <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> AClo(fixed=false) <span style="color: #006400">&quot;Closed aperture area&quot;</span>;
 
- Real fraOpe <font color="darkgreen">&quot;Fraction of aperture that is open&quot;</font>;
-<font color="blue">initial </font><font color="blue">equation </font>
+ Real kOpe <span style="color: #006400">&quot;Open aperture flow coefficient, k = V_flow/ dp^m&quot;</span>;
+ Real kClo <span style="color: #006400">&quot;Closed aperture flow coefficient, k = V_flow/ dp^m&quot;</span>;
+
+ Real fraOpe <span style="color: #006400">&quot;Fraction of aperture that is open&quot;</span>;
+<span style="color: blue">initial </span><span style="color: blue">equation </span>
   AClo=CDClo/CDCloRat * LClo * dpCloRat^(0.5-mClo);
-<font color="blue">equation </font>
-  <font color="red">assert</font>(y           &gt;= 0, &quot;Input error. Opening signal must be between 0 and 1.\n&quot;
-    + &quot;  Received y.signal[1] = &quot; +<font color="red"> String</font>(y));
-  <font color="red">assert</font>(y           &lt;= 1, &quot;Input error. Opening signal must be between 0 and 1.\n&quot;
-    + &quot;  Received y.signal[1] = &quot; +<font color="red"> String</font>(y));
+<span style="color: blue">equation </span>
+  <span style="color: red">assert</span>(y           &gt;= 0, &quot;Input error. Opening signal must be between 0 and 1.\n&quot;
+    + &quot;  Received y.signal[1] = &quot; +<span style="color: red"> String</span>(y));
+  <span style="color: red">assert</span>(y           &lt;= 1, &quot;Input error. Opening signal must be between 0 and 1.\n&quot;
+    + &quot;  Received y.signal[1] = &quot; +<span style="color: red"> String</span>(y));
   fraOpe =y;
-  kClo = CDClo * AClo/nCom *<font color="red"> sqrt</font>(2/rho_default);
-  kOpe = CDOpe * AOpe/nCom *<font color="red"> sqrt</font>(2/rho_default);
+  kClo = CDClo * AClo/nCom *<span style="color: red"> sqrt</span>(2/rho_default);
+  kOpe = CDOpe * AOpe/nCom *<span style="color: red"> sqrt</span>(2/rho_default);
 
-  <font color="darkgreen">// flow exponent</font>
+  <span style="color: #006400">// flow exponent</span>
   m    = fraOpe*mOpe + (1-fraOpe)*mClo;
-  <font color="darkgreen">// opening area</font>
+  <span style="color: #006400">// opening area</span>
   A = fraOpe*AOpe + (1-fraOpe)*AClo;
-  <font color="darkgreen">// friction coefficient for power law</font>
+  <span style="color: #006400">// friction coefficient for power law</span>
   kVal = fraOpe*kOpe + (1-fraOpe)*kClo;
 
-  <font color="darkgreen">// orifice equation</font>
-  <font color="blue">for </font>i<font color="blue"> in </font>1:nCom<font color="blue"> loop</font>
-    dV_flow[i] =<font color="red"> Buildings.Airflow.Multizone.BaseClasses.powerLaw</font>(
+  <span style="color: #006400">// orifice equation</span>
+  <span style="color: blue">for </span>i<span style="color: blue"> in </span>1:nCom<span style="color: blue"> loop</span>
+    dV_flow[i] =<span style="color: red"> Buildings.Airflow.Multizone.BaseClasses.powerLaw</span>(
       k=kVal,
       dp=dpAB[i],
       m=m,
       dp_turbulent=dp_turbulent);
-  <font color="blue">end for</font>;
+  <span style="color: blue">end for</span>;
 
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>DoorDiscretizedOperable;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE EffectiveAirLeakageArea<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Airflow.Multizo90b343542b5dabb1eAreaI.png" ALT="Buildings.Airflow.Multizone.EffectiveAirLeakageArea" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Airflow.Multizone.EffectiveAirLeakageArea"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
->Buildings.Airflow.Multizone</A>.EffectiveAirLeakageArea</H2>
-<B>Effective air leakage area</B><p></P>
-<IMG SRC="Buildings.Airflow.Multizo90b343542b5dabb1eAreaD.png" ALT="Buildings.Airflow.Multizone.EffectiveAirLeakageArea">
-<P></P><H3>Information</H3>
+<span style="color: blue">end </span>DoorDiscretizedOperable;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE EffectiveAirLeakageArea<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Airflow.Multizo90b343542b5dabb1eAreaI.png" alt="Buildings.Airflow.Multizone.EffectiveAirLeakageArea" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Airflow.Multizone.EffectiveAirLeakageArea"></a><a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
+>Buildings.Airflow.Multizone</a>.EffectiveAirLeakageArea</h2>
+<p>
+<b>Effective air leakage area</b>
+<br>
+<br><img src="Buildings.Airflow.Multizo90b343542b5dabb1eAreaD.png" alt="Buildings.Airflow.Multizone.EffectiveAirLeakageArea">
+</p>
+<h3>Information</h3>
 
 <p>
 This model describes the one-directional pressure driven
@@ -435,82 +471,84 @@ National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
 </UL>
-<P></P>
-Extends from <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
->Buildings.Airflow.Multizone.Orifice</A> (Orifice).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD>Boolean</TD><TD>forceErrorControlOnFlow</TD><TD>true</TD><TD>Flag to force error control on m_flow. Set to true if interested in flow rate</TD></TR>
-<TR><TD>Real</TD><TD>m</TD><TD>0.65</TD><TD>Flow exponent, m=0.5 for turbulent, m=1 for laminar</TD></TR>
-<TR><TD>Boolean</TD><TD>useDefaultProperties</TD><TD>true</TD><TD>Set to false to use density and viscosity based on actual medium state, rather than using default values</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp_turbulent</TD><TD>0.1</TD><TD>Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1 [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>lWet</TD><TD>sqrt(A)</TD><TD>Wetted perimeter used for Reynolds number calculation [m]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
->Area</A></TD><TD>L</TD><TD>&nbsp;</TD><TD>Effective leakage area [m2]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Orifice characteristics</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
->Area</A></TD><TD>A</TD><TD>CD/CDRat*L*dpRat^(0.5 - m)</TD><TD>Area of orifice [m2]</TD></TR>
-<TR><TD>Real</TD><TD>CD</TD><TD>0.65</TD><TD>Discharge coefficient</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Rating conditions</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dpRat</TD><TD>4</TD><TD>Pressure drop at rating condition [Pa]</TD></TR>
-<TR><TD>Real</TD><TD>CDRat</TD><TD>1</TD><TD>Discharge coefficient</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
-<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> EffectiveAirLeakageArea <font color="darkgreen">&quot;Effective air leakage area&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
->Buildings.Airflow.Multizone.Orifice</A>(
+
+<p>Extends from <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
+>Buildings.Airflow.Multizone.Orifice</a> (Orifice).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>forceErrorControlOnFlow</td><td>true</td><td>Flag to force error control on m_flow. Set to true if interested in flow rate</td></tr>
+<tr><td>Real</td><td>m</td><td>0.65</td><td>Flow exponent, m=0.5 for turbulent, m=1 for laminar</td></tr>
+<tr><td>Boolean</td><td>useDefaultProperties</td><td>true</td><td>Set to false to use density and viscosity based on actual medium state, rather than using default values</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_turbulent</td><td>0.1</td><td>Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1 [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>lWet</td><td>sqrt(A)</td><td>Wetted perimeter used for Reynolds number calculation [m]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>L</td><td>&nbsp;</td><td>Effective leakage area [m2]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Orifice characteristics</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>CD/CDRat*L*dpRat^(0.5 - m)</td><td>Area of orifice [m2]</td></tr>
+<tr><td>Real</td><td>CD</td><td>0.65</td><td>Discharge coefficient</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Rating conditions</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dpRat</td><td>4</td><td>Pressure drop at rating condition [Pa]</td></tr>
+<tr><td>Real</td><td>CDRat</td><td>1</td><td>Discharge coefficient</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>system.allowFlowReversal</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> EffectiveAirLeakageArea <span style="color: #006400">&quot;Effective air leakage area&quot;</span>
+  <span style="color: blue">extends </span><a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
+>Buildings.Airflow.Multizone.Orifice</a>(
     m=0.65,
-    <font color="blue">final </font>A=CD/CDRat * L * dpRat^(0.5-m));
+    <span style="color: blue">final </span>A=CD/CDRat * L * dpRat^(0.5-m));
 
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Modelica.SIunits.Pressure</A> dpRat(min=0)=4 <font color="darkgreen">
-    &quot;|Rating conditions|Pressure drop at rating condition&quot;</font>;
-  <font color="blue">parameter </font>Real CDRat(min=0, max=1)=1 <font color="darkgreen">
-    &quot;|Rating conditions|Discharge coefficient&quot;</font>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dpRat(min=0)=4 <span style="color: #006400">
+    &quot;|Rating conditions|Pressure drop at rating condition&quot;</span>;
+  <span style="color: blue">parameter </span>Real CDRat(min=0, max=1)=1 <span style="color: #006400">
+    &quot;|Rating conditions|Discharge coefficient&quot;</span>;
 
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
->Modelica.SIunits.Area</A> L(min=0) <font color="darkgreen">&quot;Effective leakage area&quot;</font>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> L(min=0) <span style="color: #006400">&quot;Effective leakage area&quot;</span>;
 
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>EffectiveAirLeakageArea;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE MediumColumn<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Airflow.Multizone.MediumColumnI.png" ALT="Buildings.Airflow.Multizone.MediumColumn" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Airflow.Multizone.MediumColumn"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
->Buildings.Airflow.Multizone</A>.MediumColumn</H2>
-<B>Vertical shaft with no friction and no storage of heat and mass</B><p></P>
-<IMG SRC="Buildings.Airflow.Multizone.MediumColumnD.png" ALT="Buildings.Airflow.Multizone.MediumColumn">
-<P></P><H3>Information</H3>
+<span style="color: blue">end </span>EffectiveAirLeakageArea;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MediumColumn<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Airflow.Multizone.MediumColumnI.png" alt="Buildings.Airflow.Multizone.MediumColumn" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Airflow.Multizone.MediumColumn"></a><a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
+>Buildings.Airflow.Multizone</a>.MediumColumn</h2>
+<p>
+<b>Vertical shaft with no friction and no storage of heat and mass</b>
+<br>
+<br><img src="Buildings.Airflow.Multizone.MediumColumnD.png" alt="Buildings.Airflow.Multizone.MediumColumn">
+</p>
+<h3>Information</h3>
 
 <p>
 This model describes the pressure difference of a vertical medium
@@ -552,147 +590,148 @@ at the top of the column.
 </p>
 <p>
 For a steady-state model, use
-<A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumnDynamic"
+<a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumnDynamic"
 >
 Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </p>
-<P></P>
 
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD>Modelica.Media.Interfaces.Pa...</TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>h</TD><TD>3</TD><TD>Height of shaft [m]</TD></TR>
-<TR><TD><A HREF="Buildings_Airflow_Multizone_Types.html#Buildings.Airflow.Multizone.Types.densitySelection"
->densitySelection</A></TD><TD>densitySelection</TD><TD>&nbsp;</TD><TD>Select how to pick density</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
-<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> MediumColumn <font color="darkgreen">
-  &quot;Vertical shaft with no friction and no storage of heat and mass&quot;</font>
-  <font color="blue">import </font><A HREF="../../msl/3.2/help/Modelica_Constants.html#Modelica.Constants"
->Modelica.Constants</A>;
-  <font color="blue">outer </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
->Modelica.Fluid.System</A> system <font color="darkgreen">&quot;System wide properties&quot;</font>;
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium in the component</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>h</td><td>3</td><td>Height of shaft [m]</td></tr>
+<tr><td><a href="Buildings_Airflow_Multizone_Types.html#Buildings.Airflow.Multizone.Types.densitySelection"
+>densitySelection</a></td><td>densitySelection</td><td>&nbsp;</td><td>Select how to pick density</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>system.allowFlowReversal</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> MediumColumn <span style="color: #006400">
+  &quot;Vertical shaft with no friction and no storage of heat and mass&quot;</span>
+  <span style="color: blue">import </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Constants.html#Modelica.Constants"
+>Modelica.Constants</a>;
+  <span style="color: blue">outer </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</a> system <span style="color: #006400">&quot;System wide properties&quot;</span>;
 
-  <font color="blue">replaceable </font><font color="blue">package</font> Medium = <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">
-    &quot;Medium in the component&quot;</font>;
+  <span style="color: blue">replaceable </span><span style="color: blue">package</span> Medium = <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400">
+    &quot;Medium in the component&quot;</span>;
 
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Modelica.SIunits.Length</A> h(min=0) = 3 <font color="darkgreen">&quot;Height of shaft&quot;</font>;
-  <font color="blue">parameter </font><A HREF="Buildings_Airflow_Multizone_Types.html#Buildings.Airflow.Multizone.Types.densitySelection"
->Buildings.Airflow.Multizone.Types.densitySelection</A> densitySelection <font color="darkgreen">
-    &quot;Select how to pick density&quot;</font>;
-  <font color="blue">parameter </font>Boolean allowFlowReversal=system.allowFlowReversal <font color="darkgreen">
-    &quot;= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)&quot;</font>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> h(min=0) = 3 <span style="color: #006400">&quot;Height of shaft&quot;</span>;
+  <span style="color: blue">parameter </span><a href="Buildings_Airflow_Multizone_Types.html#Buildings.Airflow.Multizone.Types.densitySelection"
+>Buildings.Airflow.Multizone.Types.densitySelection</a> densitySelection <span style="color: #006400">
+    &quot;Select how to pick density&quot;</span>;
+  <span style="color: blue">parameter </span>Boolean allowFlowReversal=system.allowFlowReversal <span style="color: #006400">
+    &quot;= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)&quot;</span>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->Modelica.Fluid.Interfaces.FluidPort_a</A> port_a(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
-    m_flow(min=<font color="blue">if </font>allowFlowReversal<font color="blue"> then </font>-Constants.inf<font color="blue"> else </font>0),
-    p(start=Medium.p_default, nominal=Medium.p_default)) <font color="darkgreen">
-    &quot;Fluid connector a (positive design flow direction is from port_a to port_b)&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->Modelica.Fluid.Interfaces.FluidPort_b</A> port_b(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
-    m_flow(max=<font color="blue">if </font>allowFlowReversal<font color="blue"> then </font>+Constants.inf<font color="blue"> else </font>0),
-    p(start=Medium.p_default, nominal=Medium.p_default)) <font color="darkgreen">
-    &quot;Fluid connector b (positive design flow direction is from port_a to port_b)&quot;</font>;</textblock>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>Modelica.Fluid.Interfaces.FluidPort_a</a> port_a(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = Medium,
+    m_flow(min=<span style="color: blue">if </span>allowFlowReversal<span style="color: blue"> then </span>-Constants.inf<span style="color: blue"> else </span>0),
+    p(start=Medium.p_default, nominal=Medium.p_default)) <span style="color: #006400">
+    &quot;Fluid connector a (positive design flow direction is from port_a to port_b)&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>Modelica.Fluid.Interfaces.FluidPort_b</a> port_b(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = Medium,
+    m_flow(max=<span style="color: blue">if </span>allowFlowReversal<span style="color: blue"> then </span>+Constants.inf<span style="color: blue"> else </span>0),
+    p(start=Medium.p_default, nominal=Medium.p_default)) <span style="color: #006400">
+    &quot;Fluid connector b (positive design flow direction is from port_a to port_b)&quot;</span>;
 
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
->Modelica.SIunits.VolumeFlowRate</A> V_flow=m_flow/<font color="red">Medium.density</font>(sta_a) <font color="darkgreen">
-    &quot;Volume flow rate at inflowing port (positive when flow from port_a to port_b)&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->Modelica.SIunits.MassFlowRate</A> m_flow(start=0) <font color="darkgreen">
-    &quot;Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction)&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Modelica.SIunits.Pressure</A> dp(start=0, displayUnit=&quot;Pa&quot;) <font color="darkgreen">
-    &quot;Pressure difference between port_a and port_b&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Modelica.SIunits.Density</A> rho <font color="darkgreen">&quot;Density in medium column&quot;</font>;
-<font color="blue">protected </font>
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
->Medium.ThermodynamicState</A> sta_a=<font color="red">Medium.setState_phX</font>(
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow=m_flow/<span style="color: red">Medium.density</span>(sta_a) <span style="color: #006400">
+    &quot;Volume flow rate at inflowing port (positive when flow from port_a to port_b)&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow(start=0) <span style="color: #006400">
+    &quot;Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction)&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp(start=0, displayUnit=&quot;Pa&quot;) <span style="color: #006400">
+    &quot;Pressure difference between port_a and port_b&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Modelica.SIunits.Density</a> rho <span style="color: #006400">&quot;Density in medium column&quot;</span>;
+<span style="color: blue">protected </span>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium.ThermodynamicState</a> sta_a=<span style="color: red">Medium.setState_phX</span>(
       port_a.p,
-      <font color="red">actualStream</font>(port_a.h_outflow),
-      <font color="red">actualStream</font>(port_a.Xi_outflow)) <font color="darkgreen">&quot;Medium properties in port_a&quot;</font>;
-<font color="blue">initial </font><font color="blue">equation </font>
-  <font color="red">assert</font>(<font color="red">abs</font>(<font color="red">Medium.density</font>(<font color="red">Medium.setState_pTX</font>(
+      <span style="color: red">actualStream</span>(port_a.h_outflow),
+      <span style="color: red">actualStream</span>(port_a.Xi_outflow)) <span style="color: #006400">&quot;Medium properties in port_a&quot;</span>;
+<span style="color: blue">initial </span><span style="color: blue">equation </span>
+  <span style="color: red">assert</span>(<span style="color: red">abs</span>(<span style="color: red">Medium.density</span>(<span style="color: red">Medium.setState_pTX</span>(
     Medium.p_default,
     Medium.T_default,
-    Medium.X_default)) -<font color="red"> Medium.density</font>(<font color="red">Medium.setState_pTX</font>(
+    Medium.X_default)) -<span style="color: red"> Medium.density</span>(<span style="color: red">Medium.setState_pTX</span>(
     Medium.p_default,
     Medium.T_default + 5,
     Medium.X_default))) &gt; 1E-10,
     &quot;Error: The density of the medium that is used to compute buoyancy force is independent of temperature.&quot;
      + &quot;\n       You need to select a different medium model.&quot;);
-  <font color="darkgreen">// The next assert tests for all allowed values of the enumeration.</font>
-  <font color="darkgreen">// Testing against densitySelection &gt; 0 gives an error in OpenModelica as enumerations start with 1.</font>
-  <font color="red">assert</font>(densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromTop<font color="blue">
-         or </font>
-         densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom<font color="blue">
-         or </font>
+  <span style="color: #006400">// The next assert tests for all allowed values of the enumeration.</span>
+  <span style="color: #006400">// Testing against densitySelection &gt; 0 gives an error in OpenModelica as enumerations start with 1.</span>
+  <span style="color: red">assert</span>(densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromTop<span style="color: blue">
+         or </span>
+         densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom<span style="color: blue">
+         or </span>
          densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.actual,
     &quot;You need to set the parameter \&quot;densitySelection\&quot; for the model MediumColumn.&quot;);
-<font color="blue">equation </font>
-  <font color="darkgreen">// Design direction of mass flow rate</font>
+<span style="color: blue">equation </span>
+  <span style="color: #006400">// Design direction of mass flow rate</span>
   m_flow = port_a.m_flow;
 
-  <font color="darkgreen">// Pressure difference between ports</font>
-  rho = <font color="blue">if </font>(densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromTop)<font color="blue"> then </font>
-          <font color="red">Medium.density</font>(<font color="red">Medium.setState_phX</font>(
+  <span style="color: #006400">// Pressure difference between ports</span>
+  rho = <span style="color: blue">if </span>(densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromTop)<span style="color: blue"> then </span>
+          <span style="color: red">Medium.density</span>(<span style="color: red">Medium.setState_phX</span>(
     port_a.p,
-    <font color="red">inStream</font>(port_a.h_outflow),
-    <font color="red">inStream</font>(port_a.Xi_outflow)))<font color="blue"> else </font><font color="blue">if </font>(densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)<font color="blue"> then </font>
-          <font color="red">Medium.density</font>(<font color="red">Medium.setState_phX</font>(
+    <span style="color: red">inStream</span>(port_a.h_outflow),
+    <span style="color: red">inStream</span>(port_a.Xi_outflow)))<span style="color: blue"> else </span><span style="color: blue">if </span>(densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)<span style="color: blue"> then </span>
+          <span style="color: red">Medium.density</span>(<span style="color: red">Medium.setState_phX</span>(
     port_b.p,
-    <font color="red">inStream</font>(port_b.h_outflow),
-    <font color="red">inStream</font>(port_b.Xi_outflow)))<font color="blue"> else </font><font color="red">Medium.density</font>(<font color="red">Medium.setState_phX</font>(
+    <span style="color: red">inStream</span>(port_b.h_outflow),
+    <span style="color: red">inStream</span>(port_b.Xi_outflow)))<span style="color: blue"> else </span><span style="color: red">Medium.density</span>(<span style="color: red">Medium.setState_phX</span>(
     port_a.p,
-    <font color="red">actualStream</font>(port_a.h_outflow),
-    <font color="red">actualStream</font>(port_a.Xi_outflow)));
+    <span style="color: red">actualStream</span>(port_a.h_outflow),
+    <span style="color: red">actualStream</span>(port_a.Xi_outflow)));
   dp = port_a.p - port_b.p;
   dp = -h*rho*Modelica.Constants.g_n;
 
-  <font color="darkgreen">// Isenthalpic state transformation (no storage and no loss of energy)</font>
-  port_a.h_outflow =<font color="red"> inStream</font>(port_b.h_outflow);
-  port_b.h_outflow =<font color="red"> inStream</font>(port_a.h_outflow);
+  <span style="color: #006400">// Isenthalpic state transformation (no storage and no loss of energy)</span>
+  port_a.h_outflow =<span style="color: red"> inStream</span>(port_b.h_outflow);
+  port_b.h_outflow =<span style="color: red"> inStream</span>(port_a.h_outflow);
 
-  <font color="darkgreen">// Mass balance (no storage)</font>
+  <span style="color: #006400">// Mass balance (no storage)</span>
   port_a.m_flow + port_b.m_flow = 0;
 
-  <font color="darkgreen">// Transport of substances</font>
-  port_a.Xi_outflow =<font color="red"> inStream</font>(port_b.Xi_outflow);
-  port_b.Xi_outflow =<font color="red"> inStream</font>(port_a.Xi_outflow);
+  <span style="color: #006400">// Transport of substances</span>
+  port_a.Xi_outflow =<span style="color: red"> inStream</span>(port_b.Xi_outflow);
+  port_b.Xi_outflow =<span style="color: red"> inStream</span>(port_a.Xi_outflow);
 
-  port_a.C_outflow =<font color="red"> inStream</font>(port_b.C_outflow);
-  port_b.C_outflow =<font color="red"> inStream</font>(port_a.C_outflow);
+  port_a.C_outflow =<span style="color: red"> inStream</span>(port_b.C_outflow);
+  port_b.C_outflow =<span style="color: red"> inStream</span>(port_a.C_outflow);
 
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>MediumColumn;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE MediumColumnDynamic<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Airflow.Multizo04c266c67ac23223namicI.png" ALT="Buildings.Airflow.Multizone.MediumColumnDynamic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Airflow.Multizone.MediumColumnDynamic"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
->Buildings.Airflow.Multizone</A>.MediumColumnDynamic</H2>
-<B>Vertical shaft with no friction and storage of heat and mass</B><p></P>
-<IMG SRC="Buildings.Airflow.Multizo04c266c67ac23223namicD.png" ALT="Buildings.Airflow.Multizone.MediumColumnDynamic">
-<P></P><H3>Information</H3>
+<span style="color: blue">end </span>MediumColumn;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MediumColumnDynamic<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Airflow.Multizo04c266c67ac23223namicI.png" alt="Buildings.Airflow.Multizone.MediumColumnDynamic" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Airflow.Multizone.MediumColumnDynamic"></a><a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
+>Buildings.Airflow.Multizone</a>.MediumColumnDynamic</h2>
+<p>
+<b>Vertical shaft with no friction and storage of heat and mass</b>
+<br>
+<br><img src="Buildings.Airflow.Multizo04c266c67ac23223namicD.png" alt="Buildings.Airflow.Multizone.MediumColumnDynamic">
+</p>
+<h3>Information</h3>
 
 <p>
 This model contains a completely mixed fluid volume and
@@ -709,165 +748,167 @@ walls to model a solar chimney that stores heat.
 </p>
 <p>
 For a steady-state model, use
-<A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
+<a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
 >
 Buildings.Airflow.Multizone.MediumColumn</a> instead of this model.
 </p>
 <p>In this model, the parameter <code>h</code> must always be positive, and the port <code>port_a</code> must be
 at the top of the column.
-<P></P>
-Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
->Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>h</TD><TD>3</TD><TD>Height of shaft [m]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
->Volume</A></TD><TD>V</TD><TD>&nbsp;</TD><TD>Volume in medium shaft [m3]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition, used only for steady-state model</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
->Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
->Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
->AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
->MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
->ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
->ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
-<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>true</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Heat transfer</TD></TR>
-<TR><TD>Boolean</TD><TD>use_HeatTransfer</TD><TD>false</TD><TD>= true to use the HeatTransfer model</TD></TR>
-<TR><TD colspan="2">replaceable model HeatTransfer</TD><TD>Modelica.Fluid.Vessels.BaseC...</TD><TD>Wall heat transfer</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD>Medium in the component</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
->HeatPort_a</A></TD><TD>heatPort</TD><TD>Heat port to exchange energy with the fluid volume</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=3><B>Assumptions</B></TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=3>Heat transfer</TD></TR>
-<TR><TD colspan="2">replaceable model HeatTransfer</TD><TD>Wall heat transfer</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> MediumColumnDynamic <font color="darkgreen">
-  &quot;Vertical shaft with no friction and storage of heat and mass&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
->Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A>;
-  <font color="blue">import </font><A HREF="../../msl/3.2/help/Modelica_Constants.html#Modelica.Constants"
->Modelica.Constants</A>;
 
-  <font color="blue">replaceable </font><font color="blue">package</font> Medium = <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">
-    &quot;Medium in the component&quot;</font>;
+<p>Extends from <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a> (Declarations for lumped volumes).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>h</td><td>3</td><td>Height of shaft [m]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>V</td><td>&nbsp;</td><td>Volume in medium shaft [m3]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition, used only for steady-state model</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Heat transfer</td></tr>
+<tr><td>Boolean</td><td>use_HeatTransfer</td><td>false</td><td>= true to use the HeatTransfer model</td></tr>
+<tr><td colspan="2">replaceable model HeatTransfer</td><td>Modelica.Fluid.Vessels.BaseC...</td><td>Wall heat transfer</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heatPort</td><td>Heat port to exchange energy with the fluid volume</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="3"><b>Assumptions</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="3">Heat transfer</td></tr>
+<tr><td colspan="2">replaceable model HeatTransfer</td><td>Wall heat transfer</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> MediumColumnDynamic <span style="color: #006400">
+  &quot;Vertical shaft with no friction and storage of heat and mass&quot;</span>
+  <span style="color: blue">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>;
+  <span style="color: blue">import </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Constants.html#Modelica.Constants"
+>Modelica.Constants</a>;
 
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Modelica.SIunits.Length</A> h(min=0) = 3 <font color="darkgreen">&quot;Height of shaft&quot;</font>;
-  <font color="blue">parameter </font>Boolean allowFlowReversal=true <font color="darkgreen">
-    &quot;= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)&quot;</font>;
+  <span style="color: blue">replaceable </span><span style="color: blue">package</span> Medium = <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400">
+    &quot;Medium in the component&quot;</span>;
 
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->Modelica.SIunits.MassFlowRate</A> m_flow_nominal(min=0) <font color="darkgreen">
-    &quot;Nominal mass flow rate&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->Modelica.Fluid.Interfaces.FluidPort_a</A> port_a(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
-    m_flow(min=<font color="blue">if </font>allowFlowReversal<font color="blue"> then </font>-Constants.inf<font color="blue"> else </font>0),
-    p(start=Medium.p_default, nominal=Medium.p_default)) <font color="darkgreen">
-    &quot;Fluid connector a (positive design flow direction is from port_a to port_b)&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->Modelica.Fluid.Interfaces.FluidPort_b</A> port_b(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
-    m_flow(max=<font color="blue">if </font>allowFlowReversal<font color="blue"> then </font>+Constants.inf<font color="blue"> else </font>0),
-    p(start=Medium.p_default, nominal=Medium.p_default)) <font color="darkgreen">
-    &quot;Fluid connector b (positive design flow direction is from port_a to port_b)&quot;</font>;</textblock>
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> h(min=0) = 3 <span style="color: #006400">&quot;Height of shaft&quot;</span>;
+  <span style="color: blue">parameter </span>Boolean allowFlowReversal=true <span style="color: #006400">
+    &quot;= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)&quot;</span>;
 
-  <font color="darkgreen">// m_flow_nominal is not used by vol, since this component</font>
-  <font color="darkgreen">// can only be configured as a dynamic model.</font>
-<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
->Fluid.MixingVolumes.MixingVolume</A> vol(
-    <font color="blue">final </font>nPorts=2,
-    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium,
-    <font color="blue">final </font>m_flow_nominal = m_flow_nominal,
-    <font color="blue">final </font>V=V,
-    <font color="blue">final </font>energyDynamics=energyDynamics,
-    <font color="blue">final </font>massDynamics=massDynamics,
-    <font color="blue">final </font>p_start=p_start,
-    <font color="blue">final </font>T_start=T_start,
-    <font color="blue">final </font>X_start=X_start,
-    <font color="blue">final </font>C_start=C_start) <font color="darkgreen">&quot;Air volume in the shaft&quot;</font>;</textblock>
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal(min=0) <span style="color: #006400">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>Modelica.Fluid.Interfaces.FluidPort_a</a> port_a(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = Medium,
+    m_flow(min=<span style="color: blue">if </span>allowFlowReversal<span style="color: blue"> then </span>-Constants.inf<span style="color: blue"> else </span>0),
+    p(start=Medium.p_default, nominal=Medium.p_default)) <span style="color: #006400">
+    &quot;Fluid connector a (positive design flow direction is from port_a to port_b)&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>Modelica.Fluid.Interfaces.FluidPort_b</a> port_b(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = Medium,
+    m_flow(max=<span style="color: blue">if </span>allowFlowReversal<span style="color: blue"> then </span>+Constants.inf<span style="color: blue"> else </span>0),
+    p(start=Medium.p_default, nominal=Medium.p_default)) <span style="color: #006400">
+    &quot;Fluid connector b (positive design flow direction is from port_a to port_b)&quot;</span>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
->MediumColumn</A> colTop(
-    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium,
-    <font color="blue">final </font>densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom,
+  <span style="color: #006400">// m_flow_nominal is not used by vol, since this component</span>
+  <span style="color: #006400">// can only be configured as a dynamic model.</span>
+  <a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Fluid.MixingVolumes.MixingVolume</a> vol(
+    <span style="color: blue">final </span>nPorts=2,
+    <span style="color: blue">redeclare </span><span style="color: blue">final </span><span style="color: blue">package</span> Medium = Medium,
+    <span style="color: blue">final </span>m_flow_nominal = m_flow_nominal,
+    <span style="color: blue">final </span>V=V,
+    <span style="color: blue">final </span>energyDynamics=energyDynamics,
+    <span style="color: blue">final </span>massDynamics=massDynamics,
+    <span style="color: blue">final </span>p_start=p_start,
+    <span style="color: blue">final </span>T_start=T_start,
+    <span style="color: blue">final </span>X_start=X_start,
+    <span style="color: blue">final </span>C_start=C_start) <span style="color: #006400">&quot;Air volume in the shaft&quot;</span>;
+
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
+>MediumColumn</a> colTop(
+    <span style="color: blue">redeclare </span><span style="color: blue">final </span><span style="color: blue">package</span> Medium = Medium,
+    <span style="color: blue">final </span>densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom,
     h=h/2,
-    <font color="blue">final </font>allowFlowReversal=allowFlowReversal) <font color="darkgreen">
-    &quot;Medium column that connects to top port&quot;</font>;</textblock>
+    <span style="color: blue">final </span>allowFlowReversal=allowFlowReversal) <span style="color: #006400">
+    &quot;Medium column that connects to top port&quot;</span>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
->MediumColumn</A> colBot(
-    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium,
-    <font color="blue">final </font>densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop,
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
+>MediumColumn</a> colBot(
+    <span style="color: blue">redeclare </span><span style="color: blue">final </span><span style="color: blue">package</span> Medium = Medium,
+    <span style="color: blue">final </span>densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop,
     h=h/2,
-    <font color="blue">final </font>allowFlowReversal=allowFlowReversal) <font color="darkgreen">
-    &quot;Medium colum that connects to bottom port&quot;</font>;</textblock>
+    <span style="color: blue">final </span>allowFlowReversal=allowFlowReversal) <span style="color: #006400">
+    &quot;Medium colum that connects to bottom port&quot;</span>;
 
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
->Modelica.SIunits.Volume</A> V <font color="darkgreen">&quot;Volume in medium shaft&quot;</font>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> V <span style="color: #006400">&quot;Volume in medium shaft&quot;</span>;
 
-  <font color="darkgreen">// Heat transfer through boundary</font>
-  <font color="blue">parameter </font>Boolean use_HeatTransfer = false <font color="darkgreen">
-    &quot;= true to use the HeatTransfer model&quot;</font>;
-  <font color="blue">replaceable </font><font color="blue">model</font> HeatTransfer =
-      <A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses_HeatTransfer.html#Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer"
->Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer</A>
-    <font color="blue">constrainedby </font>
-    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer <font color="darkgreen">
-    &quot;Wall heat transfer&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
->Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A> heatPort <font color="blue">if </font>use_HeatTransfer <font color="darkgreen">
-    &quot;Heat port to exchange energy with the fluid volume&quot;</font>;</textblock>
+  <span style="color: #006400">// Heat transfer through boundary</span>
+  <span style="color: blue">parameter </span>Boolean use_HeatTransfer = false <span style="color: #006400">
+    &quot;= true to use the HeatTransfer model&quot;</span>;
+  <span style="color: blue">replaceable </span><span style="color: blue">model</span> HeatTransfer =
+      <a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Vessels_BaseClasses_HeatTransfer.html#Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer"
+>Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer</a>
+    <span style="color: blue">constrainedby </span>
+    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer <span style="color: #006400">
+    &quot;Wall heat transfer&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</a> heatPort <span style="color: blue">if </span>use_HeatTransfer <span style="color: #006400">
+    &quot;Heat port to exchange energy with the fluid volume&quot;</span>;
 
-<font color="blue">equation </font>
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(colBot.port_a, vol.ports[1]);
-  <font color="red">connect</font>(vol.ports[2], colTop.port_b);
-  <font color="red">connect</font>(colTop.port_a, port_a);</textblock>
+<span style="color: blue">equation </span>
+  <span style="color: red">connect</span>(colBot.port_a, vol.ports[1]);
+  <span style="color: red">connect</span>(vol.ports[2], colTop.port_b);
+  <span style="color: red">connect</span>(colTop.port_a, port_a);
 
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(colBot.port_b, port_b);
-  <font color="red">connect</font>(heatPort, vol.heatPort);</textblock>
+  <span style="color: red">connect</span>(colBot.port_b, port_b);
+  <span style="color: red">connect</span>(heatPort, vol.heatPort);
 
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>MediumColumnDynamic;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE Orifice<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Airflow.Multizone.OrificeI.png" ALT="Buildings.Airflow.Multizone.Orifice" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Airflow.Multizone.Orifice"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
->Buildings.Airflow.Multizone</A>.Orifice</H2>
-<B>Orifice</B><p></P>
-<IMG SRC="Buildings.Airflow.Multizone.OrificeD.png" ALT="Buildings.Airflow.Multizone.Orifice">
-<P></P><H3>Information</H3>
+<span style="color: blue">end </span>MediumColumnDynamic;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Orifice<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Airflow.Multizone.OrificeI.png" alt="Buildings.Airflow.Multizone.Orifice" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Airflow.Multizone.Orifice"></a><a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
+>Buildings.Airflow.Multizone</a>.Orifice</h2>
+<p>
+<b>Orifice</b>
+<br>
+<br><img src="Buildings.Airflow.Multizone.OrificeD.png" alt="Buildings.Airflow.Multizone.Orifice">
+</p>
+<h3>Information</h3>
 
 <p>
 This model describes the mass flow rate and pressure difference relation
@@ -892,69 +933,71 @@ National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
 </UL>
-<P></P>
-Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance"
->Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance</A> (Flow resistance that uses the power law).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->PartialMedium</A></TD><TD>Medium in the component</TD></TR>
-<TR><TD>Boolean</TD><TD>forceErrorControlOnFlow</TD><TD>true</TD><TD>Flag to force error control on m_flow. Set to true if interested in flow rate</TD></TR>
-<TR><TD>Real</TD><TD>m</TD><TD>0.5</TD><TD>Flow exponent, m=0.5 for turbulent, m=1 for laminar</TD></TR>
-<TR><TD>Boolean</TD><TD>useDefaultProperties</TD><TD>true</TD><TD>Set to false to use density and viscosity based on actual medium state, rather than using default values</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp_turbulent</TD><TD>0.1</TD><TD>Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1 [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
->Length</A></TD><TD>lWet</TD><TD>sqrt(A)</TD><TD>Wetted perimeter used for Reynolds number calculation [m]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Orifice characteristics</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
->Area</A></TD><TD>A</TD><TD>&nbsp;</TD><TD>Area of orifice [m2]</TD></TR>
-<TR><TD>Real</TD><TD>CD</TD><TD>0.65</TD><TD>Discharge coefficient</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
-<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> Orifice <font color="darkgreen">&quot;Orifice&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance"
->Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance</A>(
+
+<p>Extends from <a href="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance"
+>Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance</a> (Flow resistance that uses the power law).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>forceErrorControlOnFlow</td><td>true</td><td>Flag to force error control on m_flow. Set to true if interested in flow rate</td></tr>
+<tr><td>Real</td><td>m</td><td>0.5</td><td>Flow exponent, m=0.5 for turbulent, m=1 for laminar</td></tr>
+<tr><td>Boolean</td><td>useDefaultProperties</td><td>true</td><td>Set to false to use density and viscosity based on actual medium state, rather than using default values</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_turbulent</td><td>0.1</td><td>Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1 [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>lWet</td><td>sqrt(A)</td><td>Wetted perimeter used for Reynolds number calculation [m]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Orifice characteristics</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>&nbsp;</td><td>Area of orifice [m2]</td></tr>
+<tr><td>Real</td><td>CD</td><td>0.65</td><td>Discharge coefficient</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>system.allowFlowReversal</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> Orifice <span style="color: #006400">&quot;Orifice&quot;</span>
+  <span style="color: blue">extends </span><a href="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance"
+>Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance</a>(
     m=0.5,
-    k = CD * A *<font color="red"> sqrt</font>(2.0/rho_default));
+    k = CD * A *<span style="color: red"> sqrt</span>(2.0/rho_default));
 
-  <font color="blue">parameter </font>Real CD=0.65 <font color="darkgreen">&quot;|Orifice characteristics|Discharge coefficient&quot;</font>;
+  <span style="color: blue">parameter </span>Real CD=0.65 <span style="color: #006400">&quot;|Orifice characteristics|Discharge coefficient&quot;</span>;
 
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Orifice;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE ZonalFlow_ACS<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Airflow.Multizo8d72ccaa8cc04067w_ACSI.png" ALT="Buildings.Airflow.Multizone.ZonalFlow_ACS" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Airflow.Multizone.ZonalFlow_ACS"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
->Buildings.Airflow.Multizone</A>.ZonalFlow_ACS</H2>
-<B>Zonal flow with input air change per second</B><p></P>
-<IMG SRC="Buildings.Airflow.Multizo8d72ccaa8cc04067w_ACSD.png" ALT="Buildings.Airflow.Multizone.ZonalFlow_ACS">
-<P></P><H3>Information</H3>
+<span style="color: blue">end </span>Orifice;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ZonalFlow_ACS<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Airflow.Multizo8d72ccaa8cc04067w_ACSI.png" alt="Buildings.Airflow.Multizone.ZonalFlow_ACS" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Airflow.Multizone.ZonalFlow_ACS"></a><a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
+>Buildings.Airflow.Multizone</a>.ZonalFlow_ACS</h2>
+<p>
+<b>Zonal flow with input air change per second</b>
+<br>
+<br><img src="Buildings.Airflow.Multizo8d72ccaa8cc04067w_ACSD.png" alt="Buildings.Airflow.Multizone.ZonalFlow_ACS">
+</p>
+<h3>Information</h3>
 
 <p>
 This model computes the air exchange between volumes.
@@ -968,195 +1011,196 @@ Input is the air change per seconds. The volume flow rate is computed as
 <p>
 where <code>ACS</code> is an input and the volume <code>V</code> is a parameter.
 </p>
-<P></P>
-Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.ZonalFlow"
->Buildings.Airflow.Multizone.BaseClasses.ZonalFlow</A> (Flow across zonal boundaries of a room).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD>Boolean</TD><TD>forceErrorControlOnFlow</TD><TD>true</TD><TD>Flag to force error control on m_flow. Set to true if interested in flow rate</TD></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->PartialMedium</A></TD><TD>&nbsp;</TD></TR>
-<TR><TD>Boolean</TD><TD>useDefaultProperties</TD><TD>false</TD><TD>Set to true to use constant density</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
->Volume</A></TD><TD>V</TD><TD>&nbsp;</TD><TD>Volume of room [m3]</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m1_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a1 to port_b1 (m1_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp1.start</TD><TD>0</TD><TD>Pressure difference between port_a1 and port_b1 [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m2_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a2 to port_b2 (m2_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp2.start</TD><TD>0</TD><TD>Pressure difference between port_a2 and port_b2 [Pa]</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_a1_start</TD><TD>Medium1.h_default</TD><TD>Start value for enthalpy flowing out of port a1 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_b1_start</TD><TD>Medium1.h_default</TD><TD>Start value for enthalpy flowing out of port b1 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_a2_start</TD><TD>Medium2.h_default</TD><TD>Start value for enthalpy flowing out of port a2 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_b2_start</TD><TD>Medium2.h_default</TD><TD>Start value for enthalpy flowing out of port b2 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m1_flow_small</TD><TD>1E-4*abs(m1_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a1</TD><TD>Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b1</TD><TD>Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a2</TD><TD>Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>ACS</TD><TD>Air change per seconds, relative to the smaller of the two volumes</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> ZonalFlow_ACS <font color="darkgreen">&quot;Zonal flow with input air change per second&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.ZonalFlow"
->Buildings.Airflow.Multizone.BaseClasses.ZonalFlow</A>;
 
-  <font color="blue">parameter </font>Boolean useDefaultProperties = false <font color="darkgreen">
-    &quot;Set to true to use constant density&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
->Modelica.SIunits.Volume</A> V <font color="darkgreen">&quot;Volume of room&quot;</font>;
+<p>Extends from <a href="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.ZonalFlow"
+>Buildings.Airflow.Multizone.BaseClasses.ZonalFlow</a> (Flow across zonal boundaries of a room).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Boolean</td><td>forceErrorControlOnFlow</td><td>true</td><td>Flag to force error control on m_flow. Set to true if interested in flow rate</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>&nbsp;</td></tr>
+<tr><td>Boolean</td><td>useDefaultProperties</td><td>false</td><td>Set to true to use constant density</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>V</td><td>&nbsp;</td><td>Volume of room [m3]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m1_flow.start</td><td>0</td><td>Mass flow rate from port_a1 to port_b1 (m1_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp1.start</td><td>0</td><td>Pressure difference between port_a1 and port_b1 [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m2_flow.start</td><td>0</td><td>Mass flow rate from port_a2 to port_b2 (m2_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp2.start</td><td>0</td><td>Pressure difference between port_a2 and port_b2 [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_a1_start</td><td>Medium1.h_default</td><td>Start value for enthalpy flowing out of port a1 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_b1_start</td><td>Medium1.h_default</td><td>Start value for enthalpy flowing out of port b1 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_a2_start</td><td>Medium2.h_default</td><td>Start value for enthalpy flowing out of port a2 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_b2_start</td><td>Medium2.h_default</td><td>Start value for enthalpy flowing out of port b2 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m1_flow_small</td><td>1E-4*abs(m1_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m2_flow_small</td><td>1E-4*abs(m2_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a1</td><td>Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b1</td><td>Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a2</td><td>Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b2</td><td>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>ACS</td><td>Air change per seconds, relative to the smaller of the two volumes</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> ZonalFlow_ACS <span style="color: #006400">&quot;Zonal flow with input air change per second&quot;</span>
+  <span style="color: blue">extends </span><a href="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.ZonalFlow"
+>Buildings.Airflow.Multizone.BaseClasses.ZonalFlow</a>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> ACS <font color="darkgreen">
-    &quot;Air change per seconds, relative to the smaller of the two volumes&quot;</font>;</textblock>
-<font color="blue">protected </font>
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
->Modelica.SIunits.VolumeFlowRate</A> V_flow <font color="darkgreen">
-    &quot;Volume flow rate at standard pressure&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->Modelica.SIunits.MassFlowRate</A> m_flow <font color="darkgreen">&quot;Mass flow rate&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
->Medium.ThermodynamicState</A> sta_default =<font color="red"> Medium.setState_pTX</font>(T=Medium.T_default,
+  <span style="color: blue">parameter </span>Boolean useDefaultProperties = false <span style="color: #006400">
+    &quot;Set to true to use constant density&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> V <span style="color: #006400">&quot;Volume of room&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> ACS <span style="color: #006400">
+    &quot;Air change per seconds, relative to the smaller of the two volumes&quot;</span>;
+<span style="color: blue">protected </span>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow <span style="color: #006400">
+    &quot;Volume flow rate at standard pressure&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow <span style="color: #006400">&quot;Mass flow rate&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium.ThermodynamicState</a> sta_default =<span style="color: red"> Medium.setState_pTX</span>(T=Medium.T_default,
          p=Medium.p_default, X=Medium.X_default);
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Modelica.SIunits.Density</A> rho_default=<font color="red">Medium.density</font>(sta_default) <font color="darkgreen">
-    &quot;Density, used to compute fluid volume&quot;</font>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Modelica.SIunits.Density</a> rho_default=<span style="color: red">Medium.density</span>(sta_default) <span style="color: #006400">
+    &quot;Density, used to compute fluid volume&quot;</span>;
 
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
->Medium.ThermodynamicState</A> sta_a1_inflow=
-      <font color="red">Medium1.setState_phX</font>(port_a1.p, port_b1.h_outflow, port_b1.Xi_outflow) <font color="darkgreen">
-    &quot;Medium properties in port_a1&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
->Medium.ThermodynamicState</A> sta_a2_inflow=
-      <font color="red">Medium1.setState_phX</font>(port_a2.p, port_b2.h_outflow, port_b2.Xi_outflow) <font color="darkgreen">
-    &quot;Medium properties in port_a2&quot;</font>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium.ThermodynamicState</a> sta_a1_inflow=
+      <span style="color: red">Medium1.setState_phX</span>(port_a1.p, port_b1.h_outflow, port_b1.Xi_outflow) <span style="color: #006400">
+    &quot;Medium properties in port_a1&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium.ThermodynamicState</a> sta_a2_inflow=
+      <span style="color: red">Medium1.setState_phX</span>(port_a2.p, port_b2.h_outflow, port_b2.Xi_outflow) <span style="color: #006400">
+    &quot;Medium properties in port_a2&quot;</span>;
 
-<font color="blue">equation </font>
-  <font color="blue">when </font>useDefaultProperties<font color="blue"> and </font><font color="red">initial</font>()<font color="blue"> then</font>
-   <font color="red">assert</font>(<font color="red"> abs</font>(1-rho_default/((<font color="red">Medium.density</font>(sta_a1_inflow) +<font color="red"> Medium.density</font>(sta_a2_inflow))/2))  &lt; 0.2,
+<span style="color: blue">equation </span>
+  <span style="color: blue">when </span>useDefaultProperties<span style="color: blue"> and </span><span style="color: red">initial</span>()<span style="color: blue"> then</span>
+   <span style="color: red">assert</span>(<span style="color: red"> abs</span>(1-rho_default/((<span style="color: red">Medium.density</span>(sta_a1_inflow) +<span style="color: red"> Medium.density</span>(sta_a2_inflow))/2))  &lt; 0.2,
     &quot;Wrong density. Densities need to match.&quot;
-    + &quot;\n Medium.density(sta_a1) = &quot; +<font color="red"> String</font>(<font color="red">Medium.density</font>(sta_a1_inflow))
-    + &quot;\n Medium.density(sta_a2) = &quot; +<font color="red"> String</font>(<font color="red">Medium.density</font>(sta_a2_inflow))
-    + &quot;\n rho_nominal            = &quot; +<font color="red"> String</font>(rho_default));
-  <font color="blue">end when</font>;
+    + &quot;\n Medium.density(sta_a1) = &quot; +<span style="color: red"> String</span>(<span style="color: red">Medium.density</span>(sta_a1_inflow))
+    + &quot;\n Medium.density(sta_a2) = &quot; +<span style="color: red"> String</span>(<span style="color: red">Medium.density</span>(sta_a2_inflow))
+    + &quot;\n rho_nominal            = &quot; +<span style="color: red"> String</span>(rho_default));
+  <span style="color: blue">end when</span>;
   V_flow = V * ACS;
-  m_flow / V_flow = <font color="blue">if </font>useDefaultProperties<font color="blue"> then </font>rho_default<font color="blue"> else </font>(<font color="red">Medium.density</font>(sta_a1_inflow) +<font color="red"> Medium.density</font>(sta_a2_inflow))/2;
-  <font color="darkgreen">// assign variable in base class</font>
+  m_flow / V_flow = <span style="color: blue">if </span>useDefaultProperties<span style="color: blue"> then </span>rho_default<span style="color: blue"> else </span>(<span style="color: red">Medium.density</span>(sta_a1_inflow) +<span style="color: red"> Medium.density</span>(sta_a2_inflow))/2;
+  <span style="color: #006400">// assign variable in base class</span>
   port_a1.m_flow = m_flow;
   port_a2.m_flow = m_flow;
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ZonalFlow_ACS;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE ZonalFlow_m_flow<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Airflow.Multizo838a391f29e8fbf7_flowI.png" ALT="Buildings.Airflow.Multizone.ZonalFlow_m_flow" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Airflow.Multizone.ZonalFlow_m_flow"></A><A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
->Buildings.Airflow.Multizone</A>.ZonalFlow_m_flow</H2>
-<B>Zonal flow with input air change per second</B><p></P>
-<IMG SRC="Buildings.Airflow.Multizo838a391f29e8fbf7_flowD.png" ALT="Buildings.Airflow.Multizone.ZonalFlow_m_flow">
-<P></P><H3>Information</H3>
+<span style="color: blue">end </span>ZonalFlow_ACS;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ZonalFlow_m_flow<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Airflow.Multizo838a391f29e8fbf7_flowI.png" alt="Buildings.Airflow.Multizone.ZonalFlow_m_flow" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Airflow.Multizone.ZonalFlow_m_flow"></a><a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
+>Buildings.Airflow.Multizone</a>.ZonalFlow_m_flow</h2>
+<p>
+<b>Zonal flow with input air change per second</b>
+<br>
+<br><img src="Buildings.Airflow.Multizo838a391f29e8fbf7_flowD.png" alt="Buildings.Airflow.Multizone.ZonalFlow_m_flow">
+</p>
+<h3>Information</h3>
 
 <p>
 This model computes the air exchange between volumes.
 </p>
 <p>
 Input is the mass flow rate from <i>A</i> to <i>B</i> and from <i>B</i> to <i>A</i>.
-<P></P>
-Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.ZonalFlow"
->Buildings.Airflow.Multizone.BaseClasses.ZonalFlow</A> (Flow across zonal boundaries of a room).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD>Boolean</TD><TD>forceErrorControlOnFlow</TD><TD>true</TD><TD>Flag to force error control on m_flow. Set to true if interested in flow rate</TD></TR>
-<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
->PartialMedium</A></TD><TD>&nbsp;</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m1_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a1 to port_b1 (m1_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp1.start</TD><TD>0</TD><TD>Pressure difference between port_a1 and port_b1 [Pa]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m2_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a2 to port_b2 (m2_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp2.start</TD><TD>0</TD><TD>Pressure difference between port_a2 and port_b2 [Pa]</TD></TR>
-<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_a1_start</TD><TD>Medium1.h_default</TD><TD>Start value for enthalpy flowing out of port a1 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_b1_start</TD><TD>Medium1.h_default</TD><TD>Start value for enthalpy flowing out of port b1 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_a2_start</TD><TD>Medium2.h_default</TD><TD>Start value for enthalpy flowing out of port a2 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
->SpecificEnthalpy</A></TD><TD>h_outflow_b2_start</TD><TD>Medium2.h_default</TD><TD>Start value for enthalpy flowing out of port b2 [J/kg]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m1_flow_small</TD><TD>1E-4*abs(m1_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
->MassFlowRate</A></TD><TD>m2_flow_small</TD><TD>1E-4*abs(m2_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
-<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
-<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a1</TD><TD>Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b1</TD><TD>Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
->FluidPort_a</A></TD><TD>port_a2</TD><TD>Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
->FluidPort_b</A></TD><TD>port_b2</TD><TD>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>mAB_flow</TD><TD>Mass flow rate from A to B</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>mBA_flow</TD><TD>Mass flow rate from B to A</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> ZonalFlow_m_flow <font color="darkgreen">&quot;Zonal flow with input air change per second&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.ZonalFlow"
->Buildings.Airflow.Multizone.BaseClasses.ZonalFlow</A>;
-<textblock type="annotcomp" expanded="false">   <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> mAB_flow <font color="darkgreen">&quot;Mass flow rate from A to B&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> mBA_flow <font color="darkgreen">&quot;Mass flow rate from B to A&quot;</font>;</textblock>
 
-<font color="blue">equation </font>
+<p>Extends from <a href="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.ZonalFlow"
+>Buildings.Airflow.Multizone.BaseClasses.ZonalFlow</a> (Flow across zonal boundaries of a room).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Boolean</td><td>forceErrorControlOnFlow</td><td>true</td><td>Flag to force error control on m_flow. Set to true if interested in flow rate</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>&nbsp;</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m1_flow.start</td><td>0</td><td>Mass flow rate from port_a1 to port_b1 (m1_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp1.start</td><td>0</td><td>Pressure difference between port_a1 and port_b1 [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m2_flow.start</td><td>0</td><td>Mass flow rate from port_a2 to port_b2 (m2_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp2.start</td><td>0</td><td>Pressure difference between port_a2 and port_b2 [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_a1_start</td><td>Medium1.h_default</td><td>Start value for enthalpy flowing out of port a1 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_b1_start</td><td>Medium1.h_default</td><td>Start value for enthalpy flowing out of port b1 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_a2_start</td><td>Medium2.h_default</td><td>Start value for enthalpy flowing out of port a2 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_outflow_b2_start</td><td>Medium2.h_default</td><td>Start value for enthalpy flowing out of port b2 [J/kg]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m1_flow_small</td><td>1E-4*abs(m1_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m2_flow_small</td><td>1E-4*abs(m2_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a1</td><td>Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b1</td><td>Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a2</td><td>Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b2</td><td>Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>mAB_flow</td><td>Mass flow rate from A to B</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>mBA_flow</td><td>Mass flow rate from B to A</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> ZonalFlow_m_flow <span style="color: #006400">&quot;Zonal flow with input air change per second&quot;</span>
+  <span style="color: blue">extends </span><a href="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.ZonalFlow"
+>Buildings.Airflow.Multizone.BaseClasses.ZonalFlow</a>;
+   <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> mAB_flow <span style="color: #006400">&quot;Mass flow rate from A to B&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> mBA_flow <span style="color: #006400">&quot;Mass flow rate from B to A&quot;</span>;
+
+<span style="color: blue">equation </span>
   port_a1.m_flow = mAB_flow;
   port_a2.m_flow = mBA_flow;
 
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ZonalFlow_m_flow;
-</PRE>
-<HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:14:44 2014.
-</address></BODY>
-</HTML>
+<span style="color: blue">end </span>ZonalFlow_m_flow;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 10:54:18 2014.
+</address>
+</body>
+</html>

@@ -1,88 +1,107 @@
-<HTML>
-<HEAD>
-<TITLE>Buildings.Controls.Continuous</TITLE>
-<META name="HTML-Generator" content="Dymola">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Controls.Continuous</title>
+<meta name="HTML-Generator" content="Dymola">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<META name="description" content="&quot;Package with models for discrete time controls&quot;">
+<meta name="description" content="&quot;Package with models for discrete time controls&quot;">
 <style type="text/css">
-*       { font-size: 10pt; font-family: Arial,sans-serif; }
-pre     { font-size:  9pt; font-family: Courier,monospace;}
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
 h4      { font-size: 10pt; font-weight: bold; color: green; }
 h3      { font-size: 11pt; font-weight: bold; color: green; }
 h2      { font-size: 13pt; font-weight: bold; color: green; }
-address {                  font-weight: normal} 
-td      { solid #000; vertical-align:top; }
-th      { solid #000; vertical-align:top; font-weight: bold; }
-table   { solid #000; border-collapse: collapse;}
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
 </style>
-<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
-</HEAD>
+</head>
 <body>
-<!-- --- header ------ -->
-<div class="headerStyle">
-<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
-</div>
-<div class="headerLinks">
-<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
-</div>
-<!-- --- end header -- -->
-</P>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE Continuous<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.Controls.Continuous"></A><A HREF="Buildings_Controls.html#Buildings.Controls"
->Buildings.Controls</A>.Continuous</H2>
-<B>Package with models for discrete time controls</B>
-<P></P>
-<P></P><H3>Information</H3>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Continuous<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Controls.Continuous"></a><a href="Buildings_Controls.html#Buildings.Controls"
+>Buildings.Controls</a>.Continuous</h2>
+<p>
+<b>Package with models for discrete time controls</b><br>
+</p>
+<h3>Information</h3>
 
 This package contains components models for continuous time controls.
 For additional models, see also 
-<A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous"
 >
 Modelica.Blocks.Discrete</a>.
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
->Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
-<P></P><H3>Package Content</H3>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
-<TR><TH >Name</TH><TH>Description</TH></TR>
-<TR><TD><IMG SRC="Buildings.Controls.Continuous.LimPIDS.png" ALT="Buildings.Controls.Continuous.LimPID" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
->LimPID</A>
-</TD><TD>P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting</TD></TR>
-<TR><TD><IMG SRC="Buildings.Controls.Contin3349fb98317e01fdresisS.png" ALT="Buildings.Controls.Continuous.PIDHysteresis" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.PIDHysteresis"
->PIDHysteresis</A>
-</TD><TD>PID controller with anti-windup, output limiter and output hysteresis</TD></TR>
-<TR><TD><IMG SRC="Buildings.Controls.Contin49fff365ff0cc4d1TimerS.png" ALT="Buildings.Controls.Continuous.PIDHysteresisTimer" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.PIDHysteresisTimer"
->PIDHysteresisTimer</A>
-</TD><TD>PID controller with anti-windup, hysteresis and timer to prevent short cycling</TD></TR>
-<TR><TD><IMG SRC="Buildings.Controls.Contin6c72835ffcc58c10ankerS.png" ALT="Buildings.Controls.Continuous.SignalRanker" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.SignalRanker"
->SignalRanker</A>
-</TD><TD>Ranks output signals such that y[i] &gt;= y[i+1]</TD></TR>
-<TR><TD><IMG SRC="Buildings.Controls.Contina7ef7cb6ab37c65cuestsS.png" ALT="Buildings.Controls.Continuous.NumberOfRequests" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.NumberOfRequests"
->NumberOfRequests</A>
-</TD><TD>Outputs the number of signals that are above/below a certain threshold</TD></TR>
-<TR><TD><IMG SRC="Buildings.Controls.Continuous.OffTimerS.png" ALT="Buildings.Controls.Continuous.OffTimer" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.OffTimer"
->OffTimer</A>
-</TD><TD>Records the time since the input changed to false</TD></TR>
-<TR><TD><IMG SRC="Buildings.Controls.Continuous.ExamplesS.png" ALT="Buildings.Controls.Continuous.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples"
->Examples</A>
-</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
-</TABLE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE LimPID<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Controls.Continuous.LimPIDI.png" ALT="Buildings.Controls.Continuous.LimPID" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Controls.Continuous.LimPID"></A><A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
->Buildings.Controls.Continuous</A>.LimPID</H2>
-<B>P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting</B><p></P>
-<IMG SRC="Buildings.Controls.Continuous.LimPIDD.png" ALT="Buildings.Controls.Continuous.LimPID">
-<P></P><H3>Information</H3>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Continuous.LimPIDS.png" alt="Buildings.Controls.Continuous.LimPID" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>LimPID</a>
+</td>
+<td>P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Contina7ef7cb6ab37c65cuestsS.png" alt="Buildings.Controls.Continuous.NumberOfRequests" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.NumberOfRequests"
+>NumberOfRequests</a>
+</td>
+<td>Outputs the number of signals that are above/below a certain threshold</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Continuous.OffTimerS.png" alt="Buildings.Controls.Continuous.OffTimer" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.OffTimer"
+>OffTimer</a>
+</td>
+<td>Records the time since the input changed to false</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Contin3349fb98317e01fdresisS.png" alt="Buildings.Controls.Continuous.PIDHysteresis" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.PIDHysteresis"
+>PIDHysteresis</a>
+</td>
+<td>PID controller with anti-windup, output limiter and output hysteresis</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Contin49fff365ff0cc4d1TimerS.png" alt="Buildings.Controls.Continuous.PIDHysteresisTimer" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.PIDHysteresisTimer"
+>PIDHysteresisTimer</a>
+</td>
+<td>PID controller with anti-windup, hysteresis and timer to prevent short cycling</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Contin6c72835ffcc58c10ankerS.png" alt="Buildings.Controls.Continuous.SignalRanker" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.SignalRanker"
+>SignalRanker</a>
+</td>
+<td>Ranks output signals such that y[i] &gt;= y[i+1]</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Continuous.ExamplesS.png" alt="Buildings.Controls.Continuous.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE LimPID<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Controls.Continuous.LimPIDI.png" alt="Buildings.Controls.Continuous.LimPID" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Controls.Continuous.LimPID"></a><a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
+>Buildings.Controls.Continuous</a>.LimPID</h2>
+<p>
+<b>P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting</b>
+<br>
+<br><img src="Buildings.Controls.Continuous.LimPIDD.png" alt="Buildings.Controls.Continuous.LimPID">
+</p>
+<h3>Information</h3>
 
 <p>
 This model is identical to 
-<A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
 >
 Modelica.Blocks.Continuous.LimPID</a> except
 that it can be configured to have a reverse action.
@@ -101,483 +120,76 @@ for a heating coil with a two-way valve, set <code>reverseAction = false</code>,
 for a cooling coils with a two-way valve, set <code>reverseAction = true</code>.
 </li>
 </ul>
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
->Modelica.Blocks.Continuous.LimPID</A> (P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
->SimpleController</A></TD><TD>controllerType</TD><TD>Modelica.Blocks.Types.Simple...</TD><TD>Type of controller</TD></TR>
-<TR><TD>Real</TD><TD>k</TD><TD>1</TD><TD>Gain of controller [1]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>Ti</TD><TD>&nbsp;</TD><TD>Time constant of Integrator block [s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>Td</TD><TD>&nbsp;</TD><TD>Time constant of Derivative block [s]</TD></TR>
-<TR><TD>Real</TD><TD>yMax</TD><TD>1</TD><TD>Upper limit of output</TD></TR>
-<TR><TD>Real</TD><TD>yMin</TD><TD>0</TD><TD>Lower limit of output</TD></TR>
-<TR><TD>Real</TD><TD>wp</TD><TD>1</TD><TD>Set-point weight for Proportional block (0..1)</TD></TR>
-<TR><TD>Real</TD><TD>wd</TD><TD>0</TD><TD>Set-point weight for Derivative block (0..1)</TD></TR>
-<TR><TD>Real</TD><TD>Ni</TD><TD>0.9</TD><TD>Ni*Ti is time constant of anti-windup compensation</TD></TR>
-<TR><TD>Real</TD><TD>Nd</TD><TD>10</TD><TD>The higher Nd, the more ideal the derivative block</TD></TR>
-<TR><TD>Boolean</TD><TD>reverseAction</TD><TD>false</TD><TD>Set to true for throttling the water flow rate through a cooling coil controller</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
->InitPID</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.InitPI...</TD><TD>Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)</TD></TR>
-<TR><TD>Boolean</TD><TD>limitsAtInit</TD><TD>true</TD><TD>= false, if limits are ignored during initializiation</TD></TR>
-<TR><TD>Real</TD><TD>xi_start</TD><TD>0</TD><TD>Initial or guess value value for integrator output (= integrator state)</TD></TR>
-<TR><TD>Real</TD><TD>xd_start</TD><TD>0</TD><TD>Initial or guess value for state of derivative block</TD></TR>
-<TR><TD>Real</TD><TD>y_start</TD><TD>0</TD><TD>Initial value of output</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>u_s</TD><TD>Connector of setpoint input signal</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>u_m</TD><TD>Connector of measurement input signal</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>y</TD><TD>Connector of actuator output signal</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">block</font> LimPID <font color="darkgreen">
-  &quot;P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting&quot;</font>
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
->Modelica.Blocks.Continuous.LimPID</A>(
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
+>Modelica.Blocks.Continuous.LimPID</a> (P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
+>SimpleController</a></td><td>controllerType</td><td>.Modelica.Blocks.Types.Simpl...</td><td>Type of controller</td></tr>
+<tr><td>Real</td><td>k</td><td>1</td><td>Gain of controller [1]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>Ti</td><td>0.5</td><td>Time constant of Integrator block [s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>Td</td><td>0.1</td><td>Time constant of Derivative block [s]</td></tr>
+<tr><td>Real</td><td>yMax</td><td>1</td><td>Upper limit of output</td></tr>
+<tr><td>Real</td><td>yMin</td><td>0</td><td>Lower limit of output</td></tr>
+<tr><td>Real</td><td>wp</td><td>1</td><td>Set-point weight for Proportional block (0..1)</td></tr>
+<tr><td>Real</td><td>wd</td><td>0</td><td>Set-point weight for Derivative block (0..1)</td></tr>
+<tr><td>Real</td><td>Ni</td><td>0.9</td><td>Ni*Ti is time constant of anti-windup compensation</td></tr>
+<tr><td>Real</td><td>Nd</td><td>10</td><td>The higher Nd, the more ideal the derivative block</td></tr>
+<tr><td>Boolean</td><td>reverseAction</td><td>false</td><td>Set to true for throttling the water flow rate through a cooling coil controller</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
+>InitPID</a></td><td>initType</td><td>.Modelica.Blocks.Types.InitP...</td><td>Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)</td></tr>
+<tr><td>Boolean</td><td>limitsAtInit</td><td>true</td><td>= false, if limits are ignored during initialization</td></tr>
+<tr><td>Real</td><td>xi_start</td><td>0</td><td>Initial or guess value value for integrator output (= integrator state)</td></tr>
+<tr><td>Real</td><td>xd_start</td><td>0</td><td>Initial or guess value for state of derivative block</td></tr>
+<tr><td>Real</td><td>y_start</td><td>0</td><td>Initial value of output</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>strict</td><td>false</td><td>= true, if strict limits with noEvent(..)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u_s</td><td>Connector of setpoint input signal</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u_m</td><td>Connector of measurement input signal</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of actuator output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">block</span> LimPID <span style="color: #006400">
+  &quot;P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
+>Modelica.Blocks.Continuous.LimPID</a>(
     addP(k1=revAct*wp, k2=-revAct),
     addD(k1=revAct*wd, k2=-revAct),
     addI(k1=revAct, k2=-revAct),
     yMin=0,
     yMax=1);
 
-  <font color="blue">parameter </font>Boolean reverseAction = false <font color="darkgreen">
-    &quot;Set to true for throttling the water flow rate through a cooling coil controller&quot;</font>;
-<font color="blue">protected </font>
-  <font color="blue">parameter </font>Real revAct = <font color="blue">if </font>reverseAction<font color="blue"> then </font>-1<font color="blue"> else </font>1;
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>LimPID;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE PIDHysteresis<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Controls.Contin3349fb98317e01fdresisI.png" ALT="Buildings.Controls.Continuous.PIDHysteresis" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Controls.Continuous.PIDHysteresis"></A><A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
->Buildings.Controls.Continuous</A>.PIDHysteresis</H2>
-<B>PID controller with anti-windup, output limiter and output hysteresis</B><p></P>
-<IMG SRC="Buildings.Controls.Contin3349fb98317e01fdresisD.png" ALT="Buildings.Controls.Continuous.PIDHysteresis">
-<P></P><H3>Information</H3>
-
+  <span style="color: blue">parameter </span>Boolean reverseAction = false <span style="color: #006400">
+    &quot;Set to true for throttling the water flow rate through a cooling coil controller&quot;</span>;
+<span style="color: blue">protected </span>
+  <span style="color: blue">parameter </span>Real revAct = <span style="color: blue">if </span>reverseAction<span style="color: blue"> then </span>-1<span style="color: blue"> else </span>1;
+<span style="color: blue">end </span>LimPID;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE NumberOfRequests<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Controls.Contina7ef7cb6ab37c65cuestsI.png" alt="Buildings.Controls.Continuous.NumberOfRequests" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Controls.Continuous.NumberOfRequests"></a><a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
+>Buildings.Controls.Continuous</a>.NumberOfRequests</h2>
 <p>
-Block of a controller for set point tracking with a hysteresis element that switches the
-controller on and off.
+<b>Outputs the number of signals that are above/below a certain threshold</b>
+<br>
+<br><img src="Buildings.Controls.Contina7ef7cb6ab37c65cuestsD.png" alt="Buildings.Controls.Continuous.NumberOfRequests">
 </p>
-<p>
-If the controller is off, and the control error becomes larger than <code>eOn</code>, then
-the controller switches to on and remains on until the control error is smaller than <code>eOff</code>.
-When the controller is on, the set point tracking can be done using a P-, PI-, or PID-controller.
-In its off-mode, the control output is zero. Thus, the parameters <code>yMin</code> and <code>yMax</code> are
-used to constrain the output of the controller during its on mode only. This can be used, for 
-example, to modulate a device between 0.3 and 1.0, and switch it to off when the control error
-is small enough.
-</p>
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
->Modelica.Blocks.Interfaces.SVcontrol</A> (Single-Variable continuous controller).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Hysteresis</TD></TR>
-<TR><TD>Real</TD><TD>eOn</TD><TD>1</TD><TD>if off and control error &gt; eOn, switch to set point tracking</TD></TR>
-<TR><TD>Real</TD><TD>eOff</TD><TD>-eOn</TD><TD>if on and control error &lt; eOff, set y=0</TD></TR>
-<TR><TD>Boolean</TD><TD>pre_y_start</TD><TD>false</TD><TD>Value of hysteresis output at initial time</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Set point tracking</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
->SimpleController</A></TD><TD>controllerType</TD><TD>Modelica.Blocks.Types.Simple...</TD><TD>Type of controller</TD></TR>
-<TR><TD>Real</TD><TD>k</TD><TD>1</TD><TD>Gain of controller</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>Ti</TD><TD>&nbsp;</TD><TD>Time constant of Integrator block [s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>Td</TD><TD>&nbsp;</TD><TD>Time constant of Derivative block [s]</TD></TR>
-<TR><TD>Real</TD><TD>yMax</TD><TD>1</TD><TD>Upper limit of output</TD></TR>
-<TR><TD>Real</TD><TD>yMin</TD><TD>0</TD><TD>Lower limit of output</TD></TR>
-<TR><TD>Real</TD><TD>wp</TD><TD>1</TD><TD>Set-point weight for Proportional block (0..1)</TD></TR>
-<TR><TD>Real</TD><TD>wd</TD><TD>0</TD><TD>Set-point weight for Derivative block (0..1)</TD></TR>
-<TR><TD>Real</TD><TD>Ni</TD><TD>0.9</TD><TD>Ni*Ti is time constant of anti-windup compensation</TD></TR>
-<TR><TD>Real</TD><TD>Nd</TD><TD>10</TD><TD>The higher Nd, the more ideal the derivative block</TD></TR>
-<TR><TD>Boolean</TD><TD>reverseAction</TD><TD>false</TD><TD>Set to true to enable reverse action (such as for a cooling coil controller)</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
->InitPID</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.InitPI...</TD><TD>Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)</TD></TR>
-<TR><TD>Boolean</TD><TD>limitsAtInit</TD><TD>true</TD><TD>= false, if limits are ignored during initializiation</TD></TR>
-<TR><TD>Real</TD><TD>xi_start</TD><TD>0</TD><TD>Initial or guess value value for integrator output (= integrator state)</TD></TR>
-<TR><TD>Real</TD><TD>xd_start</TD><TD>0</TD><TD>Initial or guess value for state of derivative block</TD></TR>
-<TR><TD>Real</TD><TD>y_start</TD><TD>0</TD><TD>Initial value of output</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>u_s</TD><TD>Connector of setpoint input signal</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>u_m</TD><TD>Connector of measurement input signal</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>y</TD><TD>Connector of actuator output signal</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> PIDHysteresis <font color="darkgreen">
-  &quot;PID controller with anti-windup, output limiter and output hysteresis&quot;</font>
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
->Modelica.Blocks.Interfaces.SVcontrol</A>;
-
-  <font color="blue">parameter </font>Real eOn = 1 <font color="darkgreen">
-    &quot;if off and control error &gt; eOn, switch to set point tracking&quot;</font>;
-  <font color="blue">parameter </font>Real eOff = -eOn <font color="darkgreen">&quot;if on and control error &lt; eOff, set y=0&quot;</font>;
-  <font color="blue">parameter </font>Boolean pre_y_start=false <font color="darkgreen">
-    &quot;Value of hysteresis output at initial time&quot;</font>;
-
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
->Modelica.Blocks.Types.SimpleController</A> controllerType=Modelica.Blocks.Types.SimpleController.PID <font color="darkgreen">
-    &quot;Type of controller&quot;</font>;
-  <font color="blue">parameter </font>Real k=1 <font color="darkgreen">&quot;Gain of controller&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Modelica.SIunits.Time</A> Ti <font color="darkgreen">&quot;Time constant of Integrator block&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Modelica.SIunits.Time</A> Td <font color="darkgreen">&quot;Time constant of Derivative block&quot;</font>;
-  <font color="blue">parameter </font>Real yMax=1 <font color="darkgreen">&quot;Upper limit of output&quot;</font>;
-  <font color="blue">parameter </font>Real yMin=0 <font color="darkgreen">&quot;Lower limit of output&quot;</font>;
-  <font color="blue">parameter </font>Real wp=1 <font color="darkgreen">&quot;Set-point weight for Proportional block (0..1)&quot;</font>;
-  <font color="blue">parameter </font>Real wd=0 <font color="darkgreen">&quot;Set-point weight for Derivative block (0..1)&quot;</font>;
-  <font color="blue">parameter </font>Real Ni=0.9 <font color="darkgreen">&quot;Ni*Ti is time constant of anti-windup compensation&quot;</font>;
-  <font color="blue">parameter </font>Real Nd=10 <font color="darkgreen">&quot;The higher Nd, the more ideal the derivative block&quot;</font>;
-  <font color="blue">parameter </font>Boolean reverseAction = false <font color="darkgreen">
-    &quot;Set to true to enable reverse action (such as for a cooling coil controller)&quot;</font>;
-
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
->Modelica.Blocks.Types.InitPID</A> initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState <font color="darkgreen">
-    &quot;Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)&quot;</font>;
-  <font color="blue">parameter </font>Boolean limitsAtInit=true <font color="darkgreen">
-    &quot;= false, if limits are ignored during initializiation&quot;</font>;
-  <font color="blue">parameter </font>Real xi_start=0 <font color="darkgreen">
-    &quot;Initial or guess value value for integrator output (= integrator state)&quot;</font>;
-  <font color="blue">parameter </font>Real xd_start=0 <font color="darkgreen">
-    &quot;Initial or guess value for state of derivative block&quot;</font>;
-  <font color="blue">parameter </font>Real y_start=0 <font color="darkgreen">&quot;Initial value of output&quot;</font>;
-
-<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
->LimPID</A> PID(
-    controllerType=controllerType,
-    k=k,
-    Ti=Ti,
-    yMax=yMax,
-    yMin=yMin,
-    wp=wp,
-    wd=wd,
-    Ni=Ni,
-    Nd=Nd,
-    initType=initType,
-    limitsAtInit=limitsAtInit,
-    xi_start=xi_start,
-    xd_start=xd_start,
-    y_start=y_start,
-    Td=Td,
-    reverseAction=reverseAction) <font color="darkgreen">&quot;Controller for room temperature&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Hysteresis"
->Modelica.Blocks.Logical.Hysteresis</A> hys(
-    pre_y_start=pre_y_start,
-    uLow=eOff,
-    uHigh=eOn) <font color="darkgreen">&quot;Hysteresis element to switch controller on and off&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
->Modelica.Blocks.Logical.Switch</A> swi;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A> zer(k=0) <font color="darkgreen">&quot;Zero signal&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
->Modelica.Blocks.Math.Feedback</A> feeBac;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
->Modelica.Blocks.Logical.Switch</A> swi1;</textblock>
-
-<font color="blue">equation </font>
-  <font color="red">assert</font>(eOff &lt; eOn, &quot;Wrong controller parameters. Require eOff &lt; eOn.&quot;);
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(zer.y, swi.u3);
-  <font color="red">connect</font>(swi.y, y);
-  <font color="red">connect</font>(u_m, PID.u_m);
-  <font color="red">connect</font>(hys.y, swi.u2);
-  <font color="red">connect</font>(PID.y, swi.u1);
-  <font color="red">connect</font>(u_s, feeBac.u1);
-  <font color="red">connect</font>(u_m, feeBac.u2);
-  <font color="red">connect</font>(feeBac.y, hys.u);
-  <font color="red">connect</font>(u_s, swi1.u1);
-  <font color="red">connect</font>(hys.y, swi1.u2);
-  <font color="red">connect</font>(u_m, swi1.u3);
-  <font color="red">connect</font>(swi1.y, PID.u_s);</textblock>
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>PIDHysteresis;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE PIDHysteresisTimer<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Controls.Contin49fff365ff0cc4d1TimerI.png" ALT="Buildings.Controls.Continuous.PIDHysteresisTimer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Controls.Continuous.PIDHysteresisTimer"></A><A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
->Buildings.Controls.Continuous</A>.PIDHysteresisTimer</H2>
-<B>PID controller with anti-windup, hysteresis and timer to prevent short cycling</B><p></P>
-<IMG SRC="Buildings.Controls.Contin49fff365ff0cc4d1TimerD.png" ALT="Buildings.Controls.Continuous.PIDHysteresisTimer">
-<P></P><H3>Information</H3>
-
-<p>
-Block of a controller for set point tracking with a hysteresis element that switches the controller on and off, and a timer that prevents the
-controller to short cycle.
-</p>
-<p>
-The controller is similar to 
-<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.PIDHysteresis"
->
-Buildings.Controls.Continuous.PIDHysteresis</a> but in addition, 
-it has a timer that prevents the controller from switching to on
-too fast. When the controller switches off, the timer starts and
-avoids the controller from switching on until <code>minOffTime</code> seconds elapsed.
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
->Modelica.Blocks.Interfaces.SVcontrol</A> (Single-Variable continuous controller).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>On/off controller</TD></TR>
-<TR><TD>Real</TD><TD>minOffTime</TD><TD>600</TD><TD>Minimum time that devices needs to be off before it can run again</TD></TR>
-<TR><TD>Real</TD><TD>eOn</TD><TD>1</TD><TD>if off and control error &gt; eOn, switch to set point tracking</TD></TR>
-<TR><TD>Real</TD><TD>eOff</TD><TD>-eOn</TD><TD>if on and control error &lt; eOff, set y=0</TD></TR>
-<TR><TD>Boolean</TD><TD>pre_y_start</TD><TD>false</TD><TD>Value of hysteresis output at initial time</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Set point tracking</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
->SimpleController</A></TD><TD>controllerType</TD><TD>Modelica.Blocks.Types.Simple...</TD><TD>Type of controller</TD></TR>
-<TR><TD>Real</TD><TD>k</TD><TD>1</TD><TD>Gain of controller</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>Ti</TD><TD>&nbsp;</TD><TD>Time constant of Integrator block [s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Time</A></TD><TD>Td</TD><TD>&nbsp;</TD><TD>Time constant of Derivative block [s]</TD></TR>
-<TR><TD>Real</TD><TD>yMax</TD><TD>1</TD><TD>Upper limit of modulating output</TD></TR>
-<TR><TD>Real</TD><TD>yMin</TD><TD>0.3</TD><TD>Lower limit of modulating output (before switch to 0)</TD></TR>
-<TR><TD>Real</TD><TD>wp</TD><TD>1</TD><TD>Set-point weight for Proportional block (0..1)</TD></TR>
-<TR><TD>Real</TD><TD>wd</TD><TD>0</TD><TD>Set-point weight for Derivative block (0..1)</TD></TR>
-<TR><TD>Real</TD><TD>Ni</TD><TD>0.9</TD><TD>Ni*Ti is time constant of anti-windup compensation</TD></TR>
-<TR><TD>Real</TD><TD>Nd</TD><TD>10</TD><TD>The higher Nd, the more ideal the derivative block</TD></TR>
-<TR><TD>Boolean</TD><TD>reverseAction</TD><TD>false</TD><TD>Set to true to enable reverse action (such as for a cooling coil controller)</TD></TR>
-<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
->InitPID</A></TD><TD>initType</TD><TD>Modelica.Blocks.Types.InitPI...</TD><TD>Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)</TD></TR>
-<TR><TD>Boolean</TD><TD>limitsAtInit</TD><TD>true</TD><TD>= false, if limits are ignored during initializiation</TD></TR>
-<TR><TD>Real</TD><TD>xi_start</TD><TD>0</TD><TD>Initial or guess value value for integrator output (= integrator state)</TD></TR>
-<TR><TD>Real</TD><TD>xd_start</TD><TD>0</TD><TD>Initial or guess value for state of derivative block</TD></TR>
-<TR><TD>Real</TD><TD>y_start</TD><TD>0</TD><TD>Initial value of output</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>u_s</TD><TD>Connector of setpoint input signal</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>u_m</TD><TD>Connector of measurement input signal</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>y</TD><TD>Connector of actuator output signal</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>tOn</TD><TD>Time since boiler switched on</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>tOff</TD><TD>Time since boiler switched off</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
->BooleanOutput</A></TD><TD>on</TD><TD>Outputs true if boiler is on</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> PIDHysteresisTimer <font color="darkgreen">
-  &quot;PID controller with anti-windup, hysteresis and timer to prevent short cycling&quot;</font>
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
->Modelica.Blocks.Interfaces.SVcontrol</A>;
-
-  <font color="blue">parameter </font>Real minOffTime=600 <font color="darkgreen">
-    &quot;Minimum time that devices needs to be off before it can run again&quot;</font>;
-  <font color="blue">parameter </font>Real eOn = 1 <font color="darkgreen">
-    &quot;if off and control error &gt; eOn, switch to set point tracking&quot;</font>;
-  <font color="blue">parameter </font>Real eOff = -eOn <font color="darkgreen">&quot;if on and control error &lt; eOff, set y=0&quot;</font>;
-  <font color="blue">parameter </font>Boolean pre_y_start=false <font color="darkgreen">
-    &quot;Value of hysteresis output at initial time&quot;</font>;
-
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
->Modelica.Blocks.Types.SimpleController</A> controllerType=Modelica.Blocks.Types.SimpleController.PID <font color="darkgreen">
-    &quot;Type of controller&quot;</font>;
-  <font color="blue">parameter </font>Real k=1 <font color="darkgreen">&quot;Gain of controller&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Modelica.SIunits.Time</A> Ti <font color="darkgreen">&quot;Time constant of Integrator block&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Modelica.SIunits.Time</A> Td <font color="darkgreen">&quot;Time constant of Derivative block&quot;</font>;
-  <font color="blue">parameter </font>Real yMax=1 <font color="darkgreen">&quot;Upper limit of modulating output&quot;</font>;
-  <font color="blue">parameter </font>Real yMin=0.3 <font color="darkgreen">
-    &quot;Lower limit of modulating output (before switch to 0)&quot;</font>;
-  <font color="blue">parameter </font>Real wp=1 <font color="darkgreen">&quot;Set-point weight for Proportional block (0..1)&quot;</font>;
-  <font color="blue">parameter </font>Real wd=0 <font color="darkgreen">&quot;Set-point weight for Derivative block (0..1)&quot;</font>;
-  <font color="blue">parameter </font>Real Ni=0.9 <font color="darkgreen">&quot;Ni*Ti is time constant of anti-windup compensation&quot;</font>;
-  <font color="blue">parameter </font>Real Nd=10 <font color="darkgreen">&quot;The higher Nd, the more ideal the derivative block&quot;</font>;
-  <font color="blue">parameter </font>Boolean reverseAction = false <font color="darkgreen">
-    &quot;Set to true to enable reverse action (such as for a cooling coil controller)&quot;</font>;
-
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
->Modelica.Blocks.Types.InitPID</A> initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState <font color="darkgreen">
-    &quot;Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)&quot;</font>;
-  <font color="blue">parameter </font>Boolean limitsAtInit=true <font color="darkgreen">
-    &quot;= false, if limits are ignored during initializiation&quot;</font>;
-  <font color="blue">parameter </font>Real xi_start=0 <font color="darkgreen">
-    &quot;Initial or guess value value for integrator output (= integrator state)&quot;</font>;
-  <font color="blue">parameter </font>Real xd_start=0 <font color="darkgreen">
-    &quot;Initial or guess value for state of derivative block&quot;</font>;
-  <font color="blue">parameter </font>Real y_start=0 <font color="darkgreen">&quot;Initial value of output&quot;</font>;
-
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> tOn <font color="darkgreen">&quot;Time since boiler switched on&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> tOff <font color="darkgreen">&quot;Time since boiler switched off&quot;</font>;</textblock>
-
-<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
->LimPID</A> con(
-    controllerType=controllerType,
-    k=k,
-    Ti=Ti,
-    Td=Td,
-    wp=wp,
-    wd=wd,
-    Ni=Ni,
-    Nd=Nd,
-    initType=initType,
-    limitsAtInit=limitsAtInit,
-    xi_start=xi_start,
-    xd_start=xd_start,
-    y_start=y_start,
-    <font color="blue">final </font>yMin=yMin,
-    <font color="blue">final </font>yMax=yMax,
-    reverseAction=reverseAction) <font color="darkgreen">&quot;Controller to track setpoint&quot;</font>;
-<font color="blue">protected </font>
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A> zer(k=0) <font color="darkgreen">&quot;Zero signal&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
->Modelica.Blocks.Logical.Switch</A> switch2;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterEqualThreshold"
->Modelica.Blocks.Logical.GreaterEqualThreshold</A> greaterEqualThreshold(threshold=
-       minOffTime);
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.And"
->Modelica.Blocks.Logical.And</A> and3;
-<font color="blue">public </font>
-  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.OffTimer"
->OffTimer</A> offHys;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Timer"
->Modelica.Blocks.Logical.Timer</A> onTimer;
-<font color="blue">protected </font>
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
->Modelica.Blocks.Logical.Not</A> not1;
-<font color="blue">public </font>
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Timer"
->Modelica.Blocks.Logical.Timer</A> offTimer;
-         <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
->Modelica.Blocks.Interfaces.BooleanOutput</A> on <font color="darkgreen">
-    &quot;Outputs true if boiler is on&quot;</font>;
-<font color="blue">protected </font>
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
->Modelica.Blocks.Logical.Switch</A> switch1;
-<font color="blue">public </font>
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
->Modelica.Blocks.Math.Feedback</A> feeBac;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Hysteresis"
->Modelica.Blocks.Logical.Hysteresis</A> hys(
-    pre_y_start=pre_y_start,
-    uLow=eOff,
-    uHigh=eOn) <font color="darkgreen">&quot;Hysteresis element to switch controller on and off&quot;</font>;</textblock>
-<font color="blue">equation </font>
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(u_m, con.u_m);
-  <font color="red">connect</font>(zer.y,switch2. u3);
-  <font color="red">connect</font>(switch2.y, y);
-  <font color="red">connect</font>(and3.y,switch2. u2);
-  <font color="red">connect</font>(greaterEqualThreshold.y, and3.u1);
-  <font color="red">connect</font>(offHys.y, greaterEqualThreshold.u);
-  <font color="red">connect</font>(con.y,switch2. u1);
-  <font color="red">connect</font>(onTimer.y, tOn);
-  <font color="red">connect</font>(offTimer.y, tOff);
-  <font color="red">connect</font>(and3.y, on);
-  <font color="red">connect</font>(and3.y, onTimer.u);
-  <font color="red">connect</font>(and3.y, not1.u);
-  <font color="red">connect</font>(not1.y, offTimer.u);
-  <font color="red">connect</font>(and3.y, switch1.u2);
-  <font color="red">connect</font>(u_s, switch1.u1);
-  <font color="red">connect</font>(u_m, switch1.u3);
-  <font color="red">connect</font>(switch1.y, con.u_s);
-  <font color="red">connect</font>(u_s, feeBac.u1);
-  <font color="red">connect</font>(u_m, feeBac.u2);
-  <font color="red">connect</font>(feeBac.y, hys.u);
-  <font color="red">connect</font>(hys.y, offHys.u);
-  <font color="red">connect</font>(hys.y, and3.u2);</textblock>
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>PIDHysteresisTimer;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE SignalRanker<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Controls.Contin6c72835ffcc58c10ankerI.png" ALT="Buildings.Controls.Continuous.SignalRanker" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Controls.Continuous.SignalRanker"></A><A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
->Buildings.Controls.Continuous</A>.SignalRanker</H2>
-<B>Ranks output signals such that y[i] &gt;= y[i+1]</B><p></P>
-<IMG SRC="Buildings.Controls.Contin6c72835ffcc58c10ankerD.png" ALT="Buildings.Controls.Continuous.SignalRanker">
-<P></P><H3>Information</H3>
-
-<p>
-Block that sorts the input signal <code>u[:]</code> such that the output
-signal satisfies <code>y[i] >= y[i+1]</code> for all <code>i=1, ..., nin-1</code>.
-</p>
-<p>
-This block may for example be used in a variable air volume flow
-controller to access the position of the dampers that are most open.
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMO"
->Modelica.Blocks.Interfaces.MIMO</A> (Multiple Input Multiple Output continuous control block).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD>Integer</TD><TD>nin</TD><TD>1</TD><TD>Number of inputs</TD></TR>
-<TR><TD>Integer</TD><TD>nout</TD><TD>nin</TD><TD>Number of outputs</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>u[nin]</TD><TD>Connector of Real input signals</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>y[nout]</TD><TD>Connector of Real output signals</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">block</font> SignalRanker <font color="darkgreen">&quot;Ranks output signals such that y[i] &gt;= y[i+1]&quot;</font>
-   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMO"
->Modelica.Blocks.Interfaces.MIMO</A>(<font color="blue">final </font>nout=nin);
-<font color="blue">protected </font>
-  Real t <font color="darkgreen">&quot;Temporary variable&quot;</font>;
-<font color="blue">algorithm </font>
-  y[:] := u[:];
-  <font color="blue">for </font>i<font color="blue"> in </font>1:nin<font color="blue"> loop</font>
-    <font color="blue">for </font>j<font color="blue"> in </font>1:nin-1<font color="blue"> loop</font>
-    <font color="blue">if </font>y[j] &lt; y[j+1]<font color="blue"> then</font>
-      t      := y[j+1];
-      y[j+1] := y[j];
-      y[j]   := t;
-    <font color="blue">end if</font>;
-   <font color="blue">end for</font>;
-  <font color="blue">end for</font>;
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>SignalRanker;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE NumberOfRequests<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Controls.Contina7ef7cb6ab37c65cuestsI.png" ALT="Buildings.Controls.Continuous.NumberOfRequests" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Controls.Continuous.NumberOfRequests"></A><A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
->Buildings.Controls.Continuous</A>.NumberOfRequests</H2>
-<B>Outputs the number of signals that are above/below a certain threshold</B><p></P>
-<IMG SRC="Buildings.Controls.Contina7ef7cb6ab37c65cuestsD.png" ALT="Buildings.Controls.Continuous.NumberOfRequests">
-<P></P><H3>Information</H3>
+<h3>Information</h3>
 
 <p>
 Block that outputs the number of inputs that exceed a threshold.
@@ -610,76 +222,78 @@ inequality. The table below shows the allowed settings.
 This model may be used to check how many rooms
 exceed a temperature threshold.
 </p>
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
->Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD>Integer</TD><TD>nin</TD><TD>&nbsp;</TD><TD>Number of inputs</TD></TR>
-<TR><TD>Real</TD><TD>threShold</TD><TD>0</TD><TD>Threshold</TD></TR>
-<TR><TD>Integer</TD><TD>kind</TD><TD>&nbsp;</TD><TD>Set to 0 for u&gt;threShold, to 1 for &gt;=, to 2 for &lt;= or to 3 for &lt;</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
->IntegerOutput</A></TD><TD>y</TD><TD>Number of input signals that violate the threshold</TD></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->RealInput</A></TD><TD>u[nin]</TD><TD>Input signals</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">block</font> NumberOfRequests <font color="darkgreen">
-  &quot;Outputs the number of signals that are above/below a certain threshold&quot;</font>
-   <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
->Modelica.Blocks.Interfaces.BlockIcon</A>;
 
-  <font color="blue">parameter </font>Integer nin <font color="darkgreen">&quot;Number of inputs&quot;</font>;
-  <font color="blue">parameter </font>Real threShold = 0 <font color="darkgreen">&quot;Threshold&quot;</font>;
-  <font color="blue">parameter </font>Integer kind <font color="darkgreen">
-    &quot;Set to 0 for u&gt;threShold, to 1 for &gt;=, to 2 for &lt;= or to 3 for &lt;&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
->Modelica.Blocks.Interfaces.IntegerOutput</A> y <font color="darkgreen">
-    &quot;Number of input signals that violate the threshold&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
->Modelica.Blocks.Interfaces.RealInput</A> u[nin] <font color="darkgreen">&quot;Input signals&quot;</font>;</textblock>
-<font color="blue">algorithm </font>
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nin</td><td>&nbsp;</td><td>Number of inputs</td></tr>
+<tr><td>Real</td><td>threShold</td><td>0</td><td>Threshold</td></tr>
+<tr><td>Integer</td><td>kind</td><td>&nbsp;</td><td>Set to 0 for u&gt;threShold, to 1 for &gt;=, to 2 for &lt;= or to 3 for &lt;</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+>IntegerOutput</a></td><td>y</td><td>Number of input signals that violate the threshold</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u[nin]</td><td>Input signals</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">block</span> NumberOfRequests <span style="color: #006400">
+  &quot;Outputs the number of signals that are above/below a certain threshold&quot;</span>
+   <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+
+  <span style="color: blue">parameter </span>Integer nin <span style="color: #006400">&quot;Number of inputs&quot;</span>;
+  <span style="color: blue">parameter </span>Real threShold = 0 <span style="color: #006400">&quot;Threshold&quot;</span>;
+  <span style="color: blue">parameter </span>Integer kind <span style="color: #006400">
+    &quot;Set to 0 for u&gt;threShold, to 1 for &gt;=, to 2 for &lt;= or to 3 for &lt;&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+>Modelica.Blocks.Interfaces.IntegerOutput</a> y <span style="color: #006400">
+    &quot;Number of input signals that violate the threshold&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> u[nin] <span style="color: #006400">&quot;Input signals&quot;</span>;
+<span style="color: blue">algorithm </span>
   y := 0;
-  <font color="blue">for </font>i<font color="blue"> in </font>1:nin<font color="blue"> loop</font>
-    <font color="blue">if </font>kind == 0<font color="blue"> then</font>
-      <font color="blue">if </font>u[i] &gt; threShold<font color="blue"> then</font>
+  <span style="color: blue">for </span>i<span style="color: blue"> in </span>1:nin<span style="color: blue"> loop</span>
+    <span style="color: blue">if </span>kind == 0<span style="color: blue"> then</span>
+      <span style="color: blue">if </span>u[i] &gt; threShold<span style="color: blue"> then</span>
         y := y+1;
-      <font color="blue">end if</font>;
-    <font color="blue">end if</font>;
-    <font color="blue">if </font>kind == 1<font color="blue"> then</font>
-      <font color="blue">if </font>u[i] &gt;= threShold<font color="blue"> then</font>
+      <span style="color: blue">end if</span>;
+    <span style="color: blue">end if</span>;
+    <span style="color: blue">if </span>kind == 1<span style="color: blue"> then</span>
+      <span style="color: blue">if </span>u[i] &gt;= threShold<span style="color: blue"> then</span>
         y := y+1;
-      <font color="blue">end if</font>;
-    <font color="blue">end if</font>;
-    <font color="blue">if </font>kind == 2<font color="blue"> then</font>
-      <font color="blue">if </font>u[i] &lt;= threShold<font color="blue"> then</font>
+      <span style="color: blue">end if</span>;
+    <span style="color: blue">end if</span>;
+    <span style="color: blue">if </span>kind == 2<span style="color: blue"> then</span>
+      <span style="color: blue">if </span>u[i] &lt;= threShold<span style="color: blue"> then</span>
         y := y+1;
-      <font color="blue">end if</font>;
-    <font color="blue">end if</font>;
-    <font color="blue">if </font>kind == 3<font color="blue"> then</font>
-      <font color="blue">if </font>u[i] &lt; threShold<font color="blue"> then</font>
+      <span style="color: blue">end if</span>;
+    <span style="color: blue">end if</span>;
+    <span style="color: blue">if </span>kind == 3<span style="color: blue"> then</span>
+      <span style="color: blue">if </span>u[i] &lt; threShold<span style="color: blue"> then</span>
         y := y+1;
-      <font color="blue">end if</font>;
-    <font color="blue">end if</font>;
-  <font color="blue">end for</font>;
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>NumberOfRequests;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE OffTimer<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Controls.Continuous.OffTimerI.png" ALT="Buildings.Controls.Continuous.OffTimer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Controls.Continuous.OffTimer"></A><A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
->Buildings.Controls.Continuous</A>.OffTimer</H2>
-<B>Records the time since the input changed to false</B><p></P>
-<IMG SRC="Buildings.Controls.Continuous.OffTimerD.png" ALT="Buildings.Controls.Continuous.OffTimer">
-<P></P><H3>Information</H3>
+      <span style="color: blue">end if</span>;
+    <span style="color: blue">end if</span>;
+  <span style="color: blue">end for</span>;
+<span style="color: blue">end </span>NumberOfRequests;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE OffTimer<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Controls.Continuous.OffTimerI.png" alt="Buildings.Controls.Continuous.OffTimer" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Controls.Continuous.OffTimer"></a><a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
+>Buildings.Controls.Continuous</a>.OffTimer</h2>
+<p>
+<b>Records the time since the input changed to false</b>
+<br>
+<br><img src="Buildings.Controls.Continuous.OffTimerD.png" alt="Buildings.Controls.Continuous.OffTimer">
+</p>
+<h3>Information</h3>
 
 <p>
 Block that records the time that has elapsed since its input signal switched to false.
@@ -687,41 +301,459 @@ Block that records the time that has elapsed since its input signal switched to 
 <p>
 At the beginning of the simulation, this block outputs the time that has elapsed since the start of the simulation. Afterwards, whenever its input switches to false, the timer is reset.
 </p>
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.partialBooleanBlockIcon"
->Modelica.Blocks.Interfaces.partialBooleanBlockIcon</A> (Basic graphical layout of logical block).
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
->BooleanInput</A></TD><TD>u</TD><TD>Connector of Boolean input signal</TD></TR>
-<TR><TD>output <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</A></TD><TD>y</TD><TD>Connector of Real output signal</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> OffTimer <font color="darkgreen">&quot;Records the time since the input changed to false&quot;</font>
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.partialBooleanBlockIcon"
->Modelica.Blocks.Interfaces.partialBooleanBlockIcon</A>;
 
-<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
->Modelica.Blocks.Interfaces.BooleanInput</A> u <font color="darkgreen">&quot;Connector of Boolean input signal&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->Modelica.Blocks.Interfaces.RealOutput</A> y <font color="darkgreen">&quot;Connector of Real output signal&quot;</font>;</textblock>
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.partialBooleanBlockIcon"
+>Modelica.Blocks.Interfaces.partialBooleanBlockIcon</a> (This icon will be removed in future Modelica versions, use Modelica.Blocks.Icons.PartialBooleanBlock instead.).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+>BooleanInput</a></td><td>u</td><td>Connector of Boolean input signal</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> OffTimer <span style="color: #006400">&quot;Records the time since the input changed to false&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.partialBooleanBlockIcon"
+>Modelica.Blocks.Interfaces.partialBooleanBlockIcon</a>;
 
-<font color="blue">protected </font>
-  <font color="blue">discrete </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
->Modelica.SIunits.Time</A> entryTime <font color="darkgreen">&quot;Time instant when u became true&quot;</font>;
-<font color="blue">initial </font><font color="blue">equation </font>
-  <font color="red">pre</font>(entryTime) = 0;
-<font color="blue">equation </font>
-  <font color="blue">when </font>(<font color="blue">not </font>u)<font color="blue"> then</font>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+>Modelica.Blocks.Interfaces.BooleanInput</a> u <span style="color: #006400">&quot;Connector of Boolean input signal&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> y <span style="color: #006400">&quot;Connector of Real output signal&quot;</span>;
+
+<span style="color: blue">protected </span>
+  <span style="color: blue">discrete </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> entryTime <span style="color: #006400">&quot;Time instant when u became true&quot;</span>;
+<span style="color: blue">initial </span><span style="color: blue">equation </span>
+  <span style="color: red">pre</span>(entryTime) = 0;
+<span style="color: blue">equation </span>
+  <span style="color: blue">when </span>(<span style="color: blue">not </span>u)<span style="color: blue"> then</span>
     entryTime = time;
-  <font color="blue">end when</font>;
+  <span style="color: blue">end when</span>;
   y = time - entryTime;
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>OffTimer;
-</PRE>
-<HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:14:59 2014.
-</address></BODY>
-</HTML>
+<span style="color: blue">end </span>OffTimer;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PIDHysteresis<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Controls.Contin3349fb98317e01fdresisI.png" alt="Buildings.Controls.Continuous.PIDHysteresis" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Controls.Continuous.PIDHysteresis"></a><a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
+>Buildings.Controls.Continuous</a>.PIDHysteresis</h2>
+<p>
+<b>PID controller with anti-windup, output limiter and output hysteresis</b>
+<br>
+<br><img src="Buildings.Controls.Contin3349fb98317e01fdresisD.png" alt="Buildings.Controls.Continuous.PIDHysteresis">
+</p>
+<h3>Information</h3>
+
+<p>
+Block of a controller for set point tracking with a hysteresis element that switches the
+controller on and off.
+</p>
+<p>
+If the controller is off, and the control error becomes larger than <code>eOn</code>, then
+the controller switches to on and remains on until the control error is smaller than <code>eOff</code>.
+When the controller is on, the set point tracking can be done using a P-, PI-, or PID-controller.
+In its off-mode, the control output is zero. Thus, the parameters <code>yMin</code> and <code>yMax</code> are
+used to constrain the output of the controller during its on mode only. This can be used, for 
+example, to modulate a device between 0.3 and 1.0, and switch it to off when the control error
+is small enough.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
+>Modelica.Blocks.Interfaces.SVcontrol</a> (Single-Variable continuous controller).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Hysteresis</td></tr>
+<tr><td>Real</td><td>eOn</td><td>1</td><td>if off and control error &gt; eOn, switch to set point tracking</td></tr>
+<tr><td>Real</td><td>eOff</td><td>-eOn</td><td>if on and control error &lt; eOff, set y=0</td></tr>
+<tr><td>Boolean</td><td>pre_y_start</td><td>false</td><td>Value of hysteresis output at initial time</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Set point tracking</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
+>SimpleController</a></td><td>controllerType</td><td>Modelica.Blocks.Types.Simple...</td><td>Type of controller</td></tr>
+<tr><td>Real</td><td>k</td><td>1</td><td>Gain of controller</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>Ti</td><td>&nbsp;</td><td>Time constant of Integrator block [s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>Td</td><td>&nbsp;</td><td>Time constant of Derivative block [s]</td></tr>
+<tr><td>Real</td><td>yMax</td><td>1</td><td>Upper limit of output</td></tr>
+<tr><td>Real</td><td>yMin</td><td>0</td><td>Lower limit of output</td></tr>
+<tr><td>Real</td><td>wp</td><td>1</td><td>Set-point weight for Proportional block (0..1)</td></tr>
+<tr><td>Real</td><td>wd</td><td>0</td><td>Set-point weight for Derivative block (0..1)</td></tr>
+<tr><td>Real</td><td>Ni</td><td>0.9</td><td>Ni*Ti is time constant of anti-windup compensation</td></tr>
+<tr><td>Real</td><td>Nd</td><td>10</td><td>The higher Nd, the more ideal the derivative block</td></tr>
+<tr><td>Boolean</td><td>reverseAction</td><td>false</td><td>Set to true to enable reverse action (such as for a cooling coil controller)</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
+>InitPID</a></td><td>initType</td><td>Modelica.Blocks.Types.InitPI...</td><td>Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)</td></tr>
+<tr><td>Boolean</td><td>limitsAtInit</td><td>true</td><td>= false, if limits are ignored during initializiation</td></tr>
+<tr><td>Real</td><td>xi_start</td><td>0</td><td>Initial or guess value value for integrator output (= integrator state)</td></tr>
+<tr><td>Real</td><td>xd_start</td><td>0</td><td>Initial or guess value for state of derivative block</td></tr>
+<tr><td>Real</td><td>y_start</td><td>0</td><td>Initial value of output</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u_s</td><td>Connector of setpoint input signal</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u_m</td><td>Connector of measurement input signal</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of actuator output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> PIDHysteresis <span style="color: #006400">
+  &quot;PID controller with anti-windup, output limiter and output hysteresis&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
+>Modelica.Blocks.Interfaces.SVcontrol</a>;
+
+  <span style="color: blue">parameter </span>Real eOn = 1 <span style="color: #006400">
+    &quot;if off and control error &gt; eOn, switch to set point tracking&quot;</span>;
+  <span style="color: blue">parameter </span>Real eOff = -eOn <span style="color: #006400">&quot;if on and control error &lt; eOff, set y=0&quot;</span>;
+  <span style="color: blue">parameter </span>Boolean pre_y_start=false <span style="color: #006400">
+    &quot;Value of hysteresis output at initial time&quot;</span>;
+
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
+>Modelica.Blocks.Types.SimpleController</a> controllerType=Modelica.Blocks.Types.SimpleController.PID <span style="color: #006400">
+    &quot;Type of controller&quot;</span>;
+  <span style="color: blue">parameter </span>Real k=1 <span style="color: #006400">&quot;Gain of controller&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> Ti <span style="color: #006400">&quot;Time constant of Integrator block&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> Td <span style="color: #006400">&quot;Time constant of Derivative block&quot;</span>;
+  <span style="color: blue">parameter </span>Real yMax=1 <span style="color: #006400">&quot;Upper limit of output&quot;</span>;
+  <span style="color: blue">parameter </span>Real yMin=0 <span style="color: #006400">&quot;Lower limit of output&quot;</span>;
+  <span style="color: blue">parameter </span>Real wp=1 <span style="color: #006400">&quot;Set-point weight for Proportional block (0..1)&quot;</span>;
+  <span style="color: blue">parameter </span>Real wd=0 <span style="color: #006400">&quot;Set-point weight for Derivative block (0..1)&quot;</span>;
+  <span style="color: blue">parameter </span>Real Ni=0.9 <span style="color: #006400">&quot;Ni*Ti is time constant of anti-windup compensation&quot;</span>;
+  <span style="color: blue">parameter </span>Real Nd=10 <span style="color: #006400">&quot;The higher Nd, the more ideal the derivative block&quot;</span>;
+  <span style="color: blue">parameter </span>Boolean reverseAction = false <span style="color: #006400">
+    &quot;Set to true to enable reverse action (such as for a cooling coil controller)&quot;</span>;
+
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
+>Modelica.Blocks.Types.InitPID</a> initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState <span style="color: #006400">
+    &quot;Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)&quot;</span>;
+  <span style="color: blue">parameter </span>Boolean limitsAtInit=true <span style="color: #006400">
+    &quot;= false, if limits are ignored during initializiation&quot;</span>;
+  <span style="color: blue">parameter </span>Real xi_start=0 <span style="color: #006400">
+    &quot;Initial or guess value value for integrator output (= integrator state)&quot;</span>;
+  <span style="color: blue">parameter </span>Real xd_start=0 <span style="color: #006400">
+    &quot;Initial or guess value for state of derivative block&quot;</span>;
+  <span style="color: blue">parameter </span>Real y_start=0 <span style="color: #006400">&quot;Initial value of output&quot;</span>;
+
+  <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>LimPID</a> PID(
+    controllerType=controllerType,
+    k=k,
+    Ti=Ti,
+    yMax=yMax,
+    yMin=yMin,
+    wp=wp,
+    wd=wd,
+    Ni=Ni,
+    Nd=Nd,
+    initType=initType,
+    limitsAtInit=limitsAtInit,
+    xi_start=xi_start,
+    xd_start=xd_start,
+    y_start=y_start,
+    Td=Td,
+    reverseAction=reverseAction) <span style="color: #006400">&quot;Controller for room temperature&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Hysteresis"
+>Modelica.Blocks.Logical.Hysteresis</a> hys(
+    pre_y_start=pre_y_start,
+    uLow=eOff,
+    uHigh=eOn) <span style="color: #006400">&quot;Hysteresis element to switch controller on and off&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+>Modelica.Blocks.Logical.Switch</a> swi;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> zer(k=0) <span style="color: #006400">&quot;Zero signal&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+>Modelica.Blocks.Math.Feedback</a> feeBac;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+>Modelica.Blocks.Logical.Switch</a> swi1;
+
+<span style="color: blue">equation </span>
+  <span style="color: red">assert</span>(eOff &lt; eOn, &quot;Wrong controller parameters. Require eOff &lt; eOn.&quot;);
+  <span style="color: red">connect</span>(zer.y, swi.u3);
+  <span style="color: red">connect</span>(swi.y, y);
+  <span style="color: red">connect</span>(u_m, PID.u_m);
+  <span style="color: red">connect</span>(hys.y, swi.u2);
+  <span style="color: red">connect</span>(PID.y, swi.u1);
+  <span style="color: red">connect</span>(u_s, feeBac.u1);
+  <span style="color: red">connect</span>(u_m, feeBac.u2);
+  <span style="color: red">connect</span>(feeBac.y, hys.u);
+  <span style="color: red">connect</span>(u_s, swi1.u1);
+  <span style="color: red">connect</span>(hys.y, swi1.u2);
+  <span style="color: red">connect</span>(u_m, swi1.u3);
+  <span style="color: red">connect</span>(swi1.y, PID.u_s);
+<span style="color: blue">end </span>PIDHysteresis;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PIDHysteresisTimer<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Controls.Contin49fff365ff0cc4d1TimerI.png" alt="Buildings.Controls.Continuous.PIDHysteresisTimer" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Controls.Continuous.PIDHysteresisTimer"></a><a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
+>Buildings.Controls.Continuous</a>.PIDHysteresisTimer</h2>
+<p>
+<b>PID controller with anti-windup, hysteresis and timer to prevent short cycling</b>
+<br>
+<br><img src="Buildings.Controls.Contin49fff365ff0cc4d1TimerD.png" alt="Buildings.Controls.Continuous.PIDHysteresisTimer">
+</p>
+<h3>Information</h3>
+
+<p>
+Block of a controller for set point tracking with a hysteresis element that switches the controller on and off, and a timer that prevents the
+controller to short cycle.
+</p>
+<p>
+The controller is similar to 
+<a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.PIDHysteresis"
+>
+Buildings.Controls.Continuous.PIDHysteresis</a> but in addition, 
+it has a timer that prevents the controller from switching to on
+too fast. When the controller switches off, the timer starts and
+avoids the controller from switching on until <code>minOffTime</code> seconds elapsed.
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
+>Modelica.Blocks.Interfaces.SVcontrol</a> (Single-Variable continuous controller).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">On/off controller</td></tr>
+<tr><td>Real</td><td>minOffTime</td><td>600</td><td>Minimum time that devices needs to be off before it can run again</td></tr>
+<tr><td>Real</td><td>eOn</td><td>1</td><td>if off and control error &gt; eOn, switch to set point tracking</td></tr>
+<tr><td>Real</td><td>eOff</td><td>-eOn</td><td>if on and control error &lt; eOff, set y=0</td></tr>
+<tr><td>Boolean</td><td>pre_y_start</td><td>false</td><td>Value of hysteresis output at initial time</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Set point tracking</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
+>SimpleController</a></td><td>controllerType</td><td>Modelica.Blocks.Types.Simple...</td><td>Type of controller</td></tr>
+<tr><td>Real</td><td>k</td><td>1</td><td>Gain of controller</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>Ti</td><td>&nbsp;</td><td>Time constant of Integrator block [s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>Td</td><td>&nbsp;</td><td>Time constant of Derivative block [s]</td></tr>
+<tr><td>Real</td><td>yMax</td><td>1</td><td>Upper limit of modulating output</td></tr>
+<tr><td>Real</td><td>yMin</td><td>0.3</td><td>Lower limit of modulating output (before switch to 0)</td></tr>
+<tr><td>Real</td><td>wp</td><td>1</td><td>Set-point weight for Proportional block (0..1)</td></tr>
+<tr><td>Real</td><td>wd</td><td>0</td><td>Set-point weight for Derivative block (0..1)</td></tr>
+<tr><td>Real</td><td>Ni</td><td>0.9</td><td>Ni*Ti is time constant of anti-windup compensation</td></tr>
+<tr><td>Real</td><td>Nd</td><td>10</td><td>The higher Nd, the more ideal the derivative block</td></tr>
+<tr><td>Boolean</td><td>reverseAction</td><td>false</td><td>Set to true to enable reverse action (such as for a cooling coil controller)</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
+>InitPID</a></td><td>initType</td><td>Modelica.Blocks.Types.InitPI...</td><td>Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)</td></tr>
+<tr><td>Boolean</td><td>limitsAtInit</td><td>true</td><td>= false, if limits are ignored during initializiation</td></tr>
+<tr><td>Real</td><td>xi_start</td><td>0</td><td>Initial or guess value value for integrator output (= integrator state)</td></tr>
+<tr><td>Real</td><td>xd_start</td><td>0</td><td>Initial or guess value for state of derivative block</td></tr>
+<tr><td>Real</td><td>y_start</td><td>0</td><td>Initial value of output</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u_s</td><td>Connector of setpoint input signal</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u_m</td><td>Connector of measurement input signal</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of actuator output signal</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>tOn</td><td>Time since boiler switched on</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>tOff</td><td>Time since boiler switched off</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+>BooleanOutput</a></td><td>on</td><td>Outputs true if boiler is on</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> PIDHysteresisTimer <span style="color: #006400">
+  &quot;PID controller with anti-windup, hysteresis and timer to prevent short cycling&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
+>Modelica.Blocks.Interfaces.SVcontrol</a>;
+
+  <span style="color: blue">parameter </span>Real minOffTime=600 <span style="color: #006400">
+    &quot;Minimum time that devices needs to be off before it can run again&quot;</span>;
+  <span style="color: blue">parameter </span>Real eOn = 1 <span style="color: #006400">
+    &quot;if off and control error &gt; eOn, switch to set point tracking&quot;</span>;
+  <span style="color: blue">parameter </span>Real eOff = -eOn <span style="color: #006400">&quot;if on and control error &lt; eOff, set y=0&quot;</span>;
+  <span style="color: blue">parameter </span>Boolean pre_y_start=false <span style="color: #006400">
+    &quot;Value of hysteresis output at initial time&quot;</span>;
+
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
+>Modelica.Blocks.Types.SimpleController</a> controllerType=Modelica.Blocks.Types.SimpleController.PID <span style="color: #006400">
+    &quot;Type of controller&quot;</span>;
+  <span style="color: blue">parameter </span>Real k=1 <span style="color: #006400">&quot;Gain of controller&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> Ti <span style="color: #006400">&quot;Time constant of Integrator block&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> Td <span style="color: #006400">&quot;Time constant of Derivative block&quot;</span>;
+  <span style="color: blue">parameter </span>Real yMax=1 <span style="color: #006400">&quot;Upper limit of modulating output&quot;</span>;
+  <span style="color: blue">parameter </span>Real yMin=0.3 <span style="color: #006400">
+    &quot;Lower limit of modulating output (before switch to 0)&quot;</span>;
+  <span style="color: blue">parameter </span>Real wp=1 <span style="color: #006400">&quot;Set-point weight for Proportional block (0..1)&quot;</span>;
+  <span style="color: blue">parameter </span>Real wd=0 <span style="color: #006400">&quot;Set-point weight for Derivative block (0..1)&quot;</span>;
+  <span style="color: blue">parameter </span>Real Ni=0.9 <span style="color: #006400">&quot;Ni*Ti is time constant of anti-windup compensation&quot;</span>;
+  <span style="color: blue">parameter </span>Real Nd=10 <span style="color: #006400">&quot;The higher Nd, the more ideal the derivative block&quot;</span>;
+  <span style="color: blue">parameter </span>Boolean reverseAction = false <span style="color: #006400">
+    &quot;Set to true to enable reverse action (such as for a cooling coil controller)&quot;</span>;
+
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
+>Modelica.Blocks.Types.InitPID</a> initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState <span style="color: #006400">
+    &quot;Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)&quot;</span>;
+  <span style="color: blue">parameter </span>Boolean limitsAtInit=true <span style="color: #006400">
+    &quot;= false, if limits are ignored during initializiation&quot;</span>;
+  <span style="color: blue">parameter </span>Real xi_start=0 <span style="color: #006400">
+    &quot;Initial or guess value value for integrator output (= integrator state)&quot;</span>;
+  <span style="color: blue">parameter </span>Real xd_start=0 <span style="color: #006400">
+    &quot;Initial or guess value for state of derivative block&quot;</span>;
+  <span style="color: blue">parameter </span>Real y_start=0 <span style="color: #006400">&quot;Initial value of output&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> tOn <span style="color: #006400">&quot;Time since boiler switched on&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> tOff <span style="color: #006400">&quot;Time since boiler switched off&quot;</span>;
+
+  <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>LimPID</a> con(
+    controllerType=controllerType,
+    k=k,
+    Ti=Ti,
+    Td=Td,
+    wp=wp,
+    wd=wd,
+    Ni=Ni,
+    Nd=Nd,
+    initType=initType,
+    limitsAtInit=limitsAtInit,
+    xi_start=xi_start,
+    xd_start=xd_start,
+    y_start=y_start,
+    <span style="color: blue">final </span>yMin=yMin,
+    <span style="color: blue">final </span>yMax=yMax,
+    reverseAction=reverseAction) <span style="color: #006400">&quot;Controller to track setpoint&quot;</span>;
+<span style="color: blue">protected </span>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> zer(k=0) <span style="color: #006400">&quot;Zero signal&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+>Modelica.Blocks.Logical.Switch</a> switch2;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterEqualThreshold"
+>Modelica.Blocks.Logical.GreaterEqualThreshold</a> greaterEqualThreshold(threshold=
+       minOffTime);
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.And"
+>Modelica.Blocks.Logical.And</a> and3;
+<span style="color: blue">public </span>
+  <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.OffTimer"
+>OffTimer</a> offHys;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Timer"
+>Modelica.Blocks.Logical.Timer</a> onTimer;
+<span style="color: blue">protected </span>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
+>Modelica.Blocks.Logical.Not</a> not1;
+<span style="color: blue">public </span>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Timer"
+>Modelica.Blocks.Logical.Timer</a> offTimer;
+         <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+>Modelica.Blocks.Interfaces.BooleanOutput</a> on <span style="color: #006400">
+    &quot;Outputs true if boiler is on&quot;</span>;
+<span style="color: blue">protected </span>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+>Modelica.Blocks.Logical.Switch</a> switch1;
+<span style="color: blue">public </span>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+>Modelica.Blocks.Math.Feedback</a> feeBac;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Hysteresis"
+>Modelica.Blocks.Logical.Hysteresis</a> hys(
+    pre_y_start=pre_y_start,
+    uLow=eOff,
+    uHigh=eOn) <span style="color: #006400">&quot;Hysteresis element to switch controller on and off&quot;</span>;
+<span style="color: blue">equation </span>
+  <span style="color: red">connect</span>(u_m, con.u_m);
+  <span style="color: red">connect</span>(zer.y,switch2. u3);
+  <span style="color: red">connect</span>(switch2.y, y);
+  <span style="color: red">connect</span>(and3.y,switch2. u2);
+  <span style="color: red">connect</span>(greaterEqualThreshold.y, and3.u1);
+  <span style="color: red">connect</span>(offHys.y, greaterEqualThreshold.u);
+  <span style="color: red">connect</span>(con.y,switch2. u1);
+  <span style="color: red">connect</span>(onTimer.y, tOn);
+  <span style="color: red">connect</span>(offTimer.y, tOff);
+  <span style="color: red">connect</span>(and3.y, on);
+  <span style="color: red">connect</span>(and3.y, onTimer.u);
+  <span style="color: red">connect</span>(and3.y, not1.u);
+  <span style="color: red">connect</span>(not1.y, offTimer.u);
+  <span style="color: red">connect</span>(and3.y, switch1.u2);
+  <span style="color: red">connect</span>(u_s, switch1.u1);
+  <span style="color: red">connect</span>(u_m, switch1.u3);
+  <span style="color: red">connect</span>(switch1.y, con.u_s);
+  <span style="color: red">connect</span>(u_s, feeBac.u1);
+  <span style="color: red">connect</span>(u_m, feeBac.u2);
+  <span style="color: red">connect</span>(feeBac.y, hys.u);
+  <span style="color: red">connect</span>(hys.y, offHys.u);
+  <span style="color: red">connect</span>(hys.y, and3.u2);
+<span style="color: blue">end </span>PIDHysteresisTimer;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SignalRanker<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Controls.Contin6c72835ffcc58c10ankerI.png" alt="Buildings.Controls.Continuous.SignalRanker" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Controls.Continuous.SignalRanker"></a><a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
+>Buildings.Controls.Continuous</a>.SignalRanker</h2>
+<p>
+<b>Ranks output signals such that y[i] &gt;= y[i+1]</b>
+<br>
+<br><img src="Buildings.Controls.Contin6c72835ffcc58c10ankerD.png" alt="Buildings.Controls.Continuous.SignalRanker">
+</p>
+<h3>Information</h3>
+
+<p>
+Block that sorts the input signal <code>u[:]</code> such that the output
+signal satisfies <code>y[i] >= y[i+1]</code> for all <code>i=1, ..., nin-1</code>.
+</p>
+<p>
+This block may for example be used in a variable air volume flow
+controller to access the position of the dampers that are most open.
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMO"
+>Modelica.Blocks.Interfaces.MIMO</a> (Multiple Input Multiple Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nin</td><td>1</td><td>Number of inputs</td></tr>
+<tr><td>Integer</td><td>nout</td><td>nin</td><td>Number of outputs</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u[nin]</td><td>Connector of Real input signals</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y[nout]</td><td>Connector of Real output signals</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">block</span> SignalRanker <span style="color: #006400">&quot;Ranks output signals such that y[i] &gt;= y[i+1]&quot;</span>
+   <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMO"
+>Modelica.Blocks.Interfaces.MIMO</a>(<span style="color: blue">final </span>nout=nin);
+<span style="color: blue">protected </span>
+  Real t <span style="color: #006400">&quot;Temporary variable&quot;</span>;
+<span style="color: blue">algorithm </span>
+  y[:] := u[:];
+  <span style="color: blue">for </span>i<span style="color: blue"> in </span>1:nin<span style="color: blue"> loop</span>
+    <span style="color: blue">for </span>j<span style="color: blue"> in </span>1:nin-1<span style="color: blue"> loop</span>
+    <span style="color: blue">if </span>y[j] &lt; y[j+1]<span style="color: blue"> then</span>
+      t      := y[j+1];
+      y[j+1] := y[j];
+      y[j]   := t;
+    <span style="color: blue">end if</span>;
+   <span style="color: blue">end for</span>;
+  <span style="color: blue">end for</span>;
+<span style="color: blue">end </span>SignalRanker;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 10:54:42 2014.
+</address>
+</body>
+</html>

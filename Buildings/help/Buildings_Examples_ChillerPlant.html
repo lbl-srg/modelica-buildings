@@ -1,40 +1,32 @@
-<HTML>
-<HEAD>
-<TITLE>Buildings.Examples.ChillerPlant</TITLE>
-<META name="HTML-Generator" content="Dymola">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Examples.ChillerPlant</title>
+<meta name="HTML-Generator" content="Dymola">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<META name="description" content="&quot;Chiller plant with water side economizer for data center&quot;">
+<meta name="description" content="&quot;Chiller plant with water side economizer for data center&quot;">
 <style type="text/css">
-*       { font-size: 10pt; font-family: Arial,sans-serif; }
-pre     { font-size:  9pt; font-family: Courier,monospace;}
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
 h4      { font-size: 10pt; font-weight: bold; color: green; }
 h3      { font-size: 11pt; font-weight: bold; color: green; }
 h2      { font-size: 13pt; font-weight: bold; color: green; }
-address {                  font-weight: normal} 
-td      { solid #000; vertical-align:top; }
-th      { solid #000; vertical-align:top; font-weight: bold; }
-table   { solid #000; border-collapse: collapse;}
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
 </style>
-<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
-</HEAD>
+</head>
 <body>
-<!-- --- header ------ -->
-<div class="headerStyle">
-<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
-</div>
-<div class="headerLinks">
-<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
-</div>
-<!-- --- end header -- -->
-</P>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE ChillerPlant<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><A NAME="Buildings.Examples.ChillerPlant"></A><A HREF="Buildings_Examples.html#Buildings.Examples"
->Buildings.Examples</A>.ChillerPlant</H2>
-<B>Chiller plant with water side economizer for data center</B>
-<P></P>
-<P></P><H3>Information</H3>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ChillerPlant<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Examples.ChillerPlant"></a><a href="Buildings_Examples.html#Buildings.Examples"
+>Buildings.Examples</a>.ChillerPlant</h2>
+<p>
+<b>Chiller plant with water side economizer for data center</b><br>
+</p>
+<h3>Information</h3>
 
 <h4>System Configuration</h4>
 <p>This example demonstrates the implementation of a chiller plant with water-side economizer (WSE) to cool a data center.
@@ -112,7 +104,7 @@ There are two implementations for the setpoint reset.
 </p>
 <p>
 The model 
-<A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"
+<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"
 >
 Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl</a>
 implements a discrete time trim and response logic as follows:
@@ -125,7 +117,7 @@ If there is no cooling request,  <i>u</i> is decreased by <i>0.03</i>. </li>
 </ul>
 <p>
 The model 
-<A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl"
+<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl"
 >
 Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl</a> uses a PI-controller to
 approximate the above trim and response logic. This significantly reduces computing time.
@@ -152,287 +144,303 @@ and <i>T<sub>min</sub></i> and <i>T<sub>max</sub></i> are the minimum and maximu
 Stein, J. (2009). Waterside Economizing in Data Centers: Design and Control Considerations. ASHRAE Transactions, 115(2), 192-200.<br/>
 Taylor, S.T. (2007). Increasing Efficiency with VAV System Static Pressure Setpoint Reset. ASHRAE Journal, June, 24-32.
 </p>
-<P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
->Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
-<P></P><H3>Package Content</H3>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
-<TR><TH >Name</TH><TH>Description</TH></TR>
-<TR><TD><IMG SRC="Buildings.Examples.Chille7a424d00a711b732ntrolS.png" ALT="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl"
->DataCenterContinuousTimeControl</A>
-</TD><TD>Model of data center that approximates the trim and response logic</TD></TR>
-<TR><TD><IMG SRC="Buildings.Examples.Chille7a424d00a711b732ntrolS.png" ALT="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"
->DataCenterDiscreteTimeControl</A>
-</TD><TD>Primary only chiller plant system with water-side economizer</TD></TR>
-<TR><TD><IMG SRC="Buildings.Examples.Chille173f746b86f408e2assesS.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses"
->BaseClasses</A>
-</TD><TD>Package with base classes for Buildings.Examples.ChillerPlant</TD></TR>
-</TABLE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE DataCenterContinuousTimeControl<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Examples.Chille7a424d00a711b732ntrolI.png" ALT="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl"></A><A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
->Buildings.Examples.ChillerPlant</A>.DataCenterContinuousTimeControl</H2>
-<B>Model of data center that approximates the trim and response logic</B><p></P>
-<IMG SRC="Buildings.Examples.Chille7a424d00a711b732ntrolD.png" ALT="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl">
-<P></P><H3>Information</H3>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.Chille7a424d00a711b732ntrolS.png" alt="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl"
+>DataCenterContinuousTimeControl</a>
+</td>
+<td>Model of data center that approximates the trim and response logic</td>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.Chille7a424d00a711b732ntrolS.png" alt="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"
+>DataCenterDiscreteTimeControl</a>
+</td>
+<td>Primary only chiller plant system with water-side economizer</td>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.Chille173f746b86f408e2assesS.png" alt="Buildings.Examples.ChillerPlant.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for Buildings.Examples.ChillerPlant</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DataCenterContinuousTimeControl<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Examples.Chille7a424d00a711b732ntrolI.png" alt="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl"></a><a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
+>Buildings.Examples.ChillerPlant</a>.DataCenterContinuousTimeControl</h2>
+<p>
+<b>Model of data center that approximates the trim and response logic</b>
+<br>
+<br><img src="Buildings.Examples.Chille7a424d00a711b732ntrolD.png" alt="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl">
+</p>
+<h3>Information</h3>
 
 <p>
 This model is the chilled water plant with continuous time control.
 The trim and response logic is approximated by a PI controller which 
 significantly reduces computing time. The model is described at
-<A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
+<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
 >
 Buildings.Examples.ChillerPlant</a>.
 </p>
-<P></P>
-Extends from <A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"
->Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl</A> (Primary only chiller plant system with water-side economizer).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>mAir_flow_nominal</TD><TD>roo.QRoo_flow/(1005*15)</TD><TD>Nominal mass flow rate at fan [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
->Power</A></TD><TD>P_nominal</TD><TD>80E3</TD><TD>Nominal compressor power (at y=1) [W]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
->TemperatureDifference</A></TD><TD>dTEva_nominal</TD><TD>10</TD><TD>Temperature difference evaporator inlet-outlet [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
->TemperatureDifference</A></TD><TD>dTCon_nominal</TD><TD>10</TD><TD>Temperature difference condenser outlet-inlet [K]</TD></TR>
-<TR><TD>Real</TD><TD>COPc_nominal</TD><TD>3</TD><TD>Chiller COP</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>mCHW_flow_nominal</TD><TD>2*roo.QRoo_flow/(4200*20)</TD><TD>Nominal mass flow rate at chilled water [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>mCW_flow_nominal</TD><TD>2*roo.QRoo_flow/(4200*6)</TD><TD>Nominal mass flow rate at condenser water [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp_nominal</TD><TD>500</TD><TD>Nominal pressure difference [Pa]</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
->Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> DataCenterContinuousTimeControl <font color="darkgreen">
-  &quot;Model of data center that approximates the trim and response logic&quot;</font>
-  <font color="blue">extends </font><A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"
->Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl</A>(<font color="blue">redeclare </font><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation"
->BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation</A>
+
+<p>Extends from <a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"
+>Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl</a> (Primary only chiller plant system with water-side economizer).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mAir_flow_nominal</td><td>roo.QRoo_flow/(1005*15)</td><td>Nominal mass flow rate at fan [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>80E3</td><td>Nominal compressor power (at y=1) [W]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTEva_nominal</td><td>10</td><td>Temperature difference evaporator inlet-outlet [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTCon_nominal</td><td>10</td><td>Temperature difference condenser outlet-inlet [K]</td></tr>
+<tr><td>Real</td><td>COPc_nominal</td><td>3</td><td>Chiller COP</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mCHW_flow_nominal</td><td>2*roo.QRoo_flow/(4200*20)</td><td>Nominal mass flow rate at chilled water [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mCW_flow_nominal</td><td>2*roo.QRoo_flow/(4200*6)</td><td>Nominal mass flow rate at condenser water [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>500</td><td>Nominal pressure difference [Pa]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> DataCenterContinuousTimeControl <span style="color: #006400">
+  &quot;Model of data center that approximates the trim and response logic&quot;</span>
+  <span style="color: blue">extends </span><a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"
+>Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl</a>(<span style="color: blue">redeclare </span><a href="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation"
+>BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation</a>
                                                                      triAndRes);
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>DataCenterContinuousTimeControl;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE DataCenterDiscreteTimeControl<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Buildings.Examples.Chille7a424d00a711b732ntrolI.png" ALT="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"></A><A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
->Buildings.Examples.ChillerPlant</A>.DataCenterDiscreteTimeControl</H2>
-<B>Primary only chiller plant system with water-side economizer</B><p></P>
-<IMG SRC="Buildings.Examples.Chillebac61742302af0adntrolD.png" ALT="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl">
-<P></P><H3>Information</H3>
+<span style="color: blue">end </span>DataCenterContinuousTimeControl;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DataCenterDiscreteTimeControl<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Examples.Chille7a424d00a711b732ntrolI.png" alt="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"></a><a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
+>Buildings.Examples.ChillerPlant</a>.DataCenterDiscreteTimeControl</h2>
+<p>
+<b>Primary only chiller plant system with water-side economizer</b>
+<br>
+<br><img src="Buildings.Examples.Chillebac61742302af0adntrolD.png" alt="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl">
+</p>
+<h3>Information</h3>
 
 <p>
 This model is the chilled water plant with discrete time control and
 trim and response logic for a data center. The model is described at
-<A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
+<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
 >
 Buildings.Examples.ChillerPlant</a>.
 </p>
 <pre>
-</PRE><P></P>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
->Modelica.Icons.Example</A> (Icon for runnable examples).
-<P><H3>Parameters</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>mAir_flow_nominal</TD><TD>roo.QRoo_flow/(1005*15)</TD><TD>Nominal mass flow rate at fan [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
->Power</A></TD><TD>P_nominal</TD><TD>80E3</TD><TD>Nominal compressor power (at y=1) [W]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
->TemperatureDifference</A></TD><TD>dTEva_nominal</TD><TD>10</TD><TD>Temperature difference evaporator inlet-outlet [K]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
->TemperatureDifference</A></TD><TD>dTCon_nominal</TD><TD>10</TD><TD>Temperature difference condenser outlet-inlet [K]</TD></TR>
-<TR><TD>Real</TD><TD>COPc_nominal</TD><TD>3</TD><TD>Chiller COP</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>mCHW_flow_nominal</TD><TD>2*roo.QRoo_flow/(4200*20)</TD><TD>Nominal mass flow rate at chilled water [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->MassFlowRate</A></TD><TD>mCW_flow_nominal</TD><TD>2*roo.QRoo_flow/(4200*6)</TD><TD>Nominal mass flow rate at condenser water [kg/s]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Pressure</A></TD><TD>dp_nominal</TD><TD>500</TD><TD>Nominal pressure difference [Pa]</TD></TR>
-<TR><TD><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond"
->TrimAndRespond</A></TD><TD>triAndRes</TD><TD>redeclare Buildings.Examples...</TD><TD>Trim and respond logic</TD></TR>
-</TABLE>
-<P><H3>Connectors</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
->Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">model</font> DataCenterDiscreteTimeControl <font color="darkgreen">
-  &quot;Primary only chiller plant system with water-side economizer&quot;</font>
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
->Modelica.Icons.Example</A>;
-  <font color="blue">package</font> MediumAir = <A HREF="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
->Buildings.Media.GasesPTDecoupled.SimpleAir</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
-  <font color="blue">package</font> MediumCHW = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
->Buildings.Media.ConstantPropertyLiquidWater</A> <font color="darkgreen">
-    &quot;Medium model&quot;</font>;
-  <font color="blue">package</font> MediumCW = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
->Buildings.Media.ConstantPropertyLiquidWater</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->Modelica.SIunits.MassFlowRate</A> mAir_flow_nominal=roo.QRoo_flow/(1005
-      *15) <font color="darkgreen">&quot;Nominal mass flow rate at fan&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
->Modelica.SIunits.Power</A> P_nominal=80E3 <font color="darkgreen">
-    &quot;Nominal compressor power (at y=1)&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
->Modelica.SIunits.TemperatureDifference</A> dTEva_nominal=10 <font color="darkgreen">
-    &quot;Temperature difference evaporator inlet-outlet&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
->Modelica.SIunits.TemperatureDifference</A> dTCon_nominal=10 <font color="darkgreen">
-    &quot;Temperature difference condenser outlet-inlet&quot;</font>;
-  <font color="blue">parameter </font>Real COPc_nominal=3 <font color="darkgreen">&quot;Chiller COP&quot;</font>;
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->Modelica.SIunits.MassFlowRate</A> mCHW_flow_nominal=2*roo.QRoo_flow/(
-      4200*20) <font color="darkgreen">&quot;Nominal mass flow rate at chilled water&quot;</font>;
+</pre>
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mAir_flow_nominal</td><td>roo.QRoo_flow/(1005*15)</td><td>Nominal mass flow rate at fan [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>80E3</td><td>Nominal compressor power (at y=1) [W]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTEva_nominal</td><td>10</td><td>Temperature difference evaporator inlet-outlet [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTCon_nominal</td><td>10</td><td>Temperature difference condenser outlet-inlet [K]</td></tr>
+<tr><td>Real</td><td>COPc_nominal</td><td>3</td><td>Chiller COP</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mCHW_flow_nominal</td><td>2*roo.QRoo_flow/(4200*20)</td><td>Nominal mass flow rate at chilled water [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mCW_flow_nominal</td><td>2*roo.QRoo_flow/(4200*6)</td><td>Nominal mass flow rate at condenser water [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>500</td><td>Nominal pressure difference [Pa]</td></tr>
+<tr><td><a href="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond"
+>TrimAndRespond</a></td><td>triAndRes</td><td>redeclare Buildings.Examples...</td><td>Trim and respond logic</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">model</span> DataCenterDiscreteTimeControl <span style="color: #006400">
+  &quot;Primary only chiller plant system with water-side economizer&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue">package</span> MediumAir = <a href="Buildings_Media_GasesPTDecoupled_SimpleAir.html#Buildings.Media.GasesPTDecoupled.SimpleAir"
+>Buildings.Media.GasesPTDecoupled.SimpleAir</a> <span style="color: #006400">&quot;Medium model&quot;</span>;
+  <span style="color: blue">package</span> MediumCHW = <a href="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</a> <span style="color: #006400">
+    &quot;Medium model&quot;</span>;
+  <span style="color: blue">package</span> MediumCW = <a href="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</a> <span style="color: #006400">&quot;Medium model&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mAir_flow_nominal=roo.QRoo_flow/(1005
+      *15) <span style="color: #006400">&quot;Nominal mass flow rate at fan&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> P_nominal=80E3 <span style="color: #006400">
+    &quot;Nominal compressor power (at y=1)&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</a> dTEva_nominal=10 <span style="color: #006400">
+    &quot;Temperature difference evaporator inlet-outlet&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</a> dTCon_nominal=10 <span style="color: #006400">
+    &quot;Temperature difference condenser outlet-inlet&quot;</span>;
+  <span style="color: blue">parameter </span>Real COPc_nominal=3 <span style="color: #006400">&quot;Chiller COP&quot;</span>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mCHW_flow_nominal=2*roo.QRoo_flow/(
+      4200*20) <span style="color: #006400">&quot;Nominal mass flow rate at chilled water&quot;</span>;
 
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
->Modelica.SIunits.MassFlowRate</A> mCW_flow_nominal=2*roo.QRoo_flow/(
-      4200*6) <font color="darkgreen">&quot;Nominal mass flow rate at condenser water&quot;</font>;
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mCW_flow_nominal=2*roo.QRoo_flow/(
+      4200*6) <span style="color: #006400">&quot;Nominal mass flow rate at condenser water&quot;</span>;
 
-  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
->Modelica.SIunits.Pressure</A> dp_nominal=500 <font color="darkgreen">
-    &quot;Nominal pressure difference&quot;</font>;
-<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
->Buildings.Fluid.Movers.FlowMachine_m_flow</A> fan(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumAir,
+  <span style="color: blue">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal=500 <span style="color: #006400">
+    &quot;Nominal pressure difference&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
+>Buildings.Fluid.Movers.FlowMachine_m_flow</a> fan(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = MediumAir,
     m_flow_nominal=mAir_flow_nominal,
     dp(start=249),
     m_flow(start=mAir_flow_nominal),
     T_start=293.15,
     filteredSpeed=false);
-  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.DryCoilCounterFlow"
->Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</A> cooCoi(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium1 = MediumCHW,
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium2 = MediumAir,
+  <a href="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.DryCoilCounterFlow"
+>Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> cooCoi(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium1 = MediumCHW,
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium2 = MediumAir,
     m2_flow_nominal=mAir_flow_nominal,
     m1_flow_nominal=mCHW_flow_nominal,
     m1_flow(start=mCHW_flow_nominal),
     m2_flow(start=mAir_flow_nominal),
     dp1_nominal(displayUnit=&quot;Pa&quot;) = 1000,
     dp2_nominal=249*3,
-    UA_nominal=mAir_flow_nominal*1006*5) <font color="darkgreen">&quot;Cooling coil&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A> mFanFlo(k=mAir_flow_nominal) <font color="darkgreen">
-    &quot;Mass flow rate of fan&quot;</font>;
-  <A HREF="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom"
->BaseClasses.SimplifiedRoom</A> roo(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumAir,
+    UA_nominal=mAir_flow_nominal*1006*5) <span style="color: #006400">&quot;Cooling coil&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> mFanFlo(k=mAir_flow_nominal) <span style="color: #006400">
+    &quot;Mass flow rate of fan&quot;</span>;
+  <a href="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom"
+>BaseClasses.SimplifiedRoom</a> roo(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = MediumAir,
     nPorts=2,
     rooLen=50,
     rooWid=30,
     rooHei=3,
     m_flow_nominal=mAir_flow_nominal,
-    QRoo_flow=500000) <font color="darkgreen">&quot;Room model&quot;</font>;
-  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
->Modelica.Fluid.System</A> system(T_ambient=283.15);
-  <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_dp"
->Fluid.Movers.FlowMachine_dp</A> pumCHW(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumCHW,
+    QRoo_flow=500000) <span style="color: #006400">&quot;Room model&quot;</span>;
+  <span style="color: blue">inner </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</a> system(T_ambient=283.15);
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_dp"
+>Fluid.Movers.FlowMachine_dp</a> pumCHW(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     m_flow(start=mCHW_flow_nominal),
     dp(start=325474),
-    filteredSpeed=false) <font color="darkgreen">&quot;Chilled water pump&quot;</font>;
-  <A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel"
->Buildings.Fluid.Storage.ExpansionVessel</A> expVesCHW(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
-        MediumCHW, VTot=1) <font color="darkgreen">&quot;Expansion vessel&quot;</font>;
-  <A HREF="Buildings_Fluid_HeatExchangers_CoolingTowers.html#Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc"
->Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</A> cooTow(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumCW,
+    filteredSpeed=false) <span style="color: #006400">&quot;Chilled water pump&quot;</span>;
+  <a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel"
+>Buildings.Fluid.Storage.ExpansionVessel</a> expVesCHW(<span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium =
+        MediumCHW, V_start=1) <span style="color: #006400">&quot;Expansion vessel&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_CoolingTowers.html#Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc"
+>Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a> cooTow(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
     PFan_nominal=6000,
     TAirInWB_nominal(displayUnit=&quot;degC&quot;) = 283.15,
     TApp_nominal=6,
-    dp_nominal=14930 + 14930 + 74650) <font color="darkgreen">&quot;Cooling tower&quot;</font>;
-  <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
->Buildings.Fluid.Movers.FlowMachine_m_flow</A> pumCW(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumCW,
+    dp_nominal=14930 + 14930 + 74650) <span style="color: #006400">&quot;Cooling tower&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
+>Buildings.Fluid.Movers.FlowMachine_m_flow</a> pumCW(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
     dp(start=214992),
-    filteredSpeed=false) <font color="darkgreen">&quot;Condenser water pump&quot;</font>;
-  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.ConstantEffectiveness"
->Buildings.Fluid.HeatExchangers.ConstantEffectiveness</A> wse(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium1 = MediumCW,
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium2 = MediumCHW,
+    filteredSpeed=false) <span style="color: #006400">&quot;Condenser water pump&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.ConstantEffectiveness"
+>Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a> wse(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium1 = MediumCW,
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium2 = MediumCHW,
     m1_flow_nominal=mCW_flow_nominal,
     m2_flow_nominal=mCHW_flow_nominal,
     eps=0.8,
     dp2_nominal=0,
-    dp1_nominal=0) <font color="darkgreen">&quot;Water side economizer (Heat exchanger)&quot;</font>;
-  <A HREF="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
->Fluid.Actuators.Valves.TwoWayLinear</A> val5(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumCW,
+    dp1_nominal=0) <span style="color: #006400">&quot;Water side economizer (Heat exchanger)&quot;</span>;
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Fluid.Actuators.Valves.TwoWayLinear</a> val5(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=89580,
     y_start=1,
-    filteredOpening=false) <font color="darkgreen">&quot;Control valve for condenser water loop of chiller&quot;</font>;
-  <A HREF="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
->Fluid.Actuators.Valves.TwoWayLinear</A> val1(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumCHW,
+    filteredOpening=false) <span style="color: #006400">&quot;Control valve for condenser water loop of chiller&quot;</span>;
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Fluid.Actuators.Valves.TwoWayLinear</a> val1(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
-    filteredOpening=false) <font color="darkgreen">
-    &quot;Bypass control valve for economizer. 1: disable economizer, 0: enable economoizer&quot;</font>;
-  <A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel"
->Buildings.Fluid.Storage.ExpansionVessel</A> expVesChi(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
-        MediumCW, VTot=1);
-  <A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl"
->Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl</A> wseCon;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
->Modelica.Blocks.Sources.RealExpression</A> expTowTApp(y=cooTow.TApp_nominal) <font color="darkgreen">
-    &quot;Cooling tower approach&quot;</font>;
-  <A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.ElectricEIR"
->Fluid.Chillers.ElectricEIR</A> chi(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium1 = MediumCW,
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium2 = MediumCHW,
+    filteredOpening=false) <span style="color: #006400">
+    &quot;Bypass control valve for economizer. 1: disable economizer, 0: enable economoizer&quot;</span>;
+  <a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel"
+>Buildings.Fluid.Storage.ExpansionVessel</a> expVesChi(<span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium =
+        MediumCW, V_start=1);
+  <a href="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl"
+>Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl</a> wseCon;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> expTowTApp(y=cooTow.TApp_nominal) <span style="color: #006400">
+    &quot;Cooling tower approach&quot;</span>;
+  <a href="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.ElectricEIR"
+>Fluid.Chillers.ElectricEIR</a> chi(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium1 = MediumCW,
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium2 = MediumCHW,
     m1_flow_nominal=mCW_flow_nominal,
     m2_flow_nominal=mCHW_flow_nominal,
     dp2_nominal=0,
     dp1_nominal=0,
-    per=<font color="red">Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD</font>());
-  <A HREF="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
->Fluid.Actuators.Valves.TwoWayLinear</A> val6(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumCHW,
+    per=<span style="color: red">Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD</span>());
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Fluid.Actuators.Valves.TwoWayLinear</a> val6(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=14930 + 89580,
     y_start=1,
-    filteredOpening=false) <font color="darkgreen">
-    &quot;Control valve for chilled water leaving from chiller&quot;</font>;
-  <A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch"
->Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch</A> chiSwi(
-      deaBan(displayUnit=&quot;K&quot;) = 2.2) <font color="darkgreen">
-    &quot;Control unit switching chiller on or off &quot;</font>;
-  <font color="blue">replaceable </font><A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond"
->Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond</A>
+    filteredOpening=false) <span style="color: #006400">
+    &quot;Control valve for chilled water leaving from chiller&quot;</span>;
+  <a href="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch"
+>Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch</a> chiSwi(
+      deaBan(displayUnit=&quot;K&quot;) = 2.2) <span style="color: #006400">
+    &quot;Control unit switching chiller on or off &quot;</span>;
+  <span style="color: blue">replaceable </span><a href="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond"
+>Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond</a>
                                                                         triAndRes(
     yEqu0=0,
     samplePeriod=120,
     uTri=0,
     yDec=-0.03,
-    yInc=0.03) <font color="blue">constrainedby </font>Modelica.Blocks.Interfaces.BlockIcon <font color="darkgreen">
-    &quot;Trim and respond logic&quot;</font>;
-  <A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo"
->Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo</A>
+    yInc=0.03) <span style="color: blue">constrainedby </span>Modelica.Blocks.Icons.Block <span style="color: #006400">
+    &quot;Trim and respond logic&quot;</span>;
+  <a href="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo"
+>Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo</a>
     linPieTwo(
     x0=0,
     x2=1,
@@ -440,159 +448,161 @@ Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Exam
     y11=1,
     y21=273.15 + 5.56,
     y10=0.2,
-    y20=273.15 + 22) <font color="darkgreen">&quot;Translate the control signal for chiller setpoint reset&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A> TAirSet(k=273.15 + 27) <font color="darkgreen">
-    &quot;Set temperature for air supply to the room&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
->Modelica.Blocks.Math.BooleanToReal</A> chiCon <font color="darkgreen">&quot;Contorl signal for chiller&quot;</font>;
-  <A HREF="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
->Fluid.Actuators.Valves.TwoWayLinear</A> val4(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumCW,
+    y20=273.15 + 22) <span style="color: #006400">&quot;Translate the control signal for chiller setpoint reset&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TAirSet(k=273.15 + 27) <span style="color: #006400">
+    &quot;Set temperature for air supply to the room&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
+>Modelica.Blocks.Math.BooleanToReal</a> chiCon <span style="color: #006400">&quot;Contorl signal for chiller&quot;</span>;
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Fluid.Actuators.Valves.TwoWayLinear</a> val4(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=59720,
     y_start=0,
-    filteredOpening=false) <font color="darkgreen">
-    &quot;Control valve for condenser water loop of economizer&quot;</font>;
-  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
->Buildings.Fluid.Sensors.TemperatureTwoPort</A> TAirSup(<font color="blue">redeclare </font><font color="blue">package</font> Medium
-      = MediumAir, m_flow_nominal=mAir_flow_nominal) <font color="darkgreen">
-    &quot;Supply air temperature to data center&quot;</font>;
-  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
->Buildings.Fluid.Sensors.TemperatureTwoPort</A> TCHWEntChi(<font color="blue">redeclare </font><font color="blue">package</font>
-      Medium = MediumCHW, m_flow_nominal=mCHW_flow_nominal) <font color="darkgreen">
-    &quot;Temperature of chilled water entering chiller&quot;</font>;
-  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
->Buildings.Fluid.Sensors.TemperatureTwoPort</A> TCWLeaTow(<font color="blue">redeclare </font><font color="blue">package</font> Medium
-      = MediumCW, m_flow_nominal=mCW_flow_nominal) <font color="darkgreen">
-    &quot;Temperature of condenser water leaving the cooling tower&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</A> cooTowFanCon(k=1) <font color="darkgreen">
-    &quot;Control singal for cooling tower fan&quot;</font>;
-  <A HREF="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage"
->Fluid.Actuators.Valves.TwoWayEqualPercentage</A> valByp(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumCHW,
+    filteredOpening=false) <span style="color: #006400">
+    &quot;Control valve for condenser water loop of economizer&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TAirSup(<span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium
+      = MediumAir, m_flow_nominal=mAir_flow_nominal) <span style="color: #006400">
+    &quot;Supply air temperature to data center&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TCHWEntChi(<span style="color: blue">redeclare </span><span style="color: blue">package</span>
+      Medium = MediumCHW, m_flow_nominal=mCHW_flow_nominal) <span style="color: #006400">
+    &quot;Temperature of chilled water entering chiller&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TCWLeaTow(<span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium
+      = MediumCW, m_flow_nominal=mCW_flow_nominal) <span style="color: #006400">
+    &quot;Temperature of condenser water leaving the cooling tower&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> cooTowFanCon(k=1) <span style="color: #006400">
+    &quot;Control singal for cooling tower fan&quot;</span>;
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage"
+>Fluid.Actuators.Valves.TwoWayEqualPercentage</a> valByp(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=14930,
     y_start=0,
-    filteredOpening=false) <font color="darkgreen">&quot;Bypass valve for chiller.&quot;</font>;
-  <A HREF="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU"
->Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU</A> KMinusU(k=1);
-  <A HREF="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
->Fluid.Actuators.Valves.TwoWayLinear</A> val3(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumCHW,
+    filteredOpening=false) <span style="color: #006400">&quot;Bypass valve for chiller.&quot;</span>;
+  <a href="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU"
+>Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU</a> KMinusU(k=1);
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Fluid.Actuators.Valves.TwoWayLinear</a> val3(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=59720 + 1000,
-    filteredOpening=false) <font color="darkgreen">
-    &quot;Control valve for economizer. 0: disable economizer, 1: enable economoizer&quot;</font>;
-  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
->Buildings.Fluid.Sensors.TemperatureTwoPort</A> TCHWLeaCoi(<font color="blue">redeclare </font><font color="blue">package</font>
-      Medium = MediumCHW, m_flow_nominal=mCHW_flow_nominal) <font color="darkgreen">
-    &quot;Temperature of chilled water leaving the cooling coil&quot;</font>;
-  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
->Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaData(filNam=
+    filteredOpening=false) <span style="color: #006400">
+    &quot;Control valve for economizer. 0: disable economizer, 1: enable economoizer&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TCHWLeaCoi(<span style="color: blue">redeclare </span><span style="color: blue">package</span>
+      Medium = MediumCHW, m_flow_nominal=mCHW_flow_nominal) <span style="color: #006400">
+    &quot;Temperature of chilled water leaving the cooling coil&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaData(filNam=
         &quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
-  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
->BoundaryConditions.WeatherData.Bus</A> weaBus;
-  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
->Fluid.FixedResistances.FixedResistanceDpM</A> res(
-    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumCHW,
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>BoundaryConditions.WeatherData.Bus</a> weaBus;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Fluid.FixedResistances.FixedResistanceDpM</a> res(
+    <span style="color: blue">redeclare </span><span style="color: blue">package</span> Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     dp_nominal=89580);
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
->Modelica.Blocks.Math.Gain</A> gain(k=20*6485);
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
->Modelica.Blocks.Math.Feedback</A> feedback;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterThreshold"
->Modelica.Blocks.Logical.GreaterThreshold</A> greaterThreshold;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Or"
->Modelica.Blocks.Logical.Or</A> or1;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
->Modelica.Blocks.Math.BooleanToReal</A> mCWFlo(realTrue=mCW_flow_nominal) <font color="darkgreen">
-    &quot;Mass flow rate of condensor loop&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
->Modelica.Blocks.Sources.RealExpression</A> PHVAC(y=fan.P + pumCHW.P + pumCW.P +
-        cooTow.PFan + chi.P) <font color="darkgreen">&quot;Power consumed by HVAC system&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
->Modelica.Blocks.Sources.RealExpression</A> PIT(y=roo.QSou.Q_flow) <font color="darkgreen">
-    &quot;Power consumed by IT&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
->Modelica.Blocks.Continuous.Integrator</A> EHVAC(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) <font color="darkgreen">&quot;Energy consumed by HVAC&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
->Modelica.Blocks.Continuous.Integrator</A> EIT(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) <font color="darkgreen">&quot;Energy consumed by IT&quot;</font>;</textblock>
-<font color="blue">equation </font>
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(expVesCHW.port_a, cooCoi.port_b1);
-  <font color="red">connect</font>(expTowTApp.y, wseCon.towTApp);
-  <font color="red">connect</font>(chiSwi.y, chiCon.u);
-  <font color="red">connect</font>(cooTow.port_b, pumCW.port_a);
-  <font color="red">connect</font>(val5.port_a, chi.port_b1);
-  <font color="red">connect</font>(expVesChi.port_a, chi.port_b1);
-  <font color="red">connect</font>(val4.port_a, wse.port_b1);
-  <font color="red">connect</font>(chiSwi.y, chi.on);
-  <font color="red">connect</font>(linPieTwo.y[2], chi.TSet);
-  <font color="red">connect</font>(chiCon.y, val5.y);
-  <font color="red">connect</font>(linPieTwo.y[2], chiSwi.TSet);</textblock>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> gain(k=20*6485);
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+>Modelica.Blocks.Math.Feedback</a> feedback;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterThreshold"
+>Modelica.Blocks.Logical.GreaterThreshold</a> greaterThreshold;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Or"
+>Modelica.Blocks.Logical.Or</a> or1;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
+>Modelica.Blocks.Math.BooleanToReal</a> mCWFlo(realTrue=mCW_flow_nominal) <span style="color: #006400">
+    &quot;Mass flow rate of condensor loop&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> PHVAC(y=fan.P + pumCHW.P + pumCW.P +
+        cooTow.PFan + chi.P) <span style="color: #006400">&quot;Power consumed by HVAC system&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> PIT(y=roo.QSou.Q_flow) <span style="color: #006400">
+    &quot;Power consumed by IT&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+>Modelica.Blocks.Continuous.Integrator</a> EHVAC(initType=Modelica.Blocks.Types.Init.InitialState,
+      y_start=0) <span style="color: #006400">&quot;Energy consumed by HVAC&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+>Modelica.Blocks.Continuous.Integrator</a> EIT(initType=Modelica.Blocks.Types.Init.InitialState,
+      y_start=0) <span style="color: #006400">&quot;Energy consumed by IT&quot;</span>;
+<span style="color: blue">equation </span>
+  <span style="color: red">connect</span>(expVesCHW.port_a, cooCoi.port_b1);
+  <span style="color: red">connect</span>(expTowTApp.y, wseCon.towTApp);
+  <span style="color: red">connect</span>(chiSwi.y, chiCon.u);
+  <span style="color: red">connect</span>(cooTow.port_b, pumCW.port_a);
+  <span style="color: red">connect</span>(val5.port_a, chi.port_b1);
+  <span style="color: red">connect</span>(expVesChi.port_a, chi.port_b1);
+  <span style="color: red">connect</span>(val4.port_a, wse.port_b1);
+  <span style="color: red">connect</span>(chiSwi.y, chi.on);
+  <span style="color: red">connect</span>(linPieTwo.y[2], chi.TSet);
+  <span style="color: red">connect</span>(chiCon.y, val5.y);
+  <span style="color: red">connect</span>(linPieTwo.y[2], chiSwi.TSet);
 
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(cooTowFanCon.y, cooTow.y);
-  <font color="red">connect</font>(cooCoi.port_b2, fan.port_a);
-  <font color="red">connect</font>(mFanFlo.y, fan.m_flow_in);</textblock>
+  <span style="color: red">connect</span>(cooTowFanCon.y, cooTow.y);
+  <span style="color: red">connect</span>(cooCoi.port_b2, fan.port_a);
+  <span style="color: red">connect</span>(mFanFlo.y, fan.m_flow_in);
 
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(wse.port_a2, val3.port_b);
-  <font color="red">connect</font>(wseCon.y2, val1.y);
-  <font color="red">connect</font>(wseCon.y1, val3.y);
-  <font color="red">connect</font>(wseCon.y1, val4.y);
-  <font color="red">connect</font>(TAirSup.port_a, fan.port_b);
-  <font color="red">connect</font>(roo.airPorts[1],TAirSup. port_b);
-  <font color="red">connect</font>(roo.airPorts[2], cooCoi.port_a2);
-  <font color="red">connect</font>(TCHWLeaCoi.port_a, pumCHW.port_b);
-  <font color="red">connect</font>(TCHWEntChi.port_b, valByp.port_a);
-  <font color="red">connect</font>(TCHWEntChi.port_a, val1.port_b);
-  <font color="red">connect</font>(val1.port_a, TCHWLeaCoi.port_b);
-  <font color="red">connect</font>(val3.port_a, TCHWLeaCoi.port_b);
-  <font color="red">connect</font>(TCWLeaTow.port_b, chi.port_a1);
-  <font color="red">connect</font>(TCWLeaTow.port_b, wse.port_a1);
-  <font color="red">connect</font>(TCHWEntChi.T, chiSwi.chiCHWST);
-  <font color="red">connect</font>(wseCon.wseCWST, TCWLeaTow.T);
-  <font color="red">connect</font>(wseCon.wseCHWST, TCHWLeaCoi.T);
-  <font color="red">connect</font>(weaData.weaBus, weaBus);
-  <font color="red">connect</font>(wseCon.TWetBul, weaBus.TWetBul);
-  <font color="red">connect</font>(cooTow.TAir, weaBus.TWetBul);
-  <font color="red">connect</font>(TCHWEntChi.port_a, wse.port_b2);
-  <font color="red">connect</font>(valByp.port_b, val6.port_b);
-  <font color="red">connect</font>(TCHWEntChi.port_b, chi.port_a2);
-  <font color="red">connect</font>(val5.port_b, cooTow.port_a);
-  <font color="red">connect</font>(val4.port_b, cooTow.port_a);
-  <font color="red">connect</font>(pumCW.port_b, TCWLeaTow.port_a);</textblock>
+  <span style="color: red">connect</span>(wse.port_a2, val3.port_b);
+  <span style="color: red">connect</span>(wseCon.y2, val1.y);
+  <span style="color: red">connect</span>(wseCon.y1, val3.y);
+  <span style="color: red">connect</span>(wseCon.y1, val4.y);
+  <span style="color: red">connect</span>(TAirSup.port_a, fan.port_b);
+  <span style="color: red">connect</span>(roo.airPorts[1],TAirSup. port_b);
+  <span style="color: red">connect</span>(roo.airPorts[2], cooCoi.port_a2);
+  <span style="color: red">connect</span>(TCHWLeaCoi.port_a, pumCHW.port_b);
+  <span style="color: red">connect</span>(TCHWEntChi.port_b, valByp.port_a);
+  <span style="color: red">connect</span>(TCHWEntChi.port_a, val1.port_b);
+  <span style="color: red">connect</span>(val1.port_a, TCHWLeaCoi.port_b);
+  <span style="color: red">connect</span>(val3.port_a, TCHWLeaCoi.port_b);
+  <span style="color: red">connect</span>(TCWLeaTow.port_b, chi.port_a1);
+  <span style="color: red">connect</span>(TCWLeaTow.port_b, wse.port_a1);
+  <span style="color: red">connect</span>(TCHWEntChi.T, chiSwi.chiCHWST);
+  <span style="color: red">connect</span>(wseCon.wseCWST, TCWLeaTow.T);
+  <span style="color: red">connect</span>(wseCon.wseCHWST, TCHWLeaCoi.T);
+  <span style="color: red">connect</span>(weaData.weaBus, weaBus);
+  <span style="color: red">connect</span>(wseCon.TWetBul, weaBus.TWetBul);
+  <span style="color: red">connect</span>(cooTow.TAir, weaBus.TWetBul);
+  <span style="color: red">connect</span>(TCHWEntChi.port_a, wse.port_b2);
+  <span style="color: red">connect</span>(valByp.port_b, val6.port_b);
+  <span style="color: red">connect</span>(TCHWEntChi.port_b, chi.port_a2);
+  <span style="color: red">connect</span>(val5.port_b, cooTow.port_a);
+  <span style="color: red">connect</span>(val4.port_b, cooTow.port_a);
+  <span style="color: red">connect</span>(pumCW.port_b, TCWLeaTow.port_a);
 
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(cooCoi.port_a1, res.port_a);
-  <font color="red">connect</font>(chiCon.y, KMinusU.u);
-  <font color="red">connect</font>(KMinusU.y, valByp.y);
-  <font color="red">connect</font>(chiCon.y, val6.y);
-  <font color="red">connect</font>(linPieTwo.y[1], gain.u);
-  <font color="red">connect</font>(gain.y, pumCHW.dp_in);</textblock>
+  <span style="color: red">connect</span>(cooCoi.port_a1, res.port_a);
+  <span style="color: red">connect</span>(chiCon.y, KMinusU.u);
+  <span style="color: red">connect</span>(KMinusU.y, valByp.y);
+  <span style="color: red">connect</span>(chiCon.y, val6.y);
+  <span style="color: red">connect</span>(linPieTwo.y[1], gain.u);
+  <span style="color: red">connect</span>(gain.y, pumCHW.dp_in);
 
-<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(triAndRes.y, linPieTwo.u);
-  <font color="red">connect</font>(TAirSet.y, feedback.u2);
-  <font color="red">connect</font>(TAirSup.T, feedback.u1);
-  <font color="red">connect</font>(chi.port_b2, val6.port_a);
-  <font color="red">connect</font>(res.port_b, val6.port_b);
-  <font color="red">connect</font>(pumCHW.port_a, cooCoi.port_b1);
-  <font color="red">connect</font>(feedback.y, triAndRes.u);
-  <font color="red">connect</font>(greaterThreshold.u, wseCon.y1);
-  <font color="red">connect</font>(or1.u1, greaterThreshold.y);
-  <font color="red">connect</font>(or1.u2, chiSwi.y);
-  <font color="red">connect</font>(or1.y, mCWFlo.u);
-  <font color="red">connect</font>(mCWFlo.y, pumCW.m_flow_in);
-  <font color="red">connect</font>(PHVAC.y, EHVAC.u);
-  <font color="red">connect</font>(PIT.y, EIT.u);</textblock>
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>DataCenterDiscreteTimeControl;
-</PRE>
-<HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:21:44 2014.
-</address></BODY>
-</HTML>
+  <span style="color: red">connect</span>(triAndRes.y, linPieTwo.u);
+  <span style="color: red">connect</span>(TAirSet.y, feedback.u2);
+  <span style="color: red">connect</span>(TAirSup.T, feedback.u1);
+  <span style="color: red">connect</span>(chi.port_b2, val6.port_a);
+  <span style="color: red">connect</span>(res.port_b, val6.port_b);
+  <span style="color: red">connect</span>(pumCHW.port_a, cooCoi.port_b1);
+  <span style="color: red">connect</span>(feedback.y, triAndRes.u);
+  <span style="color: red">connect</span>(greaterThreshold.u, wseCon.y1);
+  <span style="color: red">connect</span>(or1.u1, greaterThreshold.y);
+  <span style="color: red">connect</span>(or1.u2, chiSwi.y);
+  <span style="color: red">connect</span>(or1.y, mCWFlo.u);
+  <span style="color: red">connect</span>(mCWFlo.y, pumCW.m_flow_in);
+  <span style="color: red">connect</span>(PHVAC.y, EHVAC.u);
+  <span style="color: red">connect</span>(PIT.y, EIT.u);
+<span style="color: blue">end </span>DataCenterDiscreteTimeControl;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 11:01:55 2014.
+</address>
+</body>
+</html>

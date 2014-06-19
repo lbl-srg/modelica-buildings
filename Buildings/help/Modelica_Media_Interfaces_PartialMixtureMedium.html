@@ -1,193 +1,126 @@
-<HTML>
-<HEAD>
-<TITLE>Modelica.Media.Interfaces.PartialMixtureMedium.FluidConstants</TITLE>
-<META name="HTML-Generator" content="Dymola">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Modelica.Media.Interfaces.PartialMixtureMedium.moleToMassFractions</title>
+<meta name="HTML-Generator" content="Dymola">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<META name="description" content="&quot;extended fluid constants&quot;">
+<meta name="description" content="&quot;Return mass fractions X from mole fractions&quot;">
 <style type="text/css">
-*       { font-size: 10pt; font-family: Arial,sans-serif; }
-pre     { font-size:  9pt; font-family: Courier,monospace;}
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
 h4      { font-size: 10pt; font-weight: bold; color: green; }
 h3      { font-size: 11pt; font-weight: bold; color: green; }
 h2      { font-size: 13pt; font-weight: bold; color: green; }
-address {                  font-weight: normal} 
-td      { solid #000; vertical-align:top; }
-th      { solid #000; vertical-align:top; font-weight: bold; }
-table   { solid #000; border-collapse: collapse;}
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
 </style>
-<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
-</HEAD>
+</head>
 <body>
-<!-- --- header ------ -->
-<div class="headerStyle">
-<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE moleToMassFractions<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Modelica.Media.Interfaces717f7df7541be96dtionsI.png" alt="Modelica.Media.Interfaces.PartialMixtureMedium.moleToMassFractions" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Modelica.Media.Interfaces.PartialMixtureMedium.moleToMassFractions"></a><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium"
+>Modelica.Media.Interfaces.PartialMixtureMedium</a>.moleToMassFractions</h2>
+<p>
+<b>Return mass fractions X from mole fractions</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MoleFraction"
+>MoleFraction</a></td><td>moleFractions[:]</td><td>&nbsp;</td><td>Mole fractions of mixture [1]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MolarMass"
+>MolarMass</a></td><td>MMX[:]</td><td>&nbsp;</td><td>Molar masses of components [kg/mol]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>MassFraction</a></td><td>X[size(moleFractions, 1)]</td><td>Mass fractions of gas mixture [1]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">function</span> moleToMassFractions <span style="color: #006400">
+  &quot;Return mass fractions X from mole fractions&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MoleFraction"
+>SI.MoleFraction</a> moleFractions[:] <span style="color: #006400">&quot;Mole fractions of mixture&quot;</span>;
+  <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MolarMass"
+>MolarMass</a>[:] MMX <span style="color: #006400">&quot;Molar masses of components&quot;</span>;
+  <span style="color: blue">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>SI.MassFraction</a> X[<span style="color: red">size</span>(moleFractions, 1)] <span style="color: #006400">
+    &quot;Mass fractions of gas mixture&quot;</span>;
+<span style="color: blue">protected </span>
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MolarMass"
+>MolarMass</a> Mmix=moleFractions*MMX <span style="color: #006400">&quot;Molar mass of mixture&quot;</span>;
+<span style="color: blue">algorithm </span>
+  <span style="color: blue">for </span>i<span style="color: blue"> in </span>1:<span style="color: red">size</span>(moleFractions, 1)<span style="color: blue"> loop</span>
+    X[i] := moleFractions[i]*MMX[i]/Mmix;
+  <span style="color: blue">end for</span>;
+<span style="color: blue">end </span>moleToMassFractions;
 </div>
-<div class="headerLinks">
-<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
-</div>
-<!-- --- end header -- -->
-</P>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE FluidConstants<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Modelica.Media.Interfaces11fd66914b47b0dctantsI.png" ALT="Modelica.Media.Interfaces.PartialMixtureMedium.FluidConstants" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Modelica.Media.Interfaces.PartialMixtureMedium.FluidConstants"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium"
->Modelica.Media.Interfaces.PartialMixtureMedium</A>.FluidConstants</H2>
-<B>extended fluid constants</B><p></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.FluidConstants"
-></A> (critical, triple, molecular and other standard data of fluid).
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">redeclare </font><font color="blue">replaceable </font><font color="blue">record</font> <font color="blue">extends </font>FluidConstants <font color="darkgreen">
-  &quot;extended fluid constants&quot;</font>
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A> criticalTemperature <font color="darkgreen">&quot;critical temperature&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
->AbsolutePressure</A> criticalPressure <font color="darkgreen">&quot;critical pressure&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarVolume"
->MolarVolume</A> criticalMolarVolume <font color="darkgreen">&quot;critical molar Volume&quot;</font>;
-  Real acentricFactor <font color="darkgreen">&quot;Pitzer acentric factor&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A> triplePointTemperature <font color="darkgreen">&quot;triple point temperature&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
->AbsolutePressure</A> triplePointPressure <font color="darkgreen">&quot;triple point pressure&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A> meltingPoint <font color="darkgreen">&quot;melting point at 101325 Pa&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
->Temperature</A> normalBoilingPoint <font color="darkgreen">&quot;normal boiling point (at 101325 Pa)&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DipoleMoment"
->DipoleMoment</A> dipoleMoment <font color="darkgreen">
-    &quot;dipole moment of molecule in Debye (1 debye = 3.33564e10-30 C.m)&quot;</font>;
-  Boolean hasIdealGasHeatCapacity=false <font color="darkgreen">
-    &quot;true if ideal gas heat capacity is available&quot;</font>;
-  Boolean hasCriticalData=false <font color="darkgreen">&quot;true if critical data are known&quot;</font>;
-  Boolean hasDipoleMoment=false <font color="darkgreen">&quot;true if a dipole moment known&quot;</font>;
-  Boolean hasFundamentalEquation=false <font color="darkgreen">&quot;true if a fundamental equation&quot;</font>;
-  Boolean hasLiquidHeatCapacity=false <font color="darkgreen">
-    &quot;true if liquid heat capacity is available&quot;</font>;
-  Boolean hasSolidHeatCapacity=false <font color="darkgreen">&quot;true if solid heat capacity is available&quot;</font>;
-  Boolean hasAccurateViscosityData=false <font color="darkgreen">
-    &quot;true if accurate data for a viscosity function is available&quot;</font>;
-  Boolean hasAccurateConductivityData=false <font color="darkgreen">
-    &quot;true if accurate data for thermal conductivity is available&quot;</font>;
-  Boolean hasVapourPressureCurve=false <font color="darkgreen">
-    &quot;true if vapour pressure data, e.g., Antoine coefficents are known&quot;</font>;
-  Boolean hasAcentricFactor=false <font color="darkgreen">&quot;true if Pitzer accentric factor is known&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy"
->SpecificEnthalpy</A> HCRIT0=0.0 <font color="darkgreen">
-    &quot;Critical specific enthalpy of the fundamental equation&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy"
->SpecificEntropy</A> SCRIT0=0.0 <font color="darkgreen">
-    &quot;Critical specific entropy of the fundamental equation&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy"
->SpecificEnthalpy</A> deltah=0.0 <font color="darkgreen">
-    &quot;Difference between specific enthalpy model (h_m) and f.eq. (h_f) (h_m - h_f)&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy"
->SpecificEntropy</A> deltas=0.0 <font color="darkgreen">
-    &quot;Difference between specific enthalpy model (s_m) and f.eq. (s_f) (s_m - s_f)&quot;</font>;
-<font color="blue">end </font>FluidConstants;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE moleToMassFractions<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Modelica.Media.Interfaces717f7df7541be96dtionsI.png" ALT="Modelica.Media.Interfaces.PartialMixtureMedium.moleToMassFractions" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Modelica.Media.Interfaces.PartialMixtureMedium.moleToMassFractions"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium"
->Modelica.Media.Interfaces.PartialMixtureMedium</A>.moleToMassFractions</H2>
-<B>Return mass fractions X from mole fractions</B><p></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A> (Icon for functions).
-<P><H3>Inputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MoleFraction"
->MoleFraction</A></TD><TD>moleFractions[:]</TD><TD>&nbsp;</TD><TD>Mole fractions of mixture [1]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass"
->MolarMass</A></TD><TD>MMX[:]</TD><TD>&nbsp;</TD><TD>molar masses of components [kg/mol]</TD></TR>
-</TABLE>
-<P><H3>Outputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->MassFraction</A></TD><TD>X[size(moleFractions, 1)]</TD><TD>Mass fractions of gas mixture [1]</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">function</font> moleToMassFractions <font color="darkgreen">
-  &quot;Return mass fractions X from mole fractions&quot;</font>
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A>;
-  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MoleFraction"
->SI.MoleFraction</A> moleFractions[:] <font color="darkgreen">&quot;Mole fractions of mixture&quot;</font>;
-  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass"
->MolarMass</A>[:] MMX <font color="darkgreen">&quot;molar masses of components&quot;</font>;
-  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->SI.MassFraction</A> X[<font color="red">size</font>(moleFractions, 1)] <font color="darkgreen">
-    &quot;Mass fractions of gas mixture&quot;</font>;
-<font color="blue">protected </font>
-  <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass"
->MolarMass</A> Mmix =  moleFractions*MMX <font color="darkgreen">&quot;molar mass of mixture&quot;</font>;
-<font color="blue">algorithm </font>
-  <font color="blue">for </font>i<font color="blue"> in </font>1:<font color="red">size</font>(moleFractions, 1)<font color="blue"> loop</font>
-    X[i] := moleFractions[i]*MMX[i] /Mmix;
-  <font color="blue">end for</font>;
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>moleToMassFractions;
-</PRE>
-<HR>
-<!--[if supportFields]><span style='mso-element:field-begin'></span>
-<span style='mso-spacerun:yes'></span>XE massToMoleFractions<![endif]-->
-<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
-<H2><IMG SRC="Modelica.Media.Interfaces717f7df7541be96dtionsI.png" ALT="Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
-<A NAME="Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions"></A><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium"
->Modelica.Media.Interfaces.PartialMixtureMedium</A>.massToMoleFractions</H2>
-<B>Return mole fractions from mass fractions X</B><p></P>
-<P></P><H3>Information</H3>
-Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A> (Icon for functions).
-<P><H3>Inputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->MassFraction</A></TD><TD>X[:]</TD><TD>&nbsp;</TD><TD>Mass fractions of mixture [1]</TD></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
->MolarMass</A></TD><TD>MMX[:]</TD><TD>&nbsp;</TD><TD>molar masses of components [kg/mol]</TD></TR>
-</TABLE>
-<P><H3>Outputs</H3><P>
-<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
-<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
-<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MoleFraction"
->MoleFraction</A></TD><TD>moleFractions[size(X, 1)]</TD><TD>Mole fractions of gas mixture [1]</TD></TR>
-</TABLE>
-<P></P><H3>Modelica definition</H3>
-<PRE>
-<font color="blue">function</font> massToMoleFractions <font color="darkgreen">
-  &quot;Return mole fractions from mass fractions X&quot;</font>
-  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
->Modelica.Icons.Function</A>;
-  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
->SI.MassFraction</A> X[:] <font color="darkgreen">&quot;Mass fractions of mixture&quot;</font>;
-  <font color="blue">input </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
->SI.MolarMass</A>[:] MMX <font color="darkgreen">&quot;molar masses of components&quot;</font>;
-  <font color="blue">output </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MoleFraction"
->SI.MoleFraction</A> moleFractions[<font color="red">size</font>(X, 1)] <font color="darkgreen">
-    &quot;Mole fractions of gas mixture&quot;</font>;
-<font color="blue">protected </font>
-  Real invMMX[<font color="red">size</font>(X, 1)] <font color="darkgreen">&quot;inverses of molar weights&quot;</font>;
-  <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
->SI.MolarMass</A> Mmix <font color="darkgreen">&quot;molar mass of mixture&quot;</font>;
-<font color="blue">algorithm </font>
-  <font color="blue">for </font>i<font color="blue"> in </font>1:<font color="red">size</font>(X, 1)<font color="blue"> loop</font>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE massToMoleFractions<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Modelica.Media.Interfaces717f7df7541be96dtionsI.png" alt="Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions"></a><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium"
+>Modelica.Media.Interfaces.PartialMixtureMedium</a>.massToMoleFractions</h2>
+<p>
+<b>Return mole fractions from mass fractions X</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>MassFraction</a></td><td>X[:]</td><td>&nbsp;</td><td>Mass fractions of mixture [1]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
+>MolarMass</a></td><td>MMX[:]</td><td>&nbsp;</td><td>Molar masses of components [kg/mol]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MoleFraction"
+>MoleFraction</a></td><td>moleFractions[size(X, 1)]</td><td>Mole fractions of gas mixture [1]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue">function</span> massToMoleFractions <span style="color: #006400">
+  &quot;Return mole fractions from mass fractions X&quot;</span>
+  <span style="color: blue">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>SI.MassFraction</a> X[:] <span style="color: #006400">&quot;Mass fractions of mixture&quot;</span>;
+  <span style="color: blue">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
+>SI.MolarMass</a>[:] MMX <span style="color: #006400">&quot;Molar masses of components&quot;</span>;
+  <span style="color: blue">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MoleFraction"
+>SI.MoleFraction</a> moleFractions[<span style="color: red">size</span>(X, 1)] <span style="color: #006400">
+    &quot;Mole fractions of gas mixture&quot;</span>;
+<span style="color: blue">protected </span>
+  Real invMMX[<span style="color: red">size</span>(X, 1)] <span style="color: #006400">&quot;Inverses of molar weights&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
+>SI.MolarMass</a> Mmix <span style="color: #006400">&quot;Molar mass of mixture&quot;</span>;
+<span style="color: blue">algorithm </span>
+  <span style="color: blue">for </span>i<span style="color: blue"> in </span>1:<span style="color: red">size</span>(X, 1)<span style="color: blue"> loop</span>
     invMMX[i] := 1/MMX[i];
-  <font color="blue">end for</font>;
+  <span style="color: blue">end for</span>;
   Mmix := 1/(X*invMMX);
-  <font color="blue">for </font>i<font color="blue"> in </font>1:<font color="red">size</font>(X, 1)<font color="blue"> loop</font>
+  <span style="color: blue">for </span>i<span style="color: blue"> in </span>1:<span style="color: red">size</span>(X, 1)<span style="color: blue"> loop</span>
     moleFractions[i] := Mmix*X[i]/MMX[i];
-  <font color="blue">end for</font>;
-<textblock type="annotcomp" expanded="false"><font color="blue">end </font>massToMoleFractions;
-</PRE>
-<HR>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Wed Feb 12 08:26:59 2014.
-</address></BODY>
-</HTML>
+  <span style="color: blue">end for</span>;
+<span style="color: blue">end </span>massToMoleFractions;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Jun 19 11:07:18 2014.
+</address>
+</body>
+</html>
