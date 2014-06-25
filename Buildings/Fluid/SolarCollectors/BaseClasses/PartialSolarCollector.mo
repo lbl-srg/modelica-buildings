@@ -8,9 +8,11 @@ model PartialSolarCollector "Partial model for solar collectors"
   parameter Integer nSeg(min=3) = 3
     "Number of segments used to discretize the collector model";
 
-  parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
-  parameter Modelica.SIunits.Angle til "Surface tilt";
+  parameter Modelica.SIunits.Angle lat(displayUnit="degree") "Latitude";
+  parameter Modelica.SIunits.Angle azi(displayUnit="degree")
+    "Surface azimuth (0 for south-facing; -90 degree for east-facing; +90 degree for west facing";
+  parameter Modelica.SIunits.Angle til(displayUnit="degree")
+    "Surface tilt (0 for horizontally mounted collector)";
   parameter Real rho "Ground reflectance";
   parameter Modelica.SIunits.HeatCapacity C=385*perPar.mDry
     "Heat capacity of solar collector without fluid (default: cp_copper*mDry*nPanels)";
@@ -219,7 +221,13 @@ equation
       </p>
     </html>",
     revisions="<html>
-      <ul>
+    <ul>
+    <li>
+    June 25, 2014, by Michael Wetter:<br/>
+    Improved comments for tilt to address 
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/246\">
+    https://github.com/lbl-srg/modelica-buildings/issues/246</a>.
+    </li>
         <li>
           October 8, 2013, by Michael Wetter:<br/>
           Removed parameter <code>show_V_flow</code> in declaration of instance <code>res</code>.
