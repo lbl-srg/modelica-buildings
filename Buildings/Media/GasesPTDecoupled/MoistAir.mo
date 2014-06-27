@@ -2,7 +2,7 @@ within Buildings.Media.GasesPTDecoupled;
 package MoistAir
   "Package with moist air model that decouples pressure and temperature"
   extends Modelica.Media.Interfaces.PartialCondensingGases(
-     final singleState = true,
+     final singleState = false,
      mediumName="MoistAirPTDecoupled",
      substanceNames={"water", "air"},
      final reducedX=true,
@@ -352,12 +352,6 @@ because pressure and temperature are decoupled, at the expense of accuracy.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-June 26, 2014, by Michael Wetter:<br/>
-Set <code>singleState=true</code>. This is required for
-<code>Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretized</code>
-to translate. Otherwise, the pressure initial conditions are overspecified.
-</li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the

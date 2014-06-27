@@ -2,7 +2,7 @@ within Buildings.Media.GasesPTDecoupled;
 package SimpleAir
   "Package with dry air model that decouples pressure and temperature"
   extends Buildings.Media.Interfaces.PartialSimpleIdealGasMedium(
-     final singleState = true,
+     final singleState = false,
      mediumName="GasesPTDecoupled.SimpleAir",
      cp_const=1005.45,
      MM_const=0.0289651159,
@@ -219,12 +219,6 @@ quantities are constant.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-June 26, 2014, by Michael Wetter:<br/>
-Set <code>singleState=true</code>. This is required for
-<code>Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretized</code>
-to translate. Otherwise, the pressure initial conditions are overspecified.
-</li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
 Added qualifier <code>final</code> to <code>standardOrderComponents=true</code> in the
