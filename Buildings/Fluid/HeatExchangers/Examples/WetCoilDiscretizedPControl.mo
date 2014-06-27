@@ -84,7 +84,8 @@ model WetCoilDiscretizedPControl
         T_a2_nominal,
         T_b2_nominal),
     dp2_nominal(displayUnit="Pa") = 200,
-    dp1_nominal(displayUnit="Pa") = 0)
+    dp1_nominal(displayUnit="Pa") = 0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                          annotation (Placement(transformation(extent={{60,16},{
             80,36}}, rotation=0)));
   inner Modelica.Fluid.System system

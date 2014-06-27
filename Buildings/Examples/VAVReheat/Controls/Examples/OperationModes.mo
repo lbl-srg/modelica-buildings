@@ -8,7 +8,8 @@ model OperationModes "Test model for operation modes"
     annotation (Placement(transformation(extent={{90,-60},{110,-40}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixTem(T=273.15)
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap(C=20000)
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap(C=20000, T(fixed=
+          true))
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor con(G=1)
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
@@ -41,7 +42,7 @@ model OperationModes "Test model for operation modes"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo1
     annotation (Placement(transformation(extent={{112,-130},{132,-110}})));
-  Buildings.Controls.Continuous.LimPID PID
+  Buildings.Controls.Continuous.LimPID PID(initType=Modelica.Blocks.Types.InitPID.InitialState)
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   Modelica.Blocks.Logical.Switch switch2
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));

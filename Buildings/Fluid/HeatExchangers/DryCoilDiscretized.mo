@@ -32,13 +32,8 @@ model DryCoilDiscretized
     "Set to true to specify hydraulic diameter for duct pressure drop)"
        annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics1=
-    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Default formulation of energy balances for volume 1"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics2=
-    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Default formulation of energy balances for volume 2"
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Formulation of energy balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister hexReg[nReg](
@@ -53,8 +48,7 @@ model DryCoilDiscretized
     each tau1=tau1,
     each tau2=tau2,
     each tau_m=tau_m,
-    each final energyDynamics1=energyDynamics1,
-    each final energyDynamics2=energyDynamics2,
+    each final energyDynamics=energyDynamics,
     each from_dp1=from_dp1,
     each linearizeFlowResistance1=linearizeFlowResistance1,
     each deltaM1=deltaM1,
@@ -112,7 +106,7 @@ model DryCoilDiscretized
     final deltaM=deltaM2,
     final from_dp=from_dp2,
     final allowFlowReversal=allowFlowReversal2,
-    final energyDynamics=ductConnectionDynamics) "Duct manifold at port a"
+    final energyDynamics=energyDynamics) "Duct manifold at port a"
     annotation (Placement(transformation(extent={{40,-26},{20,-6}}, rotation=0)));
 public
   parameter Modelica.SIunits.Length dh1=0.025
@@ -200,19 +194,18 @@ protected
 
 protected
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_1(
-                                              redeclare package Medium =
-        Medium1,
+    redeclare package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1,
     m_flow_nominal=m1_flow_nominal) "Temperature sensor"
                                       annotation (Placement(transformation(
           extent={{-58,54},{-48,66}}, rotation=0)));
-  Buildings.Fluid.Sensors.MassFlowRate masFloSen_1(redeclare package Medium =
-        Medium1, final allowFlowReversal=allowFlowReversal1)
-    "Mass flow rate sensor"              annotation (Placement(transformation(
+  Buildings.Fluid.Sensors.MassFlowRate masFloSen_1(
+    redeclare package Medium = Medium1,
+    final allowFlowReversal=allowFlowReversal1) "Mass flow rate sensor"
+                                         annotation (Placement(transformation(
           extent={{-80,54},{-68,66}}, rotation=0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_2(
-                                              redeclare package Medium =
-        Medium2,
+    redeclare package Medium = Medium2,
     m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal2) "Temperature sensor"
                                       annotation (Placement(transformation(
@@ -222,13 +215,9 @@ protected
     "Mass flow rate sensor"              annotation (Placement(transformation(
           extent={{82,-66},{70,-54}}, rotation=0)));
 public
-  parameter Modelica.Fluid.Types.Dynamics ductConnectionDynamics=
-    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Default formulation of energy balances for duct connection"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics"));
   parameter Modelica.SIunits.Length dl=0.3
     "Length of mixing volume for duct connection"
-    annotation (Dialog(tab = "Dynamics", enable=not steadyStateDuctConnection));
+    annotation (Dialog(tab = "Dynamics", enable=not (energyDynamics ==  Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.SIunits.MassFlowRate mStart_flow_a1=m1_flow_nominal
     "Guess value for mass flow rate at port_a1"
     annotation(Dialog(tab="General", group="Initialization"));
@@ -328,11 +317,11 @@ the pipe length. Thus, the smallest element of the coil consists of a pipe
 segment. Each pipe segment is modeled by an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
-Each element has a state variable for the metal. Depending
-on the value of the boolean parameters <code>steadyState_1</code> and
-<code>steadyState_2</code>, the fluid states are modeled dynamically or in steady
-state.
-If the parameter <code>steadyStateDuctConnection</code> is set the <code>false</code>, then
+Each element has a state variable for the metal.
+</p>
+<p>
+If the parameter <code>energyDynamics</code> is different from
+<code>Modelica.Fluid.Types.Dynamics.SteadyState</code>, then
 a mixing volume of length <code>dl</code> is added to the duct connection. This can
 help reducing the dimension of the nonlinear system of equations.
 </p>
@@ -356,6 +345,14 @@ this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 26, 2014, by Michael Wetter:<br/>
+Removed parameters <code>energyDynamics1</code>,
+<code>energyDynamics2</code> and <code>ductConnectionDynamics</code>,
+and used instead of these parameters the new parameter
+<code>energyDynamics</code>.
+This was done as this complexity is not required.
+</li>
 <li>
 December 13, 2013, by Michael Wetter:<br/>
 Corrected wrong connection 

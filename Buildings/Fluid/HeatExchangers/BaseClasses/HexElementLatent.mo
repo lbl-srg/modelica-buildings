@@ -2,11 +2,8 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HexElementLatent "Element of a heat exchanger"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
-      final energyDynamics=energyDynamics2,
-      final massDynamics=energyDynamics2),
-      mas(T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
-          der_T(
-           fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))));
+      final energyDynamics=energyDynamics,
+      final massDynamics=energyDynamics));
 
   MassExchange masExc(
      redeclare final package Medium=Medium2) "Model for mass exchange"

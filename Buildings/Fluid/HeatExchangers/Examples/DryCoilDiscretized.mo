@@ -12,7 +12,8 @@ model DryCoilDiscretized
   parameter Modelica.SIunits.Temperature T_b2_nominal = 20+273.15;
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 5
     "Nominal mass flow rate medium 1";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
+     m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
     "Nominal mass flow rate medium 2";
 
   Buildings.Fluid.HeatExchangers.DryCoilDiscretized hex(
@@ -32,12 +33,11 @@ model DryCoilDiscretized
     dp2_nominal=200,
     dp1_nominal=5000,
     show_T=true,
-    energyDynamics1=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    energyDynamics2=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                                annotation (Placement(transformation(extent={{8,-4},{
             28,16}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
-      package Medium = Medium2, T=303.15,
+  Buildings.Fluid.Sources.Boundary_pT sin_2(
+    redeclare package Medium = Medium2, T=303.15,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{-58,-10},
             {-38,10}}, rotation=0)));
@@ -48,8 +48,8 @@ model DryCoilDiscretized
     startTime=120)
                  annotation (Placement(transformation(extent={{-20,-50},{0,-30}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sou_2(                       redeclare
-      package Medium = Medium2,
+  Buildings.Fluid.Sources.Boundary_pT sou_2(
+    redeclare package Medium = Medium2,
     use_p_in=true,
     use_T_in=true,
     T=283.15,
@@ -64,11 +64,11 @@ model DryCoilDiscretized
           rotation=0)));
   Modelica.Blocks.Sources.Constant TDb(k=273.15 + 5) "Drybulb temperature"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant POut(k=101325)
+    Modelica.Blocks.Sources.Constant POut(k=101325) "Air pressure"
       annotation (Placement(transformation(extent={{-100,-2},{-80,18}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare
-      package Medium = Medium1,
+  Buildings.Fluid.Sources.Boundary_pT sin_1(
+    redeclare package Medium = Medium1,
     p=300000,
     T=293.15,
     use_p_in=true,

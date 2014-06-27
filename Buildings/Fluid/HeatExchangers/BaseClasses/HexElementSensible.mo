@@ -3,12 +3,8 @@ model HexElementSensible
   "Element of a heat exchanger with humidity condensation of fluid 2"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
-        final energyDynamics=energyDynamics2,
-        final massDynamics=energyDynamics2),
-        mas(
-          T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
-          der_T(
-           fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))));
+        final energyDynamics=energyDynamics,
+        final massDynamics=energyDynamics));
 
   annotation (
     Documentation(info="<html>

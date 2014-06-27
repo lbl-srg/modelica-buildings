@@ -11,7 +11,8 @@ model WetCoilDiscretized
   parameter Modelica.SIunits.Temperature T_b2_nominal = 10+273.15;
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 5
     "Nominal mass flow rate medium 1";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
+    m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
     "Nominal mass flow rate medium 2";
 
   Buildings.Fluid.HeatExchangers.WetCoilDiscretized hex(
@@ -30,7 +31,9 @@ model WetCoilDiscretized
         T_b1_nominal,
         T_a2_nominal,
         T_b2_nominal),
-    show_T=true)         annotation (Placement(transformation(extent={{8,-4},{
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                         annotation (Placement(transformation(extent={{8,-4},{
             28,16}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
       package Medium = Medium2,

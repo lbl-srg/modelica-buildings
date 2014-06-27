@@ -37,8 +37,7 @@ model CoilRegister "Register for a heat exchanger"
     each m2_flow_nominal=m2_flow_nominal/nPipPar/nPipSeg,
     each tau_m=tau_m,
     each UA_nominal=UA_nominal/nPipPar/nPipSeg,
-    each energyDynamics1=energyDynamics1,
-    each energyDynamics2=energyDynamics2,
+    each energyDynamics=energyDynamics,
     each from_dp1=from_dp1,
     each linearizeFlowResistance1=linearizeFlowResistance1,
     each deltaM1=deltaM1,
@@ -86,16 +85,11 @@ model CoilRegister "Register for a heat exchanger"
 
   parameter Modelica.SIunits.Time tau1=20
     "Time constant at nominal flow for medium 1"
-  annotation(Dialog(group = "Nominal condition", enable=not steadyState_1));
+  annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.SIunits.Time tau2=1
     "Time constant at nominal flow for medium 2"
-  annotation(Dialog(group = "Nominal condition", enable=not steadyState_2));
-  parameter Boolean steadyState_1=false
-    "Set to true for steady state model for fluid 1"
-    annotation (Dialog(group="Fluid 1"));
-  parameter Boolean steadyState_2=false
-    "Set to true for steady state model for fluid 2"
-    annotation (Dialog(group="Fluid 2"));
+  annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
+
   Modelica.SIunits.HeatFlowRate Q1_flow
     "Heat transfered from solid into medium 1";
   Modelica.SIunits.HeatFlowRate Q2_flow
@@ -104,14 +98,11 @@ model CoilRegister "Register for a heat exchanger"
     "Time constant of metal at nominal UA value"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics1=
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Default formulation of energy balances for volume 1"
+    "Default formulation of energy balances"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics2=
-    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Default formulation of energy balances for volume 2"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+
   Modelica.Blocks.Interfaces.RealInput Gc_2
     "Signal representing the convective thermal conductance medium 2 in [W/K]"
     annotation (Placement(transformation(
@@ -135,7 +126,6 @@ equation
   Q1_flow = sum(ele[i,j].Q1_flow for i in 1:nPipPar, j in 1:nPipSeg);
   Q2_flow = sum(ele[i,j].Q2_flow for i in 1:nPipPar, j in 1:nPipSeg);
   for i in 1:nPipPar loop
-    // liquid side (pipes)
     connect(ele[i,1].port_a1,       port_a1[i])
        annotation (Line(points={{-10,36},{-68,36},{-68,60},{-100,60}}, color={0,
             127,255}));
@@ -147,7 +137,7 @@ equation
        annotation (Line(points={{10,36},{10,46},{-10,46},{-10,36}}, color={0,
               127,255}));
     end for;
-    // gas side (duct)                                                                                      //water connections
+
     for j in 1:nPipSeg loop
       connect(ele[i,j].port_a2, port_a2[i,j])
        annotation (Line(points={{10,24},{40,24},{40,-60},{100,-60}}, color={0,
@@ -185,6 +175,13 @@ between the fluid volumes and the solid in each heat exchanger element.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 26, 2014, by Michael Wetter:<br/>
+Removed parameters <code>energyDynamics1</code> and <code>energyDynamics2</code>,
+and used instead of these two parameters the new parameter <code>energyDynamics</code>.
+Removed parameters <code>steadyState_1</code> and <code>steadyState_2</code>.
+This was done as this complexity is not required.
+</li>
 <li>
 August 12, 2008 by Michael Wetter:<br/>
 Introduced option to compute each medium using a steady state model or

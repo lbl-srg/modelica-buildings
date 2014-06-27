@@ -469,6 +469,12 @@ because it allows to invert the function <code>T_phX</code> analytically.
 </html>", revisions="<html>
 <ul>
 <li>
+June 26, 2014, by Michael Wetter:<br/>
+Set <code>singleState=true</code>. This is required for
+<code>Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretized</code>
+to translate. Otherwise, the pressure initial conditions are overspecified.
+</li>
+<li>
 March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the
 <code>BaseProperties</code> declaration. This avoids an error

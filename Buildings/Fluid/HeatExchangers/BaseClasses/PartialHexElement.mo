@@ -1,15 +1,16 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model PartialHexElement "Element of a heat exchanger 2"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
-   vol1(final energyDynamics=energyDynamics1,
-        final massDynamics=energyDynamics1));
+   vol1(final energyDynamics=energyDynamics,
+        final massDynamics=energyDynamics));
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal
     "Thermal conductance at nominal flow, used to compute time constant"
      annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Time tau_m(min=0) = 60
     "Time constant of metal at nominal UA value"
-          annotation(Dialog(tab="General", group="Nominal condition"));
+          annotation(Dialog(tab="General", group="Nominal condition",
+          enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)));
   parameter Modelica.SIunits.HeatCapacity C=2*UA_nominal*tau_m
     "Heat capacity of metal (= cp*m)";
 
@@ -26,22 +27,17 @@ model PartialHexElement "Element of a heat exchanger 2"
         extent={{-20,-20},{20,20}},
         rotation=90)));
 
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics1=
-    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Default formulation of energy balances for volume 1"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics2=
-    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Default formulation of energy balances for volume 2"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor mas(
     C=C,
-    T(stateSelect=StateSelect.always)) "Mass of metal"
+    T(stateSelect=StateSelect.always,
+      fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
+    der_T( fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)))
+    "Mass of metal"
     annotation (Placement(transformation(
         origin={-82,0},
         extent={{-10,-10},{10,10}},
         rotation=90)));
+
   Modelica.Thermal.HeatTransfer.Components.Convection con1(dT(min=-200))
     "Convection (and conduction) on fluid side 1"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}}, rotation=0)));
@@ -124,6 +120,12 @@ that a GUI displays the volume as a replaceable component.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 26, 2014, by Michael Wetter:<br/>
+Removed parameters <code>energyDynamics1</code> and <code>energyDynamics2</code>,
+and used instead of these two parameters <code>energyDynamics</code>.
+This was done as this complexity is not required.
+</li>
 <li>
 September 11, 2013, by Michael Wetter:<br/>
 Separated old model into one for dry and for wet heat exchangers.

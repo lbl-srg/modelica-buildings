@@ -77,7 +77,7 @@ model Manifold "Test model for coil manifold"
     linearized=false,
     mStart_flow_a=5,
     dp_nominal=10,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
             annotation (Placement(transformation(extent={{-32,-76},{-12,-56}},
           rotation=0)));
   Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldNoResistance

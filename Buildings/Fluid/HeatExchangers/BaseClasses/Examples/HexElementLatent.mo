@@ -71,9 +71,7 @@ model HexElementLatent
     redeclare package Medium2 = Medium_A,
     dp1_nominal=5,
     dp2_nominal=5,
-    energyDynamics1=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    energyDynamics2=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                     annotation (Placement(transformation(extent={{12,-10},{32,
             10}}, rotation=0)));
   Modelica.Blocks.Sources.Constant TDb1(k=303.15) "Drybulb temperature"

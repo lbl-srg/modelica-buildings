@@ -43,26 +43,35 @@ model DuctManifoldFixedResistance
     final nPorts=1+nPipPar*nPipSeg,
     final energyDynamics=energyDynamics,
     final massDynamics=energyDynamics,
-    m_flow_nominal=m_flow_nominal)
-                       annotation (Placement(transformation(extent={{-60,0},{
+    m_flow_nominal=m_flow_nominal) if
+       not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    annotation (Placement(transformation(extent={{-60,0},{
             -40,20}}, rotation=0)));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 equation
-  for i in 1:nPipPar loop
-    for j in 1:nPipSeg loop
-      connect(vol.ports[1+(i-1)*nPipSeg+j], fixRes[i, j].port_a)
-                                                             annotation (Line(
-            points={{-50,0},{-23,0},{0,0}}, color={0,127,255}));
+  if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) then
+    for i in 1:nPipPar loop
+      for j in 1:nPipSeg loop
+        connect(vol.ports[1+(i-1)*nPipSeg+j], fixRes[i, j].port_a)
+         annotation (Line(points={{-50,0},{-23,0},{0,0}}, color={0,127,255}));
+      end for;
     end for;
-  end for;
+   connect(port_a, vol.ports[1])
+     annotation (Line(points={{-100,0},{-74,0},{-74,0},{-50,0}},
+     color={0,127,255}));
+  else
+    for i in 1:nPipPar loop
+      for j in 1:nPipSeg loop
+        connect(port_a, fixRes[i, j].port_a)
+         annotation (Line(points={{-100,0},{-100,0},{0,0}},
+                                                          color={0,127,255}));
+      end for;
+    end for;
+  end if;
 
-  connect(port_a, vol.ports[1])
-                               annotation (Line(points={{-100,0},{-74,
-          -4.87687e-022},{-74,0},{-50,0}},                           color={0,
-          127,255}));
   connect(fixRes.port_b, port_b) annotation (Line(points={{20,0},{56,0},{56,0},
           {100,0}},                                            color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -80,6 +89,12 @@ for each flow path.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 26, 2014, by Michael Wetter:<br/>
+Conditionally removed the volume if the energy balance is steady state.
+This was done as the overhead for modeling a volume is not needed in this
+configuration.
+</li>
 <li>
 September 10, 2008, by Michael Wetter:<br/>
 Added additional parameters.

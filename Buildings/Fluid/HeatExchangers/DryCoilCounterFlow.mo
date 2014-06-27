@@ -18,19 +18,18 @@ model DryCoilCounterFlow
     "Number of pipe segments used for discretization"
     annotation (Dialog(group="Geometry"));
 
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics1=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Default formulation of energy balances for volume 1"
-    annotation (Evaluate=true,Dialog(tab="Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics2=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Default formulation of energy balances for volume 2"
-    annotation (Evaluate=true,Dialog(tab="Dynamics", group="Equations"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Formulation of energy balance"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   parameter Modelica.SIunits.Time tau1=20
     "Time constant at nominal flow for medium 1"
-    annotation (Dialog(group="Nominal condition", enable=not steadyState_1));
+    annotation (Dialog(group="Nominal condition",
+                enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.SIunits.Time tau2=1
     "Time constant at nominal flow for medium 2"
-    annotation (Dialog(group="Nominal condition", enable=not steadyState_2));
+    annotation (Dialog(group="Nominal condition",
+                enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.SIunits.Time tau_m=20
     "Time constant of metal at nominal UA value"
     annotation (Dialog(group="Nominal condition"));
@@ -106,8 +105,7 @@ protected
     each m2_flow_nominal=m2_flow_nominal,
     each tau_m=tau_m/nEle,
     each UA_nominal=UA_nominal/nEle,
-    each energyDynamics1=energyDynamics1,
-    each energyDynamics2=energyDynamics2,
+    each energyDynamics=energyDynamics,
     each deltaM1=deltaM1,
     each deltaM2=deltaM2,
     each from_dp1=from_dp1,
@@ -211,10 +209,7 @@ The flow paths are discretized into <code>nEle</code> elements.
 Each element is modeled by an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
-Each element has a state variable for the metal. Depending
-on the value of the boolean parameters <code>steadyState_1</code> and
-<code>steadyState_2</code>, the fluid states are modeled dynamically or in steady
-state.
+Each element has a state variable for the metal.
 </p>
 <p>
 The convective heat transfer coefficients can, for each fluid individually, be 
@@ -231,6 +226,12 @@ this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 26, 2014, by Michael Wetter:<br/>
+Removed parameters <code>energyDynamics1</code> and <code>energyDynamics2</code>,
+and used instead of these two parameters the new parameter <code>energyDynamics</code>.
+This was done as this complexity is not required.
+</li>
 <li>
 February 2, 2012, by Michael Wetter:<br/>
 Corrected error in assignment of <code>dp2_nominal</code>.

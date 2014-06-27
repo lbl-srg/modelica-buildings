@@ -23,7 +23,9 @@ model DryCoilCounterFlowMassFlow
         T_a1_nominal,
         T_b1_nominal,
         T_a2_nominal,
-        T_b2_nominal))       annotation (Placement(transformation(extent={{40,20},
+        T_b2_nominal),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                             annotation (Placement(transformation(extent={{40,20},
             {60,40}},     rotation=0)));
 
   inner Modelica.Fluid.System system
