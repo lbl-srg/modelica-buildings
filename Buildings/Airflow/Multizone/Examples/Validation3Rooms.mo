@@ -11,7 +11,7 @@ model Validation3Rooms
     V=2.5*5*5*1,
     nPorts=5,
     m_flow_nominal=0.001,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                            annotation (Placement(transformation(extent={{80,-20},
             {100,0}},   rotation=0)));
 
@@ -93,10 +93,9 @@ model Validation3Rooms
     redeclare package Medium = Medium,
     T_start=273.15 + 25,
     nPorts=3,
-    p_start=101325,
     V=2.5*5*5,
     m_flow_nominal=0.001,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                            annotation (Placement(transformation(extent={{-90,-30},
             {-70,-10}},  rotation=0)));
   Modelica.Blocks.Sources.Constant open(k=1) annotation (Placement(
@@ -126,7 +125,7 @@ model Validation3Rooms
     V=2.5*5*10*1,
     nPorts=2,
     m_flow_nominal=0.001,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                            annotation (Placement(transformation(extent={{-20,120},
             {0,140}},        rotation=0)));
 
