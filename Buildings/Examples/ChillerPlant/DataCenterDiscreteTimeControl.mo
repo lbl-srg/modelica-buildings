@@ -42,8 +42,7 @@ model DataCenterDiscreteTimeControl
     dp1_nominal(displayUnit="Pa") = 1000,
     dp2_nominal=249*3,
     UA_nominal=mAir_flow_nominal*1006*5,
-    energyDynamics1=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    energyDynamics2=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Cooling coil"
     annotation (Placement(transformation(extent={{298,-185},{278,-165}})));
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
