@@ -7,9 +7,9 @@ model DuctManifoldFixedResistance
        annotation(Evaluate=true, Dialog(enable = not linearized));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Mass flow rate at port_a"                                 annotation(Dialog(group = "Nominal Condition"));
+    "Mass flow rate at port_a"  annotation(Dialog(group = "Nominal Condition"));
   parameter Modelica.SIunits.Pressure dp_nominal(min=0) "Pressure"
-                                              annotation(Dialog(group = "Nominal Condition"));
+    annotation(Dialog(group = "Nominal Condition"));
   parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter of duct"
         annotation(Dialog(enable= not linearized));
   parameter Real ReC=4000
@@ -25,55 +25,40 @@ model DuctManifoldFixedResistance
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
 
-  Fluid.FixedResistances.FixedResistanceDpM[nPipPar,nPipSeg] fixRes(
+  Fluid.FixedResistances.FixedResistanceDpM fixRes(
     redeclare each package Medium = Medium,
-    each m_flow_nominal=m_flow_nominal/nPipPar/nPipSeg,
-    each m_flow(start=mStart_flow_a/nPipPar/nPipSeg),
+    each m_flow_nominal=m_flow_nominal,
     each dp_nominal=dp_nominal,
-    each dh=dh/sqrt(nPipPar*nPipSeg),
+    each dh=dh,
     each from_dp=from_dp,
     each deltaM=deltaM,
     each ReC=ReC,
     each use_dh=use_dh,
     each linearized=linearized) "Fixed resistance for each duct"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}}, rotation=0)));
-  parameter Modelica.SIunits.Length dl = 0.3 "Length of mixing volume";
-  Fluid.MixingVolumes.MixingVolume vol(redeclare package Medium = Medium,
-    final V=dh*dh*dl,
-    final nPorts=1+nPipPar*nPipSeg,
-    final energyDynamics=energyDynamics,
-    final massDynamics=energyDynamics,
-    m_flow_nominal=m_flow_nominal) if
-       not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-    annotation (Placement(transformation(extent={{-60,0},{
-            -40,20}}, rotation=0)));
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
-    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Default formulation of energy balances for volume"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}},
+      rotation=0)));
+protected
+  DuctManifoldFlowDistributor floDis(
+    redeclare package Medium = Medium,
+    nPipPar=nPipPar,
+    mStart_flow_a=mStart_flow_a,
+    nPipSeg=nPipSeg,
+    allowFlowReversal=allowFlowReversal)
+    "Mass flow distributor to the individual segments of the coil"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
-  if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) then
-    for i in 1:nPipPar loop
-      for j in 1:nPipSeg loop
-        connect(vol.ports[1+(i-1)*nPipSeg+j], fixRes[i, j].port_a)
-         annotation (Line(points={{-50,0},{-23,0},{0,0}}, color={0,127,255}));
-      end for;
-    end for;
-   connect(port_a, vol.ports[1])
-     annotation (Line(points={{-100,0},{-74,0},{-74,0},{-50,0}},
-     color={0,127,255}));
-  else
-    for i in 1:nPipPar loop
-      for j in 1:nPipSeg loop
-        connect(port_a, fixRes[i, j].port_a)
-         annotation (Line(points={{-100,0},{-100,0},{0,0}},
-                                                          color={0,127,255}));
-      end for;
-    end for;
-  end if;
-
-  connect(fixRes.port_b, port_b) annotation (Line(points={{20,0},{56,0},{56,0},
-          {100,0}},                                            color={0,127,255}));
+  connect(fixRes.port_a, port_a) annotation (Line(
+      points={{-40,0},{-100,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(fixRes.port_b, floDis.port_a) annotation (Line(
+      points={{-20,0},{40,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(floDis.port_b, port_b) annotation (Line(
+      points={{60,0},{100,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics),
@@ -82,13 +67,25 @@ Documentation(info="<html>
 Duct manifold with a fixed flow resistance.
 </p>
 <p>
-This model causes the flow to be distributed equally
-into each flow path by using a fixed flow resistance
-for each flow path.
+This model is composed of a pressure drop calculation, and
+a flow distributor. The flow distributor distributes the
+mass flow rate equally to each instance of <code>port_b</code>,
+without having to compute a pressure drop in each flow leg.
+</p>
+<p>
+<b>Note:</b> It is important that there is an equal pressure drop
+in each flow leg between this model, and the model that collects the flows.
+Otherwise, no solution may exist, and therefore the simulation may
+stop with an error.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 29, 2014, by Michael Wetter:<br/>
+Added model that distributes the mass flow rate equally to each
+instance of <code>port_b</code>.
+</li>
 <li>
 June 26, 2014, by Michael Wetter:<br/>
 Conditionally removed the volume if the energy balance is steady state.

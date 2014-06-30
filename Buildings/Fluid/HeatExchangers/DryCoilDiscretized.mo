@@ -99,14 +99,12 @@ model DryCoilDiscretized
     final dp_nominal=dp2_nominal,
     final dh=dh2,
     final ReC=ReC_2,
-    final dl=dl,
     final mStart_flow_a=mStart_flow_a2,
     final linearized=linearizeFlowResistance2,
     final use_dh=use_dh2,
     final deltaM=deltaM2,
     final from_dp=from_dp2,
-    final allowFlowReversal=allowFlowReversal2,
-    final energyDynamics=energyDynamics) "Duct manifold at port a"
+    final allowFlowReversal=allowFlowReversal2) "Duct manifold at port a"
     annotation (Placement(transformation(extent={{40,-26},{20,-6}}, rotation=0)));
 public
   parameter Modelica.SIunits.Length dh1=0.025
@@ -215,9 +213,6 @@ protected
     "Mass flow rate sensor"              annotation (Placement(transformation(
           extent={{82,-66},{70,-54}}, rotation=0)));
 public
-  parameter Modelica.SIunits.Length dl=0.3
-    "Length of mixing volume for duct connection"
-    annotation (Dialog(tab = "Dynamics", enable=not (energyDynamics ==  Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.SIunits.MassFlowRate mStart_flow_a1=m1_flow_nominal
     "Guess value for mass flow rate at port_a1"
     annotation(Dialog(tab="General", group="Initialization"));
@@ -345,6 +340,10 @@ this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 29, 2014, by Michael Wetter:<br/>
+Removed parameter <code>dl</code> which is no longer needed.
+</li>
 <li>
 June 26, 2014, by Michael Wetter:<br/>
 Removed parameters <code>energyDynamics1</code>,

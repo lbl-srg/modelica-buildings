@@ -62,11 +62,11 @@ model Manifold "Test model for coil manifold"
     use_dh=true,
     from_dp=false,
     redeclare package Medium = Medium2)
-             annotation (Placement(transformation(extent={{124,-40},{144,-20}},
+             annotation (Placement(transformation(extent={{120,-40},{140,-20}},
           rotation=0)));
   Buildings.Fluid.Sensors.MassFlowRate[nPipPar, nPipSeg] mfr_2(redeclare
       package Medium = Medium2)
-    annotation (Placement(transformation(extent={{32,-40},{52,-20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{30,-40},{50,-20}}, rotation=0)));
   Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldFixedResistance
     ducFixRes_2(
     nPipPar=nPipPar,
@@ -75,7 +75,6 @@ model Manifold "Test model for coil manifold"
     linearized=false,
     mStart_flow_a=5,
     dp_nominal=10,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = Medium2)
             annotation (Placement(transformation(extent={{-30,-40},{-10,-20}},
           rotation=0)));
@@ -85,7 +84,7 @@ model Manifold "Test model for coil manifold"
       nPipSeg=nPipSeg,
     mStart_flow_a=5,
     redeclare package Medium = Medium2)
-    annotation (Placement(transformation(extent={{118,-40},{98,-20}}, rotation=
+    annotation (Placement(transformation(extent={{114,-40},{94,-20}}, rotation=
             0)));
   Buildings.Fluid.HeatExchangers.BaseClasses.CoilHeader hea1(
       nPipPar=nPipPar,
@@ -114,13 +113,13 @@ model Manifold "Test model for coil manifold"
     nPorts=1,
     T=283.15,
     redeclare package Medium = Medium2)
-                          annotation (Placement(transformation(extent={{172,-40},
-            {152,-20}},rotation=0)));
+                          annotation (Placement(transformation(extent={{168,-40},
+            {148,-20}},rotation=0)));
   Modelica.Blocks.Sources.Ramp P1(
     duration=1,
     height=40,
-    offset=101305) annotation (Placement(transformation(extent={{-100,-20},{-80,
-            0}},  rotation=0)));
+    offset=101305) annotation (Placement(transformation(extent={{-100,-32},{-80,
+            -12}},rotation=0)));
 equation
   connect(TDb.y, sou_1.T_in) annotation (Line(points={{-79,36},{-62,36},{-62,38}},
                      color={0,0,127}));
@@ -129,7 +128,7 @@ equation
   connect(res_1.port_a, pipNoRes_1.port_a)
     annotation (Line(points={{120,34},{114,34}}, color={0,127,255}));
   connect(res_2.port_a,ducNoRes_2. port_a)
-    annotation (Line(points={{124,-30},{118,-30}}, color={0,127,255}));
+    annotation (Line(points={{120,-30},{114,-30}}, color={0,127,255}));
   connect(pipFixRes_1.port_b, hea1.port_a) annotation (Line(points={{-10,34},{0,
           34}},               color={0,127,255}));
   connect(hea1.port_b, mfr_1.port_a)
@@ -139,9 +138,9 @@ equation
   connect(hea2.port_b, pipNoRes_1.port_b)
     annotation (Line(points={{80,34},{94,34}}, color={0,127,255}));
   connect(ducFixRes_2.port_b, mfr_2.port_a) annotation (Line(points={{-10,-30},
-          {32,-30}}, color={0,127,255}));
-  connect(mfr_2.port_b, ducNoRes_2.port_b) annotation (Line(points={{52,-30},{
-          98,-30}}, color={0,127,255}));
+          {30,-30}}, color={0,127,255}));
+  connect(mfr_2.port_b, ducNoRes_2.port_b) annotation (Line(points={{50,-30},{
+          94,-30}}, color={0,127,255}));
   connect(sou_1.ports[1], pipFixRes_1.port_a) annotation (Line(
       points={{-40,34},{-30,34}},
       color={0,127,255},
@@ -154,11 +153,11 @@ equation
           -26},{-64,-26}},
                      color={0,0,127}));
   connect(sin_2.ports[1], res_2.port_b) annotation (Line(
-      points={{152,-30},{144,-30}},
+      points={{148,-30},{140,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(P1.y, sou_2.p_in) annotation (Line(
-      points={{-79,-10},{-74,-10},{-74,-22},{-64,-22}},
+      points={{-79,-22},{-64,-22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou_2.ports[1], ducFixRes_2.port_a) annotation (Line(

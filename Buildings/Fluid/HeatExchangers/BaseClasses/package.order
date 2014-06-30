@@ -9,11 +9,13 @@ HexElementLatent
 HexElementSensible
 MassExchange
 PartialDuctManifold
+DuctManifoldFlowDistributor
 PartialDuctPipeManifold
 PartialEffectiveness
 PartialHexElement
 PartialPipeManifold
 PipeManifoldFixedResistance
+PipeManifoldFlowDistributor
 PipeManifoldNoResistance
 RayleighNumber
 appartusDewPoint

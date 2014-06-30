@@ -53,7 +53,7 @@ partial model WetCoilDiscretized
     duration=60,
     height=-200,
     startTime=120,
-    offset=101525)
+    offset=101526)
                  annotation (Placement(transformation(extent={{90,38},{70,58}},
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
