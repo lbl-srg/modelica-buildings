@@ -140,13 +140,13 @@ model Validation3Rooms
   Buildings.HeatTransfer.Sources.FixedTemperature TEas(T=293.15)
     "Fixed temperature"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conTop(G=100)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conTop(G=1E9)
     "Thermal conductor"
     annotation (Placement(transformation(extent={{-50,120},{-30,140}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conWes(G=100)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conWes(G=1E9)
     "Thermal conductor"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conEas(G=100)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conEas(G=1E9)
     "Thermal conductor"
     annotation (Placement(transformation(extent={{50,-20},{70,0}})));
 equation
