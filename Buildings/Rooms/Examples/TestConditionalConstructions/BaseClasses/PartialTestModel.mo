@@ -22,6 +22,7 @@ partial model PartialTestModel
     AFlo=20,
     hRoo=2.7,
     linearizeRadiation = true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     lat=0.73268921998722) "Room model"
     annotation (Placement(transformation(extent={{44,-36},{84,4}})));
 
@@ -63,7 +64,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,-6},{11.25,-6},{11.25,-6},{21.5,-6},{21.5,-6},{42,-6}},
+      points={{1,-6},{36,-6}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -78,6 +79,10 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,160}})),
     Documentation(revisions="<html>
 <ul>
+<li>
+June 30, 2014, by Michael Wetter:<br/>
+Set equations to be used to compute the initial conditions.
+</li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements

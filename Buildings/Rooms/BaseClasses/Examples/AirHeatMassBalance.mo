@@ -21,7 +21,8 @@ model AirHeatMassBalance "Test model for air heat and mass balance"
     V=10,
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed,
     hFixed=3,
-    haveShade=datConExtWin[1].glaSys.haveShade)
+    haveShade=datConExtWin[1].glaSys.haveShade,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Convective heat balance of air"
     annotation (Placement(transformation(extent={{-82,0},{-42,40}})));
 protected
@@ -117,5 +118,18 @@ equation
                       graphics),
 experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/AirHeatMassBalance.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This model test the heat and mass balance of the room air, which should
+stay at <i>20</i>&deg;C.
+</i>
+</html>", revisions="<html>
+<ul>
+<li>
+June 9, 2010, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end AirHeatMassBalance;

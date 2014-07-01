@@ -10,7 +10,9 @@ model ThreeWayValves "Three way valves with different opening characteristics"
     l={0.05,0.05},
     m_flow_nominal=2,
     filteredOpening=false,
-    dpValve_nominal=6000) "Valve model, linear opening characteristics"
+    dpValve_nominal=6000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{0,-8},{20,12}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp y(
@@ -42,7 +44,8 @@ model ThreeWayValves "Three way valves with different opening characteristics"
     R=10,
     m_flow_nominal=2,
     filteredOpening=false,
-    dpValve_nominal=6000)
+    dpValve_nominal=6000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{0,-60},{20,-40}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT ret(
     redeclare package Medium = Medium,

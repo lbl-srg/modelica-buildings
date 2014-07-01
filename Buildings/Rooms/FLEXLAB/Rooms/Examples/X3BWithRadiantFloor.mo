@@ -10,7 +10,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
   Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell X3B(
     nPorts=2,
     redeclare package Medium = Air,
-    linearizeRadiation=false)
+    linearizeRadiation=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
               annotation (Placement(transformation(extent={{-110,38},{-70,78}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0],
       tableOnFile=false)
@@ -79,12 +80,16 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
         rotation=180,
         origin={64,-114})));
   Buildings.Rooms.FLEXLAB.Rooms.X3B.Electrical ele(redeclare package Medium =
-        Air, nPorts=2) "Model of the electrical room"
+        Air, nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Model of the electrical room"
     annotation (Placement(transformation(extent={{54,-80},{94,-40}})));
   Buildings.Rooms.FLEXLAB.Rooms.X3B.Closet
     clo(
     redeclare package Medium = Air,
-    nPorts=2) "Model of the closet"
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Model of the closet"
     annotation (Placement(transformation(extent={{156,92},{196,132}})));
   Modelica.Blocks.Sources.CombiTimeTable TNei(    tableOnFile=false, table=[0,293.15;
         86400,293.15]) "Temperature of the neighboring test cell (y[1] = X3A)"
@@ -180,7 +185,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     m_flow_nominal=0.504,
     A=6.645*3.65,
     disPip=sla4B4.A/sla4B4.length,
-    length=48.77)
+    length=48.77,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Radiant slab serving the south section of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-222,-16},{-202,4}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B4(nPorts=1, redeclare package
@@ -198,7 +204,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     m_flow_nominal=0.504,
     A=6.645*0.91,
     disPip=sla4B3.A/sla4B3.length,
-    length=37.49)
+    length=37.49,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Radiant slab serving the south-central section of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-192,-62},{-172,-42}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B3(nPorts=1, redeclare package
@@ -223,7 +230,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     m_flow_nominal=0.504,
     A=6.645*1.51,
     length=45.11,
-    disPip=sla4B2.A/sla4B2.length)
+    disPip=sla4B2.A/sla4B2.length,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Radiant slab serving the north-central section of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-152,-100},{-132,-80}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B2(nPorts=1, redeclare package
@@ -252,7 +260,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     m_flow_nominal=0.504,
     A=6.645*3.09,
     disPip=sla4B1.A/sla4B1.length,
-    length=38.71)
+    length=38.71,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Radiant slab serving the north side of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-108,-136},{-88,-116}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B1(nPorts=1, redeclare package
@@ -271,11 +280,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(airIn.ports[1],X3B. ports[1]) annotation (Line(
-      points={{-140,60},{-132,60},{-132,48},{-107,48}},
+      points={{-140,60},{-132,60},{-132,46},{-105,46}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(airOut.ports[1],X3B. ports[2]) annotation (Line(
-      points={{-138,34},{-132,34},{-132,48},{-103,48}},
+      points={{-138,34},{-132,34},{-132,50},{-105,50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TGro.y[1],preT. T) annotation (Line(
@@ -306,11 +315,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(airInEle.ports[1], ele.ports[1])    annotation (Line(
-      points={{4,-42},{12,-42},{12,-70},{57,-70}},
+      points={{4,-42},{12,-42},{12,-72},{59,-72}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(ele.ports[2], airOutEle.ports[1])    annotation (Line(
-      points={{61,-70},{2,-70}},
+      points={{59,-68},{30,-68},{30,-70},{2,-70}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(ele.surf_surBou[2], clo.surf_conBou[1])    annotation (Line(
@@ -318,7 +327,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(airInClo.ports[1],clo. ports[1]) annotation (Line(
-      points={{60,116},{110,116},{110,102},{159,102}},
+      points={{60,116},{110,116},{110,100},{161,100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(airConClo.y[4], airInClo.T_in) annotation (Line(
@@ -334,7 +343,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(airOutClo.ports[1],clo. ports[2]) annotation (Line(
-      points={{60,80},{110,80},{110,102},{163,102}},
+      points={{60,80},{110,80},{110,104},{161,104}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(intGai.y,X3B. qGai_flow) annotation (Line(
@@ -508,6 +517,8 @@ equation
           </html>",
           revisions = "<html>
           <ul>
+          <li>June 30, 2014, by Michael Wetter:<br/>
+          Specified equations to be used to compute the initial conditions.</li>
           <li>October 11, 2013, by Michael Wetter:<br/>
           Added missing <code>parameter</code> keyword in the declaration of the data record.</li>
           <li>Sep 18, 2013 by Peter Grant:<br/>

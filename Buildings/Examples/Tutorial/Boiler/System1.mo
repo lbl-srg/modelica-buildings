@@ -9,6 +9,7 @@ model System1
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mA_flow_nominal,
     V=V)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
