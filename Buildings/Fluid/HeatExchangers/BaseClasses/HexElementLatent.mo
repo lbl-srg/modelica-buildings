@@ -24,13 +24,13 @@ equation
                              color={0,0,127}));
   connect(vol2.X_w, masExc.XInf) annotation (Line(points={{-10,-64},{-20,-64},
           {-20,-34},{46,-34}}, color={0,0,127}));
-  connect(mas.port, temSen.port) annotation (Line(
-      points={{-72,0},{8,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(Gc_2, masExc.Gc) annotation (Line(
       points={{40,-100},{40,-42},{46,-42}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(temSen.port, con1.solid) annotation (Line(
+      points={{8,0},{-66,0},{-66,20},{-60,20}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (
     Documentation(info="<html>
@@ -56,8 +56,9 @@ September 11, 2013, by Michael Latentter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics),
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                         graphics),
     Icon(graphics={
         Polygon(
           points={{-56,-52},{-58,-58},{-60,-66},{-58,-74},{-54,-76},{-44,-76},{-38,

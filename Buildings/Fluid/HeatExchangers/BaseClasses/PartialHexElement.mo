@@ -31,7 +31,8 @@ model PartialHexElement "Element of a heat exchanger 2"
     C=C,
     T(stateSelect=StateSelect.always,
       fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
-    der_T( fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)))
+    der_T( fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
+       not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mass of metal"
     annotation (Placement(transformation(
         origin={-82,0},
@@ -50,16 +51,19 @@ equation
           -50,30}}, color={0,0,127}));
   connect(Gc_2, con2.Gc) annotation (Line(points={{40,-100},{40,-76},{-34,-76},
           {-34,-4},{-50,-4},{-50,-10}}, color={0,0,127}));
-  connect(con1.solid,mas. port) annotation (Line(points={{-60,20},{-72,20},{-72,
-          -6.12323e-016}}, color={191,0,0}));
-  connect(con2.solid,mas. port) annotation (Line(points={{-60,-20},{-60,-20.5},
-          {-72,-20.5},{-72,-6.12323e-016}}, color={191,0,0}));
+  connect(con1.solid,mas. port) annotation (Line(points={{-60,20},{-66,20},{-66,
+          0},{-70,0},{-70,0},{-72,0},{-72,-6.12323e-16}},
+                           color={191,0,0}));
   connect(con1.fluid, vol1.heatPort) annotation (Line(
       points={{-40,20},{-20,20},{-20,60},{-10,60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(con2.fluid, vol2.heatPort) annotation (Line(
       points={{-40,-20},{20,-20},{20,-60},{12,-60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con2.solid, con1.solid) annotation (Line(
+      points={{-60,-20},{-66,-20},{-66,20},{-60,20}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
@@ -120,6 +124,10 @@ that a GUI displays the volume as a replaceable component.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 2, 2014, by Michael Wetter:<br/>
+Conditionally removed the mass of the metall <code>mas</code>.
+</li>
 <li>
 June 26, 2014, by Michael Wetter:<br/>
 Removed parameters <code>energyDynamics1</code> and <code>energyDynamics2</code>,
