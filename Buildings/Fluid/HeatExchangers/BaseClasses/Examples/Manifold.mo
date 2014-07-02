@@ -38,8 +38,9 @@ model Manifold "Test model for coil manifold"
             46}}, rotation=0)));
   Modelica.Blocks.Sources.Ramp P(
     duration=1,
-    height=6000,
-    offset=300000) annotation (Placement(transformation(extent={{-100,60},{-80,
+    height=12E3,
+    offset=3E5 - 6E3)
+                   annotation (Placement(transformation(extent={{-100,60},{-80,
             80}}, rotation=0)));
   Buildings.Fluid.HeatExchangers.BaseClasses.PipeManifoldFixedResistance
     pipFixRes_1(
