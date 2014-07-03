@@ -123,7 +123,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Base
 <p>
 This model test the heat and mass balance of the room air, which should
 stay at <i>20</i>&deg;C.
-</i>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
