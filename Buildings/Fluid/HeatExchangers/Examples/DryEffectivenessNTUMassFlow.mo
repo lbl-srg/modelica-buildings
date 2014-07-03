@@ -22,33 +22,33 @@ model DryEffectivenessNTUMassFlow
     Q_flow_nominal=Q_flow_nominal,
     T_a1_nominal=T_a1_nominal,
     T_a2_nominal=T_a2_nominal,
-    show_T=true)             annotation (Placement(transformation(extent={{40,20},
-            {60,40}},     rotation=0)));
+    show_T=true)             annotation (Placement(transformation(extent={{82,20},
+            {102,40}},    rotation=0)));
 
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
                                                      redeclare package Medium
       = Medium2, m_flow_nominal=m2_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialState)
-    annotation (Placement(transformation(extent={{20,14},{0,34}})));
+    annotation (Placement(transformation(extent={{60,14},{40,34}})));
 equation
   connect(sou_1.ports[1], hex.port_a1) annotation (Line(
-      points={{18,62},{28,62},{28,36},{40,36}},
+      points={{18,62},{74,62},{74,36},{82,36}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(hex.port_b1, sin_1.ports[1]) annotation (Line(
-      points={{60,36},{90,36},{90,60},{120,60}},
+      points={{102,36},{112,36},{112,60},{120,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(hex.port_a2, sou_2.ports[1]) annotation (Line(
-      points={{60,24},{118,24}},
+      points={{102,24},{118,24}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senRelHum.port_a, hex.port_b2) annotation (Line(
-      points={{20,24},{40,24}},
+      points={{60,24},{82,24}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senRelHum.port_b, sin_2.ports[1]) annotation (Line(
-      points={{-5.55112e-16,24},{-22,24}},
+      points={{40,24},{20,24}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,

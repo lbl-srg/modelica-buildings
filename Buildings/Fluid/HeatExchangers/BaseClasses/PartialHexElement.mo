@@ -2,7 +2,8 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 model PartialHexElement "Element of a heat exchanger 2"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
    vol1(final energyDynamics=energyDynamics,
-        final massDynamics=energyDynamics));
+        final massDynamics=energyDynamics,
+        final initialize_p=initialize_p1));
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal
     "Thermal conductance at nominal flow, used to compute time constant"
@@ -14,6 +15,12 @@ model PartialHexElement "Element of a heat exchanger 2"
   parameter Modelica.SIunits.HeatCapacity C=2*UA_nominal*tau_m
     "Heat capacity of metal (= cp*m)";
 
+  parameter Boolean initialize_p1 = not Medium1.singleState
+    "Set to true to initialize the pressure of volume 1"
+    annotation(Dialog(tab = "Initialization", group = "Medium 1"));
+  parameter Boolean initialize_p2 = not Medium2.singleState
+    "Set to true to initialize the pressure of volume 2"
+    annotation(Dialog(tab = "Initialization", group = "Medium 2"));
   Modelica.Blocks.Interfaces.RealInput Gc_1
     "Signal representing the convective thermal conductance medium 1 in [W/K]"
     annotation (Placement(transformation(
@@ -69,8 +76,8 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-Element of a heat exchanger 
-with dynamics of the fluids and the solid. 
+Element of a heat exchanger
+with dynamics of the fluids and the solid.
 The <i>hA</i> value for both fluids is an input.
 The driving force for the heat transfer is the temperature difference
 between the fluid volumes and the solid.
@@ -84,11 +91,11 @@ Suppose the metal temperature is governed by
   + (hA)<sub>2</sub> (T<sub>2</sub> - T)
 </p>
 <p>
-where <i>hA</i> are the convective heat transfer coefficients times 
+where <i>hA</i> are the convective heat transfer coefficients times
 heat transfer area that also take
 into account heat conduction in the heat exchanger fins and
 <i>T<sub>1</sub></i> and <i>T<sub>2</sub></i> are the medium temperatures.
-Assuming <i>(hA)<sub>1</sub>=(hA)<sub>2</sub></i>, 
+Assuming <i>(hA)<sub>1</sub>=(hA)<sub>2</sub></i>,
 this equation can be rewritten as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -97,8 +104,8 @@ this equation can be rewritten as
 
 </p>
 <p>
-where <i>(UA)<sub>0</sub></i> is the <i>UA</i> value at nominal conditions. 
-Hence we set the heat capacity of the metal 
+where <i>(UA)<sub>0</sub></i> is the <i>UA</i> value at nominal conditions.
+Hence we set the heat capacity of the metal
 to
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -124,6 +131,15 @@ that a GUI displays the volume as a replaceable component.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 3, 2014, by Michael Wetter:<br/>
+Added parameters <code>initialize_p1</code> and <code>initialize_p2</code>.
+This is required to enable the coil models to initialize the pressure in the
+first volume, but not in the downstream volumes. Otherwise,
+the initial equations will be overdetermined, but consistent.
+This change was done to avoid a long information message that appears
+when translating models.
+</li>
 <li>
 July 2, 2014, by Michael Wetter:<br/>
 Conditionally removed the mass of the metall <code>mas</code>.

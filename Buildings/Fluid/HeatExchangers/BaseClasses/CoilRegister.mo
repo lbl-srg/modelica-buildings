@@ -25,10 +25,19 @@ model CoilRegister "Register for a heat exchanger"
   final parameter Integer nEle = nPipPar * nPipSeg
     "Number of heat exchanger elements";
 
+  parameter Boolean initialize_p1 = not Medium1.singleState
+    "Set to true to initialize the pressure of volume 1"
+    annotation(Dialog(tab = "Initialization", group = "Medium 1"));
+  parameter Boolean initialize_p2 = not Medium2.singleState
+    "Set to true to initialize the pressure of volume 2"
+    annotation(Dialog(tab = "Initialization", group = "Medium 2"));
+
   replaceable Buildings.Fluid.HeatExchangers.BaseClasses.HexElementSensible ele[nPipPar, nPipSeg]
     constrainedby Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
     redeclare each package Medium1 = Medium1,
     redeclare each package Medium2 = Medium2,
+    initialize_p1 = {(i == 1 and j == 1 and initialize_p1) for i in 1:nPipSeg, j in 1:nPipPar},
+    initialize_p2 = {(i == 1 and j == 1 and initialize_p2) for i in 1:nPipSeg, j in 1:nPipPar},
     each allowFlowReversal1=allowFlowReversal1,
     each allowFlowReversal2=allowFlowReversal2,
     each tau1=tau1/nPipSeg,
@@ -165,7 +174,7 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-Register of a heat exchanger with dynamics on the fluids and the solid. 
+Register of a heat exchanger with dynamics on the fluids and the solid.
 The register represents one array of pipes that are perpendicular to the
 air stream.
 The <i>hA</i> value for both fluids is an input.
@@ -175,6 +184,15 @@ between the fluid volumes and the solid in each heat exchanger element.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 3, 2014, by Michael Wetter:<br/>
+Added parameters <code>initialize_p1</code> and <code>initialize_p2</code>.
+This is required to enable the coil models to initialize the pressure in the
+first volume, but not in the downstream volumes. Otherwise,
+the initial equations will be overdetermined, but consistent.
+This change was done to avoid a long information message that appears
+when translating models.
+</li>
 <li>
 June 26, 2014, by Michael Wetter:<br/>
 Removed parameters <code>energyDynamics1</code> and <code>energyDynamics2</code>,

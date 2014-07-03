@@ -100,7 +100,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dp2_nominal=0,
     from_dp2=from_dp,
     linearizeFlowResistance2=linearizeFlowResistance,
-    dp1_nominal=0) "Cooling coil"
+    dp1_nominal=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
     annotation (Placement(transformation(extent={{372,-146},{352,-166}})));
   Buildings.Fluid.Movers.FlowMachine_y fanSupHot(
     redeclare package Medium = MediumA,

@@ -3,7 +3,8 @@ model HexElementLatent "Element of a heat exchanger"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
       final energyDynamics=energyDynamics,
-      final massDynamics=energyDynamics));
+      final massDynamics=energyDynamics,
+        final initialize_p=initialize_p2));
 
   MassExchange masExc(
      redeclare final package Medium=Medium2) "Model for mass exchange"

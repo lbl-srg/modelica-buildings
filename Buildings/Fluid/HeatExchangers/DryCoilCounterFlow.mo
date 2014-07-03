@@ -106,6 +106,8 @@ protected
     each tau_m=tau_m/nEle,
     each UA_nominal=UA_nominal/nEle,
     each energyDynamics=energyDynamics,
+    initialize_p1 = {(i == 1 and (not Medium1.singleState)) for i in 1:nEle},
+    initialize_p2 = {(i == 1 and (not Medium2.singleState)) for i in 1:nEle},
     each deltaM1=deltaM1,
     each deltaM2=deltaM2,
     each from_dp1=from_dp1,
@@ -205,27 +207,36 @@ Documentation(info="<html>
 Model of a discretized coil without water vapor condensation.
 The coil consists of two flow paths which are, at the design flow direction,
 in opposite direction to model a counterflow heat exchanger.
-The flow paths are discretized into <code>nEle</code> elements. 
+The flow paths are discretized into <code>nEle</code> elements.
 Each element is modeled by an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 Each element has a state variable for the metal.
 </p>
 <p>
-The convective heat transfer coefficients can, for each fluid individually, be 
+The convective heat transfer coefficients can, for each fluid individually, be
 computed as a function of the flow rate and/or the temperature,
 or assigned to a constant. This computation is done using an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil</a>.
 </p>
 <p>
-To model humidity condensation, use the model 
+To model humidity condensation, use the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
 Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a> instead of this model, as
 this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 3, 2014, by Michael Wetter:<br/>
+Added parameters <code>initialize_p1</code> and <code>initialize_p2</code>.
+This is required to enable the coil models to initialize the pressure in the
+first volume, but not in the downstream volumes. Otherwise,
+the initial equations will be overdetermined, but consistent.
+This change was done to avoid a long information message that appears
+when translating models.
+</li>
 <li>
 June 26, 2014, by Michael Wetter:<br/>
 Removed parameters <code>energyDynamics1</code> and <code>energyDynamics2</code>,

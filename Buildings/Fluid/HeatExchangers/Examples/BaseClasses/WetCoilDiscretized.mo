@@ -42,40 +42,29 @@ partial model WetCoilDiscretized
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Coil with fixed initial conditions" annotation (Placement(transformation(
           extent={{-10,40},{10,60}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin_2(
+  Sources.MassFlowSource_T            sin_2(
     redeclare package Medium = Medium2,
-    use_p_in=false,
-    p=101325,
-    T=303.15,
-    nPorts=1)             annotation (Placement(transformation(extent={{-50,30},
+    nPorts=1,
+    use_m_flow_in=true,
+    T=303.15)             annotation (Placement(transformation(extent={{-50,30},
             {-30,50}}, rotation=0)));
-    Modelica.Blocks.Sources.Ramp PIn(
-    duration=60,
-    height=-200,
-    startTime=120,
-    offset=101526)
-                 annotation (Placement(transformation(extent={{90,38},{70,58}},
-          rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
-    use_p_in=true,
     nPorts=1,
-    use_T_in=false,
     T=293.15)             annotation (Placement(transformation(extent={{50,30},
             {30,50}},  rotation=0)));
     Modelica.Blocks.Sources.Ramp TWat(
     duration=60,
     height=15,
     offset=273.15 + 5,
-    startTime=120) "Water temperature"
-                 annotation (Placement(transformation(extent={{-92,64},{-72,84}},
+    startTime=0) "Water temperature"
+                 annotation (Placement(transformation(extent={{-100,64},{-80,84}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin_1(
+  Sources.MassFlowSource_T            sin_1(
     redeclare package Medium = Medium1,
-    p=300000,
-    T=293.15,
-    use_p_in=true,
-    nPorts=1)             annotation (Placement(transformation(extent={{50,60},
+    nPorts=1,
+    use_m_flow_in=true,
+    T=293.15)             annotation (Placement(transformation(extent={{50,60},
             {30,80}},rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
@@ -84,13 +73,6 @@ partial model WetCoilDiscretized
     T=293.15,
     nPorts=1)             annotation (Placement(transformation(extent={{-50,60},
             {-30,80}}, rotation=0)));
-    Modelica.Blocks.Sources.Ramp PSin_1(
-    duration=60,
-    height=5000,
-    startTime=240,
-    offset=300000)
-                 annotation (Placement(transformation(extent={{90,68},{70,88}},
-          rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluid.HeatExchangers.WetCoilDiscretized hexSteStaIni(
@@ -113,26 +95,22 @@ partial model WetCoilDiscretized
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Coil with fixed initial conditions" annotation (Placement(transformation(
           extent={{-10,-20},{10,0}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin_3(
+  Sources.MassFlowSource_T            sin_3(
     redeclare package Medium = Medium2,
-    use_p_in=false,
-    p=101325,
-    T=303.15,
-    nPorts=1)             annotation (Placement(transformation(extent={{-70,-26},
-            {-50,-6}}, rotation=0)));
+    nPorts=1,
+    use_m_flow_in=true,
+    T=303.15)             annotation (Placement(transformation(extent={{-50,-28},
+            {-30,-8}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou_3(
     redeclare package Medium = Medium2,
-    use_p_in=true,
     nPorts=1,
-    use_T_in=false,
     T=293.15)             annotation (Placement(transformation(extent={{50,-30},
             {30,-10}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin_4(
+  Sources.MassFlowSource_T            sin_4(
     redeclare package Medium = Medium1,
-    p=300000,
-    T=293.15,
-    use_p_in=true,
-    nPorts=1)             annotation (Placement(transformation(extent={{50,0},{
+    nPorts=1,
+    use_m_flow_in=true,
+    T=293.15)             annotation (Placement(transformation(extent={{50,0},{
             30,20}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou_4(
     redeclare package Medium = Medium1,
@@ -161,26 +139,22 @@ partial model WetCoilDiscretized
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Coil with fixed initial conditions" annotation (Placement(transformation(
           extent={{-10,-80},{10,-60}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin_5(
+  Sources.MassFlowSource_T            sin_5(
     redeclare package Medium = Medium2,
-    use_p_in=false,
-    p=101325,
-    T=303.15,
-    nPorts=1)             annotation (Placement(transformation(extent={{-50,-86},
+    nPorts=1,
+    use_m_flow_in=true,
+    T=303.15)             annotation (Placement(transformation(extent={{-50,-86},
             {-30,-66}},rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou_5(
     redeclare package Medium = Medium2,
-    use_p_in=true,
     nPorts=1,
-    use_T_in=false,
     T=293.15)             annotation (Placement(transformation(extent={{50,-90},
             {30,-70}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin_6(
+  Sources.MassFlowSource_T            sin_6(
     redeclare package Medium = Medium1,
-    p=300000,
-    T=293.15,
-    use_p_in=true,
-    nPorts=1)             annotation (Placement(transformation(extent={{50,-60},
+    nPorts=1,
+    use_m_flow_in=true,
+    T=293.15)             annotation (Placement(transformation(extent={{50,-60},
             {30,-40}},
                      rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou_6(
@@ -190,18 +164,22 @@ partial model WetCoilDiscretized
     T=293.15,
     nPorts=1)             annotation (Placement(transformation(extent={{-50,-60},
             {-30,-40}},rotation=0)));
-  FixedResistances.FixedResistanceDpM res(
-    redeclare package Medium = Medium2,
-    m_flow_nominal=0.01,
-    dp_nominal=100)
-    "Resistance, used to decouple the pressure state from the heat exchanger with the pressure of the fixed boundary"
-    annotation (Placement(transformation(extent={{-20,-26},{-40,-6}})));
+    Modelica.Blocks.Sources.Ramp m2_flow(
+    duration=60,
+    startTime=60,
+    height=1.1*m2_flow_nominal,
+    offset=-m2_flow_nominal) "Air mass flow rate" annotation (Placement(
+        transformation(extent={{-100,30},{-80,50}}, rotation=0)));
+    Modelica.Blocks.Sources.Ramp m1_flow(
+    duration=60,
+    startTime=180,
+    height=1.1*m1_flow_nominal,
+    offset=-m1_flow_nominal) "Water mass flow rate" annotation (Placement(
+        transformation(extent={{90,60},{70,80}}, rotation=0)));
 equation
   connect(TWat.y, sou_1.T_in)
-    annotation (Line(points={{-71,74},{-71,74},{-52,74}},
+    annotation (Line(points={{-79,74},{-79,74},{-52,74}},
                                                  color={0,0,127}));
-  connect(PSin_1.y, sin_1.p_in) annotation (Line(points={{69,78},{69,78},{52,78}},
-                        color={0,0,127}));
   connect(sou_1.ports[1], hexFixIni.port_a1) annotation (Line(
       points={{-30,70},{-20,70},{-20,56},{-10,56}},
       color={0,127,255},
@@ -209,10 +187,6 @@ equation
   connect(sou_2.ports[1], hexFixIni.port_a2) annotation (Line(
       points={{30,40},{20,40},{20,44},{10,44}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(PIn.y, sou_2.p_in) annotation (Line(
-      points={{69,48},{52,48}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(hexFixIni.port_b1, sin_1.ports[1]) annotation (Line(
       points={{10,56},{20,56},{20,70},{30,70}},
@@ -223,11 +197,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TWat.y,sou_4. T_in)
-    annotation (Line(points={{-71,74},{-71,14},{-52,14}},
-                                                 color={0,0,127}));
-  connect(PSin_1.y,sin_4. p_in) annotation (Line(points={{69,78},{58,78},{58,18},
-          {52,18},{52,18}},
-                        color={0,0,127}));
+    annotation (Line(points={{-79,74},{-78,74},{-82,74},{-68,74},{-68,14},{-52,
+          14}},                                  color={0,0,127}));
   connect(sou_4.ports[1], hexSteStaIni.port_a1) annotation (Line(
       points={{-30,10},{-20,10},{-20,-4},{-10,-4}},
       color={0,127,255},
@@ -236,20 +207,13 @@ equation
       points={{30,-20},{20,-20},{20,-16},{10,-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(PIn.y,sou_3. p_in) annotation (Line(
-      points={{69,48},{64,48},{64,-12},{52,-12}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(hexSteStaIni.port_b1, sin_4.ports[1]) annotation (Line(
       points={{10,-4},{20,-4},{20,10},{30,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TWat.y,sou_6. T_in)
-    annotation (Line(points={{-71,74},{-71,-46},{-52,-46}},
-                                                 color={0,0,127}));
-  connect(PSin_1.y,sin_6. p_in) annotation (Line(points={{69,78},{58,78},{58,
-          -42},{52,-42}},
-                        color={0,0,127}));
+    annotation (Line(points={{-79,74},{-78,74},{-74,74},{-68,74},{-68,-46},{-52,
+          -46}},                                 color={0,0,127}));
   connect(sou_6.ports[1], hexSteSta.port_a1) annotation (Line(
       points={{-30,-50},{-20,-50},{-20,-64},{-10,-64}},
       color={0,127,255},
@@ -258,25 +222,41 @@ equation
       points={{30,-80},{20,-80},{20,-76},{10,-76}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(PIn.y,sou_5. p_in) annotation (Line(
-      points={{69,48},{64,48},{64,-72},{52,-72}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(hexSteSta.port_b1, sin_6.ports[1]) annotation (Line(
       points={{10,-64},{20,-64},{20,-50},{30,-50}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(res.port_a, hexSteStaIni.port_b2) annotation (Line(
-      points={{-20,-16},{-10,-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(res.port_b, sin_3.ports[1]) annotation (Line(
-      points={{-40,-16},{-50,-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(hexSteSta.port_b2, sin_5.ports[1]) annotation (Line(
       points={{-10,-76},{-30,-76}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(hexSteStaIni.port_b2, sin_3.ports[1]) annotation (Line(
+      points={{-10,-16},{-20,-16},{-20,-18},{-30,-18}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(m2_flow.y, sin_2.m_flow_in) annotation (Line(
+      points={{-79,40},{-60,40},{-60,48},{-50,48}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(m2_flow.y, sin_3.m_flow_in) annotation (Line(
+      points={{-79,40},{-60,40},{-60,-10},{-50,-10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(m2_flow.y, sin_5.m_flow_in) annotation (Line(
+      points={{-79,40},{-60,40},{-60,-68},{-50,-68}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(m1_flow.y, sin_1.m_flow_in) annotation (Line(
+      points={{69,70},{60,70},{60,78},{50,78}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(m1_flow.y, sin_4.m_flow_in) annotation (Line(
+      points={{69,70},{60,70},{60,18},{50,18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(m1_flow.y, sin_6.m_flow_in) annotation (Line(
+      points={{69,70},{60,70},{60,-42},{50,-42}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}), graphics), Documentation(info="<html>
