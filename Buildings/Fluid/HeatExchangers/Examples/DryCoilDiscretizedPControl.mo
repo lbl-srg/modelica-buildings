@@ -87,7 +87,8 @@ model DryCoilDiscretizedPControl
         T_a2_nominal,
         T_b2_nominal),
     dp1_nominal(displayUnit="Pa") = 0,
-    dp2_nominal(displayUnit="Pa") = 300)
+    dp2_nominal(displayUnit="Pa") = 300,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                          annotation (Placement(transformation(extent={{60,16},{
             80,36}}, rotation=0)));
   Buildings.Fluid.Actuators.Motors.IdealMotor mot(tOpe=60) "Motor model"
