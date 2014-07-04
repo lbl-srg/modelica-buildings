@@ -56,7 +56,9 @@ algorithm
   else
     a := 0;
     NTU := 0;
-    assert(0 < flowRegime and flowRegime < 6, "Flow regime is not implemented.");
+    assert(f.ParallelFlow <= flowRegime and
+           flowRegime <= f.CrossFlowCMinUnmixedCMaxMixed,
+           "Flow regime is not implemented.");
   end if;
 
   annotation (preferredView="info",
