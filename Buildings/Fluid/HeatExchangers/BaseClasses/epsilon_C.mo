@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 function epsilon_C
   "Computes heat exchanger effectiveness for given capacity flow rates and heat exchanger flow regime"
-  import f = Buildings.Fluid.Types.HeatExchangerFlowRegime;
   input Modelica.SIunits.ThermalConductance UA "UA value";
   input Modelica.SIunits.ThermalConductance C1_flow
     "Enthalpy flow rate medium 1";
@@ -80,6 +79,10 @@ the Number of Transfer Units and the heat exchanger effectiveness go to zero.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 6, 2014, by Michael Wetter:<br/>
+Removed unused <code>import</code> statement.
+</li>
 <li>
 February 20, 2010, by Michael Wetter:<br/>
 First implementation.
