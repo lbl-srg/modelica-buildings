@@ -8,7 +8,7 @@ package Internal "Solve f(x, data) for x with given f"
 Received NTU = " + String(x) + "
          Z   = " + String(p));
     y := epsilon_ntuZ(NTU=x, Z=p,
-         flowRegime=Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed);
+         flowRegime=Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed));
   end f_nonlinear;
 
 annotation (
@@ -20,6 +20,12 @@ Function that internally solves a scalar equation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 7, 2014, by Michael Wetter:<br/>
+Changed the type of the input <code>flowRegime</code> from
+<code>Buildings.Fluid.Types.HeatExchangerFlowRegime</code>
+to <code>Integer</code>.
+</li>
 <li>
 August 10, 2011, by Michael Wetter:
 <ul>
