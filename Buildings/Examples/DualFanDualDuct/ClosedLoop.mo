@@ -151,7 +151,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_small=1E-4*m_flow_nominal)
     annotation (Placement(transformation(extent={{-340,100},{-320,120}})));
   Buildings.Examples.DualFanDualDuct.Controls.HeatingCoilTemperatureSetpoint
-                                   TSupSetHea(TOn=284.15, TOff=279.15)
+    TSupSetHea(TOn=284.15, TOff=279.15)
     "Supply air temperature setpoint for heating"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
   Buildings.Controls.Continuous.LimPID preHeaCoiCon(
