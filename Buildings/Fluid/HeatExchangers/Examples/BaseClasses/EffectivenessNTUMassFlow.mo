@@ -1,12 +1,18 @@
 within Buildings.Fluid.HeatExchangers.Examples.BaseClasses;
 partial model EffectivenessNTUMassFlow
   "Partial model of epsilon-NTU coil that tests variable mass flow rates"
-  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
-  package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
-  parameter Modelica.SIunits.Temperature T_a1_nominal=5 + 273.15;
-  parameter Modelica.SIunits.Temperature T_b1_nominal=10 + 273.15;
-  parameter Modelica.SIunits.Temperature T_a2_nominal=30 + 273.15;
-  parameter Modelica.SIunits.Temperature T_b2_nominal=15 + 273.15;
+  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater
+    "Medium model for water";
+  package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated
+    "Medium model for air";
+  parameter Modelica.SIunits.Temperature T_a1_nominal=5 + 273.15
+    "Nominal water inlet temperature";
+  parameter Modelica.SIunits.Temperature T_b1_nominal=10 + 273.15
+    "Nominal water outlet temperature";
+  parameter Modelica.SIunits.Temperature T_a2_nominal=30 + 273.15
+    "Nominal air inlet temperature";
+  parameter Modelica.SIunits.Temperature T_b2_nominal=15 + 273.15
+    "Nominal air outlet temperature";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = m1_flow_nominal*4200*(T_a1_nominal-T_b1_nominal)
     "Nominal heat transfer";
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=0.1
@@ -14,39 +20,41 @@ partial model EffectivenessNTUMassFlow
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=m1_flow_nominal*4200/
       1000*(T_a1_nominal - T_b1_nominal)/(T_b2_nominal - T_a2_nominal)
     "Nominal mass flow rate medium 2";
-  Sources.MassFlowSource_T            sin_2(
+  Sources.MassFlowSource_T sin_2(
     redeclare package Medium = Medium2,
     T=T_a2_nominal,
-    use_m_flow_in=true)
-              annotation (Placement(transformation(extent={{0,14},{20,34}},
+    use_m_flow_in=true) "Sink for air"
+    annotation (Placement(transformation(extent={{0,14},{20,34}},
           rotation=0)));
-  Sources.Boundary_pT                      sou_2(
+  Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     T=T_a2_nominal,
     X={0.02,1 - 0.02},
     use_T_in=true,
-    use_X_in=true)                      annotation (Placement(transformation(
+    use_X_in=true) "Source for air"
+    annotation (Placement(transformation(
           extent={{138,14},{118,34}}, rotation=0)));
-  Sources.MassFlowSource_T            sin_1(
+  Sources.MassFlowSource_T sin_1(
     redeclare package Medium = Medium1,
     T=T_a1_nominal,
-    use_m_flow_in=true)
-              annotation (Placement(transformation(extent={{140,50},{120,70}},
+    use_m_flow_in=true) "Sink for water"
+    annotation (Placement(transformation(extent={{140,50},{120,70}},
           rotation=0)));
-  Sources.Boundary_pT                      sou_1(
+  Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     use_T_in=false,
-    T=T_a1_nominal)
-                   annotation (Placement(transformation(extent={{-2,52},{18,72}},
+    T=T_a1_nominal) "Source for water"
+    annotation (Placement(transformation(extent={{-2,52},{18,72}},
                   rotation=0)));
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Modelica.Blocks.Sources.Constant const(k=0.8)
+  Modelica.Blocks.Sources.Constant relHum(k=0.8) "Relative humidity"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
     annotation (Placement(transformation(extent={{150,-42},{170,-22}})));
-  Modelica.Blocks.Sources.Constant const1(k=T_a2_nominal)
+  Modelica.Blocks.Sources.Constant temSou_2(k=T_a2_nominal)
+    "Temperature boundary condition"
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
   Modelica.Blocks.Math.Gain mWat_flow(k=-m1_flow_nominal)
     "Water mass flow rate"
@@ -68,15 +76,15 @@ equation
       points={{171,-32},{178,-32},{178,-34},{186,-34},{186,20},{140,20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const.y, x_pTphi.phi) annotation (Line(
+  connect(relHum.y, x_pTphi.phi) annotation (Line(
       points={{121,-60},{136,-60},{136,-38},{148,-38}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const1.y, x_pTphi.T) annotation (Line(
+  connect(temSou_2.y, x_pTphi.T) annotation (Line(
       points={{121,-28},{134,-28},{134,-32},{148,-32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const1.y, sou_2.T_in) annotation (Line(
+  connect(temSou_2.y, sou_2.T_in) annotation (Line(
       points={{121,-28},{134,-28},{134,0},{160,0},{160,28},{140,28}},
       color={0,0,127},
       smooth=Smooth.None));
