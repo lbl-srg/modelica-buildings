@@ -6,8 +6,8 @@ function epsilon_C
     "Enthalpy flow rate medium 1";
   input Modelica.SIunits.ThermalConductance C2_flow
     "Enthalpy flow rate medium 2";
-  input Buildings.Fluid.Types.HeatExchangerFlowRegime flowRegime
-    "Heat exchanger flow regime";
+  input Integer flowRegime
+    "Heat exchanger flow regime, see  Buildings.Fluid.Types.HeatExchangerFlowRegime";
   input Modelica.SIunits.ThermalConductance CMin_flow_nominal
     "Minimum enthalpy flow rate at nominal condition";
   input Modelica.SIunits.ThermalConductance CMax_flow_nominal
@@ -79,9 +79,24 @@ The implementation allows for zero flow rate.
 As <code>CMin_flow</code> crosses <code>delta*CMin_flow_nominal</code> from above,
 the Number of Transfer Units and the heat exchanger effectiveness go to zero.
 </p>
+<p>
+The different options for the flow regime are declared in
+<a href=\"modelica://Buildings.Fluid.Types.HeatExchangerFlowRegime\">
+Buildings.Fluid.Types.HeatExchangerFlowRegime</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 7, 2014, by Michael Wetter:<br/>
+Changed the type of the input <code>flowRegime</code> from
+<code>Buildings.Fluid.Types.HeatExchangerFlowRegime</code>
+to <code>Integer</code>.
+This was done to have the same argument list as
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ\">
+Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ</a>,
+in which the type had to be changed.
+</li>
 <li>
 July 6, 2014, by Michael Wetter:<br/>
 Removed unused <code>import</code> statement.

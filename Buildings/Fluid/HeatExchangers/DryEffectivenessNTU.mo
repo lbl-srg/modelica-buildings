@@ -155,7 +155,7 @@ equation
     UA=UA,
     C1_flow=C1_flow,
     C2_flow=C2_flow,
-    flowRegime=flowRegime,
+    flowRegime=Integer(flowRegime),
     CMin_flow_nominal=CMin_flow_nominal,
     CMax_flow_nominal=CMax_flow_nominal,
     delta=delta);
