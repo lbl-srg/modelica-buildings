@@ -60,7 +60,10 @@ algorithm
     eps := 1; // around zero flow, eps=Q/(CMin*dT) should be one
   else
     NTU :=gai*UA/CMinNZ_flow;
-    eps := gai*Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(NTU=NTU, Z=Z, flowRegime=flowRegime);
+    eps := gai*Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
+                  NTU=NTU,
+                  Z=Z,
+                  flowRegime=flowRegime);
   end if;
 
   annotation(preferredView="info",
