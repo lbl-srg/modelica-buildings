@@ -15,7 +15,9 @@ model YorkCalc
     k=1,
     Ti=60,
     Td=10,
-    reverseAction=true) "Controller for tower fan"
+    reverseAction=true,
+    initType=Modelica.Blocks.Types.InitPID.InitialState)
+    "Controller for tower fan"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 equation
   connect(wetBulTem.TWetBul, tow.TAir) annotation (Line(

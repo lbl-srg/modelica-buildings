@@ -28,8 +28,9 @@ model DataCenterDiscreteTimeControl
     m_flow_nominal=mAir_flow_nominal,
     dp(start=249),
     m_flow(start=mAir_flow_nominal),
-    T_start=293.15,
-    filteredSpeed=false)
+    filteredSpeed=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    T_start=293.15) "Fan for air flow through the data center"
     annotation (Placement(transformation(extent={{348,-235},{328,-215}})));
   Buildings.Fluid.HeatExchangers.DryCoilCounterFlow cooCoi(
     redeclare package Medium1 = MediumCHW,
@@ -40,7 +41,9 @@ model DataCenterDiscreteTimeControl
     m2_flow(start=mAir_flow_nominal),
     dp1_nominal(displayUnit="Pa") = 1000,
     dp2_nominal=249*3,
-    UA_nominal=mAir_flow_nominal*1006*5) "Cooling coil"
+    UA_nominal=mAir_flow_nominal*1006*5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    "Cooling coil"
     annotation (Placement(transformation(extent={{298,-185},{278,-165}})));
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{298,
@@ -64,7 +67,9 @@ model DataCenterDiscreteTimeControl
     m_flow_nominal=mCHW_flow_nominal,
     m_flow(start=mCHW_flow_nominal),
     dp(start=325474),
-    filteredSpeed=false) "Chilled water pump" annotation (Placement(
+    filteredSpeed=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Chilled water pump"                      annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
@@ -78,7 +83,9 @@ model DataCenterDiscreteTimeControl
     PFan_nominal=6000,
     TAirInWB_nominal(displayUnit="degC") = 283.15,
     TApp_nominal=6,
-    dp_nominal=14930 + 14930 + 74650) "Cooling tower" annotation (Placement(
+    dp_nominal=14930 + 14930 + 74650,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    "Cooling tower"                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -87,7 +94,9 @@ model DataCenterDiscreteTimeControl
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
     dp(start=214992),
-    filteredSpeed=false) "Condenser water pump" annotation (Placement(
+    filteredSpeed=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Condenser water pump"                      annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -142,7 +151,8 @@ model DataCenterDiscreteTimeControl
     m2_flow_nominal=mCHW_flow_nominal,
     dp2_nominal=0,
     dp1_nominal=0,
-    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD())
+    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD(),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{274,83},{254,103}})));
   Fluid.Actuators.Valves.TwoWayLinear val6(
     redeclare package Medium = MediumCHW,
@@ -336,8 +346,8 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(linPieTwo.y[2], chi.TSet) annotation (Line(
-      points={{-99,200.3},{-82,200},{-82,200},{-64,200},{-64,125},{284,125},{
-          284,90},{276,90}},
+      points={{-99,200.3},{-82,200},{-64,200},{-64,125},{284,125},{284,90},{276,
+          90}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -394,12 +404,12 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(roo.airPorts[1],TAirSup. port_b) annotation (Line(
-      points={{246.15,-228},{246.15,-225},{278,-225}},
+      points={{249.85,-228},{249.85,-225},{278,-225}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(roo.airPorts[2], cooCoi.port_a2) annotation (Line(
-      points={{249.85,-228},{249.85,-225},{218,-225},{218,-181},{278,-181}},
+      points={{246.15,-228},{246.15,-225},{218,-225},{218,-181},{278,-181}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -625,7 +635,7 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-300},{400,
-            300}})),
+            300}}), graphics),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/DataCenterDiscreteTimeControl.mos"
         "Simulate and plot"),

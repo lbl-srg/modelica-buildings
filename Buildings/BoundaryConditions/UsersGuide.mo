@@ -18,6 +18,16 @@ and
 Buildings.HeatTransfer.Types.Tilt</a>
 can be used.
 </p>
+<p>
+Note that a ceiling has a tilt of <i>0</i>, and also the solar collector models
+in 
+<a href=\"Buildings.Fluid.SolarCollectors\">Buildings.Fluid.SolarCollectors</a>
+require a tilt of <i>0</i> if they are facing straight upwards.
+This is correct because
+the solar irradiation on a ceiling construction is on the other-side surface,
+which faces upwards toward the sky. Hence, a construction is considered
+a ceiling from the view point of a person standing inside a room.
+</p>
 
 <h4>References</h4>
 <ul>

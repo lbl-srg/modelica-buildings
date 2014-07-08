@@ -55,7 +55,9 @@ model FlatPlateWithTank
     mHex_flow_nominal=3000/20/4200,
     T_start=293.15,
     TTan_nominal=293.15,
-    THex_nominal=323.15) "Storage tank model"
+    THex_nominal=323.15,
+    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Storage tank model"
     annotation (Placement(transformation(
       extent={{-15,-15},{15,15}},
       rotation=0,
@@ -92,7 +94,9 @@ model FlatPlateWithTank
       rotation=0,
       origin={70,-32})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pum(redeclare package Medium =
-    Medium_2, m_flow_nominal=0.1) "Pump forcing circulation through the system"
+    Medium_2, m_flow_nominal=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dynamicBalance=false) "Pump forcing circulation through the system"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=90,

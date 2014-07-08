@@ -10,7 +10,8 @@ model System1
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
-    V=V)
+    V=V,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
@@ -129,8 +130,15 @@ an instance of
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>
 has been used, as this model can be used with dry air or moist air.
-The medium model has been set to <code>MediumA</code>, and the nominal mass
-flow rate is set to <code>mA_flow_nominal</code>.
+The medium model has been set to <code>MediumA</code>.
+We set the parameter 
+<code>energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial</code>
+which will cause the initial conditions of the volume to be fixed to
+the values specified by the parameters on the <code>Initialization</code>
+tab.
+</p>
+<p>
+The nominal mass flow rate of the volume is set to <code>mA_flow_nominal</code>.
 The nominal mass flow rate is used for numerical reasons and should be set 
 to the approximate order of magnitude. It only has an effect if the mass flow
 rate is near zero and what \"near zero\" means depends on the magnitude of

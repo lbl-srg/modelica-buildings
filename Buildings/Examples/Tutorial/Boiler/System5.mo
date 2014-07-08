@@ -17,6 +17,7 @@ model System5
     Q_flow_nominal/4200/(TRadSup_nominal-TRadRet_nominal)
     "Radiator nominal mass flow rate";
 
+//-------------------------Step 4: Boiler design values-------------------------//
   parameter Modelica.SIunits.Temperature TBoiSup_nominal = 273.15+70
     "Boiler nominal supply water temperature";
   parameter Modelica.SIunits.Temperature TBoiRet_min = 273.15+60
@@ -24,15 +25,19 @@ model System5
   parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal=
     Q_flow_nominal/4200/(TBoiSup_nominal-TBoiRet_min)
     "Boiler nominal mass flow rate";
+//------------------------------------------------------------------------------//
 
+//----------------Radiator loop: Three-way valve: mass flow rate----------------//
   parameter Modelica.SIunits.MassFlowRate mRadVal_flow_nominal=
     Q_flow_nominal/4200/(TBoiSup_nominal-TRadRet_nominal)
-    "Boiler nominal mass flow rate";
+    "Radiator nominal mass flow rate";
+//------------------------------------------------------------------------------//
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mA_flow_nominal,
     V=V)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -62,6 +67,7 @@ model System5
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=Q_flow_nominal,
     T_a_nominal=TRadSup_nominal,
     T_b_nominal=TRadRet_nominal) "Radiator"
@@ -77,14 +83,19 @@ model System5
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-40,30})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(m_flow_nominal=mRad_flow_nominal,
-      redeclare package Medium = MediumW) "Pump for radiator"
-                        annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-50,-70})));
+  Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(
+    redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=mRad_flow_nominal) "Pump for radiator"
+      annotation (Placement(transformation(
+      extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={-50,-70})));
+
+//-------------------------Step 3: Splitter and mixers------------------------//
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix(
     redeclare package Medium =MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mRadVal_flow_nominal,
                    -mRad_flow_nominal,
                    mRad_flow_nominal-mRadVal_flow_nominal},
@@ -95,6 +106,7 @@ model System5
         origin={-50,-110})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
     redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mBoi_flow_nominal,
                    -mRadVal_flow_nominal,
                    -mBoi_flow_nominal},
@@ -105,8 +117,8 @@ model System5
         origin={-50,-190})));
 
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl2(redeclare
-      package Medium =
-               MediumW,
+      package Medium=MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal={0,0,0},
     m_flow_nominal={mRad_flow_nominal,-mRadVal_flow_nominal,-mRad_flow_nominal +
         mRadVal_flow_nominal})
@@ -115,8 +127,8 @@ model System5
         rotation=270,
         origin={60,-110})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix2(redeclare
-      package Medium =
-               MediumW,
+      package Medium=MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal={0,-200,0},
     m_flow_nominal={mRadVal_flow_nominal,-mBoi_flow_nominal,mBoi_flow_nominal}) "Mixer"
                         annotation (Placement(transformation(
@@ -124,43 +136,56 @@ model System5
         rotation=270,
         origin={60,-190})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl4(redeclare
-      package Medium =
-               MediumW,
+      package Medium=MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRadVal_flow_nominal*{1,-1,-1},
     dp_nominal=200*{1,-1,-1}) "Splitter for radiator loop valve bypass"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-150})));
+//----------------------------------------------------------------------------//
+
   Buildings.Fluid.Movers.FlowMachine_m_flow pumBoi(
       redeclare package Medium = MediumW,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       m_flow_nominal=mBoi_flow_nominal) "Pump for boiler"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-280})));
+
+//-------------------------------Step 3: Boiler-------------------------------//
   Buildings.Fluid.Boilers.BoilerPolynomial boi(
     redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mBoi_flow_nominal,
     dp_nominal=2000,
     Q_flow_nominal=Q_flow_nominal,
     fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue()) "Boiler"
     annotation (Placement(transformation(extent={{20,-320},{0,-300}})));
+//----------------------------------------------------------------------------//
+
+//--------------------------Step 3: Three-way Valve---------------------------//
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valRad(
     redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRadVal_flow_nominal,
     l={0.01,0.01},
-    dpValve_nominal=6000) "Three-way valve"
+    dpValve_nominal=6000) "Three-way valve for radiator loop"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-150})));
+//----------------------------------------------------------------------------//
+
   Buildings.Fluid.Sources.FixedBoundary preSou(redeclare package Medium = MediumW,
       nPorts=1)
     "Source for pressure and to account for thermal expansion of water"
     annotation (Placement(transformation(extent={{92,-320},{72,-300}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valBoi(
     redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mBoi_flow_nominal,
     l={0.01,0.01},
     dpValve_nominal=6000) "Three-way valve for boiler"
@@ -175,37 +200,52 @@ model System5
         rotation=270,
         origin={60,-280})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl1(redeclare
-      package Medium =
-               MediumW,
+      package Medium=MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mBoi_flow_nominal,-mBoi_flow_nominal,-mBoi_flow_nominal},
     dp_nominal={0,0,-200}) "Splitter"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-250})));
+
+//---------------------Step 2: Outdoor temperature sensor and control------------------//
   Modelica.Blocks.Logical.Hysteresis hysTOut(uLow=273.15 + 16, uHigh=273.15 + 17)
     "Hysteresis for on/off based on outside temperature"
     annotation (Placement(transformation(extent={{-260,-200},{-240,-180}})));
   Modelica.Blocks.Logical.Not not2
     annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
+
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTOut
     "Outdoor temperature sensor"
     annotation (Placement(transformation(extent={{-318,20},{-298,40}})));
-  Modelica.Blocks.Logical.Hysteresis hysTBoi(uLow=273.15 + 70, uHigh=273.15 +
-        90) "Hysteresis for on/off of boiler"
+//------------------------------------------------------------------------------------//
+
+//-------------------------------Step 4: Boiler hysteresis----------------------------//
+  Modelica.Blocks.Logical.Hysteresis hysTBoi(uHigh=273.15 + 90,
+                                             uLow=273.15 + 70)
+    "Hysteresis for on/off of boiler"
     annotation (Placement(transformation(extent={{-260,-348},{-240,-328}})));
   Modelica.Blocks.Logical.Not not3
     annotation (Placement(transformation(extent={{-220,-348},{-200,-328}})));
   Modelica.Blocks.Logical.And and1
     annotation (Placement(transformation(extent={{-180,-160},{-160,-140}})));
+//------------------------------------------------------------------------------------//
+
+//-------------------------Step 3: Boolean to real: Boiler Pump-----------------------//
   Modelica.Blocks.Math.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
+//------------------------------------------------------------------------------------//
+
   Modelica.Blocks.Logical.And and2
     annotation (Placement(transformation(extent={{-140,-340},{-120,-320}})));
-  Modelica.Blocks.Math.BooleanToReal booToReaRad2(realTrue=1)
-    "Radiator pump signal"
+
+//---------------------------------Step 4: Boiler signal------------------------------//
+ Modelica.Blocks.Math.BooleanToReal booToReaRad2(realTrue=1) "Boiler signal"
     annotation (Placement(transformation(extent={{-100,-340},{-80,-320}})));
+//------------------------------------------------------------------------------------//
+
   Modelica.Blocks.Logical.Hysteresis hysPum(uLow=273.15 + 19,
                                             uHigh=273.15 + 21)
     "Pump hysteresis"
@@ -438,7 +478,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conPIDRad.y, valRad.y) annotation (Line(
-      points={{-159,-10},{-108,-10},{-108,-150},{-62,-150}},
+      points={{-159,-10},{-90,-10},{-90,-150},{-62,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
@@ -450,7 +490,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conPIDBoi.y, valBoi.y) annotation (Line(
-      points={{181,-280},{190,-280},{190,-250},{72,-250}},
+      points={{181,-280},{200,-280},{200,-250},{72,-250}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
@@ -495,17 +535,17 @@ We configured the controller as
   Buildings.Controls.Continuous.LimPID conPIDBoi(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=0.1,
-    Ti=120,    
+    Ti=120,
     Td=1) \"Controller for valve in boiler loop\";
 </pre>
 <p>
 We set the proportional band to <i>10</i> Kelvin, hence <code>k=0.1</code>.
-We set the integral time constant to <i>120</i> seconds, which is 
+We set the integral time constant to <i>120</i> seconds, which is
 the same time as is required to open or close the valve.
 These settings turn out to give satisfactory closed loop control performance.
-Otherwise, we would need to retune the controller, which is 
+Otherwise, we would need to retune the controller, which is
 usually easiest by configuring the controller as a P-controller, then tuning the
-proportional gain, and finally changing it to a PI-controller and tuning the 
+proportional gain, and finally changing it to a PI-controller and tuning the
 integral time constant.
 </p>
 </li>
@@ -517,7 +557,7 @@ using the model
 <a href=\"modelica://Buildings.Controls.SetPoints.Table\">
 Buildings.Controls.SetPoints.Table</a> to implement
 a set point that shifts as a function of the room temperature.
-This instance is called <code>TSetSup</code> in the 
+This instance is called <code>TSetSup</code> in the
 control sequence shown in the figure below.
 </p>
 <p align=\"center\">
@@ -527,8 +567,8 @@ control sequence shown in the figure below.
 Its configuration is
 </p>
 <pre>
-  Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50; 
-                                          273.15 + 21, 273.15 + 21]) 
+  Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
+                                          273.15 + 21, 273.15 + 21])
                                           \"Setpoint for supply water temperature\";
 </pre>
 </li>
@@ -548,7 +588,7 @@ The figure shows that the return water temperature
 <code>temRet.T</code>
 quickly raises to <i>50</i>&deg;C and the supply water temperature
 <code>temSup.T</code>
-has smaller oscillations compared to 
+has smaller oscillations compared to
 <a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System4\">
 Buildings.Examples.Tutorial.Boiler.System4</a>.
 </p>

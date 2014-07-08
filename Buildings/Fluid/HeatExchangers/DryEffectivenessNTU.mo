@@ -126,7 +126,7 @@ initial equation
     Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
     eps=eps_nominal,
     Z=Z_nominal,
-    flowRegime=flowRegime_nominal) else 0;
+    flowRegime=Integer(flowRegime_nominal)) else 0;
   UA_nominal = NTU_nominal*CMin_flow_nominal;
 equation
   // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
@@ -155,7 +155,7 @@ equation
     UA=UA,
     C1_flow=C1_flow,
     C2_flow=C2_flow,
-    flowRegime=flowRegime,
+    flowRegime=Integer(flowRegime),
     CMin_flow_nominal=CMin_flow_nominal,
     CMax_flow_nominal=CMax_flow_nominal,
     delta=delta);
@@ -171,8 +171,8 @@ equation
 defaultComponentName="hex",
     Documentation(info="<html>
 <p>
-Model of a heat exchanger without humidity condensation. 
-This model transfers heat in the amount of 
+Model of a heat exchanger without humidity condensation.
+This model transfers heat in the amount of
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q = Q<sub>max</sub>  &epsilon;<br/>
@@ -181,7 +181,7 @@ This model transfers heat in the amount of
 <p>
 where
 <i>Q<sub>max</sub></i> is the maximum heat that can be transferred,
-<i>&epsilon;</i> is the heat transfer effectiveness, 
+<i>&epsilon;</i> is the heat transfer effectiveness,
 <i>NTU</i> is the Number of Transfer Units,
 <i>Z</i> is the ratio of minimum to maximum capacity flow rate and
 <i>flowRegime</i> is the heat exchanger flow regime.

@@ -112,5 +112,20 @@ equation
             -100},{100,100}})),
 experiment(StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/ConstantEffectiveness.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+Documentation(info="<html>
+<p>
+This model tests
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
+Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>
+for different inlet conditions.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 28, 2008, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ConstantEffectiveness;
