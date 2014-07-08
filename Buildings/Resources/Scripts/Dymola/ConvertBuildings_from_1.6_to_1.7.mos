@@ -5,3 +5,31 @@ clear
 
 convertClear();
 
+// Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldFixedResistance
+// Removed parameters dl and energyDynamics as they are no longer needed.
+
+// Buildings.Fluid.HeatExchangers.DryCoilDiscretized
+// Buildings.Fluid.HeatExchangers.WetCoilDiscretized
+// Removed parameter dl as this is no longer needed.
+
+
+// Buildings.Fluid.HeatExchangers.DryCoilCounterFlow
+// Buildings.Fluid.HeatExchangers.WetCoilCounterFlow
+// Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister
+// Removed energyDynamics1 and energyDynamics2, used instead
+// the value of energyDynamics
+
+// Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister
+// Removed energyDynamics1 and energyDynamics2, used instead
+// the value of energyDynamics.
+// Removed parameters steadyState_1 and steadyState_2.
+// These are not needed as the parameter energyDynamics
+// already declares whether the energy balance is steady-state
+// or dynamic.
+
+
+// Buildings.Fluid.HeatExchangers.DryCoilDiscretized
+// Buildings.Fluid.HeatExchangers.WetCoilDiscretized
+// Removed energyDynamics1 energyDynamics2, and ductConnectionDynamics,
+// used instead the value
+// of the parameter energyDynamics

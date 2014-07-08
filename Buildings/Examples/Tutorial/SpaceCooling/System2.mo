@@ -14,7 +14,8 @@ model System2
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     V=V,
-    nPorts=2)
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
@@ -70,7 +71,8 @@ model System2
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Fluid.Movers.FlowMachine_m_flow fan(redeclare package Medium = MediumA,
-      m_flow_nominal=mA_flow_nominal) "Supply air fan"
+      m_flow_nominal=mA_flow_nominal,
+    dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
         MediumA, redeclare package Medium2 = MediumA,
@@ -92,7 +94,9 @@ model System2
         T_b1=TASup_nominal,
         T_a2=TWSup_nominal,
         T_b2=TWRet_nominal),
-    show_T=true) "Cooling coil"                                annotation (Placement(
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
+                                                               annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -451,6 +455,13 @@ Its default value is <code>false</code>, as this setting can lead to faster comp
 in large system models in which the flow rate crosses zero, because crossing zero
 triggers the numerical solution for a state-event which can be computationally expensive.
 </p>
+<p>
+To use prescribed initial values for the state variables of the cooling coil, we set
+the parameter
+</p>
+<pre>
+  energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+</pre>
 </li>
 <li>
 <p>
@@ -458,6 +469,14 @@ For the fan, we set the nominal mass flow rate to <code>mA_flow_nominal</code>
 and also connect its input port to the component <code>mAir_flow</code>,
 which assigns a constant air flow rate.
 We leave the fan efficiency at its default value of <i>0.7</i>.
+We set the parameter 
+</p>
+<pre>
+  dynamicBalance=false
+</pre>
+<p>
+to configure the fan to be a steady-state model. This was done as we
+are using a constant fan speed in this example.
 </p>
 </li>
 <li>

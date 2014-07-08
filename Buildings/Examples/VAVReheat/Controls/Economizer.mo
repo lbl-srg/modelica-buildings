@@ -43,7 +43,9 @@ block Economizer "Controller for economizer"
     "Control signal for outside air damper"
     annotation (Placement(transformation(extent={{200,70},{220,90}},
         rotation=0), iconTransformation(extent={{200,70},{220,90}})));
-  Modelica.Blocks.Routing.Extractor extractor(nin=6)
+  Modelica.Blocks.Routing.Extractor extractor(
+    nin=6,
+    index(start=1, fixed=true)) "Extractor for control signal"
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
   Modelica.Blocks.Sources.Constant closed(k=0) "Signal to close OA damper"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));

@@ -16,7 +16,9 @@ block FanVFD "Controller for fan revolution"
   parameter Real xSet_nominal "Nominal setpoint (used for normalization)";
   ControlBus controlBus
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Modelica.Blocks.Routing.Extractor extractor(nin=6)
+  Modelica.Blocks.Routing.Extractor extractor(
+    nin=6,
+    index(start=1, fixed=true)) "Extractor for control signal"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Sources.Constant off(k=r_N_min) "Off signal"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));

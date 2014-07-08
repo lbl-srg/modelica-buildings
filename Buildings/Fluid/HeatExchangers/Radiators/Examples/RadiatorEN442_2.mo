@@ -45,7 +45,8 @@ model RadiatorEN442_2 "Test model for radiator"
     T_a_nominal=T_a_nominal,
     T_b_nominal=T_b_nominal,
     Q_flow_nominal=Q_flow_nominal,
-    TAir_nominal=TRoo) "Radiator"
+    TAir_nominal=TRoo,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Radiator"
     annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad2(
     redeclare package Medium = Medium,

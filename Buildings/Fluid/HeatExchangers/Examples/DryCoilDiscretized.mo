@@ -12,7 +12,8 @@ model DryCoilDiscretized
   parameter Modelica.SIunits.Temperature T_b2_nominal = 20+273.15;
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 5
     "Nominal mass flow rate medium 1";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
+     m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
     "Nominal mass flow rate medium 2";
 
   Buildings.Fluid.HeatExchangers.DryCoilDiscretized hex(
@@ -32,14 +33,15 @@ model DryCoilDiscretized
     dp2_nominal=200,
     dp1_nominal=5000,
     show_T=true,
-    energyDynamics1=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    energyDynamics2=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
-                               annotation (Placement(transformation(extent={{8,-4},{
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    from_dp1=true,
+    from_dp2=true)             annotation (Placement(transformation(extent={{8,-4},{
             28,16}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
-      package Medium = Medium2, T=303.15,
-    use_p_in=true,
-    nPorts=1)             annotation (Placement(transformation(extent={{-58,-10},
+  Sources.MassFlowSource_T            sin_2(
+    redeclare package Medium = Medium2,
+    nPorts=1,
+    use_m_flow_in=true,
+    T=303.15)             annotation (Placement(transformation(extent={{-58,-10},
             {-38,10}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp PIn(
     offset=101525,
@@ -48,8 +50,8 @@ model DryCoilDiscretized
     startTime=120)
                  annotation (Placement(transformation(extent={{-20,-50},{0,-30}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sou_2(                       redeclare
-      package Medium = Medium2,
+  Buildings.Fluid.Sources.Boundary_pT sou_2(
+    redeclare package Medium = Medium2,
     use_p_in=true,
     use_T_in=true,
     T=283.15,
@@ -64,11 +66,8 @@ model DryCoilDiscretized
           rotation=0)));
   Modelica.Blocks.Sources.Constant TDb(k=273.15 + 5) "Drybulb temperature"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant POut(k=101325)
-      annotation (Placement(transformation(extent={{-100,-2},{-80,18}},
-          rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare
-      package Medium = Medium1,
+  Buildings.Fluid.Sources.Boundary_pT sin_1(
+    redeclare package Medium = Medium1,
     p=300000,
     T=293.15,
     use_p_in=true,
@@ -89,6 +88,12 @@ model DryCoilDiscretized
           rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+    Modelica.Blocks.Sources.Ramp m_flow_2(
+    duration=60,
+    startTime=120,
+    height=28 - 0.124,
+    offset=-28) "Mass flow rate on air side" annotation (Placement(
+        transformation(extent={{-100,-2},{-80,18}}, rotation=0)));
 equation
   connect(PIn.y,sou_2. p_in) annotation (Line(
       points={{1,-40},{20,-40},{20,-52},{38,-52}},
@@ -110,10 +115,6 @@ equation
           5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(POut.y, sin_2.p_in) annotation (Line(
-      points={{-79,8},{-69.5,8},{-69.5,8},{-60,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(sin_2.ports[1], hex.port_b2) annotation (Line(
       points={{-38,6.66134e-16},{-16,6.66134e-16},{-16,5.55112e-16},{8,
           5.55112e-16}},
@@ -123,10 +124,34 @@ equation
       points={{28,12},{64,12}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+  connect(m_flow_2.y, sin_2.m_flow_in) annotation (Line(
+      points={{-79,8},{-58,8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation(Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}),
                      graphics),
 experiment(StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilDiscretized.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+July 3, 2014, by Michael Wetter:<br/>
+Changed pressure sink to mass flow rate sink to avoid an overdetermined
+by consistent set of initial conditions.
+</li>        
+<li>
+March 25, 2008, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model tests
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilDiscretized\">
+Buildings.Fluid.HeatExchangers.DryCoilDiscretized</a>
+for different inlet conditions.
+</p>
+</html>"));
 end DryCoilDiscretized;

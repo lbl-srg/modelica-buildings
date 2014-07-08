@@ -51,7 +51,8 @@ partial model PartialStaticTwoPortCoolingTower
     redeclare package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
     prescribedHeatFlowRate=true,
-    V=0.5)
+    V=0.5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
   Buildings.Fluid.Sources.FixedBoundary   exp(           redeclare package
       Medium = Medium_W, nPorts=1)
