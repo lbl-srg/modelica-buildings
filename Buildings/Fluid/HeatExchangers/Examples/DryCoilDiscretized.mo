@@ -141,6 +141,17 @@ July 3, 2014, by Michael Wetter:<br/>
 Changed pressure sink to mass flow rate sink to avoid an overdetermined
 by consistent set of initial conditions.
 </li>        
+<li>
+March 25, 2008, by Michael Wetter:<br/>
+First implementation.
+</li>
 </ul>
+</html>", info="<html>
+<p>
+This model tests
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilDiscretized\">
+Buildings.Fluid.HeatExchangers.DryCoilDiscretized</a>
+for different inlet conditions.
+</p>
 </html>"));
 end DryCoilDiscretized;

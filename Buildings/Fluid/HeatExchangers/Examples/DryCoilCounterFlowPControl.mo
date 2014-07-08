@@ -176,12 +176,25 @@ equation
 experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilCounterFlowPControl.mos"
         "Simulate and plot"),
-    Documentation(revisions="<html>
+Documentation(info="<html>
+<p>
+This model demonstrates the use of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
+Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a>.
+The valve on the water-side is regulated to track a setpoint temperature
+for the air outlet.
+</p>
+</html>",
+revisions="<html>
 <ul>
 <li>
 March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valve as
 this parameter no longer has a default value.
+</li>
+<li>
+May 27, 2010, by Michael Wetter:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

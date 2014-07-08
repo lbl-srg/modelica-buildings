@@ -58,5 +58,20 @@ equation
             -100},{200,200}})),
 experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilCounterFlowMassFlow.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+Documentation(info="<html>
+<p>
+This model demonstrates the use of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
+Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a>
+for different inlet conditions.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 27, 2010, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end DryCoilCounterFlowMassFlow;

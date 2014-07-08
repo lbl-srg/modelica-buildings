@@ -55,5 +55,20 @@ equation
             -100},{200,200}})),
 experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTUMassFlow.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+Documentation(info="<html>
+<p>
+This model tests
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</a>
+for different mass flow rates.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 12, 2010, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end DryEffectivenessNTUMassFlow;
