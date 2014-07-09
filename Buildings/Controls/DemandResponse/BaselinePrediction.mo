@@ -202,11 +202,11 @@ algorithm
     // and then don't store any more results until the first interval after midnight past.
     // We use the pre() operator because the past sampling interval can still be
     // stored if we switch right now to an event day.
+    idxSam :=getIndex(iSam - 1, nSam);
     if not _isEventDay then
       if (time - tLast) > 1E-5 then
         // Update iHis, which points to where the last interval's power
         // consumption will be stored.
-        idxSam :=getIndex(iSam - 1, nSam);
         iHis[typeOfDay, idxSam] := incrementIndex(iHis[typeOfDay, idxSam], nHis);
         if iHis[typeOfDay, idxSam] == nHis then
           historyComplete[typeOfDay, idxSam] :=true;
@@ -218,12 +218,10 @@ algorithm
         end if;
       end if;
     end if;
-    if not _isEventDay then
-      // Initialized the energy consumed since the last sampling
-      ELast := ECon;
-      intTOutLast :=intTOut;
-      tLast := time;
-    end if;
+    // Initialized the energy consumed since the last sampling
+    ELast := ECon;
+    intTOutLast :=intTOut;
+    tLast := time;
 
     // Compute the baseline prediction for the current hour,
     // with k being equal to the number of stored history terms.
@@ -233,13 +231,13 @@ algorithm
     if predictionModel == Buildings.Controls.DemandResponse.Types.PredictionModel.Average then
       PPre :=Buildings.Controls.DemandResponse.BaseClasses.average(
           P={P[typeOfDay, iSam, i] for i in 1:nHis},
-          k=if historyComplete[typeOfDay, iSam] then nHis else iHis[typeOfDay, iSam]-1);
+          k=if historyComplete[typeOfDay, iSam] then nHis else iHis[typeOfDay, iSam]);
     elseif predictionModel == Buildings.Controls.DemandResponse.Types.PredictionModel.WeatherRegression then
       PPre :=Buildings.Controls.DemandResponse.BaseClasses.weatherRegression(
           TCur=TOut,
           T={T[typeOfDay, iSam, i] for i in 1:nHis},
           P={P[typeOfDay, iSam, i] for i in 1:nHis},
-          k=if historyComplete[typeOfDay, iSam] then nHis else iHis[typeOfDay, iSam]-1);
+          k=if historyComplete[typeOfDay, iSam] then nHis else iHis[typeOfDay, iSam]);
     else
       PPre:= 0;
       assert(false, "Wrong value for prediction model.");
