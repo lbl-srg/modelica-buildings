@@ -1,8 +1,8 @@
-within Buildings.Controls.DemandResponse.Examples;
+within Buildings.Controls.DemandResponse.Examples.Validation;
 model SineInput
   "Demand response client with sinusoidal input for actual power consumption"
   extends
-    Buildings.Controls.DemandResponse.Examples.BaseClasses.PartialSimpleTestCase;
+    Buildings.Controls.DemandResponse.Examples.Validation.BaseClasses.PartialSimpleTestCase;
   // fixme: scaling factor for easier debugging
   Modelica.Blocks.Sources.Cosine PCon(
     amplitude=0.5,
@@ -55,9 +55,9 @@ equation
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),                                                                    graphics),
-          __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/DemandResponse/Examples/SineInput.mos"
+          __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/DemandResponse/Examples/Validation/SineInput.mos"
         "Simulate and plot"),
-            experiment(StopTime=1.8144e+06),
+            experiment(StopTime=5270400),
     Documentation(info="<html>
 <p>
 Model that demonstrates and tests the demand response model.

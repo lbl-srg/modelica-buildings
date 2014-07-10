@@ -1,8 +1,8 @@
-within Buildings.Controls.DemandResponse.Examples;
+within Buildings.Controls.DemandResponse.Examples.Validation;
 model ConstantInput
   "Demand response client with constant input for actual power consumption"
   extends
-    Buildings.Controls.DemandResponse.Examples.BaseClasses.PartialSimpleTestCase;
+    Buildings.Controls.DemandResponse.Examples.Validation.BaseClasses.PartialSimpleTestCase;
   Modelica.Blocks.Sources.Constant
                                  PCon(k=1) "Measured power consumption"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
@@ -42,14 +42,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-  experiment(StopTime=1.8144e+06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/DemandResponse/Examples/ConstantInput.mos"
+  experiment(StopTime=5270400),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/DemandResponse/Examples/Validation/ConstantInput.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model is identical to 
-<a href=\"modelica://Buildings.Controls.DemandResponse.Examples.SineInput\">
-Buildings.Controls.DemandResponse.Examples.SineInput</a>,
+<a href=\"modelica://Buildings.Controls.DemandResponse.Examples.Validation.SineInput\">
+Buildings.Controls.DemandResponse.Examples.Validation.SineInput</a>,
 except that the input <code>client.PCon</code> is a constant signal.
 </p>
 <p>

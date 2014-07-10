@@ -275,6 +275,7 @@ algorithm
       else
         adj := 1;
       end if;
+      PPre :=PPre*adj;
     end if;
 
   end when;
