@@ -40,7 +40,7 @@ block BaselinePrediction "Block that computes the baseline consumption"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Modelica.Blocks.Interfaces.RealInput ECon(unit="J")
+  Modelica.Blocks.Interfaces.RealInput ECon(unit="J", nominal=1E5)
     "Consumed electrical energy"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -73,8 +73,8 @@ protected
     "Number of samples used for the day of adjustment";
   parameter Modelica.SIunits.Time dt = 86400/nSam
     "Length of one sampling interval";
-
-  output Boolean sampleTrigger "True, if sample time instant";
+  Modelica.SIunits.Power PAve "Average power over the past interval";
+  Boolean sampleTrigger "True, if sample time instant";
 
   output Modelica.SIunits.Energy ELast "Energy at the last sample";
   output Modelica.SIunits.Time tLast "Time at which last sample occured";
@@ -92,22 +92,21 @@ protected
    if predictionModel == Types.PredictionModel.WeatherRegression then nHis else 0]
     "Temperature history";
 
-  output Integer iHis[Buildings.Controls.Types.nDayTypes,nSam]
+  Integer iHis[Buildings.Controls.Types.nDayTypes,nSam]
     "Index for power of the current sampling history, for the currrent time interval";
-  output Boolean historyComplete[Buildings.Controls.Types.nDayTypes,nSam]
+  Boolean historyComplete[Buildings.Controls.Types.nDayTypes,nSam]
     "Flage, set to true when all history terms are built up for the given day type and given time interval";
-  output Boolean firstCall "Set to true after first call";
+  Boolean firstCall "Set to true after first call";
 
-  discrete output Boolean _isEventDay
+  Boolean _isEventDay
     "Flag, switched to true when block gets an isEvenDay=true signal, and remaining true until midnight";
 
-  Modelica.SIunits.Energy EActAve[Buildings.Controls.Types.nDayTypes]
-    "Actual energy over the day off period";
+  Modelica.SIunits.Energy EActAve "Actual energy over the day off period";
 
-  Modelica.SIunits.Energy EHisAve[Buildings.Controls.Types.nDayTypes]
+  Modelica.SIunits.Energy EHisAve
     "Actual load over the day off period, summed over all time intervals";
 
-  Modelica.SIunits.Power PPreHis[Buildings.Controls.Types.nDayTypes, nDayOf]
+  Modelica.SIunits.Power PPreHis[Buildings.Controls.Types.nDayTypes, -iDayOf_start+1]
     "Predicted power consumptions for all day off time intervals";
 
   Real intTOut(unit="K.s", start=0, fixed=true)
@@ -115,7 +114,6 @@ protected
   Real intTOutLast(unit="K.s")
     "Last sampled value of time integral of outside temperature";
 
-  Integer iEle "Element to pick for averaging past values";
   Integer idxSam "Index to access iSam";
 
   function incrementIndex
@@ -124,6 +122,7 @@ protected
     output Integer iNew "New value of counter";
   algorithm
     iNew :=if i == n then 1 else i + 1;
+    annotation(LateInline = true);
   end incrementIndex;
 
   function getIndex
@@ -131,7 +130,11 @@ protected
     input Integer n "Maximum value of counter";
     output Integer iNew "New value of counter";
   algorithm
-    iNew :=if i > n then i-n elseif i < 1 then i+n else i;
+    iNew := mod(i, n);
+    if iNew == 0 then
+      iNew := n;
+    end if;
+    annotation(LateInline = true);
   end getIndex;
 
 initial equation
@@ -144,9 +147,8 @@ initial equation
     nHis);
   T = zeros(size(T,1), size(T,2), size(T,3));
 
-  EActAve    = zeros(Buildings.Controls.Types.nDayTypes);
-  EHisAve = zeros(Buildings.Controls.Types.nDayTypes);
-  PPreHis    = zeros(Buildings.Controls.Types.nDayTypes, nDayOf);
+  EActAve    = 0;
+  PPreHis    = zeros(Buildings.Controls.Types.nDayTypes, -iDayOf_start+1);
 
   ELast = 0;
   intTOutLast = 0;
@@ -189,7 +191,7 @@ algorithm
 
     // Update iSam
     iSam   := if firstCall then iSam else incrementIndex(iSam, nSam);
-    iDayOf := if firstCall then iDayOf else incrementIndex(iDayOf, nDayOf);
+    iDayOf := if firstCall then iDayOf else incrementIndex(iDayOf, -iDayOf_start+1);
 
     // Set flag for first call to false.
     if firstCall then
@@ -211,8 +213,8 @@ algorithm
         if iHis[typeOfDay, idxSam] == nHis then
           historyComplete[typeOfDay, idxSam] :=true;
         end if;
-//        Modelica.Utilities.Streams.print("sam = " + String(idxSam) + "  his = " + String(iHis[typeOfDay, idxSam]));
-        P[typeOfDay, idxSam, iHis[typeOfDay, idxSam]] := (ECon-ELast)/(time - tLast);
+        PAve :=(ECon - ELast)/(time - tLast);
+        P[typeOfDay, idxSam, iHis[typeOfDay, idxSam]] := PAve;
         if predictionModel == Types.PredictionModel.WeatherRegression then
           T[typeOfDay, getIndex(iSam - 1, nSam), iHis[typeOfDay, idxSam]] := (intTOut-intTOutLast)/(time - tLast);
         end if;
@@ -247,32 +249,29 @@ algorithm
       // Compute the actual load over the dayOf period
 
       // Compute average energy over the day of window that just lapsed.
-      // This does not work as it lapses into another history term
-      EActAve[typeOfDay] :=0;
-      for i in 1:iDayOf_start:iDayOf_end loop
-        iEle :=mod(pre(iSam) + i, nSam) + 1;
-        EActAve[typeOfDay] := EActAve[typeOfDay] + dt*
-        P[pre(typeOfDay), iEle, pre(iHis[pre(typeOfDay), iEle])];
-      end for;
-      //EActAve[typeOfDay] := dt*
-      //  sum(P[pre(typeOfDay), mod(pre(iSam)+i, nSam)+1, pre(iHis[pre(typeOfDay), pre(iSam)])]
-      //      for i in iDayOf_start:iDayOf_end);
+      // We are picking the time instants from
+      // k=idxSam+iDayOf_start to idxSam+iDayOf_end.
+      // We start at the current history term iHis[typeOfDay, idxSam].
+      // If k becomes 0, we decrement the iHis[typeOfDay, idxSam] by -1,
+      // and set it to nHis if it becomes 0.
+      EActAve :=dt*sum(P[typeOfDay,
+                         getIndex(idxSam+i+1, nSam),
+                         iHis[typeOfDay, getIndex(i-1, nSam)]]
+                         for i in iDayOf_start:iDayOf_end-1);
 
       // Store the predicted power consumption. This variable is stored
       // to avoid having to compute the average or weather regression multiple times.
-      PPreHis[pre(typeOfDay), iDayOf] :=        P[typeOfDay, mod(pre(iSam)+iDayOf_end, nSam)+1, iHis[typeOfDay, pre(iSam)]];
-//        sum( P[pre(typeOfDay), pre(iSam), pre(iHis[pre(typeOfDay), pre(iSam)])]
+      PPreHis[typeOfDay, getIndex(iDayOf, -iDayOf_start+1)] :=  PPre;
 
       // Compute average historical load.
       // This is a running sum over the past nHis days.
-      EHisAve[typeOfDay] :=pre(EHisAve[typeOfDay]) + dt*(
-           PPreHis[typeOfDay, iDayOf]-pre(PPreHis[typeOfDay, iDayOf]));
+      // Fixme: check in SineInput whether EHisAve is offset by 1 time unit compared to EActAve
+      EHisAve := dt*sum(PPreHis[typeOfDay, getIndex(iDayOf+i, -iDayOf_start+1)] for i in iDayOf_start:iDayOf_end-1);
       // fixme: compare EHisAve with EActAve for Examples.SineInput
       // Compute the load adjustment factor.
-      if (EHisAve[typeOfDay] > Modelica.Constants.eps or
-          EHisAve[typeOfDay] < -Modelica.Constants.eps) then
-        adj := min(maxAdjFac, max(minAdjFac,
-          EActAve[typeOfDay]/EHisAve[typeOfDay]));
+      if (EHisAve > Modelica.Constants.eps or
+          EHisAve < -Modelica.Constants.eps) then
+        adj := min(maxAdjFac, max(minAdjFac, EActAve/EHisAve));
       else
         adj := 1;
       end if;
@@ -289,8 +288,9 @@ algorithm
 <p>
 Block that computes the baseline for a demand response client.
 This implementation computes either an average baseline or
-a linear regression.
+a linear regression, optionally with a day-of adjustment.
 </p>
+<h4>Computation of baseline</h4>
 <p>
 Separate baselines are computed for any types of days.
 The type of day is an input signal received from the connector
@@ -303,7 +303,7 @@ Buildings.Controls.Types.Day</a>.
 The average baseline is the average of the consumed power of the previous
 <i>n<sub>his</sub></i> days for the same time interval. The default value is
 <i>n<sub>his</sub>=10</i> days.
-For example, if the base line is
+For example, if the baseline is
 computed every 1 hour, then there are 24 baseline values for each day,
 each being the average power consumed in the past 10 days that have the same
 <code>typeOfDay</code>.
@@ -323,9 +323,44 @@ If no history term is present for the current time interval and
 the current type of day, then the predicted power consumption
 <code>PPre</code> will be zero.
 </p>
+<h4>Day-of adjustment</h4>
+<p>
+If the parameter <code>use_dayOfAdj = true</code>, then the
+day-of adjustment is computed. (Some literature call this
+morning-of adjustment, but we call it day-of adjustment because
+the adjustment can also be in the afternoon if the peak is 
+in the late afternoon hours).
+The day-of adjustment can be used with any of the above baseline computations.
+The parameters <code>dayOfAdj_start</code> and <code>dayOfAdj_end</code>
+determine the time window during which the day-of adjustment is computed.
+Both need to be negative times, measured in seconds prior to the time
+at which the power consumption is predicted.
+For example, to use a day-of adjustment for the window of <i>4</i> to <i>1</i>
+hours prior to the event time, set
+<code>dayOfAdj_start=-4*3600</code> and <code>dayOfAdj_end=-3600</code>.
+</p>
+<p>
+The day-of adjustment is computed as follows: First, 
+the average power <i>P<sub>ave</sub></i> consumed
+over the day-of time window is computed. Next, the average power
+<i>P<sub>his</sub></i>
+is computed for the past <i>n<sub>his</sub></i> days.
+Then, the adjustment factor is computed as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+a = min(a<sub>max</sub>, max(a<sub>min</sub>, P<sub>ave</sub> &frasl; P<sub>his</sub>),
+</p>
+<p>
+where <i>a<sub>min</sub></i> and <i>a<sub>max</sub></i> are the minimum
+and maximum adjustment factors as defined by the parameters
+<code>adjFacMin</code> and <code>adjFacMax</code>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
+July 10, 2014 by Michael Wetter:<br/>
+First implementation.
+</li><li>
 March 20, 2014 by Michael Wetter:<br/>
 First implementation.
 </li>
