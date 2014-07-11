@@ -248,7 +248,7 @@ algorithm
       // and set it to nHis if it becomes 0.
       EActAve :=dt*sum(P[typeOfDay,
                          getIndex(idxSam+i+1, nSam),
-                         iHis[typeOfDay, getIndex(i-1, nSam)]]
+                         iHis[typeOfDay, getIndex(idxSam+i+1, nSam)]]
                          for i in iDayOf_start:iDayOf_end-1);
 
       // Store the predicted power consumption. This variable is stored
