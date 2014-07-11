@@ -1,17 +1,17 @@
-within Buildings.Controls.DemandResponse.Examples.BaseClasses.Validation;
+within Buildings.Controls.DemandResponse.Examples.Validation.BaseClasses;
 partial model PartialSimpleTestCase
   "Partial base class for simple test case of base load prediction"
   extends Modelica.Icons.Example;
   // fixme: scaling factor for easier debugging
   parameter Modelica.SIunits.Time tPeriod = 24*3600 "Period";
   parameter Modelica.SIunits.Time tSample = 3600 "Sampling period";
-  BaselinePrediction baseLoad(predictionModel=Buildings.Controls.DemandResponse.Types.PredictionModel.WeatherRegression)
-    "Baseload prediction"
+  BaselinePrediction baseLoad(predictionModel=Buildings.Controls.DemandResponse.Types.PredictionModel.WeatherRegression,
+      use_dayOfAdj=false) "Baseload prediction"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Sources.BooleanPulse  tri(
-    startTime=0.5*tPeriod,
     width=4/24*100/7,
-    period=7*tPeriod) "Sample trigger"
+    period=7*tPeriod,
+    startTime=1.5*tPeriod) "Sample trigger"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Sources.DayType dayType "Outputs the type of the day"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));

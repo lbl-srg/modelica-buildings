@@ -1,7 +1,7 @@
-simulateModel("Buildings.Controls.DemandResponse.Examples.Validation.LinearInput", stopTime=5270400, method="dassl", resultFile="DR_LinearInput");
+simulateModel("Buildings.Controls.DemandResponse.Examples.Validation.ConstantInputDayOfAdjustment", stopTime=5270400, method="dassl", resultFile="DR_ConstantInputDayOfAdjustment");
 createPlot(id=2, position={160, 65, 753, 593}, 
 y={"PCon.y", "baseLoad.PPre"}, 
-range={0.0, 5270400.0, -0.5, 1.5}, grid=true, filename="DR_LinearInput.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}});
+range={0.0, 5270400.0, -0.5, 1.5}, grid=true, filename="DR_ConstantInputDayOfAdjustment.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}});
 createPlot(id=2, position={160, 65, 753, 193}, 
 y={"baseLoad.typeOfDay", "baseLoad.isEventDay"}, 
 range={0.0, 5270400.0, -1.0, 3.0}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}});

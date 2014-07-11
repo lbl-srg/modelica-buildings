@@ -1,5 +1,6 @@
 within Buildings.Controls.DemandResponse.Examples;
-package Validation "Collection of models that validate the demand response client";
+package Validation "Collection of models that validate the demand response client"
+  extends Modelica.Icons.ExamplesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

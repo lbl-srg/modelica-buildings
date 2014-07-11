@@ -1,4 +1,4 @@
-within Buildings.Controls.DemandResponse.Examples;
+within Buildings.Controls.DemandResponse.Examples.Validation;
 package BaseClasses "Package with base classes for Buildings.Controls.DemandResponse.Examples"
   extends Modelica.Icons.BasesPackage;
 
