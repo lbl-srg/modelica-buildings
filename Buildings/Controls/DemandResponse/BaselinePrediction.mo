@@ -147,6 +147,7 @@ initial equation
   T = zeros(size(T,1), size(T,2), size(T,3));
 
   EActAve    = 0;
+  EHisAve    = 0;
   PPreHis    = zeros(Buildings.Controls.Types.nDayTypes, -iDayOf_start+1);
 
   ELast = 0;
@@ -187,7 +188,6 @@ algorithm
 
     // fixme: accessing an array element with an enumeration
     //        is not valid Modelica.
-
 
     // Update the history terms with the average power of the time interval,
     // unless we have an event day.
@@ -267,7 +267,13 @@ algorithm
       else
         adj := 1;
       end if;
+      Modelica.Utilities.Streams.print("aaaaaa");
       PPre :=PPre*adj;
+    else
+      EActAve := 0;
+      EHisAve := 0;
+      PPreHis[typeOfDay, getIndex(iDayOf, -iDayOf_start+1)] := 0;
+      adj := 1;
     end if;
 
     // Update iSam and iDayOf
@@ -275,8 +281,8 @@ algorithm
     iDayOf := incrementIndex(iDayOf, -iDayOf_start+1);
 
   end when;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+    extent={{-100,-100}, {100,100}}),
                    graphics={Text(
           extent={{-70,64},{74,-54}},
           lineColor={0,0,255},
