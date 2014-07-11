@@ -96,7 +96,6 @@ protected
     "Index for power of the current sampling history, for the currrent time interval";
   Boolean historyComplete[Buildings.Controls.Types.nDayTypes,nSam]
     "Flage, set to true when all history terms are built up for the given day type and given time interval";
-  Boolean firstCall "Set to true after first call";
 
   Boolean _isEventDay
     "Flag, switched to true when block gets an isEvenDay=true signal, and remaining true until midnight";
@@ -160,7 +159,7 @@ initial equation
        historyComplete[i,k] = false;
      end for;
    end for;
-   firstCall = true;
+
    _isEventDay = false;
    simStart = time;// fixme: this should be a multiple of samplePeriod
 
@@ -189,14 +188,7 @@ algorithm
     // fixme: accessing an array element with an enumeration
     //        is not valid Modelica.
 
-    // Update iSam
-    iSam   := if firstCall then iSam else incrementIndex(iSam, nSam);
-    iDayOf := if firstCall then iDayOf else incrementIndex(iDayOf, -iDayOf_start+1);
 
-    // Set flag for first call to false.
-    if firstCall then
-      firstCall :=false;
-    end if;
     // Update the history terms with the average power of the time interval,
     // unless we have an event day.
     // If we received a signal that there is an event day, then
@@ -278,6 +270,10 @@ algorithm
       PPre :=PPre*adj;
     end if;
 
+    // Update iSam and iDayOf
+    iSam   := incrementIndex(iSam, nSam);
+    iDayOf := incrementIndex(iDayOf, -iDayOf_start+1);
+
   end when;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
@@ -329,7 +325,7 @@ the current type of day, then the predicted power consumption
 If the parameter <code>use_dayOfAdj = true</code>, then the
 day-of adjustment is computed. (Some literature call this
 morning-of adjustment, but we call it day-of adjustment because
-the adjustment can also be in the afternoon if the peak is 
+the adjustment can also be in the afternoon if the peak is
 in the late afternoon hours).
 The day-of adjustment can be used with any of the above baseline computations.
 The parameters <code>dayOfAdj_start</code> and <code>dayOfAdj_end</code>
@@ -341,7 +337,7 @@ hours prior to the event time, set
 <code>dayOfAdj_start=-4*3600</code> and <code>dayOfAdj_end=-3600</code>.
 </p>
 <p>
-The day-of adjustment is computed as follows: First, 
+The day-of adjustment is computed as follows: First,
 the average power <i>P<sub>ave</sub></i> consumed
 over the day-of time window is computed. Next, the average power
 <i>P<sub>his</sub></i>
