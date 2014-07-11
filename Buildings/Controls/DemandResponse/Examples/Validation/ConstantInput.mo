@@ -3,8 +3,7 @@ model ConstantInput
   "Demand response client with constant input for actual power consumption"
   extends
     Buildings.Controls.DemandResponse.Examples.Validation.BaseClasses.PartialSimpleTestCase;
-  Modelica.Blocks.Sources.Constant
-                                 PCon(k=1) "Measured power consumption"
+  Modelica.Blocks.Sources.Constant PCon(k=1) "Measured power consumption"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Math.Gain gain(k=10)
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
