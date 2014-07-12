@@ -107,6 +107,8 @@ protected
 
   Modelica.SIunits.Power PPreHis[Buildings.Controls.Types.nDayTypes, -iDayOf_start+1]
     "Predicted power consumptions for all day off time intervals";
+  Boolean PPreHisSet[Buildings.Controls.Types.nDayTypes, -iDayOf_start+1](each start=false)
+    "Flag, true if a value in PPreHis has been set for that element";
 
   Real intTOut(unit="K.s", start=0, fixed=true)
     "Time integral of outside temperature";
@@ -184,7 +186,7 @@ equation
 algorithm
   when sampleTrigger then
     // Set flag for event day.
-    _isEventDay :=if pre(_isEventDay) and (not iSam == nSam) then true else isEventDay;
+    _isEventDay :=if pre(_isEventDay) and (not iSam == 1) then true else isEventDay;
 
     // fixme: accessing an array element with an enumeration
     //        is not valid Modelica.
@@ -208,7 +210,7 @@ algorithm
         PAve :=(ECon - ELast)/(time - tLast);
         P[typeOfDay, idxSam, iHis[typeOfDay, idxSam]] := PAve;
         if predictionModel == Types.PredictionModel.WeatherRegression then
-          T[typeOfDay, getIndex(iSam - 1, nSam), iHis[typeOfDay, idxSam]] := (intTOut-intTOutLast)/(time - tLast);
+          T[typeOfDay, idxSam, iHis[typeOfDay, idxSam]] := (intTOut-intTOutLast)/(time - tLast);
         end if;
       end if;
     end if;
@@ -222,6 +224,8 @@ algorithm
     // If in a later implementation, we want more terms into the future, then
     // a loop should be added over for i = iSam...upper_bound, whereas
     // the loop needs to wrap around nSam.
+     Modelica.Utilities.Streams.print("time = " + String(time/3600));
+
     if predictionModel == Buildings.Controls.DemandResponse.Types.PredictionModel.Average then
       PPre :=Buildings.Controls.DemandResponse.BaseClasses.average(
           P={P[typeOfDay, iSam, i] for i in 1:nHis},
@@ -254,16 +258,25 @@ algorithm
       // Store the predicted power consumption. This variable is stored
       // to avoid having to compute the average or weather regression multiple times.
       PPreHis[typeOfDay, getIndex(iDayOf, -iDayOf_start+1)] :=  PPre;
+      PPreHisSet[typeOfDay, getIndex(iDayOf, -iDayOf_start+1)] :=  true;
 
       // Compute average historical load.
       // This is a running sum over the past nHis days.
       // Fixme: check in SineInput whether EHisAve is offset by 1 time unit compared to EActAve
-      EHisAve := dt*sum(PPreHis[typeOfDay, getIndex(iDayOf+i, -iDayOf_start+1)] for i in iDayOf_start:iDayOf_end-1);
+      EHisAve := 0;
+      for i in iDayOf_start:iDayOf_end-1 loop
+        if PPreHisSet[typeOfDay, getIndex(iDayOf+i, -iDayOf_start+1)] then
+           EHisAve := EHisAve + dt*PPreHis[typeOfDay, getIndex(iDayOf+i, -iDayOf_start+1)];
+        end if;
+      end for;
+
+    //  EHisAve := dt*sum(PPreHis[typeOfDay, getIndex(iDayOf+i, -iDayOf_start+1)] for i in iDayOf_start:iDayOf_end-1);
       // fixme: compare EHisAve with EActAve for Examples.SineInput
       // Compute the load adjustment factor.
       if (EHisAve > Modelica.Constants.eps or
-          EHisAve < -Modelica.Constants.eps) then
-        adj := min(maxAdjFac, max(minAdjFac, EActAve/EHisAve));
+          EHisAve < -Modelica.Constants.eps) and
+          Modelica.Math.BooleanVectors.allTrue({PPreHisSet[typeOfDay, getIndex(iDayOf+i, -iDayOf_start+1)] for i in iDayOf_start:iDayOf_end-1}) then
+        adj := EActAve/EHisAve + 0*min(maxAdjFac, max(minAdjFac, EActAve/EHisAve)); // fixme
       else
         adj := 1;
       end if;
