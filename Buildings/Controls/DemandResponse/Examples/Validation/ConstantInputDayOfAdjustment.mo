@@ -28,9 +28,5 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics={Text(
-          extent={{-62,96},{28,74}},
-          lineColor={0,0,255},
-          textString="fixme: check that there are no spikes in baseLoad.PPre
-and in adj at t=1.2132e+06")}));
+            100,100}}), graphics));
 end ConstantInputDayOfAdjustment;

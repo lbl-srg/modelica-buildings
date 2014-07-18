@@ -11,8 +11,8 @@ model LinearInputDayOfAdjustment
     Documentation(info="<html>
 <p>
 This model is identical to 
-<a href=\"modelica://Buildings.Controls.DemandResponse.Examples.Validation.SineInput\">
-Buildings.Controls.DemandResponse.Examples.Validation.SineInput</a>,
+<a href=\"modelica://Buildings.Controls.DemandResponse.Examples.Validation.LinearInput\">
+Buildings.Controls.DemandResponse.Examples.Validation.LinearInput</a>,
 except that the demand respond client is configured to use the day-of adjustment.
 </p>
 <p>

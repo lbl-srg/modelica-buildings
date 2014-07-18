@@ -79,7 +79,6 @@ protected
   output Modelica.SIunits.Energy ELast "Energy at the last sample";
   output Modelica.SIunits.Time tLast "Time at which last sample occured";
   output Integer iSam "Index for power of the current sampling interval";
-  output Integer iDayOf "Index for power of the current day of interval";
 
   discrete output Modelica.SIunits.Power P[Buildings.Controls.Types.nDayTypes,nSam,nHis]
     "Baseline power consumption";
@@ -94,7 +93,7 @@ protected
 
   Integer iHis[Buildings.Controls.Types.nDayTypes,nSam]
     "Index for power of the current sampling history, for the currrent time interval";
-  Boolean historyComplete[Buildings.Controls.Types.nDayTypes,nSam]
+  Boolean historyComplete[Buildings.Controls.Types.nDayTypes,nSam](each start=false, each fixed=true)
     "Flage, set to true when all history terms are built up for the given day type and given time interval";
 
   Boolean _isEventDay
@@ -105,9 +104,9 @@ protected
   Modelica.SIunits.Energy EHisAve
     "Actual load over the day off period, summed over all time intervals";
 
-  Modelica.SIunits.Power PPreHis[Buildings.Controls.Types.nDayTypes, -iDayOf_start+2]
+  Modelica.SIunits.Power PPreHis[Buildings.Controls.Types.nDayTypes, nSam]
     "Predicted power consumptions for all day off time intervals";
-  Boolean PPreHisSet[Buildings.Controls.Types.nDayTypes, size(PPreHis,2)](each start=false, each fixed=true)
+  Boolean PPreHisSet[Buildings.Controls.Types.nDayTypes, nSam](each start=false, each fixed=true)
     "Flag, true if a value in PPreHis has been set for that element";
 
   Real intTOut(unit="K.s", start=0, fixed=true)
@@ -140,7 +139,6 @@ protected
 
 initial equation
   iSam = 1;
-  iDayOf = 1;
 
   P = zeros(
     Buildings.Controls.Types.nDayTypes,
@@ -150,18 +148,12 @@ initial equation
 
   EActAve    = 0;
   EHisAve    = 0;
-  PPreHis    = zeros(Buildings.Controls.Types.nDayTypes, size(PPreHis,2));
+  PPreHis    = zeros(Buildings.Controls.Types.nDayTypes, nSam);
 
   ELast = 0;
   intTOutLast = 0;
   tLast = time;
   iHis = zeros(Buildings.Controls.Types.nDayTypes, nSam);
-  //typeOfDay = Buildings.Controls.Types.Day.WorkingDay;
-  for i in 1:Buildings.Controls.Types.nDayTypes loop
-     for k in 1:nSam loop
-       historyComplete[i,k] = false;
-     end for;
-   end for;
 
    _isEventDay = false;
    simStart = time;// fixme: this should be a multiple of samplePeriod
@@ -219,8 +211,6 @@ algorithm
     // If in a later implementation, we want more terms into the future, then
     // a loop should be added over for i = iSam...upper_bound, whereas
     // the loop needs to wrap around nSam.
-     Modelica.Utilities.Streams.print("time = " + String(time/3600) + " historyComplete = " + String(historyComplete[pre(typeOfDay), iSam]) + " iHis=" + String(iHis[pre(typeOfDay), iSam]));
-
     if predictionModel == Buildings.Controls.DemandResponse.Types.PredictionModel.Average then
       PPre :=Buildings.Controls.DemandResponse.BaseClasses.average(
           P={P[typeOfDay, iSam, i] for i in 1:nHis},
@@ -238,41 +228,32 @@ algorithm
 
     if use_dayOfAdj then
 
-  //  if (not _isEventDay) or (not pre(_isEventDay)) then
+      if (not _isEventDay) or (not pre(_isEventDay)) then
 
-      // Store the predicted power consumption. This variable is stored
-      // to avoid having to compute the average or weather regression multiple times.
-      PPreHis[typeOfDay,    getIndex(iDayOf, size(PPreHis,2))] :=  PPre;
+        // Store the predicted power consumption. This variable is stored
+        // to avoid having to compute the average or weather regression multiple times.
+        PPreHis[typeOfDay,    getIndex(idxSam+1, nSam)] :=  PPre;
 
-      // If iHis == 0, then there is no history yet and hence PPre is 0.
-      PPreHisSet[typeOfDay, getIndex(iDayOf, size(PPreHisSet,2))] :=  (iHis[typeOfDay, iSam] > 0);
-      Modelica.Utilities.Streams.print("Setting PPre[" + String(getIndex(iDayOf, size(PPreHis,2))) +"] = " + String(PPre) + " with iHis = " + String(iHis[typeOfDay, iSam]));
-  //  end if;
+        // If iHis == 0, then there is no history yet and hence PPre is 0.
+        PPreHisSet[typeOfDay, getIndex(idxSam+1, nSam)] :=  (iHis[typeOfDay, iSam] > 0);
+      end if;
       // Compute average historical load.
       // This is a running sum over the past nHis days for the time window from iDayOf_start to iDayOf_end.
       // Fixme: check in SineInput whether EHisAve is offset by 1 time unit compared to EActAve
       EHisAve := 0;
       EActAve := 0;
       for i in iDayOf_start:iDayOf_end-1 loop
-        if PPreHisSet[typeOfDay, getIndex(iDayOf+i, size(PPreHisSet,2))] then
-           EHisAve := EHisAve + dt*PPreHis[typeOfDay, getIndex(iDayOf+i, size(PPreHis,2))];
-           EActAve := EActAve + dt*P[typeOfDay,
-                         getIndex(idxSam+i+1, nSam),
-                         iHis[typeOfDay, getIndex(idxSam+i+1, nSam)]];
-         Modelica.Utilities.Streams.print(" Adding for i=" + String(i) + " and getIndex()="+ String(getIndex(iDayOf+i, size(PPreHis,2)))
-                                                        + "  PPreHis="  + String(PPreHis[typeOfDay, getIndex(iDayOf+i, size(PPreHis,2))]) + "  P=" + String(P[typeOfDay,
-                         getIndex(idxSam+i+1, nSam),
-                         iHis[typeOfDay, getIndex(idxSam+i+1, nSam)]]));
+        if Modelica.Math.BooleanVectors.allTrue({PPreHisSet[typeOfDay, getIndex(iSam+i, nSam)] for i in iDayOf_start:iDayOf_end-1}) then
+           EHisAve := EHisAve + dt*PPreHis[typeOfDay, getIndex(idxSam+i+1, nSam)];
+           EActAve := EActAve + dt*P[typeOfDay,       getIndex(idxSam+i+1, nSam), iHis[typeOfDay, getIndex(idxSam+i+1, nSam)]];
         else
-                   Modelica.Utilities.Streams.print(" at t= " + String(time/86400) + " No history term.");
-
+          EHisAve := 0;
+          EActAve := 0;
         end if;
       end for;
 
       // Compute the load adjustment factor.
-      if (EHisAve > Modelica.Constants.eps or
-          EHisAve < -Modelica.Constants.eps) and
-          Modelica.Math.BooleanVectors.allTrue({PPreHisSet[typeOfDay, getIndex(iDayOf+i, size(PPreHis,2))] for i in iDayOf_start:iDayOf_end-1}) then
+      if (EHisAve > Modelica.Constants.eps or EHisAve < -Modelica.Constants.eps) then
         adj := min(maxAdjFac, max(minAdjFac, EActAve/EHisAve));
       else
         adj := 1;
@@ -281,14 +262,14 @@ algorithm
     else
       EActAve := 0;
       EHisAve := 0;
-      PPreHis[typeOfDay, getIndex(iDayOf, size(PPreHis,2))] := 0;
-      PPreHisSet[typeOfDay, getIndex(iDayOf, size(PPreHis,2))] :=  false;
+      PPreHis[typeOfDay, getIndex(iSam, nSam)] := 0;
+      PPreHisSet[typeOfDay, getIndex(iSam, nSam)] :=  false;
       adj := 1;
     end if;
 
-    // Update iSam and iDayOf
+    // Update iSam
     iSam   := incrementIndex(iSam, nSam);
-    iDayOf := incrementIndex(iDayOf, size(PPreHis,2));
+
   end when;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100}, {100,100}}),

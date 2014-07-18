@@ -6,9 +6,9 @@ model LinearInput
      baseLoad(predictionModel=Buildings.Controls.DemandResponse.Types.PredictionModel.WeatherRegression));
   Modelica.Blocks.Sources.Ramp   TOut(
     y(unit="K", displayUnit="degC"),
+    offset=283.15,
     height=10,
-    duration=1.8144e+06,
-    offset=283.15) "Outside temperature"
+    duration(displayUnit="h") = 61*24*3600) "Outside temperature"
     annotation (Placement(transformation(extent={{-92,-90},{-72,-70}})));
   Modelica.Blocks.Sources.Constant POffSet(k=1) "Offset for power"
     annotation (Placement(transformation(extent={{-90,-24},{-70,-4}})));

@@ -4,12 +4,12 @@ model SineInput
   extends
     Buildings.Controls.DemandResponse.Examples.Validation.BaseClasses.PartialSimpleTestCase;
   // fixme: scaling factor for easier debugging
-  Modelica.Blocks.Sources.Cosine PCon(
+  Modelica.Blocks.Sources.Cosine PBas(
     amplitude=0.5,
     offset=0.5,
     freqHz=1/tPeriod,
     phase=3.1415926535898) "Measured power consumption"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Modelica.Blocks.Discrete.Sampler P(samplePeriod=tSample)
     "Sampler to turn PCon into a piece-wise constant signal. This makes it easier to verify the results"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
@@ -23,6 +23,11 @@ model SineInput
   Modelica.Blocks.Continuous.Integrator integrator
     "Integrator to compute energy from power"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=if (dayType.y ==
+        Buildings.Controls.Types.Day.WorkingDay) then 0 else 1)
+    annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
+  Modelica.Blocks.Math.Add PCon "Consumed power"
+    annotation (Placement(transformation(extent={{-68,-40},{-48,-20}})));
 equation
   connect(add.u2, TOffSet.y) annotation (Line(
       points={{-2,-86},{-59,-86}},
@@ -36,10 +41,6 @@ equation
       points={{21,-80},{32,-80},{32,-6},{38,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(PCon.y, P.u) annotation (Line(
-      points={{-59,-30},{-42,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(P.y, integrator.u) annotation (Line(
       points={{-19,-30},{-2,-30}},
       color={0,0,127},
@@ -50,6 +51,18 @@ equation
       smooth=Smooth.None));
   connect(gain.u, P.y) annotation (Line(
       points={{-42,-60},{-50,-60},{-50,-44},{-12,-44},{-12,-30},{-19,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(PCon.u2, PBas.y) annotation (Line(
+      points={{-70,-36},{-74,-36},{-74,-30},{-79,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression.y, PCon.u1) annotation (Line(
+      points={{-79,-8},{-76,-8},{-76,-24},{-70,-24}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(PCon.y, P.u) annotation (Line(
+      points={{-47,-30},{-42,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
