@@ -5,8 +5,9 @@ partial model PartialSimpleTestCase
   // fixme: scaling factor for easier debugging
   parameter Modelica.SIunits.Time tPeriod = 24*3600 "Period";
   parameter Modelica.SIunits.Time tSample = 3600 "Sampling period";
-  BaselinePrediction baseLoad(predictionModel=Buildings.Controls.DemandResponse.Types.PredictionModel.WeatherRegression,
-      use_dayOfAdj=false) "Baseload prediction"
+  BaselinePrediction baseLoad(
+      use_dayOfAdj=false, predictionModel=Buildings.Controls.DemandResponse.Types.PredictionModel.Average)
+    "Baseload prediction"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Sources.BooleanPulse  tri(
     width=4/24*100/7,

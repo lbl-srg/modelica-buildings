@@ -3,7 +3,7 @@ model LinearInput
   "Demand response client with actual power consumption being linear in the temperature"
   extends
     Buildings.Controls.DemandResponse.Examples.Validation.BaseClasses.PartialSimpleTestCase(
-      baseLoad(predictionModel=Buildings.Controls.DemandResponse.Types.PredictionModel.WeatherRegression));
+     baseLoad(predictionModel=Buildings.Controls.DemandResponse.Types.PredictionModel.WeatherRegression));
   Modelica.Blocks.Sources.Ramp   TOut(
     y(unit="K", displayUnit="degC"),
     height=10,
@@ -75,6 +75,14 @@ except that the input <code>client.PCon</code> is linear in the temperature.
 <p>
 This model has been added to the library to verify and demonstrate the correct implementation
 of the baseline prediction model based on a simple input scenario.
+Note that in the first day, no prediction is made as no historical data are available.
+In the second day, the prediction differs from the actual (linearly increasing) consumption
+because only one data point exists for the respective sampling interval, and hence the linear
+regression is underdetermined. 
+In the third day, the prediction starts as correct because two data points exist for each
+sampling interval. Later in the third day, there is again a prediction error as the second
+day was an event day and hence no data was recorded once the event day signal has been
+received and until midnight the same day.
 </p>
 </html>", revisions="<html>
 <ul>
