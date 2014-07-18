@@ -194,7 +194,7 @@ algorithm
     // Update the history terms with the average power of the time interval,
     // unless we have an event day.
     idxSam :=getIndex(iSam - 1, nSam);
-    if not _isEventDay then
+    if (not _isEventDay) or (not pre(_isEventDay)) then
       if (time - tLast) > 1E-5 then
         // Update iHis, which points to where the last interval's power
         // consumption will be stored.
@@ -238,6 +238,8 @@ algorithm
 
     if use_dayOfAdj then
 
+    if (not _isEventDay) or (not pre(_isEventDay)) then
+
       // Store the predicted power consumption. This variable is stored
       // to avoid having to compute the average or weather regression multiple times.
       PPreHis[typeOfDay,    getIndex(iDayOf, -iDayOf_start+1)] :=  PPre;
@@ -245,7 +247,7 @@ algorithm
       // If iHis == 0, then there is no history yet and hence PPre is 0.
       PPreHisSet[typeOfDay, getIndex(iDayOf, -iDayOf_start+1)] :=  (iHis[typeOfDay, iSam] > 0);
       Modelica.Utilities.Streams.print("Setting PPre[" + String(getIndex(iDayOf, -iDayOf_start+1)) +"] = " + String(PPre) + " with iHis = " + String(iHis[typeOfDay, iSam]));
-
+    end if;
       // Compute average historical load.
       // This is a running sum over the past nHis days for the time window from iDayOf_start to iDayOf_end.
       // Fixme: check in SineInput whether EHisAve is offset by 1 time unit compared to EActAve
