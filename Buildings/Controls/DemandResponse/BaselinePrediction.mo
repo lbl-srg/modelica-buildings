@@ -198,14 +198,14 @@ algorithm
       if (time - tLast) > 1E-5 then
         // Update iHis, which points to where the last interval's power
         // consumption will be stored.
-        iHis[typeOfDay, idxSam] := incrementIndex(iHis[typeOfDay, idxSam], nHis);
-        if iHis[typeOfDay, idxSam] == nHis then
-          historyComplete[typeOfDay, idxSam] :=true;
+        iHis[pre(typeOfDay), idxSam] := incrementIndex(iHis[pre(typeOfDay), idxSam], nHis);
+        if iHis[pre(typeOfDay), idxSam] == nHis then
+          historyComplete[pre(typeOfDay), idxSam] :=true;
         end if;
         PAve :=(ECon - ELast)/(time - tLast);
-        P[typeOfDay, idxSam, iHis[typeOfDay, idxSam]] := PAve;
+        P[pre(typeOfDay), idxSam, iHis[pre(typeOfDay), idxSam]] := PAve;
         if predictionModel == Types.PredictionModel.WeatherRegression then
-          T[typeOfDay, idxSam, iHis[typeOfDay, idxSam]] := (intTOut-intTOutLast)/(time - tLast);
+          T[pre(typeOfDay), idxSam, iHis[pre(typeOfDay), idxSam]] := (intTOut-intTOutLast)/(time - tLast);
         end if;
       end if;
     end if;
@@ -219,7 +219,7 @@ algorithm
     // If in a later implementation, we want more terms into the future, then
     // a loop should be added over for i = iSam...upper_bound, whereas
     // the loop needs to wrap around nSam.
-     Modelica.Utilities.Streams.print("time = " + String(time/3600) + " historyComplete = " + String(historyComplete[typeOfDay, iSam]) + " iHis=" + String(iHis[typeOfDay, iSam]));
+     Modelica.Utilities.Streams.print("time = " + String(time/3600) + " historyComplete = " + String(historyComplete[pre(typeOfDay), iSam]) + " iHis=" + String(iHis[pre(typeOfDay), iSam]));
 
     if predictionModel == Buildings.Controls.DemandResponse.Types.PredictionModel.Average then
       PPre :=Buildings.Controls.DemandResponse.BaseClasses.average(
