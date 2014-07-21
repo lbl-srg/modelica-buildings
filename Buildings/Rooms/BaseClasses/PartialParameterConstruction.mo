@@ -1,11 +1,14 @@
 within Buildings.Rooms.BaseClasses;
 record PartialParameterConstruction "Partial record for constructions"
   extends Modelica.Icons.Record;
+  parameter String name = ""
+    "Surface name. Optional for MixedAir, required for FFD.";
   replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Material properties of opaque construction"
     annotation(Dialog(group="Opaque construction"),
                choicesAllMatching=true, Placement(transformation(extent={{146,258},
             {166,278}})));
+
   parameter Modelica.SIunits.Angle til "Surface tilt";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
   final parameter Boolean isFloor=til > 2.74889125 and til < 3.53428875
@@ -25,6 +28,11 @@ record PartialParameterConstruction "Partial record for constructions"
   parameter Modelica.SIunits.Temperature T_b_start=293.15
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
+
+  parameter Buildings.Rooms.Types.CFDBoundaryConditions boundaryCondition=
+    Buildings.Rooms.Types.CFDBoundaryConditions.Temperature
+    "Boundary condition used in the CFD simulation"
+    annotation(Dialog(group="Boundary condition"));
 
   annotation (
 Documentation(info="<html>
