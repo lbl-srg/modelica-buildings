@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Your comment -->
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!--***************************************************************
+      MSBuild Structure (Not user editable)
+    *****************************************************************-->
+
+  <!--===============================================================
+      Project Configurations
+    =================================================================-->
+  <ItemGroup Label="ProjectConfigurations">
+  <!-- Two configurations, Debug and Release
+       Debug mode emitted symbolic debug information,and the code execution is not optimized
+       Release mode does not emitted debug information,and the code execution is optimized-->
+    <ProjectConfiguration Include="$(Configuration)|$(Platform)">
+      <Configuration>$(Configuration)</Configuration>
+      <Platform>$(Platform)</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  
+  <!--===============================================================
+      Project Setting
+    =================================================================-->
+  <PropertyGroup>
+    <ConfigurationType>$(ConfigurationTypeSetValue)</ConfigurationType>
+    <UseDebugLibraries>$(UseDebugLibrariesSetValue)</UseDebugLibraries>
+    <WholeProgramOptimization>$(WholeProgramOptimizationSetValue)</WholeProgramOptimization>
+    <CharacterSet>$(CharacterSetSetValue)</CharacterSet>
+  </PropertyGroup>
+  
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <LinkIncremental>$(LinkIncrementalSetValue)</LinkIncremental>
+  </PropertyGroup>
+
+  <!--===============================================================
+      Compile and Link setting
+    =================================================================-->
+  <ItemDefinitionGroup>
+  <!-- To better understand code optimization, recommend to read "Optimization Best Practices"  http://msdn.microsoft.com/en-us/library/ms235601.aspx -->
+    <ClCompile>
+      <WarningLevel>$(WarningLevelSetValue)</WarningLevel>
+      <!-- Creates the fastest code in the majority of cases. (default setting for release builds is MaxSpeed) -->
+      <Optimization>$(OptimizationSetValue)</Optimization>
+      <FunctionLevelLinking>$(FunctionLevelLinkingSetValue)</FunctionLevelLinking>
+      <IntrinsicFunctions>$(IntrinsicFunctionsSetValue)</IntrinsicFunctions>
+      <PreprocessorDefinitions>$(PreprocessorDefinitionsSetValue)%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <!--  Generate debug symbols, not effect the generated code -->
+      <GenerateDebugInformation>$(GenerateDebugInformationSetValue)</GenerateDebugInformation>
+      <EnableCOMDATFolding>$(EnableCOMDATFoldingSetValue)</EnableCOMDATFolding>
+      <OptimizeReferences>$(OptimizeReferencesSetValue)</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <!--===============================================================
+      Source Files and Header Files setting
+    =================================================================-->
+  <ItemGroup>
+    <!-- Include Source Files-->
+    <ClCompile Include="$(SourceFile)" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Include Header Files-->
+    <ClInclude Include="$(HeaderFile)" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
