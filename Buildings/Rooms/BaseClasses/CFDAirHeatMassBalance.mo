@@ -23,8 +23,8 @@ model CFDAirHeatMassBalance
     "Names of sensors as declared in the CFD input file";
   parameter String portName[nPorts]
     "Names of fluid ports as declared in the CFD input file";
-  parameter Real shadeRatio[nConExtWin]
-    "The initial setting of shades on class (0: unshaded; 1: fully shaded)";
+  parameter Real uSha_fixed[nConExtWin]
+    "Constant control signal for the shading device (0: unshaded; 1: fully shaded)";
 
   CFDExchange cfd(
     final cfdFilNam=cfdFilNam,
@@ -111,7 +111,7 @@ protected
       bouConConExtWin=datConExtWin.boundaryCondition,
       AGla=datConExtWin.AGla,
       AFra=datConExtWin.AFra,
-      uSha=shadeRatio,
+      uSha=uSha_fixed,
       nameConPar=datConPar.name,
       AConPar=datConPar.A,
       tilConPar=datConPar.til,
@@ -132,48 +132,44 @@ protected
   // the Dymola thinks that surIde.bouCon is not fixed at translation time
   // and then refuses to use this parameter to conditionally remove connectors
   // in CFDSurfaceInterface.
-  CFDSurfaceInterface cfdConExt[NConExt](final bouCon={datConExt[i].boundaryCondition
-        for i in 1:NConExt}) if haveConExt
-    "Interface to heat port of exterior constructions"
+  CFDSurfaceInterface cfdConExt[NConExt](final bouCon=datConExt[:].boundaryCondition) if
+      haveConExt "Interface to heat port of exterior constructions"
     annotation (Placement(transformation(extent={{180,210},{200,230}})));
 
-  CFDSurfaceInterface cfdConExtWin[NConExtWin](final bouCon={datConExtWin[i].boundaryCondition
-        for i in 1:NConExtWin}) if haveConExtWin
+  CFDSurfaceInterface cfdConExtWin[NConExtWin](final bouCon=datConExtWin[:].boundaryCondition) if
+       haveConExtWin
     "Interface to heat port of opaque part of exterior constructions with window"
     annotation (Placement(transformation(extent={{180,170},{200,190}})));
 
-  CFDSurfaceInterface cfdGlaUns[NConExtWin](final bouCon={datConExtWin[i].boundaryCondition
-        for i in 1:NConExtWin}) if haveConExtWin
-    "Interface to heat port of unshaded part of glass"
+  CFDSurfaceInterface cfdGlaUns[NConExtWin](final bouCon=datConExtWin[:].boundaryCondition) if
+       haveConExtWin "Interface to heat port of unshaded part of glass"
     annotation (Placement(transformation(extent={{180,110},{200,130}})));
 
-  CFDSurfaceInterface cfdGlaSha[NConExtWin](final bouCon={datConExtWin[i].boundaryCondition
-        for i in 1:NConExtWin}) if haveShade
-    "Interface to heat port of shaded part of glass"
+  CFDSurfaceInterface cfdGlaSha[NConExtWin](final bouCon=datConExtWin[:].boundaryCondition) if
+       haveShade "Interface to heat port of shaded part of glass"
     annotation (Placement(transformation(extent={{180,70},{200,90}})));
 
-  CFDSurfaceInterface cfdConExtWinFra[NConExtWin](final bouCon={datConExtWin[i].boundaryCondition
-        for i in 1:NConExtWin}) if haveConExtWin
-    "Interface to heat port of window frame"
+  CFDSurfaceInterface cfdConExtWinFra[NConExtWin](final bouCon=datConExtWin[:].boundaryCondition) if
+       haveConExtWin "Interface to heat port of window frame"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
 
-  CFDSurfaceInterface cfdConPar_a[NConPar](final bouCon={datConPar[i].boundaryCondition
-        for i in 1:NConPar}) if haveConPar
+  CFDSurfaceInterface cfdConPar_a[NConPar](final bouCon=datConPar[:].boundaryCondition) if
+       haveConPar
     "Interface to heat port of surface a of partition constructions"
     annotation (Placement(transformation(extent={{180,-70},{200,-50}})));
 
-  CFDSurfaceInterface cfdConPar_b[NConPar](final bouCon={datConPar[i].boundaryCondition
-        for i in 1:NConPar}) if haveConPar
+  CFDSurfaceInterface cfdConPar_b[NConPar](final bouCon=datConPar[:].boundaryCondition) if
+       haveConPar
     "Interface to heat port of surface b of partition constructions"
     annotation (Placement(transformation(extent={{180,-110},{200,-90}})));
 
-  CFDSurfaceInterface cfdConBou[NConBou](final bouCon={datConBou[i].boundaryCondition
-        for i in 1:NConBou}) if haveConBou
+  CFDSurfaceInterface cfdConBou[NConBou](final bouCon=datConBou[:].boundaryCondition) if
+       haveConBou
     "Interface to heat port that connects to room-side surface of constructions that expose their other surface to the outside"
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
 
-  CFDSurfaceInterface cfdSurBou[NSurBou](final bouCon={surBou[i].boundaryCondition
-        for i in 1:NSurBou}) if haveSurBou
+  CFDSurfaceInterface cfdSurBou[NSurBou](final bouCon=surBou[:].boundaryCondition) if
+       haveSurBou
     "Interface to heat port of surfaces of models that compute the heat conduction outside of this room"
     annotation (Placement(transformation(extent={{180,-230},{200,-210}})));
 
@@ -273,7 +269,7 @@ protected
       "Number of constructions that have their outside surface exposed to the boundary of this room";
     input Integer nSurBou(min=0)
       "Number of surface heat transfer models that connect to constructions that are modeled outside of this room";
-    input Integer nSur(min=1) "Total number of surfaces";
+    input Integer nSur(min=2) "Total number of surfaces";
 
     input Boolean haveShade
       "Flag, set to true if any of the window in this room has a shade";

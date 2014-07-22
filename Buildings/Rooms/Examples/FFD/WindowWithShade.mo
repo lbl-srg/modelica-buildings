@@ -34,7 +34,7 @@ model WindowWithShade
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
       cfdFilNam="Resources/Data/Rooms/FFD/WindowWithShade.ffd",
       linearizeRadiation=false,
-      shadeRatio={0.5,0.5},
+      uSha_fixed={0.5,0.5},
       T_start=283.15,
       samplePeriod=10));
 
@@ -46,13 +46,6 @@ model WindowWithShade
     haveExteriorShade=false,
     haveInteriorShade=true) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{-20,140},{0,160}})));
-  Modelica.Blocks.Sources.Constant shaSig[2](k=0.5) "Singal for shades"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
-equation
-  connect(shaSig.y, roo.uSha) annotation (Line(
-      points={{21,80},{32,80},{32,56},{44,56}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             200,200}}), graphics),

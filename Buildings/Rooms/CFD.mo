@@ -11,7 +11,7 @@ model CFD
     final nSen=nSen,
     final sensorName=sensorName,
     final portName=portName,
-    final shadeRatio=shadeRatio),
+    final uSha_fixed=uSha_fixed),
     final energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial);
 
@@ -23,8 +23,8 @@ model CFD
     "Sample period of component"
     annotation(Dialog(group = "Sampling"));
 
-  parameter Real shadeRatio[nConExtWin]
-    "The initial setting of shades on class (0: unshaded; 1: fully shaded)";
+  parameter Real uSha_fixed[nConExtWin] = zeros(nConExtWin)
+    "Constant control signal for the shading device (0: unshaded; 1: fully shaded)";
 
   parameter String sensorName[:] = {""}
     "Names of sensors as declared in the CFD input file";
@@ -50,8 +50,13 @@ protected
     "Number of sensors that are connected to CFD output";
  parameter Modelica.SIunits.Time startTime(fixed=false)
     "First sample time instant.";
+
+  Modelica.Blocks.Sources.Constant conSha[nConExtWin](final k=uSha_fixed) if
+       haveShade "Constant signal for shade"
+    annotation (Placement(transformation(extent={{-260,168},{-240,188}})));
+
 initial equation
-  startTime = time;
+  startTime = time; // fixme: don't mix equations with graphical modeling
 
 equation
   connect(qGai_flow, heaGai.qGai_flow) annotation (Line(
@@ -74,6 +79,36 @@ equation
       smooth=Smooth.None));
   connect(air.yCFD, yCFD) annotation (Line(
       points={{61,-142.5},{61,-206},{440,-206},{440,120},{470,120}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conSha.y, conExtWin.uSha) annotation (Line(
+      points={{-239,178},{328,178},{328,62},{281,62}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conSha.y, bouConExtWin.uSha) annotation (Line(
+      points={{-239,178},{328,178},{328,64},{351,64}},
+      color={0,0,127},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(conSha.y, conExtWinRad.uSha) annotation (Line(
+      points={{-239,178},{442,178},{442,-42},{310.2,-42},{310.2,-25.6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(irRadGai.uSha,conSha.y)
+                             annotation (Line(
+      points={{-100.833,-22.5},{-90,-22.5},{-90,178},{-239,178}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conSha.y, radTem.uSha) annotation (Line(
+      points={{-239,178},{-90,178},{-90,-64},{-100.833,-64},{-100.833,-62.5}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conSha.y, shaSig.u) annotation (Line(
+      points={{-239,178},{-228,178},{-228,160},{-222,160}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(air.uSha,conSha.y)  annotation (Line(
+      points={{39.6,-120},{28,-120},{28,178},{-239,178}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

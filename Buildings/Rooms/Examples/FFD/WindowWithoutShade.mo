@@ -34,7 +34,7 @@ model WindowWithoutShade
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
       cfdFilNam="Resources/Data/Rooms/FFD/WindowWithoutShade.ffd",
       T_start=283.15,
-      shadeRatio={0,0}));
+      uSha_fixed={0,0}));
 
   parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
     "Construction material for exterior walls"

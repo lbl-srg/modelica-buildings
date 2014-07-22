@@ -20,7 +20,7 @@ block CFDExchange "Block that exchanges data with the CFD code"
     "Initial input signal, used during first data transfer with CFD simulation";
   parameter Real yFixed[nRea] "Fixed output, used if activateInterface=false"
     annotation (Evaluate=true, Dialog(enable=not activateInterface));
-  parameter Integer nSur(min=1) "Number of surfaces";
+  parameter Integer nSur(min=2) "Number of surfaces";
   parameter Integer nConExtWin(min=0)
     "number of exterior construction with window";
   parameter CFDSurfaceIdentifier surIde[nSur] "Surface identifiers";
@@ -58,7 +58,7 @@ protected
 
   output Integer retVal "Return value from CFD";
 
-  parameter Boolean ideSurNam[max(0, nSur - 1)](fixed=false)
+  parameter Boolean ideSurNam[nSur - 1](fixed=false)
     "Flag, used to tag identical surface names";
   parameter Boolean ideSenNam[max(0, nSen - 1)](fixed=false)
     "Flag, used to tag identical sensor names";
@@ -81,7 +81,7 @@ protected
     input String sensorName[nSen]
       "Names of sensors as declared in the CFD input file";
     input Boolean haveShade "Flag, true if the windows have a shade";
-    input Integer nSur(min=1) "Number of surfaces";
+    input Integer nSur(min=2) "Number of surfaces";
     input Integer nSen(min=0)
       "Number of sensors that are connected to CFD output";
     input Integer nConExtWin(min=0)
@@ -176,7 +176,7 @@ protected
   ///////////////////////////////////////////////////////////////////////////
   // Function that returns strings that are not unique.
   function returnNonUniqueStrings
-    input Integer n "Number entries";
+    input Integer n(min=2) "Number entries";
     input Boolean ideNam[n - 1]
       "Flag that is set to true if the name is used more than once";
     input String names[n] "Names";
@@ -226,7 +226,7 @@ protected
 initial equation
   // Diagnostics output
   if verbose then
-    Modelica.Utilities.Streams.print(string="
+   Modelica.Utilities.Streams.print(string="
 CFDExchange has the following surfaces:");
     for i in 1:nSur loop
       Modelica.Utilities.Streams.print(string="
@@ -234,6 +234,7 @@ CFDExchange has the following surfaces:");
   A    = " + String(surIde[i].A) + " [m2]
   tilt = " + String(surIde[i].til*180/Modelica.Constants.pi) + " [deg]");
   end for;
+
     if haveSensor then
       Modelica.Utilities.Streams.print(string="
 CFDExchange has the following sensors:");
@@ -243,7 +244,6 @@ CFDExchange has the following sensors:");
     else
       Modelica.Utilities.Streams.print(string="CFDExchange has no sensors.");
     end if;
-
 end if;
 
   // Assert that the surface, sensor and ports have a name,
@@ -260,21 +260,24 @@ end if;
                          n=nPorts,
                          names=portName);
 */
-  if nSur > 1 then
+//  if nSur > 1 then
     for i in 1:nSur - 1 loop
-      ideSurNam[i] = Modelica.Math.BooleanVectors.anyTrue({
-        Modelica.Utilities.Strings.isEqual(surIde[i].name, surIde[j].name) for
-        j in i + 1:nSur});
+      ideSurNam[i] = if nSur > 1 then Modelica.Math.BooleanVectors.anyTrue(
+        Modelica.Utilities.Strings.isEqual(surIde[i].name, surIde[:].name))
+    else false;
+//      ideSurNam[i] = Modelica.Math.BooleanVectors.anyTrue({
+//        Modelica.Utilities.Strings.isEqual(surIde[i].name, surIde[j].name) for
+//        j in i + 1:nSur});
     end for;
-    assert(not Modelica.Math.BooleanVectors.anyTrue(ideSurNam), "For the CFD interface, all surfaces must have a name that is unique within each room.
+    assert(not Modelica.Math.BooleanVectors.anyTrue(ideSurNam[:]), "For the CFD interface, all surfaces must have a name that is unique within each room.
   The following surface names are used more than once in the room model:" +
       returnNonUniqueStrings(
       nSur,
       ideSurNam,
-      {surIde[i].name for i in 1:nSur}));
-  else
-    ideSurNam = fill(false, max(0, nSur - 1));
-  end if;
+      surIde[:].name));
+//  else
+ //   ideSurNam = fill(false, max(0, nSur - 1));
+  //end if;
 
   // -- Check sensors
   // Loop over all names to verify that they are unique

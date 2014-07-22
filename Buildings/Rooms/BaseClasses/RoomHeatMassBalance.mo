@@ -101,11 +101,6 @@ partial model RoomHeatMassBalance "Base model for a room"
     haveSurBou "Heat port of surface that is connected to the room air"
     annotation (Placement(transformation(extent={{-270,-150},{-250,-130}}),
         iconTransformation(extent={{-48,-150},{-28,-130}})));
-  Modelica.Blocks.Interfaces.RealInput uSha[nConExtWin](each min=0, each max=1) if
-       haveShade
-    "Control signal for the shading device (removed if no shade is present)"
-    annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
-        iconTransformation(extent={{-240,140},{-200,180}})));
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3](unit="W/m2")
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-300,60},{-260,100}}),
@@ -329,15 +324,6 @@ equation
           -180},{-260,-180}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(uSha, conExtWin.uSha) annotation (Line(
-      points={{-280,180},{306,180},{306,62},{281,62}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(uSha, bouConExtWin.uSha) annotation (Line(
-      points={{-280,180},{306,180},{306,64},{351,64}},
-      color={0,0,127},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
   connect(bouConExtWin.opa_a, conExtWin.opa_a) annotation (Line(
       points={{352,69},{280,69}},
       color={191,0,0},
@@ -408,10 +394,6 @@ equation
       smooth=Smooth.None));
   connect(bouConExtWin.HDif, conExtWinRad.HDif) annotation (Line(
       points={{382.5,62},{392,62},{392,-6},{392,-6},{392,-6},{321.5,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(uSha, conExtWinRad.uSha) annotation (Line(
-      points={{-280,180},{420,180},{420,-40},{310.2,-40},{310.2,-25.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExtWin.QAbsSha_flow, conExtWinRad.QAbsGlaSha_flow) annotation (
@@ -486,12 +468,6 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(irRadGai.uSha, uSha)
-                             annotation (Line(
-      points={{-100.833,-22.5},{-100.833,-22.5},{-112,-22.5},{-112,180},{-280,
-          180}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(conExtWin.opa_b, irRadExc.conExtWin) annotation (Line(
       points={{249.9,69},{160,69},{160,60},{-60,60},{-60,16},{-80,16},{-80,17.5}},
       color={191,0,0},
@@ -541,10 +517,6 @@ equation
       smooth=Smooth.None));
   connect(solRadExc.HOutConExtWin,conExtWinRad.HRoo)  annotation (Line(
       points={{-79.5833,55},{10,55},{10,-34},{328,-34},{328,-21.6},{321.5,-21.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(uSha, radTem.uSha) annotation (Line(
-      points={{-280,180},{-112,180},{-112,-62},{-100.833,-62},{-100.833,-62.5}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExt.opa_b, radTem.conExt) annotation (Line(
@@ -623,10 +595,6 @@ equation
       points={{-79.5833,-25},{-46,-25},{-46,-26},{-42,-26}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(uSha, shaSig.u) annotation (Line(
-      points={{-280,180},{-250,180},{-250,160},{-222,160}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(shaSig.y, radShaOut.u) annotation (Line(
       points={{-199,160},{-110,160},{-110,124},{-102,124}},
       color={0,0,127},
@@ -665,7 +633,7 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
 
-  connect(shaRad.QAbsSol_flow, conExtWinRad.QAbsIntSha_flow) annotation (Line(
+  connect(shaRad.QSolAbs_flow, conExtWinRad.QAbsIntSha_flow) annotation (Line(
       points={{-50,89},{-50,86},{148,86},{148,-17},{299,-17}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -727,10 +695,6 @@ equation
   connect(air.conSurBou, surf_surBou) annotation (Line(
       points={{64.05,-141},{160,-141},{160,-210},{-232,-210},{-232,-140},{-260,-140}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(air.uSha, uSha) annotation (Line(
-      points={{39.6,-120},{6,-120},{6,180},{-280,180}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(shaRad.QRadAbs_flow,air. QRadAbs_flow) annotation (Line(
       points={{-55,89},{-55,72},{4,72},{4,-125},{39.5,-125}},
