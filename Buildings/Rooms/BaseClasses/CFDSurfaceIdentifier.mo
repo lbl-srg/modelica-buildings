@@ -4,7 +4,7 @@ record CFDSurfaceIdentifier "Data record to identify surfaces in the CFD code"
  parameter String name "Name of the surface";
  parameter Modelica.SIunits.Area A "Area of the surface";
  parameter Modelica.SIunits.Angle til "Tilt of the surface";
- parameter Types.CFDBoundaryConditions bouCon
+ parameter Buildings.Rooms.Types.CFDBoundaryConditions bouCon
     "Boundary condition used in the CFD simulation";
 
 annotation (

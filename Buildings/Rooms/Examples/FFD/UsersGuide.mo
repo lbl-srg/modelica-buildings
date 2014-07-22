@@ -82,6 +82,8 @@ sudo apt-get install freeglut3-dev:i386
 </pre>
 </li>
 </ol>
+If <code>apt-get</code> has problems with dependencies, try to use the Synaptic package manager, 
+which seems to have less problems on Ubuntu 12.04 LTS.
 </li>
 </ul>
 <h4>Build Dynamic Linker</h4>

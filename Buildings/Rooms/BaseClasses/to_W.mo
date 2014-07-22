@@ -29,5 +29,4 @@ First implementation.
           extent={{-150,110},{150,150}},
           textString="%name",
           lineColor={0,0,255})}));
-
 end to_W;

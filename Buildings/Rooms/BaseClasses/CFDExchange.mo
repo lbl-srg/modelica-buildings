@@ -81,7 +81,7 @@ protected
     input String sensorName[nSen]
       "Names of sensors as declared in the CFD input file";
     input Boolean haveShade "Flag, true if the windows have a shade";
-    input Integer nSur "Number of surfaces";
+    input Integer nSur(min=1) "Number of surfaces";
     input Integer nSen(min=0)
       "Number of sensors that are connected to CFD output";
     input Integer nConExtWin(min=0)
@@ -226,25 +226,25 @@ protected
 initial equation
   // Diagnostics output
   if verbose then
-    Modelica.Utilities.Streams.print(string=
-      "\nCFDExchange has the following surfaces:");
+    Modelica.Utilities.Streams.print(string="
+CFDExchange has the following surfaces:");
     for i in 1:nSur loop
       Modelica.Utilities.Streams.print(string="
   name = " + surIde[i].name + "
   A    = " + String(surIde[i].A) + " [m2]
   tilt = " + String(surIde[i].til*180/Modelica.Constants.pi) + " [deg]");
-    end for;
-
+  end for;
     if haveSensor then
-      Modelica.Utilities.Streams.print(string=
-        "\nCFDExchange has the following sensors:");
+      Modelica.Utilities.Streams.print(string="
+CFDExchange has the following sensors:");
       for i in 1:nSen loop
         Modelica.Utilities.Streams.print(string="  " + sensorName[i]);
       end for;
     else
       Modelica.Utilities.Streams.print(string="CFDExchange has no sensors.");
     end if;
-  end if;
+
+end if;
 
   // Assert that the surface, sensor and ports have a name,
   // and that that name is unique.
@@ -316,10 +316,10 @@ initial equation
   // Send parameters to the CFD interface
   sendParameters(
     cfdFilNam=cfdFilNam,
-    name={surIde[i].name for i in 1:nSur},
-    A={surIde[i].A for i in 1:nSur},
-    til={surIde[i].til for i in 1:nSur},
-    bouCon={surIde[i].bouCon for i in 1:nSur},
+    name=surIde[:].name,
+    A=surIde[:].A,
+    til=surIde[:].til,
+    bouCon=surIde[:].bouCon,
     haveSensor=haveSensor,
     portName=portName,
     sensorName=sensorName,
